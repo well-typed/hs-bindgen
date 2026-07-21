@@ -2,8 +2,8 @@
 --
 -- The same program as "SecretBoxLow" (identical output), written against the
 -- high-level wrappers instead of the raw generated bindings. The deterministic
--- core is the pure 'secretboxDemo' (built on "LibSodium.Pure"); only key and
--- nonce generation stay in 'IO'.
+-- core is the pure 'secretboxDemo'; only key and nonce generation stay in 'IO',
+-- because only they read the CSPRNG.
 module Main (main) where
 
 import Data.Bits (xor)
@@ -12,7 +12,6 @@ import Data.ByteString qualified as BS
 import Data.ByteString.Char8 qualified as BSC
 
 import LibSodium
-import LibSodium.Pure qualified as Pure
 import Numeric (showHex)
 
 main :: IO ()
@@ -43,11 +42,11 @@ secretboxDemo :: Key -> Nonce -> ByteString
               -> (ByteString, Maybe ByteString, Maybe ByteString)
 secretboxDemo key nonce message =
     ( ciphertext
-    , Pure.open key nonce ciphertext
-    , Pure.open key nonce (flipFirst ciphertext)
+    , open key nonce ciphertext
+    , open key nonce (flipFirst ciphertext)
     )
   where
-    ciphertext = Pure.encrypt key nonce message
+    ciphertext = encrypt key nonce message
 
 toHex :: ByteString -> String
 toHex = concatMap byte . BS.unpack

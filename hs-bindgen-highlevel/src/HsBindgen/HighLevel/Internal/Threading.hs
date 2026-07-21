@@ -21,12 +21,19 @@ module HsBindgen.HighLevel.Internal.Threading (
 -- a bracket supplying an @a@, and a way to turn that @a@ into the high-level type @hi@,
 -- build @hi@ with the bracket open around the point where @hi@ finally reaches 'IO'/.
 --
--- The two instances walk @hi@\'s arrows. At @hi ~ Int -> Bool -> IO r@:
+-- The two instances walk @hi@\'s arrows. Name the two arguments and the value the
+-- bracket supplies:
 --
--- > threadIn br f                            -- hi = Int -> Bool -> IO r
--- >   = \i   -> threadIn br (\a -> f a i)    -- hi = Bool -> IO r   (function instance)
--- >   = \i j -> threadIn br (\a -> f a i j)  -- hi = IO r           (function instance)
--- >   = \i j -> br          (\a -> f a i j)  -- open the bracket    (IO instance)
+-- >   br :: forall r. (a -> IO r) -> IO r -- the bracket, which supplies an `a`
+-- >   f  :: a -> hi                       -- build `hi`, given that `a`
+--
+-- At @hi ~ Int -> Bool -> IO r@ the recursion peels the high-level arguments off one
+-- at a time (@i :: Int@, then @b :: Bool@) and opens the bracket only at the end:
+--
+-- > threadIn br f                           -- hi = Int -> Bool -> IO r
+-- >   = \i   -> threadIn br (\a -> f a i)   -- hi = Bool -> IO r   (function instance)
+-- >   = \i b -> threadIn br (\a -> f a i b) -- hi = IO r           (function instance)
+-- >   = \i b -> br          (\a -> f a i b) -- open the bracket    (IO instance)
 --
 -- Each function instance peels one argument off @hi@ and tucks it into the
 -- continuation; the 'IO' instance is where the bracket actually opens. So the
@@ -37,9 +44,7 @@ module HsBindgen.HighLevel.Internal.Threading (
 --
 -- The class is indexed on the high-level type alone. What the bracket supplies is
 -- quantified in the method, because neither instance looks at it: the recursion walks
--- @hi@ and hands the bracketed value straight through. That is what lets @output@ ask
--- for @ThreadIn hi@ without naming the pair of C residual and pending read-backs it
--- happens to thread (see 'HsBindgen.HighLevel.output').
+-- @hi@ and hands the bracketed value straight through.
 class ThreadIn hi where
   threadIn :: forall a. (forall r. (a -> IO r) -> IO r) -> (a -> hi) -> hi
 

@@ -1,9 +1,9 @@
 # Generate `libgit2` Haskell bindings with `hs-bindgen`
 
 This example demonstrates generating Haskell bindings for
-[libgit2](https://libgit2.org/), a portable C implementation of Git. It also
-hand-writes a high-level API over the generated bindings; see
-[FINDINGS.md](FINDINGS.md) for the write-up.
+[libgit2](https://libgit2.org/), a portable C implementation of Git.  It also
+hand-writes a high-level API over the generated bindings, covering enough of
+libgit2 to walk a revision history and to write a commit.
 
 ## Prerequisites
 

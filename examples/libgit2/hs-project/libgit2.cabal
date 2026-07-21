@@ -32,6 +32,7 @@ library
     , base
     , bytestring
     , c-expr-runtime
+    , hs-bindgen-highlevel
     , hs-bindgen-runtime
     , text
     , transformers
@@ -40,7 +41,7 @@ library
   exposed-modules:
     LibGit2
     LibGit2.Commit
-    LibGit2.Enums
+    LibGit2.Defaults
     LibGit2.Error
     LibGit2.Git
     LibGit2.Marshal

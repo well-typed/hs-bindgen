@@ -1,10 +1,13 @@
--- | Ready-made marshallers for common Haskell/C type pairs, for use with @input@
--- and @output@ from "HsBindgen.HighLevel".
+-- | Ready-made marshallers for common Haskell/C type pairs, for use with @input@,
+-- @output@ (and, for the constant-argument helper, @fixed@) from "HsBindgen.HighLevel".
 --
--- Each is a thin convenience over a constructor from
--- "HsBindgen.HighLevel.Marshaller": 'bracket' (single C argument), the
--- t'Marshal' constructor (several), or an out-parameter constructor ('unmarshalOut' \/
--- 'unmarshalOutWith'). For a conversion not covered here, build your own the same way.
+-- Each marshaller is a thin convenience over a constructor from
+-- "HsBindgen.HighLevel.Marshaller": 'bracket' (the common single-argument case), the
+-- t'Marshal' constructor (one or more C arguments, or custom nested bracketing), or an
+-- out-parameter constructor ('unmarshalOut' \/ 'unmarshalOutWith'). The module also
+-- ships a constant argument ('nullConst', for 'HsBindgen.HighLevel.fixed') and an
+-- allocator ('allocaZeroedBytes'). For a conversion not covered here, build your own the
+-- same way.
 --
 module HsBindgen.HighLevel.Marshaller.Utils (
     -- * Input marshallers
@@ -23,7 +26,7 @@ module HsBindgen.HighLevel.Marshaller.Utils (
   , zeroedCStringOut
   , byteStringOut
   , peekIncompleteArrayOut
-    -- ** Allocators
+    -- * Allocators
   , allocaZeroedBytes
     -- * Managed-handle output
   , outForeignPtr
@@ -144,7 +147,8 @@ unsafeByteStringLenIn
 unsafeByteStringLenIn = byteStringLenInWith BSU.unsafeUseAsCStringLen
 {-# INLINE unsafeByteStringLenIn #-}
 
--- | View an 'IncompleteArray' as a read-only @const T *@ (one C argument).
+-- | View an 'IncompleteArray' as a read-only @const T *@ (one C argument). The pointer
+-- is valid only for the call; C must not retain it past the call.
 --
 withConstIncompleteArrayIn
   :: Storable a => Marshal (IncompleteArray a) (PtrConst a -> lo') lo'
@@ -154,19 +158,22 @@ withConstIncompleteArrayIn =
 
 -- | Pass a Haskell function as a C function pointer, bracketed via 'withFunPtr'
 -- (one C argument). The 'FunPtr' is freed when the call returns, so this is only
--- safe for callbacks invoked /during/ the call.
+-- safe for callbacks invoked /during/ the call. The C import that receives the
+-- 'FunPtr' must be a @safe@ foreign import: C calls back into the Haskell runtime
+-- through it, and an @unsafe@ import that does so can crash or deadlock.
 --
 funPtrIn :: ToFunPtr a => Marshal a (FunPtr a -> lo') lo'
 funPtrIn = bracket withFunPtr
 {-# INLINE funPtrIn #-}
 
--- | 'funPtrIn' for a callback whose own domain signature is not covered by a
--- 'ToFunPtr' instance but is 'Coercible' to a covered signature @b@ (see
--- 'withFunPtrAs'): the Haskell function is retagged onto @b@, whose 'FunPtr' fills
--- the C argument, and freed when the call returns. Apply @b@ with a type
--- application. A generated binding has a per-callback 'ToFunPtr' and uses 'funPtrIn'.
+-- | 'funPtrIn' for a callback whose own type is not covered by a 'ToFunPtr' instance
+-- but is 'Coercible' to a covered signature @b@ (see 'withFunPtrAs'): the Haskell
+-- function is retagged onto @b@, whose 'FunPtr' fills the C argument, and freed when the
+-- call returns. @b@ is usually inferred from the C import; where it needs pinning,
+-- supply it with a type application: @funPtrInAs \@CoveredSig@. A generated binding has
+-- a per-callback 'ToFunPtr' and uses 'funPtrIn'.
 --
-funPtrInAs :: (Coercible a b, ToFunPtr b) => Marshal a (FunPtr b -> lo') lo'
+funPtrInAs :: forall b a lo'. (Coercible a b, ToFunPtr b) => Marshal a (FunPtr b -> lo') lo'
 funPtrInAs = bracket withFunPtrAs
 {-# INLINE funPtrInAs #-}
 
@@ -192,9 +199,10 @@ peekCStringOut cap = unmarshalOutWith (allocaBytes cap) peekCString
 -- @pcap_findalldevs@ is the shape, and so is every @f(..., char *errbuf)@ like it.
 -- Reading such a buffer back with 'peekCStringOut' would peek uninitialized memory
 -- on the calls that succeeded; zeroing it first makes \"the call wrote nothing\" read
--- back as @\"\"@, which is both defined and the answer you want. It also means the
--- buffer can be an ordinary 'HsBindgen.HighLevel.output' rather than something the
--- binding allocates around the spec and pins in with 'HsBindgen.HighLevel.fixed':
+-- back as @\"\"@, which is both defined and the answer you want. Because a zeroed
+-- buffer needs no caller-side setup, it can be an ordinary 'HsBindgen.HighLevel.output'
+-- that the spec allocates and zeroes itself, rather than something the binding allocates
+-- around the spec and pins in with 'HsBindgen.HighLevel.fixed':
 --
 -- > findAllDevNames :: IO [String]
 -- > findAllDevNames = toHighLevel pcap_findalldevs
@@ -203,15 +211,6 @@ peekCStringOut cap = unmarshalOutWith (allocaBytes cap) peekCString
 -- >   $ resultIO (\names errMsg status -> do
 -- >       when (status /= 0) $ throwIO (PcapError errMsg status)
 -- >       pure names)
---
--- The zeroing narrows 'peekCStringOut'\'s hazard rather than removing it. A call that
--- writes fewer than @cap@ bytes now terminates on a zero whether or not C wrote one,
--- but a call that fills all @cap@ bytes without a NUL still runs the read off the end,
--- so size @cap@ to the C contract with the terminator included, as there.
---
--- The zeroing costs one @memset@ of @cap@ bytes per call, which is nothing at the
--- sizes this convention uses (libpcap's buffer is 256 bytes). For a large buffer C
--- is certain to fill, 'peekCStringOut' skips it.
 --
 zeroedCStringOut :: Int -> Unmarshaller (Ptr CChar) String
 zeroedCStringOut cap = unmarshalOutWith (allocaZeroedBytes cap) peekCString
@@ -226,8 +225,8 @@ byteStringOut :: Int -> Unmarshaller (Ptr a) ByteString
 byteStringOut n = unmarshalOutWith (allocaBytes n) (\p -> BS.packCStringLen (castPtr p, n))
 {-# INLINE byteStringOut #-}
 
--- | Allocate a fixed-size array buffer, run the call, peek the buffer back
--- as an 'IncompleteArray'.
+-- | Allocate a fixed-size @n@-element array buffer, run the call, peek the buffer back
+-- as an 'IncompleteArray'. C must fill all @n@ elements.
 --
 peekIncompleteArrayOut
   :: Storable a => Int -> Unmarshaller (Ptr a) (IncompleteArray a)

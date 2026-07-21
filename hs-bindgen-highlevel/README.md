@@ -9,7 +9,7 @@ is for, and does the marshalling from that description. A binding is a
 value you build and then run:
 
 ```c
-strcmp(const char * str1, const char * str2, size_t n);
+strncmp(const char * str1, const char * str2, size_t n);
 ```
 
 ```hs
@@ -55,7 +55,7 @@ int crypto_sign_verify_detached(const unsigned char *sig, const unsigned char *m
 verifyDetached :: PublicKey -> Signature -> ByteString -> Bool
 verifyDetached publicKey signature message = toHighLevelPure crypto_sign_verify_detached
   ( input  defaultIn             -- const unsigned char *sig
-  $ input2 unsafeByteStringLenIn -- m, mlen
+  $ input2 defaultIn             -- m, mlen
   $ input  defaultIn             -- const unsigned char *pk
   $ resultPure (== 0)            -- status -> Bool
   ) signature message publicKey
@@ -145,7 +145,7 @@ composes with any closer, for example:
 
 ### Mixing hand-written and automatic combinators
 
-A real binding is usually not something one can one-shot with `auto`.
+A real binding usually can't be one-shot with `auto`.
 `qrcodegen_encodeText` is an example: a scratch buffer the caller allocates
 but never reads, an out-parameter holding the QR code, and five ordinary
 arguments that deserve no thought at all:
@@ -174,8 +174,8 @@ encodeText = toHighLevel qrcodegen_encodeText
     qrCodeOut = peekIncompleteArrayOut maxLen
 ```
 
-`auto` runs to the end of the spec once it starts, which is why the leading
-`text` argument is written out as `input defaultIn` rather than left to it: an
+`auto` closes the spec once it starts, which is why the leading
+`text` argument is written out as `input defaultIn` rather than left to `auto`: an
 ordinary input sitting above an explicit combinator costs one line to say so.
 
 ## The combinators
@@ -192,10 +192,11 @@ back the wrapper with the `IO` taken off.
 | `input m` | one argument, marshalled by `m` into one C argument (`input2` / `input3` / `inputN` for other arities) |
 | `output u` | no argument; the out-parameter's value becomes an argument to the closer |
 | `scratch` / `scratchArray` / `fixed` | a C argument the high-level type does not expose |
-| `resultPure` / `resultiO` | the closer: build the result from the outputs and the C return value |
+| `resultPure` / `resultIO` | the closer: build the result from the outputs and the C return value |
 | `discardResult` / `throwOnNonZero` / `asResult` | closers for specs with no outputs |
-| `auto` / `autoResult` | fill the remaining inputs, and the result, from the signature |
+| `auto` | fill the remaining inputs and the result, from the signature |
 | `autoInputs` | fill the remaining inputs only, then continue with a spec you wrote |
+| `autoResult` | fill the result only, no inputs, from the signature |
 | `checkedResult` / `maybeResult` / `eitherResult` | closers for a C return value that is a status guarding the outputs, which throw, give `Nothing`, or give `Left e` |
 | `autoWith` / `autoChecked` / `autoMaybe` | `autoInputs` plus `resultPure` / `checkedResult` / `maybeResult` |
 | `throwOn` / `throwOnOut` | classify a status and throw |
@@ -211,14 +212,14 @@ Each combinator takes a marshaller, of which there are three kinds:
   slot back (`unmarshalOut`, `peekCStringOut`, `byteStringOut`,
   `outForeignPtr`).
 - **`MarshalStruct` / `UnmarshalStruct`** write and read a whole C struct, and
-  use in a spec with `asargument`, `asOutput`, or `asResult`.
+  use in a spec with `asArgument`, `asOutput`, or `asResult`.
 
 ## Writing your own combinators
 
 A C library rarely has a hundred unrelated functions. Usually it has one or two
 conventions repeated a lot of times: every constructor fills an out-parameter
 and returns a status, every accessor hands back a borrowed pointer, every
-getter fills a caller-sized buffer. Writing high-level bindings manually, is
+getter fills a caller-sized buffer. Writing high-level bindings manually is
 tiresome.
 
 Since a spec is an ordinary Haskell value, it is possible to abstract over a
@@ -461,7 +462,7 @@ context.
 
 ## What a spec compiles to
 
-Every combinator carries an `INLINE` pragma, and at a finished binding both
+Every combinator carries an `INLINE` pragma, and at a finished binding all three
 type indices are concrete, so every class method resolves to a known instance;
 from `-O1` on, what is left is the `alloca` / call / `peek` code you would
 have written by hand. Put a spec and a hand-written wrapper in one module and
@@ -480,6 +481,10 @@ instance ThreadIn (IO r) where
 instance ThreadIn rest => ThreadIn (arg -> rest) where
   threadIn br f = \arg -> threadIn br (\a -> f a arg)   -- peel an argument, recurse
 ```
+
+**Read-backs are deferred.** `output` cannot `peek` where the slot is allocated, because
+C has not run yet, so it builds the peek as an action, adds it to `pending`, and a closer
+runs `pending` once the call returns.
 
 ### Inputs: where the brackets open
 
@@ -567,8 +572,6 @@ hsRender name =
         fromIntegral <$> peek out
 ```
 
-Two things, both consequences of the rules above.
-
 ## Caveats
 
 **`auto` closes the spec, and `autoInputs` takes every argument that is left.**
@@ -602,6 +605,12 @@ Nothing in the type distinguishes the two.
 
 **Callbacks are call-scoped.** `funPtrIn` frees the `FunPtr` once the call
 returns, so it fits a callback C invokes during the call, not one C stores.
+
+**`toHighLevelPure` is `unsafePerformIO`.** It is sound only when the C call is a
+function of its inputs: deterministic, no side effects, no global state. Pair it with a
+non-throwing closer, too, since a throwing closer under it yields a pure value that
+throws when forced, so the exception surfaces wherever the result is first used rather
+than at the call.
 
 ## Documentation
 

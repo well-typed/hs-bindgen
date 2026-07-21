@@ -33,15 +33,15 @@
 -- > maybeResult accept     no                    the outputs in Just, else Nothing  yes
 -- > eitherResult classify  no                    the outputs in Right, else Left e  yes
 --
--- __Everything in that last column but 'autoInputs' closes the spec, so it has to be
--- written last.__ Nothing can follow it: an 'HsBindgen.HighLevel.output' or
--- 'HsBindgen.HighLevel.fixed' that C takes /after/ the arguments the high-level type
--- exposes has to go above it, or the spec needs 'autoInputs' and a closer written by
--- hand.
+-- __Every combinator whose \"ends the spec\" column says yes
+-- closes the spec, so it has to be written last.__ Nothing can follow it: an
+-- 'HsBindgen.HighLevel.output' or 'HsBindgen.HighLevel.fixed' that C takes /after/ the
+-- arguments the high-level type exposes has to go above it, or the spec needs
+-- 'autoInputs' and a closer written by hand.
 --
--- The four closers on the right fill no arguments: they end a spec whose combinators
--- are all written out. The rest begin wherever you put them and fill the high-level
--- type's remaining arguments from there.
+-- The four closers that fill no arguments ('autoResult', 'checkedResult', 'maybeResult'
+-- and 'eitherResult') end a spec whose combinators are all written out. The rest begin
+-- wherever you put them and fill the high-level type's remaining arguments from there.
 --
 -- There are three merged combinators rather than one per closer because 'autoInputs'
 -- composes with any closer at all: @'autoInputs' '$' 'eitherResult' classify@ is a
@@ -74,8 +74,8 @@
 --     nothing in the signature accounts for that leftover C argument.
 --
 -- A Haskell argument does not have to line up one-for-one with a C argument. A
--- 'Data.ByteString.ByteString' argument fills a @(pointer, length)@ pair, so step 1
--- above can consume two C arguments at once. The walk is driven by the high-level
+-- 'Data.ByteString.ByteString' argument fills a @(pointer, length)@ pair, so a single
+-- walk step can consume two C arguments at once. The walk is driven by the high-level
 -- signature, and C arguments are consumed to match.
 --
 -- == What it leaves to you
@@ -196,20 +196,6 @@ import HsBindgen.HighLevel.Internal.Threading (ThreadIn)
 --
 -- > void f(int *a, int *b);   -- IO (Int, Int)
 -- > int  g(int *a, int *b);   -- IO (Int, Int) too, once the int is checked away
---
--- __You rarely write it.__ Using one of those closers in a spec never requires naming
--- it, because GHC solves the constraint from the spec's own text. It has a name for
--- one case: a binding whose whole library shares a status convention, which is worth
--- stating once rather than at every call. Give that closer a signature and this is
--- the constraint it needs:
---
--- > -- every fallible call in this binding reports failure as a negative int
--- > checkedStatus :: AutoOutputs os hs => ToHighLevel os (IO CInt) (IO hs)
--- > checkedStatus = checkedResult (\n -> when (n < 0) (throwIO =<< lastError n))
---
--- The @os@ and @hs@ stay polymorphic, so that one definition closes a spec with no
--- outputs (@IO ()@), one output (@IO a@), or several (@IO (a, b)@), and each call site
--- fixes them.
 --
 class AutoOutputs (os :: [Type]) hs where
   -- | The collected values, assembled. A closer of your own runs the deferred
@@ -457,7 +443,8 @@ checkedResult check = onReturn $ \c pending -> do
 -- > open key nonce ciphertext = toHighLevelPure crypto_secretbox_open_easy
 -- >   ( output (byteStringOut (BS.length ciphertext - macBytes)) -- unsigned char *m
 -- >   $ input2 unsafeByteStringLenIn                             -- c, clen
--- >   $ maybeResult (== 0)                                       -- n, k
+-- >   $ autoInputs                                               -- n, k
+-- >   $ maybeResult (== 0)
 -- >   ) ciphertext nonce key
 --
 -- __A rejected status skips the read-backs__, exactly as at 'checkedResult' and for
@@ -594,10 +581,9 @@ class AutoInputs lo hi lo' hi' | lo hi -> lo' hi' where
   -- 'Data.ByteString.ByteString' default fills a @(const T *, len)@ pair by copying,
   -- so that it can NUL-terminate; a binding that would rather hand C the buffer it
   -- already has needs the zero-copy @unsafeByteStringLenIn@, and has to write that
-  -- combinator out. (That one is real: @crypto_sign_detached@ in the @libsodium@
-  -- example, one of the worked bindings the README links to, spells its message
-  -- argument out for exactly this reason, while @crypto_sign_verify_detached@ next to
-  -- it takes the copy and stays a one-liner.)
+  -- combinator out. (@crypto_sign_detached@ in @examples\/libsodium@ spells its message
+  -- out for exactly this reason; @crypto_sign_verify_detached@ next to it takes the copy
+  -- and stays a one-liner.)
   --
   -- The tail is an ordinary spec, so it doesn't need to be only a closer. Anything the
   -- high-level type does not take an argument for can go there, an
@@ -790,8 +776,8 @@ autoMaybe = autoInputs . maybeResult
 -- The other two decide from the status alone.
 
 -- $vocabulary
--- A C library rarely has one convention; it has one convention repeated a few hundred
--- times. Naming it once is what these classes are for: a combinator of your own,
+-- A C library usually repeates a certain convention/pattern a
+-- few times. That's what these classes are for: a combinator of your own,
 -- polymorphic in the spec it completes, that a binding then uses at every call.
 --
 -- Reach for them second. A combinator whose specs all have the same /shape/ (one
@@ -827,8 +813,9 @@ autoMaybe = autoInputs . maybeResult
 --
 -- Two things sit outside that rule. Anything GHC defaulted is yours to replace, a
 -- numeric literal above all. And a type occurring only under 'AssembleOutputs' is not
--- pinned by it, since a type family cannot be run backwards, so it has to be named
--- somewhere else; the 'AutoInputs' constraint normally already does.
+-- /determined/ by it: GHC cannot infer a type family's inputs from its result, so such
+-- a type has to be named somewhere else; the 'AutoInputs' constraint normally already
+-- does.
 --
 -- == Letting the compiler say it instead
 --

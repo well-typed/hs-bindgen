@@ -65,7 +65,7 @@ library
 
   -- The Internal modules are exposed, and documented, so that a user writing a
   -- combinator of their own can name the threading class (ThreadIn) and the collected
-  -- out-parameter values (Outputs). Assembler and ApplyOutputs appear in public closer
+  -- out-parameter values (Outputs). AssembleOutputs and ApplyOutputs appear in public closer
   -- signatures and are re-exported from HsBindgen.HighLevel.
   exposed-modules:
     HsBindgen.HighLevel

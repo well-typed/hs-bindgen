@@ -1,4 +1,5 @@
-{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeFamilies           #-}
+{-# LANGUAGE TypeFamilyDependencies #-}
 
 -- | High-level value and handle types for the libgit2 bindings.
 --
@@ -63,7 +64,10 @@ newtype Config      = Config      (ForeignPtr G.Git_config)
 -- One method pair replaces a @withForeignPtr@ / @newForeignPtr@ wrapper for
 -- every one of the ten handle types above.
 class Handle h where
-  type CRep h
+  -- Injective: each handle type has a distinct C representation, so the handle
+  -- type is recoverable from its C rep. This lets 'LibGit2.Marshal.newHandle'
+  -- determine @h@ from the @git_X_free@ finaliser argument alone.
+  type CRep h = r | r -> h
   toFP   :: h -> ForeignPtr (CRep h)
   fromFP :: ForeignPtr (CRep h) -> h
 

@@ -5,9 +5,20 @@
 -- @crypto_secretbox_open_easy@): one shared key, a per-message nonce, and a MAC
 -- that authenticates the ciphertext.
 --
--- 'encrypt' throws 'LibSodium.Error.SodiumError' on a setup failure; 'open'
--- returns 'Nothing' when authentication fails, since a forged ciphertext is
--- expected input, not an exception.
+-- 'encrypt' and 'open' are __pure__. Both are deterministic functions of their
+-- arguments, so their specs are closed with
+-- 'HsBindgen.HighLevel.toHighLevelPure' rather than
+-- 'HsBindgen.HighLevel.toHighLevel' and no 'IO' reaches the type. What stays in 'IO'
+-- is what genuinely draws on the outside world: 'newKey' and 'randomNonce' read the
+-- CSPRNG.
+--
+-- Precondition: 'LibSodium.Init.sodiumInit' must have run before a pure result here
+-- is /forced/, not merely built. Nothing enforces that.
+--
+-- 'encrypt' throws 'LibSodium.Error.SodiumError' on a setup failure, which reaches
+-- the caller as an imprecise exception because the call site is pure; 'open' returns
+-- 'Nothing' when authentication fails, since a forged ciphertext is expected input,
+-- not an exception.
 module LibSodium.SecretBox
   ( -- * Types
     Key (..)
@@ -29,13 +40,14 @@ import Data.ByteString (ByteString)
 import Data.ByteString qualified as BS
 import Foreign.C.Types (CUChar)
 
-import HsBindgen.Runtime.HighLevel (discardResult, input, input2, output,
-                                    resultPure, throwOnNonZero, toHighLevel)
-import HsBindgen.Runtime.HighLevel.Defaults (DefaultIn (..))
-import HsBindgen.Runtime.HighLevel.Marshaller (at)
-import HsBindgen.Runtime.HighLevel.Marshaller.Utils (byteStringOut,
-                                                     constByteStringLenIn)
 import HsBindgen.Runtime.PtrConst (PtrConst)
+
+import HsBindgen.HighLevel (input2, output, toHighLevel, toHighLevelPure)
+import HsBindgen.HighLevel.Auto (autoChecked, autoMaybe, autoResult)
+import HsBindgen.HighLevel.Defaults (DefaultIn (..))
+import HsBindgen.HighLevel.Marshaller (at)
+import HsBindgen.HighLevel.Marshaller.Utils (byteStringOut, unsafeByteStringIn,
+                                             unsafeByteStringLenIn)
 
 import Generated.CryptoSecretbox (crypto_secretbox_KEYBYTES,
                                   crypto_secretbox_MACBYTES,
@@ -43,8 +55,7 @@ import Generated.CryptoSecretbox (crypto_secretbox_KEYBYTES,
 import Generated.CryptoSecretbox.Safe (crypto_secretbox_easy,
                                        crypto_secretbox_keygen,
                                        crypto_secretbox_open_easy)
-import LibSodium.Error (sodiumError)
-import LibSodium.Marshal (bytesConstIn)
+import LibSodium.Error (checkStatus)
 import LibSodium.Random (randomBytes)
 
 -- | Key size in bytes (32), from the generated compile-time constant.
@@ -70,15 +81,13 @@ newtype Key = Key { unKey :: ByteString }
 newtype Nonce = Nonce { unNonce :: ByteString }
   deriving stock (Eq, Show)
 
--- These instances make a 'Key' \/ 'Nonce' a first-class @auto@ input: @input
--- defaultIn@ fills the argument with no per-call marshaller. They are /not/
--- orphans, because this module owns the newtype, unlike libgit2's generated
--- enums whose instances had to sit in a separate @-Wno-orphans@ module.
+-- A 'Key' and a 'Nonce' both reach C as @const unsigned char *@, unwrapped and
+-- passed without copying.
 instance DefaultIn Key (PtrConst CUChar -> lo) lo where
-  defaultIn = at unKey bytesConstIn
+  defaultIn = at unKey unsafeByteStringIn
 
 instance DefaultIn Nonce (PtrConst CUChar -> lo) lo where
-  defaultIn = at unNonce bytesConstIn
+  defaultIn = at unNonce unsafeByteStringIn
 
 -- | Validate a 'ByteString' as a 'Key' (length must be 'keyBytes').
 mkKey :: ByteString -> Maybe Key
@@ -92,13 +101,12 @@ mkNonce bs
   | BS.length bs == nonceBytes = Just (Nonce bs)
   | otherwise                  = Nothing
 
--- | A fresh random secret key (@crypto_secretbox_keygen@).
+-- | A fresh random secret key (@crypto_secretbox_keygen@), drawn from libsodium's
+-- CSPRNG.
 newKey :: IO Key
-newKey =
-  Key . fst <$> toHighLevel
-    ( output (byteStringOut keyBytes)  -- unsigned char k[32] (out)
-    $ discardResult
-    ) crypto_secretbox_keygen
+newKey = toHighLevel crypto_secretbox_keygen
+       $ output (Key <$> byteStringOut keyBytes) -- unsigned char k[32]
+       $ autoResult
 
 -- | A fresh random nonce.
 randomNonce :: IO Nonce
@@ -108,29 +116,30 @@ randomNonce = Nonce <$> randomBytes nonceBytes
 -- (@crypto_secretbox_easy@). The ciphertext is @'macBytes' + length message@
 -- bytes. Throws 'SodiumError' only on a setup failure (which @easy@ does not
 -- signal in practice).
-encrypt :: Key -> Nonce -> ByteString -> IO ByteString
+encrypt :: Key -> Nonce -> ByteString -> ByteString
 encrypt key nonce message =
-  fst <$> toHighLevel
-    ( output (byteStringOut (macBytes + BS.length message))  -- c   (out)
-    $ input2 constByteStringLenIn                            -- m, mlen
-    $ input  defaultIn                                       -- n   (Nonce)
-    $ input  defaultIn                                       -- k   (Key)
-    $ throwOnNonZero (sodiumError "crypto_secretbox_easy")
-    ) crypto_secretbox_easy message nonce key
+  toHighLevelPure crypto_secretbox_easy
+    ( output (byteStringOut (macBytes + BS.length message)) -- unsigned char *c
+    $ input2 unsafeByteStringLenIn                          -- m, mlen
+    $ autoChecked (checkStatus "crypto_secretbox_easy")     -- n, k
+    ) message nonce key
 
 -- | Decrypt and verify @ciphertext@ (@crypto_secretbox_open_easy@). 'Nothing'
 -- when the MAC does not match (a forged or corrupted ciphertext).
-open :: Key -> Nonce -> ByteString -> IO (Maybe ByteString)
+--
+-- A rejected ciphertext is expected input rather than a failure, so this returns
+-- 'Maybe' where 'encrypt' throws, which is what 'autoMaybe' is for: the status
+-- decides between 'Just' and 'Nothing', and on 'Nothing' the plaintext buffer is
+-- never read back, since a ciphertext that failed to authenticate put nothing in it.
+--
+-- Ciphertexts shorter than 'macBytes' cannot carry a MAC at all and are rejected
+-- without calling C.
+open :: Key -> Nonce -> ByteString -> Maybe ByteString
 open key nonce ciphertext
-  | BS.length ciphertext < macBytes = pure Nothing
+  | BS.length ciphertext < macBytes = Nothing
   | otherwise =
-      classify <$> toHighLevel
-        ( output (byteStringOut (BS.length ciphertext - macBytes))  -- m (out)
-        $ input2 constByteStringLenIn                               -- c, clen
-        $ input  defaultIn                                          -- n
-        $ input  defaultIn                                          -- k
-        $ resultPure id                                             -- raw status
-        ) crypto_secretbox_open_easy ciphertext nonce key
-  where
-    classify (plaintext, status) =
-      if status == 0 then Just plaintext else Nothing
+      toHighLevelPure crypto_secretbox_open_easy
+        ( output (byteStringOut (BS.length ciphertext - macBytes)) -- unsigned char *m
+        $ input2 unsafeByteStringLenIn                             -- c, clen
+        $ autoMaybe (== 0)                                         -- n, k
+        ) ciphertext nonce key

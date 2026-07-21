@@ -10,12 +10,13 @@ module HighLevel (
 import Control.Exception (Exception, throwIO)
 import Control.Monad (when)
 import Foreign.C.String qualified as C
-import Foreign.Marshal.Alloc (alloca, allocaBytes)
+import Foreign.Marshal.Alloc (alloca)
 import Foreign.Ptr (Ptr, nullPtr)
 import Foreign.Storable (peek)
 
-import HsBindgen.HighLevel (fixed, output, resultIO, toHighLevel)
+import HsBindgen.HighLevel (output, resultIO, toHighLevel)
 import HsBindgen.HighLevel.Marshaller (Unmarshaller, unmarshalOutWith)
+import HsBindgen.HighLevel.Marshaller.Utils (zeroedCStringOut)
 
 import Generated.Pcap qualified as Pcap
 import Generated.Pcap.Safe qualified as Pcap
@@ -44,24 +45,27 @@ peekPcapDeviceNames = unmarshalOutWith alloca $ \pp -> do
           collect (name : acc) (Pcap.pcap_if_t_next dev)
 
 -- | Collect the names of all devices visible to libpcap. @pcap_findalldevs@ signals
--- failure with a non-zero status and writes a message into a separate error buffer.
--- We allocate that buffer ourselves and pin it into the spec with 'fixed', which
--- keeps it out of the wrapper's type while leaving it in scope for the closer. The
--- 'resultIO' assembler then sees the device names and the status together, so the
--- check and the value it guards are one function and the result is exactly
--- @IO [String]@.
+-- failure with a non-zero status and writes a message into a separate @char[]@ error
+-- buffer.
+--
+-- Both of the call's pointer arguments are 'output' combinators, so the whole binding
+-- is one spec and nothing is allocated around it. The error buffer is the interesting
+-- one: libpcap writes it /only/ on failure, so 'zeroedCStringOut' hands C a zeroed
+-- buffer and the successful calls read it back as @\"\"@ rather than as whatever was
+-- on the stack.
+--
+-- The 'resultIO' assembler then sees the device names, the message and the status
+-- together, so the check and the value it guards are one function and the result is
+-- exactly @IO [String]@.
 --
 findAllDevNames :: IO [String]
-findAllDevNames =
-  allocaBytes (fromIntegral Pcap.pCAP_ERRBUF_SIZE) $ \errbuf ->
-    toHighLevel
-      ( output peekPcapDeviceNames  -- pcap_if_t ** : device names (kept)
-      $ fixed errbuf                -- char *       : caller-allocated errbuf
-      $ resultIO (keepNames errbuf) -- int          : throw on failure
-      ) Pcap.pcap_findalldevs
+findAllDevNames = toHighLevel Pcap.pcap_findalldevs
+                $ output peekPcapDeviceNames -- pcap_if_t ** : device names (kept)
+                $ output errbufOut           -- char *       : the message, empty on success
+                $ resultIO keepNames         -- int          : throw on failure
   where
-    keepNames errbuf names status = do
-      when (status /= 0) $ do
-        errMsg <- C.peekCString errbuf
-        throwIO (PcapError errMsg (fromIntegral status))
+    errbufOut = zeroedCStringOut (fromIntegral Pcap.pCAP_ERRBUF_SIZE)
+
+    keepNames names errMsg status = do
+      when (status /= 0) $ throwIO (PcapError errMsg (fromIntegral status))
       pure names

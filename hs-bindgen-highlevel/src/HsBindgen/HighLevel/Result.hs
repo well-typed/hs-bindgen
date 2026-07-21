@@ -3,10 +3,10 @@
 -- | Exposing a deterministic C call as a pure function.
 --
 -- Some C calls really are functions: a hash, a cipher, a numeric kernel. Their
--- wrappers still come out in 'IO', because nothing in the FFI can know otherwise.
--- 'toHighLevelPure' runs a spec the way 'toHighLevel' does but hands back the wrapper
--- with the 'IO' taken off, so the binding's signature is the one you would write for
--- an ordinary Haskell function:
+-- bindings still come out in 'IO', because nothing in the FFI can know otherwise.
+-- 'toHighLevelPure' runs a spec the way 'HsBindgen.HighLevel.toHighLevel' does but hands
+-- it back with the 'IO' taken off, so the binding's signature is the one you would
+-- write for an ordinary Haskell function:
 --
 -- > encrypt :: Key -> Nonce -> ByteString -> ByteString
 -- > encrypt = toHighLevelPure crypto_secretbox_easy spec
@@ -104,7 +104,7 @@ instance (Unpurify hs ~ IO hs) => PurifyAt 'False hs where
   Closing a spec as a pure function
 -------------------------------------------------------------------------------}
 
--- | Run a finished spec against a low-level callable and expose the wrapper as a
+-- | Run a finished spec against a low-level callable and expose the binding as a
 -- pure function. 'HsBindgen.HighLevel.toHighLevel' with the 'IO' taken off the
 -- result, and with the same argument order: the callable first, so the spec chains
 -- onto it with @($)@.

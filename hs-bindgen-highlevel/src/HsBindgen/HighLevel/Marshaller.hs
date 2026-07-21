@@ -1,6 +1,6 @@
 -- | Moving one value across the C boundary, independently of where that value sits.
 --
--- Everything here is built on one type, t'Marshal', which says how a Haskell value
+-- The write side is built on one type, t'Marshal', which says how a Haskell value
 -- fills the C argument(s) it is responsible for. A marshaller is independent of where
 -- the value sits, so the same one serves both a function argument and a struct field:
 -- 'HsBindgen.HighLevel.input' drops it into the former, 'at' aims it at the latter.
@@ -230,15 +230,15 @@ data Unmarshaller c hs =
 
 -- | 'fmap' adapts the Haskell type an output yields, e.g.
 -- @fmap toVector (peekIncompleteArrayOut n)@. It runs on the already-read value,
--- inside the readback's safe window.
+-- inside the read-back's safe window.
 instance Functor (Unmarshaller c) where
   fmap f (Unmarshaller allocate readBack) =
     Unmarshaller allocate (fmap f . readBack)
   {-# INLINE fmap #-}
 
--- | Build an output marshaller from an allocator and a reader. For a custom
--- readback (e.g. walking a linked list). See t'Unmarshaller' for the contract both
--- halves must honour.
+-- | Build an output marshaller from an allocator and a reader, for a custom read-back
+-- (e.g. walking a linked list). See t'Unmarshaller' for the contract both halves must
+-- honour.
 --
 unmarshalOutWith
   :: (forall r. (Ptr c -> IO r) -> IO r) -- ^ allocate the out-pointer

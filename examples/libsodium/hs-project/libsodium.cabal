@@ -30,6 +30,7 @@ library
     , base
     , bytestring
     , c-expr-runtime
+    , hs-bindgen-highlevel
     , hs-bindgen-runtime
 
   extra-libraries:    sodium
@@ -37,8 +38,6 @@ library
     LibSodium
     LibSodium.Error
     LibSodium.Init
-    LibSodium.Marshal
-    LibSodium.Pure
     LibSodium.Random
     LibSodium.SecretBox
     LibSodium.Sign

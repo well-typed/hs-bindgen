@@ -1,9 +1,10 @@
 -- | Library lifecycle and the @with@-bracket entry points.
 --
--- The combinators lift individual calls into 'IO'; this module owns the one thing
--- they cannot: the @git_libgit2_init@ / @git_libgit2_shutdown@ lifecycle and the
--- bound-thread requirement for libgit2's thread-local error reporting (read in
--- "LibGit2.Error"). 'withRepository' and 'withNewRepository' open a repository and
+-- libgit2 must be initialised before use and shut down after, and its error
+-- reporting is thread-local, so every call has to stay on one OS thread (see
+-- "LibGit2.Error"). Both are this module's job.
+--
+-- 'withRepository' and 'withNewRepository' open a repository and
 -- hand it to a callback, so callers write plain 'IO' with no state-threading monad.
 -- The repository handle frees itself at GC (it is a 'Foreign.ForeignPtr.ForeignPtr'),
 -- so the bracket only owns the init/shutdown pair.
@@ -16,6 +17,7 @@ module LibGit2.Git
 
 import Control.Concurrent (runInBoundThread)
 import Control.Exception (bracket_)
+import Control.Monad (void)
 import Data.Text qualified as T
 
 import Generated.Global.Safe (git_libgit2_init, git_libgit2_shutdown)
@@ -30,7 +32,7 @@ withLibgit2 act =
     runInBoundThread $
       bracket_
         (git_libgit2_init >>= checkStatus)
-        (() <$ git_libgit2_shutdown)
+        (void git_libgit2_shutdown)
         act
 
 -- | Open the repository at @path@ and run an action against it.

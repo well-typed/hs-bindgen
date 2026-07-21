@@ -3,8 +3,9 @@
 -- | The spec type itself, and the out-parameter values a spec collects.
 --
 -- Most bindings never import this module: t'ToHighLevel' and 'toHighLevel' are
--- re-exported from "HsBindgen.HighLevel", and the rest only shows up in a type error.
--- It is here so that those types are documented where they are defined, and so that a
+-- re-exported from "HsBindgen.HighLevel", and the rest mostly surface in type
+-- signatures and error messages. It is here so that those types are documented where
+-- they are defined, and so that a
 -- combinator of your own can name them.
 module HsBindgen.HighLevel.Internal.Spec (
     -- * The spec
@@ -22,9 +23,10 @@ import Data.Kind (Type)
   The collected out-parameter values
 -------------------------------------------------------------------------------}
 
--- | The values that the @output@s in a spec read back, most recent first.
+-- | The values that the @output@s in a spec read back, most recent first (each
+-- @output@ prepends as the spec is read downward).
 --
--- Only @output@ builds one and only a closer takes one apart, so the reversed order
+-- Only @output@ builds one, and only a closer takes one apart, so the reversed order
 -- never escapes: 'AssembleOutputs' and 'applyOutputs' both undo it, and the assembler
 -- you write takes its arguments in spec order.
 type Outputs :: [Type] -> Type
@@ -36,14 +38,13 @@ infixr 5 :*
 -- | The type of the function a closer wants: one argument per output, in __spec
 -- order__, and then @r@.
 --
--- It is a fold over @os@ that hangs the outputs in front of @r@. @os@ holds them most
--- recent first, and the fold peels the most recent one first, which parks it nearest
--- @r@; the oldest is peeled last and so ends up leftmost. The reversal undoes itself:
+-- It is a fold over @os@ that hangs each output in front of @r@; because @os@ is
+-- most-recent-first, the fold reverses it back into spec order:
 --
 -- > AssembleOutputs '[]         r  =                  r
--- > AssembleOutputs '[b]        r  =  b ->            r
--- > AssembleOutputs '[c, b]     r  =  b -> c ->       r
--- > AssembleOutputs '[d, c, b]  r  =  b -> c -> d ->  r
+-- > AssembleOutputs '[x]        r  =  x ->            r
+-- > AssembleOutputs '[y, x]     r  =  x -> y ->       r
+-- > AssembleOutputs '[z, y, x]  r  =  x -> y -> z ->  r
 --
 -- So for the spec
 --
@@ -53,14 +54,14 @@ infixr 5 :*
 -- @Bool -> Text -> CInt -> hs@: the two outputs in the order they appear, then the C
 -- return value, then whatever result you want.
 --
--- Note what @r@ absorbs: the whole @c -> hs@ tail, rather than the high-level result
--- type alone. That is why 'HsBindgen.HighLevel.resultPure' can pass
--- @'AssembleOutputs' os (c -> hs)@ and get an assembler that ends in the C return
--- value.
+-- Note what @r@ absorbs: the whole @c -> hs@ tail (the @CInt -> hs@ of the example
+-- above), rather than the high-level result type alone. That is why
+-- 'HsBindgen.HighLevel.resultPure' can pass @'AssembleOutputs' os (c -> hs)@ and get an
+-- assembler that ends in the C return value.
 --
 -- One practical consequence: the family reduces as soon as the /number/ of outputs is
 -- known, whatever their types are. A closer's argument type is therefore concrete even
--- while an @output@ above it is still a hole, which is what makes
+-- while an @output@ above it is still unwritten (a typed hole, @_@), which is what makes
 -- @resultPure _@ report a usable type.
 type AssembleOutputs :: [Type] -> Type -> Type
 type family AssembleOutputs os r where
@@ -109,7 +110,7 @@ type ToHighLevel :: [Type] -> Type -> Type -> Type
 newtype ToHighLevel os lo hi = ToHighLevel (IO (Outputs os) -> lo -> hi)
 
 -- | Run a finished spec against a low-level callable (the raw @foreign import@) to
--- get the high-level wrapper. Every binding ends here.
+-- get the high-level function. Every binding ends here.
 --
 -- This is also where the two ends are tied down: @lo@ unifies with the C function's
 -- actual type and @hi@ with the high-level type signature, and everything in the spec

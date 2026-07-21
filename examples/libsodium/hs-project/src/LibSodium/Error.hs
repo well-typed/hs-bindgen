@@ -8,10 +8,13 @@
 module LibSodium.Error
   ( SodiumError (..)
   , sodiumError
+  , checkStatus
   ) where
 
 import Control.Exception (Exception)
 import Foreign.C.Types (CInt)
+
+import HsBindgen.HighLevel (throwUnlessZero)
 
 -- | A libsodium call returned a failure status.
 data SodiumError = SodiumError
@@ -22,7 +25,16 @@ data SodiumError = SodiumError
 
 instance Exception SodiumError
 
--- | Build the exception a status closer throws, naming the operation. Pass to
--- 'HsBindgen.Runtime.HighLevel.throwOnNonZero'.
+-- | Build the exception, naming the operation. Pass it to
+-- 'HsBindgen.HighLevel.throwOnNonZero', which closes a spec that has no outputs.
 sodiumError :: String -> CInt -> SodiumError
 sodiumError op c = SodiumError op (fromIntegral c)
+
+-- | Throw 'SodiumError' when @op@ returned a non-zero status.
+--
+-- 'sodiumError' as a check rather than a closer, which is the shape the combinators
+-- want wherever the status guards an out-parameter:
+--
+-- > autoChecked (checkStatus "crypto_secretbox_easy")
+checkStatus :: String -> CInt -> IO ()
+checkStatus = throwUnlessZero . sodiumError

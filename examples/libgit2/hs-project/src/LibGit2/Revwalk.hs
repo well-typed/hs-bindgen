@@ -11,49 +11,59 @@ module LibGit2.Revwalk
   ) where
 
 import Control.Exception (throwIO)
-import Foreign.C.Types (CUInt)
 
-import HsBindgen.Runtime.HighLevel (input, output, resultPure, toHighLevel)
-import HsBindgen.Runtime.HighLevel.Marshaller (scalar)
+import HsBindgen.HighLevel (fixed, input, output, resultIO, toHighLevel)
 
+import Generated.Errors (Git_error_code (..), pattern GIT_ITEROVER,
+                         pattern GIT_OK)
+import Generated.Revwalk (Git_sort_t (..), pattern GIT_SORT_TIME)
 import Generated.Revwalk.FunPtr qualified as WF
 import Generated.Revwalk.Safe qualified as WS
-import LibGit2.Error (checkStatusResult, gitError)
+import LibGit2.Error (checkedStatus, gitError)
 import LibGit2.Marshal (handleIn, newHandle, oidOut)
 import LibGit2.Types (Oid, Repository, Revwalk)
 
 -- | @git_revwalk_new@: a fresh walker over @repo@.
 revwalkNew :: Repository -> IO Revwalk
-revwalkNew repo =
-    fst <$> newHandle WF.git_revwalk_free (input handleIn) WS.git_revwalk_new repo
+revwalkNew = newHandle WF.git_revwalk_free (input handleIn) WS.git_revwalk_new
 
 -- | @git_revwalk_push_head@: start the walk at @HEAD@.
 revwalkPushHead :: Revwalk -> IO ()
-revwalkPushHead =
-    toHighLevel (input handleIn $ checkStatusResult) WS.git_revwalk_push_head
+revwalkPushHead = toHighLevel WS.git_revwalk_push_head
+                $ input handleIn
+                $ checkedStatus
 
--- | @git_revwalk_sorting@ with @GIT_SORT_TIME@ (reverse-chronological, like
--- @git log@). @GIT_SORT_TIME@ is @1 << 1@ = @2@.
+-- | @git_revwalk_sorting@ with @GIT_SORT_TIME@: reverse-chronological, like
+-- @git log@.
+--
+-- The mode is 'fixed' rather than an 'input' because this wrapper is /about/ time
+-- sorting; a caller who wants to choose gets a different wrapper. @sort_mode@ is
+-- declared @unsigned int@ rather than @git_sort_t@, so the generated constant is
+-- unwrapped back to its underlying value here.
 revwalkSortTime :: Revwalk -> IO ()
-revwalkSortTime w =
-    toHighLevel
-      ( input handleIn          -- git_revwalk *walk
-      $ input (scalar id)       -- unsigned int sort_mode
-      $ checkStatusResult
-      ) WS.git_revwalk_sorting w (2 :: CUInt)
+revwalkSortTime = toHighLevel WS.git_revwalk_sorting
+                $ input handleIn                         -- git_revwalk *walk
+                $ fixed (unwrapGit_sort_t GIT_SORT_TIME) -- unsigned int sort_mode
+                $ checkedStatus
 
--- | @git_revwalk_next@: the next oid, or 'Nothing' at @GIT_ITEROVER@.
+-- | @git_revwalk_next@: the next oid, or 'Nothing' once the walk is exhausted.
+--
+-- Reaching the end of a walk is not a failure, so @GIT_ITEROVER@ becomes 'Nothing'
+-- rather than an exception, and only a genuine error throws.
+--
+-- libgit2 writes the oid slot only when it yields a commit, so at @GIT_ITEROVER@ the
+-- value read back is whatever 'Foreign.Marshal.Alloc.alloca' left there. It is
+-- discarded unread in that case.
 revwalkNext :: Revwalk -> IO (Maybe Oid)
-revwalkNext walk = do
-    (oid, status) <- toHighLevel
-      ( output oidOut       -- git_oid *out (peeked unconditionally)
-      $ input  handleIn     -- git_revwalk *walk
-      $ resultPure id       -- keep the raw status
-      ) WS.git_revwalk_next walk
-    case fromIntegral status :: Int of
-      0   -> pure (Just oid)
-      -31 -> pure Nothing                          -- GIT_ITEROVER
-      n   -> throwIO =<< gitError (fromIntegral n)
+revwalkNext = toHighLevel WS.git_revwalk_next
+            $ output oidOut   -- git_oid *out
+            $ input  handleIn -- git_revwalk *walk
+            $ resultIO nextOid
+  where
+    nextOid oid status = case Git_error_code status of
+      GIT_OK       -> pure (Just oid)
+      GIT_ITEROVER -> pure Nothing
+      _            -> throwIO =<< gitError status
 
 -- | Drain a walker into a list (the iteration the combinators cannot express).
 revwalkToList :: Revwalk -> IO [Oid]

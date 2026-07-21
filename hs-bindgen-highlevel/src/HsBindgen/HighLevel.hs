@@ -22,16 +22,15 @@
 -- The closer's function is the /assembler/: it receives every 'output' value in spec
 -- order, then the C return value, and decides the high-level result. So
 -- @output a $ output b $ resultPure f@ calls @f@ with three arguments and returns
--- whatever @f@ returns. Pass a tuple constructor for a flat tuple (@resultPure (,,)@
--- yields @IO (a, b, c)@), a wildcard to drop a value
--- (@resultPure (\\a b _ -> (a, b))@ drops the C return), or any other function for
--- any other shape. With no outputs the assembler is the @c -> hs@ conversion alone.
+-- whatever @f@ returns, a tuple constructor, a wildcard to drop a value, or any other
+-- function for the shape you want (see 'resultPure'). With no outputs the assembler is
+-- the @c -> hs@ conversion alone.
 --
--- Three other modules do the rest. "HsBindgen.HighLevel.Marshaller" is the vocabulary
--- for moving one value across the boundary, with ready-made marshallers in
--- "HsBindgen.HighLevel.Marshaller.Utils". "HsBindgen.HighLevel.Defaults" gives each
--- Haskell type a default marshaller, and "HsBindgen.HighLevel.Auto" uses those to
--- write the ordinary combinators for you, reading them off the high-level type
+-- A few other modules do the rest. "HsBindgen.HighLevel.Marshaller" is the vocabulary
+-- for moving one value across the boundary, with ready-made marshallers in its
+-- "HsBindgen.HighLevel.Marshaller.Utils" submodule. "HsBindgen.HighLevel.Defaults"
+-- gives each Haskell type a default marshaller, and "HsBindgen.HighLevel.Auto" uses
+-- those to write the ordinary combinators for you, reading them off the high-level type
 -- signature.
 --
 module HsBindgen.HighLevel (
@@ -120,7 +119,9 @@ import HsBindgen.HighLevel.Result (Purifiable, Unpurify, toHighLevelPure)
 --
 -- @c@ is representation-polymorphic so that an /unlifted/ by-value argument (an @R@
 -- struct payload, see 'HsBindgen.HighLevel.Unlifted.bracketUnlifted') goes through
--- 'input' like any other. It is only ever a function-argument type here, never bound.
+-- 'input' like any other. @c@ only ever appears as a C argument type in these
+-- signatures; nothing here binds a value of type @c@, which is what makes the odd
+-- representation harmless.
 input
   :: forall {rep} (c :: TYPE rep) hs lo' hi os.
     ThreadIn hi
@@ -171,12 +172,10 @@ inputN (Marshal run) (ToHighLevel rest) =
 {-# INLINE inputN #-}
 
 -- | Add one output at the head of the spec. The high-level type gains no argument; the
--- output's slot is allocated on the way in, its Haskell type joins the spec's
--- output list @os@, and its value becomes one more argument to the closer's
--- assembler, in spec order and ahead of the C return value. So
--- @output a $ output b $ resultPure f@ calls @f a b c@, and @f@ alone decides what
--- the result looks like: chain any number of outputs and build a tuple, a record, a
--- 'Maybe', whatever the binding wants.
+-- output's slot is allocated on the way in, its Haskell type joins the spec's output
+-- list @os@, and its value becomes one more argument to the closer's assembler, in spec
+-- order and ahead of the C return value (see the module header and 'resultPure' for how
+-- the assembler consumes them).
 --
 -- For an /unlifted/ by-value out-parameter (a @W@ struct buffer) see
 -- 'HsBindgen.HighLevel.Unlifted.outputUnlifted'.
@@ -188,17 +187,14 @@ output
   -> ToHighLevel os        (c -> lo') hi
 output (Unmarshaller allocate readBack) (ToHighLevel rest) =
   ToHighLevel $ \pending lo ->
-    -- 'pending' is sequenced before 'readBack', which is what makes the read-backs
-    -- run in spec order; swapping them builds the same value in the same order but
-    -- runs the peeks inside out.
     threadIn (\k -> allocate (\c ->
-               k ( lo c
-                 , (\outs v -> v :* outs) <$> pending
+               k ( (\outs v -> v :* outs) <$> pending
                                          <*> readBack c
+                 , lo c
                  )
                         )
              )
-             (\(loRest, pending') -> rest pending' loRest)
+             (uncurry rest)
 {-# INLINE output #-}
 
 -- | Add a scratch combinator: a bracket supplying one C argument the call writes
@@ -243,12 +239,6 @@ scratchArray n = scratch (allocaArray n)
 -- >               $ fixed  (fromIntegral n)  -- size_t size: not a high-level argument
 -- >               $ autoResult
 --
--- The pinned value is an ordinary Haskell expression, so it may be a constant, a
--- function of the high-level arguments as here, or a pointer allocated outside the
--- spec. For a buffer that exists only for the call, prefer 'scratch' (nothing read
--- back) or 'output' (something read back), both of which keep the allocation inside
--- the spec where a throw unwinds it.
---
 -- @fixed c = 'scratch' (\\k -> k c)@, so the two are the same combinator; pick
 -- whichever names what you are doing.
 --
@@ -277,10 +267,8 @@ resultPure
   :: ApplyOutputs os
   => AssembleOutputs os (c -> hs)
   -> ToHighLevel os (IO c) (IO hs)
-resultPure f = ToHighLevel $ \pending cFn -> do
-    c   <- cFn
-    outs <- pending
-    pure (applyOutputs outs f c)
+resultPure f = ToHighLevel $ \pending cFn ->
+    (\c outs -> applyOutputs outs f c) <$> cFn <*> pending
 {-# INLINE resultPure #-}
 
 -- | 'resultPure' for an assembler that ends in 'IO': for a conversion that copies
@@ -317,8 +305,8 @@ discardResult = resultPure (const ())
   Dropping a struct marshaller into a spec
 -------------------------------------------------------------------------------}
 
--- | Drop a t'MarshalStruct' into an 'input': the high-level type gains one @hi@
--- argument and the C call receives a @'Ptr' s@. The struct is written into a zeroed slot
+-- | Drop a t'MarshalStruct' into an 'input': the high-level type gains one argument
+-- and the C call receives a @'Ptr' s@. The struct is written into a zeroed slot
 -- (see 'withStruct'), so padding reaches C as zeros.
 --
 asArgument
@@ -475,7 +463,8 @@ throwOnOut classify = unmarshalOut (either throwIO pure . classify)
 --
 -- [@os@]: the __outputs collected so far__, a type-level list of the (output) Haskell types,
 --   most recent first. Empty at the top, one longer after each 'output'. The closer
---   sees the finished list and asks for an 'AssembleOutputs' over it.
+--   sees the finished list and asks for an 'AssembleOutputs' over it, with the companion
+--   'ApplyOutputs' feeding it the collected values.
 --
 -- Everything else names a single value at a single combinator: @hs@ a Haskell one, @c@
 -- a C one.
@@ -510,8 +499,7 @@ throwOnOut classify = unmarshalOut (either throwIO pure . classify)
 --
 
 -- $writing
--- This section tries to give enough context so that you can write your own
--- combinators.
+-- Enough context to write your own combinators.
 --
 -- == Start from the hand-written wrapper
 --
@@ -543,9 +531,10 @@ throwOnOut classify = unmarshalOut (either throwIO pure . classify)
 --
 -- == When each part runs
 --
--- All four numbered steps belong to function call time, but 'output' itself runs at build time.
--- So it cannot call @alloca@, because the wrapper has not received its arguments yet,
--- and it cannot 'peek', because C has not run.
+-- All four numbered steps belong to function call time, but 'output' itself runs at
+-- /spec-construction time/, when you build the spec value, before the wrapper is ever
+-- called. So it cannot call @alloca@, because the wrapper has not received its arguments
+-- yet, and it cannot 'peek', because C has not run.
 --
 -- == Deferring the bracket: 'scratch'
 --
@@ -566,7 +555,7 @@ throwOnOut classify = unmarshalOut (either throwIO pure . classify)
 -- opens the bracket only on reaching the @IO@ at the end. At
 -- @hi ~ Int -> Bool -> IO r@ it amounts to:
 --
--- > threadIn br f = \i j -> br (\a -> f a i j)
+-- > threadIn br f = \i b -> br (\a -> f a i b)
 --
 -- The bracket therefore opens at call time with every argument in hand, and closes
 -- once the resulting @IO@ action finishes. Nesting one 'threadIn' per combinator opens
@@ -582,15 +571,16 @@ throwOnOut classify = unmarshalOut (either throwIO pure . classify)
 -- > output (Unmarshaller allocate readBack) (ToHighLevel rest) =
 -- >   ToHighLevel $ \pending lo ->
 -- >     threadIn (\k -> allocate (\c ->
--- >                k ( lo c
--- >                  , (\outs v -> v :* outs) <$> pending <*> readBack c
+-- >                k ( (\outs v -> v :* outs) <$> pending <*> readBack c
+-- >                  , lo c
 -- >                  )))
--- >              (\(loRest, pending') -> rest pending' loRest)
+-- >              (uncurry rest)
 --
 -- One thing has changed. The bracket now supplies a pair rather than @lo c@ alone: the
--- C function with the out-pointer applied, and @pending@ with this slot's
--- @readBack c@ added to it. 'threadIn' passes that pair along without inspecting it,
--- which is why its class constrains @hi@ alone.
+-- extended @pending@, with this slot's @readBack c@ added to it, and the C function
+-- with the out-pointer applied. That is exactly the pair @rest@ takes, so the
+-- continuation is 'uncurry rest'. 'threadIn' passes the pair along without inspecting
+-- it, which is why its class constrains @hi@ alone.
 --
 -- Sequencing @pending@ before @readBack c@ is what makes the read-backs run in spec
 -- order. Swapping the two operands builds the same list of values while performing the
@@ -613,10 +603,9 @@ throwOnOut classify = unmarshalOut (either throwIO pure . classify)
 --
 
 -- $holes
--- The library was designed so that using typed holes to guide how to write a spec
--- could be done. The suggested way to do it is to write the high-level type signature
--- first, then fill the spec one combinator at a time, holding a hole @_@ at the
--- combinator you are working on and __stubbing the tail with @auto@__.
+-- The library is designed so typed holes can guide how you write a spec. Write the
+-- high-level type signature first, then fill the spec one combinator at a time, holding
+-- a hole @_@ at the combinator you are working on and __stubbing the tail with @auto@__.
 --
 -- The signature is what makes this work: everything the combinators need flows
 -- downwards from it and from the C function's type, so with the tail in place GHC

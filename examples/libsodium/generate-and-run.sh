@@ -35,8 +35,7 @@ CABAL_FILE="$SCRIPT_DIR/hs-project/libsodium.cabal"
 GRAPH="$SCRIPT_DIR/include-graph.mmd"
 GENLOG_DIR="$SCRIPT_DIR/gen-logs"
 
-# Headers we deliberately do not generate. Populated as failures are triaged; a
-# skip here is a finding recorded in FINDINGS.md, not a silent omission.
+# Headers we deliberately do not generate. Populated as failures are triaged.
 SKIP=""
 
 # snake_case header -> CamelCase module suffix (crypto_secretbox.h -> CryptoSecretbox)

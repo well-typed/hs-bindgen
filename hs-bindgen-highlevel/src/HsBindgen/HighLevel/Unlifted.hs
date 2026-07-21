@@ -14,11 +14,10 @@
 -- constructor (or 'bracketUnlifted' below) and drop it into
 -- 'HsBindgen.HighLevel.input' as usual.
 --
--- This module supplies the two remaining combinators: 'bracketUnlifted' for an @R@
--- argument and 'outputUnlifted' for a @W@ out-parameter. A single 'bracketUnlifted' \/
--- 'outputUnlifted' handles every @R@ \/ @W@ struct. They are the unlifted counterparts
--- of 'HsBindgen.HighLevel.Marshaller.bracket' and 'HsBindgen.HighLevel.output', meant
--- to be imported qualified alongside them.
+-- The one genuinely new combinator is 'outputUnlifted', for a @W@ out-parameter. It and
+-- 'bracketUnlifted' are the unlifted counterparts of
+-- 'HsBindgen.HighLevel.Marshaller.bracket' and 'HsBindgen.HighLevel.output', meant to
+-- be imported qualified alongside them.
 --
 -- == Building the marshallers
 --

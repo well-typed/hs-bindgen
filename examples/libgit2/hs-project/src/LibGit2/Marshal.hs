@@ -1,14 +1,14 @@
+-- 'newHandle' names its spec's output list ('[h]) in a type signature, which needs
+-- DataKinds. Any binding that writes a ToHighLevel type of its own does.
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE ScopedTypeVariables #-}
 
--- | Reusable marshallers that plug into the @ToHighLevel@ combinators for the
--- shapes libgit2 uses everywhere: managed-handle out-parameters, handles as
--- @T *@ / @const T *@ arguments, by-value @git_oid@ in and out, borrowed C
--- strings, byte buffers, and structs passed as @const@ pointers.
+-- | Reusable marshallers for the shapes libgit2 uses everywhere: managed-handle
+-- out-parameters, handles as @T *@ \/ @const T *@ arguments, by-value @git_oid@ in
+-- and out, and borrowed C strings.
 --
--- 'newHandle' captures the one shape every constructor shares: a @git_X **out@
--- slot freed by the handle's @git_X_free@, the caller's inputs, and the libgit2
--- status check.
+-- 'newHandle' covers every libgit2 constructor and the @borrowed*@ family covers
+-- every accessor, so most modules here name one of the two and supply its inputs.
 --
 module LibGit2.Marshal
   ( -- * Handles
@@ -24,44 +24,36 @@ module LibGit2.Marshal
     -- * Strings and buffers
   , textIn
   , textInPtr
-  , bufferIn
   , peekTextConst
   , peekText
     -- * Borrowed-pointer accessors
   , borrowedText
   , borrowedOid
   , borrowedScalar
-    -- * Structs and constants
-  , asArgumentC
-  , nullConst
   ) where
 
-import Data.ByteString (ByteString)
-import Data.ByteString.Unsafe qualified as BSU
 import Data.Text (Text)
 import Data.Text qualified as T
-import Foreign.C.String (peekCString, withCString)
-import Foreign.C.Types (CChar, CInt, CSize)
-import Foreign.ForeignPtr (FinalizerPtr, newForeignPtr)
-import Foreign.Marshal.Alloc (alloca)
+import Foreign.C.String (peekCString)
+import Foreign.C.Types (CChar, CInt)
+import Foreign.ForeignPtr (FinalizerPtr)
 import Foreign.Marshal.Utils (with)
-import Foreign.Ptr (Ptr, castPtr, nullPtr)
+import Foreign.Ptr (Ptr, nullPtr)
 import Foreign.Storable (peek)
 
-import HsBindgen.Runtime.HighLevel (ToHighLevel, asArgument, input, output,
-                                    resultIO, resultPure, toHighLevel)
-import HsBindgen.Runtime.HighLevel.Internal.Threading (ThreadOut)
-import HsBindgen.Runtime.HighLevel.Marshaller (Marshal (..), MarshalStruct,
-                                               Unmarshaller, asConstArg, at,
-                                               bracket, unmarshalOut,
-                                               unmarshalOutWith)
-import HsBindgen.Runtime.HighLevel.Marshaller.Utils (withCStringIn)
-import HsBindgen.Runtime.Marshal (StaticSize, WriteRaw)
 import HsBindgen.Runtime.PtrConst (PtrConst)
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
+import HsBindgen.HighLevel (ToHighLevel, input, output, resultIO, resultPure,
+                            toHighLevel)
+import HsBindgen.HighLevel.Internal.Threading (ThreadIn)
+import HsBindgen.HighLevel.Marshaller (Marshal, Unmarshaller, asConstArg, at,
+                                       bracket, unmarshalOut)
+import HsBindgen.HighLevel.Marshaller.Utils (outForeignPtr, withCStringIn,
+                                             withCStringMutIn)
+
 import Generated.Oid (Git_oid)
-import LibGit2.Error (checkStatusResult)
+import LibGit2.Error (checkedStatus)
 import LibGit2.Types (Handle (..), Oid (..), withHandle)
 
 {-------------------------------------------------------------------------------
@@ -81,30 +73,42 @@ handleInC = asConstArg handleIn
 
 -- | The constructor out-parameter @git_X **out@: allocate the slot, let the call
 -- fill it, then wrap the @git_X *@ in a 'Foreign.ForeignPtr.ForeignPtr' with its
--- @git_X_free@ finaliser, so the handle frees itself at GC.
+-- @git_X_free@ finaliser, so the handle frees itself at GC. The runtime's
+-- 'outForeignPtr' does the allocate-peek-wrap; this only maps the raw 'ForeignPtr'
+-- into the binding's handle @newtype@ (via 'fromFP').
 outHandle
   :: forall h. Handle h
   => FinalizerPtr (CRep h)
   -> Unmarshaller (Ptr (Ptr (CRep h))) h
-outHandle fin = unmarshalOutWith alloca $ \pp -> do
-  p <- peek pp
-  fromFP <$> newForeignPtr fin p
+outHandle = fmap fromFP . outForeignPtr
 
--- | Build a managed-handle constructor. @newHandle fin inputs cfn@ fills the
+-- | Build a managed-handle constructor: the shape every libgit2 @git_X_new@ \/
+-- @git_X_lookup@ \/ @git_X_open@ shares. @newHandle fin inputs cfn@ fills the
 -- @git_X **out@ slot (freed by @fin@), applies the caller's @inputs@ chain, and
--- checks the libgit2 status. The result carries a trailing @()@ from the status
--- check, dropped at the call site with @fst@:
+-- throws unless the libgit2 status says the handle is real:
 --
--- > repositoryOpen path =
--- >   fst <$> newHandle git_repository_free (input textIn) git_repository_open path
+-- > repositoryOpen :: Text -> IO Repository
+-- > repositoryOpen = newHandle git_repository_free (input textIn) git_repository_open
+--
+-- The @inputs@ argument is the caller's own slice of the spec, still open at the
+-- bottom: it takes the closer and returns the chain with that closer attached, so
+-- a caller writes @input textIn@ or @input handleIn . input oidInC@ and this
+-- supplies both ends. The @'[h]@ in its type is the handle this constructor is
+-- about to produce, waiting in the spec's output list for the closer to collect.
 newHandle
-  :: (Handle h, ThreadOut (Ptr (Ptr (CRep h))) h hi hi')
+  :: (Handle h, ThreadIn hi)
   => FinalizerPtr (CRep h)
-  -> (ToHighLevel (IO CInt) (IO ()) -> ToHighLevel lo hi)
+  -> (ToHighLevel '[h] (IO CInt) (IO h) -> ToHighLevel '[h] lo hi)
   -> (Ptr (Ptr (CRep h)) -> lo)
-  -> hi'
-newHandle fin inputs cfn =
-  toHighLevel (output (outHandle fin) (inputs checkStatusResult)) cfn
+  -> hi
+newHandle fin inputs = flip toHighLevel
+                     $ output (outHandle fin)
+                     $ inputs checkedStatus
+-- Without this, the higher-order @inputs@ argument puts 'newHandle' over GHC's
+-- inlining threshold and every construction allocates the intermediate pair, the
+-- deferred read-back closure and an 'Outputs' cell that would otherwise fuse away.
+-- The other helpers here are small enough to inline without being told.
+{-# INLINE newHandle #-}
 
 {-------------------------------------------------------------------------------
   Object ids
@@ -118,7 +122,7 @@ oidIn = bracket (\(Oid g) k -> with g k)
 oidInC :: Marshal Oid (PtrConst Git_oid -> lo) lo
 oidInC = asConstArg oidIn
 
--- | An out-parameter @git_oid *@ the callee fills.
+-- | An out-parameter @git_oid *@ that C fills.
 oidOut :: Unmarshaller (Ptr Git_oid) Oid
 oidOut = unmarshalOut (pure . Oid)
 
@@ -135,21 +139,10 @@ textIn :: Marshal Text (PtrConst CChar -> lo) lo
 textIn = at T.unpack withCStringIn
 
 -- | Marshal 'Text' as a NUL-terminated non-@const@ @char *@ (e.g. a
--- @git_signature@ name/email field).
+-- @git_signature@ name/email field), the 'Text' adapter over the runtime's
+-- 'withCStringMutIn' (which the runtime keeps @String@-based to stay @text@-free).
 textInPtr :: Marshal Text (Ptr CChar -> lo) lo
-textInPtr = bracket (\t k -> withCString (T.unpack t) k)
-
--- | Marshal a 'ByteString' as a @(const void *, size_t)@ pair (the pointee is
--- left polymorphic so it unifies with @void@ at the call site). The zero-copy
--- counterpart of the runtime's @constByteStringLenIn@: 'BSU.unsafeUseAsCStringLen'
--- passes the buffer without copying, so it is not NUL-terminated and is valid
--- only during the call and only alongside the length (an empty input may alias a
--- shared buffer). Safe here because the callee honours the length and does not
--- retain the pointer.
-bufferIn :: Marshal ByteString (PtrConst void -> CSize -> lo) lo
-bufferIn = Marshal $ \bs lo k ->
-  BSU.unsafeUseAsCStringLen bs $ \(p, n) ->
-    k (lo (PtrConst.unsafeFromPtr (castPtr p)) (fromIntegral n))
+textInPtr = at T.unpack withCStringMutIn
 
 -- | Copy a borrowed @const char *@ into 'Text' (NULL becomes empty).
 peekTextConst :: PtrConst CChar -> IO Text
@@ -169,29 +162,28 @@ peekText p
 -------------------------------------------------------------------------------}
 
 -- | A @const T *@ accessor returning a borrowed @const char *@, copied to 'Text'.
-borrowedText :: Handle h => (PtrConst (CRep h) -> IO (PtrConst CChar)) -> h -> IO Text
-borrowedText = toHighLevel (input handleInC $ resultIO peekTextConst)
+borrowedText
+  :: Handle h
+  => (PtrConst (CRep h) -> IO (PtrConst CChar))
+  -> (h -> IO Text)
+borrowedText = flip toHighLevel
+             $ input handleInC
+             $ resultIO peekTextConst
 
 -- | A @const T *@ accessor returning a borrowed @const git_oid *@, copied to 'Oid'.
-borrowedOid :: Handle h => (PtrConst (CRep h) -> IO (PtrConst Git_oid)) -> h -> IO Oid
-borrowedOid = toHighLevel (input handleInC $ resultIO peekOidConst)
+borrowedOid
+  :: Handle h
+  => (PtrConst (CRep h) -> IO (PtrConst Git_oid))
+  -> (h -> IO Oid)
+borrowedOid = flip toHighLevel
+            $ input handleInC
+            $ resultIO peekOidConst
 
 -- | A @const T *@ accessor returning a C scalar, converted with 'fromIntegral'.
-borrowedScalar :: (Handle h, Integral c, Num n) => (PtrConst (CRep h) -> IO c) -> h -> IO n
-borrowedScalar = toHighLevel (input handleInC $ resultPure fromIntegral)
-
-{-------------------------------------------------------------------------------
-  Structs and constants
--------------------------------------------------------------------------------}
-
--- | Drop a 'MarshalStruct' into a @const T *@ argument position: the runtime's
--- 'asArgument' fills a non-@const@ @Ptr@, then 'asConstArg' retags it @const@.
-asArgumentC
-  :: (StaticSize s, WriteRaw s)
-  => MarshalStruct hi s
-  -> Marshal hi (PtrConst s -> lo) lo
-asArgumentC = asConstArg . asArgument
-
--- | A NULL @const@ pointer, for optional/absent C arguments.
-nullConst :: PtrConst a
-nullConst = PtrConst.unsafeFromPtr nullPtr
+borrowedScalar
+  :: (Handle h, Integral c, Num n)
+  => (PtrConst (CRep h) -> IO c)
+  -> (h -> IO n)
+borrowedScalar = flip toHighLevel
+               $ input handleInC
+               $ resultPure fromIntegral

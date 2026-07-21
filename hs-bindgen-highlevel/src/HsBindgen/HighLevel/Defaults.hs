@@ -152,8 +152,9 @@ class DefaultRes c hs where
 -------------------------------------------------------------------------------}
 
 -- Integral arguments: 'Int' fills any signed C integer argument and 'Word' any
--- unsigned one. The same rule the result default uses, so a C type that converts
--- one way converts the other (see the 'DefaultRes' instances below).
+-- unsigned one (except @size_t@, which maps to 'Int' as a length; see the 'DefaultRes'
+-- instances below). The same rule the result default uses, so a C type converted as an
+-- argument is converted the same way as a result.
 instance DefaultIn Int  (CSChar   -> lo) lo where defaultIn = scalar fromIntegral
 instance DefaultIn Int  (CShort   -> lo) lo where defaultIn = scalar fromIntegral
 instance DefaultIn Int  (CInt     -> lo) lo where defaultIn = scalar fromIntegral
@@ -228,10 +229,9 @@ instance DefaultOut Double (Ptr CDouble) where defaultOut = unmarshalOutPure rea
 instance DefaultOut Float  (Ptr CFloat)  where defaultOut = unmarshalOutPure realToFrac
 instance DefaultOut Bool   (Ptr CBool)   where defaultOut = unmarshalOutPure CBool.toBool
 
--- Identity: peek any type whose out-parameter is a pointer to that same type. One
--- instance covers every raw C scalar, the fixed-width (stdint) types, the standard
--- library typedefs, a raw or const pointer or function pointer, and any generated
--- type a binding keeps unchanged.
+-- Identity: peek any type whose out-parameter is a pointer to that same type. The same
+-- catch-all as the identity input default, covering every raw scalar, typedef, and
+-- generated type a binding keeps unchanged.
 instance Storable a => DefaultOut a (Ptr a) where
   defaultOut = unmarshalOutPure id
 
@@ -292,9 +292,8 @@ nullableRes toPtr p
   | otherwise          = Just <$> defaultResConv p
 {-# INLINE nullableRes #-}
 
--- Identity: any C return type comes back unchanged when the Haskell result type is
--- the same, covering @void@, every raw and fixed-width scalar, the typedefs, a raw
--- pointer or function pointer, and any generated type kept as-is.
+-- Identity: any C return type comes back unchanged when the Haskell result type is the
+-- same. The identity catch-all again, and the one that also covers @void@.
 instance DefaultRes c c where defaultResConv = pure
 
 -- | Close a spec that has no outputs by converting the C return value: drop it in as

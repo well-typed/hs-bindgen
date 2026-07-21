@@ -32,12 +32,12 @@ library
   build-depends:
     , base
     , bytestring
+    , hs-bindgen-highlevel
     , hs-bindgen-runtime
     , libclang-bindings
     , text
 
   exposed-modules:
-    ClangFFI.Callback
     ClangFFI.Lifted
     ClangFFI.Wrappers
 
