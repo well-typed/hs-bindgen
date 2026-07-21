@@ -23,7 +23,12 @@ instance PrettyForTrace MacroResolutionError where
     PP.hang "Could not resolve variables in macro:" 2 (PP.string msg)
 
 instance IsTrace Level MacroResolutionError where
-  getDefaultLogLevel = const Warning
+  -- See https://github.com/well-typed/hs-bindgen/issues/2147.
+  --
+  -- Macro resolution failures can be noisy. Users who want to see them, can
+  -- change log-level or increase log-level using
+  -- 'HsBindgen.TraceMsg.EnableMacroWarnings'.
+  getDefaultLogLevel = const Info
   getSource          = const HsBindgen
   getTraceId         = const "macro-resolution"
 

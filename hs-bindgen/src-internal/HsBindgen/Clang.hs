@@ -96,11 +96,8 @@ instance Exception LibclangException
 
 -- | Call clang to parse with the specified t'ClangSetup'
 --
--- Diagnostics are not traced, and the specified continuation is called even if
--- there are error diagnostics.
---
--- This function is needed for @resolveHeaders@, where we need the paths for the
--- resolved headers even if some headers are not found.
+-- Diagnostics are not traced, and /the specified continuation is called even if
+-- there are error diagnostics/.
 withClang' :: forall a.
      Tracer ClangMsg
   -> ClangSetup
