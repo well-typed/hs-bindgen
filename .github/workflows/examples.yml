@@ -134,9 +134,10 @@ jobs:
 
     steps:
     - name: 🧪 Report failure
-      if: ${{ needs.build-and-test-example.result == 'failure' }}
+      if: ${{ needs.build-and-test-example.result != 'success' }}
       run: |
         echo "Some jobs failed"
+        echo "Result status: ${{ needs.build-and-test-example.result }}"
         exit 1
 
     - name: 🧪 Report success
