@@ -276,11 +276,15 @@ updateReparseInfo info tag@(Tag typ _) reparseInfo = do
                 Just (Decl preppedTokens) ->
                   pure $ ReparseNeeded (mkFlatTokens preppedTokens) macroInvs
             else do
-              addMessage info.id PrepareReparseExpansionNotUnique
+              addMessage info.id $
+                PrepareReparseExpansionNotUnique fallbackTokens.locStart fallbackTokens.flatten
               pure fallback
       where
         fallback :: ReparseInfo FlatTokens
-        fallback = mkReparseNeeded $ mkFlatTokens $ case typ of
+        fallback = mkReparseNeeded fallbackTokens
+
+        fallbackTokens :: FlatTokens
+        fallbackTokens = mkFlatTokens $ case typ of
             Function -> flattenFunction tokens
             _        -> flattenDefault tokens
 
