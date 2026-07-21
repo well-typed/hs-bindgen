@@ -5,7 +5,7 @@ module HsBindgen.Frontend.Pass.ReparseMacroExpansions.Zip (
   , zipEither
   ) where
 
-import Control.Monad
+import Control.Monad qualified as M
 
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.ForgetAnn (coerceNonMacroType)
@@ -172,12 +172,11 @@ instance ZipReparsed C.Typedef where
         , ann = NoAnn
         }
 
-
 instance ZipReparsed C.Function where
   zipReparsed funPre fun = do
-      args'  <- zipWithM zipFunctionArg funPre.args fun.args
-      res'   <- zipType                 funPre.res   fun.res
-      attrs' <- checkEq                 funPre.attrs fun.attrs
+      args'  <- zipList zipFunctionArg funPre.args fun.args
+      res'   <- zipType                funPre.res   fun.res
+      attrs' <- checkEq                funPre.attrs fun.attrs
       success C.Function{
           args  = args'
         , res   = res'
@@ -244,7 +243,7 @@ zipType t1 t2 = case (t1, t2) of
         C.TypeIncompleteArray <$> zipType et1 et2
       (C.TypeFun args1 res1, C.TypeFun args2 res2) ->
         C.TypeFun
-          <$> zipWithM zipTypeFunArg args1 args2
+          <$> zipList zipTypeFunArg args1 args2
           <*> zipType res1 res2
       (C.TypeVoid, C.TypeVoid) ->
         success C.TypeVoid
@@ -338,3 +337,16 @@ zipRef ref1 ref2 =
     C.Ref
       <$> checkEq ref1.name ref2.name
       <*> zipType ref1.underlying ref2.underlying
+
+{-------------------------------------------------------------------------------
+  Zip lists
+-------------------------------------------------------------------------------}
+
+-- | Like 'M.zipWithM', but fails if the two arguments lists are of non-equal
+-- length
+zipList :: (Show a, Show b) => (a -> b -> ZipResult c) -> [a] -> [b] -> ZipResult [c]
+zipList zipOne xs ys
+  | length xs /= length ys
+  = failure $ zipErrorNotZipped xs ys
+  | otherwise
+  = M.zipWithM zipOne xs ys
