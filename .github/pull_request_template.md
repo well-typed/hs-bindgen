@@ -1,18 +1,14 @@
 ---
 
-Some reminders, in case they are helpful:
+- [ ] I have updated the changelog. I have included a migration hint if this is a breaking change.
 
-- [ ] Did you update the changelog? Please be sure to give a "migration hint" if this is a breaking change.
+- [ ] I have updated the manual.
 
-- [ ] Did you update the manual?
+- [ ] I have removed all mentions of closed tickets in the code.
 
-- [ ] If you are closing a ticket, did you grep for all mentions of that ticket in the code?
-
-- [ ] If you added new TODOs, did you associate each TODO with a ticket? Please use this syntax:
+- [ ] I have associated each new TODO item with a ticket, using the following syntax:
 
 ```hs
 -- TODO <link to issue>
 -- Brief description
 ```
-
-(If this does not apply, feel free to delete this template text.)
