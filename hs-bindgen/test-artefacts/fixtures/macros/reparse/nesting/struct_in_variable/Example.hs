@@ -116,6 +116,12 @@ instance Marshal.WriteRaw G1 where
 
 deriving via Marshal.EquivStorable G1 instance BG.Storable G1
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 3:16@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_variable.h@
+-}
 instance (ty ~ MyInt) => BG.CompatHasField.HasField "g1_x" G1 ty where
 
   hasField =
@@ -173,6 +179,12 @@ instance Marshal.WriteRaw G2 where
 
 deriving via Marshal.EquivStorable G2 instance BG.Storable G2
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 4:16@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_variable.h@
+-}
 instance (ty ~ MyInt) => BG.CompatHasField.HasField "g2_x" G2 ty where
 
   hasField =
@@ -230,6 +242,12 @@ instance Marshal.WriteRaw G3 where
 
 deriving via Marshal.EquivStorable G3 instance BG.Storable G3
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 5:16@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_variable.h@
+-}
 instance (ty ~ MyInt) => BG.CompatHasField.HasField "g3_x" G3 ty where
 
   hasField =

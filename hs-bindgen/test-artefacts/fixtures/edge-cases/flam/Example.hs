@@ -73,6 +73,12 @@ instance Marshal.WriteRaw Pascal_Aux where
 
 deriving via Marshal.EquivStorable Pascal_Aux instance BG.Storable Pascal_Aux
 
+{-| __C declaration:__ @len@
+
+    __defined at:__ @edge-cases\/flam.h 3:9@
+
+    __exported by:__ @edge-cases\/flam.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "pascal_len" Pascal_Aux ty where
 
@@ -154,6 +160,12 @@ instance Marshal.WriteRaw Foo_bar where
 
 deriving via Marshal.EquivStorable Foo_bar instance BG.Storable Foo_bar
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @edge-cases\/flam.h 11:7@
+
+    __exported by:__ @edge-cases\/flam.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "foo_bar_x" Foo_bar ty where
 
@@ -175,6 +187,12 @@ instance HasCField.HasCField Foo_bar "foo_bar_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @edge-cases\/flam.h 12:7@
+
+    __exported by:__ @edge-cases\/flam.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "foo_bar_y" Foo_bar ty where
 
@@ -237,6 +255,12 @@ instance Marshal.WriteRaw Foo_Aux where
 
 deriving via Marshal.EquivStorable Foo_Aux instance BG.Storable Foo_Aux
 
+{-| __C declaration:__ @len@
+
+    __defined at:__ @edge-cases\/flam.h 9:6@
+
+    __exported by:__ @edge-cases\/flam.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo_len" Foo_Aux ty where
 
   hasField =
@@ -317,6 +341,12 @@ instance Marshal.WriteRaw Diff_Aux where
 
 deriving via Marshal.EquivStorable Diff_Aux instance BG.Storable Diff_Aux
 
+{-| __C declaration:__ @first@
+
+    __defined at:__ @edge-cases\/flam.h 18:7@
+
+    __exported by:__ @edge-cases\/flam.h@
+-}
 instance ( ty ~ BG.CLong
          ) => BG.CompatHasField.HasField "diff_first" Diff_Aux ty where
 
@@ -338,6 +368,12 @@ instance HasCField.HasCField Diff_Aux "diff_first" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @second@
+
+    __defined at:__ @edge-cases\/flam.h 19:7@
+
+    __exported by:__ @edge-cases\/flam.h@
+-}
 instance ( ty ~ BG.CChar
          ) => BG.CompatHasField.HasField "diff_second" Diff_Aux ty where
 
@@ -415,6 +451,12 @@ instance Marshal.WriteRaw Triplets_Aux where
 
 deriving via Marshal.EquivStorable Triplets_Aux instance BG.Storable Triplets_Aux
 
+{-| __C declaration:__ @len@
+
+    __defined at:__ @edge-cases\/flam.h 27:7@
+
+    __exported by:__ @edge-cases\/flam.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "triplets_len" Triplets_Aux ty where
 

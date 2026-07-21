@@ -79,6 +79,12 @@ instance Marshal.WriteRaw Point1a where
 
 deriving via Marshal.EquivStorable Point1a instance BG.Storable Point1a
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 5:22@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "point1a_x" Point1a ty where
 
@@ -100,6 +106,12 @@ instance HasCField.HasCField Point1a "point1a_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 5:29@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "point1a_y" Point1a ty where
 
@@ -208,6 +220,12 @@ instance Marshal.WriteRaw Point2a where
 
 deriving via Marshal.EquivStorable Point2a instance BG.Storable Point2a
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 8:22@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "point2a_x" Point2a ty where
 
@@ -229,6 +247,12 @@ instance HasCField.HasCField Point2a "point2a_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 8:29@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "point2a_y" Point2a ty where
 
@@ -339,6 +363,12 @@ instance Marshal.WriteRaw Point3a_Aux where
 
 deriving via Marshal.EquivStorable Point3a_Aux instance BG.Storable Point3a_Aux
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:22@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "point3a_Aux_x" Point3a_Aux ty where
 
@@ -361,6 +391,12 @@ instance HasCField.HasCField Point3a_Aux "point3a_Aux_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:29@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "point3a_Aux_y" Point3a_Aux ty where
 

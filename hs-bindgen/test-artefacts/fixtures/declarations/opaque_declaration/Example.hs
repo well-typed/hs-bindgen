@@ -85,6 +85,12 @@ instance Marshal.WriteRaw Bar where
 
 deriving via Marshal.EquivStorable Bar instance BG.Storable Bar
 
+{-| __C declaration:__ @ptrA@
+
+    __defined at:__ @declarations\/opaque_declaration.h 5:17@
+
+    __exported by:__ @declarations\/opaque_declaration.h@
+-}
 instance (ty ~ BG.Ptr Foo) => BG.CompatHasField.HasField "bar_ptrA" Bar ty where
 
   hasField =
@@ -105,6 +111,12 @@ instance HasCField.HasCField Bar "bar_ptrA" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @ptrB@
+
+    __defined at:__ @declarations\/opaque_declaration.h 6:17@
+
+    __exported by:__ @declarations\/opaque_declaration.h@
+-}
 instance (ty ~ BG.Ptr Bar) => BG.CompatHasField.HasField "bar_ptrB" Bar ty where
 
   hasField =

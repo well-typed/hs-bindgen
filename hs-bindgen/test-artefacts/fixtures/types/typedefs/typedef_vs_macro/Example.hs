@@ -320,6 +320,12 @@ instance Marshal.WriteRaw ExampleStruct where
 
 deriving via Marshal.EquivStorable ExampleStruct instance BG.Storable ExampleStruct
 
+{-| __C declaration:__ @t1@
+
+    __defined at:__ @types\/typedefs\/typedef_vs_macro.h 9:6@
+
+    __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
+-}
 instance ( ty ~ T1
          ) => BG.CompatHasField.HasField "exampleStruct_t1" ExampleStruct ty where
 
@@ -346,6 +352,12 @@ instance HasCField.HasCField ExampleStruct "exampleStruct_t1" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @t2@
+
+    __defined at:__ @types\/typedefs\/typedef_vs_macro.h 10:6@
+
+    __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
+-}
 instance ( ty ~ T2
          ) => BG.CompatHasField.HasField "exampleStruct_t2" ExampleStruct ty where
 
@@ -372,6 +384,12 @@ instance HasCField.HasCField ExampleStruct "exampleStruct_t2" where
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @m1@
+
+    __defined at:__ @types\/typedefs\/typedef_vs_macro.h 11:6@
+
+    __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
+-}
 instance ( ty ~ M1
          ) => BG.CompatHasField.HasField "exampleStruct_m1" ExampleStruct ty where
 
@@ -398,6 +416,12 @@ instance HasCField.HasCField ExampleStruct "exampleStruct_m1" where
 
   offset# = \_ -> \_ -> 8
 
+{-| __C declaration:__ @m2@
+
+    __defined at:__ @types\/typedefs\/typedef_vs_macro.h 12:6@
+
+    __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
+-}
 instance ( ty ~ M2
          ) => BG.CompatHasField.HasField "exampleStruct_m2" ExampleStruct ty where
 
@@ -513,6 +537,12 @@ instance Marshal.WriteRaw Foo where
 
 deriving via Marshal.EquivStorable Foo instance BG.Storable Foo
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/typedefs\/typedef_vs_macro.h 18:13@
+
+    __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
+-}
 instance ( ty ~ BG.Ptr Uint64_t
          ) => BG.CompatHasField.HasField "foo_a" Foo ty where
 

@@ -110,6 +110,12 @@ instance Marshal.WriteRaw S where
 
 deriving via Marshal.EquivStorable S instance BG.Storable S
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 15:13@
+
+    __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
+-}
 instance (ty ~ B) => BG.CompatHasField.HasField "s_x" S ty where
 
   hasField =

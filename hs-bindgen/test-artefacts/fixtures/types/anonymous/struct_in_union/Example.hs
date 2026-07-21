@@ -78,6 +78,12 @@ instance Marshal.WriteRaw Outer1_anon'fieldX where
 
 deriving via Marshal.EquivStorable Outer1_anon'fieldX instance BG.Storable Outer1_anon'fieldX
 
+{-| __C declaration:__ @fieldX@
+
+    __defined at:__ @types\/anonymous\/struct_in_union.h 9:9@
+
+    __exported by:__ @types\/anonymous\/struct_in_union.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "outer1_anon'fieldX_fieldX" Outer1_anon'fieldX ty where
 
@@ -103,6 +109,12 @@ instance HasCField.HasCField Outer1_anon'fieldX "outer1_anon'fieldX_fieldX" wher
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @fieldY@
+
+    __defined at:__ @types\/anonymous\/struct_in_union.h 10:9@
+
+    __exported by:__ @types\/anonymous\/struct_in_union.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "outer1_anon'fieldX_fieldY" Outer1_anon'fieldX ty where
 
@@ -306,6 +318,12 @@ instance Marshal.WriteRaw Outer2_fieldB where
 
 deriving via Marshal.EquivStorable Outer2_fieldB instance BG.Storable Outer2_fieldB
 
+{-| __C declaration:__ @fieldX@
+
+    __defined at:__ @types\/anonymous\/struct_in_union.h 18:9@
+
+    __exported by:__ @types\/anonymous\/struct_in_union.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "outer2_fieldB_fieldX" Outer2_fieldB ty where
 
@@ -331,6 +349,12 @@ instance HasCField.HasCField Outer2_fieldB "outer2_fieldB_fieldX" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @fieldY@
+
+    __defined at:__ @types\/anonymous\/struct_in_union.h 19:9@
+
+    __exported by:__ @types\/anonymous\/struct_in_union.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "outer2_fieldB_fieldY" Outer2_fieldB ty where
 
@@ -533,6 +557,12 @@ instance Marshal.WriteRaw Inner3 where
 
 deriving via Marshal.EquivStorable Inner3 instance BG.Storable Inner3
 
+{-| __C declaration:__ @fieldX@
+
+    __defined at:__ @types\/anonymous\/struct_in_union.h 27:9@
+
+    __exported by:__ @types\/anonymous\/struct_in_union.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "inner3_fieldX" Inner3 ty where
 
@@ -555,6 +585,12 @@ instance HasCField.HasCField Inner3 "inner3_fieldX" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @fieldY@
+
+    __defined at:__ @types\/anonymous\/struct_in_union.h 28:9@
+
+    __exported by:__ @types\/anonymous\/struct_in_union.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "inner3_fieldY" Inner3 ty where
 

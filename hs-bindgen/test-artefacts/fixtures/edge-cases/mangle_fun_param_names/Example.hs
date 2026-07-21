@@ -63,6 +63,12 @@ instance Marshal.WriteRaw T where
 
 deriving via Marshal.EquivStorable T instance BG.Storable T
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @edge-cases\/mangle_fun_param_names.h 4:7@
+
+    __exported by:__ @edge-cases\/mangle_fun_param_names.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "t_x" T ty where
 
   hasField =

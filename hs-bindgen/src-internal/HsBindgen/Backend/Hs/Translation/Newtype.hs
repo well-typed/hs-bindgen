@@ -105,7 +105,7 @@ hasFieldCompatDecs nt =
           parentType  = parentType
         , fieldName   = nt.field.name
         , fieldType   = nt.field.typ
-        , impl = Hs.HasFieldCompatImplRecord $ Hs.HFCImplRecord {
+        , impl = Hs.HasFieldCompatImplRecord {
               otherFields = []
             , constr = nt.constr
             }

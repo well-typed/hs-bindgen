@@ -65,6 +65,12 @@ instance Marshal.WriteRaw Omitted where
 
 deriving via Marshal.EquivStorable Omitted instance BG.Storable Omitted
 
+{-| __C declaration:__ @n@
+
+    __defined at:__ @selection_omit_external_root.h 2:7@
+
+    __exported by:__ @program-analysis\/selection_omit_external_b.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "omitted_n" Omitted ty where
 
@@ -125,6 +131,12 @@ instance Marshal.WriteRaw DirectlyDependsOnOmitted where
 
 deriving via Marshal.EquivStorable DirectlyDependsOnOmitted instance BG.Storable DirectlyDependsOnOmitted
 
+{-| __C declaration:__ @o@
+
+    __defined at:__ @program-analysis\/selection_omit_external_b.h 5:18@
+
+    __exported by:__ @program-analysis\/selection_omit_external_b.h@
+-}
 instance ( ty ~ Omitted
          ) => BG.CompatHasField.HasField "directlyDependsOnOmitted_o" DirectlyDependsOnOmitted ty where
 
@@ -189,6 +201,12 @@ instance Marshal.WriteRaw IndirectlyDependsOnOmitted where
 
 deriving via Marshal.EquivStorable IndirectlyDependsOnOmitted instance BG.Storable IndirectlyDependsOnOmitted
 
+{-| __C declaration:__ @d@
+
+    __defined at:__ @program-analysis\/selection_omit_external_b.h 9:35@
+
+    __exported by:__ @program-analysis\/selection_omit_external_b.h@
+-}
 instance ( ty ~ DirectlyDependsOnOmitted
          ) => BG.CompatHasField.HasField "indirectlyDependsOnOmitted_d" IndirectlyDependsOnOmitted ty where
 

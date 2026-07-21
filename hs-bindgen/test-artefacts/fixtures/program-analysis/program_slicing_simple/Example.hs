@@ -116,6 +116,12 @@ instance BG.Storable Foo where
                HasCField.poke (BG.Proxy @"foo_sixty_four") ptr0 foo_sixty_four2
             >> HasCField.poke (BG.Proxy @"foo_thirty_two") ptr0 foo_thirty_two3
 
+{-| __C declaration:__ @sixty_four@
+
+    __defined at:__ @program-analysis\/program_slicing_simple.h 4:12@
+
+    __exported by:__ @program-analysis\/program_slicing_simple.h@
+-}
 instance ( ty ~ Foreign.Word64
          ) => BG.CompatHasField.HasField "foo_sixty_four" Foo ty where
 
@@ -138,6 +144,12 @@ instance HasCField.HasCField Foo "foo_sixty_four" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @thirty_two@
+
+    __defined at:__ @program-analysis\/program_slicing_simple.h 5:12@
+
+    __exported by:__ @program-analysis\/program_slicing_simple.h@
+-}
 instance ( ty ~ Uint32_t
          ) => BG.CompatHasField.HasField "foo_thirty_two" Foo ty where
 

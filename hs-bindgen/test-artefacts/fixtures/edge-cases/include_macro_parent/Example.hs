@@ -75,6 +75,12 @@ instance Marshal.WriteRaw Pt where
 
 deriving via Marshal.EquivStorable Pt instance BG.Storable Pt
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @include_macro_child.h (CHILD_HEADER) 1:25@
+
+    __exported by:__ @edge-cases\/include_macro_parent.h@
+-}
 instance (ty ~ BG.CDouble) => BG.CompatHasField.HasField "pt_x" Pt ty where
 
   hasField =
@@ -94,6 +100,12 @@ instance HasCField.HasCField Pt "pt_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @include_macro_child.h (CHILD_HEADER) 1:28@
+
+    __exported by:__ @edge-cases\/include_macro_parent.h@
+-}
 instance (ty ~ BG.CDouble) => BG.CompatHasField.HasField "pt_y" Pt ty where
 
   hasField =
@@ -175,6 +187,12 @@ instance Marshal.WriteRaw Rect where
 
 deriving via Marshal.EquivStorable Rect instance BG.Storable Rect
 
+{-| __C declaration:__ @tl@
+
+    __defined at:__ @edge-cases\/include_macro_parent.h 7:18@
+
+    __exported by:__ @edge-cases\/include_macro_parent.h@
+-}
 instance (ty ~ Pt) => BG.CompatHasField.HasField "rect_tl" Rect ty where
 
   hasField =
@@ -194,6 +212,12 @@ instance HasCField.HasCField Rect "rect_tl" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @br@
+
+    __defined at:__ @edge-cases\/include_macro_parent.h 7:22@
+
+    __exported by:__ @edge-cases\/include_macro_parent.h@
+-}
 instance (ty ~ Pt) => BG.CompatHasField.HasField "rect_br" Rect ty where
 
   hasField =

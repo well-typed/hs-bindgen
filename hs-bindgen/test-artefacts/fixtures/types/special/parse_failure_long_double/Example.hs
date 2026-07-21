@@ -63,6 +63,12 @@ instance Marshal.WriteRaw Struct2 where
 
 deriving via Marshal.EquivStorable Struct2 instance BG.Storable Struct2
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/special\/parse_failure_long_double.h 14:7@
+
+    __exported by:__ @types\/special\/parse_failure_long_double.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "struct2_x" Struct2 ty where
 

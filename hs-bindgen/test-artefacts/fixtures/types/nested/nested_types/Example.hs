@@ -77,6 +77,12 @@ instance Marshal.WriteRaw Foo where
 
 deriving via Marshal.EquivStorable Foo instance BG.Storable Foo
 
+{-| __C declaration:__ @i@
+
+    __defined at:__ @types\/nested\/nested_types.h 2:9@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo_i" Foo ty where
 
   hasField =
@@ -96,6 +102,12 @@ instance HasCField.HasCField Foo "foo_i" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @types\/nested\/nested_types.h 3:10@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "foo_c" Foo ty where
 
   hasField =
@@ -165,6 +177,12 @@ instance Marshal.WriteRaw Bar where
 
 deriving via Marshal.EquivStorable Bar instance BG.Storable Bar
 
+{-| __C declaration:__ @foo1@
+
+    __defined at:__ @types\/nested\/nested_types.h 7:16@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
 instance (ty ~ Foo) => BG.CompatHasField.HasField "bar_foo1" Bar ty where
 
   hasField =
@@ -184,6 +202,12 @@ instance HasCField.HasCField Bar "bar_foo1" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @foo2@
+
+    __defined at:__ @types\/nested\/nested_types.h 8:16@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
 instance (ty ~ Foo) => BG.CompatHasField.HasField "bar_foo2" Bar ty where
 
   hasField =
@@ -253,6 +277,12 @@ instance Marshal.WriteRaw Ex3_ex3_struct where
 
 deriving via Marshal.EquivStorable Ex3_ex3_struct instance BG.Storable Ex3_ex3_struct
 
+{-| __C declaration:__ @ex3_a@
+
+    __defined at:__ @types\/nested\/nested_types.h 13:13@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "ex3_ex3_struct_ex3_a" Ex3_ex3_struct ty where
 
@@ -278,6 +308,12 @@ instance HasCField.HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_a" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @ex3_b@
+
+    __defined at:__ @types\/nested\/nested_types.h 14:14@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
 instance ( ty ~ BG.CChar
          ) => BG.CompatHasField.HasField "ex3_ex3_struct_ex3_b" Ex3_ex3_struct ty where
 
@@ -353,6 +389,12 @@ instance Marshal.WriteRaw Ex3 where
 
 deriving via Marshal.EquivStorable Ex3 instance BG.Storable Ex3
 
+{-| __C declaration:__ @ex3_struct@
+
+    __defined at:__ @types\/nested\/nested_types.h 15:7@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
 instance ( ty ~ Ex3_ex3_struct
          ) => BG.CompatHasField.HasField "ex3_ex3_struct" Ex3 ty where
 
@@ -375,6 +417,12 @@ instance HasCField.HasCField Ex3 "ex3_ex3_struct" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @ex3_c@
+
+    __defined at:__ @types\/nested\/nested_types.h 16:11@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
 instance (ty ~ BG.CFloat) => BG.CompatHasField.HasField "ex3_ex3_c" Ex3 ty where
 
   hasField =
@@ -445,6 +493,12 @@ instance Marshal.WriteRaw Ex4_odd where
 
 deriving via Marshal.EquivStorable Ex4_odd instance BG.Storable Ex4_odd
 
+{-| __C declaration:__ @value@
+
+    __defined at:__ @types\/nested\/nested_types.h 23:9@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "ex4_odd_value" Ex4_odd ty where
 
@@ -467,6 +521,12 @@ instance HasCField.HasCField Ex4_odd "ex4_odd_value" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @next@
+
+    __defined at:__ @types\/nested\/nested_types.h 27:8@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
 instance ( ty ~ BG.Ptr Ex4_even
          ) => BG.CompatHasField.HasField "ex4_odd_next" Ex4_odd ty where
 
@@ -540,6 +600,12 @@ instance Marshal.WriteRaw Ex4_even where
 
 deriving via Marshal.EquivStorable Ex4_even instance BG.Storable Ex4_even
 
+{-| __C declaration:__ @value@
+
+    __defined at:__ @types\/nested\/nested_types.h 25:16@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
 instance ( ty ~ BG.CDouble
          ) => BG.CompatHasField.HasField "ex4_even_value" Ex4_even ty where
 
@@ -563,6 +629,12 @@ instance HasCField.HasCField Ex4_even "ex4_even_value" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @next@
+
+    __defined at:__ @types\/nested\/nested_types.h 26:25@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
 instance ( ty ~ BG.Ptr Ex4_odd
          ) => BG.CompatHasField.HasField "ex4_even_next" Ex4_even ty where
 

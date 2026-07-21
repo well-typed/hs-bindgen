@@ -78,6 +78,12 @@ instance Marshal.WriteRaw S1_c where
 
 deriving via Marshal.EquivStorable S1_c instance BG.Storable S1_c
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/anonymous.h 4:9@
+
+    __exported by:__ @types\/structs\/anonymous.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s1_c_a" S1_c ty where
 
   hasField =
@@ -97,6 +103,12 @@ instance HasCField.HasCField S1_c "s1_c_a" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/anonymous.h 5:9@
+
+    __exported by:__ @types\/structs\/anonymous.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s1_c_b" S1_c ty where
 
   hasField =
@@ -166,6 +178,12 @@ instance Marshal.WriteRaw S1 where
 
 deriving via Marshal.EquivStorable S1 instance BG.Storable S1
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @types\/structs\/anonymous.h 6:5@
+
+    __exported by:__ @types\/structs\/anonymous.h@
+-}
 instance (ty ~ S1_c) => BG.CompatHasField.HasField "s1_c" S1 ty where
 
   hasField =
@@ -185,6 +203,12 @@ instance HasCField.HasCField S1 "s1_c" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @d@
+
+    __defined at:__ @types\/structs\/anonymous.h 8:7@
+
+    __exported by:__ @types\/structs\/anonymous.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s1_d" S1 ty where
 
   hasField =
@@ -245,6 +269,12 @@ instance Marshal.WriteRaw S2_inner_deep where
 
 deriving via Marshal.EquivStorable S2_inner_deep instance BG.Storable S2_inner_deep
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/anonymous.h 16:11@
+
+    __exported by:__ @types\/structs\/anonymous.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "s2_inner_deep_b" S2_inner_deep ty where
 
@@ -317,6 +347,12 @@ instance Marshal.WriteRaw S2_inner where
 
 deriving via Marshal.EquivStorable S2_inner instance BG.Storable S2_inner
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/anonymous.h 14:9@
+
+    __exported by:__ @types\/structs\/anonymous.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "s2_inner_a" S2_inner ty where
 
@@ -338,6 +374,12 @@ instance HasCField.HasCField S2_inner "s2_inner_a" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @deep@
+
+    __defined at:__ @types\/structs\/anonymous.h 17:7@
+
+    __exported by:__ @types\/structs\/anonymous.h@
+-}
 instance ( ty ~ S2_inner_deep
          ) => BG.CompatHasField.HasField "s2_inner_deep" S2_inner ty where
 
@@ -411,6 +453,12 @@ instance Marshal.WriteRaw S2 where
 
 deriving via Marshal.EquivStorable S2 instance BG.Storable S2
 
+{-| __C declaration:__ @inner@
+
+    __defined at:__ @types\/structs\/anonymous.h 18:5@
+
+    __exported by:__ @types\/structs\/anonymous.h@
+-}
 instance (ty ~ S2_inner) => BG.CompatHasField.HasField "s2_inner" S2 ty where
 
   hasField =
@@ -430,6 +478,12 @@ instance HasCField.HasCField S2 "s2_inner" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @d@
+
+    __defined at:__ @types\/structs\/anonymous.h 20:7@
+
+    __exported by:__ @types\/structs\/anonymous.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s2_d" S2 ty where
 
   hasField =
@@ -499,6 +553,12 @@ instance Marshal.WriteRaw S3 where
 
 deriving via Marshal.EquivStorable S3 instance BG.Storable S3
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @types\/structs\/anonymous.h 28:7@
+
+    __exported by:__ @types\/structs\/anonymous.h@
+-}
 instance ( ty ~ BG.Ptr (BG.Ptr S3_c)
          ) => BG.CompatHasField.HasField "s3_c" S3 ty where
 
@@ -520,6 +580,12 @@ instance HasCField.HasCField S3 "s3_c" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @d@
+
+    __defined at:__ @types\/structs\/anonymous.h 30:7@
+
+    __exported by:__ @types\/structs\/anonymous.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s3_d" S3 ty where
 
   hasField =
@@ -589,6 +655,12 @@ instance Marshal.WriteRaw S3_c where
 
 deriving via Marshal.EquivStorable S3_c instance BG.Storable S3_c
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/anonymous.h 26:9@
+
+    __exported by:__ @types\/structs\/anonymous.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s3_c_a" S3_c ty where
 
   hasField =
@@ -608,6 +680,12 @@ instance HasCField.HasCField S3_c "s3_c_a" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/anonymous.h 27:9@
+
+    __exported by:__ @types\/structs\/anonymous.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s3_c_b" S3_c ty where
 
   hasField =

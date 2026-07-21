@@ -73,6 +73,12 @@ instance Marshal.WriteRaw Foo where
 
 deriving via Marshal.EquivStorable Foo instance BG.Storable Foo
 
+{-| __C declaration:__ @sixty_four@
+
+    __defined at:__ @types\/primitives\/fixedwidth.h 4:11@
+
+    __exported by:__ @types\/primitives\/fixedwidth.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.Word64
          ) => BG.CompatHasField.HasField "foo_sixty_four" Foo ty where
 
@@ -96,6 +102,12 @@ instance HasCField.HasCField Foo "foo_sixty_four" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @thirty_two@
+
+    __defined at:__ @types\/primitives\/fixedwidth.h 5:11@
+
+    __exported by:__ @types\/primitives\/fixedwidth.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
          ) => BG.CompatHasField.HasField "foo_thirty_two" Foo ty where
 

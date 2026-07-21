@@ -101,6 +101,12 @@ instance Marshal.WriteRaw Another_typedef_struct_t where
 
 deriving via Marshal.EquivStorable Another_typedef_struct_t instance BG.Storable Another_typedef_struct_t
 
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h 9:22@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "another_typedef_struct_t_foo" Another_typedef_struct_t ty where
 
@@ -126,6 +132,12 @@ instance HasCField.HasCField Another_typedef_struct_t "another_typedef_struct_t_
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h 9:32@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
 instance ( ty ~ BG.CChar
          ) => BG.CompatHasField.HasField "another_typedef_struct_t_bar" Another_typedef_struct_t ty where
 
@@ -536,6 +548,12 @@ instance Marshal.WriteRaw A_typedef_struct_t where
 
 deriving via Marshal.EquivStorable A_typedef_struct_t instance BG.Storable A_typedef_struct_t
 
+{-| __C declaration:__ @field_0@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h 37:31@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
 instance ( ty ~ BG.CBool
          ) => BG.CompatHasField.HasField "a_typedef_struct_t_field_0" A_typedef_struct_t ty where
 
@@ -570,6 +588,12 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_0" whe
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @field_1@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h 38:31@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.Word8
          ) => BG.CompatHasField.HasField "a_typedef_struct_t_field_1" A_typedef_struct_t ty where
 
@@ -604,6 +628,12 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_1" whe
 
   offset# = \_ -> \_ -> 1
 
+{-| __C declaration:__ @field_2@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h 39:31@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
          ) => BG.CompatHasField.HasField "a_typedef_struct_t_field_2" A_typedef_struct_t ty where
 
@@ -638,6 +668,12 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_2" whe
 
   offset# = \_ -> \_ -> 2
 
+{-| __C declaration:__ @field_3@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h 40:31@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
          ) => BG.CompatHasField.HasField "a_typedef_struct_t_field_3" A_typedef_struct_t ty where
 
@@ -672,6 +708,12 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_3" whe
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @field_4@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h 41:31@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
 instance ( ty ~ Another_typedef_struct_t
          ) => BG.CompatHasField.HasField "a_typedef_struct_t_field_4" A_typedef_struct_t ty where
 
@@ -706,6 +748,12 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_4" whe
 
   offset# = \_ -> \_ -> 8
 
+{-| __C declaration:__ @field_5@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h 42:31@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
 instance ( ty ~ BG.Ptr Another_typedef_struct_t
          ) => BG.CompatHasField.HasField "a_typedef_struct_t_field_5" A_typedef_struct_t ty where
 
@@ -740,6 +788,12 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_5" whe
 
   offset# = \_ -> \_ -> 16
 
+{-| __C declaration:__ @field_6@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h 43:31@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
 instance ( ty ~ BG.Ptr BG.Void
          ) => BG.CompatHasField.HasField "a_typedef_struct_t_field_6" A_typedef_struct_t ty where
 
@@ -774,6 +828,12 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_6" whe
 
   offset# = \_ -> \_ -> 24
 
+{-| __C declaration:__ @field_7@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h 44:31@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
 instance ( ty ~ CA.ConstantArray 7 HsBindgen.Runtime.LibC.Word32
          ) => BG.CompatHasField.HasField "a_typedef_struct_t_field_7" A_typedef_struct_t ty where
 
@@ -808,6 +868,12 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_7" whe
 
   offset# = \_ -> \_ -> 32
 
+{-| __C declaration:__ @field_8@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h 45:31@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
 instance ( ty ~ Another_typedef_enum_e
          ) => BG.CompatHasField.HasField "a_typedef_struct_t_field_8" A_typedef_struct_t ty where
 
@@ -842,6 +908,12 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_8" whe
 
   offset# = \_ -> \_ -> 60
 
+{-| __C declaration:__ @field_9@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h 46:31@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
 instance ( ty ~ CA.ConstantArray 4 Another_typedef_enum_e
          ) => BG.CompatHasField.HasField "a_typedef_struct_t_field_9" A_typedef_struct_t ty where
 
@@ -876,6 +948,12 @@ instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_9" whe
 
   offset# = \_ -> \_ -> 64
 
+{-| __C declaration:__ @field_10@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h 47:31@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
 instance ( ty ~ CA.ConstantArray 5 (CA.ConstantArray 3 Another_typedef_enum_e)
          ) => BG.CompatHasField.HasField "a_typedef_struct_t_field_10" A_typedef_struct_t ty where
 

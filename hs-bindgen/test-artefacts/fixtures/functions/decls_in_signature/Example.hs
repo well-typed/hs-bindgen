@@ -82,6 +82,12 @@ instance Marshal.WriteRaw Outside where
 
 deriving via Marshal.EquivStorable Outside instance BG.Storable Outside
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @functions\/decls_in_signature.h 4:7@
+
+    __exported by:__ @functions\/decls_in_signature.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "outside_x" Outside ty where
 
@@ -103,6 +109,12 @@ instance HasCField.HasCField Outside "outside_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @functions\/decls_in_signature.h 5:7@
+
+    __exported by:__ @functions\/decls_in_signature.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "outside_y" Outside ty where
 

@@ -237,6 +237,12 @@ instance Marshal.WriteRaw FileOperationRecord where
 
 deriving via Marshal.EquivStorable FileOperationRecord instance BG.Storable FileOperationRecord
 
+{-| __C declaration:__ @status@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h 17:28@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+-}
 instance ( ty ~ FileOperationStatus
          ) => BG.CompatHasField.HasField "fileOperationRecord_status" FileOperationRecord ty where
 
@@ -262,6 +268,12 @@ instance HasCField.HasCField FileOperationRecord "fileOperationRecord_status" wh
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @bytes_processed@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h 18:10@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
          ) => BG.CompatHasField.HasField "fileOperationRecord_bytes_processed" FileOperationRecord ty where
 

@@ -1225,6 +1225,12 @@ instance Marshal.WriteRaw Example_struct where
 
 deriving via Marshal.EquivStorable Example_struct instance BG.Storable Example_struct
 
+{-| __C declaration:__ @field1@
+
+    __defined at:__ @macros\/reparse.h 152:8@
+
+    __exported by:__ @macros\/reparse.h@
+-}
 instance ( ty ~ A
          ) => BG.CompatHasField.HasField "example_struct_field1" Example_struct ty where
 
@@ -1251,6 +1257,12 @@ instance HasCField.HasCField Example_struct "example_struct_field1" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @field2@
+
+    __defined at:__ @macros\/reparse.h 153:8@
+
+    __exported by:__ @macros\/reparse.h@
+-}
 instance ( ty ~ BG.Ptr A
          ) => BG.CompatHasField.HasField "example_struct_field2" Example_struct ty where
 
@@ -1277,6 +1289,12 @@ instance HasCField.HasCField Example_struct "example_struct_field2" where
 
   offset# = \_ -> \_ -> 8
 
+{-| __C declaration:__ @field3@
+
+    __defined at:__ @macros\/reparse.h 154:8@
+
+    __exported by:__ @macros\/reparse.h@
+-}
 instance ( ty ~ BG.Ptr (BG.Ptr A)
          ) => BG.CompatHasField.HasField "example_struct_field3" Example_struct ty where
 
@@ -1705,6 +1723,12 @@ instance Marshal.WriteRaw Example_struct_with_const where
 
 deriving via Marshal.EquivStorable Example_struct_with_const instance BG.Storable Example_struct_with_const
 
+{-| __C declaration:__ @const_field1@
+
+    __defined at:__ @macros\/reparse.h 227:19@
+
+    __exported by:__ @macros\/reparse.h@
+-}
 instance ( ty ~ A
          ) => BG.CompatHasField.HasField "example_struct_with_const_const_field1" Example_struct_with_const ty where
 
@@ -1735,6 +1759,12 @@ instance HasCField.HasCField Example_struct_with_const "example_struct_with_cons
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @const_field2@
+
+    __defined at:__ @macros\/reparse.h 228:19@
+
+    __exported by:__ @macros\/reparse.h@
+-}
 instance ( ty ~ A
          ) => BG.CompatHasField.HasField "example_struct_with_const_const_field2" Example_struct_with_const ty where
 
@@ -1765,6 +1795,12 @@ instance HasCField.HasCField Example_struct_with_const "example_struct_with_cons
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @const_field3@
+
+    __defined at:__ @macros\/reparse.h 229:19@
+
+    __exported by:__ @macros\/reparse.h@
+-}
 instance ( ty ~ PtrConst.PtrConst A
          ) => BG.CompatHasField.HasField "example_struct_with_const_const_field3" Example_struct_with_const ty where
 
@@ -1795,6 +1831,12 @@ instance HasCField.HasCField Example_struct_with_const "example_struct_with_cons
 
   offset# = \_ -> \_ -> 8
 
+{-| __C declaration:__ @const_field4@
+
+    __defined at:__ @macros\/reparse.h 230:19@
+
+    __exported by:__ @macros\/reparse.h@
+-}
 instance ( ty ~ PtrConst.PtrConst A
          ) => BG.CompatHasField.HasField "example_struct_with_const_const_field4" Example_struct_with_const ty where
 
@@ -1825,6 +1867,12 @@ instance HasCField.HasCField Example_struct_with_const "example_struct_with_cons
 
   offset# = \_ -> \_ -> 16
 
+{-| __C declaration:__ @const_field5@
+
+    __defined at:__ @macros\/reparse.h 231:19@
+
+    __exported by:__ @macros\/reparse.h@
+-}
 instance ( ty ~ BG.Ptr A
          ) => BG.CompatHasField.HasField "example_struct_with_const_const_field5" Example_struct_with_const ty where
 
@@ -1855,6 +1903,12 @@ instance HasCField.HasCField Example_struct_with_const "example_struct_with_cons
 
   offset# = \_ -> \_ -> 24
 
+{-| __C declaration:__ @const_field6@
+
+    __defined at:__ @macros\/reparse.h 232:19@
+
+    __exported by:__ @macros\/reparse.h@
+-}
 instance ( ty ~ PtrConst.PtrConst A
          ) => BG.CompatHasField.HasField "example_struct_with_const_const_field6" Example_struct_with_const ty where
 
@@ -1885,6 +1939,12 @@ instance HasCField.HasCField Example_struct_with_const "example_struct_with_cons
 
   offset# = \_ -> \_ -> 32
 
+{-| __C declaration:__ @const_field7@
+
+    __defined at:__ @macros\/reparse.h 233:19@
+
+    __exported by:__ @macros\/reparse.h@
+-}
 instance ( ty ~ PtrConst.PtrConst A
          ) => BG.CompatHasField.HasField "example_struct_with_const_const_field7" Example_struct_with_const ty where
 

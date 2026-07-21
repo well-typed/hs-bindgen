@@ -190,6 +190,12 @@ instance Marshal.WriteRaw ExA where
 
 deriving via Marshal.EquivStorable ExA instance BG.Storable ExA
 
+{-| __C declaration:__ @fieldA1@
+
+    __defined at:__ @types\/enums\/nested_enums.h 5:11@
+
+    __exported by:__ @types\/enums\/nested_enums.h@
+-}
 instance (ty ~ EnumA) => BG.CompatHasField.HasField "exA_fieldA1" ExA ty where
 
   hasField =
@@ -368,6 +374,12 @@ instance Marshal.WriteRaw ExB where
 
 deriving via Marshal.EquivStorable ExB instance BG.Storable ExB
 
+{-| __C declaration:__ @fieldB1@
+
+    __defined at:__ @types\/enums\/nested_enums.h 12:11@
+
+    __exported by:__ @types\/enums\/nested_enums.h@
+-}
 instance ( ty ~ ExB_fieldB1
          ) => BG.CompatHasField.HasField "exB_fieldB1" ExB ty where
 

@@ -77,6 +77,12 @@ instance Marshal.WriteRaw Bools1 where
 
 deriving via Marshal.EquivStorable Bools1 instance BG.Storable Bools1
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/primitives\/bool.h 2:11@
+
+    __exported by:__ @types\/primitives\/bool.h@
+-}
 instance ( ty ~ BG.CBool
          ) => BG.CompatHasField.HasField "bools1_x" Bools1 ty where
 
@@ -98,6 +104,12 @@ instance HasCField.HasCField Bools1 "bools1_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/primitives\/bool.h 3:11@
+
+    __exported by:__ @types\/primitives\/bool.h@
+-}
 instance ( ty ~ BG.CBool
          ) => BG.CompatHasField.HasField "bools1_y" Bools1 ty where
 
@@ -169,6 +181,12 @@ instance Marshal.WriteRaw Bools2 where
 
 deriving via Marshal.EquivStorable Bools2 instance BG.Storable Bools2
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/primitives\/bool.h 9:10@
+
+    __exported by:__ @types\/primitives\/bool.h@
+-}
 instance ( ty ~ BG.CBool
          ) => BG.CompatHasField.HasField "bools2_x" Bools2 ty where
 
@@ -190,6 +208,12 @@ instance HasCField.HasCField Bools2 "bools2_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/primitives\/bool.h 10:10@
+
+    __exported by:__ @types\/primitives\/bool.h@
+-}
 instance ( ty ~ BG.CBool
          ) => BG.CompatHasField.HasField "bools2_y" Bools2 ty where
 
@@ -308,6 +332,12 @@ instance Marshal.WriteRaw Bools3 where
 
 deriving via Marshal.EquivStorable Bools3 instance BG.Storable Bools3
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/primitives\/bool.h 16:10@
+
+    __exported by:__ @types\/primitives\/bool.h@
+-}
 instance (ty ~ BOOL) => BG.CompatHasField.HasField "bools3_x" Bools3 ty where
 
   hasField =
@@ -327,6 +357,12 @@ instance HasCField.HasCField Bools3 "bools3_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/primitives\/bool.h 17:10@
+
+    __exported by:__ @types\/primitives\/bool.h@
+-}
 instance (ty ~ BOOL) => BG.CompatHasField.HasField "bools3_y" Bools3 ty where
 
   hasField =

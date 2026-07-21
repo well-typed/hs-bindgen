@@ -161,6 +161,12 @@ instance Marshal.WriteRaw Struct1 where
 
 deriving via Marshal.EquivStorable Struct1 instance BG.Storable Struct1
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 18:30@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "struct1_a" Struct1 ty where
 
@@ -221,6 +227,12 @@ instance Marshal.WriteRaw Struct2 where
 
 deriving via Marshal.EquivStorable Struct2 instance BG.Storable Struct2
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 19:30@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "struct2_a" Struct2 ty where
 
@@ -281,6 +293,12 @@ instance Marshal.WriteRaw Struct3 where
 
 deriving via Marshal.EquivStorable Struct3 instance BG.Storable Struct3
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:30@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "struct3_a" Struct3 ty where
 
@@ -378,6 +396,12 @@ instance Marshal.WriteRaw Struct4 where
 
 deriving via Marshal.EquivStorable Struct4 instance BG.Storable Struct4
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 21:30@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "struct4_a" Struct4 ty where
 

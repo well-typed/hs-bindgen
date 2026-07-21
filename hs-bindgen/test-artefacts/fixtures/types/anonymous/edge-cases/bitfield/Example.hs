@@ -69,6 +69,12 @@ instance Marshal.WriteRaw S1_anon'y where
 
 deriving via Marshal.EquivStorable S1_anon'y instance BG.Storable S1_anon'y
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 14:10@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
+-}
 instance ( ty ~ BG.CChar
          ) => BG.CompatHasField.HasField "s1_anon'y_y" S1_anon'y ty where
 
@@ -141,6 +147,12 @@ instance Marshal.WriteRaw S1 where
 
 deriving via Marshal.EquivStorable S1 instance BG.Storable S1
 
+{-| __C declaration:__ @anon\'y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 13:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
+-}
 instance (ty ~ S1_anon'y) => BG.CompatHasField.HasField "s1_anon'y" S1 ty where
 
   hasField =
@@ -161,6 +173,12 @@ instance HasCField.HasCField S1 "s1_anon'y" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 16:7@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s1_x" S1 ty where
 
   hasField =
@@ -221,6 +239,12 @@ instance Marshal.WriteRaw S2_anon'anon'y_anon'y where
 
 deriving via Marshal.EquivStorable S2_anon'anon'y_anon'y instance BG.Storable S2_anon'anon'y_anon'y
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 22:12@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
+-}
 instance ( ty ~ BG.CChar
          ) => BG.CompatHasField.HasField "s2_anon'anon'y_anon'y_y" S2_anon'anon'y_anon'y ty where
 
@@ -296,6 +320,12 @@ instance Marshal.WriteRaw S2_anon'anon'y where
 
 deriving via Marshal.EquivStorable S2_anon'anon'y instance BG.Storable S2_anon'anon'y
 
+{-| __C declaration:__ @anon\'y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 21:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
+-}
 instance ( ty ~ S2_anon'anon'y_anon'y
          ) => BG.CompatHasField.HasField "s2_anon'anon'y_anon'y" S2_anon'anon'y ty where
 
@@ -321,6 +351,12 @@ instance HasCField.HasCField S2_anon'anon'y "s2_anon'anon'y_anon'y" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 24:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "s2_anon'anon'y_x" S2_anon'anon'y ty where
 
@@ -387,6 +423,12 @@ instance Marshal.WriteRaw S2 where
 
 deriving via Marshal.EquivStorable S2 instance BG.Storable S2
 
+{-| __C declaration:__ @anon\'anon\'y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 20:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/bitfield.h@
+-}
 instance ( ty ~ S2_anon'anon'y
          ) => BG.CompatHasField.HasField "s2_anon'anon'y" S2 ty where
 

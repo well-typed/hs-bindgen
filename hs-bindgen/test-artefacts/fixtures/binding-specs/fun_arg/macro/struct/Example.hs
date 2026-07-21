@@ -68,6 +68,12 @@ instance Marshal.WriteRaw MyStruct where
 
 deriving via Marshal.EquivStorable MyStruct instance BG.Storable MyStruct
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 6:7@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "myStruct_x" MyStruct ty where
 

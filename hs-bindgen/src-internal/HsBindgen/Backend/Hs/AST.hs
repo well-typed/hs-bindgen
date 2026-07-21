@@ -69,7 +69,6 @@ module HsBindgen.Backend.Hs.AST (
     -- ** 'GHC.Records.Compat.HasField'
   , HasFieldCompatInstance(..)
   , HasFieldCompatImpl(..)
-  , HasFieldCompatImplRecord(..)
     -- ** 'GHC.Records.HasField' for the pointer manipulation API
   , HasFieldPtrInstance(..)
   , HasFieldPtrInstanceVia(..)
@@ -700,7 +699,10 @@ data HasFieldInstance = HasFieldInstance {
     }
   deriving stock (Generic, Show)
 
-data HasFieldImpl = HasFieldImplUnion
+-- | 'GHC.Records.HasField.getField' implementation
+data HasFieldImpl =
+    -- | unions
+    HasFieldImplUnion
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
@@ -726,17 +728,12 @@ data HasFieldCompatInstance = HasFieldCompatInstance {
 -- | 'GHC.Records.Compat.HasField.hasField' implementation
 data HasFieldCompatImpl =
     -- | structs, typedefs, enums, and macro types
-    HasFieldCompatImplRecord HasFieldCompatImplRecord
+    HasFieldCompatImplRecord {
+        constr :: Hs.Name Hs.NsConstr
+      , otherFields :: [Hs.Name Hs.NsVar]
+      }
     -- | unions
   | HasFieldCompatImplUnion
-  deriving stock (Generic, Show)
-
--- | 'GHC.Records.Compat.HasField.hasField' for C types that are translated to
--- Haskell record types
-data HasFieldCompatImplRecord = HFCImplRecord {
-    constr :: Hs.Name Hs.NsConstr
-  , otherFields :: [Hs.Name Hs.NsVar]
-  }
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------

@@ -89,6 +89,12 @@ instance Marshal.WriteRaw AnonPoint where
 
 deriving via Marshal.EquivStorable AnonPoint instance BG.Storable AnonPoint
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @globals\/untagged.h 12:14@
+
+    __exported by:__ @globals\/untagged.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "anonPoint_x" AnonPoint ty where
 
@@ -111,6 +117,12 @@ instance HasCField.HasCField AnonPoint "anonPoint_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @globals\/untagged.h 12:21@
+
+    __exported by:__ @globals\/untagged.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "anonPoint_y" AnonPoint ty where
 
@@ -183,6 +195,12 @@ instance Marshal.WriteRaw AnonPair where
 
 deriving via Marshal.EquivStorable AnonPair instance BG.Storable AnonPair
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @globals\/untagged.h 14:14@
+
+    __exported by:__ @globals\/untagged.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "anonPair_a" AnonPair ty where
 
@@ -204,6 +222,12 @@ instance HasCField.HasCField AnonPair "anonPair_a" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @globals\/untagged.h 14:21@
+
+    __exported by:__ @globals\/untagged.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "anonPair_b" AnonPair ty where
 
@@ -653,6 +677,12 @@ instance Marshal.WriteRaw C where
 
 deriving via Marshal.EquivStorable C instance BG.Storable C
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @globals\/untagged.h 30:14@
+
+    __exported by:__ @globals\/untagged.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "c_x" C ty where
 
   hasField =

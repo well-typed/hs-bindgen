@@ -84,6 +84,12 @@ instance Marshal.WriteRaw Complex_object_t where
 
 deriving via Marshal.EquivStorable Complex_object_t instance BG.Storable Complex_object_t
 
+{-| __C declaration:__ @velocity@
+
+    __defined at:__ @types\/complex\/hsb_complex_test.h 25:20@
+
+    __exported by:__ @types\/complex\/hsb_complex_test.h@
+-}
 instance ( ty ~ BG.Complex BG.CFloat
          ) => BG.CompatHasField.HasField "complex_object_t_velocity" Complex_object_t ty where
 
@@ -110,6 +116,12 @@ instance HasCField.HasCField Complex_object_t "complex_object_t_velocity" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @position@
+
+    __defined at:__ @types\/complex\/hsb_complex_test.h 26:20@
+
+    __exported by:__ @types\/complex\/hsb_complex_test.h@
+-}
 instance ( ty ~ BG.Complex BG.CDouble
          ) => BG.CompatHasField.HasField "complex_object_t_position" Complex_object_t ty where
 
@@ -136,6 +148,12 @@ instance HasCField.HasCField Complex_object_t "complex_object_t_position" where
 
   offset# = \_ -> \_ -> 8
 
+{-| __C declaration:__ @id@
+
+    __defined at:__ @types\/complex\/hsb_complex_test.h 27:9@
+
+    __exported by:__ @types\/complex\/hsb_complex_test.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "complex_object_t_id" Complex_object_t ty where
 

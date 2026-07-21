@@ -78,6 +78,14 @@ instance Marshal.WriteRaw Banner_point where
 
 deriving via Marshal.EquivStorable Banner_point instance BG.Storable Banner_point
 
+{-| X coordinate
+
+    __C declaration:__ @x@
+
+    __defined at:__ @documentation\/javadoc_banner.h 23:9@
+
+    __exported by:__ @documentation\/javadoc_banner.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "banner_point_x" Banner_point ty where
 
@@ -101,6 +109,14 @@ instance HasCField.HasCField Banner_point "banner_point_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| Y coordinate
+
+    __C declaration:__ @y@
+
+    __defined at:__ @documentation\/javadoc_banner.h 28:9@
+
+    __exported by:__ @documentation\/javadoc_banner.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "banner_point_y" Banner_point ty where
 

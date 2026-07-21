@@ -122,6 +122,12 @@ instance Marshal.WriteRaw Foo_8 where
 
 deriving via Marshal.EquivStorable Foo_8 instance BG.Storable Foo_8
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/bitfields.h 6:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance (ty ~ BG.CSChar) => BG.CompatHasField.HasField "foo_8_a" Foo_8 ty where
 
   hasField =
@@ -150,6 +156,12 @@ instance HasCBitfield.HasCBitfield Foo_8 "foo_8_a" where
 
   bitfieldWidth# = \_ -> \_ -> 3
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/bitfields.h 7:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance (ty ~ BG.CSChar) => BG.CompatHasField.HasField "foo_8_b" Foo_8 ty where
 
   hasField =
@@ -178,6 +190,12 @@ instance HasCBitfield.HasCBitfield Foo_8 "foo_8_b" where
 
   bitfieldWidth# = \_ -> \_ -> 3
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @types\/structs\/bitfields.h 8:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance (ty ~ BG.CSChar) => BG.CompatHasField.HasField "foo_8_c" Foo_8 ty where
 
   hasField =
@@ -206,6 +224,12 @@ instance HasCBitfield.HasCBitfield Foo_8 "foo_8_c" where
 
   bitfieldWidth# = \_ -> \_ -> 2
 
+{-| __C declaration:__ @d@
+
+    __defined at:__ @types\/structs\/bitfields.h 9:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance (ty ~ BG.CSChar) => BG.CompatHasField.HasField "foo_8_d" Foo_8 ty where
 
   hasField =
@@ -234,6 +258,12 @@ instance HasCBitfield.HasCBitfield Foo_8 "foo_8_d" where
 
   bitfieldWidth# = \_ -> \_ -> 3
 
+{-| __C declaration:__ @e@
+
+    __defined at:__ @types\/structs\/bitfields.h 10:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance (ty ~ BG.CSChar) => BG.CompatHasField.HasField "foo_8_e" Foo_8 ty where
 
   hasField =
@@ -262,6 +292,12 @@ instance HasCBitfield.HasCBitfield Foo_8 "foo_8_e" where
 
   bitfieldWidth# = \_ -> \_ -> 8
 
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/structs\/bitfields.h 11:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance (ty ~ BG.CSChar) => BG.CompatHasField.HasField "foo_8_f" Foo_8 ty where
 
   hasField =
@@ -376,6 +412,12 @@ instance Marshal.WriteRaw Foo_16 where
 
 deriving via Marshal.EquivStorable Foo_16 instance BG.Storable Foo_16
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/bitfields.h 16:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CSChar
          ) => BG.CompatHasField.HasField "foo_16_a" Foo_16 ty where
 
@@ -405,6 +447,12 @@ instance HasCBitfield.HasCBitfield Foo_16 "foo_16_a" where
 
   bitfieldWidth# = \_ -> \_ -> 6
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/bitfields.h 17:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo_16_b" Foo_16 ty where
 
   hasField =
@@ -433,6 +481,12 @@ instance HasCBitfield.HasCBitfield Foo_16 "foo_16_b" where
 
   bitfieldWidth# = \_ -> \_ -> 10
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @types\/structs\/bitfields.h 18:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo_16_c" Foo_16 ty where
 
   hasField =
@@ -461,6 +515,12 @@ instance HasCBitfield.HasCBitfield Foo_16 "foo_16_c" where
 
   bitfieldWidth# = \_ -> \_ -> 16
 
+{-| __C declaration:__ @d@
+
+    __defined at:__ @types\/structs\/bitfields.h 19:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo_16_d" Foo_16 ty where
 
   hasField =
@@ -489,6 +549,12 @@ instance HasCBitfield.HasCBitfield Foo_16 "foo_16_d" where
 
   bitfieldWidth# = \_ -> \_ -> 16
 
+{-| __C declaration:__ @e@
+
+    __defined at:__ @types\/structs\/bitfields.h 20:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo_16_e" Foo_16 ty where
 
   hasField =
@@ -517,6 +583,12 @@ instance HasCBitfield.HasCBitfield Foo_16 "foo_16_e" where
 
   bitfieldWidth# = \_ -> \_ -> 12
 
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/structs\/bitfields.h 21:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo_16_f" Foo_16 ty where
 
   hasField =
@@ -640,6 +712,12 @@ instance Marshal.WriteRaw Foo_32 where
 
 deriving via Marshal.EquivStorable Foo_32 instance BG.Storable Foo_32
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/bitfields.h 26:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CSChar
          ) => BG.CompatHasField.HasField "foo_32_a" Foo_32 ty where
 
@@ -670,6 +748,12 @@ instance HasCBitfield.HasCBitfield Foo_32 "foo_32_a" where
 
   bitfieldWidth# = \_ -> \_ -> 6
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/bitfields.h 27:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo_32_b" Foo_32 ty where
 
   hasField =
@@ -699,6 +783,12 @@ instance HasCBitfield.HasCBitfield Foo_32 "foo_32_b" where
 
   bitfieldWidth# = \_ -> \_ -> 12
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @types\/structs\/bitfields.h 28:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo_32_c" Foo_32 ty where
 
   hasField =
@@ -728,6 +818,12 @@ instance HasCBitfield.HasCBitfield Foo_32 "foo_32_c" where
 
   bitfieldWidth# = \_ -> \_ -> 14
 
+{-| __C declaration:__ @d@
+
+    __defined at:__ @types\/structs\/bitfields.h 29:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo_32_d" Foo_32 ty where
 
   hasField =
@@ -757,6 +853,12 @@ instance HasCBitfield.HasCBitfield Foo_32 "foo_32_d" where
 
   bitfieldWidth# = \_ -> \_ -> 10
 
+{-| __C declaration:__ @e@
+
+    __defined at:__ @types\/structs\/bitfields.h 30:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CLong
          ) => BG.CompatHasField.HasField "foo_32_e" Foo_32 ty where
 
@@ -787,6 +889,12 @@ instance HasCBitfield.HasCBitfield Foo_32 "foo_32_e" where
 
   bitfieldWidth# = \_ -> \_ -> 32
 
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/structs\/bitfields.h 31:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo_32_f" Foo_32 ty where
 
   hasField =
@@ -816,6 +924,12 @@ instance HasCBitfield.HasCBitfield Foo_32 "foo_32_f" where
 
   bitfieldWidth# = \_ -> \_ -> 6
 
+{-| __C declaration:__ @g@
+
+    __defined at:__ @types\/structs\/bitfields.h 32:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CLong
          ) => BG.CompatHasField.HasField "foo_32_g" Foo_32 ty where
 
@@ -914,6 +1028,12 @@ instance Marshal.WriteRaw Foo_64 where
 
 deriving via Marshal.EquivStorable Foo_64 instance BG.Storable Foo_64
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/bitfields.h 37:20@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CLong
          ) => BG.CompatHasField.HasField "foo_64_a" Foo_64 ty where
 
@@ -941,6 +1061,12 @@ instance HasCBitfield.HasCBitfield Foo_64 "foo_64_a" where
 
   bitfieldWidth# = \_ -> \_ -> 24
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/bitfields.h 38:20@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CLLong
          ) => BG.CompatHasField.HasField "foo_64_b" Foo_64 ty where
 
@@ -968,6 +1094,12 @@ instance HasCBitfield.HasCBitfield Foo_64 "foo_64_b" where
 
   bitfieldWidth# = \_ -> \_ -> 40
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @types\/structs\/bitfields.h 39:20@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CLLong
          ) => BG.CompatHasField.HasField "foo_64_c" Foo_64 ty where
 
@@ -995,6 +1127,12 @@ instance HasCBitfield.HasCBitfield Foo_64 "foo_64_c" where
 
   bitfieldWidth# = \_ -> \_ -> 64
 
+{-| __C declaration:__ @d@
+
+    __defined at:__ @types\/structs\/bitfields.h 40:20@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CLLong
          ) => BG.CompatHasField.HasField "foo_64_d" Foo_64 ty where
 
@@ -1072,6 +1210,12 @@ instance Marshal.WriteRaw Bar_8_8 where
 
 deriving via Marshal.EquivStorable Bar_8_8 instance BG.Storable Bar_8_8
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/bitfields.h 45:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CSChar
          ) => BG.CompatHasField.HasField "bar_8_8_a" Bar_8_8 ty where
 
@@ -1095,6 +1239,12 @@ instance HasCBitfield.HasCBitfield Bar_8_8 "bar_8_8_a" where
 
   bitfieldWidth# = \_ -> \_ -> 6
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/bitfields.h 46:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "bar_8_8_b" Bar_8_8 ty where
 
@@ -1168,6 +1318,12 @@ instance Marshal.WriteRaw Bar_8_16 where
 
 deriving via Marshal.EquivStorable Bar_8_16 instance BG.Storable Bar_8_16
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/bitfields.h 51:14@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "bar_8_16_a" Bar_8_16 ty where
 
@@ -1192,6 +1348,12 @@ instance HasCBitfield.HasCBitfield Bar_8_16 "bar_8_16_a" where
 
   bitfieldWidth# = \_ -> \_ -> 14
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/bitfields.h 52:14@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "bar_8_16_b" Bar_8_16 ty where
 
@@ -1266,6 +1428,12 @@ instance Marshal.WriteRaw Bar_8_32 where
 
 deriving via Marshal.EquivStorable Bar_8_32 instance BG.Storable Bar_8_32
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/bitfields.h 57:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CLong
          ) => BG.CompatHasField.HasField "bar_8_32_a" Bar_8_32 ty where
 
@@ -1290,6 +1458,12 @@ instance HasCBitfield.HasCBitfield Bar_8_32 "bar_8_32_a" where
 
   bitfieldWidth# = \_ -> \_ -> 30
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/bitfields.h 58:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "bar_8_32_b" Bar_8_32 ty where
 
@@ -1364,6 +1538,12 @@ instance Marshal.WriteRaw Bar_8_64 where
 
 deriving via Marshal.EquivStorable Bar_8_64 instance BG.Storable Bar_8_64
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/bitfields.h 63:20@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CLLong
          ) => BG.CompatHasField.HasField "bar_8_64_a" Bar_8_64 ty where
 
@@ -1388,6 +1568,12 @@ instance HasCBitfield.HasCBitfield Bar_8_64 "bar_8_64_a" where
 
   bitfieldWidth# = \_ -> \_ -> 62
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/bitfields.h 64:20@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "bar_8_64_b" Bar_8_64 ty where
 
@@ -1462,6 +1648,12 @@ instance Marshal.WriteRaw Bar_16_16 where
 
 deriving via Marshal.EquivStorable Bar_16_16 instance BG.Storable Bar_16_16
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/bitfields.h 69:14@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "bar_16_16_a" Bar_16_16 ty where
 
@@ -1486,6 +1678,12 @@ instance HasCBitfield.HasCBitfield Bar_16_16 "bar_16_16_a" where
 
   bitfieldWidth# = \_ -> \_ -> 14
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/bitfields.h 70:14@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "bar_16_16_b" Bar_16_16 ty where
 
@@ -1560,6 +1758,12 @@ instance Marshal.WriteRaw Bar_16_32 where
 
 deriving via Marshal.EquivStorable Bar_16_32 instance BG.Storable Bar_16_32
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/bitfields.h 75:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CLong
          ) => BG.CompatHasField.HasField "bar_16_32_a" Bar_16_32 ty where
 
@@ -1584,6 +1788,12 @@ instance HasCBitfield.HasCBitfield Bar_16_32 "bar_16_32_a" where
 
   bitfieldWidth# = \_ -> \_ -> 24
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/bitfields.h 76:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "bar_16_32_b" Bar_16_32 ty where
 
@@ -1658,6 +1868,12 @@ instance Marshal.WriteRaw Bar_16_64 where
 
 deriving via Marshal.EquivStorable Bar_16_64 instance BG.Storable Bar_16_64
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/bitfields.h 81:20@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CLLong
          ) => BG.CompatHasField.HasField "bar_16_64_a" Bar_16_64 ty where
 
@@ -1683,6 +1899,12 @@ instance HasCBitfield.HasCBitfield Bar_16_64 "bar_16_64_a" where
 
   bitfieldWidth# = \_ -> \_ -> 56
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/bitfields.h 82:20@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "bar_16_64_b" Bar_16_64 ty where
 
@@ -1757,6 +1979,12 @@ instance Marshal.WriteRaw Bar_32_32 where
 
 deriving via Marshal.EquivStorable Bar_32_32 instance BG.Storable Bar_32_32
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/bitfields.h 87:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CLong
          ) => BG.CompatHasField.HasField "bar_32_32_a" Bar_32_32 ty where
 
@@ -1781,6 +2009,12 @@ instance HasCBitfield.HasCBitfield Bar_32_32 "bar_32_32_a" where
 
   bitfieldWidth# = \_ -> \_ -> 30
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/bitfields.h 88:15@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CLong
          ) => BG.CompatHasField.HasField "bar_32_32_b" Bar_32_32 ty where
 
@@ -1855,6 +2089,12 @@ instance Marshal.WriteRaw Bar_32_64 where
 
 deriving via Marshal.EquivStorable Bar_32_64 instance BG.Storable Bar_32_64
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/bitfields.h 93:20@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CLLong
          ) => BG.CompatHasField.HasField "bar_32_64_a" Bar_32_64 ty where
 
@@ -1880,6 +2120,12 @@ instance HasCBitfield.HasCBitfield Bar_32_64 "bar_32_64_a" where
 
   bitfieldWidth# = \_ -> \_ -> 56
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/bitfields.h 94:20@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CLong
          ) => BG.CompatHasField.HasField "bar_32_64_b" Bar_32_64 ty where
 
@@ -1954,6 +2200,12 @@ instance Marshal.WriteRaw Bar_64_64 where
 
 deriving via Marshal.EquivStorable Bar_64_64 instance BG.Storable Bar_64_64
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/bitfields.h 99:20@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CLLong
          ) => BG.CompatHasField.HasField "bar_64_64_a" Bar_64_64 ty where
 
@@ -1979,6 +2231,12 @@ instance HasCBitfield.HasCBitfield Bar_64_64 "bar_64_64_a" where
 
   bitfieldWidth# = \_ -> \_ -> 56
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/bitfields.h 100:20@
+
+    __exported by:__ @types\/structs\/bitfields.h@
+-}
 instance ( ty ~ BG.CLLong
          ) => BG.CompatHasField.HasField "bar_64_64_b" Bar_64_64 ty where
 

@@ -174,6 +174,8 @@
 * Add `enum` specification to the C type specification of binding
   specifications, enabling users to specify a C `enum` as `closed` so that we
   generate a `COMPLETE` pragma for the declared patterns.
+* Add haddock comments to `HasField` instance for struct fields. See [PR
+  #2150][pr-2150].
 
 ### Minor changes
 
@@ -327,6 +329,7 @@
 [pr-2087]: https://github.com/well-typed/hs-bindgen/pull/2087
 [pr-2091]: https://github.com/well-typed/hs-bindgen/pull/2091
 [pr-2094]: https://github.com/well-typed/hs-bindgen/pull/2094
+[pr-2150]: https://github.com/well-typed/hs-bindgen/pull/2150
 [pr-2153]: https://github.com/well-typed/hs-bindgen/pull/2153
 
 ## 0.1.0-alpha2 -- 2026-03-27

@@ -510,6 +510,14 @@ instance Marshal.WriteRaw Config_t where
 
 deriving via Marshal.EquivStorable Config_t instance BG.Storable Config_t
 
+{-| Unique identifier.
+
+    __C declaration:__ @id@
+
+    __defined at:__ @documentation\/doxygen_docs.h 240:14@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
          ) => BG.CompatHasField.HasField "config_t_id" Config_t ty where
 
@@ -538,6 +546,14 @@ instance HasCField.HasCField Config_t "config_t_id" where
 
   offset# = \_ -> \_ -> 0
 
+{-| Human-readable name.
+
+    __C declaration:__ @name@
+
+    __defined at:__ @documentation\/doxygen_docs.h 243:10@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ CA.ConstantArray 64 BG.CChar
          ) => BG.CompatHasField.HasField "config_t_name" Config_t ty where
 
@@ -566,6 +582,14 @@ instance HasCField.HasCField Config_t "config_t_name" where
 
   offset# = \_ -> \_ -> 4
 
+{-| Configuration flags.
+
+    __C declaration:__ @flags@
+
+    __defined at:__ @documentation\/doxygen_docs.h 246:14@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.Word32
          ) => BG.CompatHasField.HasField "config_t_flags" Config_t ty where
 
@@ -594,6 +618,16 @@ instance HasCField.HasCField Config_t "config_t_flags" where
 
   offset# = \_ -> \_ -> 68
 
+{-| Optional callback function.
+
+    See also: 'Event_callback_t'
+
+    __C declaration:__ @callback@
+
+    __defined at:__ @documentation\/doxygen_docs.h 253:22@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ Event_callback_t
          ) => BG.CompatHasField.HasField "config_t_callback" Config_t ty where
 
@@ -622,6 +656,14 @@ instance HasCField.HasCField Config_t "config_t_callback" where
 
   offset# = \_ -> \_ -> 72
 
+{-| User data for callback.
+
+    __C declaration:__ @user_data@
+
+    __defined at:__ @documentation\/doxygen_docs.h 256:11@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.Ptr BG.Void
          ) => BG.CompatHasField.HasField "config_t_user_data" Config_t ty where
 
@@ -858,6 +900,14 @@ instance Marshal.WriteRaw Data_union_t_as_parts where
 
 deriving via Marshal.EquivStorable Data_union_t_as_parts instance BG.Storable Data_union_t_as_parts
 
+{-| Low 16 bits.
+
+    __C declaration:__ @low@
+
+    __defined at:__ @documentation\/doxygen_docs.h 297:18@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
          ) => BG.CompatHasField.HasField "data_union_t_as_parts_low" Data_union_t_as_parts ty where
 
@@ -883,6 +933,14 @@ instance HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_low" w
 
   offset# = \_ -> \_ -> 0
 
+{-| High 16 bits.
+
+    __C declaration:__ @high@
+
+    __defined at:__ @documentation\/doxygen_docs.h 298:18@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
          ) => BG.CompatHasField.HasField "data_union_t_as_parts_high" Data_union_t_as_parts ty where
 
@@ -1185,6 +1243,14 @@ instance Marshal.WriteRaw Bitfield_t where
 
 deriving via Marshal.EquivStorable Bitfield_t instance BG.Storable Bitfield_t
 
+{-| First flag (1 bit).
+
+    __C declaration:__ @flag1@
+
+    __defined at:__ @documentation\/doxygen_docs.h 309:14@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CUInt
          ) => BG.CompatHasField.HasField "bitfield_t_flag1" Bitfield_t ty where
 
@@ -1214,6 +1280,14 @@ instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_flag1" where
 
   bitfieldWidth# = \_ -> \_ -> 1
 
+{-| Second flag (1 bit).
+
+    __C declaration:__ @flag2@
+
+    __defined at:__ @documentation\/doxygen_docs.h 310:14@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CUInt
          ) => BG.CompatHasField.HasField "bitfield_t_flag2" Bitfield_t ty where
 
@@ -1243,6 +1317,14 @@ instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_flag2" where
 
   bitfieldWidth# = \_ -> \_ -> 1
 
+{-| Counter value (6 bits).
+
+    __C declaration:__ @counter@
+
+    __defined at:__ @documentation\/doxygen_docs.h 311:14@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CUInt
          ) => BG.CompatHasField.HasField "bitfield_t_counter" Bitfield_t ty where
 
@@ -1272,6 +1354,14 @@ instance HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_counter" where
 
   bitfieldWidth# = \_ -> \_ -> 6
 
+{-| Reserved bits (24 bits).
+
+    __C declaration:__ @reserved@
+
+    __defined at:__ @documentation\/doxygen_docs.h 312:14@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CUInt
          ) => BG.CompatHasField.HasField "bitfield_t_reserved" Bitfield_t ty where
 
@@ -1509,6 +1599,14 @@ instance Marshal.WriteRaw Flexible_array_Aux where
 
 deriving via Marshal.EquivStorable Flexible_array_Aux instance BG.Storable Flexible_array_Aux
 
+{-| Number of elements.
+
+    __C declaration:__ @count@
+
+    __defined at:__ @documentation\/doxygen_docs.h 366:12@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
          ) => BG.CompatHasField.HasField "flexible_array_count" Flexible_array_Aux ty where
 
@@ -1617,6 +1715,14 @@ instance Marshal.WriteRaw Dyn_array_t where
 
 deriving via Marshal.EquivStorable Dyn_array_t instance BG.Storable Dyn_array_t
 
+{-| Pointer to data.
+
+    __C declaration:__ @data@
+
+    __defined at:__ @documentation\/doxygen_docs.h 524:10@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.Ptr BG.CInt
          ) => BG.CompatHasField.HasField "dyn_array_t_data" Dyn_array_t ty where
 
@@ -1643,6 +1749,14 @@ instance HasCField.HasCField Dyn_array_t "dyn_array_t_data" where
 
   offset# = \_ -> \_ -> 0
 
+{-| Current number of elements.
+
+    __C declaration:__ @size@
+
+    __defined at:__ @documentation\/doxygen_docs.h 525:12@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
          ) => BG.CompatHasField.HasField "dyn_array_t_size" Dyn_array_t ty where
 
@@ -1669,6 +1783,14 @@ instance HasCField.HasCField Dyn_array_t "dyn_array_t_size" where
 
   offset# = \_ -> \_ -> 8
 
+{-| Allocated capacity.
+
+    __C declaration:__ @capacity@
+
+    __defined at:__ @documentation\/doxygen_docs.h 526:12@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.CSize
          ) => BG.CompatHasField.HasField "dyn_array_t_capacity" Dyn_array_t ty where
 
@@ -1749,6 +1871,14 @@ instance Marshal.WriteRaw Multi_anon_t_pos where
 
 deriving via Marshal.EquivStorable Multi_anon_t_pos instance BG.Storable Multi_anon_t_pos
 
+{-| X coordinate.
+
+    __C declaration:__ @x@
+
+    __defined at:__ @documentation\/doxygen_docs.h 587:15@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CFloat
          ) => BG.CompatHasField.HasField "multi_anon_t_pos_x" Multi_anon_t_pos ty where
 
@@ -1774,6 +1904,14 @@ instance HasCField.HasCField Multi_anon_t_pos "multi_anon_t_pos_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| Y coordinate.
+
+    __C declaration:__ @y@
+
+    __defined at:__ @documentation\/doxygen_docs.h 588:15@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CFloat
          ) => BG.CompatHasField.HasField "multi_anon_t_pos_y" Multi_anon_t_pos ty where
 
@@ -1853,6 +1991,14 @@ instance Marshal.WriteRaw Multi_anon_t_dim where
 
 deriving via Marshal.EquivStorable Multi_anon_t_dim instance BG.Storable Multi_anon_t_dim
 
+{-| Width.
+
+    __C declaration:__ @w@
+
+    __defined at:__ @documentation\/doxygen_docs.h 595:15@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CFloat
          ) => BG.CompatHasField.HasField "multi_anon_t_dim_w" Multi_anon_t_dim ty where
 
@@ -1878,6 +2024,14 @@ instance HasCField.HasCField Multi_anon_t_dim "multi_anon_t_dim_w" where
 
   offset# = \_ -> \_ -> 0
 
+{-| Height.
+
+    __C declaration:__ @h@
+
+    __defined at:__ @documentation\/doxygen_docs.h 596:15@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CFloat
          ) => BG.CompatHasField.HasField "multi_anon_t_dim_h" Multi_anon_t_dim ty where
 
@@ -1965,6 +2119,16 @@ instance Marshal.WriteRaw Multi_anon_t where
 
 deriving via Marshal.EquivStorable Multi_anon_t instance BG.Storable Multi_anon_t
 
+{-| Position in 2D space.
+
+    Position fields
+
+    __C declaration:__ @pos@
+
+    __defined at:__ @documentation\/doxygen_docs.h 589:30@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ Multi_anon_t_pos
          ) => BG.CompatHasField.HasField "multi_anon_t_pos" Multi_anon_t ty where
 
@@ -1988,6 +2152,16 @@ instance HasCField.HasCField Multi_anon_t "multi_anon_t_pos" where
 
   offset# = \_ -> \_ -> 0
 
+{-| Dimensions.
+
+    Dimension fields
+
+    __C declaration:__ @dim@
+
+    __defined at:__ @documentation\/doxygen_docs.h 597:31@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ Multi_anon_t_dim
          ) => BG.CompatHasField.HasField "multi_anon_t_dim" Multi_anon_t ty where
 
@@ -2067,6 +2241,14 @@ instance Marshal.WriteRaw Named_inner where
 
 deriving via Marshal.EquivStorable Named_inner instance BG.Storable Named_inner
 
+{-| Inner field nx
+
+    __C declaration:__ @nx@
+
+    __defined at:__ @documentation\/doxygen_docs.h 610:13@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "named_inner_nx" Named_inner ty where
 
@@ -2090,6 +2272,14 @@ instance HasCField.HasCField Named_inner "named_inner_nx" where
 
   offset# = \_ -> \_ -> 0
 
+{-| Inner field ny
+
+    __C declaration:__ @ny@
+
+    __defined at:__ @documentation\/doxygen_docs.h 612:13@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "named_inner_ny" Named_inner ty where
 
@@ -2169,6 +2359,12 @@ instance Marshal.WriteRaw Named_outer where
 
 deriving via Marshal.EquivStorable Named_outer instance BG.Storable Named_outer
 
+{-| __C declaration:__ @inner_field@
+
+    __defined at:__ @documentation\/doxygen_docs.h 613:7@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ Named_inner
          ) => BG.CompatHasField.HasField "named_outer_inner_field" Named_outer ty where
 
@@ -2194,6 +2390,14 @@ instance HasCField.HasCField Named_outer "named_outer_inner_field" where
 
   offset# = \_ -> \_ -> 0
 
+{-| Outer field nz
+
+    __C declaration:__ @nz@
+
+    __defined at:__ @documentation\/doxygen_docs.h 615:9@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "named_outer_nz" Named_outer ty where
 
@@ -2262,6 +2466,14 @@ instance Marshal.WriteRaw Deep_mid_anon_field where
 
 deriving via Marshal.EquivStorable Deep_mid_anon_field instance BG.Storable Deep_mid_anon_field
 
+{-| Deep anonymous field
+
+    __C declaration:__ @deep_a@
+
+    __defined at:__ @documentation\/doxygen_docs.h 631:17@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "deep_mid_anon_field_deep_a" Deep_mid_anon_field ty where
 
@@ -2341,6 +2553,14 @@ instance Marshal.WriteRaw Deep_mid where
 
 deriving via Marshal.EquivStorable Deep_mid instance BG.Storable Deep_mid
 
+{-| Mid-level field
+
+    __C declaration:__ @m@
+
+    __defined at:__ @documentation\/doxygen_docs.h 627:13@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "deep_mid_m" Deep_mid ty where
 
@@ -2362,6 +2582,14 @@ instance HasCField.HasCField Deep_mid "deep_mid_m" where
 
   offset# = \_ -> \_ -> 0
 
+{-| Anonymous struct inside named mid
+
+    __C declaration:__ @anon_field@
+
+    __defined at:__ @documentation\/doxygen_docs.h 632:11@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ Deep_mid_anon_field
          ) => BG.CompatHasField.HasField "deep_mid_anon_field" Deep_mid ty where
 
@@ -2441,6 +2669,12 @@ instance Marshal.WriteRaw Deep_outer where
 
 deriving via Marshal.EquivStorable Deep_outer instance BG.Storable Deep_outer
 
+{-| __C declaration:__ @mid_field@
+
+    __defined at:__ @documentation\/doxygen_docs.h 633:7@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ Deep_mid
          ) => BG.CompatHasField.HasField "deep_outer_mid_field" Deep_outer ty where
 
@@ -2464,6 +2698,14 @@ instance HasCField.HasCField Deep_outer "deep_outer_mid_field" where
 
   offset# = \_ -> \_ -> 0
 
+{-| Outer-only field
+
+    __C declaration:__ @o@
+
+    __defined at:__ @documentation\/doxygen_docs.h 635:9@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "deep_outer_o" Deep_outer ty where
 
@@ -2544,6 +2786,14 @@ instance Marshal.WriteRaw Unnamed_field_t_anon'ua where
 
 deriving via Marshal.EquivStorable Unnamed_field_t_anon'ua instance BG.Storable Unnamed_field_t_anon'ua
 
+{-| Unnamed inner a
+
+    __C declaration:__ @ua@
+
+    __defined at:__ @documentation\/doxygen_docs.h 649:13@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "unnamed_field_t_anon'ua_ua" Unnamed_field_t_anon'ua ty where
 
@@ -2569,6 +2819,14 @@ instance HasCField.HasCField Unnamed_field_t_anon'ua "unnamed_field_t_anon'ua_ua
 
   offset# = \_ -> \_ -> 0
 
+{-| Unnamed inner b
+
+    __C declaration:__ @ub@
+
+    __defined at:__ @documentation\/doxygen_docs.h 651:13@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "unnamed_field_t_anon'ua_ub" Unnamed_field_t_anon'ua ty where
 
@@ -2664,6 +2922,14 @@ instance Marshal.WriteRaw Unnamed_field_t where
 
 deriving via Marshal.EquivStorable Unnamed_field_t instance BG.Storable Unnamed_field_t
 
+{-| Before field
+
+    __C declaration:__ @before@
+
+    __defined at:__ @documentation\/doxygen_docs.h 646:9@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "unnamed_field_t_before" Unnamed_field_t ty where
 
@@ -2690,6 +2956,12 @@ instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_before" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @anon\'ua@
+
+    __defined at:__ @documentation\/doxygen_docs.h 647:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ Unnamed_field_t_anon'ua
          ) => BG.CompatHasField.HasField "unnamed_field_t_anon'ua" Unnamed_field_t ty where
 
@@ -2716,6 +2988,14 @@ instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_anon'ua" where
 
   offset# = \_ -> \_ -> 4
 
+{-| After field
+
+    __C declaration:__ @after@
+
+    __defined at:__ @documentation\/doxygen_docs.h 654:9@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "unnamed_field_t_after" Unnamed_field_t ty where
 

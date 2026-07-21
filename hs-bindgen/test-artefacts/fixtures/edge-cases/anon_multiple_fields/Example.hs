@@ -73,6 +73,12 @@ instance Marshal.WriteRaw Some_struct_field1 where
 
 deriving via Marshal.EquivStorable Some_struct_field1 instance BG.Storable Some_struct_field1
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @edge-cases\/anon_multiple_fields.h 5:16@
+
+    __exported by:__ @edge-cases\/anon_multiple_fields.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "some_struct_field1_x" Some_struct_field1 ty where
 
@@ -98,6 +104,12 @@ instance HasCField.HasCField Some_struct_field1 "some_struct_field1_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @edge-cases\/anon_multiple_fields.h 5:23@
+
+    __exported by:__ @edge-cases\/anon_multiple_fields.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "some_struct_field1_y" Some_struct_field1 ty where
 
@@ -182,6 +194,12 @@ instance Marshal.WriteRaw Some_struct where
 
 deriving via Marshal.EquivStorable Some_struct instance BG.Storable Some_struct
 
+{-| __C declaration:__ @field1@
+
+    __defined at:__ @edge-cases\/anon_multiple_fields.h 5:28@
+
+    __exported by:__ @edge-cases\/anon_multiple_fields.h@
+-}
 instance ( ty ~ Some_struct_field1
          ) => BG.CompatHasField.HasField "some_struct_field1" Some_struct ty where
 
@@ -208,6 +226,12 @@ instance HasCField.HasCField Some_struct "some_struct_field1" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @field2@
+
+    __defined at:__ @edge-cases\/anon_multiple_fields.h 5:36@
+
+    __exported by:__ @edge-cases\/anon_multiple_fields.h@
+-}
 instance ( ty ~ Some_struct_field1
          ) => BG.CompatHasField.HasField "some_struct_field2" Some_struct ty where
 
@@ -234,6 +258,12 @@ instance HasCField.HasCField Some_struct "some_struct_field2" where
 
   offset# = \_ -> \_ -> 8
 
+{-| __C declaration:__ @field3@
+
+    __defined at:__ @edge-cases\/anon_multiple_fields.h 5:44@
+
+    __exported by:__ @edge-cases\/anon_multiple_fields.h@
+-}
 instance ( ty ~ Some_struct_field1
          ) => BG.CompatHasField.HasField "some_struct_field3" Some_struct ty where
 

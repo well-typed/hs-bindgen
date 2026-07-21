@@ -70,6 +70,12 @@ instance Marshal.WriteRaw Blk_struct where
 
 deriving via Marshal.EquivStorable Blk_struct instance BG.Storable Blk_struct
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @program-analysis\/typedef_block.h 13:18@
+
+    __exported by:__ @program-analysis\/typedef_block.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "blk_struct_x" Blk_struct ty where
 
@@ -196,6 +202,12 @@ instance Marshal.WriteRaw Blkarg_struct where
 
 deriving via Marshal.EquivStorable Blkarg_struct instance BG.Storable Blkarg_struct
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @program-analysis\/typedef_block.h 17:21@
+
+    __exported by:__ @program-analysis\/typedef_block.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "blkarg_struct_y" Blkarg_struct ty where
 

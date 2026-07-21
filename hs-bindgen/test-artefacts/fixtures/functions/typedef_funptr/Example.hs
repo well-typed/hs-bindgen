@@ -176,6 +176,12 @@ instance Marshal.WriteRaw Driver where
 
 deriving via Marshal.EquivStorable Driver instance BG.Storable Driver
 
+{-| __C declaration:__ @run@
+
+    __defined at:__ @functions\/typedef_funptr.h 14:13@
+
+    __exported by:__ @functions\/typedef_funptr.h@
+-}
 instance ( ty ~ RunDriver
          ) => BG.CompatHasField.HasField "driver_run" Driver ty where
 
@@ -236,6 +242,12 @@ instance Marshal.WriteRaw Bare where
 
 deriving via Marshal.EquivStorable Bare instance BG.Storable Bare
 
+{-| __C declaration:__ @callback@
+
+    __defined at:__ @functions\/typedef_funptr.h 21:10@
+
+    __exported by:__ @functions\/typedef_funptr.h@
+-}
 instance ( ty ~ BG.FunPtr (BG.CInt -> IO ())
          ) => BG.CompatHasField.HasField "bare_callback" Bare ty where
 

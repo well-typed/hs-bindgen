@@ -72,6 +72,12 @@ instance Marshal.WriteRaw Vector where
 
 deriving via Marshal.EquivStorable Vector instance BG.Storable Vector
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/complex\/vector_test.h 2:12@
+
+    __exported by:__ @types\/complex\/vector_test.h@
+-}
 instance ( ty ~ BG.CDouble
          ) => BG.CompatHasField.HasField "vector_x" Vector ty where
 
@@ -93,6 +99,12 @@ instance HasCField.HasCField Vector "vector_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/complex\/vector_test.h 3:12@
+
+    __exported by:__ @types\/complex\/vector_test.h@
+-}
 instance ( ty ~ BG.CDouble
          ) => BG.CompatHasField.HasField "vector_y" Vector ty where
 

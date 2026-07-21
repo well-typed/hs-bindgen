@@ -175,6 +175,12 @@ instance Marshal.WriteRaw Forward_declaration where
 
 deriving via Marshal.EquivStorable Forward_declaration instance BG.Storable Forward_declaration
 
+{-| __C declaration:__ @f@
+
+    __defined at:__ @functions\/circular_dependency_fun.h 6:11@
+
+    __exported by:__ @functions\/circular_dependency_fun.h@
+-}
 instance ( ty ~ Fun_ptr
          ) => BG.CompatHasField.HasField "forward_declaration_f" Forward_declaration ty where
 

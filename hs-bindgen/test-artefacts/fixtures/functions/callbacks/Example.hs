@@ -442,6 +442,12 @@ instance Marshal.WriteRaw Measurement where
 
 deriving via Marshal.EquivStorable Measurement instance BG.Storable Measurement
 
+{-| __C declaration:__ @value@
+
+    __defined at:__ @functions\/callbacks.h 22:10@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
 instance ( ty ~ BG.CDouble
          ) => BG.CompatHasField.HasField "measurement_value" Measurement ty where
 
@@ -467,6 +473,12 @@ instance HasCField.HasCField Measurement "measurement_value" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @timestamp@
+
+    __defined at:__ @functions\/callbacks.h 23:10@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
 instance ( ty ~ BG.CDouble
          ) => BG.CompatHasField.HasField "measurement_timestamp" Measurement ty where
 
@@ -855,6 +867,12 @@ instance Marshal.WriteRaw MeasurementHandler where
 
 deriving via Marshal.EquivStorable MeasurementHandler instance BG.Storable MeasurementHandler
 
+{-| __C declaration:__ @onReceived@
+
+    __defined at:__ @functions\/callbacks.h 51:10@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
 instance ( ty ~ BG.FunPtr (BG.Ptr Measurement -> IO ())
          ) => BG.CompatHasField.HasField "measurementHandler_onReceived" MeasurementHandler ty where
 
@@ -881,6 +899,12 @@ instance HasCField.HasCField MeasurementHandler "measurementHandler_onReceived" 
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @validate@
+
+    __defined at:__ @functions\/callbacks.h 52:9@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
 instance ( ty ~ BG.FunPtr (BG.Ptr Measurement -> IO BG.CInt)
          ) => BG.CompatHasField.HasField "measurementHandler_validate" MeasurementHandler ty where
 
@@ -907,6 +931,12 @@ instance HasCField.HasCField MeasurementHandler "measurementHandler_validate" wh
 
   offset# = \_ -> \_ -> 8
 
+{-| __C declaration:__ @onError@
+
+    __defined at:__ @functions\/callbacks.h 53:10@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
 instance ( ty ~ BG.FunPtr (BG.CInt -> IO ())
          ) => BG.CompatHasField.HasField "measurementHandler_onError" MeasurementHandler ty where
 
@@ -995,6 +1025,12 @@ instance Marshal.WriteRaw DataPipeline where
 
 deriving via Marshal.EquivStorable DataPipeline instance BG.Storable DataPipeline
 
+{-| __C declaration:__ @preProcess@
+
+    __defined at:__ @functions\/callbacks.h 59:10@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
 instance ( ty ~ BG.FunPtr (BG.Ptr Measurement -> DataValidator -> IO ())
          ) => BG.CompatHasField.HasField "dataPipeline_preProcess" DataPipeline ty where
 
@@ -1021,6 +1057,12 @@ instance HasCField.HasCField DataPipeline "dataPipeline_preProcess" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @process@
+
+    __defined at:__ @functions\/callbacks.h 60:10@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
 instance ( ty ~ BG.FunPtr (BG.Ptr Measurement -> IO ())
          ) => BG.CompatHasField.HasField "dataPipeline_process" DataPipeline ty where
 
@@ -1047,6 +1089,12 @@ instance HasCField.HasCField DataPipeline "dataPipeline_process" where
 
   offset# = \_ -> \_ -> 8
 
+{-| __C declaration:__ @postProcess@
+
+    __defined at:__ @functions\/callbacks.h 61:10@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
 instance ( ty ~ BG.FunPtr (BG.Ptr Measurement -> ProgressUpdate -> IO ())
          ) => BG.CompatHasField.HasField "dataPipeline_postProcess" DataPipeline ty where
 
@@ -1385,6 +1433,12 @@ instance Marshal.WriteRaw Processor where
 
 deriving via Marshal.EquivStorable Processor instance BG.Storable Processor
 
+{-| __C declaration:__ @mode@
+
+    __defined at:__ @functions\/callbacks.h 76:55@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
 instance ( ty ~ Processor_mode
          ) => BG.CompatHasField.HasField "processor_mode" Processor ty where
 
@@ -1408,6 +1462,12 @@ instance HasCField.HasCField Processor "processor_mode" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @callback@
+
+    __defined at:__ @functions\/callbacks.h 77:27@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
 instance ( ty ~ ProcessorCallback
          ) => BG.CompatHasField.HasField "processor_callback" Processor ty where
 
@@ -1652,6 +1712,12 @@ instance Marshal.WriteRaw S where
 
 deriving via Marshal.EquivStorable S instance BG.Storable S
 
+{-| __C declaration:__ @fn@
+
+    __defined at:__ @functions\/callbacks.h 110:17@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
 instance ( ty ~ BG.FunPtr (B -> IO ())
          ) => BG.CompatHasField.HasField "s_fn" S ty where
 

@@ -63,6 +63,12 @@ instance Marshal.WriteRaw Thing where
 
 deriving via Marshal.EquivStorable Thing instance BG.Storable Thing
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/structs\/struct_arg.h 3:9@
+
+    __exported by:__ @types\/structs\/struct_arg.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "thing_x" Thing ty where
 
   hasField =
