@@ -294,6 +294,8 @@
   macro in a struct tag is no longer mis-attributed to a field on the same
   line (which caused spurious "expansion not unique" and "unknown type of
   expanded macro" messages). See [issue #2049][is-2049].
+* Fix cases where macro reparsing could accidentally produce more or fewer
+  function arguments than required. See [PR #2153][pr-2153].
 
 [is-1225]: https://github.com/well-typed/hs-bindgen/issues/1225
 [is-1382]: https://github.com/well-typed/hs-bindgen/issues/1382
@@ -325,6 +327,7 @@
 [pr-2087]: https://github.com/well-typed/hs-bindgen/pull/2087
 [pr-2091]: https://github.com/well-typed/hs-bindgen/pull/2091
 [pr-2094]: https://github.com/well-typed/hs-bindgen/pull/2094
+[pr-2153]: https://github.com/well-typed/hs-bindgen/pull/2153
 
 ## 0.1.0-alpha2 -- 2026-03-27
 
