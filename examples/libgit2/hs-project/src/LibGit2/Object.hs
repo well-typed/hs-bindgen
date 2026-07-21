@@ -19,7 +19,7 @@ import LibGit2.Types (Object, Oid, Repository)
 -- sha) to an object.
 revparseSingle :: Repository -> Text -> IO Object
 revparseSingle repo spec =
-    fst <$> newHandle OF.git_object_free (input handleIn . input textIn)
+    newHandle OF.git_object_free (input handleIn . input textIn)
               RPS.git_revparse_single repo spec
 
 -- | @git_object_id@: the object's oid (borrowed; copied out).

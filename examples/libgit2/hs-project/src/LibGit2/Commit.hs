@@ -32,7 +32,7 @@ import LibGit2.Types (Commit, Oid, Repository, Signature)
 -- | @git_commit_lookup@: the commit object for @oid@.
 commitLookup :: Repository -> Oid -> IO Commit
 commitLookup repo oid =
-    fst <$> newHandle CF.git_commit_free (input handleIn . input oidInC)
+    newHandle CF.git_commit_free (input handleIn . input oidInC)
               CS.git_commit_lookup repo oid
 
 commitAuthor :: Commit -> IO Signature

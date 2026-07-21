@@ -24,7 +24,6 @@ module LibGit2.Marshal
     -- * Strings and buffers
   , textIn
   , textInPtr
-  , bufferIn
   , peekTextConst
   , peekText
     -- * Borrowed-pointer accessors
@@ -36,27 +35,25 @@ module LibGit2.Marshal
   , nullConst
   ) where
 
-import Data.ByteString (ByteString)
-import Data.ByteString.Unsafe qualified as BSU
 import Data.Text (Text)
 import Data.Text qualified as T
-import Foreign.C.String (peekCString, withCString)
-import Foreign.C.Types (CChar, CInt, CSize)
-import Foreign.ForeignPtr (FinalizerPtr, newForeignPtr)
-import Foreign.Marshal.Alloc (alloca)
+import Foreign.C.String (peekCString)
+import Foreign.C.Types (CChar, CInt)
+import Foreign.ForeignPtr (FinalizerPtr)
 import Foreign.Marshal.Utils (with)
-import Foreign.Ptr (Ptr, castPtr, nullPtr)
+import Foreign.Ptr (Ptr, nullPtr)
 import Foreign.Storable (peek)
 
-import HsBindgen.Runtime.HighLevel (ToHighLevel, asArgument, input, output,
-                                    resultIO, resultPure, toHighLevel)
-import HsBindgen.Runtime.HighLevel.Internal.Threading (ThreadOut)
-import HsBindgen.Runtime.HighLevel.Marshaller (Marshal (..), MarshalStruct,
-                                               Unmarshaller, asConstArg, at,
-                                               bracket, unmarshalOut,
-                                               unmarshalOutWith)
-import HsBindgen.Runtime.HighLevel.Marshaller.Utils (withCStringIn)
-import HsBindgen.Runtime.Marshal (StaticSize, WriteRaw)
+import HsBindgen.Runtime.HighLevel (ToHighLevel, asArgumentC, dropTrailingUnit,
+                                    input, output, resultIO, resultPure,
+                                    toHighLevel)
+import HsBindgen.Runtime.HighLevel.Internal.Threading (DropUnit, ThreadOut)
+import HsBindgen.Runtime.HighLevel.Marshaller (Marshal, Unmarshaller,
+                                               asConstArg, at, bracket,
+                                               unmarshalOut)
+import HsBindgen.Runtime.HighLevel.Marshaller.Utils (nullConst, outForeignPtr,
+                                                     withCStringIn,
+                                                     withCStringMutIn)
 import HsBindgen.Runtime.PtrConst (PtrConst)
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
@@ -81,30 +78,31 @@ handleInC = asConstArg handleIn
 
 -- | The constructor out-parameter @git_X **out@: allocate the slot, let the call
 -- fill it, then wrap the @git_X *@ in a 'Foreign.ForeignPtr.ForeignPtr' with its
--- @git_X_free@ finaliser, so the handle frees itself at GC.
+-- @git_X_free@ finaliser, so the handle frees itself at GC. The runtime's
+-- 'outForeignPtr' does the allocate-peek-wrap; this only maps the raw 'ForeignPtr'
+-- into the binding's handle @newtype@ (via 'fromFP').
 outHandle
   :: forall h. Handle h
   => FinalizerPtr (CRep h)
   -> Unmarshaller (Ptr (Ptr (CRep h))) h
-outHandle fin = unmarshalOutWith alloca $ \pp -> do
-  p <- peek pp
-  fromFP <$> newForeignPtr fin p
+outHandle fin = fromFP <$> outForeignPtr fin
 
 -- | Build a managed-handle constructor. @newHandle fin inputs cfn@ fills the
 -- @git_X **out@ slot (freed by @fin@), applies the caller's @inputs@ chain, and
--- checks the libgit2 status. The result carries a trailing @()@ from the status
--- check, dropped at the call site with @fst@:
+-- checks the libgit2 status. 'dropTrailingUnit' removes the status check's @()@, so
+-- the constructor's result is the handle alone:
 --
 -- > repositoryOpen path =
--- >   fst <$> newHandle git_repository_free (input textIn) git_repository_open path
+-- >   newHandle git_repository_free (input textIn) git_repository_open path
 newHandle
-  :: (Handle h, ThreadOut (Ptr (Ptr (CRep h))) h hi hi')
+  :: (Handle h, ThreadOut (Ptr (Ptr (CRep h))) h hi hi', DropUnit hi' hi'')
   => FinalizerPtr (CRep h)
   -> (ToHighLevel (IO CInt) (IO ()) -> ToHighLevel lo hi)
   -> (Ptr (Ptr (CRep h)) -> lo)
-  -> hi'
+  -> hi''
 newHandle fin inputs cfn =
-  toHighLevel (output (outHandle fin) (inputs checkStatusResult)) cfn
+  toHighLevel
+    (dropTrailingUnit (output (outHandle fin) (inputs checkStatusResult))) cfn
 
 {-------------------------------------------------------------------------------
   Object ids
@@ -135,21 +133,10 @@ textIn :: Marshal Text (PtrConst CChar -> lo) lo
 textIn = at T.unpack withCStringIn
 
 -- | Marshal 'Text' as a NUL-terminated non-@const@ @char *@ (e.g. a
--- @git_signature@ name/email field).
+-- @git_signature@ name/email field), the 'Text' adapter over the runtime's
+-- 'withCStringMutIn' (which the runtime keeps @String@-based to stay @text@-free).
 textInPtr :: Marshal Text (Ptr CChar -> lo) lo
-textInPtr = bracket (\t k -> withCString (T.unpack t) k)
-
--- | Marshal a 'ByteString' as a @(const void *, size_t)@ pair (the pointee is
--- left polymorphic so it unifies with @void@ at the call site). The zero-copy
--- counterpart of the runtime's @constByteStringLenIn@: 'BSU.unsafeUseAsCStringLen'
--- passes the buffer without copying, so it is not NUL-terminated and is valid
--- only during the call and only alongside the length (an empty input may alias a
--- shared buffer). Safe here because the callee honours the length and does not
--- retain the pointer.
-bufferIn :: Marshal ByteString (PtrConst void -> CSize -> lo) lo
-bufferIn = Marshal $ \bs lo k ->
-  BSU.unsafeUseAsCStringLen bs $ \(p, n) ->
-    k (lo (PtrConst.unsafeFromPtr (castPtr p)) (fromIntegral n))
+textInPtr = at T.unpack withCStringMutIn
 
 -- | Copy a borrowed @const char *@ into 'Text' (NULL becomes empty).
 peekTextConst :: PtrConst CChar -> IO Text
@@ -169,29 +156,22 @@ peekText p
 -------------------------------------------------------------------------------}
 
 -- | A @const T *@ accessor returning a borrowed @const char *@, copied to 'Text'.
-borrowedText :: Handle h => (PtrConst (CRep h) -> IO (PtrConst CChar)) -> h -> IO Text
+borrowedText
+  :: Handle h
+  => (PtrConst (CRep h) -> IO (PtrConst CChar))
+  -> (h -> IO Text)
 borrowedText = toHighLevel (input handleInC $ resultIO peekTextConst)
 
 -- | A @const T *@ accessor returning a borrowed @const git_oid *@, copied to 'Oid'.
-borrowedOid :: Handle h => (PtrConst (CRep h) -> IO (PtrConst Git_oid)) -> h -> IO Oid
+borrowedOid
+  :: Handle h
+  => (PtrConst (CRep h) -> IO (PtrConst Git_oid))
+  -> (h -> IO Oid)
 borrowedOid = toHighLevel (input handleInC $ resultIO peekOidConst)
 
 -- | A @const T *@ accessor returning a C scalar, converted with 'fromIntegral'.
-borrowedScalar :: (Handle h, Integral c, Num n) => (PtrConst (CRep h) -> IO c) -> h -> IO n
+borrowedScalar
+  :: (Handle h, Integral c, Num n)
+  => (PtrConst (CRep h) -> IO c)
+  -> (h -> IO n)
 borrowedScalar = toHighLevel (input handleInC $ resultPure fromIntegral)
-
-{-------------------------------------------------------------------------------
-  Structs and constants
--------------------------------------------------------------------------------}
-
--- | Drop a 'MarshalStruct' into a @const T *@ argument position: the runtime's
--- 'asArgument' fills a non-@const@ @Ptr@, then 'asConstArg' retags it @const@.
-asArgumentC
-  :: (StaticSize s, WriteRaw s)
-  => MarshalStruct hi s
-  -> Marshal hi (PtrConst s -> lo) lo
-asArgumentC = asConstArg . asArgument
-
--- | A NULL @const@ pointer, for optional/absent C arguments.
-nullConst :: PtrConst a
-nullConst = PtrConst.unsafeFromPtr nullPtr

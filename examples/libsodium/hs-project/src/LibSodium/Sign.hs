@@ -32,12 +32,14 @@ import Foreign.C.Types (CUChar)
 import Foreign.Marshal.Alloc (alloca)
 import Foreign.Ptr (Ptr)
 
-import HsBindgen.Runtime.HighLevel (fixed, input, input2, output, resultPure,
-                                    throwOnNonZero, toHighLevel)
+import HsBindgen.Runtime.HighLevel (dropTrailingUnit, fixed, input, input2,
+                                    output, resultPure, throwOnNonZero,
+                                    toHighLevel)
 import HsBindgen.Runtime.HighLevel.Defaults (DefaultIn (..))
 import HsBindgen.Runtime.HighLevel.Marshaller (at, unmarshalOutPure)
 import HsBindgen.Runtime.HighLevel.Marshaller.Utils (byteStringOut,
-                                                     constByteStringLenIn)
+                                                     constByteStringLenIn,
+                                                     unsafeByteStringIn)
 import HsBindgen.Runtime.PtrConst (PtrConst)
 
 import Generated.CryptoSign (Crypto_sign_state, crypto_sign_BYTES,
@@ -50,7 +52,6 @@ import Generated.CryptoSign.Safe (crypto_sign_detached,
                                   crypto_sign_update,
                                   crypto_sign_verify_detached)
 import LibSodium.Error (sodiumError)
-import LibSodium.Marshal (bytesConstIn)
 
 -- | Public-key size in bytes (32).
 publicKeyBytes :: Int
@@ -85,42 +86,43 @@ newtype Seed = Seed { unSeed :: ByteString }
   deriving stock (Eq, Show)
 
 instance DefaultIn PublicKey (PtrConst CUChar -> lo) lo where
-  defaultIn = at unPublicKey bytesConstIn
+  defaultIn = at unPublicKey unsafeByteStringIn
 
 instance DefaultIn SecretKey (PtrConst CUChar -> lo) lo where
-  defaultIn = at unSecretKey bytesConstIn
+  defaultIn = at unSecretKey unsafeByteStringIn
 
 instance DefaultIn Signature (PtrConst CUChar -> lo) lo where
-  defaultIn = at unSignature bytesConstIn
+  defaultIn = at unSignature unsafeByteStringIn
 
 instance DefaultIn Seed (PtrConst CUChar -> lo) lo where
-  defaultIn = at unSeed bytesConstIn
+  defaultIn = at unSeed unsafeByteStringIn
 
--- | Wrap the @(public, secret)@ output pair, dropping the trailing status @()@.
-mkKeypair :: (ByteString, ByteString, ()) -> (PublicKey, SecretKey)
-mkKeypair (pk, sk, ()) = (PublicKey pk, SecretKey sk)
-
--- | Trim the signature buffer to its out-length, dropping the trailing status @()@.
-mkSignature :: (ByteString, Int, ()) -> Signature
-mkSignature (sig, siglen, ()) = Signature (BS.take siglen sig)
+-- | Trim the signature buffer to its out-length. It stays a small post-processor
+-- because the trim needs both outputs (the buffer and its length), which no single
+-- 'output' can join; 'dropTrailingUnit' has already removed the status @()@.
+mkSignature :: (ByteString, Int) -> Signature
+mkSignature (sig, siglen) = Signature (BS.take siglen sig)
 
 -- | A fresh random keypair (@crypto_sign_keypair@). Two output buffers, one
--- status.
+-- status; each buffer is wrapped into its key newtype by mapping the 'Unmarshaller',
+-- and 'dropTrailingUnit' removes the status @()@.
 keypair :: IO (PublicKey, SecretKey)
 keypair =
-  mkKeypair <$> toHighLevel
-    ( output (byteStringOut publicKeyBytes)  -- pk
-    $ output (byteStringOut secretKeyBytes)  -- sk
+  toHighLevel
+    ( dropTrailingUnit
+    $ output (PublicKey <$> byteStringOut publicKeyBytes)  -- pk
+    $ output (SecretKey <$> byteStringOut secretKeyBytes)  -- sk
     $ throwOnNonZero (sodiumError "crypto_sign_keypair")
     ) crypto_sign_keypair
 
 -- | A deterministic keypair from a 32-byte @seed@ (@crypto_sign_seed_keypair@).
 seedKeypair :: Seed -> IO (PublicKey, SecretKey)
 seedKeypair seed =
-  mkKeypair <$> toHighLevel
-    ( output (byteStringOut publicKeyBytes)  -- pk
-    $ output (byteStringOut secretKeyBytes)  -- sk
-    $ input  defaultIn                       -- seed
+  toHighLevel
+    ( dropTrailingUnit
+    $ output (PublicKey <$> byteStringOut publicKeyBytes)  -- pk
+    $ output (SecretKey <$> byteStringOut secretKeyBytes)  -- sk
+    $ input  defaultIn                                     -- seed
     $ throwOnNonZero (sodiumError "crypto_sign_seed_keypair")
     ) crypto_sign_seed_keypair seed
 
@@ -131,43 +133,40 @@ seedKeypair seed =
 signDetached :: SecretKey -> ByteString -> IO Signature
 signDetached secretKey message =
   mkSignature <$> toHighLevel
-    ( output (byteStringOut signatureBytes)   -- sig
+    ( dropTrailingUnit
+    $ output (byteStringOut signatureBytes)   -- sig
     $ output (unmarshalOutPure fromIntegral)  -- siglen_p -> Int
-    $ input2 constByteStringLenIn                  -- m, mlen
+    $ input2 constByteStringLenIn             -- m, mlen
     $ input  defaultIn                        -- sk
     $ throwOnNonZero (sodiumError "crypto_sign_detached")
     ) crypto_sign_detached message secretKey
 
 -- | Verify a detached signature (@crypto_sign_verify_detached@). 'False' when the
--- signature does not match (expected control flow, so no exception). All inputs,
--- a status mapped to 'Bool': @auto@ could fill the inputs, but the @0 -> True@
--- result mapping keeps the closer explicit.
+-- signature does not match (expected control flow, so no exception). The @status == 0@
+-- mapping to 'Bool' sits inside the spec as @resultPure (== 0)@. @auto@ cannot fill
+-- these inputs: 'Signature'\/'PublicKey' share the same @const unsigned char *@ C
+-- shape, so it cannot pick a 'DefaultIn' instance from the C type alone.
 verifyDetached :: PublicKey -> Signature -> ByteString -> IO Bool
 verifyDetached publicKey signature message =
-  classify <$> toHighLevel
-    ( input  defaultIn        -- sig
+  toHighLevel
+    ( input  defaultIn             -- sig
     $ input2 constByteStringLenIn  -- m, mlen
-    $ input  defaultIn        -- pk
-    $ resultPure id           -- raw status
+    $ input  defaultIn             -- pk
+    $ resultPure (== 0)            -- status -> Bool
     ) crypto_sign_verify_detached signature message publicKey
-  where
-    classify status = status == 0
 
 -- | Sign a message given as a sequence of @chunks@, using the multipart API
 -- (@crypto_sign_init@ \/ @crypto_sign_update@ \/ @crypto_sign_final_create@).
 --
--- The opaque @crypto_sign_state@ is allocated once with 'alloca' (it derives
--- 'Foreign.Storable.Storable') and passed to each call with 'fixed'. Everything
--- else is combinators: 'initState' folds the chunks in, and @final_create@ writes
--- the signature and its length through 'output's. The one thing the per-call
--- combinators cannot express is the shared state, which is exactly the single
--- 'alloca' plus a 'fixed' per call.
+-- 'withSignState' holds the running @crypto_sign_state@ (see its note on why the
+-- state cannot be a 'scratch'); @final_create@ then writes the signature and its
+-- length through 'output's, and 'dropTrailingUnit' removes the status @()@.
 signMultipart :: SecretKey -> [ByteString] -> IO Signature
 signMultipart secretKey chunks =
-  alloca $ \st -> do
-    initState st chunks
+  withSignState chunks $ \st ->
     mkSignature <$> toHighLevel
-      ( fixed  st                               -- crypto_sign_state *state
+      ( dropTrailingUnit
+      $ fixed  st                               -- crypto_sign_state *state
       $ output (byteStringOut signatureBytes)   -- sig
       $ output (unmarshalOutPure fromIntegral)  -- siglen_p -> Int
       $ input  defaultIn                        -- sk
@@ -175,30 +174,34 @@ signMultipart secretKey chunks =
       ) crypto_sign_final_create secretKey
 
 -- | Verify a multipart signature (@crypto_sign_final_verify@). 'False' on a
--- mismatch.
+-- mismatch; the @status == 0@ mapping to 'Bool' sits inside the spec.
 verifyMultipart :: PublicKey -> Signature -> [ByteString] -> IO Bool
 verifyMultipart publicKey signature chunks =
-  alloca $ \st -> do
-    initState st chunks
-    classify <$> toHighLevel
+  withSignState chunks $ \st ->
+    toHighLevel
       ( fixed st          -- crypto_sign_state *state
       $ input defaultIn   -- sig
       $ input defaultIn   -- pk
-      $ resultPure id     -- raw status
+      $ resultPure (== 0)
       ) crypto_sign_final_verify signature publicKey
-  where
-    classify status = status == 0
 
--- | Initialise a signing state and fold every chunk through @crypto_sign_update@,
--- each call reusing the pre-allocated state via 'fixed'. Shared by
--- 'signMultipart' and 'verifyMultipart'.
-initState :: Ptr Crypto_sign_state -> [ByteString] -> IO ()
-initState st chunks = do
-  toHighLevel (fixed st $ throwOnNonZero (sodiumError "crypto_sign_init"))
-    crypto_sign_init
-  forM_ chunks $ \c ->
-    toHighLevel
-      ( fixed  st                -- state
-      $ input2 constByteStringLenIn   -- m, mlen
-      $ throwOnNonZero (sodiumError "crypto_sign_update")
-      ) crypto_sign_update c
+-- | Allocate a @crypto_sign_state@, initialise it, fold every chunk through
+-- @crypto_sign_update@, and hand the ready state to @use@.
+--
+-- The state is one 'alloca' shared across the @init@ \/ @update@ \/ final calls. It
+-- cannot be a 'scratch' or 'fixed' argument of a single 'toHighLevel' spec: those
+-- live only for the one call, but the streaming state must outlive every call, which
+-- is inherent to any multipart (incremental) API. This bracket is why a
+-- @Ptr Crypto_sign_state@ is threaded between the calls.
+withSignState :: [ByteString] -> (Ptr Crypto_sign_state -> IO r) -> IO r
+withSignState chunks use =
+  alloca $ \st -> do
+    toHighLevel (fixed st $ throwOnNonZero (sodiumError "crypto_sign_init"))
+      crypto_sign_init
+    forM_ chunks $ \c ->
+      toHighLevel
+        ( fixed  st                     -- state
+        $ input2 constByteStringLenIn   -- m, mlen
+        $ throwOnNonZero (sodiumError "crypto_sign_update")
+        ) crypto_sign_update c
+    use st

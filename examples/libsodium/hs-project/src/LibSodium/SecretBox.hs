@@ -29,12 +29,14 @@ import Data.ByteString (ByteString)
 import Data.ByteString qualified as BS
 import Foreign.C.Types (CUChar)
 
-import HsBindgen.Runtime.HighLevel (discardResult, input, input2, output,
-                                    resultPure, throwOnNonZero, toHighLevel)
+import HsBindgen.Runtime.HighLevel (discardResult, dropTrailingUnit, input,
+                                    input2, output, resultPure, throwOnNonZero,
+                                    toHighLevel)
 import HsBindgen.Runtime.HighLevel.Defaults (DefaultIn (..))
 import HsBindgen.Runtime.HighLevel.Marshaller (at)
 import HsBindgen.Runtime.HighLevel.Marshaller.Utils (byteStringOut,
-                                                     constByteStringLenIn)
+                                                     constByteStringLenIn,
+                                                     unsafeByteStringIn)
 import HsBindgen.Runtime.PtrConst (PtrConst)
 
 import Generated.CryptoSecretbox (crypto_secretbox_KEYBYTES,
@@ -44,7 +46,6 @@ import Generated.CryptoSecretbox.Safe (crypto_secretbox_easy,
                                        crypto_secretbox_keygen,
                                        crypto_secretbox_open_easy)
 import LibSodium.Error (sodiumError)
-import LibSodium.Marshal (bytesConstIn)
 import LibSodium.Random (randomBytes)
 
 -- | Key size in bytes (32), from the generated compile-time constant.
@@ -75,10 +76,10 @@ newtype Nonce = Nonce { unNonce :: ByteString }
 -- orphans, because this module owns the newtype, unlike libgit2's generated
 -- enums whose instances had to sit in a separate @-Wno-orphans@ module.
 instance DefaultIn Key (PtrConst CUChar -> lo) lo where
-  defaultIn = at unKey bytesConstIn
+  defaultIn = at unKey unsafeByteStringIn
 
 instance DefaultIn Nonce (PtrConst CUChar -> lo) lo where
-  defaultIn = at unNonce bytesConstIn
+  defaultIn = at unNonce unsafeByteStringIn
 
 -- | Validate a 'ByteString' as a 'Key' (length must be 'keyBytes').
 mkKey :: ByteString -> Maybe Key
@@ -95,8 +96,9 @@ mkNonce bs
 -- | A fresh random secret key (@crypto_secretbox_keygen@).
 newKey :: IO Key
 newKey =
-  Key . fst <$> toHighLevel
-    ( output (byteStringOut keyBytes)  -- unsigned char k[32] (out)
+  Key <$> toHighLevel
+    ( dropTrailingUnit
+    $ output (byteStringOut keyBytes)  -- unsigned char k[32] (out)
     $ discardResult
     ) crypto_secretbox_keygen
 
@@ -110,8 +112,9 @@ randomNonce = Nonce <$> randomBytes nonceBytes
 -- signal in practice).
 encrypt :: Key -> Nonce -> ByteString -> IO ByteString
 encrypt key nonce message =
-  fst <$> toHighLevel
-    ( output (byteStringOut (macBytes + BS.length message))  -- c   (out)
+  toHighLevel
+    ( dropTrailingUnit
+    $ output (byteStringOut (macBytes + BS.length message))  -- c   (out)
     $ input2 constByteStringLenIn                            -- m, mlen
     $ input  defaultIn                                       -- n   (Nonce)
     $ input  defaultIn                                       -- k   (Key)

@@ -2,8 +2,7 @@
 
 This example demonstrates generating Haskell bindings for
 [libsodium](https://libsodium.org/), a modern, easy-to-use cryptography library.
-It also hand-writes a small high-level API over the generated bindings; see
-[FINDINGS.md](FINDINGS.md) for the write-up.
+It also hand-writes a small high-level API over the generated bindings.
 
 ## Prerequisites
 

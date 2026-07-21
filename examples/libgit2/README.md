@@ -2,8 +2,7 @@
 
 This example demonstrates generating Haskell bindings for
 [libgit2](https://libgit2.org/), a portable C implementation of Git. It also
-hand-writes a high-level API over the generated bindings; see
-[FINDINGS.md](FINDINGS.md) for the write-up.
+hand-writes a high-level API over the generated bindings.
 
 ## Prerequisites
 

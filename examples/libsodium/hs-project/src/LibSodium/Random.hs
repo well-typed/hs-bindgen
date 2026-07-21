@@ -6,7 +6,8 @@ module LibSodium.Random
 import Data.ByteString (ByteString)
 import Foreign.C.Types (CSize)
 
-import HsBindgen.Runtime.HighLevel (discardResult, fixed, output, toHighLevel)
+import HsBindgen.Runtime.HighLevel (discardResult, dropTrailingUnit, fixed,
+                                    output, toHighLevel)
 import HsBindgen.Runtime.HighLevel.Marshaller.Utils (byteStringOut)
 
 import Generated.Randombytes.Safe (randombytes_buf)
@@ -15,8 +16,9 @@ import Generated.Randombytes.Safe (randombytes_buf)
 -- (@randombytes_buf@).
 randomBytes :: Int -> IO ByteString
 randomBytes n =
-  fst <$> toHighLevel
-    ( output (byteStringOut n)          -- void *buf   (out)
+  toHighLevel
+    ( dropTrailingUnit
+    $ output (byteStringOut n)         -- void *buf   (out)
     $ fixed  (fromIntegral n :: CSize)  -- size_t size
     $ discardResult
     ) randombytes_buf

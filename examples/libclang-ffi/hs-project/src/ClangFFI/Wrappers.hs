@@ -4,9 +4,10 @@
 -- @Clang.Enum.Simple@).
 --
 -- This is the AST-walk slice: index and translation-unit lifecycle, cursor
--- queries, source locations, and @clang_visitChildren@. The combinators handle the
--- lifted positions; the by-value cursor \/ string \/ location arguments are
--- unlifted (@R@ \/ @W@) and supplied by hand with 'onHaskellHeap' \/ 'preallocate_'.
+-- queries, source locations, and @clang_visitChildren@. The combinators handle both
+-- the lifted positions and, through the levity-polymorphic 'bracketUnlifted' \/
+-- 'outputUnlifted', the by-value cursor \/ string \/ location arguments passed as
+-- unlifted @R@ \/ @W@ (only @clang_visitChildren@ still needs a C trampoline).
 module ClangFFI.Wrappers (
     -- * Index and translation-unit lifecycle
     createIndex
@@ -30,33 +31,32 @@ import Control.Monad (void)
 import Data.IORef (modifyIORef', newIORef, readIORef, writeIORef)
 import Data.Text (Text)
 import Data.Void (Void)
-import Foreign.C.String (withCString)
-import Foreign.C.Types (CChar, CInt (..), CUInt (..))
+import Foreign.C.Types (CInt (..), CUInt (..))
 import Foreign.Marshal.Alloc (alloca)
-import Foreign.Marshal.Array (withArray)
-import Foreign.Marshal.Utils (withMany)
 import Foreign.Ptr (FunPtr, Ptr, nullPtr)
 
 import Clang.Enum.Simple (SimpleEnum (..), simpleEnum)
-import Clang.Internal.ByValue (OnHaskellHeap, R (..), copyToHaskellHeap,
-                               onHaskellHeap, preallocate_)
-import Clang.Internal.ConstPtr (ConstPtr (..))
+import Clang.Internal.ByValue (HasKnownSize, OnHaskellHeap, R (..), W,
+                               copyToHaskellHeap, onHaskellHeap, preallocate)
 import Clang.Internal.CXString ()
 import Clang.LowLevel.Core.Enums (CXChildVisitResult (..), CXCursorKind,
                                   CXErrorCode)
 import Clang.LowLevel.Core.Instances ()
 import Clang.LowLevel.Core.Pointers (CXIndex, CXTranslationUnit)
-import Clang.LowLevel.Core.Structs (CXCursor_, CXSourceLocation_, CXUnsavedFile)
+import Clang.LowLevel.Core.Structs (CXCursor_, CXSourceLocation_, CXString_,
+                                    CXUnsavedFile)
 import Clang.LowLevel.FFI
 
-import HsBindgen.Runtime.HighLevel (ToHighLevel, discardResult, fixed, input,
-                                    output, resultIO, scratch, toHighLevel)
+import HsBindgen.Runtime.HighLevel (ToHighLevel, discardResult,
+                                    dropTrailingUnit, fixed, input, output,
+                                    resultIO, resultPure, scratch, toHighLevel)
 import HsBindgen.Runtime.HighLevel.Defaults (auto, defaultOut)
-import HsBindgen.Runtime.HighLevel.Marshaller (Marshal (..), scalar,
+import HsBindgen.Runtime.HighLevel.Marshaller (Unmarshaller (..), scalar,
                                                unmarshalOutPure)
-import HsBindgen.Runtime.HighLevel.Marshaller.Utils (withCStringIn)
-
-import ClangFFI.Callback (withFunPtrAs)
+import HsBindgen.Runtime.HighLevel.Marshaller.Utils (withCStringArrayIn,
+                                                     withCStringIn)
+import HsBindgen.Runtime.HighLevel.Unlifted (bracketUnlifted, outputUnlifted)
+import HsBindgen.Runtime.Internal.FunPtr (withFunPtrAs)
 
 {-------------------------------------------------------------------------------
   Index and translation-unit lifecycle
@@ -75,32 +75,25 @@ disposeTranslationUnit :: CXTranslationUnit -> IO ()
 disposeTranslationUnit = toHighLevel auto nowrapper_disposeTranslationUnit
 
 -- | @clang_parseTranslationUnit2@: 'output' for the out-parameter translation
--- unit, 'withCStringIn' for the source path, 'argvIn' for the argument array, and
--- 'fixed' for the arguments we pin. 'statusClose' classifies the result.
+-- unit, 'withCStringIn' for the source path, 'withCStringArrayIn' for the argument
+-- array, and 'fixed' for the arguments we pin. 'statusClose' classifies the result,
+-- and 'dropTrailingUnit' removes the @()@ it leaves beside the out-parameter.
 parseTU :: CXIndex -> FilePath -> [String] -> IO CXTranslationUnit
 parseTU idx path args =
-    fst <$> toHighLevel
-              ( input (scalar id)                          -- CXIndex
-              $ input withCStringIn                        -- const char *source
-              $ input argvIn                               -- const char *const *argv
-              $ fixed (fromIntegral (length args) :: CInt) -- int num_args
-              $ fixed (nullPtr :: Ptr CXUnsavedFile)       -- CXUnsavedFile *unsaved
-              $ fixed (0 :: CUInt)                         -- unsigned num_unsaved
-              $ fixed (0 :: CUInt)                         -- unsigned options
-              $ output (unmarshalOutPure id)               -- CXTranslationUnit *out
-              $ statusClose
-              )
-              nowrapper_parseTranslationUnit2 idx path args
+    toHighLevel
+      ( dropTrailingUnit
+      $ input (scalar id)                          -- CXIndex
+      $ input withCStringIn                        -- const char *source
+      $ input withCStringArrayIn                   -- const char *const *argv
+      $ fixed (fromIntegral (length args) :: CInt) -- int num_args
+      $ fixed (nullPtr :: Ptr CXUnsavedFile)       -- CXUnsavedFile *unsaved
+      $ fixed (0 :: CUInt)                         -- unsigned num_unsaved
+      $ fixed (0 :: CUInt)                         -- unsigned options
+      $ output (unmarshalOutPure id)               -- CXTranslationUnit *out
+      $ statusClose
+      )
+      nowrapper_parseTranslationUnit2 idx path args
   where
-    -- @[String]@ to a @const char *const *@. There is no ready-made marshaller for
-    -- a string array, so build one from the 'Marshal' constructor; the length is a
-    -- separate 'fixed' at the call site.
-    argvIn :: Marshal [String] (ConstPtr (ConstPtr CChar) -> lo') lo'
-    argvIn = Marshal $ \as lo k ->
-        withMany withCString as $ \cstrs ->
-          withArray (map ConstPtr cstrs) $ \arr ->
-            k (lo (ConstPtr arr))
-
     -- Throw on a nonzero @CXErrorCode@ (0 is success). Hand-written because the
     -- status is a @SimpleEnum@, not a 'Num', so 'throwOnNonZero' does not apply.
     statusClose :: ToHighLevel (IO (SimpleEnum (Maybe CXErrorCode))) (IO ())
@@ -119,52 +112,80 @@ instance Exception ParseFailed
   Cursor queries
 
   Each takes a cursor \/ location by value (@R@) and \/ or fills a by-value
-  out-parameter (@W@). Both are unlifted, so no combinator applies: the argument is
-  passed with 'onHaskellHeap' and the result read back with 'preallocate_'
-  ('preallocate_' at @Text@ uses the @Preallocate Text@ instance, which copies the
-  @CXString@ out and disposes it).
+  out-parameter (@W@). Both are unlifted, but the levity-polymorphic combinators
+  reach them: 'bracketUnlifted' 'onHaskellHeap' supplies an @R@ argument through
+  'input', and 'outputUnlifted' hosts a @W@ out-parameter via an 'Unmarshaller' over
+  'preallocate'. 'cxStringOut' is libclang's CXString copy-and-dispose (the
+  @Preallocate Text@ instance), the out-marshaller that could not exist before the
+  vocabulary became levity-polymorphic.
 -------------------------------------------------------------------------------}
+
+-- | A @W CXString@ out-parameter read back as 'Text' (copied out and disposed by
+-- the @Preallocate Text@ instance).
+cxStringOut :: Unmarshaller (W CXString_) Text
+cxStringOut = Unmarshaller (preallocate @Text)
+
+-- | A @W@ by-value struct out-parameter read back onto the Haskell heap.
+onHeapOut :: HasKnownSize tag => Unmarshaller (W tag) (OnHaskellHeap tag)
+onHeapOut = Unmarshaller preallocate
 
 -- | @clang_getTranslationUnitCursor@.
 tuCursor :: CXTranslationUnit -> IO (OnHaskellHeap CXCursor_)
-tuCursor tu = preallocate_ (wrap_getTranslationUnitCursor tu)
+tuCursor = toHighLevel
+    ( dropTrailingUnit
+    $ input          (scalar id)   -- CXTranslationUnit
+    $ outputUnlifted onHeapOut     -- W CXCursor_ (out)
+    $ discardResult
+    ) wrap_getTranslationUnitCursor
 
 -- | @clang_getCursorKind@.
 cursorKind :: OnHaskellHeap CXCursor_ -> IO (SimpleEnum CXCursorKind)
-cursorKind cur = onHaskellHeap cur wrap_getCursorKind
+cursorKind = toHighLevel
+    ( input (bracketUnlifted onHaskellHeap)  -- R CXCursor_
+    $ resultPure id
+    ) wrap_getCursorKind
 
 -- | @clang_getCursorKindSpelling@.
 kindSpelling :: SimpleEnum CXCursorKind -> IO Text
-kindSpelling k = preallocate_ @Text (wrap_getCursorKindSpelling k)
+kindSpelling = toHighLevel
+    ( dropTrailingUnit
+    $ input          (scalar id)   -- SimpleEnum CXCursorKind
+    $ outputUnlifted cxStringOut   -- W CXString_ (out)
+    $ discardResult
+    ) wrap_getCursorKindSpelling
 
 -- | @clang_getCursorSpelling@.
 cursorSpelling :: OnHaskellHeap CXCursor_ -> IO Text
-cursorSpelling cur =
-    onHaskellHeap cur $ \r -> preallocate_ @Text (wrap_getCursorSpelling r)
+cursorSpelling = toHighLevel
+    ( dropTrailingUnit
+    $ input          (bracketUnlifted onHaskellHeap)  -- R CXCursor_
+    $ outputUnlifted cxStringOut                        -- W CXString_ (out)
+    $ discardResult
+    ) wrap_getCursorSpelling
 
 -- | @clang_getCursorLocation@.
 cursorLocation :: OnHaskellHeap CXCursor_ -> IO (OnHaskellHeap CXSourceLocation_)
-cursorLocation cur =
-    onHaskellHeap cur $ \r -> preallocate_ (wrap_getCursorLocation r)
+cursorLocation = toHighLevel
+    ( dropTrailingUnit
+    $ input          (bracketUnlifted onHaskellHeap)  -- R CXCursor_
+    $ outputUnlifted onHeapOut                          -- W CXSourceLocation_ (out)
+    $ discardResult
+    ) wrap_getCursorLocation
 
--- | @clang_getSpellingLocation@. Mixed: the location is by-value (by hand), but
--- the four out-parameters are lifted @Ptr@s, so the combinators fill them:
--- 'scratch' the file and offset we ignore, 'output' the line and column.
+-- | @clang_getSpellingLocation@. Mixed: the location is by-value ('bracketUnlifted'
+-- 'onHaskellHeap' fills the @R@ argument), and the four out-parameters are lifted
+-- @Ptr@s, so 'scratch' hides the file and offset and 'output' keeps the line and
+-- column.
 spellingLineCol :: OnHaskellHeap CXSourceLocation_ -> IO (Word, Word)
-spellingLineCol loc =
-    onHaskellHeap loc $ \r ->
-      dropUnit
-        <$> toHighLevel
-              ( scratch alloca    -- CXFile *file   (ignored)
-              $ output defaultOut -- unsigned *line
-              $ output defaultOut -- unsigned *column
-              $ scratch alloca    -- unsigned *offset (ignored)
-              $ discardResult
-              )
-              (wrap_getSpellingLocation r)
-  where
-    dropUnit :: (a, b, ()) -> (a, b)
-    dropUnit (a, b, ()) = (a, b)
+spellingLineCol = toHighLevel
+    ( dropTrailingUnit
+    $ input   (bracketUnlifted onHaskellHeap)  -- R CXSourceLocation_
+    $ scratch alloca     -- CXFile *file   (ignored)
+    $ output  defaultOut -- unsigned *line
+    $ output  defaultOut -- unsigned *column
+    $ scratch alloca     -- unsigned *offset (ignored)
+    $ discardResult
+    ) wrap_getSpellingLocation
 
 {-------------------------------------------------------------------------------
   Traversal

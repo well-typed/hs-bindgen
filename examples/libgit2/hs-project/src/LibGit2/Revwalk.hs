@@ -25,7 +25,7 @@ import LibGit2.Types (Oid, Repository, Revwalk)
 -- | @git_revwalk_new@: a fresh walker over @repo@.
 revwalkNew :: Repository -> IO Revwalk
 revwalkNew repo =
-    fst <$> newHandle WF.git_revwalk_free (input handleIn) WS.git_revwalk_new repo
+    newHandle WF.git_revwalk_free (input handleIn) WS.git_revwalk_new repo
 
 -- | @git_revwalk_push_head@: start the walk at @HEAD@.
 revwalkPushHead :: Revwalk -> IO ()

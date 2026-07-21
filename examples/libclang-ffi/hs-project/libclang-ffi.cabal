@@ -37,7 +37,6 @@ library
     , text
 
   exposed-modules:
-    ClangFFI.Callback
     ClangFFI.Lifted
     ClangFFI.Wrappers
 

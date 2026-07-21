@@ -6,9 +6,9 @@
 -- The lifted surface is large but uniform: most of diagnostics, target info, the
 -- @clang_is*@ predicates, tokens, and the evaluation functions lift with a bare
 -- @toHighLevel auto@ or one closer. Rather than list them all, this keeps one
--- wrapper per distinct shape. The by-value (@R@ \/ @W@) functions are omitted: the
--- combinators cannot express them, so they would be @preallocate_@ \/
--- @onHaskellHeap@ glue like the cursor wrappers in @ClangFFI.Wrappers@.
+-- wrapper per distinct shape. The by-value (@R@ \/ @W@) functions are omitted here,
+-- but the combinators do reach them through 'bracketUnlifted' \/ 'outputUnlifted';
+-- see the cursor wrappers in @ClangFFI.Wrappers@.
 module ClangFFI.Lifted (
     -- * Bare @auto@
     numDiagnostics
