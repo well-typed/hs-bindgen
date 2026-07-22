@@ -16,6 +16,7 @@ let
     ghc98 = "ghc98";
     ghc910 = "ghc910";
     ghc912 = "ghc912";
+    ghc914 = "ghc914";
   };
   llvms = {
     llvm18 = "18";

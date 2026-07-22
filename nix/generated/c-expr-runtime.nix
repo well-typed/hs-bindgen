@@ -1,16 +1,10 @@
-{ mkDerivation, base, containers, data-default, fetchgit, fin, lib
+{ mkDerivation, base, containers, data-default, fin, lib
 , libclang-bindings, some, template-haskell, text, vec
 }:
 mkDerivation {
   pname = "c-expr-runtime";
   version = "0.1.0.0";
-  src = fetchgit {
-    url = "https://github.com/well-typed/c-expr";
-    sha256 = "1fns28r1g4aa6876gwni50ky9f2kwdzgbw7a886xrfc0vslg0rm0";
-    rev = "19aeaeb8d58ea6c49ee8cbb7ac741bb981e6f27d";
-    fetchSubmodules = true;
-  };
-  postUnpack = "sourceRoot+=/c-expr-runtime; echo source root reset to $sourceRoot";
+  sha256 = "827b0a340f914f2d627e09852fca87df3092c691179ae9db039415772aad7d35";
   libraryHaskellDepends = [
     base containers fin some template-haskell vec
   ];
