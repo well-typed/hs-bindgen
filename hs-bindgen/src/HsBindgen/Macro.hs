@@ -16,8 +16,12 @@ module HsBindgen.Macro (
     -- * Integration with @c-expr@
   , CExpr -- opaque
   , cExpr -- opaque
+    -- * Empty macro language
+  , Empty -- opaque
+  , empty -- opaque
   ) where
 
 import HsBindgen.Internal.Macro.CExpr
+import HsBindgen.Macro.Empty
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Macro.Type qualified as Macro

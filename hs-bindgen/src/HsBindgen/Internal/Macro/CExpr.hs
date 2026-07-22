@@ -24,7 +24,6 @@ import HsBindgen.Macro.Interface qualified as Macro
 --
 -- The C standard is fixed at construction time; the resulting macro
 -- 'Macro.Lang' is configuration-free.
-
 cExpr :: ClangCStandard -> Macro.Lang CExpr
 cExpr cStd = Macro.Lang
   { parse               = parseMacro cStd

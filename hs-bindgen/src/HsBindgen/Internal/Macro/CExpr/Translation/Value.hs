@@ -23,17 +23,17 @@ import HsBindgen.Config.MangleCandidate
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Internal.Macro.CExpr.Global
-import HsBindgen.Internal.Macro.CExpr.Type (CExpr)
-import HsBindgen.Internal.Macro.CExpr.Type qualified as CExpr
+import HsBindgen.Internal.Macro.CExpr.Type
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.NameHint
 
 translateMacroValue ::
      Hs.Name Hs.NsVar
-  -> CExpr.TypecheckedValue CExpr Hs.TermName
+  -> Macro.TypecheckedValue CExpr Hs.TermName
   -> Maybe HsDoc.Comment
   -> Binding
-translateMacroValue name (CExpr.TypecheckedValue expr) comment =
+translateMacroValue name expr comment =
     Binding
       { name       = Hs.ExportedName name
       , parameters = []

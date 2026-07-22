@@ -8,18 +8,18 @@ import C.Expr.Syntax qualified as CExpr
 
 import HsBindgen.Frontend.Analysis
 import HsBindgen.Imports
-import HsBindgen.Internal.Macro.CExpr.Type (CExpr)
-import HsBindgen.Internal.Macro.CExpr.Type qualified as CExpr
+import HsBindgen.Internal.Macro.CExpr.Type
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.Error
 import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 
 resolveMacro ::
      Set C.DeclId
   -> Macro.Unresolved CExpr
   -> Either MacroResolutionError (Macro.Resolved CExpr)
-resolveMacro declIds (Macro.Unresolved (CExpr.Parsed macro)) = do
-    resolvedMacro <- CExpr.Parsed <$> CExpr.annotateMacro resolve macro
+resolveMacro declIds (Macro.Unresolved macro) = do
+    resolvedMacro <- CExpr.annotateMacro resolve macro
     pure Macro.Resolved{
         macro = resolvedMacro
       , deps  = getDependencies resolvedMacro
@@ -30,7 +30,7 @@ resolveMacro declIds (Macro.Unresolved (CExpr.Parsed macro)) = do
       CExpr.NameOrdinary nm ->
         resolveBare nm.getIdentifier
       CExpr.NameTagged nm tag ->
-        resolveTagged nm.getIdentifier (CExpr.convertTagKind tag)
+        resolveTagged nm.getIdentifier (convertTagKind tag)
 
     -- | Resolves a bare name found in a parsed macro body
     --
@@ -87,9 +87,9 @@ resolveMacro declIds (Macro.Unresolved (CExpr.Parsed macro)) = do
         taggedId :: C.DeclId
         taggedId = C.DeclId (C.DeclName nm $ C.NameKindTagged tag) False
 
-getDependencies :: CExpr.Parsed CExpr C.DeclId -> [(C.DeclId, Dependency)]
+getDependencies :: Macro.Parsed CExpr C.DeclId -> [(C.DeclId, Dependency)]
 getDependencies resolvedMacro =
-    case resolvedMacro.unwrap of
+    case resolvedMacro of
       CExpr.Macro _ _ _ expr -> goExpr NeedsShape expr
   where
     goExpr ::
@@ -112,3 +112,13 @@ getDependencies resolvedMacro =
       CExpr.LocalParam{} -> []
       CExpr.Var (CExpr.XVarPs declId) _nm args ->
         (declId, depTy) : concatMap (goExpr depTy) args
+
+{-------------------------------------------------------------------------------
+  Internal helpers
+-------------------------------------------------------------------------------}
+
+convertTagKind :: CExpr.TagKind -> C.TagKind
+convertTagKind = \case
+  CExpr.TagStruct -> C.TagKindStruct
+  CExpr.TagUnion  -> C.TagKindUnion
+  CExpr.TagEnum   -> C.TagKindEnum

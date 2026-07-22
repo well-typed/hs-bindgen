@@ -7,15 +7,15 @@ import C.Expr.Typecheck
 import C.Expr.Typecheck.Interface.Type qualified as T
 
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
-import HsBindgen.Internal.Macro.CExpr.Type (CExpr)
-import HsBindgen.Internal.Macro.CExpr.Type qualified as CExpr
+import HsBindgen.Internal.Macro.CExpr.Type
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Macro.Type qualified as Macro
 
 translateMacroType ::
-     CExpr.TypecheckedType CExpr Hs.Type
+     Macro.TypecheckedType CExpr Hs.Type
   -> Hs.Type
-translateMacroType (CExpr.TypecheckedType tcExpr) = go tcExpr.macroTypeBody
+translateMacroType tcExpr = go tcExpr.macroTypeBody
   where
     go :: T.Expr Hs.Type -> Hs.Type
     go = \case

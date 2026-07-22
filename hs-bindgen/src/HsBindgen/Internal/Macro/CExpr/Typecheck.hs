@@ -10,8 +10,7 @@ import C.Expr.Typecheck qualified as CExpr
 import C.Expr.Typecheck.Type qualified as CExpr
 
 import HsBindgen.Imports
-import HsBindgen.Internal.Macro.CExpr.Type (CExpr)
-import HsBindgen.Internal.Macro.CExpr.Type qualified as CExpr
+import HsBindgen.Internal.Macro.CExpr.Type
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.Error
 import HsBindgen.Macro.Interface qualified as Macro
@@ -26,16 +25,16 @@ typecheckMacros ::
   -> Map Text (Macro.TypecheckResult CExpr)
 typecheckMacros bodies =
     Map.mapKeysMonotonic (.getIdentifier) $ fmap convertResult $
-      CExpr.tcMacros typeOfAnn (map (.macro.unwrap) bodies)
+      CExpr.tcMacros typeOfAnn (map (.macro) bodies)
   where
     convertResult ::
          CExpr.MacroTcResult C.DeclId
       -> Macro.TypecheckResult CExpr
     convertResult = \case
       CExpr.MacroTcTypeExpr x ->
-        Macro.TypecheckType  (CExpr.TypecheckedType  x)
+        Macro.TypecheckType  x
       CExpr.MacroTcValueExpr x ->
-        Macro.TypecheckValue (CExpr.TypecheckedValue x)
+        Macro.TypecheckValue x
       CExpr.MacroTcError err ->
         Macro.TypecheckError $
             MacroTypecheckError (Text.unpack (CExpr.pprMacroTcError err))
