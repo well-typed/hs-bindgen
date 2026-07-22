@@ -29,15 +29,15 @@ import Data.ByteString (ByteString)
 import Data.ByteString qualified as BS
 import Foreign.C.Types (CUChar)
 
-import HsBindgen.Runtime.HighLevel (discardResult, dropTrailingUnit, input,
-                                    input2, output, resultPure, throwOnNonZero,
-                                    toHighLevel)
-import HsBindgen.Runtime.HighLevel.Defaults (DefaultIn (..))
-import HsBindgen.Runtime.HighLevel.Marshaller (at)
-import HsBindgen.Runtime.HighLevel.Marshaller.Utils (byteStringOut,
-                                                     constByteStringLenIn,
-                                                     unsafeByteStringIn)
 import HsBindgen.Runtime.PtrConst (PtrConst)
+
+import HsBindgen.HighLevel (discardResult, dropTrailingUnit, input, input2,
+                            output, resultPure, throwOnNonZero, toHighLevel)
+import HsBindgen.HighLevel.Defaults (DefaultIn (..))
+import HsBindgen.HighLevel.Marshaller (at)
+import HsBindgen.HighLevel.Marshaller.Utils (byteStringOut,
+                                             constByteStringLenIn,
+                                             unsafeByteStringIn)
 
 import Generated.CryptoSecretbox (crypto_secretbox_KEYBYTES,
                                   crypto_secretbox_MACBYTES,

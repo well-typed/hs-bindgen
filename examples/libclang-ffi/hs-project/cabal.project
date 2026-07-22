@@ -15,4 +15,5 @@ index-state: 2026-03-12T10:22:50Z
 packages:
   .
   ../libclang-bindings
+  ../../../hs-bindgen-highlevel
   ../../../hs-bindgen-runtime

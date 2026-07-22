@@ -44,18 +44,16 @@ import Foreign.Marshal.Utils (with)
 import Foreign.Ptr (Ptr, nullPtr)
 import Foreign.Storable (peek)
 
-import HsBindgen.Runtime.HighLevel (ToHighLevel, asArgumentC, dropTrailingUnit,
-                                    input, output, resultIO, resultPure,
-                                    toHighLevel)
-import HsBindgen.Runtime.HighLevel.Internal.Threading (DropUnit, ThreadOut)
-import HsBindgen.Runtime.HighLevel.Marshaller (Marshal, Unmarshaller,
-                                               asConstArg, at, bracket,
-                                               unmarshalOut)
-import HsBindgen.Runtime.HighLevel.Marshaller.Utils (nullConst, outForeignPtr,
-                                                     withCStringIn,
-                                                     withCStringMutIn)
 import HsBindgen.Runtime.PtrConst (PtrConst)
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
+
+import HsBindgen.HighLevel (ToHighLevel, asArgumentC, dropTrailingUnit, input,
+                            output, resultIO, resultPure, toHighLevel)
+import HsBindgen.HighLevel.Internal.Threading (DropUnit, ThreadOut)
+import HsBindgen.HighLevel.Marshaller (Marshal, Unmarshaller, asConstArg, at,
+                                       bracket, unmarshalOut)
+import HsBindgen.HighLevel.Marshaller.Utils (nullConst, outForeignPtr,
+                                             withCStringIn, withCStringMutIn)
 
 import Generated.Oid (Git_oid)
 import LibGit2.Error (checkStatusResult)

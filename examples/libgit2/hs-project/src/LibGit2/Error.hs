@@ -19,8 +19,9 @@ import Foreign.C.Types (CInt)
 import Foreign.Ptr (nullPtr)
 import Foreign.Storable (peek)
 
-import HsBindgen.Runtime.HighLevel (ToHighLevel, resultIO)
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
+
+import HsBindgen.HighLevel (ToHighLevel, resultIO)
 
 import Generated.Errors (Git_error (..))
 import Generated.Errors.Safe (git_error_last)
@@ -62,7 +63,7 @@ checkStatus n
 -- | A 'ToHighLevel' closer that consumes the C @int@ status: throws on failure,
 -- yields @()@ on success. Closes most fallible libgit2 wrappers.
 --
--- It is 'resultIO', not the runtime's 'HsBindgen.Runtime.HighLevel.throwOnNonZero':
+-- It is 'resultIO', not the runtime's 'HsBindgen.HighLevel.throwOnNonZero':
 -- the error /detail/ is thread-local state reached through an 'IO' call
 -- (@git_error_last@), which a pure @c -> e@ classifier cannot read.
 checkStatusResult :: ToHighLevel (IO CInt) (IO ())

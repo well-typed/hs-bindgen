@@ -31,9 +31,9 @@ import Clang.LowLevel.Core.Instances ()
 import Clang.LowLevel.Core.Pointers (CXDiagnostic, CXFile, CXTranslationUnit)
 import Clang.LowLevel.FFI
 
-import HsBindgen.Runtime.HighLevel (input, output, resultPure, toHighLevel)
-import HsBindgen.Runtime.HighLevel.Defaults (auto, defaultOut)
-import HsBindgen.Runtime.HighLevel.Marshaller (scalar)
+import HsBindgen.HighLevel (input, output, resultPure, toHighLevel)
+import HsBindgen.HighLevel.Defaults (auto, defaultOut)
+import HsBindgen.HighLevel.Marshaller (scalar)
 
 -- | @clang_getNumDiagnostics@. Bare @auto@: a handle in, a scalar out
 -- (@CUInt -> Word@).

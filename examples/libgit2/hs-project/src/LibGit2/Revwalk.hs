@@ -13,8 +13,8 @@ module LibGit2.Revwalk
 import Control.Exception (throwIO)
 import Foreign.C.Types (CUInt)
 
-import HsBindgen.Runtime.HighLevel (input, output, resultPure, toHighLevel)
-import HsBindgen.Runtime.HighLevel.Marshaller (scalar)
+import HsBindgen.HighLevel (input, output, resultPure, toHighLevel)
+import HsBindgen.HighLevel.Marshaller (scalar)
 
 import Generated.Revwalk.FunPtr qualified as WF
 import Generated.Revwalk.Safe qualified as WS

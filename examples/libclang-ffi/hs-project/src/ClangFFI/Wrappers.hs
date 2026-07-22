@@ -1,5 +1,5 @@
 -- | High-level wrappers over libclang's raw @Clang.LowLevel.FFI@, written with the
--- @HsBindgen.Runtime.HighLevel@ combinators plus the by-value plumbing the raw
+-- @HsBindgen.HighLevel@ combinators plus the by-value plumbing the raw
 -- imports need (@Clang.Internal.ByValue@, @Clang.Internal.CXString@,
 -- @Clang.Enum.Simple@).
 --
@@ -47,16 +47,16 @@ import Clang.LowLevel.Core.Structs (CXCursor_, CXSourceLocation_, CXString_,
                                     CXUnsavedFile)
 import Clang.LowLevel.FFI
 
-import HsBindgen.Runtime.HighLevel (ToHighLevel, discardResult,
-                                    dropTrailingUnit, fixed, input, output,
-                                    resultIO, resultPure, scratch, toHighLevel)
-import HsBindgen.Runtime.HighLevel.Defaults (auto, defaultOut)
-import HsBindgen.Runtime.HighLevel.Marshaller (Unmarshaller (..), scalar,
-                                               unmarshalOutPure)
-import HsBindgen.Runtime.HighLevel.Marshaller.Utils (withCStringArrayIn,
-                                                     withCStringIn)
-import HsBindgen.Runtime.HighLevel.Unlifted (bracketUnlifted, outputUnlifted)
 import HsBindgen.Runtime.Internal.FunPtr (withFunPtrAs)
+
+import HsBindgen.HighLevel (ToHighLevel, discardResult, dropTrailingUnit, fixed,
+                            input, output, resultIO, resultPure, scratch,
+                            toHighLevel)
+import HsBindgen.HighLevel.Defaults (auto, defaultOut)
+import HsBindgen.HighLevel.Marshaller (Unmarshaller (..), scalar,
+                                       unmarshalOutPure)
+import HsBindgen.HighLevel.Marshaller.Utils (withCStringArrayIn, withCStringIn)
+import HsBindgen.HighLevel.Unlifted (bracketUnlifted, outputUnlifted)
 
 {-------------------------------------------------------------------------------
   Index and translation-unit lifecycle

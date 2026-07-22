@@ -6,9 +6,9 @@ module LibSodium.Random
 import Data.ByteString (ByteString)
 import Foreign.C.Types (CSize)
 
-import HsBindgen.Runtime.HighLevel (discardResult, dropTrailingUnit, fixed,
-                                    output, toHighLevel)
-import HsBindgen.Runtime.HighLevel.Marshaller.Utils (byteStringOut)
+import HsBindgen.HighLevel (discardResult, dropTrailingUnit, fixed, output,
+                            toHighLevel)
+import HsBindgen.HighLevel.Marshaller.Utils (byteStringOut)
 
 import Generated.Randombytes.Safe (randombytes_buf)
 

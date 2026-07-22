@@ -29,7 +29,7 @@ module LibSodium.Pure
 
 import Data.ByteString (ByteString)
 
-import HsBindgen.Runtime.HighLevel (assertPure)
+import HsBindgen.HighLevel (assertPure)
 
 import LibSodium.SecretBox (Key, Nonce)
 import LibSodium.SecretBox qualified as SecretBox

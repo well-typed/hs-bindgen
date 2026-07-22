@@ -7,7 +7,7 @@ module LibGit2.Object
 
 import Data.Text (Text)
 
-import HsBindgen.Runtime.HighLevel (input)
+import HsBindgen.HighLevel (input)
 
 import Generated.Object.FunPtr qualified as OF
 import Generated.Object.Safe qualified as OS

@@ -23,10 +23,10 @@ import Data.Text (Text)
 import Foreign.C.Types (CSize, CUInt)
 import Foreign.Ptr (nullPtr)
 
-import HsBindgen.Runtime.HighLevel (dropTrailingUnit, fixed, input, input2,
-                                    output, toHighLevel)
-import HsBindgen.Runtime.HighLevel.Defaults (defaultIn)
-import HsBindgen.Runtime.HighLevel.Marshaller.Utils (unsafeByteStringLenIn)
+import HsBindgen.HighLevel (dropTrailingUnit, fixed, input, input2, output,
+                            toHighLevel)
+import HsBindgen.HighLevel.Defaults (defaultIn)
+import HsBindgen.HighLevel.Marshaller.Utils (unsafeByteStringLenIn)
 
 import Generated.Blob.Safe qualified as B
 import Generated.Commit.Safe qualified as C

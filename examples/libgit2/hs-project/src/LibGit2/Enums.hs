@@ -33,9 +33,10 @@ import Data.Text (Text)
 import Foreign.C.Types (CChar)
 import Foreign.Ptr (Ptr)
 
-import HsBindgen.Runtime.HighLevel.Defaults (DefaultIn (..), DefaultOut (..))
-import HsBindgen.Runtime.HighLevel.Marshaller (unmarshalOutPure)
 import HsBindgen.Runtime.PtrConst (PtrConst)
+
+import HsBindgen.HighLevel.Defaults (DefaultIn (..), DefaultOut (..))
+import HsBindgen.HighLevel.Marshaller (unmarshalOutPure)
 
 import Generated.Oid (Git_oid)
 import Generated.Types (Git_branch_t, Git_filemode_t, Git_object_t,

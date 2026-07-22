@@ -30,6 +30,7 @@ library
     , base
     , bytestring
     , c-expr-runtime
+    , hs-bindgen-highlevel
     , hs-bindgen-runtime
 
   extra-libraries:    sodium

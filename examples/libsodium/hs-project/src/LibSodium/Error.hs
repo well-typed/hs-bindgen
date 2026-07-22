@@ -23,6 +23,6 @@ data SodiumError = SodiumError
 instance Exception SodiumError
 
 -- | Build the exception a status closer throws, naming the operation. Pass to
--- 'HsBindgen.Runtime.HighLevel.throwOnNonZero'.
+-- 'HsBindgen.HighLevel.throwOnNonZero'.
 sodiumError :: String -> CInt -> SodiumError
 sodiumError op c = SodiumError op (fromIntegral c)

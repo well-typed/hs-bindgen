@@ -20,7 +20,7 @@ module LibGit2.Commit
 import Data.Int (Int64)
 import Data.Text (Text)
 
-import HsBindgen.Runtime.HighLevel (input, resultIO, toHighLevel)
+import HsBindgen.HighLevel (input, resultIO, toHighLevel)
 
 import Generated.Commit.FunPtr qualified as CF
 import Generated.Commit.Safe qualified as CS

@@ -32,15 +32,15 @@ import Foreign.C.Types (CUChar)
 import Foreign.Marshal.Alloc (alloca)
 import Foreign.Ptr (Ptr)
 
-import HsBindgen.Runtime.HighLevel (dropTrailingUnit, fixed, input, input2,
-                                    output, resultPure, throwOnNonZero,
-                                    toHighLevel)
-import HsBindgen.Runtime.HighLevel.Defaults (DefaultIn (..))
-import HsBindgen.Runtime.HighLevel.Marshaller (at, unmarshalOutPure)
-import HsBindgen.Runtime.HighLevel.Marshaller.Utils (byteStringOut,
-                                                     constByteStringLenIn,
-                                                     unsafeByteStringIn)
 import HsBindgen.Runtime.PtrConst (PtrConst)
+
+import HsBindgen.HighLevel (dropTrailingUnit, fixed, input, input2, output,
+                            resultPure, throwOnNonZero, toHighLevel)
+import HsBindgen.HighLevel.Defaults (DefaultIn (..))
+import HsBindgen.HighLevel.Marshaller (at, unmarshalOutPure)
+import HsBindgen.HighLevel.Marshaller.Utils (byteStringOut,
+                                             constByteStringLenIn,
+                                             unsafeByteStringIn)
 
 import Generated.CryptoSign (Crypto_sign_state, crypto_sign_BYTES,
                              crypto_sign_PUBLICKEYBYTES,

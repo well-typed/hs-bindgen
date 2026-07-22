@@ -7,8 +7,8 @@ module LibSodium.Init
 import Control.Exception (throwIO)
 import Control.Monad (when)
 
-import HsBindgen.Runtime.HighLevel (toHighLevel)
-import HsBindgen.Runtime.HighLevel.Defaults (auto)
+import HsBindgen.HighLevel (toHighLevel)
+import HsBindgen.HighLevel.Defaults (auto)
 
 import Generated.Core.Safe (sodium_init)
 import Generated.Version.Safe (sodium_library_version_major,

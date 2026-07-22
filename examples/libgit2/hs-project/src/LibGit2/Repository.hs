@@ -12,7 +12,7 @@ module LibGit2.Repository
 
 import Data.Text (Text)
 
-import HsBindgen.Runtime.HighLevel (input)
+import HsBindgen.HighLevel (input)
 
 import Generated.Refs.FunPtr qualified as RefF
 import Generated.Repository.FunPtr qualified as RF
