@@ -261,6 +261,12 @@ instance Marshal.WriteRaw Bar1_t where
 
 deriving via Marshal.EquivStorable Bar1_t instance BG.Storable Bar1_t
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @comprehensive\/smoke.h 40:11@
+
+    __exported by:__ @comprehensive\/smoke.h@
+-}
 instance (ty ~ BG.Ptr BG.Void) => BG.CompatHasField.HasField "a" Bar1_t ty where
 
   hasField =
@@ -292,6 +298,12 @@ instance HasCField.HasCField Bar1_t "a" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @comprehensive\/smoke.h 41:11@
+
+    __exported by:__ @comprehensive\/smoke.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "b" Bar1_t ty where
 
   hasField =
@@ -322,6 +334,12 @@ instance HasCField.HasCField Bar1_t "b" where
 
   offset# = \_ -> \_ -> 8
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @comprehensive\/smoke.h 42:11@
+
+    __exported by:__ @comprehensive\/smoke.h@
+-}
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "c" Bar1_t ty where
 
   hasField =
@@ -352,6 +370,12 @@ instance HasCField.HasCField Bar1_t "c" where
 
   offset# = \_ -> \_ -> 12
 
+{-| __C declaration:__ @d@
+
+    __defined at:__ @comprehensive\/smoke.h 43:11@
+
+    __exported by:__ @comprehensive\/smoke.h@
+-}
 instance ( ty ~ BG.Ptr BG.CChar
          ) => BG.CompatHasField.HasField "d" Bar1_t ty where
 
@@ -384,6 +408,12 @@ instance HasCField.HasCField Bar1_t "d" where
 
   offset# = \_ -> \_ -> 16
 
+{-| __C declaration:__ @e@
+
+    __defined at:__ @comprehensive\/smoke.h 44:13@
+
+    __exported by:__ @comprehensive\/smoke.h@
+-}
 instance ( ty ~ BG.FunPtr (IO (BG.Ptr BG.CChar))
          ) => BG.CompatHasField.HasField "e" Bar1_t ty where
 
@@ -417,6 +447,12 @@ instance HasCField.HasCField Bar1_t "e" where
 
   offset# = \_ -> \_ -> 24
 
+{-| __C declaration:__ @f@
+
+    __defined at:__ @comprehensive\/smoke.h 45:13@
+
+    __exported by:__ @comprehensive\/smoke.h@
+-}
 instance ( ty ~ BG.FunPtr (BG.Ptr BG.Void -> IO ())
          ) => BG.CompatHasField.HasField "f" Bar1_t ty where
 
@@ -450,6 +486,12 @@ instance HasCField.HasCField Bar1_t "f" where
 
   offset# = \_ -> \_ -> 32
 
+{-| __C declaration:__ @g@
+
+    __defined at:__ @comprehensive\/smoke.h 46:13@
+
+    __exported by:__ @comprehensive\/smoke.h@
+-}
 instance ( ty ~ BG.FunPtr (BG.Ptr BG.Void -> IO (BG.Ptr BG.CInt))
          ) => BG.CompatHasField.HasField "g" Bar1_t ty where
 
@@ -483,6 +525,12 @@ instance HasCField.HasCField Bar1_t "g" where
 
   offset# = \_ -> \_ -> 40
 
+{-| __C declaration:__ @h@
+
+    __defined at:__ @comprehensive\/smoke.h 47:13@
+
+    __exported by:__ @comprehensive\/smoke.h@
+-}
 instance ( ty ~ BG.FunPtr (BG.Ptr BG.Void -> IO (BG.Ptr (BG.Ptr BG.CInt)))
          ) => BG.CompatHasField.HasField "h" Bar1_t ty where
 
@@ -516,6 +564,12 @@ instance HasCField.HasCField Bar1_t "h" where
 
   offset# = \_ -> \_ -> 48
 
+{-| __C declaration:__ @i@
+
+    __defined at:__ @comprehensive\/smoke.h 48:13@
+
+    __exported by:__ @comprehensive\/smoke.h@
+-}
 instance ( ty ~ BG.FunPtr (BG.Ptr BG.Void -> IO (BG.Ptr (BG.Ptr (BG.Ptr BG.CInt))))
          ) => BG.CompatHasField.HasField "i" Bar1_t ty where
 
@@ -549,6 +603,12 @@ instance HasCField.HasCField Bar1_t "i" where
 
   offset# = \_ -> \_ -> 56
 
+{-| __C declaration:__ @j@
+
+    __defined at:__ @comprehensive\/smoke.h 49:11@
+
+    __exported by:__ @comprehensive\/smoke.h@
+-}
 instance ( ty ~ CA.ConstantArray 2 BG.CChar
          ) => BG.CompatHasField.HasField "j" Bar1_t ty where
 
@@ -582,6 +642,12 @@ instance HasCField.HasCField Bar1_t "j" where
 
   offset# = \_ -> \_ -> 64
 
+{-| __C declaration:__ @k@
+
+    __defined at:__ @comprehensive\/smoke.h 51:19@
+
+    __exported by:__ @comprehensive\/smoke.h@
+-}
 instance (ty ~ BG.Ptr Bar1_t) => BG.CompatHasField.HasField "k" Bar1_t ty where
 
   hasField =
@@ -654,6 +720,12 @@ instance Marshal.WriteRaw Bar2_t where
 
 deriving via Marshal.EquivStorable Bar2_t instance BG.Storable Bar2_t
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @comprehensive\/smoke.h 55:7@
+
+    __exported by:__ @comprehensive\/smoke.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "a" Bar2_t ty where
 
   hasField =
@@ -710,6 +782,12 @@ instance Marshal.WriteRaw Bar3_t where
 
 deriving via Marshal.EquivStorable Bar3_t instance BG.Storable Bar3_t
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @comprehensive\/smoke.h 59:7@
+
+    __exported by:__ @comprehensive\/smoke.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "a" Bar3_t ty where
 
   hasField =

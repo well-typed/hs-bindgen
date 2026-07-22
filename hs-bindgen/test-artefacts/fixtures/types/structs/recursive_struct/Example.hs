@@ -73,6 +73,12 @@ instance Marshal.WriteRaw Linked_list_A_t where
 
 deriving via Marshal.EquivStorable Linked_list_A_t instance BG.Storable Linked_list_A_t
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/structs\/recursive_struct.h 2:7@
+
+    __exported by:__ @types\/structs\/recursive_struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "linked_list_A_t_x" Linked_list_A_t ty where
 
@@ -98,6 +104,12 @@ instance HasCField.HasCField Linked_list_A_t "linked_list_A_t_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @next@
+
+    __defined at:__ @types\/structs\/recursive_struct.h 3:27@
+
+    __exported by:__ @types\/structs\/recursive_struct.h@
+-}
 instance ( ty ~ BG.Ptr Linked_list_A_t
          ) => BG.CompatHasField.HasField "linked_list_A_t_next" Linked_list_A_t ty where
 
@@ -173,6 +185,12 @@ instance Marshal.WriteRaw Linked_list_B_t where
 
 deriving via Marshal.EquivStorable Linked_list_B_t instance BG.Storable Linked_list_B_t
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/structs\/recursive_struct.h 10:7@
+
+    __exported by:__ @types\/structs\/recursive_struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "linked_list_B_t_x" Linked_list_B_t ty where
 
@@ -198,6 +216,12 @@ instance HasCField.HasCField Linked_list_B_t "linked_list_B_t_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @next@
+
+    __defined at:__ @types\/structs\/recursive_struct.h 11:20@
+
+    __exported by:__ @types\/structs\/recursive_struct.h@
+-}
 instance ( ty ~ BG.Ptr Linked_list_B_t
          ) => BG.CompatHasField.HasField "linked_list_B_t_next" Linked_list_B_t ty where
 

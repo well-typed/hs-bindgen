@@ -76,6 +76,12 @@ instance Marshal.WriteRaw Foo where
 
 deriving via Marshal.EquivStorable Foo instance BG.Storable Foo
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @attributes\/attributes.h 11:10@
+
+    __exported by:__ @attributes\/attributes.h@
+-}
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "foo_c" Foo ty where
 
   hasField =
@@ -95,6 +101,12 @@ instance HasCField.HasCField Foo "foo_c" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @i@
+
+    __defined at:__ @attributes\/attributes.h 12:10@
+
+    __exported by:__ @attributes\/attributes.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo_i" Foo ty where
 
   hasField =
@@ -164,6 +176,12 @@ instance Marshal.WriteRaw Bar where
 
 deriving via Marshal.EquivStorable Bar instance BG.Storable Bar
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @attributes\/attributes.h 17:10@
+
+    __exported by:__ @attributes\/attributes.h@
+-}
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "bar_c" Bar ty where
 
   hasField =
@@ -183,6 +201,12 @@ instance HasCField.HasCField Bar "bar_c" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @i@
+
+    __defined at:__ @attributes\/attributes.h 18:10@
+
+    __exported by:__ @attributes\/attributes.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "bar_i" Bar ty where
 
   hasField =
@@ -252,6 +276,12 @@ instance Marshal.WriteRaw Baz where
 
 deriving via Marshal.EquivStorable Baz instance BG.Storable Baz
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @attributes\/attributes.h 23:10@
+
+    __exported by:__ @attributes\/attributes.h@
+-}
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "baz_c" Baz ty where
 
   hasField =
@@ -271,6 +301,12 @@ instance HasCField.HasCField Baz "baz_c" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @i@
+
+    __defined at:__ @attributes\/attributes.h 24:10@
+
+    __exported by:__ @attributes\/attributes.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "baz_i" Baz ty where
 
   hasField =
@@ -340,6 +376,12 @@ instance Marshal.WriteRaw Qux where
 
 deriving via Marshal.EquivStorable Qux instance BG.Storable Qux
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @attributes\/attributes.h 29:10@
+
+    __exported by:__ @attributes\/attributes.h@
+-}
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "qux_c" Qux ty where
 
   hasField =
@@ -359,6 +401,12 @@ instance HasCField.HasCField Qux "qux_c" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @i@
+
+    __defined at:__ @attributes\/attributes.h 30:10@
+
+    __exported by:__ @attributes\/attributes.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "qux_i" Qux ty where
 
   hasField =
@@ -437,6 +485,12 @@ instance Marshal.WriteRaw FILE where
 
 deriving via Marshal.EquivStorable FILE instance BG.Storable FILE
 
+{-| __C declaration:__ @_r@
+
+    __defined at:__ @attributes\/attributes.h 35:9@
+
+    __exported by:__ @attributes\/attributes.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "fILE__r" FILE ty where
 
   hasField =
@@ -459,6 +513,12 @@ instance HasCField.HasCField FILE "fILE__r" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @_w@
+
+    __defined at:__ @attributes\/attributes.h 36:9@
+
+    __exported by:__ @attributes\/attributes.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "fILE__w" FILE ty where
 
   hasField =
@@ -481,6 +541,12 @@ instance HasCField.HasCField FILE "fILE__w" where
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @_close@
+
+    __defined at:__ @attributes\/attributes.h 37:22@
+
+    __exported by:__ @attributes\/attributes.h@
+-}
 instance ( ty ~ BG.FunPtr (BG.Ptr BG.Void -> IO BG.CInt)
          ) => BG.CompatHasField.HasField "fILE__close" FILE ty where
 

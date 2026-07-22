@@ -63,6 +63,12 @@ instance Marshal.WriteRaw Baz where
 
 deriving via Marshal.EquivStorable Baz instance BG.Storable Baz
 
+{-| __C declaration:__ @x1_2_1@
+
+    __defined at:__ @types\/scoping\/deep_nesting.h 19:11@
+
+    __exported by:__ @types\/scoping\/deep_nesting.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "baz_x1_2_1" Baz ty where
 
   hasField =

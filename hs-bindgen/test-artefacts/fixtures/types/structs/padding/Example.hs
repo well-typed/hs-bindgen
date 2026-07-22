@@ -83,6 +83,12 @@ instance Marshal.WriteRaw Foo where
 
 deriving via Marshal.EquivStorable Foo instance BG.Storable Foo
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/padding.h 2:15@
+
+    __exported by:__ @types\/structs\/padding.h@
+-}
 instance (ty ~ BG.CSChar) => BG.CompatHasField.HasField "foo_a" Foo ty where
 
   hasField =
@@ -105,6 +111,12 @@ instance HasCBitfield.HasCBitfield Foo "foo_a" where
 
   bitfieldWidth# = \_ -> \_ -> 3
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/padding.h 3:15@
+
+    __exported by:__ @types\/structs\/padding.h@
+-}
 instance (ty ~ BG.CSChar) => BG.CompatHasField.HasField "foo_b" Foo ty where
 
   hasField =
@@ -127,6 +139,12 @@ instance HasCBitfield.HasCBitfield Foo "foo_b" where
 
   bitfieldWidth# = \_ -> \_ -> 3
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @types\/structs\/padding.h 5:15@
+
+    __exported by:__ @types\/structs\/padding.h@
+-}
 instance (ty ~ BG.CSChar) => BG.CompatHasField.HasField "foo_c" Foo ty where
 
   hasField =
@@ -199,6 +217,12 @@ instance Marshal.WriteRaw Bar where
 
 deriving via Marshal.EquivStorable Bar instance BG.Storable Bar
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/structs\/padding.h 9:15@
+
+    __exported by:__ @types\/structs\/padding.h@
+-}
 instance (ty ~ BG.CSChar) => BG.CompatHasField.HasField "bar_x" Bar ty where
 
   hasField =
@@ -221,6 +245,12 @@ instance HasCBitfield.HasCBitfield Bar "bar_x" where
 
   bitfieldWidth# = \_ -> \_ -> 3
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/structs\/padding.h 11:15@
+
+    __exported by:__ @types\/structs\/padding.h@
+-}
 instance (ty ~ BG.CSChar) => BG.CompatHasField.HasField "bar_y" Bar ty where
 
   hasField =

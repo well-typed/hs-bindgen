@@ -63,6 +63,12 @@ instance Marshal.WriteRaw NewName where
 
 deriving via Marshal.EquivStorable NewName instance BG.Storable NewName
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @program-analysis\/selection_matches_c_names.h 8:7@
+
+    __exported by:__ @program-analysis\/selection_matches_c_names.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "newName_x" NewName ty where
 

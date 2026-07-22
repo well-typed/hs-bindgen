@@ -81,6 +81,12 @@ instance Marshal.WriteRaw Dim2 where
 
 deriving via Marshal.EquivStorable Dim2 instance BG.Storable Dim2
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/unions\/unions.h 2:9@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dim2_x" Dim2 ty where
 
   hasField =
@@ -100,6 +106,12 @@ instance HasCField.HasCField Dim2 "dim2_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/unions\/unions.h 3:9@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dim2_y" Dim2 ty where
 
   hasField =
@@ -178,6 +190,12 @@ instance Marshal.WriteRaw Dim3 where
 
 deriving via Marshal.EquivStorable Dim3 instance BG.Storable Dim3
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/unions\/unions.h 7:9@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dim3_x" Dim3 ty where
 
   hasField =
@@ -200,6 +218,12 @@ instance HasCField.HasCField Dim3 "dim3_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/unions\/unions.h 8:9@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dim3_y" Dim3 ty where
 
   hasField =
@@ -222,6 +246,12 @@ instance HasCField.HasCField Dim3 "dim3_y" where
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @z@
+
+    __defined at:__ @types\/unions\/unions.h 9:9@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dim3_z" Dim3 ty where
 
   hasField =
@@ -385,6 +415,12 @@ instance Marshal.WriteRaw Dim where
 
 deriving via Marshal.EquivStorable Dim instance BG.Storable Dim
 
+{-| __C declaration:__ @tag@
+
+    __defined at:__ @types\/unions\/unions.h 18:9@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dim_tag" Dim ty where
 
   hasField =
@@ -404,6 +440,12 @@ instance HasCField.HasCField Dim "dim_tag" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @payload@
+
+    __defined at:__ @types\/unions\/unions.h 19:22@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
 instance ( ty ~ DimPayload
          ) => BG.CompatHasField.HasField "dim_payload" Dim ty where
 
@@ -567,6 +609,12 @@ instance Marshal.WriteRaw DimB where
 
 deriving via Marshal.EquivStorable DimB instance BG.Storable DimB
 
+{-| __C declaration:__ @tag@
+
+    __defined at:__ @types\/unions\/unions.h 29:9@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dimB_tag" DimB ty where
 
   hasField =
@@ -587,6 +635,12 @@ instance HasCField.HasCField DimB "dimB_tag" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @payload@
+
+    __defined at:__ @types\/unions\/unions.h 30:17@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
 instance ( ty ~ DimPayloadB
          ) => BG.CompatHasField.HasField "dimB_payload" DimB ty where
 
@@ -659,6 +713,12 @@ instance Marshal.WriteRaw AnonA_xy where
 
 deriving via Marshal.EquivStorable AnonA_xy instance BG.Storable AnonA_xy
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/unions\/unions.h 35:21@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
 instance ( ty ~ BG.CDouble
          ) => BG.CompatHasField.HasField "anonA_xy_x" AnonA_xy ty where
 
@@ -680,6 +740,12 @@ instance HasCField.HasCField AnonA_xy "anonA_xy_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/unions\/unions.h 35:31@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
 instance ( ty ~ BG.CDouble
          ) => BG.CompatHasField.HasField "anonA_xy_y" AnonA_xy ty where
 
@@ -751,6 +817,12 @@ instance Marshal.WriteRaw AnonA_polar where
 
 deriving via Marshal.EquivStorable AnonA_polar instance BG.Storable AnonA_polar
 
+{-| __C declaration:__ @r@
+
+    __defined at:__ @types\/unions\/unions.h 36:21@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
 instance ( ty ~ BG.CDouble
          ) => BG.CompatHasField.HasField "anonA_polar_r" AnonA_polar ty where
 
@@ -774,6 +846,12 @@ instance HasCField.HasCField AnonA_polar "anonA_polar_r" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @p@
+
+    __defined at:__ @types\/unions\/unions.h 36:31@
+
+    __exported by:__ @types\/unions\/unions.h@
+-}
 instance ( ty ~ BG.CDouble
          ) => BG.CompatHasField.HasField "anonA_polar_p" AnonA_polar ty where
 

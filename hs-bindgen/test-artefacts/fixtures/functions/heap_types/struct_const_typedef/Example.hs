@@ -63,6 +63,12 @@ instance Marshal.WriteRaw T where
 
 deriving via Marshal.EquivStorable T instance BG.Storable T
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @functions\/heap_types\/struct_const_typedef.h 4:7@
+
+    __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "t_x" T ty where
 
   hasField =

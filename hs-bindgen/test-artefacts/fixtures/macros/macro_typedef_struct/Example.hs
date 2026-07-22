@@ -123,6 +123,12 @@ instance Marshal.WriteRaw Bar where
 
 deriving via Marshal.EquivStorable Bar instance BG.Storable Bar
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/macro_typedef_struct.h 4:7@
+
+    __exported by:__ @macros\/macro_typedef_struct.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "bar_x" Bar ty where
 
   hasField =
@@ -142,6 +148,12 @@ instance HasCField.HasCField Bar "bar_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @macros\/macro_typedef_struct.h 5:11@
+
+    __exported by:__ @macros\/macro_typedef_struct.h@
+-}
 instance (ty ~ MY_TYPE) => BG.CompatHasField.HasField "bar_y" Bar ty where
 
   hasField =

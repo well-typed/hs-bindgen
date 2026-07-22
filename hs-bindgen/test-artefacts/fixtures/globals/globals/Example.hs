@@ -77,6 +77,12 @@ instance Marshal.WriteRaw Config where
 
 deriving via Marshal.EquivStorable Config instance BG.Storable Config
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @globals\/globals.h 14:7@
+
+    __exported by:__ @globals\/globals.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "config_x" Config ty where
 
   hasField =
@@ -97,6 +103,12 @@ instance HasCField.HasCField Config "config_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @globals\/globals.h 15:7@
+
+    __exported by:__ @globals\/globals.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "config_y" Config ty where
 
   hasField =
@@ -167,6 +179,12 @@ instance Marshal.WriteRaw Inline_struct where
 
 deriving via Marshal.EquivStorable Inline_struct instance BG.Storable Inline_struct
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @globals\/globals.h 20:35@
+
+    __exported by:__ @globals\/globals.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "inline_struct_x" Inline_struct ty where
 
@@ -190,6 +208,12 @@ instance HasCField.HasCField Inline_struct "inline_struct_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @globals\/globals.h 20:42@
+
+    __exported by:__ @globals\/globals.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "inline_struct_y" Inline_struct ty where
 
@@ -272,6 +296,12 @@ instance Marshal.WriteRaw Version_t where
 
 deriving via Marshal.EquivStorable Version_t instance BG.Storable Version_t
 
+{-| __C declaration:__ @major@
+
+    __defined at:__ @globals\/globals.h 409:12@
+
+    __exported by:__ @globals\/globals.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.Word8
          ) => BG.CompatHasField.HasField "version_t_major" Version_t ty where
 
@@ -298,6 +328,12 @@ instance HasCField.HasCField Version_t "version_t_major" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @minor@
+
+    __defined at:__ @globals\/globals.h 410:12@
+
+    __exported by:__ @globals\/globals.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
          ) => BG.CompatHasField.HasField "version_t_minor" Version_t ty where
 
@@ -324,6 +360,12 @@ instance HasCField.HasCField Version_t "version_t_minor" where
 
   offset# = \_ -> \_ -> 2
 
+{-| __C declaration:__ @patch@
+
+    __defined at:__ @globals\/globals.h 411:12@
+
+    __exported by:__ @globals\/globals.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.Word8
          ) => BG.CompatHasField.HasField "version_t_patch" Version_t ty where
 
@@ -409,6 +451,12 @@ instance Marshal.WriteRaw Struct1_t where
 
 deriving via Marshal.EquivStorable Struct1_t instance BG.Storable Struct1_t
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @globals\/globals.h 416:13@
+
+    __exported by:__ @globals\/globals.h@
+-}
 instance ( ty ~ HsBindgen.Runtime.LibC.Word16
          ) => BG.CompatHasField.HasField "struct1_t_x" Struct1_t ty where
 
@@ -435,6 +483,12 @@ instance HasCField.HasCField Struct1_t "struct1_t_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @globals\/globals.h 417:13@
+
+    __exported by:__ @globals\/globals.h@
+-}
 instance ( ty ~ BG.CBool
          ) => BG.CompatHasField.HasField "struct1_t_y" Struct1_t ty where
 
@@ -460,6 +514,12 @@ instance HasCField.HasCField Struct1_t "struct1_t_y" where
 
   offset# = \_ -> \_ -> 2
 
+{-| __C declaration:__ @version@
+
+    __defined at:__ @globals\/globals.h 418:13@
+
+    __exported by:__ @globals\/globals.h@
+-}
 instance ( ty ~ Version_t
          ) => BG.CompatHasField.HasField "struct1_t_version" Struct1_t ty where
 
@@ -527,6 +587,12 @@ instance Marshal.WriteRaw Struct2_t where
 
 deriving via Marshal.EquivStorable Struct2_t instance BG.Storable Struct2_t
 
+{-| __C declaration:__ @field1@
+
+    __defined at:__ @globals\/globals.h 423:13@
+
+    __exported by:__ @globals\/globals.h@
+-}
 instance ( ty ~ Struct1_t
          ) => BG.CompatHasField.HasField "struct2_t_field1" Struct2_t ty where
 

@@ -117,6 +117,12 @@ instance Marshal.WriteRaw S where
 
 deriving via Marshal.EquivStorable S instance BG.Storable S
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @attributes\/visibility\/edge-cases\/nested_types.h 5:5@
+
+    __exported by:__ @attributes\/visibility\/edge-cases\/nested_types.h@
+-}
 instance (ty ~ U) => BG.CompatHasField.HasField "s_y" S ty where
 
   hasField =

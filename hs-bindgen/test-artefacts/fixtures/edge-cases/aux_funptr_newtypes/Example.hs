@@ -149,6 +149,12 @@ instance Marshal.WriteRaw Foo where
 
 deriving via Marshal.EquivStorable Foo instance BG.Storable Foo
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @edge-cases\/aux_funptr_newtypes.h 9:7@
+
+    __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo_x" Foo ty where
 
   hasField =
@@ -168,6 +174,12 @@ instance HasCField.HasCField Foo "foo_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @edge-cases\/aux_funptr_newtypes.h 10:7@
+
+    __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "foo_y" Foo ty where
 
   hasField =

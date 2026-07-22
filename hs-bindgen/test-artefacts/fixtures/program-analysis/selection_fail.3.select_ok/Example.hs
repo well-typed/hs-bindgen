@@ -63,6 +63,12 @@ instance Marshal.WriteRaw OkBefore where
 
 deriving via Marshal.EquivStorable OkBefore instance BG.Storable OkBefore
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @program-analysis\/selection_fail.h 2:7@
+
+    __exported by:__ @program-analysis\/selection_fail.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "okBefore_x" OkBefore ty where
 

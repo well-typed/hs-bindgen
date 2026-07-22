@@ -208,6 +208,12 @@ instance Marshal.WriteRaw MyCoolStruct where
 
 deriving via Marshal.EquivStorable MyCoolStruct instance BG.Storable MyCoolStruct
 
+{-| __C declaration:__ @listOfNames@
+
+    __defined at:__ @comprehensive\/c2hsc.h 16:10@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 8 (CA.ConstantArray 255 BG.CChar)
          ) => BG.CompatHasField.HasField "listOfNames" MyCoolStruct ty where
 
@@ -374,6 +380,12 @@ instance Marshal.WriteRaw Foo_t where
 
 deriving via Marshal.EquivStorable Foo_t instance BG.Storable Foo_t
 
+{-| __C declaration:__ @foo_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 32:11@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.FunPtr (BG.CInt -> IO BG.CInt)
          ) => BG.CompatHasField.HasField "foo_member" Foo_t ty where
 
@@ -547,6 +559,12 @@ instance Marshal.WriteRaw St where
 
 deriving via Marshal.EquivStorable St instance BG.Storable St
 
+{-| __C declaration:__ @i@
+
+    __defined at:__ @comprehensive\/c2hsc.h 49:7@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "i" St ty where
 
   hasField =
@@ -802,6 +820,12 @@ instance Marshal.WriteRaw MyStructType where
 
 deriving via Marshal.EquivStorable MyStructType instance BG.Storable MyStructType
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @comprehensive\/c2hsc.h 65:7@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "x" MyStructType ty where
 
   hasField =
@@ -870,6 +894,12 @@ instance Marshal.WriteRaw Ordinary_float_struct where
 
 deriving via Marshal.EquivStorable Ordinary_float_struct instance BG.Storable Ordinary_float_struct
 
+{-| __C declaration:__ @ordinary_float_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 204:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CFloat
          ) => BG.CompatHasField.HasField "ordinary_float_member" Ordinary_float_struct ty where
 
@@ -934,6 +964,12 @@ instance Marshal.WriteRaw Ordinary_double_struct where
 
 deriving via Marshal.EquivStorable Ordinary_double_struct instance BG.Storable Ordinary_double_struct
 
+{-| __C declaration:__ @ordinary_double_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 205:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CDouble
          ) => BG.CompatHasField.HasField "ordinary_double_member" Ordinary_double_struct ty where
 
@@ -998,6 +1034,12 @@ instance Marshal.WriteRaw Ordinary_signed_char_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_char_struct instance BG.Storable Ordinary_signed_char_struct
 
+{-| __C declaration:__ @ordinary_signed_char_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 208:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CChar
          ) => BG.CompatHasField.HasField "ordinary_signed_char_member" Ordinary_signed_char_struct ty where
 
@@ -1062,6 +1104,12 @@ instance Marshal.WriteRaw Explicit_signed_char_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_char_struct instance BG.Storable Explicit_signed_char_struct
 
+{-| __C declaration:__ @explicit_signed_char_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 209:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CSChar
          ) => BG.CompatHasField.HasField "explicit_signed_char_member" Explicit_signed_char_struct ty where
 
@@ -1126,6 +1174,12 @@ instance Marshal.WriteRaw Unsigned_char_struct where
 
 deriving via Marshal.EquivStorable Unsigned_char_struct instance BG.Storable Unsigned_char_struct
 
+{-| __C declaration:__ @unsigned_char_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 210:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CUChar
          ) => BG.CompatHasField.HasField "unsigned_char_member" Unsigned_char_struct ty where
 
@@ -1190,6 +1244,12 @@ instance Marshal.WriteRaw Ordinary_signed_short_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_short_struct instance BG.Storable Ordinary_signed_short_struct
 
+{-| __C declaration:__ @ordinary_signed_short_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 212:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CShort
          ) => BG.CompatHasField.HasField "ordinary_signed_short_member" Ordinary_signed_short_struct ty where
 
@@ -1254,6 +1314,12 @@ instance Marshal.WriteRaw Explicit_signed_short_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_short_struct instance BG.Storable Explicit_signed_short_struct
 
+{-| __C declaration:__ @explicit_signed_short_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 213:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CShort
          ) => BG.CompatHasField.HasField "explicit_signed_short_member" Explicit_signed_short_struct ty where
 
@@ -1318,6 +1384,12 @@ instance Marshal.WriteRaw Unsigned_short_struct where
 
 deriving via Marshal.EquivStorable Unsigned_short_struct instance BG.Storable Unsigned_short_struct
 
+{-| __C declaration:__ @unsigned_short_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 214:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CUShort
          ) => BG.CompatHasField.HasField "unsigned_short_member" Unsigned_short_struct ty where
 
@@ -1382,6 +1454,12 @@ instance Marshal.WriteRaw Ordinary_signed_int_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_int_struct instance BG.Storable Ordinary_signed_int_struct
 
+{-| __C declaration:__ @ordinary_signed_int_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 216:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "ordinary_signed_int_member" Ordinary_signed_int_struct ty where
 
@@ -1446,6 +1524,12 @@ instance Marshal.WriteRaw Explicit_signed_int_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_int_struct instance BG.Storable Explicit_signed_int_struct
 
+{-| __C declaration:__ @explicit_signed_int_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 217:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "explicit_signed_int_member" Explicit_signed_int_struct ty where
 
@@ -1510,6 +1594,12 @@ instance Marshal.WriteRaw Unsigned_int_struct where
 
 deriving via Marshal.EquivStorable Unsigned_int_struct instance BG.Storable Unsigned_int_struct
 
+{-| __C declaration:__ @unsigned_int_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 218:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CUInt
          ) => BG.CompatHasField.HasField "unsigned_int_member" Unsigned_int_struct ty where
 
@@ -1574,6 +1664,12 @@ instance Marshal.WriteRaw Ordinary_signed_long_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_struct instance BG.Storable Ordinary_signed_long_struct
 
+{-| __C declaration:__ @ordinary_signed_long_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 220:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CLong
          ) => BG.CompatHasField.HasField "ordinary_signed_long_member" Ordinary_signed_long_struct ty where
 
@@ -1638,6 +1734,12 @@ instance Marshal.WriteRaw Explicit_signed_long_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_struct instance BG.Storable Explicit_signed_long_struct
 
+{-| __C declaration:__ @explicit_signed_long_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 221:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CLong
          ) => BG.CompatHasField.HasField "explicit_signed_long_member" Explicit_signed_long_struct ty where
 
@@ -1702,6 +1804,12 @@ instance Marshal.WriteRaw Unsigned_long_struct where
 
 deriving via Marshal.EquivStorable Unsigned_long_struct instance BG.Storable Unsigned_long_struct
 
+{-| __C declaration:__ @unsigned_long_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 222:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CULong
          ) => BG.CompatHasField.HasField "unsigned_long_member" Unsigned_long_struct ty where
 
@@ -1766,6 +1874,12 @@ instance Marshal.WriteRaw Ordinary_signed_long_long_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_long_struct instance BG.Storable Ordinary_signed_long_long_struct
 
+{-| __C declaration:__ @ordinary_signed_long_long_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 224:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CLLong
          ) => BG.CompatHasField.HasField "ordinary_signed_long_long_member" Ordinary_signed_long_long_struct ty where
 
@@ -1830,6 +1944,12 @@ instance Marshal.WriteRaw Explicit_signed_long_long_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_long_struct instance BG.Storable Explicit_signed_long_long_struct
 
+{-| __C declaration:__ @explicit_signed_long_long_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 225:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CLLong
          ) => BG.CompatHasField.HasField "explicit_signed_long_long_member" Explicit_signed_long_long_struct ty where
 
@@ -1894,6 +2014,12 @@ instance Marshal.WriteRaw Unsigned_long_long_struct where
 
 deriving via Marshal.EquivStorable Unsigned_long_long_struct instance BG.Storable Unsigned_long_long_struct
 
+{-| __C declaration:__ @unsigned_long_long_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 226:62@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CULLong
          ) => BG.CompatHasField.HasField "unsigned_long_long_member" Unsigned_long_long_struct ty where
 
@@ -1962,6 +2088,12 @@ instance Marshal.WriteRaw Ordinary_void_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_void_pointer_struct instance BG.Storable Ordinary_void_pointer_struct
 
+{-| __C declaration:__ @ordinary_void_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 235:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.Void
          ) => BG.CompatHasField.HasField "ordinary_void_pointer_member" Ordinary_void_pointer_struct ty where
 
@@ -2026,6 +2158,12 @@ instance Marshal.WriteRaw Ordinary_float_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_float_pointer_struct instance BG.Storable Ordinary_float_pointer_struct
 
+{-| __C declaration:__ @ordinary_float_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 237:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CFloat
          ) => BG.CompatHasField.HasField "ordinary_float_pointer_member" Ordinary_float_pointer_struct ty where
 
@@ -2090,6 +2228,12 @@ instance Marshal.WriteRaw Ordinary_double_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_double_pointer_struct instance BG.Storable Ordinary_double_pointer_struct
 
+{-| __C declaration:__ @ordinary_double_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 238:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CDouble
          ) => BG.CompatHasField.HasField "ordinary_double_pointer_member" Ordinary_double_pointer_struct ty where
 
@@ -2154,6 +2298,12 @@ instance Marshal.WriteRaw Ordinary_signed_char_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_char_pointer_struct instance BG.Storable Ordinary_signed_char_pointer_struct
 
+{-| __C declaration:__ @ordinary_signed_char_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 241:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CChar
          ) => BG.CompatHasField.HasField "ordinary_signed_char_pointer_member" Ordinary_signed_char_pointer_struct ty where
 
@@ -2218,6 +2368,12 @@ instance Marshal.WriteRaw Explicit_signed_char_pointer_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_char_pointer_struct instance BG.Storable Explicit_signed_char_pointer_struct
 
+{-| __C declaration:__ @explicit_signed_char_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 242:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CSChar
          ) => BG.CompatHasField.HasField "explicit_signed_char_pointer_member" Explicit_signed_char_pointer_struct ty where
 
@@ -2282,6 +2438,12 @@ instance Marshal.WriteRaw Unsigned_char_pointer_struct where
 
 deriving via Marshal.EquivStorable Unsigned_char_pointer_struct instance BG.Storable Unsigned_char_pointer_struct
 
+{-| __C declaration:__ @unsigned_char_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 243:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CUChar
          ) => BG.CompatHasField.HasField "unsigned_char_pointer_member" Unsigned_char_pointer_struct ty where
 
@@ -2346,6 +2508,12 @@ instance Marshal.WriteRaw Ordinary_signed_short_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_short_pointer_struct instance BG.Storable Ordinary_signed_short_pointer_struct
 
+{-| __C declaration:__ @ordinary_signed_short_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 245:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CShort
          ) => BG.CompatHasField.HasField "ordinary_signed_short_pointer_member" Ordinary_signed_short_pointer_struct ty where
 
@@ -2410,6 +2578,12 @@ instance Marshal.WriteRaw Explicit_signed_short_pointer_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_short_pointer_struct instance BG.Storable Explicit_signed_short_pointer_struct
 
+{-| __C declaration:__ @explicit_signed_short_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 246:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CShort
          ) => BG.CompatHasField.HasField "explicit_signed_short_pointer_member" Explicit_signed_short_pointer_struct ty where
 
@@ -2474,6 +2648,12 @@ instance Marshal.WriteRaw Unsigned_short_pointer_struct where
 
 deriving via Marshal.EquivStorable Unsigned_short_pointer_struct instance BG.Storable Unsigned_short_pointer_struct
 
+{-| __C declaration:__ @unsigned_short_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 247:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CUShort
          ) => BG.CompatHasField.HasField "unsigned_short_pointer_member" Unsigned_short_pointer_struct ty where
 
@@ -2538,6 +2718,12 @@ instance Marshal.WriteRaw Ordinary_signed_int_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_int_pointer_struct instance BG.Storable Ordinary_signed_int_pointer_struct
 
+{-| __C declaration:__ @ordinary_signed_int_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 249:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CInt
          ) => BG.CompatHasField.HasField "ordinary_signed_int_pointer_member" Ordinary_signed_int_pointer_struct ty where
 
@@ -2602,6 +2788,12 @@ instance Marshal.WriteRaw Explicit_signed_int_pointer_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_int_pointer_struct instance BG.Storable Explicit_signed_int_pointer_struct
 
+{-| __C declaration:__ @explicit_signed_int_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 250:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CInt
          ) => BG.CompatHasField.HasField "explicit_signed_int_pointer_member" Explicit_signed_int_pointer_struct ty where
 
@@ -2666,6 +2858,12 @@ instance Marshal.WriteRaw Unsigned_int_pointer_struct where
 
 deriving via Marshal.EquivStorable Unsigned_int_pointer_struct instance BG.Storable Unsigned_int_pointer_struct
 
+{-| __C declaration:__ @unsigned_int_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 251:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CUInt
          ) => BG.CompatHasField.HasField "unsigned_int_pointer_member" Unsigned_int_pointer_struct ty where
 
@@ -2730,6 +2928,12 @@ instance Marshal.WriteRaw Ordinary_signed_long_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_pointer_struct instance BG.Storable Ordinary_signed_long_pointer_struct
 
+{-| __C declaration:__ @ordinary_signed_long_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 253:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CLong
          ) => BG.CompatHasField.HasField "ordinary_signed_long_pointer_member" Ordinary_signed_long_pointer_struct ty where
 
@@ -2794,6 +2998,12 @@ instance Marshal.WriteRaw Explicit_signed_long_pointer_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_pointer_struct instance BG.Storable Explicit_signed_long_pointer_struct
 
+{-| __C declaration:__ @explicit_signed_long_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 254:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CLong
          ) => BG.CompatHasField.HasField "explicit_signed_long_pointer_member" Explicit_signed_long_pointer_struct ty where
 
@@ -2858,6 +3068,12 @@ instance Marshal.WriteRaw Unsigned_long_pointer_struct where
 
 deriving via Marshal.EquivStorable Unsigned_long_pointer_struct instance BG.Storable Unsigned_long_pointer_struct
 
+{-| __C declaration:__ @unsigned_long_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 255:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CULong
          ) => BG.CompatHasField.HasField "unsigned_long_pointer_member" Unsigned_long_pointer_struct ty where
 
@@ -2923,6 +3139,12 @@ instance Marshal.WriteRaw Ordinary_signed_long_long_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_long_pointer_struct instance BG.Storable Ordinary_signed_long_long_pointer_struct
 
+{-| __C declaration:__ @ordinary_signed_long_long_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 257:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CLLong
          ) => BG.CompatHasField.HasField "ordinary_signed_long_long_pointer_member" Ordinary_signed_long_long_pointer_struct ty where
 
@@ -2988,6 +3210,12 @@ instance Marshal.WriteRaw Explicit_signed_long_long_pointer_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_long_pointer_struct instance BG.Storable Explicit_signed_long_long_pointer_struct
 
+{-| __C declaration:__ @explicit_signed_long_long_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 258:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CLLong
          ) => BG.CompatHasField.HasField "explicit_signed_long_long_pointer_member" Explicit_signed_long_long_pointer_struct ty where
 
@@ -3052,6 +3280,12 @@ instance Marshal.WriteRaw Unsigned_long_long_pointer_struct where
 
 deriving via Marshal.EquivStorable Unsigned_long_long_pointer_struct instance BG.Storable Unsigned_long_long_pointer_struct
 
+{-| __C declaration:__ @unsigned_long_long_pointer_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 259:71@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.Ptr BG.CULLong
          ) => BG.CompatHasField.HasField "unsigned_long_long_pointer_member" Unsigned_long_long_pointer_struct ty where
 
@@ -3118,6 +3352,12 @@ instance Marshal.WriteRaw Ordinary_float_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_float_array_struct instance BG.Storable Ordinary_float_array_struct
 
+{-| __C declaration:__ @ordinary_float_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 265:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CFloat
          ) => BG.CompatHasField.HasField "ordinary_float_array_member" Ordinary_float_array_struct ty where
 
@@ -3182,6 +3422,12 @@ instance Marshal.WriteRaw Ordinary_double_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_double_array_struct instance BG.Storable Ordinary_double_array_struct
 
+{-| __C declaration:__ @ordinary_double_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 266:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CDouble
          ) => BG.CompatHasField.HasField "ordinary_double_array_member" Ordinary_double_array_struct ty where
 
@@ -3246,6 +3492,12 @@ instance Marshal.WriteRaw Ordinary_signed_char_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_char_array_struct instance BG.Storable Ordinary_signed_char_array_struct
 
+{-| __C declaration:__ @ordinary_signed_char_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 269:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CChar
          ) => BG.CompatHasField.HasField "ordinary_signed_char_array_member" Ordinary_signed_char_array_struct ty where
 
@@ -3310,6 +3562,12 @@ instance Marshal.WriteRaw Explicit_signed_char_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_char_array_struct instance BG.Storable Explicit_signed_char_array_struct
 
+{-| __C declaration:__ @explicit_signed_char_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 270:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CSChar
          ) => BG.CompatHasField.HasField "explicit_signed_char_array_member" Explicit_signed_char_array_struct ty where
 
@@ -3374,6 +3632,12 @@ instance Marshal.WriteRaw Unsigned_char_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_char_array_struct instance BG.Storable Unsigned_char_array_struct
 
+{-| __C declaration:__ @unsigned_char_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 271:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CUChar
          ) => BG.CompatHasField.HasField "unsigned_char_array_member" Unsigned_char_array_struct ty where
 
@@ -3438,6 +3702,12 @@ instance Marshal.WriteRaw Ordinary_signed_short_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_short_array_struct instance BG.Storable Ordinary_signed_short_array_struct
 
+{-| __C declaration:__ @ordinary_signed_short_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 273:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CShort
          ) => BG.CompatHasField.HasField "ordinary_signed_short_array_member" Ordinary_signed_short_array_struct ty where
 
@@ -3502,6 +3772,12 @@ instance Marshal.WriteRaw Explicit_signed_short_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_short_array_struct instance BG.Storable Explicit_signed_short_array_struct
 
+{-| __C declaration:__ @explicit_signed_short_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 274:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CShort
          ) => BG.CompatHasField.HasField "explicit_signed_short_array_member" Explicit_signed_short_array_struct ty where
 
@@ -3566,6 +3842,12 @@ instance Marshal.WriteRaw Unsigned_short_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_short_array_struct instance BG.Storable Unsigned_short_array_struct
 
+{-| __C declaration:__ @unsigned_short_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 275:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CUShort
          ) => BG.CompatHasField.HasField "unsigned_short_array_member" Unsigned_short_array_struct ty where
 
@@ -3630,6 +3912,12 @@ instance Marshal.WriteRaw Ordinary_signed_int_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_int_array_struct instance BG.Storable Ordinary_signed_int_array_struct
 
+{-| __C declaration:__ @ordinary_signed_int_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 277:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CInt
          ) => BG.CompatHasField.HasField "ordinary_signed_int_array_member" Ordinary_signed_int_array_struct ty where
 
@@ -3694,6 +3982,12 @@ instance Marshal.WriteRaw Explicit_signed_int_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_int_array_struct instance BG.Storable Explicit_signed_int_array_struct
 
+{-| __C declaration:__ @explicit_signed_int_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 278:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CInt
          ) => BG.CompatHasField.HasField "explicit_signed_int_array_member" Explicit_signed_int_array_struct ty where
 
@@ -3758,6 +4052,12 @@ instance Marshal.WriteRaw Unsigned_int_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_int_array_struct instance BG.Storable Unsigned_int_array_struct
 
+{-| __C declaration:__ @unsigned_int_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 279:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CUInt
          ) => BG.CompatHasField.HasField "unsigned_int_array_member" Unsigned_int_array_struct ty where
 
@@ -3822,6 +4122,12 @@ instance Marshal.WriteRaw Ordinary_signed_long_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_array_struct instance BG.Storable Ordinary_signed_long_array_struct
 
+{-| __C declaration:__ @ordinary_signed_long_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 281:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CLong
          ) => BG.CompatHasField.HasField "ordinary_signed_long_array_member" Ordinary_signed_long_array_struct ty where
 
@@ -3886,6 +4192,12 @@ instance Marshal.WriteRaw Explicit_signed_long_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_array_struct instance BG.Storable Explicit_signed_long_array_struct
 
+{-| __C declaration:__ @explicit_signed_long_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 282:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CLong
          ) => BG.CompatHasField.HasField "explicit_signed_long_array_member" Explicit_signed_long_array_struct ty where
 
@@ -3950,6 +4262,12 @@ instance Marshal.WriteRaw Unsigned_long_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_long_array_struct instance BG.Storable Unsigned_long_array_struct
 
+{-| __C declaration:__ @unsigned_long_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 283:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CULong
          ) => BG.CompatHasField.HasField "unsigned_long_array_member" Unsigned_long_array_struct ty where
 
@@ -4015,6 +4333,12 @@ instance Marshal.WriteRaw Ordinary_signed_long_long_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_long_array_struct instance BG.Storable Ordinary_signed_long_long_array_struct
 
+{-| __C declaration:__ @ordinary_signed_long_long_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 285:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CLLong
          ) => BG.CompatHasField.HasField "ordinary_signed_long_long_array_member" Ordinary_signed_long_long_array_struct ty where
 
@@ -4080,6 +4404,12 @@ instance Marshal.WriteRaw Explicit_signed_long_long_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_long_array_struct instance BG.Storable Explicit_signed_long_long_array_struct
 
+{-| __C declaration:__ @explicit_signed_long_long_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 286:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CLLong
          ) => BG.CompatHasField.HasField "explicit_signed_long_long_array_member" Explicit_signed_long_long_array_struct ty where
 
@@ -4144,6 +4474,12 @@ instance Marshal.WriteRaw Unsigned_long_long_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_long_long_array_struct instance BG.Storable Unsigned_long_long_array_struct
 
+{-| __C declaration:__ @unsigned_long_long_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 287:68@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 BG.CULLong
          ) => BG.CompatHasField.HasField "unsigned_long_long_array_member" Unsigned_long_long_array_struct ty where
 
@@ -4212,6 +4548,12 @@ instance Marshal.WriteRaw Ordinary_void_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_void_pointer_array_struct instance BG.Storable Ordinary_void_pointer_array_struct
 
+{-| __C declaration:__ @ordinary_void_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 296:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.Void)
          ) => BG.CompatHasField.HasField "ordinary_void_pointer_array_member" Ordinary_void_pointer_array_struct ty where
 
@@ -4276,6 +4618,12 @@ instance Marshal.WriteRaw Ordinary_float_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_float_pointer_array_struct instance BG.Storable Ordinary_float_pointer_array_struct
 
+{-| __C declaration:__ @ordinary_float_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 298:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CFloat)
          ) => BG.CompatHasField.HasField "ordinary_float_pointer_array_member" Ordinary_float_pointer_array_struct ty where
 
@@ -4340,6 +4688,12 @@ instance Marshal.WriteRaw Ordinary_double_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_double_pointer_array_struct instance BG.Storable Ordinary_double_pointer_array_struct
 
+{-| __C declaration:__ @ordinary_double_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 299:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CDouble)
          ) => BG.CompatHasField.HasField "ordinary_double_pointer_array_member" Ordinary_double_pointer_array_struct ty where
 
@@ -4405,6 +4759,12 @@ instance Marshal.WriteRaw Ordinary_signed_char_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_char_pointer_array_struct instance BG.Storable Ordinary_signed_char_pointer_array_struct
 
+{-| __C declaration:__ @ordinary_signed_char_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 302:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CChar)
          ) => BG.CompatHasField.HasField "ordinary_signed_char_pointer_array_member" Ordinary_signed_char_pointer_array_struct ty where
 
@@ -4470,6 +4830,12 @@ instance Marshal.WriteRaw Explicit_signed_char_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_char_pointer_array_struct instance BG.Storable Explicit_signed_char_pointer_array_struct
 
+{-| __C declaration:__ @explicit_signed_char_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 303:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CSChar)
          ) => BG.CompatHasField.HasField "explicit_signed_char_pointer_array_member" Explicit_signed_char_pointer_array_struct ty where
 
@@ -4534,6 +4900,12 @@ instance Marshal.WriteRaw Unsigned_char_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_char_pointer_array_struct instance BG.Storable Unsigned_char_pointer_array_struct
 
+{-| __C declaration:__ @unsigned_char_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 304:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CUChar)
          ) => BG.CompatHasField.HasField "unsigned_char_pointer_array_member" Unsigned_char_pointer_array_struct ty where
 
@@ -4599,6 +4971,12 @@ instance Marshal.WriteRaw Ordinary_signed_short_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_short_pointer_array_struct instance BG.Storable Ordinary_signed_short_pointer_array_struct
 
+{-| __C declaration:__ @ordinary_signed_short_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 306:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CShort)
          ) => BG.CompatHasField.HasField "ordinary_signed_short_pointer_array_member" Ordinary_signed_short_pointer_array_struct ty where
 
@@ -4664,6 +5042,12 @@ instance Marshal.WriteRaw Explicit_signed_short_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_short_pointer_array_struct instance BG.Storable Explicit_signed_short_pointer_array_struct
 
+{-| __C declaration:__ @explicit_signed_short_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 307:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CShort)
          ) => BG.CompatHasField.HasField "explicit_signed_short_pointer_array_member" Explicit_signed_short_pointer_array_struct ty where
 
@@ -4728,6 +5112,12 @@ instance Marshal.WriteRaw Unsigned_short_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_short_pointer_array_struct instance BG.Storable Unsigned_short_pointer_array_struct
 
+{-| __C declaration:__ @unsigned_short_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 308:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CUShort)
          ) => BG.CompatHasField.HasField "unsigned_short_pointer_array_member" Unsigned_short_pointer_array_struct ty where
 
@@ -4793,6 +5183,12 @@ instance Marshal.WriteRaw Ordinary_signed_int_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_int_pointer_array_struct instance BG.Storable Ordinary_signed_int_pointer_array_struct
 
+{-| __C declaration:__ @ordinary_signed_int_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 310:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CInt)
          ) => BG.CompatHasField.HasField "ordinary_signed_int_pointer_array_member" Ordinary_signed_int_pointer_array_struct ty where
 
@@ -4858,6 +5254,12 @@ instance Marshal.WriteRaw Explicit_signed_int_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_int_pointer_array_struct instance BG.Storable Explicit_signed_int_pointer_array_struct
 
+{-| __C declaration:__ @explicit_signed_int_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 311:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CInt)
          ) => BG.CompatHasField.HasField "explicit_signed_int_pointer_array_member" Explicit_signed_int_pointer_array_struct ty where
 
@@ -4922,6 +5324,12 @@ instance Marshal.WriteRaw Unsigned_int_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_int_pointer_array_struct instance BG.Storable Unsigned_int_pointer_array_struct
 
+{-| __C declaration:__ @unsigned_int_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 312:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CUInt)
          ) => BG.CompatHasField.HasField "unsigned_int_pointer_array_member" Unsigned_int_pointer_array_struct ty where
 
@@ -4987,6 +5395,12 @@ instance Marshal.WriteRaw Ordinary_signed_long_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_pointer_array_struct instance BG.Storable Ordinary_signed_long_pointer_array_struct
 
+{-| __C declaration:__ @ordinary_signed_long_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 314:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CLong)
          ) => BG.CompatHasField.HasField "ordinary_signed_long_pointer_array_member" Ordinary_signed_long_pointer_array_struct ty where
 
@@ -5052,6 +5466,12 @@ instance Marshal.WriteRaw Explicit_signed_long_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_pointer_array_struct instance BG.Storable Explicit_signed_long_pointer_array_struct
 
+{-| __C declaration:__ @explicit_signed_long_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 315:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CLong)
          ) => BG.CompatHasField.HasField "explicit_signed_long_pointer_array_member" Explicit_signed_long_pointer_array_struct ty where
 
@@ -5116,6 +5536,12 @@ instance Marshal.WriteRaw Unsigned_long_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_long_pointer_array_struct instance BG.Storable Unsigned_long_pointer_array_struct
 
+{-| __C declaration:__ @unsigned_long_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 316:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CULong)
          ) => BG.CompatHasField.HasField "unsigned_long_pointer_array_member" Unsigned_long_pointer_array_struct ty where
 
@@ -5181,6 +5607,12 @@ instance Marshal.WriteRaw Ordinary_signed_long_long_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_long_pointer_array_struct instance BG.Storable Ordinary_signed_long_long_pointer_array_struct
 
+{-| __C declaration:__ @ordinary_signed_long_long_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 318:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CLLong)
          ) => BG.CompatHasField.HasField "ordinary_signed_long_long_pointer_array_member" Ordinary_signed_long_long_pointer_array_struct ty where
 
@@ -5246,6 +5678,12 @@ instance Marshal.WriteRaw Explicit_signed_long_long_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_long_pointer_array_struct instance BG.Storable Explicit_signed_long_long_pointer_array_struct
 
+{-| __C declaration:__ @explicit_signed_long_long_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 319:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CLLong)
          ) => BG.CompatHasField.HasField "explicit_signed_long_long_pointer_array_member" Explicit_signed_long_long_pointer_array_struct ty where
 
@@ -5311,6 +5749,12 @@ instance Marshal.WriteRaw Unsigned_long_long_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_long_long_pointer_array_struct instance BG.Storable Unsigned_long_long_pointer_array_struct
 
+{-| __C declaration:__ @unsigned_long_long_pointer_array_member@
+
+    __defined at:__ @comprehensive\/c2hsc.h 320:77@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 10 (BG.Ptr BG.CULLong)
          ) => BG.CompatHasField.HasField "unsigned_long_long_pointer_array_member" Unsigned_long_long_pointer_array_struct ty where
 
@@ -5434,6 +5878,12 @@ instance Marshal.WriteRaw Cal_table_table where
 
 deriving via Marshal.EquivStorable Cal_table_table instance BG.Storable Cal_table_table
 
+{-| __C declaration:__ @raw@
+
+    __defined at:__ @comprehensive\/c2hsc.h 342:13@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "raw" Cal_table_table ty where
 
@@ -5455,6 +5905,12 @@ instance HasCField.HasCField Cal_table_table "raw" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @val@
+
+    __defined at:__ @comprehensive\/c2hsc.h 342:22@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "val" Cal_table_table ty where
 
@@ -5530,6 +5986,12 @@ instance Marshal.WriteRaw Cal_table where
 
 deriving via Marshal.EquivStorable Cal_table instance BG.Storable Cal_table
 
+{-| __C declaration:__ @size@
+
+    __defined at:__ @comprehensive\/c2hsc.h 340:9@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "size" Cal_table ty where
 
   hasField =
@@ -5550,6 +6012,12 @@ instance HasCField.HasCField Cal_table "size" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @table@
+
+    __defined at:__ @comprehensive\/c2hsc.h 343:7@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 32 Cal_table_table
          ) => BG.CompatHasField.HasField "table" Cal_table ty where
 
@@ -5713,6 +6181,12 @@ instance Marshal.WriteRaw Elf32_External_Dyn where
 
 deriving via Marshal.EquivStorable Elf32_External_Dyn instance BG.Storable Elf32_External_Dyn
 
+{-| __C declaration:__ @d_tag@
+
+    __defined at:__ @comprehensive\/c2hsc.h 348:17@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ CA.ConstantArray 4 BG.CUChar
          ) => BG.CompatHasField.HasField "d_tag" Elf32_External_Dyn ty where
 
@@ -5735,6 +6209,12 @@ instance HasCField.HasCField Elf32_External_Dyn "d_tag" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @d_un@
+
+    __defined at:__ @comprehensive\/c2hsc.h 352:5@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ Elf32_External_Dyn_d_un
          ) => BG.CompatHasField.HasField "d_un" Elf32_External_Dyn ty where
 
@@ -5911,6 +6391,12 @@ instance Marshal.WriteRaw MyStruct_27 where
 
 deriving via Marshal.EquivStorable MyStruct_27 instance BG.Storable MyStruct_27
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @comprehensive\/c2hsc.h 366:14@
+
+    __exported by:__ @comprehensive\/c2hsc.h@
+-}
 instance ( ty ~ MyArray_27
          ) => BG.CompatHasField.HasField "x" MyStruct_27 ty where
 

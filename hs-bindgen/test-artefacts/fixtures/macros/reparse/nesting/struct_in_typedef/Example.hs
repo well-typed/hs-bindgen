@@ -118,6 +118,12 @@ instance Marshal.WriteRaw T1 where
 
 deriving via Marshal.EquivStorable T1 instance BG.Storable T1
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_typedef.h 3:24@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_typedef.h@
+-}
 instance (ty ~ MyInt) => BG.CompatHasField.HasField "t1_x" T1 ty where
 
   hasField =
@@ -175,6 +181,12 @@ instance Marshal.WriteRaw T2_Aux where
 
 deriving via Marshal.EquivStorable T2_Aux instance BG.Storable T2_Aux
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_typedef.h 4:24@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_typedef.h@
+-}
 instance (ty ~ MyInt) => BG.CompatHasField.HasField "t2_Aux_x" T2_Aux ty where
 
   hasField =
@@ -271,6 +283,12 @@ instance Marshal.WriteRaw T3_Aux where
 
 deriving via Marshal.EquivStorable T3_Aux instance BG.Storable T3_Aux
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_typedef.h 5:24@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_typedef.h@
+-}
 instance (ty ~ MyInt) => BG.CompatHasField.HasField "t3_Aux_x" T3_Aux ty where
 
   hasField =

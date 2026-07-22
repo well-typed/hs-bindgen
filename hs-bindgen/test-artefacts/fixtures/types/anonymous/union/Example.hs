@@ -78,6 +78,12 @@ instance Marshal.WriteRaw Has_implicit_fields_anon'x2_1 where
 
 deriving via Marshal.EquivStorable Has_implicit_fields_anon'x2_1 instance BG.Storable Has_implicit_fields_anon'x2_1
 
+{-| __C declaration:__ @x2_1@
+
+    __defined at:__ @types\/anonymous\/union.h 6:9@
+
+    __exported by:__ @types\/anonymous\/union.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "has_implicit_fields_anon'x2_1_x2_1" Has_implicit_fields_anon'x2_1 ty where
 
@@ -103,6 +109,12 @@ instance HasCField.HasCField Has_implicit_fields_anon'x2_1 "has_implicit_fields_
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @x2_2@
+
+    __defined at:__ @types\/anonymous\/union.h 7:9@
+
+    __exported by:__ @types\/anonymous\/union.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "has_implicit_fields_anon'x2_1_x2_2" Has_implicit_fields_anon'x2_1 ty where
 
@@ -180,6 +192,12 @@ instance Marshal.WriteRaw Has_implicit_fields_anon'x4_1 where
 
 deriving via Marshal.EquivStorable Has_implicit_fields_anon'x4_1 instance BG.Storable Has_implicit_fields_anon'x4_1
 
+{-| __C declaration:__ @x4_1@
+
+    __defined at:__ @types\/anonymous\/union.h 11:9@
+
+    __exported by:__ @types\/anonymous\/union.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "has_implicit_fields_anon'x4_1_x4_1" Has_implicit_fields_anon'x4_1 ty where
 
@@ -205,6 +223,12 @@ instance HasCField.HasCField Has_implicit_fields_anon'x4_1 "has_implicit_fields_
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @x4_2@
+
+    __defined at:__ @types\/anonymous\/union.h 12:9@
+
+    __exported by:__ @types\/anonymous\/union.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "has_implicit_fields_anon'x4_1_x4_2" Has_implicit_fields_anon'x4_1 ty where
 

@@ -64,6 +64,12 @@ instance Marshal.WriteRaw B where
 
 deriving via Marshal.EquivStorable B instance BG.Storable B
 
+{-| __C declaration:__ @toA@
+
+    __defined at:__ @types\/structs\/circular_dependency_struct.h 4:13@
+
+    __exported by:__ @types\/structs\/circular_dependency_struct.h@
+-}
 instance (ty ~ BG.Ptr A) => BG.CompatHasField.HasField "b_toA" B ty where
 
   hasField =
@@ -121,6 +127,12 @@ instance Marshal.WriteRaw A where
 
 deriving via Marshal.EquivStorable A instance BG.Storable A
 
+{-| __C declaration:__ @toB@
+
+    __defined at:__ @types\/structs\/circular_dependency_struct.h 8:12@
+
+    __exported by:__ @types\/structs\/circular_dependency_struct.h@
+-}
 instance (ty ~ B) => BG.CompatHasField.HasField "a_toB" A ty where
 
   hasField =

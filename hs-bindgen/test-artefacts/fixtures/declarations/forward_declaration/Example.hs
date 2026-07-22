@@ -64,6 +64,12 @@ instance Marshal.WriteRaw S1_t where
 
 deriving via Marshal.EquivStorable S1_t instance BG.Storable S1_t
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @declarations\/forward_declaration.h 4:7@
+
+    __exported by:__ @declarations\/forward_declaration.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s1_t_a" S1_t ty where
 
   hasField =
@@ -121,6 +127,12 @@ instance Marshal.WriteRaw S2 where
 
 deriving via Marshal.EquivStorable S2 instance BG.Storable S2
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @declarations\/forward_declaration.h 10:7@
+
+    __exported by:__ @declarations\/forward_declaration.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s2_a" S2 ty where
 
   hasField =

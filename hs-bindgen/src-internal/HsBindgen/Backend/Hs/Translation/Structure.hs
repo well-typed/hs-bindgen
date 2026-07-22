@@ -14,8 +14,10 @@ import DeBruijn (EmptyCtx, Idx (..), Weaken (..), pattern I1)
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Origin qualified as Origin
+import HsBindgen.Backend.Hs.Translation.Field
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Monad (HsM)
 import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
@@ -57,7 +59,7 @@ getDeclsRegular spec info struct = do
       getInstances supInsts name struct.fields <$> State.gets (.instanceMap)
     let insts' = Set.insert Inst.Generic insts
         (hsStruct, decls) =
-          getDecls supInsts env.haddockConfig spec name info struct insts'
+          getDecls supInsts env spec name info struct insts'
     State.modify' $ #instanceMap %~ Map.insert name hsStruct.instances
     pure $ Hs.DeclData hsStruct : decls
   where
@@ -79,7 +81,7 @@ getDeclsFlam flam auxName spec info struct = do
       getInstances supInsts auxName struct.fields <$> State.gets (.instanceMap)
     let insts' = insts <> Set.fromList [Inst.Flam_Offset, Inst.Generic]
         (hsStruct, decls) =
-          getDecls supInsts env.haddockConfig spec auxName info struct insts'
+          getDecls supInsts env spec auxName info struct insts'
     State.modify' $ #instanceMap %~ Map.insert auxName hsStruct.instances
     pure $ Hs.DeclData hsStruct : decls ++ [getHasFlamInstanceDecl hsStruct, flamDecl env.haddockConfig]
   where
@@ -134,14 +136,14 @@ getInstances supInsts structName fields instanceMap =
 
 getDecls ::
      Map Inst.TypeClass Inst.SupportedStrategies
-  -> HaddockConfig
+  -> HsM.Env
   -> PrescriptiveDeclSpec
   -> Hs.Name Hs.NsTypeConstr
   -> C.DeclInfo Final
   -> C.Struct Final
   -> Set Inst.TypeClass
   -> (Hs.Struct, [Hs.Decl l])
-getDecls supInsts hCfg spec structName info struct insts =
+getDecls supInsts env spec structName info struct insts =
     ( hsStruct
     , marshalDecls ++ optDecls ++ fieldDecls
     )
@@ -155,7 +157,7 @@ getDecls supInsts hCfg spec structName info struct insts =
             name    = fieldName field
           , typ     = Type.topLevel field.typ
           , origin  = Origin.StructField field
-          , comment = mkHaddocksFieldInfo hCfg info field.info
+          , comment = mkHaddocksFieldInfo env.haddockConfig info field.info
           }
 
     fieldHint :: C.Field Final -> NameHint
@@ -179,7 +181,7 @@ getDecls supInsts hCfg spec structName info struct insts =
         , constr    = struct.names.constr
         , fields    = map getHsField struct.fields
         , instances = insts <> knownInsts
-        , comment   = mkHaddocks hCfg info
+        , comment   = mkHaddocks env.haddockConfig info
         , origin    = Just Origin.Decl{
               info
             , kind = Origin.Struct struct
@@ -258,9 +260,13 @@ getDecls supInsts hCfg spec structName info struct insts =
       ]
 
     fieldDecls :: [Hs.Decl l]
-    fieldDecls = flip concatMap struct.fields $ \field ->
-        hasFieldCompatDecs hsStruct field ++
-        hasFieldPtrDecs hsStruct field
+    fieldDecls = flip concatMap (flattenFields struct.fields) $ \field -> concat [
+          hasFieldDecs env info hsStruct field
+        , hasFieldCompatDecs env info hsStruct field
+        , hasFieldPtrDecs hsStruct field
+        , hasCFieldDecs hsStruct field
+        , hasCBitfieldDecs hsStruct field
+        ]
 
     knownInsts :: Set Inst.TypeClass
     knownInsts = Set.fromList $ catMaybes [
@@ -279,54 +285,63 @@ getDecls supInsts hCfg spec structName info struct insts =
   HasField
 -------------------------------------------------------------------------------}
 
--- | Class instances for 'GHC.Records.Compat.HasField' instances for a struct
--- field
---
--- Given a struct:
---
--- > struct myStruct { int x; char y };
---
--- We generate roughly this datatype:
---
--- > data MyStruct = MyStruct { myStruct_x :: CInt, myStruct_y :: CChar }
---
--- 'hasFieldCompatDecs' will generate roughly the following class instances for
--- the fields @x@ and @y@ respectively:
---
--- > instance GHC.Records.Compat.HasField "myStruct_x" MyStruct CInt
--- > instance GHC.Records.Compat.HasField "myStruct_y" MyStruct CChar
---
-hasFieldCompatDecs ::
-     Hs.Struct
-  -> C.Field Final
+-- | Class instances for 'GHC.Records.HasField'
+hasFieldDecs ::
+     HsM.Env
+  -> C.DeclInfo Final
+  -> Hs.Struct
+  -> Field
   -> [Hs.Decl l]
-hasFieldCompatDecs struct field = [
+hasFieldDecs _env _info _struct field = case field of
+    -- Explicit and implicit fields are translated to Haskell record datatype
+    -- fields, so they get @HasField@ instances
+    ExplicitField _ -> []
+    ImplicitField _ -> []
+
+-- | Class instances for 'GHC.Records.Compat.HasField'
+hasFieldCompatDecs ::
+     HsM.Env
+  -> C.DeclInfo Final
+  -> Hs.Struct
+  -> Field
+  -> [Hs.Decl l]
+hasFieldCompatDecs env info struct field = [
       Hs.DeclDefineInstance $
         Hs.DefineInstance {
-            comment      = Nothing
-          , instanceDecl = Hs.InstanceHasFieldCompat hasFieldCompatDecl
+            comment      = fieldComment
+          , instanceDecl = Hs.InstanceHasFieldCompat decl
           }
     | Inst.HasFieldCompat `elem` struct.instances
     ]
   where
+    fieldComment :: Maybe HsDoc.Comment
+    fieldComment = mkHaddocksFieldInfo env.haddockConfig info (getFieldInfo field)
+
     parentType :: Hs.Type
     parentType = Hs.TypRef struct.name Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel field.typ
+    fieldType = Type.topLevel (getFieldTyp field)
 
-    hasFieldCompatDecl :: Hs.HasFieldCompatInstance
-    hasFieldCompatDecl = Hs.HasFieldCompatInstance {
+    decl :: Hs.HasFieldCompatInstance
+    decl = Hs.HasFieldCompatInstance {
           parentType = parentType
         , fieldName  = fieldName
         , fieldType  = fieldType
-        , impl = Hs.HasFieldCompatImplRecord $ Hs.HFCImplRecord {
-              otherFields = otherFields
-            , constr = struct.constr
-            }
+        , impl = impl
+        }
+
+    impl, implRecord :: Hs.HasFieldCompatImpl
+    impl = case field of
+            ExplicitField _ -> implRecord
+            ImplicitField _ -> implRecord
+
+    implRecord = Hs.HasFieldCompatImplRecord {
+          otherFields = otherFields
+        , constr = struct.constr
         }
       where
         -- All fields that are /not/ the field we are creating an instance for
@@ -335,66 +350,25 @@ hasFieldCompatDecs struct field = [
             let fieldName' = field'.name in
             if fieldName == fieldName' then Nothing else Just fieldName'
 
--- | Class instances for 'GHC.Records.HasField' for a struct field the pointer
--- manipulation API
---
--- Given a struct:
---
--- > struct myStruct { int x; char y };
---
--- We generate roughly this datatype:
---
--- > data MyStruct = MyStruct { myStruct_x :: CInt, myStruct_y :: CChar }
---
--- 'hasFieldPtrDecs' will generate roughly the following class instances for the
--- fields @x@ and @y@ respectively:
---
--- > instance HasCField "myStruct_x" MyStruct where
--- >   type CFieldType "myStruct_x" MyStruct = CInt
--- > instance GHC.Records.HasField "myStruct_x" (Ptr MyStruct) (Ptr CInt)
---
--- > instance HasCField "myStruct_y" MyStruct where
--- >  type CFieldType "myStruct_y" MyStruct = CChar
--- > instance GHC.Records.HasField "myStruct_y" (Ptr MyStruct) (Ptr CChar)
---
--- This works similarly for bit-fields, but those get a
--- 'HsBindgen.Runtime.HasCBitfield.HasCBitfield' instance instead of a
--- 'HsBindgen.Runtime.HasCField.HasCField' instance.
---
-hasFieldPtrDecs ::
-     Hs.Struct
-  -> C.Field Final
-  -> [Hs.Decl l]
-hasFieldPtrDecs struct field = concat [
-      [ Hs.DeclDefineInstance $
-          Hs.DefineInstance {
-              comment      = Nothing
-            , instanceDecl = Hs.InstanceHasFieldPtr hasFieldPtrDecl
-            }
-      | Inst.HasFieldPtr `elem` struct.instances
-      ]
-    , [ Hs.DeclDefineInstance $
-          Hs.DefineInstance {
-              comment      = Nothing
-            , instanceDecl =
-                case field.width of
-                  Nothing -> Hs.InstanceHasCField $ hasCFieldDecl
-                  Just w  -> Hs.InstanceHasCBitfield $ hasCBitfieldDecl w
-            }
-      | case field.width of
-          Nothing -> Inst.HasCField `elem` struct.instances
-          Just{}  -> Inst.HasCBitfield `elem` struct.instances
-      ]
+-- | Class instances for 'GHC.Records.HasField' for the pointer manipulation API
+hasFieldPtrDecs :: Hs.Struct -> Field -> [Hs.Decl l]
+hasFieldPtrDecs struct field =
+    [ Hs.DeclDefineInstance $
+        Hs.DefineInstance {
+            comment      = Nothing
+          , instanceDecl = Hs.InstanceHasFieldPtr hasFieldPtrDecl
+          }
+    | Inst.HasFieldPtr `elem` struct.instances
     ]
   where
     parentType :: Hs.Type
     parentType = Hs.TypRef struct.name Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) field.info.name.hsName
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel field.typ
+    fieldType = Type.topLevel (getFieldTyp field)
 
     hasFieldPtrDecl :: Hs.HasFieldPtrInstance
     hasFieldPtrDecl = Hs.HasFieldPtrInstance {
@@ -402,25 +376,69 @@ hasFieldPtrDecs struct field = concat [
         , fieldName  = fieldName
         , fieldType  = fieldType
         , deriveVia  =
-            case field.width of
+            case getFieldWidth field of
               Nothing -> Hs.ViaHasCField
               Just _  -> Hs.ViaHasCBitfield
         }
 
-    hasCFieldDecl :: Hs.HasCFieldInstance
-    hasCFieldDecl = Hs.HasCFieldInstance {
+-- | Class instances for 'HsBindgen.Runtime.HasCField.HasCField'
+hasCFieldDecs :: Hs.Struct -> Field -> [Hs.Decl l]
+hasCFieldDecs struct field = case getFieldWidth field of
+    Just _w -> []
+    Nothing ->
+      [ Hs.DeclDefineInstance $
+          Hs.DefineInstance {
+              comment      = Nothing
+            , instanceDecl = Hs.InstanceHasCField decl
+            }
+      | Inst.HasCField `elem` struct.instances
+      ]
+  where
+    parentType :: Hs.Type
+    parentType = Hs.TypRef struct.name Nothing
+
+    fieldName :: Hs.Name Hs.NsVar
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
+
+    fieldType :: Hs.Type
+    fieldType = Type.topLevel (getFieldTyp field)
+
+    decl :: Hs.HasCFieldInstance
+    decl = Hs.HasCFieldInstance {
           parentType  = parentType
         , fieldName   = fieldName
         , cFieldType  = fieldType
-        , fieldOffset = field.offset `div` 8
+        , fieldOffset = getFieldOffset field `div` 8
         }
 
-    hasCBitfieldDecl :: Int -> Hs.HasCBitfieldInstance
-    hasCBitfieldDecl w = Hs.HasCBitfieldInstance {
+-- | Class instances for 'HsBindgen.Runtime.HasCBitfield.HasCBitfield'
+hasCBitfieldDecs :: Hs.Struct -> Field -> [Hs.Decl l]
+hasCBitfieldDecs struct field = case getFieldWidth field of
+    Nothing -> []
+    Just w ->
+      [ Hs.DeclDefineInstance $
+          Hs.DefineInstance {
+              comment      = Nothing
+            , instanceDecl = Hs.InstanceHasCBitfield $ decl w
+            }
+      | Inst.HasCBitfield `elem` struct.instances
+      ]
+  where
+    parentType :: Hs.Type
+    parentType = Hs.TypRef struct.name Nothing
+
+    fieldName :: Hs.Name Hs.NsVar
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
+
+    fieldType :: Hs.Type
+    fieldType = Type.topLevel (getFieldTyp field)
+
+    decl :: Int -> Hs.HasCBitfieldInstance
+    decl w = Hs.HasCBitfieldInstance {
           parentType    = parentType
         , fieldName     = fieldName
         , cBitfieldType = fieldType
-        , bitOffset     = field.offset
+        , bitOffset     = getFieldOffset field
         , bitWidth      = w
         }
 

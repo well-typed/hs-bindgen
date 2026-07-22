@@ -72,6 +72,12 @@ instance Marshal.WriteRaw Pt where
 
 deriving via Marshal.EquivStorable Pt instance BG.Storable Pt
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @binding-specs\/enum\/mismatch.h 1:20@
+
+    __exported by:__ @binding-specs\/enum\/mismatch.h@
+-}
 instance (ty ~ BG.CDouble) => BG.CompatHasField.HasField "pt_x" Pt ty where
 
   hasField =
@@ -91,6 +97,12 @@ instance HasCField.HasCField Pt "pt_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @binding-specs\/enum\/mismatch.h 1:23@
+
+    __exported by:__ @binding-specs\/enum\/mismatch.h@
+-}
 instance (ty ~ BG.CDouble) => BG.CompatHasField.HasField "pt_y" Pt ty where
 
   hasField =

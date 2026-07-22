@@ -63,6 +63,12 @@ instance Marshal.WriteRaw UnrelatedDeclaration where
 
 deriving via Marshal.EquivStorable UnrelatedDeclaration instance BG.Storable UnrelatedDeclaration
 
+{-| __C declaration:__ @m@
+
+    __defined at:__ @program-analysis\/selection_omit_external_a.h 5:7@
+
+    __exported by:__ @program-analysis\/selection_omit_external_a.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "unrelatedDeclaration_m" UnrelatedDeclaration ty where
 

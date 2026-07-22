@@ -226,6 +226,12 @@ instance Marshal.WriteRaw Cint16_T where
 
 deriving via Marshal.EquivStorable Cint16_T instance BG.Storable Cint16_T
 
+{-| __C declaration:__ @re@
+
+    __defined at:__ @edge-cases\/spec_examples.h 15:11@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
 instance ( ty ~ Int16_T
          ) => BG.CompatHasField.HasField "cint16_T_re" Cint16_T ty where
 
@@ -248,6 +254,12 @@ instance HasCField.HasCField Cint16_T "cint16_T_re" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @im@
+
+    __defined at:__ @edge-cases\/spec_examples.h 16:11@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
 instance ( ty ~ Int16_T
          ) => BG.CompatHasField.HasField "cint16_T_im" Cint16_T ty where
 
@@ -377,6 +389,12 @@ instance Marshal.WriteRaw A where
 
 deriving via Marshal.EquivStorable A instance BG.Storable A
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @edge-cases\/spec_examples.h 24:10@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
 instance (ty ~ BG.CDouble) => BG.CompatHasField.HasField "a_x" A ty where
 
   hasField =
@@ -401,6 +419,12 @@ instance HasCField.HasCField A "a_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @label@
+
+    __defined at:__ @edge-cases\/spec_examples.h 25:9@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
 instance ( ty ~ BG.Ptr BG.CChar
          ) => BG.CompatHasField.HasField "a_label" A ty where
 
@@ -427,6 +451,12 @@ instance HasCField.HasCField A "a_label" where
 
   offset# = \_ -> \_ -> 8
 
+{-| __C declaration:__ @samples@
+
+    __defined at:__ @edge-cases\/spec_examples.h 26:8@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
 instance ( ty ~ CA.ConstantArray 128 BG.CChar
          ) => BG.CompatHasField.HasField "a_samples" A ty where
 
@@ -454,6 +484,12 @@ instance HasCField.HasCField A "a_samples" where
 
   offset# = \_ -> \_ -> 16
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @edge-cases\/spec_examples.h 27:12@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
 instance (ty ~ B) => BG.CompatHasField.HasField "a_b" A ty where
 
   hasField =
@@ -478,6 +514,12 @@ instance HasCField.HasCField A "a_b" where
 
   offset# = \_ -> \_ -> 144
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @edge-cases\/spec_examples.h 28:13@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
 instance (ty ~ BG.Ptr C) => BG.CompatHasField.HasField "a_c" A ty where
 
   hasField =

@@ -72,6 +72,12 @@ instance Marshal.WriteRaw Hoge where
 
 deriving via Marshal.EquivStorable Hoge instance BG.Storable Hoge
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @binding-specs\/name\/squash_struct.h 1:26@
+
+    __exported by:__ @binding-specs\/name\/squash_struct.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "hoge_x" Hoge ty where
 
   hasField =
@@ -91,6 +97,12 @@ instance HasCField.HasCField Hoge "hoge_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @binding-specs\/name\/squash_struct.h 1:29@
+
+    __exported by:__ @binding-specs\/name\/squash_struct.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "hoge_y" Hoge ty where
 
   hasField =

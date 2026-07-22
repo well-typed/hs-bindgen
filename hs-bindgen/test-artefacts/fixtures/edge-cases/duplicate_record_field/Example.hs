@@ -66,6 +66,12 @@ instance Marshal.WriteRaw A where
 
 deriving via Marshal.EquivStorable A instance BG.Storable A
 
+{-| __C declaration:__ @dup@
+
+    __defined at:__ @edge-cases\/duplicate_record_field.h 2:7@
+
+    __exported by:__ @edge-cases\/duplicate_record_field.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dup" A ty where
 
   hasField =
@@ -122,6 +128,12 @@ instance Marshal.WriteRaw B where
 
 deriving via Marshal.EquivStorable B instance BG.Storable B
 
+{-| __C declaration:__ @dup@
+
+    __defined at:__ @edge-cases\/duplicate_record_field.h 6:7@
+
+    __exported by:__ @edge-cases\/duplicate_record_field.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "dup" B ty where
 
   hasField =

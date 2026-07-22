@@ -77,6 +77,12 @@ instance Marshal.WriteRaw Outer1_anon'fieldX where
 
 deriving via Marshal.EquivStorable Outer1_anon'fieldX instance BG.Storable Outer1_anon'fieldX
 
+{-| __C declaration:__ @fieldX@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 9:9@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "outer1_anon'fieldX_fieldX" Outer1_anon'fieldX ty where
 
@@ -102,6 +108,12 @@ instance HasCField.HasCField Outer1_anon'fieldX "outer1_anon'fieldX_fieldX" wher
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @fieldY@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 10:9@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "outer1_anon'fieldX_fieldY" Outer1_anon'fieldX ty where
 
@@ -186,6 +198,12 @@ instance Marshal.WriteRaw Outer1 where
 
 deriving via Marshal.EquivStorable Outer1 instance BG.Storable Outer1
 
+{-| __C declaration:__ @fieldA@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 7:8@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
 instance ( ty ~ BG.CChar
          ) => BG.CompatHasField.HasField "outer1_fieldA" Outer1 ty where
 
@@ -211,6 +229,12 @@ instance HasCField.HasCField Outer1 "outer1_fieldA" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @anon\'fieldX@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 8:3@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
 instance ( ty ~ Outer1_anon'fieldX
          ) => BG.CompatHasField.HasField "outer1_anon'fieldX" Outer1 ty where
 
@@ -237,6 +261,12 @@ instance HasCField.HasCField Outer1 "outer1_anon'fieldX" where
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @fieldC@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 12:7@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "outer1_fieldC" Outer1 ty where
 
@@ -312,6 +342,12 @@ instance Marshal.WriteRaw Outer2_fieldB where
 
 deriving via Marshal.EquivStorable Outer2_fieldB instance BG.Storable Outer2_fieldB
 
+{-| __C declaration:__ @fieldX@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 18:9@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "outer2_fieldB_fieldX" Outer2_fieldB ty where
 
@@ -337,6 +373,12 @@ instance HasCField.HasCField Outer2_fieldB "outer2_fieldB_fieldX" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @fieldY@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 19:9@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "outer2_fieldB_fieldY" Outer2_fieldB ty where
 
@@ -421,6 +463,12 @@ instance Marshal.WriteRaw Outer2 where
 
 deriving via Marshal.EquivStorable Outer2 instance BG.Storable Outer2
 
+{-| __C declaration:__ @fieldA@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 16:8@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
 instance ( ty ~ BG.CChar
          ) => BG.CompatHasField.HasField "outer2_fieldA" Outer2 ty where
 
@@ -446,6 +494,12 @@ instance HasCField.HasCField Outer2 "outer2_fieldA" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @fieldB@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 20:5@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
 instance ( ty ~ Outer2_fieldB
          ) => BG.CompatHasField.HasField "outer2_fieldB" Outer2 ty where
 
@@ -472,6 +526,12 @@ instance HasCField.HasCField Outer2 "outer2_fieldB" where
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @fieldC@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 21:7@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "outer2_fieldC" Outer2 ty where
 
@@ -547,6 +607,12 @@ instance Marshal.WriteRaw Inner3 where
 
 deriving via Marshal.EquivStorable Inner3 instance BG.Storable Inner3
 
+{-| __C declaration:__ @fieldX@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 27:9@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "inner3_fieldX" Inner3 ty where
 
@@ -569,6 +635,12 @@ instance HasCField.HasCField Inner3 "inner3_fieldX" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @fieldY@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 28:9@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "inner3_fieldY" Inner3 ty where
 
@@ -650,6 +722,12 @@ instance Marshal.WriteRaw Outer3 where
 
 deriving via Marshal.EquivStorable Outer3 instance BG.Storable Outer3
 
+{-| __C declaration:__ @fieldA@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 25:8@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
 instance ( ty ~ BG.CChar
          ) => BG.CompatHasField.HasField "outer3_fieldA" Outer3 ty where
 
@@ -675,6 +753,12 @@ instance HasCField.HasCField Outer3 "outer3_fieldA" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @fieldB@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 29:5@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
 instance ( ty ~ Inner3
          ) => BG.CompatHasField.HasField "outer3_fieldB" Outer3 ty where
 
@@ -700,6 +784,12 @@ instance HasCField.HasCField Outer3 "outer3_fieldB" where
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @fieldC@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 30:7@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "outer3_fieldC" Outer3 ty where
 

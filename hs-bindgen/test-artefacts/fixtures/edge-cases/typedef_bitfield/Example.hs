@@ -232,6 +232,12 @@ instance Marshal.WriteRaw MyStruct where
 
 deriving via Marshal.EquivStorable MyStruct instance BG.Storable MyStruct
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @edge-cases\/typedef_bitfield.h 7:9@
+
+    __exported by:__ @edge-cases\/typedef_bitfield.h@
+-}
 instance ( ty ~ MyInt
          ) => BG.CompatHasField.HasField "myStruct_x" MyStruct ty where
 
@@ -259,6 +265,12 @@ instance HasCBitfield.HasCBitfield MyStruct "myStruct_x" where
 
   bitfieldWidth# = \_ -> \_ -> 2
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @edge-cases\/typedef_bitfield.h 8:10@
+
+    __exported by:__ @edge-cases\/typedef_bitfield.h@
+-}
 instance ( ty ~ MyUInt
          ) => BG.CompatHasField.HasField "myStruct_y" MyStruct ty where
 
@@ -286,6 +298,12 @@ instance HasCBitfield.HasCBitfield MyStruct "myStruct_y" where
 
   bitfieldWidth# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @z@
+
+    __defined at:__ @edge-cases\/typedef_bitfield.h 9:10@
+
+    __exported by:__ @edge-cases\/typedef_bitfield.h@
+-}
 instance ( ty ~ MyLong
          ) => BG.CompatHasField.HasField "myStruct_z" MyStruct ty where
 

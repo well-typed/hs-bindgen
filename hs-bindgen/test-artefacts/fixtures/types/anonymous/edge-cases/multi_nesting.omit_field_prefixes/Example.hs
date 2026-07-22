@@ -89,6 +89,12 @@ instance Marshal.WriteRaw SSS_anon'anon'x_anon'x where
 
 deriving via Marshal.EquivStorable SSS_anon'anon'x_anon'x instance BG.Storable SSS_anon'anon'x_anon'x
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 18:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "x" SSS_anon'anon'x_anon'x ty where
 
@@ -149,6 +155,12 @@ instance Marshal.WriteRaw SSS_anon'anon'x where
 
 deriving via Marshal.EquivStorable SSS_anon'anon'x instance BG.Storable SSS_anon'anon'x
 
+{-| __C declaration:__ @anon\'x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 17:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
 instance ( ty ~ SSS_anon'anon'x_anon'x
          ) => BG.CompatHasField.HasField "anon'x" SSS_anon'anon'x ty where
 
@@ -210,6 +222,12 @@ instance Marshal.WriteRaw SSS where
 
 deriving via Marshal.EquivStorable SSS instance BG.Storable SSS
 
+{-| __C declaration:__ @anon\'anon\'x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 16:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
 instance ( ty ~ SSS_anon'anon'x
          ) => BG.CompatHasField.HasField "anon'anon'x" SSS ty where
 
@@ -271,6 +289,12 @@ instance Marshal.WriteRaw USS_anon'anon'x_anon'x where
 
 deriving via Marshal.EquivStorable USS_anon'anon'x_anon'x instance BG.Storable USS_anon'anon'x_anon'x
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 26:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "x" USS_anon'anon'x_anon'x ty where
 
@@ -331,6 +355,12 @@ instance Marshal.WriteRaw USS_anon'anon'x where
 
 deriving via Marshal.EquivStorable USS_anon'anon'x instance BG.Storable USS_anon'anon'x
 
+{-| __C declaration:__ @anon\'x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 25:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
 instance ( ty ~ USS_anon'anon'x_anon'x
          ) => BG.CompatHasField.HasField "anon'x" USS_anon'anon'x ty where
 
@@ -448,6 +478,12 @@ instance Marshal.WriteRaw SUS_anon'anon'x_anon'x where
 
 deriving via Marshal.EquivStorable SUS_anon'anon'x_anon'x instance BG.Storable SUS_anon'anon'x_anon'x
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 34:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "x" SUS_anon'anon'x_anon'x ty where
 
@@ -564,6 +600,12 @@ instance Marshal.WriteRaw SUS where
 
 deriving via Marshal.EquivStorable SUS instance BG.Storable SUS
 
+{-| __C declaration:__ @anon\'anon\'x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 32:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
 instance ( ty ~ SUS_anon'anon'x
          ) => BG.CompatHasField.HasField "anon'anon'x" SUS ty where
 
@@ -625,6 +667,12 @@ instance Marshal.WriteRaw UUS_anon'anon'x_anon'x where
 
 deriving via Marshal.EquivStorable UUS_anon'anon'x_anon'x instance BG.Storable UUS_anon'anon'x_anon'x
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 42:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "x" UUS_anon'anon'x_anon'x ty where
 
@@ -851,6 +899,12 @@ instance Marshal.WriteRaw SSU_anon'anon'x where
 
 deriving via Marshal.EquivStorable SSU_anon'anon'x instance BG.Storable SSU_anon'anon'x
 
+{-| __C declaration:__ @anon\'x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 49:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
 instance ( ty ~ SSU_anon'anon'x_anon'x
          ) => BG.CompatHasField.HasField "anon'x" SSU_anon'anon'x ty where
 
@@ -912,6 +966,12 @@ instance Marshal.WriteRaw SSU where
 
 deriving via Marshal.EquivStorable SSU instance BG.Storable SSU
 
+{-| __C declaration:__ @anon\'anon\'x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 48:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
 instance ( ty ~ SSU_anon'anon'x
          ) => BG.CompatHasField.HasField "anon'anon'x" SSU ty where
 
@@ -1027,6 +1087,12 @@ instance Marshal.WriteRaw USU_anon'anon'x where
 
 deriving via Marshal.EquivStorable USU_anon'anon'x instance BG.Storable USU_anon'anon'x
 
+{-| __C declaration:__ @anon\'x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 57:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
 instance ( ty ~ USU_anon'anon'x_anon'x
          ) => BG.CompatHasField.HasField "anon'x" USU_anon'anon'x ty where
 
@@ -1254,6 +1320,12 @@ instance Marshal.WriteRaw SUU where
 
 deriving via Marshal.EquivStorable SUU instance BG.Storable SUU
 
+{-| __C declaration:__ @anon\'anon\'x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 64:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
 instance ( ty ~ SUU_anon'anon'x
          ) => BG.CompatHasField.HasField "anon'anon'x" SUU ty where
 

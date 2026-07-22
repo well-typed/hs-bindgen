@@ -65,6 +65,12 @@ instance Marshal.WriteRaw S_y_anon'x where
 
 deriving via Marshal.EquivStorable S_y_anon'x instance BG.Storable S_y_anon'x
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h 17:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "s_y_anon'x_x" S_y_anon'x ty where
 
@@ -126,6 +132,12 @@ instance Marshal.WriteRaw S_y where
 
 deriving via Marshal.EquivStorable S_y instance BG.Storable S_y
 
+{-| __C declaration:__ @anon\'x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h 16:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h@
+-}
 instance ( ty ~ S_y_anon'x
          ) => BG.CompatHasField.HasField "s_y_anon'x" S_y ty where
 
@@ -195,6 +207,12 @@ instance Marshal.WriteRaw S where
 
 deriving via Marshal.EquivStorable S instance BG.Storable S
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h 14:22@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h@
+-}
 instance (ty ~ BG.CULLong) => BG.CompatHasField.HasField "s_x" S ty where
 
   hasField =
@@ -212,6 +230,12 @@ instance HasCField.HasCField S "s_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h 19:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h@
+-}
 instance (ty ~ S_y) => BG.CompatHasField.HasField "s_y" S ty where
 
   hasField =

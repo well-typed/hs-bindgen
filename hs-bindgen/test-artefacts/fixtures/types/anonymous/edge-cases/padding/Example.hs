@@ -71,6 +71,12 @@ instance Marshal.WriteRaw SS_anon'y where
 
 deriving via Marshal.EquivStorable SS_anon'y instance BG.Storable SS_anon'y
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 17:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "sS_anon'y_y" SS_anon'y ty where
 
@@ -150,6 +156,12 @@ instance Marshal.WriteRaw SS where
 
 deriving via Marshal.EquivStorable SS instance BG.Storable SS
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 14:8@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "sS_x" SS ty where
 
   hasField =
@@ -172,6 +184,12 @@ instance HasCField.HasCField SS "sS_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @anon\'y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 15:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
 instance (ty ~ SS_anon'y) => BG.CompatHasField.HasField "sS_anon'y" SS ty where
 
   hasField =
@@ -192,6 +210,12 @@ instance HasCField.HasCField SS "sS_anon'y" where
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @z@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 19:7@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "sS_z" SS ty where
 
   hasField =
@@ -329,6 +353,12 @@ instance Marshal.WriteRaw SU where
 
 deriving via Marshal.EquivStorable SU instance BG.Storable SU
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 23:8@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "sU_x" SU ty where
 
   hasField =
@@ -351,6 +381,12 @@ instance HasCField.HasCField SU "sU_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @anon\'y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 24:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
 instance (ty ~ SU_anon'y) => BG.CompatHasField.HasField "sU_anon'y" SU ty where
 
   hasField =
@@ -371,6 +407,12 @@ instance HasCField.HasCField SU "sU_anon'y" where
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @z@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 28:7@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "sU_z" SU ty where
 
   hasField =
@@ -434,6 +476,12 @@ instance Marshal.WriteRaw US_anon'y where
 
 deriving via Marshal.EquivStorable US_anon'y instance BG.Storable US_anon'y
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 35:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "uS_anon'y_y" US_anon'y ty where
 

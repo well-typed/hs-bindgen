@@ -84,6 +84,12 @@ instance Marshal.WriteRaw S1 where
 
 deriving via Marshal.EquivStorable S1 instance BG.Storable S1
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/simple_structs.h 3:9@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "a" S1 ty where
 
   hasField =
@@ -101,6 +107,12 @@ instance HasCField.HasCField S1 "a" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/simple_structs.h 4:10@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "b" S1 ty where
 
   hasField =
@@ -177,6 +189,12 @@ instance Marshal.WriteRaw S2_t where
 
 deriving via Marshal.EquivStorable S2_t instance BG.Storable S2_t
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/simple_structs.h 9:10@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "a" S2_t ty where
 
   hasField =
@@ -196,6 +214,12 @@ instance HasCField.HasCField S2_t "a" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/simple_structs.h 10:9@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "b" S2_t ty where
 
   hasField =
@@ -215,6 +239,12 @@ instance HasCField.HasCField S2_t "b" where
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @types\/structs\/simple_structs.h 11:11@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.CFloat) => BG.CompatHasField.HasField "c" S2_t ty where
 
   hasField =
@@ -274,6 +304,12 @@ instance Marshal.WriteRaw S3_t where
 
 deriving via Marshal.EquivStorable S3_t instance BG.Storable S3_t
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/simple_structs.h 16:10@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "a" S3_t ty where
 
   hasField =
@@ -348,6 +384,12 @@ instance Marshal.WriteRaw S4 where
 
 deriving via Marshal.EquivStorable S4 instance BG.Storable S4
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/simple_structs.h 20:10@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "b" S4 ty where
 
   hasField =
@@ -367,6 +409,12 @@ instance HasCField.HasCField S4 "b" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/simple_structs.h 21:9@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "a" S4 ty where
 
   hasField =
@@ -386,6 +434,12 @@ instance HasCField.HasCField S4 "a" where
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @types\/structs\/simple_structs.h 22:10@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.Ptr BG.CInt) => BG.CompatHasField.HasField "c" S4 ty where
 
   hasField =
@@ -455,6 +509,12 @@ instance Marshal.WriteRaw S5 where
 
 deriving via Marshal.EquivStorable S5 instance BG.Storable S5
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/simple_structs.h 27:10@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "a" S5 ty where
 
   hasField =
@@ -472,6 +532,12 @@ instance HasCField.HasCField S5 "a" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/simple_structs.h 28:9@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "b" S5 ty where
 
   hasField =
@@ -539,6 +605,12 @@ instance Marshal.WriteRaw S6 where
 
 deriving via Marshal.EquivStorable S6 instance BG.Storable S6
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/simple_structs.h 31:18@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "a" S6 ty where
 
   hasField =
@@ -556,6 +628,12 @@ instance HasCField.HasCField S6 "a" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/simple_structs.h 31:25@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "b" S6 ty where
 
   hasField =
@@ -623,6 +701,12 @@ instance Marshal.WriteRaw S7a_Aux where
 
 deriving via Marshal.EquivStorable S7a_Aux instance BG.Storable S7a_Aux
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/simple_structs.h 34:23@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "a" S7a_Aux ty where
 
   hasField =
@@ -640,6 +724,12 @@ instance HasCField.HasCField S7a_Aux "a" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/simple_structs.h 34:30@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "b" S7a_Aux ty where
 
   hasField =
@@ -743,6 +833,12 @@ instance Marshal.WriteRaw S7b_Aux where
 
 deriving via Marshal.EquivStorable S7b_Aux instance BG.Storable S7b_Aux
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/structs\/simple_structs.h 35:23@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "a" S7b_Aux ty where
 
   hasField =
@@ -760,6 +856,12 @@ instance HasCField.HasCField S7b_Aux "a" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @types\/structs\/simple_structs.h 35:30@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "b" S7b_Aux ty where
 
   hasField =

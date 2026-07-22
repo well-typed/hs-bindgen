@@ -65,6 +65,12 @@ instance Marshal.WriteRaw X where
 
 deriving via Marshal.EquivStorable X instance BG.Storable X
 
+{-| __C declaration:__ @n@
+
+    __defined at:__ @declarations\/definitions.h 23:16@
+
+    __exported by:__ @declarations\/definitions.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "x_n" X ty where
 
   hasField =

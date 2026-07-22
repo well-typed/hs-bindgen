@@ -78,6 +78,12 @@ instance Marshal.WriteRaw Has_implicit_fields_anon'x2_1 where
 
 deriving via Marshal.EquivStorable Has_implicit_fields_anon'x2_1 instance BG.Storable Has_implicit_fields_anon'x2_1
 
+{-| __C declaration:__ @x2_1@
+
+    __defined at:__ @types\/anonymous\/struct.h 8:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "has_implicit_fields_anon'x2_1_x2_1" Has_implicit_fields_anon'x2_1 ty where
 
@@ -103,6 +109,12 @@ instance HasCField.HasCField Has_implicit_fields_anon'x2_1 "has_implicit_fields_
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @x2_2@
+
+    __defined at:__ @types\/anonymous\/struct.h 9:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "has_implicit_fields_anon'x2_1_x2_2" Has_implicit_fields_anon'x2_1 ty where
 
@@ -180,6 +192,12 @@ instance Marshal.WriteRaw Has_implicit_fields_anon'x4_1 where
 
 deriving via Marshal.EquivStorable Has_implicit_fields_anon'x4_1 instance BG.Storable Has_implicit_fields_anon'x4_1
 
+{-| __C declaration:__ @x4_1@
+
+    __defined at:__ @types\/anonymous\/struct.h 13:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "has_implicit_fields_anon'x4_1_x4_1" Has_implicit_fields_anon'x4_1 ty where
 
@@ -205,6 +223,12 @@ instance HasCField.HasCField Has_implicit_fields_anon'x4_1 "has_implicit_fields_
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @x4_2@
+
+    __defined at:__ @types\/anonymous\/struct.h 14:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "has_implicit_fields_anon'x4_1_x4_2" Has_implicit_fields_anon'x4_1 ty where
 
@@ -417,6 +441,12 @@ instance Marshal.WriteRaw Has_implicit_fields where
 
 deriving via Marshal.EquivStorable Has_implicit_fields instance BG.Storable Has_implicit_fields
 
+{-| __C declaration:__ @x1@
+
+    __defined at:__ @types\/anonymous\/struct.h 6:7@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "has_implicit_fields_x1" Has_implicit_fields ty where
 
@@ -446,6 +476,12 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x1" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @anon\'x2_1@
+
+    __defined at:__ @types\/anonymous\/struct.h 7:3@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
 instance ( ty ~ Has_implicit_fields_anon'x2_1
          ) => BG.CompatHasField.HasField "has_implicit_fields_anon'x2_1" Has_implicit_fields ty where
 
@@ -475,6 +511,12 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_anon'x2_1"
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @x3@
+
+    __defined at:__ @types\/anonymous\/struct.h 11:7@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "has_implicit_fields_x3" Has_implicit_fields ty where
 
@@ -504,6 +546,12 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x3" where
 
   offset# = \_ -> \_ -> 12
 
+{-| __C declaration:__ @anon\'x4_1@
+
+    __defined at:__ @types\/anonymous\/struct.h 12:3@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
 instance ( ty ~ Has_implicit_fields_anon'x4_1
          ) => BG.CompatHasField.HasField "has_implicit_fields_anon'x4_1" Has_implicit_fields ty where
 
@@ -533,6 +581,12 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_anon'x4_1"
 
   offset# = \_ -> \_ -> 16
 
+{-| __C declaration:__ @anon\'x5_1@
+
+    __defined at:__ @types\/anonymous\/struct.h 16:3@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
 instance ( ty ~ Has_implicit_fields_anon'x5_1
          ) => BG.CompatHasField.HasField "has_implicit_fields_anon'x5_1" Has_implicit_fields ty where
 
@@ -562,6 +616,12 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_anon'x5_1"
 
   offset# = \_ -> \_ -> 24
 
+{-| __C declaration:__ @x5@
+
+    __defined at:__ @types\/anonymous\/struct.h 20:7@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "has_implicit_fields_x5" Has_implicit_fields ty where
 

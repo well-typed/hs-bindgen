@@ -334,6 +334,12 @@ instance Marshal.WriteRaw Primitive where
 
 deriving via Marshal.EquivStorable Primitive instance BG.Storable Primitive
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 2:10@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CChar
          ) => BG.CompatHasField.HasField "primitive_c" Primitive ty where
 
@@ -384,6 +390,12 @@ instance HasCField.HasCField Primitive "primitive_c" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @sc@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 3:17@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CSChar
          ) => BG.CompatHasField.HasField "primitive_sc" Primitive ty where
 
@@ -434,6 +446,12 @@ instance HasCField.HasCField Primitive "primitive_sc" where
 
   offset# = \_ -> \_ -> 1
 
+{-| __C declaration:__ @uc@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 4:19@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CUChar
          ) => BG.CompatHasField.HasField "primitive_uc" Primitive ty where
 
@@ -484,6 +502,12 @@ instance HasCField.HasCField Primitive "primitive_uc" where
 
   offset# = \_ -> \_ -> 2
 
+{-| __C declaration:__ @s@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 6:11@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CShort
          ) => BG.CompatHasField.HasField "primitive_s" Primitive ty where
 
@@ -534,6 +558,12 @@ instance HasCField.HasCField Primitive "primitive_s" where
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @si@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 7:15@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CShort
          ) => BG.CompatHasField.HasField "primitive_si" Primitive ty where
 
@@ -584,6 +614,12 @@ instance HasCField.HasCField Primitive "primitive_si" where
 
   offset# = \_ -> \_ -> 6
 
+{-| __C declaration:__ @ss@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 8:18@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CShort
          ) => BG.CompatHasField.HasField "primitive_ss" Primitive ty where
 
@@ -634,6 +670,12 @@ instance HasCField.HasCField Primitive "primitive_ss" where
 
   offset# = \_ -> \_ -> 8
 
+{-| __C declaration:__ @ssi@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 9:22@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CShort
          ) => BG.CompatHasField.HasField "primitive_ssi" Primitive ty where
 
@@ -684,6 +726,12 @@ instance HasCField.HasCField Primitive "primitive_ssi" where
 
   offset# = \_ -> \_ -> 10
 
+{-| __C declaration:__ @us@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 11:20@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CUShort
          ) => BG.CompatHasField.HasField "primitive_us" Primitive ty where
 
@@ -734,6 +782,12 @@ instance HasCField.HasCField Primitive "primitive_us" where
 
   offset# = \_ -> \_ -> 12
 
+{-| __C declaration:__ @usi@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 12:24@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CUShort
          ) => BG.CompatHasField.HasField "primitive_usi" Primitive ty where
 
@@ -785,6 +839,12 @@ instance HasCField.HasCField Primitive "primitive_usi" where
 
   offset# = \_ -> \_ -> 14
 
+{-| __C declaration:__ @i@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 14:9@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "primitive_i" Primitive ty where
 
@@ -835,6 +895,12 @@ instance HasCField.HasCField Primitive "primitive_i" where
 
   offset# = \_ -> \_ -> 16
 
+{-| __C declaration:__ @s2@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 15:12@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "primitive_s2" Primitive ty where
 
@@ -885,6 +951,12 @@ instance HasCField.HasCField Primitive "primitive_s2" where
 
   offset# = \_ -> \_ -> 20
 
+{-| __C declaration:__ @si2@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 16:16@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "primitive_si2" Primitive ty where
 
@@ -935,6 +1007,12 @@ instance HasCField.HasCField Primitive "primitive_si2" where
 
   offset# = \_ -> \_ -> 24
 
+{-| __C declaration:__ @u@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 18:14@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CUInt
          ) => BG.CompatHasField.HasField "primitive_u" Primitive ty where
 
@@ -985,6 +1063,12 @@ instance HasCField.HasCField Primitive "primitive_u" where
 
   offset# = \_ -> \_ -> 28
 
+{-| __C declaration:__ @ui@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 19:18@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CUInt
          ) => BG.CompatHasField.HasField "primitive_ui" Primitive ty where
 
@@ -1035,6 +1119,12 @@ instance HasCField.HasCField Primitive "primitive_ui" where
 
   offset# = \_ -> \_ -> 32
 
+{-| __C declaration:__ @l@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 21:10@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CLong
          ) => BG.CompatHasField.HasField "primitive_l" Primitive ty where
 
@@ -1085,6 +1175,12 @@ instance HasCField.HasCField Primitive "primitive_l" where
 
   offset# = \_ -> \_ -> 40
 
+{-| __C declaration:__ @li@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 22:14@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CLong
          ) => BG.CompatHasField.HasField "primitive_li" Primitive ty where
 
@@ -1135,6 +1231,12 @@ instance HasCField.HasCField Primitive "primitive_li" where
 
   offset# = \_ -> \_ -> 48
 
+{-| __C declaration:__ @sl@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 23:17@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CLong
          ) => BG.CompatHasField.HasField "primitive_sl" Primitive ty where
 
@@ -1185,6 +1287,12 @@ instance HasCField.HasCField Primitive "primitive_sl" where
 
   offset# = \_ -> \_ -> 56
 
+{-| __C declaration:__ @sli@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 24:21@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CLong
          ) => BG.CompatHasField.HasField "primitive_sli" Primitive ty where
 
@@ -1235,6 +1343,12 @@ instance HasCField.HasCField Primitive "primitive_sli" where
 
   offset# = \_ -> \_ -> 64
 
+{-| __C declaration:__ @ul@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 26:19@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CULong
          ) => BG.CompatHasField.HasField "primitive_ul" Primitive ty where
 
@@ -1285,6 +1399,12 @@ instance HasCField.HasCField Primitive "primitive_ul" where
 
   offset# = \_ -> \_ -> 72
 
+{-| __C declaration:__ @uli@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 27:23@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CULong
          ) => BG.CompatHasField.HasField "primitive_uli" Primitive ty where
 
@@ -1335,6 +1455,12 @@ instance HasCField.HasCField Primitive "primitive_uli" where
 
   offset# = \_ -> \_ -> 80
 
+{-| __C declaration:__ @ll@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 29:15@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CLLong
          ) => BG.CompatHasField.HasField "primitive_ll" Primitive ty where
 
@@ -1385,6 +1511,12 @@ instance HasCField.HasCField Primitive "primitive_ll" where
 
   offset# = \_ -> \_ -> 88
 
+{-| __C declaration:__ @lli@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 30:19@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CLLong
          ) => BG.CompatHasField.HasField "primitive_lli" Primitive ty where
 
@@ -1435,6 +1567,12 @@ instance HasCField.HasCField Primitive "primitive_lli" where
 
   offset# = \_ -> \_ -> 96
 
+{-| __C declaration:__ @sll@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 31:22@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CLLong
          ) => BG.CompatHasField.HasField "primitive_sll" Primitive ty where
 
@@ -1485,6 +1623,12 @@ instance HasCField.HasCField Primitive "primitive_sll" where
 
   offset# = \_ -> \_ -> 104
 
+{-| __C declaration:__ @slli@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 32:26@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CLLong
          ) => BG.CompatHasField.HasField "primitive_slli" Primitive ty where
 
@@ -1536,6 +1680,12 @@ instance HasCField.HasCField Primitive "primitive_slli" where
 
   offset# = \_ -> \_ -> 112
 
+{-| __C declaration:__ @ull@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 34:24@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CULLong
          ) => BG.CompatHasField.HasField "primitive_ull" Primitive ty where
 
@@ -1587,6 +1737,12 @@ instance HasCField.HasCField Primitive "primitive_ull" where
 
   offset# = \_ -> \_ -> 120
 
+{-| __C declaration:__ @ulli@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 35:28@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CULLong
          ) => BG.CompatHasField.HasField "primitive_ulli" Primitive ty where
 
@@ -1638,6 +1794,12 @@ instance HasCField.HasCField Primitive "primitive_ulli" where
 
   offset# = \_ -> \_ -> 128
 
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 37:11@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CFloat
          ) => BG.CompatHasField.HasField "primitive_f" Primitive ty where
 
@@ -1688,6 +1850,12 @@ instance HasCField.HasCField Primitive "primitive_f" where
 
   offset# = \_ -> \_ -> 136
 
+{-| __C declaration:__ @d@
+
+    __defined at:__ @types\/primitives\/primitive_types.h 38:12@
+
+    __exported by:__ @types\/primitives\/primitive_types.h@
+-}
 instance ( ty ~ BG.CDouble
          ) => BG.CompatHasField.HasField "primitive_d" Primitive ty where
 

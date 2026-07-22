@@ -67,6 +67,16 @@ instance Marshal.WriteRaw Bar where
 
 deriving via Marshal.EquivStorable Bar instance BG.Storable Bar
 
+{-| Comment attached to @foo::bar::x1_1@ .
+
+    This comment must be preserved, even though the enclosing declaration uses an unsupported feature.
+
+    __C declaration:__ @x1_1@
+
+    __defined at:__ @types\/scoping\/nesting.h 21:9@
+
+    __exported by:__ @types\/scoping\/nesting.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "bar_x1_1" Bar ty where
 
   hasField =

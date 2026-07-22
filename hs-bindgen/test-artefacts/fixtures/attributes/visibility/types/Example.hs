@@ -183,6 +183,12 @@ instance Marshal.WriteRaw S5 where
 
 deriving via Marshal.EquivStorable S5 instance BG.Storable S5
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @attributes\/visibility\/types.h 20:60@
+
+    __exported by:__ @attributes\/visibility\/types.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s5_x" S5 ty where
 
   hasField =
@@ -240,6 +246,12 @@ instance Marshal.WriteRaw S6 where
 
 deriving via Marshal.EquivStorable S6 instance BG.Storable S6
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @attributes\/visibility\/types.h 21:60@
+
+    __exported by:__ @attributes\/visibility\/types.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s6_x" S6 ty where
 
   hasField =
@@ -297,6 +309,12 @@ instance Marshal.WriteRaw S7 where
 
 deriving via Marshal.EquivStorable S7 instance BG.Storable S7
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @attributes\/visibility\/types.h 22:60@
+
+    __exported by:__ @attributes\/visibility\/types.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s7_x" S7 ty where
 
   hasField =
@@ -354,6 +372,12 @@ instance Marshal.WriteRaw S8 where
 
 deriving via Marshal.EquivStorable S8 instance BG.Storable S8
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @attributes\/visibility\/types.h 23:60@
+
+    __exported by:__ @attributes\/visibility\/types.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s8_x" S8 ty where
 
   hasField =
@@ -411,6 +435,12 @@ instance Marshal.WriteRaw S9 where
 
 deriving via Marshal.EquivStorable S9 instance BG.Storable S9
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @attributes\/visibility\/types.h 24:60@
+
+    __exported by:__ @attributes\/visibility\/types.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s9_x" S9 ty where
 
   hasField =
@@ -468,6 +498,12 @@ instance Marshal.WriteRaw S10 where
 
 deriving via Marshal.EquivStorable S10 instance BG.Storable S10
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @attributes\/visibility\/types.h 33:61@
+
+    __exported by:__ @attributes\/visibility\/types.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s10_x" S10 ty where
 
   hasField =
@@ -525,6 +561,12 @@ instance Marshal.WriteRaw S11 where
 
 deriving via Marshal.EquivStorable S11 instance BG.Storable S11
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @attributes\/visibility\/types.h 34:61@
+
+    __exported by:__ @attributes\/visibility\/types.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s11_x" S11 ty where
 
   hasField =
@@ -582,6 +624,12 @@ instance Marshal.WriteRaw S12 where
 
 deriving via Marshal.EquivStorable S12 instance BG.Storable S12
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @attributes\/visibility\/types.h 35:61@
+
+    __exported by:__ @attributes\/visibility\/types.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s12_x" S12 ty where
 
   hasField =
@@ -639,6 +687,12 @@ instance Marshal.WriteRaw S13 where
 
 deriving via Marshal.EquivStorable S13 instance BG.Storable S13
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @attributes\/visibility\/types.h 36:61@
+
+    __exported by:__ @attributes\/visibility\/types.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s13_x" S13 ty where
 
   hasField =
@@ -696,6 +750,12 @@ instance Marshal.WriteRaw S14 where
 
 deriving via Marshal.EquivStorable S14 instance BG.Storable S14
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @attributes\/visibility\/types.h 37:61@
+
+    __exported by:__ @attributes\/visibility\/types.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s14_x" S14 ty where
 
   hasField =
@@ -753,6 +813,12 @@ instance Marshal.WriteRaw S15 where
 
 deriving via Marshal.EquivStorable S15 instance BG.Storable S15
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @attributes\/visibility\/types.h 46:61@
+
+    __exported by:__ @attributes\/visibility\/types.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s15_x" S15 ty where
 
   hasField =
@@ -810,6 +876,12 @@ instance Marshal.WriteRaw S16 where
 
 deriving via Marshal.EquivStorable S16 instance BG.Storable S16
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @attributes\/visibility\/types.h 47:61@
+
+    __exported by:__ @attributes\/visibility\/types.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s16_x" S16 ty where
 
   hasField =
@@ -867,6 +939,12 @@ instance Marshal.WriteRaw S17 where
 
 deriving via Marshal.EquivStorable S17 instance BG.Storable S17
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @attributes\/visibility\/types.h 48:61@
+
+    __exported by:__ @attributes\/visibility\/types.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s17_x" S17 ty where
 
   hasField =
@@ -924,6 +1002,12 @@ instance Marshal.WriteRaw S18 where
 
 deriving via Marshal.EquivStorable S18 instance BG.Storable S18
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @attributes\/visibility\/types.h 49:61@
+
+    __exported by:__ @attributes\/visibility\/types.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s18_x" S18 ty where
 
   hasField =
@@ -981,6 +1065,12 @@ instance Marshal.WriteRaw S19 where
 
 deriving via Marshal.EquivStorable S19 instance BG.Storable S19
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @attributes\/visibility\/types.h 50:61@
+
+    __exported by:__ @attributes\/visibility\/types.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s19_x" S19 ty where
 
   hasField =

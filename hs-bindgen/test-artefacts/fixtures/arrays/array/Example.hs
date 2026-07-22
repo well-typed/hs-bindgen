@@ -225,6 +225,12 @@ instance Marshal.WriteRaw Example where
 
 deriving via Marshal.EquivStorable Example instance BG.Storable Example
 
+{-| __C declaration:__ @triple@
+
+    __defined at:__ @arrays\/array.h 50:9@
+
+    __exported by:__ @arrays\/array.h@
+-}
 instance ( ty ~ CA.ConstantArray 3 BG.CInt
          ) => BG.CompatHasField.HasField "example_triple" Example ty where
 
@@ -248,6 +254,12 @@ instance HasCField.HasCField Example "example_triple" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @sudoku@
+
+    __defined at:__ @arrays\/array.h 51:9@
+
+    __exported by:__ @arrays\/array.h@
+-}
 instance ( ty ~ CA.ConstantArray 3 (CA.ConstantArray 3 BG.CInt)
          ) => BG.CompatHasField.HasField "example_sudoku" Example ty where
 

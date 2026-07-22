@@ -72,6 +72,12 @@ instance Marshal.WriteRaw Piyo where
 
 deriving via Marshal.EquivStorable Piyo instance BG.Storable Piyo
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @binding-specs\/name\/squash_typedef.h 1:26@
+
+    __exported by:__ @binding-specs\/name\/squash_typedef.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "piyo_x" Piyo ty where
 
   hasField =
@@ -91,6 +97,12 @@ instance HasCField.HasCField Piyo "piyo_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @binding-specs\/name\/squash_typedef.h 1:29@
+
+    __exported by:__ @binding-specs\/name\/squash_typedef.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "piyo_y" Piyo ty where
 
   hasField =

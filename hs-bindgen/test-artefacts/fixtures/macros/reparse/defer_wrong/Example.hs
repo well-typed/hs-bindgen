@@ -67,6 +67,12 @@ instance Marshal.WriteRaw S where
 
 deriving via Marshal.EquivStorable S instance BG.Storable S
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/defer_wrong.h 11:16@
+
+    __exported by:__ @macros\/reparse\/defer_wrong.h@
+-}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s_x" S ty where
 
   hasField =

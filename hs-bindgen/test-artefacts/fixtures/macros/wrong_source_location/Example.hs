@@ -72,6 +72,12 @@ instance Marshal.WriteRaw UU1_fieldY where
 
 deriving via Marshal.EquivStorable UU1_fieldY instance BG.Storable UU1_fieldY
 
+{-| __C declaration:__ @fieldX@
+
+    __defined at:__ @macros\/wrong_source_location.h 19:1@
+
+    __exported by:__ @macros\/wrong_source_location.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "uU1_fieldY_fieldX" UU1_fieldY ty where
 
@@ -135,6 +141,12 @@ instance Marshal.WriteRaw UU1 where
 
 deriving via Marshal.EquivStorable UU1 instance BG.Storable UU1
 
+{-| __C declaration:__ @fieldY@
+
+    __defined at:__ @macros\/wrong_source_location.h 19:1@
+
+    __exported by:__ @macros\/wrong_source_location.h@
+-}
 instance ( ty ~ UU1_fieldY
          ) => BG.CompatHasField.HasField "uU1_fieldY" UU1 ty where
 
@@ -195,6 +207,12 @@ instance Marshal.WriteRaw UU2_fieldY where
 
 deriving via Marshal.EquivStorable UU2_fieldY instance BG.Storable UU2_fieldY
 
+{-| __C declaration:__ @fieldX@
+
+    __defined at:__ @macros\/wrong_source_location.h 21:1@
+
+    __exported by:__ @macros\/wrong_source_location.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "uU2_fieldY_fieldX" UU2_fieldY ty where
 
@@ -258,6 +276,12 @@ instance Marshal.WriteRaw UU2 where
 
 deriving via Marshal.EquivStorable UU2 instance BG.Storable UU2
 
+{-| __C declaration:__ @fieldY@
+
+    __defined at:__ @macros\/wrong_source_location.h 21:1@
+
+    __exported by:__ @macros\/wrong_source_location.h@
+-}
 instance ( ty ~ UU2_fieldY
          ) => BG.CompatHasField.HasField "uU2_fieldY" UU2 ty where
 
@@ -318,6 +342,12 @@ instance Marshal.WriteRaw VV1_fieldA where
 
 deriving via Marshal.EquivStorable VV1_fieldA instance BG.Storable VV1_fieldA
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @macros\/wrong_source_location.h 29:1@
+
+    __exported by:__ @macros\/wrong_source_location.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "vV1_fieldA_a" VV1_fieldA ty where
 
@@ -379,6 +409,12 @@ instance Marshal.WriteRaw VV1_fieldB where
 
 deriving via Marshal.EquivStorable VV1_fieldB instance BG.Storable VV1_fieldB
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @macros\/wrong_source_location.h 29:1@
+
+    __exported by:__ @macros\/wrong_source_location.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "vV1_fieldB_b" VV1_fieldB ty where
 
@@ -449,6 +485,12 @@ instance Marshal.WriteRaw VV1 where
 
 deriving via Marshal.EquivStorable VV1 instance BG.Storable VV1
 
+{-| __C declaration:__ @fieldA@
+
+    __defined at:__ @macros\/wrong_source_location.h 29:1@
+
+    __exported by:__ @macros\/wrong_source_location.h@
+-}
 instance ( ty ~ VV1_fieldA
          ) => BG.CompatHasField.HasField "vV1_fieldA" VV1 ty where
 
@@ -470,6 +512,12 @@ instance HasCField.HasCField VV1 "vV1_fieldA" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @fieldB@
+
+    __defined at:__ @macros\/wrong_source_location.h 29:1@
+
+    __exported by:__ @macros\/wrong_source_location.h@
+-}
 instance ( ty ~ VV1_fieldB
          ) => BG.CompatHasField.HasField "vV1_fieldB" VV1 ty where
 
@@ -532,6 +580,12 @@ instance Marshal.WriteRaw VV2_fieldA where
 
 deriving via Marshal.EquivStorable VV2_fieldA instance BG.Storable VV2_fieldA
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @macros\/wrong_source_location.h 31:1@
+
+    __exported by:__ @macros\/wrong_source_location.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "vV2_fieldA_a" VV2_fieldA ty where
 
@@ -593,6 +647,12 @@ instance Marshal.WriteRaw VV2_fieldB where
 
 deriving via Marshal.EquivStorable VV2_fieldB instance BG.Storable VV2_fieldB
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @macros\/wrong_source_location.h 31:1@
+
+    __exported by:__ @macros\/wrong_source_location.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "vV2_fieldB_b" VV2_fieldB ty where
 
@@ -663,6 +723,12 @@ instance Marshal.WriteRaw VV2 where
 
 deriving via Marshal.EquivStorable VV2 instance BG.Storable VV2
 
+{-| __C declaration:__ @fieldA@
+
+    __defined at:__ @macros\/wrong_source_location.h 31:1@
+
+    __exported by:__ @macros\/wrong_source_location.h@
+-}
 instance ( ty ~ VV2_fieldA
          ) => BG.CompatHasField.HasField "vV2_fieldA" VV2 ty where
 
@@ -684,6 +750,12 @@ instance HasCField.HasCField VV2 "vV2_fieldA" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @fieldB@
+
+    __defined at:__ @macros\/wrong_source_location.h 31:1@
+
+    __exported by:__ @macros\/wrong_source_location.h@
+-}
 instance ( ty ~ VV2_fieldB
          ) => BG.CompatHasField.HasField "vV2_fieldB" VV2 ty where
 

@@ -1,4 +1,5 @@
 {-# LANGUAGE MagicHash #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE UnboxedTuples #-}
 
 -- | Simplified HS translation (from high level HS)
@@ -650,11 +651,11 @@ translateHasFieldCompatInstance inst mbComment = Instance{
     exprSetter :: SExpr (S Z)
     exprSetter =
         case inst.impl of
-          Hs.HasFieldCompatImplRecord impl ->
+          Hs.HasFieldCompatImplRecord {constr, otherFields} ->
             ELam (NameHint "y") $
-              ERecCon impl.constr $ concat [
+              ERecCon constr $ concat [
                   [ FBind (Hs.nameToStr inst.fieldName) (EBound IZ) ]
-                , map mkFBindIdentity impl.otherFields
+                , map mkFBindIdentity otherFields
                 ]
           Hs.HasFieldCompatImplUnion ->
               eBindgenGlobal ByteArray_setUnionPayload

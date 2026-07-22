@@ -76,6 +76,12 @@ instance Marshal.WriteRaw S where
 
 deriving via Marshal.EquivStorable S instance BG.Storable S
 
+{-| __C declaration:__ @f@
+
+    __defined at:__ @attributes\/type_attributes.h 8:18@
+
+    __exported by:__ @attributes\/type_attributes.h@
+-}
 instance ( ty ~ CA.ConstantArray 3 BG.CShort
          ) => BG.CompatHasField.HasField "s_f" S ty where
 
@@ -186,6 +192,12 @@ instance Marshal.WriteRaw S2 where
 
 deriving via Marshal.EquivStorable S2 instance BG.Storable S2
 
+{-| __C declaration:__ @f@
+
+    __defined at:__ @attributes\/type_attributes.h 11:19@
+
+    __exported by:__ @attributes\/type_attributes.h@
+-}
 instance ( ty ~ CA.ConstantArray 3 BG.CShort
          ) => BG.CompatHasField.HasField "s2_f" S2 ty where
 
@@ -255,6 +267,12 @@ instance Marshal.WriteRaw My_unpacked_struct where
 
 deriving via Marshal.EquivStorable My_unpacked_struct instance BG.Storable My_unpacked_struct
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @attributes\/type_attributes.h 15:8@
+
+    __exported by:__ @attributes\/type_attributes.h@
+-}
 instance ( ty ~ BG.CChar
          ) => BG.CompatHasField.HasField "my_unpacked_struct_c" My_unpacked_struct ty where
 
@@ -280,6 +298,12 @@ instance HasCField.HasCField My_unpacked_struct "my_unpacked_struct_c" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @i@
+
+    __defined at:__ @attributes\/type_attributes.h 16:7@
+
+    __exported by:__ @attributes\/type_attributes.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "my_unpacked_struct_i" My_unpacked_struct ty where
 
@@ -364,6 +388,12 @@ instance Marshal.WriteRaw My_packed_struct where
 
 deriving via Marshal.EquivStorable My_packed_struct instance BG.Storable My_packed_struct
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @attributes\/type_attributes.h 21:9@
+
+    __exported by:__ @attributes\/type_attributes.h@
+-}
 instance ( ty ~ BG.CChar
          ) => BG.CompatHasField.HasField "my_packed_struct_c" My_packed_struct ty where
 
@@ -390,6 +420,12 @@ instance HasCField.HasCField My_packed_struct "my_packed_struct_c" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @i@
+
+    __defined at:__ @attributes\/type_attributes.h 22:9@
+
+    __exported by:__ @attributes\/type_attributes.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "my_packed_struct_i" My_packed_struct ty where
 
@@ -416,6 +452,12 @@ instance HasCField.HasCField My_packed_struct "my_packed_struct_i" where
 
   offset# = \_ -> \_ -> 1
 
+{-| __C declaration:__ @s@
+
+    __defined at:__ @attributes\/type_attributes.h 23:30@
+
+    __exported by:__ @attributes\/type_attributes.h@
+-}
 instance ( ty ~ My_unpacked_struct
          ) => BG.CompatHasField.HasField "my_packed_struct_s" My_packed_struct ty where
 

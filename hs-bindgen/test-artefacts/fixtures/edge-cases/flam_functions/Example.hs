@@ -65,6 +65,12 @@ instance Marshal.WriteRaw Vector_Aux where
 
 deriving via Marshal.EquivStorable Vector_Aux instance BG.Storable Vector_Aux
 
+{-| __C declaration:__ @length@
+
+    __defined at:__ @edge-cases\/flam_functions.h 2:7@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "vector_length" Vector_Aux ty where
 

@@ -119,6 +119,12 @@ instance Marshal.WriteRaw T1_x where
 
 deriving via Marshal.EquivStorable T1_x instance BG.Storable T1_x
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_struct.h 3:25@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_struct.h@
+-}
 instance (ty ~ MyInt) => BG.CompatHasField.HasField "t1_x_x" T1_x ty where
 
   hasField =
@@ -176,6 +182,12 @@ instance Marshal.WriteRaw T1 where
 
 deriving via Marshal.EquivStorable T1 instance BG.Storable T1
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_struct.h 3:33@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_struct.h@
+-}
 instance (ty ~ T1_x) => BG.CompatHasField.HasField "t1_x" T1 ty where
 
   hasField =
@@ -233,6 +245,12 @@ instance Marshal.WriteRaw T2 where
 
 deriving via Marshal.EquivStorable T2 instance BG.Storable T2
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_struct.h 4:33@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_struct.h@
+-}
 instance (ty ~ BG.Ptr T2_x) => BG.CompatHasField.HasField "t2_x" T2 ty where
 
   hasField =
@@ -290,6 +308,12 @@ instance Marshal.WriteRaw T2_x where
 
 deriving via Marshal.EquivStorable T2_x instance BG.Storable T2_x
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_struct.h 4:25@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_struct.h@
+-}
 instance (ty ~ MyInt) => BG.CompatHasField.HasField "t2_x_x" T2_x ty where
 
   hasField =
@@ -347,6 +371,12 @@ instance Marshal.WriteRaw T3 where
 
 deriving via Marshal.EquivStorable T3 instance BG.Storable T3
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_struct.h 5:33@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_struct.h@
+-}
 instance ( ty ~ BG.Ptr (BG.Ptr T3_x)
          ) => BG.CompatHasField.HasField "t3_x" T3 ty where
 
@@ -406,6 +436,12 @@ instance Marshal.WriteRaw T3_x where
 
 deriving via Marshal.EquivStorable T3_x instance BG.Storable T3_x
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_struct.h 5:25@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_struct.h@
+-}
 instance (ty ~ MyInt) => BG.CompatHasField.HasField "t3_x_x" T3_x ty where
 
   hasField =

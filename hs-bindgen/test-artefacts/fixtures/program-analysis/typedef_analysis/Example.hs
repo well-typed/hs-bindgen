@@ -697,6 +697,12 @@ instance Marshal.WriteRaw Struct11_t where
 
 deriving via Marshal.EquivStorable Struct11_t instance BG.Storable Struct11_t
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 96:7@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "struct11_t_x" Struct11_t ty where
 
@@ -719,6 +725,12 @@ instance HasCField.HasCField Struct11_t "struct11_t_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @self@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 97:20@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ BG.Ptr Struct11_t
          ) => BG.CompatHasField.HasField "struct11_t_self" Struct11_t ty where
 
@@ -792,6 +804,12 @@ instance Marshal.WriteRaw Struct12_t where
 
 deriving via Marshal.EquivStorable Struct12_t instance BG.Storable Struct12_t
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 105:7@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "struct12_t_x" Struct12_t ty where
 
@@ -814,6 +832,12 @@ instance HasCField.HasCField Struct12_t "struct12_t_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @self@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 106:15@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ BG.Ptr Struct12_t
          ) => BG.CompatHasField.HasField "struct12_t_self" Struct12_t ty where
 
@@ -1069,6 +1093,12 @@ instance Marshal.WriteRaw Use_sites where
 
 deriving via Marshal.EquivStorable Use_sites instance BG.Storable Use_sites
 
+{-| __C declaration:__ @useTypedef_struct1_t@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 112:13@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct1_t
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct1_t" Use_sites ty where
 
@@ -1112,6 +1142,12 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct1_t" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @useTypedef_struct2_t@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 115:13@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct2_t
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct2_t" Use_sites ty where
 
@@ -1155,6 +1191,12 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct2_t" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @useTypedef_struct3_t@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 118:14@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ BG.Ptr Struct3_t
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct3_t" Use_sites ty where
 
@@ -1198,6 +1240,12 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct3_t" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @useTypedef_struct4_t@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 119:14@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ BG.Ptr Struct4_t
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct4_t" Use_sites ty where
 
@@ -1241,6 +1289,12 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct4_t" where
 
   offset# = \_ -> \_ -> 8
 
+{-| __C declaration:__ @useStruct_struct5@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 122:18@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct5
          ) => BG.CompatHasField.HasField "use_sites_useStruct_struct5" Use_sites ty where
 
@@ -1284,6 +1338,12 @@ instance HasCField.HasCField Use_sites "use_sites_useStruct_struct5" where
 
   offset# = \_ -> \_ -> 16
 
+{-| __C declaration:__ @useTypedef_struct5_t@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 123:13@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct5_t
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct5_t" Use_sites ty where
 
@@ -1327,6 +1387,12 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct5_t" where
 
   offset# = \_ -> \_ -> 16
 
+{-| __C declaration:__ @useStruct_struct6a@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 126:19@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct6a_struct
          ) => BG.CompatHasField.HasField "use_sites_useStruct_struct6a" Use_sites ty where
 
@@ -1370,6 +1436,12 @@ instance HasCField.HasCField Use_sites "use_sites_useStruct_struct6a" where
 
   offset# = \_ -> \_ -> 24
 
+{-| __C declaration:__ @useTypedef_struct6a@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 127:12@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct6a
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct6a" Use_sites ty where
 
@@ -1413,6 +1485,12 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct6a" where
 
   offset# = \_ -> \_ -> 24
 
+{-| __C declaration:__ @useStruct_struct6b@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 130:19@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct6b_struct
          ) => BG.CompatHasField.HasField "use_sites_useStruct_struct6b" Use_sites ty where
 
@@ -1456,6 +1534,12 @@ instance HasCField.HasCField Use_sites "use_sites_useStruct_struct6b" where
 
   offset# = \_ -> \_ -> 32
 
+{-| __C declaration:__ @useTypedef_struct6b@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 131:12@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct6b
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct6b" Use_sites ty where
 
@@ -1499,6 +1583,12 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct6b" where
 
   offset# = \_ -> \_ -> 32
 
+{-| __C declaration:__ @useTypedef_struct7a@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 134:12@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct7a
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct7a" Use_sites ty where
 
@@ -1542,6 +1632,12 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct7a" where
 
   offset# = \_ -> \_ -> 32
 
+{-| __C declaration:__ @useTypedef_struct7b@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 135:12@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct7b
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct7b" Use_sites ty where
 
@@ -1585,6 +1681,12 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct7b" where
 
   offset# = \_ -> \_ -> 32
 
+{-| __C declaration:__ @useTypedef_struct8@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 139:11@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct8
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct8" Use_sites ty where
 
@@ -1628,6 +1730,12 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct8" where
 
   offset# = \_ -> \_ -> 32
 
+{-| __C declaration:__ @useTypedef_struct8b@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 140:12@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct8b
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct8b" Use_sites ty where
 
@@ -1671,6 +1779,12 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct8b" where
 
   offset# = \_ -> \_ -> 32
 
+{-| __C declaration:__ @useTypedef_struct9@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 144:11@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct9
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct9" Use_sites ty where
 
@@ -1714,6 +1828,12 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct9" where
 
   offset# = \_ -> \_ -> 32
 
+{-| __C declaration:__ @useTypedef_struct9_t@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 145:13@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct9_t
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct9_t" Use_sites ty where
 
@@ -1757,6 +1877,12 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct9_t" where
 
   offset# = \_ -> \_ -> 32
 
+{-| __C declaration:__ @useTypedef_struct10_t@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 146:14@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct10_t
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct10_t" Use_sites ty where
 
@@ -1800,6 +1926,12 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct10_t" where
 
   offset# = \_ -> \_ -> 32
 
+{-| __C declaration:__ @useTypedef_struct10_t_t@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 147:16@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct10_t_t
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct10_t_t" Use_sites ty where
 
@@ -1843,6 +1975,12 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct10_t_t" where
 
   offset# = \_ -> \_ -> 32
 
+{-| __C declaration:__ @useTypedef_struct11_t@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 150:14@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct11_t
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct11_t" Use_sites ty where
 
@@ -1886,6 +2024,12 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct11_t" where
 
   offset# = \_ -> \_ -> 32
 
+{-| __C declaration:__ @useTypedef_struct12_t@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 151:14@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct12_t
          ) => BG.CompatHasField.HasField "use_sites_useTypedef_struct12_t" Use_sites ty where
 
@@ -1979,6 +2123,12 @@ instance Marshal.WriteRaw Foo_struct where
 
 deriving via Marshal.EquivStorable Foo_struct instance BG.Storable Foo_struct
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 164:7@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "foo_struct_x" Foo_struct ty where
 
@@ -2001,6 +2151,12 @@ instance HasCField.HasCField Foo_struct "foo_struct_x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 165:7@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "foo_struct_y" Foo_struct ty where
 
@@ -2144,6 +2300,12 @@ instance Marshal.WriteRaw Bar_struct where
 
 deriving via Marshal.EquivStorable Bar_struct instance BG.Storable Bar_struct
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 172:7@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "bar_struct_a" Bar_struct ty where
 
@@ -2166,6 +2328,12 @@ instance HasCField.HasCField Bar_struct "bar_struct_a" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 173:7@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ BG.CInt
          ) => BG.CompatHasField.HasField "bar_struct_b" Bar_struct ty where
 
@@ -2420,6 +2588,12 @@ instance Marshal.WriteRaw Use_sites_qual where
 
 deriving via Marshal.EquivStorable Use_sites_qual instance BG.Storable Use_sites_qual
 
+{-| __C declaration:__ @useTypedef_struct15@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 197:12@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct15
          ) => BG.CompatHasField.HasField "use_sites_qual_useTypedef_struct15" Use_sites_qual ty where
 
@@ -2446,6 +2620,12 @@ instance HasCField.HasCField Use_sites_qual "use_sites_qual_useTypedef_struct15"
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @useStruct_struct16@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 200:19@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct16_struct
          ) => BG.CompatHasField.HasField "use_sites_qual_useStruct_struct16" Use_sites_qual ty where
 
@@ -2472,6 +2652,12 @@ instance HasCField.HasCField Use_sites_qual "use_sites_qual_useStruct_struct16" 
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @useTypedef_struct16@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 201:12@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
 instance ( ty ~ Struct16
          ) => BG.CompatHasField.HasField "use_sites_qual_useTypedef_struct16" Use_sites_qual ty where
 
