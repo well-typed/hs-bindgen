@@ -79,7 +79,7 @@ instance PassMsg MangleNames where
 
 -- | The auxiliary type-constructor name for a @struct@ with a flexible array
 -- member (FLAM) no longer lives here: it is bundled with the FLAM field in the
--- 'C.Flam' constructor (as 'FlamNames'), so that the name is minted exactly when
+-- 'C.Flam' constructor (as 'FlamNames'), so that the name is created exactly when
 -- the FLAM is present (see <https://github.com/well-typed/hs-bindgen/issues/1925>).
 data StructNames = StructNames {
       constr :: Hs.Name Hs.NsConstr
@@ -123,6 +123,7 @@ data MangleNamesMsg =
     MangleNamesAssignedName       Hs.SomeName
   | MangleNamesReusedAssignedName Hs.SomeName
   | MangleNamesNameMap            NameMap
+  | MangleNamesNameMapDuplicates  (NonEmpty DupAssign)
   | MangleNamesNameRegistry       NameRegistry
   deriving stock (Show)
 
@@ -140,6 +141,10 @@ instance PrettyForTrace MangleNamesMsg where
           "The name map is:"
         , PP.show nm
         ]
+      MangleNamesNameMapDuplicates dups -> PP.hsep [
+          "Assigned multiple Haskel names to one C name in the name map:"
+        , PP.show dups
+        ]
       MangleNamesNameRegistry rg -> PP.hsep [
           "The name registry is:"
         , PP.show rg
@@ -150,6 +155,7 @@ instance IsTrace Level MangleNamesMsg where
       MangleNamesAssignedName{}       -> Info
       MangleNamesReusedAssignedName{} -> Info
       MangleNamesNameMap{}            -> Debug
+      MangleNamesNameMapDuplicates{}  -> Bug
       MangleNamesNameRegistry{}       -> Debug
 
   getSource  = const HsBindgen
@@ -157,4 +163,5 @@ instance IsTrace Level MangleNamesMsg where
     MangleNamesAssignedName{}       -> "mangle-names-assigned-name"
     MangleNamesReusedAssignedName{} -> "mangle-names-reused-assigned-name"
     MangleNamesNameMap{}            -> "mangle-names-name-map"
+    MangleNamesNameMapDuplicates{}  -> "mangle-names-name-map-duplicates"
     MangleNamesNameRegistry{}       -> "mangle-names-name-registry"

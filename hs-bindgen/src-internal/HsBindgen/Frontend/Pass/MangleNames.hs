@@ -34,19 +34,19 @@ import HsBindgen.Util.Tracer (withCallStack)
 
   Name mangling proceeds in three traversals:
 
-  1. 'createNames' chooses top-level names and all within-declaration
-     names (annotations and 'ScopedNamePair's), producing a 'CreateNames'
-     AST whose 'Id' references are still unresolved. It also produces the
+  1. 'createNames' chooses top-level names and all within-declaration names
+     (annotations and 'ScopedNamePair's), producing a 'CreateNames' AST whose
+     'Id' and 'ScopedName' references are still unresolved. It also produces the
      'NameMap' and squash records.
 
   2. 'detectClashes' assembles a single 'NameRegistry' from the 'NameMap'
-     (top-level names) and the 'CreateNames' AST (derived names) and reports
-     collisions.
+     (top-level names and scoped names) and the 'CreateNames' AST (local names
+     in annotations) and reports collisions.
 
-  3. 'resolveNames' rewrites 'C.DeclId' references into 'DeclIdPair's using the
-     'NameMap', copying annotations and scoped names across unchanged, and
-     dropping the declarations flagged by 'detectClashes'. This produces the
-     final 'MangleNames' AST.
+  3. 'resolveNames' rewrites 'C.DeclId' references into 'DeclIdPair's and
+     'C.ScopedName' references into 'ScopedNamePair' using the 'NameMap',
+     copying annotations across unchanged, and dropping the declarations flagged
+     by 'detectClashes'. This produces the final 'MangleNames' AST.
 
   Importantly, name mangling can fail (Traversal 1), and names can conflict
   (Traversal 2), ultimately leading to dangling references (Traversal 3) in
@@ -76,9 +76,10 @@ mangleNames fieldNaming unit = (
                             squashes
                             unit.meta
         }
-    , msgs1 ++ [
-          debugMsg $ MangleNamesNameMap nameMap
-        , debugMsg $ MangleNamesNameRegistry registry
+    , msgs1 ++ catMaybes [
+          Just $ debugMsg $ MangleNamesNameMap nameMap
+        , bugMsg . MangleNamesNameMapDuplicates <$> nameMapDups
+        , Just $ debugMsg $ MangleNamesNameRegistry registry
         ]
     )
   where
@@ -89,12 +90,13 @@ mangleNames fieldNaming unit = (
     mangleCandidateConfig = MangleCandidate.mangleCandidateDefault
 
     -- Traversal 1: choose top-level names and within-declaration names.
-    declsC    :: [C.Decl l CreateNames]
-    squashes  :: [(C.DeclId, Hs.Name Hs.NsTypeConstr, TypedefAnalysis.Squash)]
-    nameMap   :: NameMap
-    failures1 :: [MangleNamesFailure]
-    msgs1     :: [AnnMsg MangleNames]
-    (declsC, squashes, nameMap, failures1, msgs1) =
+    declsC      :: [C.Decl l CreateNames]
+    squashes    :: [(C.DeclId, Hs.Name Hs.NsTypeConstr, TypedefAnalysis.Squash)]
+    nameMap     :: NameMap
+    nameMapDups :: Maybe (NonEmpty DupAssign)
+    failures1   :: [MangleNamesFailure]
+    msgs1       :: [AnnMsg MangleNames]
+    (declsC, squashes, nameMap, nameMapDups, failures1, msgs1) =
       createNames typedefAnalysis mangleCandidateConfig fieldNaming unit.decls
 
     -- Traversal 2: detect clashes among all names.
@@ -143,3 +145,6 @@ updateDeclMeta failures squashes declMeta = declMeta{
 
 debugMsg :: MangleNamesMsg -> AnnMsg MangleNames
 debugMsg = withCallStack . C.WithLocationInfo C.LocationUnavailable
+
+bugMsg :: MangleNamesMsg -> AnnMsg MangleNames
+bugMsg = withCallStack . C.WithLocationInfo C.LocationUnavailable
