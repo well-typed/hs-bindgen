@@ -21,8 +21,18 @@ project=cabal.project.base
 
 # External packages we build ourselves (not available from Nixpkgs). Those with
 # a source-repository-package stanza in $project are fetched from git; the rest
-# are fetched from Hackage.
-HACKAGE_PACKAGES=(libclang-bindings doxygen-parser c-expr-dsl c-expr-runtime)
+# are fetched from Hackage. An entry may pin a version as "name=version"
+# (otherwise the latest Hackage version is used).
+HACKAGE_PACKAGES=(
+  libclang-bindings
+  doxygen-parser
+  c-expr-dsl
+  c-expr-runtime
+  # libclang-bindings requires tasty 1.5.3, but Nixpkgs has 1.5.4; also
+  # overridden (scoped to libclang-bindings only) in
+  # nix/overlay/libclang-bindings.nix, keep both in sync.
+  tasty=1.5.3
+)
 
 # Our own packages, built from their in-repo directory.
 LOCAL_PACKAGES=(hs-bindgen hs-bindgen-runtime hs-bindgen-test-runtime)
@@ -75,10 +85,17 @@ while IFS=$'\t' read -r name url rev subpath; do
 done < <(parse_stanzas)
 
 # Hackage: any external package without a git stanza.
-for p in "${HACKAGE_PACKAGES[@]}"; do
+for entry in "${HACKAGE_PACKAGES[@]}"; do
+  p=${entry%=*}
   [ -z "${from_git[$p]:-}" ] || continue
-  echo "generating $out/$p.nix (hackage)"
-  c2n "cabal://$p" >"$out/$p.nix"
+  if [ "$entry" != "$p" ]; then
+    ver=${entry#*=}
+    echo "generating $out/$p.nix (hackage, pinned $ver)"
+    c2n "cabal://$p-$ver" >"$out/$p.nix"
+  else
+    echo "generating $out/$p.nix (hackage)"
+    c2n "cabal://$p" >"$out/$p.nix"
+  fi
 done
 
 # Local: `src` is the in-repo directory, relative to the generated file.
