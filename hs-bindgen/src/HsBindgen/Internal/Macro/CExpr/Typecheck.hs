@@ -1,4 +1,4 @@
-module HsBindgen.Internal.Macro.Typecheck (
+module HsBindgen.Internal.Macro.CExpr.Typecheck (
     typecheckMacros
   ) where
 
@@ -10,8 +10,8 @@ import C.Expr.Typecheck qualified as CExpr
 import C.Expr.Typecheck.Type qualified as CExpr
 
 import HsBindgen.Imports
-import HsBindgen.Internal.Macro.CExpr (CExpr)
-import HsBindgen.Internal.Macro.CExpr qualified as Macro
+import HsBindgen.Internal.Macro.CExpr.Type (CExpr)
+import HsBindgen.Internal.Macro.CExpr.Type qualified as CExpr
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.Error
 import HsBindgen.Macro.Interface qualified as Macro
@@ -33,9 +33,9 @@ typecheckMacros bodies =
       -> Macro.TypecheckResult CExpr
     convertResult = \case
       CExpr.MacroTcTypeExpr x ->
-        Macro.TypecheckType  (Macro.TypecheckedTypeCExpr  x)
+        Macro.TypecheckType  (CExpr.TypecheckedType  x)
       CExpr.MacroTcValueExpr x ->
-        Macro.TypecheckValue (Macro.TypecheckedValueCExpr x)
+        Macro.TypecheckValue (CExpr.TypecheckedValue x)
       CExpr.MacroTcError err ->
         Macro.TypecheckError $
             MacroTypecheckError (Text.unpack (CExpr.pprMacroTcError err))

@@ -356,14 +356,14 @@ library
     HsBindgen.TH
 
   other-modules:
-    HsBindgen.Internal.Macro
     HsBindgen.Internal.Macro.CExpr
-    HsBindgen.Internal.Macro.Global
-    HsBindgen.Internal.Macro.Parse
-    HsBindgen.Internal.Macro.Resolution
-    HsBindgen.Internal.Macro.Translation.Type
-    HsBindgen.Internal.Macro.Translation.Value
-    HsBindgen.Internal.Macro.Typecheck
+    HsBindgen.Internal.Macro.CExpr.Global
+    HsBindgen.Internal.Macro.CExpr.Parse
+    HsBindgen.Internal.Macro.CExpr.Resolution
+    HsBindgen.Internal.Macro.CExpr.Translation.Type
+    HsBindgen.Internal.Macro.CExpr.Translation.Value
+    HsBindgen.Internal.Macro.CExpr.Type
+    HsBindgen.Internal.Macro.CExpr.Typecheck
 
   reexported-modules:
   other-extensions:   TemplateHaskellQuotes

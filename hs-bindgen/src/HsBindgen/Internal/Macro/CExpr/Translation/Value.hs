@@ -1,4 +1,4 @@
-module HsBindgen.Internal.Macro.Translation.Value (
+module HsBindgen.Internal.Macro.CExpr.Translation.Value (
     translateMacroValue
   ) where
 
@@ -22,18 +22,18 @@ import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config.MangleCandidate
 import HsBindgen.Errors
 import HsBindgen.Imports
-import HsBindgen.Internal.Macro.CExpr (CExpr)
-import HsBindgen.Internal.Macro.CExpr qualified as Macro
-import HsBindgen.Internal.Macro.Global
+import HsBindgen.Internal.Macro.CExpr.Global
+import HsBindgen.Internal.Macro.CExpr.Type (CExpr)
+import HsBindgen.Internal.Macro.CExpr.Type qualified as CExpr
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 
 translateMacroValue ::
      Hs.Name Hs.NsVar
-  -> Macro.TypecheckedValue CExpr Hs.TermName
+  -> CExpr.TypecheckedValue CExpr Hs.TermName
   -> Maybe HsDoc.Comment
   -> Binding
-translateMacroValue name (Macro.TypecheckedValueCExpr expr) comment =
+translateMacroValue name (CExpr.TypecheckedValue expr) comment =
     Binding
       { name       = Hs.ExportedName name
       , parameters = []

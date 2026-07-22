@@ -11,11 +11,13 @@
 -- @
 module HsBindgen.Macro (
     -- * Macro language interface
-    Macro.Lang  -- opaque
+    Macro.HasTypes -- opaque
+  , Macro.Lang     -- opaque
     -- * Integration with @c-expr@
-  , CExpr       -- opaque
-  , Macro.cExpr -- opaque
+  , CExpr -- opaque
+  , cExpr -- opaque
   ) where
 
-import HsBindgen.Internal.Macro (CExpr)
-import HsBindgen.Internal.Macro qualified as Macro
+import HsBindgen.Internal.Macro.CExpr
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro

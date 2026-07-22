@@ -1,5 +1,5 @@
 {-# LANGUAGE TemplateHaskellQuotes #-}
-module HsBindgen.Internal.Macro.Global (
+module HsBindgen.Internal.Macro.CExpr.Global (
     cExprGlobalType
   , CExprGlobalType(..)
   , cExprGlobalTerm
