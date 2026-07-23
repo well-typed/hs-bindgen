@@ -1,0 +1,213 @@
+-- addDependentFile test-artefacts/headers/golden/types/anonymous/edge-cases/name_conflict.h
+{-| __C declaration:__ @struct \@Rectangle_anon\'x1@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/name_conflict.h 2:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/name_conflict.h@
+-}
+data Rectangle_anon'x1
+    = Rectangle_anon'x1 {rectangle_anon'x1_x1 :: CInt
+                         {- ^ __C declaration:__ @x1@
+
+                              __defined at:__ @types\/anonymous\/edge-cases\/name_conflict.h 3:11@
+
+                              __exported by:__ @types\/anonymous\/edge-cases\/name_conflict.h@
+                         -},
+                         rectangle_anon'x1_y1 :: CInt
+                         {- ^ __C declaration:__ @y1@
+
+                              __defined at:__ @types\/anonymous\/edge-cases\/name_conflict.h 4:11@
+
+                              __exported by:__ @types\/anonymous\/edge-cases\/name_conflict.h@
+                         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Rectangle_anon'x1
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Rectangle_anon'x1
+    where readRaw = \ptr_0 -> (pure Rectangle_anon'x1 <*> readRaw (Proxy @"rectangle_anon'x1_x1") ptr_0) <*> readRaw (Proxy @"rectangle_anon'x1_y1") ptr_0
+instance WriteRaw Rectangle_anon'x1
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Rectangle_anon'x1 rectangle_anon'x1_x1_2
+                                                         rectangle_anon'x1_y1_3 -> writeRaw (Proxy @"rectangle_anon'x1_x1") ptr_0 rectangle_anon'x1_x1_2 >> writeRaw (Proxy @"rectangle_anon'x1_y1") ptr_0 rectangle_anon'x1_y1_3
+deriving via (EquivStorable Rectangle_anon'x1) instance Storable Rectangle_anon'x1
+instance (~) ty CInt =>
+         HasField "rectangle_anon'x1_x1" Rectangle_anon'x1 ty
+    where hasField = \x_0 -> (\y_1 -> Rectangle_anon'x1{rectangle_anon'x1_x1 = y_1,
+                                                        rectangle_anon'x1_y1 = getField @"rectangle_anon'x1_y1" x_0},
+                              getField @"rectangle_anon'x1_x1" x_0)
+instance (~) ty CInt =>
+         HasField "rectangle_anon'x1_x1" (Ptr Rectangle_anon'x1) (Ptr ty)
+    where getField = fromPtr (Proxy @"rectangle_anon'x1_x1")
+instance HasCField Rectangle_anon'x1 "rectangle_anon'x1_x1"
+    where type CFieldType Rectangle_anon'x1
+                          "rectangle_anon'x1_x1" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "rectangle_anon'x1_y1" Rectangle_anon'x1 ty
+    where hasField = \x_0 -> (\y_1 -> Rectangle_anon'x1{rectangle_anon'x1_y1 = y_1,
+                                                        rectangle_anon'x1_x1 = getField @"rectangle_anon'x1_x1" x_0},
+                              getField @"rectangle_anon'x1_y1" x_0)
+instance (~) ty CInt =>
+         HasField "rectangle_anon'x1_y1" (Ptr Rectangle_anon'x1) (Ptr ty)
+    where getField = fromPtr (Proxy @"rectangle_anon'x1_y1")
+instance HasCField Rectangle_anon'x1 "rectangle_anon'x1_y1"
+    where type CFieldType Rectangle_anon'x1
+                          "rectangle_anon'x1_y1" = CInt
+          offset# = \_ -> \_ -> 4
+{-| __C declaration:__ @struct \@Rectangle_anon\'x2@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/name_conflict.h 6:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/name_conflict.h@
+-}
+data Rectangle_anon'x2
+    = Rectangle_anon'x2 {rectangle_anon'x2_x2 :: CInt
+                         {- ^ __C declaration:__ @x2@
+
+                              __defined at:__ @types\/anonymous\/edge-cases\/name_conflict.h 7:9@
+
+                              __exported by:__ @types\/anonymous\/edge-cases\/name_conflict.h@
+                         -},
+                         rectangle_anon'x2_y2 :: CInt
+                         {- ^ __C declaration:__ @y2@
+
+                              __defined at:__ @types\/anonymous\/edge-cases\/name_conflict.h 8:9@
+
+                              __exported by:__ @types\/anonymous\/edge-cases\/name_conflict.h@
+                         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Rectangle_anon'x2
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Rectangle_anon'x2
+    where readRaw = \ptr_0 -> (pure Rectangle_anon'x2 <*> readRaw (Proxy @"rectangle_anon'x2_x2") ptr_0) <*> readRaw (Proxy @"rectangle_anon'x2_y2") ptr_0
+instance WriteRaw Rectangle_anon'x2
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Rectangle_anon'x2 rectangle_anon'x2_x2_2
+                                                         rectangle_anon'x2_y2_3 -> writeRaw (Proxy @"rectangle_anon'x2_x2") ptr_0 rectangle_anon'x2_x2_2 >> writeRaw (Proxy @"rectangle_anon'x2_y2") ptr_0 rectangle_anon'x2_y2_3
+deriving via (EquivStorable Rectangle_anon'x2) instance Storable Rectangle_anon'x2
+instance (~) ty CInt =>
+         HasField "rectangle_anon'x2_x2" Rectangle_anon'x2 ty
+    where hasField = \x_0 -> (\y_1 -> Rectangle_anon'x2{rectangle_anon'x2_x2 = y_1,
+                                                        rectangle_anon'x2_y2 = getField @"rectangle_anon'x2_y2" x_0},
+                              getField @"rectangle_anon'x2_x2" x_0)
+instance (~) ty CInt =>
+         HasField "rectangle_anon'x2_x2" (Ptr Rectangle_anon'x2) (Ptr ty)
+    where getField = fromPtr (Proxy @"rectangle_anon'x2_x2")
+instance HasCField Rectangle_anon'x2 "rectangle_anon'x2_x2"
+    where type CFieldType Rectangle_anon'x2
+                          "rectangle_anon'x2_x2" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "rectangle_anon'x2_y2" Rectangle_anon'x2 ty
+    where hasField = \x_0 -> (\y_1 -> Rectangle_anon'x2{rectangle_anon'x2_y2 = y_1,
+                                                        rectangle_anon'x2_x2 = getField @"rectangle_anon'x2_x2" x_0},
+                              getField @"rectangle_anon'x2_y2" x_0)
+instance (~) ty CInt =>
+         HasField "rectangle_anon'x2_y2" (Ptr Rectangle_anon'x2) (Ptr ty)
+    where getField = fromPtr (Proxy @"rectangle_anon'x2_y2")
+instance HasCField Rectangle_anon'x2 "rectangle_anon'x2_y2"
+    where type CFieldType Rectangle_anon'x2
+                          "rectangle_anon'x2_y2" = CInt
+          offset# = \_ -> \_ -> 4
+{-| __C declaration:__ @struct Rectangle@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/name_conflict.h 1:8@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/name_conflict.h@
+-}
+data Rectangle
+    = Rectangle {rectangle_anon'x1 :: Rectangle_anon'x1
+                 {- ^ __C declaration:__ @anon\'x1@
+
+                      __defined at:__ @types\/anonymous\/edge-cases\/name_conflict.h 2:3@
+
+                      __exported by:__ @types\/anonymous\/edge-cases\/name_conflict.h@
+                 -},
+                 rectangle_anon'x2 :: Rectangle_anon'x2
+                 {- ^ __C declaration:__ @anon\'x2@
+
+                      __defined at:__ @types\/anonymous\/edge-cases\/name_conflict.h 6:3@
+
+                      __exported by:__ @types\/anonymous\/edge-cases\/name_conflict.h@
+                 -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Rectangle
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Rectangle
+    where readRaw = \ptr_0 -> (pure Rectangle <*> readRaw (Proxy @"rectangle_anon'x1") ptr_0) <*> readRaw (Proxy @"rectangle_anon'x2") ptr_0
+instance WriteRaw Rectangle
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Rectangle rectangle_anon'x1_2
+                                                 rectangle_anon'x2_3 -> writeRaw (Proxy @"rectangle_anon'x1") ptr_0 rectangle_anon'x1_2 >> writeRaw (Proxy @"rectangle_anon'x2") ptr_0 rectangle_anon'x2_3
+deriving via (EquivStorable Rectangle) instance Storable Rectangle
+instance (~) ty Rectangle_anon'x1 =>
+         HasField "rectangle_anon'x1" Rectangle ty
+    where hasField = \x_0 -> (\y_1 -> Rectangle{rectangle_anon'x1 = y_1,
+                                                rectangle_anon'x2 = getField @"rectangle_anon'x2" x_0},
+                              getField @"rectangle_anon'x1" x_0)
+instance (~) ty Rectangle_anon'x1 =>
+         HasField "rectangle_anon'x1" (Ptr Rectangle) (Ptr ty)
+    where getField = fromPtr (Proxy @"rectangle_anon'x1")
+instance HasCField Rectangle "rectangle_anon'x1"
+    where type CFieldType Rectangle
+                          "rectangle_anon'x1" = Rectangle_anon'x1
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "rectangle_x1" Rectangle ty
+    where getField = \x_0 -> getField @"rectangle_anon'x1_x1" (getField @"rectangle_anon'x1" x_0)
+instance (~) ty CInt => HasField "rectangle_x1" Rectangle ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"rectangle_anon'x1" x_0 (\z_2 -> setField @"rectangle_anon'x1_x1" z_2 y_1),
+                              getField @"rectangle_x1" x_0)
+instance (~) ty CInt =>
+         HasField "rectangle_x1" (Ptr Rectangle) (Ptr ty)
+    where getField = fromPtr (Proxy @"rectangle_x1")
+instance HasCField Rectangle "rectangle_x1"
+    where type CFieldType Rectangle "rectangle_x1" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "rectangle_y1" Rectangle ty
+    where getField = \x_0 -> getField @"rectangle_anon'x1_y1" (getField @"rectangle_anon'x1" x_0)
+instance (~) ty CInt => HasField "rectangle_y1" Rectangle ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"rectangle_anon'x1" x_0 (\z_2 -> setField @"rectangle_anon'x1_y1" z_2 y_1),
+                              getField @"rectangle_y1" x_0)
+instance (~) ty CInt =>
+         HasField "rectangle_y1" (Ptr Rectangle) (Ptr ty)
+    where getField = fromPtr (Proxy @"rectangle_y1")
+instance HasCField Rectangle "rectangle_y1"
+    where type CFieldType Rectangle "rectangle_y1" = CInt
+          offset# = \_ -> \_ -> 4
+instance (~) ty Rectangle_anon'x2 =>
+         HasField "rectangle_anon'x2" Rectangle ty
+    where hasField = \x_0 -> (\y_1 -> Rectangle{rectangle_anon'x2 = y_1,
+                                                rectangle_anon'x1 = getField @"rectangle_anon'x1" x_0},
+                              getField @"rectangle_anon'x2" x_0)
+instance (~) ty Rectangle_anon'x2 =>
+         HasField "rectangle_anon'x2" (Ptr Rectangle) (Ptr ty)
+    where getField = fromPtr (Proxy @"rectangle_anon'x2")
+instance HasCField Rectangle "rectangle_anon'x2"
+    where type CFieldType Rectangle
+                          "rectangle_anon'x2" = Rectangle_anon'x2
+          offset# = \_ -> \_ -> 8
+instance (~) ty CInt => HasField "rectangle_x2" Rectangle ty
+    where getField = \x_0 -> getField @"rectangle_anon'x2_x2" (getField @"rectangle_anon'x2" x_0)
+instance (~) ty CInt => HasField "rectangle_x2" Rectangle ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"rectangle_anon'x2" x_0 (\z_2 -> setField @"rectangle_anon'x2_x2" z_2 y_1),
+                              getField @"rectangle_x2" x_0)
+instance (~) ty CInt =>
+         HasField "rectangle_x2" (Ptr Rectangle) (Ptr ty)
+    where getField = fromPtr (Proxy @"rectangle_x2")
+instance HasCField Rectangle "rectangle_x2"
+    where type CFieldType Rectangle "rectangle_x2" = CInt
+          offset# = \_ -> \_ -> 8
+instance (~) ty CInt => HasField "rectangle_y2" Rectangle ty
+    where getField = \x_0 -> getField @"rectangle_anon'x2_y2" (getField @"rectangle_anon'x2" x_0)
+instance (~) ty CInt => HasField "rectangle_y2" Rectangle ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"rectangle_anon'x2" x_0 (\z_2 -> setField @"rectangle_anon'x2_y2" z_2 y_1),
+                              getField @"rectangle_y2" x_0)
+instance (~) ty CInt =>
+         HasField "rectangle_y2" (Ptr Rectangle) (Ptr ty)
+    where getField = fromPtr (Proxy @"rectangle_y2")
+instance HasCField Rectangle "rectangle_y2"
+    where type CFieldType Rectangle "rectangle_y2" = CInt
+          offset# = \_ -> \_ -> 12

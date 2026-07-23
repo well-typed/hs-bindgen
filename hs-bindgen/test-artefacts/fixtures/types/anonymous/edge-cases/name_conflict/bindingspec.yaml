@@ -1,0 +1,72 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/anonymous/edge-cases/name_conflict.h
+  cname: struct Rectangle
+  hsname: Rectangle
+- headers: types/anonymous/edge-cases/name_conflict.h
+  cname: struct @Rectangle_anon'x1
+  hsname: Rectangle_anon'x1
+- headers: types/anonymous/edge-cases/name_conflict.h
+  cname: struct @Rectangle_anon'x2
+  hsname: Rectangle_anon'x2
+hstypes:
+- hsname: Rectangle
+  representation:
+    record:
+      constructor: Rectangle
+      fields:
+      - rectangle_anon'x1
+      - rectangle_anon'x2
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Rectangle_anon'x1
+  representation:
+    record:
+      constructor: Rectangle_anon'x1
+      fields:
+      - rectangle_anon'x1_x1
+      - rectangle_anon'x1_y1
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Rectangle_anon'x2
+  representation:
+    record:
+      constructor: Rectangle_anon'x2
+      fields:
+      - rectangle_anon'x2_x2
+      - rectangle_anon'x2_y2
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

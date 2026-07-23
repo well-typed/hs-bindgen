@@ -1,0 +1,25 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: OtherExample
+ctypes:
+- headers: types/anonymous/edge-cases/name_conflict.h
+  cname: struct @Rectangle_anon'x1
+  hsname: Point3D
+- headers: types/anonymous/edge-cases/name_conflict.h
+  cname: struct @Rectangle_anon'x2
+  hsname: Point3D
+hstypes:
+- hsname: Point3D
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
