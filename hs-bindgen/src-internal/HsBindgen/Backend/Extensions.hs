@@ -189,6 +189,7 @@ typeExtensions = \case
         foldMap typeExtensions preds <>
         foldMap predicateExtensions preds <>
         typeExtensions b
+    TList t     -> typeExtensions t
 
 -- | Whether type constraints need extra language extensions.
 --

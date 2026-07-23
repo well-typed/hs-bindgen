@@ -50,6 +50,7 @@ data SType ctx =
   | TBoxedTup Plus2
   | TEq
   | forall n ctx'. TForall (Vec n NameHint) (Add n ctx ctx') [SType ctx'] (SType ctx')
+  | TList (SType ctx)
 
 infixl 9 `TApp`
 
@@ -70,6 +71,7 @@ deriving stock instance Show (SType ctx)
   , TBoxedTup
   , TEq
   , TForall
+  , TList
   #-}
 
 pattern TApps :: SType ctx -> [SType ctx] -> SType ctx

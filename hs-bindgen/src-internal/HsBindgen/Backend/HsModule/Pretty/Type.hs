@@ -66,6 +66,7 @@ prettyType env prec ty = case ty of
       -- are matched on first
       TApp c x -> PP.parensWhen (prec > appPrec) $
         prettyType env appPrec c <+> prettyType env appPrec1 x
+      TList x -> PP.brackets (prettyType env 0 x)
 
 {-------------------------------------------------------------------------------
   Precedences

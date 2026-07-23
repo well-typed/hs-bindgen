@@ -69,6 +69,7 @@ module Text.SimplePrettyPrint (
   , parens
   , parensWhen
   , vparensWhen
+  , brackets
   , singleQuotes
     -- ** Lists
   , hlist
@@ -298,6 +299,10 @@ fsep ds = CtxDoc $ \ctx -> PP.fsep $ map (runCtxDoc ctx) ds
 -- | Parenthesize a document horizontally
 parens :: CtxDoc -> CtxDoc
 parens d = hcat [char '(', d, char ')']
+
+-- | Surround a document with left and right bracket horizontally
+brackets :: CtxDoc -> CtxDoc
+brackets d = hcat [char '[', d, char ']']
 
 -- | Surround a document with single quotes horizontally
 singleQuotes :: CtxDoc -> CtxDoc
