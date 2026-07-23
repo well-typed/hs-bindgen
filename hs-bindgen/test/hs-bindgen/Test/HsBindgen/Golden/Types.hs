@@ -170,7 +170,7 @@ test_types_anonymous_edge_cases_multi_nesting =
 
 test_types_anonymous_edge_cases_multi_nesting_omit_field_prefixes :: TestCase
 test_types_anonymous_edge_cases_multi_nesting_omit_field_prefixes =
-    testVariant "types/anonymous/edge-cases/multi_nesting" "omit_field_prefixes"
+    testVariant "types/anonymous/edge-cases/multi_nesting" Nothing "omit_field_prefixes"
       & #onFrontend .~ ( #fieldNamingStrategy .~ OmitFieldPrefixes )
 
 -- | Test that indirect fields are reparsed
@@ -271,12 +271,12 @@ test_types_structs_bitfields =
 
 test_types_structs_omit_field_prefixes :: TestCase
 test_types_structs_omit_field_prefixes =
-    testVariant "types/structs/simple_structs" "omit_field_prefixes"
+    testVariant "types/structs/simple_structs" Nothing "omit_field_prefixes"
       & #onFrontend .~ ( #fieldNamingStrategy .~ OmitFieldPrefixes )
 
 test_types_structs_post_qualified :: TestCase
 test_types_structs_post_qualified =
-    testVariant "types/structs/simple_structs" "post_qualified"
+    testVariant "types/structs/simple_structs" Nothing "post_qualified"
       & #qualifiedStyle .~ PostQualified
 
 test_types_structs_unnamed_struct :: TestCase

@@ -531,7 +531,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Infra.TestCase
     Test.HsBindgen.Golden.Infra.TestCaseTree
     Test.HsBindgen.Golden.Macros
-    Test.HsBindgen.Golden.Macros.Empty
+    Test.HsBindgen.Golden.Macros.Lang
     Test.HsBindgen.Golden.Macros.Redeclaration
     Test.HsBindgen.Golden.Macros.Reparse
     Test.HsBindgen.Golden.ProgramAnalysis

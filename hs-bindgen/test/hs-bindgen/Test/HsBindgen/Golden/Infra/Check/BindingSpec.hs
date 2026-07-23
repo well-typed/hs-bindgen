@@ -21,29 +21,28 @@ import Test.HsBindgen.Resources
 check :: IO TestResources -> TestCase -> TestTree
 check getTestResources test =
     goldenAnsiDiff "bindingspec" fixture $ \report -> do
-      let artefacts =
-            (,,,,,)
-              <$> getIncludeGraph
-              <*> getDeclIndex
-              <*> getGetMainHeaders
-              <*> getOmittedTypes
-              <*> getSquashedTypes
-              <*> HsDecls
-      (includeGraph, declIndex, getMainHeaders, omitTypes, squashedTypes, hsDecls) <-
-        runTestHsBindgenSuccess report getTestResources test artefacts
-
-      let output :: String
-          output = UTF8.toString $
-              BindingSpec.genBindingSpec
-                BindingSpec.FormatYAML
-                "Example"
-                includeGraph
-                declIndex
-                getMainHeaders
-                omitTypes
-                squashedTypes
-                (concat hsDecls)
-
+      -- We compute the binding specification inside the artefact so that the
+      -- result does not mention the macro-language tag @l@ (which appears in
+      -- 'getDeclIndex' and 'HsDecls'); this keeps 'runTestHsBindgenSuccess'
+      -- polymorphic over the macro language.
+      output <-
+        runTestHsBindgenSuccess report getTestResources test $ do
+          includeGraph   <- getIncludeGraph
+          declIndex      <- getDeclIndex
+          getMainHeaders <- getGetMainHeaders
+          omitTypes      <- getOmittedTypes
+          squashedTypes  <- getSquashedTypes
+          hsDecls        <- HsDecls
+          pure $ UTF8.toString $
+            BindingSpec.genBindingSpec
+              BindingSpec.FormatYAML
+              "Example"
+              includeGraph
+              declIndex
+              getMainHeaders
+              omitTypes
+              squashedTypes
+              (concat hsDecls)
       return $ ActualValue output
   where
     fixture :: FilePath

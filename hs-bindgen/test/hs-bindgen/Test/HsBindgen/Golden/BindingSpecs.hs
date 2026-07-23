@@ -392,7 +392,7 @@ test_bindingSpecs_fun_arg_macro_selectionPredicate =
 -- 'HsBindgen.Runtime.LibC.CBool'.
 test_bindingSpecs_stdlib_instances_c11 :: TestCase
 test_bindingSpecs_stdlib_instances_c11 =
-    testVariant "binding-specs/stdlib/instances" "1.c11-parse-all"
+    testVariant "binding-specs/stdlib/instances" (Just 1) "c11-parse-all"
       & #cStandard  .~ c11
 
 -- **Case 2: C23**
@@ -403,7 +403,7 @@ test_bindingSpecs_stdlib_instances_c11 =
 -- 'HsBindgen.Runtime.LibC.CBool'.
 test_bindingSpecs_stdlib_instances_c23 :: TestCase
 test_bindingSpecs_stdlib_instances_c23 =
-    testVariant "binding-specs/stdlib/instances" "1.c23-parse-all"
+    testVariant "binding-specs/stdlib/instances" (Just 1) "c23-parse-all"
       & #clangVersion .~ Just (>= (18, 0, 0))
       & #cStandard    .~ c23
 
