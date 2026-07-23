@@ -2,6 +2,7 @@ import: ./cabal.project.base.ci
 
 packages:
   hs-bindgen
+  hs-bindgen-highlevel
   hs-bindgen-runtime
   hs-bindgen-test-runtime
 
