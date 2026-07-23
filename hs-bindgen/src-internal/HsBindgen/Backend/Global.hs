@@ -170,6 +170,9 @@ data BindgenGlobalType =
 
     -- ByteString
   | ByteString_type
+
+    -- String
+  | String_type
   deriving stock (Eq, Ord, Show)
 
 data BindgenGlobalTerm =
@@ -369,6 +372,10 @@ bindgenGlobalType = globalType . \case
 
     -- ByteString
     ByteString_type -> (IRuntime Runtime.Support, ''BG.ByteString)
+
+    -- String
+    String_type     -> (IHaskellPrelude, ''String)
+
 
 typeClassGlobal :: Inst.TypeClass -> Global LvlType
 typeClassGlobal = globalType . \case
