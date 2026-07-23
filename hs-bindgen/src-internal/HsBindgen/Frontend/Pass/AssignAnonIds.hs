@@ -249,21 +249,45 @@ instance UpdateUseSites C.ImplicitField where
       reconstruct
         <$> updateUseSites field.info
         <*> updateUseSites field.typRef
+        <*> mapM updateUseSites field.indirect
     where
       reconstruct ::
            C.FieldInfo AssignAnonIds
         -> C.AnonRef AssignAnonIds
+        -> [C.IndirectField AssignAnonIds]
         -> C.ImplicitField AssignAnonIds
-      reconstruct info' typRef' = C.ImplicitField {
-            info   = info'
-          , typRef = typRef'
-          , offset = field.offset
-          , ann    = NoAnn
+      reconstruct info' typRef' indirect' = C.ImplicitField {
+            info     = info'
+          , typRef   = typRef'
+          , offset   = field.offset
+          , indirect = indirect'
+          , ann      = NoAnn
           }
 
 instance UpdateUseSites C.AnonRef where
   updateUseSites = \case
       C.AnonRef ref -> C.AnonRef <$> updateDeclId ref
+
+instance UpdateUseSites C.IndirectField where
+  updateUseSites field =
+      reconstruct
+        <$> updateUseSites field.info
+        <*> updateUseSites field.typ
+        <*> mapM updateUseSites field.path
+    where
+      reconstruct ::
+           C.FieldInfo AssignAnonIds
+        -> C.Type AssignAnonIds
+        -> [C.AnonRef AssignAnonIds]
+        -> C.IndirectField AssignAnonIds
+      reconstruct info' typ' path' = C.IndirectField {
+            info = info'
+          , typ = typ'
+          , offset = field.offset
+          , width = Nothing
+          , path = path'
+          , ann = field.ann
+          }
 
 instance UpdateUseSites C.Typedef where
   updateUseSites typedef =

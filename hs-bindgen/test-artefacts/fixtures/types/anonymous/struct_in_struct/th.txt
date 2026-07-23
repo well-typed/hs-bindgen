@@ -123,6 +123,28 @@ instance HasCField Outer1 "outer1_anon'fieldX"
     where type CFieldType Outer1
                           "outer1_anon'fieldX" = Outer1_anon'fieldX
           offset# = \_ -> \_ -> 4
+instance (~) ty CInt => HasField "outer1_fieldX" Outer1 ty
+    where getField = \x_0 -> getField @"outer1_anon'fieldX_fieldX" (getField @"outer1_anon'fieldX" x_0)
+instance (~) ty CInt => HasField "outer1_fieldX" Outer1 ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"outer1_anon'fieldX" x_0 (\z_2 -> setField @"outer1_anon'fieldX_fieldX" z_2 y_1),
+                              getField @"outer1_fieldX" x_0)
+instance (~) ty CInt =>
+         HasField "outer1_fieldX" (Ptr Outer1) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer1_fieldX")
+instance HasCField Outer1 "outer1_fieldX"
+    where type CFieldType Outer1 "outer1_fieldX" = CInt
+          offset# = \_ -> \_ -> 4
+instance (~) ty CInt => HasField "outer1_fieldY" Outer1 ty
+    where getField = \x_0 -> getField @"outer1_anon'fieldX_fieldY" (getField @"outer1_anon'fieldX" x_0)
+instance (~) ty CInt => HasField "outer1_fieldY" Outer1 ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"outer1_anon'fieldX" x_0 (\z_2 -> setField @"outer1_anon'fieldX_fieldY" z_2 y_1),
+                              getField @"outer1_fieldY" x_0)
+instance (~) ty CInt =>
+         HasField "outer1_fieldY" (Ptr Outer1) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer1_fieldY")
+instance HasCField Outer1 "outer1_fieldY"
+    where type CFieldType Outer1 "outer1_fieldY" = CInt
+          offset# = \_ -> \_ -> 8
 instance (~) ty CInt => HasField "outer1_fieldC" Outer1 ty
     where hasField = \x_0 -> (\y_1 -> Outer1{outer1_fieldC = y_1,
                                              outer1_fieldA = getField @"outer1_fieldA" x_0,

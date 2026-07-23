@@ -22,6 +22,7 @@ type family AnnConstructTranslationUnit (ix :: Symbol) :: Star where
   AnnConstructTranslationUnit "ExplicitField" = ReparseInfo Tokens
   AnnConstructTranslationUnit "Function"      = ReparseInfo Tokens
   AnnConstructTranslationUnit "Global"        = ReparseInfo Tokens
+  AnnConstructTranslationUnit "IndirectField" = ReparseInfo Tokens
   AnnConstructTranslationUnit "Typedef"       = ReparseInfo Tokens
   AnnConstructTranslationUnit _               = NoAnn
 
@@ -55,6 +56,7 @@ instance CoercePassMacroUnderlying    EnrichComments ConstructTranslationUnit
 instance CoercePassAnn "ExplicitField" EnrichComments ConstructTranslationUnit
 instance CoercePassAnn "Function"      EnrichComments ConstructTranslationUnit
 instance CoercePassAnn "Global"        EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "IndirectField" EnrichComments ConstructTranslationUnit
 instance CoercePassAnn "TypeFunArg"    EnrichComments ConstructTranslationUnit
 instance CoercePassAnn "Typedef"       EnrichComments ConstructTranslationUnit
 instance CoercePassCommentDecl         EnrichComments ConstructTranslationUnit where

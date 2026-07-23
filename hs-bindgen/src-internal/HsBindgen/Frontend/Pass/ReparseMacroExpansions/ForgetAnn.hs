@@ -36,6 +36,16 @@ instance ForgetAnn C.ExplicitField where
         , info   = coercePass field.info
         }
 
+instance ForgetAnn C.IndirectField where
+  forgetAnn field = C.IndirectField{
+          typ    = coercePass field.typ
+        , ann    = NoAnn
+        , offset = field.offset
+        , width  = field.width
+        , path   = fmap coercePass field.path
+        , info   = coercePass field.info
+        }
+
 instance ForgetAnn C.Typedef where
   forgetAnn typedef = C.Typedef{
           typ = coercePass typedef.typ

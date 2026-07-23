@@ -30,6 +30,7 @@ type family AnnPrepareReparse (ix :: Symbol) :: Star where
   AnnPrepareReparse "ExplicitField" = ReparseInfo FlatTokens
   AnnPrepareReparse "Function"      = ReparseInfo FlatTokens
   AnnPrepareReparse "Global"        = ReparseInfo FlatTokens
+  AnnPrepareReparse "IndirectField" = ReparseInfo FlatTokens
   AnnPrepareReparse "Typedef"       = ReparseInfo FlatTokens
   AnnPrepareReparse _               = NoAnn
 
@@ -73,9 +74,9 @@ data FlatTokens = FlatTokens {
   CoercePass: TypecheckMacros → PrepareReparse
 -------------------------------------------------------------------------------}
 
-instance CoercePassId               TypecheckMacros PrepareReparse
-instance CoercePassMacroId          TypecheckMacros PrepareReparse
-instance CoercePassAnn "TypeFunArg" TypecheckMacros PrepareReparse
+instance CoercePassId                  TypecheckMacros PrepareReparse
+instance CoercePassMacroId             TypecheckMacros PrepareReparse
+instance CoercePassAnn "TypeFunArg"    TypecheckMacros PrepareReparse
 
 instance CoercePassCommentDecl      TypecheckMacros PrepareReparse where
   coercePassCommentDecl _ = fmap coercePass

@@ -210,6 +210,44 @@ instance HasCField.HasCField SS "sS_anon'y" where
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 17:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "sS_y" SS ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"sS_anon'y_y" (BG.getField @"sS_anon'y" x0)
+
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 17:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "sS_y" SS ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"sS_anon'y" x0 (\z2 ->
+                                                           BG.CompatHasField.setField @"sS_anon'y_y" z2 y1)
+      , BG.getField @"sS_y" x0
+      )
+
+instance (ty ~ BG.CInt) => BG.HasField "sS_y" (BG.Ptr SS) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"sS_y")
+
+instance HasCField.HasCField SS "sS_y" where
+
+  type CFieldType SS "sS_y" = BG.CInt
+
+  offset# = \_ -> \_ -> 8
+
 {-| __C declaration:__ @z@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 19:7@
@@ -407,6 +445,44 @@ instance HasCField.HasCField SU "sU_anon'y" where
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 26:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "sU_y" SU ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"sU_anon'y_y" (BG.getField @"sU_anon'y" x0)
+
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 26:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "sU_y" SU ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"sU_anon'y" x0 (\z2 ->
+                                                           BG.CompatHasField.setField @"sU_anon'y_y" z2 y1)
+      , BG.getField @"sU_y" x0
+      )
+
+instance (ty ~ BG.CInt) => BG.HasField "sU_y" (BG.Ptr SU) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"sU_y")
+
+instance HasCField.HasCField SU "sU_y" where
+
+  type CFieldType SU "sU_y" = BG.CInt
+
+  offset# = \_ -> \_ -> 4
+
 {-| __C declaration:__ @z@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 28:7@
@@ -587,6 +663,44 @@ instance HasCField.HasCField US "uS_anon'y" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 35:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "uS_y" US ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"uS_anon'y_y" (BG.getField @"uS_anon'y" x0)
+
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 35:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "uS_y" US ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"uS_anon'y" x0 (\z2 ->
+                                                           BG.CompatHasField.setField @"uS_anon'y_y" z2 y1)
+      , BG.getField @"uS_y" x0
+      )
+
+instance (ty ~ BG.CInt) => BG.HasField "uS_y" (BG.Ptr US) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"uS_y")
+
+instance HasCField.HasCField US "uS_y" where
+
+  type CFieldType US "uS_y" = BG.CInt
+
+  offset# = \_ -> \_ -> 4
+
 {-| __C declaration:__ @z@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 37:7@
@@ -756,6 +870,44 @@ instance ( ty ~ UU_anon'y
 instance HasCField.HasCField UU "uU_anon'y" where
 
   type CFieldType UU "uU_anon'y" = UU_anon'y
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 44:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "uU_y" UU ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"uU_anon'y_y" (BG.getField @"uU_anon'y" x0)
+
+{-| __C declaration:__ @y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/padding.h 44:9@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "uU_y" UU ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"uU_anon'y" x0 (\z2 ->
+                                                           BG.CompatHasField.setField @"uU_anon'y_y" z2 y1)
+      , BG.getField @"uU_y" x0
+      )
+
+instance (ty ~ BG.CInt) => BG.HasField "uU_y" (BG.Ptr UU) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"uU_y")
+
+instance HasCField.HasCField UU "uU_y" where
+
+  type CFieldType UU "uU_y" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 

@@ -140,6 +140,13 @@ derivedNames strategy nameMap owner loc = \case
 
     implicitFieldNames :: C.ImplicitField CreateNames -> [DerivedNamesResult]
     implicitFieldNames field =
+        ( case lookupScopedName owner field.info.name nameMap of
+            Nothing     -> [ failure owner field.info.name ]
+            Just hsName -> [ success (Field, fieldScope, field.info.loc, hsName) ]
+        ) ++ concatMap indirectFieldNames field.indirect
+
+    indirectFieldNames :: C.IndirectField CreateNames -> [DerivedNamesResult]
+    indirectFieldNames field =
         case lookupScopedName owner field.info.name nameMap of
           Nothing     -> [ failure owner field.info.name ]
           Just hsName -> [ success (Field, fieldScope, field.info.loc, hsName) ]

@@ -157,6 +157,44 @@ instance HasCField.HasCField S_y "s_y_anon'x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h 16:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "s_y_x" S_y ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"s_y_anon'x_x" (BG.getField @"s_y_anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h 16:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "s_y_x" S_y ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"s_y_anon'x" x0 (\z2 ->
+                                                            BG.CompatHasField.setField @"s_y_anon'x_x" z2 y1)
+      , BG.getField @"s_y_x" x0
+      )
+
+instance (ty ~ BG.CInt) => BG.HasField "s_y_x" (BG.Ptr S_y) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"s_y_x")
+
+instance HasCField.HasCField S_y "s_y_x" where
+
+  type CFieldType S_y "s_y_x" = BG.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @struct S@
 
     __defined at:__ @types\/anonymous\/edge-cases\/anon_in_nonanon.h 13:8@

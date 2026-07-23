@@ -1,0 +1,138 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/anonymous/edge-cases/reparse.h
+  cname: macro A
+  hsname: A
+- headers: types/anonymous/edge-cases/reparse.h
+  cname: macro B
+  hsname: B
+- headers: types/anonymous/edge-cases/reparse.h
+  cname: struct S
+  hsname: S
+- headers: types/anonymous/edge-cases/reparse.h
+  cname: struct @S_anon'anon'x
+  hsname: S_anon'anon'x
+- headers: types/anonymous/edge-cases/reparse.h
+  cname: struct @S_anon'anon'x_anon'x
+  hsname: S_anon'anon'x_anon'x
+hstypes:
+- hsname: A
+  representation:
+    newtype:
+      constructor: A
+      fields:
+      - unwrapA
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: B
+  representation:
+    newtype:
+      constructor: B
+      fields:
+      - unwrapB
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - s_anon'anon'x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S_anon'anon'x
+  representation:
+    record:
+      constructor: S_anon'anon'x
+      fields:
+      - s_anon'anon'x_anon'x
+      - s_anon'anon'x_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S_anon'anon'x_anon'x
+  representation:
+    record:
+      constructor: S_anon'anon'x_anon'x
+      fields:
+      - s_anon'anon'x_anon'x_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

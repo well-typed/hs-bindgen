@@ -176,6 +176,10 @@
   generate a `COMPLETE` pragma for the declared patterns.
 * Add haddock comments to `HasField` instance for struct fields. See [PR
   #2150][pr-2150].
+* Generate `HasField` (and related) class instances for indirect fields.
+  Indirect fields are fields of anonymous structs and unions that can be
+  accessed as if they were fields of the enclosing struct or union. See [issue
+  #2061][is-2061] and [PR #2136][pr-2136].
 
 ### Minor changes
 
@@ -309,10 +313,11 @@
 [is-1884]: https://github.com/well-typed/hs-bindgen/issues/1884
 [is-1891]: https://github.com/well-typed/hs-bindgen/issues/1891
 [is-2012]: https://github.com/well-typed/hs-bindgen/issues/2012
+[is-2049]: https://github.com/well-typed/hs-bindgen/issues/2049
 [is-2059]: https://github.com/well-typed/hs-bindgen/issues/2059
 [is-2060]: https://github.com/well-typed/hs-bindgen/issues/2060
+[is-2061]: https://github.com/well-typed/hs-bindgen/issues/2061
 [is-2064]: https://github.com/well-typed/hs-bindgen/issues/2064
-[is-2049]: https://github.com/well-typed/hs-bindgen/issues/2049
 [is-2083]: https://github.com/well-typed/hs-bindgen/issues/2083
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
@@ -329,6 +334,7 @@
 [pr-2087]: https://github.com/well-typed/hs-bindgen/pull/2087
 [pr-2091]: https://github.com/well-typed/hs-bindgen/pull/2091
 [pr-2094]: https://github.com/well-typed/hs-bindgen/pull/2094
+[pr-2136]: https://github.com/well-typed/hs-bindgen/pull/2136
 [pr-2150]: https://github.com/well-typed/hs-bindgen/pull/2150
 [pr-2153]: https://github.com/well-typed/hs-bindgen/pull/2153
 

@@ -92,6 +92,16 @@ instance (~) ty SS_anon'y => HasField "sS_anon'y" (Ptr SS) (Ptr ty)
 instance HasCField SS "sS_anon'y"
     where type CFieldType SS "sS_anon'y" = SS_anon'y
           offset# = \_ -> \_ -> 4
+instance (~) ty CInt => HasField "sS_y" SS ty
+    where getField = \x_0 -> getField @"sS_anon'y_y" (getField @"sS_anon'y" x_0)
+instance (~) ty CInt => HasField "sS_y" SS ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"sS_anon'y" x_0 (\z_2 -> setField @"sS_anon'y_y" z_2 y_1),
+                              getField @"sS_y" x_0)
+instance (~) ty CInt => HasField "sS_y" (Ptr SS) (Ptr ty)
+    where getField = fromPtr (Proxy @"sS_y")
+instance HasCField SS "sS_y"
+    where type CFieldType SS "sS_y" = CInt
+          offset# = \_ -> \_ -> 8
 instance (~) ty CInt => HasField "sS_z" SS ty
     where hasField = \x_0 -> (\y_1 -> SS{sS_z = y_1,
                                          sS_x = getField @"sS_x" x_0,
@@ -187,6 +197,16 @@ instance (~) ty SU_anon'y => HasField "sU_anon'y" (Ptr SU) (Ptr ty)
 instance HasCField SU "sU_anon'y"
     where type CFieldType SU "sU_anon'y" = SU_anon'y
           offset# = \_ -> \_ -> 4
+instance (~) ty CInt => HasField "sU_y" SU ty
+    where getField = \x_0 -> getField @"sU_anon'y_y" (getField @"sU_anon'y" x_0)
+instance (~) ty CInt => HasField "sU_y" SU ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"sU_anon'y" x_0 (\z_2 -> setField @"sU_anon'y_y" z_2 y_1),
+                              getField @"sU_y" x_0)
+instance (~) ty CInt => HasField "sU_y" (Ptr SU) (Ptr ty)
+    where getField = fromPtr (Proxy @"sU_y")
+instance HasCField SU "sU_y"
+    where type CFieldType SU "sU_y" = CInt
+          offset# = \_ -> \_ -> 4
 instance (~) ty CInt => HasField "sU_z" SU ty
     where hasField = \x_0 -> (\y_1 -> SU{sU_z = y_1,
                                          sU_x = getField @"sU_x" x_0,
@@ -261,6 +281,16 @@ instance (~) ty US_anon'y => HasField "uS_anon'y" (Ptr US) (Ptr ty)
 instance HasCField US "uS_anon'y"
     where type CFieldType US "uS_anon'y" = US_anon'y
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "uS_y" US ty
+    where getField = \x_0 -> getField @"uS_anon'y_y" (getField @"uS_anon'y" x_0)
+instance (~) ty CInt => HasField "uS_y" US ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"uS_anon'y" x_0 (\z_2 -> setField @"uS_anon'y_y" z_2 y_1),
+                              getField @"uS_y" x_0)
+instance (~) ty CInt => HasField "uS_y" (Ptr US) (Ptr ty)
+    where getField = fromPtr (Proxy @"uS_y")
+instance HasCField US "uS_y"
+    where type CFieldType US "uS_y" = CInt
+          offset# = \_ -> \_ -> 4
 instance (~) ty CInt => HasField "uS_z" US ty
     where getField = getUnionPayload
 instance (~) ty CInt => HasField "uS_z" US ty
@@ -325,6 +355,16 @@ instance (~) ty UU_anon'y => HasField "uU_anon'y" (Ptr UU) (Ptr ty)
     where getField = fromPtr (Proxy @"uU_anon'y")
 instance HasCField UU "uU_anon'y"
     where type CFieldType UU "uU_anon'y" = UU_anon'y
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "uU_y" UU ty
+    where getField = \x_0 -> getField @"uU_anon'y_y" (getField @"uU_anon'y" x_0)
+instance (~) ty CInt => HasField "uU_y" UU ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"uU_anon'y" x_0 (\z_2 -> setField @"uU_anon'y_y" z_2 y_1),
+                              getField @"uU_y" x_0)
+instance (~) ty CInt => HasField "uU_y" (Ptr UU) (Ptr ty)
+    where getField = fromPtr (Proxy @"uU_y")
+instance HasCField UU "uU_y"
+    where type CFieldType UU "uU_y" = CInt
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "uU_z" UU ty
     where getField = getUnionPayload

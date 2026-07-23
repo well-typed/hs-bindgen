@@ -703,6 +703,15 @@ data HasFieldInstance = HasFieldInstance {
 data HasFieldImpl =
     -- | unions
     HasFieldImplUnion
+    -- | indirect fields
+  | HasFieldImplIndirect {
+        -- | The name of the field to go from the current top-level struct/union
+        -- to an anonyous struct/union
+        nameTopToAnon :: Hs.Name Hs.NsVar
+        -- | The name of the field to go from the anonymous struct/union to the
+        -- target field (the one we are accessing indirectly)
+      , nameAnonToTarget :: Hs.Name Hs.NsVar
+      }
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
@@ -730,10 +739,20 @@ data HasFieldCompatImpl =
     -- | structs, typedefs, enums, and macro types
     HasFieldCompatImplRecord {
         constr :: Hs.Name Hs.NsConstr
+        -- | Fields that are unchanged
       , otherFields :: [Hs.Name Hs.NsVar]
       }
     -- | unions
   | HasFieldCompatImplUnion
+    -- | Indirect fields
+  | HasFieldCompatImplIndirect {
+        -- | The name of the field to go from the current top-level struct/union
+        -- to an anonyous struct/union
+        nameTopToAnon :: Hs.Name Hs.NsVar
+        -- | The name of the field to go from the anonymous struct/union to the
+        -- target field (the one we are accessing indirectly)
+      , nameAnonToTarget :: Hs.Name Hs.NsVar
+      }
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------

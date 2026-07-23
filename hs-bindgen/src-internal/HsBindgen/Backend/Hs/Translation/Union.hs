@@ -210,8 +210,18 @@ hasFieldDecs st env info union field =
         -- free we have to define custom instances.
         ExplicitField _ -> implUnion
         ImplicitField _ -> implUnion
+        -- Indirect fields are not translated to Haskell record datatype fields, so
+        -- they get custom @HasField@ instances composed from existing @HasField@
+        -- instances
+        IndirectField impField indField -> implIndirect impField indField
 
     implUnion = Hs.HasFieldImplUnion
+
+    implIndirect :: C.ImplicitField Final -> C.IndirectField Final -> Hs.HasFieldImpl
+    implIndirect impField indField  = Hs.HasFieldImplIndirect {
+          nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsName
+        , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsName
+        }
 
 -- | Class instances for 'GHC.Records.Compat.HasField'
 hasFieldCompatDecs ::
@@ -266,8 +276,18 @@ hasFieldCompatDecs st env info union field =
         -- free we have to define custom instances.
         ExplicitField _ -> implUnion
         ImplicitField _ -> implUnion
+        -- Indirect fields are not translated to Haskell record datatype fields, so
+        -- they get custom @HasField@ instances composed from existing @HasField@
+        -- instances
+        IndirectField impField indField -> implIndirect impField indField
 
     implUnion = Hs.HasFieldCompatImplUnion
+
+    implIndirect :: C.ImplicitField Final -> C.IndirectField Final -> Hs.HasFieldCompatImpl
+    implIndirect impField indField  = Hs.HasFieldCompatImplIndirect {
+          nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsName
+        , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsName
+        }
 
 -- | Class instances for 'GHC.Records.HasField' for the pointer manipulation API
 hasFieldPtrDecs :: Hs.Newtype -> Field -> [Hs.Decl l]

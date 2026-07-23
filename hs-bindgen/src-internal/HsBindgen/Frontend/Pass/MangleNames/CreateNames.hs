@@ -617,8 +617,9 @@ createImplicitField ::
   -> C.ImplicitField ResolveBindingSpecs
   -> CreateE (C.ImplicitField CreateNames)
 createImplicitField hsName field = do
-    name'   <- createFieldName hsName field.info.name
-    typRef' <- createAnonRef field.typRef
+    name'     <- createFieldName hsName field.info.name
+    typRef'   <- createAnonRef field.typRef
+    indirect' <- mapM (createIndirectField hsName) field.indirect
     pure C.ImplicitField{
         info = C.FieldInfo{
                    loc     = field.info.loc
@@ -627,6 +628,7 @@ createImplicitField hsName field = do
                  }
       , typRef = typRef'
       , offset = field.offset
+      , indirect = indirect'
       , ann  = NoAnn
       }
 
@@ -636,6 +638,26 @@ createAnonRef ::
 createAnonRef = \case
     C.AnonRef ref -> pure $ C.AnonRef ref
     C.AnonExtBinding ext -> pure $ C.AnonExtBinding $ C.coercePassExtBindingRef ext
+
+createIndirectField ::
+     Text
+  -> C.IndirectField ResolveBindingSpecs
+  -> CreateE (C.IndirectField CreateNames)
+createIndirectField hsName field = do
+    name' <- createFieldName hsName field.info.name
+    path' <- mapM createAnonRef field.path
+    pure C.IndirectField{
+        info = C.FieldInfo{
+                   loc     = field.info.loc
+                 , name    = name'.cName
+                 , comment = fmap coercePass field.info.comment
+                 }
+      , typ  = coercePass field.typ
+      , offset = field.offset
+      , width = field.width
+      , path = path'
+      , ann  = NoAnn
+      }
 
 createEnum :: Text -> C.Enum ResolveBindingSpecs -> CreateE (C.Enum CreateNames)
 createEnum hsName enum = do

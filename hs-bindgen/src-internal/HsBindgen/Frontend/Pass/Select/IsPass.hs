@@ -44,6 +44,7 @@ type family AnnSelect ix where
   AnnSelect "Decl"                 = PrescriptiveDeclSpec
   AnnSelect "Enum"                 = NewtypeNames
   AnnSelect "Flam"                 = FlamNames
+  AnnSelect "IndirectField"        = IndirectFieldNames Select
   AnnSelect "Struct"               = StructNames
   AnnSelect "Typedef"              = TypedefNames
   AnnSelect "TypecheckedMacroType" = NewtypeNames
@@ -282,6 +283,10 @@ instance CoercePassMacroUnderlying AdjustTypes Select where
 
 instance CoercePassMacroBody AdjustTypes Select where
   coercePassMacroBody _ = coercePassParam
+
+instance CoercePassAnn "IndirectField" AdjustTypes Select where
+  coercePassAnn _ = \case
+      IndirectFieldNames name -> IndirectFieldNames name
 
 instance CoercePassAnn "TypeFunArg" AdjustTypes Select where
   coercePassAnn _ = \case

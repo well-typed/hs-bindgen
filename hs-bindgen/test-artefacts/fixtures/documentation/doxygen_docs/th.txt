@@ -2124,6 +2124,32 @@ instance HasCField Unnamed_field_t "unnamed_field_t_anon'ua"
                           "unnamed_field_t_anon'ua" = Unnamed_field_t_anon'ua
           offset# = \_ -> \_ -> 4
 instance (~) ty CInt =>
+         HasField "unnamed_field_t_ua" Unnamed_field_t ty
+    where getField = \x_0 -> getField @"unnamed_field_t_anon'ua_ua" (getField @"unnamed_field_t_anon'ua" x_0)
+instance (~) ty CInt =>
+         HasField "unnamed_field_t_ua" Unnamed_field_t ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"unnamed_field_t_anon'ua" x_0 (\z_2 -> setField @"unnamed_field_t_anon'ua_ua" z_2 y_1),
+                              getField @"unnamed_field_t_ua" x_0)
+instance (~) ty CInt =>
+         HasField "unnamed_field_t_ua" (Ptr Unnamed_field_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unnamed_field_t_ua")
+instance HasCField Unnamed_field_t "unnamed_field_t_ua"
+    where type CFieldType Unnamed_field_t "unnamed_field_t_ua" = CInt
+          offset# = \_ -> \_ -> 4
+instance (~) ty CInt =>
+         HasField "unnamed_field_t_ub" Unnamed_field_t ty
+    where getField = \x_0 -> getField @"unnamed_field_t_anon'ua_ub" (getField @"unnamed_field_t_anon'ua" x_0)
+instance (~) ty CInt =>
+         HasField "unnamed_field_t_ub" Unnamed_field_t ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"unnamed_field_t_anon'ua" x_0 (\z_2 -> setField @"unnamed_field_t_anon'ua_ub" z_2 y_1),
+                              getField @"unnamed_field_t_ub" x_0)
+instance (~) ty CInt =>
+         HasField "unnamed_field_t_ub" (Ptr Unnamed_field_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unnamed_field_t_ub")
+instance HasCField Unnamed_field_t "unnamed_field_t_ub"
+    where type CFieldType Unnamed_field_t "unnamed_field_t_ub" = CInt
+          offset# = \_ -> \_ -> 8
+instance (~) ty CInt =>
          HasField "unnamed_field_t_after" Unnamed_field_t ty
     where hasField = \x_0 -> (\y_1 -> Unnamed_field_t{unnamed_field_t_after = y_1,
                                                       unnamed_field_t_before = getField @"unnamed_field_t_before" x_0,

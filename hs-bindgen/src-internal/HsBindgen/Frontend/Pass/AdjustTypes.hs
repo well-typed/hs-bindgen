@@ -2,6 +2,7 @@ module HsBindgen.Frontend.Pass.AdjustTypes (
     adjustTypes
   ) where
 
+import Data.Proxy (Proxy (Proxy))
 import Numeric.Natural (Natural)
 
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
@@ -108,6 +109,7 @@ processImplicitField field =
         info   = coercePass field.info
       , typRef = processAnonRef field.typRef
       , offset = field.offset
+      , indirect = fmap processIndirectField field.indirect
       , ann    = field.ann
       }
 
@@ -115,6 +117,17 @@ processAnonRef :: C.AnonRef MangleNames -> C.AnonRef AdjustTypes
 processAnonRef = \case
     C.AnonRef ref -> C.AnonRef ref
     C.AnonExtBinding ext -> C.AnonExtBinding $ processExtBindingRef ext
+
+processIndirectField :: C.IndirectField MangleNames -> C.IndirectField AdjustTypes
+processIndirectField field =
+    C.IndirectField {
+        info   = coercePass field.info
+      , typ    = processType field.typ
+      , offset = field.offset
+      , width  = field.width
+      , path   = fmap processAnonRef field.path
+      , ann    = coercePassAnn (Proxy @'("IndirectField", MangleNames, AdjustTypes)) field.ann
+      }
 
 processTypedef :: C.Typedef MangleNames -> C.Typedef AdjustTypes
 processTypedef typedef =

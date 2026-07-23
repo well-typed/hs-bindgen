@@ -215,6 +215,13 @@ enrichExplicitField doxy name field =
 enrichImplicitField ::
      Doxygen -> Text -> C.ImplicitField EnrichComments -> C.ImplicitField EnrichComments
 enrichImplicitField doxy name field =
+    #indirect %~ fmap (enrichIndirectField doxy name) $
+    maybe field (\c -> field & #info % #comment .~ Just c) $ do
+        lookupFieldComment doxy (KeyField name field.info.name.text)
+
+enrichIndirectField ::
+     Doxygen -> Text -> C.IndirectField EnrichComments -> C.IndirectField EnrichComments
+enrichIndirectField doxy name field =
     maybe field (\c -> field & #info % #comment .~ Just c) $ do
         lookupFieldComment doxy (KeyField name field.info.name.text)
 

@@ -97,6 +97,7 @@ data ResolveBindingSpecsMsg =
   | ResolveBindingSpecsPreOmit              C.DeclId
   | ResolveBindingSpecsPreEmptyData         C.DeclId
   | ResolveBindingSpecsPreEmptyDataInvalid  C.DeclId
+  | ResolveBindingSpecsIndirectFieldDropped C.DeclId C.ScopedName
   deriving stock (Show)
 
 instance PrettyForTrace ResolveBindingSpecsMsg where
@@ -141,6 +142,12 @@ instance PrettyForTrace ResolveBindingSpecsMsg where
       ResolveBindingSpecsPreEmptyDataInvalid cDeclId ->
         "Declaration opaqued by prescriptive binding specification invalid for kind:"
           <+> prettyForTrace cDeclId
+      ResolveBindingSpecsIndirectFieldDropped cDeclId cFieldName ->
+        "Within declaration"
+          <+> prettyForTrace cDeclId
+          <+> "dropped an indirect field that points into a dropped declaration"
+          <+> ":"
+          <+> prettyForTrace cFieldName
 
 instance IsTrace Level ResolveBindingSpecsMsg where
   getDefaultLogLevel = \case
@@ -156,6 +163,7 @@ instance IsTrace Level ResolveBindingSpecsMsg where
     ResolveBindingSpecsPreOmit{}              -> Info
     ResolveBindingSpecsPreEmptyData{}         -> Info
     ResolveBindingSpecsPreEmptyDataInvalid{}  -> Warning
+    ResolveBindingSpecsIndirectFieldDropped{} -> Warning
   getSource          = const HsBindgen
   getTraceId         = const "resolve-binding-specs"
 

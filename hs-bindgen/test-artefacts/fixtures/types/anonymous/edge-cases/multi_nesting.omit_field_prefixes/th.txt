@@ -67,6 +67,16 @@ instance HasCField SSS_anon'anon'x "anon'x"
     where type CFieldType SSS_anon'anon'x
                           "anon'x" = SSS_anon'anon'x_anon'x
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "x" SSS_anon'anon'x ty
+    where getField = \x_0 -> getField @"x" (getField @"anon'x" x_0)
+instance (~) ty CInt => HasField "x" SSS_anon'anon'x ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"anon'x" x_0 (\z_2 -> setField @"x" z_2 y_1),
+                              getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr SSS_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField SSS_anon'anon'x "x"
+    where type CFieldType SSS_anon'anon'x "x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct SSS@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 15:8@
@@ -99,6 +109,16 @@ instance (~) ty SSS_anon'anon'x =>
     where getField = fromPtr (Proxy @"anon'anon'x")
 instance HasCField SSS "anon'anon'x"
     where type CFieldType SSS "anon'anon'x" = SSS_anon'anon'x
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "x" SSS ty
+    where getField = \x_0 -> getField @"x" (getField @"anon'anon'x" x_0)
+instance (~) ty CInt => HasField "x" SSS ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"anon'anon'x" x_0 (\z_2 -> setField @"x" z_2 y_1),
+                              getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr SSS) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField SSS "x"
+    where type CFieldType SSS "x" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@USS_anon\'anon\'x_anon\'x@
 
@@ -168,6 +188,16 @@ instance HasCField USS_anon'anon'x "anon'x"
     where type CFieldType USS_anon'anon'x
                           "anon'x" = USS_anon'anon'x_anon'x
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "x" USS_anon'anon'x ty
+    where getField = \x_0 -> getField @"x" (getField @"anon'x" x_0)
+instance (~) ty CInt => HasField "x" USS_anon'anon'x ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"anon'x" x_0 (\z_2 -> setField @"x" z_2 y_1),
+                              getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr USS_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField USS_anon'anon'x "x"
+    where type CFieldType USS_anon'anon'x "x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union USS@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 23:7@
@@ -190,6 +220,16 @@ instance (~) ty USS_anon'anon'x =>
     where getField = fromPtr (Proxy @"anon'anon'x")
 instance HasCField USS "anon'anon'x"
     where type CFieldType USS "anon'anon'x" = USS_anon'anon'x
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "x" USS ty
+    where getField = \x_0 -> getField @"x" (getField @"anon'anon'x" x_0)
+instance (~) ty CInt => HasField "x" USS ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"anon'anon'x" x_0 (\z_2 -> setField @"x" z_2 y_1),
+                              getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr USS) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField USS "x"
+    where type CFieldType USS "x" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@SUS_anon\'anon\'x_anon\'x@
 
@@ -252,6 +292,16 @@ instance HasCField SUS_anon'anon'x "anon'x"
     where type CFieldType SUS_anon'anon'x
                           "anon'x" = SUS_anon'anon'x_anon'x
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "x" SUS_anon'anon'x ty
+    where getField = \x_0 -> getField @"x" (getField @"anon'x" x_0)
+instance (~) ty CInt => HasField "x" SUS_anon'anon'x ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"anon'x" x_0 (\z_2 -> setField @"x" z_2 y_1),
+                              getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr SUS_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField SUS_anon'anon'x "x"
+    where type CFieldType SUS_anon'anon'x "x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct SUS@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 31:8@
@@ -284,6 +334,16 @@ instance (~) ty SUS_anon'anon'x =>
     where getField = fromPtr (Proxy @"anon'anon'x")
 instance HasCField SUS "anon'anon'x"
     where type CFieldType SUS "anon'anon'x" = SUS_anon'anon'x
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "x" SUS ty
+    where getField = \x_0 -> getField @"x" (getField @"anon'anon'x" x_0)
+instance (~) ty CInt => HasField "x" SUS ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"anon'anon'x" x_0 (\z_2 -> setField @"x" z_2 y_1),
+                              getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr SUS) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField SUS "x"
+    where type CFieldType SUS "x" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@UUS_anon\'anon\'x_anon\'x@
 
@@ -346,6 +406,16 @@ instance HasCField UUS_anon'anon'x "anon'x"
     where type CFieldType UUS_anon'anon'x
                           "anon'x" = UUS_anon'anon'x_anon'x
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "x" UUS_anon'anon'x ty
+    where getField = \x_0 -> getField @"x" (getField @"anon'x" x_0)
+instance (~) ty CInt => HasField "x" UUS_anon'anon'x ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"anon'x" x_0 (\z_2 -> setField @"x" z_2 y_1),
+                              getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr UUS_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField UUS_anon'anon'x "x"
+    where type CFieldType UUS_anon'anon'x "x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union UUS@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 39:7@
@@ -368,6 +438,16 @@ instance (~) ty UUS_anon'anon'x =>
     where getField = fromPtr (Proxy @"anon'anon'x")
 instance HasCField UUS "anon'anon'x"
     where type CFieldType UUS "anon'anon'x" = UUS_anon'anon'x
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "x" UUS ty
+    where getField = \x_0 -> getField @"x" (getField @"anon'anon'x" x_0)
+instance (~) ty CInt => HasField "x" UUS ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"anon'anon'x" x_0 (\z_2 -> setField @"x" z_2 y_1),
+                              getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr UUS) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField UUS "x"
+    where type CFieldType UUS "x" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union \@SSU_anon\'anon\'x_anon\'x@
 
@@ -432,6 +512,16 @@ instance HasCField SSU_anon'anon'x "anon'x"
     where type CFieldType SSU_anon'anon'x
                           "anon'x" = SSU_anon'anon'x_anon'x
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "x" SSU_anon'anon'x ty
+    where getField = \x_0 -> getField @"x" (getField @"anon'x" x_0)
+instance (~) ty CInt => HasField "x" SSU_anon'anon'x ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"anon'x" x_0 (\z_2 -> setField @"x" z_2 y_1),
+                              getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr SSU_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField SSU_anon'anon'x "x"
+    where type CFieldType SSU_anon'anon'x "x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct SSU@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 47:8@
@@ -464,6 +554,16 @@ instance (~) ty SSU_anon'anon'x =>
     where getField = fromPtr (Proxy @"anon'anon'x")
 instance HasCField SSU "anon'anon'x"
     where type CFieldType SSU "anon'anon'x" = SSU_anon'anon'x
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "x" SSU ty
+    where getField = \x_0 -> getField @"x" (getField @"anon'anon'x" x_0)
+instance (~) ty CInt => HasField "x" SSU ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"anon'anon'x" x_0 (\z_2 -> setField @"x" z_2 y_1),
+                              getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr SSU) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField SSU "x"
+    where type CFieldType SSU "x" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union \@USU_anon\'anon\'x_anon\'x@
 
@@ -528,6 +628,16 @@ instance HasCField USU_anon'anon'x "anon'x"
     where type CFieldType USU_anon'anon'x
                           "anon'x" = USU_anon'anon'x_anon'x
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "x" USU_anon'anon'x ty
+    where getField = \x_0 -> getField @"x" (getField @"anon'x" x_0)
+instance (~) ty CInt => HasField "x" USU_anon'anon'x ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"anon'x" x_0 (\z_2 -> setField @"x" z_2 y_1),
+                              getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr USU_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField USU_anon'anon'x "x"
+    where type CFieldType USU_anon'anon'x "x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union USU@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 55:7@
@@ -550,6 +660,16 @@ instance (~) ty USU_anon'anon'x =>
     where getField = fromPtr (Proxy @"anon'anon'x")
 instance HasCField USU "anon'anon'x"
     where type CFieldType USU "anon'anon'x" = USU_anon'anon'x
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "x" USU ty
+    where getField = \x_0 -> getField @"x" (getField @"anon'anon'x" x_0)
+instance (~) ty CInt => HasField "x" USU ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"anon'anon'x" x_0 (\z_2 -> setField @"x" z_2 y_1),
+                              getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr USU) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField USU "x"
+    where type CFieldType USU "x" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union \@SUU_anon\'anon\'x_anon\'x@
 
@@ -607,6 +727,16 @@ instance HasCField SUU_anon'anon'x "anon'x"
     where type CFieldType SUU_anon'anon'x
                           "anon'x" = SUU_anon'anon'x_anon'x
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "x" SUU_anon'anon'x ty
+    where getField = \x_0 -> getField @"x" (getField @"anon'x" x_0)
+instance (~) ty CInt => HasField "x" SUU_anon'anon'x ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"anon'x" x_0 (\z_2 -> setField @"x" z_2 y_1),
+                              getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr SUU_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField SUU_anon'anon'x "x"
+    where type CFieldType SUU_anon'anon'x "x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct SUU@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 63:8@
@@ -639,6 +769,16 @@ instance (~) ty SUU_anon'anon'x =>
     where getField = fromPtr (Proxy @"anon'anon'x")
 instance HasCField SUU "anon'anon'x"
     where type CFieldType SUU "anon'anon'x" = SUU_anon'anon'x
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "x" SUU ty
+    where getField = \x_0 -> getField @"x" (getField @"anon'anon'x" x_0)
+instance (~) ty CInt => HasField "x" SUU ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"anon'anon'x" x_0 (\z_2 -> setField @"x" z_2 y_1),
+                              getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr SUU) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField SUU "x"
+    where type CFieldType SUU "x" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union \@UUU_anon\'anon\'x_anon\'x@
 
@@ -696,6 +836,16 @@ instance HasCField UUU_anon'anon'x "anon'x"
     where type CFieldType UUU_anon'anon'x
                           "anon'x" = UUU_anon'anon'x_anon'x
           offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "x" UUU_anon'anon'x ty
+    where getField = \x_0 -> getField @"x" (getField @"anon'x" x_0)
+instance (~) ty CInt => HasField "x" UUU_anon'anon'x ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"anon'x" x_0 (\z_2 -> setField @"x" z_2 y_1),
+                              getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr UUU_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField UUU_anon'anon'x "x"
+    where type CFieldType UUU_anon'anon'x "x" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union UUU@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 71:7@
@@ -718,4 +868,14 @@ instance (~) ty UUU_anon'anon'x =>
     where getField = fromPtr (Proxy @"anon'anon'x")
 instance HasCField UUU "anon'anon'x"
     where type CFieldType UUU "anon'anon'x" = UUU_anon'anon'x
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "x" UUU ty
+    where getField = \x_0 -> getField @"x" (getField @"anon'anon'x" x_0)
+instance (~) ty CInt => HasField "x" UUU ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"anon'anon'x" x_0 (\z_2 -> setField @"x" z_2 y_1),
+                              getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr UUU) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField UUU "x"
+    where type CFieldType UUU "x" = CInt
           offset# = \_ -> \_ -> 0

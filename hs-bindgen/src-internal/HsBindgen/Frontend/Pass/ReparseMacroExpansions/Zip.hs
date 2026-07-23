@@ -164,6 +164,26 @@ instance ZipReparsed C.ExplicitField where
         , ann    = NoAnn
         }
 
+instance ZipReparsed C.IndirectField where
+  zipReparsed fieldPre field = do
+      info'   <- checkEqCoerce      fieldPre.info   field.info
+      typ'    <- zipType            fieldPre.typ    field.typ
+      offset' <- checkEq            fieldPre.offset field.offset
+      width'  <- checkEq            fieldPre.width  field.width
+      path'   <- zipList zipAnonRef fieldPre.path field.path
+      success C.IndirectField{
+          info   = info'
+        , typ    = typ'
+        , offset = offset'
+        , width  = width'
+        , path   = path'
+        , ann    = NoAnn
+        }
+    where
+      zipAnonRef :: C.AnonRef In -> C.AnonRef Out -> ZipResult (C.AnonRef ReparseMacroExpansions)
+      zipAnonRef anonRef1 anonRef2 = case (anonRef1, anonRef2) of
+          (C.AnonRef id1, C.AnonRef id2) -> C.AnonRef <$> checkEq id1 id2
+
 instance ZipReparsed C.Typedef where
   zipReparsed typedefPre typedef = do
       typ' <- zipType typedefPre.typ typedef.typ

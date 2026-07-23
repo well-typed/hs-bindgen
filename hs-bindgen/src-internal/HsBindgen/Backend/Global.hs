@@ -231,6 +231,8 @@ data BindgenGlobalTerm =
 
     -- Compat.HasField
   | HasFieldCompat_hasField
+  | HasFieldCompat_setField
+  | HasFieldCompat_modifyField
 
     -- Proxy
   | Proxy_constructor
@@ -468,7 +470,9 @@ bindgenGlobalTerm = globalExpr . \case
     HasField_getField -> (IRuntime Runtime.Support, GVar, 'BG.getField)
 
     -- Compat.HasField
-    HasFieldCompat_hasField -> (IRuntime Runtime.CompatHasField, GVar, 'BG.CompatHasField.hasField)
+    HasFieldCompat_hasField    -> (IRuntime Runtime.CompatHasField, GVar, 'BG.CompatHasField.hasField)
+    HasFieldCompat_setField    -> (IRuntime Runtime.CompatHasField, GVar, 'BG.CompatHasField.setField)
+    HasFieldCompat_modifyField -> (IRuntime Runtime.CompatHasField, GVar, 'BG.CompatHasField.modifyField)
 
     -- Proxy
     Proxy_constructor -> (IRuntime Runtime.Support, GCon, 'BG.Proxy)

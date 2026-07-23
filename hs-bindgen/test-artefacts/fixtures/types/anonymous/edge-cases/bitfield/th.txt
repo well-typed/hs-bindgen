@@ -74,6 +74,16 @@ instance (~) ty S1_anon'y => HasField "s1_anon'y" (Ptr S1) (Ptr ty)
 instance HasCField S1 "s1_anon'y"
     where type CFieldType S1 "s1_anon'y" = S1_anon'y
           offset# = \_ -> \_ -> 0
+instance (~) ty CChar => HasField "s1_y" S1 ty
+    where getField = \x_0 -> getField @"s1_anon'y_y" (getField @"s1_anon'y" x_0)
+instance (~) ty CChar => HasField "s1_y" S1 ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"s1_anon'y" x_0 (\z_2 -> setField @"s1_anon'y_y" z_2 y_1),
+                              getField @"s1_y" x_0)
+instance (~) ty CChar => HasField "s1_y" (Ptr S1) (Ptr ty)
+    where getField = fromPtr (Proxy @"s1_y")
+instance HasCField S1 "s1_y"
+    where type CFieldType S1 "s1_y" = CChar
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s1_x" S1 ty
     where hasField = \x_0 -> (\y_1 -> S1{s1_x = y_1,
                                          s1_anon'y = getField @"s1_anon'y" x_0},
@@ -166,6 +176,19 @@ instance HasCField S2_anon'anon'y "s2_anon'anon'y_anon'y"
     where type CFieldType S2_anon'anon'y
                           "s2_anon'anon'y_anon'y" = S2_anon'anon'y_anon'y
           offset# = \_ -> \_ -> 0
+instance (~) ty CChar =>
+         HasField "s2_anon'anon'y_y" S2_anon'anon'y ty
+    where getField = \x_0 -> getField @"s2_anon'anon'y_anon'y_y" (getField @"s2_anon'anon'y_anon'y" x_0)
+instance (~) ty CChar =>
+         HasField "s2_anon'anon'y_y" S2_anon'anon'y ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"s2_anon'anon'y_anon'y" x_0 (\z_2 -> setField @"s2_anon'anon'y_anon'y_y" z_2 y_1),
+                              getField @"s2_anon'anon'y_y" x_0)
+instance (~) ty CChar =>
+         HasField "s2_anon'anon'y_y" (Ptr S2_anon'anon'y) (Ptr ty)
+    where getField = fromPtr (Proxy @"s2_anon'anon'y_y")
+instance HasCField S2_anon'anon'y "s2_anon'anon'y_y"
+    where type CFieldType S2_anon'anon'y "s2_anon'anon'y_y" = CChar
+          offset# = \_ -> \_ -> 0
 instance (~) ty CInt =>
          HasField "s2_anon'anon'y_x" S2_anon'anon'y ty
     where hasField = \x_0 -> (\y_1 -> S2_anon'anon'y{s2_anon'anon'y_x = y_1,
@@ -210,3 +233,23 @@ instance (~) ty S2_anon'anon'y =>
 instance HasCField S2 "s2_anon'anon'y"
     where type CFieldType S2 "s2_anon'anon'y" = S2_anon'anon'y
           offset# = \_ -> \_ -> 0
+instance (~) ty CChar => HasField "s2_y" S2 ty
+    where getField = \x_0 -> getField @"s2_anon'anon'y_y" (getField @"s2_anon'anon'y" x_0)
+instance (~) ty CChar => HasField "s2_y" S2 ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"s2_anon'anon'y" x_0 (\z_2 -> setField @"s2_anon'anon'y_y" z_2 y_1),
+                              getField @"s2_y" x_0)
+instance (~) ty CChar => HasField "s2_y" (Ptr S2) (Ptr ty)
+    where getField = fromPtr (Proxy @"s2_y")
+instance HasCField S2 "s2_y"
+    where type CFieldType S2 "s2_y" = CChar
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "s2_x" S2 ty
+    where getField = \x_0 -> getField @"s2_anon'anon'y_x" (getField @"s2_anon'anon'y" x_0)
+instance (~) ty CInt => HasField "s2_x" S2 ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"s2_anon'anon'y" x_0 (\z_2 -> setField @"s2_anon'anon'y_x" z_2 y_1),
+                              getField @"s2_x" x_0)
+instance (~) ty CInt => HasField "s2_x" (Ptr S2) (Ptr ty)
+    where getField = fromPtr (Proxy @"s2_x")
+instance HasCField S2 "s2_x"
+    where type CFieldType S2 "s2_x" = CInt
+          offset# = \_ -> \_ -> 4

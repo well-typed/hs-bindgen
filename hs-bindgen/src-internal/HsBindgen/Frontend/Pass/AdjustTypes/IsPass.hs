@@ -22,6 +22,7 @@ type family AnnAdjustTypes ix where
   AnnAdjustTypes "Decl"                 = PrescriptiveDeclSpec
   AnnAdjustTypes "Enum"                 = NewtypeNames
   AnnAdjustTypes "Flam"                 = FlamNames
+  AnnAdjustTypes "IndirectField"        = IndirectFieldNames AdjustTypes
   AnnAdjustTypes "Struct"               = StructNames
   AnnAdjustTypes "Typedef"              = TypedefNames
   AnnAdjustTypes "TypecheckedMacroType" = NewtypeNames
@@ -80,3 +81,7 @@ instance CoercePassMacroId MangleNames AdjustTypes
 
 instance CoercePassCommentDecl MangleNames AdjustTypes where
   coercePassCommentDecl _ = fmap coercePass
+
+instance CoercePassAnn "IndirectField" MangleNames AdjustTypes where
+  coercePassAnn _ = \case
+      IndirectFieldNames name -> IndirectFieldNames name

@@ -42,6 +42,7 @@ module HsBindgen.IR.C.Decl (
   , ExplicitField(..)
   , ImplicitField(..)
   , AnonRef(..)
+  , IndirectField(..)
     -- ** Comments
   , Comment(..)
   , CommentRef(..)
@@ -460,6 +461,11 @@ data ImplicitField p = ImplicitField {
     , typRef   :: AnonRef p
       -- | Offset in bits
     , offset   :: Int
+      -- | Indirect fields that go via this implicit field
+      --
+      -- Indirect fields only exist via implicit fields. This is enforced
+      -- statically by making indirect fields a sub-tree of an implicit field.
+    , indirect :: [IndirectField p]
     , ann      :: Ann "ImplicitField" p
     }
     deriving stock (Generic)
@@ -482,6 +488,28 @@ instance HasField "typ" (ImplicitField p) (C.Type p) where
 -- no bit width.
 instance HasField "width" (ImplicitField p) (Maybe Int) where
   getField _x = Nothing
+
+-- | An indirect field is a member of a nested anonymous struct\/union that can
+-- be accessed /as if/ it were a member of the enclosing struct\/union
+data IndirectField p = IndirectField {
+      info   :: FieldInfo p
+    , typ    :: C.Type p
+      -- | Offset in bits
+    , offset :: Int
+    , width  :: Maybe Int
+      -- | The path of recursively nested anonymous structs\/unions that
+      -- eventually leads to the origin of the indirect field
+      --
+      -- We use this information to query whether an indirect field crosses an
+      -- external binding spec abstraction boundary. See the
+      -- @ResolveBindingSpecs@ pass for more information.
+      --
+      -- NOTE: technically we could make this @[Id p]@ if we disallow external
+      -- references
+    , path   :: [AnonRef p]
+    , ann    :: Ann "IndirectField" p
+    }
+    deriving stock (Generic)
 
 {-------------------------------------------------------------------------------
   Comments
@@ -519,6 +547,7 @@ deriving stock instance IsPass p => Eq (Function         p)
 deriving stock instance IsPass p => Eq (FunctionArg      p)
 deriving stock instance IsPass p => Eq (Global           p)
 deriving stock instance IsPass p => Eq (ImplicitField    p)
+deriving stock instance IsPass p => Eq (IndirectField    p)
 deriving stock instance IsPass p => Eq (Struct           p)
 deriving stock instance IsPass p => Eq (Typedef          p)
 deriving stock instance IsPass p => Eq (Union            p)
@@ -538,6 +567,7 @@ deriving stock instance IsPass p => Show (Function         p)
 deriving stock instance IsPass p => Show (FunctionArg      p)
 deriving stock instance IsPass p => Show (Global           p)
 deriving stock instance IsPass p => Show (ImplicitField    p)
+deriving stock instance IsPass p => Show (IndirectField    p)
 deriving stock instance IsPass p => Show (Struct           p)
 deriving stock instance IsPass p => Show (Typedef          p)
 deriving stock instance IsPass p => Show (Union            p)
@@ -670,12 +700,14 @@ instance (
 instance (
       CoercePass FieldInfo p p'
     , CoercePass AnonRef p p'
+    , CoercePass IndirectField p p'
     , Ann "ImplicitField" p ~ Ann "ImplicitField" p'
     ) => CoercePass ImplicitField p p' where
   coercePass field = ImplicitField {
         info = coercePass field.info
       , typRef = coercePass field.typRef
       , offset = field.offset
+      , indirect = fmap coercePass field.indirect
       , ann = field.ann
       }
 
@@ -686,6 +718,21 @@ instance (
   coercePass = \case
       AnonRef ref -> AnonRef $ coercePassId (Proxy @'(p, p')) ref
       AnonExtBinding ext -> AnonExtBinding $ coercePassExtBindingRef ext
+
+instance (
+      CoercePass FieldInfo p p'
+    , CoercePass C.Type p p'
+    , CoercePass AnonRef p p'
+    , CoercePassAnn "IndirectField" p p'
+    ) => CoercePass IndirectField p p' where
+  coercePass field = IndirectField {
+        info = coercePass field.info
+      , typ = coercePass field.typ
+      , offset = field.offset
+      , width = field.width
+      , path = fmap coercePass field.path
+      , ann = coercePassAnn (Proxy @'("IndirectField", p, p')) field.ann
+      }
 
 instance (
       CoercePass C.Type p p'

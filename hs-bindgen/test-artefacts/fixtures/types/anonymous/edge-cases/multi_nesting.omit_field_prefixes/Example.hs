@@ -181,6 +181,45 @@ instance HasCField.HasCField SSS_anon'anon'x "anon'x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 18:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "x" SSS_anon'anon'x ty where
+
+  getField =
+    \x0 -> BG.getField @"x" (BG.getField @"anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 18:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "x" SSS_anon'anon'x ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"anon'x" x0 (\z2 ->
+                                                        BG.CompatHasField.setField @"x" z2 y1)
+      , BG.getField @"x" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "x" (BG.Ptr SSS_anon'anon'x) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"x")
+
+instance HasCField.HasCField SSS_anon'anon'x "x" where
+
+  type CFieldType SSS_anon'anon'x "x" = BG.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @struct SSS@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 15:8@
@@ -245,6 +284,44 @@ instance ( ty ~ SSS_anon'anon'x
 instance HasCField.HasCField SSS "anon'anon'x" where
 
   type CFieldType SSS "anon'anon'x" = SSS_anon'anon'x
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 18:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "x" SSS ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"x" (BG.getField @"anon'anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 18:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "x" SSS ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"anon'anon'x" x0 (\z2 ->
+                                                             BG.CompatHasField.setField @"x" z2 y1)
+      , BG.getField @"x" x0
+      )
+
+instance (ty ~ BG.CInt) => BG.HasField "x" (BG.Ptr SSS) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"x")
+
+instance HasCField.HasCField SSS "x" where
+
+  type CFieldType SSS "x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -381,6 +458,45 @@ instance HasCField.HasCField USS_anon'anon'x "anon'x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 26:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "x" USS_anon'anon'x ty where
+
+  getField =
+    \x0 -> BG.getField @"x" (BG.getField @"anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 26:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "x" USS_anon'anon'x ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"anon'x" x0 (\z2 ->
+                                                        BG.CompatHasField.setField @"x" z2 y1)
+      , BG.getField @"x" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "x" (BG.Ptr USS_anon'anon'x) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"x")
+
+instance HasCField.HasCField USS_anon'anon'x "x" where
+
+  type CFieldType USS_anon'anon'x "x" = BG.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @union USS@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 23:7@
@@ -434,6 +550,44 @@ instance ( ty ~ USS_anon'anon'x
 instance HasCField.HasCField USS "anon'anon'x" where
 
   type CFieldType USS "anon'anon'x" = USS_anon'anon'x
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 26:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "x" USS ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"x" (BG.getField @"anon'anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 26:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "x" USS ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"anon'anon'x" x0 (\z2 ->
+                                                             BG.CompatHasField.setField @"x" z2 y1)
+      , BG.getField @"x" x0
+      )
+
+instance (ty ~ BG.CInt) => BG.HasField "x" (BG.Ptr USS) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"x")
+
+instance HasCField.HasCField USS "x" where
+
+  type CFieldType USS "x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -559,6 +713,45 @@ instance HasCField.HasCField SUS_anon'anon'x "anon'x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 34:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "x" SUS_anon'anon'x ty where
+
+  getField =
+    \x0 -> BG.getField @"x" (BG.getField @"anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 34:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "x" SUS_anon'anon'x ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"anon'x" x0 (\z2 ->
+                                                        BG.CompatHasField.setField @"x" z2 y1)
+      , BG.getField @"x" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "x" (BG.Ptr SUS_anon'anon'x) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"x")
+
+instance HasCField.HasCField SUS_anon'anon'x "x" where
+
+  type CFieldType SUS_anon'anon'x "x" = BG.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @struct SUS@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 31:8@
@@ -623,6 +816,44 @@ instance ( ty ~ SUS_anon'anon'x
 instance HasCField.HasCField SUS "anon'anon'x" where
 
   type CFieldType SUS "anon'anon'x" = SUS_anon'anon'x
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 34:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "x" SUS ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"x" (BG.getField @"anon'anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 34:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "x" SUS ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"anon'anon'x" x0 (\z2 ->
+                                                             BG.CompatHasField.setField @"x" z2 y1)
+      , BG.getField @"x" x0
+      )
+
+instance (ty ~ BG.CInt) => BG.HasField "x" (BG.Ptr SUS) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"x")
+
+instance HasCField.HasCField SUS "x" where
+
+  type CFieldType SUS "x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -748,6 +979,45 @@ instance HasCField.HasCField UUS_anon'anon'x "anon'x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 42:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "x" UUS_anon'anon'x ty where
+
+  getField =
+    \x0 -> BG.getField @"x" (BG.getField @"anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 42:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "x" UUS_anon'anon'x ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"anon'x" x0 (\z2 ->
+                                                        BG.CompatHasField.setField @"x" z2 y1)
+      , BG.getField @"x" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "x" (BG.Ptr UUS_anon'anon'x) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"x")
+
+instance HasCField.HasCField UUS_anon'anon'x "x" where
+
+  type CFieldType UUS_anon'anon'x "x" = BG.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @union UUS@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 39:7@
@@ -801,6 +1071,44 @@ instance ( ty ~ UUS_anon'anon'x
 instance HasCField.HasCField UUS "anon'anon'x" where
 
   type CFieldType UUS "anon'anon'x" = UUS_anon'anon'x
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 42:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "x" UUS ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"x" (BG.getField @"anon'anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 42:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "x" UUS ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"anon'anon'x" x0 (\z2 ->
+                                                             BG.CompatHasField.setField @"x" z2 y1)
+      , BG.getField @"x" x0
+      )
+
+instance (ty ~ BG.CInt) => BG.HasField "x" (BG.Ptr UUS) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"x")
+
+instance HasCField.HasCField UUS "x" where
+
+  type CFieldType UUS "x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -925,6 +1233,45 @@ instance HasCField.HasCField SSU_anon'anon'x "anon'x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 50:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "x" SSU_anon'anon'x ty where
+
+  getField =
+    \x0 -> BG.getField @"x" (BG.getField @"anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 50:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "x" SSU_anon'anon'x ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"anon'x" x0 (\z2 ->
+                                                        BG.CompatHasField.setField @"x" z2 y1)
+      , BG.getField @"x" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "x" (BG.Ptr SSU_anon'anon'x) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"x")
+
+instance HasCField.HasCField SSU_anon'anon'x "x" where
+
+  type CFieldType SSU_anon'anon'x "x" = BG.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @struct SSU@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 47:8@
@@ -989,6 +1336,44 @@ instance ( ty ~ SSU_anon'anon'x
 instance HasCField.HasCField SSU "anon'anon'x" where
 
   type CFieldType SSU "anon'anon'x" = SSU_anon'anon'x
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 50:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "x" SSU ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"x" (BG.getField @"anon'anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 50:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "x" SSU ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"anon'anon'x" x0 (\z2 ->
+                                                             BG.CompatHasField.setField @"x" z2 y1)
+      , BG.getField @"x" x0
+      )
+
+instance (ty ~ BG.CInt) => BG.HasField "x" (BG.Ptr SSU) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"x")
+
+instance HasCField.HasCField SSU "x" where
+
+  type CFieldType SSU "x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -1113,6 +1498,45 @@ instance HasCField.HasCField USU_anon'anon'x "anon'x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 58:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "x" USU_anon'anon'x ty where
+
+  getField =
+    \x0 -> BG.getField @"x" (BG.getField @"anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 58:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "x" USU_anon'anon'x ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"anon'x" x0 (\z2 ->
+                                                        BG.CompatHasField.setField @"x" z2 y1)
+      , BG.getField @"x" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "x" (BG.Ptr USU_anon'anon'x) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"x")
+
+instance HasCField.HasCField USU_anon'anon'x "x" where
+
+  type CFieldType USU_anon'anon'x "x" = BG.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @union USU@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 55:7@
@@ -1166,6 +1590,44 @@ instance ( ty ~ USU_anon'anon'x
 instance HasCField.HasCField USU "anon'anon'x" where
 
   type CFieldType USU "anon'anon'x" = USU_anon'anon'x
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 58:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "x" USU ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"x" (BG.getField @"anon'anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 58:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "x" USU ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"anon'anon'x" x0 (\z2 ->
+                                                             BG.CompatHasField.setField @"x" z2 y1)
+      , BG.getField @"x" x0
+      )
+
+instance (ty ~ BG.CInt) => BG.HasField "x" (BG.Ptr USU) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"x")
+
+instance HasCField.HasCField USU "x" where
+
+  type CFieldType USU "x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -1279,6 +1741,45 @@ instance HasCField.HasCField SUU_anon'anon'x "anon'x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 66:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "x" SUU_anon'anon'x ty where
+
+  getField =
+    \x0 -> BG.getField @"x" (BG.getField @"anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 66:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "x" SUU_anon'anon'x ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"anon'x" x0 (\z2 ->
+                                                        BG.CompatHasField.setField @"x" z2 y1)
+      , BG.getField @"x" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "x" (BG.Ptr SUU_anon'anon'x) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"x")
+
+instance HasCField.HasCField SUU_anon'anon'x "x" where
+
+  type CFieldType SUU_anon'anon'x "x" = BG.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @struct SUU@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 63:8@
@@ -1343,6 +1844,44 @@ instance ( ty ~ SUU_anon'anon'x
 instance HasCField.HasCField SUU "anon'anon'x" where
 
   type CFieldType SUU "anon'anon'x" = SUU_anon'anon'x
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 66:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "x" SUU ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"x" (BG.getField @"anon'anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 66:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "x" SUU ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"anon'anon'x" x0 (\z2 ->
+                                                             BG.CompatHasField.setField @"x" z2 y1)
+      , BG.getField @"x" x0
+      )
+
+instance (ty ~ BG.CInt) => BG.HasField "x" (BG.Ptr SUU) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"x")
+
+instance HasCField.HasCField SUU "x" where
+
+  type CFieldType SUU "x" = BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -1456,6 +1995,45 @@ instance HasCField.HasCField UUU_anon'anon'x "anon'x" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 74:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "x" UUU_anon'anon'x ty where
+
+  getField =
+    \x0 -> BG.getField @"x" (BG.getField @"anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 74:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "x" UUU_anon'anon'x ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"anon'x" x0 (\z2 ->
+                                                        BG.CompatHasField.setField @"x" z2 y1)
+      , BG.getField @"x" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "x" (BG.Ptr UUU_anon'anon'x) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"x")
+
+instance HasCField.HasCField UUU_anon'anon'x "x" where
+
+  type CFieldType UUU_anon'anon'x "x" = BG.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @union UUU@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 71:7@
@@ -1509,5 +2087,43 @@ instance ( ty ~ UUU_anon'anon'x
 instance HasCField.HasCField UUU "anon'anon'x" where
 
   type CFieldType UUU "anon'anon'x" = UUU_anon'anon'x
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 74:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.HasField "x" UUU ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"x" (BG.getField @"anon'anon'x" x0)
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 74:11@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "x" UUU ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"anon'anon'x" x0 (\z2 ->
+                                                             BG.CompatHasField.setField @"x" z2 y1)
+      , BG.getField @"x" x0
+      )
+
+instance (ty ~ BG.CInt) => BG.HasField "x" (BG.Ptr UUU) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"x")
+
+instance HasCField.HasCField UUU "x" where
+
+  type CFieldType UUU "x" = BG.CInt
 
   offset# = \_ -> \_ -> 0

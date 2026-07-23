@@ -2988,6 +2988,100 @@ instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_anon'ua" where
 
   offset# = \_ -> \_ -> 4
 
+{-| Unnamed inner a
+
+    __C declaration:__ @ua@
+
+    __defined at:__ @documentation\/doxygen_docs.h 649:13@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unnamed_field_t_ua" Unnamed_field_t ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"unnamed_field_t_anon'ua_ua" (BG.getField @"unnamed_field_t_anon'ua" x0)
+
+{-| Unnamed inner a
+
+    __C declaration:__ @ua@
+
+    __defined at:__ @documentation\/doxygen_docs.h 649:13@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unnamed_field_t_ua" Unnamed_field_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"unnamed_field_t_anon'ua" x0 (\z2 ->
+                                                                         BG.CompatHasField.setField @"unnamed_field_t_anon'ua_ua" z2 y1)
+      , BG.getField @"unnamed_field_t_ua" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unnamed_field_t_ua" (BG.Ptr Unnamed_field_t) (BG.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (BG.Proxy @"unnamed_field_t_ua")
+
+instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_ua" where
+
+  type CFieldType Unnamed_field_t "unnamed_field_t_ua" =
+    BG.CInt
+
+  offset# = \_ -> \_ -> 4
+
+{-| Unnamed inner b
+
+    __C declaration:__ @ub@
+
+    __defined at:__ @documentation\/doxygen_docs.h 651:13@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unnamed_field_t_ub" Unnamed_field_t ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"unnamed_field_t_anon'ua_ub" (BG.getField @"unnamed_field_t_anon'ua" x0)
+
+{-| Unnamed inner b
+
+    __C declaration:__ @ub@
+
+    __defined at:__ @documentation\/doxygen_docs.h 651:13@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "unnamed_field_t_ub" Unnamed_field_t ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"unnamed_field_t_anon'ua" x0 (\z2 ->
+                                                                         BG.CompatHasField.setField @"unnamed_field_t_anon'ua_ub" z2 y1)
+      , BG.getField @"unnamed_field_t_ub" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "unnamed_field_t_ub" (BG.Ptr Unnamed_field_t) (BG.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (BG.Proxy @"unnamed_field_t_ub")
+
+instance HasCField.HasCField Unnamed_field_t "unnamed_field_t_ub" where
+
+  type CFieldType Unnamed_field_t "unnamed_field_t_ub" =
+    BG.CInt
+
+  offset# = \_ -> \_ -> 8
+
 {-| After field
 
     __C declaration:__ @after@

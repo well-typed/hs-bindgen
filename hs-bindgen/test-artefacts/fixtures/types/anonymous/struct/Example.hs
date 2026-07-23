@@ -511,6 +511,92 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_anon'x2_1"
 
   offset# = \_ -> \_ -> 4
 
+{-| __C declaration:__ @x2_1@
+
+    __defined at:__ @types\/anonymous\/struct.h 8:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "has_implicit_fields_x2_1" Has_implicit_fields ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"has_implicit_fields_anon'x2_1_x2_1" (BG.getField @"has_implicit_fields_anon'x2_1" x0)
+
+{-| __C declaration:__ @x2_1@
+
+    __defined at:__ @types\/anonymous\/struct.h 8:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "has_implicit_fields_x2_1" Has_implicit_fields ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"has_implicit_fields_anon'x2_1" x0 (\z2 ->
+                                                                               BG.CompatHasField.setField @"has_implicit_fields_anon'x2_1_x2_1" z2 y1)
+      , BG.getField @"has_implicit_fields_x2_1" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "has_implicit_fields_x2_1" (BG.Ptr Has_implicit_fields) (BG.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (BG.Proxy @"has_implicit_fields_x2_1")
+
+instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x2_1" where
+
+  type CFieldType Has_implicit_fields "has_implicit_fields_x2_1" =
+    BG.CInt
+
+  offset# = \_ -> \_ -> 4
+
+{-| __C declaration:__ @x2_2@
+
+    __defined at:__ @types\/anonymous\/struct.h 9:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "has_implicit_fields_x2_2" Has_implicit_fields ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"has_implicit_fields_anon'x2_1_x2_2" (BG.getField @"has_implicit_fields_anon'x2_1" x0)
+
+{-| __C declaration:__ @x2_2@
+
+    __defined at:__ @types\/anonymous\/struct.h 9:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "has_implicit_fields_x2_2" Has_implicit_fields ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"has_implicit_fields_anon'x2_1" x0 (\z2 ->
+                                                                               BG.CompatHasField.setField @"has_implicit_fields_anon'x2_1_x2_2" z2 y1)
+      , BG.getField @"has_implicit_fields_x2_2" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "has_implicit_fields_x2_2" (BG.Ptr Has_implicit_fields) (BG.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (BG.Proxy @"has_implicit_fields_x2_2")
+
+instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x2_2" where
+
+  type CFieldType Has_implicit_fields "has_implicit_fields_x2_2" =
+    BG.CInt
+
+  offset# = \_ -> \_ -> 8
+
 {-| __C declaration:__ @x3@
 
     __defined at:__ @types\/anonymous\/struct.h 11:7@
@@ -581,6 +667,92 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_anon'x4_1"
 
   offset# = \_ -> \_ -> 16
 
+{-| __C declaration:__ @x4_1@
+
+    __defined at:__ @types\/anonymous\/struct.h 13:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "has_implicit_fields_x4_1" Has_implicit_fields ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"has_implicit_fields_anon'x4_1_x4_1" (BG.getField @"has_implicit_fields_anon'x4_1" x0)
+
+{-| __C declaration:__ @x4_1@
+
+    __defined at:__ @types\/anonymous\/struct.h 13:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "has_implicit_fields_x4_1" Has_implicit_fields ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"has_implicit_fields_anon'x4_1" x0 (\z2 ->
+                                                                               BG.CompatHasField.setField @"has_implicit_fields_anon'x4_1_x4_1" z2 y1)
+      , BG.getField @"has_implicit_fields_x4_1" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "has_implicit_fields_x4_1" (BG.Ptr Has_implicit_fields) (BG.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (BG.Proxy @"has_implicit_fields_x4_1")
+
+instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x4_1" where
+
+  type CFieldType Has_implicit_fields "has_implicit_fields_x4_1" =
+    BG.CInt
+
+  offset# = \_ -> \_ -> 16
+
+{-| __C declaration:__ @x4_2@
+
+    __defined at:__ @types\/anonymous\/struct.h 14:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "has_implicit_fields_x4_2" Has_implicit_fields ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"has_implicit_fields_anon'x4_1_x4_2" (BG.getField @"has_implicit_fields_anon'x4_1" x0)
+
+{-| __C declaration:__ @x4_2@
+
+    __defined at:__ @types\/anonymous\/struct.h 14:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "has_implicit_fields_x4_2" Has_implicit_fields ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"has_implicit_fields_anon'x4_1" x0 (\z2 ->
+                                                                               BG.CompatHasField.setField @"has_implicit_fields_anon'x4_1_x4_2" z2 y1)
+      , BG.getField @"has_implicit_fields_x4_2" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "has_implicit_fields_x4_2" (BG.Ptr Has_implicit_fields) (BG.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (BG.Proxy @"has_implicit_fields_x4_2")
+
+instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x4_2" where
+
+  type CFieldType Has_implicit_fields "has_implicit_fields_x4_2" =
+    BG.CInt
+
+  offset# = \_ -> \_ -> 20
+
 {-| __C declaration:__ @anon\'x5_1@
 
     __defined at:__ @types\/anonymous\/struct.h 16:3@
@@ -613,6 +785,92 @@ instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_anon'x5_1"
 
   type CFieldType Has_implicit_fields "has_implicit_fields_anon'x5_1" =
     Has_implicit_fields_anon'x5_1
+
+  offset# = \_ -> \_ -> 24
+
+{-| __C declaration:__ @x5_1@
+
+    __defined at:__ @types\/anonymous\/struct.h 17:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "has_implicit_fields_x5_1" Has_implicit_fields ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"has_implicit_fields_anon'x5_1_x5_1" (BG.getField @"has_implicit_fields_anon'x5_1" x0)
+
+{-| __C declaration:__ @x5_1@
+
+    __defined at:__ @types\/anonymous\/struct.h 17:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "has_implicit_fields_x5_1" Has_implicit_fields ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"has_implicit_fields_anon'x5_1" x0 (\z2 ->
+                                                                               BG.CompatHasField.setField @"has_implicit_fields_anon'x5_1_x5_1" z2 y1)
+      , BG.getField @"has_implicit_fields_x5_1" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "has_implicit_fields_x5_1" (BG.Ptr Has_implicit_fields) (BG.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (BG.Proxy @"has_implicit_fields_x5_1")
+
+instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x5_1" where
+
+  type CFieldType Has_implicit_fields "has_implicit_fields_x5_1" =
+    BG.CInt
+
+  offset# = \_ -> \_ -> 24
+
+{-| __C declaration:__ @x5_2@
+
+    __defined at:__ @types\/anonymous\/struct.h 18:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "has_implicit_fields_x5_2" Has_implicit_fields ty where
+
+  getField =
+    \x0 ->
+      BG.getField @"has_implicit_fields_anon'x5_1_x5_2" (BG.getField @"has_implicit_fields_anon'x5_1" x0)
+
+{-| __C declaration:__ @x5_2@
+
+    __defined at:__ @types\/anonymous\/struct.h 18:9@
+
+    __exported by:__ @types\/anonymous\/struct.h@
+-}
+instance ( ty ~ BG.CInt
+         ) => BG.CompatHasField.HasField "has_implicit_fields_x5_2" Has_implicit_fields ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          BG.CompatHasField.modifyField @"has_implicit_fields_anon'x5_1" x0 (\z2 ->
+                                                                               BG.CompatHasField.setField @"has_implicit_fields_anon'x5_1_x5_2" z2 y1)
+      , BG.getField @"has_implicit_fields_x5_2" x0
+      )
+
+instance ( ty ~ BG.CInt
+         ) => BG.HasField "has_implicit_fields_x5_2" (BG.Ptr Has_implicit_fields) (BG.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (BG.Proxy @"has_implicit_fields_x5_2")
+
+instance HasCField.HasCField Has_implicit_fields "has_implicit_fields_x5_2" where
+
+  type CFieldType Has_implicit_fields "has_implicit_fields_x5_2" =
+    BG.CInt
 
   offset# = \_ -> \_ -> 24
 

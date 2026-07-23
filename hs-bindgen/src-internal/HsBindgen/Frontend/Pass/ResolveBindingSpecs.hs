@@ -488,16 +488,20 @@ instance Resolve C.ExplicitField l where
 
 instance Resolve C.ImplicitField l where
   resolve ctx field = do
-      reconstruct <$> resolve ctx field.typRef
+      typRef' <- resolve ctx field.typRef
+      indirect' <- mapM (resolveIndirectField ctx) field.indirect
+      pure $ reconstruct typRef' $ catMaybes indirect'
     where
       reconstruct ::
            C.AnonRef ResolveBindingSpecs
+        -> [C.IndirectField ResolveBindingSpecs]
         -> C.ImplicitField ResolveBindingSpecs
-      reconstruct typRef' = C.ImplicitField {
-          typRef    = typRef'
-        , info   = coercePass field.info
-        , offset = field.offset
-        , ann    = field.ann
+      reconstruct typRef' indirect' = C.ImplicitField {
+          typRef   = typRef'
+        , info     = coercePass field.info
+        , offset   = field.offset
+        , indirect = indirect'
+        , ann      = field.ann
         }
 
 instance Resolve C.AnonRef l where
@@ -507,6 +511,46 @@ instance Resolve C.AnonRef l where
       case mResolved of
         Just r  -> return $ C.AnonExtBinding $ C.Ref r underlying'
         Nothing -> return $ C.AnonRef ref
+
+resolveIndirectField ::
+     HasCallStack
+  => C.DeclId
+  -> C.IndirectField PreviousPass
+  -> M l (Maybe (C.IndirectField ResolveBindingSpecs))
+resolveIndirectField ctx field = do
+    path' <- mapM (resolve ctx) field.path
+    -- We can only generate bindings for indirect fields if we know how to get
+    -- there via nested uses of 'HasField.getField'. We can't do this if the
+    -- indirect field goes via an anonymous struct/union that is specified by an
+    -- external binding spec. In such cases, the binding spec does not include
+    -- enough information to generate bindings, so we drop the indirect field.
+    --
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/2152>:
+    -- theoretically we could generate bindings for indirect fields that cross
+    -- binding spec boundaries
+    if any crossesBoundary path' then do
+      State.modify' $
+        insertTrace (withCallStack $ ResolveBindingSpecsIndirectFieldDropped ctx field.info.name)
+      pure Nothing
+    else
+      Just <$> (reconstruct <$> resolve ctx field.typ <*> pure path')
+  where
+    crossesBoundary = \case
+        C.AnonRef{} -> False
+        C.AnonExtBinding{} -> True
+
+    reconstruct ::
+          C.Type ResolveBindingSpecs
+      -> [C.AnonRef ResolveBindingSpecs]
+      -> C.IndirectField ResolveBindingSpecs
+    reconstruct typ' path' = C.IndirectField {
+        typ    = typ'
+      , info   = coercePass field.info
+      , offset = field.offset
+      , width  = field.width
+      , path   = path'
+      , ann    = field.ann
+      }
 
 instance Resolve C.Enum l where
   resolve ctx enum =

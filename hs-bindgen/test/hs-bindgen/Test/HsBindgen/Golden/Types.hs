@@ -1,6 +1,8 @@
 -- | Golden tests: types
 module Test.HsBindgen.Golden.Types (testCases) where
 
+import System.FilePath ((<.>), (</>))
+
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex (UnusableReason (..))
@@ -9,6 +11,7 @@ import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Patterns
 import Test.Common.HsBindgen.Trace.Predicate
@@ -62,9 +65,12 @@ testCases = [
     , defaultTest "types/unions/nested_unions"
     , defaultTest "types/unions/unions"
       -- Bespoke tests
+    , test_types_anonymous_edge_cases_drop_indirect_fields_1
+    , test_types_anonymous_edge_cases_drop_indirect_fields_2
     , test_types_anonymous_edge_cases_empty_anon
     , test_types_anonymous_edge_cases_multi_nesting
     , test_types_anonymous_edge_cases_multi_nesting_omit_field_prefixes
+    , test_types_anonymous_edge_cases_reparse
     , test_types_long_double
     , test_types_primitives_bool_c23
     , test_types_primitives_bool_macro_override
@@ -88,6 +94,63 @@ testCases = [
   Individual test definitions
 -------------------------------------------------------------------------------}
 
+-- | Test that indirect fields are dropped if they would cross an external
+-- binding spec abstraction boundary
+test_types_anonymous_edge_cases_drop_indirect_fields_1 :: TestCase
+test_types_anonymous_edge_cases_drop_indirect_fields_1 =
+    defaultTest "types/anonymous/edge-cases/drop_indirect_fields"
+      & #name %~ (++ "_1")
+      & #outputDir %~ (++ "_1")
+      & #specExternal .~
+          [ "test-artefacts/headers/golden"
+            </> "types/anonymous/edge-cases/drop_indirect_fields_1"
+            <.> "ext" <.> "yaml"
+          ]
+      & #tracePredicate .~ multiTracePredicate expected trace
+  where
+    expected :: [(C.DeclName, C.ScopedName)]
+    expected = [
+        ("struct S", "x")
+      , ("struct S", "y")
+      , ("struct S_anon'anon'x", "x")
+      , ("struct S_anon'anon'x", "y")
+      ]
+
+    trace :: TraceMsg -> Maybe (TraceExpectation (C.DeclName, C.ScopedName))
+    trace = \case
+      MatchResolveBindingSpecs (ResolveBindingSpecsIndirectFieldDropped cDeclId cFieldName) ->
+        Just $ Expected (cDeclId.name, cFieldName)
+      _otherwise ->
+        Nothing
+
+-- | Test that indirect fields are dropped if they would cross an external
+-- binding spec abstraction boundary
+test_types_anonymous_edge_cases_drop_indirect_fields_2 :: TestCase
+test_types_anonymous_edge_cases_drop_indirect_fields_2 =
+    defaultTest "types/anonymous/edge-cases/drop_indirect_fields"
+      & #name %~ (++ "_2")
+      & #outputDir %~ (++ "_2")
+      & #specExternal .~
+          [ "test-artefacts/headers/golden"
+            </> "types/anonymous/edge-cases/drop_indirect_fields_2"
+            <.> "ext" <.> "yaml"
+          ]
+      & #tracePredicate .~ multiTracePredicate expected trace
+  where
+    expected :: [(C.DeclName, C.ScopedName)]
+    expected = [
+        ("struct S", "x")
+      , ("struct S", "y")
+      , ("struct S", "z")
+      ]
+
+    trace :: TraceMsg -> Maybe (TraceExpectation (C.DeclName, C.ScopedName))
+    trace = \case
+      MatchResolveBindingSpecs (ResolveBindingSpecsIndirectFieldDropped cDeclId cFieldName) ->
+        Just $ Expected (cDeclId.name, cFieldName)
+      _otherwise ->
+        Nothing
+
 test_types_anonymous_edge_cases_empty_anon :: TestCase
 test_types_anonymous_edge_cases_empty_anon =
     testTraceMulti "types/anonymous/edge-cases/empty_anon" declsWithMsgs $ \case
@@ -109,6 +172,11 @@ test_types_anonymous_edge_cases_multi_nesting_omit_field_prefixes :: TestCase
 test_types_anonymous_edge_cases_multi_nesting_omit_field_prefixes =
     testVariant "types/anonymous/edge-cases/multi_nesting" "omit_field_prefixes"
       & #onFrontend .~ ( #fieldNamingStrategy .~ OmitFieldPrefixes )
+
+-- | Test that indirect fields are reparsed
+test_types_anonymous_edge_cases_reparse :: TestCase
+test_types_anonymous_edge_cases_reparse =
+    defaultTest "types/anonymous/edge-cases/reparse"
 
 test_types_long_double :: TestCase
 test_types_long_double =

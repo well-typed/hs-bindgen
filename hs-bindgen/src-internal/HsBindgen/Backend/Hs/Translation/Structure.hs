@@ -292,11 +292,51 @@ hasFieldDecs ::
   -> Hs.Struct
   -> Field
   -> [Hs.Decl l]
-hasFieldDecs _env _info _struct field = case field of
+hasFieldDecs env info struct field = case field of
     -- Explicit and implicit fields are translated to Haskell record datatype
     -- fields, so they get @HasField@ instances
     ExplicitField _ -> []
     ImplicitField _ -> []
+    -- Indirect fields are not translated to Haskell record datatype fields, so
+    -- they get custom @HasField@ instances composed from existing @HasField@
+    -- instances
+    IndirectField impField indField -> auxIndirectField impField indField
+  where
+    fieldComment :: Maybe HsDoc.Comment
+    fieldComment = mkHaddocksFieldInfo env.haddockConfig info (getFieldInfo field)
+
+    parentType :: Hs.Type
+    parentType = Hs.TypRef struct.name Nothing
+
+    fieldName :: Hs.Name Hs.NsVar
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
+
+    fieldType :: Hs.Type
+    fieldType = Type.topLevel (getFieldTyp field)
+
+    auxIndirectField :: C.ImplicitField Final -> C.IndirectField Final -> [Hs.Decl l]
+    auxIndirectField impField indField = [
+          Hs.DeclDefineInstance $
+            Hs.DefineInstance {
+                comment      = fieldComment
+              , instanceDecl = Hs.InstanceHasField decl
+              }
+        | Inst.HasField `elem` struct.instances
+        ]
+      where
+        decl :: Hs.HasFieldInstance
+        decl = Hs.HasFieldInstance {
+              parentType = parentType
+            , fieldName  = fieldName
+            , fieldType  = fieldType
+            , impl = impl
+            }
+
+        impl :: Hs.HasFieldImpl
+        impl = Hs.HasFieldImplIndirect {
+              nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsName
+            , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsName
+            }
 
 -- | Class instances for 'GHC.Records.Compat.HasField'
 hasFieldCompatDecs ::
@@ -338,6 +378,7 @@ hasFieldCompatDecs env info struct field = [
     impl = case field of
             ExplicitField _ -> implRecord
             ImplicitField _ -> implRecord
+            IndirectField impF indF -> implIndirect impF indF
 
     implRecord = Hs.HasFieldCompatImplRecord {
           otherFields = otherFields
@@ -349,6 +390,12 @@ hasFieldCompatDecs env info struct field = [
         otherFields = flip mapMaybe struct.fields $ \field' ->
             let fieldName' = field'.name in
             if fieldName == fieldName' then Nothing else Just fieldName'
+
+    implIndirect :: C.ImplicitField Final -> C.IndirectField Final -> Hs.HasFieldCompatImpl
+    implIndirect impField indField = Hs.HasFieldCompatImplIndirect {
+          nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsName
+        , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsName
+        }
 
 -- | Class instances for 'GHC.Records.HasField' for the pointer manipulation API
 hasFieldPtrDecs :: Hs.Struct -> Field -> [Hs.Decl l]
