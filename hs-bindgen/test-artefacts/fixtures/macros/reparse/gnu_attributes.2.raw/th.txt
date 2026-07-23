@@ -1,0 +1,468 @@
+-- addDependentFile test-artefacts/headers/golden/macros/reparse/gnu_attributes.h
+-- #include <macros/reparse/gnu_attributes.h>
+-- void hs_bindgen_5e910042f66236ac (
+--   signed int arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- void hs_bindgen_912eee72881dada9 (
+--   signed int arg1
+-- )
+-- {
+--   (bar)(arg1);
+-- }
+-- void hs_bindgen_90648744cbb16108 (
+--   signed int arg1
+-- )
+-- {
+--   (dash)(arg1);
+-- }
+-- void hs_bindgen_3bf2453c79c79342 (
+--   signed int arg1
+-- )
+-- {
+--   (quux)(arg1);
+-- }
+-- void hs_bindgen_89e85ad8f7343241 (
+--   signed int arg1
+-- )
+-- {
+--   (heq)(arg1);
+-- }
+-- void hs_bindgen_2794b70af4ccd43b (
+--   signed int arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- void hs_bindgen_01135a4a8f379826 (
+--   signed int arg1
+-- )
+-- {
+--   (bar)(arg1);
+-- }
+-- void hs_bindgen_0d59701db0fc10c2 (
+--   signed int arg1
+-- )
+-- {
+--   (dash)(arg1);
+-- }
+-- void hs_bindgen_fc3ab959400ab9c8 (
+--   signed int arg1
+-- )
+-- {
+--   (quux)(arg1);
+-- }
+-- void hs_bindgen_fa747bfe2b529e61 (
+--   signed int arg1
+-- )
+-- {
+--   (heq)(arg1);
+-- }
+-- /* test_macrosreparsegnu_attributes__Example_get_foo */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_0bb0e3098bde7e0b (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &foo;
+-- }
+-- /* test_macrosreparsegnu_attributes__Example_get_bar */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_b1dbc650a21707a2 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &bar;
+-- }
+-- /* test_macrosreparsegnu_attributes__Example_get_dash */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_edc10f73f46266b8 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &dash;
+-- }
+-- /* test_macrosreparsegnu_attributes__Example_get_quux */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_50fdcccdf0a43b92 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &quux;
+-- }
+-- /* test_macrosreparsegnu_attributes__Example_get_heq */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_110df13ac4d9dfc8 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &heq;
+-- }
+{-| __C declaration:__ @macro BOOL@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 2:9@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+bOOL :: [String]
+{-| __C declaration:__ @macro BOOL@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 2:9@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+bOOL = ["int"]
+{-| __C declaration:__ @macro EXPORT@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 10:9@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+eXPORT :: [String]
+{-| __C declaration:__ @macro EXPORT@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 10:9@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+eXPORT = ["__attribute__",
+          "(",
+          "(",
+          "visibility",
+          "(",
+          "\"default\"",
+          ")",
+          ")",
+          ")"]
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_foo@
+foreign import ccall safe "hs_bindgen_5e910042f66236ac" hs_bindgen_5e910042f66236ac_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_foo@
+hs_bindgen_5e910042f66236ac :: CInt -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_foo@
+hs_bindgen_5e910042f66236ac = fromFFIType hs_bindgen_5e910042f66236ac_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 3:6@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+foo_safe :: CInt -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 3:6@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+foo_safe = hs_bindgen_5e910042f66236ac
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_bar@
+foreign import ccall safe "hs_bindgen_912eee72881dada9" hs_bindgen_912eee72881dada9_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_bar@
+hs_bindgen_912eee72881dada9 :: CInt -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_bar@
+hs_bindgen_912eee72881dada9 = fromFFIType hs_bindgen_912eee72881dada9_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 6:46@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+bar_safe :: CInt -> IO ()
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 6:46@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+bar_safe = hs_bindgen_912eee72881dada9
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_dash@
+foreign import ccall safe "hs_bindgen_90648744cbb16108" hs_bindgen_90648744cbb16108_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_dash@
+hs_bindgen_90648744cbb16108 :: CInt -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_dash@
+hs_bindgen_90648744cbb16108 = fromFFIType hs_bindgen_90648744cbb16108_base
+{-| __C declaration:__ @dash@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 7:46@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+dash_safe :: CInt -> IO ()
+{-| __C declaration:__ @dash@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 7:46@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+dash_safe = hs_bindgen_90648744cbb16108
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_quux@
+foreign import ccall safe "hs_bindgen_3bf2453c79c79342" hs_bindgen_3bf2453c79c79342_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_quux@
+hs_bindgen_3bf2453c79c79342 :: CInt -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_quux@
+hs_bindgen_3bf2453c79c79342 = fromFFIType hs_bindgen_3bf2453c79c79342_base
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 11:13@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+quux_safe :: CInt -> IO ()
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 11:13@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+quux_safe = hs_bindgen_3bf2453c79c79342
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_heq@
+foreign import ccall safe "hs_bindgen_89e85ad8f7343241" hs_bindgen_89e85ad8f7343241_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_heq@
+hs_bindgen_89e85ad8f7343241 :: CInt -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_heq@
+hs_bindgen_89e85ad8f7343241 = fromFFIType hs_bindgen_89e85ad8f7343241_base
+{-| __C declaration:__ @heq@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 12:13@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+heq_safe :: CInt -> IO ()
+{-| __C declaration:__ @heq@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 12:13@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+heq_safe = hs_bindgen_89e85ad8f7343241
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_foo@
+foreign import ccall unsafe "hs_bindgen_2794b70af4ccd43b" hs_bindgen_2794b70af4ccd43b_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_foo@
+hs_bindgen_2794b70af4ccd43b :: CInt -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_foo@
+hs_bindgen_2794b70af4ccd43b = fromFFIType hs_bindgen_2794b70af4ccd43b_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 3:6@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+foo_unsafe :: CInt -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 3:6@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+foo_unsafe = hs_bindgen_2794b70af4ccd43b
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_bar@
+foreign import ccall unsafe "hs_bindgen_01135a4a8f379826" hs_bindgen_01135a4a8f379826_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_bar@
+hs_bindgen_01135a4a8f379826 :: CInt -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_bar@
+hs_bindgen_01135a4a8f379826 = fromFFIType hs_bindgen_01135a4a8f379826_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 6:46@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+bar_unsafe :: CInt -> IO ()
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 6:46@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+bar_unsafe = hs_bindgen_01135a4a8f379826
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_dash@
+foreign import ccall unsafe "hs_bindgen_0d59701db0fc10c2" hs_bindgen_0d59701db0fc10c2_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_dash@
+hs_bindgen_0d59701db0fc10c2 :: CInt -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_dash@
+hs_bindgen_0d59701db0fc10c2 = fromFFIType hs_bindgen_0d59701db0fc10c2_base
+{-| __C declaration:__ @dash@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 7:46@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+dash_unsafe :: CInt -> IO ()
+{-| __C declaration:__ @dash@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 7:46@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+dash_unsafe = hs_bindgen_0d59701db0fc10c2
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_quux@
+foreign import ccall unsafe "hs_bindgen_fc3ab959400ab9c8" hs_bindgen_fc3ab959400ab9c8_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_quux@
+hs_bindgen_fc3ab959400ab9c8 :: CInt -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_quux@
+hs_bindgen_fc3ab959400ab9c8 = fromFFIType hs_bindgen_fc3ab959400ab9c8_base
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 11:13@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+quux_unsafe :: CInt -> IO ()
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 11:13@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+quux_unsafe = hs_bindgen_fc3ab959400ab9c8
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_heq@
+foreign import ccall unsafe "hs_bindgen_fa747bfe2b529e61" hs_bindgen_fa747bfe2b529e61_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_heq@
+hs_bindgen_fa747bfe2b529e61 :: CInt -> IO ()
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_heq@
+hs_bindgen_fa747bfe2b529e61 = fromFFIType hs_bindgen_fa747bfe2b529e61_base
+{-| __C declaration:__ @heq@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 12:13@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+heq_unsafe :: CInt -> IO ()
+{-| __C declaration:__ @heq@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 12:13@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+heq_unsafe = hs_bindgen_fa747bfe2b529e61
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_get_foo@
+foreign import ccall unsafe "hs_bindgen_0bb0e3098bde7e0b" hs_bindgen_0bb0e3098bde7e0b_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_get_foo@
+hs_bindgen_0bb0e3098bde7e0b :: IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_get_foo@
+hs_bindgen_0bb0e3098bde7e0b = fromFFIType hs_bindgen_0bb0e3098bde7e0b_base
+{-# NOINLINE foo_funptr #-}
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 3:6@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+foo_funptr :: FunPtr (CInt -> IO ())
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 3:6@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+foo_funptr = unsafePerformIO hs_bindgen_0bb0e3098bde7e0b
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_get_bar@
+foreign import ccall unsafe "hs_bindgen_b1dbc650a21707a2" hs_bindgen_b1dbc650a21707a2_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_get_bar@
+hs_bindgen_b1dbc650a21707a2 :: IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_get_bar@
+hs_bindgen_b1dbc650a21707a2 = fromFFIType hs_bindgen_b1dbc650a21707a2_base
+{-# NOINLINE bar_funptr #-}
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 6:46@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+bar_funptr :: FunPtr (CInt -> IO ())
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 6:46@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+bar_funptr = unsafePerformIO hs_bindgen_b1dbc650a21707a2
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_get_dash@
+foreign import ccall unsafe "hs_bindgen_edc10f73f46266b8" hs_bindgen_edc10f73f46266b8_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_get_dash@
+hs_bindgen_edc10f73f46266b8 :: IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_get_dash@
+hs_bindgen_edc10f73f46266b8 = fromFFIType hs_bindgen_edc10f73f46266b8_base
+{-# NOINLINE dash_funptr #-}
+{-| __C declaration:__ @dash@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 7:46@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+dash_funptr :: FunPtr (CInt -> IO ())
+{-| __C declaration:__ @dash@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 7:46@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+dash_funptr = unsafePerformIO hs_bindgen_edc10f73f46266b8
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_get_quux@
+foreign import ccall unsafe "hs_bindgen_50fdcccdf0a43b92" hs_bindgen_50fdcccdf0a43b92_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_get_quux@
+hs_bindgen_50fdcccdf0a43b92 :: IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_get_quux@
+hs_bindgen_50fdcccdf0a43b92 = fromFFIType hs_bindgen_50fdcccdf0a43b92_base
+{-# NOINLINE quux_funptr #-}
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 11:13@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+quux_funptr :: FunPtr (CInt -> IO ())
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 11:13@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+quux_funptr = unsafePerformIO hs_bindgen_50fdcccdf0a43b92
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_get_heq@
+foreign import ccall unsafe "hs_bindgen_110df13ac4d9dfc8" hs_bindgen_110df13ac4d9dfc8_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_get_heq@
+hs_bindgen_110df13ac4d9dfc8 :: IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @test_macrosreparsegnu_attributes__Example_get_heq@
+hs_bindgen_110df13ac4d9dfc8 = fromFFIType hs_bindgen_110df13ac4d9dfc8_base
+{-# NOINLINE heq_funptr #-}
+{-| __C declaration:__ @heq@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 12:13@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+heq_funptr :: FunPtr (CInt -> IO ())
+{-| __C declaration:__ @heq@
+
+    __defined at:__ @macros\/reparse\/gnu_attributes.h 12:13@
+
+    __exported by:__ @macros\/reparse\/gnu_attributes.h@
+-}
+heq_funptr = unsafePerformIO hs_bindgen_110df13ac4d9dfc8

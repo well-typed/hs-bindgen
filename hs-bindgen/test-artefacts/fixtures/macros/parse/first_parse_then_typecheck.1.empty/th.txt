@@ -1,0 +1,1 @@
+-- addDependentFile test-artefacts/headers/golden/macros/parse/first_parse_then_typecheck.h

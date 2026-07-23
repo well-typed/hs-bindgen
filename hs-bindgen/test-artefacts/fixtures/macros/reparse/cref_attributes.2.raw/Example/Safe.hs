@@ -1,0 +1,103 @@
+{-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
+
+module Example.Safe
+    ( Example.Safe.foo
+    , Example.Safe.bar
+    , Example.Safe.quux
+    )
+  where
+
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
+
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
+  [ "#include <macros/reparse/cref_attributes.h>"
+  , "void hs_bindgen_9f4b1c3748016429 ("
+  , "  signed int arg1"
+  , ")"
+  , "{"
+  , "  (foo)(arg1);"
+  , "}"
+  , "void hs_bindgen_183028e559c4eff2 ("
+  , "  signed int arg1"
+  , ")"
+  , "{"
+  , "  (bar)(arg1);"
+  , "}"
+  , "void hs_bindgen_e02b651508844cbb ("
+  , "  signed int arg1"
+  , ")"
+  , "{"
+  , "  (quux)(arg1);"
+  , "}"
+  ]))
+
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_foo@
+foreign import ccall safe "hs_bindgen_9f4b1c3748016429" hs_bindgen_9f4b1c3748016429_base ::
+     BG.Int32
+  -> IO ()
+
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_foo@
+hs_bindgen_9f4b1c3748016429 ::
+     BG.CInt
+  -> IO ()
+hs_bindgen_9f4b1c3748016429 =
+  BG.fromFFIType hs_bindgen_9f4b1c3748016429_base
+
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 3:6@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+foo ::
+     BG.CInt
+  -> IO ()
+foo = hs_bindgen_9f4b1c3748016429
+
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_bar@
+foreign import ccall safe "hs_bindgen_183028e559c4eff2" hs_bindgen_183028e559c4eff2_base ::
+     BG.Int32
+  -> IO ()
+
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_bar@
+hs_bindgen_183028e559c4eff2 ::
+     BG.CInt
+  -> IO ()
+hs_bindgen_183028e559c4eff2 =
+  BG.fromFFIType hs_bindgen_183028e559c4eff2_base
+
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 6:37@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+bar ::
+     BG.CInt
+  -> IO ()
+bar = hs_bindgen_183028e559c4eff2
+
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_quux@
+foreign import ccall safe "hs_bindgen_e02b651508844cbb" hs_bindgen_e02b651508844cbb_base ::
+     BG.Int32
+  -> IO ()
+
+-- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_quux@
+hs_bindgen_e02b651508844cbb ::
+     BG.CInt
+  -> IO ()
+hs_bindgen_e02b651508844cbb =
+  BG.fromFFIType hs_bindgen_e02b651508844cbb_base
+
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/reparse\/cref_attributes.h 11:13@
+
+    __exported by:__ @macros\/reparse\/cref_attributes.h@
+-}
+quux ::
+     BG.CInt
+  -> IO ()
+quux = hs_bindgen_e02b651508844cbb

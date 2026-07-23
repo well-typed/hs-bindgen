@@ -1,0 +1,88 @@
+-- addDependentFile test-artefacts/headers/golden/macros/undef.h
+-- #include <macros/undef.h>
+-- void hs_bindgen_9537cfc61fc6a78a (
+--   signed int arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- void hs_bindgen_e7a8db67218e71f8 (
+--   signed int arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- /* test_macrosundef_1_empty_Example_get_foo */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_517f6ccac933b5bc (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &foo;
+-- }
+-- __unique:__ @test_macrosundef_1_empty_Example_Safe_foo@
+foreign import ccall safe "hs_bindgen_9537cfc61fc6a78a" hs_bindgen_9537cfc61fc6a78a_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosundef_1_empty_Example_Safe_foo@
+hs_bindgen_9537cfc61fc6a78a :: CInt -> IO ()
+-- __unique:__ @test_macrosundef_1_empty_Example_Safe_foo@
+hs_bindgen_9537cfc61fc6a78a = fromFFIType hs_bindgen_9537cfc61fc6a78a_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/undef.h 4:6@
+
+    __exported by:__ @macros\/undef.h@
+-}
+foo_safe :: CInt -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/undef.h 4:6@
+
+    __exported by:__ @macros\/undef.h@
+-}
+foo_safe = hs_bindgen_9537cfc61fc6a78a
+-- __unique:__ @test_macrosundef_1_empty_Example_Unsafe_foo@
+foreign import ccall unsafe "hs_bindgen_e7a8db67218e71f8" hs_bindgen_e7a8db67218e71f8_base ::
+    Int32
+ -> IO ()
+-- __unique:__ @test_macrosundef_1_empty_Example_Unsafe_foo@
+hs_bindgen_e7a8db67218e71f8 :: CInt -> IO ()
+-- __unique:__ @test_macrosundef_1_empty_Example_Unsafe_foo@
+hs_bindgen_e7a8db67218e71f8 = fromFFIType hs_bindgen_e7a8db67218e71f8_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/undef.h 4:6@
+
+    __exported by:__ @macros\/undef.h@
+-}
+foo_unsafe :: CInt -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/undef.h 4:6@
+
+    __exported by:__ @macros\/undef.h@
+-}
+foo_unsafe = hs_bindgen_e7a8db67218e71f8
+-- __unique:__ @test_macrosundef_1_empty_Example_get_foo@
+foreign import ccall unsafe "hs_bindgen_517f6ccac933b5bc" hs_bindgen_517f6ccac933b5bc_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosundef_1_empty_Example_get_foo@
+hs_bindgen_517f6ccac933b5bc :: IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @test_macrosundef_1_empty_Example_get_foo@
+hs_bindgen_517f6ccac933b5bc = fromFFIType hs_bindgen_517f6ccac933b5bc_base
+{-# NOINLINE foo_funptr #-}
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/undef.h 4:6@
+
+    __exported by:__ @macros\/undef.h@
+-}
+foo_funptr :: FunPtr (CInt -> IO ())
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/undef.h 4:6@
+
+    __exported by:__ @macros\/undef.h@
+-}
+foo_funptr = unsafePerformIO hs_bindgen_517f6ccac933b5bc

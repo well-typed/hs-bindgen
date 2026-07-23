@@ -1,0 +1,72 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/macro_types.h
+  cname: tty
+  hsname: Tty
+- headers: macros/macro_types.h
+  cname: boolean_T
+  hsname: Boolean_T
+hstypes:
+- hsname: Boolean_T
+  representation:
+    newtype:
+      constructor: Boolean_T
+      fields:
+      - unwrapBoolean_T
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Tty
+  representation:
+    newtype:
+      constructor: Tty
+      fields:
+      - unwrapTty
+  instances:
+  - Enum
+  - Eq
+  - Floating
+  - Fractional
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - RealFloat
+  - RealFrac
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

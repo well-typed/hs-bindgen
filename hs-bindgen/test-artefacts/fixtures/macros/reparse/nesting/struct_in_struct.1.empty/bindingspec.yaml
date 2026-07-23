@@ -1,0 +1,132 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/reparse/nesting/struct_in_struct.h
+  cname: struct @T1
+  hsname: T1
+- headers: macros/reparse/nesting/struct_in_struct.h
+  cname: struct @T1_x
+  hsname: T1_x
+- headers: macros/reparse/nesting/struct_in_struct.h
+  cname: struct @T2
+  hsname: T2
+- headers: macros/reparse/nesting/struct_in_struct.h
+  cname: struct @T2_x
+  hsname: T2_x
+- headers: macros/reparse/nesting/struct_in_struct.h
+  cname: struct @T3
+  hsname: T3
+- headers: macros/reparse/nesting/struct_in_struct.h
+  cname: struct @T3_x
+  hsname: T3_x
+hstypes:
+- hsname: T1
+  representation:
+    record:
+      constructor: T1
+      fields:
+      - t1_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T1_x
+  representation:
+    record:
+      constructor: T1_x
+      fields:
+      - t1_x_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T2
+  representation:
+    record:
+      constructor: T2
+      fields:
+      - t2_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T2_x
+  representation:
+    record:
+      constructor: T2_x
+      fields:
+      - t2_x_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T3
+  representation:
+    record:
+      constructor: T3
+      fields:
+      - t3_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T3_x
+  representation:
+    record:
+      constructor: T3_x
+      fields:
+      - t3_x_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

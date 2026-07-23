@@ -1,0 +1,374 @@
+{-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
+
+module Example.Unsafe
+    ( Example.Unsafe.quux1
+    , Example.Unsafe.quux2
+    , Example.Unsafe.wam1
+    , Example.Unsafe.wam2
+    , Example.Unsafe.struct_typedef1
+    , Example.Unsafe.struct_typedef2
+    , Example.Unsafe.struct_typedef3
+    , Example.Unsafe.struct_name1
+    , Example.Unsafe.struct_name2
+    , Example.Unsafe.struct_name3
+    )
+  where
+
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Support.CAPI
+import Example
+
+$(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
+  [ "#include <macros/macro_in_fundecl_vs_typedef.h>"
+  , "char hs_bindgen_df7e2b8e86de411a ("
+  , "  char arg1,"
+  , "  TC arg2"
+  , ")"
+  , "{"
+  , "  return (quux1)(arg1, arg2);"
+  , "}"
+  , "TC hs_bindgen_6f0b13ed02b696df ("
+  , "  char arg1,"
+  , "  char arg2"
+  , ")"
+  , "{"
+  , "  return (quux2)(arg1, arg2);"
+  , "}"
+  , "char *hs_bindgen_f92059cc98dde342 ("
+  , "  float arg1,"
+  , "  TC *arg2"
+  , ")"
+  , "{"
+  , "  return (wam1)(arg1, arg2);"
+  , "}"
+  , "TC *hs_bindgen_3e6ecd1b2cc616bc ("
+  , "  float arg1,"
+  , "  char *arg2"
+  , ")"
+  , "{"
+  , "  return (wam2)(arg1, arg2);"
+  , "}"
+  , "void hs_bindgen_ffa9d5a3e8f0f221 ("
+  , "  struct2 *arg1,"
+  , "  char arg2"
+  , ")"
+  , "{"
+  , "  (struct_typedef1)(arg1, arg2);"
+  , "}"
+  , "void hs_bindgen_4801667560542114 ("
+  , "  struct3_t *arg1,"
+  , "  char arg2"
+  , ")"
+  , "{"
+  , "  (struct_typedef2)(arg1, arg2);"
+  , "}"
+  , "void hs_bindgen_04fa5bbd479146eb ("
+  , "  struct4 *arg1,"
+  , "  char arg2"
+  , ")"
+  , "{"
+  , "  (struct_typedef3)(arg1, arg2);"
+  , "}"
+  , "void hs_bindgen_08025fd0bd589ac2 ("
+  , "  struct struct1 *arg1,"
+  , "  char arg2"
+  , ")"
+  , "{"
+  , "  (struct_name1)(arg1, arg2);"
+  , "}"
+  , "void hs_bindgen_9de286608f952fc7 ("
+  , "  struct struct3 *arg1,"
+  , "  char arg2"
+  , ")"
+  , "{"
+  , "  (struct_name2)(arg1, arg2);"
+  , "}"
+  , "void hs_bindgen_38cce6bb1ac71578 ("
+  , "  struct struct4 *arg1,"
+  , "  char arg2"
+  , ")"
+  , "{"
+  , "  (struct_name3)(arg1, arg2);"
+  , "}"
+  ]))
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux1@
+foreign import ccall unsafe "hs_bindgen_df7e2b8e86de411a" hs_bindgen_df7e2b8e86de411a_base ::
+     BG.Int8
+  -> BG.Int8
+  -> IO BG.Int8
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux1@
+hs_bindgen_df7e2b8e86de411a ::
+     BG.CChar
+  -> TC
+  -> IO BG.CChar
+hs_bindgen_df7e2b8e86de411a =
+  BG.fromFFIType hs_bindgen_df7e2b8e86de411a_base
+
+{-| __C declaration:__ @quux1@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 8:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+-}
+quux1 ::
+     BG.CChar
+     -- ^ __C declaration:__ @x@
+  -> TC
+     -- ^ __C declaration:__ @y@
+  -> IO BG.CChar
+quux1 = hs_bindgen_df7e2b8e86de411a
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux2@
+foreign import ccall unsafe "hs_bindgen_6f0b13ed02b696df" hs_bindgen_6f0b13ed02b696df_base ::
+     BG.Int8
+  -> BG.Int8
+  -> IO BG.Int8
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux2@
+hs_bindgen_6f0b13ed02b696df ::
+     BG.CChar
+  -> BG.CChar
+  -> IO TC
+hs_bindgen_6f0b13ed02b696df =
+  BG.fromFFIType hs_bindgen_6f0b13ed02b696df_base
+
+{-| __C declaration:__ @quux2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 9:4@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+-}
+quux2 ::
+     BG.CChar
+     -- ^ __C declaration:__ @x@
+  -> BG.CChar
+     -- ^ __C declaration:__ @y@
+  -> IO TC
+quux2 = hs_bindgen_6f0b13ed02b696df
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam1@
+foreign import ccall unsafe "hs_bindgen_f92059cc98dde342" hs_bindgen_f92059cc98dde342_base ::
+     Float
+  -> BG.Ptr BG.Void
+  -> IO (BG.Ptr BG.Void)
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam1@
+hs_bindgen_f92059cc98dde342 ::
+     BG.CFloat
+  -> BG.Ptr TC
+  -> IO (BG.Ptr BG.CChar)
+hs_bindgen_f92059cc98dde342 =
+  BG.fromFFIType hs_bindgen_f92059cc98dde342_base
+
+{-| __C declaration:__ @wam1@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 10:5@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+-}
+wam1 ::
+     BG.CFloat
+     -- ^ __C declaration:__ @x@
+  -> BG.Ptr TC
+     -- ^ __C declaration:__ @y@
+  -> IO (BG.Ptr BG.CChar)
+wam1 = hs_bindgen_f92059cc98dde342
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam2@
+foreign import ccall unsafe "hs_bindgen_3e6ecd1b2cc616bc" hs_bindgen_3e6ecd1b2cc616bc_base ::
+     Float
+  -> BG.Ptr BG.Void
+  -> IO (BG.Ptr BG.Void)
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam2@
+hs_bindgen_3e6ecd1b2cc616bc ::
+     BG.CFloat
+  -> BG.Ptr BG.CChar
+  -> IO (BG.Ptr TC)
+hs_bindgen_3e6ecd1b2cc616bc =
+  BG.fromFFIType hs_bindgen_3e6ecd1b2cc616bc_base
+
+{-| __C declaration:__ @wam2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 11:5@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+-}
+wam2 ::
+     BG.CFloat
+     -- ^ __C declaration:__ @x@
+  -> BG.Ptr BG.CChar
+     -- ^ __C declaration:__ @y@
+  -> IO (BG.Ptr TC)
+wam2 = hs_bindgen_3e6ecd1b2cc616bc
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef1@
+foreign import ccall unsafe "hs_bindgen_ffa9d5a3e8f0f221" hs_bindgen_ffa9d5a3e8f0f221_base ::
+     BG.Ptr BG.Void
+  -> BG.Int8
+  -> IO ()
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef1@
+hs_bindgen_ffa9d5a3e8f0f221 ::
+     BG.Ptr Struct2
+  -> BG.CChar
+  -> IO ()
+hs_bindgen_ffa9d5a3e8f0f221 =
+  BG.fromFFIType hs_bindgen_ffa9d5a3e8f0f221_base
+
+{-| __C declaration:__ @struct_typedef1@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 23:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+-}
+struct_typedef1 ::
+     BG.Ptr Struct2
+     -- ^ __C declaration:__ @s@
+  -> BG.CChar
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+struct_typedef1 = hs_bindgen_ffa9d5a3e8f0f221
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef2@
+foreign import ccall unsafe "hs_bindgen_4801667560542114" hs_bindgen_4801667560542114_base ::
+     BG.Ptr BG.Void
+  -> BG.Int8
+  -> IO ()
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef2@
+hs_bindgen_4801667560542114 ::
+     BG.Ptr Struct3_t
+  -> BG.CChar
+  -> IO ()
+hs_bindgen_4801667560542114 =
+  BG.fromFFIType hs_bindgen_4801667560542114_base
+
+{-| __C declaration:__ @struct_typedef2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 24:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+-}
+struct_typedef2 ::
+     BG.Ptr Struct3_t
+     -- ^ __C declaration:__ @s@
+  -> BG.CChar
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+struct_typedef2 = hs_bindgen_4801667560542114
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef3@
+foreign import ccall unsafe "hs_bindgen_04fa5bbd479146eb" hs_bindgen_04fa5bbd479146eb_base ::
+     BG.Ptr BG.Void
+  -> BG.Int8
+  -> IO ()
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef3@
+hs_bindgen_04fa5bbd479146eb ::
+     BG.Ptr Struct4
+  -> BG.CChar
+  -> IO ()
+hs_bindgen_04fa5bbd479146eb =
+  BG.fromFFIType hs_bindgen_04fa5bbd479146eb_base
+
+{-| __C declaration:__ @struct_typedef3@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 25:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+-}
+struct_typedef3 ::
+     BG.Ptr Struct4
+     -- ^ __C declaration:__ @s@
+  -> BG.CChar
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+struct_typedef3 = hs_bindgen_04fa5bbd479146eb
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name1@
+foreign import ccall unsafe "hs_bindgen_08025fd0bd589ac2" hs_bindgen_08025fd0bd589ac2_base ::
+     BG.Ptr BG.Void
+  -> BG.Int8
+  -> IO ()
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name1@
+hs_bindgen_08025fd0bd589ac2 ::
+     BG.Ptr Struct1
+  -> BG.CChar
+  -> IO ()
+hs_bindgen_08025fd0bd589ac2 =
+  BG.fromFFIType hs_bindgen_08025fd0bd589ac2_base
+
+{-| __C declaration:__ @struct_name1@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 27:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+-}
+struct_name1 ::
+     BG.Ptr Struct1
+     -- ^ __C declaration:__ @s@
+  -> BG.CChar
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+struct_name1 = hs_bindgen_08025fd0bd589ac2
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name2@
+foreign import ccall unsafe "hs_bindgen_9de286608f952fc7" hs_bindgen_9de286608f952fc7_base ::
+     BG.Ptr BG.Void
+  -> BG.Int8
+  -> IO ()
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name2@
+hs_bindgen_9de286608f952fc7 ::
+     BG.Ptr Struct3
+  -> BG.CChar
+  -> IO ()
+hs_bindgen_9de286608f952fc7 =
+  BG.fromFFIType hs_bindgen_9de286608f952fc7_base
+
+{-| __C declaration:__ @struct_name2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 28:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+-}
+struct_name2 ::
+     BG.Ptr Struct3
+     -- ^ __C declaration:__ @s@
+  -> BG.CChar
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+struct_name2 = hs_bindgen_9de286608f952fc7
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name3@
+foreign import ccall unsafe "hs_bindgen_38cce6bb1ac71578" hs_bindgen_38cce6bb1ac71578_base ::
+     BG.Ptr BG.Void
+  -> BG.Int8
+  -> IO ()
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name3@
+hs_bindgen_38cce6bb1ac71578 ::
+     BG.Ptr Struct4
+  -> BG.CChar
+  -> IO ()
+hs_bindgen_38cce6bb1ac71578 =
+  BG.fromFFIType hs_bindgen_38cce6bb1ac71578_base
+
+{-| __C declaration:__ @struct_name3@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 29:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+-}
+struct_name3 ::
+     BG.Ptr Struct4
+     -- ^ __C declaration:__ @s@
+  -> BG.CChar
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+struct_name3 = hs_bindgen_38cce6bb1ac71578

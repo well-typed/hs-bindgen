@@ -1,0 +1,15 @@
+-- addDependentFile test-artefacts/headers/golden/macros/macro_resolution_log_level.h
+{-| __C declaration:__ @macro UNRESOLVED_MACRO@
+
+    __defined at:__ @macros\/macro_resolution_log_level.h 7:9@
+
+    __exported by:__ @macros\/macro_resolution_log_level.h@
+-}
+uNRESOLVED_MACRO :: [String]
+{-| __C declaration:__ @macro UNRESOLVED_MACRO@
+
+    __defined at:__ @macros\/macro_resolution_log_level.h 7:9@
+
+    __exported by:__ @macros\/macro_resolution_log_level.h@
+-}
+uNRESOLVED_MACRO = ["struct", "DoesNotExist"]

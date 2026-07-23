@@ -1,0 +1,379 @@
+-- addDependentFile test-artefacts/headers/golden/macros/macro_strings.h
+{-| __C declaration:__ @macro C1@
+
+    __defined at:__ @macros\/macro_strings.h 4:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+c1 :: [String]
+{-| __C declaration:__ @macro C1@
+
+    __defined at:__ @macros\/macro_strings.h 4:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+c1 = ["'a'"]
+{-| __C declaration:__ @macro C2@
+
+    __defined at:__ @macros\/macro_strings.h 5:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+c2 :: [String]
+{-| __C declaration:__ @macro C2@
+
+    __defined at:__ @macros\/macro_strings.h 5:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+c2 = ["'\"'"]
+{-| __C declaration:__ @macro C3@
+
+    __defined at:__ @macros\/macro_strings.h 6:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+c3 :: [String]
+{-| __C declaration:__ @macro C3@
+
+    __defined at:__ @macros\/macro_strings.h 6:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+c3 = ["'\\t'"]
+{-| __C declaration:__ @macro C4@
+
+    __defined at:__ @macros\/macro_strings.h 7:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+c4 :: [String]
+{-| __C declaration:__ @macro C4@
+
+    __defined at:__ @macros\/macro_strings.h 7:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+c4 = ["'\\0'"]
+{-| __C declaration:__ @macro C5@
+
+    __defined at:__ @macros\/macro_strings.h 8:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+c5 :: [String]
+{-| __C declaration:__ @macro C5@
+
+    __defined at:__ @macros\/macro_strings.h 8:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+c5 = ["'\\''"]
+{-| __C declaration:__ @macro C6@
+
+    __defined at:__ @macros\/macro_strings.h 9:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+c6 :: [String]
+{-| __C declaration:__ @macro C6@
+
+    __defined at:__ @macros\/macro_strings.h 9:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+c6 = ["'\\?'"]
+{-| __C declaration:__ @macro C7@
+
+    __defined at:__ @macros\/macro_strings.h 10:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+c7 :: [String]
+{-| __C declaration:__ @macro C7@
+
+    __defined at:__ @macros\/macro_strings.h 10:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+c7 = ["'\\123'"]
+{-| __C declaration:__ @macro C8@
+
+    __defined at:__ @macros\/macro_strings.h 11:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+c8 :: [String]
+{-| __C declaration:__ @macro C8@
+
+    __defined at:__ @macros\/macro_strings.h 11:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+c8 = ["'\\x53'"]
+{-| __C declaration:__ @macro D@
+
+    __defined at:__ @macros\/macro_strings.h 13:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+d :: [String]
+{-| __C declaration:__ @macro D@
+
+    __defined at:__ @macros\/macro_strings.h 13:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+d = ["'\\777'"]
+{-| __C declaration:__ @macro J1@
+
+    __defined at:__ @macros\/macro_strings.h 15:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+j1 :: [String]
+{-| __C declaration:__ @macro J1@
+
+    __defined at:__ @macros\/macro_strings.h 15:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+j1 = ["'\12354'"]
+{-| __C declaration:__ @macro J2@
+
+    __defined at:__ @macros\/macro_strings.h 16:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+j2 :: [String]
+{-| __C declaration:__ @macro J2@
+
+    __defined at:__ @macros\/macro_strings.h 16:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+j2 = ["'\\u3042'"]
+{-| __C declaration:__ @macro J3@
+
+    __defined at:__ @macros\/macro_strings.h 17:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+j3 :: [String]
+{-| __C declaration:__ @macro J3@
+
+    __defined at:__ @macros\/macro_strings.h 17:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+j3 = ["'\\xE3\\x81\\x82'"]
+{-| __C declaration:__ @macro S1@
+
+    __defined at:__ @macros\/macro_strings.h 20:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+s1 :: [String]
+{-| __C declaration:__ @macro S1@
+
+    __defined at:__ @macros\/macro_strings.h 20:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+s1 = ["\"a\""]
+{-| __C declaration:__ @macro S2@
+
+    __defined at:__ @macros\/macro_strings.h 21:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+s2 :: [String]
+{-| __C declaration:__ @macro S2@
+
+    __defined at:__ @macros\/macro_strings.h 21:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+s2 = ["\"'\""]
+{-| __C declaration:__ @macro S3@
+
+    __defined at:__ @macros\/macro_strings.h 22:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+s3 :: [String]
+{-| __C declaration:__ @macro S3@
+
+    __defined at:__ @macros\/macro_strings.h 22:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+s3 = ["\"\\t\""]
+{-| __C declaration:__ @macro S4@
+
+    __defined at:__ @macros\/macro_strings.h 23:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+s4 :: [String]
+{-| __C declaration:__ @macro S4@
+
+    __defined at:__ @macros\/macro_strings.h 23:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+s4 = ["\"\\0\""]
+{-| __C declaration:__ @macro S5@
+
+    __defined at:__ @macros\/macro_strings.h 24:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+s5 :: [String]
+{-| __C declaration:__ @macro S5@
+
+    __defined at:__ @macros\/macro_strings.h 24:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+s5 = ["\"\\'\""]
+{-| __C declaration:__ @macro S6@
+
+    __defined at:__ @macros\/macro_strings.h 25:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+s6 :: [String]
+{-| __C declaration:__ @macro S6@
+
+    __defined at:__ @macros\/macro_strings.h 25:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+s6 = ["\"\\?\""]
+{-| __C declaration:__ @macro S7@
+
+    __defined at:__ @macros\/macro_strings.h 26:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+s7 :: [String]
+{-| __C declaration:__ @macro S7@
+
+    __defined at:__ @macros\/macro_strings.h 26:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+s7 = ["\"\\123\""]
+{-| __C declaration:__ @macro S8@
+
+    __defined at:__ @macros\/macro_strings.h 27:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+s8 :: [String]
+{-| __C declaration:__ @macro S8@
+
+    __defined at:__ @macros\/macro_strings.h 27:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+s8 = ["\"\\x53\""]
+{-| __C declaration:__ @macro T1@
+
+    __defined at:__ @macros\/macro_strings.h 29:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+t1 :: [String]
+{-| __C declaration:__ @macro T1@
+
+    __defined at:__ @macros\/macro_strings.h 29:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+t1 = ["\"\12354\""]
+{-| __C declaration:__ @macro T2@
+
+    __defined at:__ @macros\/macro_strings.h 30:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+t2 :: [String]
+{-| __C declaration:__ @macro T2@
+
+    __defined at:__ @macros\/macro_strings.h 30:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+t2 = ["\"\\u3042\""]
+{-| __C declaration:__ @macro T3@
+
+    __defined at:__ @macros\/macro_strings.h 31:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+t3 :: [String]
+{-| __C declaration:__ @macro T3@
+
+    __defined at:__ @macros\/macro_strings.h 31:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+t3 = ["\"\\xE3\\x81\\x82\""]
+{-| __C declaration:__ @macro U@
+
+    __defined at:__ @macros\/macro_strings.h 33:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+u :: [String]
+{-| __C declaration:__ @macro U@
+
+    __defined at:__ @macros\/macro_strings.h 33:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+u = ["\"\\777\\777\\777\\777\""]
+{-| __C declaration:__ @macro V@
+
+    __defined at:__ @macros\/macro_strings.h 34:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+v :: [String]
+{-| __C declaration:__ @macro V@
+
+    __defined at:__ @macros\/macro_strings.h 34:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+v = ["\"\\1\\2\\3\\4\\5\\6\""]
+{-| __C declaration:__ @macro W1@
+
+    __defined at:__ @macros\/macro_strings.h 36:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+w1 :: [String]
+{-| __C declaration:__ @macro W1@
+
+    __defined at:__ @macros\/macro_strings.h 36:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+w1 = ["\"hij\\0\""]
+{-| __C declaration:__ @macro W2@
+
+    __defined at:__ @macros\/macro_strings.h 37:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+w2 :: [String]
+{-| __C declaration:__ @macro W2@
+
+    __defined at:__ @macros\/macro_strings.h 37:9@
+
+    __exported by:__ @macros\/macro_strings.h@
+-}
+w2 = ["\"abc\\0def\\0g\""]

@@ -1,0 +1,43 @@
+-- addDependentFile test-artefacts/headers/golden/macros/macro_type_unresolved_tagged.h
+{-| __C declaration:__ @macro PTR_UNPARSABLE@
+
+    __defined at:__ @macros\/macro_type_unresolved_tagged.h 8:9@
+
+    __exported by:__ @macros\/macro_type_unresolved_tagged.h@
+-}
+pTR_UNPARSABLE :: [String]
+{-| __C declaration:__ @macro PTR_UNPARSABLE@
+
+    __defined at:__ @macros\/macro_type_unresolved_tagged.h 8:9@
+
+    __exported by:__ @macros\/macro_type_unresolved_tagged.h@
+-}
+pTR_UNPARSABLE = ["struct", "Unparsable", "*"]
+{-| __C declaration:__ @macro PTR_DOES_NOT_EXIST@
+
+    __defined at:__ @macros\/macro_type_unresolved_tagged.h 10:9@
+
+    __exported by:__ @macros\/macro_type_unresolved_tagged.h@
+-}
+pTR_DOES_NOT_EXIST :: [String]
+{-| __C declaration:__ @macro PTR_DOES_NOT_EXIST@
+
+    __defined at:__ @macros\/macro_type_unresolved_tagged.h 10:9@
+
+    __exported by:__ @macros\/macro_type_unresolved_tagged.h@
+-}
+pTR_DOES_NOT_EXIST = ["struct", "DoesNotExist", "*"]
+{-| __C declaration:__ @macro DOES_NOT_EXIST@
+
+    __defined at:__ @macros\/macro_type_unresolved_tagged.h 12:9@
+
+    __exported by:__ @macros\/macro_type_unresolved_tagged.h@
+-}
+dOES_NOT_EXIST :: [String]
+{-| __C declaration:__ @macro DOES_NOT_EXIST@
+
+    __defined at:__ @macros\/macro_type_unresolved_tagged.h 12:9@
+
+    __exported by:__ @macros\/macro_type_unresolved_tagged.h@
+-}
+dOES_NOT_EXIST = ["struct", "DoesNotExist"]

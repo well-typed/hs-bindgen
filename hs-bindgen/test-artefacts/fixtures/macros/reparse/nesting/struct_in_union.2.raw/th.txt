@@ -1,0 +1,260 @@
+-- addDependentFile test-artefacts/headers/golden/macros/reparse/nesting/struct_in_union.h
+-- #include <macros/reparse/nesting/struct_in_union.h>
+-- /* test_macrosreparsenestingstruct__Example_get_T1 */
+-- __attribute__ ((const))
+-- void *hs_bindgen_2ac02abef90be65b (void)
+-- {
+--   return &T1;
+-- }
+-- /* test_macrosreparsenestingstruct__Example_get_T2 */
+-- __attribute__ ((const))
+-- void *hs_bindgen_ce4ed8cb010301fc (void)
+-- {
+--   return &T2;
+-- }
+-- /* test_macrosreparsenestingstruct__Example_get_T3 */
+-- __attribute__ ((const))
+-- void *hs_bindgen_9d78eb12f80bd5a1 (void)
+-- {
+--   return &T3;
+-- }
+{-| __C declaration:__ @macro MyInt@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 1:9@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+-}
+myInt :: [String]
+{-| __C declaration:__ @macro MyInt@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 1:9@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+-}
+myInt = ["int"]
+{-| __C declaration:__ @struct \@T1_x@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 3:9@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+-}
+data T1_x
+    = T1_x {t1_x_x :: CInt
+            {- ^ __C declaration:__ @x@
+
+                 __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 3:24@
+
+                 __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+            -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize T1_x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw T1_x
+    where readRaw = \ptr_0 -> pure T1_x <*> readRaw (Proxy @"t1_x_x") ptr_0
+instance WriteRaw T1_x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       T1_x t1_x_x_2 -> writeRaw (Proxy @"t1_x_x") ptr_0 t1_x_x_2
+deriving via (EquivStorable T1_x) instance Storable T1_x
+instance (~) ty CInt => HasField "t1_x_x" T1_x ty
+    where hasField = \x_0 -> (\y_1 -> T1_x{t1_x_x = y_1},
+                              getField @"t1_x_x" x_0)
+instance (~) ty CInt => HasField "t1_x_x" (Ptr T1_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"t1_x_x")
+instance HasCField T1_x "t1_x_x"
+    where type CFieldType T1_x "t1_x_x" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @union \@T1@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 3:1@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+-}
+newtype T1 = T1 {unwrapT1 :: ByteArray} deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize T1
+deriving via (SizedByteArray 4 4) instance ReadRaw T1
+deriving via (SizedByteArray 4 4) instance WriteRaw T1
+deriving via (EquivStorable T1) instance Storable T1
+deriving via (SizedByteArray 4 4) instance IsUnion T1
+instance (~) ty T1_x => HasField "t1_x" T1 ty
+    where getField = getUnionPayload
+instance (~) ty T1_x => HasField "t1_x" T1 ty
+    where hasField = \x_0 -> (setUnionPayload, getField @"t1_x" x_0)
+instance (~) ty T1_x => HasField "t1_x" (Ptr T1) (Ptr ty)
+    where getField = fromPtr (Proxy @"t1_x")
+instance HasCField T1 "t1_x"
+    where type CFieldType T1 "t1_x" = T1_x
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @union \@T2@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 4:1@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+-}
+newtype T2 = T2 {unwrapT2 :: ByteArray} deriving stock Generic
+deriving via (SizedByteArray 8 8) instance StaticSize T2
+deriving via (SizedByteArray 8 8) instance ReadRaw T2
+deriving via (SizedByteArray 8 8) instance WriteRaw T2
+deriving via (EquivStorable T2) instance Storable T2
+deriving via (SizedByteArray 8 8) instance IsUnion T2
+instance (~) ty (Ptr T2_x) => HasField "t2_x" T2 ty
+    where getField = getUnionPayload
+instance (~) ty (Ptr T2_x) => HasField "t2_x" T2 ty
+    where hasField = \x_0 -> (setUnionPayload, getField @"t2_x" x_0)
+instance (~) ty (Ptr T2_x) => HasField "t2_x" (Ptr T2) (Ptr ty)
+    where getField = fromPtr (Proxy @"t2_x")
+instance HasCField T2 "t2_x"
+    where type CFieldType T2 "t2_x" = Ptr T2_x
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct \@T2_x@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 4:9@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+-}
+data T2_x
+    = T2_x {t2_x_x :: CInt
+            {- ^ __C declaration:__ @x@
+
+                 __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 4:24@
+
+                 __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+            -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize T2_x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw T2_x
+    where readRaw = \ptr_0 -> pure T2_x <*> readRaw (Proxy @"t2_x_x") ptr_0
+instance WriteRaw T2_x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       T2_x t2_x_x_2 -> writeRaw (Proxy @"t2_x_x") ptr_0 t2_x_x_2
+deriving via (EquivStorable T2_x) instance Storable T2_x
+instance (~) ty CInt => HasField "t2_x_x" T2_x ty
+    where hasField = \x_0 -> (\y_1 -> T2_x{t2_x_x = y_1},
+                              getField @"t2_x_x" x_0)
+instance (~) ty CInt => HasField "t2_x_x" (Ptr T2_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"t2_x_x")
+instance HasCField T2_x "t2_x_x"
+    where type CFieldType T2_x "t2_x_x" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @union \@T3@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 5:1@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+-}
+newtype T3 = T3 {unwrapT3 :: ByteArray} deriving stock Generic
+deriving via (SizedByteArray 8 8) instance StaticSize T3
+deriving via (SizedByteArray 8 8) instance ReadRaw T3
+deriving via (SizedByteArray 8 8) instance WriteRaw T3
+deriving via (EquivStorable T3) instance Storable T3
+deriving via (SizedByteArray 8 8) instance IsUnion T3
+instance (~) ty (Ptr (Ptr T3_x)) => HasField "t3_x" T3 ty
+    where getField = getUnionPayload
+instance (~) ty (Ptr (Ptr T3_x)) => HasField "t3_x" T3 ty
+    where hasField = \x_0 -> (setUnionPayload, getField @"t3_x" x_0)
+instance (~) ty (Ptr (Ptr T3_x)) =>
+         HasField "t3_x" (Ptr T3) (Ptr ty)
+    where getField = fromPtr (Proxy @"t3_x")
+instance HasCField T3 "t3_x"
+    where type CFieldType T3 "t3_x" = Ptr (Ptr T3_x)
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct \@T3_x@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 5:9@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+-}
+data T3_x
+    = T3_x {t3_x_x :: CInt
+            {- ^ __C declaration:__ @x@
+
+                 __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 5:24@
+
+                 __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+            -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize T3_x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw T3_x
+    where readRaw = \ptr_0 -> pure T3_x <*> readRaw (Proxy @"t3_x_x") ptr_0
+instance WriteRaw T3_x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       T3_x t3_x_x_2 -> writeRaw (Proxy @"t3_x_x") ptr_0 t3_x_x_2
+deriving via (EquivStorable T3_x) instance Storable T3_x
+instance (~) ty CInt => HasField "t3_x_x" T3_x ty
+    where hasField = \x_0 -> (\y_1 -> T3_x{t3_x_x = y_1},
+                              getField @"t3_x_x" x_0)
+instance (~) ty CInt => HasField "t3_x_x" (Ptr T3_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"t3_x_x")
+instance HasCField T3_x "t3_x_x"
+    where type CFieldType T3_x "t3_x_x" = CInt
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_T1@
+foreign import ccall unsafe "hs_bindgen_2ac02abef90be65b" hs_bindgen_2ac02abef90be65b_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_T1@
+hs_bindgen_2ac02abef90be65b :: IO (Ptr T1)
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_T1@
+hs_bindgen_2ac02abef90be65b = fromFFIType hs_bindgen_2ac02abef90be65b_base
+{-# NOINLINE t1 #-}
+{-| __C declaration:__ @T1@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 3:37@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+-}
+t1 :: Ptr T1
+{-| __C declaration:__ @T1@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 3:37@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+-}
+t1 = unsafePerformIO hs_bindgen_2ac02abef90be65b
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_T2@
+foreign import ccall unsafe "hs_bindgen_ce4ed8cb010301fc" hs_bindgen_ce4ed8cb010301fc_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_T2@
+hs_bindgen_ce4ed8cb010301fc :: IO (Ptr T2)
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_T2@
+hs_bindgen_ce4ed8cb010301fc = fromFFIType hs_bindgen_ce4ed8cb010301fc_base
+{-# NOINLINE t2 #-}
+{-| __C declaration:__ @T2@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 4:37@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+-}
+t2 :: Ptr T2
+{-| __C declaration:__ @T2@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 4:37@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+-}
+t2 = unsafePerformIO hs_bindgen_ce4ed8cb010301fc
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_T3@
+foreign import ccall unsafe "hs_bindgen_9d78eb12f80bd5a1" hs_bindgen_9d78eb12f80bd5a1_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_T3@
+hs_bindgen_9d78eb12f80bd5a1 :: IO (Ptr T3)
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_T3@
+hs_bindgen_9d78eb12f80bd5a1 = fromFFIType hs_bindgen_9d78eb12f80bd5a1_base
+{-# NOINLINE t3 #-}
+{-| __C declaration:__ @T3@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 5:37@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+-}
+t3 :: Ptr T3
+{-| __C declaration:__ @T3@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 5:37@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
+-}
+t3 = unsafePerformIO hs_bindgen_9d78eb12f80bd5a1
