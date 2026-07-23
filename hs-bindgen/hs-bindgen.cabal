@@ -282,6 +282,7 @@ library internal
     HsBindgen.Macro.Error
     HsBindgen.Macro.Flip
     HsBindgen.Macro.Interface
+    HsBindgen.Macro.Raw
     HsBindgen.Macro.Type
     HsBindgen.NameHint
     HsBindgen.Orphans

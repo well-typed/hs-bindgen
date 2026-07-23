@@ -19,9 +19,13 @@ module HsBindgen.Macro (
     -- * Empty macro language
   , Empty -- opaque
   , empty -- opaque
+    -- * Raw macro language
+  , Raw -- opaque
+  , raw -- opaque
   ) where
 
 import HsBindgen.Internal.Macro.CExpr
 import HsBindgen.Macro.Empty
 import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Raw
 import HsBindgen.Macro.Type qualified as Macro
