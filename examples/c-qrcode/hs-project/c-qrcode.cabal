@@ -32,9 +32,11 @@ library
 executable c-qrcode
   import:             warnings
   main-is:            Main.hs
+  other-modules:      HighLevel
   build-depends:
     , base
     , c-qrcode
+    , hs-bindgen-highlevel
     , hs-bindgen-runtime
 
   hs-source-dirs:     app

@@ -6,6 +6,10 @@
 
 * Rename `HsBindgen.Runtime.Internal.*` modules to `HsBindgen.Runtime.Support.*`;
   `Internal.Prelude` is now `HsBindgen.Runtime.Support`.
+* The high-level combinator library moved out of this package into the new
+  `hs-bindgen-highlevel` package: modules previously under
+  `HsBindgen.Runtime.HighLevel.*` are now `HsBindgen.HighLevel.*`. Depend on
+  `hs-bindgen-highlevel` and update imports.
 
 ### New features
 

@@ -4,5 +4,8 @@ import: ./cabal.project.base.dev
 package hs-bindgen
   ghc-options: -Werror
 
+package hs-bindgen-highlevel
+  ghc-options: -Werror
+
 package hs-bindgen-runtime
   ghc-options: -Werror

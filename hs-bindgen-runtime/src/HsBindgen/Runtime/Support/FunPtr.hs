@@ -13,6 +13,7 @@ module HsBindgen.Runtime.Support.FunPtr (
     ToFunPtr (..)
   , FromFunPtr (..)
   , withFunPtr
+  , withFunPtrAs
   ) where
 
 import HsBindgen.Runtime.Support.FunPtr.Class
