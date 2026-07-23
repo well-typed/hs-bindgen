@@ -230,6 +230,11 @@
 
 ### Bug fixes
 
+* The `--path-style` CLI option now shows its intended help text and value hint.
+  Previously two `help` modifiers were given, so the descriptive text and the
+  `(short|full)` hint clobbered each other; its default is also now displayed in
+  the lowercase form the option accepts. See [issue
+  #2163](https://github.com/well-typed/hs-bindgen/issues/2163).
 * Macro name-resolution failures (e.g. references to unresolved tagged types)
   produce an `Info`-level diagnostic (`MacroResolutionError`) instead of
   panicking. Such failures are common in real headers (e.g. preprocessor-only

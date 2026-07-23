@@ -516,10 +516,9 @@ parsePathStyle :: Parser PathStyle
 parsePathStyle = option readPathStyle $ mconcat [
       long "path-style"
     , metavar "STYLE"
-    , help "Path display style (short|full)"
-    , showDefault
+    , help "Render style of file paths in Haddock comments (short|full)"
+    , showDefaultWith renderPathStyle
     , value Short
-    , help "Render style of file paths in Haddock comments"
     ]
   where
     readPathStyle :: ReadM PathStyle
@@ -527,6 +526,11 @@ parsePathStyle = option readPathStyle $ mconcat [
       "full"  -> Right Full
       "short" -> Right Short
       _       -> Left $ "Invalid path style: " ++ s ++ ". Expected 'full' or 'short'"
+
+    renderPathStyle :: PathStyle -> String
+    renderPathStyle = \case
+      Short -> "short"
+      Full  -> "full"
 
 {-------------------------------------------------------------------------------
   Auxiliary optparse-applicative functions
