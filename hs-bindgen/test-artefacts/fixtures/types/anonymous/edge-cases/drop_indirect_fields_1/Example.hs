@@ -31,7 +31,7 @@ import qualified OtherExample
     __exported by:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h@
 -}
 data S_anon'anon'x = S_anon'anon'x
-  { s_anon'anon'x_anon'x :: OtherExample.Point2D
+  { s_anon'anon'x_Point2D :: OtherExample.Point2D
     {- ^ __C declaration:__ @anon\'x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h 5:5@
@@ -59,7 +59,7 @@ instance Marshal.ReadRaw S_anon'anon'x where
   readRaw =
     \ptr0 ->
           pure S_anon'anon'x
-      <*> HasCField.readRaw (BG.Proxy @"s_anon'anon'x_anon'x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s_anon'anon'x_Point2D") ptr0
       <*> HasCField.readRaw (BG.Proxy @"s_anon'anon'x_z") ptr0
 
 instance Marshal.WriteRaw S_anon'anon'x where
@@ -68,8 +68,8 @@ instance Marshal.WriteRaw S_anon'anon'x where
     \ptr0 ->
       \s1 ->
         case s1 of
-          S_anon'anon'x s_anon'anon'x_anon'x2 s_anon'anon'x_z3 ->
-               HasCField.writeRaw (BG.Proxy @"s_anon'anon'x_anon'x") ptr0 s_anon'anon'x_anon'x2
+          S_anon'anon'x s_anon'anon'x_Point2D2 s_anon'anon'x_z3 ->
+               HasCField.writeRaw (BG.Proxy @"s_anon'anon'x_Point2D") ptr0 s_anon'anon'x_Point2D2
             >> HasCField.writeRaw (BG.Proxy @"s_anon'anon'x_z") ptr0 s_anon'anon'x_z3
 
 deriving via Marshal.EquivStorable S_anon'anon'x instance BG.Storable S_anon'anon'x
@@ -81,24 +81,26 @@ deriving via Marshal.EquivStorable S_anon'anon'x instance BG.Storable S_anon'ano
     __exported by:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h@
 -}
 instance ( ty ~ OtherExample.Point2D
-         ) => BG.CompatHasField.HasField "s_anon'anon'x_anon'x" S_anon'anon'x ty where
+         ) => BG.CompatHasField.HasField "s_anon'anon'x_Point2D" S_anon'anon'x ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          S_anon'anon'x {s_anon'anon'x_anon'x = y1, s_anon'anon'x_z = BG.getField @"s_anon'anon'x_z" x0}
-      , BG.getField @"s_anon'anon'x_anon'x" x0
+          S_anon'anon'x { s_anon'anon'x_Point2D = y1
+                        , s_anon'anon'x_z = BG.getField @"s_anon'anon'x_z" x0
+                        }
+      , BG.getField @"s_anon'anon'x_Point2D" x0
       )
 
 instance ( ty ~ OtherExample.Point2D
-         ) => BG.HasField "s_anon'anon'x_anon'x" (BG.Ptr S_anon'anon'x) (BG.Ptr ty) where
+         ) => BG.HasField "s_anon'anon'x_Point2D" (BG.Ptr S_anon'anon'x) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (BG.Proxy @"s_anon'anon'x_anon'x")
+    HasCField.fromPtr (BG.Proxy @"s_anon'anon'x_Point2D")
 
-instance HasCField.HasCField S_anon'anon'x "s_anon'anon'x_anon'x" where
+instance HasCField.HasCField S_anon'anon'x "s_anon'anon'x_Point2D" where
 
-  type CFieldType S_anon'anon'x "s_anon'anon'x_anon'x" =
+  type CFieldType S_anon'anon'x "s_anon'anon'x_Point2D" =
     OtherExample.Point2D
 
   offset# = \_ -> \_ -> 0
@@ -116,7 +118,7 @@ instance ( ty ~ BG.CInt
     \x0 ->
       ( \y1 ->
           S_anon'anon'x { s_anon'anon'x_z = y1
-                        , s_anon'anon'x_anon'x = BG.getField @"s_anon'anon'x_anon'x" x0
+                        , s_anon'anon'x_Point2D = BG.getField @"s_anon'anon'x_Point2D" x0
                         }
       , BG.getField @"s_anon'anon'x_z" x0
       )

@@ -33,7 +33,7 @@ hstypes:
     record:
       constructor: S_anon'anon'x
       fields:
-      - s_anon'anon'x_anon'x
+      - s_anon'anon'x_Point2D
       - s_anon'anon'x_z
   instances:
   - Eq

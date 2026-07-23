@@ -6,7 +6,7 @@
     __exported by:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h@
 -}
 data S_anon'anon'x
-    = S_anon'anon'x {s_anon'anon'x_anon'x :: OtherExample.Point2D
+    = S_anon'anon'x {s_anon'anon'x_Point2D :: OtherExample.Point2D
                      {- ^ __C declaration:__ @anon\'x@
 
                           __defined at:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h 5:5@
@@ -25,27 +25,27 @@ instance StaticSize S_anon'anon'x
     where staticSizeOf = \_ -> 12 :: Int
           staticAlignment = \_ -> 4 :: Int
 instance ReadRaw S_anon'anon'x
-    where readRaw = \ptr_0 -> (pure S_anon'anon'x <*> readRaw (Proxy @"s_anon'anon'x_anon'x") ptr_0) <*> readRaw (Proxy @"s_anon'anon'x_z") ptr_0
+    where readRaw = \ptr_0 -> (pure S_anon'anon'x <*> readRaw (Proxy @"s_anon'anon'x_Point2D") ptr_0) <*> readRaw (Proxy @"s_anon'anon'x_z") ptr_0
 instance WriteRaw S_anon'anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       S_anon'anon'x s_anon'anon'x_anon'x_2
-                                                     s_anon'anon'x_z_3 -> writeRaw (Proxy @"s_anon'anon'x_anon'x") ptr_0 s_anon'anon'x_anon'x_2 >> writeRaw (Proxy @"s_anon'anon'x_z") ptr_0 s_anon'anon'x_z_3
+                                       S_anon'anon'x s_anon'anon'x_Point2D_2
+                                                     s_anon'anon'x_z_3 -> writeRaw (Proxy @"s_anon'anon'x_Point2D") ptr_0 s_anon'anon'x_Point2D_2 >> writeRaw (Proxy @"s_anon'anon'x_z") ptr_0 s_anon'anon'x_z_3
 deriving via (EquivStorable S_anon'anon'x) instance Storable S_anon'anon'x
 instance (~) ty OtherExample.Point2D =>
-         HasField "s_anon'anon'x_anon'x" S_anon'anon'x ty
-    where hasField = \x_0 -> (\y_1 -> S_anon'anon'x{s_anon'anon'x_anon'x = y_1,
+         HasField "s_anon'anon'x_Point2D" S_anon'anon'x ty
+    where hasField = \x_0 -> (\y_1 -> S_anon'anon'x{s_anon'anon'x_Point2D = y_1,
                                                     s_anon'anon'x_z = getField @"s_anon'anon'x_z" x_0},
-                              getField @"s_anon'anon'x_anon'x" x_0)
+                              getField @"s_anon'anon'x_Point2D" x_0)
 instance (~) ty OtherExample.Point2D =>
-         HasField "s_anon'anon'x_anon'x" (Ptr S_anon'anon'x) (Ptr ty)
-    where getField = fromPtr (Proxy @"s_anon'anon'x_anon'x")
-instance HasCField S_anon'anon'x "s_anon'anon'x_anon'x"
+         HasField "s_anon'anon'x_Point2D" (Ptr S_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'anon'x_Point2D")
+instance HasCField S_anon'anon'x "s_anon'anon'x_Point2D"
     where type CFieldType S_anon'anon'x
-                          "s_anon'anon'x_anon'x" = OtherExample.Point2D
+                          "s_anon'anon'x_Point2D" = OtherExample.Point2D
           offset# = \_ -> \_ -> 0
 instance (~) ty CInt => HasField "s_anon'anon'x_z" S_anon'anon'x ty
     where hasField = \x_0 -> (\y_1 -> S_anon'anon'x{s_anon'anon'x_z = y_1,
-                                                    s_anon'anon'x_anon'x = getField @"s_anon'anon'x_anon'x" x_0},
+                                                    s_anon'anon'x_Point2D = getField @"s_anon'anon'x_Point2D" x_0},
                               getField @"s_anon'anon'x_z" x_0)
 instance (~) ty CInt =>
          HasField "s_anon'anon'x_z" (Ptr S_anon'anon'x) (Ptr ty)
