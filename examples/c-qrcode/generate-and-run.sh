@@ -44,19 +44,18 @@ cabal run hs-bindgen-cli -- \
     "$SCRIPT_DIR/QR-Code-generator/c/qrcodegen.h"
 
 echo "# "
-echo "# Updating cabal.project.local"
+echo "# Writing cabal.project.local"
 echo "# "
 
-LINE=$(
-    cat <<-EOF
+# cabal.project.local is gitignored and machine-specific, so rewrite it from
+# scratch each run rather than appending (which would accumulate stale paths).
+cat > "$SCRIPT_DIR/hs-project/cabal.project.local" <<EOF
 package c-qrcode
     extra-include-dirs:
         $SCRIPT_DIR/QR-Code-generator/c/
     extra-lib-dirs:
         $SCRIPT_DIR/QR-Code-generator/c/
 EOF
-)
-grep -qxF "$LINE" "$SCRIPT_DIR/hs-project/cabal.project.local" || echo "$LINE" >>"$SCRIPT_DIR/hs-project/cabal.project.local"
 cat "$SCRIPT_DIR/hs-project/cabal.project.local"
 
 echo "# "
@@ -64,8 +63,8 @@ echo "# Done!"
 echo "# "
 echo "Running the project"
 
-cd $SCRIPT_DIR/hs-project
-export LD_LIBRARY_PATH=$SCRIPT_DIR/QR-Code-generator/c/:\$LD_LIBRARY_PATH
+cd "$SCRIPT_DIR/hs-project"
+export LD_LIBRARY_PATH="$SCRIPT_DIR/QR-Code-generator/c/:$LD_LIBRARY_PATH"
 
-cabal build
-cabal run c-qrcode
+cabal build exe:c-qrcode
+cabal run exe:c-qrcode

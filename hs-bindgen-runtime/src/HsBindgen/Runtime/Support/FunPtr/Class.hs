@@ -12,9 +12,11 @@ module HsBindgen.Runtime.Support.FunPtr.Class (
 
     -- * Utilities
   , withFunPtr
+  , withFunPtrAs
   ) where
 
 import Control.Exception (bracket)
+import Data.Coerce (Coercible, coerce)
 import Foreign qualified as F
 import GHC.Ptr qualified as Ptr
 
@@ -39,3 +41,19 @@ class FromFunPtr a where
 --
 withFunPtr :: ToFunPtr a => a -> (Ptr.FunPtr a -> IO b) -> IO b
 withFunPtr x = bracket (toFunPtr x) F.freeHaskellFunPtr
+
+-- | 'withFunPtr' for a callback whose own domain types are not covered by a
+-- 'ToFunPtr' instance, but which is 'Coercible' to a signature @b@ that is. The
+-- function is retagged with 'coerce' (zero-cost: a @'F.Ptr' a@ is phantom in @a@,
+-- and a @newtype@ over a covered type coerces to it) onto @b@, whose 'F.FunPtr' the
+-- C import takes.
+--
+-- hs-bindgen emits a 'ToFunPtr' instance per generated callback, so a generated
+-- binding uses 'withFunPtr' at the domain type directly; reach for this only for a
+-- hand-written signature the generated set does not cover, applying @b@ with a type
+-- application: @withFunPtrAs \@CoveredSig domainFn@.
+--
+withFunPtrAs ::
+     forall b a r. (Coercible a b, ToFunPtr b)
+  => a -> (Ptr.FunPtr b -> IO r) -> IO r
+withFunPtrAs f = withFunPtr (coerce f :: b)

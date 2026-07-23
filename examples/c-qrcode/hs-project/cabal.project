@@ -1,5 +1,6 @@
 import: ../../../cabal.project.base
 
 packages: .
+          ../../../hs-bindgen-highlevel
           ../../../hs-bindgen-runtime
           ../../../hs-bindgen
