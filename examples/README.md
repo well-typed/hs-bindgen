@@ -16,7 +16,9 @@ examples include bindings and toy programs for various C libraries.
 * `c-minisat`
 * `c-qrcode`
 * `c-yaml`
+* `libgit2`
 * `libpcap`
+* `libsodium`
 
 ## Running examples
 

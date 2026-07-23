@@ -1,0 +1,19 @@
+-- Self-contained (does NOT import ../../../cabal.project.base).
+--
+-- The point of this example is to build over libclang's RAW Clang.LowLevel.FFI.
+-- Upstream libclang-bindings keeps that module (and the Clang.Internal.* /
+-- Clang.LowLevel.Core.* plumbing it is written in terms of) as other-modules, so
+-- the source-repository-package that cabal.project.base pins does not let a
+-- downstream package import the substrate at all. We therefore depend on a local,
+-- lightly-patched copy that re-exposes those modules (see
+-- ../libclang-bindings/libclang-bindings.cabal), which conflicts with the pinned
+-- source-repository-package; hence this project stands alone rather than importing
+-- the shared base. Neither this example nor hs-bindgen-runtime needs the c-expr /
+-- doxygen-parser source repositories, so only the index-state is carried over.
+index-state: 2026-03-12T10:22:50Z
+
+packages:
+  .
+  ../libclang-bindings
+  ../../../hs-bindgen-highlevel
+  ../../../hs-bindgen-runtime

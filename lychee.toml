@@ -8,7 +8,9 @@ exclude_path = [
   "examples/c-rpm/rpm",
   "examples/c-yaml/yaml",
   "examples/cef/cef_binary*",
+  "examples/libgit2/libgit2",
   "examples/libpcap/libpcap",
+  "examples/libsodium/libsodium",
   # copied from .gitignore because lychee does not respect .gitignore when
   # passed globs (see https://github.com/lycheeverse/lychee/discussions/1612).
   "dist-newstyle*",
