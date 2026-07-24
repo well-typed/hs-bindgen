@@ -81,6 +81,9 @@
 
 ### New features
 
+* A new CLI option `--color WHEN` controls ANSI colors in diagnostics, where
+  `WHEN` is `always`, `auto` (default, unchanged behavior: detect terminal
+  support), or `never`. See [issue #2166][is-2166].
 * Variable names in macro bodies are resolved against all known declarations.
 * The macro-language implementation is now pluggable. The `Macro.HasTypes` type
   class and the `Macro.Lang` record (in the internal library) define the
@@ -319,6 +322,7 @@
 [is-2061]: https://github.com/well-typed/hs-bindgen/issues/2061
 [is-2064]: https://github.com/well-typed/hs-bindgen/issues/2064
 [is-2083]: https://github.com/well-typed/hs-bindgen/issues/2083
+[is-2166]: https://github.com/well-typed/hs-bindgen/issues/2166
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917
