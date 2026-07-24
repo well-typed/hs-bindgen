@@ -1,0 +1,40 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/macro_redefines_global.h
+  cname: FILE
+  hsname: FILE
+hstypes:
+- hsname: FILE
+  representation:
+    newtype:
+      constructor: FILE
+      fields:
+      - unwrapFILE
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

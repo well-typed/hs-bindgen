@@ -1,0 +1,40 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/reparse/functions.h
+  cname: my_int_t
+  hsname: My_int_t
+hstypes:
+- hsname: My_int_t
+  representation:
+    newtype:
+      constructor: My_int_t
+      fields:
+      - unwrapMy_int_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

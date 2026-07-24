@@ -1,0 +1,58 @@
+-- addDependentFile test-artefacts/headers/golden/macros/object_like_as_function_like.h
+-- #include <macros/object_like_as_function_like.h>
+-- /* test_macrosobject_like_as_function_Example_get_a */
+-- __attribute__ ((const))
+-- signed int *hs_bindgen_06ace787c069879f (void)
+-- {
+--   return &a;
+-- }
+{-| __C declaration:__ @macro F@
+
+    __defined at:__ @macros\/object_like_as_function_like.h 10:9@
+
+    __exported by:__ @macros\/object_like_as_function_like.h@
+-}
+f :: [String]
+{-| __C declaration:__ @macro F@
+
+    __defined at:__ @macros\/object_like_as_function_like.h 10:9@
+
+    __exported by:__ @macros\/object_like_as_function_like.h@
+-}
+f = ["(", "x", ",", "y", ")", "x", "+", "y"]
+{-| __C declaration:__ @macro G@
+
+    __defined at:__ @macros\/object_like_as_function_like.h 11:9@
+
+    __exported by:__ @macros\/object_like_as_function_like.h@
+-}
+g :: [String]
+{-| __C declaration:__ @macro G@
+
+    __defined at:__ @macros\/object_like_as_function_like.h 11:9@
+
+    __exported by:__ @macros\/object_like_as_function_like.h@
+-}
+g = ["(", "x", ",", "y", ")", "x", "+", "y"]
+-- __unique:__ @test_macrosobject_like_as_function_Example_get_a@
+foreign import ccall unsafe "hs_bindgen_06ace787c069879f" hs_bindgen_06ace787c069879f_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosobject_like_as_function_Example_get_a@
+hs_bindgen_06ace787c069879f :: IO (Ptr CInt)
+-- __unique:__ @test_macrosobject_like_as_function_Example_get_a@
+hs_bindgen_06ace787c069879f = fromFFIType hs_bindgen_06ace787c069879f_base
+{-# NOINLINE a #-}
+{-| __C declaration:__ @a@
+
+    __defined at:__ @macros\/object_like_as_function_like.h 13:5@
+
+    __exported by:__ @macros\/object_like_as_function_like.h@
+-}
+a :: Ptr CInt
+{-| __C declaration:__ @a@
+
+    __defined at:__ @macros\/object_like_as_function_like.h 13:5@
+
+    __exported by:__ @macros\/object_like_as_function_like.h@
+-}
+a = unsafePerformIO hs_bindgen_06ace787c069879f

@@ -1,0 +1,33 @@
+-- addDependentFile test-artefacts/headers/golden/macros/redeclaration/same_line_tag_field.h
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 15:8@
+
+    __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
+-}
+data S
+    = S {s_x :: CInt
+         {- ^ __C declaration:__ @x@
+
+              __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 15:13@
+
+              __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_x") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_x_2 -> writeRaw (Proxy @"s_x") ptr_0 s_x_2
+deriving via (EquivStorable S) instance Storable S
+instance (~) ty CInt => HasField "s_x" S ty
+    where hasField = \x_0 -> (\y_1 -> S{s_x = y_1},
+                              getField @"s_x" x_0)
+instance (~) ty CInt => HasField "s_x" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_x")
+instance HasCField S "s_x"
+    where type CFieldType S "s_x" = CInt
+          offset# = \_ -> \_ -> 0

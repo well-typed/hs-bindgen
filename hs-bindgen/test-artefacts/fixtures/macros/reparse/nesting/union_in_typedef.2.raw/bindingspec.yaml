@@ -1,0 +1,115 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/reparse/nesting/union_in_typedef.h
+  cname: union T1
+  hsname: T1
+- headers: macros/reparse/nesting/union_in_typedef.h
+  cname: T1
+  hsname: T1
+- headers: macros/reparse/nesting/union_in_typedef.h
+  cname: union @T2_Aux
+  hsname: T2_Aux
+- headers: macros/reparse/nesting/union_in_typedef.h
+  cname: T2
+  hsname: T2
+- headers: macros/reparse/nesting/union_in_typedef.h
+  cname: union @T3_Aux
+  hsname: T3_Aux
+- headers: macros/reparse/nesting/union_in_typedef.h
+  cname: T3
+  hsname: T3
+hstypes:
+- hsname: T1
+  representation:
+    newtype:
+      constructor: T1
+      fields:
+      - unwrapT1
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T2
+  representation:
+    newtype:
+      constructor: T2
+      fields:
+      - unwrapT2
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T2_Aux
+  representation:
+    newtype:
+      constructor: T2_Aux
+      fields:
+      - unwrapT2_Aux
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T3
+  representation:
+    newtype:
+      constructor: T3
+      fields:
+      - unwrapT3
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T3_Aux
+  representation:
+    newtype:
+      constructor: T3_Aux
+      fields:
+      - unwrapT3_Aux
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw

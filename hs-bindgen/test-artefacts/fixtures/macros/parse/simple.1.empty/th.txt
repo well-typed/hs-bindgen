@@ -1,0 +1,2 @@
+-- addDependentFile test-artefacts/headers/golden/macros/parse/simple_inner.h
+-- addDependentFile test-artefacts/headers/golden/macros/parse/simple.h

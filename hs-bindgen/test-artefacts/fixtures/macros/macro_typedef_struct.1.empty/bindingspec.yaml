@@ -1,0 +1,31 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/macro_typedef_struct.h
+  cname: struct bar
+  hsname: Bar
+- headers: macros/macro_typedef_struct.h
+  cname: bar
+  hsname: Bar
+hstypes:
+- hsname: Bar
+  representation:
+    record:
+      constructor: Bar
+      fields:
+      - bar_x
+      - bar_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

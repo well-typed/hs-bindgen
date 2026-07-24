@@ -94,6 +94,13 @@
   logic from typechecked macro expressions to Haskell AST nodes) lives in
   `HsBindgen.Internal.Macro`, a module of the library that is not exposed and
   so cannot be imported by downstream packages at all.
+* Two reference macro-language backends are provided in the internal library
+  alongside the default `CExpr`: `HsBindgen.Macro.Empty` (`empty`), which
+  recognizes no macros and leaves Clang's own expansions untouched, and
+  `HsBindgen.Macro.Raw` (`raw`), which treats every macro as a value and
+  translates its body to the list of its token spellings. Both exist to
+  exercise the pluggable macro-language infrastructure rather than to generate
+  useful bindings.
 * `HsBindgen.TH` exposes `withHsBindgenMacroLang` as the custom-macro-lang
   counterpart to `withHsBindgen`, and re-exports `BindgenM` opaquely (it
   appears in the wrappers' type signatures).

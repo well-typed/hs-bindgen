@@ -59,6 +59,8 @@ data Lang (l :: Star) = Lang {
       -> Either MacroResolutionError (Resolved l)
 
     -- | Batch-typecheck a sequence of macros.
+    --
+    -- The resulting map must have keys for all resolved macros.
   , typecheck ::
          [Resolved l]
       -> Map Text (TypecheckResult l)

@@ -1,0 +1,111 @@
+-- addDependentFile test-artefacts/headers/golden/macros/reparse/nesting.h
+{-| __C declaration:__ @macro MyInt@
+
+    __defined at:__ @macros\/reparse\/nesting.h 1:9@
+
+    __exported by:__ @macros\/reparse\/nesting.h@
+-}
+myInt :: [String]
+{-| __C declaration:__ @macro MyInt@
+
+    __defined at:__ @macros\/reparse\/nesting.h 1:9@
+
+    __exported by:__ @macros\/reparse\/nesting.h@
+-}
+myInt = ["int"]
+{-| __C declaration:__ @struct TS1@
+
+    __defined at:__ @macros\/reparse\/nesting.h 5:16@
+
+    __exported by:__ @macros\/reparse\/nesting.h@
+-}
+data T2
+    = T2 {t2_x :: CInt
+          {- ^ __C declaration:__ @x@
+
+               __defined at:__ @macros\/reparse\/nesting.h 5:28@
+
+               __exported by:__ @macros\/reparse\/nesting.h@
+          -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize T2
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw T2
+    where readRaw = \ptr_0 -> pure T2 <*> readRaw (Proxy @"t2_x") ptr_0
+instance WriteRaw T2
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       T2 t2_x_2 -> writeRaw (Proxy @"t2_x") ptr_0 t2_x_2
+deriving via (EquivStorable T2) instance Storable T2
+instance (~) ty CInt => HasField "t2_x" T2 ty
+    where hasField = \x_0 -> (\y_1 -> T2{t2_x = y_1},
+                              getField @"t2_x" x_0)
+instance (~) ty CInt => HasField "t2_x" (Ptr T2) (Ptr ty)
+    where getField = fromPtr (Proxy @"t2_x")
+instance HasCField T2 "t2_x"
+    where type CFieldType T2 "t2_x" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct TS3@
+
+    __defined at:__ @macros\/reparse\/nesting.h 6:16@
+
+    __exported by:__ @macros\/reparse\/nesting.h@
+-}
+data T3
+    = T3 {t3_x :: CInt
+          {- ^ __C declaration:__ @x@
+
+               __defined at:__ @macros\/reparse\/nesting.h 6:28@
+
+               __exported by:__ @macros\/reparse\/nesting.h@
+          -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize T3
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw T3
+    where readRaw = \ptr_0 -> pure T3 <*> readRaw (Proxy @"t3_x") ptr_0
+instance WriteRaw T3
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       T3 t3_x_2 -> writeRaw (Proxy @"t3_x") ptr_0 t3_x_2
+deriving via (EquivStorable T3) instance Storable T3
+instance (~) ty CInt => HasField "t3_x" T3 ty
+    where hasField = \x_0 -> (\y_1 -> T3{t3_x = y_1},
+                              getField @"t3_x" x_0)
+instance (~) ty CInt => HasField "t3_x" (Ptr T3) (Ptr ty)
+    where getField = fromPtr (Proxy @"t3_x")
+instance HasCField T3 "t3_x"
+    where type CFieldType T3 "t3_x" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct T4@
+
+    __defined at:__ @macros\/reparse\/nesting.h 7:9@
+
+    __exported by:__ @macros\/reparse\/nesting.h@
+-}
+data T4
+    = T4 {t4_x :: CInt
+          {- ^ __C declaration:__ @x@
+
+               __defined at:__ @macros\/reparse\/nesting.h 7:28@
+
+               __exported by:__ @macros\/reparse\/nesting.h@
+          -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize T4
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw T4
+    where readRaw = \ptr_0 -> pure T4 <*> readRaw (Proxy @"t4_x") ptr_0
+instance WriteRaw T4
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       T4 t4_x_2 -> writeRaw (Proxy @"t4_x") ptr_0 t4_x_2
+deriving via (EquivStorable T4) instance Storable T4
+instance (~) ty CInt => HasField "t4_x" T4 ty
+    where hasField = \x_0 -> (\y_1 -> T4{t4_x = y_1},
+                              getField @"t4_x" x_0)
+instance (~) ty CInt => HasField "t4_x" (Ptr T4) (Ptr ty)
+    where getField = fromPtr (Proxy @"t4_x")
+instance HasCField T4 "t4_x"
+    where type CFieldType T4 "t4_x" = CInt
+          offset# = \_ -> \_ -> 0

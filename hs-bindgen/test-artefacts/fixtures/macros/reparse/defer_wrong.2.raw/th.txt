@@ -1,0 +1,87 @@
+-- addDependentFile test-artefacts/headers/golden/macros/reparse/defer_wrong.h
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @macros\/reparse\/defer_wrong.h 11:8@
+
+    __exported by:__ @macros\/reparse\/defer_wrong.h@
+-}
+data S
+    = S {s_x :: CInt
+         {- ^ __C declaration:__ @x@
+
+              __defined at:__ @macros\/reparse\/defer_wrong.h 11:16@
+
+              __exported by:__ @macros\/reparse\/defer_wrong.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_x") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_x_2 -> writeRaw (Proxy @"s_x") ptr_0 s_x_2
+deriving via (EquivStorable S) instance Storable S
+instance (~) ty CInt => HasField "s_x" S ty
+    where hasField = \x_0 -> (\y_1 -> S{s_x = y_1},
+                              getField @"s_x" x_0)
+instance (~) ty CInt => HasField "s_x" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_x")
+instance HasCField S "s_x"
+    where type CFieldType S "s_x" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro T@
+
+    __defined at:__ @macros\/reparse\/defer_wrong.h 13:9@
+
+    __exported by:__ @macros\/reparse\/defer_wrong.h@
+-}
+t :: [String]
+{-| __C declaration:__ @macro T@
+
+    __defined at:__ @macros\/reparse\/defer_wrong.h 13:9@
+
+    __exported by:__ @macros\/reparse\/defer_wrong.h@
+-}
+t = ["struct", "S"]
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/reparse\/defer_wrong.h 15:11@
+
+    __exported by:__ @macros\/reparse\/defer_wrong.h@
+-}
+newtype Foo
+    = Foo {unwrapFoo :: S}
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty S => HasField "unwrapFoo" Foo ty
+    where hasField = \x_0 -> (\y_1 -> Foo{unwrapFoo = y_1},
+                              getField @"unwrapFoo" x_0)
+instance (~) ty S => HasField "unwrapFoo" (Ptr Foo) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFoo")
+instance HasCField Foo "unwrapFoo"
+    where type CFieldType Foo "unwrapFoo" = S
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/reparse\/defer_wrong.h 16:13@
+
+    __exported by:__ @macros\/reparse\/defer_wrong.h@
+-}
+newtype Bar
+    = Bar {unwrapBar :: (Ptr S)}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (Ptr S) => HasField "unwrapBar" Bar ty
+    where hasField = \x_0 -> (\y_1 -> Bar{unwrapBar = y_1},
+                              getField @"unwrapBar" x_0)
+instance (~) ty (Ptr S) => HasField "unwrapBar" (Ptr Bar) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapBar")
+instance HasCField Bar "unwrapBar"
+    where type CFieldType Bar "unwrapBar" = Ptr S
+          offset# = \_ -> \_ -> 0

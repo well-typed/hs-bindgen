@@ -122,7 +122,7 @@ test_functions_simple_func =
 
 test_functions_simple_func_rename :: TestCase
 test_functions_simple_func_rename =
-    testVariant "functions/simple_func" "1.rename"
+    testVariant "functions/simple_func" (Just 1) "rename"
       & #cStandard .~ c99
       & #onBackend .~ ( #categoryChoice .~ ByCategory {
             cType = IncludeTypeCategory

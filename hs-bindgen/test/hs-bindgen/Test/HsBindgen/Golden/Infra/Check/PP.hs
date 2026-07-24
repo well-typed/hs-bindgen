@@ -85,10 +85,8 @@ check getTestResources test =
           mrc = ModuleRenderConfig {
               qualifiedStyle = test.qualifiedStyle
             }
-          artefacts = (,)
-                    <$> ModuleBaseName
-                    <*> getBindingsMultiple mrc
-      result <- runTestHsBindgen collectTrace getTestResources test artefacts
+      result <- runTestHsBindgen collectTrace getTestResources test
+                  ((,) <$> ModuleBaseName <*> getBindingsMultiple mrc)
       msgs <- reverse <$> readIORef traceMessages
       pure $ fmap (\(baseName, output) -> (baseName, msgs, output)) result
 

@@ -1,0 +1,33 @@
+-- addDependentFile test-artefacts/headers/golden/macros/macro_redefines_global.h
+{-| __C declaration:__ @FILE@
+
+    __defined at:__ @macros\/macro_redefines_global.h 7:13@
+
+    __exported by:__ @macros\/macro_redefines_global.h@
+-}
+newtype FILE
+    = FILE {unwrapFILE :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapFILE" FILE ty
+    where hasField = \x_0 -> (\y_1 -> FILE{unwrapFILE = y_1},
+                              getField @"unwrapFILE" x_0)
+instance (~) ty CInt => HasField "unwrapFILE" (Ptr FILE) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFILE")
+instance HasCField FILE "unwrapFILE"
+    where type CFieldType FILE "unwrapFILE" = CInt
+          offset# = \_ -> \_ -> 0

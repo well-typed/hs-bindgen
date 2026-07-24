@@ -174,12 +174,14 @@ mkRolledType :: Guasi q => Env ctx TH.Name -> SType ctx -> q TH.Type
 mkRolledType env ty = case ty of
     TGlobal n  -> TH.conT n.name
     TClass cls -> TH.conT $ (.name) $ typeClassGlobal cls
-    TBound x   -> TH.varT (lookupEnv x env)
     TCon n     -> TH.conT $ mkHsName n
-    TFree n    -> TH.varT $ mkHsName n
+    TFun a b   -> TH.arrowT `TH.appT` mkType env a `TH.appT` mkType env b
     TLit n     -> TH.litT (TH.numTyLit (toInteger n))
     TStrLit s  -> TH.litT (TH.strTyLit s)
-    TFun a b   -> TH.arrowT `TH.appT` mkType env a `TH.appT` mkType env b
+    TExt extRef _cTypeSpec _hsTypeSpec ->
+        lookupExtType extRef
+    TBound x   -> TH.varT (lookupEnv x env)
+    TFree n    -> TH.varT $ mkHsName n
     TApp f t   -> TH.appT (mkType env f) (mkType env t)
     TUnit -> pure $ TH.TupleT 0
     -- Handled in 'mkType'.
@@ -195,8 +197,7 @@ mkRolledType env ty = case ty of
             (map bndr xs)
             (traverse (mkType env') ctxt)
             (mkType env' body)
-    TExt extRef _cTypeSpec _hsTypeSpec ->
-        lookupExtType extRef
+    TList t -> TH.appT TH.listT $ mkType env t
 
 mkDecl :: forall q. Guasi q => FieldNamingStrategy -> SDecl -> q [TH.Dec]
 mkDecl fns = \case

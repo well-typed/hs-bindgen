@@ -68,7 +68,7 @@ test_macros_macro_ext_binding_dep =
 -- so they must not be warnings by default.
 test_macros_macro_resolution_log_level_default :: TestCase
 test_macros_macro_resolution_log_level_default =
-    testVariant "macros/macro_resolution_log_level" "default"
+    testVariant "macros/macro_resolution_log_level" Nothing "default"
       & #tracePredicate .~ multiTracePredicate expected (\trace -> case trace of
             MatchUnusable name (UnusableMacroResolutionFailure{})
               | getDefaultLogLevel trace == Info -> Just $ Expected name
@@ -84,7 +84,7 @@ test_macros_macro_resolution_log_level_default =
 -- insists the (custom) log level is 'Warning'.
 test_macros_macro_resolution_log_level_warnings :: TestCase
 test_macros_macro_resolution_log_level_warnings =
-    testVariant "macros/macro_resolution_log_level" "enable_macro_warnings"
+    testVariant "macros/macro_resolution_log_level" Nothing "enable_macro_warnings"
       & #tracePredicate .~ multiTracePredicateCustomLogLevel customLogLevel
           expected (\trace -> case trace of
             MatchUnusable name (UnusableMacroResolutionFailure{})

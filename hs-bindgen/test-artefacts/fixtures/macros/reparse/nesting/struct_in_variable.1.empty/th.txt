@@ -1,0 +1,182 @@
+-- addDependentFile test-artefacts/headers/golden/macros/reparse/nesting/struct_in_variable.h
+-- #include <macros/reparse/nesting/struct_in_variable.h>
+-- /* test_macrosreparsenestingstruct__Example_get_G1 */
+-- __attribute__ ((const))
+-- void *hs_bindgen_7b488cf23d974403 (void)
+-- {
+--   return &G1;
+-- }
+-- /* test_macrosreparsenestingstruct__Example_get_G2 */
+-- __attribute__ ((const))
+-- void *hs_bindgen_be835215a4ac0819 (void)
+-- {
+--   return &G2;
+-- }
+-- /* test_macrosreparsenestingstruct__Example_get_G3 */
+-- __attribute__ ((const))
+-- void *hs_bindgen_dad785bf89d140bb (void)
+-- {
+--   return &G3;
+-- }
+{-| __C declaration:__ @struct \@G1@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 3:1@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_variable.h@
+-}
+data G1
+    = G1 {g1_x :: CInt
+          {- ^ __C declaration:__ @x@
+
+               __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 3:16@
+
+               __exported by:__ @macros\/reparse\/nesting\/struct_in_variable.h@
+          -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize G1
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw G1
+    where readRaw = \ptr_0 -> pure G1 <*> readRaw (Proxy @"g1_x") ptr_0
+instance WriteRaw G1
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       G1 g1_x_2 -> writeRaw (Proxy @"g1_x") ptr_0 g1_x_2
+deriving via (EquivStorable G1) instance Storable G1
+instance (~) ty CInt => HasField "g1_x" G1 ty
+    where hasField = \x_0 -> (\y_1 -> G1{g1_x = y_1},
+                              getField @"g1_x" x_0)
+instance (~) ty CInt => HasField "g1_x" (Ptr G1) (Ptr ty)
+    where getField = fromPtr (Proxy @"g1_x")
+instance HasCField G1 "g1_x"
+    where type CFieldType G1 "g1_x" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct \@G2@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 4:1@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_variable.h@
+-}
+data G2
+    = G2 {g2_x :: CInt
+          {- ^ __C declaration:__ @x@
+
+               __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 4:16@
+
+               __exported by:__ @macros\/reparse\/nesting\/struct_in_variable.h@
+          -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize G2
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw G2
+    where readRaw = \ptr_0 -> pure G2 <*> readRaw (Proxy @"g2_x") ptr_0
+instance WriteRaw G2
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       G2 g2_x_2 -> writeRaw (Proxy @"g2_x") ptr_0 g2_x_2
+deriving via (EquivStorable G2) instance Storable G2
+instance (~) ty CInt => HasField "g2_x" G2 ty
+    where hasField = \x_0 -> (\y_1 -> G2{g2_x = y_1},
+                              getField @"g2_x" x_0)
+instance (~) ty CInt => HasField "g2_x" (Ptr G2) (Ptr ty)
+    where getField = fromPtr (Proxy @"g2_x")
+instance HasCField G2 "g2_x"
+    where type CFieldType G2 "g2_x" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct \@G3@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 5:1@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_variable.h@
+-}
+data G3
+    = G3 {g3_x :: CInt
+          {- ^ __C declaration:__ @x@
+
+               __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 5:16@
+
+               __exported by:__ @macros\/reparse\/nesting\/struct_in_variable.h@
+          -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize G3
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw G3
+    where readRaw = \ptr_0 -> pure G3 <*> readRaw (Proxy @"g3_x") ptr_0
+instance WriteRaw G3
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       G3 g3_x_2 -> writeRaw (Proxy @"g3_x") ptr_0 g3_x_2
+deriving via (EquivStorable G3) instance Storable G3
+instance (~) ty CInt => HasField "g3_x" G3 ty
+    where hasField = \x_0 -> (\y_1 -> G3{g3_x = y_1},
+                              getField @"g3_x" x_0)
+instance (~) ty CInt => HasField "g3_x" (Ptr G3) (Ptr ty)
+    where getField = fromPtr (Proxy @"g3_x")
+instance HasCField G3 "g3_x"
+    where type CFieldType G3 "g3_x" = CInt
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_G1@
+foreign import ccall unsafe "hs_bindgen_7b488cf23d974403" hs_bindgen_7b488cf23d974403_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_G1@
+hs_bindgen_7b488cf23d974403 :: IO (Ptr G1)
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_G1@
+hs_bindgen_7b488cf23d974403 = fromFFIType hs_bindgen_7b488cf23d974403_base
+{-# NOINLINE g1 #-}
+{-| __C declaration:__ @G1@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 3:24@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_variable.h@
+-}
+g1 :: Ptr G1
+{-| __C declaration:__ @G1@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 3:24@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_variable.h@
+-}
+g1 = unsafePerformIO hs_bindgen_7b488cf23d974403
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_G2@
+foreign import ccall unsafe "hs_bindgen_be835215a4ac0819" hs_bindgen_be835215a4ac0819_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_G2@
+hs_bindgen_be835215a4ac0819 :: IO (Ptr (Ptr G2))
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_G2@
+hs_bindgen_be835215a4ac0819 = fromFFIType hs_bindgen_be835215a4ac0819_base
+{-# NOINLINE g2 #-}
+{-| __C declaration:__ @G2@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 4:24@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_variable.h@
+-}
+g2 :: Ptr (Ptr G2)
+{-| __C declaration:__ @G2@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 4:24@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_variable.h@
+-}
+g2 = unsafePerformIO hs_bindgen_be835215a4ac0819
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_G3@
+foreign import ccall unsafe "hs_bindgen_dad785bf89d140bb" hs_bindgen_dad785bf89d140bb_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_G3@
+hs_bindgen_dad785bf89d140bb :: IO (Ptr (Ptr (Ptr G3)))
+-- __unique:__ @test_macrosreparsenestingstruct__Example_get_G3@
+hs_bindgen_dad785bf89d140bb = fromFFIType hs_bindgen_dad785bf89d140bb_base
+{-# NOINLINE g3 #-}
+{-| __C declaration:__ @G3@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 5:24@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_variable.h@
+-}
+g3 :: Ptr (Ptr (Ptr G3))
+{-| __C declaration:__ @G3@
+
+    __defined at:__ @macros\/reparse\/nesting\/struct_in_variable.h 5:24@
+
+    __exported by:__ @macros\/reparse\/nesting\/struct_in_variable.h@
+-}
+g3 = unsafePerformIO hs_bindgen_dad785bf89d140bb

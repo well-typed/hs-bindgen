@@ -278,9 +278,11 @@ library internal
     HsBindgen.IR.Translation
     HsBindgen.Language.C
     HsBindgen.Language.Haskell
+    HsBindgen.Macro.Empty
     HsBindgen.Macro.Error
     HsBindgen.Macro.Flip
     HsBindgen.Macro.Interface
+    HsBindgen.Macro.Raw
     HsBindgen.Macro.Type
     HsBindgen.NameHint
     HsBindgen.Orphans
@@ -356,14 +358,14 @@ library
     HsBindgen.TH
 
   other-modules:
-    HsBindgen.Internal.Macro
     HsBindgen.Internal.Macro.CExpr
-    HsBindgen.Internal.Macro.Global
-    HsBindgen.Internal.Macro.Parse
-    HsBindgen.Internal.Macro.Resolution
-    HsBindgen.Internal.Macro.Translation.Type
-    HsBindgen.Internal.Macro.Translation.Value
-    HsBindgen.Internal.Macro.Typecheck
+    HsBindgen.Internal.Macro.CExpr.Global
+    HsBindgen.Internal.Macro.CExpr.Parse
+    HsBindgen.Internal.Macro.CExpr.Resolution
+    HsBindgen.Internal.Macro.CExpr.Translation.Type
+    HsBindgen.Internal.Macro.CExpr.Translation.Value
+    HsBindgen.Internal.Macro.CExpr.Type
+    HsBindgen.Internal.Macro.CExpr.Typecheck
 
   reexported-modules:
   other-extensions:   TemplateHaskellQuotes
@@ -529,6 +531,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Infra.TestCase
     Test.HsBindgen.Golden.Infra.TestCaseTree
     Test.HsBindgen.Golden.Macros
+    Test.HsBindgen.Golden.Macros.Lang
     Test.HsBindgen.Golden.Macros.Redeclaration
     Test.HsBindgen.Golden.Macros.Reparse
     Test.HsBindgen.Golden.ProgramAnalysis

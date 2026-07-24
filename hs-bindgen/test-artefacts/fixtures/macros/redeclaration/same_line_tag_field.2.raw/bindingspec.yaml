@@ -1,0 +1,27 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/redeclaration/same_line_tag_field.h
+  cname: struct S
+  hsname: S
+hstypes:
+- hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - s_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

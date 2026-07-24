@@ -1,0 +1,769 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/reparse.h
+  cname: struct some_struct
+  hsname: Some_struct
+- headers: macros/reparse.h
+  cname: union some_union
+  hsname: Some_union
+- headers: macros/reparse.h
+  cname: enum some_enum
+  hsname: Some_enum
+  enum: open
+- headers: macros/reparse.h
+  cname: arr_typedef1
+  hsname: Arr_typedef1
+- headers: macros/reparse.h
+  cname: arr_typedef2
+  hsname: Arr_typedef2
+- headers: macros/reparse.h
+  cname: arr_typedef3
+  hsname: Arr_typedef3
+- headers: macros/reparse.h
+  cname: arr_typedef4
+  hsname: Arr_typedef4
+- headers: macros/reparse.h
+  cname: typedef1
+  hsname: Typedef1
+- headers: macros/reparse.h
+  cname: typedef2
+  hsname: Typedef2
+- headers: macros/reparse.h
+  cname: typedef3
+  hsname: Typedef3
+- headers: macros/reparse.h
+  cname: funptr_typedef1
+  hsname: Funptr_typedef1
+- headers: macros/reparse.h
+  cname: funptr_typedef2
+  hsname: Funptr_typedef2
+- headers: macros/reparse.h
+  cname: funptr_typedef3
+  hsname: Funptr_typedef3
+- headers: macros/reparse.h
+  cname: funptr_typedef4
+  hsname: Funptr_typedef4
+- headers: macros/reparse.h
+  cname: funptr_typedef5
+  hsname: Funptr_typedef5
+- headers: macros/reparse.h
+  cname: comments2
+  hsname: Comments2
+- headers: macros/reparse.h
+  cname: struct example_struct
+  hsname: Example_struct
+- headers: macros/reparse.h
+  cname: const_typedef1
+  hsname: Const_typedef1
+- headers: macros/reparse.h
+  cname: const_typedef2
+  hsname: Const_typedef2
+- headers: macros/reparse.h
+  cname: const_typedef3
+  hsname: Const_typedef3
+- headers: macros/reparse.h
+  cname: const_typedef4
+  hsname: Const_typedef4
+- headers: macros/reparse.h
+  cname: const_typedef5
+  hsname: Const_typedef5
+- headers: macros/reparse.h
+  cname: const_typedef6
+  hsname: Const_typedef6
+- headers: macros/reparse.h
+  cname: const_typedef7
+  hsname: Const_typedef7
+- headers: macros/reparse.h
+  cname: struct example_struct_with_const
+  hsname: Example_struct_with_const
+- headers: macros/reparse.h
+  cname: const_funptr1
+  hsname: Const_funptr1
+- headers: macros/reparse.h
+  cname: const_funptr2
+  hsname: Const_funptr2
+- headers: macros/reparse.h
+  cname: const_funptr3
+  hsname: Const_funptr3
+- headers: macros/reparse.h
+  cname: const_funptr4
+  hsname: Const_funptr4
+- headers: macros/reparse.h
+  cname: const_funptr5
+  hsname: Const_funptr5
+- headers: macros/reparse.h
+  cname: const_funptr6
+  hsname: Const_funptr6
+- headers: macros/reparse.h
+  cname: const_funptr7
+  hsname: Const_funptr7
+hstypes:
+- hsname: Arr_typedef1
+  representation:
+    newtype:
+      constructor: Arr_typedef1
+      fields:
+      - unwrapArr_typedef1
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsArray
+  - Show
+- hsname: Arr_typedef2
+  representation:
+    newtype:
+      constructor: Arr_typedef2
+      fields:
+      - unwrapArr_typedef2
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsArray
+  - Show
+- hsname: Arr_typedef3
+  representation:
+    newtype:
+      constructor: Arr_typedef3
+      fields:
+      - unwrapArr_typedef3
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsArray
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Arr_typedef4
+  representation:
+    newtype:
+      constructor: Arr_typedef4
+      fields:
+      - unwrapArr_typedef4
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsArray
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Comments2
+  representation:
+    newtype:
+      constructor: Comments2
+      fields:
+      - unwrapComments2
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Const_funptr1
+  representation:
+    newtype:
+      constructor: Const_funptr1
+      fields:
+      - unwrapConst_funptr1
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Const_funptr2
+  representation:
+    newtype:
+      constructor: Const_funptr2
+      fields:
+      - unwrapConst_funptr2
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Const_funptr3
+  representation:
+    newtype:
+      constructor: Const_funptr3
+      fields:
+      - unwrapConst_funptr3
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Const_funptr4
+  representation:
+    newtype:
+      constructor: Const_funptr4
+      fields:
+      - unwrapConst_funptr4
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Const_funptr5
+  representation:
+    newtype:
+      constructor: Const_funptr5
+      fields:
+      - unwrapConst_funptr5
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Const_funptr6
+  representation:
+    newtype:
+      constructor: Const_funptr6
+      fields:
+      - unwrapConst_funptr6
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Const_funptr7
+  representation:
+    newtype:
+      constructor: Const_funptr7
+      fields:
+      - unwrapConst_funptr7
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Const_typedef1
+  representation:
+    newtype:
+      constructor: Const_typedef1
+      fields:
+      - unwrapConst_typedef1
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Const_typedef2
+  representation:
+    newtype:
+      constructor: Const_typedef2
+      fields:
+      - unwrapConst_typedef2
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Const_typedef3
+  representation:
+    newtype:
+      constructor: Const_typedef3
+      fields:
+      - unwrapConst_typedef3
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Const_typedef4
+  representation:
+    newtype:
+      constructor: Const_typedef4
+      fields:
+      - unwrapConst_typedef4
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Const_typedef5
+  representation:
+    newtype:
+      constructor: Const_typedef5
+      fields:
+      - unwrapConst_typedef5
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Const_typedef6
+  representation:
+    newtype:
+      constructor: Const_typedef6
+      fields:
+      - unwrapConst_typedef6
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Const_typedef7
+  representation:
+    newtype:
+      constructor: Const_typedef7
+      fields:
+      - unwrapConst_typedef7
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Example_struct
+  representation:
+    record:
+      constructor: Example_struct
+      fields:
+      - example_struct_field1
+      - example_struct_field2
+      - example_struct_field3
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Example_struct_with_const
+  representation:
+    record:
+      constructor: Example_struct_with_const
+      fields:
+      - example_struct_with_const_const_field1
+      - example_struct_with_const_const_field2
+      - example_struct_with_const_const_field3
+      - example_struct_with_const_const_field4
+      - example_struct_with_const_const_field5
+      - example_struct_with_const_const_field6
+      - example_struct_with_const_const_field7
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Funptr_typedef1
+  representation:
+    newtype:
+      constructor: Funptr_typedef1
+      fields:
+      - unwrapFunptr_typedef1
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Funptr_typedef2
+  representation:
+    newtype:
+      constructor: Funptr_typedef2
+      fields:
+      - unwrapFunptr_typedef2
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Funptr_typedef3
+  representation:
+    newtype:
+      constructor: Funptr_typedef3
+      fields:
+      - unwrapFunptr_typedef3
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Funptr_typedef4
+  representation:
+    newtype:
+      constructor: Funptr_typedef4
+      fields:
+      - unwrapFunptr_typedef4
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Funptr_typedef5
+  representation:
+    newtype:
+      constructor: Funptr_typedef5
+      fields:
+      - unwrapFunptr_typedef5
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Some_enum
+  representation:
+    newtype:
+      constructor: Some_enum
+      fields:
+      - unwrapSome_enum
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Some_struct
+  representation:
+    record:
+      constructor: Some_struct
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Some_union
+  representation:
+    newtype:
+      constructor: Some_union
+      fields:
+      - unwrapSome_union
+  instances:
+  - Generic
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Typedef1
+  representation:
+    newtype:
+      constructor: Typedef1
+      fields:
+      - unwrapTypedef1
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Typedef2
+  representation:
+    newtype:
+      constructor: Typedef2
+      fields:
+      - unwrapTypedef2
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Typedef3
+  representation:
+    newtype:
+      constructor: Typedef3
+      fields:
+      - unwrapTypedef3
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

@@ -39,26 +39,47 @@ import HsBindgen.Imports
 --
 -- 2. After name mangling, the variable becomes a 'C.DeclIdPair'.
 class (
-    forall ann. (Show ann) => Show (Parsed l ann)
-  , forall ann. (Eq   ann) => Eq   (Parsed l ann)
+    forall ann. (Show ann, Eq ann) => ValidParsed l ann
   , Functor     (TypecheckedType  l)
   , Foldable    (TypecheckedType  l)
   , Traversable (TypecheckedType  l)
-  , forall var. (Show var, Eq var) => Show (TypecheckedType  l var)
-  , forall var. (Show var, Eq var) => Eq   (TypecheckedType  l var)
+  , forall var. (Show var, Eq var) => ValidTypecheckedType l var
   , Functor     (TypecheckedValue l)
   , Foldable    (TypecheckedValue l)
   , Traversable (TypecheckedValue l)
-  , forall var. (Show var, Eq var) => Show (TypecheckedValue l var)
-  , forall var. (Show var, Eq var) => Eq   (TypecheckedValue l var)
+  , forall var. (Show var, Eq var) => ValidTypecheckedValue l var
   ) => HasTypes (l :: Star) where
 
   -- | Parsed (not yet typechecked) macro. Parameterized by the
   --   annotation type.
-  data Parsed l :: Star -> Star
+  type Parsed l :: Star -> Star
 
   -- | Typechecked type macro. Parameterized by the variable type.
-  data TypecheckedType  l :: Star -> Star
+  type TypecheckedType  l :: Star -> Star
 
   -- | Typechecked value macro. Parameterized by the variable type.
-  data TypecheckedValue l :: Star -> Star
+  type TypecheckedValue l :: Star -> Star
+
+class ( Show (Parsed l ann)
+      , Eq   (Parsed l ann)
+      ) => ValidParsed l ann
+
+instance ( Show (Parsed l ann)
+         , Eq   (Parsed l ann)
+         ) => ValidParsed l ann
+
+class ( Show (TypecheckedType l var)
+      , Eq   (TypecheckedType l var)
+      ) => ValidTypecheckedType l var
+
+instance ( Show (TypecheckedType l var)
+         , Eq   (TypecheckedType l var)
+         ) => ValidTypecheckedType l var
+
+class ( Show (TypecheckedValue l var)
+      , Eq   (TypecheckedValue l var)
+      ) => ValidTypecheckedValue l var
+
+instance ( Show (TypecheckedValue l var)
+         , Eq   (TypecheckedValue l var)
+         ) => ValidTypecheckedValue l var

@@ -273,7 +273,7 @@ test_programAnalysis_selection_fail =
 
 test_programAnalysis_selection_fail_variant_1 :: TestCase
 test_programAnalysis_selection_fail_variant_1 =
-    testVariant "program-analysis/selection_fail" "1.deselect_failed"
+    testVariant "program-analysis/selection_fail" (Just 1) "deselect_failed"
       & #onFrontend .~ ( #selectionPredicate .~  BAnd
             (       BIf $ SelectHeader   FromMainHeaders)
             (BNot $ BIf $ SelectDecl   $ DeclNameMatches "struct Fail")
@@ -301,7 +301,7 @@ test_programAnalysis_selection_fail_variant_1 =
 
 test_programAnalysis_selection_fail_variant_2 :: TestCase
 test_programAnalysis_selection_fail_variant_2 =
-    testVariant "program-analysis/selection_fail" "2.program_slicing"
+    testVariant "program-analysis/selection_fail" (Just 2) "program_slicing"
       & #onFrontend .~ (\cfg -> cfg
           & #selectionPredicate .~ BAnd
               (       BIf $ SelectHeader   FromMainHeaders)
@@ -331,7 +331,7 @@ test_programAnalysis_selection_fail_variant_2 =
 
 test_programAnalysis_selection_fail_variant_3 :: TestCase
 test_programAnalysis_selection_fail_variant_3 =
-    testVariant "program-analysis/selection_fail" "3.select_ok"
+    testVariant "program-analysis/selection_fail" (Just 3) "select_ok"
       & #onFrontend .~ (\cfg -> cfg
           & #selectionPredicate .~ BAnd
               (       BIf $ SelectDecl $ DeclNameMatches "struct OkBefore")
@@ -372,7 +372,7 @@ test_programAnalysis_selection_foo =
 
 test_programAnalysis_selection_matches_c_names_1 :: TestCase
 test_programAnalysis_selection_matches_c_names_1 =
-    testVariant "program-analysis/selection_matches_c_names" "1.positive_case"
+    testVariant "program-analysis/selection_matches_c_names" (Just 1) "positive_case"
       & #specPrescriptive .~ Just "test-artefacts/headers/golden/program-analysis/selection_matches_c_names.yaml"
       & #onFrontend .~ ( #selectionPredicate .~ predicate )
   where
@@ -384,7 +384,7 @@ test_programAnalysis_selection_matches_c_names_1 =
 
 test_programAnalysis_selection_matches_c_names_2 :: TestCase
 test_programAnalysis_selection_matches_c_names_2 =
-    testVariant "program-analysis/selection_matches_c_names" "2.negative_case"
+    testVariant "program-analysis/selection_matches_c_names" (Just 2) "negative_case"
       & #specPrescriptive .~ Just "test-artefacts/headers/golden/program-analysis/selection_matches_c_names.yaml"
       & #onFrontend .~ ( #selectionPredicate .~ predicate )
       & #tracePredicate .~ singleTracePredicate (\case

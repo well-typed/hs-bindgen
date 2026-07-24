@@ -409,6 +409,7 @@ resolveTypeImports = \case
     TEq{} -> mempty
     TForall _hints _qtvs ctxt body ->
       foldMap resolveTypeImports (body:ctxt)
+    TList t -> resolveTypeImports t
 
 resolveStrategyImports :: Hs.Strategy ClosedType -> ImportAcc
 resolveStrategyImports = \case

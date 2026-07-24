@@ -80,7 +80,7 @@ commonFixtureStatus tc
       = Just $ FixtureSkip "Expected failure test"
   -- Tests with external binding specs not yet supported
   | "binding-specs/fun_arg/" `isPrefixOf` tc.name
-    || tc.name == "macros/macro_ext_binding_dep"
+    || "macros/macro_ext_binding_dep" `isPrefixOf` tc.name
     || "types/anonymous/edge-cases/drop_indirect_fields" `isPrefixOf` tc.name
       = Just $ FixtureSkip "External binding specs not yet supported (issue #1495)"
   -- Trans-dep fixtures deliberately reference a missing module to

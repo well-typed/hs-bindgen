@@ -1,0 +1,1225 @@
+-- addDependentFile test-artefacts/headers/golden/macros/macro_in_fundecl.h
+-- #include <macros/macro_in_fundecl.h>
+-- char hs_bindgen_0d589d05ef4464f1 (
+--   float arg1,
+--   char arg2
+-- )
+-- {
+--   return (quux)(arg1, arg2);
+-- }
+-- char *hs_bindgen_5e34a9a021a16ef2 (
+--   float arg1,
+--   char *arg2
+-- )
+-- {
+--   return (wam)(arg1, arg2);
+-- }
+-- char *hs_bindgen_a653f9965418fe35 (
+--   float arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return (foo1)(arg1, arg2);
+-- }
+-- char *hs_bindgen_27d5c3bf56ffe127 (
+--   float arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return (foo2)(arg1, arg2);
+-- }
+-- char *hs_bindgen_28f84ffb010a241f (
+--   float arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return (foo3)(arg1, arg2);
+-- }
+-- signed int (*hs_bindgen_bd2ce04af55e7267 (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return (bar1)(arg1);
+-- }
+-- signed int (*hs_bindgen_71466c42e4144c66 (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return (bar2)(arg1);
+-- }
+-- signed int (*hs_bindgen_158e79501bca5645 (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return (bar3)(arg1);
+-- }
+-- signed int (*hs_bindgen_114a38b3ab9e70ba (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return (bar4)(arg1);
+-- }
+-- signed int (*hs_bindgen_3bbe244ce8f2af84 (
+--   signed int const arg1
+-- ))[2][3]
+-- {
+--   return (baz1)(arg1);
+-- }
+-- signed int (*hs_bindgen_1d115779ef74db4e (
+--   signed int const arg1
+-- ))[2][3]
+-- {
+--   return (baz2)(arg1);
+-- }
+-- signed int (*hs_bindgen_3609a59984f4f6c6 (
+--   signed int const arg1
+-- ))[2][3]
+-- {
+--   return (baz3)(arg1);
+-- }
+-- signed int hs_bindgen_0d9adddf37d97870 (void)
+-- {
+--   return (no_args_no_void)();
+-- }
+-- char hs_bindgen_8742f64b88435032 (
+--   float arg1,
+--   char arg2
+-- )
+-- {
+--   return (quux)(arg1, arg2);
+-- }
+-- char *hs_bindgen_2a7521a4578b9021 (
+--   float arg1,
+--   char *arg2
+-- )
+-- {
+--   return (wam)(arg1, arg2);
+-- }
+-- char *hs_bindgen_4997a9f97e766872 (
+--   float arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return (foo1)(arg1, arg2);
+-- }
+-- char *hs_bindgen_8f7161a0cc6544ab (
+--   float arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return (foo2)(arg1, arg2);
+-- }
+-- char *hs_bindgen_964a5990350e54ca (
+--   float arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return (foo3)(arg1, arg2);
+-- }
+-- signed int (*hs_bindgen_1845a22f2691bd3f (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return (bar1)(arg1);
+-- }
+-- signed int (*hs_bindgen_2ab30ac8925b7281 (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return (bar2)(arg1);
+-- }
+-- signed int (*hs_bindgen_7a3bc5222b2ae81a (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return (bar3)(arg1);
+-- }
+-- signed int (*hs_bindgen_87b07373f703a039 (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return (bar4)(arg1);
+-- }
+-- signed int (*hs_bindgen_4e9b527f6825fd5f (
+--   signed int const arg1
+-- ))[2][3]
+-- {
+--   return (baz1)(arg1);
+-- }
+-- signed int (*hs_bindgen_615bc960b75a0bef (
+--   signed int const arg1
+-- ))[2][3]
+-- {
+--   return (baz2)(arg1);
+-- }
+-- signed int (*hs_bindgen_414bbfce612b733a (
+--   signed int const arg1
+-- ))[2][3]
+-- {
+--   return (baz3)(arg1);
+-- }
+-- signed int hs_bindgen_56bb882786815655 (void)
+-- {
+--   return (no_args_no_void)();
+-- }
+-- /* test_macrosmacro_in_fundecl_1_empt_Example_get_quux */
+-- __attribute__ ((const))
+-- char (*hs_bindgen_5287e20e5e7b825d (void)) (
+--   float arg1,
+--   char arg2
+-- )
+-- {
+--   return &quux;
+-- }
+-- /* test_macrosmacro_in_fundecl_1_empt_Example_get_wam */
+-- __attribute__ ((const))
+-- char *(*hs_bindgen_c99bba48e65f69c2 (void)) (
+--   float arg1,
+--   char *arg2
+-- )
+-- {
+--   return &wam;
+-- }
+-- /* test_macrosmacro_in_fundecl_1_empt_Example_get_foo1 */
+-- __attribute__ ((const))
+-- char *(*hs_bindgen_c6abb6228804eb6f (void)) (
+--   float arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return &foo1;
+-- }
+-- /* test_macrosmacro_in_fundecl_1_empt_Example_get_foo2 */
+-- __attribute__ ((const))
+-- char *(*hs_bindgen_2cd68a8ff1c700b1 (void)) (
+--   float arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return &foo2;
+-- }
+-- /* test_macrosmacro_in_fundecl_1_empt_Example_get_foo3 */
+-- __attribute__ ((const))
+-- char *(*hs_bindgen_7f22a584414189b4 (void)) (
+--   float arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return &foo3;
+-- }
+-- /* test_macrosmacro_in_fundecl_1_empt_Example_get_bar1 */
+-- __attribute__ ((const))
+-- signed int (*(*hs_bindgen_c1bdd45feff88132 (void)) (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return &bar1;
+-- }
+-- /* test_macrosmacro_in_fundecl_1_empt_Example_get_bar2 */
+-- __attribute__ ((const))
+-- signed int (*(*hs_bindgen_db4789e738f22433 (void)) (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return &bar2;
+-- }
+-- /* test_macrosmacro_in_fundecl_1_empt_Example_get_bar3 */
+-- __attribute__ ((const))
+-- signed int (*(*hs_bindgen_ce7381c4dae45aa0 (void)) (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return &bar3;
+-- }
+-- /* test_macrosmacro_in_fundecl_1_empt_Example_get_bar4 */
+-- __attribute__ ((const))
+-- signed int (*(*hs_bindgen_9fc1ae53f4373826 (void)) (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return &bar4;
+-- }
+-- /* test_macrosmacro_in_fundecl_1_empt_Example_get_baz1 */
+-- __attribute__ ((const))
+-- signed int (*(*hs_bindgen_7371729bfd8f41e0 (void)) (
+--   signed int const arg1
+-- ))[2][3]
+-- {
+--   return &baz1;
+-- }
+-- /* test_macrosmacro_in_fundecl_1_empt_Example_get_baz2 */
+-- __attribute__ ((const))
+-- signed int (*(*hs_bindgen_348d64df5f006ad8 (void)) (
+--   signed int const arg1
+-- ))[2][3]
+-- {
+--   return &baz2;
+-- }
+-- /* test_macrosmacro_in_fundecl_1_empt_Example_get_baz3 */
+-- __attribute__ ((const))
+-- signed int (*(*hs_bindgen_d8409f68bb588204 (void)) (
+--   signed int const arg1
+-- ))[2][3]
+-- {
+--   return &baz3;
+-- }
+-- /* test_macrosmacro_in_fundecl_1_empt_Example_get_no_args_no_void */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_5a80b21813f738d7 (void)) (void)
+-- {
+--   return &no_args_no_void;
+-- }
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_quux@
+foreign import ccall safe "hs_bindgen_0d589d05ef4464f1" hs_bindgen_0d589d05ef4464f1_base ::
+    Float
+ -> Int8
+ -> IO Int8
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_quux@
+hs_bindgen_0d589d05ef4464f1 :: CFloat -> CChar -> IO CChar
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_quux@
+hs_bindgen_0d589d05ef4464f1 = fromFFIType hs_bindgen_0d589d05ef4464f1_base
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 12:6@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+quux_safe :: CFloat -> CChar -> IO CChar
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 12:6@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+quux_safe = hs_bindgen_0d589d05ef4464f1
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_wam@
+foreign import ccall safe "hs_bindgen_5e34a9a021a16ef2" hs_bindgen_5e34a9a021a16ef2_base ::
+    Float
+ -> Ptr Void
+ -> IO (Ptr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_wam@
+hs_bindgen_5e34a9a021a16ef2 :: CFloat ->
+                               Ptr CChar -> IO (Ptr CChar)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_wam@
+hs_bindgen_5e34a9a021a16ef2 = fromFFIType hs_bindgen_5e34a9a021a16ef2_base
+{-| __C declaration:__ @wam@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 13:4@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+wam_safe :: CFloat -> Ptr CChar -> IO (Ptr CChar)
+{-| __C declaration:__ @wam@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 13:4@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+wam_safe = hs_bindgen_5e34a9a021a16ef2
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_foo1@
+foreign import ccall safe "hs_bindgen_a653f9965418fe35" hs_bindgen_a653f9965418fe35_base ::
+    Float
+ -> FunPtr Void
+ -> IO (Ptr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_foo1@
+hs_bindgen_a653f9965418fe35 :: CFloat ->
+                               FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_foo1@
+hs_bindgen_a653f9965418fe35 = fromFFIType hs_bindgen_a653f9965418fe35_base
+{-| __C declaration:__ @foo1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 16:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo1_safe :: CFloat -> FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
+{-| __C declaration:__ @foo1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 16:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo1_safe = hs_bindgen_a653f9965418fe35
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_foo2@
+foreign import ccall safe "hs_bindgen_27d5c3bf56ffe127" hs_bindgen_27d5c3bf56ffe127_base ::
+    Float
+ -> FunPtr Void
+ -> IO (Ptr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_foo2@
+hs_bindgen_27d5c3bf56ffe127 :: CFloat ->
+                               FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_foo2@
+hs_bindgen_27d5c3bf56ffe127 = fromFFIType hs_bindgen_27d5c3bf56ffe127_base
+{-| __C declaration:__ @foo2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 17:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo2_safe :: CFloat -> FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
+{-| __C declaration:__ @foo2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 17:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo2_safe = hs_bindgen_27d5c3bf56ffe127
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_foo3@
+foreign import ccall safe "hs_bindgen_28f84ffb010a241f" hs_bindgen_28f84ffb010a241f_base ::
+    Float
+ -> FunPtr Void
+ -> IO (Ptr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_foo3@
+hs_bindgen_28f84ffb010a241f :: CFloat ->
+                               FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_foo3@
+hs_bindgen_28f84ffb010a241f = fromFFIType hs_bindgen_28f84ffb010a241f_base
+{-| __C declaration:__ @foo3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 18:4@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo3_safe :: CFloat -> FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
+{-| __C declaration:__ @foo3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 18:4@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo3_safe = hs_bindgen_28f84ffb010a241f
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar1@
+foreign import ccall safe "hs_bindgen_bd2ce04af55e7267" hs_bindgen_bd2ce04af55e7267_base ::
+    Int64
+ -> IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar1@
+hs_bindgen_bd2ce04af55e7267 :: CLong ->
+                               IO (FunPtr (CShort -> IO CInt))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar1@
+hs_bindgen_bd2ce04af55e7267 = fromFFIType hs_bindgen_bd2ce04af55e7267_base
+{-| __C declaration:__ @bar1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 21:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar1_safe :: CLong -> IO (FunPtr (CShort -> IO CInt))
+{-| __C declaration:__ @bar1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 21:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar1_safe = hs_bindgen_bd2ce04af55e7267
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar2@
+foreign import ccall safe "hs_bindgen_71466c42e4144c66" hs_bindgen_71466c42e4144c66_base ::
+    Int64
+ -> IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar2@
+hs_bindgen_71466c42e4144c66 :: CLong ->
+                               IO (FunPtr (CShort -> IO CInt))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar2@
+hs_bindgen_71466c42e4144c66 = fromFFIType hs_bindgen_71466c42e4144c66_base
+{-| __C declaration:__ @bar2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 22:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar2_safe :: CLong -> IO (FunPtr (CShort -> IO CInt))
+{-| __C declaration:__ @bar2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 22:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar2_safe = hs_bindgen_71466c42e4144c66
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar3@
+foreign import ccall safe "hs_bindgen_158e79501bca5645" hs_bindgen_158e79501bca5645_base ::
+    Int64
+ -> IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar3@
+hs_bindgen_158e79501bca5645 :: CLong ->
+                               IO (FunPtr (CShort -> IO CInt))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar3@
+hs_bindgen_158e79501bca5645 = fromFFIType hs_bindgen_158e79501bca5645_base
+{-| __C declaration:__ @bar3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 23:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar3_safe :: CLong -> IO (FunPtr (CShort -> IO CInt))
+{-| __C declaration:__ @bar3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 23:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar3_safe = hs_bindgen_158e79501bca5645
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar4@
+foreign import ccall safe "hs_bindgen_114a38b3ab9e70ba" hs_bindgen_114a38b3ab9e70ba_base ::
+    Int64
+ -> IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar4@
+hs_bindgen_114a38b3ab9e70ba :: CLong ->
+                               IO (FunPtr (CShort -> IO CInt))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar4@
+hs_bindgen_114a38b3ab9e70ba = fromFFIType hs_bindgen_114a38b3ab9e70ba_base
+{-| __C declaration:__ @bar4@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 24:5@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar4_safe :: CLong -> IO (FunPtr (CShort -> IO CInt))
+{-| __C declaration:__ @bar4@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 24:5@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar4_safe = hs_bindgen_114a38b3ab9e70ba
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_baz1@
+foreign import ccall safe "hs_bindgen_3bbe244ce8f2af84" hs_bindgen_3bbe244ce8f2af84_base ::
+    Int32
+ -> IO (Ptr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_baz1@
+hs_bindgen_3bbe244ce8f2af84 :: CInt ->
+                               IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_baz1@
+hs_bindgen_3bbe244ce8f2af84 = fromFFIType hs_bindgen_3bbe244ce8f2af84_base
+{-| __C declaration:__ @baz1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 27:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz1_safe :: CInt ->
+             IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+{-| __C declaration:__ @baz1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 27:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz1_safe = hs_bindgen_3bbe244ce8f2af84
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_baz2@
+foreign import ccall safe "hs_bindgen_1d115779ef74db4e" hs_bindgen_1d115779ef74db4e_base ::
+    Int32
+ -> IO (Ptr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_baz2@
+hs_bindgen_1d115779ef74db4e :: CInt ->
+                               IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_baz2@
+hs_bindgen_1d115779ef74db4e = fromFFIType hs_bindgen_1d115779ef74db4e_base
+{-| __C declaration:__ @baz2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 35:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz2_safe :: CInt ->
+             IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+{-| __C declaration:__ @baz2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 35:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz2_safe = hs_bindgen_1d115779ef74db4e
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_baz3@
+foreign import ccall safe "hs_bindgen_3609a59984f4f6c6" hs_bindgen_3609a59984f4f6c6_base ::
+    Int32
+ -> IO (Ptr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_baz3@
+hs_bindgen_3609a59984f4f6c6 :: CInt ->
+                               IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_baz3@
+hs_bindgen_3609a59984f4f6c6 = fromFFIType hs_bindgen_3609a59984f4f6c6_base
+{-| __C declaration:__ @baz3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 43:5@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz3_safe :: CInt ->
+             IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+{-| __C declaration:__ @baz3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 43:5@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz3_safe = hs_bindgen_3609a59984f4f6c6
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_no_args_no_void@
+foreign import ccall safe "hs_bindgen_0d9adddf37d97870" hs_bindgen_0d9adddf37d97870_base ::
+    IO Int32
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_no_args_no_void@
+hs_bindgen_0d9adddf37d97870 :: IO CInt
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_no_args_no_void@
+hs_bindgen_0d9adddf37d97870 = fromFFIType hs_bindgen_0d9adddf37d97870_base
+{-| __C declaration:__ @no_args_no_void@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 53:3@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+no_args_no_void_safe :: IO CInt
+{-| __C declaration:__ @no_args_no_void@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 53:3@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+no_args_no_void_safe = hs_bindgen_0d9adddf37d97870
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_quux@
+foreign import ccall unsafe "hs_bindgen_8742f64b88435032" hs_bindgen_8742f64b88435032_base ::
+    Float
+ -> Int8
+ -> IO Int8
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_quux@
+hs_bindgen_8742f64b88435032 :: CFloat -> CChar -> IO CChar
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_quux@
+hs_bindgen_8742f64b88435032 = fromFFIType hs_bindgen_8742f64b88435032_base
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 12:6@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+quux_unsafe :: CFloat -> CChar -> IO CChar
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 12:6@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+quux_unsafe = hs_bindgen_8742f64b88435032
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_wam@
+foreign import ccall unsafe "hs_bindgen_2a7521a4578b9021" hs_bindgen_2a7521a4578b9021_base ::
+    Float
+ -> Ptr Void
+ -> IO (Ptr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_wam@
+hs_bindgen_2a7521a4578b9021 :: CFloat ->
+                               Ptr CChar -> IO (Ptr CChar)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_wam@
+hs_bindgen_2a7521a4578b9021 = fromFFIType hs_bindgen_2a7521a4578b9021_base
+{-| __C declaration:__ @wam@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 13:4@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+wam_unsafe :: CFloat -> Ptr CChar -> IO (Ptr CChar)
+{-| __C declaration:__ @wam@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 13:4@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+wam_unsafe = hs_bindgen_2a7521a4578b9021
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_foo1@
+foreign import ccall unsafe "hs_bindgen_4997a9f97e766872" hs_bindgen_4997a9f97e766872_base ::
+    Float
+ -> FunPtr Void
+ -> IO (Ptr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_foo1@
+hs_bindgen_4997a9f97e766872 :: CFloat ->
+                               FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_foo1@
+hs_bindgen_4997a9f97e766872 = fromFFIType hs_bindgen_4997a9f97e766872_base
+{-| __C declaration:__ @foo1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 16:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo1_unsafe :: CFloat -> FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
+{-| __C declaration:__ @foo1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 16:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo1_unsafe = hs_bindgen_4997a9f97e766872
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_foo2@
+foreign import ccall unsafe "hs_bindgen_8f7161a0cc6544ab" hs_bindgen_8f7161a0cc6544ab_base ::
+    Float
+ -> FunPtr Void
+ -> IO (Ptr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_foo2@
+hs_bindgen_8f7161a0cc6544ab :: CFloat ->
+                               FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_foo2@
+hs_bindgen_8f7161a0cc6544ab = fromFFIType hs_bindgen_8f7161a0cc6544ab_base
+{-| __C declaration:__ @foo2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 17:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo2_unsafe :: CFloat -> FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
+{-| __C declaration:__ @foo2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 17:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo2_unsafe = hs_bindgen_8f7161a0cc6544ab
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_foo3@
+foreign import ccall unsafe "hs_bindgen_964a5990350e54ca" hs_bindgen_964a5990350e54ca_base ::
+    Float
+ -> FunPtr Void
+ -> IO (Ptr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_foo3@
+hs_bindgen_964a5990350e54ca :: CFloat ->
+                               FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_foo3@
+hs_bindgen_964a5990350e54ca = fromFFIType hs_bindgen_964a5990350e54ca_base
+{-| __C declaration:__ @foo3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 18:4@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo3_unsafe :: CFloat -> FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
+{-| __C declaration:__ @foo3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 18:4@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo3_unsafe = hs_bindgen_964a5990350e54ca
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar1@
+foreign import ccall unsafe "hs_bindgen_1845a22f2691bd3f" hs_bindgen_1845a22f2691bd3f_base ::
+    Int64
+ -> IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar1@
+hs_bindgen_1845a22f2691bd3f :: CLong ->
+                               IO (FunPtr (CShort -> IO CInt))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar1@
+hs_bindgen_1845a22f2691bd3f = fromFFIType hs_bindgen_1845a22f2691bd3f_base
+{-| __C declaration:__ @bar1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 21:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar1_unsafe :: CLong -> IO (FunPtr (CShort -> IO CInt))
+{-| __C declaration:__ @bar1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 21:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar1_unsafe = hs_bindgen_1845a22f2691bd3f
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar2@
+foreign import ccall unsafe "hs_bindgen_2ab30ac8925b7281" hs_bindgen_2ab30ac8925b7281_base ::
+    Int64
+ -> IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar2@
+hs_bindgen_2ab30ac8925b7281 :: CLong ->
+                               IO (FunPtr (CShort -> IO CInt))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar2@
+hs_bindgen_2ab30ac8925b7281 = fromFFIType hs_bindgen_2ab30ac8925b7281_base
+{-| __C declaration:__ @bar2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 22:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar2_unsafe :: CLong -> IO (FunPtr (CShort -> IO CInt))
+{-| __C declaration:__ @bar2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 22:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar2_unsafe = hs_bindgen_2ab30ac8925b7281
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar3@
+foreign import ccall unsafe "hs_bindgen_7a3bc5222b2ae81a" hs_bindgen_7a3bc5222b2ae81a_base ::
+    Int64
+ -> IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar3@
+hs_bindgen_7a3bc5222b2ae81a :: CLong ->
+                               IO (FunPtr (CShort -> IO CInt))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar3@
+hs_bindgen_7a3bc5222b2ae81a = fromFFIType hs_bindgen_7a3bc5222b2ae81a_base
+{-| __C declaration:__ @bar3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 23:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar3_unsafe :: CLong -> IO (FunPtr (CShort -> IO CInt))
+{-| __C declaration:__ @bar3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 23:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar3_unsafe = hs_bindgen_7a3bc5222b2ae81a
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar4@
+foreign import ccall unsafe "hs_bindgen_87b07373f703a039" hs_bindgen_87b07373f703a039_base ::
+    Int64
+ -> IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar4@
+hs_bindgen_87b07373f703a039 :: CLong ->
+                               IO (FunPtr (CShort -> IO CInt))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar4@
+hs_bindgen_87b07373f703a039 = fromFFIType hs_bindgen_87b07373f703a039_base
+{-| __C declaration:__ @bar4@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 24:5@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar4_unsafe :: CLong -> IO (FunPtr (CShort -> IO CInt))
+{-| __C declaration:__ @bar4@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 24:5@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar4_unsafe = hs_bindgen_87b07373f703a039
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_baz1@
+foreign import ccall unsafe "hs_bindgen_4e9b527f6825fd5f" hs_bindgen_4e9b527f6825fd5f_base ::
+    Int32
+ -> IO (Ptr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_baz1@
+hs_bindgen_4e9b527f6825fd5f :: CInt ->
+                               IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_baz1@
+hs_bindgen_4e9b527f6825fd5f = fromFFIType hs_bindgen_4e9b527f6825fd5f_base
+{-| __C declaration:__ @baz1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 27:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz1_unsafe :: CInt ->
+               IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+{-| __C declaration:__ @baz1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 27:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz1_unsafe = hs_bindgen_4e9b527f6825fd5f
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_baz2@
+foreign import ccall unsafe "hs_bindgen_615bc960b75a0bef" hs_bindgen_615bc960b75a0bef_base ::
+    Int32
+ -> IO (Ptr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_baz2@
+hs_bindgen_615bc960b75a0bef :: CInt ->
+                               IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_baz2@
+hs_bindgen_615bc960b75a0bef = fromFFIType hs_bindgen_615bc960b75a0bef_base
+{-| __C declaration:__ @baz2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 35:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz2_unsafe :: CInt ->
+               IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+{-| __C declaration:__ @baz2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 35:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz2_unsafe = hs_bindgen_615bc960b75a0bef
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_baz3@
+foreign import ccall unsafe "hs_bindgen_414bbfce612b733a" hs_bindgen_414bbfce612b733a_base ::
+    Int32
+ -> IO (Ptr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_baz3@
+hs_bindgen_414bbfce612b733a :: CInt ->
+                               IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_baz3@
+hs_bindgen_414bbfce612b733a = fromFFIType hs_bindgen_414bbfce612b733a_base
+{-| __C declaration:__ @baz3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 43:5@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz3_unsafe :: CInt ->
+               IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+{-| __C declaration:__ @baz3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 43:5@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz3_unsafe = hs_bindgen_414bbfce612b733a
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_no_args_no_void@
+foreign import ccall unsafe "hs_bindgen_56bb882786815655" hs_bindgen_56bb882786815655_base ::
+    IO Int32
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_no_args_no_void@
+hs_bindgen_56bb882786815655 :: IO CInt
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_no_args_no_void@
+hs_bindgen_56bb882786815655 = fromFFIType hs_bindgen_56bb882786815655_base
+{-| __C declaration:__ @no_args_no_void@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 53:3@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+no_args_no_void_unsafe :: IO CInt
+{-| __C declaration:__ @no_args_no_void@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 53:3@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+no_args_no_void_unsafe = hs_bindgen_56bb882786815655
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_quux@
+foreign import ccall unsafe "hs_bindgen_5287e20e5e7b825d" hs_bindgen_5287e20e5e7b825d_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_quux@
+hs_bindgen_5287e20e5e7b825d :: IO (FunPtr (CFloat ->
+                                           CChar -> IO CChar))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_quux@
+hs_bindgen_5287e20e5e7b825d = fromFFIType hs_bindgen_5287e20e5e7b825d_base
+{-# NOINLINE quux_funptr #-}
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 12:6@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+quux_funptr :: FunPtr (CFloat -> CChar -> IO CChar)
+{-| __C declaration:__ @quux@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 12:6@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+quux_funptr = unsafePerformIO hs_bindgen_5287e20e5e7b825d
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_wam@
+foreign import ccall unsafe "hs_bindgen_c99bba48e65f69c2" hs_bindgen_c99bba48e65f69c2_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_wam@
+hs_bindgen_c99bba48e65f69c2 :: IO (FunPtr (CFloat ->
+                                           Ptr CChar -> IO (Ptr CChar)))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_wam@
+hs_bindgen_c99bba48e65f69c2 = fromFFIType hs_bindgen_c99bba48e65f69c2_base
+{-# NOINLINE wam_funptr #-}
+{-| __C declaration:__ @wam@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 13:4@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+wam_funptr :: FunPtr (CFloat -> Ptr CChar -> IO (Ptr CChar))
+{-| __C declaration:__ @wam@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 13:4@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+wam_funptr = unsafePerformIO hs_bindgen_c99bba48e65f69c2
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_foo1@
+foreign import ccall unsafe "hs_bindgen_c6abb6228804eb6f" hs_bindgen_c6abb6228804eb6f_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_foo1@
+hs_bindgen_c6abb6228804eb6f :: IO (FunPtr (CFloat ->
+                                           FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_foo1@
+hs_bindgen_c6abb6228804eb6f = fromFFIType hs_bindgen_c6abb6228804eb6f_base
+{-# NOINLINE foo1_funptr #-}
+{-| __C declaration:__ @foo1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 16:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo1_funptr :: FunPtr (CFloat ->
+                       FunPtr (CInt -> IO CInt) -> IO (Ptr CChar))
+{-| __C declaration:__ @foo1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 16:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo1_funptr = unsafePerformIO hs_bindgen_c6abb6228804eb6f
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_foo2@
+foreign import ccall unsafe "hs_bindgen_2cd68a8ff1c700b1" hs_bindgen_2cd68a8ff1c700b1_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_foo2@
+hs_bindgen_2cd68a8ff1c700b1 :: IO (FunPtr (CFloat ->
+                                           FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_foo2@
+hs_bindgen_2cd68a8ff1c700b1 = fromFFIType hs_bindgen_2cd68a8ff1c700b1_base
+{-# NOINLINE foo2_funptr #-}
+{-| __C declaration:__ @foo2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 17:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo2_funptr :: FunPtr (CFloat ->
+                       FunPtr (CInt -> IO CInt) -> IO (Ptr CChar))
+{-| __C declaration:__ @foo2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 17:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo2_funptr = unsafePerformIO hs_bindgen_2cd68a8ff1c700b1
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_foo3@
+foreign import ccall unsafe "hs_bindgen_7f22a584414189b4" hs_bindgen_7f22a584414189b4_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_foo3@
+hs_bindgen_7f22a584414189b4 :: IO (FunPtr (CFloat ->
+                                           FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_foo3@
+hs_bindgen_7f22a584414189b4 = fromFFIType hs_bindgen_7f22a584414189b4_base
+{-# NOINLINE foo3_funptr #-}
+{-| __C declaration:__ @foo3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 18:4@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo3_funptr :: FunPtr (CFloat ->
+                       FunPtr (CInt -> IO CInt) -> IO (Ptr CChar))
+{-| __C declaration:__ @foo3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 18:4@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+foo3_funptr = unsafePerformIO hs_bindgen_7f22a584414189b4
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_bar1@
+foreign import ccall unsafe "hs_bindgen_c1bdd45feff88132" hs_bindgen_c1bdd45feff88132_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_bar1@
+hs_bindgen_c1bdd45feff88132 :: IO (FunPtr (CLong ->
+                                           IO (FunPtr (CShort -> IO CInt))))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_bar1@
+hs_bindgen_c1bdd45feff88132 = fromFFIType hs_bindgen_c1bdd45feff88132_base
+{-# NOINLINE bar1_funptr #-}
+{-| __C declaration:__ @bar1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 21:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar1_funptr :: FunPtr (CLong -> IO (FunPtr (CShort -> IO CInt)))
+{-| __C declaration:__ @bar1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 21:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar1_funptr = unsafePerformIO hs_bindgen_c1bdd45feff88132
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_bar2@
+foreign import ccall unsafe "hs_bindgen_db4789e738f22433" hs_bindgen_db4789e738f22433_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_bar2@
+hs_bindgen_db4789e738f22433 :: IO (FunPtr (CLong ->
+                                           IO (FunPtr (CShort -> IO CInt))))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_bar2@
+hs_bindgen_db4789e738f22433 = fromFFIType hs_bindgen_db4789e738f22433_base
+{-# NOINLINE bar2_funptr #-}
+{-| __C declaration:__ @bar2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 22:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar2_funptr :: FunPtr (CLong -> IO (FunPtr (CShort -> IO CInt)))
+{-| __C declaration:__ @bar2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 22:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar2_funptr = unsafePerformIO hs_bindgen_db4789e738f22433
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_bar3@
+foreign import ccall unsafe "hs_bindgen_ce7381c4dae45aa0" hs_bindgen_ce7381c4dae45aa0_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_bar3@
+hs_bindgen_ce7381c4dae45aa0 :: IO (FunPtr (CLong ->
+                                           IO (FunPtr (CShort -> IO CInt))))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_bar3@
+hs_bindgen_ce7381c4dae45aa0 = fromFFIType hs_bindgen_ce7381c4dae45aa0_base
+{-# NOINLINE bar3_funptr #-}
+{-| __C declaration:__ @bar3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 23:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar3_funptr :: FunPtr (CLong -> IO (FunPtr (CShort -> IO CInt)))
+{-| __C declaration:__ @bar3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 23:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar3_funptr = unsafePerformIO hs_bindgen_ce7381c4dae45aa0
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_bar4@
+foreign import ccall unsafe "hs_bindgen_9fc1ae53f4373826" hs_bindgen_9fc1ae53f4373826_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_bar4@
+hs_bindgen_9fc1ae53f4373826 :: IO (FunPtr (CLong ->
+                                           IO (FunPtr (CShort -> IO CInt))))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_bar4@
+hs_bindgen_9fc1ae53f4373826 = fromFFIType hs_bindgen_9fc1ae53f4373826_base
+{-# NOINLINE bar4_funptr #-}
+{-| __C declaration:__ @bar4@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 24:5@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar4_funptr :: FunPtr (CLong -> IO (FunPtr (CShort -> IO CInt)))
+{-| __C declaration:__ @bar4@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 24:5@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+bar4_funptr = unsafePerformIO hs_bindgen_9fc1ae53f4373826
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_baz1@
+foreign import ccall unsafe "hs_bindgen_7371729bfd8f41e0" hs_bindgen_7371729bfd8f41e0_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_baz1@
+hs_bindgen_7371729bfd8f41e0 :: IO (FunPtr (CInt ->
+                                           IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_baz1@
+hs_bindgen_7371729bfd8f41e0 = fromFFIType hs_bindgen_7371729bfd8f41e0_base
+{-# NOINLINE baz1_funptr #-}
+{-| __C declaration:__ @baz1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 27:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz1_funptr :: FunPtr (CInt ->
+                       IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt))))
+{-| __C declaration:__ @baz1@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 27:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz1_funptr = unsafePerformIO hs_bindgen_7371729bfd8f41e0
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_baz2@
+foreign import ccall unsafe "hs_bindgen_348d64df5f006ad8" hs_bindgen_348d64df5f006ad8_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_baz2@
+hs_bindgen_348d64df5f006ad8 :: IO (FunPtr (CInt ->
+                                           IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_baz2@
+hs_bindgen_348d64df5f006ad8 = fromFFIType hs_bindgen_348d64df5f006ad8_base
+{-# NOINLINE baz2_funptr #-}
+{-| __C declaration:__ @baz2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 35:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz2_funptr :: FunPtr (CInt ->
+                       IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt))))
+{-| __C declaration:__ @baz2@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 35:7@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz2_funptr = unsafePerformIO hs_bindgen_348d64df5f006ad8
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_baz3@
+foreign import ccall unsafe "hs_bindgen_d8409f68bb588204" hs_bindgen_d8409f68bb588204_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_baz3@
+hs_bindgen_d8409f68bb588204 :: IO (FunPtr (CInt ->
+                                           IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_baz3@
+hs_bindgen_d8409f68bb588204 = fromFFIType hs_bindgen_d8409f68bb588204_base
+{-# NOINLINE baz3_funptr #-}
+{-| __C declaration:__ @baz3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 43:5@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz3_funptr :: FunPtr (CInt ->
+                       IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt))))
+{-| __C declaration:__ @baz3@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 43:5@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+baz3_funptr = unsafePerformIO hs_bindgen_d8409f68bb588204
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_no_args_no_void@
+foreign import ccall unsafe "hs_bindgen_5a80b21813f738d7" hs_bindgen_5a80b21813f738d7_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_no_args_no_void@
+hs_bindgen_5a80b21813f738d7 :: IO (FunPtr (IO CInt))
+-- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_get_no_args_no_void@
+hs_bindgen_5a80b21813f738d7 = fromFFIType hs_bindgen_5a80b21813f738d7_base
+{-# NOINLINE no_args_no_void_funptr #-}
+{-| __C declaration:__ @no_args_no_void@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 53:3@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+no_args_no_void_funptr :: FunPtr (IO CInt)
+{-| __C declaration:__ @no_args_no_void@
+
+    __defined at:__ @macros\/macro_in_fundecl.h 53:3@
+
+    __exported by:__ @macros\/macro_in_fundecl.h@
+-}
+no_args_no_void_funptr = unsafePerformIO hs_bindgen_5a80b21813f738d7

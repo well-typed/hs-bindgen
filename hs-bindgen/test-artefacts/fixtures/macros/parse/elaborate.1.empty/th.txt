@@ -1,0 +1,69 @@
+-- addDependentFile test-artefacts/headers/golden/macros/parse/elaborate_inner.h
+-- addDependentFile test-artefacts/headers/golden/macros/parse/elaborate.h
+{-| __C declaration:__ @outer_int@
+
+    __defined at:__ @macros\/parse\/elaborate.h 8:13@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+newtype Outer_int
+    = Outer_int {unwrapOuter_int :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapOuter_int" Outer_int ty
+    where hasField = \x_0 -> (\y_1 -> Outer_int{unwrapOuter_int = y_1},
+                              getField @"unwrapOuter_int" x_0)
+instance (~) ty CInt =>
+         HasField "unwrapOuter_int" (Ptr Outer_int) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapOuter_int")
+instance HasCField Outer_int "unwrapOuter_int"
+    where type CFieldType Outer_int "unwrapOuter_int" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @inner_int@
+
+    __defined at:__ @elaborate_inner.h 3:19@
+
+    __exported by:__ @macros\/parse\/elaborate.h@
+-}
+newtype Inner_int
+    = Inner_int {unwrapInner_int :: Outer_int}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty Outer_int =>
+         HasField "unwrapInner_int" Inner_int ty
+    where hasField = \x_0 -> (\y_1 -> Inner_int{unwrapInner_int = y_1},
+                              getField @"unwrapInner_int" x_0)
+instance (~) ty Outer_int =>
+         HasField "unwrapInner_int" (Ptr Inner_int) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapInner_int")
+instance HasCField Inner_int "unwrapInner_int"
+    where type CFieldType Inner_int "unwrapInner_int" = Outer_int
+          offset# = \_ -> \_ -> 0
