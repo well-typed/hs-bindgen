@@ -39,6 +39,7 @@ import Data.Either (partitionEithers)
 import Data.Maybe (catMaybes)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
+import System.IO (stderr)
 
 import HsBindgen
 import HsBindgen.ArtefactM (DirPolicy (..), FilePolicy (..))
@@ -75,18 +76,58 @@ data GlobalOpts = GlobalOpts {
     }
 
 parseGlobalOpts :: Parser GlobalOpts
-parseGlobalOpts = aux <$> parseTracerConfig
+parseGlobalOpts = aux <$> parseAnsiColor <*> parseTracerConfig
   where
-    aux :: TracerConfig Level TraceMsg -> GlobalOpts
-    aux tracerConfigUnsafe =
-      let tracerConfigSafe :: TracerConfig SafeLevel SafeTraceMsg
+    aux :: Maybe AnsiColor -> TracerConfig Level TraceMsg -> GlobalOpts
+    aux ansiColor tracerConfig =
+      let tracerConfigUnsafe :: TracerConfig Level TraceMsg
+          tracerConfigUnsafe =
+            tracerConfig { outputConfig = mkOutputConfig ansiColor }
+          tracerConfigSafe :: TracerConfig SafeLevel SafeTraceMsg
           tracerConfigSafe = TracerConfig {
-              verbosity      = tracerConfigUnsafe.verbosity
-            , outputConfig   = def
+              verbosity      = tracerConfig.verbosity
+            , outputConfig   = mkOutputConfig ansiColor
             , customLogLevel = mempty
-            , showCallStack  = tracerConfigUnsafe.showCallStack
+            , showCallStack  = tracerConfig.showCallStack
             }
       in  GlobalOpts tracerConfigUnsafe tracerConfigSafe
+
+{-------------------------------------------------------------------------------
+  Output configuration
+-------------------------------------------------------------------------------}
+
+-- | Output configuration writing to 'stderr' with the given ANSI color setting.
+--
+-- 'Nothing' auto-detects color support from the handle.
+mkOutputConfig :: Maybe AnsiColor -> OutputConfig e
+mkOutputConfig ansiColor = OutputConfigHandle OutputHandle {
+      handle    = stderr
+    , ansiColor = ansiColor
+    }
+
+-- | Parse the @--color WHEN@ option: 'Nothing' (auto) is the default.
+parseAnsiColor :: Parser (Maybe AnsiColor)
+parseAnsiColor = option (eitherReader auxParse) $ mconcat [
+      long "color"
+    , metavar "WHEN"
+    , value Nothing
+    , showDefaultWith auxRender
+    , help "Colorize diagnostics WHEN (supported: always, auto, never)"
+    ]
+  where
+    auxParse :: String -> Either String (Maybe AnsiColor)
+    auxParse = \case
+      "always" -> Right (Just EnableAnsiColor)
+      "auto"   -> Right Nothing
+      "never"  -> Right (Just DisableAnsiColor)
+      other    -> Left $
+        "invalid color mode: " ++ other ++ " (supported: always, auto, never)"
+
+    auxRender :: Maybe AnsiColor -> String
+    auxRender = \case
+      Just EnableAnsiColor  -> "always"
+      Nothing               -> "auto"
+      Just DisableAnsiColor -> "never"
 
 {-------------------------------------------------------------------------------
   Tracer configuration
