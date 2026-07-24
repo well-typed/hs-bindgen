@@ -31,6 +31,7 @@ instance WriteRaw S_anon'anon'x
                                        S_anon'anon'x s_anon'anon'x_anon'x_2
                                                      s_anon'anon'x_z_3 -> writeRaw (Proxy @"s_anon'anon'x_anon'x") ptr_0 s_anon'anon'x_anon'x_2 >> writeRaw (Proxy @"s_anon'anon'x_z") ptr_0 s_anon'anon'x_z_3
 deriving via (EquivStorable S_anon'anon'x) instance Storable S_anon'anon'x
+deriving via (IsStructViaStorable S_anon'anon'x) instance IsStruct S_anon'anon'x
 instance (~) ty OtherExample.Point2D =>
          HasField "s_anon'anon'x_anon'x" S_anon'anon'x ty
     where hasField = \x_0 -> (\y_1 -> S_anon'anon'x{s_anon'anon'x_anon'x = y_1,
@@ -77,6 +78,7 @@ instance WriteRaw S
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S s_anon'anon'x_2 -> writeRaw (Proxy @"s_anon'anon'x") ptr_0 s_anon'anon'x_2
 deriving via (EquivStorable S) instance Storable S
+deriving via (IsStructViaStorable S) instance IsStruct S
 instance (~) ty S_anon'anon'x => HasField "s_anon'anon'x" S ty
     where hasField = \x_0 -> (\y_1 -> S{s_anon'anon'x = y_1},
                               getField @"s_anon'anon'x" x_0)

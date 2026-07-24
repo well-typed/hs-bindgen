@@ -23,6 +23,7 @@ instance WriteRaw UU1_fieldY
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        UU1_fieldY uU1_fieldY_fieldX_2 -> writeRaw (Proxy @"uU1_fieldY_fieldX") ptr_0 uU1_fieldY_fieldX_2
 deriving via (EquivStorable UU1_fieldY) instance Storable UU1_fieldY
+deriving via (IsStructViaStorable UU1_fieldY) instance IsStruct UU1_fieldY
 instance (~) ty CInt => HasField "uU1_fieldY_fieldX" UU1_fieldY ty
     where hasField = \x_0 -> (\y_1 -> UU1_fieldY{uU1_fieldY_fieldX = y_1},
                               getField @"uU1_fieldY_fieldX" x_0)
@@ -56,6 +57,7 @@ instance WriteRaw UU1
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        UU1 uU1_fieldY_2 -> writeRaw (Proxy @"uU1_fieldY") ptr_0 uU1_fieldY_2
 deriving via (EquivStorable UU1) instance Storable UU1
+deriving via (IsStructViaStorable UU1) instance IsStruct UU1
 instance (~) ty UU1_fieldY => HasField "uU1_fieldY" UU1 ty
     where hasField = \x_0 -> (\y_1 -> UU1{uU1_fieldY = y_1},
                               getField @"uU1_fieldY" x_0)
@@ -89,6 +91,7 @@ instance WriteRaw UU2_fieldY
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        UU2_fieldY uU2_fieldY_fieldX_2 -> writeRaw (Proxy @"uU2_fieldY_fieldX") ptr_0 uU2_fieldY_fieldX_2
 deriving via (EquivStorable UU2_fieldY) instance Storable UU2_fieldY
+deriving via (IsStructViaStorable UU2_fieldY) instance IsStruct UU2_fieldY
 instance (~) ty CInt => HasField "uU2_fieldY_fieldX" UU2_fieldY ty
     where hasField = \x_0 -> (\y_1 -> UU2_fieldY{uU2_fieldY_fieldX = y_1},
                               getField @"uU2_fieldY_fieldX" x_0)
@@ -122,6 +125,7 @@ instance WriteRaw UU2
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        UU2 uU2_fieldY_2 -> writeRaw (Proxy @"uU2_fieldY") ptr_0 uU2_fieldY_2
 deriving via (EquivStorable UU2) instance Storable UU2
+deriving via (IsStructViaStorable UU2) instance IsStruct UU2
 instance (~) ty UU2_fieldY => HasField "uU2_fieldY" UU2 ty
     where hasField = \x_0 -> (\y_1 -> UU2{uU2_fieldY = y_1},
                               getField @"uU2_fieldY" x_0)
@@ -155,6 +159,7 @@ instance WriteRaw VV1_fieldA
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        VV1_fieldA vV1_fieldA_a_2 -> writeRaw (Proxy @"vV1_fieldA_a") ptr_0 vV1_fieldA_a_2
 deriving via (EquivStorable VV1_fieldA) instance Storable VV1_fieldA
+deriving via (IsStructViaStorable VV1_fieldA) instance IsStruct VV1_fieldA
 instance (~) ty CInt => HasField "vV1_fieldA_a" VV1_fieldA ty
     where hasField = \x_0 -> (\y_1 -> VV1_fieldA{vV1_fieldA_a = y_1},
                               getField @"vV1_fieldA_a" x_0)
@@ -188,6 +193,7 @@ instance WriteRaw VV1_fieldB
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        VV1_fieldB vV1_fieldB_b_2 -> writeRaw (Proxy @"vV1_fieldB_b") ptr_0 vV1_fieldB_b_2
 deriving via (EquivStorable VV1_fieldB) instance Storable VV1_fieldB
+deriving via (IsStructViaStorable VV1_fieldB) instance IsStruct VV1_fieldB
 instance (~) ty CInt => HasField "vV1_fieldB_b" VV1_fieldB ty
     where hasField = \x_0 -> (\y_1 -> VV1_fieldB{vV1_fieldB_b = y_1},
                               getField @"vV1_fieldB_b" x_0)
@@ -229,6 +235,7 @@ instance WriteRaw VV1
                                        VV1 vV1_fieldA_2
                                            vV1_fieldB_3 -> writeRaw (Proxy @"vV1_fieldA") ptr_0 vV1_fieldA_2 >> writeRaw (Proxy @"vV1_fieldB") ptr_0 vV1_fieldB_3
 deriving via (EquivStorable VV1) instance Storable VV1
+deriving via (IsStructViaStorable VV1) instance IsStruct VV1
 instance (~) ty VV1_fieldA => HasField "vV1_fieldA" VV1 ty
     where hasField = \x_0 -> (\y_1 -> VV1{vV1_fieldA = y_1,
                                           vV1_fieldB = getField @"vV1_fieldB" x_0},
@@ -273,6 +280,7 @@ instance WriteRaw VV2_fieldA
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        VV2_fieldA vV2_fieldA_a_2 -> writeRaw (Proxy @"vV2_fieldA_a") ptr_0 vV2_fieldA_a_2
 deriving via (EquivStorable VV2_fieldA) instance Storable VV2_fieldA
+deriving via (IsStructViaStorable VV2_fieldA) instance IsStruct VV2_fieldA
 instance (~) ty CInt => HasField "vV2_fieldA_a" VV2_fieldA ty
     where hasField = \x_0 -> (\y_1 -> VV2_fieldA{vV2_fieldA_a = y_1},
                               getField @"vV2_fieldA_a" x_0)
@@ -306,6 +314,7 @@ instance WriteRaw VV2_fieldB
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        VV2_fieldB vV2_fieldB_b_2 -> writeRaw (Proxy @"vV2_fieldB_b") ptr_0 vV2_fieldB_b_2
 deriving via (EquivStorable VV2_fieldB) instance Storable VV2_fieldB
+deriving via (IsStructViaStorable VV2_fieldB) instance IsStruct VV2_fieldB
 instance (~) ty CInt => HasField "vV2_fieldB_b" VV2_fieldB ty
     where hasField = \x_0 -> (\y_1 -> VV2_fieldB{vV2_fieldB_b = y_1},
                               getField @"vV2_fieldB_b" x_0)
@@ -347,6 +356,7 @@ instance WriteRaw VV2
                                        VV2 vV2_fieldA_2
                                            vV2_fieldB_3 -> writeRaw (Proxy @"vV2_fieldA") ptr_0 vV2_fieldA_2 >> writeRaw (Proxy @"vV2_fieldB") ptr_0 vV2_fieldB_3
 deriving via (EquivStorable VV2) instance Storable VV2
+deriving via (IsStructViaStorable VV2) instance IsStruct VV2
 instance (~) ty VV2_fieldA => HasField "vV2_fieldA" VV2 ty
     where hasField = \x_0 -> (\y_1 -> VV2{vV2_fieldA = y_1,
                                           vV2_fieldB = getField @"vV2_fieldB" x_0},

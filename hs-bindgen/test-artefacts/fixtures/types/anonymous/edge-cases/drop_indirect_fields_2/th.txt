@@ -23,6 +23,7 @@ instance WriteRaw S
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S s_anon'anon'x_2 -> writeRaw (Proxy @"s_anon'anon'x") ptr_0 s_anon'anon'x_2
 deriving via (EquivStorable S) instance Storable S
+deriving via (IsStructViaStorable S) instance IsStruct S
 instance (~) ty OtherExample.Point3D =>
          HasField "s_anon'anon'x" S ty
     where hasField = \x_0 -> (\y_1 -> S{s_anon'anon'x = y_1},

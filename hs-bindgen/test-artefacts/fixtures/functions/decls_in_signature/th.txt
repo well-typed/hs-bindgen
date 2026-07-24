@@ -65,6 +65,7 @@ instance WriteRaw Outside
                                        Outside outside_x_2
                                                outside_y_3 -> writeRaw (Proxy @"outside_x") ptr_0 outside_x_2 >> writeRaw (Proxy @"outside_y") ptr_0 outside_y_3
 deriving via (EquivStorable Outside) instance Storable Outside
+deriving via (IsStructViaStorable Outside) instance IsStruct Outside
 instance (~) ty CInt => HasField "outside_x" Outside ty
     where hasField = \x_0 -> (\y_1 -> Outside{outside_x = y_1,
                                               outside_y = getField @"outside_y" x_0},

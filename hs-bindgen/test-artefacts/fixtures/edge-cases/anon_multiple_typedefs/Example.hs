@@ -26,6 +26,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -78,6 +79,8 @@ instance Marshal.WriteRaw Point1a where
             >> HasCField.writeRaw (BG.Proxy @"point1a_y") ptr0 point1a_y3
 
 deriving via Marshal.EquivStorable Point1a instance BG.Storable Point1a
+
+deriving via Struct.IsStructViaStorable Point1a instance Struct.IsStruct Point1a
 
 {-| __C declaration:__ @x@
 
@@ -144,7 +147,8 @@ newtype Point1b = Point1b
   }
   deriving stock (Eq, BG.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( Struct.IsStruct
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , BG.Storable
     , Marshal.WriteRaw
@@ -219,6 +223,8 @@ instance Marshal.WriteRaw Point2a where
             >> HasCField.writeRaw (BG.Proxy @"point2a_y") ptr0 point2a_y3
 
 deriving via Marshal.EquivStorable Point2a instance BG.Storable Point2a
+
+deriving via Struct.IsStructViaStorable Point2a instance Struct.IsStruct Point2a
 
 {-| __C declaration:__ @x@
 
@@ -362,6 +368,8 @@ instance Marshal.WriteRaw Point3a_Aux where
             >> HasCField.writeRaw (BG.Proxy @"point3a_Aux_y") ptr0 point3a_Aux_y3
 
 deriving via Marshal.EquivStorable Point3a_Aux instance BG.Storable Point3a_Aux
+
+deriving via Struct.IsStructViaStorable Point3a_Aux instance Struct.IsStruct Point3a_Aux
 
 {-| __C declaration:__ @x@
 

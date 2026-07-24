@@ -20,6 +20,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -63,6 +64,8 @@ instance Marshal.WriteRaw B where
             HasCField.writeRaw (BG.Proxy @"b_toA") ptr0 b_toA2
 
 deriving via Marshal.EquivStorable B instance BG.Storable B
+
+deriving via Struct.IsStructViaStorable B instance Struct.IsStruct B
 
 {-| __C declaration:__ @toA@
 
@@ -126,6 +129,8 @@ instance Marshal.WriteRaw A where
             HasCField.writeRaw (BG.Proxy @"a_toB") ptr0 a_toB2
 
 deriving via Marshal.EquivStorable A instance BG.Storable A
+
+deriving via Struct.IsStructViaStorable A instance Struct.IsStruct A
 
 {-| __C declaration:__ @toB@
 

@@ -2559,6 +2559,7 @@ instance WriteRaw Some_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Some_struct -> return ()
 deriving via (EquivStorable Some_struct) instance Storable Some_struct
+deriving via (IsStructViaStorable Some_struct) instance IsStruct Some_struct
 {-| __C declaration:__ @union some_union@
 
     __defined at:__ @macros\/reparse.h 8:7@
@@ -3236,6 +3237,7 @@ instance WriteRaw Example_struct
                                                       example_struct_field2_3
                                                       example_struct_field3_4 -> writeRaw (Proxy @"example_struct_field1") ptr_0 example_struct_field1_2 >> (writeRaw (Proxy @"example_struct_field2") ptr_0 example_struct_field2_3 >> writeRaw (Proxy @"example_struct_field3") ptr_0 example_struct_field3_4)
 deriving via (EquivStorable Example_struct) instance Storable Example_struct
+deriving via (IsStructViaStorable Example_struct) instance IsStruct Example_struct
 instance (~) ty A =>
          HasField "example_struct_field1" Example_struct ty
     where hasField = \x_0 -> (\y_1 -> Example_struct{example_struct_field1 = y_1,
@@ -3538,6 +3540,7 @@ instance WriteRaw Example_struct_with_const
                                                                  example_struct_with_const_const_field6_7
                                                                  example_struct_with_const_const_field7_8 -> writeRaw (Proxy @"example_struct_with_const_const_field1") ptr_0 example_struct_with_const_const_field1_2 >> (writeRaw (Proxy @"example_struct_with_const_const_field2") ptr_0 example_struct_with_const_const_field2_3 >> (writeRaw (Proxy @"example_struct_with_const_const_field3") ptr_0 example_struct_with_const_const_field3_4 >> (writeRaw (Proxy @"example_struct_with_const_const_field4") ptr_0 example_struct_with_const_const_field4_5 >> (writeRaw (Proxy @"example_struct_with_const_const_field5") ptr_0 example_struct_with_const_const_field5_6 >> (writeRaw (Proxy @"example_struct_with_const_const_field6") ptr_0 example_struct_with_const_const_field6_7 >> writeRaw (Proxy @"example_struct_with_const_const_field7") ptr_0 example_struct_with_const_const_field7_8)))))
 deriving via (EquivStorable Example_struct_with_const) instance Storable Example_struct_with_const
+deriving via (IsStructViaStorable Example_struct_with_const) instance IsStruct Example_struct_with_const
 instance (~) ty A =>
          HasField "example_struct_with_const_const_field1"
                   Example_struct_with_const

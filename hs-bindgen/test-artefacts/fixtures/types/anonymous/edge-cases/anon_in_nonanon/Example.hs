@@ -21,6 +21,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -64,6 +65,8 @@ instance Marshal.WriteRaw S_y_anon'x where
             HasCField.writeRaw (BG.Proxy @"s_y_anon'x_x") ptr0 s_y_anon'x_x2
 
 deriving via Marshal.EquivStorable S_y_anon'x instance BG.Storable S_y_anon'x
+
+deriving via Struct.IsStructViaStorable S_y_anon'x instance Struct.IsStruct S_y_anon'x
 
 {-| __C declaration:__ @x@
 
@@ -131,6 +134,8 @@ instance Marshal.WriteRaw S_y where
             HasCField.writeRaw (BG.Proxy @"s_y_anon'x") ptr0 s_y_anon'x2
 
 deriving via Marshal.EquivStorable S_y instance BG.Storable S_y
+
+deriving via Struct.IsStructViaStorable S_y instance Struct.IsStruct S_y
 
 {-| __C declaration:__ @anon\'x@
 
@@ -235,6 +240,8 @@ instance Marshal.WriteRaw S where
             HasCField.writeRaw (BG.Proxy @"s_y") ptr0 s_y2
 
 deriving via Marshal.EquivStorable S instance BG.Storable S
+
+deriving via Struct.IsStructViaStorable S instance Struct.IsStruct S
 
 {-| __C declaration:__ @y@
 

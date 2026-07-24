@@ -116,6 +116,7 @@ getInstances instanceMap name = aux
           -- Instances for 'WithFlam'.
           Hs.WithFlam{} -> Set.empty
           Hs.EquivStorable{} -> Set.empty
+          Hs.IsStructViaStorable{} -> Set.empty
 
     (/\) :: Ord a => Set a -> Set a -> Set a
     (/\) = Set.intersection

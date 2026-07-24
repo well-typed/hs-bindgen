@@ -10,10 +10,20 @@
 ### New features
 
 * Add a new `IsUnion` class for C unions. Currently the only member function is
-  `zero`, which creates a union value set to all zeroes.
+  `zero`, which creates a union value set to all zeroes. See [issue
+  #2060][is-2060] and [PR #2091][pr-2091].
 * Add `get`/`set` functions that serve as getters/setters for union values.
   These depend `HasField` instances. See [issue #2060][is-2060] and [PR
   #2091][pr-2091].
+* Add a new `IsStruct` class for C structs. Currently the only member function
+  is `zero`, which creates a struct value set to all zeroes. See [issue
+  #2121][is-2121] and [PR #2164][pr-2164].
+* Add `get`/`set` functions that serve as getters/setters for struct values.
+  These depend on `HasField` instances. See [issue #2121][is-2121] and [PR
+  #2164][pr-2164].
+* Add `IsStructViaStorable` and `IsUnionViaStorable` helper types for deriving
+  `IsStruct` and `IsUnion` respectively via a `Storable` instance. [issue
+  #2121][is-2121] and [PR #2164][pr-2164].
 
 ### Minor changes
 
@@ -25,7 +35,9 @@
 None
 
 [is-2060]: https://github.com/well-typed/hs-bindgen/issues/2060
+[is-2121]: https://github.com/well-typed/hs-bindgen/issues/2121
 [pr-2091]: https://github.com/well-typed/hs-bindgen/pull/2091
+[pr-2164]: https://github.com/well-typed/hs-bindgen/pull/2164
 
 ## 0.1.0-alpha2 -- 2026-03-27
 

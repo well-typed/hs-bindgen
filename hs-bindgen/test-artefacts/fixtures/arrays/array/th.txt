@@ -785,6 +785,7 @@ instance WriteRaw Example
                                        Example example_triple_2
                                                example_sudoku_3 -> writeRaw (Proxy @"example_triple") ptr_0 example_triple_2 >> writeRaw (Proxy @"example_sudoku") ptr_0 example_sudoku_3
 deriving via (EquivStorable Example) instance Storable Example
+deriving via (IsStructViaStorable Example) instance IsStruct Example
 instance (~) ty (ConstantArray 3 CInt) =>
          HasField "example_triple" Example ty
     where hasField = \x_0 -> (\y_1 -> Example{example_triple = y_1,

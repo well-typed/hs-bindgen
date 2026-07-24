@@ -63,12 +63,14 @@ module HsBindgen.TH (
     -- Ensure constructors are in scope when using @deriving via@.
   , DerivingViaSupport.EquivStorable(..)
   , DerivingViaSupport.SizedByteArray(..)
+  , DerivingViaSupport.IsStructViaStorable(..)
   ) where
 
 import Data.Default qualified as Default
 import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Runtime.Marshal qualified as DerivingViaSupport
+import HsBindgen.Runtime.Struct qualified as DerivingViaSupport
 import HsBindgen.Runtime.Support.SizedByteArray qualified as DerivingViaSupport
 
 import HsBindgen.Backend.Category qualified as Category

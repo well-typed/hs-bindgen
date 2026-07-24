@@ -272,26 +272,27 @@ toFFIType sizeofs = go
 
     go :: Hs.Type -> Maybe FFI.FFIType
     go = \case
-      Hs.PrimType pt          -> goPrim pt
-      Hs.TypRef _ t           -> t >>= go
-      Hs.ConstArray{}         -> no
-      Hs.IncompleteArray{}    -> no
-      Hs.PtrArrayElem {}      -> yes $ FFI.Basic FFI.Ptr
-      Hs.PtrConstArrayElem {} -> yes $ FFI.Basic FFI.Ptr
-      Hs.Ptr{}                -> yes $ FFI.Basic FFI.Ptr
-      Hs.FunPtr{}             -> yes $ FFI.Basic FFI.FunPtr
-      Hs.StablePtr{}          -> no
-      Hs.PtrConst{}           -> yes $ FFI.Basic FFI.Ptr
-      Hs.IO t'                -> FFI.IO <$> go t'
-      Hs.Fun s t'             -> FFI.FunArrow <$> go s <*> go t'
-      Hs.ExtBinding _ _ _ t'  -> go t'
-      Hs.ByteArray            -> no
-      Hs.SizedByteArray{}     -> no
-      Hs.Block{}              -> yes $ FFI.Basic FFI.Ptr
-      Hs.ComplexType{}        -> no
-      Hs.StrLit{}             -> no
-      Hs.WithFlam{}           -> no
-      Hs.EquivStorable{}      -> no
+      Hs.PrimType pt           -> goPrim pt
+      Hs.TypRef _ t            -> t >>= go
+      Hs.ConstArray{}          -> no
+      Hs.IncompleteArray{}     -> no
+      Hs.PtrArrayElem {}       -> yes $ FFI.Basic FFI.Ptr
+      Hs.PtrConstArrayElem {}  -> yes $ FFI.Basic FFI.Ptr
+      Hs.Ptr{}                 -> yes $ FFI.Basic FFI.Ptr
+      Hs.FunPtr{}              -> yes $ FFI.Basic FFI.FunPtr
+      Hs.StablePtr{}           -> no
+      Hs.PtrConst{}            -> yes $ FFI.Basic FFI.Ptr
+      Hs.IO t'                 -> FFI.IO <$> go t'
+      Hs.Fun s t'              -> FFI.FunArrow <$> go s <*> go t'
+      Hs.ExtBinding _ _ _ t'   -> go t'
+      Hs.ByteArray             -> no
+      Hs.SizedByteArray{}      -> no
+      Hs.Block{}               -> yes $ FFI.Basic FFI.Ptr
+      Hs.ComplexType{}         -> no
+      Hs.StrLit{}              -> no
+      Hs.WithFlam{}            -> no
+      Hs.EquivStorable{}       -> no
+      Hs.IsStructViaStorable{} -> no
 
     goPrim :: Hs.PrimType -> Maybe FFI.FFIType
     goPrim pt = case pt of

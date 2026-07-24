@@ -98,6 +98,7 @@ module Example
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
@@ -183,6 +184,8 @@ instance Marshal.WriteRaw S5 where
 
 deriving via Marshal.EquivStorable S5 instance BG.Storable S5
 
+deriving via Struct.IsStructViaStorable S5 instance Struct.IsStruct S5
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 20:60@
@@ -245,6 +248,8 @@ instance Marshal.WriteRaw S6 where
             HasCField.writeRaw (BG.Proxy @"s6_x") ptr0 s6_x2
 
 deriving via Marshal.EquivStorable S6 instance BG.Storable S6
+
+deriving via Struct.IsStructViaStorable S6 instance Struct.IsStruct S6
 
 {-| __C declaration:__ @x@
 
@@ -309,6 +314,8 @@ instance Marshal.WriteRaw S7 where
 
 deriving via Marshal.EquivStorable S7 instance BG.Storable S7
 
+deriving via Struct.IsStructViaStorable S7 instance Struct.IsStruct S7
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 22:60@
@@ -371,6 +378,8 @@ instance Marshal.WriteRaw S8 where
             HasCField.writeRaw (BG.Proxy @"s8_x") ptr0 s8_x2
 
 deriving via Marshal.EquivStorable S8 instance BG.Storable S8
+
+deriving via Struct.IsStructViaStorable S8 instance Struct.IsStruct S8
 
 {-| __C declaration:__ @x@
 
@@ -435,6 +444,8 @@ instance Marshal.WriteRaw S9 where
 
 deriving via Marshal.EquivStorable S9 instance BG.Storable S9
 
+deriving via Struct.IsStructViaStorable S9 instance Struct.IsStruct S9
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 24:60@
@@ -497,6 +508,8 @@ instance Marshal.WriteRaw S10 where
             HasCField.writeRaw (BG.Proxy @"s10_x") ptr0 s10_x2
 
 deriving via Marshal.EquivStorable S10 instance BG.Storable S10
+
+deriving via Struct.IsStructViaStorable S10 instance Struct.IsStruct S10
 
 {-| __C declaration:__ @x@
 
@@ -561,6 +574,8 @@ instance Marshal.WriteRaw S11 where
 
 deriving via Marshal.EquivStorable S11 instance BG.Storable S11
 
+deriving via Struct.IsStructViaStorable S11 instance Struct.IsStruct S11
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 34:61@
@@ -623,6 +638,8 @@ instance Marshal.WriteRaw S12 where
             HasCField.writeRaw (BG.Proxy @"s12_x") ptr0 s12_x2
 
 deriving via Marshal.EquivStorable S12 instance BG.Storable S12
+
+deriving via Struct.IsStructViaStorable S12 instance Struct.IsStruct S12
 
 {-| __C declaration:__ @x@
 
@@ -687,6 +704,8 @@ instance Marshal.WriteRaw S13 where
 
 deriving via Marshal.EquivStorable S13 instance BG.Storable S13
 
+deriving via Struct.IsStructViaStorable S13 instance Struct.IsStruct S13
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 36:61@
@@ -749,6 +768,8 @@ instance Marshal.WriteRaw S14 where
             HasCField.writeRaw (BG.Proxy @"s14_x") ptr0 s14_x2
 
 deriving via Marshal.EquivStorable S14 instance BG.Storable S14
+
+deriving via Struct.IsStructViaStorable S14 instance Struct.IsStruct S14
 
 {-| __C declaration:__ @x@
 
@@ -813,6 +834,8 @@ instance Marshal.WriteRaw S15 where
 
 deriving via Marshal.EquivStorable S15 instance BG.Storable S15
 
+deriving via Struct.IsStructViaStorable S15 instance Struct.IsStruct S15
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 46:61@
@@ -875,6 +898,8 @@ instance Marshal.WriteRaw S16 where
             HasCField.writeRaw (BG.Proxy @"s16_x") ptr0 s16_x2
 
 deriving via Marshal.EquivStorable S16 instance BG.Storable S16
+
+deriving via Struct.IsStructViaStorable S16 instance Struct.IsStruct S16
 
 {-| __C declaration:__ @x@
 
@@ -939,6 +964,8 @@ instance Marshal.WriteRaw S17 where
 
 deriving via Marshal.EquivStorable S17 instance BG.Storable S17
 
+deriving via Struct.IsStructViaStorable S17 instance Struct.IsStruct S17
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 48:61@
@@ -1002,6 +1029,8 @@ instance Marshal.WriteRaw S18 where
 
 deriving via Marshal.EquivStorable S18 instance BG.Storable S18
 
+deriving via Struct.IsStructViaStorable S18 instance Struct.IsStruct S18
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @attributes\/visibility\/types.h 49:61@
@@ -1064,6 +1093,8 @@ instance Marshal.WriteRaw S19 where
             HasCField.writeRaw (BG.Proxy @"s19_x") ptr0 s19_x2
 
 deriving via Marshal.EquivStorable S19 instance BG.Storable S19
+
+deriving via Struct.IsStructViaStorable S19 instance Struct.IsStruct S19
 
 {-| __C declaration:__ @x@
 

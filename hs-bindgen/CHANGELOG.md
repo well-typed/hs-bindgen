@@ -183,6 +183,8 @@
   Indirect fields are fields of anonymous structs and unions that can be
   accessed as if they were fields of the enclosing struct or union. See [issue
   #2061][is-2061] and [PR #2136][pr-2136].
+* Generate `HsBindgen.Runtime.Structs.IsStruct` instances for structs and
+  newtypes around structs. See [issue #2121][is-2121] and [PR #2164][pr-2164].
 
 ### Minor changes
 
@@ -322,6 +324,7 @@
 [is-2061]: https://github.com/well-typed/hs-bindgen/issues/2061
 [is-2064]: https://github.com/well-typed/hs-bindgen/issues/2064
 [is-2083]: https://github.com/well-typed/hs-bindgen/issues/2083
+[is-2121]: https://github.com/well-typed/hs-bindgen/issues/2121
 [is-2166]: https://github.com/well-typed/hs-bindgen/issues/2166
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
@@ -341,6 +344,7 @@
 [pr-2136]: https://github.com/well-typed/hs-bindgen/pull/2136
 [pr-2150]: https://github.com/well-typed/hs-bindgen/pull/2150
 [pr-2153]: https://github.com/well-typed/hs-bindgen/pull/2153
+[pr-2164]: https://github.com/well-typed/hs-bindgen/pull/2164
 
 ## 0.1.0-alpha2 -- 2026-03-27
 

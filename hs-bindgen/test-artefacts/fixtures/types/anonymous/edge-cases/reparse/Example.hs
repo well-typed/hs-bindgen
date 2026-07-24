@@ -25,6 +25,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -157,6 +158,8 @@ instance Marshal.WriteRaw S_anon'anon'x_anon'x where
 
 deriving via Marshal.EquivStorable S_anon'anon'x_anon'x instance BG.Storable S_anon'anon'x_anon'x
 
+deriving via Struct.IsStructViaStorable S_anon'anon'x_anon'x instance Struct.IsStruct S_anon'anon'x_anon'x
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/reparse.h 9:9@
@@ -235,6 +238,8 @@ instance Marshal.WriteRaw S_anon'anon'x where
             >> HasCField.writeRaw (BG.Proxy @"s_anon'anon'x_y") ptr0 s_anon'anon'x_y3
 
 deriving via Marshal.EquivStorable S_anon'anon'x instance BG.Storable S_anon'anon'x
+
+deriving via Struct.IsStructViaStorable S_anon'anon'x instance Struct.IsStruct S_anon'anon'x
 
 {-| __C declaration:__ @anon\'x@
 
@@ -376,6 +381,8 @@ instance Marshal.WriteRaw S where
             HasCField.writeRaw (BG.Proxy @"s_anon'anon'x") ptr0 s_anon'anon'x2
 
 deriving via Marshal.EquivStorable S instance BG.Storable S
+
+deriving via Struct.IsStructViaStorable S instance Struct.IsStruct S
 
 {-| __C declaration:__ @anon\'anon\'x@
 

@@ -20,6 +20,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -72,6 +73,8 @@ instance Marshal.WriteRaw Linked_list_A_t where
             >> HasCField.writeRaw (BG.Proxy @"linked_list_A_t_next") ptr0 linked_list_A_t_next3
 
 deriving via Marshal.EquivStorable Linked_list_A_t instance BG.Storable Linked_list_A_t
+
+deriving via Struct.IsStructViaStorable Linked_list_A_t instance Struct.IsStruct Linked_list_A_t
 
 {-| __C declaration:__ @x@
 
@@ -184,6 +187,8 @@ instance Marshal.WriteRaw Linked_list_B_t where
             >> HasCField.writeRaw (BG.Proxy @"linked_list_B_t_next") ptr0 linked_list_B_t_next3
 
 deriving via Marshal.EquivStorable Linked_list_B_t instance BG.Storable Linked_list_B_t
+
+deriving via Struct.IsStructViaStorable Linked_list_B_t instance Struct.IsStruct Linked_list_B_t
 
 {-| __C declaration:__ @x@
 

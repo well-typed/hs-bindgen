@@ -331,27 +331,28 @@ translateCompletePragma = DCompletePragma
 
 translateType :: Hs.Type -> ClosedType
 translateType = \case
-    Hs.PrimType t          -> translatePrimType t
-    Hs.TypRef r _          -> TCon r
-    Hs.ConstArray n t      -> tBindgenGlobal ConstantArray_type `TApp` TLit n `TApp` (translateType t)
-    Hs.IncompleteArray t   -> tBindgenGlobal IncompleteArray_type `TApp` (translateType t)
-    Hs.PtrArrayElem t      -> tBindgenGlobal Foreign_Ptr_type `TApp` (tBindgenGlobal IsArray_Elem `TApp` translateType t)
-    Hs.PtrConstArrayElem t -> tBindgenGlobal PtrConst_type `TApp` (tBindgenGlobal IsArray_Elem `TApp` translateType t)
-    Hs.Ptr t               -> TApp (tBindgenGlobal Foreign_Ptr_type) (translateType t)
-    Hs.FunPtr t            -> TApp (tBindgenGlobal Foreign_FunPtr_type) (translateType t)
-    Hs.StablePtr t         -> TApp (tBindgenGlobal Foreign_StablePtr_type) (translateType t)
-    Hs.PtrConst t          -> TApp (tBindgenGlobal PtrConst_type) (translateType t)
-    Hs.IO t                -> TApp (tBindgenGlobal IO_type) (translateType t)
-    Hs.Fun a b             -> TFun (translateType a) (translateType b)
-    Hs.ExtBinding r c hs _ -> TExt r c hs
-    Hs.ByteArray           -> tBindgenGlobal ByteArray_type
-    Hs.SizedByteArray n m  -> tBindgenGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
-    Hs.Block t             -> tBindgenGlobal Block_type `TApp` translateType t
-    Hs.ComplexType t       -> TApp (tBindgenGlobal Complex_type) (translateType (Hs.PrimType t))
-    Hs.StrLit s            -> TStrLit s
-    Hs.WithFlam x y        ->
+    Hs.PrimType t            -> translatePrimType t
+    Hs.TypRef r _            -> TCon r
+    Hs.ConstArray n t        -> tBindgenGlobal ConstantArray_type `TApp` TLit n `TApp` (translateType t)
+    Hs.IncompleteArray t     -> tBindgenGlobal IncompleteArray_type `TApp` (translateType t)
+    Hs.PtrArrayElem t        -> tBindgenGlobal Foreign_Ptr_type `TApp` (tBindgenGlobal IsArray_Elem `TApp` translateType t)
+    Hs.PtrConstArrayElem t   -> tBindgenGlobal PtrConst_type `TApp` (tBindgenGlobal IsArray_Elem `TApp` translateType t)
+    Hs.Ptr t                 -> TApp (tBindgenGlobal Foreign_Ptr_type) (translateType t)
+    Hs.FunPtr t              -> TApp (tBindgenGlobal Foreign_FunPtr_type) (translateType t)
+    Hs.StablePtr t           -> TApp (tBindgenGlobal Foreign_StablePtr_type) (translateType t)
+    Hs.PtrConst t            -> TApp (tBindgenGlobal PtrConst_type) (translateType t)
+    Hs.IO t                  -> TApp (tBindgenGlobal IO_type) (translateType t)
+    Hs.Fun a b               -> TFun (translateType a) (translateType b)
+    Hs.ExtBinding r c hs _   -> TExt r c hs
+    Hs.ByteArray             -> tBindgenGlobal ByteArray_type
+    Hs.SizedByteArray n m    -> tBindgenGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
+    Hs.Block t               -> tBindgenGlobal Block_type `TApp` translateType t
+    Hs.ComplexType t         -> TApp (tBindgenGlobal Complex_type) (translateType (Hs.PrimType t))
+    Hs.StrLit s              -> TStrLit s
+    Hs.WithFlam x y          ->
       TApp (TApp (tBindgenGlobal Flam_WithFlam_type) (translateType x)) (translateType y)
-    Hs.EquivStorable t     -> TApp (tBindgenGlobal EquivStorable_type) (translateType t)
+    Hs.EquivStorable t       -> TApp (tBindgenGlobal EquivStorable_type) (translateType t)
+    Hs.IsStructViaStorable t -> TApp (tBindgenGlobal IsStructViaStorable_type) (translateType t)
 
 {-------------------------------------------------------------------------------
   @StaticSize@, @ReadRaw@, @WriteRaw@

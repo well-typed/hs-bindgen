@@ -19,6 +19,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -62,6 +63,8 @@ instance Marshal.WriteRaw UnrelatedDeclaration where
             HasCField.writeRaw (BG.Proxy @"unrelatedDeclaration_m") ptr0 unrelatedDeclaration_m2
 
 deriving via Marshal.EquivStorable UnrelatedDeclaration instance BG.Storable UnrelatedDeclaration
+
+deriving via Struct.IsStructViaStorable UnrelatedDeclaration instance Struct.IsStruct UnrelatedDeclaration
 
 {-| __C declaration:__ @m@
 

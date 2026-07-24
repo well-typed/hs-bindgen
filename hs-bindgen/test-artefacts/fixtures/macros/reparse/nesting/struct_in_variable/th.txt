@@ -74,6 +74,7 @@ instance WriteRaw G1
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        G1 g1_x_2 -> writeRaw (Proxy @"g1_x") ptr_0 g1_x_2
 deriving via (EquivStorable G1) instance Storable G1
+deriving via (IsStructViaStorable G1) instance IsStruct G1
 instance (~) ty MyInt => HasField "g1_x" G1 ty
     where hasField = \x_0 -> (\y_1 -> G1{g1_x = y_1},
                               getField @"g1_x" x_0)
@@ -106,6 +107,7 @@ instance WriteRaw G2
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        G2 g2_x_2 -> writeRaw (Proxy @"g2_x") ptr_0 g2_x_2
 deriving via (EquivStorable G2) instance Storable G2
+deriving via (IsStructViaStorable G2) instance IsStruct G2
 instance (~) ty MyInt => HasField "g2_x" G2 ty
     where hasField = \x_0 -> (\y_1 -> G2{g2_x = y_1},
                               getField @"g2_x" x_0)
@@ -138,6 +140,7 @@ instance WriteRaw G3
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        G3 g3_x_2 -> writeRaw (Proxy @"g3_x") ptr_0 g3_x_2
 deriving via (EquivStorable G3) instance Storable G3
+deriving via (IsStructViaStorable G3) instance IsStruct G3
 instance (~) ty MyInt => HasField "g3_x" G3 ty
     where hasField = \x_0 -> (\y_1 -> G3{g3_x = y_1},
                               getField @"g3_x" x_0)

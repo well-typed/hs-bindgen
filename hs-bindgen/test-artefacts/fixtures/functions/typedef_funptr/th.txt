@@ -94,6 +94,7 @@ instance WriteRaw Driver
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Driver driver_run_2 -> writeRaw (Proxy @"driver_run") ptr_0 driver_run_2
 deriving via (EquivStorable Driver) instance Storable Driver
+deriving via (IsStructViaStorable Driver) instance IsStruct Driver
 instance (~) ty RunDriver => HasField "driver_run" Driver ty
     where hasField = \x_0 -> (\y_1 -> Driver{driver_run = y_1},
                               getField @"driver_run" x_0)
@@ -127,6 +128,7 @@ instance WriteRaw Bare
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Bare bare_callback_2 -> writeRaw (Proxy @"bare_callback") ptr_0 bare_callback_2
 deriving via (EquivStorable Bare) instance Storable Bare
+deriving via (IsStructViaStorable Bare) instance IsStruct Bare
 instance (~) ty (FunPtr (CInt -> IO ())) =>
          HasField "bare_callback" Bare ty
     where hasField = \x_0 -> (\y_1 -> Bare{bare_callback = y_1},

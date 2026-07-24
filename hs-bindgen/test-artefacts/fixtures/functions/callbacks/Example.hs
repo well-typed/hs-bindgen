@@ -54,6 +54,7 @@ import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
@@ -441,6 +442,8 @@ instance Marshal.WriteRaw Measurement where
             >> HasCField.writeRaw (BG.Proxy @"measurement_timestamp") ptr0 measurement_timestamp3
 
 deriving via Marshal.EquivStorable Measurement instance BG.Storable Measurement
+
+deriving via Struct.IsStructViaStorable Measurement instance Struct.IsStruct Measurement
 
 {-| __C declaration:__ @value@
 
@@ -867,6 +870,8 @@ instance Marshal.WriteRaw MeasurementHandler where
 
 deriving via Marshal.EquivStorable MeasurementHandler instance BG.Storable MeasurementHandler
 
+deriving via Struct.IsStructViaStorable MeasurementHandler instance Struct.IsStruct MeasurementHandler
+
 {-| __C declaration:__ @onReceived@
 
     __defined at:__ @functions\/callbacks.h 51:10@
@@ -1024,6 +1029,8 @@ instance Marshal.WriteRaw DataPipeline where
               >> HasCField.writeRaw (BG.Proxy @"dataPipeline_postProcess") ptr0 dataPipeline_postProcess4
 
 deriving via Marshal.EquivStorable DataPipeline instance BG.Storable DataPipeline
+
+deriving via Struct.IsStructViaStorable DataPipeline instance Struct.IsStruct DataPipeline
 
 {-| __C declaration:__ @preProcess@
 
@@ -1433,6 +1440,8 @@ instance Marshal.WriteRaw Processor where
 
 deriving via Marshal.EquivStorable Processor instance BG.Storable Processor
 
+deriving via Struct.IsStructViaStorable Processor instance Struct.IsStruct Processor
+
 {-| __C declaration:__ @mode@
 
     __defined at:__ @functions\/callbacks.h 76:55@
@@ -1711,6 +1720,8 @@ instance Marshal.WriteRaw S where
             HasCField.writeRaw (BG.Proxy @"s_fn") ptr0 s_fn2
 
 deriving via Marshal.EquivStorable S instance BG.Storable S
+
+deriving via Struct.IsStructViaStorable S instance Struct.IsStruct S
 
 {-| __C declaration:__ @fn@
 

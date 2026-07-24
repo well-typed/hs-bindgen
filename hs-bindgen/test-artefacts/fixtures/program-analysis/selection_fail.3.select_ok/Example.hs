@@ -19,6 +19,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -62,6 +63,8 @@ instance Marshal.WriteRaw OkBefore where
             HasCField.writeRaw (BG.Proxy @"okBefore_x") ptr0 okBefore_x2
 
 deriving via Marshal.EquivStorable OkBefore instance BG.Storable OkBefore
+
+deriving via Struct.IsStructViaStorable OkBefore instance Struct.IsStruct OkBefore
 
 {-| __C declaration:__ @x@
 

@@ -37,6 +37,7 @@ import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -260,6 +261,8 @@ instance Marshal.WriteRaw Bar1_t where
             >> HasCField.writeRaw (BG.Proxy @"k") ptr0 k12
 
 deriving via Marshal.EquivStorable Bar1_t instance BG.Storable Bar1_t
+
+deriving via Struct.IsStructViaStorable Bar1_t instance Struct.IsStruct Bar1_t
 
 {-| __C declaration:__ @a@
 
@@ -720,6 +723,8 @@ instance Marshal.WriteRaw Bar2_t where
 
 deriving via Marshal.EquivStorable Bar2_t instance BG.Storable Bar2_t
 
+deriving via Struct.IsStructViaStorable Bar2_t instance Struct.IsStruct Bar2_t
+
 {-| __C declaration:__ @a@
 
     __defined at:__ @comprehensive\/smoke.h 55:7@
@@ -781,6 +786,8 @@ instance Marshal.WriteRaw Bar3_t where
             HasCField.writeRaw (BG.Proxy @"a") ptr0 a2
 
 deriving via Marshal.EquivStorable Bar3_t instance BG.Storable Bar3_t
+
+deriving via Struct.IsStructViaStorable Bar3_t instance Struct.IsStruct Bar3_t
 
 {-| __C declaration:__ @a@
 

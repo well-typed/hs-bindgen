@@ -31,6 +31,7 @@ instance WriteRaw S1_c
                                        S1_c s1_c_a_2
                                             s1_c_b_3 -> writeRaw (Proxy @"s1_c_a") ptr_0 s1_c_a_2 >> writeRaw (Proxy @"s1_c_b") ptr_0 s1_c_b_3
 deriving via (EquivStorable S1_c) instance Storable S1_c
+deriving via (IsStructViaStorable S1_c) instance IsStruct S1_c
 instance (~) ty CInt => HasField "s1_c_a" S1_c ty
     where hasField = \x_0 -> (\y_1 -> S1_c{s1_c_a = y_1,
                                            s1_c_b = getField @"s1_c_b" x_0},
@@ -81,6 +82,7 @@ instance WriteRaw S1
                                        S1 s1_c_2
                                           s1_d_3 -> writeRaw (Proxy @"s1_c") ptr_0 s1_c_2 >> writeRaw (Proxy @"s1_d") ptr_0 s1_d_3
 deriving via (EquivStorable S1) instance Storable S1
+deriving via (IsStructViaStorable S1) instance IsStruct S1
 instance (~) ty S1_c => HasField "s1_c" S1 ty
     where hasField = \x_0 -> (\y_1 -> S1{s1_c = y_1,
                                          s1_d = getField @"s1_d" x_0},
@@ -123,6 +125,7 @@ instance WriteRaw S2_inner_deep
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S2_inner_deep s2_inner_deep_b_2 -> writeRaw (Proxy @"s2_inner_deep_b") ptr_0 s2_inner_deep_b_2
 deriving via (EquivStorable S2_inner_deep) instance Storable S2_inner_deep
+deriving via (IsStructViaStorable S2_inner_deep) instance IsStruct S2_inner_deep
 instance (~) ty CInt => HasField "s2_inner_deep_b" S2_inner_deep ty
     where hasField = \x_0 -> (\y_1 -> S2_inner_deep{s2_inner_deep_b = y_1},
                               getField @"s2_inner_deep_b" x_0)
@@ -164,6 +167,7 @@ instance WriteRaw S2_inner
                                        S2_inner s2_inner_a_2
                                                 s2_inner_deep_3 -> writeRaw (Proxy @"s2_inner_a") ptr_0 s2_inner_a_2 >> writeRaw (Proxy @"s2_inner_deep") ptr_0 s2_inner_deep_3
 deriving via (EquivStorable S2_inner) instance Storable S2_inner
+deriving via (IsStructViaStorable S2_inner) instance IsStruct S2_inner
 instance (~) ty CInt => HasField "s2_inner_a" S2_inner ty
     where hasField = \x_0 -> (\y_1 -> S2_inner{s2_inner_a = y_1,
                                                s2_inner_deep = getField @"s2_inner_deep" x_0},
@@ -217,6 +221,7 @@ instance WriteRaw S2
                                        S2 s2_inner_2
                                           s2_d_3 -> writeRaw (Proxy @"s2_inner") ptr_0 s2_inner_2 >> writeRaw (Proxy @"s2_d") ptr_0 s2_d_3
 deriving via (EquivStorable S2) instance Storable S2
+deriving via (IsStructViaStorable S2) instance IsStruct S2
 instance (~) ty S2_inner => HasField "s2_inner" S2 ty
     where hasField = \x_0 -> (\y_1 -> S2{s2_inner = y_1,
                                          s2_d = getField @"s2_d" x_0},
@@ -267,6 +272,7 @@ instance WriteRaw S3
                                        S3 s3_c_2
                                           s3_d_3 -> writeRaw (Proxy @"s3_c") ptr_0 s3_c_2 >> writeRaw (Proxy @"s3_d") ptr_0 s3_d_3
 deriving via (EquivStorable S3) instance Storable S3
+deriving via (IsStructViaStorable S3) instance IsStruct S3
 instance (~) ty (Ptr (Ptr S3_c)) => HasField "s3_c" S3 ty
     where hasField = \x_0 -> (\y_1 -> S3{s3_c = y_1,
                                          s3_d = getField @"s3_d" x_0},
@@ -318,6 +324,7 @@ instance WriteRaw S3_c
                                        S3_c s3_c_a_2
                                             s3_c_b_3 -> writeRaw (Proxy @"s3_c_a") ptr_0 s3_c_a_2 >> writeRaw (Proxy @"s3_c_b") ptr_0 s3_c_b_3
 deriving via (EquivStorable S3_c) instance Storable S3_c
+deriving via (IsStructViaStorable S3_c) instance IsStruct S3_c
 instance (~) ty CInt => HasField "s3_c_a" S3_c ty
     where hasField = \x_0 -> (\y_1 -> S3_c{s3_c_a = y_1,
                                            s3_c_b = getField @"s3_c_b" x_0},

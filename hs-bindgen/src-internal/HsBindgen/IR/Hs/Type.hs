@@ -83,4 +83,6 @@ data Type =
   | StrLit String
   | WithFlam Type Type
   | EquivStorable Type
+    -- | 'HsBindgen.Runtime.Struct.IsStructViaStorable'
+  | IsStructViaStorable Type
   deriving stock (Generic, Show, Eq)

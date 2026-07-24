@@ -123,6 +123,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
@@ -207,6 +208,8 @@ instance Marshal.WriteRaw MyCoolStruct where
             HasCField.writeRaw (BG.Proxy @"listOfNames") ptr0 listOfNames2
 
 deriving via Marshal.EquivStorable MyCoolStruct instance BG.Storable MyCoolStruct
+
+deriving via Struct.IsStructViaStorable MyCoolStruct instance Struct.IsStruct MyCoolStruct
 
 {-| __C declaration:__ @listOfNames@
 
@@ -379,6 +382,8 @@ instance Marshal.WriteRaw Foo_t where
             HasCField.writeRaw (BG.Proxy @"foo_member") ptr0 foo_member2
 
 deriving via Marshal.EquivStorable Foo_t instance BG.Storable Foo_t
+
+deriving via Struct.IsStructViaStorable Foo_t instance Struct.IsStruct Foo_t
 
 {-| __C declaration:__ @foo_member@
 
@@ -558,6 +563,8 @@ instance Marshal.WriteRaw St where
           St i2 -> HasCField.writeRaw (BG.Proxy @"i") ptr0 i2
 
 deriving via Marshal.EquivStorable St instance BG.Storable St
+
+deriving via Struct.IsStructViaStorable St instance Struct.IsStruct St
 
 {-| __C declaration:__ @i@
 
@@ -820,6 +827,8 @@ instance Marshal.WriteRaw MyStructType where
 
 deriving via Marshal.EquivStorable MyStructType instance BG.Storable MyStructType
 
+deriving via Struct.IsStructViaStorable MyStructType instance Struct.IsStruct MyStructType
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @comprehensive\/c2hsc.h 65:7@
@@ -894,6 +903,8 @@ instance Marshal.WriteRaw Ordinary_float_struct where
 
 deriving via Marshal.EquivStorable Ordinary_float_struct instance BG.Storable Ordinary_float_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_float_struct instance Struct.IsStruct Ordinary_float_struct
+
 {-| __C declaration:__ @ordinary_float_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 204:62@
@@ -963,6 +974,8 @@ instance Marshal.WriteRaw Ordinary_double_struct where
             HasCField.writeRaw (BG.Proxy @"ordinary_double_member") ptr0 ordinary_double_member2
 
 deriving via Marshal.EquivStorable Ordinary_double_struct instance BG.Storable Ordinary_double_struct
+
+deriving via Struct.IsStructViaStorable Ordinary_double_struct instance Struct.IsStruct Ordinary_double_struct
 
 {-| __C declaration:__ @ordinary_double_member@
 
@@ -1034,6 +1047,8 @@ instance Marshal.WriteRaw Ordinary_signed_char_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_char_struct instance BG.Storable Ordinary_signed_char_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_signed_char_struct instance Struct.IsStruct Ordinary_signed_char_struct
+
 {-| __C declaration:__ @ordinary_signed_char_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 208:62@
@@ -1103,6 +1118,8 @@ instance Marshal.WriteRaw Explicit_signed_char_struct where
             HasCField.writeRaw (BG.Proxy @"explicit_signed_char_member") ptr0 explicit_signed_char_member2
 
 deriving via Marshal.EquivStorable Explicit_signed_char_struct instance BG.Storable Explicit_signed_char_struct
+
+deriving via Struct.IsStructViaStorable Explicit_signed_char_struct instance Struct.IsStruct Explicit_signed_char_struct
 
 {-| __C declaration:__ @explicit_signed_char_member@
 
@@ -1174,6 +1191,8 @@ instance Marshal.WriteRaw Unsigned_char_struct where
 
 deriving via Marshal.EquivStorable Unsigned_char_struct instance BG.Storable Unsigned_char_struct
 
+deriving via Struct.IsStructViaStorable Unsigned_char_struct instance Struct.IsStruct Unsigned_char_struct
+
 {-| __C declaration:__ @unsigned_char_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 210:62@
@@ -1243,6 +1262,8 @@ instance Marshal.WriteRaw Ordinary_signed_short_struct where
             HasCField.writeRaw (BG.Proxy @"ordinary_signed_short_member") ptr0 ordinary_signed_short_member2
 
 deriving via Marshal.EquivStorable Ordinary_signed_short_struct instance BG.Storable Ordinary_signed_short_struct
+
+deriving via Struct.IsStructViaStorable Ordinary_signed_short_struct instance Struct.IsStruct Ordinary_signed_short_struct
 
 {-| __C declaration:__ @ordinary_signed_short_member@
 
@@ -1314,6 +1335,8 @@ instance Marshal.WriteRaw Explicit_signed_short_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_short_struct instance BG.Storable Explicit_signed_short_struct
 
+deriving via Struct.IsStructViaStorable Explicit_signed_short_struct instance Struct.IsStruct Explicit_signed_short_struct
+
 {-| __C declaration:__ @explicit_signed_short_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 213:62@
@@ -1383,6 +1406,8 @@ instance Marshal.WriteRaw Unsigned_short_struct where
             HasCField.writeRaw (BG.Proxy @"unsigned_short_member") ptr0 unsigned_short_member2
 
 deriving via Marshal.EquivStorable Unsigned_short_struct instance BG.Storable Unsigned_short_struct
+
+deriving via Struct.IsStructViaStorable Unsigned_short_struct instance Struct.IsStruct Unsigned_short_struct
 
 {-| __C declaration:__ @unsigned_short_member@
 
@@ -1454,6 +1479,8 @@ instance Marshal.WriteRaw Ordinary_signed_int_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_int_struct instance BG.Storable Ordinary_signed_int_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_signed_int_struct instance Struct.IsStruct Ordinary_signed_int_struct
+
 {-| __C declaration:__ @ordinary_signed_int_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 216:62@
@@ -1523,6 +1550,8 @@ instance Marshal.WriteRaw Explicit_signed_int_struct where
             HasCField.writeRaw (BG.Proxy @"explicit_signed_int_member") ptr0 explicit_signed_int_member2
 
 deriving via Marshal.EquivStorable Explicit_signed_int_struct instance BG.Storable Explicit_signed_int_struct
+
+deriving via Struct.IsStructViaStorable Explicit_signed_int_struct instance Struct.IsStruct Explicit_signed_int_struct
 
 {-| __C declaration:__ @explicit_signed_int_member@
 
@@ -1594,6 +1623,8 @@ instance Marshal.WriteRaw Unsigned_int_struct where
 
 deriving via Marshal.EquivStorable Unsigned_int_struct instance BG.Storable Unsigned_int_struct
 
+deriving via Struct.IsStructViaStorable Unsigned_int_struct instance Struct.IsStruct Unsigned_int_struct
+
 {-| __C declaration:__ @unsigned_int_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 218:62@
@@ -1663,6 +1694,8 @@ instance Marshal.WriteRaw Ordinary_signed_long_struct where
             HasCField.writeRaw (BG.Proxy @"ordinary_signed_long_member") ptr0 ordinary_signed_long_member2
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_struct instance BG.Storable Ordinary_signed_long_struct
+
+deriving via Struct.IsStructViaStorable Ordinary_signed_long_struct instance Struct.IsStruct Ordinary_signed_long_struct
 
 {-| __C declaration:__ @ordinary_signed_long_member@
 
@@ -1734,6 +1767,8 @@ instance Marshal.WriteRaw Explicit_signed_long_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_struct instance BG.Storable Explicit_signed_long_struct
 
+deriving via Struct.IsStructViaStorable Explicit_signed_long_struct instance Struct.IsStruct Explicit_signed_long_struct
+
 {-| __C declaration:__ @explicit_signed_long_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 221:62@
@@ -1803,6 +1838,8 @@ instance Marshal.WriteRaw Unsigned_long_struct where
             HasCField.writeRaw (BG.Proxy @"unsigned_long_member") ptr0 unsigned_long_member2
 
 deriving via Marshal.EquivStorable Unsigned_long_struct instance BG.Storable Unsigned_long_struct
+
+deriving via Struct.IsStructViaStorable Unsigned_long_struct instance Struct.IsStruct Unsigned_long_struct
 
 {-| __C declaration:__ @unsigned_long_member@
 
@@ -1874,6 +1911,8 @@ instance Marshal.WriteRaw Ordinary_signed_long_long_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_long_struct instance BG.Storable Ordinary_signed_long_long_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_signed_long_long_struct instance Struct.IsStruct Ordinary_signed_long_long_struct
+
 {-| __C declaration:__ @ordinary_signed_long_long_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 224:62@
@@ -1944,6 +1983,8 @@ instance Marshal.WriteRaw Explicit_signed_long_long_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_long_struct instance BG.Storable Explicit_signed_long_long_struct
 
+deriving via Struct.IsStructViaStorable Explicit_signed_long_long_struct instance Struct.IsStruct Explicit_signed_long_long_struct
+
 {-| __C declaration:__ @explicit_signed_long_long_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 225:62@
@@ -2013,6 +2054,8 @@ instance Marshal.WriteRaw Unsigned_long_long_struct where
             HasCField.writeRaw (BG.Proxy @"unsigned_long_long_member") ptr0 unsigned_long_long_member2
 
 deriving via Marshal.EquivStorable Unsigned_long_long_struct instance BG.Storable Unsigned_long_long_struct
+
+deriving via Struct.IsStructViaStorable Unsigned_long_long_struct instance Struct.IsStruct Unsigned_long_long_struct
 
 {-| __C declaration:__ @unsigned_long_long_member@
 
@@ -2088,6 +2131,8 @@ instance Marshal.WriteRaw Ordinary_void_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_void_pointer_struct instance BG.Storable Ordinary_void_pointer_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_void_pointer_struct instance Struct.IsStruct Ordinary_void_pointer_struct
+
 {-| __C declaration:__ @ordinary_void_pointer_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 235:71@
@@ -2157,6 +2202,8 @@ instance Marshal.WriteRaw Ordinary_float_pointer_struct where
             HasCField.writeRaw (BG.Proxy @"ordinary_float_pointer_member") ptr0 ordinary_float_pointer_member2
 
 deriving via Marshal.EquivStorable Ordinary_float_pointer_struct instance BG.Storable Ordinary_float_pointer_struct
+
+deriving via Struct.IsStructViaStorable Ordinary_float_pointer_struct instance Struct.IsStruct Ordinary_float_pointer_struct
 
 {-| __C declaration:__ @ordinary_float_pointer_member@
 
@@ -2228,6 +2275,8 @@ instance Marshal.WriteRaw Ordinary_double_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_double_pointer_struct instance BG.Storable Ordinary_double_pointer_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_double_pointer_struct instance Struct.IsStruct Ordinary_double_pointer_struct
+
 {-| __C declaration:__ @ordinary_double_pointer_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 238:71@
@@ -2297,6 +2346,8 @@ instance Marshal.WriteRaw Ordinary_signed_char_pointer_struct where
             HasCField.writeRaw (BG.Proxy @"ordinary_signed_char_pointer_member") ptr0 ordinary_signed_char_pointer_member2
 
 deriving via Marshal.EquivStorable Ordinary_signed_char_pointer_struct instance BG.Storable Ordinary_signed_char_pointer_struct
+
+deriving via Struct.IsStructViaStorable Ordinary_signed_char_pointer_struct instance Struct.IsStruct Ordinary_signed_char_pointer_struct
 
 {-| __C declaration:__ @ordinary_signed_char_pointer_member@
 
@@ -2368,6 +2419,8 @@ instance Marshal.WriteRaw Explicit_signed_char_pointer_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_char_pointer_struct instance BG.Storable Explicit_signed_char_pointer_struct
 
+deriving via Struct.IsStructViaStorable Explicit_signed_char_pointer_struct instance Struct.IsStruct Explicit_signed_char_pointer_struct
+
 {-| __C declaration:__ @explicit_signed_char_pointer_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 242:71@
@@ -2437,6 +2490,8 @@ instance Marshal.WriteRaw Unsigned_char_pointer_struct where
             HasCField.writeRaw (BG.Proxy @"unsigned_char_pointer_member") ptr0 unsigned_char_pointer_member2
 
 deriving via Marshal.EquivStorable Unsigned_char_pointer_struct instance BG.Storable Unsigned_char_pointer_struct
+
+deriving via Struct.IsStructViaStorable Unsigned_char_pointer_struct instance Struct.IsStruct Unsigned_char_pointer_struct
 
 {-| __C declaration:__ @unsigned_char_pointer_member@
 
@@ -2508,6 +2563,8 @@ instance Marshal.WriteRaw Ordinary_signed_short_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_short_pointer_struct instance BG.Storable Ordinary_signed_short_pointer_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_signed_short_pointer_struct instance Struct.IsStruct Ordinary_signed_short_pointer_struct
+
 {-| __C declaration:__ @ordinary_signed_short_pointer_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 245:71@
@@ -2577,6 +2634,8 @@ instance Marshal.WriteRaw Explicit_signed_short_pointer_struct where
             HasCField.writeRaw (BG.Proxy @"explicit_signed_short_pointer_member") ptr0 explicit_signed_short_pointer_member2
 
 deriving via Marshal.EquivStorable Explicit_signed_short_pointer_struct instance BG.Storable Explicit_signed_short_pointer_struct
+
+deriving via Struct.IsStructViaStorable Explicit_signed_short_pointer_struct instance Struct.IsStruct Explicit_signed_short_pointer_struct
 
 {-| __C declaration:__ @explicit_signed_short_pointer_member@
 
@@ -2648,6 +2707,8 @@ instance Marshal.WriteRaw Unsigned_short_pointer_struct where
 
 deriving via Marshal.EquivStorable Unsigned_short_pointer_struct instance BG.Storable Unsigned_short_pointer_struct
 
+deriving via Struct.IsStructViaStorable Unsigned_short_pointer_struct instance Struct.IsStruct Unsigned_short_pointer_struct
+
 {-| __C declaration:__ @unsigned_short_pointer_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 247:71@
@@ -2717,6 +2778,8 @@ instance Marshal.WriteRaw Ordinary_signed_int_pointer_struct where
             HasCField.writeRaw (BG.Proxy @"ordinary_signed_int_pointer_member") ptr0 ordinary_signed_int_pointer_member2
 
 deriving via Marshal.EquivStorable Ordinary_signed_int_pointer_struct instance BG.Storable Ordinary_signed_int_pointer_struct
+
+deriving via Struct.IsStructViaStorable Ordinary_signed_int_pointer_struct instance Struct.IsStruct Ordinary_signed_int_pointer_struct
 
 {-| __C declaration:__ @ordinary_signed_int_pointer_member@
 
@@ -2788,6 +2851,8 @@ instance Marshal.WriteRaw Explicit_signed_int_pointer_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_int_pointer_struct instance BG.Storable Explicit_signed_int_pointer_struct
 
+deriving via Struct.IsStructViaStorable Explicit_signed_int_pointer_struct instance Struct.IsStruct Explicit_signed_int_pointer_struct
+
 {-| __C declaration:__ @explicit_signed_int_pointer_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 250:71@
@@ -2857,6 +2922,8 @@ instance Marshal.WriteRaw Unsigned_int_pointer_struct where
             HasCField.writeRaw (BG.Proxy @"unsigned_int_pointer_member") ptr0 unsigned_int_pointer_member2
 
 deriving via Marshal.EquivStorable Unsigned_int_pointer_struct instance BG.Storable Unsigned_int_pointer_struct
+
+deriving via Struct.IsStructViaStorable Unsigned_int_pointer_struct instance Struct.IsStruct Unsigned_int_pointer_struct
 
 {-| __C declaration:__ @unsigned_int_pointer_member@
 
@@ -2928,6 +2995,8 @@ instance Marshal.WriteRaw Ordinary_signed_long_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_pointer_struct instance BG.Storable Ordinary_signed_long_pointer_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_signed_long_pointer_struct instance Struct.IsStruct Ordinary_signed_long_pointer_struct
+
 {-| __C declaration:__ @ordinary_signed_long_pointer_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 253:71@
@@ -2998,6 +3067,8 @@ instance Marshal.WriteRaw Explicit_signed_long_pointer_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_pointer_struct instance BG.Storable Explicit_signed_long_pointer_struct
 
+deriving via Struct.IsStructViaStorable Explicit_signed_long_pointer_struct instance Struct.IsStruct Explicit_signed_long_pointer_struct
+
 {-| __C declaration:__ @explicit_signed_long_pointer_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 254:71@
@@ -3067,6 +3138,8 @@ instance Marshal.WriteRaw Unsigned_long_pointer_struct where
             HasCField.writeRaw (BG.Proxy @"unsigned_long_pointer_member") ptr0 unsigned_long_pointer_member2
 
 deriving via Marshal.EquivStorable Unsigned_long_pointer_struct instance BG.Storable Unsigned_long_pointer_struct
+
+deriving via Struct.IsStructViaStorable Unsigned_long_pointer_struct instance Struct.IsStruct Unsigned_long_pointer_struct
 
 {-| __C declaration:__ @unsigned_long_pointer_member@
 
@@ -3139,6 +3212,8 @@ instance Marshal.WriteRaw Ordinary_signed_long_long_pointer_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_long_pointer_struct instance BG.Storable Ordinary_signed_long_long_pointer_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_signed_long_long_pointer_struct instance Struct.IsStruct Ordinary_signed_long_long_pointer_struct
+
 {-| __C declaration:__ @ordinary_signed_long_long_pointer_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 257:71@
@@ -3210,6 +3285,8 @@ instance Marshal.WriteRaw Explicit_signed_long_long_pointer_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_long_pointer_struct instance BG.Storable Explicit_signed_long_long_pointer_struct
 
+deriving via Struct.IsStructViaStorable Explicit_signed_long_long_pointer_struct instance Struct.IsStruct Explicit_signed_long_long_pointer_struct
+
 {-| __C declaration:__ @explicit_signed_long_long_pointer_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 258:71@
@@ -3279,6 +3356,8 @@ instance Marshal.WriteRaw Unsigned_long_long_pointer_struct where
             HasCField.writeRaw (BG.Proxy @"unsigned_long_long_pointer_member") ptr0 unsigned_long_long_pointer_member2
 
 deriving via Marshal.EquivStorable Unsigned_long_long_pointer_struct instance BG.Storable Unsigned_long_long_pointer_struct
+
+deriving via Struct.IsStructViaStorable Unsigned_long_long_pointer_struct instance Struct.IsStruct Unsigned_long_long_pointer_struct
 
 {-| __C declaration:__ @unsigned_long_long_pointer_member@
 
@@ -3352,6 +3431,8 @@ instance Marshal.WriteRaw Ordinary_float_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_float_array_struct instance BG.Storable Ordinary_float_array_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_float_array_struct instance Struct.IsStruct Ordinary_float_array_struct
+
 {-| __C declaration:__ @ordinary_float_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 265:68@
@@ -3421,6 +3502,8 @@ instance Marshal.WriteRaw Ordinary_double_array_struct where
             HasCField.writeRaw (BG.Proxy @"ordinary_double_array_member") ptr0 ordinary_double_array_member2
 
 deriving via Marshal.EquivStorable Ordinary_double_array_struct instance BG.Storable Ordinary_double_array_struct
+
+deriving via Struct.IsStructViaStorable Ordinary_double_array_struct instance Struct.IsStruct Ordinary_double_array_struct
 
 {-| __C declaration:__ @ordinary_double_array_member@
 
@@ -3492,6 +3575,8 @@ instance Marshal.WriteRaw Ordinary_signed_char_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_char_array_struct instance BG.Storable Ordinary_signed_char_array_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_signed_char_array_struct instance Struct.IsStruct Ordinary_signed_char_array_struct
+
 {-| __C declaration:__ @ordinary_signed_char_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 269:68@
@@ -3561,6 +3646,8 @@ instance Marshal.WriteRaw Explicit_signed_char_array_struct where
             HasCField.writeRaw (BG.Proxy @"explicit_signed_char_array_member") ptr0 explicit_signed_char_array_member2
 
 deriving via Marshal.EquivStorable Explicit_signed_char_array_struct instance BG.Storable Explicit_signed_char_array_struct
+
+deriving via Struct.IsStructViaStorable Explicit_signed_char_array_struct instance Struct.IsStruct Explicit_signed_char_array_struct
 
 {-| __C declaration:__ @explicit_signed_char_array_member@
 
@@ -3632,6 +3719,8 @@ instance Marshal.WriteRaw Unsigned_char_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_char_array_struct instance BG.Storable Unsigned_char_array_struct
 
+deriving via Struct.IsStructViaStorable Unsigned_char_array_struct instance Struct.IsStruct Unsigned_char_array_struct
+
 {-| __C declaration:__ @unsigned_char_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 271:68@
@@ -3701,6 +3790,8 @@ instance Marshal.WriteRaw Ordinary_signed_short_array_struct where
             HasCField.writeRaw (BG.Proxy @"ordinary_signed_short_array_member") ptr0 ordinary_signed_short_array_member2
 
 deriving via Marshal.EquivStorable Ordinary_signed_short_array_struct instance BG.Storable Ordinary_signed_short_array_struct
+
+deriving via Struct.IsStructViaStorable Ordinary_signed_short_array_struct instance Struct.IsStruct Ordinary_signed_short_array_struct
 
 {-| __C declaration:__ @ordinary_signed_short_array_member@
 
@@ -3772,6 +3863,8 @@ instance Marshal.WriteRaw Explicit_signed_short_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_short_array_struct instance BG.Storable Explicit_signed_short_array_struct
 
+deriving via Struct.IsStructViaStorable Explicit_signed_short_array_struct instance Struct.IsStruct Explicit_signed_short_array_struct
+
 {-| __C declaration:__ @explicit_signed_short_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 274:68@
@@ -3841,6 +3934,8 @@ instance Marshal.WriteRaw Unsigned_short_array_struct where
             HasCField.writeRaw (BG.Proxy @"unsigned_short_array_member") ptr0 unsigned_short_array_member2
 
 deriving via Marshal.EquivStorable Unsigned_short_array_struct instance BG.Storable Unsigned_short_array_struct
+
+deriving via Struct.IsStructViaStorable Unsigned_short_array_struct instance Struct.IsStruct Unsigned_short_array_struct
 
 {-| __C declaration:__ @unsigned_short_array_member@
 
@@ -3912,6 +4007,8 @@ instance Marshal.WriteRaw Ordinary_signed_int_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_int_array_struct instance BG.Storable Ordinary_signed_int_array_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_signed_int_array_struct instance Struct.IsStruct Ordinary_signed_int_array_struct
+
 {-| __C declaration:__ @ordinary_signed_int_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 277:68@
@@ -3981,6 +4078,8 @@ instance Marshal.WriteRaw Explicit_signed_int_array_struct where
             HasCField.writeRaw (BG.Proxy @"explicit_signed_int_array_member") ptr0 explicit_signed_int_array_member2
 
 deriving via Marshal.EquivStorable Explicit_signed_int_array_struct instance BG.Storable Explicit_signed_int_array_struct
+
+deriving via Struct.IsStructViaStorable Explicit_signed_int_array_struct instance Struct.IsStruct Explicit_signed_int_array_struct
 
 {-| __C declaration:__ @explicit_signed_int_array_member@
 
@@ -4052,6 +4151,8 @@ instance Marshal.WriteRaw Unsigned_int_array_struct where
 
 deriving via Marshal.EquivStorable Unsigned_int_array_struct instance BG.Storable Unsigned_int_array_struct
 
+deriving via Struct.IsStructViaStorable Unsigned_int_array_struct instance Struct.IsStruct Unsigned_int_array_struct
+
 {-| __C declaration:__ @unsigned_int_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 279:68@
@@ -4121,6 +4222,8 @@ instance Marshal.WriteRaw Ordinary_signed_long_array_struct where
             HasCField.writeRaw (BG.Proxy @"ordinary_signed_long_array_member") ptr0 ordinary_signed_long_array_member2
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_array_struct instance BG.Storable Ordinary_signed_long_array_struct
+
+deriving via Struct.IsStructViaStorable Ordinary_signed_long_array_struct instance Struct.IsStruct Ordinary_signed_long_array_struct
 
 {-| __C declaration:__ @ordinary_signed_long_array_member@
 
@@ -4192,6 +4295,8 @@ instance Marshal.WriteRaw Explicit_signed_long_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_array_struct instance BG.Storable Explicit_signed_long_array_struct
 
+deriving via Struct.IsStructViaStorable Explicit_signed_long_array_struct instance Struct.IsStruct Explicit_signed_long_array_struct
+
 {-| __C declaration:__ @explicit_signed_long_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 282:68@
@@ -4261,6 +4366,8 @@ instance Marshal.WriteRaw Unsigned_long_array_struct where
             HasCField.writeRaw (BG.Proxy @"unsigned_long_array_member") ptr0 unsigned_long_array_member2
 
 deriving via Marshal.EquivStorable Unsigned_long_array_struct instance BG.Storable Unsigned_long_array_struct
+
+deriving via Struct.IsStructViaStorable Unsigned_long_array_struct instance Struct.IsStruct Unsigned_long_array_struct
 
 {-| __C declaration:__ @unsigned_long_array_member@
 
@@ -4333,6 +4440,8 @@ instance Marshal.WriteRaw Ordinary_signed_long_long_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_long_array_struct instance BG.Storable Ordinary_signed_long_long_array_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_signed_long_long_array_struct instance Struct.IsStruct Ordinary_signed_long_long_array_struct
+
 {-| __C declaration:__ @ordinary_signed_long_long_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 285:68@
@@ -4404,6 +4513,8 @@ instance Marshal.WriteRaw Explicit_signed_long_long_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_long_array_struct instance BG.Storable Explicit_signed_long_long_array_struct
 
+deriving via Struct.IsStructViaStorable Explicit_signed_long_long_array_struct instance Struct.IsStruct Explicit_signed_long_long_array_struct
+
 {-| __C declaration:__ @explicit_signed_long_long_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 286:68@
@@ -4473,6 +4584,8 @@ instance Marshal.WriteRaw Unsigned_long_long_array_struct where
             HasCField.writeRaw (BG.Proxy @"unsigned_long_long_array_member") ptr0 unsigned_long_long_array_member2
 
 deriving via Marshal.EquivStorable Unsigned_long_long_array_struct instance BG.Storable Unsigned_long_long_array_struct
+
+deriving via Struct.IsStructViaStorable Unsigned_long_long_array_struct instance Struct.IsStruct Unsigned_long_long_array_struct
 
 {-| __C declaration:__ @unsigned_long_long_array_member@
 
@@ -4548,6 +4661,8 @@ instance Marshal.WriteRaw Ordinary_void_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_void_pointer_array_struct instance BG.Storable Ordinary_void_pointer_array_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_void_pointer_array_struct instance Struct.IsStruct Ordinary_void_pointer_array_struct
+
 {-| __C declaration:__ @ordinary_void_pointer_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 296:77@
@@ -4618,6 +4733,8 @@ instance Marshal.WriteRaw Ordinary_float_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_float_pointer_array_struct instance BG.Storable Ordinary_float_pointer_array_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_float_pointer_array_struct instance Struct.IsStruct Ordinary_float_pointer_array_struct
+
 {-| __C declaration:__ @ordinary_float_pointer_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 298:77@
@@ -4687,6 +4804,8 @@ instance Marshal.WriteRaw Ordinary_double_pointer_array_struct where
             HasCField.writeRaw (BG.Proxy @"ordinary_double_pointer_array_member") ptr0 ordinary_double_pointer_array_member2
 
 deriving via Marshal.EquivStorable Ordinary_double_pointer_array_struct instance BG.Storable Ordinary_double_pointer_array_struct
+
+deriving via Struct.IsStructViaStorable Ordinary_double_pointer_array_struct instance Struct.IsStruct Ordinary_double_pointer_array_struct
 
 {-| __C declaration:__ @ordinary_double_pointer_array_member@
 
@@ -4759,6 +4878,8 @@ instance Marshal.WriteRaw Ordinary_signed_char_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_char_pointer_array_struct instance BG.Storable Ordinary_signed_char_pointer_array_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_signed_char_pointer_array_struct instance Struct.IsStruct Ordinary_signed_char_pointer_array_struct
+
 {-| __C declaration:__ @ordinary_signed_char_pointer_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 302:77@
@@ -4830,6 +4951,8 @@ instance Marshal.WriteRaw Explicit_signed_char_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_char_pointer_array_struct instance BG.Storable Explicit_signed_char_pointer_array_struct
 
+deriving via Struct.IsStructViaStorable Explicit_signed_char_pointer_array_struct instance Struct.IsStruct Explicit_signed_char_pointer_array_struct
+
 {-| __C declaration:__ @explicit_signed_char_pointer_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 303:77@
@@ -4899,6 +5022,8 @@ instance Marshal.WriteRaw Unsigned_char_pointer_array_struct where
             HasCField.writeRaw (BG.Proxy @"unsigned_char_pointer_array_member") ptr0 unsigned_char_pointer_array_member2
 
 deriving via Marshal.EquivStorable Unsigned_char_pointer_array_struct instance BG.Storable Unsigned_char_pointer_array_struct
+
+deriving via Struct.IsStructViaStorable Unsigned_char_pointer_array_struct instance Struct.IsStruct Unsigned_char_pointer_array_struct
 
 {-| __C declaration:__ @unsigned_char_pointer_array_member@
 
@@ -4971,6 +5096,8 @@ instance Marshal.WriteRaw Ordinary_signed_short_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_short_pointer_array_struct instance BG.Storable Ordinary_signed_short_pointer_array_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_signed_short_pointer_array_struct instance Struct.IsStruct Ordinary_signed_short_pointer_array_struct
+
 {-| __C declaration:__ @ordinary_signed_short_pointer_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 306:77@
@@ -5042,6 +5169,8 @@ instance Marshal.WriteRaw Explicit_signed_short_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_short_pointer_array_struct instance BG.Storable Explicit_signed_short_pointer_array_struct
 
+deriving via Struct.IsStructViaStorable Explicit_signed_short_pointer_array_struct instance Struct.IsStruct Explicit_signed_short_pointer_array_struct
+
 {-| __C declaration:__ @explicit_signed_short_pointer_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 307:77@
@@ -5111,6 +5240,8 @@ instance Marshal.WriteRaw Unsigned_short_pointer_array_struct where
             HasCField.writeRaw (BG.Proxy @"unsigned_short_pointer_array_member") ptr0 unsigned_short_pointer_array_member2
 
 deriving via Marshal.EquivStorable Unsigned_short_pointer_array_struct instance BG.Storable Unsigned_short_pointer_array_struct
+
+deriving via Struct.IsStructViaStorable Unsigned_short_pointer_array_struct instance Struct.IsStruct Unsigned_short_pointer_array_struct
 
 {-| __C declaration:__ @unsigned_short_pointer_array_member@
 
@@ -5183,6 +5314,8 @@ instance Marshal.WriteRaw Ordinary_signed_int_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_int_pointer_array_struct instance BG.Storable Ordinary_signed_int_pointer_array_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_signed_int_pointer_array_struct instance Struct.IsStruct Ordinary_signed_int_pointer_array_struct
+
 {-| __C declaration:__ @ordinary_signed_int_pointer_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 310:77@
@@ -5254,6 +5387,8 @@ instance Marshal.WriteRaw Explicit_signed_int_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_int_pointer_array_struct instance BG.Storable Explicit_signed_int_pointer_array_struct
 
+deriving via Struct.IsStructViaStorable Explicit_signed_int_pointer_array_struct instance Struct.IsStruct Explicit_signed_int_pointer_array_struct
+
 {-| __C declaration:__ @explicit_signed_int_pointer_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 311:77@
@@ -5323,6 +5458,8 @@ instance Marshal.WriteRaw Unsigned_int_pointer_array_struct where
             HasCField.writeRaw (BG.Proxy @"unsigned_int_pointer_array_member") ptr0 unsigned_int_pointer_array_member2
 
 deriving via Marshal.EquivStorable Unsigned_int_pointer_array_struct instance BG.Storable Unsigned_int_pointer_array_struct
+
+deriving via Struct.IsStructViaStorable Unsigned_int_pointer_array_struct instance Struct.IsStruct Unsigned_int_pointer_array_struct
 
 {-| __C declaration:__ @unsigned_int_pointer_array_member@
 
@@ -5395,6 +5532,8 @@ instance Marshal.WriteRaw Ordinary_signed_long_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_pointer_array_struct instance BG.Storable Ordinary_signed_long_pointer_array_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_signed_long_pointer_array_struct instance Struct.IsStruct Ordinary_signed_long_pointer_array_struct
+
 {-| __C declaration:__ @ordinary_signed_long_pointer_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 314:77@
@@ -5466,6 +5605,8 @@ instance Marshal.WriteRaw Explicit_signed_long_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_pointer_array_struct instance BG.Storable Explicit_signed_long_pointer_array_struct
 
+deriving via Struct.IsStructViaStorable Explicit_signed_long_pointer_array_struct instance Struct.IsStruct Explicit_signed_long_pointer_array_struct
+
 {-| __C declaration:__ @explicit_signed_long_pointer_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 315:77@
@@ -5535,6 +5676,8 @@ instance Marshal.WriteRaw Unsigned_long_pointer_array_struct where
             HasCField.writeRaw (BG.Proxy @"unsigned_long_pointer_array_member") ptr0 unsigned_long_pointer_array_member2
 
 deriving via Marshal.EquivStorable Unsigned_long_pointer_array_struct instance BG.Storable Unsigned_long_pointer_array_struct
+
+deriving via Struct.IsStructViaStorable Unsigned_long_pointer_array_struct instance Struct.IsStruct Unsigned_long_pointer_array_struct
 
 {-| __C declaration:__ @unsigned_long_pointer_array_member@
 
@@ -5607,6 +5750,8 @@ instance Marshal.WriteRaw Ordinary_signed_long_long_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Ordinary_signed_long_long_pointer_array_struct instance BG.Storable Ordinary_signed_long_long_pointer_array_struct
 
+deriving via Struct.IsStructViaStorable Ordinary_signed_long_long_pointer_array_struct instance Struct.IsStruct Ordinary_signed_long_long_pointer_array_struct
+
 {-| __C declaration:__ @ordinary_signed_long_long_pointer_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 318:77@
@@ -5678,6 +5823,8 @@ instance Marshal.WriteRaw Explicit_signed_long_long_pointer_array_struct where
 
 deriving via Marshal.EquivStorable Explicit_signed_long_long_pointer_array_struct instance BG.Storable Explicit_signed_long_long_pointer_array_struct
 
+deriving via Struct.IsStructViaStorable Explicit_signed_long_long_pointer_array_struct instance Struct.IsStruct Explicit_signed_long_long_pointer_array_struct
+
 {-| __C declaration:__ @explicit_signed_long_long_pointer_array_member@
 
     __defined at:__ @comprehensive\/c2hsc.h 319:77@
@@ -5748,6 +5895,8 @@ instance Marshal.WriteRaw Unsigned_long_long_pointer_array_struct where
               HasCField.writeRaw (BG.Proxy @"unsigned_long_long_pointer_array_member") ptr0 unsigned_long_long_pointer_array_member2
 
 deriving via Marshal.EquivStorable Unsigned_long_long_pointer_array_struct instance BG.Storable Unsigned_long_long_pointer_array_struct
+
+deriving via Struct.IsStructViaStorable Unsigned_long_long_pointer_array_struct instance Struct.IsStruct Unsigned_long_long_pointer_array_struct
 
 {-| __C declaration:__ @unsigned_long_long_pointer_array_member@
 
@@ -5878,6 +6027,8 @@ instance Marshal.WriteRaw Cal_table_table where
 
 deriving via Marshal.EquivStorable Cal_table_table instance BG.Storable Cal_table_table
 
+deriving via Struct.IsStructViaStorable Cal_table_table instance Struct.IsStruct Cal_table_table
+
 {-| __C declaration:__ @raw@
 
     __defined at:__ @comprehensive\/c2hsc.h 342:13@
@@ -5985,6 +6136,8 @@ instance Marshal.WriteRaw Cal_table where
             >> HasCField.writeRaw (BG.Proxy @"table") ptr0 table3
 
 deriving via Marshal.EquivStorable Cal_table instance BG.Storable Cal_table
+
+deriving via Struct.IsStructViaStorable Cal_table instance Struct.IsStruct Cal_table
 
 {-| __C declaration:__ @size@
 
@@ -6180,6 +6333,8 @@ instance Marshal.WriteRaw Elf32_External_Dyn where
             >> HasCField.writeRaw (BG.Proxy @"d_un") ptr0 d_un3
 
 deriving via Marshal.EquivStorable Elf32_External_Dyn instance BG.Storable Elf32_External_Dyn
+
+deriving via Struct.IsStructViaStorable Elf32_External_Dyn instance Struct.IsStruct Elf32_External_Dyn
 
 {-| __C declaration:__ @d_tag@
 
@@ -6390,6 +6545,8 @@ instance Marshal.WriteRaw MyStruct_27 where
             HasCField.writeRaw (BG.Proxy @"x") ptr0 x2
 
 deriving via Marshal.EquivStorable MyStruct_27 instance BG.Storable MyStruct_27
+
+deriving via Struct.IsStructViaStorable MyStruct_27 instance Struct.IsStruct MyStruct_27
 
 {-| __C declaration:__ @x@
 

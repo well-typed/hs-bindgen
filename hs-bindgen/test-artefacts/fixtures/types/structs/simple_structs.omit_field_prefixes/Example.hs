@@ -31,6 +31,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -83,6 +84,8 @@ instance Marshal.WriteRaw S1 where
             >> HasCField.writeRaw (BG.Proxy @"b") ptr0 b3
 
 deriving via Marshal.EquivStorable S1 instance BG.Storable S1
+
+deriving via Struct.IsStructViaStorable S1 instance Struct.IsStruct S1
 
 {-| __C declaration:__ @a@
 
@@ -188,6 +191,8 @@ instance Marshal.WriteRaw S2_t where
             >> HasCField.writeRaw (BG.Proxy @"c") ptr0 c4
 
 deriving via Marshal.EquivStorable S2_t instance BG.Storable S2_t
+
+deriving via Struct.IsStructViaStorable S2_t instance Struct.IsStruct S2_t
 
 {-| __C declaration:__ @a@
 
@@ -304,6 +309,8 @@ instance Marshal.WriteRaw S3_t where
 
 deriving via Marshal.EquivStorable S3_t instance BG.Storable S3_t
 
+deriving via Struct.IsStructViaStorable S3_t instance Struct.IsStruct S3_t
+
 {-| __C declaration:__ @a@
 
     __defined at:__ @types\/structs\/simple_structs.h 16:10@
@@ -383,6 +390,8 @@ instance Marshal.WriteRaw S4 where
             >> HasCField.writeRaw (BG.Proxy @"c") ptr0 c4
 
 deriving via Marshal.EquivStorable S4 instance BG.Storable S4
+
+deriving via Struct.IsStructViaStorable S4 instance Struct.IsStruct S4
 
 {-| __C declaration:__ @b@
 
@@ -509,6 +518,8 @@ instance Marshal.WriteRaw S5 where
 
 deriving via Marshal.EquivStorable S5 instance BG.Storable S5
 
+deriving via Struct.IsStructViaStorable S5 instance Struct.IsStruct S5
+
 {-| __C declaration:__ @a@
 
     __defined at:__ @types\/structs\/simple_structs.h 27:10@
@@ -605,6 +616,8 @@ instance Marshal.WriteRaw S6 where
 
 deriving via Marshal.EquivStorable S6 instance BG.Storable S6
 
+deriving via Struct.IsStructViaStorable S6 instance Struct.IsStruct S6
+
 {-| __C declaration:__ @a@
 
     __defined at:__ @types\/structs\/simple_structs.h 31:18@
@@ -700,6 +713,8 @@ instance Marshal.WriteRaw S7a_Aux where
             >> HasCField.writeRaw (BG.Proxy @"b") ptr0 b3
 
 deriving via Marshal.EquivStorable S7a_Aux instance BG.Storable S7a_Aux
+
+deriving via Struct.IsStructViaStorable S7a_Aux instance Struct.IsStruct S7a_Aux
 
 {-| __C declaration:__ @a@
 
@@ -832,6 +847,8 @@ instance Marshal.WriteRaw S7b_Aux where
             >> HasCField.writeRaw (BG.Proxy @"b") ptr0 b3
 
 deriving via Marshal.EquivStorable S7b_Aux instance BG.Storable S7b_Aux
+
+deriving via Struct.IsStructViaStorable S7b_Aux instance Struct.IsStruct S7b_Aux
 
 {-| __C declaration:__ @a@
 

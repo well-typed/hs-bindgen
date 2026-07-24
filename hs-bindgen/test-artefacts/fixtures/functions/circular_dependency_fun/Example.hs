@@ -22,6 +22,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -174,6 +175,8 @@ instance Marshal.WriteRaw Forward_declaration where
             HasCField.writeRaw (BG.Proxy @"forward_declaration_f") ptr0 forward_declaration_f2
 
 deriving via Marshal.EquivStorable Forward_declaration instance BG.Storable Forward_declaration
+
+deriving via Struct.IsStructViaStorable Forward_declaration instance Struct.IsStruct Forward_declaration
 
 {-| __C declaration:__ @f@
 

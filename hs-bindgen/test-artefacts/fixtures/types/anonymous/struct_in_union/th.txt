@@ -31,6 +31,7 @@ instance WriteRaw Outer1_anon'fieldX
                                        Outer1_anon'fieldX outer1_anon'fieldX_fieldX_2
                                                           outer1_anon'fieldX_fieldY_3 -> writeRaw (Proxy @"outer1_anon'fieldX_fieldX") ptr_0 outer1_anon'fieldX_fieldX_2 >> writeRaw (Proxy @"outer1_anon'fieldX_fieldY") ptr_0 outer1_anon'fieldX_fieldY_3
 deriving via (EquivStorable Outer1_anon'fieldX) instance Storable Outer1_anon'fieldX
+deriving via (IsStructViaStorable Outer1_anon'fieldX) instance IsStruct Outer1_anon'fieldX
 instance (~) ty CInt =>
          HasField "outer1_anon'fieldX_fieldX" Outer1_anon'fieldX ty
     where hasField = \x_0 -> (\y_1 -> Outer1_anon'fieldX{outer1_anon'fieldX_fieldX = y_1,
@@ -163,6 +164,7 @@ instance WriteRaw Outer2_fieldB
                                        Outer2_fieldB outer2_fieldB_fieldX_2
                                                      outer2_fieldB_fieldY_3 -> writeRaw (Proxy @"outer2_fieldB_fieldX") ptr_0 outer2_fieldB_fieldX_2 >> writeRaw (Proxy @"outer2_fieldB_fieldY") ptr_0 outer2_fieldB_fieldY_3
 deriving via (EquivStorable Outer2_fieldB) instance Storable Outer2_fieldB
+deriving via (IsStructViaStorable Outer2_fieldB) instance IsStruct Outer2_fieldB
 instance (~) ty CInt =>
          HasField "outer2_fieldB_fieldX" Outer2_fieldB ty
     where hasField = \x_0 -> (\y_1 -> Outer2_fieldB{outer2_fieldB_fieldX = y_1,
@@ -264,6 +266,7 @@ instance WriteRaw Inner3
                                        Inner3 inner3_fieldX_2
                                               inner3_fieldY_3 -> writeRaw (Proxy @"inner3_fieldX") ptr_0 inner3_fieldX_2 >> writeRaw (Proxy @"inner3_fieldY") ptr_0 inner3_fieldY_3
 deriving via (EquivStorable Inner3) instance Storable Inner3
+deriving via (IsStructViaStorable Inner3) instance IsStruct Inner3
 instance (~) ty CInt => HasField "inner3_fieldX" Inner3 ty
     where hasField = \x_0 -> (\y_1 -> Inner3{inner3_fieldX = y_1,
                                              inner3_fieldY = getField @"inner3_fieldY" x_0},

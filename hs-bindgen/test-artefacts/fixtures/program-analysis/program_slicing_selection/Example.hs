@@ -31,6 +31,7 @@ import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -236,6 +237,8 @@ instance Marshal.WriteRaw FileOperationRecord where
               >> HasCField.writeRaw (BG.Proxy @"fileOperationRecord_bytes_processed") ptr0 fileOperationRecord_bytes_processed3
 
 deriving via Marshal.EquivStorable FileOperationRecord instance BG.Storable FileOperationRecord
+
+deriving via Struct.IsStructViaStorable FileOperationRecord instance Struct.IsStruct FileOperationRecord
 
 {-| __C declaration:__ @status@
 

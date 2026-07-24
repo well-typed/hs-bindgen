@@ -23,6 +23,7 @@ instance WriteRaw OkBefore
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        OkBefore okBefore_x_2 -> writeRaw (Proxy @"okBefore_x") ptr_0 okBefore_x_2
 deriving via (EquivStorable OkBefore) instance Storable OkBefore
+deriving via (IsStructViaStorable OkBefore) instance IsStruct OkBefore
 instance (~) ty CInt => HasField "okBefore_x" OkBefore ty
     where hasField = \x_0 -> (\y_1 -> OkBefore{okBefore_x = y_1},
                               getField @"okBefore_x" x_0)
@@ -56,6 +57,7 @@ instance WriteRaw OkAfter
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        OkAfter okAfter_x_2 -> writeRaw (Proxy @"okAfter_x") ptr_0 okAfter_x_2
 deriving via (EquivStorable OkAfter) instance Storable OkAfter
+deriving via (IsStructViaStorable OkAfter) instance IsStruct OkAfter
 instance (~) ty CInt => HasField "okAfter_x" OkAfter ty
     where hasField = \x_0 -> (\y_1 -> OkAfter{okAfter_x = y_1},
                               getField @"okAfter_x" x_0)

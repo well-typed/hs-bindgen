@@ -24,6 +24,7 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @struct a@
@@ -56,6 +57,8 @@ instance Marshal.WriteRaw A where
 
 deriving via Marshal.EquivStorable A instance BG.Storable A
 
+deriving via Struct.IsStructViaStorable A instance Struct.IsStruct A
+
 {-| __C declaration:__ @struct struct1@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 16:8@
@@ -85,6 +88,8 @@ instance Marshal.WriteRaw Struct1 where
           Struct1 -> return ()
 
 deriving via Marshal.EquivStorable Struct1 instance BG.Storable Struct1
+
+deriving via Struct.IsStructViaStorable Struct1 instance Struct.IsStruct Struct1
 
 {-| __C declaration:__ @struct b_s@
 
@@ -116,6 +121,8 @@ instance Marshal.WriteRaw B_s where
 
 deriving via Marshal.EquivStorable B_s instance BG.Storable B_s
 
+deriving via Struct.IsStructViaStorable B_s instance Struct.IsStruct B_s
+
 {-| __C declaration:__ @struct struct2_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 20:8@
@@ -145,6 +152,8 @@ instance Marshal.WriteRaw Struct2_s where
           Struct2_s -> return ()
 
 deriving via Marshal.EquivStorable Struct2_s instance BG.Storable Struct2_s
+
+deriving via Struct.IsStructViaStorable Struct2_s instance Struct.IsStruct Struct2_s
 
 {-| __C declaration:__ @struct c@
 
@@ -176,6 +185,8 @@ instance Marshal.WriteRaw C where
 
 deriving via Marshal.EquivStorable C instance BG.Storable C
 
+deriving via Struct.IsStructViaStorable C instance Struct.IsStruct C
+
 {-| __C declaration:__ @struct struct3@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 24:36@
@@ -205,6 +216,8 @@ instance Marshal.WriteRaw Struct3 where
           Struct3 -> return ()
 
 deriving via Marshal.EquivStorable Struct3 instance BG.Storable Struct3
+
+deriving via Struct.IsStructViaStorable Struct3 instance Struct.IsStruct Struct3
 
 {-| __C declaration:__ @struct d@
 
@@ -236,6 +249,8 @@ instance Marshal.WriteRaw D where
 
 deriving via Marshal.EquivStorable D instance BG.Storable D
 
+deriving via Struct.IsStructViaStorable D instance Struct.IsStruct D
+
 {-| __C declaration:__ @struct struct4@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 28:15@
@@ -265,6 +280,8 @@ instance Marshal.WriteRaw Struct4 where
           Struct4 -> return ()
 
 deriving via Marshal.EquivStorable Struct4 instance BG.Storable Struct4
+
+deriving via Struct.IsStructViaStorable Struct4 instance Struct.IsStruct Struct4
 
 {-| __C declaration:__ @struct e_s@
 
@@ -296,6 +313,8 @@ instance Marshal.WriteRaw E_s where
 
 deriving via Marshal.EquivStorable E_s instance BG.Storable E_s
 
+deriving via Struct.IsStructViaStorable E_s instance Struct.IsStruct E_s
+
 {-| __C declaration:__ @struct struct5_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 32:15@
@@ -325,6 +344,8 @@ instance Marshal.WriteRaw Struct5_s where
           Struct5_s -> return ()
 
 deriving via Marshal.EquivStorable Struct5_s instance BG.Storable Struct5_s
+
+deriving via Struct.IsStructViaStorable Struct5_s instance Struct.IsStruct Struct5_s
 
 {-| __C declaration:__ @struct f@
 
@@ -356,6 +377,8 @@ instance Marshal.WriteRaw F where
 
 deriving via Marshal.EquivStorable F instance BG.Storable F
 
+deriving via Struct.IsStructViaStorable F instance Struct.IsStruct F
+
 {-| __C declaration:__ @struct typedef1@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 36:9@
@@ -385,6 +408,8 @@ instance Marshal.WriteRaw Typedef1 where
           Typedef1 -> return ()
 
 deriving via Marshal.EquivStorable Typedef1 instance BG.Storable Typedef1
+
+deriving via Struct.IsStructViaStorable Typedef1 instance Struct.IsStruct Typedef1
 
 {-| __C declaration:__ @struct g@
 
@@ -416,6 +441,8 @@ instance Marshal.WriteRaw G where
 
 deriving via Marshal.EquivStorable G instance BG.Storable G
 
+deriving via Struct.IsStructViaStorable G instance Struct.IsStruct G
+
 {-| __C declaration:__ @struct typedef2@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 40:9@
@@ -445,6 +472,8 @@ instance Marshal.WriteRaw Typedef2 where
           Typedef2 -> return ()
 
 deriving via Marshal.EquivStorable Typedef2 instance BG.Storable Typedef2
+
+deriving via Struct.IsStructViaStorable Typedef2 instance Struct.IsStruct Typedef2
 
 {-| __C declaration:__ @struct h@
 
@@ -476,6 +505,8 @@ instance Marshal.WriteRaw H where
 
 deriving via Marshal.EquivStorable H instance BG.Storable H
 
+deriving via Struct.IsStructViaStorable H instance Struct.IsStruct H
+
 {-| __C declaration:__ @struct typedef3@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 44:9@
@@ -505,3 +536,5 @@ instance Marshal.WriteRaw Typedef3 where
           Typedef3 -> return ()
 
 deriving via Marshal.EquivStorable Typedef3 instance BG.Storable Typedef3
+
+deriving via Struct.IsStructViaStorable Typedef3 instance Struct.IsStruct Typedef3

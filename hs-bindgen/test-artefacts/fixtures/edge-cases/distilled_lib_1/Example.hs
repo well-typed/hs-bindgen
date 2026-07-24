@@ -46,6 +46,7 @@ import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -100,6 +101,8 @@ instance Marshal.WriteRaw Another_typedef_struct_t where
               >> HasCField.writeRaw (BG.Proxy @"another_typedef_struct_t_bar") ptr0 another_typedef_struct_t_bar3
 
 deriving via Marshal.EquivStorable Another_typedef_struct_t instance BG.Storable Another_typedef_struct_t
+
+deriving via Struct.IsStructViaStorable Another_typedef_struct_t instance Struct.IsStruct Another_typedef_struct_t
 
 {-| __C declaration:__ @foo@
 
@@ -547,6 +550,8 @@ instance Marshal.WriteRaw A_typedef_struct_t where
               >> HasCField.writeRaw (BG.Proxy @"a_typedef_struct_t_field_10") ptr0 a_typedef_struct_t_field_1012
 
 deriving via Marshal.EquivStorable A_typedef_struct_t instance BG.Storable A_typedef_struct_t
+
+deriving via Struct.IsStructViaStorable A_typedef_struct_t instance Struct.IsStruct A_typedef_struct_t
 
 {-| __C declaration:__ @field_0@
 

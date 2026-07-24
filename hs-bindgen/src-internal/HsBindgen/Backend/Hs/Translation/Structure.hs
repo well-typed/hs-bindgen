@@ -145,7 +145,7 @@ getDecls ::
   -> (Hs.Struct, [Hs.Decl l])
 getDecls supInsts env spec structName info struct insts =
     ( hsStruct
-    , marshalDecls ++ optDecls ++ fieldDecls
+    , marshalDecls ++ optDecls ++ isStructDecl ++ fieldDecls
     )
   where
     fieldName :: C.Field Final -> Hs.Name Hs.NsVar
@@ -268,6 +268,17 @@ getDecls supInsts env spec structName info struct insts =
         , hasCBitfieldDecs hsStruct field
         ]
 
+    isStructDecl :: [Hs.Decl l]
+    isStructDecl = [
+          Hs.DeclDeriveInstance Hs.DeriveInstance{
+              strategy = Hs.DeriveVia (Hs.IsStructViaStorable (Hs.TypRef hsStruct.name Nothing))
+            , clss     = Inst.IsStruct
+            , name     = hsStruct.name
+            , comment  = Nothing
+            }
+        | Inst.IsStruct `elem` hsStruct.instances
+        ]
+
     knownInsts :: Set Inst.TypeClass
     knownInsts = Set.fromList $ catMaybes [
         if any (isJust . (.width)) struct.fields
@@ -279,6 +290,11 @@ getDecls supInsts env spec structName info struct insts =
       , if null struct.fields then Nothing else Just Inst.HasField
       , if null struct.fields then Nothing else Just Inst.HasFieldPtr
       , if null struct.fields then Nothing else Just Inst.HasFieldCompat
+        -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447>: this is
+        -- actually not a "known" instance because it has a superclass
+        -- constraint, but the backend instance resolution isn't strong enough
+        -- to resolve this for us
+      , if Inst.Storable `elem` insts then Just Inst.IsStruct else Nothing
       ]
 
 {-------------------------------------------------------------------------------

@@ -55,6 +55,7 @@ instance WriteRaw Point1a
                                        Point1a point1a_x_2
                                                point1a_y_3 -> writeRaw (Proxy @"point1a_x") ptr_0 point1a_x_2 >> writeRaw (Proxy @"point1a_y") ptr_0 point1a_y_3
 deriving via (EquivStorable Point1a) instance Storable Point1a
+deriving via (IsStructViaStorable Point1a) instance IsStruct Point1a
 instance (~) ty CInt => HasField "point1a_x" Point1a ty
     where hasField = \x_0 -> (\y_1 -> Point1a{point1a_x = y_1,
                                               point1a_y = getField @"point1a_y" x_0},
@@ -82,7 +83,11 @@ instance HasCField Point1a "point1a_y"
 newtype Point1b
     = Point1b {unwrapPoint1b :: Point1a}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsStruct,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
 instance (~) ty Point1a => HasField "unwrapPoint1b" Point1b ty
     where hasField = \x_0 -> (\y_1 -> Point1b{unwrapPoint1b = y_1},
                               getField @"unwrapPoint1b" x_0)
@@ -124,6 +129,7 @@ instance WriteRaw Point2a
                                        Point2a point2a_x_2
                                                point2a_y_3 -> writeRaw (Proxy @"point2a_x") ptr_0 point2a_x_2 >> writeRaw (Proxy @"point2a_y") ptr_0 point2a_y_3
 deriving via (EquivStorable Point2a) instance Storable Point2a
+deriving via (IsStructViaStorable Point2a) instance IsStruct Point2a
 instance (~) ty CInt => HasField "point2a_x" Point2a ty
     where hasField = \x_0 -> (\y_1 -> Point2a{point2a_x = y_1,
                                               point2a_y = getField @"point2a_y" x_0},
@@ -198,6 +204,7 @@ instance WriteRaw Point3a_Aux
                                        Point3a_Aux point3a_Aux_x_2
                                                    point3a_Aux_y_3 -> writeRaw (Proxy @"point3a_Aux_x") ptr_0 point3a_Aux_x_2 >> writeRaw (Proxy @"point3a_Aux_y") ptr_0 point3a_Aux_y_3
 deriving via (EquivStorable Point3a_Aux) instance Storable Point3a_Aux
+deriving via (IsStructViaStorable Point3a_Aux) instance IsStruct Point3a_Aux
 instance (~) ty CInt => HasField "point3a_Aux_x" Point3a_Aux ty
     where hasField = \x_0 -> (\y_1 -> Point3a_Aux{point3a_Aux_x = y_1,
                                                   point3a_Aux_y = getField @"point3a_Aux_y" x_0},

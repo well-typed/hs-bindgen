@@ -15,6 +15,7 @@ instance WriteRaw Struct1_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct1_t -> return ()
 deriving via (EquivStorable Struct1_t) instance Storable Struct1_t
+deriving via (IsStructViaStorable Struct1_t) instance IsStruct Struct1_t
 {-| __C declaration:__ @struct struct2@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 45:16@
@@ -31,6 +32,7 @@ instance WriteRaw Struct2_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct2_t -> return ()
 deriving via (EquivStorable Struct2_t) instance Storable Struct2_t
+deriving via (IsStructViaStorable Struct2_t) instance IsStruct Struct2_t
 {-| __C declaration:__ @struct struct3@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 49:8@
@@ -61,6 +63,7 @@ instance WriteRaw Struct5
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct5 -> return ()
 deriving via (EquivStorable Struct5) instance Storable Struct5
+deriving via (IsStructViaStorable Struct5) instance IsStruct Struct5
 {-| __C declaration:__ @struct5_t@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 57:25@
@@ -103,6 +106,7 @@ instance WriteRaw Struct6a_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct6a_struct -> return ()
 deriving via (EquivStorable Struct6a_struct) instance Storable Struct6a_struct
+deriving via (IsStructViaStorable Struct6a_struct) instance IsStruct Struct6a_struct
 {-| __C declaration:__ @struct6a@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 61:4@
@@ -146,6 +150,7 @@ instance WriteRaw Struct6b_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct6b_struct -> return ()
 deriving via (EquivStorable Struct6b_struct) instance Storable Struct6b_struct
+deriving via (IsStructViaStorable Struct6b_struct) instance IsStruct Struct6b_struct
 {-| __C declaration:__ @struct6b@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 69:3@
@@ -183,6 +188,7 @@ instance WriteRaw Struct7
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct7 -> return ()
 deriving via (EquivStorable Struct7) instance Storable Struct7
+deriving via (IsStructViaStorable Struct7) instance IsStruct Struct7
 {-| __C declaration:__ @struct7a@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 73:24@
@@ -192,7 +198,11 @@ deriving via (EquivStorable Struct7) instance Storable Struct7
 newtype Struct7a
     = Struct7a {unwrapStruct7a :: Struct7}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsStruct,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
 instance (~) ty Struct7 => HasField "unwrapStruct7a" Struct7a ty
     where hasField = \x_0 -> (\y_1 -> Struct7a{unwrapStruct7a = y_1},
                               getField @"unwrapStruct7a" x_0)
@@ -211,7 +221,11 @@ instance HasCField Struct7a "unwrapStruct7a"
 newtype Struct7b
     = Struct7b {unwrapStruct7b :: Struct7}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsStruct,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
 instance (~) ty Struct7 => HasField "unwrapStruct7b" Struct7b ty
     where hasField = \x_0 -> (\y_1 -> Struct7b{unwrapStruct7b = y_1},
                               getField @"unwrapStruct7b" x_0)
@@ -237,6 +251,7 @@ instance WriteRaw Struct8
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct8 -> return ()
 deriving via (EquivStorable Struct8) instance Storable Struct8
+deriving via (IsStructViaStorable Struct8) instance IsStruct Struct8
 {-| __C declaration:__ @struct8b@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 79:24@
@@ -246,7 +261,11 @@ deriving via (EquivStorable Struct8) instance Storable Struct8
 newtype Struct8b
     = Struct8b {unwrapStruct8b :: Struct8}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsStruct,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
 instance (~) ty Struct8 => HasField "unwrapStruct8b" Struct8b ty
     where hasField = \x_0 -> (\y_1 -> Struct8b{unwrapStruct8b = y_1},
                               getField @"unwrapStruct8b" x_0)
@@ -272,6 +291,7 @@ instance WriteRaw Struct9
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct9 -> return ()
 deriving via (EquivStorable Struct9) instance Storable Struct9
+deriving via (IsStructViaStorable Struct9) instance IsStruct Struct9
 {-| __C declaration:__ @struct9_t@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 84:17@
@@ -281,7 +301,11 @@ deriving via (EquivStorable Struct9) instance Storable Struct9
 newtype Struct9_t
     = Struct9_t {unwrapStruct9_t :: Struct9}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsStruct,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
 instance (~) ty Struct9 => HasField "unwrapStruct9_t" Struct9_t ty
     where hasField = \x_0 -> (\y_1 -> Struct9_t{unwrapStruct9_t = y_1},
                               getField @"unwrapStruct9_t" x_0)
@@ -307,6 +331,7 @@ instance WriteRaw Struct10_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct10_t -> return ()
 deriving via (EquivStorable Struct10_t) instance Storable Struct10_t
+deriving via (IsStructViaStorable Struct10_t) instance IsStruct Struct10_t
 {-| __C declaration:__ @struct10_t_t@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 92:20@
@@ -316,7 +341,11 @@ deriving via (EquivStorable Struct10_t) instance Storable Struct10_t
 newtype Struct10_t_t
     = Struct10_t_t {unwrapStruct10_t_t :: Struct10_t}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsStruct,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
 instance (~) ty Struct10_t =>
          HasField "unwrapStruct10_t_t" Struct10_t_t ty
     where hasField = \x_0 -> (\y_1 -> Struct10_t_t{unwrapStruct10_t_t = y_1},
@@ -360,6 +389,7 @@ instance WriteRaw Struct11_t
                                        Struct11_t struct11_t_x_2
                                                   struct11_t_self_3 -> writeRaw (Proxy @"struct11_t_x") ptr_0 struct11_t_x_2 >> writeRaw (Proxy @"struct11_t_self") ptr_0 struct11_t_self_3
 deriving via (EquivStorable Struct11_t) instance Storable Struct11_t
+deriving via (IsStructViaStorable Struct11_t) instance IsStruct Struct11_t
 instance (~) ty CInt => HasField "struct11_t_x" Struct11_t ty
     where hasField = \x_0 -> (\y_1 -> Struct11_t{struct11_t_x = y_1,
                                                  struct11_t_self = getField @"struct11_t_self" x_0},
@@ -413,6 +443,7 @@ instance WriteRaw Struct12_t
                                        Struct12_t struct12_t_x_2
                                                   struct12_t_self_3 -> writeRaw (Proxy @"struct12_t_x") ptr_0 struct12_t_x_2 >> writeRaw (Proxy @"struct12_t_self") ptr_0 struct12_t_self_3
 deriving via (EquivStorable Struct12_t) instance Storable Struct12_t
+deriving via (IsStructViaStorable Struct12_t) instance IsStruct Struct12_t
 instance (~) ty CInt => HasField "struct12_t_x" Struct12_t ty
     where hasField = \x_0 -> (\y_1 -> Struct12_t{struct12_t_x = y_1,
                                                  struct12_t_self = getField @"struct12_t_self" x_0},
@@ -610,6 +641,7 @@ instance WriteRaw Use_sites
                                                  use_sites_useTypedef_struct11_t_20
                                                  use_sites_useTypedef_struct12_t_21 -> writeRaw (Proxy @"use_sites_useTypedef_struct1_t") ptr_0 use_sites_useTypedef_struct1_t_2 >> (writeRaw (Proxy @"use_sites_useTypedef_struct2_t") ptr_0 use_sites_useTypedef_struct2_t_3 >> (writeRaw (Proxy @"use_sites_useTypedef_struct3_t") ptr_0 use_sites_useTypedef_struct3_t_4 >> (writeRaw (Proxy @"use_sites_useTypedef_struct4_t") ptr_0 use_sites_useTypedef_struct4_t_5 >> (writeRaw (Proxy @"use_sites_useStruct_struct5") ptr_0 use_sites_useStruct_struct5_6 >> (writeRaw (Proxy @"use_sites_useTypedef_struct5_t") ptr_0 use_sites_useTypedef_struct5_t_7 >> (writeRaw (Proxy @"use_sites_useStruct_struct6a") ptr_0 use_sites_useStruct_struct6a_8 >> (writeRaw (Proxy @"use_sites_useTypedef_struct6a") ptr_0 use_sites_useTypedef_struct6a_9 >> (writeRaw (Proxy @"use_sites_useStruct_struct6b") ptr_0 use_sites_useStruct_struct6b_10 >> (writeRaw (Proxy @"use_sites_useTypedef_struct6b") ptr_0 use_sites_useTypedef_struct6b_11 >> (writeRaw (Proxy @"use_sites_useTypedef_struct7a") ptr_0 use_sites_useTypedef_struct7a_12 >> (writeRaw (Proxy @"use_sites_useTypedef_struct7b") ptr_0 use_sites_useTypedef_struct7b_13 >> (writeRaw (Proxy @"use_sites_useTypedef_struct8") ptr_0 use_sites_useTypedef_struct8_14 >> (writeRaw (Proxy @"use_sites_useTypedef_struct8b") ptr_0 use_sites_useTypedef_struct8b_15 >> (writeRaw (Proxy @"use_sites_useTypedef_struct9") ptr_0 use_sites_useTypedef_struct9_16 >> (writeRaw (Proxy @"use_sites_useTypedef_struct9_t") ptr_0 use_sites_useTypedef_struct9_t_17 >> (writeRaw (Proxy @"use_sites_useTypedef_struct10_t") ptr_0 use_sites_useTypedef_struct10_t_18 >> (writeRaw (Proxy @"use_sites_useTypedef_struct10_t_t") ptr_0 use_sites_useTypedef_struct10_t_t_19 >> (writeRaw (Proxy @"use_sites_useTypedef_struct11_t") ptr_0 use_sites_useTypedef_struct11_t_20 >> writeRaw (Proxy @"use_sites_useTypedef_struct12_t") ptr_0 use_sites_useTypedef_struct12_t_21))))))))))))))))))
 deriving via (EquivStorable Use_sites) instance Storable Use_sites
+deriving via (IsStructViaStorable Use_sites) instance IsStruct Use_sites
 instance (~) ty Struct1_t =>
          HasField "use_sites_useTypedef_struct1_t" Use_sites ty
     where hasField = \x_0 -> (\y_1 -> Use_sites{use_sites_useTypedef_struct1_t = y_1,
@@ -1244,6 +1276,7 @@ instance WriteRaw Foo_struct
                                        Foo_struct foo_struct_x_2
                                                   foo_struct_y_3 -> writeRaw (Proxy @"foo_struct_x") ptr_0 foo_struct_x_2 >> writeRaw (Proxy @"foo_struct_y") ptr_0 foo_struct_y_3
 deriving via (EquivStorable Foo_struct) instance Storable Foo_struct
+deriving via (IsStructViaStorable Foo_struct) instance IsStruct Foo_struct
 instance (~) ty CInt => HasField "foo_struct_x" Foo_struct ty
     where hasField = \x_0 -> (\y_1 -> Foo_struct{foo_struct_x = y_1,
                                                  foo_struct_y = getField @"foo_struct_y" x_0},
@@ -1340,6 +1373,7 @@ instance WriteRaw Bar_struct
                                        Bar_struct bar_struct_a_2
                                                   bar_struct_b_3 -> writeRaw (Proxy @"bar_struct_a") ptr_0 bar_struct_a_2 >> writeRaw (Proxy @"bar_struct_b") ptr_0 bar_struct_b_3
 deriving via (EquivStorable Bar_struct) instance Storable Bar_struct
+deriving via (IsStructViaStorable Bar_struct) instance IsStruct Bar_struct
 instance (~) ty CInt => HasField "bar_struct_a" Bar_struct ty
     where hasField = \x_0 -> (\y_1 -> Bar_struct{bar_struct_a = y_1,
                                                  bar_struct_b = getField @"bar_struct_b" x_0},
@@ -1421,6 +1455,7 @@ instance WriteRaw Struct15
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct15 -> return ()
 deriving via (EquivStorable Struct15) instance Storable Struct15
+deriving via (IsStructViaStorable Struct15) instance IsStruct Struct15
 {-| __C declaration:__ @struct struct16@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 191:8@
@@ -1439,6 +1474,7 @@ instance WriteRaw Struct16_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct16_struct -> return ()
 deriving via (EquivStorable Struct16_struct) instance Storable Struct16_struct
+deriving via (IsStructViaStorable Struct16_struct) instance IsStruct Struct16_struct
 {-| __C declaration:__ @struct16@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 192:32@
@@ -1504,6 +1540,7 @@ instance WriteRaw Use_sites_qual
                                                       use_sites_qual_useStruct_struct16_3
                                                       use_sites_qual_useTypedef_struct16_4 -> writeRaw (Proxy @"use_sites_qual_useTypedef_struct15") ptr_0 use_sites_qual_useTypedef_struct15_2 >> (writeRaw (Proxy @"use_sites_qual_useStruct_struct16") ptr_0 use_sites_qual_useStruct_struct16_3 >> writeRaw (Proxy @"use_sites_qual_useTypedef_struct16") ptr_0 use_sites_qual_useTypedef_struct16_4)
 deriving via (EquivStorable Use_sites_qual) instance Storable Use_sites_qual
+deriving via (IsStructViaStorable Use_sites_qual) instance IsStruct Use_sites_qual
 instance (~) ty Struct15 =>
          HasField "use_sites_qual_useTypedef_struct15" Use_sites_qual ty
     where hasField = \x_0 -> (\y_1 -> Use_sites_qual{use_sites_qual_useTypedef_struct15 = y_1,

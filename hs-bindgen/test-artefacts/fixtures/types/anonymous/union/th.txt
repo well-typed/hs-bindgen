@@ -31,6 +31,7 @@ instance WriteRaw Has_implicit_fields_anon'x2_1
                                        Has_implicit_fields_anon'x2_1 has_implicit_fields_anon'x2_1_x2_1_2
                                                                      has_implicit_fields_anon'x2_1_x2_2_3 -> writeRaw (Proxy @"has_implicit_fields_anon'x2_1_x2_1") ptr_0 has_implicit_fields_anon'x2_1_x2_1_2 >> writeRaw (Proxy @"has_implicit_fields_anon'x2_1_x2_2") ptr_0 has_implicit_fields_anon'x2_1_x2_2_3
 deriving via (EquivStorable Has_implicit_fields_anon'x2_1) instance Storable Has_implicit_fields_anon'x2_1
+deriving via (IsStructViaStorable Has_implicit_fields_anon'x2_1) instance IsStruct Has_implicit_fields_anon'x2_1
 instance (~) ty CInt =>
          HasField "has_implicit_fields_anon'x2_1_x2_1"
                   Has_implicit_fields_anon'x2_1
@@ -97,6 +98,7 @@ instance WriteRaw Has_implicit_fields_anon'x4_1
                                        Has_implicit_fields_anon'x4_1 has_implicit_fields_anon'x4_1_x4_1_2
                                                                      has_implicit_fields_anon'x4_1_x4_2_3 -> writeRaw (Proxy @"has_implicit_fields_anon'x4_1_x4_1") ptr_0 has_implicit_fields_anon'x4_1_x4_1_2 >> writeRaw (Proxy @"has_implicit_fields_anon'x4_1_x4_2") ptr_0 has_implicit_fields_anon'x4_1_x4_2_3
 deriving via (EquivStorable Has_implicit_fields_anon'x4_1) instance Storable Has_implicit_fields_anon'x4_1
+deriving via (IsStructViaStorable Has_implicit_fields_anon'x4_1) instance IsStruct Has_implicit_fields_anon'x4_1
 instance (~) ty CInt =>
          HasField "has_implicit_fields_anon'x4_1_x4_1"
                   Has_implicit_fields_anon'x4_1

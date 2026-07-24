@@ -30,6 +30,7 @@ module Example
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -189,6 +190,8 @@ instance Marshal.WriteRaw ExA where
             HasCField.writeRaw (BG.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
 
 deriving via Marshal.EquivStorable ExA instance BG.Storable ExA
+
+deriving via Struct.IsStructViaStorable ExA instance Struct.IsStruct ExA
 
 {-| __C declaration:__ @fieldA1@
 
@@ -373,6 +376,8 @@ instance Marshal.WriteRaw ExB where
             HasCField.writeRaw (BG.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
 
 deriving via Marshal.EquivStorable ExB instance BG.Storable ExB
+
+deriving via Struct.IsStructViaStorable ExB instance Struct.IsStruct ExB
 
 {-| __C declaration:__ @fieldB1@
 

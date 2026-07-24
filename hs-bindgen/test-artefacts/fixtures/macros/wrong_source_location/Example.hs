@@ -28,6 +28,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -71,6 +72,8 @@ instance Marshal.WriteRaw UU1_fieldY where
             HasCField.writeRaw (BG.Proxy @"uU1_fieldY_fieldX") ptr0 uU1_fieldY_fieldX2
 
 deriving via Marshal.EquivStorable UU1_fieldY instance BG.Storable UU1_fieldY
+
+deriving via Struct.IsStructViaStorable UU1_fieldY instance Struct.IsStruct UU1_fieldY
 
 {-| __C declaration:__ @fieldX@
 
@@ -141,6 +144,8 @@ instance Marshal.WriteRaw UU1 where
 
 deriving via Marshal.EquivStorable UU1 instance BG.Storable UU1
 
+deriving via Struct.IsStructViaStorable UU1 instance Struct.IsStruct UU1
+
 {-| __C declaration:__ @fieldY@
 
     __defined at:__ @macros\/wrong_source_location.h 19:1@
@@ -206,6 +211,8 @@ instance Marshal.WriteRaw UU2_fieldY where
             HasCField.writeRaw (BG.Proxy @"uU2_fieldY_fieldX") ptr0 uU2_fieldY_fieldX2
 
 deriving via Marshal.EquivStorable UU2_fieldY instance BG.Storable UU2_fieldY
+
+deriving via Struct.IsStructViaStorable UU2_fieldY instance Struct.IsStruct UU2_fieldY
 
 {-| __C declaration:__ @fieldX@
 
@@ -276,6 +283,8 @@ instance Marshal.WriteRaw UU2 where
 
 deriving via Marshal.EquivStorable UU2 instance BG.Storable UU2
 
+deriving via Struct.IsStructViaStorable UU2 instance Struct.IsStruct UU2
+
 {-| __C declaration:__ @fieldY@
 
     __defined at:__ @macros\/wrong_source_location.h 21:1@
@@ -341,6 +350,8 @@ instance Marshal.WriteRaw VV1_fieldA where
             HasCField.writeRaw (BG.Proxy @"vV1_fieldA_a") ptr0 vV1_fieldA_a2
 
 deriving via Marshal.EquivStorable VV1_fieldA instance BG.Storable VV1_fieldA
+
+deriving via Struct.IsStructViaStorable VV1_fieldA instance Struct.IsStruct VV1_fieldA
 
 {-| __C declaration:__ @a@
 
@@ -408,6 +419,8 @@ instance Marshal.WriteRaw VV1_fieldB where
             HasCField.writeRaw (BG.Proxy @"vV1_fieldB_b") ptr0 vV1_fieldB_b2
 
 deriving via Marshal.EquivStorable VV1_fieldB instance BG.Storable VV1_fieldB
+
+deriving via Struct.IsStructViaStorable VV1_fieldB instance Struct.IsStruct VV1_fieldB
 
 {-| __C declaration:__ @b@
 
@@ -484,6 +497,8 @@ instance Marshal.WriteRaw VV1 where
             >> HasCField.writeRaw (BG.Proxy @"vV1_fieldB") ptr0 vV1_fieldB3
 
 deriving via Marshal.EquivStorable VV1 instance BG.Storable VV1
+
+deriving via Struct.IsStructViaStorable VV1 instance Struct.IsStruct VV1
 
 {-| __C declaration:__ @fieldA@
 
@@ -580,6 +595,8 @@ instance Marshal.WriteRaw VV2_fieldA where
 
 deriving via Marshal.EquivStorable VV2_fieldA instance BG.Storable VV2_fieldA
 
+deriving via Struct.IsStructViaStorable VV2_fieldA instance Struct.IsStruct VV2_fieldA
+
 {-| __C declaration:__ @a@
 
     __defined at:__ @macros\/wrong_source_location.h 31:1@
@@ -646,6 +663,8 @@ instance Marshal.WriteRaw VV2_fieldB where
             HasCField.writeRaw (BG.Proxy @"vV2_fieldB_b") ptr0 vV2_fieldB_b2
 
 deriving via Marshal.EquivStorable VV2_fieldB instance BG.Storable VV2_fieldB
+
+deriving via Struct.IsStructViaStorable VV2_fieldB instance Struct.IsStruct VV2_fieldB
 
 {-| __C declaration:__ @b@
 
@@ -722,6 +741,8 @@ instance Marshal.WriteRaw VV2 where
             >> HasCField.writeRaw (BG.Proxy @"vV2_fieldB") ptr0 vV2_fieldB3
 
 deriving via Marshal.EquivStorable VV2 instance BG.Storable VV2
+
+deriving via Struct.IsStructViaStorable VV2 instance Struct.IsStruct VV2
 
 {-| __C declaration:__ @fieldA@
 

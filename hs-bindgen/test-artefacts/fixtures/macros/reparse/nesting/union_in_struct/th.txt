@@ -97,6 +97,7 @@ instance WriteRaw T1
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        T1 t1_x_2 -> writeRaw (Proxy @"t1_x") ptr_0 t1_x_2
 deriving via (EquivStorable T1) instance Storable T1
+deriving via (IsStructViaStorable T1) instance IsStruct T1
 instance (~) ty T1_x => HasField "t1_x" T1 ty
     where hasField = \x_0 -> (\y_1 -> T1{t1_x = y_1},
                               getField @"t1_x" x_0)
@@ -129,6 +130,7 @@ instance WriteRaw T2
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        T2 t2_x_2 -> writeRaw (Proxy @"t2_x") ptr_0 t2_x_2
 deriving via (EquivStorable T2) instance Storable T2
+deriving via (IsStructViaStorable T2) instance IsStruct T2
 instance (~) ty (Ptr T2_x) => HasField "t2_x" T2 ty
     where hasField = \x_0 -> (\y_1 -> T2{t2_x = y_1},
                               getField @"t2_x" x_0)
@@ -184,6 +186,7 @@ instance WriteRaw T3
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        T3 t3_x_2 -> writeRaw (Proxy @"t3_x") ptr_0 t3_x_2
 deriving via (EquivStorable T3) instance Storable T3
+deriving via (IsStructViaStorable T3) instance IsStruct T3
 instance (~) ty (Ptr (Ptr T3_x)) => HasField "t3_x" T3 ty
     where hasField = \x_0 -> (\y_1 -> T3{t3_x = y_1},
                               getField @"t3_x" x_0)

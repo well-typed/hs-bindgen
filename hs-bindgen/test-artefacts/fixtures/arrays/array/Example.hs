@@ -28,6 +28,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -224,6 +225,8 @@ instance Marshal.WriteRaw Example where
             >> HasCField.writeRaw (BG.Proxy @"example_sudoku") ptr0 example_sudoku3
 
 deriving via Marshal.EquivStorable Example instance BG.Storable Example
+
+deriving via Struct.IsStructViaStorable Example instance Struct.IsStruct Example
 
 {-| __C declaration:__ @triple@
 

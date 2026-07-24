@@ -24,6 +24,7 @@ module Example
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -76,6 +77,8 @@ instance Marshal.WriteRaw Config where
             >> HasCField.writeRaw (BG.Proxy @"config_y") ptr0 config_y3
 
 deriving via Marshal.EquivStorable Config instance BG.Storable Config
+
+deriving via Struct.IsStructViaStorable Config instance Struct.IsStruct Config
 
 {-| __C declaration:__ @x@
 
@@ -178,6 +181,8 @@ instance Marshal.WriteRaw Inline_struct where
             >> HasCField.writeRaw (BG.Proxy @"inline_struct_y") ptr0 inline_struct_y3
 
 deriving via Marshal.EquivStorable Inline_struct instance BG.Storable Inline_struct
+
+deriving via Struct.IsStructViaStorable Inline_struct instance Struct.IsStruct Inline_struct
 
 {-| __C declaration:__ @x@
 
@@ -295,6 +300,8 @@ instance Marshal.WriteRaw Version_t where
             >> HasCField.writeRaw (BG.Proxy @"version_t_patch") ptr0 version_t_patch4
 
 deriving via Marshal.EquivStorable Version_t instance BG.Storable Version_t
+
+deriving via Struct.IsStructViaStorable Version_t instance Struct.IsStruct Version_t
 
 {-| __C declaration:__ @major@
 
@@ -451,6 +458,8 @@ instance Marshal.WriteRaw Struct1_t where
 
 deriving via Marshal.EquivStorable Struct1_t instance BG.Storable Struct1_t
 
+deriving via Struct.IsStructViaStorable Struct1_t instance Struct.IsStruct Struct1_t
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @globals\/globals.h 416:13@
@@ -586,6 +595,8 @@ instance Marshal.WriteRaw Struct2_t where
             HasCField.writeRaw (BG.Proxy @"struct2_t_field1") ptr0 struct2_t_field12
 
 deriving via Marshal.EquivStorable Struct2_t instance BG.Storable Struct2_t
+
+deriving via Struct.IsStructViaStorable Struct2_t instance Struct.IsStruct Struct2_t
 
 {-| __C declaration:__ @field1@
 

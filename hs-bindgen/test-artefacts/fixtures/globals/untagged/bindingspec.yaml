@@ -113,6 +113,7 @@ hstypes:
   - HasField
   - HasFieldCompat
   - HasFieldPtr
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -132,6 +133,7 @@ hstypes:
   - HasField
   - HasFieldCompat
   - HasFieldPtr
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -167,6 +169,7 @@ hstypes:
   - HasField
   - HasFieldCompat
   - HasFieldPtr
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize

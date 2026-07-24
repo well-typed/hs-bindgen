@@ -63,6 +63,7 @@ instance WriteRaw Foo_8
                                              foo_8_e_6
                                              foo_8_f_7 -> poke (Proxy @"foo_8_a") ptr_0 foo_8_a_2 >> (poke (Proxy @"foo_8_b") ptr_0 foo_8_b_3 >> (poke (Proxy @"foo_8_c") ptr_0 foo_8_c_4 >> (poke (Proxy @"foo_8_d") ptr_0 foo_8_d_5 >> (poke (Proxy @"foo_8_e") ptr_0 foo_8_e_6 >> poke (Proxy @"foo_8_f") ptr_0 foo_8_f_7))))
 deriving via (EquivStorable Foo_8) instance Storable Foo_8
+deriving via (IsStructViaStorable Foo_8) instance IsStruct Foo_8
 instance (~) ty CSChar => HasField "foo_8_a" Foo_8 ty
     where hasField = \x_0 -> (\y_1 -> Foo_8{foo_8_a = y_1,
                                             foo_8_b = getField @"foo_8_b" x_0,
@@ -217,6 +218,7 @@ instance WriteRaw Foo_16
                                               foo_16_e_6
                                               foo_16_f_7 -> poke (Proxy @"foo_16_a") ptr_0 foo_16_a_2 >> (poke (Proxy @"foo_16_b") ptr_0 foo_16_b_3 >> (poke (Proxy @"foo_16_c") ptr_0 foo_16_c_4 >> (poke (Proxy @"foo_16_d") ptr_0 foo_16_d_5 >> (poke (Proxy @"foo_16_e") ptr_0 foo_16_e_6 >> poke (Proxy @"foo_16_f") ptr_0 foo_16_f_7))))
 deriving via (EquivStorable Foo_16) instance Storable Foo_16
+deriving via (IsStructViaStorable Foo_16) instance IsStruct Foo_16
 instance (~) ty CSChar => HasField "foo_16_a" Foo_16 ty
     where hasField = \x_0 -> (\y_1 -> Foo_16{foo_16_a = y_1,
                                              foo_16_b = getField @"foo_16_b" x_0,
@@ -379,6 +381,7 @@ instance WriteRaw Foo_32
                                               foo_32_f_7
                                               foo_32_g_8 -> poke (Proxy @"foo_32_a") ptr_0 foo_32_a_2 >> (poke (Proxy @"foo_32_b") ptr_0 foo_32_b_3 >> (poke (Proxy @"foo_32_c") ptr_0 foo_32_c_4 >> (poke (Proxy @"foo_32_d") ptr_0 foo_32_d_5 >> (poke (Proxy @"foo_32_e") ptr_0 foo_32_e_6 >> (poke (Proxy @"foo_32_f") ptr_0 foo_32_f_7 >> poke (Proxy @"foo_32_g") ptr_0 foo_32_g_8)))))
 deriving via (EquivStorable Foo_32) instance Storable Foo_32
+deriving via (IsStructViaStorable Foo_32) instance IsStruct Foo_32
 instance (~) ty CSChar => HasField "foo_32_a" Foo_32 ty
     where hasField = \x_0 -> (\y_1 -> Foo_32{foo_32_a = y_1,
                                              foo_32_b = getField @"foo_32_b" x_0,
@@ -539,6 +542,7 @@ instance WriteRaw Foo_64
                                               foo_64_c_4
                                               foo_64_d_5 -> poke (Proxy @"foo_64_a") ptr_0 foo_64_a_2 >> (poke (Proxy @"foo_64_b") ptr_0 foo_64_b_3 >> (poke (Proxy @"foo_64_c") ptr_0 foo_64_c_4 >> poke (Proxy @"foo_64_d") ptr_0 foo_64_d_5))
 deriving via (EquivStorable Foo_64) instance Storable Foo_64
+deriving via (IsStructViaStorable Foo_64) instance IsStruct Foo_64
 instance (~) ty CLong => HasField "foo_64_a" Foo_64 ty
     where hasField = \x_0 -> (\y_1 -> Foo_64{foo_64_a = y_1,
                                              foo_64_b = getField @"foo_64_b" x_0,
@@ -623,6 +627,7 @@ instance WriteRaw Bar_8_8
                                        Bar_8_8 bar_8_8_a_2
                                                bar_8_8_b_3 -> poke (Proxy @"bar_8_8_a") ptr_0 bar_8_8_a_2 >> poke (Proxy @"bar_8_8_b") ptr_0 bar_8_8_b_3
 deriving via (EquivStorable Bar_8_8) instance Storable Bar_8_8
+deriving via (IsStructViaStorable Bar_8_8) instance IsStruct Bar_8_8
 instance (~) ty CSChar => HasField "bar_8_8_a" Bar_8_8 ty
     where hasField = \x_0 -> (\y_1 -> Bar_8_8{bar_8_8_a = y_1,
                                               bar_8_8_b = getField @"bar_8_8_b" x_0},
@@ -677,6 +682,7 @@ instance WriteRaw Bar_8_16
                                        Bar_8_16 bar_8_16_a_2
                                                 bar_8_16_b_3 -> poke (Proxy @"bar_8_16_a") ptr_0 bar_8_16_a_2 >> poke (Proxy @"bar_8_16_b") ptr_0 bar_8_16_b_3
 deriving via (EquivStorable Bar_8_16) instance Storable Bar_8_16
+deriving via (IsStructViaStorable Bar_8_16) instance IsStruct Bar_8_16
 instance (~) ty CInt => HasField "bar_8_16_a" Bar_8_16 ty
     where hasField = \x_0 -> (\y_1 -> Bar_8_16{bar_8_16_a = y_1,
                                                bar_8_16_b = getField @"bar_8_16_b" x_0},
@@ -731,6 +737,7 @@ instance WriteRaw Bar_8_32
                                        Bar_8_32 bar_8_32_a_2
                                                 bar_8_32_b_3 -> poke (Proxy @"bar_8_32_a") ptr_0 bar_8_32_a_2 >> poke (Proxy @"bar_8_32_b") ptr_0 bar_8_32_b_3
 deriving via (EquivStorable Bar_8_32) instance Storable Bar_8_32
+deriving via (IsStructViaStorable Bar_8_32) instance IsStruct Bar_8_32
 instance (~) ty CLong => HasField "bar_8_32_a" Bar_8_32 ty
     where hasField = \x_0 -> (\y_1 -> Bar_8_32{bar_8_32_a = y_1,
                                                bar_8_32_b = getField @"bar_8_32_b" x_0},
@@ -785,6 +792,7 @@ instance WriteRaw Bar_8_64
                                        Bar_8_64 bar_8_64_a_2
                                                 bar_8_64_b_3 -> poke (Proxy @"bar_8_64_a") ptr_0 bar_8_64_a_2 >> poke (Proxy @"bar_8_64_b") ptr_0 bar_8_64_b_3
 deriving via (EquivStorable Bar_8_64) instance Storable Bar_8_64
+deriving via (IsStructViaStorable Bar_8_64) instance IsStruct Bar_8_64
 instance (~) ty CLLong => HasField "bar_8_64_a" Bar_8_64 ty
     where hasField = \x_0 -> (\y_1 -> Bar_8_64{bar_8_64_a = y_1,
                                                bar_8_64_b = getField @"bar_8_64_b" x_0},
@@ -839,6 +847,7 @@ instance WriteRaw Bar_16_16
                                        Bar_16_16 bar_16_16_a_2
                                                  bar_16_16_b_3 -> poke (Proxy @"bar_16_16_a") ptr_0 bar_16_16_a_2 >> poke (Proxy @"bar_16_16_b") ptr_0 bar_16_16_b_3
 deriving via (EquivStorable Bar_16_16) instance Storable Bar_16_16
+deriving via (IsStructViaStorable Bar_16_16) instance IsStruct Bar_16_16
 instance (~) ty CInt => HasField "bar_16_16_a" Bar_16_16 ty
     where hasField = \x_0 -> (\y_1 -> Bar_16_16{bar_16_16_a = y_1,
                                                 bar_16_16_b = getField @"bar_16_16_b" x_0},
@@ -893,6 +902,7 @@ instance WriteRaw Bar_16_32
                                        Bar_16_32 bar_16_32_a_2
                                                  bar_16_32_b_3 -> poke (Proxy @"bar_16_32_a") ptr_0 bar_16_32_a_2 >> poke (Proxy @"bar_16_32_b") ptr_0 bar_16_32_b_3
 deriving via (EquivStorable Bar_16_32) instance Storable Bar_16_32
+deriving via (IsStructViaStorable Bar_16_32) instance IsStruct Bar_16_32
 instance (~) ty CLong => HasField "bar_16_32_a" Bar_16_32 ty
     where hasField = \x_0 -> (\y_1 -> Bar_16_32{bar_16_32_a = y_1,
                                                 bar_16_32_b = getField @"bar_16_32_b" x_0},
@@ -947,6 +957,7 @@ instance WriteRaw Bar_16_64
                                        Bar_16_64 bar_16_64_a_2
                                                  bar_16_64_b_3 -> poke (Proxy @"bar_16_64_a") ptr_0 bar_16_64_a_2 >> poke (Proxy @"bar_16_64_b") ptr_0 bar_16_64_b_3
 deriving via (EquivStorable Bar_16_64) instance Storable Bar_16_64
+deriving via (IsStructViaStorable Bar_16_64) instance IsStruct Bar_16_64
 instance (~) ty CLLong => HasField "bar_16_64_a" Bar_16_64 ty
     where hasField = \x_0 -> (\y_1 -> Bar_16_64{bar_16_64_a = y_1,
                                                 bar_16_64_b = getField @"bar_16_64_b" x_0},
@@ -1001,6 +1012,7 @@ instance WriteRaw Bar_32_32
                                        Bar_32_32 bar_32_32_a_2
                                                  bar_32_32_b_3 -> poke (Proxy @"bar_32_32_a") ptr_0 bar_32_32_a_2 >> poke (Proxy @"bar_32_32_b") ptr_0 bar_32_32_b_3
 deriving via (EquivStorable Bar_32_32) instance Storable Bar_32_32
+deriving via (IsStructViaStorable Bar_32_32) instance IsStruct Bar_32_32
 instance (~) ty CLong => HasField "bar_32_32_a" Bar_32_32 ty
     where hasField = \x_0 -> (\y_1 -> Bar_32_32{bar_32_32_a = y_1,
                                                 bar_32_32_b = getField @"bar_32_32_b" x_0},
@@ -1055,6 +1067,7 @@ instance WriteRaw Bar_32_64
                                        Bar_32_64 bar_32_64_a_2
                                                  bar_32_64_b_3 -> poke (Proxy @"bar_32_64_a") ptr_0 bar_32_64_a_2 >> poke (Proxy @"bar_32_64_b") ptr_0 bar_32_64_b_3
 deriving via (EquivStorable Bar_32_64) instance Storable Bar_32_64
+deriving via (IsStructViaStorable Bar_32_64) instance IsStruct Bar_32_64
 instance (~) ty CLLong => HasField "bar_32_64_a" Bar_32_64 ty
     where hasField = \x_0 -> (\y_1 -> Bar_32_64{bar_32_64_a = y_1,
                                                 bar_32_64_b = getField @"bar_32_64_b" x_0},
@@ -1109,6 +1122,7 @@ instance WriteRaw Bar_64_64
                                        Bar_64_64 bar_64_64_a_2
                                                  bar_64_64_b_3 -> poke (Proxy @"bar_64_64_a") ptr_0 bar_64_64_a_2 >> poke (Proxy @"bar_64_64_b") ptr_0 bar_64_64_b_3
 deriving via (EquivStorable Bar_64_64) instance Storable Bar_64_64
+deriving via (IsStructViaStorable Bar_64_64) instance IsStruct Bar_64_64
 instance (~) ty CLLong => HasField "bar_64_64_a" Bar_64_64 ty
     where hasField = \x_0 -> (\y_1 -> Bar_64_64{bar_64_64_a = y_1,
                                                 bar_64_64_b = getField @"bar_64_64_b" x_0},

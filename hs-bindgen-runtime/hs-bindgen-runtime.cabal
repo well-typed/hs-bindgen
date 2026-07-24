@@ -83,6 +83,7 @@ library
     HsBindgen.Runtime.Marshal
     HsBindgen.Runtime.Prelude
     HsBindgen.Runtime.PtrConst
+    HsBindgen.Runtime.Struct
     HsBindgen.Runtime.Support
     HsBindgen.Runtime.Support.Bitfield
     HsBindgen.Runtime.Support.ByteArray

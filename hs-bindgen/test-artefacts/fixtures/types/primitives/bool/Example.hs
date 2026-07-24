@@ -24,6 +24,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -76,6 +77,8 @@ instance Marshal.WriteRaw Bools1 where
             >> HasCField.writeRaw (BG.Proxy @"bools1_y") ptr0 bools1_y3
 
 deriving via Marshal.EquivStorable Bools1 instance BG.Storable Bools1
+
+deriving via Struct.IsStructViaStorable Bools1 instance Struct.IsStruct Bools1
 
 {-| __C declaration:__ @x@
 
@@ -180,6 +183,8 @@ instance Marshal.WriteRaw Bools2 where
             >> HasCField.writeRaw (BG.Proxy @"bools2_y") ptr0 bools2_y3
 
 deriving via Marshal.EquivStorable Bools2 instance BG.Storable Bools2
+
+deriving via Struct.IsStructViaStorable Bools2 instance Struct.IsStruct Bools2
 
 {-| __C declaration:__ @x@
 
@@ -331,6 +336,8 @@ instance Marshal.WriteRaw Bools3 where
             >> HasCField.writeRaw (BG.Proxy @"bools3_y") ptr0 bools3_y3
 
 deriving via Marshal.EquivStorable Bools3 instance BG.Storable Bools3
+
+deriving via Struct.IsStructViaStorable Bools3 instance Struct.IsStruct Bools3
 
 {-| __C declaration:__ @x@
 

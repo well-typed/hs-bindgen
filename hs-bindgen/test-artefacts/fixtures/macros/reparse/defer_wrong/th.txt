@@ -23,6 +23,7 @@ instance WriteRaw S
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S s_x_2 -> writeRaw (Proxy @"s_x") ptr_0 s_x_2
 deriving via (EquivStorable S) instance Storable S
+deriving via (IsStructViaStorable S) instance IsStruct S
 instance (~) ty CInt => HasField "s_x" S ty
     where hasField = \x_0 -> (\y_1 -> S{s_x = y_1},
                               getField @"s_x" x_0)
@@ -40,7 +41,11 @@ instance HasCField S "s_x"
 newtype T
     = T {unwrapT :: S}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsStruct,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
 instance (~) ty S => HasField "unwrapT" T ty
     where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
                               getField @"unwrapT" x_0)
@@ -58,7 +63,11 @@ instance HasCField T "unwrapT"
 newtype Foo
     = Foo {unwrapFoo :: T}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsStruct,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
 instance (~) ty T => HasField "unwrapFoo" Foo ty
     where hasField = \x_0 -> (\y_1 -> Foo{unwrapFoo = y_1},
                               getField @"unwrapFoo" x_0)

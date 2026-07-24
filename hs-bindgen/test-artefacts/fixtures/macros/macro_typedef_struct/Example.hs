@@ -22,6 +22,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -122,6 +123,8 @@ instance Marshal.WriteRaw Bar where
             >> HasCField.writeRaw (BG.Proxy @"bar_y") ptr0 bar_y3
 
 deriving via Marshal.EquivStorable Bar instance BG.Storable Bar
+
+deriving via Struct.IsStructViaStorable Bar instance Struct.IsStruct Bar
 
 {-| __C declaration:__ @x@
 

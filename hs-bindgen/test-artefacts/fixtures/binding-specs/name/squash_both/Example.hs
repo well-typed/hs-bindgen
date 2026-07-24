@@ -19,6 +19,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -71,6 +72,8 @@ instance Marshal.WriteRaw Hoge where
             >> HasCField.writeRaw (BG.Proxy @"hoge_y") ptr0 hoge_y3
 
 deriving via Marshal.EquivStorable Hoge instance BG.Storable Hoge
+
+deriving via Struct.IsStructViaStorable Hoge instance Struct.IsStruct Hoge
 
 {-| __C declaration:__ @x@
 

@@ -24,6 +24,7 @@ instance WriteRaw Omitted
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Omitted omitted_n_2 -> writeRaw (Proxy @"omitted_n") ptr_0 omitted_n_2
 deriving via (EquivStorable Omitted) instance Storable Omitted
+deriving via (IsStructViaStorable Omitted) instance IsStruct Omitted
 instance (~) ty CInt => HasField "omitted_n" Omitted ty
     where hasField = \x_0 -> (\y_1 -> Omitted{omitted_n = y_1},
                               getField @"omitted_n" x_0)
@@ -56,6 +57,7 @@ instance WriteRaw DirectlyDependsOnOmitted
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        DirectlyDependsOnOmitted directlyDependsOnOmitted_o_2 -> writeRaw (Proxy @"directlyDependsOnOmitted_o") ptr_0 directlyDependsOnOmitted_o_2
 deriving via (EquivStorable DirectlyDependsOnOmitted) instance Storable DirectlyDependsOnOmitted
+deriving via (IsStructViaStorable DirectlyDependsOnOmitted) instance IsStruct DirectlyDependsOnOmitted
 instance (~) ty Omitted =>
          HasField "directlyDependsOnOmitted_o" DirectlyDependsOnOmitted ty
     where hasField = \x_0 -> (\y_1 -> DirectlyDependsOnOmitted{directlyDependsOnOmitted_o = y_1},
@@ -94,6 +96,7 @@ instance WriteRaw IndirectlyDependsOnOmitted
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        IndirectlyDependsOnOmitted indirectlyDependsOnOmitted_d_2 -> writeRaw (Proxy @"indirectlyDependsOnOmitted_d") ptr_0 indirectlyDependsOnOmitted_d_2
 deriving via (EquivStorable IndirectlyDependsOnOmitted) instance Storable IndirectlyDependsOnOmitted
+deriving via (IsStructViaStorable IndirectlyDependsOnOmitted) instance IsStruct IndirectlyDependsOnOmitted
 instance (~) ty DirectlyDependsOnOmitted =>
          HasField "indirectlyDependsOnOmitted_d"
                   IndirectlyDependsOnOmitted

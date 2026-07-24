@@ -36,6 +36,9 @@ module HsBindgen.Runtime.Prelude (
     -- * Unions
   , IsUnion
 
+      -- * Struct
+  , IsStruct
+
     -- * Marshaling and serialization
   , StaticSize(..)
   , ReadRaw(..)
@@ -60,6 +63,7 @@ import HsBindgen.Runtime.IncompleteArray
 import HsBindgen.Runtime.IsArray
 import HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.PtrConst
+import HsBindgen.Runtime.Struct (IsStruct)
 import HsBindgen.Runtime.Support.FunPtr
 import HsBindgen.Runtime.Support.Ptr
-import HsBindgen.Runtime.Union
+import HsBindgen.Runtime.Union (IsUnion)

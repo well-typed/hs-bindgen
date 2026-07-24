@@ -24,6 +24,7 @@ hstypes:
   - HasField
   - HasFieldCompat
   - HasFieldPtr
+  - IsStruct
   - Show
   - Storable
 - hsname: Uint32_t

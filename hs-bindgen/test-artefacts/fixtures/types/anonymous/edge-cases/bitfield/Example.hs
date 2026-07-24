@@ -25,6 +25,7 @@ import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -68,6 +69,8 @@ instance Marshal.WriteRaw S1_anon'y where
             HasCBitfield.poke (BG.Proxy @"s1_anon'y_y") ptr0 s1_anon'y_y2
 
 deriving via Marshal.EquivStorable S1_anon'y instance BG.Storable S1_anon'y
+
+deriving via Struct.IsStructViaStorable S1_anon'y instance Struct.IsStruct S1_anon'y
 
 {-| __C declaration:__ @y@
 
@@ -146,6 +149,8 @@ instance Marshal.WriteRaw S1 where
             >> HasCField.writeRaw (BG.Proxy @"s1_x") ptr0 s1_x3
 
 deriving via Marshal.EquivStorable S1 instance BG.Storable S1
+
+deriving via Struct.IsStructViaStorable S1 instance Struct.IsStruct S1
 
 {-| __C declaration:__ @anon\'y@
 
@@ -277,6 +282,8 @@ instance Marshal.WriteRaw S2_anon'anon'y_anon'y where
 
 deriving via Marshal.EquivStorable S2_anon'anon'y_anon'y instance BG.Storable S2_anon'anon'y_anon'y
 
+deriving via Struct.IsStructViaStorable S2_anon'anon'y_anon'y instance Struct.IsStruct S2_anon'anon'y_anon'y
+
 {-| __C declaration:__ @y@
 
     __defined at:__ @types\/anonymous\/edge-cases\/bitfield.h 22:12@
@@ -357,6 +364,8 @@ instance Marshal.WriteRaw S2_anon'anon'y where
             >> HasCField.writeRaw (BG.Proxy @"s2_anon'anon'y_x") ptr0 s2_anon'anon'y_x3
 
 deriving via Marshal.EquivStorable S2_anon'anon'y instance BG.Storable S2_anon'anon'y
+
+deriving via Struct.IsStructViaStorable S2_anon'anon'y instance Struct.IsStruct S2_anon'anon'y
 
 {-| __C declaration:__ @anon\'y@
 
@@ -503,6 +512,8 @@ instance Marshal.WriteRaw S2 where
             HasCField.writeRaw (BG.Proxy @"s2_anon'anon'y") ptr0 s2_anon'anon'y2
 
 deriving via Marshal.EquivStorable S2 instance BG.Storable S2
+
+deriving via Struct.IsStructViaStorable S2 instance Struct.IsStruct S2
 
 {-| __C declaration:__ @anon\'anon\'y@
 

@@ -22,6 +22,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
@@ -77,6 +78,8 @@ instance Marshal.WriteRaw Has_implicit_fields_anon'x2_1 where
               >> HasCField.writeRaw (BG.Proxy @"has_implicit_fields_anon'x2_1_x2_2") ptr0 has_implicit_fields_anon'x2_1_x2_23
 
 deriving via Marshal.EquivStorable Has_implicit_fields_anon'x2_1 instance BG.Storable Has_implicit_fields_anon'x2_1
+
+deriving via Struct.IsStructViaStorable Has_implicit_fields_anon'x2_1 instance Struct.IsStruct Has_implicit_fields_anon'x2_1
 
 {-| __C declaration:__ @x2_1@
 
@@ -191,6 +194,8 @@ instance Marshal.WriteRaw Has_implicit_fields_anon'x4_1 where
               >> HasCField.writeRaw (BG.Proxy @"has_implicit_fields_anon'x4_1_x4_2") ptr0 has_implicit_fields_anon'x4_1_x4_23
 
 deriving via Marshal.EquivStorable Has_implicit_fields_anon'x4_1 instance BG.Storable Has_implicit_fields_anon'x4_1
+
+deriving via Struct.IsStructViaStorable Has_implicit_fields_anon'x4_1 instance Struct.IsStruct Has_implicit_fields_anon'x4_1
 
 {-| __C declaration:__ @x4_1@
 

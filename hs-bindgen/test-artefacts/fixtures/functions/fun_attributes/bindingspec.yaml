@@ -21,6 +21,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize

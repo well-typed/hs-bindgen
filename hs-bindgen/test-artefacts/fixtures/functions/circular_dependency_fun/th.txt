@@ -93,6 +93,7 @@ instance WriteRaw Forward_declaration
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Forward_declaration forward_declaration_f_2 -> writeRaw (Proxy @"forward_declaration_f") ptr_0 forward_declaration_f_2
 deriving via (EquivStorable Forward_declaration) instance Storable Forward_declaration
+deriving via (IsStructViaStorable Forward_declaration) instance IsStruct Forward_declaration
 instance (~) ty Fun_ptr =>
          HasField "forward_declaration_f" Forward_declaration ty
     where hasField = \x_0 -> (\y_1 -> Forward_declaration{forward_declaration_f = y_1},

@@ -23,6 +23,7 @@ instance WriteRaw SSS_anon'anon'x_anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SSS_anon'anon'x_anon'x sSS_anon'anon'x_anon'x_x_2 -> writeRaw (Proxy @"sSS_anon'anon'x_anon'x_x") ptr_0 sSS_anon'anon'x_anon'x_x_2
 deriving via (EquivStorable SSS_anon'anon'x_anon'x) instance Storable SSS_anon'anon'x_anon'x
+deriving via (IsStructViaStorable SSS_anon'anon'x_anon'x) instance IsStruct SSS_anon'anon'x_anon'x
 instance (~) ty CInt =>
          HasField "sSS_anon'anon'x_anon'x_x" SSS_anon'anon'x_anon'x ty
     where hasField = \x_0 -> (\y_1 -> SSS_anon'anon'x_anon'x{sSS_anon'anon'x_anon'x_x = y_1},
@@ -61,6 +62,7 @@ instance WriteRaw SSS_anon'anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SSS_anon'anon'x sSS_anon'anon'x_anon'x_2 -> writeRaw (Proxy @"sSS_anon'anon'x_anon'x") ptr_0 sSS_anon'anon'x_anon'x_2
 deriving via (EquivStorable SSS_anon'anon'x) instance Storable SSS_anon'anon'x
+deriving via (IsStructViaStorable SSS_anon'anon'x) instance IsStruct SSS_anon'anon'x
 instance (~) ty SSS_anon'anon'x_anon'x =>
          HasField "sSS_anon'anon'x_anon'x" SSS_anon'anon'x ty
     where hasField = \x_0 -> (\y_1 -> SSS_anon'anon'x{sSS_anon'anon'x_anon'x = y_1},
@@ -109,6 +111,7 @@ instance WriteRaw SSS
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SSS sSS_anon'anon'x_2 -> writeRaw (Proxy @"sSS_anon'anon'x") ptr_0 sSS_anon'anon'x_2
 deriving via (EquivStorable SSS) instance Storable SSS
+deriving via (IsStructViaStorable SSS) instance IsStruct SSS
 instance (~) ty SSS_anon'anon'x =>
          HasField "sSS_anon'anon'x" SSS ty
     where hasField = \x_0 -> (\y_1 -> SSS{sSS_anon'anon'x = y_1},
@@ -153,6 +156,7 @@ instance WriteRaw USS_anon'anon'x_anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        USS_anon'anon'x_anon'x uSS_anon'anon'x_anon'x_x_2 -> writeRaw (Proxy @"uSS_anon'anon'x_anon'x_x") ptr_0 uSS_anon'anon'x_anon'x_x_2
 deriving via (EquivStorable USS_anon'anon'x_anon'x) instance Storable USS_anon'anon'x_anon'x
+deriving via (IsStructViaStorable USS_anon'anon'x_anon'x) instance IsStruct USS_anon'anon'x_anon'x
 instance (~) ty CInt =>
          HasField "uSS_anon'anon'x_anon'x_x" USS_anon'anon'x_anon'x ty
     where hasField = \x_0 -> (\y_1 -> USS_anon'anon'x_anon'x{uSS_anon'anon'x_anon'x_x = y_1},
@@ -191,6 +195,7 @@ instance WriteRaw USS_anon'anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        USS_anon'anon'x uSS_anon'anon'x_anon'x_2 -> writeRaw (Proxy @"uSS_anon'anon'x_anon'x") ptr_0 uSS_anon'anon'x_anon'x_2
 deriving via (EquivStorable USS_anon'anon'x) instance Storable USS_anon'anon'x
+deriving via (IsStructViaStorable USS_anon'anon'x) instance IsStruct USS_anon'anon'x
 instance (~) ty USS_anon'anon'x_anon'x =>
          HasField "uSS_anon'anon'x_anon'x" USS_anon'anon'x ty
     where hasField = \x_0 -> (\y_1 -> USS_anon'anon'x{uSS_anon'anon'x_anon'x = y_1},
@@ -274,6 +279,7 @@ instance WriteRaw SUS_anon'anon'x_anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SUS_anon'anon'x_anon'x sUS_anon'anon'x_anon'x_x_2 -> writeRaw (Proxy @"sUS_anon'anon'x_anon'x_x") ptr_0 sUS_anon'anon'x_anon'x_x_2
 deriving via (EquivStorable SUS_anon'anon'x_anon'x) instance Storable SUS_anon'anon'x_anon'x
+deriving via (IsStructViaStorable SUS_anon'anon'x_anon'x) instance IsStruct SUS_anon'anon'x_anon'x
 instance (~) ty CInt =>
          HasField "sUS_anon'anon'x_anon'x_x" SUS_anon'anon'x_anon'x ty
     where hasField = \x_0 -> (\y_1 -> SUS_anon'anon'x_anon'x{sUS_anon'anon'x_anon'x_x = y_1},
@@ -354,6 +360,7 @@ instance WriteRaw SUS
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SUS sUS_anon'anon'x_2 -> writeRaw (Proxy @"sUS_anon'anon'x") ptr_0 sUS_anon'anon'x_2
 deriving via (EquivStorable SUS) instance Storable SUS
+deriving via (IsStructViaStorable SUS) instance IsStruct SUS
 instance (~) ty SUS_anon'anon'x =>
          HasField "sUS_anon'anon'x" SUS ty
     where hasField = \x_0 -> (\y_1 -> SUS{sUS_anon'anon'x = y_1},
@@ -398,6 +405,7 @@ instance WriteRaw UUS_anon'anon'x_anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        UUS_anon'anon'x_anon'x uUS_anon'anon'x_anon'x_x_2 -> writeRaw (Proxy @"uUS_anon'anon'x_anon'x_x") ptr_0 uUS_anon'anon'x_anon'x_x_2
 deriving via (EquivStorable UUS_anon'anon'x_anon'x) instance Storable UUS_anon'anon'x_anon'x
+deriving via (IsStructViaStorable UUS_anon'anon'x_anon'x) instance IsStruct UUS_anon'anon'x_anon'x
 instance (~) ty CInt =>
          HasField "uUS_anon'anon'x_anon'x_x" UUS_anon'anon'x_anon'x ty
     where hasField = \x_0 -> (\y_1 -> UUS_anon'anon'x_anon'x{uUS_anon'anon'x_anon'x_x = y_1},
@@ -548,6 +556,7 @@ instance WriteRaw SSU_anon'anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SSU_anon'anon'x sSU_anon'anon'x_anon'x_2 -> writeRaw (Proxy @"sSU_anon'anon'x_anon'x") ptr_0 sSU_anon'anon'x_anon'x_2
 deriving via (EquivStorable SSU_anon'anon'x) instance Storable SSU_anon'anon'x
+deriving via (IsStructViaStorable SSU_anon'anon'x) instance IsStruct SSU_anon'anon'x
 instance (~) ty SSU_anon'anon'x_anon'x =>
          HasField "sSU_anon'anon'x_anon'x" SSU_anon'anon'x ty
     where hasField = \x_0 -> (\y_1 -> SSU_anon'anon'x{sSU_anon'anon'x_anon'x = y_1},
@@ -596,6 +605,7 @@ instance WriteRaw SSU
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SSU sSU_anon'anon'x_2 -> writeRaw (Proxy @"sSU_anon'anon'x") ptr_0 sSU_anon'anon'x_2
 deriving via (EquivStorable SSU) instance Storable SSU
+deriving via (IsStructViaStorable SSU) instance IsStruct SSU
 instance (~) ty SSU_anon'anon'x =>
          HasField "sSU_anon'anon'x" SSU ty
     where hasField = \x_0 -> (\y_1 -> SSU{sSU_anon'anon'x = y_1},
@@ -675,6 +685,7 @@ instance WriteRaw USU_anon'anon'x
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        USU_anon'anon'x uSU_anon'anon'x_anon'x_2 -> writeRaw (Proxy @"uSU_anon'anon'x_anon'x") ptr_0 uSU_anon'anon'x_anon'x_2
 deriving via (EquivStorable USU_anon'anon'x) instance Storable USU_anon'anon'x
+deriving via (IsStructViaStorable USU_anon'anon'x) instance IsStruct USU_anon'anon'x
 instance (~) ty USU_anon'anon'x_anon'x =>
          HasField "uSU_anon'anon'x_anon'x" USU_anon'anon'x ty
     where hasField = \x_0 -> (\y_1 -> USU_anon'anon'x{uSU_anon'anon'x_anon'x = y_1},
@@ -835,6 +846,7 @@ instance WriteRaw SUU
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        SUU sUU_anon'anon'x_2 -> writeRaw (Proxy @"sUU_anon'anon'x") ptr_0 sUU_anon'anon'x_2
 deriving via (EquivStorable SUU) instance Storable SUU
+deriving via (IsStructViaStorable SUU) instance IsStruct SUU
 instance (~) ty SUU_anon'anon'x =>
          HasField "sUU_anon'anon'x" SUU ty
     where hasField = \x_0 -> (\y_1 -> SUU{sUU_anon'anon'x = y_1},

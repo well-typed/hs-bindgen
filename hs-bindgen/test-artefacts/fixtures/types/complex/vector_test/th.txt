@@ -55,6 +55,7 @@ instance WriteRaw Vector
                                        Vector vector_x_2
                                               vector_y_3 -> writeRaw (Proxy @"vector_x") ptr_0 vector_x_2 >> writeRaw (Proxy @"vector_y") ptr_0 vector_y_3
 deriving via (EquivStorable Vector) instance Storable Vector
+deriving via (IsStructViaStorable Vector) instance IsStruct Vector
 instance (~) ty CDouble => HasField "vector_x" Vector ty
     where hasField = \x_0 -> (\y_1 -> Vector{vector_x = y_1,
                                              vector_y = getField @"vector_y" x_0},
