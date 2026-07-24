@@ -81,6 +81,7 @@ library
     HsBindgen.Runtime.IsArray
     HsBindgen.Runtime.LibC
     HsBindgen.Runtime.Marshal
+    HsBindgen.Runtime.Overloading
     HsBindgen.Runtime.Prelude
     HsBindgen.Runtime.PtrConst
     HsBindgen.Runtime.Support
