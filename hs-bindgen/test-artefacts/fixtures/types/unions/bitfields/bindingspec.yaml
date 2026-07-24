@@ -1,0 +1,286 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/unions/bitfields.h
+  cname: union foo_8
+  hsname: Foo_8
+- headers: types/unions/bitfields.h
+  cname: union foo_16
+  hsname: Foo_16
+- headers: types/unions/bitfields.h
+  cname: union foo_32
+  hsname: Foo_32
+- headers: types/unions/bitfields.h
+  cname: union foo_64
+  hsname: Foo_64
+- headers: types/unions/bitfields.h
+  cname: union bar_8_8
+  hsname: Bar_8_8
+- headers: types/unions/bitfields.h
+  cname: union bar_8_16
+  hsname: Bar_8_16
+- headers: types/unions/bitfields.h
+  cname: union bar_8_32
+  hsname: Bar_8_32
+- headers: types/unions/bitfields.h
+  cname: union bar_8_64
+  hsname: Bar_8_64
+- headers: types/unions/bitfields.h
+  cname: union bar_16_16
+  hsname: Bar_16_16
+- headers: types/unions/bitfields.h
+  cname: union bar_16_32
+  hsname: Bar_16_32
+- headers: types/unions/bitfields.h
+  cname: union bar_16_64
+  hsname: Bar_16_64
+- headers: types/unions/bitfields.h
+  cname: union bar_32_32
+  hsname: Bar_32_32
+- headers: types/unions/bitfields.h
+  cname: union bar_32_64
+  hsname: Bar_32_64
+- headers: types/unions/bitfields.h
+  cname: union bar_64_64
+  hsname: Bar_64_64
+hstypes:
+- hsname: Bar_16_16
+  representation:
+    newtype:
+      constructor: Bar_16_16
+      fields:
+      - unwrapBar_16_16
+  instances:
+  - Generic
+  - HasCBitfield
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar_16_32
+  representation:
+    newtype:
+      constructor: Bar_16_32
+      fields:
+      - unwrapBar_16_32
+  instances:
+  - Generic
+  - HasCBitfield
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar_16_64
+  representation:
+    newtype:
+      constructor: Bar_16_64
+      fields:
+      - unwrapBar_16_64
+  instances:
+  - Generic
+  - HasCBitfield
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar_32_32
+  representation:
+    newtype:
+      constructor: Bar_32_32
+      fields:
+      - unwrapBar_32_32
+  instances:
+  - Generic
+  - HasCBitfield
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar_32_64
+  representation:
+    newtype:
+      constructor: Bar_32_64
+      fields:
+      - unwrapBar_32_64
+  instances:
+  - Generic
+  - HasCBitfield
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar_64_64
+  representation:
+    newtype:
+      constructor: Bar_64_64
+      fields:
+      - unwrapBar_64_64
+  instances:
+  - Generic
+  - HasCBitfield
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar_8_16
+  representation:
+    newtype:
+      constructor: Bar_8_16
+      fields:
+      - unwrapBar_8_16
+  instances:
+  - Generic
+  - HasCBitfield
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar_8_32
+  representation:
+    newtype:
+      constructor: Bar_8_32
+      fields:
+      - unwrapBar_8_32
+  instances:
+  - Generic
+  - HasCBitfield
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar_8_64
+  representation:
+    newtype:
+      constructor: Bar_8_64
+      fields:
+      - unwrapBar_8_64
+  instances:
+  - Generic
+  - HasCBitfield
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar_8_8
+  representation:
+    newtype:
+      constructor: Bar_8_8
+      fields:
+      - unwrapBar_8_8
+  instances:
+  - Generic
+  - HasCBitfield
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Foo_16
+  representation:
+    newtype:
+      constructor: Foo_16
+      fields:
+      - unwrapFoo_16
+  instances:
+  - Generic
+  - HasCBitfield
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Foo_32
+  representation:
+    newtype:
+      constructor: Foo_32
+      fields:
+      - unwrapFoo_32
+  instances:
+  - Generic
+  - HasCBitfield
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Foo_64
+  representation:
+    newtype:
+      constructor: Foo_64
+      fields:
+      - unwrapFoo_64
+  instances:
+  - Generic
+  - HasCBitfield
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Foo_8
+  representation:
+    newtype:
+      constructor: Foo_8
+      fields:
+      - unwrapFoo_8
+  instances:
+  - Generic
+  - HasCBitfield
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw

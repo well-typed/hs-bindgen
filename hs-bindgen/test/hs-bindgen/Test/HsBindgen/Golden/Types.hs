@@ -88,6 +88,7 @@ testCases = [
     , test_types_typedefs_auxiliary_function_pointer_block
     , test_types_typedefs_typedefs
     , test_types_typedefs_typenames
+    , test_types_unions_bitfields
     ]
 
 {-------------------------------------------------------------------------------
@@ -318,3 +319,7 @@ test_types_typedefs_typenames =
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["enum foo", "foo"]
+
+test_types_unions_bitfields :: TestCase
+test_types_unions_bitfields =
+    defaultTest "types/unions/bitfields"

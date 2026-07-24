@@ -117,16 +117,12 @@ dict_hasField_MyStructBF_y :: Dict $
      HasField "y" (Ptr Types.MyStructBF) (BitfieldPtr CUChar)
 dict_hasField_MyStructBF_y = Dict
 
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>: It should be
--- @BitfieldPtr CInt@ instead of @Ptr CInt@
 dict_hasField_MyUnionBF_x :: Dict $
-     HasField "x" (Ptr Types.MyUnionBF) (Ptr CUInt)
+     HasField "x" (Ptr Types.MyUnionBF) (BitfieldPtr CUInt)
 dict_hasField_MyUnionBF_x = Dict
 
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>: It should be
--- @BitfieldPtr CChar@ instead of @Ptr CChar@
 dict_hasField_MyUnionBF_y :: Dict $
-     HasField "y" (Ptr Types.MyUnionBF) (Ptr CUChar)
+     HasField "y" (Ptr Types.MyUnionBF) (BitfieldPtr CUChar)
 dict_hasField_MyUnionBF_y = Dict
 
 {-------------------------------------------------------------------------------

@@ -73,10 +73,12 @@ unionDecs info union spec = do
         knownInsts :: Set Inst.TypeClass
         knownInsts = Set.fromList $ catMaybes [
             Just Inst.Generic
-          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>
-          -- Should correctly detect 'Inst.HasCBitfield' and 'Inst.HasCField'
-          -- when bit-fields in unions are supported.
-          , if null union.fields then Nothing else Just Inst.HasCField
+          , if any (isJust . (.width)) union.fields
+              then Just Inst.HasCBitfield
+              else Nothing
+          , if any (isNothing . (.width)) union.fields
+              then Just Inst.HasCField
+              else Nothing
           , if null union.fields then Nothing else Just Inst.HasField
           , if null union.fields then Nothing else Just Inst.HasFieldCompat
           , if null union.fields then Nothing else Just Inst.HasFieldPtr
@@ -300,12 +302,6 @@ hasFieldPtrDecs union field =
     | Inst.HasFieldPtr `elem` union.instances
     ]
   where
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>
-    -- Should be changed to @getFieldWidth f@ when bit-fields in unions are
-    -- supported.
-    unionFieldWidth :: Field -> Maybe Int
-    unionFieldWidth _f = Nothing
-
     parentType :: Hs.Type
     parentType = Hs.TypRef union.name Nothing
 
@@ -321,14 +317,14 @@ hasFieldPtrDecs union field =
         , fieldName  = fieldName
         , fieldType  = fieldType
         , deriveVia  =
-            case unionFieldWidth field of
+            case getFieldWidth field of
               Nothing -> Hs.ViaHasCField
               Just _  -> Hs.ViaHasCBitfield
         }
 
 -- | Class instances for 'HsBindgen.Runtime.HasCField.HasCField'
 hasCFieldDecs :: Hs.Newtype -> Field -> [Hs.Decl l]
-hasCFieldDecs union field = case unionFieldWidth field of
+hasCFieldDecs union field = case getFieldWidth field of
     Just _w -> []
     Nothing ->
       [ Hs.DeclDefineInstance $
@@ -339,12 +335,6 @@ hasCFieldDecs union field = case unionFieldWidth field of
       | Inst.HasCField `elem` union.instances
       ]
   where
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>
-    -- Should be changed to @getFieldWidth f@ when bit-fields in unions are
-    -- supported.
-    unionFieldWidth :: Field -> Maybe Int
-    unionFieldWidth _f = Nothing
-
     parentType :: Hs.Type
     parentType = Hs.TypRef union.name Nothing
 
@@ -364,7 +354,7 @@ hasCFieldDecs union field = case unionFieldWidth field of
 
 -- | Class instances for 'HsBindgen.Runtime.HasCBitfield.HasCBitfield'
 hasCBitfieldDecs :: Hs.Newtype -> Field -> [Hs.Decl l]
-hasCBitfieldDecs union field = case unionFieldWidth field of
+hasCBitfieldDecs union field = case getFieldWidth field of
     Nothing -> []
     Just w ->
       [ Hs.DeclDefineInstance $
@@ -375,12 +365,6 @@ hasCBitfieldDecs union field = case unionFieldWidth field of
       | Inst.HasCBitfield `elem` union.instances
       ]
   where
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>
-    -- Should be changed to @getFieldWidth f@ when bit-fields in unions are
-    -- supported.
-    unionFieldWidth :: Field -> Maybe Int
-    unionFieldWidth _f = Nothing
-
     parentType :: Hs.Type
     parentType = Hs.TypRef union.name Nothing
 
