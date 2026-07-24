@@ -29,6 +29,7 @@ import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.FLAM as FLAM
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -72,6 +73,8 @@ instance Marshal.WriteRaw Pascal_Aux where
             HasCField.writeRaw (BG.Proxy @"pascal_len") ptr0 pascal_len2
 
 deriving via Marshal.EquivStorable Pascal_Aux instance BG.Storable Pascal_Aux
+
+deriving via Struct.IsStructViaStorable Pascal_Aux instance Struct.IsStruct Pascal_Aux
 
 {-| __C declaration:__ @len@
 
@@ -159,6 +162,8 @@ instance Marshal.WriteRaw Foo_bar where
             >> HasCField.writeRaw (BG.Proxy @"foo_bar_y") ptr0 foo_bar_y3
 
 deriving via Marshal.EquivStorable Foo_bar instance BG.Storable Foo_bar
+
+deriving via Struct.IsStructViaStorable Foo_bar instance Struct.IsStruct Foo_bar
 
 {-| __C declaration:__ @x@
 
@@ -255,6 +260,8 @@ instance Marshal.WriteRaw Foo_Aux where
 
 deriving via Marshal.EquivStorable Foo_Aux instance BG.Storable Foo_Aux
 
+deriving via Struct.IsStructViaStorable Foo_Aux instance Struct.IsStruct Foo_Aux
+
 {-| __C declaration:__ @len@
 
     __defined at:__ @edge-cases\/flam.h 9:6@
@@ -340,6 +347,8 @@ instance Marshal.WriteRaw Diff_Aux where
             >> HasCField.writeRaw (BG.Proxy @"diff_second") ptr0 diff_second3
 
 deriving via Marshal.EquivStorable Diff_Aux instance BG.Storable Diff_Aux
+
+deriving via Struct.IsStructViaStorable Diff_Aux instance Struct.IsStruct Diff_Aux
 
 {-| __C declaration:__ @first@
 
@@ -450,6 +459,8 @@ instance Marshal.WriteRaw Triplets_Aux where
             HasCField.writeRaw (BG.Proxy @"triplets_len") ptr0 triplets_len2
 
 deriving via Marshal.EquivStorable Triplets_Aux instance BG.Storable Triplets_Aux
+
+deriving via Struct.IsStructViaStorable Triplets_Aux instance Struct.IsStruct Triplets_Aux
 
 {-| __C declaration:__ @len@
 

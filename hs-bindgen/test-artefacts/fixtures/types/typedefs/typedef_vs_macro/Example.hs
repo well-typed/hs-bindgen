@@ -28,6 +28,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -320,6 +321,8 @@ instance Marshal.WriteRaw ExampleStruct where
 
 deriving via Marshal.EquivStorable ExampleStruct instance BG.Storable ExampleStruct
 
+deriving via Struct.IsStructViaStorable ExampleStruct instance Struct.IsStruct ExampleStruct
+
 {-| __C declaration:__ @t1@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 9:6@
@@ -536,6 +539,8 @@ instance Marshal.WriteRaw Foo where
             HasCField.writeRaw (BG.Proxy @"foo_a") ptr0 foo_a2
 
 deriving via Marshal.EquivStorable Foo instance BG.Storable Foo
+
+deriving via Struct.IsStructViaStorable Foo instance Struct.IsStruct Foo
 
 {-| __C declaration:__ @a@
 

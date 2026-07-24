@@ -31,6 +31,7 @@ instance WriteRaw S1
                                        S1 s1_a_2
                                           s1_b_3 -> writeRaw (Proxy @"s1_a") ptr_0 s1_a_2 >> writeRaw (Proxy @"s1_b") ptr_0 s1_b_3
 deriving via (EquivStorable S1) instance Storable S1
+deriving via (IsStructViaStorable S1) instance IsStruct S1
 instance (~) ty CInt => HasField "s1_a" S1 ty
     where hasField = \x_0 -> (\y_1 -> S1{s1_a = y_1,
                                          s1_b = getField @"s1_b" x_0},
@@ -89,6 +90,7 @@ instance WriteRaw S2_t
                                             s2_t_b_3
                                             s2_t_c_4 -> writeRaw (Proxy @"s2_t_a") ptr_0 s2_t_a_2 >> (writeRaw (Proxy @"s2_t_b") ptr_0 s2_t_b_3 >> writeRaw (Proxy @"s2_t_c") ptr_0 s2_t_c_4)
 deriving via (EquivStorable S2_t) instance Storable S2_t
+deriving via (IsStructViaStorable S2_t) instance IsStruct S2_t
 instance (~) ty CChar => HasField "s2_t_a" S2_t ty
     where hasField = \x_0 -> (\y_1 -> S2_t{s2_t_a = y_1,
                                            s2_t_b = getField @"s2_t_b" x_0,
@@ -143,6 +145,7 @@ instance WriteRaw S3_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S3_t s3_t_a_2 -> writeRaw (Proxy @"s3_t_a") ptr_0 s3_t_a_2
 deriving via (EquivStorable S3_t) instance Storable S3_t
+deriving via (IsStructViaStorable S3_t) instance IsStruct S3_t
 instance (~) ty CChar => HasField "s3_t_a" S3_t ty
     where hasField = \x_0 -> (\y_1 -> S3_t{s3_t_a = y_1},
                               getField @"s3_t_a" x_0)
@@ -191,6 +194,7 @@ instance WriteRaw S4
                                           s4_a_3
                                           s4_c_4 -> writeRaw (Proxy @"s4_b") ptr_0 s4_b_2 >> (writeRaw (Proxy @"s4_a") ptr_0 s4_a_3 >> writeRaw (Proxy @"s4_c") ptr_0 s4_c_4)
 deriving via (EquivStorable S4) instance Storable S4
+deriving via (IsStructViaStorable S4) instance IsStruct S4
 instance (~) ty CChar => HasField "s4_b" S4 ty
     where hasField = \x_0 -> (\y_1 -> S4{s4_b = y_1,
                                          s4_a = getField @"s4_a" x_0,
@@ -253,6 +257,7 @@ instance WriteRaw S5
                                        S5 s5_a_2
                                           s5_b_3 -> writeRaw (Proxy @"s5_a") ptr_0 s5_a_2 >> writeRaw (Proxy @"s5_b") ptr_0 s5_b_3
 deriving via (EquivStorable S5) instance Storable S5
+deriving via (IsStructViaStorable S5) instance IsStruct S5
 instance (~) ty CChar => HasField "s5_a" S5 ty
     where hasField = \x_0 -> (\y_1 -> S5{s5_a = y_1,
                                          s5_b = getField @"s5_b" x_0},
@@ -303,6 +308,7 @@ instance WriteRaw S6
                                        S6 s6_a_2
                                           s6_b_3 -> writeRaw (Proxy @"s6_a") ptr_0 s6_a_2 >> writeRaw (Proxy @"s6_b") ptr_0 s6_b_3
 deriving via (EquivStorable S6) instance Storable S6
+deriving via (IsStructViaStorable S6) instance IsStruct S6
 instance (~) ty CChar => HasField "s6_a" S6 ty
     where hasField = \x_0 -> (\y_1 -> S6{s6_a = y_1,
                                          s6_b = getField @"s6_b" x_0},
@@ -353,6 +359,7 @@ instance WriteRaw S7a_Aux
                                        S7a_Aux s7a_Aux_a_2
                                                s7a_Aux_b_3 -> writeRaw (Proxy @"s7a_Aux_a") ptr_0 s7a_Aux_a_2 >> writeRaw (Proxy @"s7a_Aux_b") ptr_0 s7a_Aux_b_3
 deriving via (EquivStorable S7a_Aux) instance Storable S7a_Aux
+deriving via (IsStructViaStorable S7a_Aux) instance IsStruct S7a_Aux
 instance (~) ty CChar => HasField "s7a_Aux_a" S7a_Aux ty
     where hasField = \x_0 -> (\y_1 -> S7a_Aux{s7a_Aux_a = y_1,
                                               s7a_Aux_b = getField @"s7a_Aux_b" x_0},
@@ -427,6 +434,7 @@ instance WriteRaw S7b_Aux
                                        S7b_Aux s7b_Aux_a_2
                                                s7b_Aux_b_3 -> writeRaw (Proxy @"s7b_Aux_a") ptr_0 s7b_Aux_a_2 >> writeRaw (Proxy @"s7b_Aux_b") ptr_0 s7b_Aux_b_3
 deriving via (EquivStorable S7b_Aux) instance Storable S7b_Aux
+deriving via (IsStructViaStorable S7b_Aux) instance IsStruct S7b_Aux
 instance (~) ty CChar => HasField "s7b_Aux_a" S7b_Aux ty
     where hasField = \x_0 -> (\y_1 -> S7b_Aux{s7b_Aux_a = y_1,
                                               s7b_Aux_b = getField @"s7b_Aux_b" x_0},

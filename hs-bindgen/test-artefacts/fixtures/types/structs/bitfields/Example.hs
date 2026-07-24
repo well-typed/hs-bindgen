@@ -33,6 +33,7 @@ module Example
 import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -121,6 +122,8 @@ instance Marshal.WriteRaw Foo_8 where
             >> HasCBitfield.poke (BG.Proxy @"foo_8_f") ptr0 foo_8_f7
 
 deriving via Marshal.EquivStorable Foo_8 instance BG.Storable Foo_8
+
+deriving via Struct.IsStructViaStorable Foo_8 instance Struct.IsStruct Foo_8
 
 {-| __C declaration:__ @a@
 
@@ -411,6 +414,8 @@ instance Marshal.WriteRaw Foo_16 where
             >> HasCBitfield.poke (BG.Proxy @"foo_16_f") ptr0 foo_16_f7
 
 deriving via Marshal.EquivStorable Foo_16 instance BG.Storable Foo_16
+
+deriving via Struct.IsStructViaStorable Foo_16 instance Struct.IsStruct Foo_16
 
 {-| __C declaration:__ @a@
 
@@ -711,6 +716,8 @@ instance Marshal.WriteRaw Foo_32 where
             >> HasCBitfield.poke (BG.Proxy @"foo_32_g") ptr0 foo_32_g8
 
 deriving via Marshal.EquivStorable Foo_32 instance BG.Storable Foo_32
+
+deriving via Struct.IsStructViaStorable Foo_32 instance Struct.IsStruct Foo_32
 
 {-| __C declaration:__ @a@
 
@@ -1028,6 +1035,8 @@ instance Marshal.WriteRaw Foo_64 where
 
 deriving via Marshal.EquivStorable Foo_64 instance BG.Storable Foo_64
 
+deriving via Struct.IsStructViaStorable Foo_64 instance Struct.IsStruct Foo_64
+
 {-| __C declaration:__ @a@
 
     __defined at:__ @types\/structs\/bitfields.h 37:20@
@@ -1210,6 +1219,8 @@ instance Marshal.WriteRaw Bar_8_8 where
 
 deriving via Marshal.EquivStorable Bar_8_8 instance BG.Storable Bar_8_8
 
+deriving via Struct.IsStructViaStorable Bar_8_8 instance Struct.IsStruct Bar_8_8
+
 {-| __C declaration:__ @a@
 
     __defined at:__ @types\/structs\/bitfields.h 45:15@
@@ -1317,6 +1328,8 @@ instance Marshal.WriteRaw Bar_8_16 where
             >> HasCBitfield.poke (BG.Proxy @"bar_8_16_b") ptr0 bar_8_16_b3
 
 deriving via Marshal.EquivStorable Bar_8_16 instance BG.Storable Bar_8_16
+
+deriving via Struct.IsStructViaStorable Bar_8_16 instance Struct.IsStruct Bar_8_16
 
 {-| __C declaration:__ @a@
 
@@ -1428,6 +1441,8 @@ instance Marshal.WriteRaw Bar_8_32 where
 
 deriving via Marshal.EquivStorable Bar_8_32 instance BG.Storable Bar_8_32
 
+deriving via Struct.IsStructViaStorable Bar_8_32 instance Struct.IsStruct Bar_8_32
+
 {-| __C declaration:__ @a@
 
     __defined at:__ @types\/structs\/bitfields.h 57:15@
@@ -1537,6 +1552,8 @@ instance Marshal.WriteRaw Bar_8_64 where
             >> HasCBitfield.poke (BG.Proxy @"bar_8_64_b") ptr0 bar_8_64_b3
 
 deriving via Marshal.EquivStorable Bar_8_64 instance BG.Storable Bar_8_64
+
+deriving via Struct.IsStructViaStorable Bar_8_64 instance Struct.IsStruct Bar_8_64
 
 {-| __C declaration:__ @a@
 
@@ -1648,6 +1665,8 @@ instance Marshal.WriteRaw Bar_16_16 where
 
 deriving via Marshal.EquivStorable Bar_16_16 instance BG.Storable Bar_16_16
 
+deriving via Struct.IsStructViaStorable Bar_16_16 instance Struct.IsStruct Bar_16_16
+
 {-| __C declaration:__ @a@
 
     __defined at:__ @types\/structs\/bitfields.h 69:14@
@@ -1758,6 +1777,8 @@ instance Marshal.WriteRaw Bar_16_32 where
 
 deriving via Marshal.EquivStorable Bar_16_32 instance BG.Storable Bar_16_32
 
+deriving via Struct.IsStructViaStorable Bar_16_32 instance Struct.IsStruct Bar_16_32
+
 {-| __C declaration:__ @a@
 
     __defined at:__ @types\/structs\/bitfields.h 75:15@
@@ -1867,6 +1888,8 @@ instance Marshal.WriteRaw Bar_16_64 where
             >> HasCBitfield.poke (BG.Proxy @"bar_16_64_b") ptr0 bar_16_64_b3
 
 deriving via Marshal.EquivStorable Bar_16_64 instance BG.Storable Bar_16_64
+
+deriving via Struct.IsStructViaStorable Bar_16_64 instance Struct.IsStruct Bar_16_64
 
 {-| __C declaration:__ @a@
 
@@ -1979,6 +2002,8 @@ instance Marshal.WriteRaw Bar_32_32 where
 
 deriving via Marshal.EquivStorable Bar_32_32 instance BG.Storable Bar_32_32
 
+deriving via Struct.IsStructViaStorable Bar_32_32 instance Struct.IsStruct Bar_32_32
+
 {-| __C declaration:__ @a@
 
     __defined at:__ @types\/structs\/bitfields.h 87:15@
@@ -2088,6 +2113,8 @@ instance Marshal.WriteRaw Bar_32_64 where
             >> HasCBitfield.poke (BG.Proxy @"bar_32_64_b") ptr0 bar_32_64_b3
 
 deriving via Marshal.EquivStorable Bar_32_64 instance BG.Storable Bar_32_64
+
+deriving via Struct.IsStructViaStorable Bar_32_64 instance Struct.IsStruct Bar_32_64
 
 {-| __C declaration:__ @a@
 
@@ -2199,6 +2226,8 @@ instance Marshal.WriteRaw Bar_64_64 where
             >> HasCBitfield.poke (BG.Proxy @"bar_64_64_b") ptr0 bar_64_64_b3
 
 deriving via Marshal.EquivStorable Bar_64_64 instance BG.Storable Bar_64_64
+
+deriving via Struct.IsStructViaStorable Bar_64_64 instance Struct.IsStruct Bar_64_64
 
 {-| __C declaration:__ @a@
 

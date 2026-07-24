@@ -1,11 +1,13 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -21,6 +23,7 @@ module Example
 import qualified Foreign
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -115,6 +118,8 @@ instance BG.Storable Foo where
           Foo foo_sixty_four2 foo_thirty_two3 ->
                HasCField.poke (BG.Proxy @"foo_sixty_four") ptr0 foo_sixty_four2
             >> HasCField.poke (BG.Proxy @"foo_thirty_two") ptr0 foo_thirty_two3
+
+deriving via Struct.IsStructViaStorable Foo instance Struct.IsStruct Foo
 
 {-| __C declaration:__ @sixty_four@
 

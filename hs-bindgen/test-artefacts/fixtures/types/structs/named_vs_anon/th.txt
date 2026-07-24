@@ -15,6 +15,7 @@ instance WriteRaw A
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        A -> return ()
 deriving via (EquivStorable A) instance Storable A
+deriving via (IsStructViaStorable A) instance IsStruct A
 {-| __C declaration:__ @struct struct1@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 16:8@
@@ -31,6 +32,7 @@ instance WriteRaw Struct1
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct1 -> return ()
 deriving via (EquivStorable Struct1) instance Storable Struct1
+deriving via (IsStructViaStorable Struct1) instance IsStruct Struct1
 {-| __C declaration:__ @struct b_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 19:8@
@@ -47,6 +49,7 @@ instance WriteRaw B_s
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        B_s -> return ()
 deriving via (EquivStorable B_s) instance Storable B_s
+deriving via (IsStructViaStorable B_s) instance IsStruct B_s
 {-| __C declaration:__ @struct struct2_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 20:8@
@@ -63,6 +66,7 @@ instance WriteRaw Struct2_s
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct2_s -> return ()
 deriving via (EquivStorable Struct2_s) instance Storable Struct2_s
+deriving via (IsStructViaStorable Struct2_s) instance IsStruct Struct2_s
 {-| __C declaration:__ @struct c@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 23:36@
@@ -79,6 +83,7 @@ instance WriteRaw C
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        C -> return ()
 deriving via (EquivStorable C) instance Storable C
+deriving via (IsStructViaStorable C) instance IsStruct C
 {-| __C declaration:__ @struct struct3@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 24:36@
@@ -95,6 +100,7 @@ instance WriteRaw Struct3
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct3 -> return ()
 deriving via (EquivStorable Struct3) instance Storable Struct3
+deriving via (IsStructViaStorable Struct3) instance IsStruct Struct3
 {-| __C declaration:__ @struct d@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 27:15@
@@ -111,6 +117,7 @@ instance WriteRaw D
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        D -> return ()
 deriving via (EquivStorable D) instance Storable D
+deriving via (IsStructViaStorable D) instance IsStruct D
 {-| __C declaration:__ @struct struct4@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 28:15@
@@ -127,6 +134,7 @@ instance WriteRaw Struct4
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct4 -> return ()
 deriving via (EquivStorable Struct4) instance Storable Struct4
+deriving via (IsStructViaStorable Struct4) instance IsStruct Struct4
 {-| __C declaration:__ @struct e_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 31:15@
@@ -143,6 +151,7 @@ instance WriteRaw E_s
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        E_s -> return ()
 deriving via (EquivStorable E_s) instance Storable E_s
+deriving via (IsStructViaStorable E_s) instance IsStruct E_s
 {-| __C declaration:__ @struct struct5_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 32:15@
@@ -159,6 +168,7 @@ instance WriteRaw Struct5_s
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct5_s -> return ()
 deriving via (EquivStorable Struct5_s) instance Storable Struct5_s
+deriving via (IsStructViaStorable Struct5_s) instance IsStruct Struct5_s
 {-| __C declaration:__ @struct f@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 35:9@
@@ -175,6 +185,7 @@ instance WriteRaw F
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        F -> return ()
 deriving via (EquivStorable F) instance Storable F
+deriving via (IsStructViaStorable F) instance IsStruct F
 {-| __C declaration:__ @struct typedef1@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 36:9@
@@ -191,6 +202,7 @@ instance WriteRaw Typedef1
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Typedef1 -> return ()
 deriving via (EquivStorable Typedef1) instance Storable Typedef1
+deriving via (IsStructViaStorable Typedef1) instance IsStruct Typedef1
 {-| __C declaration:__ @struct g@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 39:9@
@@ -207,6 +219,7 @@ instance WriteRaw G
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        G -> return ()
 deriving via (EquivStorable G) instance Storable G
+deriving via (IsStructViaStorable G) instance IsStruct G
 {-| __C declaration:__ @struct typedef2@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 40:9@
@@ -223,6 +236,7 @@ instance WriteRaw Typedef2
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Typedef2 -> return ()
 deriving via (EquivStorable Typedef2) instance Storable Typedef2
+deriving via (IsStructViaStorable Typedef2) instance IsStruct Typedef2
 {-| __C declaration:__ @struct h@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 43:9@
@@ -239,6 +253,7 @@ instance WriteRaw H
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        H -> return ()
 deriving via (EquivStorable H) instance Storable H
+deriving via (IsStructViaStorable H) instance IsStruct H
 {-| __C declaration:__ @struct typedef3@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 44:9@
@@ -255,3 +270,4 @@ instance WriteRaw Typedef3
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Typedef3 -> return ()
 deriving via (EquivStorable Typedef3) instance Storable Typedef3
+deriving via (IsStructViaStorable Typedef3) instance IsStruct Typedef3

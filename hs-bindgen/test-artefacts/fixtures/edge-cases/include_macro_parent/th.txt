@@ -32,6 +32,7 @@ instance WriteRaw Pt
                                        Pt pt_x_2
                                           pt_y_3 -> writeRaw (Proxy @"pt_x") ptr_0 pt_x_2 >> writeRaw (Proxy @"pt_y") ptr_0 pt_y_3
 deriving via (EquivStorable Pt) instance Storable Pt
+deriving via (IsStructViaStorable Pt) instance IsStruct Pt
 instance (~) ty CDouble => HasField "pt_x" Pt ty
     where hasField = \x_0 -> (\y_1 -> Pt{pt_x = y_1,
                                          pt_y = getField @"pt_y" x_0},
@@ -120,6 +121,7 @@ instance WriteRaw Rect
                                        Rect rect_tl_2
                                             rect_br_3 -> writeRaw (Proxy @"rect_tl") ptr_0 rect_tl_2 >> writeRaw (Proxy @"rect_br") ptr_0 rect_br_3
 deriving via (EquivStorable Rect) instance Storable Rect
+deriving via (IsStructViaStorable Rect) instance IsStruct Rect
 instance (~) ty Pt => HasField "rect_tl" Rect ty
     where hasField = \x_0 -> (\y_1 -> Rect{rect_tl = y_1,
                                            rect_br = getField @"rect_br" x_0},

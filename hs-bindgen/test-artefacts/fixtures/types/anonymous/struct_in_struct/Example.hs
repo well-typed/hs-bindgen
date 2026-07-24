@@ -24,6 +24,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -76,6 +77,8 @@ instance Marshal.WriteRaw Outer1_anon'fieldX where
             >> HasCField.writeRaw (BG.Proxy @"outer1_anon'fieldX_fieldY") ptr0 outer1_anon'fieldX_fieldY3
 
 deriving via Marshal.EquivStorable Outer1_anon'fieldX instance BG.Storable Outer1_anon'fieldX
+
+deriving via Struct.IsStructViaStorable Outer1_anon'fieldX instance Struct.IsStruct Outer1_anon'fieldX
 
 {-| __C declaration:__ @fieldX@
 
@@ -197,6 +200,8 @@ instance Marshal.WriteRaw Outer1 where
             >> HasCField.writeRaw (BG.Proxy @"outer1_fieldC") ptr0 outer1_fieldC4
 
 deriving via Marshal.EquivStorable Outer1 instance BG.Storable Outer1
+
+deriving via Struct.IsStructViaStorable Outer1 instance Struct.IsStruct Outer1
 
 {-| __C declaration:__ @fieldA@
 
@@ -424,6 +429,8 @@ instance Marshal.WriteRaw Outer2_fieldB where
 
 deriving via Marshal.EquivStorable Outer2_fieldB instance BG.Storable Outer2_fieldB
 
+deriving via Struct.IsStructViaStorable Outer2_fieldB instance Struct.IsStruct Outer2_fieldB
+
 {-| __C declaration:__ @fieldX@
 
     __defined at:__ @types\/anonymous\/struct_in_struct.h 18:9@
@@ -544,6 +551,8 @@ instance Marshal.WriteRaw Outer2 where
             >> HasCField.writeRaw (BG.Proxy @"outer2_fieldC") ptr0 outer2_fieldC4
 
 deriving via Marshal.EquivStorable Outer2 instance BG.Storable Outer2
+
+deriving via Struct.IsStructViaStorable Outer2 instance Struct.IsStruct Outer2
 
 {-| __C declaration:__ @fieldA@
 
@@ -689,6 +698,8 @@ instance Marshal.WriteRaw Inner3 where
 
 deriving via Marshal.EquivStorable Inner3 instance BG.Storable Inner3
 
+deriving via Struct.IsStructViaStorable Inner3 instance Struct.IsStruct Inner3
+
 {-| __C declaration:__ @fieldX@
 
     __defined at:__ @types\/anonymous\/struct_in_struct.h 27:9@
@@ -803,6 +814,8 @@ instance Marshal.WriteRaw Outer3 where
             >> HasCField.writeRaw (BG.Proxy @"outer3_fieldC") ptr0 outer3_fieldC4
 
 deriving via Marshal.EquivStorable Outer3 instance BG.Storable Outer3
+
+deriving via Struct.IsStructViaStorable Outer3 instance Struct.IsStruct Outer3
 
 {-| __C declaration:__ @fieldA@
 

@@ -19,6 +19,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -77,6 +78,8 @@ instance Marshal.WriteRaw Banner_point where
             >> HasCField.writeRaw (BG.Proxy @"banner_point_y") ptr0 banner_point_y3
 
 deriving via Marshal.EquivStorable Banner_point instance BG.Storable Banner_point
+
+deriving via Struct.IsStructViaStorable Banner_point instance Struct.IsStruct Banner_point
 
 {-| X coordinate
 

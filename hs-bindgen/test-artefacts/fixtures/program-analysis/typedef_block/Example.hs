@@ -26,6 +26,7 @@ module Example
 import qualified HsBindgen.Runtime.Block as Block
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -69,6 +70,8 @@ instance Marshal.WriteRaw Blk_struct where
             HasCField.writeRaw (BG.Proxy @"blk_struct_x") ptr0 blk_struct_x2
 
 deriving via Marshal.EquivStorable Blk_struct instance BG.Storable Blk_struct
+
+deriving via Struct.IsStructViaStorable Blk_struct instance Struct.IsStruct Blk_struct
 
 {-| __C declaration:__ @x@
 
@@ -201,6 +204,8 @@ instance Marshal.WriteRaw Blkarg_struct where
             HasCField.writeRaw (BG.Proxy @"blkarg_struct_y") ptr0 blkarg_struct_y2
 
 deriving via Marshal.EquivStorable Blkarg_struct instance BG.Storable Blkarg_struct
+
+deriving via Struct.IsStructViaStorable Blkarg_struct instance Struct.IsStruct Blkarg_struct
 
 {-| __C declaration:__ @y@
 

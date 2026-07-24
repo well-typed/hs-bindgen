@@ -76,6 +76,7 @@ instance WriteRaw Foo
                                        Foo foo_x_2
                                            foo_y_3 -> writeRaw (Proxy @"foo_x") ptr_0 foo_x_2 >> writeRaw (Proxy @"foo_y") ptr_0 foo_y_3
 deriving via (EquivStorable Foo) instance Storable Foo
+deriving via (IsStructViaStorable Foo) instance IsStruct Foo
 instance (~) ty CInt => HasField "foo_x" Foo ty
     where hasField = \x_0 -> (\y_1 -> Foo{foo_x = y_1,
                                           foo_y = getField @"foo_y" x_0},

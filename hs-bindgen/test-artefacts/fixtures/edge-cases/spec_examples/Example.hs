@@ -29,6 +29,7 @@ module Example
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -226,6 +227,8 @@ instance Marshal.WriteRaw Cint16_T where
 
 deriving via Marshal.EquivStorable Cint16_T instance BG.Storable Cint16_T
 
+deriving via Struct.IsStructViaStorable Cint16_T instance Struct.IsStruct Cint16_T
+
 {-| __C declaration:__ @re@
 
     __defined at:__ @edge-cases\/spec_examples.h 15:11@
@@ -312,6 +315,8 @@ instance Marshal.WriteRaw B where
 
 deriving via Marshal.EquivStorable B instance BG.Storable B
 
+deriving via Struct.IsStructViaStorable B instance Struct.IsStruct B
+
 {-| __C declaration:__ @struct A@
 
     __defined at:__ @edge-cases\/spec_examples.h 23:8@
@@ -388,6 +393,8 @@ instance Marshal.WriteRaw A where
             >> HasCField.writeRaw (BG.Proxy @"a_c") ptr0 a_c6
 
 deriving via Marshal.EquivStorable A instance BG.Storable A
+
+deriving via Struct.IsStructViaStorable A instance Struct.IsStruct A
 
 {-| __C declaration:__ @x@
 

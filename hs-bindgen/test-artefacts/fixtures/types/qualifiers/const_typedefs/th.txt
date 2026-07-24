@@ -120,6 +120,7 @@ instance WriteRaw S
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S -> return ()
 deriving via (EquivStorable S) instance Storable S
+deriving via (IsStructViaStorable S) instance IsStruct S
 {-| __C declaration:__ @union U@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h 12:7@
@@ -228,7 +229,11 @@ instance HasCField TI "unwrapTI"
 newtype TS
     = TS {unwrapTS :: S}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsStruct,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
 instance (~) ty S => HasField "unwrapTS" TS ty
     where hasField = \x_0 -> (\y_1 -> TS{unwrapTS = y_1},
                               getField @"unwrapTS" x_0)
@@ -319,7 +324,11 @@ instance HasCField TTI "unwrapTTI"
 newtype TTS
     = TTS {unwrapTTS :: TS}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsStruct,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
 instance (~) ty TS => HasField "unwrapTTS" TTS ty
     where hasField = \x_0 -> (\y_1 -> TTS{unwrapTTS = y_1},
                               getField @"unwrapTTS" x_0)

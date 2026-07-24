@@ -318,6 +318,7 @@ instance WriteRaw Struct1
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct1 struct1_a_2 -> writeRaw (Proxy @"struct1_a") ptr_0 struct1_a_2
 deriving via (EquivStorable Struct1) instance Storable Struct1
+deriving via (IsStructViaStorable Struct1) instance IsStruct Struct1
 instance (~) ty CInt => HasField "struct1_a" Struct1 ty
     where hasField = \x_0 -> (\y_1 -> Struct1{struct1_a = y_1},
                               getField @"struct1_a" x_0)
@@ -350,6 +351,7 @@ instance WriteRaw Struct2
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct2 struct2_a_2 -> writeRaw (Proxy @"struct2_a") ptr_0 struct2_a_2
 deriving via (EquivStorable Struct2) instance Storable Struct2
+deriving via (IsStructViaStorable Struct2) instance IsStruct Struct2
 instance (~) ty CInt => HasField "struct2_a" Struct2 ty
     where hasField = \x_0 -> (\y_1 -> Struct2{struct2_a = y_1},
                               getField @"struct2_a" x_0)
@@ -382,6 +384,7 @@ instance WriteRaw Struct3
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct3 struct3_a_2 -> writeRaw (Proxy @"struct3_a") ptr_0 struct3_a_2
 deriving via (EquivStorable Struct3) instance Storable Struct3
+deriving via (IsStructViaStorable Struct3) instance IsStruct Struct3
 instance (~) ty CInt => HasField "struct3_a" Struct3 ty
     where hasField = \x_0 -> (\y_1 -> Struct3{struct3_a = y_1},
                               getField @"struct3_a" x_0)
@@ -399,7 +402,11 @@ instance HasCField Struct3 "struct3_a"
 newtype Struct3_t
     = Struct3_t {unwrapStruct3_t :: Struct3}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsStruct,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
 instance (~) ty Struct3 => HasField "unwrapStruct3_t" Struct3_t ty
     where hasField = \x_0 -> (\y_1 -> Struct3_t{unwrapStruct3_t = y_1},
                               getField @"unwrapStruct3_t" x_0)
@@ -433,6 +440,7 @@ instance WriteRaw Struct4
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct4 struct4_a_2 -> writeRaw (Proxy @"struct4_a") ptr_0 struct4_a_2
 deriving via (EquivStorable Struct4) instance Storable Struct4
+deriving via (IsStructViaStorable Struct4) instance IsStruct Struct4
 instance (~) ty CInt => HasField "struct4_a" Struct4 ty
     where hasField = \x_0 -> (\y_1 -> Struct4{struct4_a = y_1},
                               getField @"struct4_a" x_0)

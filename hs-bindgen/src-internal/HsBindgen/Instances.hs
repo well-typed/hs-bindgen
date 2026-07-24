@@ -66,6 +66,7 @@ data TypeClass =
   | HasFieldPtr
   | Integral
   | IsArray
+  | IsStruct
   | IsUnion
   | Ix
   | Num
@@ -196,6 +197,7 @@ instance Default SupportedInstances where
           , mkDef HasField       Independent HsBindgen []
           , mkDef HasFieldCompat Independent HsBindgen []
           , mkDef HasFieldPtr    Independent HsBindgen []
+          , mkDef IsStruct       Dependent   HsBindgen []
           , mkOpt Ord            Dependent             [Stock]
           , mkDef ReadRaw        Dependent   HsBindgen []
           , mkDef Show           Dependent   Stock     []
@@ -258,6 +260,7 @@ instance Default SupportedInstances where
             -- special-cased because for 'IsArray' instances we don't have to
             -- check all dependencies. See issue #1739.
           , mkDef IsArray         Dependent   Newtype   []
+          , mkDef IsStruct        Dependent   Newtype   []
           , mkDef IsUnion         Dependent   Newtype   []
           , mkDef Ix              Dependent   Newtype   []
           , mkDef Num             Dependent   Newtype   []

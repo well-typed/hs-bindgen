@@ -23,6 +23,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified M
@@ -68,6 +69,8 @@ instance Marshal.WriteRaw MyStruct where
 
 deriving via Marshal.EquivStorable MyStruct instance BG.Storable MyStruct
 
+deriving via Struct.IsStructViaStorable MyStruct instance Struct.IsStruct MyStruct
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 4:23@
@@ -104,7 +107,8 @@ newtype A = A
   }
   deriving stock (Eq, BG.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( Struct.IsStruct
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , BG.Storable
     , Marshal.WriteRaw
@@ -137,7 +141,8 @@ newtype B = B
   }
   deriving stock (Eq, BG.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( Struct.IsStruct
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , BG.Storable
     , Marshal.WriteRaw

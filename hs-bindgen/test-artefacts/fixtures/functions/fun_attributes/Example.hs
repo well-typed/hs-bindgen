@@ -22,6 +22,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -54,6 +55,8 @@ instance Marshal.WriteRaw FILE where
           FILE -> return ()
 
 deriving via Marshal.EquivStorable FILE instance BG.Storable FILE
+
+deriving via Struct.IsStructViaStorable FILE instance Struct.IsStruct FILE
 
 {-| __C declaration:__ @size_t@
 

@@ -44,6 +44,7 @@ instance WriteRaw S
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S foo_2 -> writeRaw (Proxy @"foo") ptr_0 foo_2
 deriving via (EquivStorable S) instance Storable S
+deriving via (IsStructViaStorable S) instance IsStruct S
 instance (~) ty CInt => HasField "foo" S ty
     where hasField = \x_0 -> (\y_1 -> S{foo = y_1},
                               getField @"foo" x_0)
@@ -76,6 +77,7 @@ instance WriteRaw T
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        T bar_2 -> writeRaw (Proxy @"bar") ptr_0 bar_2
 deriving via (EquivStorable T) instance Storable T
+deriving via (IsStructViaStorable T) instance IsStruct T
 instance (~) ty CInt => HasField "bar" T ty
     where hasField = \x_0 -> (\y_1 -> T{bar = y_1},
                               getField @"bar" x_0)

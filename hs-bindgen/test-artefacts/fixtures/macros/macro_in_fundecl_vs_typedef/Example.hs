@@ -27,6 +27,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -161,6 +162,8 @@ instance Marshal.WriteRaw Struct1 where
 
 deriving via Marshal.EquivStorable Struct1 instance BG.Storable Struct1
 
+deriving via Struct.IsStructViaStorable Struct1 instance Struct.IsStruct Struct1
+
 {-| __C declaration:__ @a@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 18:30@
@@ -226,6 +229,8 @@ instance Marshal.WriteRaw Struct2 where
             HasCField.writeRaw (BG.Proxy @"struct2_a") ptr0 struct2_a2
 
 deriving via Marshal.EquivStorable Struct2 instance BG.Storable Struct2
+
+deriving via Struct.IsStructViaStorable Struct2 instance Struct.IsStruct Struct2
 
 {-| __C declaration:__ @a@
 
@@ -293,6 +298,8 @@ instance Marshal.WriteRaw Struct3 where
 
 deriving via Marshal.EquivStorable Struct3 instance BG.Storable Struct3
 
+deriving via Struct.IsStructViaStorable Struct3 instance Struct.IsStruct Struct3
+
 {-| __C declaration:__ @a@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:30@
@@ -329,7 +336,8 @@ newtype Struct3_t = Struct3_t
   }
   deriving stock (Eq, BG.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( Struct.IsStruct
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , BG.Storable
     , Marshal.WriteRaw
@@ -395,6 +403,8 @@ instance Marshal.WriteRaw Struct4 where
             HasCField.writeRaw (BG.Proxy @"struct4_a") ptr0 struct4_a2
 
 deriving via Marshal.EquivStorable Struct4 instance BG.Storable Struct4
+
+deriving via Struct.IsStructViaStorable Struct4 instance Struct.IsStruct Struct4
 
 {-| __C declaration:__ @a@
 

@@ -30,6 +30,7 @@ instance WriteRaw Baz
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Baz baz_x3_1_2 -> writeRaw (Proxy @"baz_x3_1") ptr_0 baz_x3_1_2
 deriving via (EquivStorable Baz) instance Storable Baz
+deriving via (IsStructViaStorable Baz) instance IsStruct Baz
 instance (~) ty CInt => HasField "baz_x3_1" Baz ty
     where hasField = \x_0 -> (\y_1 -> Baz{baz_x3_1 = y_1},
                               getField @"baz_x3_1" x_0)

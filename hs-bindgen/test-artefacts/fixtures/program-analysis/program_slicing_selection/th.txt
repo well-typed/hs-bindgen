@@ -167,6 +167,7 @@ instance WriteRaw FileOperationRecord
                                        FileOperationRecord fileOperationRecord_status_2
                                                            fileOperationRecord_bytes_processed_3 -> writeRaw (Proxy @"fileOperationRecord_status") ptr_0 fileOperationRecord_status_2 >> writeRaw (Proxy @"fileOperationRecord_bytes_processed") ptr_0 fileOperationRecord_bytes_processed_3
 deriving via (EquivStorable FileOperationRecord) instance Storable FileOperationRecord
+deriving via (IsStructViaStorable FileOperationRecord) instance IsStruct FileOperationRecord
 instance (~) ty FileOperationStatus =>
          HasField "fileOperationRecord_status" FileOperationRecord ty
     where hasField = \x_0 -> (\y_1 -> FileOperationRecord{fileOperationRecord_status = y_1,

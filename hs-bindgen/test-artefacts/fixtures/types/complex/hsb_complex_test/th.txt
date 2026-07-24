@@ -175,6 +175,7 @@ instance WriteRaw Complex_object_t
                                                         complex_object_t_position_3
                                                         complex_object_t_id_4 -> writeRaw (Proxy @"complex_object_t_velocity") ptr_0 complex_object_t_velocity_2 >> (writeRaw (Proxy @"complex_object_t_position") ptr_0 complex_object_t_position_3 >> writeRaw (Proxy @"complex_object_t_id") ptr_0 complex_object_t_id_4)
 deriving via (EquivStorable Complex_object_t) instance Storable Complex_object_t
+deriving via (IsStructViaStorable Complex_object_t) instance IsStruct Complex_object_t
 instance (~) ty (Complex CFloat) =>
          HasField "complex_object_t_velocity" Complex_object_t ty
     where hasField = \x_0 -> (\y_1 -> Complex_object_t{complex_object_t_velocity = y_1,

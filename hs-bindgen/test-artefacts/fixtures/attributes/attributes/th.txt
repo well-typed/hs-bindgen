@@ -31,6 +31,7 @@ instance WriteRaw Foo
                                        Foo foo_c_2
                                            foo_i_3 -> writeRaw (Proxy @"foo_c") ptr_0 foo_c_2 >> writeRaw (Proxy @"foo_i") ptr_0 foo_i_3
 deriving via (EquivStorable Foo) instance Storable Foo
+deriving via (IsStructViaStorable Foo) instance IsStruct Foo
 instance (~) ty CChar => HasField "foo_c" Foo ty
     where hasField = \x_0 -> (\y_1 -> Foo{foo_c = y_1,
                                           foo_i = getField @"foo_i" x_0},
@@ -81,6 +82,7 @@ instance WriteRaw Bar
                                        Bar bar_c_2
                                            bar_i_3 -> writeRaw (Proxy @"bar_c") ptr_0 bar_c_2 >> writeRaw (Proxy @"bar_i") ptr_0 bar_i_3
 deriving via (EquivStorable Bar) instance Storable Bar
+deriving via (IsStructViaStorable Bar) instance IsStruct Bar
 instance (~) ty CChar => HasField "bar_c" Bar ty
     where hasField = \x_0 -> (\y_1 -> Bar{bar_c = y_1,
                                           bar_i = getField @"bar_i" x_0},
@@ -131,6 +133,7 @@ instance WriteRaw Baz
                                        Baz baz_c_2
                                            baz_i_3 -> writeRaw (Proxy @"baz_c") ptr_0 baz_c_2 >> writeRaw (Proxy @"baz_i") ptr_0 baz_i_3
 deriving via (EquivStorable Baz) instance Storable Baz
+deriving via (IsStructViaStorable Baz) instance IsStruct Baz
 instance (~) ty CChar => HasField "baz_c" Baz ty
     where hasField = \x_0 -> (\y_1 -> Baz{baz_c = y_1,
                                           baz_i = getField @"baz_i" x_0},
@@ -181,6 +184,7 @@ instance WriteRaw Qux
                                        Qux qux_c_2
                                            qux_i_3 -> writeRaw (Proxy @"qux_c") ptr_0 qux_c_2 >> writeRaw (Proxy @"qux_i") ptr_0 qux_i_3
 deriving via (EquivStorable Qux) instance Storable Qux
+deriving via (IsStructViaStorable Qux) instance IsStruct Qux
 instance (~) ty CChar => HasField "qux_c" Qux ty
     where hasField = \x_0 -> (\y_1 -> Qux{qux_c = y_1,
                                           qux_i = getField @"qux_i" x_0},
@@ -239,6 +243,7 @@ instance WriteRaw FILE
                                             fILE__w_3
                                             fILE__close_4 -> writeRaw (Proxy @"fILE__r") ptr_0 fILE__r_2 >> (writeRaw (Proxy @"fILE__w") ptr_0 fILE__w_3 >> writeRaw (Proxy @"fILE__close") ptr_0 fILE__close_4)
 deriving via (EquivStorable FILE) instance Storable FILE
+deriving via (IsStructViaStorable FILE) instance IsStruct FILE
 instance (~) ty CInt => HasField "fILE__r" FILE ty
     where hasField = \x_0 -> (\y_1 -> FILE{fILE__r = y_1,
                                            fILE__w = getField @"fILE__w" x_0,

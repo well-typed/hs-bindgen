@@ -55,6 +55,7 @@ instance WriteRaw T1
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        T1 t1_x_2 -> writeRaw (Proxy @"t1_x") ptr_0 t1_x_2
 deriving via (EquivStorable T1) instance Storable T1
+deriving via (IsStructViaStorable T1) instance IsStruct T1
 instance (~) ty MyInt => HasField "t1_x" T1 ty
     where hasField = \x_0 -> (\y_1 -> T1{t1_x = y_1},
                               getField @"t1_x" x_0)
@@ -87,6 +88,7 @@ instance WriteRaw T2_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        T2_Aux t2_Aux_x_2 -> writeRaw (Proxy @"t2_Aux_x") ptr_0 t2_Aux_x_2
 deriving via (EquivStorable T2_Aux) instance Storable T2_Aux
+deriving via (IsStructViaStorable T2_Aux) instance IsStruct T2_Aux
 instance (~) ty MyInt => HasField "t2_Aux_x" T2_Aux ty
     where hasField = \x_0 -> (\y_1 -> T2_Aux{t2_Aux_x = y_1},
                               getField @"t2_Aux_x" x_0)
@@ -142,6 +144,7 @@ instance WriteRaw T3_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        T3_Aux t3_Aux_x_2 -> writeRaw (Proxy @"t3_Aux_x") ptr_0 t3_Aux_x_2
 deriving via (EquivStorable T3_Aux) instance Storable T3_Aux
+deriving via (IsStructViaStorable T3_Aux) instance IsStruct T3_Aux
 instance (~) ty MyInt => HasField "t3_Aux_x" T3_Aux ty
     where hasField = \x_0 -> (\y_1 -> T3_Aux{t3_Aux_x = y_1},
                               getField @"t3_Aux_x" x_0)

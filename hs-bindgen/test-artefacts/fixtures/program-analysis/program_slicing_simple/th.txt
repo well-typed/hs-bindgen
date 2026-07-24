@@ -88,6 +88,7 @@ instance Storable Foo
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Foo foo_sixty_four_3
                                        foo_thirty_two_4 -> poke (Proxy @"foo_sixty_four") ptr_1 foo_sixty_four_3 >> poke (Proxy @"foo_thirty_two") ptr_1 foo_thirty_two_4
+deriving via (IsStructViaStorable Foo) instance IsStruct Foo
 instance (~) ty Foreign.Word64 => HasField "foo_sixty_four" Foo ty
     where hasField = \x_0 -> (\y_1 -> Foo{foo_sixty_four = y_1,
                                           foo_thirty_two = getField @"foo_thirty_two" x_0},

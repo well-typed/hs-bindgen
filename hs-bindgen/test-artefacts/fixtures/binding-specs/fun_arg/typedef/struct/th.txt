@@ -144,6 +144,7 @@ instance WriteRaw MyStruct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        MyStruct myStruct_x_2 -> writeRaw (Proxy @"myStruct_x") ptr_0 myStruct_x_2
 deriving via (EquivStorable MyStruct) instance Storable MyStruct
+deriving via (IsStructViaStorable MyStruct) instance IsStruct MyStruct
 instance (~) ty CInt => HasField "myStruct_x" MyStruct ty
     where hasField = \x_0 -> (\y_1 -> MyStruct{myStruct_x = y_1},
                               getField @"myStruct_x" x_0)
@@ -162,7 +163,11 @@ instance HasCField MyStruct "myStruct_x"
 newtype A
     = A {unwrapA :: MyStruct}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsStruct,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
 instance (~) ty MyStruct => HasField "unwrapA" A ty
     where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
                               getField @"unwrapA" x_0)
@@ -180,7 +185,11 @@ instance HasCField A "unwrapA"
 newtype B
     = B {unwrapB :: A}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsStruct,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
 instance (~) ty A => HasField "unwrapB" B ty
     where hasField = \x_0 -> (\y_1 -> B{unwrapB = y_1},
                               getField @"unwrapB" x_0)

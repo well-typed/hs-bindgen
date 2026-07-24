@@ -27,6 +27,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
@@ -119,6 +120,8 @@ instance Marshal.WriteRaw T1_x where
             HasCField.writeRaw (BG.Proxy @"t1_x_x") ptr0 t1_x_x2
 
 deriving via Marshal.EquivStorable T1_x instance BG.Storable T1_x
+
+deriving via Struct.IsStructViaStorable T1_x instance Struct.IsStruct T1_x
 
 {-| __C declaration:__ @x@
 
@@ -287,6 +290,8 @@ instance Marshal.WriteRaw T2_x where
 
 deriving via Marshal.EquivStorable T2_x instance BG.Storable T2_x
 
+deriving via Struct.IsStructViaStorable T2_x instance Struct.IsStruct T2_x
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 4:24@
@@ -403,6 +408,8 @@ instance Marshal.WriteRaw T3_x where
             HasCField.writeRaw (BG.Proxy @"t3_x_x") ptr0 t3_x_x2
 
 deriving via Marshal.EquivStorable T3_x instance BG.Storable T3_x
+
+deriving via Struct.IsStructViaStorable T3_x instance Struct.IsStruct T3_x
 
 {-| __C declaration:__ @x@
 

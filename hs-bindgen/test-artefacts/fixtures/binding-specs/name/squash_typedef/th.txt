@@ -31,6 +31,7 @@ instance WriteRaw Piyo
                                        Piyo piyo_x_2
                                             piyo_y_3 -> writeRaw (Proxy @"piyo_x") ptr_0 piyo_x_2 >> writeRaw (Proxy @"piyo_y") ptr_0 piyo_y_3
 deriving via (EquivStorable Piyo) instance Storable Piyo
+deriving via (IsStructViaStorable Piyo) instance IsStruct Piyo
 instance (~) ty CInt => HasField "piyo_x" Piyo ty
     where hasField = \x_0 -> (\y_1 -> Piyo{piyo_x = y_1,
                                            piyo_y = getField @"piyo_y" x_0},

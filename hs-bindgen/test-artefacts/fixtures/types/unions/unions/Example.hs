@@ -27,6 +27,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
@@ -80,6 +81,8 @@ instance Marshal.WriteRaw Dim2 where
             >> HasCField.writeRaw (BG.Proxy @"dim2_y") ptr0 dim2_y3
 
 deriving via Marshal.EquivStorable Dim2 instance BG.Storable Dim2
+
+deriving via Struct.IsStructViaStorable Dim2 instance Struct.IsStruct Dim2
 
 {-| __C declaration:__ @x@
 
@@ -189,6 +192,8 @@ instance Marshal.WriteRaw Dim3 where
             >> HasCField.writeRaw (BG.Proxy @"dim3_z") ptr0 dim3_z4
 
 deriving via Marshal.EquivStorable Dim3 instance BG.Storable Dim3
+
+deriving via Struct.IsStructViaStorable Dim3 instance Struct.IsStruct Dim3
 
 {-| __C declaration:__ @x@
 
@@ -415,6 +420,8 @@ instance Marshal.WriteRaw Dim where
 
 deriving via Marshal.EquivStorable Dim instance BG.Storable Dim
 
+deriving via Struct.IsStructViaStorable Dim instance Struct.IsStruct Dim
+
 {-| __C declaration:__ @tag@
 
     __defined at:__ @types\/unions\/unions.h 18:9@
@@ -609,6 +616,8 @@ instance Marshal.WriteRaw DimB where
 
 deriving via Marshal.EquivStorable DimB instance BG.Storable DimB
 
+deriving via Struct.IsStructViaStorable DimB instance Struct.IsStruct DimB
+
 {-| __C declaration:__ @tag@
 
     __defined at:__ @types\/unions\/unions.h 29:9@
@@ -713,6 +722,8 @@ instance Marshal.WriteRaw AnonA_xy where
 
 deriving via Marshal.EquivStorable AnonA_xy instance BG.Storable AnonA_xy
 
+deriving via Struct.IsStructViaStorable AnonA_xy instance Struct.IsStruct AnonA_xy
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @types\/unions\/unions.h 35:21@
@@ -816,6 +827,8 @@ instance Marshal.WriteRaw AnonA_polar where
             >> HasCField.writeRaw (BG.Proxy @"anonA_polar_p") ptr0 anonA_polar_p3
 
 deriving via Marshal.EquivStorable AnonA_polar instance BG.Storable AnonA_polar
+
+deriving via Struct.IsStructViaStorable AnonA_polar instance Struct.IsStruct AnonA_polar
 
 {-| __C declaration:__ @r@
 

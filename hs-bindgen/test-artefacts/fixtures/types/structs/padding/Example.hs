@@ -21,6 +21,7 @@ module Example
 import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -82,6 +83,8 @@ instance Marshal.WriteRaw Foo where
             >> HasCBitfield.poke (BG.Proxy @"foo_c") ptr0 foo_c4
 
 deriving via Marshal.EquivStorable Foo instance BG.Storable Foo
+
+deriving via Struct.IsStructViaStorable Foo instance Struct.IsStruct Foo
 
 {-| __C declaration:__ @a@
 
@@ -216,6 +219,8 @@ instance Marshal.WriteRaw Bar where
             >> HasCBitfield.poke (BG.Proxy @"bar_y") ptr0 bar_y3
 
 deriving via Marshal.EquivStorable Bar instance BG.Storable Bar
+
+deriving via Struct.IsStructViaStorable Bar instance Struct.IsStruct Bar
 
 {-| __C declaration:__ @x@
 

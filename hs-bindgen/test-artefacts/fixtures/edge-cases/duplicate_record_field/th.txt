@@ -23,6 +23,7 @@ instance WriteRaw A
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        A dup_2 -> writeRaw (Proxy @"dup") ptr_0 dup_2
 deriving via (EquivStorable A) instance Storable A
+deriving via (IsStructViaStorable A) instance IsStruct A
 instance (~) ty CInt => HasField "dup" A ty
     where hasField = \x_0 -> (\y_1 -> A{dup = y_1},
                               getField @"dup" x_0)
@@ -55,6 +56,7 @@ instance WriteRaw B
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        B dup_2 -> writeRaw (Proxy @"dup") ptr_0 dup_2
 deriving via (EquivStorable B) instance Storable B
+deriving via (IsStructViaStorable B) instance IsStruct B
 instance (~) ty CInt => HasField "dup" B ty
     where hasField = \x_0 -> (\y_1 -> B{dup = y_1},
                               getField @"dup" x_0)

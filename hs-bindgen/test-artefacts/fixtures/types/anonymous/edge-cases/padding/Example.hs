@@ -26,6 +26,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
@@ -70,6 +71,8 @@ instance Marshal.WriteRaw SS_anon'y where
             HasCField.writeRaw (BG.Proxy @"sS_anon'y_y") ptr0 sS_anon'y_y2
 
 deriving via Marshal.EquivStorable SS_anon'y instance BG.Storable SS_anon'y
+
+deriving via Struct.IsStructViaStorable SS_anon'y instance Struct.IsStruct SS_anon'y
 
 {-| __C declaration:__ @y@
 
@@ -155,6 +158,8 @@ instance Marshal.WriteRaw SS where
             >> HasCField.writeRaw (BG.Proxy @"sS_z") ptr0 sS_z4
 
 deriving via Marshal.EquivStorable SS instance BG.Storable SS
+
+deriving via Struct.IsStructViaStorable SS instance Struct.IsStruct SS
 
 {-| __C declaration:__ @x@
 
@@ -391,6 +396,8 @@ instance Marshal.WriteRaw SU where
 
 deriving via Marshal.EquivStorable SU instance BG.Storable SU
 
+deriving via Struct.IsStructViaStorable SU instance Struct.IsStruct SU
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/padding.h 23:8@
@@ -551,6 +558,8 @@ instance Marshal.WriteRaw US_anon'y where
             HasCField.writeRaw (BG.Proxy @"uS_anon'y_y") ptr0 uS_anon'y_y2
 
 deriving via Marshal.EquivStorable US_anon'y instance BG.Storable US_anon'y
+
+deriving via Struct.IsStructViaStorable US_anon'y instance Struct.IsStruct US_anon'y
 
 {-| __C declaration:__ @y@
 

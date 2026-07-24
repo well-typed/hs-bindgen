@@ -42,6 +42,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
@@ -86,6 +87,8 @@ instance Marshal.WriteRaw SSS_anon'anon'x_anon'x where
             HasCField.writeRaw (BG.Proxy @"sSS_anon'anon'x_anon'x_x") ptr0 sSS_anon'anon'x_anon'x_x2
 
 deriving via Marshal.EquivStorable SSS_anon'anon'x_anon'x instance BG.Storable SSS_anon'anon'x_anon'x
+
+deriving via Struct.IsStructViaStorable SSS_anon'anon'x_anon'x instance Struct.IsStruct SSS_anon'anon'x_anon'x
 
 {-| __C declaration:__ @x@
 
@@ -156,6 +159,8 @@ instance Marshal.WriteRaw SSS_anon'anon'x where
             HasCField.writeRaw (BG.Proxy @"sSS_anon'anon'x_anon'x") ptr0 sSS_anon'anon'x_anon'x2
 
 deriving via Marshal.EquivStorable SSS_anon'anon'x instance BG.Storable SSS_anon'anon'x
+
+deriving via Struct.IsStructViaStorable SSS_anon'anon'x instance Struct.IsStruct SSS_anon'anon'x
 
 {-| __C declaration:__ @anon\'x@
 
@@ -270,6 +275,8 @@ instance Marshal.WriteRaw SSS where
 
 deriving via Marshal.EquivStorable SSS instance BG.Storable SSS
 
+deriving via Struct.IsStructViaStorable SSS instance Struct.IsStruct SSS
+
 {-| __C declaration:__ @anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 16:3@
@@ -376,6 +383,8 @@ instance Marshal.WriteRaw USS_anon'anon'x_anon'x where
 
 deriving via Marshal.EquivStorable USS_anon'anon'x_anon'x instance BG.Storable USS_anon'anon'x_anon'x
 
+deriving via Struct.IsStructViaStorable USS_anon'anon'x_anon'x instance Struct.IsStruct USS_anon'anon'x_anon'x
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 26:11@
@@ -445,6 +454,8 @@ instance Marshal.WriteRaw USS_anon'anon'x where
             HasCField.writeRaw (BG.Proxy @"uSS_anon'anon'x_anon'x") ptr0 uSS_anon'anon'x_anon'x2
 
 deriving via Marshal.EquivStorable USS_anon'anon'x instance BG.Storable USS_anon'anon'x
+
+deriving via Struct.IsStructViaStorable USS_anon'anon'x instance Struct.IsStruct USS_anon'anon'x
 
 {-| __C declaration:__ @anon\'x@
 
@@ -654,6 +665,8 @@ instance Marshal.WriteRaw SUS_anon'anon'x_anon'x where
 
 deriving via Marshal.EquivStorable SUS_anon'anon'x_anon'x instance BG.Storable SUS_anon'anon'x_anon'x
 
+deriving via Struct.IsStructViaStorable SUS_anon'anon'x_anon'x instance Struct.IsStruct SUS_anon'anon'x_anon'x
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 34:11@
@@ -825,6 +838,8 @@ instance Marshal.WriteRaw SUS where
 
 deriving via Marshal.EquivStorable SUS instance BG.Storable SUS
 
+deriving via Struct.IsStructViaStorable SUS instance Struct.IsStruct SUS
+
 {-| __C declaration:__ @anon\'anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 32:3@
@@ -930,6 +945,8 @@ instance Marshal.WriteRaw UUS_anon'anon'x_anon'x where
             HasCField.writeRaw (BG.Proxy @"uUS_anon'anon'x_anon'x_x") ptr0 uUS_anon'anon'x_anon'x_x2
 
 deriving via Marshal.EquivStorable UUS_anon'anon'x_anon'x instance BG.Storable UUS_anon'anon'x_anon'x
+
+deriving via Struct.IsStructViaStorable UUS_anon'anon'x_anon'x instance Struct.IsStruct UUS_anon'anon'x_anon'x
 
 {-| __C declaration:__ @x@
 
@@ -1255,6 +1272,8 @@ instance Marshal.WriteRaw SSU_anon'anon'x where
 
 deriving via Marshal.EquivStorable SSU_anon'anon'x instance BG.Storable SSU_anon'anon'x
 
+deriving via Struct.IsStructViaStorable SSU_anon'anon'x instance Struct.IsStruct SSU_anon'anon'x
+
 {-| __C declaration:__ @anon\'x@
 
     __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 49:5@
@@ -1367,6 +1386,8 @@ instance Marshal.WriteRaw SSU where
             HasCField.writeRaw (BG.Proxy @"sSU_anon'anon'x") ptr0 sSU_anon'anon'x2
 
 deriving via Marshal.EquivStorable SSU instance BG.Storable SSU
+
+deriving via Struct.IsStructViaStorable SSU instance Struct.IsStruct SSU
 
 {-| __C declaration:__ @anon\'anon\'x@
 
@@ -1531,6 +1552,8 @@ instance Marshal.WriteRaw USU_anon'anon'x where
             HasCField.writeRaw (BG.Proxy @"uSU_anon'anon'x_anon'x") ptr0 uSU_anon'anon'x_anon'x2
 
 deriving via Marshal.EquivStorable USU_anon'anon'x instance BG.Storable USU_anon'anon'x
+
+deriving via Struct.IsStructViaStorable USU_anon'anon'x instance Struct.IsStruct USU_anon'anon'x
 
 {-| __C declaration:__ @anon\'x@
 
@@ -1898,6 +1921,8 @@ instance Marshal.WriteRaw SUU where
             HasCField.writeRaw (BG.Proxy @"sUU_anon'anon'x") ptr0 sUU_anon'anon'x2
 
 deriving via Marshal.EquivStorable SUU instance BG.Storable SUU
+
+deriving via Struct.IsStructViaStorable SUU instance Struct.IsStruct SUU
 
 {-| __C declaration:__ @anon\'anon\'x@
 

@@ -31,6 +31,7 @@ instance WriteRaw Linked_list_A_t
                                        Linked_list_A_t linked_list_A_t_x_2
                                                        linked_list_A_t_next_3 -> writeRaw (Proxy @"linked_list_A_t_x") ptr_0 linked_list_A_t_x_2 >> writeRaw (Proxy @"linked_list_A_t_next") ptr_0 linked_list_A_t_next_3
 deriving via (EquivStorable Linked_list_A_t) instance Storable Linked_list_A_t
+deriving via (IsStructViaStorable Linked_list_A_t) instance IsStruct Linked_list_A_t
 instance (~) ty CInt =>
          HasField "linked_list_A_t_x" Linked_list_A_t ty
     where hasField = \x_0 -> (\y_1 -> Linked_list_A_t{linked_list_A_t_x = y_1,
@@ -86,6 +87,7 @@ instance WriteRaw Linked_list_B_t
                                        Linked_list_B_t linked_list_B_t_x_2
                                                        linked_list_B_t_next_3 -> writeRaw (Proxy @"linked_list_B_t_x") ptr_0 linked_list_B_t_x_2 >> writeRaw (Proxy @"linked_list_B_t_next") ptr_0 linked_list_B_t_next_3
 deriving via (EquivStorable Linked_list_B_t) instance Storable Linked_list_B_t
+deriving via (IsStructViaStorable Linked_list_B_t) instance IsStruct Linked_list_B_t
 instance (~) ty CInt =>
          HasField "linked_list_B_t_x" Linked_list_B_t ty
     where hasField = \x_0 -> (\y_1 -> Linked_list_B_t{linked_list_B_t_x = y_1,

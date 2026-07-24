@@ -21,6 +21,7 @@ module Example
 import qualified HsBindgen.Runtime.FLAM as FLAM
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -64,6 +65,8 @@ instance Marshal.WriteRaw Vector_Aux where
             HasCField.writeRaw (BG.Proxy @"vector_length") ptr0 vector_length2
 
 deriving via Marshal.EquivStorable Vector_Aux instance BG.Storable Vector_Aux
+
+deriving via Struct.IsStructViaStorable Vector_Aux instance Struct.IsStruct Vector_Aux
 
 {-| __C declaration:__ @length@
 

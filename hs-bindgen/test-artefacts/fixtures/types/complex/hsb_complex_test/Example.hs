@@ -19,6 +19,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -83,6 +84,8 @@ instance Marshal.WriteRaw Complex_object_t where
               >> HasCField.writeRaw (BG.Proxy @"complex_object_t_id") ptr0 complex_object_t_id4
 
 deriving via Marshal.EquivStorable Complex_object_t instance BG.Storable Complex_object_t
+
+deriving via Struct.IsStructViaStorable Complex_object_t instance Struct.IsStruct Complex_object_t
 
 {-| __C declaration:__ @velocity@
 

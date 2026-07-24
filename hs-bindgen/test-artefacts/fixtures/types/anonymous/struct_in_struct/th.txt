@@ -31,6 +31,7 @@ instance WriteRaw Outer1_anon'fieldX
                                        Outer1_anon'fieldX outer1_anon'fieldX_fieldX_2
                                                           outer1_anon'fieldX_fieldY_3 -> writeRaw (Proxy @"outer1_anon'fieldX_fieldX") ptr_0 outer1_anon'fieldX_fieldX_2 >> writeRaw (Proxy @"outer1_anon'fieldX_fieldY") ptr_0 outer1_anon'fieldX_fieldY_3
 deriving via (EquivStorable Outer1_anon'fieldX) instance Storable Outer1_anon'fieldX
+deriving via (IsStructViaStorable Outer1_anon'fieldX) instance IsStruct Outer1_anon'fieldX
 instance (~) ty CInt =>
          HasField "outer1_anon'fieldX_fieldX" Outer1_anon'fieldX ty
     where hasField = \x_0 -> (\y_1 -> Outer1_anon'fieldX{outer1_anon'fieldX_fieldX = y_1,
@@ -99,6 +100,7 @@ instance WriteRaw Outer1
                                               outer1_anon'fieldX_3
                                               outer1_fieldC_4 -> writeRaw (Proxy @"outer1_fieldA") ptr_0 outer1_fieldA_2 >> (writeRaw (Proxy @"outer1_anon'fieldX") ptr_0 outer1_anon'fieldX_3 >> writeRaw (Proxy @"outer1_fieldC") ptr_0 outer1_fieldC_4)
 deriving via (EquivStorable Outer1) instance Storable Outer1
+deriving via (IsStructViaStorable Outer1) instance IsStruct Outer1
 instance (~) ty CChar => HasField "outer1_fieldA" Outer1 ty
     where hasField = \x_0 -> (\y_1 -> Outer1{outer1_fieldA = y_1,
                                              outer1_anon'fieldX = getField @"outer1_anon'fieldX" x_0,
@@ -188,6 +190,7 @@ instance WriteRaw Outer2_fieldB
                                        Outer2_fieldB outer2_fieldB_fieldX_2
                                                      outer2_fieldB_fieldY_3 -> writeRaw (Proxy @"outer2_fieldB_fieldX") ptr_0 outer2_fieldB_fieldX_2 >> writeRaw (Proxy @"outer2_fieldB_fieldY") ptr_0 outer2_fieldB_fieldY_3
 deriving via (EquivStorable Outer2_fieldB) instance Storable Outer2_fieldB
+deriving via (IsStructViaStorable Outer2_fieldB) instance IsStruct Outer2_fieldB
 instance (~) ty CInt =>
          HasField "outer2_fieldB_fieldX" Outer2_fieldB ty
     where hasField = \x_0 -> (\y_1 -> Outer2_fieldB{outer2_fieldB_fieldX = y_1,
@@ -250,6 +253,7 @@ instance WriteRaw Outer2
                                               outer2_fieldB_3
                                               outer2_fieldC_4 -> writeRaw (Proxy @"outer2_fieldA") ptr_0 outer2_fieldA_2 >> (writeRaw (Proxy @"outer2_fieldB") ptr_0 outer2_fieldB_3 >> writeRaw (Proxy @"outer2_fieldC") ptr_0 outer2_fieldC_4)
 deriving via (EquivStorable Outer2) instance Storable Outer2
+deriving via (IsStructViaStorable Outer2) instance IsStruct Outer2
 instance (~) ty CChar => HasField "outer2_fieldA" Outer2 ty
     where hasField = \x_0 -> (\y_1 -> Outer2{outer2_fieldA = y_1,
                                              outer2_fieldB = getField @"outer2_fieldB" x_0,
@@ -315,6 +319,7 @@ instance WriteRaw Inner3
                                        Inner3 inner3_fieldX_2
                                               inner3_fieldY_3 -> writeRaw (Proxy @"inner3_fieldX") ptr_0 inner3_fieldX_2 >> writeRaw (Proxy @"inner3_fieldY") ptr_0 inner3_fieldY_3
 deriving via (EquivStorable Inner3) instance Storable Inner3
+deriving via (IsStructViaStorable Inner3) instance IsStruct Inner3
 instance (~) ty CInt => HasField "inner3_fieldX" Inner3 ty
     where hasField = \x_0 -> (\y_1 -> Inner3{inner3_fieldX = y_1,
                                              inner3_fieldY = getField @"inner3_fieldY" x_0},
@@ -375,6 +380,7 @@ instance WriteRaw Outer3
                                               outer3_fieldB_3
                                               outer3_fieldC_4 -> writeRaw (Proxy @"outer3_fieldA") ptr_0 outer3_fieldA_2 >> (writeRaw (Proxy @"outer3_fieldB") ptr_0 outer3_fieldB_3 >> writeRaw (Proxy @"outer3_fieldC") ptr_0 outer3_fieldC_4)
 deriving via (EquivStorable Outer3) instance Storable Outer3
+deriving via (IsStructViaStorable Outer3) instance IsStruct Outer3
 instance (~) ty CChar => HasField "outer3_fieldA" Outer3 ty
     where hasField = \x_0 -> (\y_1 -> Outer3{outer3_fieldA = y_1,
                                              outer3_fieldB = getField @"outer3_fieldB" x_0,

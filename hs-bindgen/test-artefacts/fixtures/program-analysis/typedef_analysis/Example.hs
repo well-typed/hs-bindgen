@@ -54,6 +54,7 @@ import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -87,6 +88,8 @@ instance Marshal.WriteRaw Struct1_t where
 
 deriving via Marshal.EquivStorable Struct1_t instance BG.Storable Struct1_t
 
+deriving via Struct.IsStructViaStorable Struct1_t instance Struct.IsStruct Struct1_t
+
 {-| __C declaration:__ @struct struct2@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 45:16@
@@ -116,6 +119,8 @@ instance Marshal.WriteRaw Struct2_t where
           Struct2_t -> return ()
 
 deriving via Marshal.EquivStorable Struct2_t instance BG.Storable Struct2_t
+
+deriving via Struct.IsStructViaStorable Struct2_t instance Struct.IsStruct Struct2_t
 
 {-| __C declaration:__ @struct struct3@
 
@@ -162,6 +167,8 @@ instance Marshal.WriteRaw Struct5 where
           Struct5 -> return ()
 
 deriving via Marshal.EquivStorable Struct5 instance BG.Storable Struct5
+
+deriving via Struct.IsStructViaStorable Struct5 instance Struct.IsStruct Struct5
 
 {-| __C declaration:__ @struct5_t@
 
@@ -232,6 +239,8 @@ instance Marshal.WriteRaw Struct6a_struct where
 
 deriving via Marshal.EquivStorable Struct6a_struct instance BG.Storable Struct6a_struct
 
+deriving via Struct.IsStructViaStorable Struct6a_struct instance Struct.IsStruct Struct6a_struct
+
 {-| __C declaration:__ @struct6a@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 61:4@
@@ -300,6 +309,8 @@ instance Marshal.WriteRaw Struct6b_struct where
           Struct6b_struct -> return ()
 
 deriving via Marshal.EquivStorable Struct6b_struct instance BG.Storable Struct6b_struct
+
+deriving via Struct.IsStructViaStorable Struct6b_struct instance Struct.IsStruct Struct6b_struct
 
 {-| __C declaration:__ @struct6b@
 
@@ -370,6 +381,8 @@ instance Marshal.WriteRaw Struct7 where
 
 deriving via Marshal.EquivStorable Struct7 instance BG.Storable Struct7
 
+deriving via Struct.IsStructViaStorable Struct7 instance Struct.IsStruct Struct7
+
 {-| __C declaration:__ @struct7a@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 73:24@
@@ -381,7 +394,8 @@ newtype Struct7a = Struct7a
   }
   deriving stock (Eq, BG.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( Struct.IsStruct
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , BG.Storable
     , Marshal.WriteRaw
@@ -418,7 +432,8 @@ newtype Struct7b = Struct7b
   }
   deriving stock (Eq, BG.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( Struct.IsStruct
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , BG.Storable
     , Marshal.WriteRaw
@@ -474,6 +489,8 @@ instance Marshal.WriteRaw Struct8 where
 
 deriving via Marshal.EquivStorable Struct8 instance BG.Storable Struct8
 
+deriving via Struct.IsStructViaStorable Struct8 instance Struct.IsStruct Struct8
+
 {-| __C declaration:__ @struct8b@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 79:24@
@@ -485,7 +502,8 @@ newtype Struct8b = Struct8b
   }
   deriving stock (Eq, BG.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( Struct.IsStruct
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , BG.Storable
     , Marshal.WriteRaw
@@ -541,6 +559,8 @@ instance Marshal.WriteRaw Struct9 where
 
 deriving via Marshal.EquivStorable Struct9 instance BG.Storable Struct9
 
+deriving via Struct.IsStructViaStorable Struct9 instance Struct.IsStruct Struct9
+
 {-| __C declaration:__ @struct9_t@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 84:17@
@@ -552,7 +572,8 @@ newtype Struct9_t = Struct9_t
   }
   deriving stock (Eq, BG.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( Struct.IsStruct
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , BG.Storable
     , Marshal.WriteRaw
@@ -608,6 +629,8 @@ instance Marshal.WriteRaw Struct10_t where
 
 deriving via Marshal.EquivStorable Struct10_t instance BG.Storable Struct10_t
 
+deriving via Struct.IsStructViaStorable Struct10_t instance Struct.IsStruct Struct10_t
+
 {-| __C declaration:__ @struct10_t_t@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 92:20@
@@ -619,7 +642,8 @@ newtype Struct10_t_t = Struct10_t_t
   }
   deriving stock (Eq, BG.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( Struct.IsStruct
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , BG.Storable
     , Marshal.WriteRaw
@@ -696,6 +720,8 @@ instance Marshal.WriteRaw Struct11_t where
             >> HasCField.writeRaw (BG.Proxy @"struct11_t_self") ptr0 struct11_t_self3
 
 deriving via Marshal.EquivStorable Struct11_t instance BG.Storable Struct11_t
+
+deriving via Struct.IsStructViaStorable Struct11_t instance Struct.IsStruct Struct11_t
 
 {-| __C declaration:__ @x@
 
@@ -803,6 +829,8 @@ instance Marshal.WriteRaw Struct12_t where
             >> HasCField.writeRaw (BG.Proxy @"struct12_t_self") ptr0 struct12_t_self3
 
 deriving via Marshal.EquivStorable Struct12_t instance BG.Storable Struct12_t
+
+deriving via Struct.IsStructViaStorable Struct12_t instance Struct.IsStruct Struct12_t
 
 {-| __C declaration:__ @x@
 
@@ -1092,6 +1120,8 @@ instance Marshal.WriteRaw Use_sites where
               >> HasCField.writeRaw (BG.Proxy @"use_sites_useTypedef_struct12_t") ptr0 use_sites_useTypedef_struct12_t21
 
 deriving via Marshal.EquivStorable Use_sites instance BG.Storable Use_sites
+
+deriving via Struct.IsStructViaStorable Use_sites instance Struct.IsStruct Use_sites
 
 {-| __C declaration:__ @useTypedef_struct1_t@
 
@@ -2123,6 +2153,8 @@ instance Marshal.WriteRaw Foo_struct where
 
 deriving via Marshal.EquivStorable Foo_struct instance BG.Storable Foo_struct
 
+deriving via Struct.IsStructViaStorable Foo_struct instance Struct.IsStruct Foo_struct
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 164:7@
@@ -2300,6 +2332,8 @@ instance Marshal.WriteRaw Bar_struct where
 
 deriving via Marshal.EquivStorable Bar_struct instance BG.Storable Bar_struct
 
+deriving via Struct.IsStructViaStorable Bar_struct instance Struct.IsStruct Bar_struct
+
 {-| __C declaration:__ @a@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 172:7@
@@ -2457,6 +2491,8 @@ instance Marshal.WriteRaw Struct15 where
 
 deriving via Marshal.EquivStorable Struct15 instance BG.Storable Struct15
 
+deriving via Struct.IsStructViaStorable Struct15 instance Struct.IsStruct Struct15
+
 {-| __C declaration:__ @struct struct16@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 191:8@
@@ -2486,6 +2522,8 @@ instance Marshal.WriteRaw Struct16_struct where
           Struct16_struct -> return ()
 
 deriving via Marshal.EquivStorable Struct16_struct instance BG.Storable Struct16_struct
+
+deriving via Struct.IsStructViaStorable Struct16_struct instance Struct.IsStruct Struct16_struct
 
 {-| __C declaration:__ @struct16@
 
@@ -2587,6 +2625,8 @@ instance Marshal.WriteRaw Use_sites_qual where
               >> HasCField.writeRaw (BG.Proxy @"use_sites_qual_useTypedef_struct16") ptr0 use_sites_qual_useTypedef_struct164
 
 deriving via Marshal.EquivStorable Use_sites_qual instance BG.Storable Use_sites_qual
+
+deriving via Struct.IsStructViaStorable Use_sites_qual instance Struct.IsStruct Use_sites_qual
 
 {-| __C declaration:__ @useTypedef_struct15@
 

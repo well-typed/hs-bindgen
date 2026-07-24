@@ -74,6 +74,7 @@ instance WriteRaw AnonPoint
                                        AnonPoint anonPoint_x_2
                                                  anonPoint_y_3 -> writeRaw (Proxy @"anonPoint_x") ptr_0 anonPoint_x_2 >> writeRaw (Proxy @"anonPoint_y") ptr_0 anonPoint_y_3
 deriving via (EquivStorable AnonPoint) instance Storable AnonPoint
+deriving via (IsStructViaStorable AnonPoint) instance IsStruct AnonPoint
 instance (~) ty CInt => HasField "anonPoint_x" AnonPoint ty
     where hasField = \x_0 -> (\y_1 -> AnonPoint{anonPoint_x = y_1,
                                                 anonPoint_y = getField @"anonPoint_y" x_0},
@@ -126,6 +127,7 @@ instance WriteRaw AnonPair
                                        AnonPair anonPair_a_2
                                                 anonPair_b_3 -> writeRaw (Proxy @"anonPair_a") ptr_0 anonPair_a_2 >> writeRaw (Proxy @"anonPair_b") ptr_0 anonPair_b_3
 deriving via (EquivStorable AnonPair) instance Storable AnonPair
+deriving via (IsStructViaStorable AnonPair) instance IsStruct AnonPair
 instance (~) ty CInt => HasField "anonPair_a" AnonPair ty
     where hasField = \x_0 -> (\y_1 -> AnonPair{anonPair_a = y_1,
                                                anonPair_b = getField @"anonPair_b" x_0},
@@ -379,6 +381,7 @@ instance WriteRaw C
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        C c_x_2 -> writeRaw (Proxy @"c_x") ptr_0 c_x_2
 deriving via (EquivStorable C) instance Storable C
+deriving via (IsStructViaStorable C) instance IsStruct C
 instance (~) ty CInt => HasField "c_x" C ty
     where hasField = \x_0 -> (\y_1 -> C{c_x = y_1},
                               getField @"c_x" x_0)

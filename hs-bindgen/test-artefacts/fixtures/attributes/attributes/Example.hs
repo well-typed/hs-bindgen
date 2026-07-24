@@ -23,6 +23,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -75,6 +76,8 @@ instance Marshal.WriteRaw Foo where
             >> HasCField.writeRaw (BG.Proxy @"foo_i") ptr0 foo_i3
 
 deriving via Marshal.EquivStorable Foo instance BG.Storable Foo
+
+deriving via Struct.IsStructViaStorable Foo instance Struct.IsStruct Foo
 
 {-| __C declaration:__ @c@
 
@@ -176,6 +179,8 @@ instance Marshal.WriteRaw Bar where
 
 deriving via Marshal.EquivStorable Bar instance BG.Storable Bar
 
+deriving via Struct.IsStructViaStorable Bar instance Struct.IsStruct Bar
+
 {-| __C declaration:__ @c@
 
     __defined at:__ @attributes\/attributes.h 17:10@
@@ -276,6 +281,8 @@ instance Marshal.WriteRaw Baz where
 
 deriving via Marshal.EquivStorable Baz instance BG.Storable Baz
 
+deriving via Struct.IsStructViaStorable Baz instance Struct.IsStruct Baz
+
 {-| __C declaration:__ @c@
 
     __defined at:__ @attributes\/attributes.h 23:10@
@@ -375,6 +382,8 @@ instance Marshal.WriteRaw Qux where
             >> HasCField.writeRaw (BG.Proxy @"qux_i") ptr0 qux_i3
 
 deriving via Marshal.EquivStorable Qux instance BG.Storable Qux
+
+deriving via Struct.IsStructViaStorable Qux instance Struct.IsStruct Qux
 
 {-| __C declaration:__ @c@
 
@@ -484,6 +493,8 @@ instance Marshal.WriteRaw FILE where
             >> HasCField.writeRaw (BG.Proxy @"fILE__close") ptr0 fILE__close4
 
 deriving via Marshal.EquivStorable FILE instance BG.Storable FILE
+
+deriving via Struct.IsStructViaStorable FILE instance Struct.IsStruct FILE
 
 {-| __C declaration:__ @_r@
 

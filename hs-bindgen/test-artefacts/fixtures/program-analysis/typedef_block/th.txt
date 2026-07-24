@@ -23,6 +23,7 @@ instance WriteRaw Blk_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Blk_struct blk_struct_x_2 -> writeRaw (Proxy @"blk_struct_x") ptr_0 blk_struct_x_2
 deriving via (EquivStorable Blk_struct) instance Storable Blk_struct
+deriving via (IsStructViaStorable Blk_struct) instance IsStruct Blk_struct
 instance (~) ty CInt => HasField "blk_struct_x" Blk_struct ty
     where hasField = \x_0 -> (\y_1 -> Blk_struct{blk_struct_x = y_1},
                               getField @"blk_struct_x" x_0)
@@ -96,6 +97,7 @@ instance WriteRaw Blkarg_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Blkarg_struct blkarg_struct_y_2 -> writeRaw (Proxy @"blkarg_struct_y") ptr_0 blkarg_struct_y_2
 deriving via (EquivStorable Blkarg_struct) instance Storable Blkarg_struct
+deriving via (IsStructViaStorable Blkarg_struct) instance IsStruct Blkarg_struct
 instance (~) ty CInt => HasField "blkarg_struct_y" Blkarg_struct ty
     where hasField = \x_0 -> (\y_1 -> Blkarg_struct{blkarg_struct_y = y_1},
                               getField @"blkarg_struct_y" x_0)

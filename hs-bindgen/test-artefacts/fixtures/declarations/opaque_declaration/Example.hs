@@ -24,6 +24,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -84,6 +85,8 @@ instance Marshal.WriteRaw Bar where
             >> HasCField.writeRaw (BG.Proxy @"bar_ptrB") ptr0 bar_ptrB3
 
 deriving via Marshal.EquivStorable Bar instance BG.Storable Bar
+
+deriving via Struct.IsStructViaStorable Bar instance Struct.IsStruct Bar
 
 {-| __C declaration:__ @ptrA@
 
@@ -166,6 +169,8 @@ instance Marshal.WriteRaw Baz where
           Baz -> return ()
 
 deriving via Marshal.EquivStorable Baz instance BG.Storable Baz
+
+deriving via Struct.IsStructViaStorable Baz instance Struct.IsStruct Baz
 
 {-| __C declaration:__ @enum quu@
 

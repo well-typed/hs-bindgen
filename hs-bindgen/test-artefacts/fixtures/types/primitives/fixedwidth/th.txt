@@ -34,6 +34,7 @@ instance WriteRaw Foo
                                        Foo foo_sixty_four_2
                                            foo_thirty_two_3 -> writeRaw (Proxy @"foo_sixty_four") ptr_0 foo_sixty_four_2 >> writeRaw (Proxy @"foo_thirty_two") ptr_0 foo_thirty_two_3
 deriving via (EquivStorable Foo) instance Storable Foo
+deriving via (IsStructViaStorable Foo) instance IsStruct Foo
 instance (~) ty HsBindgen.Runtime.LibC.Word64 =>
          HasField "foo_sixty_four" Foo ty
     where hasField = \x_0 -> (\y_1 -> Foo{foo_sixty_four = y_1,

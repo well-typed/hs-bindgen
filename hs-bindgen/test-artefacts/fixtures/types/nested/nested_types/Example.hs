@@ -24,6 +24,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -76,6 +77,8 @@ instance Marshal.WriteRaw Foo where
             >> HasCField.writeRaw (BG.Proxy @"foo_c") ptr0 foo_c3
 
 deriving via Marshal.EquivStorable Foo instance BG.Storable Foo
+
+deriving via Struct.IsStructViaStorable Foo instance Struct.IsStruct Foo
 
 {-| __C declaration:__ @i@
 
@@ -177,6 +180,8 @@ instance Marshal.WriteRaw Bar where
 
 deriving via Marshal.EquivStorable Bar instance BG.Storable Bar
 
+deriving via Struct.IsStructViaStorable Bar instance Struct.IsStruct Bar
+
 {-| __C declaration:__ @foo1@
 
     __defined at:__ @types\/nested\/nested_types.h 7:16@
@@ -276,6 +281,8 @@ instance Marshal.WriteRaw Ex3_ex3_struct where
             >> HasCField.writeRaw (BG.Proxy @"ex3_ex3_struct_ex3_b") ptr0 ex3_ex3_struct_ex3_b3
 
 deriving via Marshal.EquivStorable Ex3_ex3_struct instance BG.Storable Ex3_ex3_struct
+
+deriving via Struct.IsStructViaStorable Ex3_ex3_struct instance Struct.IsStruct Ex3_ex3_struct
 
 {-| __C declaration:__ @ex3_a@
 
@@ -389,6 +396,8 @@ instance Marshal.WriteRaw Ex3 where
 
 deriving via Marshal.EquivStorable Ex3 instance BG.Storable Ex3
 
+deriving via Struct.IsStructViaStorable Ex3 instance Struct.IsStruct Ex3
+
 {-| __C declaration:__ @ex3_struct@
 
     __defined at:__ @types\/nested\/nested_types.h 15:7@
@@ -492,6 +501,8 @@ instance Marshal.WriteRaw Ex4_odd where
             >> HasCField.writeRaw (BG.Proxy @"ex4_odd_next") ptr0 ex4_odd_next3
 
 deriving via Marshal.EquivStorable Ex4_odd instance BG.Storable Ex4_odd
+
+deriving via Struct.IsStructViaStorable Ex4_odd instance Struct.IsStruct Ex4_odd
 
 {-| __C declaration:__ @value@
 
@@ -599,6 +610,8 @@ instance Marshal.WriteRaw Ex4_even where
             >> HasCField.writeRaw (BG.Proxy @"ex4_even_next") ptr0 ex4_even_next3
 
 deriving via Marshal.EquivStorable Ex4_even instance BG.Storable Ex4_even
+
+deriving via Struct.IsStructViaStorable Ex4_even instance Struct.IsStruct Ex4_even
 
 {-| __C declaration:__ @value@
 

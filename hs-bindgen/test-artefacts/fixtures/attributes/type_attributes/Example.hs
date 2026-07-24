@@ -31,6 +31,7 @@ module Example
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
@@ -75,6 +76,8 @@ instance Marshal.WriteRaw S where
             HasCField.writeRaw (BG.Proxy @"s_f") ptr0 s_f2
 
 deriving via Marshal.EquivStorable S instance BG.Storable S
+
+deriving via Struct.IsStructViaStorable S instance Struct.IsStruct S
 
 {-| __C declaration:__ @f@
 
@@ -192,6 +195,8 @@ instance Marshal.WriteRaw S2 where
 
 deriving via Marshal.EquivStorable S2 instance BG.Storable S2
 
+deriving via Struct.IsStructViaStorable S2 instance Struct.IsStruct S2
+
 {-| __C declaration:__ @f@
 
     __defined at:__ @attributes\/type_attributes.h 11:19@
@@ -266,6 +271,8 @@ instance Marshal.WriteRaw My_unpacked_struct where
             >> HasCField.writeRaw (BG.Proxy @"my_unpacked_struct_i") ptr0 my_unpacked_struct_i3
 
 deriving via Marshal.EquivStorable My_unpacked_struct instance BG.Storable My_unpacked_struct
+
+deriving via Struct.IsStructViaStorable My_unpacked_struct instance Struct.IsStruct My_unpacked_struct
 
 {-| __C declaration:__ @c@
 
@@ -387,6 +394,8 @@ instance Marshal.WriteRaw My_packed_struct where
             >> HasCField.writeRaw (BG.Proxy @"my_packed_struct_s") ptr0 my_packed_struct_s4
 
 deriving via Marshal.EquivStorable My_packed_struct instance BG.Storable My_packed_struct
+
+deriving via Struct.IsStructViaStorable My_packed_struct instance Struct.IsStruct My_packed_struct
 
 {-| __C declaration:__ @c@
 

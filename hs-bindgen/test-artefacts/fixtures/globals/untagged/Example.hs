@@ -35,6 +35,7 @@ module Example
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
@@ -88,6 +89,8 @@ instance Marshal.WriteRaw AnonPoint where
             >> HasCField.writeRaw (BG.Proxy @"anonPoint_y") ptr0 anonPoint_y3
 
 deriving via Marshal.EquivStorable AnonPoint instance BG.Storable AnonPoint
+
+deriving via Struct.IsStructViaStorable AnonPoint instance Struct.IsStruct AnonPoint
 
 {-| __C declaration:__ @x@
 
@@ -194,6 +197,8 @@ instance Marshal.WriteRaw AnonPair where
             >> HasCField.writeRaw (BG.Proxy @"anonPair_b") ptr0 anonPair_b3
 
 deriving via Marshal.EquivStorable AnonPair instance BG.Storable AnonPair
+
+deriving via Struct.IsStructViaStorable AnonPair instance Struct.IsStruct AnonPair
 
 {-| __C declaration:__ @a@
 
@@ -676,6 +681,8 @@ instance Marshal.WriteRaw C where
             HasCField.writeRaw (BG.Proxy @"c_x") ptr0 c_x2
 
 deriving via Marshal.EquivStorable C instance BG.Storable C
+
+deriving via Struct.IsStructViaStorable C instance Struct.IsStruct C
 
 {-| __C declaration:__ @x@
 

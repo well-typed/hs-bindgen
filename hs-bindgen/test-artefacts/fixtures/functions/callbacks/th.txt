@@ -684,6 +684,7 @@ instance WriteRaw Measurement
                                        Measurement measurement_value_2
                                                    measurement_timestamp_3 -> writeRaw (Proxy @"measurement_value") ptr_0 measurement_value_2 >> writeRaw (Proxy @"measurement_timestamp") ptr_0 measurement_timestamp_3
 deriving via (EquivStorable Measurement) instance Storable Measurement
+deriving via (IsStructViaStorable Measurement) instance IsStruct Measurement
 instance (~) ty CDouble =>
          HasField "measurement_value" Measurement ty
     where hasField = \x_0 -> (\y_1 -> Measurement{measurement_value = y_1,
@@ -959,6 +960,7 @@ instance WriteRaw MeasurementHandler
                                                           measurementHandler_validate_3
                                                           measurementHandler_onError_4 -> writeRaw (Proxy @"measurementHandler_onReceived") ptr_0 measurementHandler_onReceived_2 >> (writeRaw (Proxy @"measurementHandler_validate") ptr_0 measurementHandler_validate_3 >> writeRaw (Proxy @"measurementHandler_onError") ptr_0 measurementHandler_onError_4)
 deriving via (EquivStorable MeasurementHandler) instance Storable MeasurementHandler
+deriving via (IsStructViaStorable MeasurementHandler) instance IsStruct MeasurementHandler
 instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
          HasField "measurementHandler_onReceived" MeasurementHandler ty
     where hasField = \x_0 -> (\y_1 -> MeasurementHandler{measurementHandler_onReceived = y_1,
@@ -1047,6 +1049,7 @@ instance WriteRaw DataPipeline
                                                     dataPipeline_process_3
                                                     dataPipeline_postProcess_4 -> writeRaw (Proxy @"dataPipeline_preProcess") ptr_0 dataPipeline_preProcess_2 >> (writeRaw (Proxy @"dataPipeline_process") ptr_0 dataPipeline_process_3 >> writeRaw (Proxy @"dataPipeline_postProcess") ptr_0 dataPipeline_postProcess_4)
 deriving via (EquivStorable DataPipeline) instance Storable DataPipeline
+deriving via (IsStructViaStorable DataPipeline) instance IsStruct DataPipeline
 instance (~) ty
              (FunPtr (Ptr Measurement -> DataValidator -> IO ())) =>
          HasField "dataPipeline_preProcess" DataPipeline ty
@@ -1275,6 +1278,7 @@ instance WriteRaw Processor
                                        Processor processor_mode_2
                                                  processor_callback_3 -> writeRaw (Proxy @"processor_mode") ptr_0 processor_mode_2 >> writeRaw (Proxy @"processor_callback") ptr_0 processor_callback_3
 deriving via (EquivStorable Processor) instance Storable Processor
+deriving via (IsStructViaStorable Processor) instance IsStruct Processor
 instance (~) ty Processor_mode =>
          HasField "processor_mode" Processor ty
     where hasField = \x_0 -> (\y_1 -> Processor{processor_mode = y_1,
@@ -1450,6 +1454,7 @@ instance WriteRaw S
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S s_fn_2 -> writeRaw (Proxy @"s_fn") ptr_0 s_fn_2
 deriving via (EquivStorable S) instance Storable S
+deriving via (IsStructViaStorable S) instance IsStruct S
 instance (~) ty (FunPtr (B -> IO ())) => HasField "s_fn" S ty
     where hasField = \x_0 -> (\y_1 -> S{s_fn = y_1},
                               getField @"s_fn" x_0)

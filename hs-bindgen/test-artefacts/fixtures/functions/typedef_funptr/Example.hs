@@ -23,6 +23,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -176,6 +177,8 @@ instance Marshal.WriteRaw Driver where
 
 deriving via Marshal.EquivStorable Driver instance BG.Storable Driver
 
+deriving via Struct.IsStructViaStorable Driver instance Struct.IsStruct Driver
+
 {-| __C declaration:__ @run@
 
     __defined at:__ @functions\/typedef_funptr.h 14:13@
@@ -241,6 +244,8 @@ instance Marshal.WriteRaw Bare where
             HasCField.writeRaw (BG.Proxy @"bare_callback") ptr0 bare_callback2
 
 deriving via Marshal.EquivStorable Bare instance BG.Storable Bare
+
+deriving via Struct.IsStructViaStorable Bare instance Struct.IsStruct Bare
 
 {-| __C declaration:__ @callback@
 

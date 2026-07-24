@@ -34,6 +34,7 @@ instance WriteRaw Bar
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Bar bar_x1_1_2 -> writeRaw (Proxy @"bar_x1_1") ptr_0 bar_x1_1_2
 deriving via (EquivStorable Bar) instance Storable Bar
+deriving via (IsStructViaStorable Bar) instance IsStruct Bar
 instance (~) ty CInt => HasField "bar_x1_1" Bar ty
     where hasField = \x_0 -> (\y_1 -> Bar{bar_x1_1 = y_1},
                               getField @"bar_x1_1" x_0)

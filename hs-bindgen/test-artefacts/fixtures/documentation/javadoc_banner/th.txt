@@ -58,6 +58,7 @@ instance WriteRaw Banner_point
                                        Banner_point banner_point_x_2
                                                     banner_point_y_3 -> writeRaw (Proxy @"banner_point_x") ptr_0 banner_point_x_2 >> writeRaw (Proxy @"banner_point_y") ptr_0 banner_point_y_3
 deriving via (EquivStorable Banner_point) instance Storable Banner_point
+deriving via (IsStructViaStorable Banner_point) instance IsStruct Banner_point
 instance (~) ty CInt => HasField "banner_point_x" Banner_point ty
     where hasField = \x_0 -> (\y_1 -> Banner_point{banner_point_x = y_1,
                                                    banner_point_y = getField @"banner_point_y" x_0},

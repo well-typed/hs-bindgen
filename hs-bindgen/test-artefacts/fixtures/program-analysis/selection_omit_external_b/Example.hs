@@ -21,6 +21,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -64,6 +65,8 @@ instance Marshal.WriteRaw Omitted where
             HasCField.writeRaw (BG.Proxy @"omitted_n") ptr0 omitted_n2
 
 deriving via Marshal.EquivStorable Omitted instance BG.Storable Omitted
+
+deriving via Struct.IsStructViaStorable Omitted instance Struct.IsStruct Omitted
 
 {-| __C declaration:__ @n@
 
@@ -130,6 +133,8 @@ instance Marshal.WriteRaw DirectlyDependsOnOmitted where
             HasCField.writeRaw (BG.Proxy @"directlyDependsOnOmitted_o") ptr0 directlyDependsOnOmitted_o2
 
 deriving via Marshal.EquivStorable DirectlyDependsOnOmitted instance BG.Storable DirectlyDependsOnOmitted
+
+deriving via Struct.IsStructViaStorable DirectlyDependsOnOmitted instance Struct.IsStruct DirectlyDependsOnOmitted
 
 {-| __C declaration:__ @o@
 
@@ -200,6 +205,8 @@ instance Marshal.WriteRaw IndirectlyDependsOnOmitted where
             HasCField.writeRaw (BG.Proxy @"indirectlyDependsOnOmitted_d") ptr0 indirectlyDependsOnOmitted_d2
 
 deriving via Marshal.EquivStorable IndirectlyDependsOnOmitted instance BG.Storable IndirectlyDependsOnOmitted
+
+deriving via Struct.IsStructViaStorable IndirectlyDependsOnOmitted instance Struct.IsStruct IndirectlyDependsOnOmitted
 
 {-| __C declaration:__ @d@
 

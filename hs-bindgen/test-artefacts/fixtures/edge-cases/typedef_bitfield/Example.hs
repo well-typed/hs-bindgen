@@ -26,6 +26,7 @@ import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -231,6 +232,8 @@ instance Marshal.WriteRaw MyStruct where
             >> HasCBitfield.poke (BG.Proxy @"myStruct_z") ptr0 myStruct_z4
 
 deriving via Marshal.EquivStorable MyStruct instance BG.Storable MyStruct
+
+deriving via Struct.IsStructViaStorable MyStruct instance Struct.IsStruct MyStruct
 
 {-| __C declaration:__ @x@
 

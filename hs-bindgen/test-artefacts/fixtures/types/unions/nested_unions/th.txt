@@ -57,6 +57,7 @@ instance WriteRaw ExA
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        ExA exA_fieldA1_2 -> writeRaw (Proxy @"exA_fieldA1") ptr_0 exA_fieldA1_2
 deriving via (EquivStorable ExA) instance Storable ExA
+deriving via (IsStructViaStorable ExA) instance IsStruct ExA
 instance (~) ty UnionA => HasField "exA_fieldA1" ExA ty
     where hasField = \x_0 -> (\y_1 -> ExA{exA_fieldA1 = y_1},
                               getField @"exA_fieldA1" x_0)
@@ -125,6 +126,7 @@ instance WriteRaw ExB
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        ExB exB_fieldB1_2 -> writeRaw (Proxy @"exB_fieldB1") ptr_0 exB_fieldB1_2
 deriving via (EquivStorable ExB) instance Storable ExB
+deriving via (IsStructViaStorable ExB) instance IsStruct ExB
 instance (~) ty ExB_fieldB1 => HasField "exB_fieldB1" ExB ty
     where hasField = \x_0 -> (\y_1 -> ExB{exB_fieldB1 = y_1},
                               getField @"exB_fieldB1" x_0)

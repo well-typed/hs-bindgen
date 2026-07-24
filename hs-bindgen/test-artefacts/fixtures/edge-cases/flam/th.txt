@@ -23,6 +23,7 @@ instance WriteRaw Pascal_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Pascal pascal_len_2 -> writeRaw (Proxy @"pascal_len") ptr_0 pascal_len_2
 deriving via (EquivStorable Pascal_Aux) instance Storable Pascal_Aux
+deriving via (IsStructViaStorable Pascal_Aux) instance IsStruct Pascal_Aux
 instance (~) ty CInt => HasField "pascal_len" Pascal_Aux ty
     where hasField = \x_0 -> (\y_1 -> Pascal{pascal_len = y_1},
                               getField @"pascal_len" x_0)
@@ -67,6 +68,7 @@ instance WriteRaw Foo_bar
                                        Foo_bar foo_bar_x_2
                                                foo_bar_y_3 -> writeRaw (Proxy @"foo_bar_x") ptr_0 foo_bar_x_2 >> writeRaw (Proxy @"foo_bar_y") ptr_0 foo_bar_y_3
 deriving via (EquivStorable Foo_bar) instance Storable Foo_bar
+deriving via (IsStructViaStorable Foo_bar) instance IsStruct Foo_bar
 instance (~) ty CInt => HasField "foo_bar_x" Foo_bar ty
     where hasField = \x_0 -> (\y_1 -> Foo_bar{foo_bar_x = y_1,
                                               foo_bar_y = getField @"foo_bar_y" x_0},
@@ -109,6 +111,7 @@ instance WriteRaw Foo_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Foo foo_len_2 -> writeRaw (Proxy @"foo_len") ptr_0 foo_len_2
 deriving via (EquivStorable Foo_Aux) instance Storable Foo_Aux
+deriving via (IsStructViaStorable Foo_Aux) instance IsStruct Foo_Aux
 instance (~) ty CInt => HasField "foo_len" Foo_Aux ty
     where hasField = \x_0 -> (\y_1 -> Foo{foo_len = y_1},
                               getField @"foo_len" x_0)
@@ -152,6 +155,7 @@ instance WriteRaw Diff_Aux
                                        Diff diff_first_2
                                             diff_second_3 -> writeRaw (Proxy @"diff_first") ptr_0 diff_first_2 >> writeRaw (Proxy @"diff_second") ptr_0 diff_second_3
 deriving via (EquivStorable Diff_Aux) instance Storable Diff_Aux
+deriving via (IsStructViaStorable Diff_Aux) instance IsStruct Diff_Aux
 instance (~) ty CLong => HasField "diff_first" Diff_Aux ty
     where hasField = \x_0 -> (\y_1 -> Diff{diff_first = y_1,
                                            diff_second = getField @"diff_second" x_0},
@@ -201,6 +205,7 @@ instance WriteRaw Triplets_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Triplets triplets_len_2 -> writeRaw (Proxy @"triplets_len") ptr_0 triplets_len_2
 deriving via (EquivStorable Triplets_Aux) instance Storable Triplets_Aux
+deriving via (IsStructViaStorable Triplets_Aux) instance IsStruct Triplets_Aux
 instance (~) ty CInt => HasField "triplets_len" Triplets_Aux ty
     where hasField = \x_0 -> (\y_1 -> Triplets{triplets_len = y_1},
                               getField @"triplets_len" x_0)

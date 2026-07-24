@@ -25,6 +25,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -77,6 +78,8 @@ instance Marshal.WriteRaw S1_c where
             >> HasCField.writeRaw (BG.Proxy @"s1_c_b") ptr0 s1_c_b3
 
 deriving via Marshal.EquivStorable S1_c instance BG.Storable S1_c
+
+deriving via Struct.IsStructViaStorable S1_c instance Struct.IsStruct S1_c
 
 {-| __C declaration:__ @a@
 
@@ -178,6 +181,8 @@ instance Marshal.WriteRaw S1 where
 
 deriving via Marshal.EquivStorable S1 instance BG.Storable S1
 
+deriving via Struct.IsStructViaStorable S1 instance Struct.IsStruct S1
+
 {-| __C declaration:__ @c@
 
     __defined at:__ @types\/structs\/anonymous.h 6:5@
@@ -269,6 +274,8 @@ instance Marshal.WriteRaw S2_inner_deep where
 
 deriving via Marshal.EquivStorable S2_inner_deep instance BG.Storable S2_inner_deep
 
+deriving via Struct.IsStructViaStorable S2_inner_deep instance Struct.IsStruct S2_inner_deep
+
 {-| __C declaration:__ @b@
 
     __defined at:__ @types\/structs\/anonymous.h 16:11@
@@ -346,6 +353,8 @@ instance Marshal.WriteRaw S2_inner where
             >> HasCField.writeRaw (BG.Proxy @"s2_inner_deep") ptr0 s2_inner_deep3
 
 deriving via Marshal.EquivStorable S2_inner instance BG.Storable S2_inner
+
+deriving via Struct.IsStructViaStorable S2_inner instance Struct.IsStruct S2_inner
 
 {-| __C declaration:__ @a@
 
@@ -453,6 +462,8 @@ instance Marshal.WriteRaw S2 where
 
 deriving via Marshal.EquivStorable S2 instance BG.Storable S2
 
+deriving via Struct.IsStructViaStorable S2 instance Struct.IsStruct S2
+
 {-| __C declaration:__ @inner@
 
     __defined at:__ @types\/structs\/anonymous.h 18:5@
@@ -552,6 +563,8 @@ instance Marshal.WriteRaw S3 where
             >> HasCField.writeRaw (BG.Proxy @"s3_d") ptr0 s3_d3
 
 deriving via Marshal.EquivStorable S3 instance BG.Storable S3
+
+deriving via Struct.IsStructViaStorable S3 instance Struct.IsStruct S3
 
 {-| __C declaration:__ @c@
 
@@ -654,6 +667,8 @@ instance Marshal.WriteRaw S3_c where
             >> HasCField.writeRaw (BG.Proxy @"s3_c_b") ptr0 s3_c_b3
 
 deriving via Marshal.EquivStorable S3_c instance BG.Storable S3_c
+
+deriving via Struct.IsStructViaStorable S3_c instance Struct.IsStruct S3_c
 
 {-| __C declaration:__ @a@
 

@@ -23,6 +23,7 @@ instance WriteRaw S1_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S1_t s1_t_a_2 -> writeRaw (Proxy @"s1_t_a") ptr_0 s1_t_a_2
 deriving via (EquivStorable S1_t) instance Storable S1_t
+deriving via (IsStructViaStorable S1_t) instance IsStruct S1_t
 instance (~) ty CInt => HasField "s1_t_a" S1_t ty
     where hasField = \x_0 -> (\y_1 -> S1_t{s1_t_a = y_1},
                               getField @"s1_t_a" x_0)
@@ -55,6 +56,7 @@ instance WriteRaw S2
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S2 s2_a_2 -> writeRaw (Proxy @"s2_a") ptr_0 s2_a_2
 deriving via (EquivStorable S2) instance Storable S2
+deriving via (IsStructViaStorable S2) instance IsStruct S2
 instance (~) ty CInt => HasField "s2_a" S2 ty
     where hasField = \x_0 -> (\y_1 -> S2{s2_a = y_1},
                               getField @"s2_a" x_0)

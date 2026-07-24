@@ -70,6 +70,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
@@ -510,6 +511,8 @@ instance Marshal.WriteRaw Config_t where
 
 deriving via Marshal.EquivStorable Config_t instance BG.Storable Config_t
 
+deriving via Struct.IsStructViaStorable Config_t instance Struct.IsStruct Config_t
+
 {-| Unique identifier.
 
     __C declaration:__ @id@
@@ -900,6 +903,8 @@ instance Marshal.WriteRaw Data_union_t_as_parts where
 
 deriving via Marshal.EquivStorable Data_union_t_as_parts instance BG.Storable Data_union_t_as_parts
 
+deriving via Struct.IsStructViaStorable Data_union_t_as_parts instance Struct.IsStruct Data_union_t_as_parts
+
 {-| Low 16 bits.
 
     __C declaration:__ @low@
@@ -1242,6 +1247,8 @@ instance Marshal.WriteRaw Bitfield_t where
               >> HasCBitfield.poke (BG.Proxy @"bitfield_t_reserved") ptr0 bitfield_t_reserved5
 
 deriving via Marshal.EquivStorable Bitfield_t instance BG.Storable Bitfield_t
+
+deriving via Struct.IsStructViaStorable Bitfield_t instance Struct.IsStruct Bitfield_t
 
 {-| First flag (1 bit).
 
@@ -1599,6 +1606,8 @@ instance Marshal.WriteRaw Flexible_array_Aux where
 
 deriving via Marshal.EquivStorable Flexible_array_Aux instance BG.Storable Flexible_array_Aux
 
+deriving via Struct.IsStructViaStorable Flexible_array_Aux instance Struct.IsStruct Flexible_array_Aux
+
 {-| Number of elements.
 
     __C declaration:__ @count@
@@ -1714,6 +1723,8 @@ instance Marshal.WriteRaw Dyn_array_t where
             >> HasCField.writeRaw (BG.Proxy @"dyn_array_t_capacity") ptr0 dyn_array_t_capacity4
 
 deriving via Marshal.EquivStorable Dyn_array_t instance BG.Storable Dyn_array_t
+
+deriving via Struct.IsStructViaStorable Dyn_array_t instance Struct.IsStruct Dyn_array_t
 
 {-| Pointer to data.
 
@@ -1871,6 +1882,8 @@ instance Marshal.WriteRaw Multi_anon_t_pos where
 
 deriving via Marshal.EquivStorable Multi_anon_t_pos instance BG.Storable Multi_anon_t_pos
 
+deriving via Struct.IsStructViaStorable Multi_anon_t_pos instance Struct.IsStruct Multi_anon_t_pos
+
 {-| X coordinate.
 
     __C declaration:__ @x@
@@ -1990,6 +2003,8 @@ instance Marshal.WriteRaw Multi_anon_t_dim where
             >> HasCField.writeRaw (BG.Proxy @"multi_anon_t_dim_h") ptr0 multi_anon_t_dim_h3
 
 deriving via Marshal.EquivStorable Multi_anon_t_dim instance BG.Storable Multi_anon_t_dim
+
+deriving via Struct.IsStructViaStorable Multi_anon_t_dim instance Struct.IsStruct Multi_anon_t_dim
 
 {-| Width.
 
@@ -2119,6 +2134,8 @@ instance Marshal.WriteRaw Multi_anon_t where
 
 deriving via Marshal.EquivStorable Multi_anon_t instance BG.Storable Multi_anon_t
 
+deriving via Struct.IsStructViaStorable Multi_anon_t instance Struct.IsStruct Multi_anon_t
+
 {-| Position in 2D space.
 
     Position fields
@@ -2241,6 +2258,8 @@ instance Marshal.WriteRaw Named_inner where
 
 deriving via Marshal.EquivStorable Named_inner instance BG.Storable Named_inner
 
+deriving via Struct.IsStructViaStorable Named_inner instance Struct.IsStruct Named_inner
+
 {-| Inner field nx
 
     __C declaration:__ @nx@
@@ -2359,6 +2378,8 @@ instance Marshal.WriteRaw Named_outer where
 
 deriving via Marshal.EquivStorable Named_outer instance BG.Storable Named_outer
 
+deriving via Struct.IsStructViaStorable Named_outer instance Struct.IsStruct Named_outer
+
 {-| __C declaration:__ @inner_field@
 
     __defined at:__ @documentation\/doxygen_docs.h 613:7@
@@ -2466,6 +2487,8 @@ instance Marshal.WriteRaw Deep_mid_anon_field where
 
 deriving via Marshal.EquivStorable Deep_mid_anon_field instance BG.Storable Deep_mid_anon_field
 
+deriving via Struct.IsStructViaStorable Deep_mid_anon_field instance Struct.IsStruct Deep_mid_anon_field
+
 {-| Deep anonymous field
 
     __C declaration:__ @deep_a@
@@ -2552,6 +2575,8 @@ instance Marshal.WriteRaw Deep_mid where
             >> HasCField.writeRaw (BG.Proxy @"deep_mid_anon_field") ptr0 deep_mid_anon_field3
 
 deriving via Marshal.EquivStorable Deep_mid instance BG.Storable Deep_mid
+
+deriving via Struct.IsStructViaStorable Deep_mid instance Struct.IsStruct Deep_mid
 
 {-| Mid-level field
 
@@ -2669,6 +2694,8 @@ instance Marshal.WriteRaw Deep_outer where
 
 deriving via Marshal.EquivStorable Deep_outer instance BG.Storable Deep_outer
 
+deriving via Struct.IsStructViaStorable Deep_outer instance Struct.IsStruct Deep_outer
+
 {-| __C declaration:__ @mid_field@
 
     __defined at:__ @documentation\/doxygen_docs.h 633:7@
@@ -2785,6 +2812,8 @@ instance Marshal.WriteRaw Unnamed_field_t_anon'ua where
               >> HasCField.writeRaw (BG.Proxy @"unnamed_field_t_anon'ua_ub") ptr0 unnamed_field_t_anon'ua_ub3
 
 deriving via Marshal.EquivStorable Unnamed_field_t_anon'ua instance BG.Storable Unnamed_field_t_anon'ua
+
+deriving via Struct.IsStructViaStorable Unnamed_field_t_anon'ua instance Struct.IsStruct Unnamed_field_t_anon'ua
 
 {-| Unnamed inner a
 
@@ -2921,6 +2950,8 @@ instance Marshal.WriteRaw Unnamed_field_t where
               >> HasCField.writeRaw (BG.Proxy @"unnamed_field_t_after") ptr0 unnamed_field_t_after4
 
 deriving via Marshal.EquivStorable Unnamed_field_t instance BG.Storable Unnamed_field_t
+
+deriving via Struct.IsStructViaStorable Unnamed_field_t instance Struct.IsStruct Unnamed_field_t
 
 {-| Before field
 

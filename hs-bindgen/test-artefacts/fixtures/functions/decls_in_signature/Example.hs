@@ -21,6 +21,7 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
@@ -81,6 +82,8 @@ instance Marshal.WriteRaw Outside where
             >> HasCField.writeRaw (BG.Proxy @"outside_y") ptr0 outside_y3
 
 deriving via Marshal.EquivStorable Outside instance BG.Storable Outside
+
+deriving via Struct.IsStructViaStorable Outside instance Struct.IsStruct Outside
 
 {-| __C declaration:__ @x@
 
