@@ -125,13 +125,13 @@ updateDeclInfo ::
 updateDeclInfo declId' info = do
     enclosing' <- mapM updateEnclosing info.enclosing
     pure C.DeclInfo{
-          loc          = info.loc
-        , id           = declId'
-        , seqNr        = info.seqNr
-        , headerInfo   = info.headerInfo
-        , availability = info.availability
-        , comment      = ()
-        , enclosing    = enclosing'
+          loc              = info.loc
+        , id               = declId'
+        , sourceOrderIndex = info.sourceOrderIndex
+        , headerInfo       = info.headerInfo
+        , availability     = info.availability
+        , comment          = ()
+        , enclosing        = enclosing'
         }
   where
     updateEnclosing ::

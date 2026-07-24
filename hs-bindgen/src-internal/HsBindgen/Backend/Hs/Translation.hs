@@ -645,13 +645,13 @@ typedefFunTypeIndirectionDecs origInfo (args, res, reconstruct) names origSpec =
 
     auxInfo :: C.DeclInfo Final
     auxInfo = C.DeclInfo {
-          loc          = origInfo.loc
-        , id           = auxDeclIdPair
-        , seqNr        = origInfo.seqNr
-        , headerInfo   = origInfo.headerInfo
-        , availability = C.Available
-        , comment      = Just auxComment
-        , enclosing    = []
+          loc              = origInfo.loc
+        , id               = auxDeclIdPair
+        , sourceOrderIndex = origInfo.sourceOrderIndex
+        , headerInfo       = origInfo.headerInfo
+        , availability     = C.Available
+        , comment          = Just auxComment
+        , enclosing        = []
         }
 
     auxComment :: C.Comment Final

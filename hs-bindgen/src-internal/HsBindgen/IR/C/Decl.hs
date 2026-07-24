@@ -104,12 +104,14 @@ deriving stock instance (Show (Id p)) => Show (EnclosingRef p)
 data DeclInfo (p :: Pass) = DeclInfo{
       loc           :: SingleLoc
     , id            :: Id p
-    -- | Sequence number
+    -- | Source order index
     --
-    -- Declarations with lower sequence numbers come before declarations with
-    -- higher sequence numbers in the translation unit. We can populate sequence
-    -- numbers only with Clang version 20.1 or newer.
-    , seqNr         :: Maybe Natural
+    -- The position of this declaration in /source order/ (roughly, how
+    -- declarations appear in the C source; see the ordering definitions in
+    -- "HsBindgen.Frontend.Pass.Parse"), starting at 0. Declarations with a
+    -- lower index come before those with a higher index. Populated only with
+    -- Clang version 20.1 or newer; 'Nothing' otherwise.
+    , sourceOrderIndex :: Maybe Natural
     , headerInfo    :: HeaderInfo
     , availability  :: Availability
     , comment       :: CommentDecl p
@@ -604,13 +606,13 @@ instance (
     , CoercePassCommentDecl p p'
     ) => CoercePass DeclInfo p p' where
   coercePass info = DeclInfo{
-        loc          = info.loc
-      , id           = coercePassId (Proxy @'(p, p')) info.id
-      , seqNr        = info.seqNr
-      , headerInfo   = info.headerInfo
-      , availability = info.availability
-      , comment      = coercePassCommentDecl (Proxy @'(p, p')) info.comment
-      , enclosing    = map coercePass info.enclosing
+        loc              = info.loc
+      , id               = coercePassId (Proxy @'(p, p')) info.id
+      , sourceOrderIndex = info.sourceOrderIndex
+      , headerInfo       = info.headerInfo
+      , availability     = info.availability
+      , comment          = coercePassCommentDecl (Proxy @'(p, p')) info.comment
+      , enclosing        = map coercePass info.enclosing
       }
 
 instance (

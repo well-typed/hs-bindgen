@@ -934,16 +934,16 @@ withDeclInfo enclosing ctx k = \curr -> do
       withAvailability ctx declId declLoc $ \availability curr' -> do
         let info :: C.DeclInfo Parse
             info = C.DeclInfo{
-                  loc          = declLoc
-                , id           = declId
-                  -- We initialize the sequence number to 'Nothing', and
+                  loc              = declLoc
+                , id               = declId
+                  -- We initialize the source-order index to 'Nothing', and
                   -- populate it when consolidating macros with non-macros in
                   -- "HsBindgen.Frontend.Pass.Parse".
-                , seqNr        = Nothing
-                , headerInfo   = headerInfo
-                , availability = availability
-                , comment      = ()
-                , enclosing    = enclosing
+                , sourceOrderIndex = Nothing
+                , headerInfo       = headerInfo
+                , availability     = availability
+                , comment          = ()
+                , enclosing        = enclosing
                 }
         k info curr') curr
 

@@ -1,4 +1,4 @@
-// Test that we sort macros into sequence order even with intermittent includes.
+// Test that we sort macros into source order even with intermittent includes.
 
 // (At the moment, we do not perform any output sorting, and the generated
 // bindings are in dependency order, with inner includes sorted before other

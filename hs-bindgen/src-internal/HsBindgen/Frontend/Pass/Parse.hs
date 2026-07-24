@@ -38,35 +38,62 @@ parseDecls macroLang parseEnv = do
       let resultsOriginalOrder :: [ParseResult l Parse]
           resultsOriginalOrder = concatMap snd resultsWithLocs
       macroDefinitions <- ParseDecl.getMacroDefinitions
-      -- If the version of Clang is >= 20.1, we can obtain sequence order by
-      -- sorting declarations by source position.
+      -- 'resultsOriginalOrder' is in sequence order (the order in which
+      -- libclang visits the declarations). We additionally record the source
+      -- order of each declaration in its 'sourceOrderIndex', obtained by
+      -- sorting the declarations by source position.
       --
-      -- However, for older versions of Clang, the required API function is
-      -- unavailable. Hence, we refrain from sorting declarations, and only
-      -- populate the sequence order into 'DeclInfo'.
+      -- Comparing source positions across the translation unit requires
+      -- 'clang_isBeforeInTranslationUnit', available only with Clang >= 20.1.
+      -- On older versions we leave 'sourceOrderIndex' as 'Nothing' and return
+      -- the declarations in sequence order, unchanged.
       (,macroDefinitions) <$> case clang_isBeforeInTranslationUnit of
         Just isBeforeInUnit -> do
           let isBefore (a, _) (b, _) = isBeforeInUnit a b
-          resultsSequenceOrder :: [ParseResult l Parse] <-
+          resultsSourceOrder :: [ParseResult l Parse] <-
             liftIO $ concatMap snd <$> sortByM isBefore resultsWithLocs
           let -- The map is keyed on @('Id' 'Parse', 'SingleLoc')@ rather than
               -- just @'Id' 'Parse'@ to handle forward declarations at different
               -- locations with the same name.
-              seqNrMap :: Map (Id Parse, SingleLoc) Natural
-              seqNrMap = Map.fromList
+              sourceOrderMap :: Map (Id Parse, SingleLoc) Natural
+              sourceOrderMap = Map.fromList
                 [ ((r.id, r.loc), i)
-                | (i, r) <- zip [0..] resultsSequenceOrder
+                | (i, r) <- zip [0..] resultsSourceOrder
                 ]
-          ParseDecl.traceImmediateGlobal ParseSeqNrPopulated
-          -- We only add sequence numbers to successful parses here. We /could/
-          -- also populate the sequence numbers to non-successful parses.
-          pure $ map (setSeqNr seqNrMap) resultsOriginalOrder
+          ParseDecl.traceImmediateGlobal ParseSourceOrderPopulated
+          -- We only add source-order indices to successful parses here. We
+          -- /could/ also populate them for non-successful parses.
+          pure $ map (setSourceOrderIndex sourceOrderMap) resultsOriginalOrder
         Nothing -> do
-          ParseDecl.traceImmediateGlobal ParseSeqNrUnavailable
+          ParseDecl.traceImmediateGlobal ParseSourceOrderUnavailable
           pure resultsOriginalOrder
 
 {-------------------------------------------------------------------------------
-  Sequence order
+  Orderings
+
+  We distinguish a few orderings of declarations (see issue #1580). These
+  definitions live here for now; they should eventually move to wherever the
+  orderings are defined and used centrally.
+
+  * Sequence order: the order in which libclang presents the declarations to
+    our parser (the order in which the cursor visits them). libclang visits
+    macros first and the remaining declarations in source order, so sequence
+    order is /not/ source order. This is the order of 'resultsOriginalOrder',
+    and the order in which 'parseDecls' returns its results.
+
+  * Source order: roughly, how the declarations appear in the C source. We
+    record it per declaration in 'DeclInfo.sourceOrderIndex', computed above by
+    sorting on source position via 'clang_isBeforeInTranslationUnit' (accurate,
+    but requires Clang >= 20.1). Note that @annSortKey@ (in
+    "HsBindgen.Frontend.Analysis.DeclUseGraph.Construction") computes a
+    /best-effort/ source order without that API, used only as a tiebreak when
+    ordering the output; it can be inaccurate, e.g. when a header includes
+    another header part-way through its own declarations.
+
+  * Dependency order: the order according to the use-decl graph; if @A@ has a
+    by-value use of @B@ then @B@ comes before @A@. This is the order the rest of
+    the frontend works in (established by @toDecls@ in
+    "HsBindgen.Frontend.Analysis.DeclUseGraph.Query").
 -------------------------------------------------------------------------------}
 
 -- | Stable merge sort using a monadic strict-less-than predicate.
@@ -97,13 +124,13 @@ sortByM isBefore = go
   Internal helpers
 -------------------------------------------------------------------------------}
 
--- | Populate the sequence number in the 'DeclInfo' of a successful
+-- | Populate the source-order index in the 'DeclInfo' of a successful
 --   'ParseResult'
-setSeqNr ::
+setSourceOrderIndex ::
      Map (Id Parse, SingleLoc) Natural
   -> ParseResult l Parse
   -> ParseResult l Parse
-setSeqNr seqNrMap result =
+setSourceOrderIndex sourceOrderMap result =
     result
-      &  #classification % #_ParseResultSuccess % #decl % #info % #seqNr
-      .~ Map.lookup (result.id, result.loc) seqNrMap
+      &  #classification % #_ParseResultSuccess % #decl % #info % #sourceOrderIndex
+      .~ Map.lookup (result.id, result.loc) sourceOrderMap

@@ -87,16 +87,16 @@ resolveDeclInfo nsProxy info = do
     comment'   <- traverse (resolve info) info.comment
     enclosing' <- mapM resolveEnclosingRef info.enclosing
     pure C.DeclInfo{
-        loc          = info.loc
-      , id           = DeclIdPair{
+        loc              = info.loc
+      , id               = DeclIdPair{
             cName  = info.id
           , hsName = Hs.demoteNs hsName
           }
-      , seqNr        = info.seqNr
-      , headerInfo   = info.headerInfo
-      , availability = info.availability
-      , comment      = comment'
-      , enclosing    = enclosing'
+      , sourceOrderIndex = info.sourceOrderIndex
+      , headerInfo       = info.headerInfo
+      , availability     = info.availability
+      , comment          = comment'
+      , enclosing        = enclosing'
       }
 
 resolveFieldInfo ::

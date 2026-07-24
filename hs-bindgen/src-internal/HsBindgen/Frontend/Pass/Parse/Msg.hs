@@ -48,17 +48,18 @@ data ImmediateParseMsg =
     -- | We failed to parse a declaration that is required for scoping.
   | ParseOfDeclarationRequiredForScopingFailed
 
-    -- | Sequence numbers were populated, using 'clang_isBeforeInTranslationUnit'
+    -- | Source-order indices were populated, using
+    -- 'clang_isBeforeInTranslationUnit'
     --
-    -- Sequence numbers record the order in which declarations appear in the
-    -- translation unit.  Populating them requires Clang >= 20.1.
-  | ParseSeqNrPopulated
+    -- Source-order indices record the order in which declarations appear in the
+    -- C source.  Populating them requires Clang >= 20.1.
+  | ParseSourceOrderPopulated
 
-    -- | Sequence numbers could not be populated
+    -- | Source-order indices could not be populated
     --
     -- 'clang_isBeforeInTranslationUnit' is not available; this requires
     -- Clang >= 20.1.
-  | ParseSeqNrUnavailable
+  | ParseSourceOrderUnavailable
 
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -76,12 +77,12 @@ instance PrettyForTrace ImmediateParseMsg where
         , "the failed declaration may be required when parsing"
         , "other declarations containing macro replacements"
         ]
-      ParseSeqNrPopulated -> PP.hsep [
-          "Sequence order of declarations populated"
+      ParseSourceOrderPopulated -> PP.hsep [
+          "Source order of declarations populated"
         , "(requires Clang >= 20.1)"
         ]
-      ParseSeqNrUnavailable -> PP.hsep [
-          "Sequence order of declarations unavailable:"
+      ParseSourceOrderUnavailable -> PP.hsep [
+          "Source order of declarations unavailable:"
         , "clang_isBeforeInTranslationUnit requires Clang >= 20.1"
         ]
 
@@ -90,8 +91,8 @@ instance IsTrace Level ImmediateParseMsg where
       ParseGetMacroExpansionsMultipleFiles{}       -> Warning
       ParseMacroExpansionNoMacroName{}             -> Bug
       ParseOfDeclarationRequiredForScopingFailed{} -> Info
-      ParseSeqNrPopulated{}                        -> Info
-      ParseSeqNrUnavailable{}                      -> Info
+      ParseSourceOrderPopulated{}                  -> Info
+      ParseSourceOrderUnavailable{}                -> Info
   getSource  = const HsBindgen
   getTraceId = \case
     ParseMacroExpansionNoMacroName -> "parse-immediate-macro"
