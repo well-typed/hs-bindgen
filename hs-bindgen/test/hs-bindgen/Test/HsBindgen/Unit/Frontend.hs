@@ -31,7 +31,7 @@ import Test.HsBindgen.Resources
 tests :: IO TestResources -> TestTree
 tests getTestResources = testGroup "Test.HsBindgen.Unit.Frontend" [
       testGroup "Parse" [
-          testParseSequenceNumber getTestResources
+          testParseSourceOrder getTestResources
         ]
     ]
 
@@ -39,9 +39,9 @@ tests getTestResources = testGroup "Test.HsBindgen.Unit.Frontend" [
   Parse pass tests
 -------------------------------------------------------------------------------}
 
-testParseSequenceNumber :: IO TestResources -> TestTree
-testParseSequenceNumber getTestResources =
-  testWhenClangVersion (>= (20, 1, 0)) "ParseSequenceNumber" $ do
+testParseSourceOrder :: IO TestResources -> TestTree
+testParseSourceOrder getTestResources =
+  testWhenClangVersion (>= (20, 1, 0)) "ParseSourceOrder" $ do
     results <-
       execFrontend
         getTestResources
@@ -49,20 +49,22 @@ testParseSequenceNumber getTestResources =
         ["test-artefacts" </> "headers" </> "golden" </> "macros" </> "parse"]
         "elaborate.h"
         getParseResults
-    declNamesWithSeqNrs <- forM results $ \result ->
+    declNamesWithSourceOrderIndex <- forM results $ \result ->
       case getParseResultMaybeDecl result of
         Nothing   -> assertFailure $ "parse failed: " ++ show result
         Just decl -> do
-          case decl.info.seqNr of
+          case decl.info.sourceOrderIndex of
             Nothing ->
               panicPure $
-                "no sequence number for declaration " ++ show decl.info.id
-            Just seqNr ->
-              pure (show $ prettyForTrace decl.info.id, seqNr)
-    let declNamesDependencyOrderActual :: [String]
-        declNamesDependencyOrderActual = map fst declNamesWithSeqNrs
-        declNamesDependencyOrderExpected :: [String]
-        declNamesDependencyOrderExpected = [
+                "no source-order index for declaration " ++ show decl.info.id
+            Just idx ->
+              pure (show $ prettyForTrace decl.info.id, idx)
+    -- 'getParseResults' returns declarations in sequence order (libclang's
+    -- visitation order: macros first, then the rest).
+    let declNamesSequenceOrderActual :: [String]
+        declNamesSequenceOrderActual = map fst declNamesWithSourceOrderIndex
+        declNamesSequenceOrderExpected :: [String]
+        declNamesSequenceOrderExpected = [
              "'macro OUTER_A'"
            , "'macro INNER_A'"
            , "'macro INNER_B'"
@@ -71,13 +73,15 @@ testParseSequenceNumber getTestResources =
            , "'outer_int'"
            , "'inner_int'"
            ]
-    assertEqual "dependency order"
-      declNamesDependencyOrderExpected
-      declNamesDependencyOrderActual
-    let declNamesSequenceOrderActual :: [String]
-        declNamesSequenceOrderActual = map fst $ sortOn snd declNamesWithSeqNrs
-        declNamesSequenceOrderExpected :: [String]
-        declNamesSequenceOrderExpected = [
+    assertEqual "sequence order"
+      declNamesSequenceOrderExpected
+      declNamesSequenceOrderActual
+    -- Sorting by the source-order index recovers source order.
+    let declNamesSourceOrderActual :: [String]
+        declNamesSourceOrderActual =
+          map fst $ sortOn snd declNamesWithSourceOrderIndex
+        declNamesSourceOrderExpected :: [String]
+        declNamesSourceOrderExpected = [
             "'macro OUTER_A'"
           , "'outer_int'"
           , "'macro INNER_A'"
@@ -86,9 +90,9 @@ testParseSequenceNumber getTestResources =
           , "'macro OUTER_B'"
           , "'macro OUTER_C'"
           ]
-    assertEqual "sequence order"
-      declNamesSequenceOrderExpected
-      declNamesSequenceOrderActual
+    assertEqual "source order"
+      declNamesSourceOrderExpected
+      declNamesSourceOrderActual
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
