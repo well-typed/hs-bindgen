@@ -14,6 +14,9 @@
 * Add `get`/`set` functions that serve as getters/setters for union values.
   These depend `HasField` instances. See [issue #2060][is-2060] and [PR
   #2091][pr-2091].
+* Add a new `HsBindgen.Runtime.Overloading` module that restores the default
+  environment when using the `RebindableSyntax` language extension for
+  overloaded record updates. See [issue #2085][is-2085] and [PR #2168][pr-2168].
 
 ### Minor changes
 
@@ -25,7 +28,9 @@
 None
 
 [is-2060]: https://github.com/well-typed/hs-bindgen/issues/2060
+[is-2085]: https://github.com/well-typed/hs-bindgen/issues/2085
 [pr-2091]: https://github.com/well-typed/hs-bindgen/pull/2091
+[pr-2168]: https://github.com/well-typed/hs-bindgen/pull/2168
 
 ## 0.1.0-alpha2 -- 2026-03-27
 
