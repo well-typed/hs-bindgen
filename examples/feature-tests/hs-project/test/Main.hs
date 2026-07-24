@@ -14,6 +14,7 @@ import Test.PointerManipulation.Structs qualified
 import Test.PointerManipulation.Structs.Bitfields qualified
 import Test.PointerManipulation.Typedefs qualified
 import Test.PointerManipulation.Unions qualified
+import Test.PointerManipulation.Unions.Bitfields qualified
 import Test.Types.Anonymous qualified
 import Test.Types.Bitfields qualified
 
@@ -31,6 +32,7 @@ main = defaultMain $ testGroup "feature-tests" [
     , Test.PointerManipulation.Structs.Bitfields.tests
     , Test.PointerManipulation.Typedefs.tests
     , Test.PointerManipulation.Unions.tests
+    , Test.PointerManipulation.Unions.Bitfields.tests
     , Test.Types.Anonymous.tests
     , Test.Types.Bitfields.tests
     ]

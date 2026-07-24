@@ -11,11 +11,11 @@ import Data.Proxy (Proxy (Proxy))
 import Foreign.C.Types (CUChar, CUInt)
 import System.IO.Unsafe (unsafePerformIO)
 import Test.Tasty (TestTree, testGroup)
-import Test.Tasty.QuickCheck (Arbitrary (..), Fun, Property, applyFun,
-                              testProperty)
+import Test.Tasty.QuickCheck (Arbitrary (..), Fun, Large (Large, getLarge),
+                              Property, applyFun, testProperty)
 
 import Generated.PointerManipulation qualified as Types (MyStructBF (..))
-import Generated.PointerManipulation.Safe qualified as Unsafe
+import Generated.PointerManipulation.Safe qualified as Safe
 import Test.PointerManipulation.Infra (ComposableFunc, FieldFunc (..), Func)
 import Test.PointerManipulation.Infra qualified as Infra
 import Test.Util.Orphans ()
@@ -57,11 +57,14 @@ prop_applyPointer_equiv_applyPointerFields =
 -------------------------------------------------------------------------------}
 
 mkStructBF :: CUInt -> CUChar -> Types.MyStructBF
-mkStructBF x y = unsafePerformIO $ Unsafe.make_MyStructBF x y
+mkStructBF x y = unsafePerformIO $ Safe.make_MyStructBF x y
 
 instance Arbitrary Types.MyStructBF where
-  arbitrary = mkStructBF <$> arbitrary <*> arbitrary
-  shrink (Types.MyStructBF x y) = uncurry mkStructBF <$> shrink (x, y)
+  arbitrary = mkStructBF <$> (getLarge <$> arbitrary) <*> (getLarge <$> arbitrary)
+  shrink (Types.MyStructBF x y) =
+      [ mkStructBF x' y'
+      | (Large x', Large y') <- shrink (Large x, Large y)
+      ]
 
 instance ComposableFunc Types.MyStructBF where
   data Func Types.MyStructBF = FuncMyStruct {

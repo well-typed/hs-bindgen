@@ -39,21 +39,50 @@ enum MyEnum {
 /* Bit-fields */
 
 struct MyStructBF {
-  unsigned int x : 6;
+  unsigned int x : 7;
   unsigned char y : 6;
 };
 
+/**
+ * The Haskell bindings for bit-fields (i.e., Haskell record fields) do not
+ * perform packing in any way like the C code does. So if we want to create a
+ * Haskell value of a MyStructBF, then we use this C function instead.
+ */
 static inline struct MyStructBF __attribute__((const)) make_MyStructBF(
     unsigned int x,
     unsigned char y) {
-  struct MyStructBF s = {x, y};
+  struct MyStructBF s = {.x=x, .y=y};
   return s;
 }
 
 union MyUnionBF {
   unsigned int x : 3;
-  unsigned char y : 3;
+  unsigned char y : 5;
 };
+
+/**
+ * The Haskell bindings for bit-fields (i.e., Haskell record fields) do not
+ * perform packing in any way like the C code does. So if we want to create a
+ * Haskell value of a MyUnionBF (x alternative), then we use this C function
+ * instead.
+ */
+static inline union MyUnionBF __attribute__((const)) make_MyUnionBF_x(
+  unsigned int x) {
+  union MyUnionBF u = {.x=x};
+  return u;
+}
+
+/**
+ * The Haskell bindings for bit-fields (i.e., Haskell record fields) do not
+ * perform packing in any way like the C code does. So if we want to create a
+ * Haskell value of a MyUnionBF (y alternative), then we use this C function
+ * instead.
+ */
+static inline union MyUnionBF __attribute__((const)) make_MyUnionBF_y(
+  unsigned char y) {
+  union MyUnionBF u = {.y=y};
+  return u;
+}
 
 /* -------------------------------------------------------------------------- */
 /* Typedefs */
