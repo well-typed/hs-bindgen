@@ -12,7 +12,7 @@ hstypes:
     record:
       constructor: S
       fields:
-      - s_anon'anon'x
+      - s_Point3D
   instances:
   - Eq
   - Generic

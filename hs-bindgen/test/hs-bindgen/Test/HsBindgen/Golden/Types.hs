@@ -70,6 +70,7 @@ testCases = [
     , test_types_anonymous_edge_cases_empty_anon
     , test_types_anonymous_edge_cases_multi_nesting
     , test_types_anonymous_edge_cases_multi_nesting_omit_field_prefixes
+    , test_types_anonymous_edge_cases_name_conflict
     , test_types_anonymous_edge_cases_reparse
     , test_types_long_double
     , test_types_primitives_bool_c23
@@ -172,6 +173,17 @@ test_types_anonymous_edge_cases_multi_nesting_omit_field_prefixes :: TestCase
 test_types_anonymous_edge_cases_multi_nesting_omit_field_prefixes =
     testVariant "types/anonymous/edge-cases/multi_nesting" "omit_field_prefixes"
       & #onFrontend .~ ( #fieldNamingStrategy .~ OmitFieldPrefixes )
+
+-- | Test that (Haskell-)naming an implicit field after an external type can
+-- cause name conflicts
+test_types_anonymous_edge_cases_name_conflict :: TestCase
+test_types_anonymous_edge_cases_name_conflict =
+    defaultTest "types/anonymous/edge-cases/name_conflict"
+      & #specExternal .~
+      [ "test-artefacts/headers/golden"
+        </> "types/anonymous/edge-cases/name_conflict"
+        <.> "ext" <.> "yaml"
+      ]
 
 -- | Test that indirect fields are reparsed
 test_types_anonymous_edge_cases_reparse :: TestCase

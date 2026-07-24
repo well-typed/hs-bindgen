@@ -528,6 +528,29 @@ createFieldName hsName fieldCName = do
     modify $ #scopedNames %~ (scopedNamePair:)
     pure scopedNamePair
 
+-- | We generate a Haskell name for implicit fields based on the Haskell name of
+-- the external type, if there is one.
+createImplicitFieldName ::
+     Text
+  -> C.ScopedName
+  -> Maybe Hs.ExtRef
+  -> CreateE ScopedNamePair
+createImplicitFieldName hsName fieldCName = \case
+    Nothing -> createFieldName hsName fieldCName
+    Just extHsName -> do
+      strategy <- asks (.fieldNamingStrategy)
+      let candidate :: Text
+          candidate = case strategy of
+            AddFieldPrefixes  -> hsName <> "_" <> extHsName.name.text
+            OmitFieldPrefixes -> fieldCName.text
+      name <- mkName (Proxy @Hs.NsVar) candidate
+      let scopedNamePair = ScopedNamePair{
+          cName  = fieldCName
+        , hsName = Hs.demoteNs name
+        }
+      modify $ #scopedNames %~ (scopedNamePair:)
+      pure scopedNamePair
+
 -- | Create an enum constant name
 --
 -- Since these live in the global namespace, we do not prepend the name of the
@@ -617,8 +640,11 @@ createImplicitField ::
   -> C.ImplicitField ResolveBindingSpecs
   -> CreateE (C.ImplicitField CreateNames)
 createImplicitField hsName field = do
-    name'     <- createFieldName hsName field.info.name
     typRef'   <- createAnonRef field.typRef
+    let extHsName = case typRef' of
+          C.AnonRef _ref -> Nothing
+          C.AnonExtBinding ext -> Just ext.name.hsName
+    name' <- createImplicitFieldName hsName field.info.name extHsName
     indirect' <- mapM (createIndirectField hsName) field.indirect
     pure C.ImplicitField{
         info = C.FieldInfo{

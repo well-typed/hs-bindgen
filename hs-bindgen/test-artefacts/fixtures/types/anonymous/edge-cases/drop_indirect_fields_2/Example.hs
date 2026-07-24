@@ -30,7 +30,7 @@ import qualified OtherExample
     __exported by:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h@
 -}
 data S = S
-  { s_anon'anon'x :: OtherExample.Point3D
+  { s_Point3D :: OtherExample.Point3D
     {- ^ __C declaration:__ @anon\'anon\'x@
 
          __defined at:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h 4:3@
@@ -51,7 +51,7 @@ instance Marshal.ReadRaw S where
   readRaw =
     \ptr0 ->
           pure S
-      <*> HasCField.readRaw (BG.Proxy @"s_anon'anon'x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"s_Point3D") ptr0
 
 instance Marshal.WriteRaw S where
 
@@ -59,8 +59,8 @@ instance Marshal.WriteRaw S where
     \ptr0 ->
       \s1 ->
         case s1 of
-          S s_anon'anon'x2 ->
-            HasCField.writeRaw (BG.Proxy @"s_anon'anon'x") ptr0 s_anon'anon'x2
+          S s_Point3D2 ->
+            HasCField.writeRaw (BG.Proxy @"s_Point3D") ptr0 s_Point3D2
 
 deriving via Marshal.EquivStorable S instance BG.Storable S
 
@@ -71,22 +71,20 @@ deriving via Marshal.EquivStorable S instance BG.Storable S
     __exported by:__ @types\/anonymous\/edge-cases\/drop_indirect_fields.h@
 -}
 instance ( ty ~ OtherExample.Point3D
-         ) => BG.CompatHasField.HasField "s_anon'anon'x" S ty where
+         ) => BG.CompatHasField.HasField "s_Point3D" S ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         S {s_anon'anon'x = y1}, BG.getField @"s_anon'anon'x" x0)
+         S {s_Point3D = y1}, BG.getField @"s_Point3D" x0)
 
 instance ( ty ~ OtherExample.Point3D
-         ) => BG.HasField "s_anon'anon'x" (BG.Ptr S) (BG.Ptr ty) where
+         ) => BG.HasField "s_Point3D" (BG.Ptr S) (BG.Ptr ty) where
 
-  getField =
-    HasCField.fromPtr (BG.Proxy @"s_anon'anon'x")
+  getField = HasCField.fromPtr (BG.Proxy @"s_Point3D")
 
-instance HasCField.HasCField S "s_anon'anon'x" where
+instance HasCField.HasCField S "s_Point3D" where
 
-  type CFieldType S "s_anon'anon'x" =
-    OtherExample.Point3D
+  type CFieldType S "s_Point3D" = OtherExample.Point3D
 
   offset# = \_ -> \_ -> 0
