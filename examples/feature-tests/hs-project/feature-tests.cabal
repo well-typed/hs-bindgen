@@ -106,6 +106,7 @@ test-suite feature-tests
     Test.Types.Bitfields
     Test.Util
     Test.Util.Orphans
+    Test.Util.TypedUnion
 
   build-depends:
     , base
