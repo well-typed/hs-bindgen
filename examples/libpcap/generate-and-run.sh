@@ -49,15 +49,4 @@ echo "# "
 echo "# Done!"
 echo "# "
 
-(
-    echo "# "
-    echo "Running the project"
-    echo "# "
-
-    LD_LIBRARY_PATH="$LIBPCAP_DIR:$LD_LIBRARY_PATH"
-    export LD_LIBRARY_PATH
-
-    cd "hs-project"
-    cabal build libpcap-bin
-    cabal run libpcap-bin
-)
+./run.sh
