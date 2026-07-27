@@ -26,6 +26,7 @@ libfeature-tests$(TARGET_EXT): \
 		callbacks/unions.o \
 		pointer_manipulation.o \
 		types/anonymous.o \
+		types/anonymous/indirect_fields.o \
 		types/bitfields.o
 
 	$(CC) -Wall -shared -o libfeature-tests$(TARGET_EXT) \
@@ -36,6 +37,7 @@ libfeature-tests$(TARGET_EXT): \
 		callbacks/unions.o \
 		pointer_manipulation.o \
 		types/anonymous.o \
+		types/anonymous/indirect_fields.o \
 		types/bitfields.o
 
 # callbacks
@@ -66,6 +68,9 @@ pointer_manipulation.o: pointer_manipulation.h pointer_manipulation.c
 
 types/anonymous.o: types/anonymous.h types/anonymous.c
 	$(CC) -Wall -o types/anonymous.o -c -fPIC types/anonymous.c
+
+types/anonymous/indirect_fields.o: types/anonymous/indirect_fields.h types/anonymous/indirect_fields.c
+	$(CC) -Wall -o types/anonymous/indirect_fields.o -c -fPIC types/anonymous/indirect_fields.c
 
 ## bitfields
 

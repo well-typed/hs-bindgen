@@ -124,6 +124,19 @@ cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     --module Generated.Types.Anonymous \
     types/anonymous.h
 
+echo "#### Indirect fields"
+
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
+    preprocess \
+    -I c \
+    --hs-output-dir hs-project/src-generated \
+    --unique-id feature-tests.well-typed.com \
+    --create-output-dirs \
+    --overwrite-files \
+    --module Generated.Types.Anonymous.IndirectFields \
+    types/anonymous/indirect_fields.h \
+    --omit-field-prefixes
+
 echo "### Bit-fields"
 
 cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \

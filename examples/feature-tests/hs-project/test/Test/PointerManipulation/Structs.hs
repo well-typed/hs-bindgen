@@ -35,51 +35,53 @@ tests = testGroup "Test.PointerManipulation.Structs" [
   Properties
 -------------------------------------------------------------------------------}
 
+type MyStruct = Types.MyStruct
+
 -- | See 'Infra.prop_applyValue_equiv_applyPointer'
 prop_applyValue_equiv_applyPointer ::
-     Func Types.MyStruct
-  -> Types.MyStruct
+     Func MyStruct
+  -> MyStruct
   -> Property
 prop_applyValue_equiv_applyPointer =
-    Infra.prop_applyValue_equiv_applyPointer @Types.MyStruct
+    Infra.prop_applyValue_equiv_applyPointer @MyStruct
 
 -- | See 'Infra.prop_applyPointer_equiv_applyPointerFields'
 prop_applyPointer_equiv_applyPointerFields ::
-     Func Types.MyStruct
-  -> Types.MyStruct
+     Func MyStruct
+  -> MyStruct
   -> Property
 prop_applyPointer_equiv_applyPointerFields =
-    Infra.prop_applyPointer_equiv_applyPointerFields @Types.MyStruct
+    Infra.prop_applyPointer_equiv_applyPointerFields @MyStruct
 
 {-------------------------------------------------------------------------------
   Infra
 -------------------------------------------------------------------------------}
 
-instance Arbitrary Types.MyStruct where
+instance Arbitrary MyStruct where
   arbitrary = Types.MyStruct <$> arbitrary <*> arbitrary
   shrink (Types.MyStruct x y) =
       [ Types.MyStruct x' y' | (x', y') <- shrink (x, y) ]
 
-instance ComposableFunc Types.MyStruct where
-  data Func Types.MyStruct = FuncMyStruct {
+instance ComposableFunc MyStruct where
+  data Func MyStruct = FuncMyStruct {
       myStruct_x :: Fun CInt CInt
     , myStruct_y :: Fun CChar CChar
     }
 
-  composed :: Func Types.MyStruct -> Types.MyStruct -> Types.MyStruct
+  composed :: Func MyStruct -> MyStruct -> MyStruct
   composed f struct =
       struct & #x %~ applyFun f.myStruct_x
              & #y %~ applyFun f.myStruct_y
 
-  decomposed :: Func Types.MyStruct -> [FieldFunc Types.MyStruct]
+  decomposed :: Func MyStruct -> [FieldFunc MyStruct]
   decomposed f = [
         FieldFunc (Proxy @"x") (applyFun f.myStruct_x)
       , FieldFunc (Proxy @"y") (applyFun f.myStruct_y)
       ]
 
-deriving stock instance Show (Func Types.MyStruct)
+deriving stock instance Show (Func MyStruct)
 
-instance Arbitrary (Func Types.MyStruct) where
+instance Arbitrary (Func MyStruct) where
   arbitrary = FuncMyStruct <$> arbitrary <*> arbitrary
   shrink (FuncMyStruct x y) =
       [ FuncMyStruct x' y'
