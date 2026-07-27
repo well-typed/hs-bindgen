@@ -45,8 +45,10 @@ executable libpcap-bin
   ghc-options:
   extra-libraries: pcap
   build-depends:
-    , base     >=4.7 && <5
+    , base                >=4.7 && <5
+    , hs-bindgen-runtime
     , libpcap
+    , network
 
   if flag(static)
     ghc-options: -static -optl-static
