@@ -11,11 +11,11 @@ import Data.Proxy (Proxy (Proxy))
 import Foreign.C.Types (CUChar, CUInt)
 import System.IO.Unsafe (unsafePerformIO)
 import Test.Tasty (TestTree, testGroup)
-import Test.Tasty.QuickCheck (Arbitrary (..), Fun, Property, applyFun,
-                              testProperty)
+import Test.Tasty.QuickCheck (Arbitrary (..), Fun, Large (Large, getLarge),
+                              Property, applyFun, testProperty)
 
 import Generated.PointerManipulation qualified as Types (MyStructBF (..))
-import Generated.PointerManipulation.Safe qualified as Unsafe
+import Generated.PointerManipulation.Safe qualified as Safe
 import Test.PointerManipulation.Infra (ComposableFunc, FieldFunc (..), Func)
 import Test.PointerManipulation.Infra qualified as Infra
 import Test.Util.Orphans ()
@@ -36,52 +36,57 @@ tests = testGroup "Test.PointerManipulation.Structs.Bitfields" [
   Properties
 -------------------------------------------------------------------------------}
 
+type MyStructBF = Types.MyStructBF
+
 -- | See 'Infra.prop_applyValue_equiv_applyPointer'
 prop_applyValue_equiv_applyPointer ::
-     Func Types.MyStructBF
-  -> Types.MyStructBF
+     Func MyStructBF
+  -> MyStructBF
   -> Property
 prop_applyValue_equiv_applyPointer =
-    Infra.prop_applyValue_equiv_applyPointer @Types.MyStructBF
+    Infra.prop_applyValue_equiv_applyPointer @MyStructBF
 
 -- | See 'Infra.prop_applyPointer_equiv_applyPointerFields'
 prop_applyPointer_equiv_applyPointerFields ::
-     Func Types.MyStructBF
-  -> Types.MyStructBF
+     Func MyStructBF
+  -> MyStructBF
   -> Property
 prop_applyPointer_equiv_applyPointerFields =
-    Infra.prop_applyPointer_equiv_applyPointerFields @Types.MyStructBF
+    Infra.prop_applyPointer_equiv_applyPointerFields @MyStructBF
 
 {-------------------------------------------------------------------------------
   Infra
 -------------------------------------------------------------------------------}
 
-mkStructBF :: CUInt -> CUChar -> Types.MyStructBF
-mkStructBF x y = unsafePerformIO $ Unsafe.make_MyStructBF x y
+mkStructBF :: CUInt -> CUChar -> MyStructBF
+mkStructBF x y = unsafePerformIO $ Safe.make_MyStructBF x y
 
-instance Arbitrary Types.MyStructBF where
-  arbitrary = mkStructBF <$> arbitrary <*> arbitrary
-  shrink (Types.MyStructBF x y) = uncurry mkStructBF <$> shrink (x, y)
-
-instance ComposableFunc Types.MyStructBF where
-  data Func Types.MyStructBF = FuncMyStruct {
-      myStruct_x :: Fun CUInt CUInt
-    , myStruct_y :: Fun CUChar CUChar
-    }
-
-  composed :: Func Types.MyStructBF -> Types.MyStructBF -> Types.MyStructBF
-  composed f struct = mkStructBF
-                  (applyFun f.myStruct_x struct.x)
-                  (applyFun f.myStruct_y struct.y)
-
-  decomposed :: Func Types.MyStructBF -> [FieldFunc Types.MyStructBF]
-  decomposed f = [
-        BitfieldFunc (Proxy @"x") (applyFun f.myStruct_x)
-      , BitfieldFunc (Proxy @"y") (applyFun f.myStruct_y)
+instance Arbitrary MyStructBF where
+  arbitrary = mkStructBF <$> (getLarge <$> arbitrary) <*> (getLarge <$> arbitrary)
+  shrink (Types.MyStructBF x y) =
+      [ mkStructBF x' y'
+      | (Large x', Large y') <- shrink (Large x, Large y)
       ]
 
-deriving stock instance Show (Func Types.MyStructBF)
+instance ComposableFunc MyStructBF where
+  data Func MyStructBF = FuncMyStructBF {
+      x :: Fun CUInt CUInt
+    , y :: Fun CUChar CUChar
+    }
 
-instance Arbitrary (Func Types.MyStructBF) where
-  arbitrary = FuncMyStruct <$> arbitrary <*> arbitrary
-  shrink (FuncMyStruct x y) = uncurry FuncMyStruct <$> shrink (x, y)
+  composed :: Func MyStructBF -> MyStructBF -> MyStructBF
+  composed f struct = mkStructBF
+                  (applyFun f.x struct.x)
+                  (applyFun f.y struct.y)
+
+  decomposed :: Func MyStructBF -> [FieldFunc MyStructBF]
+  decomposed f = [
+        BitfieldFunc (Proxy @"x") (applyFun f.x)
+      , BitfieldFunc (Proxy @"y") (applyFun f.y)
+      ]
+
+deriving stock instance Show (Func MyStructBF)
+
+instance Arbitrary (Func MyStructBF) where
+  arbitrary = FuncMyStructBF <$> arbitrary <*> arbitrary
+  shrink (FuncMyStructBF x y) = uncurry FuncMyStructBF <$> shrink (x, y)

@@ -70,6 +70,8 @@ library generated
     Generated.PointerManipulation.Unsafe
     Generated.Types.Anonymous
     Generated.Types.Anonymous.Global
+    Generated.Types.Anonymous.IndirectFields
+    Generated.Types.Anonymous.IndirectFields.Safe
     Generated.Types.Bitfields
     Generated.Types.Bitfields.FunPtr
     Generated.Types.Bitfields.Safe
@@ -103,9 +105,11 @@ test-suite feature-tests
     Test.PointerManipulation.Unions
     Test.PointerManipulation.Unions.Bitfields
     Test.Types.Anonymous
+    Test.Types.Anonymous.IndirectFields
     Test.Types.Bitfields
     Test.Util
     Test.Util.Orphans
+    Test.Util.TypedUnion
 
   build-depends:
     , base
