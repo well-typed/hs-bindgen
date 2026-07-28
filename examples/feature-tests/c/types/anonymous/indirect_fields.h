@@ -24,7 +24,7 @@ typedef struct {
 
 #define MkShowFunName(t1) show_ ## t1
 #define MkShowFun(t1)\
-  static str_repr MkShowFunName(t1) (t1 obj) {\
+  static inline str_repr MkShowFunName(t1) (t1 obj) {\
     str_repr ret = { .fieldX=obj.fieldX, .fieldY=obj.fieldY };\
     return ret;\
   }
