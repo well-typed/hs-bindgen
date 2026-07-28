@@ -55,10 +55,11 @@ This creates the following bindings:
 
 ```hs
 newtype SizeA
-get_sizeA_radius :: SizeA  -> CFloat
-set_sizeA_radius :: CFloat -> SizeA
-get_sizeA_length :: SizeA  -> CInt
-set_sizeA_length :: CInt   -> SizeA
+-- Fields can be get or set using:
+-- > get @"sizeA_radius" :: SizeA  -> CFloat
+-- > set @"sizeA_radius" :: CFloat -> SizeA
+-- > get @"sizeA_length" :: SizeA  -> Int
+-- > set @"sizeA_length" :: CInt   -> SizeA
 
 data ShapeA = ShapeA
   { shapeA_tag  :: Shape_tag
@@ -90,10 +91,11 @@ the struct/union names):
 
 ```hs
 newtype SizeB
-get_sizeB_radius :: SizeB  -> CFloat
-set_sizeB_radius :: CFloat -> SizeB
-get_sizeB_length :: SizeB  -> CInt
-set_sizeB_length :: CInt   -> SizeB
+-- Fields can be get or set using:
+-- > get @"sizeB_radius" :: SizeB  -> CFloat
+-- > set @"sizeB_radius" :: CFloat -> SizeB
+-- > get @"sizeB_length" :: SizeB  -> Int
+-- > set @"sizeB_length" :: CInt   -> SizeB
 
 data ShapeB = ShapeB
   { shapeB_tag  :: Shape_tag
@@ -122,10 +124,11 @@ it from other fields too). As a result, we would get the same bindings as before
 
 ```hs
 newtype SizeC
-get_sizeC_radius :: SizeC  -> CFloat
-set_sizeC_radius :: CFloat -> SizeC
-get_sizeC_length :: SizeC  -> CInt
-set_sizeC_length :: CInt   -> SizeC
+-- Fields can be get or set using:
+-- > get @"sizeC_radius" :: SizeC  -> CFloat
+-- > set @"sizeC_radius" :: CFloat -> SizeC
+-- > get @"sizeC_length" :: SizeC  -> Int
+-- > set @"sizeC_length" :: CInt   -> SizeC
 
 data ShapeC = ShapeC
   { shapeC_tag  :: Shape_tag
@@ -155,11 +158,12 @@ of the parent object (i.e., struct) and the field name. The Haskell bindings
 would look like this:
 
 ```hs
-newtype ShapedD_size
-get_shapedD_size_radius :: ShapedD_size -> CFloat
-set_shapedD_size_radius :: CFloat       -> ShapedD_size
-get_shapedD_size_length :: ShapedD_size -> CInt
-set_shapedD_size_length :: CInt         -> ShapedD_size
+newtype ShapeD_size
+-- Fields can be get or set using:
+-- > get @"shapeD_size_radius" :: ShapeD_size -> CFloat
+-- > set @"shapeD_size_radius" :: CFloat      -> ShapeD_size
+-- > get @"shapeD_size_length" :: ShapeD_size -> Int
+-- > set @"shapeD_size_length" :: CInt        -> ShapeD_size
 
 data ShapeD = ShapeD
   { shapeD_tag  :: Shape_tag
@@ -206,15 +210,16 @@ struct shapeE {
 ```
 
 Then, the anonymous union is named as in example D: We generate a Haskell name
-for the unnamed union based on the name of the parent object (i.e., struct) and
+for the unnamed union based on the name of the parent object (i.e., union) and
 the *newly assigned* field name. This leads to the following Haskell bindings:
 
 ```hs
 newtype ShapeE_anon'radius
-get_shapeE_anon'radius_radius :: ShapeE_anon'radius -> CFloat
-set_shapeE_anon'radius_radius :: CFloat             -> ShapeE_anon'radius
-get_shapeE_anon'radius_length :: ShapeE_anon'radius -> CInt
-set_shapeE_anon'radius_length :: CInt               -> ShapeE_anon'radius
+-- Fields can be get or set using:
+-- > get @"shapeE_anon'radius_radius" :: ShapeE_anon'radius -> CFloat
+-- > set @"shapeE_anon'radius_radius" :: CFloat             -> ShapeE_anon'radius
+-- > get @"shapeE_anon'radius_length" :: ShapeE_anon'radius -> Int
+-- > set @"shapeE_anon'radius_length" :: CInt               -> ShapeE_anon'radius
 
 data ShapeE = ShapeE
   { shapeE_tag         :: Shape_tag
@@ -234,9 +239,9 @@ they can be shortened considerably by omitting field prefixes.
 ### Limitations
 
 For technical reasons we can only generate bindings for anonymous unions that
-have at least one named field. Empty anonymous unions and anonymous unions with
-only padding (specified using unnamed bit-fields) are not supported. A
-warning-level trace message will be emitted in this case.
+have at least one named (direct/indirect) field. Empty anonymous unions and
+anonymous unions with only padding (specified using unnamed bit-fields) are not
+supported. A warning-level trace message will be emitted in this case.
 
 
 

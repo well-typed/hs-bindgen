@@ -205,9 +205,9 @@ they can be shortened considerably by omitting field prefixes.
 ### Limitations
 
 For technical reasons we can only generate bindings for anonymous structs that
-have at least one named field. Empty anonymous structs and anonymous structs
-with only padding (specified using unnamed bit-fields) are not supported. A
-warning-level trace message will be emitted in this case.
+have at least one named (direct/indirect) field. Empty anonymous structs and
+anonymous structs with only padding (specified using unnamed bit-fields) are not
+supported. A warning-level trace message will be emitted in this case.
 
 
 
