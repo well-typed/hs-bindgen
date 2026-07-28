@@ -19,8 +19,8 @@ common lang
     LambdaCase
 
 executable run-manual
-  import:          lang
-  main-is:         Manual.hs
+  import:         lang
+  main-is:        Manual.hs
   other-modules:
     Manual.BindingSpecifications
     Manual.Functions.FirstOrder
@@ -38,8 +38,30 @@ executable run-manual
     Manual.Types.Typedefs
     Manual.Types.Unions
 
-  ghc-options:     -main-is Manual
-  hs-source-dirs:  app generated
+  ghc-options:    -main-is Manual
+  hs-source-dirs: app
+
+  -- Inherited
+  build-depends:  hs-bindgen-runtime
+
+  -- Internal
+  build-depends:  manual:generated
+
+  -- External
+  build-depends:
+    , bytestring
+    , hs-game
+    , hs-vector
+    , optics
+    , vector
+
+  if impl(ghc <9.4)
+    build-depends: data-array-byte
+
+library generated
+  import:          lang
+  visibility:      private
+  hs-source-dirs:  generated
   extra-libraries:
     arrays
     callbacks
@@ -52,23 +74,12 @@ executable run-manual
     structs
     unions
 
-  -- Internal.
+  -- External
   build-depends:
     , c-expr-runtime
     , hs-bindgen-runtime
-    , hs-game
-    , hs-vector
-    , optics
 
-  -- External.
-  build-depends:
-    , bytestring
-    , vector
-
-  if impl(ghc <9.4)
-    build-depends: data-array-byte
-
-  other-modules:
+  exposed-modules:
     Arrays
     Arrays.Global
     Arrays.Safe
@@ -89,7 +100,6 @@ executable run-manual
     Globals.Global
     Macro
     Macro.Unsafe
-    Manual.Tools
     OmitFieldPrefixes
     PointerManipulation
     Structs
