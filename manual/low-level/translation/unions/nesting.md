@@ -236,6 +236,26 @@ If these generated names are too unwieldy, they can always be customised using
 [prescriptive binding specifications][manual:usage/binding-specs]. Moreover,
 they can be shortened considerably by omitting field prefixes.
 
+### Indirect fields
+
+In C, fields of an anonymous union can be accessed from the parent union *as if*
+they were fields of the parent union. This works recursively: if there are
+multiple levels of anonymous unions, then their fields can be accessed from the
+(top-level) parent union. Generated Haskell bindings reflect this behaviour by
+providing class instances for indirect fields as if they were any other (direct)
+field. For example, `HasField` instances such as:
+
+```hs
+instance HasField "shapeE_radius" ShapeE CFloat
+instance HasField "shapeE_length" ShapeE CInt
+```
+
+Given all these instances, users can treat indirect fields as any other field,
+including in the context of: [binding
+specifications][manual:binding-specifications], the [pointer manipulation
+API][manual:pointer-manipulation-api], and [record dot
+syntax][manual:record-dot-syntax].
+
 ### Limitations
 
 For technical reasons we can only generate bindings for anonymous unions that
@@ -248,5 +268,8 @@ supported. A warning-level trace message will be emitted in this case.
 <!-- sources and references -->
 
 [creference:union]: https://en.cppreference.com/w/c/language/union.html
+[manual:binding-specifications]: ../../usage/binding-specifications.md
+[manual:pointer-manipulation-api]: ../pointer-manipulation.md
+[manual:record-dot-syntax]: ../record-dot-syntax.md
 [manual:structs/nesting]: ../structs/nesting.md
 [manual:usage/binding-specs]: ../../usage/binding-specifications.md
