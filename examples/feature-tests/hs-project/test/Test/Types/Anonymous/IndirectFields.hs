@@ -8,11 +8,13 @@ module Test.Types.Anonymous.IndirectFields (
     tests
   ) where
 
+import Data.Function (on)
 import Foreign.C.Types
 import Test.Tasty
 import Test.Tasty.QuickCheck
 
 import HsBindgen.Runtime.Prelude (IsUnion)
+import HsBindgen.Runtime.Support (HasField (..))
 import HsBindgen.Runtime.Support.CompatHasField (modifyField)
 import HsBindgen.Runtime.Support.CompatHasField qualified as Compat
 import HsBindgen.Runtime.Union qualified as Union
@@ -109,17 +111,19 @@ instance Arbitrary (TypedUnion SU "fieldY" CChar Field) where
   arbitrary = arbitraryField
   shrink = shrinkField
 
-
 -- | Modifying via indirect fields is equivalent to modifying via direct fields
 prop_SU ::
      forall fn ft. (
        Compat.HasField fn SU_anon'fieldX ft
      , Compat.HasField fn SU ft
+     , HasField fn Str_repr ft
+     , Eq ft
+     , Show ft
      )
   => TypedUnion SU fn ft Field -> Fun ft ft -> Property
 prop_SU x f =
     ioProperty $
-      (===) <$> Safe.show_SU baseline <*> Safe.show_SU feature
+      on (===) (getField @fn) <$> Safe.show_SU baseline <*> Safe.show_SU feature
   where
     baseline =
         modifyField @"anon'fieldX" (unsafeUnwrap x) $ \y ->
@@ -140,17 +144,19 @@ instance Arbitrary (TypedUnion UU "fieldY" CChar Field) where
   arbitrary = arbitraryField
   shrink = shrinkField
 
-
 -- | Modifying via indirect fields is equivalent to modifying via direct fields
 prop_UU ::
      forall fn ft. (
        Compat.HasField fn UU_anon'fieldX ft
      , Compat.HasField fn UU ft
+     , HasField fn Str_repr ft
+     , Eq ft
+     , Show ft
      )
   => TypedUnion UU fn ft Field -> Fun ft ft -> Property
 prop_UU x f =
     ioProperty $
-      (===) <$> Safe.show_UU baseline <*> Safe.show_UU feature
+      on (===) (getField @fn) <$> Safe.show_UU baseline <*> Safe.show_UU feature
   where
     baseline =
         modifyField @"anon'fieldX" (unsafeUnwrap x) $ \y ->
