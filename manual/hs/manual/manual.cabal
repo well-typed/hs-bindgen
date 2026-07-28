@@ -55,9 +55,6 @@ executable run-manual
     , optics
     , vector
 
-  if impl(ghc <9.4)
-    build-depends: data-array-byte
-
 library generated
   import:          lang
   visibility:      private
