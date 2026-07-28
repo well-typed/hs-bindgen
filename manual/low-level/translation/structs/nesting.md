@@ -202,17 +202,41 @@ If these generated names are too unwieldy, they can always be customised using
 [prescriptive binding specifications][manual:usage/binding-specs]. Moreover,
 they can be shortened considerably by omitting field prefixes.
 
+### Indirect fields
+
+In C, fields of an anonymous struct can be accessed from the parent struct *as
+if* they were fields of the parent struct. This works recursively: if there are
+multiple levels of anonymous structs, then their fields can be accessed from the
+(top-level) parent struct. Generated Haskell bindings reflect this behaviour by
+providing class instances for indirect fields as if they were any other (direct)
+field. For example, `HasField` instances such as:
+
+```hs
+instance HasField "ShapeE_height" RoomE CFloat
+instance HasField "ShapeE_width" RoomE CFloat
+```
+
+Given all these instances, users can treat indirect fields as any other field,
+including in the context of: [binding
+specifications][manual:binding-specifications], the [pointer manipulation
+API][manual:pointer-manipulation-api], and [record dot
+syntax][manual:record-dot-syntax]. The only difference is that indirect fields
+are not repesented in the Haskell datatype that is generated for a struct.
+
 ### Limitations
 
 For technical reasons we can only generate bindings for anonymous structs that
-have at least one named field. Empty anonymous structs and anonymous structs
-with only padding (specified using unnamed bit-fields) are not supported. A
-warning-level trace message will be emitted in this case.
+have at least one named (direct/indirect) field. Empty anonymous structs and
+anonymous structs with only padding (specified using unnamed bit-fields) are not
+supported. A warning-level trace message will be emitted in this case.
 
 
 
 <!-- sources and references -->
 
 [creference:struct]: https://en.cppreference.com/w/c/language/struct.html
+[manual:binding-specifications]: ../../usage/binding-specifications.md
+[manual:pointer-manipulation-api]: ../pointer-manipulation.md
+[manual:record-dot-syntax]: ../record-dot-syntax.md
 [manual:unions/nesting]: ../unions/nesting.md
 [manual:usage/binding-specs]: ../../usage/binding-specifications.md

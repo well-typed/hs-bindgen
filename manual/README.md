@@ -28,6 +28,7 @@
 * [Enums](low-level/translation/enums.md)
 * [Unions](low-level/translation/unions.md)
 * [Pointer manipulation API](low-level/translation/pointer-manipulation.md)
+* [Record dot syntax](low-level/translation/record-dot-syntax.md)
 * [Functions](low-level/translation/functions.md)
 * [Global variables and constants](low-level/translation/globals.md)
 * [Macros](low-level/translation/macros.md)
