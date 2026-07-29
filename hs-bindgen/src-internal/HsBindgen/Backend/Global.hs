@@ -29,6 +29,7 @@ import HsBindgen.Runtime.IncompleteArray qualified as IA
 import HsBindgen.Runtime.IsArray qualified as IsA
 import HsBindgen.Runtime.Marshal qualified as Marshal
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
+import HsBindgen.Runtime.Struct qualified as Struct
 import HsBindgen.Runtime.Support qualified as BG
 import HsBindgen.Runtime.Support.CompatHasField qualified as BG.CompatHasField
 import HsBindgen.Runtime.Union qualified as Union
@@ -132,6 +133,9 @@ data BindgenGlobalType =
   | ByteArray_type
   | SizedByteArray_type
   | Block_type
+
+    -- Structs
+  | IsStructViaReadRaw_type
 
     -- Complex numbers
   | Complex_type
@@ -335,6 +339,9 @@ bindgenGlobalType = globalType . \case
     SizedByteArray_type -> (IRuntime Runtime.Support, ''BG.SizedByteArray)
     Block_type          -> (IRuntime Runtime.Block,   ''Block.Block)
 
+    -- Structs
+    IsStructViaReadRaw_type -> (IRuntime Runtime.Struct, ''Struct.IsStructViaReadRaw)
+
     -- Complex numbers
     Complex_type -> (IRuntime Runtime.Support, ''BG.Complex)
 
@@ -399,6 +406,7 @@ typeClassGlobal = globalType . \case
     Inst.Flam_Offset     -> (IRuntime Runtime.Flam,           ''FLAM.Offset)
     Inst.Integral        -> (IHaskellPrelude,                 ''Integral)
     Inst.IsArray         -> (IRuntime Runtime.IsArray,        ''IsA.IsArray)
+    Inst.IsStruct        -> (IRuntime Runtime.Struct,         ''Struct.IsStruct)
     Inst.IsUnion         -> (IRuntime Runtime.Union,          ''Union.IsUnion)
     Inst.Ix              -> (IRuntime Runtime.Support,        ''BG.Ix)
     Inst.Num             -> (IHaskellPrelude,                 ''Num)

@@ -78,6 +78,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -91,6 +92,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -104,6 +106,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -117,6 +120,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -130,6 +134,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -143,6 +148,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -156,6 +162,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -169,6 +176,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -182,6 +190,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -195,6 +204,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -208,6 +218,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -221,6 +232,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -234,6 +246,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -247,6 +260,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -260,6 +274,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize
@@ -273,6 +288,7 @@ hstypes:
   instances:
   - Eq
   - Generic
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize

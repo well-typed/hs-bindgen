@@ -28,7 +28,6 @@ hstypes:
   - HasField
   - HasFieldCompat
   - HasFieldPtr
-  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable
@@ -45,7 +44,6 @@ hstypes:
   - HasField
   - HasFieldCompat
   - HasFieldPtr
-  - IsUnion
   - ReadRaw
   - StaticSize
   - Storable
