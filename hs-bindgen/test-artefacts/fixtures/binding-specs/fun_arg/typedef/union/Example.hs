@@ -94,8 +94,7 @@ newtype A = A
   }
   deriving stock (BG.Generic)
   deriving newtype
-    ( Union.IsUnion
-    , Marshal.ReadRaw
+    ( Marshal.ReadRaw
     , Marshal.StaticSize
     , BG.Storable
     , Marshal.WriteRaw
@@ -128,8 +127,7 @@ newtype B = B
   }
   deriving stock (BG.Generic)
   deriving newtype
-    ( Union.IsUnion
-    , Marshal.ReadRaw
+    ( Marshal.ReadRaw
     , Marshal.StaticSize
     , BG.Storable
     , Marshal.WriteRaw

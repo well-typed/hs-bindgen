@@ -292,6 +292,7 @@ toFFIType sizeofs = go
       Hs.StrLit{}             -> no
       Hs.WithFlam{}           -> no
       Hs.EquivStorable{}      -> no
+      Hs.IsStructViaReadRaw{} -> no
 
     goPrim :: Hs.PrimType -> Maybe FFI.FFIType
     goPrim pt = case pt of

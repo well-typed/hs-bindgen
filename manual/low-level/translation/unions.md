@@ -65,7 +65,7 @@ introduce or eliminate union values. For the same reason, we _only_ provide a
 > alternative, and are equal in the relevant parts of the ByteArray, then we
 > should consider them equal, even if they have different "trailing" data.
 
-## Getters, setters, and zero values
+## Getters, setters
 
 The `HsBindgen.Runtime.Union` module from the `hs-bindgen-runtime` package
 provides getters and setters via the `get` and `set` function respectively.
@@ -92,24 +92,17 @@ be get and set like so:
       with occupation $ print_occupation 1
 ```
 
-The `set` and `get` functions use `GHC.Records.HasField` and
-`GHC.Records.Compat.HasField` instances under the hood. These instances are
-generated for all union fields of which the type is `Storable`. The instances
-can be used directly through the `getField`, `setField`, and `hasField`
-functions that these classes provide, or they can be used with the
-`OverloadedRecordDot` or `OverloadedRecordUpdate` language extensions.
-
-In some cases a union value is required when it is not yet clear which union
-alternative is going to be used (if any). In such cases, the `zero` function
-from the `IsUnion` class provides a union value that is initialised to all
-zeroes. Instances for `IsUnion` are generated automatically for generated union
-types.
-
 > [!WARNING]
 > It is the responsibility of the caller to ensure that the _correct_ getter is
 > used (typically using information obtained elsewhere). In the above example,
 > calling `Unions.get @"occupation_student"` on a `Occupation` union value that
 > is an `Employee` will result in undefined behaviour.
+
+## Zero values
+
+In some cases an uninitialised union value is required. In such cases, the
+`zero` function from the `IsUnion` class provides a suitable union value.
+Instances of `IsUnion` are generated automatically for generated union types.
 
 ## High-level API generation
 

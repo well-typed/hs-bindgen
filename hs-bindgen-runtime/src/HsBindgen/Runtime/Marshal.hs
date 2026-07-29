@@ -1,7 +1,27 @@
 -- | Marshaling and serialization
 --
--- Generalizes 'Storable'. For details, see
--- https://github.com/well-typed/hs-bindgen/issues/649.
+-- 'Storable' requires that values can be read and written. This module
+-- generalizes 'Storable' into three classes: 'ReadRaw' (read functions),
+-- 'WriteRaw' (write functions), and 'StaticSize' (size and alignment). This
+-- allows defining read-only and write-only instances, which is not possible
+-- with just 'Storable'.
+--
+-- [Read-only instances] might be necessary if the C struct is larger than the
+--   Haskell struct. In this case we can read it but not write it, unless there
+--   is a way to compute the missing C fields, or unless writes are allowed to
+--   be partial.
+--
+-- [Write-only instances] might be necessary if the Haskell struct is larger
+--   than the C struct. In this case we can write it but not read it, unless
+--   there is a way to compute the missing Haskell fields.
+--
+-- One example of a read-only struct is 'HsBindgen.Runtime.LibC.CTm'. The
+-- Haskell datatype only defines the fields that are described in the C language
+-- standard, but there are often implementation-defined additional fields. As
+-- the C struct is larger than the Haskell struct, the Haskell struct has
+-- read-only marshalling instances only.
+--
+-- For more details, see https://github.com/well-typed/hs-bindgen/issues/649.
 --
 -- This module is intended to be imported qualified.
 --

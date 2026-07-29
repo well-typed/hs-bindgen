@@ -48,6 +48,12 @@ newtype Triple_t = Triple_t { unwrapTriple_t :: Triple }
   deriving newtype (Storable)
 ```
 
+## Zero values
+
+In some cases an uninitialised struct value is required. In such cases, the
+`zero` function from the `IsStruct` class provides a suitable struct value.
+Instances of `IsStruct` are generated automatically for generated struct types.
+
 ## Nesting
 
 See the [Structs/Nesting][manual:structs/nesting] manual section.

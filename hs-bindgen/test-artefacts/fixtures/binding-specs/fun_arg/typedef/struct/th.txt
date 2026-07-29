@@ -144,6 +144,7 @@ instance WriteRaw MyStruct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        MyStruct myStruct_x_2 -> writeRaw (Proxy @"myStruct_x") ptr_0 myStruct_x_2
 deriving via (EquivStorable MyStruct) instance Storable MyStruct
+deriving via (IsStructViaReadRaw MyStruct) instance IsStruct MyStruct
 instance (~) ty CInt => HasField "myStruct_x" MyStruct ty
     where hasField = \x_0 -> (\y_1 -> MyStruct{myStruct_x = y_1},
                               getField @"myStruct_x" x_0)

@@ -37,6 +37,7 @@ import HsBindgen.Runtime.IncompleteArray qualified as IA
 import HsBindgen.Runtime.IsArray qualified as IsA
 import HsBindgen.Runtime.Marshal qualified as Marshal
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
+import HsBindgen.Runtime.Struct qualified as Struct
 import HsBindgen.Runtime.Support.CAPI qualified as CAPI
 import HsBindgen.Runtime.Union qualified as Union
 
@@ -62,6 +63,7 @@ data RuntimeModule =
   | CEnum
   | Block
   | Union
+  | Struct
   | CAPI
 
     -- Re-export-only modules: their path cannot be derived via Template Haskell
@@ -87,6 +89,7 @@ moduleName = \case
     CEnum           -> derived ''CEnum.CEnum
     Block           -> derived ''Block.Block
     Union           -> derived ''Union.IsUnion
+    Struct          -> derived ''Struct.IsStruct
     CAPI            -> derived 'CAPI.addCSource
     -- Re-export-only modules; no self-defined name to derive from.
     Support         -> "HsBindgen.Runtime.Support"
@@ -122,6 +125,7 @@ qualifiedImport rm = Hs.QualifiedImport (moduleName rm) (qualifier rm)
         CEnum           -> Just "CEnum"
         Block           -> Just "Block"
         Union           -> Just "Union"
+        Struct          -> Just "Struct"
         CAPI            -> Nothing
         Support         -> Just "BG"
         CompatHasField  -> Just "BG.CompatHasField"

@@ -71,6 +71,7 @@ import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
+import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
@@ -104,6 +105,8 @@ instance Marshal.WriteRaw Some_struct where
           Some_struct -> return ()
 
 deriving via Marshal.EquivStorable Some_struct instance BG.Storable Some_struct
+
+deriving via Struct.IsStructViaReadRaw Some_struct instance Struct.IsStruct Some_struct
 
 {-| __C declaration:__ @union some_union@
 
@@ -1177,6 +1180,8 @@ instance Marshal.WriteRaw Example_struct where
 
 deriving via Marshal.EquivStorable Example_struct instance BG.Storable Example_struct
 
+deriving via Struct.IsStructViaReadRaw Example_struct instance Struct.IsStruct Example_struct
+
 {-| __C declaration:__ @field1@
 
     __defined at:__ @macros\/reparse.h 152:8@
@@ -1674,6 +1679,8 @@ instance Marshal.WriteRaw Example_struct_with_const where
               >> HasCField.writeRaw (BG.Proxy @"example_struct_with_const_const_field7") ptr0 example_struct_with_const_const_field78
 
 deriving via Marshal.EquivStorable Example_struct_with_const instance BG.Storable Example_struct_with_const
+
+deriving via Struct.IsStructViaReadRaw Example_struct_with_const instance Struct.IsStruct Example_struct_with_const
 
 {-| __C declaration:__ @const_field1@
 

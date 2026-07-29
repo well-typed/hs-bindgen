@@ -10,13 +10,18 @@
 ### New features
 
 * Add a new `IsUnion` class for C unions. Currently the only member function is
-  `zero`, which creates a union value set to all zeroes.
+  `zero`. See [issue #2060][is-2060] and [PR #2091][pr-2091].
 * Add `get`/`set` functions that serve as getters/setters for union values.
   These depend `HasField` instances. See [issue #2060][is-2060] and [PR
   #2091][pr-2091].
 * Add a new `HsBindgen.Runtime.Overloading` module that restores the default
   environment when using the `RebindableSyntax` language extension for
   overloaded record updates. See [issue #2085][is-2085] and [PR #2168][pr-2168].
+* Add a new `IsStruct` class for C structs. Currently the only member function
+  is `zero`. See [issue #2121][is-2121] and [PR #2164][pr-2164].
+* Add `IsStructViaReadRaw` and `IsUnionViaReadRaw` helper types for deriving
+  `IsStruct` and `IsUnion` respectively via a `ReadRaw` (and `StaticSize`)
+  instance. [issue #2121][is-2121] and [PR #2164][pr-2164].
 
 ### Minor changes
 
@@ -29,7 +34,9 @@ None
 
 [is-2060]: https://github.com/well-typed/hs-bindgen/issues/2060
 [is-2085]: https://github.com/well-typed/hs-bindgen/issues/2085
+[is-2121]: https://github.com/well-typed/hs-bindgen/issues/2121
 [pr-2091]: https://github.com/well-typed/hs-bindgen/pull/2091
+[pr-2164]: https://github.com/well-typed/hs-bindgen/pull/2164
 [pr-2168]: https://github.com/well-typed/hs-bindgen/pull/2168
 
 ## 0.1.0-alpha2 -- 2026-03-27

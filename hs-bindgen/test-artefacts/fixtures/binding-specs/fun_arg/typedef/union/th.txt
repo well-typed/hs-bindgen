@@ -153,7 +153,7 @@ instance HasCField MyUnion "myUnion_x"
 newtype A
     = A {unwrapA :: MyUnion}
     deriving stock Generic
-    deriving newtype (IsUnion, ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty MyUnion => HasField "unwrapA" A ty
     where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
                               getField @"unwrapA" x_0)
@@ -171,7 +171,7 @@ instance HasCField A "unwrapA"
 newtype B
     = B {unwrapB :: A}
     deriving stock Generic
-    deriving newtype (IsUnion, ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty A => HasField "unwrapB" B ty
     where hasField = \x_0 -> (\y_1 -> B{unwrapB = y_1},
                               getField @"unwrapB" x_0)
