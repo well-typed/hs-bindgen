@@ -176,6 +176,7 @@ jobs:
 
     - name: 🛠️ Install LLVM/Clang
       uses: ./.github/actions/setup-llvm
+      timeout-minutes: 5
       with:
         version: ${{ matrix.llvm }}
 

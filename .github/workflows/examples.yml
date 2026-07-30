@@ -219,6 +219,7 @@ jobs:
     - name: 🛠️ Setup LLVM/Clang
       if: ${{ runner.os != 'Windows' }}
       uses: ./.github/actions/setup-llvm
+      timeout-minutes: 5
       with:
         version: ${{ matrix.llvm-version }}
 
