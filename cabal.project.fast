@@ -1,0 +1,16 @@
+-- This project file can be used during development, when compilation speed
+-- matters more than execution speed.
+--
+-- cabal build all --project-file cabal.project.fast
+import: cabal.project
+
+-- Step 1: tuning GHC
+program-options
+   ghc-options: +RTS -A64m -RTS
+
+-- Step 2: disable optimizations
+optimization: False
+
+-- Step 3: build parallelism
+jobs: 6
+semaphore: True
