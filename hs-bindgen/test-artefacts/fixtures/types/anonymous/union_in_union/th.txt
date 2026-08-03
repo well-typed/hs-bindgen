@@ -22,7 +22,7 @@ instance (~) ty CInt =>
     where getField = getUnionPayload
 instance (~) ty CInt =>
          HasField "outer1_anon'fieldX_fieldX" Outer1_anon'fieldX ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"outer1_anon'fieldX_fieldX" x_0)
 instance (~) ty CInt =>
          HasField "outer1_anon'fieldX_fieldX"
@@ -38,7 +38,7 @@ instance (~) ty CInt =>
     where getField = getUnionPayload
 instance (~) ty CInt =>
          HasField "outer1_anon'fieldX_fieldY" Outer1_anon'fieldX ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"outer1_anon'fieldX_fieldY" x_0)
 instance (~) ty CInt =>
          HasField "outer1_anon'fieldX_fieldY"
@@ -66,7 +66,7 @@ deriving via (SizedByteArray 4 4) instance IsUnion Outer1
 instance (~) ty CChar => HasField "outer1_fieldA" Outer1 ty
     where getField = getUnionPayload
 instance (~) ty CChar => HasField "outer1_fieldA" Outer1 ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"outer1_fieldA" x_0)
 instance (~) ty CChar =>
          HasField "outer1_fieldA" (Ptr Outer1) (Ptr ty)
@@ -79,7 +79,7 @@ instance (~) ty Outer1_anon'fieldX =>
     where getField = getUnionPayload
 instance (~) ty Outer1_anon'fieldX =>
          HasField "outer1_anon'fieldX" Outer1 ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"outer1_anon'fieldX" x_0)
 instance (~) ty Outer1_anon'fieldX =>
          HasField "outer1_anon'fieldX" (Ptr Outer1) (Ptr ty)
@@ -113,7 +113,7 @@ instance HasCField Outer1 "outer1_fieldY"
 instance (~) ty CInt => HasField "outer1_fieldC" Outer1 ty
     where getField = getUnionPayload
 instance (~) ty CInt => HasField "outer1_fieldC" Outer1 ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"outer1_fieldC" x_0)
 instance (~) ty CInt =>
          HasField "outer1_fieldC" (Ptr Outer1) (Ptr ty)
@@ -140,7 +140,7 @@ instance (~) ty CInt =>
     where getField = getUnionPayload
 instance (~) ty CInt =>
          HasField "outer2_fieldB_fieldX" Outer2_fieldB ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"outer2_fieldB_fieldX" x_0)
 instance (~) ty CInt =>
          HasField "outer2_fieldB_fieldX" (Ptr Outer2_fieldB) (Ptr ty)
@@ -153,7 +153,7 @@ instance (~) ty CInt =>
     where getField = getUnionPayload
 instance (~) ty CInt =>
          HasField "outer2_fieldB_fieldY" Outer2_fieldB ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"outer2_fieldB_fieldY" x_0)
 instance (~) ty CInt =>
          HasField "outer2_fieldB_fieldY" (Ptr Outer2_fieldB) (Ptr ty)
@@ -178,7 +178,7 @@ deriving via (SizedByteArray 4 4) instance IsUnion Outer2
 instance (~) ty CChar => HasField "outer2_fieldA" Outer2 ty
     where getField = getUnionPayload
 instance (~) ty CChar => HasField "outer2_fieldA" Outer2 ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"outer2_fieldA" x_0)
 instance (~) ty CChar =>
          HasField "outer2_fieldA" (Ptr Outer2) (Ptr ty)
@@ -189,7 +189,7 @@ instance HasCField Outer2 "outer2_fieldA"
 instance (~) ty Outer2_fieldB => HasField "outer2_fieldB" Outer2 ty
     where getField = getUnionPayload
 instance (~) ty Outer2_fieldB => HasField "outer2_fieldB" Outer2 ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"outer2_fieldB" x_0)
 instance (~) ty Outer2_fieldB =>
          HasField "outer2_fieldB" (Ptr Outer2) (Ptr ty)
@@ -200,7 +200,7 @@ instance HasCField Outer2 "outer2_fieldB"
 instance (~) ty CInt => HasField "outer2_fieldC" Outer2 ty
     where getField = getUnionPayload
 instance (~) ty CInt => HasField "outer2_fieldC" Outer2 ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"outer2_fieldC" x_0)
 instance (~) ty CInt =>
          HasField "outer2_fieldC" (Ptr Outer2) (Ptr ty)
@@ -225,7 +225,7 @@ deriving via (SizedByteArray 4 4) instance IsUnion Inner3
 instance (~) ty CInt => HasField "inner3_fieldX" Inner3 ty
     where getField = getUnionPayload
 instance (~) ty CInt => HasField "inner3_fieldX" Inner3 ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"inner3_fieldX" x_0)
 instance (~) ty CInt =>
          HasField "inner3_fieldX" (Ptr Inner3) (Ptr ty)
@@ -236,7 +236,7 @@ instance HasCField Inner3 "inner3_fieldX"
 instance (~) ty CInt => HasField "inner3_fieldY" Inner3 ty
     where getField = getUnionPayload
 instance (~) ty CInt => HasField "inner3_fieldY" Inner3 ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"inner3_fieldY" x_0)
 instance (~) ty CInt =>
          HasField "inner3_fieldY" (Ptr Inner3) (Ptr ty)
@@ -261,7 +261,7 @@ deriving via (SizedByteArray 4 4) instance IsUnion Outer3
 instance (~) ty CChar => HasField "outer3_fieldA" Outer3 ty
     where getField = getUnionPayload
 instance (~) ty CChar => HasField "outer3_fieldA" Outer3 ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"outer3_fieldA" x_0)
 instance (~) ty CChar =>
          HasField "outer3_fieldA" (Ptr Outer3) (Ptr ty)
@@ -272,7 +272,7 @@ instance HasCField Outer3 "outer3_fieldA"
 instance (~) ty Inner3 => HasField "outer3_fieldB" Outer3 ty
     where getField = getUnionPayload
 instance (~) ty Inner3 => HasField "outer3_fieldB" Outer3 ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"outer3_fieldB" x_0)
 instance (~) ty Inner3 =>
          HasField "outer3_fieldB" (Ptr Outer3) (Ptr ty)
@@ -283,7 +283,7 @@ instance HasCField Outer3 "outer3_fieldB"
 instance (~) ty CInt => HasField "outer3_fieldC" Outer3 ty
     where getField = getUnionPayload
 instance (~) ty CInt => HasField "outer3_fieldC" Outer3 ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"outer3_fieldC" x_0)
 instance (~) ty CInt =>
          HasField "outer3_fieldC" (Ptr Outer3) (Ptr ty)

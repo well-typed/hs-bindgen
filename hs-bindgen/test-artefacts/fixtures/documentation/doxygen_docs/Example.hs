@@ -1022,7 +1022,8 @@ instance ( ty ~ HsBindgen.Runtime.LibC.Int32
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"data_union_t_as_int" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"data_union_t_as_int" x0)
 
 instance ( ty ~ HsBindgen.Runtime.LibC.Int32
          ) => BG.HasField "data_union_t_as_int" (BG.Ptr Data_union_t) (BG.Ptr ty) where
@@ -1063,7 +1064,8 @@ instance ( ty ~ BG.CFloat
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"data_union_t_as_float" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"data_union_t_as_float" x0)
 
 instance ( ty ~ BG.CFloat
          ) => BG.HasField "data_union_t_as_float" (BG.Ptr Data_union_t) (BG.Ptr ty) where
@@ -1104,7 +1106,8 @@ instance ( ty ~ CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"data_union_t_as_bytes" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"data_union_t_as_bytes" x0)
 
 instance ( ty ~ CA.ConstantArray 4 HsBindgen.Runtime.LibC.Word8
          ) => BG.HasField "data_union_t_as_bytes" (BG.Ptr Data_union_t) (BG.Ptr ty) where
@@ -1149,7 +1152,8 @@ instance ( ty ~ Data_union_t_as_parts
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"data_union_t_as_parts" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"data_union_t_as_parts" x0)
 
 instance ( ty ~ Data_union_t_as_parts
          ) => BG.HasField "data_union_t_as_parts" (BG.Ptr Data_union_t) (BG.Ptr ty) where

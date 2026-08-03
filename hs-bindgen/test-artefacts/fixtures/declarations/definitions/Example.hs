@@ -129,7 +129,9 @@ instance (ty ~ BG.CInt) => BG.HasField "y_m" Y ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "y_m" Y ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"y_m" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"y_m" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "y_m" (BG.Ptr Y) (BG.Ptr ty) where
 
@@ -160,7 +162,9 @@ instance (ty ~ BG.CInt) => BG.HasField "y_o" Y ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "y_o" Y ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"y_o" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"y_o" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "y_o" (BG.Ptr Y) (BG.Ptr ty) where
 

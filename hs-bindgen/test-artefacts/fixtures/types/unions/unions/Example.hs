@@ -321,7 +321,8 @@ instance ( ty ~ Dim2
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"dimPayload_dim2" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"dimPayload_dim2" x0)
 
 instance ( ty ~ Dim2
          ) => BG.HasField "dimPayload_dim2" (BG.Ptr DimPayload) (BG.Ptr ty) where
@@ -356,7 +357,8 @@ instance ( ty ~ Dim2
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"dimPayload_dim3" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"dimPayload_dim3" x0)
 
 instance ( ty ~ Dim2
          ) => BG.HasField "dimPayload_dim3" (BG.Ptr DimPayload) (BG.Ptr ty) where
@@ -517,7 +519,8 @@ instance ( ty ~ Dim2
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"dimPayloadB_dim2" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"dimPayloadB_dim2" x0)
 
 instance ( ty ~ Dim2
          ) => BG.HasField "dimPayloadB_dim2" (BG.Ptr DimPayloadB) (BG.Ptr ty) where
@@ -552,7 +555,8 @@ instance ( ty ~ Dim2
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"dimPayloadB_dim3" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"dimPayloadB_dim3" x0)
 
 instance ( ty ~ Dim2
          ) => BG.HasField "dimPayloadB_dim3" (BG.Ptr DimPayloadB) (BG.Ptr ty) where
@@ -929,7 +933,8 @@ instance (ty ~ AnonA_xy) => BG.CompatHasField.HasField "anonA_xy" AnonA ty where
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"anonA_xy" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"anonA_xy" x0)
 
 instance ( ty ~ AnonA_xy
          ) => BG.HasField "anonA_xy" (BG.Ptr AnonA) (BG.Ptr ty) where
@@ -963,7 +968,8 @@ instance ( ty ~ AnonA_polar
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"anonA_polar" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"anonA_polar" x0)
 
 instance ( ty ~ AnonA_polar
          ) => BG.HasField "anonA_polar" (BG.Ptr AnonA) (BG.Ptr ty) where

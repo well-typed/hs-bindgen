@@ -536,7 +536,8 @@ instance ( ty ~ BG.Ptr BG.CInt
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"wait_status_ptr_t___ip" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"wait_status_ptr_t___ip" x0)
 
 instance ( ty ~ BG.Ptr BG.CInt
          ) => BG.HasField "wait_status_ptr_t___ip" (BG.Ptr Wait_status_ptr_t) (BG.Ptr ty) where
@@ -573,7 +574,8 @@ instance ( ty ~ BG.Ptr Wait
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"wait_status_ptr_t___up" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"wait_status_ptr_t___up" x0)
 
 instance ( ty ~ BG.Ptr Wait
          ) => BG.HasField "wait_status_ptr_t___up" (BG.Ptr Wait_status_ptr_t) (BG.Ptr ty) where

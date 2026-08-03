@@ -149,6 +149,18 @@ cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     --module Generated.Types.Bitfields \
     types/bitfields.h
 
+echo "## Unions"
+
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
+    preprocess \
+    -I c \
+    --hs-output-dir hs-project/src-generated \
+    --unique-id feature-tests.well-typed.com \
+    --create-output-dirs \
+    --overwrite-files \
+    --module Generated.Unions \
+    unions.h
+
 echo "# "
 echo "# Updating cabal.project.local"
 echo "# "

@@ -840,7 +840,8 @@ deriving via (SizedByteArray 1 1) instance IsUnion U
 instance (~) ty CChar => HasField "c" U ty
     where getField = getUnionPayload
 instance (~) ty CChar => HasField "c" U ty
-    where hasField = \x_0 -> (setUnionPayload, getField @"c" x_0)
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"c" x_0)
 instance (~) ty CChar => HasField "c" (Ptr U) (Ptr ty)
     where getField = fromPtr (Proxy @"c")
 instance HasCField U "c"
@@ -3983,7 +3984,8 @@ instance (~) ty (ConstantArray 4 CUChar) =>
     where getField = getUnionPayload
 instance (~) ty (ConstantArray 4 CUChar) =>
          HasField "d_val" Elf32_External_Dyn_d_un ty
-    where hasField = \x_0 -> (setUnionPayload, getField @"d_val" x_0)
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"d_val" x_0)
 instance (~) ty (ConstantArray 4 CUChar) =>
          HasField "d_val" (Ptr Elf32_External_Dyn_d_un) (Ptr ty)
     where getField = fromPtr (Proxy @"d_val")
@@ -3996,7 +3998,8 @@ instance (~) ty (ConstantArray 4 CUChar) =>
     where getField = getUnionPayload
 instance (~) ty (ConstantArray 4 CUChar) =>
          HasField "d_ptr" Elf32_External_Dyn_d_un ty
-    where hasField = \x_0 -> (setUnionPayload, getField @"d_ptr" x_0)
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"d_ptr" x_0)
 instance (~) ty (ConstantArray 4 CUChar) =>
          HasField "d_ptr" (Ptr Elf32_External_Dyn_d_un) (Ptr ty)
     where getField = fromPtr (Proxy @"d_ptr")

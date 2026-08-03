@@ -160,7 +160,7 @@ instance (~) ty CInt =>
          HasField "has_implicit_fields_anon'x5_1_x5_1"
                   Has_implicit_fields_anon'x5_1
                   ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"has_implicit_fields_anon'x5_1_x5_1" x_0)
 instance (~) ty CInt =>
          HasField "has_implicit_fields_anon'x5_1_x5_1"
@@ -181,7 +181,7 @@ instance (~) ty CInt =>
          HasField "has_implicit_fields_anon'x5_1_x5_2"
                   Has_implicit_fields_anon'x5_1
                   ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"has_implicit_fields_anon'x5_1_x5_2" x_0)
 instance (~) ty CInt =>
          HasField "has_implicit_fields_anon'x5_1_x5_2"
@@ -216,7 +216,7 @@ instance (~) ty CInt =>
     where getField = getUnionPayload
 instance (~) ty CInt =>
          HasField "has_implicit_fields_x1" Has_implicit_fields ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"has_implicit_fields_x1" x_0)
 instance (~) ty CInt =>
          HasField "has_implicit_fields_x1"
@@ -232,7 +232,7 @@ instance (~) ty Has_implicit_fields_anon'x2_1 =>
     where getField = getUnionPayload
 instance (~) ty Has_implicit_fields_anon'x2_1 =>
          HasField "has_implicit_fields_anon'x2_1" Has_implicit_fields ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"has_implicit_fields_anon'x2_1" x_0)
 instance (~) ty Has_implicit_fields_anon'x2_1 =>
          HasField "has_implicit_fields_anon'x2_1"
@@ -281,7 +281,7 @@ instance (~) ty CInt =>
     where getField = getUnionPayload
 instance (~) ty CInt =>
          HasField "has_implicit_fields_x3" Has_implicit_fields ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"has_implicit_fields_x3" x_0)
 instance (~) ty CInt =>
          HasField "has_implicit_fields_x3"
@@ -297,7 +297,7 @@ instance (~) ty Has_implicit_fields_anon'x4_1 =>
     where getField = getUnionPayload
 instance (~) ty Has_implicit_fields_anon'x4_1 =>
          HasField "has_implicit_fields_anon'x4_1" Has_implicit_fields ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"has_implicit_fields_anon'x4_1" x_0)
 instance (~) ty Has_implicit_fields_anon'x4_1 =>
          HasField "has_implicit_fields_anon'x4_1"
@@ -346,7 +346,7 @@ instance (~) ty Has_implicit_fields_anon'x5_1 =>
     where getField = getUnionPayload
 instance (~) ty Has_implicit_fields_anon'x5_1 =>
          HasField "has_implicit_fields_anon'x5_1" Has_implicit_fields ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"has_implicit_fields_anon'x5_1" x_0)
 instance (~) ty Has_implicit_fields_anon'x5_1 =>
          HasField "has_implicit_fields_anon'x5_1"
@@ -395,7 +395,7 @@ instance (~) ty CInt =>
     where getField = getUnionPayload
 instance (~) ty CInt =>
          HasField "has_implicit_fields_x5" Has_implicit_fields ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"has_implicit_fields_x5" x_0)
 instance (~) ty CInt =>
          HasField "has_implicit_fields_x5"

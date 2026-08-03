@@ -71,7 +71,9 @@ instance ( ty ~ BG.CInt
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"outer1_anon'fieldX_fieldX" x0)
+      ( \y1 -> BG.setUnionPayload y1 x0
+      , BG.getField @"outer1_anon'fieldX_fieldX" x0
+      )
 
 instance ( ty ~ BG.CInt
          ) => BG.HasField "outer1_anon'fieldX_fieldX" (BG.Ptr Outer1_anon'fieldX) (BG.Ptr ty) where
@@ -108,7 +110,9 @@ instance ( ty ~ BG.CInt
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"outer1_anon'fieldX_fieldY" x0)
+      ( \y1 -> BG.setUnionPayload y1 x0
+      , BG.getField @"outer1_anon'fieldX_fieldY" x0
+      )
 
 instance ( ty ~ BG.CInt
          ) => BG.HasField "outer1_anon'fieldX_fieldY" (BG.Ptr Outer1_anon'fieldX) (BG.Ptr ty) where
@@ -165,7 +169,8 @@ instance ( ty ~ BG.CChar
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"outer1_fieldA" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"outer1_fieldA" x0)
 
 instance ( ty ~ BG.CChar
          ) => BG.HasField "outer1_fieldA" (BG.Ptr Outer1) (BG.Ptr ty) where
@@ -201,7 +206,8 @@ instance ( ty ~ Outer1_anon'fieldX
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"outer1_anon'fieldX" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"outer1_anon'fieldX" x0)
 
 instance ( ty ~ Outer1_anon'fieldX
          ) => BG.HasField "outer1_anon'fieldX" (BG.Ptr Outer1) (BG.Ptr ty) where
@@ -319,7 +325,8 @@ instance ( ty ~ BG.CInt
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"outer1_fieldC" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"outer1_fieldC" x0)
 
 instance ( ty ~ BG.CInt
          ) => BG.HasField "outer1_fieldC" (BG.Ptr Outer1) (BG.Ptr ty) where
@@ -376,7 +383,8 @@ instance ( ty ~ BG.CInt
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"outer2_fieldB_fieldX" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"outer2_fieldB_fieldX" x0)
 
 instance ( ty ~ BG.CInt
          ) => BG.HasField "outer2_fieldB_fieldX" (BG.Ptr Outer2_fieldB) (BG.Ptr ty) where
@@ -413,7 +421,8 @@ instance ( ty ~ BG.CInt
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"outer2_fieldB_fieldY" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"outer2_fieldB_fieldY" x0)
 
 instance ( ty ~ BG.CInt
          ) => BG.HasField "outer2_fieldB_fieldY" (BG.Ptr Outer2_fieldB) (BG.Ptr ty) where
@@ -470,7 +479,8 @@ instance ( ty ~ BG.CChar
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"outer2_fieldA" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"outer2_fieldA" x0)
 
 instance ( ty ~ BG.CChar
          ) => BG.HasField "outer2_fieldA" (BG.Ptr Outer2) (BG.Ptr ty) where
@@ -505,7 +515,8 @@ instance ( ty ~ Outer2_fieldB
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"outer2_fieldB" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"outer2_fieldB" x0)
 
 instance ( ty ~ Outer2_fieldB
          ) => BG.HasField "outer2_fieldB" (BG.Ptr Outer2) (BG.Ptr ty) where
@@ -541,7 +552,8 @@ instance ( ty ~ BG.CInt
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"outer2_fieldC" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"outer2_fieldC" x0)
 
 instance ( ty ~ BG.CInt
          ) => BG.HasField "outer2_fieldC" (BG.Ptr Outer2) (BG.Ptr ty) where
@@ -597,7 +609,8 @@ instance ( ty ~ BG.CInt
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"inner3_fieldX" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"inner3_fieldX" x0)
 
 instance ( ty ~ BG.CInt
          ) => BG.HasField "inner3_fieldX" (BG.Ptr Inner3) (BG.Ptr ty) where
@@ -632,7 +645,8 @@ instance ( ty ~ BG.CInt
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"inner3_fieldY" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"inner3_fieldY" x0)
 
 instance ( ty ~ BG.CInt
          ) => BG.HasField "inner3_fieldY" (BG.Ptr Inner3) (BG.Ptr ty) where
@@ -688,7 +702,8 @@ instance ( ty ~ BG.CChar
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"outer3_fieldA" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"outer3_fieldA" x0)
 
 instance ( ty ~ BG.CChar
          ) => BG.HasField "outer3_fieldA" (BG.Ptr Outer3) (BG.Ptr ty) where
@@ -723,7 +738,8 @@ instance ( ty ~ Inner3
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"outer3_fieldB" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"outer3_fieldB" x0)
 
 instance ( ty ~ Inner3
          ) => BG.HasField "outer3_fieldB" (BG.Ptr Outer3) (BG.Ptr ty) where
@@ -758,7 +774,8 @@ instance ( ty ~ BG.CInt
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"outer3_fieldC" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"outer3_fieldC" x0)
 
 instance ( ty ~ BG.CInt
          ) => BG.HasField "outer3_fieldC" (BG.Ptr Outer3) (BG.Ptr ty) where

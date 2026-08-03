@@ -68,7 +68,8 @@ instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "unionA_a" UnionA ty where
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"unionA_a" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"unionA_a" x0)
 
 instance ( ty ~ BG.CInt
          ) => BG.HasField "unionA_a" (BG.Ptr UnionA) (BG.Ptr ty) where
@@ -102,7 +103,8 @@ instance ( ty ~ BG.CChar
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"unionA_b" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"unionA_b" x0)
 
 instance ( ty ~ BG.CChar
          ) => BG.HasField "unionA_b" (BG.Ptr UnionA) (BG.Ptr ty) where
@@ -225,7 +227,8 @@ instance ( ty ~ BG.CInt
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"exB_fieldB1_a" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"exB_fieldB1_a" x0)
 
 instance ( ty ~ BG.CInt
          ) => BG.HasField "exB_fieldB1_a" (BG.Ptr ExB_fieldB1) (BG.Ptr ty) where
@@ -260,7 +263,8 @@ instance ( ty ~ BG.CChar
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"exB_fieldB1_b" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"exB_fieldB1_b" x0)
 
 instance ( ty ~ BG.CChar
          ) => BG.HasField "exB_fieldB1_b" (BG.Ptr ExB_fieldB1) (BG.Ptr ty) where

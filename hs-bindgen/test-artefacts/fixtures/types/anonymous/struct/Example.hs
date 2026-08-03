@@ -302,7 +302,9 @@ instance ( ty ~ BG.CInt
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"has_implicit_fields_anon'x5_1_x5_1" x0)
+      ( \y1 -> BG.setUnionPayload y1 x0
+      , BG.getField @"has_implicit_fields_anon'x5_1_x5_1" x0
+      )
 
 instance ( ty ~ BG.CInt
          ) => BG.HasField "has_implicit_fields_anon'x5_1_x5_1" (BG.Ptr Has_implicit_fields_anon'x5_1) (BG.Ptr ty) where
@@ -339,7 +341,9 @@ instance ( ty ~ BG.CInt
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"has_implicit_fields_anon'x5_1_x5_2" x0)
+      ( \y1 -> BG.setUnionPayload y1 x0
+      , BG.getField @"has_implicit_fields_anon'x5_1_x5_2" x0
+      )
 
 instance ( ty ~ BG.CInt
          ) => BG.HasField "has_implicit_fields_anon'x5_1_x5_2" (BG.Ptr Has_implicit_fields_anon'x5_1) (BG.Ptr ty) where

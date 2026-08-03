@@ -138,7 +138,7 @@ deriving via (SizedByteArray 8 4) instance IsUnion DimPayload
 instance (~) ty Dim2 => HasField "dimPayload_dim2" DimPayload ty
     where getField = getUnionPayload
 instance (~) ty Dim2 => HasField "dimPayload_dim2" DimPayload ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"dimPayload_dim2" x_0)
 instance (~) ty Dim2 =>
          HasField "dimPayload_dim2" (Ptr DimPayload) (Ptr ty)
@@ -149,7 +149,7 @@ instance HasCField DimPayload "dimPayload_dim2"
 instance (~) ty Dim2 => HasField "dimPayload_dim3" DimPayload ty
     where getField = getUnionPayload
 instance (~) ty Dim2 => HasField "dimPayload_dim3" DimPayload ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"dimPayload_dim3" x_0)
 instance (~) ty Dim2 =>
          HasField "dimPayload_dim3" (Ptr DimPayload) (Ptr ty)
@@ -226,7 +226,7 @@ deriving via (SizedByteArray 8 4) instance IsUnion DimPayloadB
 instance (~) ty Dim2 => HasField "dimPayloadB_dim2" DimPayloadB ty
     where getField = getUnionPayload
 instance (~) ty Dim2 => HasField "dimPayloadB_dim2" DimPayloadB ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"dimPayloadB_dim2" x_0)
 instance (~) ty Dim2 =>
          HasField "dimPayloadB_dim2" (Ptr DimPayloadB) (Ptr ty)
@@ -237,7 +237,7 @@ instance HasCField DimPayloadB "dimPayloadB_dim2"
 instance (~) ty Dim2 => HasField "dimPayloadB_dim3" DimPayloadB ty
     where getField = getUnionPayload
 instance (~) ty Dim2 => HasField "dimPayloadB_dim3" DimPayloadB ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"dimPayloadB_dim3" x_0)
 instance (~) ty Dim2 =>
          HasField "dimPayloadB_dim3" (Ptr DimPayloadB) (Ptr ty)
@@ -420,7 +420,7 @@ deriving via (SizedByteArray 16 8) instance IsUnion AnonA
 instance (~) ty AnonA_xy => HasField "anonA_xy" AnonA ty
     where getField = getUnionPayload
 instance (~) ty AnonA_xy => HasField "anonA_xy" AnonA ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"anonA_xy" x_0)
 instance (~) ty AnonA_xy =>
          HasField "anonA_xy" (Ptr AnonA) (Ptr ty)
@@ -431,7 +431,7 @@ instance HasCField AnonA "anonA_xy"
 instance (~) ty AnonA_polar => HasField "anonA_polar" AnonA ty
     where getField = getUnionPayload
 instance (~) ty AnonA_polar => HasField "anonA_polar" AnonA ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"anonA_polar" x_0)
 instance (~) ty AnonA_polar =>
          HasField "anonA_polar" (Ptr AnonA) (Ptr ty)

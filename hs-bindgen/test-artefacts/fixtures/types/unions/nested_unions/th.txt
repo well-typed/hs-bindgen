@@ -16,7 +16,7 @@ deriving via (SizedByteArray 4 4) instance IsUnion UnionA
 instance (~) ty CInt => HasField "unionA_a" UnionA ty
     where getField = getUnionPayload
 instance (~) ty CInt => HasField "unionA_a" UnionA ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"unionA_a" x_0)
 instance (~) ty CInt => HasField "unionA_a" (Ptr UnionA) (Ptr ty)
     where getField = fromPtr (Proxy @"unionA_a")
@@ -26,7 +26,7 @@ instance HasCField UnionA "unionA_a"
 instance (~) ty CChar => HasField "unionA_b" UnionA ty
     where getField = getUnionPayload
 instance (~) ty CChar => HasField "unionA_b" UnionA ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"unionA_b" x_0)
 instance (~) ty CChar => HasField "unionA_b" (Ptr UnionA) (Ptr ty)
     where getField = fromPtr (Proxy @"unionA_b")
@@ -83,7 +83,7 @@ deriving via (SizedByteArray 4 4) instance IsUnion ExB_fieldB1
 instance (~) ty CInt => HasField "exB_fieldB1_a" ExB_fieldB1 ty
     where getField = getUnionPayload
 instance (~) ty CInt => HasField "exB_fieldB1_a" ExB_fieldB1 ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"exB_fieldB1_a" x_0)
 instance (~) ty CInt =>
          HasField "exB_fieldB1_a" (Ptr ExB_fieldB1) (Ptr ty)
@@ -94,7 +94,7 @@ instance HasCField ExB_fieldB1 "exB_fieldB1_a"
 instance (~) ty CChar => HasField "exB_fieldB1_b" ExB_fieldB1 ty
     where getField = getUnionPayload
 instance (~) ty CChar => HasField "exB_fieldB1_b" ExB_fieldB1 ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"exB_fieldB1_b" x_0)
 instance (~) ty CChar =>
          HasField "exB_fieldB1_b" (Ptr ExB_fieldB1) (Ptr ty)

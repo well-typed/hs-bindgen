@@ -729,7 +729,9 @@ instance (ty ~ BG.CChar) => BG.HasField "c" U ty where
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "c" U ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"c" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"c" x0)
 
 instance (ty ~ BG.CChar) => BG.HasField "c" (BG.Ptr U) (BG.Ptr ty) where
 
@@ -6235,7 +6237,9 @@ instance ( ty ~ CA.ConstantArray 4 BG.CUChar
          ) => BG.CompatHasField.HasField "d_val" Elf32_External_Dyn_d_un ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"d_val" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"d_val" x0)
 
 instance ( ty ~ CA.ConstantArray 4 BG.CUChar
          ) => BG.HasField "d_val" (BG.Ptr Elf32_External_Dyn_d_un) (BG.Ptr ty) where
@@ -6270,7 +6274,9 @@ instance ( ty ~ CA.ConstantArray 4 BG.CUChar
          ) => BG.CompatHasField.HasField "d_ptr" Elf32_External_Dyn_d_un ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"d_ptr" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"d_ptr" x0)
 
 instance ( ty ~ CA.ConstantArray 4 BG.CUChar
          ) => BG.HasField "d_ptr" (BG.Ptr Elf32_External_Dyn_d_un) (BG.Ptr ty) where

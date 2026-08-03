@@ -8,6 +8,7 @@ import Test.HsBindgen.Runtime.CEnum qualified
 import Test.HsBindgen.Runtime.ConstantArray qualified
 import Test.HsBindgen.Runtime.IncompleteArray qualified
 import Test.HsBindgen.Runtime.SizedByteArray qualified
+import Test.HsBindgen.Runtime.Support.ByteArray qualified
 
 {-------------------------------------------------------------------------------
   Main
@@ -21,4 +22,5 @@ main = defaultMain $ testGroup "test-runtime" [
     , Test.HsBindgen.Runtime.ConstantArray.tests
     , Test.HsBindgen.Runtime.IncompleteArray.tests
     , Test.HsBindgen.Runtime.SizedByteArray.tests
+    , Test.HsBindgen.Runtime.Support.ByteArray.tests
     ]

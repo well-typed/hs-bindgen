@@ -65,7 +65,9 @@ instance (ty ~ BG.CInt) => BG.HasField "u_x" U ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "u_x" U ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u_x" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "u_x" (BG.Ptr U) (BG.Ptr ty) where
 

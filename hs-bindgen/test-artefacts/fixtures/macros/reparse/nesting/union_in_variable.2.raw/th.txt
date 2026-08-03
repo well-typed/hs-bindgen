@@ -47,7 +47,8 @@ deriving via (SizedByteArray 4 4) instance IsUnion G1
 instance (~) ty CInt => HasField "g1_x" G1 ty
     where getField = getUnionPayload
 instance (~) ty CInt => HasField "g1_x" G1 ty
-    where hasField = \x_0 -> (setUnionPayload, getField @"g1_x" x_0)
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"g1_x" x_0)
 instance (~) ty CInt => HasField "g1_x" (Ptr G1) (Ptr ty)
     where getField = fromPtr (Proxy @"g1_x")
 instance HasCField G1 "g1_x"
@@ -68,7 +69,8 @@ deriving via (SizedByteArray 4 4) instance IsUnion G2
 instance (~) ty CInt => HasField "g2_x" G2 ty
     where getField = getUnionPayload
 instance (~) ty CInt => HasField "g2_x" G2 ty
-    where hasField = \x_0 -> (setUnionPayload, getField @"g2_x" x_0)
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"g2_x" x_0)
 instance (~) ty CInt => HasField "g2_x" (Ptr G2) (Ptr ty)
     where getField = fromPtr (Proxy @"g2_x")
 instance HasCField G2 "g2_x"
@@ -89,7 +91,8 @@ deriving via (SizedByteArray 4 4) instance IsUnion G3
 instance (~) ty CInt => HasField "g3_x" G3 ty
     where getField = getUnionPayload
 instance (~) ty CInt => HasField "g3_x" G3 ty
-    where hasField = \x_0 -> (setUnionPayload, getField @"g3_x" x_0)
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"g3_x" x_0)
 instance (~) ty CInt => HasField "g3_x" (Ptr G3) (Ptr ty)
     where getField = fromPtr (Proxy @"g3_x")
 instance HasCField G3 "g3_x"

@@ -260,7 +260,7 @@ instance (~) ty (Ptr CInt) =>
     where getField = getUnionPayload
 instance (~) ty (Ptr CInt) =>
          HasField "wait_status_ptr_t___ip" Wait_status_ptr_t ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"wait_status_ptr_t___ip" x_0)
 instance (~) ty (Ptr CInt) =>
          HasField "wait_status_ptr_t___ip" (Ptr Wait_status_ptr_t) (Ptr ty)
@@ -274,7 +274,7 @@ instance (~) ty (Ptr Wait) =>
     where getField = getUnionPayload
 instance (~) ty (Ptr Wait) =>
          HasField "wait_status_ptr_t___up" Wait_status_ptr_t ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"wait_status_ptr_t___up" x_0)
 instance (~) ty (Ptr Wait) =>
          HasField "wait_status_ptr_t___up" (Ptr Wait_status_ptr_t) (Ptr ty)

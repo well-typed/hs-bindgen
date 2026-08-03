@@ -1171,7 +1171,8 @@ instance ( ty ~ BG.FunPtr (BG.Ptr Measurement -> IO ())
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"processorCallback_simple" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"processorCallback_simple" x0)
 
 instance ( ty ~ BG.FunPtr (BG.Ptr Measurement -> IO ())
          ) => BG.HasField "processorCallback_simple" (BG.Ptr ProcessorCallback) (BG.Ptr ty) where
@@ -1208,7 +1209,9 @@ instance ( ty ~ BG.FunPtr (BG.Ptr Measurement -> DataValidator -> IO ())
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"processorCallback_withValidator" x0)
+      ( \y1 -> BG.setUnionPayload y1 x0
+      , BG.getField @"processorCallback_withValidator" x0
+      )
 
 instance ( ty ~ BG.FunPtr (BG.Ptr Measurement -> DataValidator -> IO ())
          ) => BG.HasField "processorCallback_withValidator" (BG.Ptr ProcessorCallback) (BG.Ptr ty) where
@@ -1245,7 +1248,9 @@ instance ( ty ~ BG.FunPtr (BG.Ptr Measurement -> ProgressUpdate -> IO ())
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"processorCallback_withProgress" x0)
+      ( \y1 -> BG.setUnionPayload y1 x0
+      , BG.getField @"processorCallback_withProgress" x0
+      )
 
 instance ( ty ~ BG.FunPtr (BG.Ptr Measurement -> ProgressUpdate -> IO ())
          ) => BG.HasField "processorCallback_withProgress" (BG.Ptr ProcessorCallback) (BG.Ptr ty) where
@@ -1832,7 +1837,9 @@ instance ( ty ~ CA.ConstantArray 3 (BG.FunPtr (C -> IO ()))
          ) => BG.CompatHasField.HasField "u_fn" U ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u_fn" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u_fn" x0)
 
 instance ( ty ~ CA.ConstantArray 3 (BG.FunPtr (C -> IO ()))
          ) => BG.HasField "u_fn" (BG.Ptr U) (BG.Ptr ty) where

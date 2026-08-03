@@ -1198,7 +1198,9 @@ instance (ty ~ BG.CInt) => BG.HasField "u5_x" U5 ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "u5_x" U5 ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u5_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u5_x" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "u5_x" (BG.Ptr U5) (BG.Ptr ty) where
 
@@ -1250,7 +1252,9 @@ instance (ty ~ BG.CInt) => BG.HasField "u6_x" U6 ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "u6_x" U6 ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u6_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u6_x" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "u6_x" (BG.Ptr U6) (BG.Ptr ty) where
 
@@ -1302,7 +1306,9 @@ instance (ty ~ BG.CInt) => BG.HasField "u7_x" U7 ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "u7_x" U7 ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u7_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u7_x" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "u7_x" (BG.Ptr U7) (BG.Ptr ty) where
 
@@ -1354,7 +1360,9 @@ instance (ty ~ BG.CInt) => BG.HasField "u8_x" U8 ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "u8_x" U8 ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u8_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u8_x" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "u8_x" (BG.Ptr U8) (BG.Ptr ty) where
 
@@ -1406,7 +1414,9 @@ instance (ty ~ BG.CInt) => BG.HasField "u9_x" U9 ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "u9_x" U9 ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u9_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u9_x" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "u9_x" (BG.Ptr U9) (BG.Ptr ty) where
 
@@ -1458,7 +1468,9 @@ instance (ty ~ BG.CInt) => BG.HasField "u10_x" U10 ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "u10_x" U10 ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u10_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u10_x" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "u10_x" (BG.Ptr U10) (BG.Ptr ty) where
 
@@ -1510,7 +1522,9 @@ instance (ty ~ BG.CInt) => BG.HasField "u11_x" U11 ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "u11_x" U11 ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u11_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u11_x" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "u11_x" (BG.Ptr U11) (BG.Ptr ty) where
 
@@ -1562,7 +1576,9 @@ instance (ty ~ BG.CInt) => BG.HasField "u12_x" U12 ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "u12_x" U12 ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u12_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u12_x" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "u12_x" (BG.Ptr U12) (BG.Ptr ty) where
 
@@ -1614,7 +1630,9 @@ instance (ty ~ BG.CInt) => BG.HasField "u13_x" U13 ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "u13_x" U13 ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u13_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u13_x" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "u13_x" (BG.Ptr U13) (BG.Ptr ty) where
 
@@ -1666,7 +1684,9 @@ instance (ty ~ BG.CInt) => BG.HasField "u14_x" U14 ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "u14_x" U14 ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u14_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u14_x" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "u14_x" (BG.Ptr U14) (BG.Ptr ty) where
 
@@ -1718,7 +1738,9 @@ instance (ty ~ BG.CInt) => BG.HasField "u15_x" U15 ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "u15_x" U15 ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u15_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u15_x" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "u15_x" (BG.Ptr U15) (BG.Ptr ty) where
 
@@ -1770,7 +1792,9 @@ instance (ty ~ BG.CInt) => BG.HasField "u16_x" U16 ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "u16_x" U16 ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u16_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u16_x" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "u16_x" (BG.Ptr U16) (BG.Ptr ty) where
 
@@ -1822,7 +1846,9 @@ instance (ty ~ BG.CInt) => BG.HasField "u17_x" U17 ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "u17_x" U17 ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u17_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u17_x" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "u17_x" (BG.Ptr U17) (BG.Ptr ty) where
 
@@ -1874,7 +1900,9 @@ instance (ty ~ BG.CInt) => BG.HasField "u18_x" U18 ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "u18_x" U18 ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u18_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u18_x" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "u18_x" (BG.Ptr U18) (BG.Ptr ty) where
 
@@ -1926,7 +1954,9 @@ instance (ty ~ BG.CInt) => BG.HasField "u19_x" U19 ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "u19_x" U19 ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"u19_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"u19_x" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "u19_x" (BG.Ptr U19) (BG.Ptr ty) where
 

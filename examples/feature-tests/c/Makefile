@@ -27,7 +27,8 @@ libfeature-tests$(TARGET_EXT): \
 		pointer_manipulation.o \
 		types/anonymous.o \
 		types/anonymous/indirect_fields.o \
-		types/bitfields.o
+		types/bitfields.o \
+		unions.o
 
 	$(CC) -Wall -shared -o libfeature-tests$(TARGET_EXT) \
 		callbacks/arrays/known_size.o \
@@ -38,7 +39,8 @@ libfeature-tests$(TARGET_EXT): \
 		pointer_manipulation.o \
 		types/anonymous.o \
 		types/anonymous/indirect_fields.o \
-		types/bitfields.o
+		types/bitfields.o \
+		unions.o
 
 # callbacks
 
@@ -76,3 +78,8 @@ types/anonymous/indirect_fields.o: types/anonymous/indirect_fields.h types/anony
 
 types/bitfields.o: types/bitfields.h types/bitfields.c
 	$(CC) -Wall -o types/bitfields.o -c -fPIC types/bitfields.c
+
+# unions
+
+unions.o: unions.h unions.c
+	$(CC) -Wall -o unions.o -c -fPIC unions.c
