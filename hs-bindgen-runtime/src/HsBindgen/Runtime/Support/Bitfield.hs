@@ -424,7 +424,7 @@ getAligned (ptrB, ptrBH) off width (ptrL, ptrH)
       -- 00000011 00000000 00000000 00011100 00000000 00000000 00000010 00000011
       | isLittleEndian =
           let r = off + 8 * (ptrB `minusPtr` ptrA)
-          in  (wSize - width - r, r)
+          in  (wSize * 8 - width - r, r)
 
       -- Big endian: bit-field offsets are from the most significant bit
       --
@@ -442,7 +442,7 @@ getAligned (ptrB, ptrBH) off width (ptrL, ptrH)
       -- 10000000 11000000 00000000 00000000 00110000 00000000 00000001 11000000
       | otherwise =
           let l = 8 * (ptrB `minusPtr` ptrA) + off
-          in  (l, wSize - width - l)
+          in  (l, wSize * 8 - width - l)
 
 -- | Get a bit-field value from a list of bytes (native byte order)
 getBitfield ::

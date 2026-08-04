@@ -35,7 +35,9 @@
 
 ### Bug fixes
 
-None
+* Fix a missing conversion from bytes to bits in the internals of
+  `pokeBitOffWidth`. This would sometime cause the function to write more bytes
+  than necessary to a pointer. See [PR #2169][pr-2169].
 
 [is-1253]: https://github.com/well-typed/hs-bindgen/issues/1253
 [is-2060]: https://github.com/well-typed/hs-bindgen/issues/2060
@@ -45,6 +47,7 @@ None
 [pr-2091]: https://github.com/well-typed/hs-bindgen/pull/2091
 [pr-2164]: https://github.com/well-typed/hs-bindgen/pull/2164
 [pr-2168]: https://github.com/well-typed/hs-bindgen/pull/2168
+[pr-2169]: https://github.com/well-typed/hs-bindgen/pull/2169
 
 ## 0.1.0-alpha2 -- 2026-03-27
 
