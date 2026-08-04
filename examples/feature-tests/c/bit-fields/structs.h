@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Bitfield tests
+ * Bit-field tests
  *
  * This header defines various structs with bit-fields as well as static
  * functions used to test them.

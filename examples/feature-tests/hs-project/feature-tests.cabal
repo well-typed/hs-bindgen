@@ -45,6 +45,14 @@ library generated
   visibility:      private
   hs-source-dirs:  src-generated
   exposed-modules:
+    Generated.Bitfields.Structs
+    Generated.Bitfields.Structs.FunPtr
+    Generated.Bitfields.Structs.Safe
+    Generated.Bitfields.Structs.Unsafe
+    Generated.Bitfields.Unions
+    Generated.Bitfields.Unions.FunPtr
+    Generated.Bitfields.Unions.Safe
+    Generated.Bitfields.Unions.Unsafe
     Generated.Callbacks.Arrays.KnownSize
     Generated.Callbacks.Arrays.KnownSize.FunPtr
     Generated.Callbacks.Arrays.KnownSize.Safe
@@ -72,10 +80,6 @@ library generated
     Generated.Types.Anonymous.Global
     Generated.Types.Anonymous.IndirectFields
     Generated.Types.Anonymous.IndirectFields.Safe
-    Generated.Types.Bitfields
-    Generated.Types.Bitfields.FunPtr
-    Generated.Types.Bitfields.Safe
-    Generated.Types.Bitfields.Unsafe
     Generated.Unions
     Generated.Unions.FunPtr
     Generated.Unions.Safe
@@ -94,6 +98,9 @@ test-suite feature-tests
   hs-source-dirs: test
   main-is:        Main.hs
   other-modules:
+    Test.Bitfields.Structs
+    Test.Bitfields.Unions
+    Test.Bitfields.Unions.TH
     Test.Callbacks.Arrays.KnownSize
     Test.Callbacks.Arrays.UnknownSize
     Test.Callbacks.Basic
@@ -110,7 +117,6 @@ test-suite feature-tests
     Test.PointerManipulation.Unions.Bitfields
     Test.Types.Anonymous
     Test.Types.Anonymous.IndirectFields
-    Test.Types.Bitfields
     Test.Unions
     Test.Util
     Test.Util.Orphans
@@ -127,4 +133,5 @@ test-suite feature-tests
     , QuickCheck
     , tasty
     , tasty-quickcheck
+    , template-haskell
     , vector

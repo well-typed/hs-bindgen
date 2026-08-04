@@ -19,6 +19,8 @@ clean:
 	rm -f *.o *.so *.dylib *.dll
 
 libfeature-tests$(TARGET_EXT): \
+		bit-fields/structs.o \
+		bit-fields/unions.o \
 		callbacks/arrays/known_size.o \
 		callbacks/arrays/unknown_size.o \
 		callbacks/basic.o \
@@ -27,10 +29,11 @@ libfeature-tests$(TARGET_EXT): \
 		pointer_manipulation.o \
 		types/anonymous.o \
 		types/anonymous/indirect_fields.o \
-		types/bitfields.o \
 		unions.o
 
 	$(CC) -Wall -shared -o libfeature-tests$(TARGET_EXT) \
+		bit-fields/structs.o \
+		bit-fields/unions.o \
 		callbacks/arrays/known_size.o \
 		callbacks/arrays/unknown_size.o \
 		callbacks/basic.o \
@@ -39,8 +42,15 @@ libfeature-tests$(TARGET_EXT): \
 		pointer_manipulation.o \
 		types/anonymous.o \
 		types/anonymous/indirect_fields.o \
-		types/bitfields.o \
 		unions.o
+
+## bit-fields
+
+bit-fields/structs.o: bit-fields/structs.h bit-fields/structs.c
+	$(CC) -Wall -o bit-fields/structs.o -c -fPIC bit-fields/structs.c
+
+bit-fields/unions.o: bit-fields/unions.h bit-fields/unions.c
+	$(CC) -Wall -o bit-fields/unions.o -c -fPIC bit-fields/unions.c
 
 # callbacks
 
@@ -73,11 +83,6 @@ types/anonymous.o: types/anonymous.h types/anonymous.c
 
 types/anonymous/indirect_fields.o: types/anonymous/indirect_fields.h types/anonymous/indirect_fields.c
 	$(CC) -Wall -o types/anonymous/indirect_fields.o -c -fPIC types/anonymous/indirect_fields.c
-
-## bitfields
-
-types/bitfields.o: types/bitfields.h types/bitfields.c
-	$(CC) -Wall -o types/bitfields.o -c -fPIC types/bitfields.c
 
 # unions
 

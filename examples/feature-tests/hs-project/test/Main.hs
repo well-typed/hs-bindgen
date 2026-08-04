@@ -2,6 +2,8 @@ module Main (main) where
 
 import Test.Tasty
 
+import Test.Bitfields.Structs qualified
+import Test.Bitfields.Unions qualified
 import Test.Callbacks.Arrays.KnownSize qualified
 import Test.Callbacks.Arrays.UnknownSize qualified
 import Test.Callbacks.Basic qualified
@@ -14,14 +16,16 @@ import Test.PointerManipulation.Structs qualified
 import Test.PointerManipulation.Structs.Bitfields qualified
 import Test.PointerManipulation.Typedefs qualified
 import Test.PointerManipulation.Unions qualified
+import Test.PointerManipulation.Unions.Bitfields qualified
 import Test.Types.Anonymous qualified
 import Test.Types.Anonymous.IndirectFields qualified
-import Test.Types.Bitfields qualified
 import Test.Unions qualified
 
 main :: IO ()
 main = defaultMain $ testGroup "feature-tests" [
-      Test.Callbacks.Arrays.KnownSize.tests
+      Test.Bitfields.Structs.tests
+    , Test.Bitfields.Unions.tests
+    , Test.Callbacks.Arrays.KnownSize.tests
     , Test.Callbacks.Arrays.UnknownSize.tests
     , Test.Callbacks.Basic.tests
     , Test.Callbacks.Structs.tests
@@ -33,8 +37,8 @@ main = defaultMain $ testGroup "feature-tests" [
     , Test.PointerManipulation.Structs.Bitfields.tests
     , Test.PointerManipulation.Typedefs.tests
     , Test.PointerManipulation.Unions.tests
+    , Test.PointerManipulation.Unions.Bitfields.tests
     , Test.Types.Anonymous.tests
     , Test.Types.Anonymous.IndirectFields.tests
-    , Test.Types.Bitfields.tests
     , Test.Unions.tests
     ]

@@ -1,4 +1,4 @@
--- | C bit-field tests
+-- | C bit-field tests for structs
 --
 -- This module implements two types of tests for various @struct@s:
 --
@@ -13,13 +13,18 @@
 
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module Test.Types.Bitfields (tests) where
+module Test.Bitfields.Structs (
+    tests
+  -- * Auxiliary functions
+  , initValue
+  , allocaAligned
+  ) where
 
 import Data.Bits ((.&.))
 import Data.Bits qualified as Bits
 import Data.Maybe qualified as Maybe
-import Data.Proxy
-import Data.Word
+import Data.Proxy (Proxy (Proxy))
+import Data.Word (Word64)
 import Foreign qualified
 import Foreign.C qualified as C
 import Test.QuickCheck ((===))
@@ -31,8 +36,8 @@ import HsBindgen.Runtime.Marshal qualified as Marshal
 import HsBindgen.Runtime.Support.Bitfield (Bitfield)
 import HsBindgen.Runtime.Support.Bitfield qualified as Bitfield
 
-import Generated.Types.Bitfields qualified as Bitfields
-import Generated.Types.Bitfields.Unsafe qualified as Bitfields
+import Generated.Bitfields.Structs qualified as Bitfields
+import Generated.Bitfields.Structs.Unsafe qualified as Bitfields
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
@@ -814,7 +819,7 @@ test_bar_64_64 = testGroup "<=64-bit field crosses 64-bit word boundary" [
 -------------------------------------------------------------------------------}
 
 tests :: TestTree
-tests = testGroup "Test.Types.Bitfields" [
+tests = testGroup "Test.Bitfields.Structs" [
       testGroup "non-packed" [
           test_foo_8
         , test_foo_16

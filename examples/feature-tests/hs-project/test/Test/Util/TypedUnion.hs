@@ -8,6 +8,7 @@ module Test.Util.TypedUnion (
   , unsafeUnwrap
     -- * Arbitrary
   , arbitraryField
+  , liftArbitraryField
   , shrinkField
   ) where
 
@@ -99,6 +100,14 @@ arbitraryField::
      )
   => Gen (TypedUnion u fn ft fk)
 arbitraryField  = TypedUnion . Union.set @fn <$> arbitrary
+
+liftArbitraryField ::
+     forall fn u ft fk. (
+       Compat.HasField fn u ft
+     , IsUnion u
+     )
+  => Gen ft -> Gen (TypedUnion u fn ft fk)
+liftArbitraryField gen = TypedUnion . Union.set @fn <$> gen
 
 shrinkField ::
      forall fn u ft fk. (
