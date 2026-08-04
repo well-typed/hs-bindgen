@@ -19,7 +19,7 @@ void mk_triple(int a, int b, int c, triple *triple);
 // See structs/nesting.h
 
 /* -------------------------------------------------------------------------- */
-/* Bitfields. */
+/* Bit-fields. */
 
 struct aula_setup {
   char window_id;
