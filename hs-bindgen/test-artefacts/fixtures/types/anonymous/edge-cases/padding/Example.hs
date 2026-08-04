@@ -323,7 +323,8 @@ instance ( ty ~ BG.CInt
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"sU_anon'y_y" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"sU_anon'y_y" x0)
 
 instance ( ty ~ BG.CInt
          ) => BG.HasField "sU_anon'y_y" (BG.Ptr SU_anon'y) (BG.Ptr ty) where
@@ -627,7 +628,9 @@ instance (ty ~ BG.CChar) => BG.HasField "uS_x" US ty where
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "uS_x" US ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"uS_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"uS_x" x0)
 
 instance (ty ~ BG.CChar) => BG.HasField "uS_x" (BG.Ptr US) (BG.Ptr ty) where
 
@@ -659,7 +662,8 @@ instance (ty ~ US_anon'y) => BG.CompatHasField.HasField "uS_anon'y" US ty where
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"uS_anon'y" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"uS_anon'y" x0)
 
 instance ( ty ~ US_anon'y
          ) => BG.HasField "uS_anon'y" (BG.Ptr US) (BG.Ptr ty) where
@@ -729,7 +733,9 @@ instance (ty ~ BG.CInt) => BG.HasField "uS_z" US ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "uS_z" US ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"uS_z" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"uS_z" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "uS_z" (BG.Ptr US) (BG.Ptr ty) where
 
@@ -783,7 +789,8 @@ instance ( ty ~ BG.CInt
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"uU_anon'y_y" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"uU_anon'y_y" x0)
 
 instance ( ty ~ BG.CInt
          ) => BG.HasField "uU_anon'y_y" (BG.Ptr UU_anon'y) (BG.Ptr ty) where
@@ -837,7 +844,9 @@ instance (ty ~ BG.CChar) => BG.HasField "uU_x" UU ty where
 instance (ty ~ BG.CChar) => BG.CompatHasField.HasField "uU_x" UU ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"uU_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"uU_x" x0)
 
 instance (ty ~ BG.CChar) => BG.HasField "uU_x" (BG.Ptr UU) (BG.Ptr ty) where
 
@@ -869,7 +878,8 @@ instance (ty ~ UU_anon'y) => BG.CompatHasField.HasField "uU_anon'y" UU ty where
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"uU_anon'y" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"uU_anon'y" x0)
 
 instance ( ty ~ UU_anon'y
          ) => BG.HasField "uU_anon'y" (BG.Ptr UU) (BG.Ptr ty) where
@@ -939,7 +949,9 @@ instance (ty ~ BG.CInt) => BG.HasField "uU_z" UU ty where
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "uU_z" UU ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"uU_z" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"uU_z" x0)
 
 instance (ty ~ BG.CInt) => BG.HasField "uU_z" (BG.Ptr UU) (BG.Ptr ty) where
 

@@ -237,7 +237,7 @@ instance (~) ty USS_anon'anon'x =>
     where getField = getUnionPayload
 instance (~) ty USS_anon'anon'x =>
          HasField "uSS_anon'anon'x" USS ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"uSS_anon'anon'x" x_0)
 instance (~) ty USS_anon'anon'x =>
          HasField "uSS_anon'anon'x" (Ptr USS) (Ptr ty)
@@ -314,7 +314,7 @@ instance (~) ty SUS_anon'anon'x_anon'x =>
     where getField = getUnionPayload
 instance (~) ty SUS_anon'anon'x_anon'x =>
          HasField "sUS_anon'anon'x_anon'x" SUS_anon'anon'x ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"sUS_anon'anon'x_anon'x" x_0)
 instance (~) ty SUS_anon'anon'x_anon'x =>
          HasField "sUS_anon'anon'x_anon'x" (Ptr SUS_anon'anon'x) (Ptr ty)
@@ -440,7 +440,7 @@ instance (~) ty UUS_anon'anon'x_anon'x =>
     where getField = getUnionPayload
 instance (~) ty UUS_anon'anon'x_anon'x =>
          HasField "uUS_anon'anon'x_anon'x" UUS_anon'anon'x ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"uUS_anon'anon'x_anon'x" x_0)
 instance (~) ty UUS_anon'anon'x_anon'x =>
          HasField "uUS_anon'anon'x_anon'x" (Ptr UUS_anon'anon'x) (Ptr ty)
@@ -479,7 +479,7 @@ instance (~) ty UUS_anon'anon'x =>
     where getField = getUnionPayload
 instance (~) ty UUS_anon'anon'x =>
          HasField "uUS_anon'anon'x" UUS ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"uUS_anon'anon'x" x_0)
 instance (~) ty UUS_anon'anon'x =>
          HasField "uUS_anon'anon'x" (Ptr UUS) (Ptr ty)
@@ -520,7 +520,7 @@ instance (~) ty CInt =>
     where getField = getUnionPayload
 instance (~) ty CInt =>
          HasField "sSU_anon'anon'x_anon'x_x" SSU_anon'anon'x_anon'x ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"sSU_anon'anon'x_anon'x_x" x_0)
 instance (~) ty CInt =>
          HasField "sSU_anon'anon'x_anon'x_x"
@@ -649,7 +649,7 @@ instance (~) ty CInt =>
     where getField = getUnionPayload
 instance (~) ty CInt =>
          HasField "uSU_anon'anon'x_anon'x_x" USU_anon'anon'x_anon'x ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"uSU_anon'anon'x_anon'x_x" x_0)
 instance (~) ty CInt =>
          HasField "uSU_anon'anon'x_anon'x_x"
@@ -727,7 +727,7 @@ instance (~) ty USU_anon'anon'x =>
     where getField = getUnionPayload
 instance (~) ty USU_anon'anon'x =>
          HasField "uSU_anon'anon'x" USU ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"uSU_anon'anon'x" x_0)
 instance (~) ty USU_anon'anon'x =>
          HasField "uSU_anon'anon'x" (Ptr USU) (Ptr ty)
@@ -768,7 +768,7 @@ instance (~) ty CInt =>
     where getField = getUnionPayload
 instance (~) ty CInt =>
          HasField "sUU_anon'anon'x_anon'x_x" SUU_anon'anon'x_anon'x ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"sUU_anon'anon'x_anon'x_x" x_0)
 instance (~) ty CInt =>
          HasField "sUU_anon'anon'x_anon'x_x"
@@ -800,7 +800,7 @@ instance (~) ty SUU_anon'anon'x_anon'x =>
     where getField = getUnionPayload
 instance (~) ty SUU_anon'anon'x_anon'x =>
          HasField "sUU_anon'anon'x_anon'x" SUU_anon'anon'x ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"sUU_anon'anon'x_anon'x" x_0)
 instance (~) ty SUU_anon'anon'x_anon'x =>
          HasField "sUU_anon'anon'x_anon'x" (Ptr SUU_anon'anon'x) (Ptr ty)
@@ -890,7 +890,7 @@ instance (~) ty CInt =>
     where getField = getUnionPayload
 instance (~) ty CInt =>
          HasField "uUU_anon'anon'x_anon'x_x" UUU_anon'anon'x_anon'x ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"uUU_anon'anon'x_anon'x_x" x_0)
 instance (~) ty CInt =>
          HasField "uUU_anon'anon'x_anon'x_x"
@@ -922,7 +922,7 @@ instance (~) ty UUU_anon'anon'x_anon'x =>
     where getField = getUnionPayload
 instance (~) ty UUU_anon'anon'x_anon'x =>
          HasField "uUU_anon'anon'x_anon'x" UUU_anon'anon'x ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"uUU_anon'anon'x_anon'x" x_0)
 instance (~) ty UUU_anon'anon'x_anon'x =>
          HasField "uUU_anon'anon'x_anon'x" (Ptr UUU_anon'anon'x) (Ptr ty)
@@ -961,7 +961,7 @@ instance (~) ty UUU_anon'anon'x =>
     where getField = getUnionPayload
 instance (~) ty UUU_anon'anon'x =>
          HasField "uUU_anon'anon'x" UUU ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"uUU_anon'anon'x" x_0)
 instance (~) ty UUU_anon'anon'x =>
          HasField "uUU_anon'anon'x" (Ptr UUU) (Ptr ty)

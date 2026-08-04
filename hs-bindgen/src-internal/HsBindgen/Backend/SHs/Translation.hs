@@ -665,7 +665,11 @@ translateHasFieldCompatInstance inst mbComment = Instance{
                 , map mkFBindIdentity otherFields
                 ]
           Hs.HasFieldCompatImplUnion ->
-              eBindgenGlobal ByteArray_setUnionPayload
+            ELam (NameHint "y")
+              (      eBindgenGlobal ByteArray_setUnionPayload
+              `EApp` (EBound IZ)
+              `EApp` (EBound (IS IZ))
+              )
           Hs.HasFieldCompatImplIndirect {nameTopToAnon, nameAnonToTarget} ->
             let strLitTopToAnon = translateType (Hs.StrLit (Hs.nameToStr nameTopToAnon))
                 strLitAnonToTarget = translateType (Hs.StrLit (Hs.nameToStr nameAnonToTarget)) in

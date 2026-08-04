@@ -160,7 +160,7 @@ instance (~) ty CInt =>
          HasField "has_implicit_fields_anon'x5_1_x5_1"
                   Has_implicit_fields_anon'x5_1
                   ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"has_implicit_fields_anon'x5_1_x5_1" x_0)
 instance (~) ty CInt =>
          HasField "has_implicit_fields_anon'x5_1_x5_1"
@@ -181,7 +181,7 @@ instance (~) ty CInt =>
          HasField "has_implicit_fields_anon'x5_1_x5_2"
                   Has_implicit_fields_anon'x5_1
                   ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"has_implicit_fields_anon'x5_1_x5_2" x_0)
 instance (~) ty CInt =>
          HasField "has_implicit_fields_anon'x5_1_x5_2"

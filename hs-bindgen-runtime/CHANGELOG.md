@@ -6,6 +6,9 @@
 
 * Rename `HsBindgen.Runtime.Internal.*` modules to `HsBindgen.Runtime.Support.*`;
   `Internal.Prelude` is now `HsBindgen.Runtime.Support`.
+* `setUnionPayload` would previously generate a zeroed out byte array and write
+  a `Storable` value to it. It now takes a byte array argument that the
+  `Storable` value is written to. See [Issue #2183][is-2183].
 
 ### New features
 
@@ -35,6 +38,7 @@ None
 [is-2060]: https://github.com/well-typed/hs-bindgen/issues/2060
 [is-2085]: https://github.com/well-typed/hs-bindgen/issues/2085
 [is-2121]: https://github.com/well-typed/hs-bindgen/issues/2121
+[is-2183]: https://github.com/well-typed/hs-bindgen/issues/2183
 [pr-2091]: https://github.com/well-typed/hs-bindgen/pull/2091
 [pr-2164]: https://github.com/well-typed/hs-bindgen/pull/2164
 [pr-2168]: https://github.com/well-typed/hs-bindgen/pull/2168

@@ -70,7 +70,8 @@ instance ( ty ~ BG.CInt
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"myUnion_x" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"myUnion_x" x0)
 
 instance ( ty ~ BG.CInt
          ) => BG.HasField "myUnion_x" (BG.Ptr MyUnion) (BG.Ptr ty) where

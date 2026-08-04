@@ -54,11 +54,10 @@ pokeByteArray dest bytes = do
 
 setUnionPayload :: forall payload union.
      ( Storable payload
-     , Storable union
      , Coercible union ByteArray
      )
-  => payload -> union
-setUnionPayload = coerce . pokeToByteArray (sizeOf (undefined :: union))
+  => payload -> union -> union
+setUnionPayload x u = coerce (pokeToByteArray x (coerce u))
 
 getUnionPayload :: forall payload union.
      ( Storable payload
@@ -71,16 +70,16 @@ getUnionPayload = peekFromByteArray . coerce
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
--- | Read 'Storable' value from 'ByteArray'
+-- | Read a 'Storable' value from a 'ByteArray'
 --
 -- Precondition:
 --
 -- > sizeOf (undefined :: a) <= sizeofByteArray bytes
 --
--- It may well be the case that the ByteArray is /larger/; 'peekFromByteArray'
--- is intended to be used for reading values from otherwise opaque unions (where
--- @a@ is one such possible value), and so the bytearray will be large enough to
--- store the entire union.
+-- It may well be the case that the ByteArray is /larger/ than the @a@ value;
+-- 'peekFromByteArray' is intended to be used for reading values from otherwise
+-- opaque unions (where @a@ is one such possible value), and so the bytearray
+-- will be large enough to store the entire union.
 peekFromByteArray :: forall a. Storable a => ByteArray -> a
 peekFromByteArray bytes =
     assert (sizeOf (undefined :: a) <= BA.sizeofByteArray bytes) $
@@ -89,22 +88,29 @@ peekFromByteArray bytes =
       BA.withMutableByteArrayContents pinnedCopy $ \ptr ->
         peek (castPtr ptr)
 
--- | Write 'Storable' value to new 'ByteArray' of specified size
+-- | Write a 'Storable' value to a 'ByteArray'
 --
 -- Precondition:
 --
--- > sizeOf (undefined :: a) <= n
+-- > sizeOf (undefined :: a) <= sizeOfByteArray bytes
 --
--- It may well be that @n@ is larger; see also 'peekFromByteArray'.
-pokeToByteArray :: forall a. Storable a => Int -> a -> ByteArray
-pokeToByteArray n x =
-    assert (sizeOf (undefined :: a) <= n) $
+-- It may well be the case that the ByteArray is /larger/ than the @a@ value;
+-- see also 'peekFromByteArray'.
+pokeToByteArray ::
+     forall a. Storable a
+  => a
+  -> ByteArray
+  -> ByteArray
+pokeToByteArray x bytes =
+    assert (sizeOf (undefined :: a) <= bytesSize) $
     unsafePerformIO $ do
-      pinnedCopy <- BA.newPinnedByteArray n
+      pinnedCopy <- thawToPinned bytes
       BA.withMutableByteArrayContents pinnedCopy $ \ptr ->
         poke (castPtr ptr) x
       -- The copy constructed by 'freezeByteArray' is /not/ pinned.
-      BA.freezeByteArray pinnedCopy 0 n
+      BA.freezeByteArray pinnedCopy 0 bytesSize
+  where
+    bytesSize = BA.sizeofByteArray bytes
 
 -- | Like 'Data.Primiteve.ByteArray.thawByteArray', but the new
 -- | 'MutableByteArray' is pinned

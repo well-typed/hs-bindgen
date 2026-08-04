@@ -118,7 +118,9 @@ instance (ty ~ MyInt) => BG.HasField "t1_x" T1 ty where
 instance (ty ~ MyInt) => BG.CompatHasField.HasField "t1_x" T1 ty where
 
   hasField =
-    \x0 -> (BG.setUnionPayload, BG.getField @"t1_x" x0)
+    \x0 ->
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"t1_x" x0)
 
 instance (ty ~ MyInt) => BG.HasField "t1_x" (BG.Ptr T1) (BG.Ptr ty) where
 
@@ -171,7 +173,8 @@ instance (ty ~ MyInt) => BG.CompatHasField.HasField "t2_Aux_x" T2_Aux ty where
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"t2_Aux_x" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"t2_Aux_x" x0)
 
 instance ( ty ~ MyInt
          ) => BG.HasField "t2_Aux_x" (BG.Ptr T2_Aux) (BG.Ptr ty) where
@@ -262,7 +265,8 @@ instance (ty ~ MyInt) => BG.CompatHasField.HasField "t3_Aux_x" T3_Aux ty where
 
   hasField =
     \x0 ->
-      (BG.setUnionPayload, BG.getField @"t3_Aux_x" x0)
+      (\y1 ->
+         BG.setUnionPayload y1 x0, BG.getField @"t3_Aux_x" x0)
 
 instance ( ty ~ MyInt
          ) => BG.HasField "t3_Aux_x" (BG.Ptr T3_Aux) (BG.Ptr ty) where

@@ -314,6 +314,9 @@
   expanded macro" messages). See [issue #2049][is-2049].
 * Fix cases where macro reparsing could accidentally produce more or fewer
   function arguments than required. See [PR #2153][pr-2153].
+* Union setters would zero out all bytes outside of the field that was being
+  set. Now union setters only modify the bytes strictly belonging to the field,
+  and none outside of it. See [issue #2183][is-2183].
 
 [is-1225]: https://github.com/well-typed/hs-bindgen/issues/1225
 [is-1382]: https://github.com/well-typed/hs-bindgen/issues/1382
@@ -333,6 +336,7 @@
 [is-2083]: https://github.com/well-typed/hs-bindgen/issues/2083
 [is-2121]: https://github.com/well-typed/hs-bindgen/issues/2121
 [is-2166]: https://github.com/well-typed/hs-bindgen/issues/2166
+[is-2183]: https://github.com/well-typed/hs-bindgen/issues/2183
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917

@@ -218,7 +218,7 @@ deriving via (SizedByteArray 4 4) instance IsUnion USS
 instance (~) ty USS_anon'anon'x => HasField "anon'anon'x" USS ty
     where getField = getUnionPayload
 instance (~) ty USS_anon'anon'x => HasField "anon'anon'x" USS ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"anon'anon'x" x_0)
 instance (~) ty USS_anon'anon'x =>
          HasField "anon'anon'x" (Ptr USS) (Ptr ty)
@@ -290,7 +290,8 @@ instance (~) ty SUS_anon'anon'x_anon'x =>
     where getField = getUnionPayload
 instance (~) ty SUS_anon'anon'x_anon'x =>
          HasField "anon'x" SUS_anon'anon'x ty
-    where hasField = \x_0 -> (setUnionPayload, getField @"anon'x" x_0)
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"anon'x" x_0)
 instance (~) ty SUS_anon'anon'x_anon'x =>
          HasField "anon'x" (Ptr SUS_anon'anon'x) (Ptr ty)
     where getField = fromPtr (Proxy @"anon'x")
@@ -406,7 +407,8 @@ instance (~) ty UUS_anon'anon'x_anon'x =>
     where getField = getUnionPayload
 instance (~) ty UUS_anon'anon'x_anon'x =>
          HasField "anon'x" UUS_anon'anon'x ty
-    where hasField = \x_0 -> (setUnionPayload, getField @"anon'x" x_0)
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"anon'x" x_0)
 instance (~) ty UUS_anon'anon'x_anon'x =>
          HasField "anon'x" (Ptr UUS_anon'anon'x) (Ptr ty)
     where getField = fromPtr (Proxy @"anon'x")
@@ -439,7 +441,7 @@ deriving via (SizedByteArray 4 4) instance IsUnion UUS
 instance (~) ty UUS_anon'anon'x => HasField "anon'anon'x" UUS ty
     where getField = getUnionPayload
 instance (~) ty UUS_anon'anon'x => HasField "anon'anon'x" UUS ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"anon'anon'x" x_0)
 instance (~) ty UUS_anon'anon'x =>
          HasField "anon'anon'x" (Ptr UUS) (Ptr ty)
@@ -478,7 +480,8 @@ deriving via (SizedByteArray 4
 instance (~) ty CInt => HasField "x" SSU_anon'anon'x_anon'x ty
     where getField = getUnionPayload
 instance (~) ty CInt => HasField "x" SSU_anon'anon'x_anon'x ty
-    where hasField = \x_0 -> (setUnionPayload, getField @"x" x_0)
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"x" x_0)
 instance (~) ty CInt =>
          HasField "x" (Ptr SSU_anon'anon'x_anon'x) (Ptr ty)
     where getField = fromPtr (Proxy @"x")
@@ -596,7 +599,8 @@ deriving via (SizedByteArray 4
 instance (~) ty CInt => HasField "x" USU_anon'anon'x_anon'x ty
     where getField = getUnionPayload
 instance (~) ty CInt => HasField "x" USU_anon'anon'x_anon'x ty
-    where hasField = \x_0 -> (setUnionPayload, getField @"x" x_0)
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"x" x_0)
 instance (~) ty CInt =>
          HasField "x" (Ptr USU_anon'anon'x_anon'x) (Ptr ty)
     where getField = fromPtr (Proxy @"x")
@@ -664,7 +668,7 @@ deriving via (SizedByteArray 4 4) instance IsUnion USU
 instance (~) ty USU_anon'anon'x => HasField "anon'anon'x" USU ty
     where getField = getUnionPayload
 instance (~) ty USU_anon'anon'x => HasField "anon'anon'x" USU ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"anon'anon'x" x_0)
 instance (~) ty USU_anon'anon'x =>
          HasField "anon'anon'x" (Ptr USU) (Ptr ty)
@@ -703,7 +707,8 @@ deriving via (SizedByteArray 4
 instance (~) ty CInt => HasField "x" SUU_anon'anon'x_anon'x ty
     where getField = getUnionPayload
 instance (~) ty CInt => HasField "x" SUU_anon'anon'x_anon'x ty
-    where hasField = \x_0 -> (setUnionPayload, getField @"x" x_0)
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"x" x_0)
 instance (~) ty CInt =>
          HasField "x" (Ptr SUU_anon'anon'x_anon'x) (Ptr ty)
     where getField = fromPtr (Proxy @"x")
@@ -730,7 +735,8 @@ instance (~) ty SUU_anon'anon'x_anon'x =>
     where getField = getUnionPayload
 instance (~) ty SUU_anon'anon'x_anon'x =>
          HasField "anon'x" SUU_anon'anon'x ty
-    where hasField = \x_0 -> (setUnionPayload, getField @"anon'x" x_0)
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"anon'x" x_0)
 instance (~) ty SUU_anon'anon'x_anon'x =>
          HasField "anon'x" (Ptr SUU_anon'anon'x) (Ptr ty)
     where getField = fromPtr (Proxy @"anon'x")
@@ -813,7 +819,8 @@ deriving via (SizedByteArray 4
 instance (~) ty CInt => HasField "x" UUU_anon'anon'x_anon'x ty
     where getField = getUnionPayload
 instance (~) ty CInt => HasField "x" UUU_anon'anon'x_anon'x ty
-    where hasField = \x_0 -> (setUnionPayload, getField @"x" x_0)
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"x" x_0)
 instance (~) ty CInt =>
          HasField "x" (Ptr UUU_anon'anon'x_anon'x) (Ptr ty)
     where getField = fromPtr (Proxy @"x")
@@ -840,7 +847,8 @@ instance (~) ty UUU_anon'anon'x_anon'x =>
     where getField = getUnionPayload
 instance (~) ty UUU_anon'anon'x_anon'x =>
          HasField "anon'x" UUU_anon'anon'x ty
-    where hasField = \x_0 -> (setUnionPayload, getField @"anon'x" x_0)
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"anon'x" x_0)
 instance (~) ty UUU_anon'anon'x_anon'x =>
          HasField "anon'x" (Ptr UUU_anon'anon'x) (Ptr ty)
     where getField = fromPtr (Proxy @"anon'x")
@@ -873,7 +881,7 @@ deriving via (SizedByteArray 4 4) instance IsUnion UUU
 instance (~) ty UUU_anon'anon'x => HasField "anon'anon'x" UUU ty
     where getField = getUnionPayload
 instance (~) ty UUU_anon'anon'x => HasField "anon'anon'x" UUU ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"anon'anon'x" x_0)
 instance (~) ty UUU_anon'anon'x =>
          HasField "anon'anon'x" (Ptr UUU) (Ptr ty)

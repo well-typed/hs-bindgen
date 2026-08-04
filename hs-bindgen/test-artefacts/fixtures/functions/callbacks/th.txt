@@ -1118,7 +1118,7 @@ instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
     where getField = getUnionPayload
 instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
          HasField "processorCallback_simple" ProcessorCallback ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"processorCallback_simple" x_0)
 instance (~) ty (FunPtr (Ptr Measurement -> IO ())) =>
          HasField "processorCallback_simple"
@@ -1136,7 +1136,7 @@ instance (~) ty
 instance (~) ty
              (FunPtr (Ptr Measurement -> DataValidator -> IO ())) =>
          HasField "processorCallback_withValidator" ProcessorCallback ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"processorCallback_withValidator" x_0)
 instance (~) ty
              (FunPtr (Ptr Measurement -> DataValidator -> IO ())) =>
@@ -1157,7 +1157,7 @@ instance (~) ty
 instance (~) ty
              (FunPtr (Ptr Measurement -> ProgressUpdate -> IO ())) =>
          HasField "processorCallback_withProgress" ProcessorCallback ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"processorCallback_withProgress" x_0)
 instance (~) ty
              (FunPtr (Ptr Measurement -> ProgressUpdate -> IO ())) =>
@@ -1513,7 +1513,8 @@ instance (~) ty (ConstantArray 3 (FunPtr (C -> IO ()))) =>
     where getField = getUnionPayload
 instance (~) ty (ConstantArray 3 (FunPtr (C -> IO ()))) =>
          HasField "u_fn" U ty
-    where hasField = \x_0 -> (setUnionPayload, getField @"u_fn" x_0)
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"u_fn" x_0)
 instance (~) ty (ConstantArray 3 (FunPtr (C -> IO ()))) =>
          HasField "u_fn" (Ptr U) (Ptr ty)
     where getField = fromPtr (Proxy @"u_fn")

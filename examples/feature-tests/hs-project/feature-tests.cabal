@@ -76,6 +76,10 @@ library generated
     Generated.Types.Bitfields.FunPtr
     Generated.Types.Bitfields.Safe
     Generated.Types.Bitfields.Unsafe
+    Generated.Unions
+    Generated.Unions.FunPtr
+    Generated.Unions.Safe
+    Generated.Unions.Unsafe
 
   build-depends:
     , base
@@ -107,8 +111,10 @@ test-suite feature-tests
     Test.Types.Anonymous
     Test.Types.Anonymous.IndirectFields
     Test.Types.Bitfields
+    Test.Unions
     Test.Util
     Test.Util.Orphans
+    Test.Util.QC
     Test.Util.TypedUnion
 
   build-depends:
@@ -117,6 +123,7 @@ test-suite feature-tests
     , feature-tests:generated
     , hs-bindgen-runtime
     , optics
+    , primitive
     , QuickCheck
     , tasty
     , tasty-quickcheck

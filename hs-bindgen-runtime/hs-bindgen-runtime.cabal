@@ -135,7 +135,9 @@ test-suite test-hs-bindgen-runtime
     Test.HsBindgen.Runtime.ConstantArray
     Test.HsBindgen.Runtime.IncompleteArray
     Test.HsBindgen.Runtime.SizedByteArray
+    Test.HsBindgen.Runtime.Support.ByteArray
     Test.Util.Orphans
+    Test.Util.Show
     Test.Util.Tasty
 
   -- Internal dependencies

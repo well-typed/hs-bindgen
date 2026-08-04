@@ -1118,7 +1118,7 @@ instance (~) ty HsBindgen.Runtime.LibC.Int32 =>
     where getField = getUnionPayload
 instance (~) ty HsBindgen.Runtime.LibC.Int32 =>
          HasField "data_union_t_as_int" Data_union_t ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"data_union_t_as_int" x_0)
 instance (~) ty HsBindgen.Runtime.LibC.Int32 =>
          HasField "data_union_t_as_int" (Ptr Data_union_t) (Ptr ty)
@@ -1132,7 +1132,7 @@ instance (~) ty CFloat =>
     where getField = getUnionPayload
 instance (~) ty CFloat =>
          HasField "data_union_t_as_float" Data_union_t ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"data_union_t_as_float" x_0)
 instance (~) ty CFloat =>
          HasField "data_union_t_as_float" (Ptr Data_union_t) (Ptr ty)
@@ -1145,7 +1145,7 @@ instance (~) ty (ConstantArray 4 HsBindgen.Runtime.LibC.Word8) =>
     where getField = getUnionPayload
 instance (~) ty (ConstantArray 4 HsBindgen.Runtime.LibC.Word8) =>
          HasField "data_union_t_as_bytes" Data_union_t ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"data_union_t_as_bytes" x_0)
 instance (~) ty (ConstantArray 4 HsBindgen.Runtime.LibC.Word8) =>
          HasField "data_union_t_as_bytes" (Ptr Data_union_t) (Ptr ty)
@@ -1160,7 +1160,7 @@ instance (~) ty Data_union_t_as_parts =>
     where getField = getUnionPayload
 instance (~) ty Data_union_t_as_parts =>
          HasField "data_union_t_as_parts" Data_union_t ty
-    where hasField = \x_0 -> (setUnionPayload,
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
                               getField @"data_union_t_as_parts" x_0)
 instance (~) ty Data_union_t_as_parts =>
          HasField "data_union_t_as_parts" (Ptr Data_union_t) (Ptr ty)
