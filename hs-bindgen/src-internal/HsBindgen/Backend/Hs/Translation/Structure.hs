@@ -281,9 +281,14 @@ getDecls supInsts env spec structName info struct insts =
 
     knownInsts :: Set Inst.TypeClass
     knownInsts = Set.fromList $ catMaybes [
+        -- A struct with only non-bit-fields trivially satisfies
+        -- 'Inst.HasCBitfield', but we omit such trivial instances as not to
+        -- confuse the user.
         if any (isJust . (.width)) struct.fields
           then Just Inst.HasCBitfield
           else Nothing
+        -- A struct with only bit-fields trivially satisfies 'Inst.HasCField',
+        -- but we omit such trivial instances as not to confuse the user.
       , if any (isNothing . (.width)) struct.fields
           then Just Inst.HasCField
           else Nothing

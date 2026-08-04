@@ -192,6 +192,8 @@ data BindgenGlobalTerm =
     -- Foreign function interface
   | ByteArray_setUnionPayload
   | ByteArray_getUnionPayload
+  | ByteArray_getUnionPayloadBits
+  | ByteArray_setUnionPayloadBits
   | Capi_with
   | Capi_allocaAndPeek
 
@@ -438,10 +440,12 @@ bindgenGlobalTerm = globalExpr . \case
     FromFunPtr_fromFunPtr -> (IRuntime Runtime.Support, GVar, 'BG.fromFunPtr)
 
     -- Foreign function interface
-    ByteArray_getUnionPayload -> (IRuntime Runtime.Support, GVar, 'BG.getUnionPayload)
-    ByteArray_setUnionPayload -> (IRuntime Runtime.Support, GVar, 'BG.setUnionPayload)
-    Capi_with                 -> (IRuntime Runtime.Support, GVar, 'BG.with)
-    Capi_allocaAndPeek        -> (IRuntime Runtime.Support, GVar, 'BG.allocaAndPeek)
+    ByteArray_getUnionPayload     -> (IRuntime Runtime.Support, GVar, 'BG.getUnionPayload)
+    ByteArray_setUnionPayload     -> (IRuntime Runtime.Support, GVar, 'BG.setUnionPayload)
+    ByteArray_getUnionPayloadBits -> (IRuntime Runtime.Support, GVar, 'BG.getUnionPayloadBits)
+    ByteArray_setUnionPayloadBits -> (IRuntime Runtime.Support, GVar, 'BG.setUnionPayloadBits)
+    Capi_with                     -> (IRuntime Runtime.Support, GVar, 'BG.with)
+    Capi_allocaAndPeek            -> (IRuntime Runtime.Support, GVar, 'BG.allocaAndPeek)
 
     -- StaticSize
     StaticSize_staticSizeOf    -> (IRuntime Runtime.Marshal, GVar, 'Marshal.staticSizeOf)

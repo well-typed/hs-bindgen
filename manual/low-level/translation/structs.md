@@ -58,10 +58,10 @@ Instances of `IsStruct` are generated automatically for generated struct types.
 
 See the [Structs/Nesting][manual:structs/nesting] manual section.
 
-## Bitfields
+## Bit-fields
 
-[_Bitfields_][wikipedia:bit-field] are structures or unions with elements of
-individual size. For example,
+[_Bit-fields_][wikipedia:bit-field] are fields of structs (or unions) with a
+field width defined in number of bits. For example,
 
 ```c
 struct aula_setup {
@@ -116,7 +116,7 @@ are used, provides some helper functions. For example,
 peek :: (HasCBitfield a field, ...) => Proxy field -> Ptr a -> IO (CBitfieldType a field)
 ```
 
-from `HsBindgen.Runtime.HasCBitfield` obtains the bitfield member `field`
+from `HsBindgen.Runtime.HasCBitfield` obtains the bit-field member `field`
 directly from its bit offset and width within `a`, without touching
 neighbouring fields.
 

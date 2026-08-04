@@ -39,20 +39,26 @@ enum MyEnum {
 /* Bit-fields */
 
 struct MyStructBF {
-  unsigned int x : 6;
+  unsigned int x : 7;
   unsigned char y : 6;
 };
 
+/**
+ * The Haskell bindings for bit-fields in structs (i.e., Haskell record fields)
+ * do not perform packing in any way like the C code does. So if we want to
+ * create a Haskell value of a properly packed MyStructBF, then we use this C
+ * function instead.
+ */
 static inline struct MyStructBF __attribute__((const)) make_MyStructBF(
     unsigned int x,
     unsigned char y) {
-  struct MyStructBF s = {x, y};
+  struct MyStructBF s = {.x=x, .y=y};
   return s;
 }
 
 union MyUnionBF {
   unsigned int x : 3;
-  unsigned char y : 3;
+  unsigned char y : 5;
 };
 
 /* -------------------------------------------------------------------------- */

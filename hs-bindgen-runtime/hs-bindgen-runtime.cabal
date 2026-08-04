@@ -137,6 +137,7 @@ test-suite test-hs-bindgen-runtime
     Test.HsBindgen.Runtime.SizedByteArray
     Test.HsBindgen.Runtime.Support.ByteArray
     Test.Util.Orphans
+    Test.Util.QC
     Test.Util.Show
     Test.Util.Tasty
 

@@ -410,7 +410,7 @@ Since the C code is compiled by Cabal, there is no need to update
 > compiler (typically GCC on Linux), while `hs-bindgen` uses `libclang` to
 > parse the headers and derive type layouts.  For simple types this is
 > unlikely to cause problems, but GCC and Clang can disagree on memory layout
-> for more exotic constructs (bitfields, packed structs, platform-specific
+> for more exotic constructs (bit-fields, packed structs, platform-specific
 > alignment).  See [Clang vs. GCC][manual:installation-clang-vs-gcc] for
 > details.
 

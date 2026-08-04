@@ -147,6 +147,63 @@ for `Person` either.
 
 See the [Unions/Nesting][manual:unions/nesting] manual section.
 
+## Bit-fields
+
+[_Bit-fields_][wikipedia:bit-field] are fields of unions (or stucts) with a
+field width defined in number of bits. See the [Bit-fields section of the
+Structs manual page][manual:structs-bit-fields] for an example of how bit-fields
+are supported for structs. The support for bit-fields in unions is largely the
+same as for structs, though there is a caveat. In structs, adjacent bit-field
+members may be packed to share and straddle the individual bytes. In unions,
+adjacent bit-field members share the same memory area, and are therefore not
+packed. This makes bit-fields in unions less useful than in structs. Still,
+there are a few cases where bit-fields in unions may still be useful.
+
+### Example 1: anonymous struct
+
+An anonymous struct's bit-fields can be accessed from the top-level union *as
+if* they were bit-fields of the union themselves. In the example below, we
+represent colours in two alternative formats: RGB and CYMK. If the two anonymous
+structs get nice packing behaviour, then the union size should stay within 32
+bits. The bit-fields can also be used from the top-level union.
+
+```c
+union colour {
+  // RGB (Red, Green, Blue)
+  struct {
+    unsigned R : 10;
+    unsigned G : 10;
+    unsigned B : 10;
+  };
+
+  // CYMK (Cyan, Yellow, Magenta, Black)
+  struct {
+    unsigned C : 8;
+    unsigned Y : 8;
+    unsigned M : 8;
+    unsigned K : 8;
+  };
+};
+```
+
+### Example 2: forced union width
+
+Bit-fields in unions can be used to force the union to be of a certain width. In
+the example below, the first union has a width of 1 bytes, while the second
+union has a width of 8 bytes, and this is also visible in the generated
+bindings.
+
+```c
+union unforced_width {
+  char x;
+};
+
+union forced_width {
+  long long : 64;
+  char x;
+};
+```
+
 
 
 <!-- footnotes -->
@@ -158,4 +215,5 @@ See the [Unions/Nesting][manual:unions/nesting] manual section.
 
 [hackage:base:ByteArray]: https://hackage.haskell.org/package/base/docs/Data-Array-Byte.html#t:ByteArray
 [manual:generated-names]: generated-names.md
+[manual:structs-bit-fields]: structs.md#bit-fields
 [manual:unions/nesting]: unions/nesting.md

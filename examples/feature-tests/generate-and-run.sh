@@ -40,6 +40,29 @@ if [ -d "$GENERATED_DIR" ]; then
   rm -r "$GENERATED_DIR"
 fi
 
+
+echo "## Bit-fields"
+
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
+    preprocess \
+    -I c \
+    --hs-output-dir hs-project/src-generated \
+    --unique-id feature-tests.well-typed.com \
+    --create-output-dirs \
+    --overwrite-files \
+    --module Generated.Bitfields.Structs \
+    bit-fields/structs.h
+
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
+    preprocess \
+    -I c \
+    --hs-output-dir hs-project/src-generated \
+    --unique-id feature-tests.well-typed.com \
+    --create-output-dirs \
+    --overwrite-files \
+    --module Generated.Bitfields.Unions \
+    bit-fields/unions.h
+
 echo "## Callbacks"
 
 cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
@@ -136,18 +159,6 @@ cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     --module Generated.Types.Anonymous.IndirectFields \
     types/anonymous/indirect_fields.h \
     --omit-field-prefixes
-
-echo "### Bit-fields"
-
-cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
-    preprocess \
-    -I c \
-    --hs-output-dir hs-project/src-generated \
-    --unique-id feature-tests.well-typed.com \
-    --create-output-dirs \
-    --overwrite-files \
-    --module Generated.Types.Bitfields \
-    types/bitfields.h
 
 echo "## Unions"
 

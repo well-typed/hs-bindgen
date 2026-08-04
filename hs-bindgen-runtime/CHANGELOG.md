@@ -8,7 +8,7 @@
   `Internal.Prelude` is now `HsBindgen.Runtime.Support`.
 * `setUnionPayload` would previously generate a zeroed out byte array and write
   a `Storable` value to it. It now takes a byte array argument that the
-  `Storable` value is written to. See [Issue #2183][is-2183].
+  `Storable` value is written to. See [issue #2183][is-2183].
 
 ### New features
 
@@ -25,6 +25,8 @@
 * Add `IsStructViaReadRaw` and `IsUnionViaReadRaw` helper types for deriving
   `IsStruct` and `IsUnion` respectively via a `ReadRaw` (and `StaticSize`)
   instance. [issue #2121][is-2121] and [PR #2164][pr-2164].
+* Add new `setUnionPayloadBits` and `getUnionPayloadBits` functions for setting
+  and getting bit-fields in unions. See [issue #1253][is-1253].
 
 ### Minor changes
 
@@ -33,8 +35,11 @@
 
 ### Bug fixes
 
-None
+* Fix a missing conversion from bytes to bits in the internals of
+  `pokeBitOffWidth`. This would sometime cause the function to write more bytes
+  than necessary to a pointer. See [PR #2169][pr-2169].
 
+[is-1253]: https://github.com/well-typed/hs-bindgen/issues/1253
 [is-2060]: https://github.com/well-typed/hs-bindgen/issues/2060
 [is-2085]: https://github.com/well-typed/hs-bindgen/issues/2085
 [is-2121]: https://github.com/well-typed/hs-bindgen/issues/2121
@@ -42,6 +47,7 @@ None
 [pr-2091]: https://github.com/well-typed/hs-bindgen/pull/2091
 [pr-2164]: https://github.com/well-typed/hs-bindgen/pull/2164
 [pr-2168]: https://github.com/well-typed/hs-bindgen/pull/2168
+[pr-2169]: https://github.com/well-typed/hs-bindgen/pull/2169
 
 ## 0.1.0-alpha2 -- 2026-03-27
 
