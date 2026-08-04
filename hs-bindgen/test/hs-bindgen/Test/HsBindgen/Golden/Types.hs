@@ -62,6 +62,7 @@ testCases = [
     , defaultTest "types/typedefs/auxiliary/function-pointer/pointer"
     , defaultTest "types/typedefs/auxiliary/function-pointer/qual"
     , defaultTest "types/typedefs/typedef_vs_macro"
+    , defaultTest "types/unions/bitfields"
     , defaultTest "types/unions/nested_unions"
     , defaultTest "types/unions/unions"
       -- Bespoke tests

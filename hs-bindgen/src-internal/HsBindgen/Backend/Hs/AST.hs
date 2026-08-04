@@ -701,8 +701,13 @@ data HasFieldInstance = HasFieldInstance {
 
 -- | 'GHC.Records.HasField.getField' implementation
 data HasFieldImpl =
-    -- | unions
+    -- | union fields
     HasFieldImplUnion
+    -- | union bit-fields
+  | HasFieldImplUnionBits {
+        bitOffset :: Int
+      , bitWidth :: Int
+      }
     -- | indirect fields
   | HasFieldImplIndirect {
         -- | The name of the field to go from the current top-level struct/union
@@ -742,8 +747,13 @@ data HasFieldCompatImpl =
         -- | Fields that are unchanged
       , otherFields :: [Hs.Name Hs.NsVar]
       }
-    -- | unions
+    -- | union fields
   | HasFieldCompatImplUnion
+    -- | union bit-fields
+  | HasFieldCompatImplUnionBits {
+        bitOffset :: Int
+      , bitWidth :: Int
+      }
     -- | Indirect fields
   | HasFieldCompatImplIndirect {
         -- | The name of the field to go from the current top-level struct/union

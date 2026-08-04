@@ -1,0 +1,681 @@
+-- addDependentFile test-artefacts/headers/golden/types/unions/bitfields.h
+{-| __C declaration:__ @union foo_8@
+
+    __defined at:__ @types\/unions\/bitfields.h 4:7@
+
+    __exported by:__ @types\/unions\/bitfields.h@
+-}
+newtype Foo_8
+    = Foo_8 {unwrapFoo_8 :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 1 1) instance StaticSize Foo_8
+deriving via (SizedByteArray 1 1) instance ReadRaw Foo_8
+deriving via (SizedByteArray 1 1) instance WriteRaw Foo_8
+deriving via (EquivStorable Foo_8) instance Storable Foo_8
+deriving via (SizedByteArray 1 1) instance IsUnion Foo_8
+instance (~) ty CSChar => HasField "foo_8_a" Foo_8 ty
+    where getField = getUnionPayloadBits 0 3
+instance (~) ty CSChar => HasField "foo_8_a" Foo_8 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 3 y_1 x_0,
+                              getField @"foo_8_a" x_0)
+instance (~) ty CSChar =>
+         HasField "foo_8_a" (Ptr Foo_8) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_a")
+instance HasCBitfield Foo_8 "foo_8_a"
+    where type CBitfieldType Foo_8 "foo_8_a" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 3
+instance (~) ty CSChar => HasField "foo_8_b" Foo_8 ty
+    where getField = getUnionPayloadBits 0 3
+instance (~) ty CSChar => HasField "foo_8_b" Foo_8 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 3 y_1 x_0,
+                              getField @"foo_8_b" x_0)
+instance (~) ty CSChar =>
+         HasField "foo_8_b" (Ptr Foo_8) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_b")
+instance HasCBitfield Foo_8 "foo_8_b"
+    where type CBitfieldType Foo_8 "foo_8_b" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 3
+instance (~) ty CSChar => HasField "foo_8_c" Foo_8 ty
+    where getField = getUnionPayloadBits 0 2
+instance (~) ty CSChar => HasField "foo_8_c" Foo_8 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 2 y_1 x_0,
+                              getField @"foo_8_c" x_0)
+instance (~) ty CSChar =>
+         HasField "foo_8_c" (Ptr Foo_8) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_c")
+instance HasCBitfield Foo_8 "foo_8_c"
+    where type CBitfieldType Foo_8 "foo_8_c" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 2
+instance (~) ty CSChar => HasField "foo_8_d" Foo_8 ty
+    where getField = getUnionPayloadBits 0 3
+instance (~) ty CSChar => HasField "foo_8_d" Foo_8 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 3 y_1 x_0,
+                              getField @"foo_8_d" x_0)
+instance (~) ty CSChar =>
+         HasField "foo_8_d" (Ptr Foo_8) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_d")
+instance HasCBitfield Foo_8 "foo_8_d"
+    where type CBitfieldType Foo_8 "foo_8_d" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 3
+instance (~) ty CSChar => HasField "foo_8_e" Foo_8 ty
+    where getField = getUnionPayloadBits 0 8
+instance (~) ty CSChar => HasField "foo_8_e" Foo_8 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 8 y_1 x_0,
+                              getField @"foo_8_e" x_0)
+instance (~) ty CSChar =>
+         HasField "foo_8_e" (Ptr Foo_8) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_e")
+instance HasCBitfield Foo_8 "foo_8_e"
+    where type CBitfieldType Foo_8 "foo_8_e" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 8
+instance (~) ty CSChar => HasField "foo_8_f" Foo_8 ty
+    where getField = getUnionPayloadBits 0 5
+instance (~) ty CSChar => HasField "foo_8_f" Foo_8 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 5 y_1 x_0,
+                              getField @"foo_8_f" x_0)
+instance (~) ty CSChar =>
+         HasField "foo_8_f" (Ptr Foo_8) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_f")
+instance HasCBitfield Foo_8 "foo_8_f"
+    where type CBitfieldType Foo_8 "foo_8_f" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 5
+{-| __C declaration:__ @union foo_16@
+
+    __defined at:__ @types\/unions\/bitfields.h 14:7@
+
+    __exported by:__ @types\/unions\/bitfields.h@
+-}
+newtype Foo_16
+    = Foo_16 {unwrapFoo_16 :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize Foo_16
+deriving via (SizedByteArray 4 4) instance ReadRaw Foo_16
+deriving via (SizedByteArray 4 4) instance WriteRaw Foo_16
+deriving via (EquivStorable Foo_16) instance Storable Foo_16
+deriving via (SizedByteArray 4 4) instance IsUnion Foo_16
+instance (~) ty CSChar => HasField "foo_16_a" Foo_16 ty
+    where getField = getUnionPayloadBits 0 6
+instance (~) ty CSChar => HasField "foo_16_a" Foo_16 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 6 y_1 x_0,
+                              getField @"foo_16_a" x_0)
+instance (~) ty CSChar =>
+         HasField "foo_16_a" (Ptr Foo_16) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_a")
+instance HasCBitfield Foo_16 "foo_16_a"
+    where type CBitfieldType Foo_16 "foo_16_a" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 6
+instance (~) ty CInt => HasField "foo_16_b" Foo_16 ty
+    where getField = getUnionPayloadBits 0 10
+instance (~) ty CInt => HasField "foo_16_b" Foo_16 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 10 y_1 x_0,
+                              getField @"foo_16_b" x_0)
+instance (~) ty CInt =>
+         HasField "foo_16_b" (Ptr Foo_16) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_b")
+instance HasCBitfield Foo_16 "foo_16_b"
+    where type CBitfieldType Foo_16 "foo_16_b" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 10
+instance (~) ty CInt => HasField "foo_16_c" Foo_16 ty
+    where getField = getUnionPayloadBits 0 16
+instance (~) ty CInt => HasField "foo_16_c" Foo_16 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 16 y_1 x_0,
+                              getField @"foo_16_c" x_0)
+instance (~) ty CInt =>
+         HasField "foo_16_c" (Ptr Foo_16) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_c")
+instance HasCBitfield Foo_16 "foo_16_c"
+    where type CBitfieldType Foo_16 "foo_16_c" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 16
+instance (~) ty CInt => HasField "foo_16_d" Foo_16 ty
+    where getField = getUnionPayloadBits 0 16
+instance (~) ty CInt => HasField "foo_16_d" Foo_16 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 16 y_1 x_0,
+                              getField @"foo_16_d" x_0)
+instance (~) ty CInt =>
+         HasField "foo_16_d" (Ptr Foo_16) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_d")
+instance HasCBitfield Foo_16 "foo_16_d"
+    where type CBitfieldType Foo_16 "foo_16_d" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 16
+instance (~) ty CInt => HasField "foo_16_e" Foo_16 ty
+    where getField = getUnionPayloadBits 0 12
+instance (~) ty CInt => HasField "foo_16_e" Foo_16 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 12 y_1 x_0,
+                              getField @"foo_16_e" x_0)
+instance (~) ty CInt =>
+         HasField "foo_16_e" (Ptr Foo_16) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_e")
+instance HasCBitfield Foo_16 "foo_16_e"
+    where type CBitfieldType Foo_16 "foo_16_e" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 12
+instance (~) ty CInt => HasField "foo_16_f" Foo_16 ty
+    where getField = getUnionPayloadBits 0 12
+instance (~) ty CInt => HasField "foo_16_f" Foo_16 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 12 y_1 x_0,
+                              getField @"foo_16_f" x_0)
+instance (~) ty CInt =>
+         HasField "foo_16_f" (Ptr Foo_16) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_f")
+instance HasCBitfield Foo_16 "foo_16_f"
+    where type CBitfieldType Foo_16 "foo_16_f" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 12
+{-| __C declaration:__ @union foo_32@
+
+    __defined at:__ @types\/unions\/bitfields.h 24:7@
+
+    __exported by:__ @types\/unions\/bitfields.h@
+-}
+newtype Foo_32
+    = Foo_32 {unwrapFoo_32 :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 8 8) instance StaticSize Foo_32
+deriving via (SizedByteArray 8 8) instance ReadRaw Foo_32
+deriving via (SizedByteArray 8 8) instance WriteRaw Foo_32
+deriving via (EquivStorable Foo_32) instance Storable Foo_32
+deriving via (SizedByteArray 8 8) instance IsUnion Foo_32
+instance (~) ty CSChar => HasField "foo_32_a" Foo_32 ty
+    where getField = getUnionPayloadBits 0 6
+instance (~) ty CSChar => HasField "foo_32_a" Foo_32 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 6 y_1 x_0,
+                              getField @"foo_32_a" x_0)
+instance (~) ty CSChar =>
+         HasField "foo_32_a" (Ptr Foo_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_a")
+instance HasCBitfield Foo_32 "foo_32_a"
+    where type CBitfieldType Foo_32 "foo_32_a" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 6
+instance (~) ty CInt => HasField "foo_32_b" Foo_32 ty
+    where getField = getUnionPayloadBits 0 12
+instance (~) ty CInt => HasField "foo_32_b" Foo_32 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 12 y_1 x_0,
+                              getField @"foo_32_b" x_0)
+instance (~) ty CInt =>
+         HasField "foo_32_b" (Ptr Foo_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_b")
+instance HasCBitfield Foo_32 "foo_32_b"
+    where type CBitfieldType Foo_32 "foo_32_b" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 12
+instance (~) ty CInt => HasField "foo_32_c" Foo_32 ty
+    where getField = getUnionPayloadBits 0 14
+instance (~) ty CInt => HasField "foo_32_c" Foo_32 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 14 y_1 x_0,
+                              getField @"foo_32_c" x_0)
+instance (~) ty CInt =>
+         HasField "foo_32_c" (Ptr Foo_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_c")
+instance HasCBitfield Foo_32 "foo_32_c"
+    where type CBitfieldType Foo_32 "foo_32_c" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 14
+instance (~) ty CInt => HasField "foo_32_d" Foo_32 ty
+    where getField = getUnionPayloadBits 0 10
+instance (~) ty CInt => HasField "foo_32_d" Foo_32 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 10 y_1 x_0,
+                              getField @"foo_32_d" x_0)
+instance (~) ty CInt =>
+         HasField "foo_32_d" (Ptr Foo_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_d")
+instance HasCBitfield Foo_32 "foo_32_d"
+    where type CBitfieldType Foo_32 "foo_32_d" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 10
+instance (~) ty CLong => HasField "foo_32_e" Foo_32 ty
+    where getField = getUnionPayloadBits 0 32
+instance (~) ty CLong => HasField "foo_32_e" Foo_32 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 32 y_1 x_0,
+                              getField @"foo_32_e" x_0)
+instance (~) ty CLong =>
+         HasField "foo_32_e" (Ptr Foo_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_e")
+instance HasCBitfield Foo_32 "foo_32_e"
+    where type CBitfieldType Foo_32 "foo_32_e" = CLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 32
+instance (~) ty CInt => HasField "foo_32_f" Foo_32 ty
+    where getField = getUnionPayloadBits 0 6
+instance (~) ty CInt => HasField "foo_32_f" Foo_32 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 6 y_1 x_0,
+                              getField @"foo_32_f" x_0)
+instance (~) ty CInt =>
+         HasField "foo_32_f" (Ptr Foo_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_f")
+instance HasCBitfield Foo_32 "foo_32_f"
+    where type CBitfieldType Foo_32 "foo_32_f" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 6
+instance (~) ty CLong => HasField "foo_32_g" Foo_32 ty
+    where getField = getUnionPayloadBits 0 24
+instance (~) ty CLong => HasField "foo_32_g" Foo_32 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 24 y_1 x_0,
+                              getField @"foo_32_g" x_0)
+instance (~) ty CLong =>
+         HasField "foo_32_g" (Ptr Foo_32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_g")
+instance HasCBitfield Foo_32 "foo_32_g"
+    where type CBitfieldType Foo_32 "foo_32_g" = CLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 24
+{-| __C declaration:__ @union foo_64@
+
+    __defined at:__ @types\/unions\/bitfields.h 35:7@
+
+    __exported by:__ @types\/unions\/bitfields.h@
+-}
+newtype Foo_64
+    = Foo_64 {unwrapFoo_64 :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 8 8) instance StaticSize Foo_64
+deriving via (SizedByteArray 8 8) instance ReadRaw Foo_64
+deriving via (SizedByteArray 8 8) instance WriteRaw Foo_64
+deriving via (EquivStorable Foo_64) instance Storable Foo_64
+deriving via (SizedByteArray 8 8) instance IsUnion Foo_64
+instance (~) ty CLong => HasField "foo_64_a" Foo_64 ty
+    where getField = getUnionPayloadBits 0 24
+instance (~) ty CLong => HasField "foo_64_a" Foo_64 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 24 y_1 x_0,
+                              getField @"foo_64_a" x_0)
+instance (~) ty CLong =>
+         HasField "foo_64_a" (Ptr Foo_64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_64_a")
+instance HasCBitfield Foo_64 "foo_64_a"
+    where type CBitfieldType Foo_64 "foo_64_a" = CLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 24
+instance (~) ty CLLong => HasField "foo_64_b" Foo_64 ty
+    where getField = getUnionPayloadBits 0 40
+instance (~) ty CLLong => HasField "foo_64_b" Foo_64 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 40 y_1 x_0,
+                              getField @"foo_64_b" x_0)
+instance (~) ty CLLong =>
+         HasField "foo_64_b" (Ptr Foo_64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_64_b")
+instance HasCBitfield Foo_64 "foo_64_b"
+    where type CBitfieldType Foo_64 "foo_64_b" = CLLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 40
+instance (~) ty CLLong => HasField "foo_64_c" Foo_64 ty
+    where getField = getUnionPayloadBits 0 64
+instance (~) ty CLLong => HasField "foo_64_c" Foo_64 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 64 y_1 x_0,
+                              getField @"foo_64_c" x_0)
+instance (~) ty CLLong =>
+         HasField "foo_64_c" (Ptr Foo_64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_64_c")
+instance HasCBitfield Foo_64 "foo_64_c"
+    where type CBitfieldType Foo_64 "foo_64_c" = CLLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 64
+instance (~) ty CLLong => HasField "foo_64_d" Foo_64 ty
+    where getField = getUnionPayloadBits 0 36
+instance (~) ty CLLong => HasField "foo_64_d" Foo_64 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 36 y_1 x_0,
+                              getField @"foo_64_d" x_0)
+instance (~) ty CLLong =>
+         HasField "foo_64_d" (Ptr Foo_64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_64_d")
+instance HasCBitfield Foo_64 "foo_64_d"
+    where type CBitfieldType Foo_64 "foo_64_d" = CLLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 36
+{-| __C declaration:__ @union foo_8_packed@
+
+    __defined at:__ @types\/unions\/bitfields.h 43:31@
+
+    __exported by:__ @types\/unions\/bitfields.h@
+-}
+newtype Foo_8_packed
+    = Foo_8_packed {unwrapFoo_8_packed :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 1 1) instance StaticSize Foo_8_packed
+deriving via (SizedByteArray 1 1) instance ReadRaw Foo_8_packed
+deriving via (SizedByteArray 1 1) instance WriteRaw Foo_8_packed
+deriving via (EquivStorable Foo_8_packed) instance Storable Foo_8_packed
+deriving via (SizedByteArray 1 1) instance IsUnion Foo_8_packed
+instance (~) ty CSChar => HasField "foo_8_packed_a" Foo_8_packed ty
+    where getField = getUnionPayloadBits 0 3
+instance (~) ty CSChar => HasField "foo_8_packed_a" Foo_8_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 3 y_1 x_0,
+                              getField @"foo_8_packed_a" x_0)
+instance (~) ty CSChar =>
+         HasField "foo_8_packed_a" (Ptr Foo_8_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_packed_a")
+instance HasCBitfield Foo_8_packed "foo_8_packed_a"
+    where type CBitfieldType Foo_8_packed "foo_8_packed_a" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 3
+instance (~) ty CSChar => HasField "foo_8_packed_b" Foo_8_packed ty
+    where getField = getUnionPayloadBits 0 3
+instance (~) ty CSChar => HasField "foo_8_packed_b" Foo_8_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 3 y_1 x_0,
+                              getField @"foo_8_packed_b" x_0)
+instance (~) ty CSChar =>
+         HasField "foo_8_packed_b" (Ptr Foo_8_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_packed_b")
+instance HasCBitfield Foo_8_packed "foo_8_packed_b"
+    where type CBitfieldType Foo_8_packed "foo_8_packed_b" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 3
+instance (~) ty CSChar => HasField "foo_8_packed_c" Foo_8_packed ty
+    where getField = getUnionPayloadBits 0 2
+instance (~) ty CSChar => HasField "foo_8_packed_c" Foo_8_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 2 y_1 x_0,
+                              getField @"foo_8_packed_c" x_0)
+instance (~) ty CSChar =>
+         HasField "foo_8_packed_c" (Ptr Foo_8_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_packed_c")
+instance HasCBitfield Foo_8_packed "foo_8_packed_c"
+    where type CBitfieldType Foo_8_packed "foo_8_packed_c" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 2
+instance (~) ty CSChar => HasField "foo_8_packed_d" Foo_8_packed ty
+    where getField = getUnionPayloadBits 0 3
+instance (~) ty CSChar => HasField "foo_8_packed_d" Foo_8_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 3 y_1 x_0,
+                              getField @"foo_8_packed_d" x_0)
+instance (~) ty CSChar =>
+         HasField "foo_8_packed_d" (Ptr Foo_8_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_packed_d")
+instance HasCBitfield Foo_8_packed "foo_8_packed_d"
+    where type CBitfieldType Foo_8_packed "foo_8_packed_d" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 3
+instance (~) ty CSChar => HasField "foo_8_packed_e" Foo_8_packed ty
+    where getField = getUnionPayloadBits 0 8
+instance (~) ty CSChar => HasField "foo_8_packed_e" Foo_8_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 8 y_1 x_0,
+                              getField @"foo_8_packed_e" x_0)
+instance (~) ty CSChar =>
+         HasField "foo_8_packed_e" (Ptr Foo_8_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_packed_e")
+instance HasCBitfield Foo_8_packed "foo_8_packed_e"
+    where type CBitfieldType Foo_8_packed "foo_8_packed_e" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 8
+instance (~) ty CSChar => HasField "foo_8_packed_f" Foo_8_packed ty
+    where getField = getUnionPayloadBits 0 5
+instance (~) ty CSChar => HasField "foo_8_packed_f" Foo_8_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 5 y_1 x_0,
+                              getField @"foo_8_packed_f" x_0)
+instance (~) ty CSChar =>
+         HasField "foo_8_packed_f" (Ptr Foo_8_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_8_packed_f")
+instance HasCBitfield Foo_8_packed "foo_8_packed_f"
+    where type CBitfieldType Foo_8_packed "foo_8_packed_f" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 5
+{-| __C declaration:__ @union foo_16_packed@
+
+    __defined at:__ @types\/unions\/bitfields.h 53:31@
+
+    __exported by:__ @types\/unions\/bitfields.h@
+-}
+newtype Foo_16_packed
+    = Foo_16_packed {unwrapFoo_16_packed :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 2 1) instance StaticSize Foo_16_packed
+deriving via (SizedByteArray 2 1) instance ReadRaw Foo_16_packed
+deriving via (SizedByteArray 2 1) instance WriteRaw Foo_16_packed
+deriving via (EquivStorable Foo_16_packed) instance Storable Foo_16_packed
+deriving via (SizedByteArray 2 1) instance IsUnion Foo_16_packed
+instance (~) ty CSChar =>
+         HasField "foo_16_packed_a" Foo_16_packed ty
+    where getField = getUnionPayloadBits 0 6
+instance (~) ty CSChar =>
+         HasField "foo_16_packed_a" Foo_16_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 6 y_1 x_0,
+                              getField @"foo_16_packed_a" x_0)
+instance (~) ty CSChar =>
+         HasField "foo_16_packed_a" (Ptr Foo_16_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_packed_a")
+instance HasCBitfield Foo_16_packed "foo_16_packed_a"
+    where type CBitfieldType Foo_16_packed "foo_16_packed_a" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 6
+instance (~) ty CInt => HasField "foo_16_packed_b" Foo_16_packed ty
+    where getField = getUnionPayloadBits 0 10
+instance (~) ty CInt => HasField "foo_16_packed_b" Foo_16_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 10 y_1 x_0,
+                              getField @"foo_16_packed_b" x_0)
+instance (~) ty CInt =>
+         HasField "foo_16_packed_b" (Ptr Foo_16_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_packed_b")
+instance HasCBitfield Foo_16_packed "foo_16_packed_b"
+    where type CBitfieldType Foo_16_packed "foo_16_packed_b" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 10
+instance (~) ty CInt => HasField "foo_16_packed_c" Foo_16_packed ty
+    where getField = getUnionPayloadBits 0 16
+instance (~) ty CInt => HasField "foo_16_packed_c" Foo_16_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 16 y_1 x_0,
+                              getField @"foo_16_packed_c" x_0)
+instance (~) ty CInt =>
+         HasField "foo_16_packed_c" (Ptr Foo_16_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_packed_c")
+instance HasCBitfield Foo_16_packed "foo_16_packed_c"
+    where type CBitfieldType Foo_16_packed "foo_16_packed_c" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 16
+instance (~) ty CInt => HasField "foo_16_packed_d" Foo_16_packed ty
+    where getField = getUnionPayloadBits 0 16
+instance (~) ty CInt => HasField "foo_16_packed_d" Foo_16_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 16 y_1 x_0,
+                              getField @"foo_16_packed_d" x_0)
+instance (~) ty CInt =>
+         HasField "foo_16_packed_d" (Ptr Foo_16_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_packed_d")
+instance HasCBitfield Foo_16_packed "foo_16_packed_d"
+    where type CBitfieldType Foo_16_packed "foo_16_packed_d" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 16
+instance (~) ty CInt => HasField "foo_16_packed_e" Foo_16_packed ty
+    where getField = getUnionPayloadBits 0 12
+instance (~) ty CInt => HasField "foo_16_packed_e" Foo_16_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 12 y_1 x_0,
+                              getField @"foo_16_packed_e" x_0)
+instance (~) ty CInt =>
+         HasField "foo_16_packed_e" (Ptr Foo_16_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_packed_e")
+instance HasCBitfield Foo_16_packed "foo_16_packed_e"
+    where type CBitfieldType Foo_16_packed "foo_16_packed_e" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 12
+instance (~) ty CInt => HasField "foo_16_packed_f" Foo_16_packed ty
+    where getField = getUnionPayloadBits 0 12
+instance (~) ty CInt => HasField "foo_16_packed_f" Foo_16_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 12 y_1 x_0,
+                              getField @"foo_16_packed_f" x_0)
+instance (~) ty CInt =>
+         HasField "foo_16_packed_f" (Ptr Foo_16_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_16_packed_f")
+instance HasCBitfield Foo_16_packed "foo_16_packed_f"
+    where type CBitfieldType Foo_16_packed "foo_16_packed_f" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 12
+{-| __C declaration:__ @union foo_32_packed@
+
+    __defined at:__ @types\/unions\/bitfields.h 63:31@
+
+    __exported by:__ @types\/unions\/bitfields.h@
+-}
+newtype Foo_32_packed
+    = Foo_32_packed {unwrapFoo_32_packed :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 4 1) instance StaticSize Foo_32_packed
+deriving via (SizedByteArray 4 1) instance ReadRaw Foo_32_packed
+deriving via (SizedByteArray 4 1) instance WriteRaw Foo_32_packed
+deriving via (EquivStorable Foo_32_packed) instance Storable Foo_32_packed
+deriving via (SizedByteArray 4 1) instance IsUnion Foo_32_packed
+instance (~) ty CSChar =>
+         HasField "foo_32_packed_a" Foo_32_packed ty
+    where getField = getUnionPayloadBits 0 6
+instance (~) ty CSChar =>
+         HasField "foo_32_packed_a" Foo_32_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 6 y_1 x_0,
+                              getField @"foo_32_packed_a" x_0)
+instance (~) ty CSChar =>
+         HasField "foo_32_packed_a" (Ptr Foo_32_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_packed_a")
+instance HasCBitfield Foo_32_packed "foo_32_packed_a"
+    where type CBitfieldType Foo_32_packed "foo_32_packed_a" = CSChar
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 6
+instance (~) ty CInt => HasField "foo_32_packed_b" Foo_32_packed ty
+    where getField = getUnionPayloadBits 0 12
+instance (~) ty CInt => HasField "foo_32_packed_b" Foo_32_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 12 y_1 x_0,
+                              getField @"foo_32_packed_b" x_0)
+instance (~) ty CInt =>
+         HasField "foo_32_packed_b" (Ptr Foo_32_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_packed_b")
+instance HasCBitfield Foo_32_packed "foo_32_packed_b"
+    where type CBitfieldType Foo_32_packed "foo_32_packed_b" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 12
+instance (~) ty CInt => HasField "foo_32_packed_c" Foo_32_packed ty
+    where getField = getUnionPayloadBits 0 14
+instance (~) ty CInt => HasField "foo_32_packed_c" Foo_32_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 14 y_1 x_0,
+                              getField @"foo_32_packed_c" x_0)
+instance (~) ty CInt =>
+         HasField "foo_32_packed_c" (Ptr Foo_32_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_packed_c")
+instance HasCBitfield Foo_32_packed "foo_32_packed_c"
+    where type CBitfieldType Foo_32_packed "foo_32_packed_c" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 14
+instance (~) ty CInt => HasField "foo_32_packed_d" Foo_32_packed ty
+    where getField = getUnionPayloadBits 0 10
+instance (~) ty CInt => HasField "foo_32_packed_d" Foo_32_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 10 y_1 x_0,
+                              getField @"foo_32_packed_d" x_0)
+instance (~) ty CInt =>
+         HasField "foo_32_packed_d" (Ptr Foo_32_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_packed_d")
+instance HasCBitfield Foo_32_packed "foo_32_packed_d"
+    where type CBitfieldType Foo_32_packed "foo_32_packed_d" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 10
+instance (~) ty CLong =>
+         HasField "foo_32_packed_e" Foo_32_packed ty
+    where getField = getUnionPayloadBits 0 32
+instance (~) ty CLong =>
+         HasField "foo_32_packed_e" Foo_32_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 32 y_1 x_0,
+                              getField @"foo_32_packed_e" x_0)
+instance (~) ty CLong =>
+         HasField "foo_32_packed_e" (Ptr Foo_32_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_packed_e")
+instance HasCBitfield Foo_32_packed "foo_32_packed_e"
+    where type CBitfieldType Foo_32_packed "foo_32_packed_e" = CLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 32
+instance (~) ty CInt => HasField "foo_32_packed_f" Foo_32_packed ty
+    where getField = getUnionPayloadBits 0 6
+instance (~) ty CInt => HasField "foo_32_packed_f" Foo_32_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 6 y_1 x_0,
+                              getField @"foo_32_packed_f" x_0)
+instance (~) ty CInt =>
+         HasField "foo_32_packed_f" (Ptr Foo_32_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_packed_f")
+instance HasCBitfield Foo_32_packed "foo_32_packed_f"
+    where type CBitfieldType Foo_32_packed "foo_32_packed_f" = CInt
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 6
+instance (~) ty CLong =>
+         HasField "foo_32_packed_g" Foo_32_packed ty
+    where getField = getUnionPayloadBits 0 24
+instance (~) ty CLong =>
+         HasField "foo_32_packed_g" Foo_32_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 24 y_1 x_0,
+                              getField @"foo_32_packed_g" x_0)
+instance (~) ty CLong =>
+         HasField "foo_32_packed_g" (Ptr Foo_32_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_32_packed_g")
+instance HasCBitfield Foo_32_packed "foo_32_packed_g"
+    where type CBitfieldType Foo_32_packed "foo_32_packed_g" = CLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 24
+{-| __C declaration:__ @union foo_64_packed@
+
+    __defined at:__ @types\/unions\/bitfields.h 74:31@
+
+    __exported by:__ @types\/unions\/bitfields.h@
+-}
+newtype Foo_64_packed
+    = Foo_64_packed {unwrapFoo_64_packed :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 8 1) instance StaticSize Foo_64_packed
+deriving via (SizedByteArray 8 1) instance ReadRaw Foo_64_packed
+deriving via (SizedByteArray 8 1) instance WriteRaw Foo_64_packed
+deriving via (EquivStorable Foo_64_packed) instance Storable Foo_64_packed
+deriving via (SizedByteArray 8 1) instance IsUnion Foo_64_packed
+instance (~) ty CLong =>
+         HasField "foo_64_packed_a" Foo_64_packed ty
+    where getField = getUnionPayloadBits 0 24
+instance (~) ty CLong =>
+         HasField "foo_64_packed_a" Foo_64_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 24 y_1 x_0,
+                              getField @"foo_64_packed_a" x_0)
+instance (~) ty CLong =>
+         HasField "foo_64_packed_a" (Ptr Foo_64_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_64_packed_a")
+instance HasCBitfield Foo_64_packed "foo_64_packed_a"
+    where type CBitfieldType Foo_64_packed "foo_64_packed_a" = CLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 24
+instance (~) ty CLLong =>
+         HasField "foo_64_packed_b" Foo_64_packed ty
+    where getField = getUnionPayloadBits 0 40
+instance (~) ty CLLong =>
+         HasField "foo_64_packed_b" Foo_64_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 40 y_1 x_0,
+                              getField @"foo_64_packed_b" x_0)
+instance (~) ty CLLong =>
+         HasField "foo_64_packed_b" (Ptr Foo_64_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_64_packed_b")
+instance HasCBitfield Foo_64_packed "foo_64_packed_b"
+    where type CBitfieldType Foo_64_packed "foo_64_packed_b" = CLLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 40
+instance (~) ty CLLong =>
+         HasField "foo_64_packed_c" Foo_64_packed ty
+    where getField = getUnionPayloadBits 0 64
+instance (~) ty CLLong =>
+         HasField "foo_64_packed_c" Foo_64_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 64 y_1 x_0,
+                              getField @"foo_64_packed_c" x_0)
+instance (~) ty CLLong =>
+         HasField "foo_64_packed_c" (Ptr Foo_64_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_64_packed_c")
+instance HasCBitfield Foo_64_packed "foo_64_packed_c"
+    where type CBitfieldType Foo_64_packed "foo_64_packed_c" = CLLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 64
+instance (~) ty CLLong =>
+         HasField "foo_64_packed_d" Foo_64_packed ty
+    where getField = getUnionPayloadBits 0 36
+instance (~) ty CLLong =>
+         HasField "foo_64_packed_d" Foo_64_packed ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayloadBits 0 36 y_1 x_0,
+                              getField @"foo_64_packed_d" x_0)
+instance (~) ty CLLong =>
+         HasField "foo_64_packed_d" (Ptr Foo_64_packed) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"foo_64_packed_d")
+instance HasCBitfield Foo_64_packed "foo_64_packed_d"
+    where type CBitfieldType Foo_64_packed "foo_64_packed_d" = CLLong
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 36

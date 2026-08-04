@@ -192,6 +192,7 @@
   #2061][is-2061] and [PR #2136][pr-2136].
 * Generate `HsBindgen.Runtime.Structs.IsStruct` instances for structs. See
   [issue #2121][is-2121] and [PR #2164][pr-2164].
+* Support bit-fields in unions. See [issue #1253][is-1253].
 
 ### Minor changes
 
@@ -319,6 +320,7 @@
   and none outside of it. See [issue #2183][is-2183].
 
 [is-1225]: https://github.com/well-typed/hs-bindgen/issues/1225
+[is-1253]: https://github.com/well-typed/hs-bindgen/issues/1253
 [is-1382]: https://github.com/well-typed/hs-bindgen/issues/1382
 [is-1520]: https://github.com/well-typed/hs-bindgen/issues/1520
 [is-1685]: https://github.com/well-typed/hs-bindgen/issues/1685

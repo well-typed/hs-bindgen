@@ -606,6 +606,10 @@ translateHasFieldInstance inst mbComment = Instance{
     exprGetter :: SExpr Z
     exprGetter = case inst.impl of
       Hs.HasFieldImplUnion -> eBindgenGlobal ByteArray_getUnionPayload
+      Hs.HasFieldImplUnionBits {bitOffset, bitWidth} ->
+                 eBindgenGlobal ByteArray_getUnionPayloadBits
+          `EApp` EIntegral (fromIntegral bitOffset) Nothing
+          `EApp` EIntegral (fromIntegral bitWidth) Nothing
       Hs.HasFieldImplIndirect {nameTopToAnon, nameAnonToTarget} ->
         let strLitTopToAnon    = translateType (Hs.StrLit (Hs.nameToStr nameTopToAnon))
             strLitAnonToTarget = translateType (Hs.StrLit (Hs.nameToStr nameAnonToTarget)) in
@@ -665,8 +669,16 @@ translateHasFieldCompatInstance inst mbComment = Instance{
                 , map mkFBindIdentity otherFields
                 ]
           Hs.HasFieldCompatImplUnion ->
+              ELam (NameHint "y")
+                (      eBindgenGlobal ByteArray_setUnionPayload
+                `EApp` (EBound IZ)
+                `EApp` (EBound (IS IZ))
+                )
+          Hs.HasFieldCompatImplUnionBits {bitOffset, bitWidth} ->
             ELam (NameHint "y")
-              (      eBindgenGlobal ByteArray_setUnionPayload
+              (      eBindgenGlobal ByteArray_setUnionPayloadBits
+              `EApp` EIntegral (fromIntegral bitOffset) Nothing
+              `EApp` EIntegral (fromIntegral bitWidth) Nothing
               `EApp` (EBound IZ)
               `EApp` (EBound (IS IZ))
               )
