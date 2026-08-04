@@ -1,6 +1,6 @@
 #pragma once
 
-// x is an indirect field of the unnamed struct at field S.y, but it is not an
+// x is an indirect field of the untagged struct at field S.y, but it is not an
 // indirect field of struct S.
 //
 // This edge case was not properly handled by implicit field detection in the

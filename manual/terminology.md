@@ -10,13 +10,11 @@ can optionally omit the [field name][t:named_field]. In this case, the [nested
 struct/union][t:nested] is called an *anonymous struct/union*.
 
 <details>
-<summary>WARNING</summary>
+<summary>Notice</summary>
 
-> In our code and documentation, the term *anonymous* is sometimes used
-> erroneously for "things that lack names" in general, such as untagged structs
-> and unions. It is on our TODO list to audit the code and documentation to
-> consistently apply the *anonymous* terminology correctly. See [issue
-> #1893][issue:1893].
+> In the past, we used the term *anonymous* erroneously in our code and
+> documentation for "things that lack names" in general, such as untagged
+> structs and unions.
 
 </details>
 
@@ -145,6 +143,5 @@ represented in `libclang` internally as implicit fields.
 
 <!-- sources and references -->
 
-[issue:1893]: https://github.com/well-typed/hs-bindgen/issues/1893
 [manual:structs/nesting-example-e]: low-level/translation/structs/nesting.md#example-e
 [manual:unions/nesting-example-e]: low-level/translation/unions/nesting.md#example-e

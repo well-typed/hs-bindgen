@@ -99,10 +99,10 @@ thread_local extern int threadLocal;
 Taking a pointer of such a variable may not be safe, and we should generate a
 getter and setter instead. "Global thread-local variables" are rare.
 
-## Anonymous declarations
+## Untagged declarations
 
 For most `extern` variables, the definition of the variable lives outside of the
-header file in a `.c` file. Consequently, anonymous declarations inside `extern`s
+header file in a `.c` file. Consequently, untagged type declarations inside `extern`s
 are unusable (as the corresponding definition of the global in the C file would
 be unable to give it a value of the _same_ struct). Therefore
 
@@ -110,7 +110,7 @@ be unable to give it a value of the _same_ struct). Therefore
 extern struct {
   int x;
   int y;
-} unusableAnon;
+} unusableUntagged;
 ```
 
 will result in a warning, and not produce any bindings.

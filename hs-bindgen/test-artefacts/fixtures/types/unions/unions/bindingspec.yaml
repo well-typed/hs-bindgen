@@ -25,72 +25,15 @@ ctypes:
   cname: struct DimB
   hsname: DimB
 - headers: types/unions/unions.h
-  cname: union AnonA
-  hsname: AnonA
+  cname: union UntaggedA
+  hsname: UntaggedA
 - headers: types/unions/unions.h
-  cname: struct @AnonA_xy
-  hsname: AnonA_xy
+  cname: struct @UntaggedA_xy
+  hsname: UntaggedA_xy
 - headers: types/unions/unions.h
-  cname: struct @AnonA_polar
-  hsname: AnonA_polar
+  cname: struct @UntaggedA_polar
+  hsname: UntaggedA_polar
 hstypes:
-- hsname: AnonA
-  representation:
-    newtype:
-      constructor: AnonA
-      fields:
-      - unwrapAnonA
-  instances:
-  - Generic
-  - HasCField
-  - HasField
-  - HasFieldCompat
-  - HasFieldPtr
-  - IsUnion
-  - ReadRaw
-  - StaticSize
-  - Storable
-  - WriteRaw
-- hsname: AnonA_polar
-  representation:
-    record:
-      constructor: AnonA_polar
-      fields:
-      - anonA_polar_r
-      - anonA_polar_p
-  instances:
-  - Eq
-  - Generic
-  - HasCField
-  - HasField
-  - HasFieldCompat
-  - HasFieldPtr
-  - IsStruct
-  - ReadRaw
-  - Show
-  - StaticSize
-  - Storable
-  - WriteRaw
-- hsname: AnonA_xy
-  representation:
-    record:
-      constructor: AnonA_xy
-      fields:
-      - anonA_xy_x
-      - anonA_xy_y
-  instances:
-  - Eq
-  - Generic
-  - HasCField
-  - HasField
-  - HasFieldCompat
-  - HasFieldPtr
-  - IsStruct
-  - ReadRaw
-  - Show
-  - StaticSize
-  - Storable
-  - WriteRaw
 - hsname: Dim
   representation:
     record:
@@ -199,6 +142,63 @@ hstypes:
   - HasFieldPtr
   - IsUnion
   - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UntaggedA
+  representation:
+    newtype:
+      constructor: UntaggedA
+      fields:
+      - unwrapUntaggedA
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UntaggedA_polar
+  representation:
+    record:
+      constructor: UntaggedA_polar
+      fields:
+      - untaggedA_polar_r
+      - untaggedA_polar_p
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UntaggedA_xy
+  representation:
+    record:
+      constructor: UntaggedA_xy
+      fields:
+      - untaggedA_xy_x
+      - untaggedA_xy_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
   - StaticSize
   - Storable
   - WriteRaw

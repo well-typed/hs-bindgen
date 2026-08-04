@@ -11,7 +11,7 @@ typedef struct S2 {
     float c;
 } S2_t;
 
-// anonymous struct with typedef
+// untagged struct with typedef
 typedef struct {
     char a;
 } S3_t;

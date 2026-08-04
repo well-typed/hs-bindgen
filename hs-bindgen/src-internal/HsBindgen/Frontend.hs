@@ -22,17 +22,17 @@ import HsBindgen.Clang
 import HsBindgen.Clang.Macros
 import HsBindgen.Config.Internal
 import HsBindgen.Doxygen
-import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis)
-import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
+import HsBindgen.Frontend.Analysis.UnnamedIdUsage (UnnamedIdUsageAnalysis)
+import HsBindgen.Frontend.Analysis.UnnamedIdUsage qualified as UnnamedIdUsageAnalysis
 import HsBindgen.Frontend.Pass.AdjustTypes
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
-import HsBindgen.Frontend.Pass.AssignAnonIds
-import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.EnrichComments
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
+import HsBindgen.Frontend.Pass.FillUnnamedIds
+import HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
@@ -87,19 +87,19 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- == 2. "HsBindgen.Frontend.Pass.SimplifyAST"
 --
 -- "HsBindgen.Frontend.Pass.SimplifyAST" simplifies the AST by converting
--- anonymous enums without use sites into pattern synonym declarations. For
+-- untagged enums without use sites into pattern synonym declarations. For
 -- example, @enum { FOO, BAR }@ is converted into separate pattern synonym
 -- declarations that will later be rendered as Haskell pattern synonyms.
 --
 -- Constraints:
 --
--- * Must run before "HsBindgen.Frontend.Pass.AssignAnonIds" because
---   AssignAnonIds will delete anonymous declarations without use sites (it
+-- * Must run before "HsBindgen.Frontend.Pass.FillUnnamedIds" because
+--   FillUnnamedIds will delete unnamed declarations without use sites (it
 --   needs a use site to determine a name)."
 --
--- == 3. "HsBindgen.Frontend.Pass.AssignAnonIds"
+-- == 3. "HsBindgen.Frontend.Pass.FillUnnamedIds"
 --
--- "HsBindgen.Frontend.Pass.AssignAnonIds" assigns names to all anonymous
+-- "HsBindgen.Frontend.Pass.FillUnnamedIds" assigns names to all unnamed
 -- declarations, replacing 'HsBindgen.Frontend.Naming.PrelimDeclId' by
 -- 'HsBindgen.Frontend.Naming.DeclId', which is used from this point forward.
 --
@@ -119,7 +119,7 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --
 -- Constraints:
 --
--- * Must be after "HsBindgen.Frontend.Pass.AssignAnonIds" so that
+-- * Must be after "HsBindgen.Frontend.Pass.FillUnnamedIds" so that
 --   'HsBindgen.Frontend.Naming.DeclId' is available for the 'DeclIndex' and
 --   for building doxygen-qualified names
 --
@@ -137,8 +137,8 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- == 6. "HsBindgen.Frontend.Pass.TypecheckMacros"
 --
 -- "HsBindgen.Frontend.Pass.TypecheckMacros" collects known types and typechecks
--- all macros. Note that macros may neither refer to nor introduce new anonymous
--- declarations, so running "HsBindgen.Frontend.Pass.AssignAnonIds" before
+-- all macros. Note that macros may neither refer to nor introduce new unnamed
+-- declarations, so running "HsBindgen.Frontend.Pass.FillUnnamedIds" before
 -- "HsBindgen.Frontend.Pass.TypecheckMacros" is fine.
 --
 -- Constraints:
@@ -275,7 +275,7 @@ runFrontend tracer config boot = do
 
         let decls :: [C.Decl l Parse]
             decls = mapMaybe getParseResultMaybeDecl parseResults
-            usageAnalysis = AnonUsageAnalysis.fromDecls decls
+            usageAnalysis = UnnamedIdUsageAnalysis.fromDecls decls
 
         pure $ ParsePassResult {
             results           = parseResults
@@ -302,18 +302,18 @@ runFrontend tracer config boot = do
       forM_ msgsSimplifyAST $ traceWith (contramap FrontendSimplifyAST tracer)
       pure afterSimplifyAST
 
-    assignAnonIdsPass <- cache "assignAnonIds" $ do
+    fillUnnamedIdsPass <- cache "fillUnnamedIds" $ do
       afterParse       <- parsePass
       afterSimplifyAST <- simplifyASTPass
-      let (afterAssignAnonIds, msgsAssignAnonIds) =
-            assignAnonIds afterParse.usageAnalysis afterSimplifyAST
-      forM_ msgsAssignAnonIds $ traceWith (contramap FrontendAssignAnonIds tracer)
-      pure afterAssignAnonIds
+      let (afterFillUnnamedIds, msgsFillUnnamedIds) =
+            fillUnnamedIds afterParse.usageAnalysis afterSimplifyAST
+      forM_ msgsFillUnnamedIds $ traceWith (contramap FrontendFillUnnamedIds tracer)
+      pure afterFillUnnamedIds
 
     enrichCommentsPass <- cache "enrichComments" $ do
       afterParse         <- parsePass
-      afterAssignAnonIds <- assignAnonIdsPass
-      pure $ enrichComments afterParse.doxygen afterAssignAnonIds
+      afterFillUnnamedIds <- fillUnnamedIdsPass
+      pure $ enrichComments afterParse.doxygen afterFillUnnamedIds
 
     constructTranslationUnitPass <- cache "constructTranslationUnit" $ do
       macroLang  <- boot.macroLang
@@ -391,7 +391,7 @@ runFrontend tracer config boot = do
       , parse                    = (.results) <$> parsePass
       , doxygen                  = (.doxygen) <$> parsePass
       , simplifyAST              = simplifyASTPass
-      , assignAnonIds            = assignAnonIdsPass
+      , fillUnnamedIds           = fillUnnamedIdsPass
       , enrichComments           = enrichCommentsPass
       , constructTranslationUnit = constructTranslationUnitPass
       , typecheckMacros          = (\(x,_,_) -> x) <$> typecheckMacrosPass
@@ -440,7 +440,7 @@ data FrontendArtefact l = FrontendArtefact {
     , parse                    :: Cached [ParseResult       l Parse]
     , doxygen                  :: Cached Doxygen
     , simplifyAST              :: Cached [ParseResult       l SimplifyAST]
-    , assignAnonIds            :: Cached [ParseResult       l AssignAnonIds]
+    , fillUnnamedIds           :: Cached [ParseResult       l FillUnnamedIds]
     , enrichComments           :: Cached [ParseResult       l EnrichComments]
     , constructTranslationUnit :: Cached (C.TranslationUnit l ConstructTranslationUnit)
     , typecheckMacros          :: Cached (C.TranslationUnit l TypecheckMacros)
@@ -463,7 +463,7 @@ data FrontendMsg =
     FrontendClang                     ClangMsg
   | FrontendParse                    (Msg Parse)
   | FrontendSimplifyAST              (Msg SimplifyAST)
-  | FrontendAssignAnonIds            (Msg AssignAnonIds)
+  | FrontendFillUnnamedIds           (Msg FillUnnamedIds)
   | FrontendPrepareReparse           (Msg PrepareReparse)
   | FrontendReparseMacroExpansions   (Msg ReparseMacroExpansions)
   | FrontendResolveBindingSpecs      (Msg ResolveBindingSpecs)
@@ -497,6 +497,6 @@ data ParsePassResult l = ParsePassResult {
     , isMainHeader      :: IsMainHeader
     , isInMainHeaderDir :: IsInMainHeaderDir
     , getMainHeaders    :: GetMainHeaders
-    , usageAnalysis     :: AnonUsageAnalysis
+    , usageAnalysis     :: UnnamedIdUsageAnalysis
     , macroDefinitions  :: [MacroDefinition]
     }

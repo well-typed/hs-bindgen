@@ -67,11 +67,11 @@ to specify selection predicates are (excerpt of `hs-bindgen-cli preprocess
 ```
 
 > [!NOTE]
-> For anonymous declarations, the selection predicate matches against the
-> _use-sites_ of the anonymous declarations. For example, to select an anonymous
+> For unnamed declarations, the selection predicate matches against the
+> _use-sites_ of the unnamed declarations. For example, to select an unnamed
 > inner `struct` together with the named outer `struct`, match against the name
 > of the outer `struct`. In particular, selection predicates do not support the `@`
-> syntax for specifying anonymous declarations like binding specifications do.
+> syntax for specifying unnamed declarations like binding specifications do.
 
 > [!NOTE]
 > Selection predicates, just like binding specifications, match against the

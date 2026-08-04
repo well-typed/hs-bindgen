@@ -4,18 +4,18 @@ version:
 hsmodule: Example
 ctypes:
 - headers: globals/untagged.h
-  cname: struct @anonPoint
-  hsname: AnonPoint
+  cname: struct @untaggedPoint
+  hsname: UntaggedPoint
 - headers: globals/untagged.h
-  cname: struct @anonPair
-  hsname: AnonPair
+  cname: struct @untaggedPair
+  hsname: UntaggedPair
 - headers: globals/untagged.h
-  cname: enum @anonEnum
-  hsname: AnonEnum
+  cname: enum @untaggedEnum
+  hsname: UntaggedEnum
   enum: open
 - headers: globals/untagged.h
-  cname: enum @anonEnumCoords
-  hsname: AnonEnumCoords
+  cname: enum @untaggedEnumCoords
+  hsname: UntaggedEnumCoords
   enum: open
 - headers: globals/untagged.h
   cname: enum @A
@@ -52,93 +52,6 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: AnonEnum
-  representation:
-    newtype:
-      constructor: AnonEnum
-      fields:
-      - unwrapAnonEnum
-  instances:
-  - CEnum
-  - Eq
-  - Generic
-  - HasCField
-  - HasFFIType
-  - HasField
-  - HasFieldCompat
-  - HasFieldPtr
-  - Ord
-  - Prim
-  - Read
-  - ReadRaw
-  - SequentialCEnum
-  - Show
-  - StaticSize
-  - Storable
-  - WriteRaw
-- hsname: AnonEnumCoords
-  representation:
-    newtype:
-      constructor: AnonEnumCoords
-      fields:
-      - unwrapAnonEnumCoords
-  instances:
-  - CEnum
-  - Eq
-  - Generic
-  - HasCField
-  - HasFFIType
-  - HasField
-  - HasFieldCompat
-  - HasFieldPtr
-  - Ord
-  - Prim
-  - Read
-  - ReadRaw
-  - Show
-  - StaticSize
-  - Storable
-  - WriteRaw
-- hsname: AnonPair
-  representation:
-    record:
-      constructor: AnonPair
-      fields:
-      - anonPair_a
-      - anonPair_b
-  instances:
-  - Eq
-  - Generic
-  - HasCField
-  - HasField
-  - HasFieldCompat
-  - HasFieldPtr
-  - IsStruct
-  - ReadRaw
-  - Show
-  - StaticSize
-  - Storable
-  - WriteRaw
-- hsname: AnonPoint
-  representation:
-    record:
-      constructor: AnonPoint
-      fields:
-      - anonPoint_x
-      - anonPoint_y
-  instances:
-  - Eq
-  - Generic
-  - HasCField
-  - HasField
-  - HasFieldCompat
-  - HasFieldPtr
-  - IsStruct
-  - ReadRaw
-  - Show
-  - StaticSize
-  - Storable
-  - WriteRaw
 - hsname: B
   representation:
     newtype:
@@ -162,6 +75,93 @@ hstypes:
       constructor: C
       fields:
       - c_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UntaggedEnum
+  representation:
+    newtype:
+      constructor: UntaggedEnum
+      fields:
+      - unwrapUntaggedEnum
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UntaggedEnumCoords
+  representation:
+    newtype:
+      constructor: UntaggedEnumCoords
+      fields:
+      - unwrapUntaggedEnumCoords
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UntaggedPair
+  representation:
+    record:
+      constructor: UntaggedPair
+      fields:
+      - untaggedPair_a
+      - untaggedPair_b
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UntaggedPoint
+  representation:
+    record:
+      constructor: UntaggedPoint
+      fields:
+      - untaggedPoint_x
+      - untaggedPoint_y
   instances:
   - Eq
   - Generic

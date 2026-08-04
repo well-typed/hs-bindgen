@@ -33,11 +33,11 @@ class (
   -- | Declaration identifier
   --
   -- 1. After 'HsBindgen.Frontend.Pass.Parse.IsPass.Parse', this is
-  --   'PrelimDeclId'.  Anonymous declarations are assigned an ID based on
+  --   'PrelimDeclId'.  Unnamed declarations are assigned an ID based on
   --   source location.  For everything else, we use the C name.
-  -- 2. After 'HsBindgen.Frontend.Pass.AssignAnonIds.IsPass.AssignAnonIds', this
+  -- 2. After 'HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass.FillUnnamedIds', this
   --   is 'C.DeclId'.  /Everything/ has a name, because we have assigned names
-  --   to anonymous declarations.
+  --   to unnamed declarations.
   -- 3. After 'HsBindgen.Frontend.Pass.MangleNames.IsPass.MangleNames', this is
   --   'DeclIdPair'.
   type Id p :: Star

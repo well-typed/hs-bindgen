@@ -164,7 +164,7 @@ checkVisibleDecl decl kind = do
 typeEnum :: HasCallStack => CXCursor -> ParseType (C.Type Parse)
 typeEnum decl = do
     declId <- C.prelimDeclIdAtCursor decl (C.NameKindTagged C.TagKindEnum)
-    -- Enums can be anonymous. In such cases, we bypass the cache and parse the
+    -- Enums can be untagged. In such cases, we bypass the cache and parse the
     -- enum type directly.
     let mDeclName = C.prelimDeclIdSourceName declId
     ParseType.cachedMaybe mDeclName $ do
@@ -178,7 +178,7 @@ typeEnum decl = do
 typeTypedef :: HasCallStack => CXCursor -> ParseType (C.Type Parse)
 typeTypedef curr = do
     declId <- C.prelimDeclIdAtCursor curr C.NameKindOrdinary
-    -- Typedefs can not be anonymous, but we use 'cachedMaybe' for safety
+    -- Typedefs can not be unnamed, but we use 'cachedMaybe' for safety
     -- anyway
     let mDeclName = C.prelimDeclIdSourceName declId
     ParseType.cachedMaybe mDeclName $ do

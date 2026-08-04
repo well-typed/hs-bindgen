@@ -11,7 +11,7 @@ module HsBindgen.TraceMsg (
   , FrontendMsg(..)
   , C.HashIncludeArgMsg(..)
   , MangleNamesMsg(..)
-  , ImmediateAssignAnonIdsMsg (..)
+  , ImmediateFillUnnamedIdsMsg (..)
   , ImmediateParseMsg(..)
   , DelayedParseMsg(..)
   , ResolveBindingSpecsMsg(..)
@@ -30,7 +30,7 @@ import HsBindgen.BindingSpec (BindingSpecMsg (..))
 import HsBindgen.Boot
 import HsBindgen.Clang (ClangMsg (..))
 import HsBindgen.Frontend (FrontendMsg (..))
-import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (ImmediateAssignAnonIdsMsg (..))
+import HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass (ImmediateFillUnnamedIdsMsg (..))
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNamesMsg (..))
 import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (..),
                                           ImmediateParseMsg (..))

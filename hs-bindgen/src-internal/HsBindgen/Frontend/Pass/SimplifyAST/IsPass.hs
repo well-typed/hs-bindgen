@@ -71,20 +71,20 @@ instance CoercePassCommentDecl         Parse SimplifyAST
 -------------------------------------------------------------------------------}
 
 data SimplifyASTMsg =
-    SimplifyASTAnonymousEnum C.AnonId
+    SimplifyASTUntaggedEnum C.UnnamedId
   deriving stock (Show, Generic)
 
 instance PrettyForTrace SimplifyASTMsg where
   prettyForTrace = \case
-      SimplifyASTAnonymousEnum anonId -> PP.hsep [
-          "Transformed anonymous enum: "
-        , prettyForTrace anonId
+      SimplifyASTUntaggedEnum unnamedId -> PP.hsep [
+          "Transformed untagged enum: "
+        , prettyForTrace unnamedId
         , "into constant patterns."
         ]
 
 instance IsTrace Level SimplifyASTMsg where
   getDefaultLogLevel = \case
-      SimplifyASTAnonymousEnum{} -> Info
+      SimplifyASTUntaggedEnum{} -> Info
 
   getSource  = const HsBindgen
   getTraceId = const "simplify-ast"

@@ -232,7 +232,7 @@ classifyInputs inputs = Classification {
         | let decls = fmap (.numberee) nestedDecls
               fields = fmap (.numberee) explicitFields
         , decl <- nestedDecls
-        , isAnonymous decl.numberee
+        , isAnon decl.numberee
         , not (isReferenced decl.numberee fields decls)
         ]
 
@@ -241,8 +241,8 @@ numberedIn x = bimap (Numbered x.number) (Numbered x.number) x.numberee
 
 -- | Check if a target declaration is anonymous with respect to an enclosing
 -- object.
-isAnonymous :: C.Decl l Parse -> Bool
-isAnonymous decl = case decl.kind of
+isAnon :: C.Decl l Parse -> Bool
+isAnon decl = case decl.kind of
     C.DeclStruct struct -> struct.ann.isAnon
     C.DeclUnion  union  -> union.ann.isAnon
     _                   -> False

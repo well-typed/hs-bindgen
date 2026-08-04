@@ -1,0 +1,25 @@
+-- addDependentFile test-artefacts/headers/golden/types/enums/untagged_enum_toplevel.h
+{-| __C declaration:__ @TOPLEVEL_UNTAGGED_A@
+
+    __defined at:__ @types\/enums\/untagged_enum_toplevel.h 5:1@
+
+    __exported by:__ @types\/enums\/untagged_enum_toplevel.h@
+-}
+pattern TOPLEVEL_UNTAGGED_A :: CUInt
+pattern TOPLEVEL_UNTAGGED_A = 0
+{-| __C declaration:__ @TOPLEVEL_UNTAGGED_B@
+
+    __defined at:__ @types\/enums\/untagged_enum_toplevel.h 5:1@
+
+    __exported by:__ @types\/enums\/untagged_enum_toplevel.h@
+-}
+pattern TOPLEVEL_UNTAGGED_B :: CUInt
+pattern TOPLEVEL_UNTAGGED_B = 1
+{-| __C declaration:__ @TOPLEVEL_UNTAGGED_C@
+
+    __defined at:__ @types\/enums\/untagged_enum_toplevel.h 5:1@
+
+    __exported by:__ @types\/enums\/untagged_enum_toplevel.h@
+-}
+pattern TOPLEVEL_UNTAGGED_C :: CUInt
+pattern TOPLEVEL_UNTAGGED_C = 100

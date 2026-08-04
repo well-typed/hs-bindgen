@@ -1,0 +1,89 @@
+-- addDependentFile test-artefacts/headers/golden/edge-cases/ordinary_unnamed_decl_child.h
+-- addDependentFile test-artefacts/headers/golden/edge-cases/ordinary_unnamed_decl_parent.h
+-- #include <edge-cases/ordinary_unnamed_decl_parent.h>
+-- double hs_bindgen_dfefd17e87559d1a (
+--   double arg1
+-- )
+-- {
+--   return (_acos)(arg1);
+-- }
+-- double hs_bindgen_751dc472004ee482 (
+--   double arg1
+-- )
+-- {
+--   return (_acos)(arg1);
+-- }
+-- /* test_edgecasesordinary_unnamed_de_Example_get__acos */
+-- __attribute__ ((const))
+-- double (*hs_bindgen_3e079012b2dabc0c (void)) (
+--   double arg1
+-- )
+-- {
+--   return &_acos;
+-- }
+-- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Safe__acos@
+foreign import ccall safe "hs_bindgen_dfefd17e87559d1a" hs_bindgen_dfefd17e87559d1a_base ::
+    Double
+ -> IO Double
+-- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Safe__acos@
+hs_bindgen_dfefd17e87559d1a :: CDouble -> IO CDouble
+-- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Safe__acos@
+hs_bindgen_dfefd17e87559d1a = fromFFIType hs_bindgen_dfefd17e87559d1a_base
+{-| __C declaration:__ @_acos@
+
+    __defined at:__ @ordinary_unnamed_decl_child.h 4:1@
+
+    __exported by:__ @edge-cases\/ordinary_unnamed_decl_parent.h@
+-}
+_acos_safe :: CDouble -> IO CDouble
+{-| __C declaration:__ @_acos@
+
+    __defined at:__ @ordinary_unnamed_decl_child.h 4:1@
+
+    __exported by:__ @edge-cases\/ordinary_unnamed_decl_parent.h@
+-}
+_acos_safe = hs_bindgen_dfefd17e87559d1a
+-- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Unsafe__acos@
+foreign import ccall unsafe "hs_bindgen_751dc472004ee482" hs_bindgen_751dc472004ee482_base ::
+    Double
+ -> IO Double
+-- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Unsafe__acos@
+hs_bindgen_751dc472004ee482 :: CDouble -> IO CDouble
+-- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Unsafe__acos@
+hs_bindgen_751dc472004ee482 = fromFFIType hs_bindgen_751dc472004ee482_base
+{-| __C declaration:__ @_acos@
+
+    __defined at:__ @ordinary_unnamed_decl_child.h 4:1@
+
+    __exported by:__ @edge-cases\/ordinary_unnamed_decl_parent.h@
+-}
+_acos_unsafe :: CDouble -> IO CDouble
+{-| __C declaration:__ @_acos@
+
+    __defined at:__ @ordinary_unnamed_decl_child.h 4:1@
+
+    __exported by:__ @edge-cases\/ordinary_unnamed_decl_parent.h@
+-}
+_acos_unsafe = hs_bindgen_751dc472004ee482
+-- __unique:__ @test_edgecasesordinary_unnamed_de_Example_get__acos@
+foreign import ccall unsafe "hs_bindgen_3e079012b2dabc0c" hs_bindgen_3e079012b2dabc0c_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesordinary_unnamed_de_Example_get__acos@
+hs_bindgen_3e079012b2dabc0c :: IO (FunPtr (CDouble -> IO CDouble))
+-- __unique:__ @test_edgecasesordinary_unnamed_de_Example_get__acos@
+hs_bindgen_3e079012b2dabc0c = fromFFIType hs_bindgen_3e079012b2dabc0c_base
+{-# NOINLINE _acos_funptr #-}
+{-| __C declaration:__ @_acos@
+
+    __defined at:__ @ordinary_unnamed_decl_child.h 4:1@
+
+    __exported by:__ @edge-cases\/ordinary_unnamed_decl_parent.h@
+-}
+_acos_funptr :: FunPtr (CDouble -> IO CDouble)
+{-| __C declaration:__ @_acos@
+
+    __defined at:__ @ordinary_unnamed_decl_child.h 4:1@
+
+    __exported by:__ @edge-cases\/ordinary_unnamed_decl_parent.h@
+-}
+_acos_funptr = unsafePerformIO hs_bindgen_3e079012b2dabc0c

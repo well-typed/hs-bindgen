@@ -3,10 +3,10 @@
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Global
-    ( Example.Global.anonPoint
-    , Example.Global.anonPair
-    , Example.Global.anonEnum
-    , Example.Global.anonEnumCoords
+    ( Example.Global.untaggedPoint
+    , Example.Global.untaggedPair
+    , Example.Global.untaggedEnum
+    , Example.Global.untaggedEnumCoords
     , Example.Global.a
     , Example.Global.b
     , Example.Global.c
@@ -22,29 +22,29 @@ import Example
 
 $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <globals/untagged.h>"
-  , "/* test_globalsuntagged_Example_get_anonPoint */"
+  , "/* test_globalsuntagged_Example_get_untaggedPoint */"
   , "__attribute__ ((const))"
-  , "void *hs_bindgen_6629eeb3c2ffd60b (void)"
+  , "void *hs_bindgen_d77490b2fc5f4d07 (void)"
   , "{"
-  , "  return &anonPoint;"
+  , "  return &untaggedPoint;"
   , "}"
-  , "/* test_globalsuntagged_Example_get_anonPair */"
+  , "/* test_globalsuntagged_Example_get_untaggedPair */"
   , "__attribute__ ((const))"
-  , "void *hs_bindgen_c6a1653d90a26590 (void)"
+  , "void *hs_bindgen_0c5d4010212a5c60 (void)"
   , "{"
-  , "  return &anonPair;"
+  , "  return &untaggedPair;"
   , "}"
-  , "/* test_globalsuntagged_Example_get_anonEnum */"
+  , "/* test_globalsuntagged_Example_get_untaggedEnum */"
   , "__attribute__ ((const))"
-  , "void *hs_bindgen_ebe8734607d1730b (void)"
+  , "void *hs_bindgen_6913d0b9652bbf6f (void)"
   , "{"
-  , "  return &anonEnum;"
+  , "  return &untaggedEnum;"
   , "}"
-  , "/* test_globalsuntagged_Example_get_anonEnumCoords */"
+  , "/* test_globalsuntagged_Example_get_untaggedEnumCoords */"
   , "__attribute__ ((const))"
-  , "void *hs_bindgen_21250a483c9f203d (void)"
+  , "void *hs_bindgen_d7232446972b888a (void)"
   , "{"
-  , "  return &anonEnumCoords;"
+  , "  return &untaggedEnumCoords;"
   , "}"
   , "/* test_globalsuntagged_Example_get_A */"
   , "__attribute__ ((const))"
@@ -66,85 +66,85 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
   , "}"
   ]))
 
--- __unique:__ @test_globalsuntagged_Example_get_anonPoint@
-foreign import ccall unsafe "hs_bindgen_6629eeb3c2ffd60b" hs_bindgen_6629eeb3c2ffd60b_base ::
+-- __unique:__ @test_globalsuntagged_Example_get_untaggedPoint@
+foreign import ccall unsafe "hs_bindgen_d77490b2fc5f4d07" hs_bindgen_d77490b2fc5f4d07_base ::
      IO (BG.Ptr BG.Void)
 
--- __unique:__ @test_globalsuntagged_Example_get_anonPoint@
-hs_bindgen_6629eeb3c2ffd60b :: IO (BG.Ptr AnonPoint)
-hs_bindgen_6629eeb3c2ffd60b =
-  BG.fromFFIType hs_bindgen_6629eeb3c2ffd60b_base
+-- __unique:__ @test_globalsuntagged_Example_get_untaggedPoint@
+hs_bindgen_d77490b2fc5f4d07 :: IO (BG.Ptr UntaggedPoint)
+hs_bindgen_d77490b2fc5f4d07 =
+  BG.fromFFIType hs_bindgen_d77490b2fc5f4d07_base
 
-{-# NOINLINE anonPoint #-}
-{-| __C declaration:__ @anonPoint@
+{-# NOINLINE untaggedPoint #-}
+{-| __C declaration:__ @untaggedPoint@
 
     __defined at:__ @globals\/untagged.h 12:26@
 
     __exported by:__ @globals\/untagged.h@
 -}
-anonPoint :: BG.Ptr AnonPoint
-anonPoint =
-  BG.unsafePerformIO hs_bindgen_6629eeb3c2ffd60b
+untaggedPoint :: BG.Ptr UntaggedPoint
+untaggedPoint =
+  BG.unsafePerformIO hs_bindgen_d77490b2fc5f4d07
 
--- __unique:__ @test_globalsuntagged_Example_get_anonPair@
-foreign import ccall unsafe "hs_bindgen_c6a1653d90a26590" hs_bindgen_c6a1653d90a26590_base ::
+-- __unique:__ @test_globalsuntagged_Example_get_untaggedPair@
+foreign import ccall unsafe "hs_bindgen_0c5d4010212a5c60" hs_bindgen_0c5d4010212a5c60_base ::
      IO (BG.Ptr BG.Void)
 
--- __unique:__ @test_globalsuntagged_Example_get_anonPair@
-hs_bindgen_c6a1653d90a26590 :: IO (BG.Ptr AnonPair)
-hs_bindgen_c6a1653d90a26590 =
-  BG.fromFFIType hs_bindgen_c6a1653d90a26590_base
+-- __unique:__ @test_globalsuntagged_Example_get_untaggedPair@
+hs_bindgen_0c5d4010212a5c60 :: IO (BG.Ptr UntaggedPair)
+hs_bindgen_0c5d4010212a5c60 =
+  BG.fromFFIType hs_bindgen_0c5d4010212a5c60_base
 
-{-# NOINLINE anonPair #-}
-{-| __C declaration:__ @anonPair@
+{-# NOINLINE untaggedPair #-}
+{-| __C declaration:__ @untaggedPair@
 
     __defined at:__ @globals\/untagged.h 14:26@
 
     __exported by:__ @globals\/untagged.h@
 -}
-anonPair :: BG.Ptr AnonPair
-anonPair =
-  BG.unsafePerformIO hs_bindgen_c6a1653d90a26590
+untaggedPair :: BG.Ptr UntaggedPair
+untaggedPair =
+  BG.unsafePerformIO hs_bindgen_0c5d4010212a5c60
 
--- __unique:__ @test_globalsuntagged_Example_get_anonEnum@
-foreign import ccall unsafe "hs_bindgen_ebe8734607d1730b" hs_bindgen_ebe8734607d1730b_base ::
+-- __unique:__ @test_globalsuntagged_Example_get_untaggedEnum@
+foreign import ccall unsafe "hs_bindgen_6913d0b9652bbf6f" hs_bindgen_6913d0b9652bbf6f_base ::
      IO (BG.Ptr BG.Void)
 
--- __unique:__ @test_globalsuntagged_Example_get_anonEnum@
-hs_bindgen_ebe8734607d1730b :: IO (BG.Ptr AnonEnum)
-hs_bindgen_ebe8734607d1730b =
-  BG.fromFFIType hs_bindgen_ebe8734607d1730b_base
+-- __unique:__ @test_globalsuntagged_Example_get_untaggedEnum@
+hs_bindgen_6913d0b9652bbf6f :: IO (BG.Ptr UntaggedEnum)
+hs_bindgen_6913d0b9652bbf6f =
+  BG.fromFFIType hs_bindgen_6913d0b9652bbf6f_base
 
-{-# NOINLINE anonEnum #-}
-{-| __C declaration:__ @anonEnum@
+{-# NOINLINE untaggedEnum #-}
+{-| __C declaration:__ @untaggedEnum@
 
     __defined at:__ @globals\/untagged.h 16:31@
 
     __exported by:__ @globals\/untagged.h@
 -}
-anonEnum :: BG.Ptr AnonEnum
-anonEnum =
-  BG.unsafePerformIO hs_bindgen_ebe8734607d1730b
+untaggedEnum :: BG.Ptr UntaggedEnum
+untaggedEnum =
+  BG.unsafePerformIO hs_bindgen_6913d0b9652bbf6f
 
--- __unique:__ @test_globalsuntagged_Example_get_anonEnumCoords@
-foreign import ccall unsafe "hs_bindgen_21250a483c9f203d" hs_bindgen_21250a483c9f203d_base ::
+-- __unique:__ @test_globalsuntagged_Example_get_untaggedEnumCoords@
+foreign import ccall unsafe "hs_bindgen_d7232446972b888a" hs_bindgen_d7232446972b888a_base ::
      IO (BG.Ptr BG.Void)
 
--- __unique:__ @test_globalsuntagged_Example_get_anonEnumCoords@
-hs_bindgen_21250a483c9f203d :: IO (BG.Ptr AnonEnumCoords)
-hs_bindgen_21250a483c9f203d =
-  BG.fromFFIType hs_bindgen_21250a483c9f203d_base
+-- __unique:__ @test_globalsuntagged_Example_get_untaggedEnumCoords@
+hs_bindgen_d7232446972b888a :: IO (BG.Ptr UntaggedEnumCoords)
+hs_bindgen_d7232446972b888a =
+  BG.fromFFIType hs_bindgen_d7232446972b888a_base
 
-{-# NOINLINE anonEnumCoords #-}
-{-| __C declaration:__ @anonEnumCoords@
+{-# NOINLINE untaggedEnumCoords #-}
+{-| __C declaration:__ @untaggedEnumCoords@
 
     __defined at:__ @globals\/untagged.h 18:33@
 
     __exported by:__ @globals\/untagged.h@
 -}
-anonEnumCoords :: BG.Ptr AnonEnumCoords
-anonEnumCoords =
-  BG.unsafePerformIO hs_bindgen_21250a483c9f203d
+untaggedEnumCoords :: BG.Ptr UntaggedEnumCoords
+untaggedEnumCoords =
+  BG.unsafePerformIO hs_bindgen_d7232446972b888a
 
 -- __unique:__ @test_globalsuntagged_Example_get_A@
 foreign import ccall unsafe "hs_bindgen_9d7d1fc84d6966f1" hs_bindgen_9d7d1fc84d6966f1_base ::

@@ -69,13 +69,13 @@ data LocationInfo =
     -- of the declaration.
     LocationDeclNamed C.DeclName [SingleLoc]
 
-    -- | Message about an anonymous declaration
+    -- | Message about an unnamed declaration
     --
     -- We record the /assigned/ name, /if/ it is available.
     --
     -- Usually we expect the list of locations to be a singleton: the location
     -- of the declaration.
-  | LocationDeclAnon (Maybe C.DeclName) [SingleLoc]
+  | LocationDeclUnnamed (Maybe C.DeclName) [SingleLoc]
 
     -- | No location information
   | LocationUnavailable
@@ -88,14 +88,14 @@ instance PrettyForTrace LocationInfo where
         , "at"
         , prettyLocs locs
         ]
-      LocationDeclAnon (Just name) locs -> PP.hsep [
-          "anonymous declaration"
+      LocationDeclUnnamed (Just name) locs -> PP.hsep [
+          "unnamed declaration"
         , prettyForTrace name
         , "at"
         , prettyLocs locs
         ]
-      LocationDeclAnon Nothing locs -> PP.hsep [
-          "anonymous declaration at"
+      LocationDeclUnnamed Nothing locs -> PP.hsep [
+          "unnamed declaration at"
         , prettyLocs locs
         ]
       LocationUnavailable ->
@@ -114,14 +114,14 @@ instance PrettyForTrace LocationInfo where
 prelimDeclIdLocationInfo :: C.PrelimDeclId -> [SingleLoc] -> LocationInfo
 prelimDeclIdLocationInfo prelimDeclId knownLocs =
     case prelimDeclId of
-      C.PrelimDeclIdNamed name -> LocationDeclNamed name knownLocs
-      C.PrelimDeclIdAnon  anon -> LocationDeclAnon Nothing [anon.loc]
+      C.PrelimDeclIdNamed name        -> LocationDeclNamed name knownLocs
+      C.PrelimDeclIdUnnamed unnamedId -> LocationDeclUnnamed Nothing [unnamedId.loc]
 
 declIdLocationInfo :: C.DeclId -> [SingleLoc] -> LocationInfo
 declIdLocationInfo declId knownLocs =
-    if not declId.isAnon
+    if not declId.isUnnamed
       then LocationDeclNamed declId.name knownLocs
-      else LocationDeclAnon (Just declId.name) knownLocs
+      else LocationDeclUnnamed (Just declId.name) knownLocs
 
 {-------------------------------------------------------------------------------
   Query
@@ -129,15 +129,15 @@ declIdLocationInfo declId knownLocs =
 
 locationInfoName :: LocationInfo -> Maybe C.DeclName
 locationInfoName = \case
-    LocationDeclNamed name _ -> Just name
-    LocationDeclAnon mName _ -> mName
-    LocationUnavailable      -> Nothing
+    LocationDeclNamed name _    -> Just name
+    LocationDeclUnnamed mName _ -> mName
+    LocationUnavailable         -> Nothing
 
 locationInfoLocs :: LocationInfo -> [SingleLoc]
 locationInfoLocs = \case
-    LocationDeclNamed _ locs -> locs
-    LocationDeclAnon _ locs  -> locs
-    LocationUnavailable      -> []
+    LocationDeclNamed _ locs   -> locs
+    LocationDeclUnnamed _ locs -> locs
+    LocationUnavailable        -> []
 
 {-------------------------------------------------------------------------------
   Declaration locations

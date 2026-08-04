@@ -159,7 +159,7 @@ getMacros tracer clangArgs names =
     visit :: Fold IO (Text, String)
     visit = simpleFold $ \curr -> do
       C.prelimDeclIdAtCursor curr C.NameKindOrdinary >>= \case
-        C.PrelimDeclIdAnon{}     -> foldContinue
+        C.PrelimDeclIdUnnamed{}  -> foldContinue
         C.PrelimDeclIdNamed name ->
           (fromSimpleEnum <$> clang_getCursorKind curr) >>= \case
             Right CXCursor_VarDecl -> case parseName name.text of
@@ -209,7 +209,7 @@ getParamMacros tracer clangArgs names =
     visit :: Fold IO (Text, String)
     visit = simpleFold $ \curr ->
       C.prelimDeclIdAtCursor curr C.NameKindOrdinary >>= \case
-        C.PrelimDeclIdAnon{}     -> foldContinue
+        C.PrelimDeclIdUnnamed{}  -> foldContinue
         C.PrelimDeclIdNamed name ->
           (fromSimpleEnum <$> clang_getCursorKind curr) >>= \case
             Right CXCursor_VarDecl -> case parseName name.text of

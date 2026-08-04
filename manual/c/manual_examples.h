@@ -42,7 +42,7 @@ sum sum_triple(triple* triple);
 average average_triple(triple* triple);
 
 /**
- * Anonymous types
+ * Untagged types
  */
 
 struct rect {

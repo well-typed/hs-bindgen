@@ -18,13 +18,13 @@ struct PACKED bar {
     int  i;
 };
 
-// anonymous struct with attribute
+// untagged struct with attribute
 typedef struct __attribute__((__packed__)) {
     char c;
     int  i;
 } baz;
 
-// anonymous struct with macro attribute
+// untagged struct with macro attribute
 typedef struct PACKED {
     char c;
     int  i;

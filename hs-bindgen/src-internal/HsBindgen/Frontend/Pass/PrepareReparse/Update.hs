@@ -159,15 +159,15 @@ instance Update (C.Decl l) where
 
 instance Update (C.DeclKind l) where
   updateIt info declKind = case declKind of
-      C.DeclStruct struct      -> C.DeclStruct           <$> recurse struct
-      C.DeclUnion union        -> C.DeclUnion            <$> recurse union
-      C.DeclTypedef typedef    -> C.DeclTypedef          <$> recurse typedef
-      C.DeclEnum enum          -> C.DeclEnum             <$> recurse enum
-      C.DeclAnonEnumConstant c -> C.DeclAnonEnumConstant <$> recurse c
-      C.DeclOpaque mSize       -> pure (C.DeclOpaque mSize)
-      C.DeclMacro macro        -> C.DeclMacro            <$> (flipM recurse) macro
-      C.DeclFunction function  -> C.DeclFunction         <$> recurse function
-      C.DeclGlobal global      -> C.DeclGlobal           <$> recurse global
+      C.DeclStruct struct          -> C.DeclStruct               <$> recurse struct
+      C.DeclUnion union            -> C.DeclUnion                <$> recurse union
+      C.DeclTypedef typedef        -> C.DeclTypedef              <$> recurse typedef
+      C.DeclEnum enum              -> C.DeclEnum                 <$> recurse enum
+      C.DeclUntaggedEnumConstant c -> C.DeclUntaggedEnumConstant <$> recurse c
+      C.DeclOpaque mSize           -> pure (C.DeclOpaque mSize)
+      C.DeclMacro macro            -> C.DeclMacro                <$> (flipM recurse) macro
+      C.DeclFunction function      -> C.DeclFunction             <$> recurse function
+      C.DeclGlobal global          -> C.DeclGlobal               <$> recurse global
     where
       recurse :: forall a.
            (Update a, Ctx a ~ C.DeclInfo TypecheckMacros)
@@ -246,7 +246,7 @@ instance Update C.Typedef where
 instance Update C.Enum where
   updateIt _ enum = pure $ coercePass enum
 
-instance Update C.AnonEnumConstant where
+instance Update C.UntaggedEnumConstant where
   updateIt _ constant = pure $ coercePass constant
 
 instance Update (Flip TypecheckedMacro l) where

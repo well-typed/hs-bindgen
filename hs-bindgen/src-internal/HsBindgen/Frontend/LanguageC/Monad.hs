@@ -89,8 +89,8 @@ lookupType nm env =
   where
     macroId :: C.DeclId
     macroId = C.DeclId{
-        name   = C.DeclName nm C.NameKindMacro
-      , isAnon = False
+        name      = C.DeclName nm C.NameKindMacro
+      , isUnnamed = False
       }
 
 {-------------------------------------------------------------------------------

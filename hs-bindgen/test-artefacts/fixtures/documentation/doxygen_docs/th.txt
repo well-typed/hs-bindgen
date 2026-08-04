@@ -1524,196 +1524,204 @@ instance HasCField Dyn_array_t "dyn_array_t_capacity"
     where type CFieldType Dyn_array_t
                           "dyn_array_t_capacity" = HsBindgen.Runtime.LibC.CSize
           offset# = \_ -> \_ -> 16
-{-| __C declaration:__ @struct \@multi_anon_t_pos@
+{-| __C declaration:__ @struct \@multi_untagged_t_pos@
 
     __defined at:__ @documentation\/doxygen_docs.h 586:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-data Multi_anon_t_pos
-    = Multi_anon_t_pos {multi_anon_t_pos_x :: CFloat
-                        {- ^ X coordinate.
+data Multi_untagged_t_pos
+    = Multi_untagged_t_pos {multi_untagged_t_pos_x :: CFloat
+                            {- ^ X coordinate.
 
-                             __C declaration:__ @x@
+                                 __C declaration:__ @x@
 
-                             __defined at:__ @documentation\/doxygen_docs.h 587:15@
+                                 __defined at:__ @documentation\/doxygen_docs.h 587:15@
 
-                             __exported by:__ @documentation\/doxygen_docs.h@
-                        -},
-                        multi_anon_t_pos_y :: CFloat
-                        {- ^ Y coordinate.
+                                 __exported by:__ @documentation\/doxygen_docs.h@
+                            -},
+                            multi_untagged_t_pos_y :: CFloat
+                            {- ^ Y coordinate.
 
-                             __C declaration:__ @y@
+                                 __C declaration:__ @y@
 
-                             __defined at:__ @documentation\/doxygen_docs.h 588:15@
+                                 __defined at:__ @documentation\/doxygen_docs.h 588:15@
 
-                             __exported by:__ @documentation\/doxygen_docs.h@
-                        -}}
+                                 __exported by:__ @documentation\/doxygen_docs.h@
+                            -}}
     deriving stock (Eq, Generic, Show)
-instance StaticSize Multi_anon_t_pos
+instance StaticSize Multi_untagged_t_pos
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
-instance ReadRaw Multi_anon_t_pos
-    where readRaw = \ptr_0 -> (pure Multi_anon_t_pos <*> readRaw (Proxy @"multi_anon_t_pos_x") ptr_0) <*> readRaw (Proxy @"multi_anon_t_pos_y") ptr_0
-instance WriteRaw Multi_anon_t_pos
+instance ReadRaw Multi_untagged_t_pos
+    where readRaw = \ptr_0 -> (pure Multi_untagged_t_pos <*> readRaw (Proxy @"multi_untagged_t_pos_x") ptr_0) <*> readRaw (Proxy @"multi_untagged_t_pos_y") ptr_0
+instance WriteRaw Multi_untagged_t_pos
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Multi_anon_t_pos multi_anon_t_pos_x_2
-                                                        multi_anon_t_pos_y_3 -> writeRaw (Proxy @"multi_anon_t_pos_x") ptr_0 multi_anon_t_pos_x_2 >> writeRaw (Proxy @"multi_anon_t_pos_y") ptr_0 multi_anon_t_pos_y_3
-deriving via (EquivStorable Multi_anon_t_pos) instance Storable Multi_anon_t_pos
-deriving via (IsStructViaReadRaw Multi_anon_t_pos) instance IsStruct Multi_anon_t_pos
+                                       Multi_untagged_t_pos multi_untagged_t_pos_x_2
+                                                            multi_untagged_t_pos_y_3 -> writeRaw (Proxy @"multi_untagged_t_pos_x") ptr_0 multi_untagged_t_pos_x_2 >> writeRaw (Proxy @"multi_untagged_t_pos_y") ptr_0 multi_untagged_t_pos_y_3
+deriving via (EquivStorable Multi_untagged_t_pos) instance Storable Multi_untagged_t_pos
+deriving via (IsStructViaReadRaw Multi_untagged_t_pos) instance IsStruct Multi_untagged_t_pos
 instance (~) ty CFloat =>
-         HasField "multi_anon_t_pos_x" Multi_anon_t_pos ty
-    where hasField = \x_0 -> (\y_1 -> Multi_anon_t_pos{multi_anon_t_pos_x = y_1,
-                                                       multi_anon_t_pos_y = getField @"multi_anon_t_pos_y" x_0},
-                              getField @"multi_anon_t_pos_x" x_0)
+         HasField "multi_untagged_t_pos_x" Multi_untagged_t_pos ty
+    where hasField = \x_0 -> (\y_1 -> Multi_untagged_t_pos{multi_untagged_t_pos_x = y_1,
+                                                           multi_untagged_t_pos_y = getField @"multi_untagged_t_pos_y" x_0},
+                              getField @"multi_untagged_t_pos_x" x_0)
 instance (~) ty CFloat =>
-         HasField "multi_anon_t_pos_x" (Ptr Multi_anon_t_pos) (Ptr ty)
-    where getField = fromPtr (Proxy @"multi_anon_t_pos_x")
-instance HasCField Multi_anon_t_pos "multi_anon_t_pos_x"
-    where type CFieldType Multi_anon_t_pos
-                          "multi_anon_t_pos_x" = CFloat
+         HasField "multi_untagged_t_pos_x"
+                  (Ptr Multi_untagged_t_pos)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"multi_untagged_t_pos_x")
+instance HasCField Multi_untagged_t_pos "multi_untagged_t_pos_x"
+    where type CFieldType Multi_untagged_t_pos
+                          "multi_untagged_t_pos_x" = CFloat
           offset# = \_ -> \_ -> 0
 instance (~) ty CFloat =>
-         HasField "multi_anon_t_pos_y" Multi_anon_t_pos ty
-    where hasField = \x_0 -> (\y_1 -> Multi_anon_t_pos{multi_anon_t_pos_y = y_1,
-                                                       multi_anon_t_pos_x = getField @"multi_anon_t_pos_x" x_0},
-                              getField @"multi_anon_t_pos_y" x_0)
+         HasField "multi_untagged_t_pos_y" Multi_untagged_t_pos ty
+    where hasField = \x_0 -> (\y_1 -> Multi_untagged_t_pos{multi_untagged_t_pos_y = y_1,
+                                                           multi_untagged_t_pos_x = getField @"multi_untagged_t_pos_x" x_0},
+                              getField @"multi_untagged_t_pos_y" x_0)
 instance (~) ty CFloat =>
-         HasField "multi_anon_t_pos_y" (Ptr Multi_anon_t_pos) (Ptr ty)
-    where getField = fromPtr (Proxy @"multi_anon_t_pos_y")
-instance HasCField Multi_anon_t_pos "multi_anon_t_pos_y"
-    where type CFieldType Multi_anon_t_pos
-                          "multi_anon_t_pos_y" = CFloat
+         HasField "multi_untagged_t_pos_y"
+                  (Ptr Multi_untagged_t_pos)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"multi_untagged_t_pos_y")
+instance HasCField Multi_untagged_t_pos "multi_untagged_t_pos_y"
+    where type CFieldType Multi_untagged_t_pos
+                          "multi_untagged_t_pos_y" = CFloat
           offset# = \_ -> \_ -> 4
-{-| __C declaration:__ @struct \@multi_anon_t_dim@
+{-| __C declaration:__ @struct \@multi_untagged_t_dim@
 
     __defined at:__ @documentation\/doxygen_docs.h 594:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-data Multi_anon_t_dim
-    = Multi_anon_t_dim {multi_anon_t_dim_w :: CFloat
-                        {- ^ Width.
+data Multi_untagged_t_dim
+    = Multi_untagged_t_dim {multi_untagged_t_dim_w :: CFloat
+                            {- ^ Width.
 
-                             __C declaration:__ @w@
+                                 __C declaration:__ @w@
 
-                             __defined at:__ @documentation\/doxygen_docs.h 595:15@
+                                 __defined at:__ @documentation\/doxygen_docs.h 595:15@
 
-                             __exported by:__ @documentation\/doxygen_docs.h@
-                        -},
-                        multi_anon_t_dim_h :: CFloat
-                        {- ^ Height.
+                                 __exported by:__ @documentation\/doxygen_docs.h@
+                            -},
+                            multi_untagged_t_dim_h :: CFloat
+                            {- ^ Height.
 
-                             __C declaration:__ @h@
+                                 __C declaration:__ @h@
 
-                             __defined at:__ @documentation\/doxygen_docs.h 596:15@
+                                 __defined at:__ @documentation\/doxygen_docs.h 596:15@
 
-                             __exported by:__ @documentation\/doxygen_docs.h@
-                        -}}
+                                 __exported by:__ @documentation\/doxygen_docs.h@
+                            -}}
     deriving stock (Eq, Generic, Show)
-instance StaticSize Multi_anon_t_dim
+instance StaticSize Multi_untagged_t_dim
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
-instance ReadRaw Multi_anon_t_dim
-    where readRaw = \ptr_0 -> (pure Multi_anon_t_dim <*> readRaw (Proxy @"multi_anon_t_dim_w") ptr_0) <*> readRaw (Proxy @"multi_anon_t_dim_h") ptr_0
-instance WriteRaw Multi_anon_t_dim
+instance ReadRaw Multi_untagged_t_dim
+    where readRaw = \ptr_0 -> (pure Multi_untagged_t_dim <*> readRaw (Proxy @"multi_untagged_t_dim_w") ptr_0) <*> readRaw (Proxy @"multi_untagged_t_dim_h") ptr_0
+instance WriteRaw Multi_untagged_t_dim
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Multi_anon_t_dim multi_anon_t_dim_w_2
-                                                        multi_anon_t_dim_h_3 -> writeRaw (Proxy @"multi_anon_t_dim_w") ptr_0 multi_anon_t_dim_w_2 >> writeRaw (Proxy @"multi_anon_t_dim_h") ptr_0 multi_anon_t_dim_h_3
-deriving via (EquivStorable Multi_anon_t_dim) instance Storable Multi_anon_t_dim
-deriving via (IsStructViaReadRaw Multi_anon_t_dim) instance IsStruct Multi_anon_t_dim
+                                       Multi_untagged_t_dim multi_untagged_t_dim_w_2
+                                                            multi_untagged_t_dim_h_3 -> writeRaw (Proxy @"multi_untagged_t_dim_w") ptr_0 multi_untagged_t_dim_w_2 >> writeRaw (Proxy @"multi_untagged_t_dim_h") ptr_0 multi_untagged_t_dim_h_3
+deriving via (EquivStorable Multi_untagged_t_dim) instance Storable Multi_untagged_t_dim
+deriving via (IsStructViaReadRaw Multi_untagged_t_dim) instance IsStruct Multi_untagged_t_dim
 instance (~) ty CFloat =>
-         HasField "multi_anon_t_dim_w" Multi_anon_t_dim ty
-    where hasField = \x_0 -> (\y_1 -> Multi_anon_t_dim{multi_anon_t_dim_w = y_1,
-                                                       multi_anon_t_dim_h = getField @"multi_anon_t_dim_h" x_0},
-                              getField @"multi_anon_t_dim_w" x_0)
+         HasField "multi_untagged_t_dim_w" Multi_untagged_t_dim ty
+    where hasField = \x_0 -> (\y_1 -> Multi_untagged_t_dim{multi_untagged_t_dim_w = y_1,
+                                                           multi_untagged_t_dim_h = getField @"multi_untagged_t_dim_h" x_0},
+                              getField @"multi_untagged_t_dim_w" x_0)
 instance (~) ty CFloat =>
-         HasField "multi_anon_t_dim_w" (Ptr Multi_anon_t_dim) (Ptr ty)
-    where getField = fromPtr (Proxy @"multi_anon_t_dim_w")
-instance HasCField Multi_anon_t_dim "multi_anon_t_dim_w"
-    where type CFieldType Multi_anon_t_dim
-                          "multi_anon_t_dim_w" = CFloat
+         HasField "multi_untagged_t_dim_w"
+                  (Ptr Multi_untagged_t_dim)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"multi_untagged_t_dim_w")
+instance HasCField Multi_untagged_t_dim "multi_untagged_t_dim_w"
+    where type CFieldType Multi_untagged_t_dim
+                          "multi_untagged_t_dim_w" = CFloat
           offset# = \_ -> \_ -> 0
 instance (~) ty CFloat =>
-         HasField "multi_anon_t_dim_h" Multi_anon_t_dim ty
-    where hasField = \x_0 -> (\y_1 -> Multi_anon_t_dim{multi_anon_t_dim_h = y_1,
-                                                       multi_anon_t_dim_w = getField @"multi_anon_t_dim_w" x_0},
-                              getField @"multi_anon_t_dim_h" x_0)
+         HasField "multi_untagged_t_dim_h" Multi_untagged_t_dim ty
+    where hasField = \x_0 -> (\y_1 -> Multi_untagged_t_dim{multi_untagged_t_dim_h = y_1,
+                                                           multi_untagged_t_dim_w = getField @"multi_untagged_t_dim_w" x_0},
+                              getField @"multi_untagged_t_dim_h" x_0)
 instance (~) ty CFloat =>
-         HasField "multi_anon_t_dim_h" (Ptr Multi_anon_t_dim) (Ptr ty)
-    where getField = fromPtr (Proxy @"multi_anon_t_dim_h")
-instance HasCField Multi_anon_t_dim "multi_anon_t_dim_h"
-    where type CFieldType Multi_anon_t_dim
-                          "multi_anon_t_dim_h" = CFloat
+         HasField "multi_untagged_t_dim_h"
+                  (Ptr Multi_untagged_t_dim)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"multi_untagged_t_dim_h")
+instance HasCField Multi_untagged_t_dim "multi_untagged_t_dim_h"
+    where type CFieldType Multi_untagged_t_dim
+                          "multi_untagged_t_dim_h" = CFloat
           offset# = \_ -> \_ -> 4
-{-| Struct with multiple anonymous inner structs.
+{-| Struct with multiple untagged inner structs.
 
-    Tests that doxygen comment enrichment correctly associates field comments with anonymous inner structs at multiple nesting levels.
+    Tests that doxygen comment enrichment correctly associates field comments with untagged inner structs at multiple nesting levels.
 
-    __C declaration:__ @struct multi_anon_t@
+    __C declaration:__ @struct multi_untagged_t@
 
     __defined at:__ @documentation\/doxygen_docs.h 582:9@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-data Multi_anon_t
-    = Multi_anon_t {multi_anon_t_pos :: Multi_anon_t_pos
-                    {- ^ Position in 2D space.
+data Multi_untagged_t
+    = Multi_untagged_t {multi_untagged_t_pos :: Multi_untagged_t_pos
+                        {- ^ Position in 2D space.
 
-                         Position fields
+                             Position fields
 
-                         __C declaration:__ @pos@
+                             __C declaration:__ @pos@
 
-                         __defined at:__ @documentation\/doxygen_docs.h 589:30@
+                             __defined at:__ @documentation\/doxygen_docs.h 589:30@
 
-                         __exported by:__ @documentation\/doxygen_docs.h@
-                    -},
-                    multi_anon_t_dim :: Multi_anon_t_dim
-                    {- ^ Dimensions.
+                             __exported by:__ @documentation\/doxygen_docs.h@
+                        -},
+                        multi_untagged_t_dim :: Multi_untagged_t_dim
+                        {- ^ Dimensions.
 
-                         Dimension fields
+                             Dimension fields
 
-                         __C declaration:__ @dim@
+                             __C declaration:__ @dim@
 
-                         __defined at:__ @documentation\/doxygen_docs.h 597:31@
+                             __defined at:__ @documentation\/doxygen_docs.h 597:31@
 
-                         __exported by:__ @documentation\/doxygen_docs.h@
-                    -}}
+                             __exported by:__ @documentation\/doxygen_docs.h@
+                        -}}
     deriving stock (Eq, Generic, Show)
-instance StaticSize Multi_anon_t
+instance StaticSize Multi_untagged_t
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 4 :: Int
-instance ReadRaw Multi_anon_t
-    where readRaw = \ptr_0 -> (pure Multi_anon_t <*> readRaw (Proxy @"multi_anon_t_pos") ptr_0) <*> readRaw (Proxy @"multi_anon_t_dim") ptr_0
-instance WriteRaw Multi_anon_t
+instance ReadRaw Multi_untagged_t
+    where readRaw = \ptr_0 -> (pure Multi_untagged_t <*> readRaw (Proxy @"multi_untagged_t_pos") ptr_0) <*> readRaw (Proxy @"multi_untagged_t_dim") ptr_0
+instance WriteRaw Multi_untagged_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Multi_anon_t multi_anon_t_pos_2
-                                                    multi_anon_t_dim_3 -> writeRaw (Proxy @"multi_anon_t_pos") ptr_0 multi_anon_t_pos_2 >> writeRaw (Proxy @"multi_anon_t_dim") ptr_0 multi_anon_t_dim_3
-deriving via (EquivStorable Multi_anon_t) instance Storable Multi_anon_t
-deriving via (IsStructViaReadRaw Multi_anon_t) instance IsStruct Multi_anon_t
-instance (~) ty Multi_anon_t_pos =>
-         HasField "multi_anon_t_pos" Multi_anon_t ty
-    where hasField = \x_0 -> (\y_1 -> Multi_anon_t{multi_anon_t_pos = y_1,
-                                                   multi_anon_t_dim = getField @"multi_anon_t_dim" x_0},
-                              getField @"multi_anon_t_pos" x_0)
-instance (~) ty Multi_anon_t_pos =>
-         HasField "multi_anon_t_pos" (Ptr Multi_anon_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"multi_anon_t_pos")
-instance HasCField Multi_anon_t "multi_anon_t_pos"
-    where type CFieldType Multi_anon_t
-                          "multi_anon_t_pos" = Multi_anon_t_pos
+                                       Multi_untagged_t multi_untagged_t_pos_2
+                                                        multi_untagged_t_dim_3 -> writeRaw (Proxy @"multi_untagged_t_pos") ptr_0 multi_untagged_t_pos_2 >> writeRaw (Proxy @"multi_untagged_t_dim") ptr_0 multi_untagged_t_dim_3
+deriving via (EquivStorable Multi_untagged_t) instance Storable Multi_untagged_t
+deriving via (IsStructViaReadRaw Multi_untagged_t) instance IsStruct Multi_untagged_t
+instance (~) ty Multi_untagged_t_pos =>
+         HasField "multi_untagged_t_pos" Multi_untagged_t ty
+    where hasField = \x_0 -> (\y_1 -> Multi_untagged_t{multi_untagged_t_pos = y_1,
+                                                       multi_untagged_t_dim = getField @"multi_untagged_t_dim" x_0},
+                              getField @"multi_untagged_t_pos" x_0)
+instance (~) ty Multi_untagged_t_pos =>
+         HasField "multi_untagged_t_pos" (Ptr Multi_untagged_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"multi_untagged_t_pos")
+instance HasCField Multi_untagged_t "multi_untagged_t_pos"
+    where type CFieldType Multi_untagged_t
+                          "multi_untagged_t_pos" = Multi_untagged_t_pos
           offset# = \_ -> \_ -> 0
-instance (~) ty Multi_anon_t_dim =>
-         HasField "multi_anon_t_dim" Multi_anon_t ty
-    where hasField = \x_0 -> (\y_1 -> Multi_anon_t{multi_anon_t_dim = y_1,
-                                                   multi_anon_t_pos = getField @"multi_anon_t_pos" x_0},
-                              getField @"multi_anon_t_dim" x_0)
-instance (~) ty Multi_anon_t_dim =>
-         HasField "multi_anon_t_dim" (Ptr Multi_anon_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"multi_anon_t_dim")
-instance HasCField Multi_anon_t "multi_anon_t_dim"
-    where type CFieldType Multi_anon_t
-                          "multi_anon_t_dim" = Multi_anon_t_dim
+instance (~) ty Multi_untagged_t_dim =>
+         HasField "multi_untagged_t_dim" Multi_untagged_t ty
+    where hasField = \x_0 -> (\y_1 -> Multi_untagged_t{multi_untagged_t_dim = y_1,
+                                                       multi_untagged_t_pos = getField @"multi_untagged_t_pos" x_0},
+                              getField @"multi_untagged_t_dim" x_0)
+instance (~) ty Multi_untagged_t_dim =>
+         HasField "multi_untagged_t_dim" (Ptr Multi_untagged_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"multi_untagged_t_dim")
+instance HasCField Multi_untagged_t "multi_untagged_t_dim"
+    where type CFieldType Multi_untagged_t
+                          "multi_untagged_t_dim" = Multi_untagged_t_dim
           offset# = \_ -> \_ -> 8
 {-| Named inner struct
 
@@ -1835,45 +1843,48 @@ instance (~) ty CInt =>
 instance HasCField Named_outer "named_outer_nz"
     where type CFieldType Named_outer "named_outer_nz" = CInt
           offset# = \_ -> \_ -> 8
-{-| __C declaration:__ @struct \@deep_mid_anon_field@
+{-| __C declaration:__ @struct \@deep_mid_untagged_field@
 
     __defined at:__ @documentation\/doxygen_docs.h 629:9@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-data Deep_mid_anon_field
-    = Deep_mid_anon_field {deep_mid_anon_field_deep_a :: CInt
-                           {- ^ Deep anonymous field
+data Deep_mid_untagged_field
+    = Deep_mid_untagged_field {deep_mid_untagged_field_deep_a :: CInt
+                               {- ^ Deep field
 
-                                __C declaration:__ @deep_a@
+                                    __C declaration:__ @deep_a@
 
-                                __defined at:__ @documentation\/doxygen_docs.h 631:17@
+                                    __defined at:__ @documentation\/doxygen_docs.h 631:17@
 
-                                __exported by:__ @documentation\/doxygen_docs.h@
-                           -}}
+                                    __exported by:__ @documentation\/doxygen_docs.h@
+                               -}}
     deriving stock (Eq, Generic, Show)
-instance StaticSize Deep_mid_anon_field
+instance StaticSize Deep_mid_untagged_field
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
-instance ReadRaw Deep_mid_anon_field
-    where readRaw = \ptr_0 -> pure Deep_mid_anon_field <*> readRaw (Proxy @"deep_mid_anon_field_deep_a") ptr_0
-instance WriteRaw Deep_mid_anon_field
+instance ReadRaw Deep_mid_untagged_field
+    where readRaw = \ptr_0 -> pure Deep_mid_untagged_field <*> readRaw (Proxy @"deep_mid_untagged_field_deep_a") ptr_0
+instance WriteRaw Deep_mid_untagged_field
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Deep_mid_anon_field deep_mid_anon_field_deep_a_2 -> writeRaw (Proxy @"deep_mid_anon_field_deep_a") ptr_0 deep_mid_anon_field_deep_a_2
-deriving via (EquivStorable Deep_mid_anon_field) instance Storable Deep_mid_anon_field
-deriving via (IsStructViaReadRaw Deep_mid_anon_field) instance IsStruct Deep_mid_anon_field
+                                       Deep_mid_untagged_field deep_mid_untagged_field_deep_a_2 -> writeRaw (Proxy @"deep_mid_untagged_field_deep_a") ptr_0 deep_mid_untagged_field_deep_a_2
+deriving via (EquivStorable Deep_mid_untagged_field) instance Storable Deep_mid_untagged_field
+deriving via (IsStructViaReadRaw Deep_mid_untagged_field) instance IsStruct Deep_mid_untagged_field
 instance (~) ty CInt =>
-         HasField "deep_mid_anon_field_deep_a" Deep_mid_anon_field ty
-    where hasField = \x_0 -> (\y_1 -> Deep_mid_anon_field{deep_mid_anon_field_deep_a = y_1},
-                              getField @"deep_mid_anon_field_deep_a" x_0)
+         HasField "deep_mid_untagged_field_deep_a"
+                  Deep_mid_untagged_field
+                  ty
+    where hasField = \x_0 -> (\y_1 -> Deep_mid_untagged_field{deep_mid_untagged_field_deep_a = y_1},
+                              getField @"deep_mid_untagged_field_deep_a" x_0)
 instance (~) ty CInt =>
-         HasField "deep_mid_anon_field_deep_a"
-                  (Ptr Deep_mid_anon_field)
+         HasField "deep_mid_untagged_field_deep_a"
+                  (Ptr Deep_mid_untagged_field)
                   (Ptr ty)
-    where getField = fromPtr (Proxy @"deep_mid_anon_field_deep_a")
-instance HasCField Deep_mid_anon_field "deep_mid_anon_field_deep_a"
-    where type CFieldType Deep_mid_anon_field
-                          "deep_mid_anon_field_deep_a" = CInt
+    where getField = fromPtr (Proxy @"deep_mid_untagged_field_deep_a")
+instance HasCField Deep_mid_untagged_field
+                   "deep_mid_untagged_field_deep_a"
+    where type CFieldType Deep_mid_untagged_field
+                          "deep_mid_untagged_field_deep_a" = CInt
           offset# = \_ -> \_ -> 0
 {-| The named mid-level struct
 
@@ -1893,10 +1904,10 @@ data Deep_mid
 
                      __exported by:__ @documentation\/doxygen_docs.h@
                 -},
-                deep_mid_anon_field :: Deep_mid_anon_field
-                {- ^ Anonymous struct inside named mid
+                deep_mid_untagged_field :: Deep_mid_untagged_field
+                {- ^ Untagged struct inside named mid
 
-                     __C declaration:__ @anon_field@
+                     __C declaration:__ @untagged_field@
 
                      __defined at:__ @documentation\/doxygen_docs.h 632:11@
 
@@ -1907,16 +1918,16 @@ instance StaticSize Deep_mid
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
 instance ReadRaw Deep_mid
-    where readRaw = \ptr_0 -> (pure Deep_mid <*> readRaw (Proxy @"deep_mid_m") ptr_0) <*> readRaw (Proxy @"deep_mid_anon_field") ptr_0
+    where readRaw = \ptr_0 -> (pure Deep_mid <*> readRaw (Proxy @"deep_mid_m") ptr_0) <*> readRaw (Proxy @"deep_mid_untagged_field") ptr_0
 instance WriteRaw Deep_mid
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Deep_mid deep_mid_m_2
-                                                deep_mid_anon_field_3 -> writeRaw (Proxy @"deep_mid_m") ptr_0 deep_mid_m_2 >> writeRaw (Proxy @"deep_mid_anon_field") ptr_0 deep_mid_anon_field_3
+                                                deep_mid_untagged_field_3 -> writeRaw (Proxy @"deep_mid_m") ptr_0 deep_mid_m_2 >> writeRaw (Proxy @"deep_mid_untagged_field") ptr_0 deep_mid_untagged_field_3
 deriving via (EquivStorable Deep_mid) instance Storable Deep_mid
 deriving via (IsStructViaReadRaw Deep_mid) instance IsStruct Deep_mid
 instance (~) ty CInt => HasField "deep_mid_m" Deep_mid ty
     where hasField = \x_0 -> (\y_1 -> Deep_mid{deep_mid_m = y_1,
-                                               deep_mid_anon_field = getField @"deep_mid_anon_field" x_0},
+                                               deep_mid_untagged_field = getField @"deep_mid_untagged_field" x_0},
                               getField @"deep_mid_m" x_0)
 instance (~) ty CInt =>
          HasField "deep_mid_m" (Ptr Deep_mid) (Ptr ty)
@@ -1924,21 +1935,21 @@ instance (~) ty CInt =>
 instance HasCField Deep_mid "deep_mid_m"
     where type CFieldType Deep_mid "deep_mid_m" = CInt
           offset# = \_ -> \_ -> 0
-instance (~) ty Deep_mid_anon_field =>
-         HasField "deep_mid_anon_field" Deep_mid ty
-    where hasField = \x_0 -> (\y_1 -> Deep_mid{deep_mid_anon_field = y_1,
+instance (~) ty Deep_mid_untagged_field =>
+         HasField "deep_mid_untagged_field" Deep_mid ty
+    where hasField = \x_0 -> (\y_1 -> Deep_mid{deep_mid_untagged_field = y_1,
                                                deep_mid_m = getField @"deep_mid_m" x_0},
-                              getField @"deep_mid_anon_field" x_0)
-instance (~) ty Deep_mid_anon_field =>
-         HasField "deep_mid_anon_field" (Ptr Deep_mid) (Ptr ty)
-    where getField = fromPtr (Proxy @"deep_mid_anon_field")
-instance HasCField Deep_mid "deep_mid_anon_field"
+                              getField @"deep_mid_untagged_field" x_0)
+instance (~) ty Deep_mid_untagged_field =>
+         HasField "deep_mid_untagged_field" (Ptr Deep_mid) (Ptr ty)
+    where getField = fromPtr (Proxy @"deep_mid_untagged_field")
+instance HasCField Deep_mid "deep_mid_untagged_field"
     where type CFieldType Deep_mid
-                          "deep_mid_anon_field" = Deep_mid_anon_field
+                          "deep_mid_untagged_field" = Deep_mid_untagged_field
           offset# = \_ -> \_ -> 4
-{-| Deeply nested mix of named and anonymous structs.
+{-| Deeply nested mix of tagged and untagged structs.
 
-    Tests the full genealogy walk through mixed named/anonymous nesting.
+    Tests the full genealogy walk through mixed tagged/untagged nesting.
 
     __C declaration:__ @struct deep_outer@
 
@@ -2063,9 +2074,9 @@ instance HasCField Unnamed_field_t_anon'ua
     where type CFieldType Unnamed_field_t_anon'ua
                           "unnamed_field_t_anon'ua_ub" = CInt
           offset# = \_ -> \_ -> 4
-{-| Struct with unnamed anonymous field.
+{-| Struct with anonymous struct.
 
-    Tests the case where the anonymous inner struct has no field name. The inner fields are flattened directly into the parent.
+    Tests the case where the inner struct is anonymous: no struct tag and no field name. The inner fields are flattened directly into the parent.
 
     __C declaration:__ @struct unnamed_field_t@
 

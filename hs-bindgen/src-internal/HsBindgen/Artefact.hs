@@ -23,9 +23,9 @@ import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
-import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (AssignAnonIds)
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass (EnrichComments)
+import HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass (FillUnnamedIds)
 import HsBindgen.Frontend.Pass.Final (Final)
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
 import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
@@ -55,8 +55,8 @@ data FrontendPass (l :: Star) (result :: Star) where
     :: FrontendPass l [ParseResult       l Parse]
   SimplifyASTPass
     :: FrontendPass l [ParseResult       l SimplifyAST]
-  AssignAnonIdsPass
-    :: FrontendPass l [ParseResult       l AssignAnonIds]
+  FillUnnamedIdsPass
+    :: FrontendPass l [ParseResult       l FillUnnamedIds]
   EnrichCommentsPass
     :: FrontendPass l [ParseResult       l EnrichComments]
   ConstructTranslationUnitPass
@@ -152,7 +152,7 @@ runArtefacts tracer config boot frontend backend artefact =
     runFrontendPass = \case
         ParsePass                    -> runCached frontend.parse
         SimplifyASTPass              -> runCached frontend.simplifyAST
-        AssignAnonIdsPass            -> runCached frontend.assignAnonIds
+        FillUnnamedIdsPass           -> runCached frontend.fillUnnamedIds
         EnrichCommentsPass           -> runCached frontend.enrichComments
         ConstructTranslationUnitPass -> runCached frontend.constructTranslationUnit
         TypecheckMacrosPass          -> runCached frontend.typecheckMacros

@@ -18,7 +18,7 @@ module Example
     , Example.UU1(..)
     , Example.UU2_fieldY(..)
     , Example.UU2(..)
-    , Example.twoAnonFields
+    , Example.twoUntaggedStructs
     , Example.VV1_fieldA(..)
     , Example.VV1_fieldB(..)
     , Example.VV1(..)
@@ -343,14 +343,14 @@ instance HasCField.HasCField UU2 "uU2_fieldY" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @macro TwoAnonFields@
+{-| __C declaration:__ @macro TwoUntaggedStructs@
 
     __defined at:__ @macros\/wrong_source_location.h 23:9@
 
     __exported by:__ @macros\/wrong_source_location.h@
 -}
-twoAnonFields :: [String]
-twoAnonFields =
+twoUntaggedStructs :: [String]
+twoUntaggedStructs =
   [ "("
   , "name"
   , ")"

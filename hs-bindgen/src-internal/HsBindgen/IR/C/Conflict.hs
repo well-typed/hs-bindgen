@@ -43,7 +43,7 @@ import HsBindgen.Util.Tracer
 -- - macro vs ordinary
 --
 -- - Clang-generated collision between a named tagged declaration and an
---   anonymous tagged declaration
+--   named untagged declaration
 --
 --   For example,
 --

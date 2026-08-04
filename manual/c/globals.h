@@ -24,13 +24,13 @@ int nonExternGlobalInt = 8;
 // NOTE: We test the error for thread_local separately (as it requires C23).
 
 /*
- * Anonymous declarations
+ * Unnamed declarations
  */
 
 extern struct {
   int x;
   int y;
-} unusableAnon;
+} unusableUntagged;
 
 /*
  * Constants

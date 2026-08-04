@@ -126,8 +126,8 @@ struct roomD {
 ```
 
 A downside here is that we can only have a single field referring to the unnamed
-struct because we can not refer to the unnamed struct from a different field. In
-such cases, we generate a Haskell name for the unnamed struct based on the name
+struct because we can not refer to the untagged struct from a different field. In
+such cases, we generate a Haskell name for the untagged struct based on the name
 of the parent object (i.e., struct) and the field name. The Haskell bindings would look like
 this:
 
@@ -160,7 +160,7 @@ struct roomE {
 };
 ```
 
-In this case, we generate a Haskell name for both the unnamed struct and the
+In this case, we generate a Haskell name for both the untagged struct and the
 unnamed field. First, the unnamed field is named after the first field of the
 anonymous struct. The field name is also prefixed with "anon'" to highlight that
 the field is created for an anonymous struct/union. The tick ensures that this
@@ -179,7 +179,7 @@ struct roomE {
 ```
 
 Then, the anonymous struct is named as in example D: We generate a Haskell name
-for the unnamed struct based on the name of the parent object (i.e., struct) and
+for the untagged struct based on the name of the parent object (i.e., struct) and
 the *newly assigned* field name. This leads to the following Haskell bindings:
 
 ```haskell
@@ -195,7 +195,7 @@ data RoomE = RoomE
 
 This naming approach works from the bottom up if there are recursively nested
 anonymous structs: we first name fields at the bottom of the nesting hierarchy,
-and we work our way upwards from there. The naming of unnamed structs then
+and we work our way upwards from there. The naming of untagged structs then
 follows the usual rules.
 
 If these generated names are too unwieldy, they can always be customised using

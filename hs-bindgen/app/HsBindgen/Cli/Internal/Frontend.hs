@@ -48,7 +48,7 @@ parseFrontendPassName s = case lookup s knownPasses of
     knownPasses = [
           mk ParsePass
         , mk SimplifyASTPass
-        , mk AssignAnonIdsPass
+        , mk FillUnnamedIdsPass
         , mk EnrichCommentsPass
         , mk ConstructTranslationUnitPass
         , mk TypecheckMacrosPass
@@ -68,7 +68,7 @@ frontendPassName :: FrontendPass CExpr result -> String
 frontendPassName = \case
   ParsePass                    -> "parse"
   SimplifyASTPass              -> "simplify-ast"
-  AssignAnonIdsPass            -> "assign-anon-ids"
+  FillUnnamedIdsPass           -> "fill-unnamed-ids"
   EnrichCommentsPass           -> "enrich-comments"
   ConstructTranslationUnitPass -> "construct-translation-unit"
   TypecheckMacrosPass          -> "typecheck-macros"

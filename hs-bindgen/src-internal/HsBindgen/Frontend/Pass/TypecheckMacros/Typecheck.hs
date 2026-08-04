@@ -69,15 +69,15 @@ toOutcome ::
   -> C.Decl l In
   -> Outcome l
 toOutcome tcResults decl = case decl.kind of
-    C.DeclMacro            x -> assembleMacro tcResults info' decl.ann x
-    C.DeclTypedef          x -> nonMacro $ C.DeclTypedef          $ coercePass x
-    C.DeclStruct           x -> nonMacro $ C.DeclStruct           $ coercePass x
-    C.DeclUnion            x -> nonMacro $ C.DeclUnion            $ coercePass x
-    C.DeclEnum             x -> nonMacro $ C.DeclEnum             $ coercePass x
-    C.DeclAnonEnumConstant x -> nonMacro $ C.DeclAnonEnumConstant $ coercePass x
-    C.DeclOpaque           x -> nonMacro $ C.DeclOpaque             x
-    C.DeclFunction         x -> nonMacro $ C.DeclFunction         $ coercePass x
-    C.DeclGlobal           x -> nonMacro $ C.DeclGlobal           $ coercePass x
+    C.DeclMacro                x -> assembleMacro tcResults info' decl.ann x
+    C.DeclTypedef              x -> nonMacro $ C.DeclTypedef              $ coercePass x
+    C.DeclStruct               x -> nonMacro $ C.DeclStruct               $ coercePass x
+    C.DeclUnion                x -> nonMacro $ C.DeclUnion                $ coercePass x
+    C.DeclEnum                 x -> nonMacro $ C.DeclEnum                 $ coercePass x
+    C.DeclUntaggedEnumConstant x -> nonMacro $ C.DeclUntaggedEnumConstant $ coercePass x
+    C.DeclOpaque               x -> nonMacro $ C.DeclOpaque                 x
+    C.DeclFunction             x -> nonMacro $ C.DeclFunction             $ coercePass x
+    C.DeclGlobal               x -> nonMacro $ C.DeclGlobal               $ coercePass x
   where
     info' :: C.DeclInfo Out
     info' = coercePass decl.info

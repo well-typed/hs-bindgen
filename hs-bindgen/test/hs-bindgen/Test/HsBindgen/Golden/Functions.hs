@@ -51,7 +51,7 @@ test_functions_decls_in_signature =
     testTraceMulti "functions/decls_in_signature" declsWithMsgs $ \case
       MatchDelayed name ParseDeclarationNotVisible{} ->
         Just $ Expected name
-      MatchDelayed name ParseUnsupportedAnonInSignature{} ->
+      MatchDelayed name ParseUnsupportedUnnamedInSignature{} ->
         Just $ Expected name
       MatchDiagnosticOption _diag ->
         Just $ Tolerated
@@ -105,7 +105,7 @@ test_functions_not_visible_decl =
     testTraceMulti "functions/not_visible_decl" declsWithMsgs $ \case
       MatchDelayed name ParseDeclarationNotVisible{} ->
         Just $ Expected name
-      MatchDelayed name ParseUnsupportedAnonInSignature{} ->
+      MatchDelayed name ParseUnsupportedUnnamedInSignature{} ->
         Just $ Expected name
       MatchDiagnosticOption _diag ->
         Just $ Tolerated

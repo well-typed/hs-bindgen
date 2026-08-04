@@ -424,15 +424,15 @@ resolveFlip declId = flipM (resolve declId)
 
 instance Resolve (C.DeclKind l) l where
   resolve ctx = \case
-      C.DeclStruct struct                  -> C.DeclStruct           <$> resolve ctx struct
-      C.DeclUnion union                    -> C.DeclUnion            <$> resolve ctx union
-      C.DeclTypedef typedef                -> C.DeclTypedef          <$> resolve ctx typedef
-      C.DeclEnum enum                      -> C.DeclEnum             <$> resolve ctx enum
-      C.DeclAnonEnumConstant anonEnumConst -> pure $ C.DeclAnonEnumConstant (coercePass anonEnumConst)
+      C.DeclStruct struct                  -> C.DeclStruct   <$> resolve ctx struct
+      C.DeclUnion union                    -> C.DeclUnion    <$> resolve ctx union
+      C.DeclTypedef typedef                -> C.DeclTypedef  <$> resolve ctx typedef
+      C.DeclEnum enum                      -> C.DeclEnum     <$> resolve ctx enum
+      C.DeclUntaggedEnumConstant enumConst -> pure $ C.DeclUntaggedEnumConstant (coercePass enumConst)
       C.DeclOpaque mSize                   -> return (C.DeclOpaque mSize)
-      C.DeclMacro macro                    -> C.DeclMacro            <$> resolveFlip ctx macro
-      C.DeclFunction fun                   -> C.DeclFunction         <$> resolve ctx fun
-      C.DeclGlobal ty                      -> C.DeclGlobal           <$> resolve ctx ty
+      C.DeclMacro macro                    -> C.DeclMacro    <$> resolveFlip ctx macro
+      C.DeclFunction fun                   -> C.DeclFunction <$> resolve ctx fun
+      C.DeclGlobal ty                      -> C.DeclGlobal   <$> resolve ctx ty
 
 instance Resolve C.Struct l where
   resolve ctx struct =

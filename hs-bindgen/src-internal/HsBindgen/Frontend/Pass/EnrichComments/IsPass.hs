@@ -2,7 +2,7 @@ module HsBindgen.Frontend.Pass.EnrichComments.IsPass (
     EnrichComments
   ) where
 
-import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
+import HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
@@ -15,7 +15,7 @@ import HsBindgen.Macro.Interface qualified as Macro
 type EnrichComments :: Pass
 data EnrichComments a
 
--- We preserve the annotations from the @Parse@ pass (same as @AssignAnonIds@)
+-- We preserve the annotations from the @Parse@ pass (same as @FillUnnamedIds@)
 type family AnnEnrichComments ix where
   AnnEnrichComments "ExplicitField" = ReparseInfo Tokens
   AnnEnrichComments "Function"      = ReparseInfo Tokens
@@ -46,21 +46,21 @@ instance PassMsg EnrichComments
 {-------------------------------------------------------------------------------
   CoercePass
 
-  EnrichComments has the same associated types as AssignAnonIds (same Id,
+  EnrichComments has the same associated types as FillUnnamedIds (same Id,
   ScopedName, MacroBody, ExtBinding, MacroId, Ann). The only difference is
   'C.CommentDecl', so all trivial helpers can use the default identity, and
   'C.CoercePassCommentDecl' needs a custom instance that sets the comment to
-  'Nothing' (since @CommentDecl AssignAnonIds = ()@ and
+  'Nothing' (since @CommentDecl FillUnnamedIds = ()@ and
   @CommentDecl EnrichComments = Maybe (Comment EnrichComments)@).
 -------------------------------------------------------------------------------}
 
-instance CoercePassId                  AssignAnonIds EnrichComments
-instance CoercePassMacroBody           AssignAnonIds EnrichComments
-instance CoercePassMacroId             AssignAnonIds EnrichComments
-instance CoercePassMacroUnderlying     AssignAnonIds EnrichComments
-instance CoercePassAnn "IndirectField" AssignAnonIds EnrichComments
-instance CoercePassAnn "Global"        AssignAnonIds EnrichComments
-instance CoercePassAnn "TypeFunArg"    AssignAnonIds EnrichComments
+instance CoercePassId                  FillUnnamedIds EnrichComments
+instance CoercePassMacroBody           FillUnnamedIds EnrichComments
+instance CoercePassMacroId             FillUnnamedIds EnrichComments
+instance CoercePassMacroUnderlying     FillUnnamedIds EnrichComments
+instance CoercePassAnn "IndirectField" FillUnnamedIds EnrichComments
+instance CoercePassAnn "Global"        FillUnnamedIds EnrichComments
+instance CoercePassAnn "TypeFunArg"    FillUnnamedIds EnrichComments
 
-instance CoercePassCommentDecl AssignAnonIds EnrichComments where
+instance CoercePassCommentDecl FillUnnamedIds EnrichComments where
   coercePassCommentDecl _ () = Nothing

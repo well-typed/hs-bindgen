@@ -169,43 +169,43 @@ instance (~) ty UU2_fieldY =>
 instance HasCField UU2 "uU2_fieldY"
     where type CFieldType UU2 "uU2_fieldY" = UU2_fieldY
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @macro TwoAnonFields@
+{-| __C declaration:__ @macro TwoUntaggedStructs@
 
     __defined at:__ @macros\/wrong_source_location.h 23:9@
 
     __exported by:__ @macros\/wrong_source_location.h@
 -}
-twoAnonFields :: [String]
-{-| __C declaration:__ @macro TwoAnonFields@
+twoUntaggedStructs :: [String]
+{-| __C declaration:__ @macro TwoUntaggedStructs@
 
     __defined at:__ @macros\/wrong_source_location.h 23:9@
 
     __exported by:__ @macros\/wrong_source_location.h@
 -}
-twoAnonFields = ["(",
-                 "name",
-                 ")",
-                 "struct",
-                 "name",
-                 "{",
-                 "struct",
-                 "{",
-                 "int",
-                 "a",
-                 ";",
-                 "}",
-                 "fieldA",
-                 ";",
-                 "struct",
-                 "{",
-                 "int",
-                 "b",
-                 ";",
-                 "}",
-                 "fieldB",
-                 ";",
-                 "}",
-                 ";"]
+twoUntaggedStructs = ["(",
+                      "name",
+                      ")",
+                      "struct",
+                      "name",
+                      "{",
+                      "struct",
+                      "{",
+                      "int",
+                      "a",
+                      ";",
+                      "}",
+                      "fieldA",
+                      ";",
+                      "struct",
+                      "{",
+                      "int",
+                      "b",
+                      ";",
+                      "}",
+                      "fieldB",
+                      ";",
+                      "}",
+                      ";"]
 {-| __C declaration:__ @struct \@VV1_fieldA@
 
     __defined at:__ @macros\/wrong_source_location.h 29:1@

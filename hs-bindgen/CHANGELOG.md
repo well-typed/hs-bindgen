@@ -240,6 +240,7 @@
 * Doxygen-driven export grouping now precomputes per-declaration tags at the
   C-declaration level instead of rediscovering them from the generated Haskell
   AST.
+* Correct usage of the term "anonymous". See [issue #1893][is-1893].
 
 ### Bug fixes
 
@@ -269,10 +270,10 @@
   expansions. The bug would, for example, cause `long long int` to be parsed as
   `long int` in some cases, but that is now fixed. See [issue #1685][is-1685]
   and [PR #1921][pr-1921].
-* Distinguish anonymous declarations originating from the same macro
+* Distinguish unnamed declarations originating from the same macro
   expansion. libclang reports the same expansion location for all of them,
-  which previously caused them to collide on the same `AnonId` and panic in
-  the `AssignAnonIds` pass; we now also key on the spelling location.
+  which previously caused them to collide on the same `UnnamedId` and panic in
+  the `FillUnnamedIds` pass; we now also key on the spelling location.
   Requires `llvm >= 19.1.0`; older toolchains fall back to the previous
   best-effort behaviour. See
   [issue #1860](https://github.com/well-typed/hs-bindgen/issues/1860).
@@ -329,6 +330,7 @@
 [is-1868]: https://github.com/well-typed/hs-bindgen/issues/1868
 [is-1884]: https://github.com/well-typed/hs-bindgen/issues/1884
 [is-1891]: https://github.com/well-typed/hs-bindgen/issues/1891
+[is-1893]: https://github.com/well-typed/hs-bindgen/issues/1893
 [is-2012]: https://github.com/well-typed/hs-bindgen/issues/2012
 [is-2049]: https://github.com/well-typed/hs-bindgen/issues/2049
 [is-2059]: https://github.com/well-typed/hs-bindgen/issues/2059
@@ -402,9 +404,9 @@
 * Add `--post-qualified-imports` flag to generate post-qualified imports
   (`import Data.Proxy qualified`) instead of pre-qualified imports. This adds
   the `ImportQualifiedPost` language extension to generated modules.
-* Support top-level anonymous structs and enums as global variables
-  (e.g., `struct { int x; int y; } point;`). The anonymous type is named
-  after the global variable. Extern anonymous declarations
+* Support top-level untagged structs and enums as global variables
+  (e.g., `struct { int x; int y; } point;`). The untagged type is named
+  after the global variable. Extern untagged declarations
   (e.g., `extern struct { .. } config;`) are rejected as unusable.
 * Generate an `IsArray` instance for each newtype of a type with an `IsArray`
 * Support unnamed bit-field declarations, used for padding.

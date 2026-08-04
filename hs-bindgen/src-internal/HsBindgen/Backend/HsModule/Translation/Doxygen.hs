@@ -72,7 +72,7 @@ data ExportGroupTag =
     -- | Top-level C declaration not in any doxygen group.  Hoisted before
     -- all section headers by 'resolveExports'.
     Ungrouped
-    -- | Backend-derived declaration (e.g. pattern synonyms, anonymous inner
+    -- | Backend-derived declaration (e.g. pattern synonyms, untagged inner
     -- types) without its own group membership.  Inherits the enclosing
     -- section from the preceding grouped declaration.
   | Derived

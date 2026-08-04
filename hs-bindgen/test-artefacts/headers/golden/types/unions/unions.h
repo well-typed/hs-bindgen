@@ -30,8 +30,8 @@ struct DimB {
     DimPayloadB payload;
 };
 
-// union with anonymous struct fields
-union AnonA {
+// union with untagged struct fields
+union UntaggedA {
     struct { double x; double y; } xy;
     struct { double r; double p; } polar;
 };

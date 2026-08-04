@@ -92,8 +92,8 @@ test_programAnalysis_delay_traces =
         , "struct nested_long_double_s"
         , "struct nested_long_double_u"
           -- TODO https://github.com/well-typed/hs-bindgen/issues/1851
-          -- Why are the anonymous nested structs not reported? Because
-          -- they are skipped by the AssignAnonIds step?
+          -- Why are the untagged nested structs not reported? Because
+          -- they are skipped by the FillUnnamedIds step?
         ]
 
 {-------------------------------------------------------------------------------

@@ -27,17 +27,17 @@ depsOfDeclWith ::
   -> C.DeclKind l p
   -> [(Id p, Dependency)]
 depsOfDeclWith depsOfMacro = \case
-    (C.DeclStruct struct)      -> depsOfStruct struct
-    (C.DeclUnion union)        -> depsOfUnion union
-    (C.DeclEnum _)             -> []
-    (C.DeclAnonEnumConstant _) -> []
-    (C.DeclTypedef ty)         -> depsOfTypedef ty
-    C.DeclOpaque{}             -> []
-    (C.DeclMacro m)            -> depsOfMacro m
-    (C.DeclFunction function)  ->
+    (C.DeclStruct struct)          -> depsOfStruct struct
+    (C.DeclUnion union)            -> depsOfUnion union
+    (C.DeclEnum _)                 -> []
+    (C.DeclUntaggedEnumConstant _) -> []
+    (C.DeclTypedef ty)             -> depsOfTypedef ty
+    C.DeclOpaque{}                 -> []
+    (C.DeclMacro m)                -> depsOfMacro m
+    (C.DeclFunction function)      ->
       C.depsOfType function.res ++
       concatMap (\arg -> C.depsOfTypeFunArg arg.argTyp) function.args
-    (C.DeclGlobal global)      -> C.depsOfType global.typ
+    (C.DeclGlobal global)          -> C.depsOfType global.typ
 
 {-------------------------------------------------------------------------------
   Dependencies of declarations with parsed macros only

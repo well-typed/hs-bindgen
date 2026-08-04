@@ -168,7 +168,6 @@ library internal
     HsBindgen.Errors
     HsBindgen.Frontend
     HsBindgen.Frontend.Analysis
-    HsBindgen.Frontend.Analysis.AnonUsage
     HsBindgen.Frontend.Analysis.DeclIndex
     HsBindgen.Frontend.Analysis.DeclIndex.ResolveMacro
     HsBindgen.Frontend.Analysis.DeclUseGraph
@@ -178,6 +177,7 @@ library internal
     HsBindgen.Frontend.Analysis.Deps
     HsBindgen.Frontend.Analysis.IncludeGraph
     HsBindgen.Frontend.Analysis.Typedefs
+    HsBindgen.Frontend.Analysis.UnnamedIdUsage
     HsBindgen.Frontend.Analysis.UseDeclGraph
     HsBindgen.Frontend.DeclMeta
     HsBindgen.Frontend.LanguageC
@@ -188,13 +188,13 @@ library internal
     HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
     HsBindgen.Frontend.Pass.AdjustTypes
     HsBindgen.Frontend.Pass.AdjustTypes.IsPass
-    HsBindgen.Frontend.Pass.AssignAnonIds
-    HsBindgen.Frontend.Pass.AssignAnonIds.ChooseNames
-    HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
     HsBindgen.Frontend.Pass.ConstructTranslationUnit
     HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
     HsBindgen.Frontend.Pass.EnrichComments
     HsBindgen.Frontend.Pass.EnrichComments.IsPass
+    HsBindgen.Frontend.Pass.FillUnnamedIds
+    HsBindgen.Frontend.Pass.FillUnnamedIds.ChooseNames
+    HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass
     HsBindgen.Frontend.Pass.Final
     HsBindgen.Frontend.Pass.MangleNames
     HsBindgen.Frontend.Pass.MangleNames.CreateNames

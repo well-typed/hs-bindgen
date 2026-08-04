@@ -151,9 +151,9 @@ struct shapeD {
 };
 ```
 
-A downside here is that we can only have a single field referring to the unnamed
-union because we can not refer to the unnamed union from a different field. In
-such cases, we generate a Haskell name for the unnamed union based on the name
+A downside here is that we can only have a single field referring to the untagged
+union because we can not refer to the untagged union from a different field. In
+such cases, we generate a Haskell name for the untagged union based on the name
 of the parent object (i.e., struct) and the field name. The Haskell bindings
 would look like this:
 
@@ -190,7 +190,7 @@ struct shapeE {
 };
 ```
 
-In this case, we generate a Haskell name for both the unnamed union and the
+In this case, we generate a Haskell name for both the untagged union and the
 unnamed field. First, the unnamed field is named after the first field of the
 anonymous union. The field name is also prefixed with "anon'" to highlight that
 the field is created for an anonymous struct/union. The tick ensures that this
@@ -210,7 +210,7 @@ struct shapeE {
 ```
 
 Then, the anonymous union is named as in example D: We generate a Haskell name
-for the unnamed union based on the name of the parent object (i.e., union) and
+for the untagged union based on the name of the parent object (i.e., union) and
 the *newly assigned* field name. This leads to the following Haskell bindings:
 
 ```hs
@@ -229,7 +229,7 @@ data ShapeE = ShapeE
 
 This naming approach works from the bottom up if there are recursively nested
 anonymous unions: we first name fields at the bottom of the nesting hierarchy,
-and we work our way upwards from there. The naming of unnamed unions then
+and we work our way upwards from there. The naming of untagged unions then
 follows the usual rules.
 
 If these generated names are too unwieldy, they can always be customised using
