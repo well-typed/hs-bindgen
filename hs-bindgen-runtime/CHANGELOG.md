@@ -8,7 +8,7 @@
   `Internal.Prelude` is now `HsBindgen.Runtime.Support`.
 * `setUnionPayload` would previously generate a zeroed out byte array and write
   a `Storable` value to it. It now takes a byte array argument that the
-  `Storable` value is written to. See [Issue #2183][is-2183].
+  `Storable` value is written to. See [issue #2183][is-2183].
 
 ### New features
 
@@ -25,6 +25,8 @@
 * Add `IsStructViaReadRaw` and `IsUnionViaReadRaw` helper types for deriving
   `IsStruct` and `IsUnion` respectively via a `ReadRaw` (and `StaticSize`)
   instance. [issue #2121][is-2121] and [PR #2164][pr-2164].
+* Add new `setUnionPayloadBits` and `getUnionPayloadBits` functions for setting
+  and getting bit-fields in unions. See [issue #1253][is-1253].
 
 ### Minor changes
 
@@ -35,6 +37,7 @@
 
 None
 
+[is-1253]: https://github.com/well-typed/hs-bindgen/issues/1253
 [is-2060]: https://github.com/well-typed/hs-bindgen/issues/2060
 [is-2085]: https://github.com/well-typed/hs-bindgen/issues/2085
 [is-2121]: https://github.com/well-typed/hs-bindgen/issues/2121

@@ -44,7 +44,7 @@ import HsBindgen.Runtime.Marshal qualified as Marshal
   Bitfield
 -------------------------------------------------------------------------------}
 
--- | Types which can be a bit-field in a C @struct@
+-- | Types which can be a bit-field in a C @struct@ or @union@
 --
 -- The members convert to/from 'Word64' to make the use in the implementation of
 -- bitfields in @hs-bindgen@ easier.  We could not convert or have a smallest
@@ -184,17 +184,17 @@ hiMask = complement . loMask
 -- architecture.
 --
 -- A bit-field is read using a single peek when possible, as determined by
--- alignment and the passed memory bounds.  This should always be the case with
--- normal @struct@s.
+-- alignment and the passed memory bounds. This should always be the case with
+-- normal @struct@s and @union@s.
 --
 -- When it is not possible to read a bit-field using a single peek, multiple
--- peeks are used to read the bytes of the bit-field.  This may happen with
--- (poorly-designed) packed @struct@s.
+-- peeks are used to read the bytes of the bit-field. This may happen with
+-- (poorly-designed) packed @struct@s\/@unions@.
 --
--- The memory bounds should generally be the bounds of the @struct@ object.  In
--- this case, concurrent access to different objects (in an array) is safe.
--- Concurrent access to bit-fields within a single @struct@ object is generally
--- unsafe.
+-- The memory bounds should generally be the bounds of the @struct@ or @union@
+-- object. In this case, concurrent access to different objects (in an array) is
+-- safe. Concurrent access to bit-fields within a single @struct@ or @union@
+-- object is generally unsafe.
 peekBitOffWidth :: forall a.
      Bitfield a
   => Ptr ()            -- ^ Pointer to the byte where the bit-field starts
@@ -263,18 +263,18 @@ peekBitOffWidth ptrB off width bounds@(ptrL, ptrH)
 --
 -- When a bit-field can be written using a single poke, as determined by
 -- alignment and the passed memory bounds, a single peek reads any extra bits
--- when necessary, and then a single poke writes the bit-field.  This should
--- always be the case with normal @struct@s.
+-- when necessary, and then a single poke writes the bit-field. This should
+-- always be the case with normal @struct@s and @union@s.
 --
 -- When it is not possible to write a bit-field using a single poke, the byte(s)
 -- containing any extra bits are read when necessary, and then multiple pokes
--- are used to write the bytes of the bit-field.  This may happen with
--- (poorly-designed) packed @struct@s.
+-- are used to write the bytes of the bit-field. This may happen with
+-- (poorly-designed) packed @struct@s\/@union@s.
 --
--- The memory bounds should generally be the bounds of the @struct@ object.  In
--- this case, concurrent access to different objects (in an array) is safe.
--- Concurrent access to bit-fields within a single @struct@ object is generally
--- unsafe.
+-- The memory bounds should generally be the bounds of the @struct@ or @union@
+-- object. In this case, concurrent access to different objects (in an array) is
+-- safe. Concurrent access to bit-fields within a single @struct@ or @union@
+-- object is generally unsafe.
 pokeBitOffWidth :: forall a.
      Bitfield a
   => Ptr ()            -- ^ Pointer to the byte where the bit-field starts
@@ -462,8 +462,8 @@ getBitfieldLE ::
   -> Either String Word64
 getBitfieldLE off width = auxFirst
   where
-    -- With little endian, @struct@s are stored in reverse byte order, and
-    -- bit-field offsets are from the least significant bit.
+    -- With little endian, @struct@s and @union@s are stored in reverse byte
+    -- order, and bit-field offsets are from the least significant bit.
     --
     -- * Single byte: @| loff? | numFieldBits | off? |@
     --
@@ -513,8 +513,8 @@ getBitfieldBE ::
   -> Either String Word64
 getBitfieldBE off width = auxFirst
   where
-    -- With big endian, @struct@s are stored in byte order, and bit-field
-    -- offsets are from the most significant bit.
+    -- With big endian, @struct@s and @union@s are stored in byte order, and
+    -- bit-field offsets are from the most significant bit.
     --
     -- * Single byte: @| off? | numFieldBits | roff? |@
     --

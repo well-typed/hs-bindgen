@@ -43,6 +43,8 @@ module HsBindgen.Runtime.Support (
   , StablePtr
   , getUnionPayload
   , setUnionPayload
+  , getUnionPayloadBits
+  , setUnionPayloadBits
   , with
   , allocaAndPeek
   , Generic
@@ -141,7 +143,10 @@ import System.IO.Unsafe (unsafePerformIO)
 import Text.Read (readListDefault, readListPrec, readListPrecDefault, readPrec)
 
 import HsBindgen.Runtime.Support.Bitfield (Bitfield)
-import HsBindgen.Runtime.Support.ByteArray (getUnionPayload, setUnionPayload)
+import HsBindgen.Runtime.Support.ByteArray (getUnionPayload,
+                                            getUnionPayloadBits,
+                                            setUnionPayload,
+                                            setUnionPayloadBits)
 import HsBindgen.Runtime.Support.CAPI (allocaAndPeek)
 import HsBindgen.Runtime.Support.FunPtr (FromFunPtr (fromFunPtr),
                                          ToFunPtr (toFunPtr))

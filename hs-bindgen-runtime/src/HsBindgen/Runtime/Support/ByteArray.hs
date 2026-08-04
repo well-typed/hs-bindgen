@@ -1,6 +1,6 @@
 {-# OPTIONS_HADDOCK hide #-}
 
--- | Utilities for dealing with 'ByteArray' and 'Storable'
+-- | Utilities for dealing with 'ByteArray', 'Storable', and 'Bitfield'.
 --
 -- The additional copying we have to do here is a bit annoying, but in the end
 -- an FFI implementation based on 'Storable' is never going to be /extremely/
@@ -19,6 +19,8 @@ module HsBindgen.Runtime.Support.ByteArray (
      -- * Support for defining setters and getters for union types
    , setUnionPayload
    , getUnionPayload
+   , setUnionPayloadBits
+   , getUnionPayloadBits
    ) where
 
 import Control.Exception
@@ -26,8 +28,11 @@ import Control.Monad.Primitive (RealWorld)
 import Data.Coerce (Coercible, coerce)
 import Data.Primitive.ByteArray (ByteArray, MutableByteArray)
 import Data.Primitive.ByteArray qualified as BA
-import Foreign (Ptr, Storable (peek, poke), castPtr, copyBytes, sizeOf)
+import Foreign (Ptr, Storable (peek, poke), castPtr, copyBytes, plusPtr, sizeOf)
 import System.IO.Unsafe (unsafePerformIO)
+
+import HsBindgen.Runtime.Support.Bitfield (Bitfield)
+import HsBindgen.Runtime.Support.Bitfield qualified as Bitfield
 
 {-------------------------------------------------------------------------------
   Support for defining 'Storable' instances for union types
@@ -65,6 +70,22 @@ getUnionPayload :: forall payload union.
      )
   => union -> payload
 getUnionPayload = peekFromByteArray . coerce
+
+setUnionPayloadBits :: forall payload union.
+     ( Bitfield payload
+     , Coercible union ByteArray
+     )
+  => Int -> Int -> payload -> union -> union
+setUnionPayloadBits bitOffset bitWidth x u =
+    coerce $ pokeBitsToByteArray bitOffset bitWidth x (coerce u)
+
+getUnionPayloadBits :: forall payload union.
+     ( Bitfield payload
+     , Coercible union ByteArray
+     )
+  => Int -> Int -> union -> payload
+getUnionPayloadBits bitOffset bitWidth =
+    peekBitsFromByteArray bitOffset bitWidth . coerce
 
 {-------------------------------------------------------------------------------
   Internal auxiliary
@@ -111,6 +132,79 @@ pokeToByteArray x bytes =
       BA.freezeByteArray pinnedCopy 0 bytesSize
   where
     bytesSize = BA.sizeofByteArray bytes
+
+-- | @'peekBitsFromByteArray' o w bs@ reads a range of bits of a 'Storable'
+-- value from a 'ByteArray'
+--
+-- Preconditions:
+--
+-- > o >= 0
+-- > w >= 1 && w <= 64
+-- > w <= 'sizeOf' (undefined :: a) * 8
+-- > o + w <= 'sizeofByteArray' bs * 8
+--
+-- It may well be the case that the ByteArray is /larger/ than the @union@ that
+-- it represents; see also 'peekFromByteArray'.
+peekBitsFromByteArray ::
+     forall a. Bitfield a
+     -- | Bit offset
+  => Int
+     -- | Bit width
+  -> Int
+  -> ByteArray
+  -> a
+peekBitsFromByteArray o w bs =
+    unsafePerformIO $ do
+      pinnedCopy <- thawToPinned bs
+      BA.withMutableByteArrayContents pinnedCopy $ \ptr -> do
+        let bounds = (ptrL, ptrR)
+            ptrL = castPtr ptr
+            ptrR = ptrL `plusPtr` BA.sizeofByteArray bs
+            -- peekBitOffWidth assumes that the bit offset is in the inclusive
+            -- range @\[0, 7\]@, so we move the pointer and update the bit
+            -- offset accordingly
+            ptr' = ptr `plusPtr` (o `div` 8)
+            o'   = o - ((o `div` 8) * 8)
+        Bitfield.peekBitOffWidth ptr' o' w bounds
+
+-- | @'pokeBitsToByteArray' o w v bs@ Write a range of bits from a 'Storable'
+-- value to a 'ByteArray'
+--
+-- Preconditions:
+--
+-- > o >= 0
+-- > w >= 1 && w <= 64
+-- > w <= 'sizeOf' v * 8
+-- > o + w <= 'sizeofByteArray' bs * 8
+--
+-- It may well be the case that the ByteArray is /larger/ than the @union@ that
+-- it represents; see also 'peekFromByteArray'.
+pokeBitsToByteArray ::
+     forall a. Bitfield a
+     -- | Bit offset
+  => Int
+     -- | Bit width
+  -> Int
+  -> a
+  -> ByteArray
+  -> ByteArray
+pokeBitsToByteArray o w v bs =
+    unsafePerformIO $ do
+      pinnedCopy <- thawToPinned bs
+      BA.withMutableByteArrayContents pinnedCopy $ \ptr -> do
+        let bounds = (ptrL, ptrR)
+            ptrL = castPtr ptr
+            ptrR = ptrL `plusPtr` bsSz
+            -- pokeBitOffWidth assumes that the bit offset is in the inclusive
+            -- range @\[0, 7\]@, so we move the pointer and update the bit
+            -- offset accordingly
+            ptr' = ptr `plusPtr` (o `div` 8)
+            o'   = o - ((o `div` 8) * 8)
+        Bitfield.pokeBitOffWidth ptr' o' w bounds v
+      -- The copy constructed by 'freezeByteArray' is /not/ pinned.
+      BA.freezeByteArray pinnedCopy 0 bsSz
+  where
+    bsSz = BA.sizeofByteArray bs
 
 -- | Like 'Data.Primiteve.ByteArray.thawByteArray', but the new
 -- | 'MutableByteArray' is pinned
