@@ -56,7 +56,7 @@ jobs:
 
     - name: 🛠️ Install LLVM/Clang
       uses: ./.github/actions/setup-llvm
-      timeout-minutes: 5
+      timeout-minutes: 10
       with:
         version: ${{ matrix.llvm }}
 
@@ -270,7 +270,7 @@ jobs:
 
       - name: 🛠️ Setup LLVM/Clang
         uses: ./.github/actions/setup-llvm
-        timeout-minutes: 5
+        timeout-minutes: 10
         with:
           version: ${{ matrix.llvm }}
 
@@ -422,7 +422,7 @@ jobs:
 
       - name: 🛠️ Setup LLVM/Clang
         uses: ./.github/actions/setup-llvm
-        timeout-minutes: 5
+        timeout-minutes: 10
         with:
           version: ${{ matrix.llvm }}
 
@@ -512,7 +512,7 @@ jobs:
 
       - name: 🛠️ Setup LLVM/Clang
         uses: ./.github/actions/setup-llvm
-        timeout-minutes: 5
+        timeout-minutes: 10
         with:
           version: ${{ matrix.llvm }}
 
