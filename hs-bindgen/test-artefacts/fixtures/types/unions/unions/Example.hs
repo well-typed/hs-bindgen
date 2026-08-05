@@ -19,9 +19,9 @@ module Example
     , Example.Dim(..)
     , Example.DimPayloadB(..)
     , Example.DimB(..)
-    , Example.AnonA_xy(..)
-    , Example.AnonA_polar(..)
-    , Example.AnonA(..)
+    , Example.UntaggedA_xy(..)
+    , Example.UntaggedA_polar(..)
+    , Example.UntaggedA(..)
     )
   where
 
@@ -676,21 +676,21 @@ instance HasCField.HasCField DimB "dimB_payload" where
 
   offset# = \_ -> \_ -> 4
 
-{-| __C declaration:__ @struct \@AnonA_xy@
+{-| __C declaration:__ @struct \@UntaggedA_xy@
 
     __defined at:__ @types\/unions\/unions.h 35:5@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-data AnonA_xy = AnonA_xy
-  { anonA_xy_x :: BG.CDouble
+data UntaggedA_xy = UntaggedA_xy
+  { untaggedA_xy_x :: BG.CDouble
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/unions\/unions.h 35:21@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
-  , anonA_xy_y :: BG.CDouble
+  , untaggedA_xy_y :: BG.CDouble
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/unions\/unions.h 35:31@
@@ -700,33 +700,33 @@ data AnonA_xy = AnonA_xy
   }
   deriving stock (Eq, BG.Generic, Show)
 
-instance Marshal.StaticSize AnonA_xy where
+instance Marshal.StaticSize UntaggedA_xy where
 
   staticSizeOf = \_ -> (16 :: Int)
 
   staticAlignment = \_ -> (8 :: Int)
 
-instance Marshal.ReadRaw AnonA_xy where
+instance Marshal.ReadRaw UntaggedA_xy where
 
   readRaw =
     \ptr0 ->
-          pure AnonA_xy
-      <*> HasCField.readRaw (BG.Proxy @"anonA_xy_x") ptr0
-      <*> HasCField.readRaw (BG.Proxy @"anonA_xy_y") ptr0
+          pure UntaggedA_xy
+      <*> HasCField.readRaw (BG.Proxy @"untaggedA_xy_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"untaggedA_xy_y") ptr0
 
-instance Marshal.WriteRaw AnonA_xy where
+instance Marshal.WriteRaw UntaggedA_xy where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          AnonA_xy anonA_xy_x2 anonA_xy_y3 ->
-               HasCField.writeRaw (BG.Proxy @"anonA_xy_x") ptr0 anonA_xy_x2
-            >> HasCField.writeRaw (BG.Proxy @"anonA_xy_y") ptr0 anonA_xy_y3
+          UntaggedA_xy untaggedA_xy_x2 untaggedA_xy_y3 ->
+               HasCField.writeRaw (BG.Proxy @"untaggedA_xy_x") ptr0 untaggedA_xy_x2
+            >> HasCField.writeRaw (BG.Proxy @"untaggedA_xy_y") ptr0 untaggedA_xy_y3
 
-deriving via Marshal.EquivStorable AnonA_xy instance BG.Storable AnonA_xy
+deriving via Marshal.EquivStorable UntaggedA_xy instance BG.Storable UntaggedA_xy
 
-deriving via Struct.IsStructViaReadRaw AnonA_xy instance Struct.IsStruct AnonA_xy
+deriving via Struct.IsStructViaReadRaw UntaggedA_xy instance Struct.IsStruct UntaggedA_xy
 
 {-| __C declaration:__ @x@
 
@@ -735,23 +735,25 @@ deriving via Struct.IsStructViaReadRaw AnonA_xy instance Struct.IsStruct AnonA_x
     __exported by:__ @types\/unions\/unions.h@
 -}
 instance ( ty ~ BG.CDouble
-         ) => BG.CompatHasField.HasField "anonA_xy_x" AnonA_xy ty where
+         ) => BG.CompatHasField.HasField "untaggedA_xy_x" UntaggedA_xy ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          AnonA_xy {anonA_xy_x = y1, anonA_xy_y = BG.getField @"anonA_xy_y" x0}
-      , BG.getField @"anonA_xy_x" x0
+          UntaggedA_xy {untaggedA_xy_x = y1, untaggedA_xy_y = BG.getField @"untaggedA_xy_y" x0}
+      , BG.getField @"untaggedA_xy_x" x0
       )
 
 instance ( ty ~ BG.CDouble
-         ) => BG.HasField "anonA_xy_x" (BG.Ptr AnonA_xy) (BG.Ptr ty) where
+         ) => BG.HasField "untaggedA_xy_x" (BG.Ptr UntaggedA_xy) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (BG.Proxy @"anonA_xy_x")
+  getField =
+    HasCField.fromPtr (BG.Proxy @"untaggedA_xy_x")
 
-instance HasCField.HasCField AnonA_xy "anonA_xy_x" where
+instance HasCField.HasCField UntaggedA_xy "untaggedA_xy_x" where
 
-  type CFieldType AnonA_xy "anonA_xy_x" = BG.CDouble
+  type CFieldType UntaggedA_xy "untaggedA_xy_x" =
+    BG.CDouble
 
   offset# = \_ -> \_ -> 0
 
@@ -762,41 +764,43 @@ instance HasCField.HasCField AnonA_xy "anonA_xy_x" where
     __exported by:__ @types\/unions\/unions.h@
 -}
 instance ( ty ~ BG.CDouble
-         ) => BG.CompatHasField.HasField "anonA_xy_y" AnonA_xy ty where
+         ) => BG.CompatHasField.HasField "untaggedA_xy_y" UntaggedA_xy ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          AnonA_xy {anonA_xy_y = y1, anonA_xy_x = BG.getField @"anonA_xy_x" x0}
-      , BG.getField @"anonA_xy_y" x0
+          UntaggedA_xy {untaggedA_xy_y = y1, untaggedA_xy_x = BG.getField @"untaggedA_xy_x" x0}
+      , BG.getField @"untaggedA_xy_y" x0
       )
 
 instance ( ty ~ BG.CDouble
-         ) => BG.HasField "anonA_xy_y" (BG.Ptr AnonA_xy) (BG.Ptr ty) where
+         ) => BG.HasField "untaggedA_xy_y" (BG.Ptr UntaggedA_xy) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (BG.Proxy @"anonA_xy_y")
+  getField =
+    HasCField.fromPtr (BG.Proxy @"untaggedA_xy_y")
 
-instance HasCField.HasCField AnonA_xy "anonA_xy_y" where
+instance HasCField.HasCField UntaggedA_xy "untaggedA_xy_y" where
 
-  type CFieldType AnonA_xy "anonA_xy_y" = BG.CDouble
+  type CFieldType UntaggedA_xy "untaggedA_xy_y" =
+    BG.CDouble
 
   offset# = \_ -> \_ -> 8
 
-{-| __C declaration:__ @struct \@AnonA_polar@
+{-| __C declaration:__ @struct \@UntaggedA_polar@
 
     __defined at:__ @types\/unions\/unions.h 36:5@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-data AnonA_polar = AnonA_polar
-  { anonA_polar_r :: BG.CDouble
+data UntaggedA_polar = UntaggedA_polar
+  { untaggedA_polar_r :: BG.CDouble
     {- ^ __C declaration:__ @r@
 
          __defined at:__ @types\/unions\/unions.h 36:21@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
-  , anonA_polar_p :: BG.CDouble
+  , untaggedA_polar_p :: BG.CDouble
     {- ^ __C declaration:__ @p@
 
          __defined at:__ @types\/unions\/unions.h 36:31@
@@ -806,33 +810,33 @@ data AnonA_polar = AnonA_polar
   }
   deriving stock (Eq, BG.Generic, Show)
 
-instance Marshal.StaticSize AnonA_polar where
+instance Marshal.StaticSize UntaggedA_polar where
 
   staticSizeOf = \_ -> (16 :: Int)
 
   staticAlignment = \_ -> (8 :: Int)
 
-instance Marshal.ReadRaw AnonA_polar where
+instance Marshal.ReadRaw UntaggedA_polar where
 
   readRaw =
     \ptr0 ->
-          pure AnonA_polar
-      <*> HasCField.readRaw (BG.Proxy @"anonA_polar_r") ptr0
-      <*> HasCField.readRaw (BG.Proxy @"anonA_polar_p") ptr0
+          pure UntaggedA_polar
+      <*> HasCField.readRaw (BG.Proxy @"untaggedA_polar_r") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"untaggedA_polar_p") ptr0
 
-instance Marshal.WriteRaw AnonA_polar where
+instance Marshal.WriteRaw UntaggedA_polar where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          AnonA_polar anonA_polar_r2 anonA_polar_p3 ->
-               HasCField.writeRaw (BG.Proxy @"anonA_polar_r") ptr0 anonA_polar_r2
-            >> HasCField.writeRaw (BG.Proxy @"anonA_polar_p") ptr0 anonA_polar_p3
+          UntaggedA_polar untaggedA_polar_r2 untaggedA_polar_p3 ->
+               HasCField.writeRaw (BG.Proxy @"untaggedA_polar_r") ptr0 untaggedA_polar_r2
+            >> HasCField.writeRaw (BG.Proxy @"untaggedA_polar_p") ptr0 untaggedA_polar_p3
 
-deriving via Marshal.EquivStorable AnonA_polar instance BG.Storable AnonA_polar
+deriving via Marshal.EquivStorable UntaggedA_polar instance BG.Storable UntaggedA_polar
 
-deriving via Struct.IsStructViaReadRaw AnonA_polar instance Struct.IsStruct AnonA_polar
+deriving via Struct.IsStructViaReadRaw UntaggedA_polar instance Struct.IsStruct UntaggedA_polar
 
 {-| __C declaration:__ @r@
 
@@ -841,24 +845,26 @@ deriving via Struct.IsStructViaReadRaw AnonA_polar instance Struct.IsStruct Anon
     __exported by:__ @types\/unions\/unions.h@
 -}
 instance ( ty ~ BG.CDouble
-         ) => BG.CompatHasField.HasField "anonA_polar_r" AnonA_polar ty where
+         ) => BG.CompatHasField.HasField "untaggedA_polar_r" UntaggedA_polar ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          AnonA_polar {anonA_polar_r = y1, anonA_polar_p = BG.getField @"anonA_polar_p" x0}
-      , BG.getField @"anonA_polar_r" x0
+          UntaggedA_polar { untaggedA_polar_r = y1
+                          , untaggedA_polar_p = BG.getField @"untaggedA_polar_p" x0
+                          }
+      , BG.getField @"untaggedA_polar_r" x0
       )
 
 instance ( ty ~ BG.CDouble
-         ) => BG.HasField "anonA_polar_r" (BG.Ptr AnonA_polar) (BG.Ptr ty) where
+         ) => BG.HasField "untaggedA_polar_r" (BG.Ptr UntaggedA_polar) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (BG.Proxy @"anonA_polar_r")
+    HasCField.fromPtr (BG.Proxy @"untaggedA_polar_r")
 
-instance HasCField.HasCField AnonA_polar "anonA_polar_r" where
+instance HasCField.HasCField UntaggedA_polar "untaggedA_polar_r" where
 
-  type CFieldType AnonA_polar "anonA_polar_r" =
+  type CFieldType UntaggedA_polar "untaggedA_polar_r" =
     BG.CDouble
 
   offset# = \_ -> \_ -> 0
@@ -870,48 +876,50 @@ instance HasCField.HasCField AnonA_polar "anonA_polar_r" where
     __exported by:__ @types\/unions\/unions.h@
 -}
 instance ( ty ~ BG.CDouble
-         ) => BG.CompatHasField.HasField "anonA_polar_p" AnonA_polar ty where
+         ) => BG.CompatHasField.HasField "untaggedA_polar_p" UntaggedA_polar ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          AnonA_polar {anonA_polar_p = y1, anonA_polar_r = BG.getField @"anonA_polar_r" x0}
-      , BG.getField @"anonA_polar_p" x0
+          UntaggedA_polar { untaggedA_polar_p = y1
+                          , untaggedA_polar_r = BG.getField @"untaggedA_polar_r" x0
+                          }
+      , BG.getField @"untaggedA_polar_p" x0
       )
 
 instance ( ty ~ BG.CDouble
-         ) => BG.HasField "anonA_polar_p" (BG.Ptr AnonA_polar) (BG.Ptr ty) where
+         ) => BG.HasField "untaggedA_polar_p" (BG.Ptr UntaggedA_polar) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (BG.Proxy @"anonA_polar_p")
+    HasCField.fromPtr (BG.Proxy @"untaggedA_polar_p")
 
-instance HasCField.HasCField AnonA_polar "anonA_polar_p" where
+instance HasCField.HasCField UntaggedA_polar "untaggedA_polar_p" where
 
-  type CFieldType AnonA_polar "anonA_polar_p" =
+  type CFieldType UntaggedA_polar "untaggedA_polar_p" =
     BG.CDouble
 
   offset# = \_ -> \_ -> 8
 
-{-| __C declaration:__ @union AnonA@
+{-| __C declaration:__ @union UntaggedA@
 
     __defined at:__ @types\/unions\/unions.h 34:7@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-newtype AnonA = AnonA
-  { unwrapAnonA :: BG.ByteArray
+newtype UntaggedA = UntaggedA
+  { unwrapUntaggedA :: BG.ByteArray
   }
   deriving stock (BG.Generic)
 
-deriving via BG.SizedByteArray 16 8 instance Marshal.StaticSize AnonA
+deriving via BG.SizedByteArray 16 8 instance Marshal.StaticSize UntaggedA
 
-deriving via BG.SizedByteArray 16 8 instance Marshal.ReadRaw AnonA
+deriving via BG.SizedByteArray 16 8 instance Marshal.ReadRaw UntaggedA
 
-deriving via BG.SizedByteArray 16 8 instance Marshal.WriteRaw AnonA
+deriving via BG.SizedByteArray 16 8 instance Marshal.WriteRaw UntaggedA
 
-deriving via Marshal.EquivStorable AnonA instance BG.Storable AnonA
+deriving via Marshal.EquivStorable UntaggedA instance BG.Storable UntaggedA
 
-deriving via BG.SizedByteArray 16 8 instance Union.IsUnion AnonA
+deriving via BG.SizedByteArray 16 8 instance Union.IsUnion UntaggedA
 
 {-| __C declaration:__ @xy@
 
@@ -919,7 +927,7 @@ deriving via BG.SizedByteArray 16 8 instance Union.IsUnion AnonA
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-instance (ty ~ AnonA_xy) => BG.HasField "anonA_xy" AnonA ty where
+instance (ty ~ UntaggedA_xy) => BG.HasField "untaggedA_xy" UntaggedA ty where
 
   getField = BG.getUnionPayload
 
@@ -929,21 +937,24 @@ instance (ty ~ AnonA_xy) => BG.HasField "anonA_xy" AnonA ty where
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-instance (ty ~ AnonA_xy) => BG.CompatHasField.HasField "anonA_xy" AnonA ty where
+instance ( ty ~ UntaggedA_xy
+         ) => BG.CompatHasField.HasField "untaggedA_xy" UntaggedA ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         BG.setUnionPayload y1 x0, BG.getField @"anonA_xy" x0)
+         BG.setUnionPayload y1 x0, BG.getField @"untaggedA_xy" x0)
 
-instance ( ty ~ AnonA_xy
-         ) => BG.HasField "anonA_xy" (BG.Ptr AnonA) (BG.Ptr ty) where
+instance ( ty ~ UntaggedA_xy
+         ) => BG.HasField "untaggedA_xy" (BG.Ptr UntaggedA) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (BG.Proxy @"anonA_xy")
+  getField =
+    HasCField.fromPtr (BG.Proxy @"untaggedA_xy")
 
-instance HasCField.HasCField AnonA "anonA_xy" where
+instance HasCField.HasCField UntaggedA "untaggedA_xy" where
 
-  type CFieldType AnonA "anonA_xy" = AnonA_xy
+  type CFieldType UntaggedA "untaggedA_xy" =
+    UntaggedA_xy
 
   offset# = \_ -> \_ -> 0
 
@@ -953,7 +964,8 @@ instance HasCField.HasCField AnonA "anonA_xy" where
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-instance (ty ~ AnonA_polar) => BG.HasField "anonA_polar" AnonA ty where
+instance ( ty ~ UntaggedA_polar
+         ) => BG.HasField "untaggedA_polar" UntaggedA ty where
 
   getField = BG.getUnionPayload
 
@@ -963,22 +975,23 @@ instance (ty ~ AnonA_polar) => BG.HasField "anonA_polar" AnonA ty where
 
     __exported by:__ @types\/unions\/unions.h@
 -}
-instance ( ty ~ AnonA_polar
-         ) => BG.CompatHasField.HasField "anonA_polar" AnonA ty where
+instance ( ty ~ UntaggedA_polar
+         ) => BG.CompatHasField.HasField "untaggedA_polar" UntaggedA ty where
 
   hasField =
     \x0 ->
       (\y1 ->
-         BG.setUnionPayload y1 x0, BG.getField @"anonA_polar" x0)
+         BG.setUnionPayload y1 x0, BG.getField @"untaggedA_polar" x0)
 
-instance ( ty ~ AnonA_polar
-         ) => BG.HasField "anonA_polar" (BG.Ptr AnonA) (BG.Ptr ty) where
+instance ( ty ~ UntaggedA_polar
+         ) => BG.HasField "untaggedA_polar" (BG.Ptr UntaggedA) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (BG.Proxy @"anonA_polar")
+    HasCField.fromPtr (BG.Proxy @"untaggedA_polar")
 
-instance HasCField.HasCField AnonA "anonA_polar" where
+instance HasCField.HasCField UntaggedA "untaggedA_polar" where
 
-  type CFieldType AnonA "anonA_polar" = AnonA_polar
+  type CFieldType UntaggedA "untaggedA_polar" =
+    UntaggedA_polar
 
   offset# = \_ -> \_ -> 0

@@ -38,11 +38,11 @@ testCases = [
     , defaultTest "types/complex/complex_non_float_test"
     , defaultTest "types/complex/hsb_complex_test"
     , defaultTest "types/complex/vector_test"
-    , defaultTest "types/enums/anon_enum_toplevel"
     , defaultTest "types/enums/enum_cpp_syntax"
     , defaultTest "types/enums/enum_unsigned_values"
     , defaultTest "types/enums/enums"
     , defaultTest "types/enums/nested_enums"
+    , defaultTest "types/enums/untagged_enum_toplevel"
     , defaultTest "types/nested/nested_types"
     , defaultTest "types/primitives/bool"
     , defaultTest "types/primitives/fixedwidth"
@@ -50,12 +50,12 @@ testCases = [
     , defaultTest "types/primitives/primitive_types"
     , defaultTest "types/qualifiers/const_typedefs"
     , defaultTest "types/qualifiers/type_qualifiers"
-    , defaultTest "types/structs/anonymous"
     , defaultTest "types/structs/circular_dependency_struct"
     , defaultTest "types/structs/padding"
     , defaultTest "types/structs/recursive_struct"
     , defaultTest "types/structs/simple_structs"
     , defaultTest "types/structs/struct_arg"
+    , defaultTest "types/structs/untagged"
     , defaultTest "types/typedefs/auxiliary/function-pointer/array"
     , defaultTest "types/typedefs/auxiliary/function-pointer/direct"
     , defaultTest "types/typedefs/auxiliary/function-pointer/multi_level"
@@ -81,11 +81,11 @@ testCases = [
     , test_types_scoping_nesting
     , test_types_scoping_wide_nesting
     , test_types_special_parse_failure_long_double
-    , test_types_structs_named_vs_anon
     , test_types_structs_bitfields
     , test_types_structs_omit_field_prefixes
     , test_types_structs_post_qualified
-    , test_types_structs_unnamed_struct
+    , test_types_structs_tagged_vs_untagged
+    , test_types_structs_untagged_struct
     , test_types_typedefs_auxiliary_function_pointer_block
     , test_types_typedefs_typedefs
     , test_types_typedefs_typenames
@@ -260,9 +260,9 @@ test_types_special_parse_failure_long_double =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["fun1", "struct struct1"]
 
-test_types_structs_named_vs_anon :: TestCase
-test_types_structs_named_vs_anon =
-    defaultTest "types/structs/named_vs_anon"
+test_types_structs_tagged_vs_untagged :: TestCase
+test_types_structs_tagged_vs_untagged =
+    defaultTest "types/structs/tagged_vs_untagged"
       & #clangVersion .~ Just (>= (19, 1, 0))
 
 test_types_structs_bitfields :: TestCase
@@ -280,9 +280,9 @@ test_types_structs_post_qualified =
     testVariant "types/structs/simple_structs" Nothing "post_qualified"
       & #qualifiedStyle .~ PostQualified
 
-test_types_structs_unnamed_struct :: TestCase
-test_types_structs_unnamed_struct =
-    testTraceSimple "types/structs/unnamed_struct" $ \case
+test_types_structs_untagged_struct :: TestCase
+test_types_structs_untagged_struct =
+    testTraceSimple "types/structs/untagged_struct" $ \case
       MatchDiagnosticCategory "Semantic Issue" ->
         Just $ Expected ()
       MatchNoDeclarations ->

@@ -1,0 +1,296 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/structs/tagged_vs_untagged.h
+  cname: struct a
+  hsname: A
+- headers: types/structs/tagged_vs_untagged.h
+  cname: struct struct1
+  hsname: Struct1
+- headers: types/structs/tagged_vs_untagged.h
+  cname: struct b_s
+  hsname: B_s
+- headers: types/structs/tagged_vs_untagged.h
+  cname: struct struct2_s
+  hsname: Struct2_s
+- headers: types/structs/tagged_vs_untagged.h
+  cname: struct c
+  hsname: C
+- headers: types/structs/tagged_vs_untagged.h
+  cname: struct struct3
+  hsname: Struct3
+- headers: types/structs/tagged_vs_untagged.h
+  cname: struct d
+  hsname: D
+- headers: types/structs/tagged_vs_untagged.h
+  cname: struct struct4
+  hsname: Struct4
+- headers: types/structs/tagged_vs_untagged.h
+  cname: struct e_s
+  hsname: E_s
+- headers: types/structs/tagged_vs_untagged.h
+  cname: struct struct5_s
+  hsname: Struct5_s
+- headers: types/structs/tagged_vs_untagged.h
+  cname: struct f
+  hsname: F
+- headers: types/structs/tagged_vs_untagged.h
+  cname: f
+  hsname: F
+- headers: types/structs/tagged_vs_untagged.h
+  cname: struct typedef1
+  hsname: Typedef1
+- headers: types/structs/tagged_vs_untagged.h
+  cname: typedef1
+  hsname: Typedef1
+- headers: types/structs/tagged_vs_untagged.h
+  cname: struct g
+  hsname: G
+- headers: types/structs/tagged_vs_untagged.h
+  cname: g
+  hsname: G
+- headers: types/structs/tagged_vs_untagged.h
+  cname: struct typedef2
+  hsname: Typedef2
+- headers: types/structs/tagged_vs_untagged.h
+  cname: typedef2
+  hsname: Typedef2
+- headers: types/structs/tagged_vs_untagged.h
+  cname: struct h
+  hsname: H
+- headers: types/structs/tagged_vs_untagged.h
+  cname: h
+  hsname: H
+- headers: types/structs/tagged_vs_untagged.h
+  cname: struct typedef3
+  hsname: Typedef3
+- headers: types/structs/tagged_vs_untagged.h
+  cname: typedef3
+  hsname: Typedef3
+hstypes:
+- hsname: A
+  representation:
+    record:
+      constructor: A
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: B_s
+  representation:
+    record:
+      constructor: B_s
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: C
+  representation:
+    record:
+      constructor: C
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: D
+  representation:
+    record:
+      constructor: D
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E_s
+  representation:
+    record:
+      constructor: E_s
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: F
+  representation:
+    record:
+      constructor: F
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: G
+  representation:
+    record:
+      constructor: G
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: H
+  representation:
+    record:
+      constructor: H
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Struct1
+  representation:
+    record:
+      constructor: Struct1
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Struct2_s
+  representation:
+    record:
+      constructor: Struct2_s
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Struct3
+  representation:
+    record:
+      constructor: Struct3
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Struct4
+  representation:
+    record:
+      constructor: Struct4
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Struct5_s
+  representation:
+    record:
+      constructor: Struct5_s
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Typedef1
+  representation:
+    record:
+      constructor: Typedef1
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Typedef2
+  representation:
+    record:
+      constructor: Typedef2
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Typedef3
+  representation:
+    record:
+      constructor: Typedef3
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

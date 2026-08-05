@@ -24,7 +24,7 @@
 -- @
 --
 -- Doxygen produces one XML file per named compound, using @\"::\"@-qualified
--- names. Named nested structs get their own file; anonymous structs are
+-- names. Named nested structs get their own file; untagged structs are
 -- flattened into the nearest named enclosing struct:
 --
 -- @
@@ -37,7 +37,7 @@
 --   \</sectiondef>
 -- \</compounddef>
 --
--- \<!-- outer::inner.xml — note: field \"a\" is flattened from the anon struct -->
+-- \<!-- outer::inner.xml — note: field \"a\" is flattened from the untagged struct -->
 -- \<compounddef kind=\"struct\">
 --   \<compoundname>outer::inner\</compoundname>
 --   \<sectiondef kind=\"public-attrib\">
@@ -64,8 +64,8 @@
 -- KeyField  \"outer\" \"field\"                       -- field doc
 -- KeyStruct \"outer::inner\"                          -- compound doc
 -- KeyField  \"outer::inner\" \"x\"                    -- field doc
--- KeyField  \"outer::inner\" \"a\"                    -- flattened from anon
--- KeyField  \"outer::inner\" \"inner_inner\"          -- anon struct's doc
+-- KeyField  \"outer::inner\" \"a\"                    -- flattened from untagged
+-- KeyField  \"outer::inner\" \"inner_inner\"          -- untagged struct's doc
 -- KeyStruct \"outer::inner::inner_inner_inner\"       -- compound doc
 -- KeyField  \"outer::inner::inner_inner_inner\" \"c\" -- field doc
 -- @
@@ -77,13 +77,13 @@
 --
 -- __Named declarations__ ('lookupCommentForId'): 'resolveQualifiedName'
 -- reverses the @enclosing@ list, collects named ancestors (skipping
--- anonymous ones), and joins with @\"::\"@.  Then we look up
+-- unnamed ones), and joins with @\"::\"@.  Then we look up
 -- @'KeyDecl' qualName \<|\> 'KeyStruct' qualName@.
 --
---  * @inner_inner_inner@ → enclosing list @[\<anon>, inner, outer]@, skip
---    anon → @\"outer::inner::inner_inner_inner\"@
+--  * @inner_inner_inner@ → enclosing list @[\<unnamed>, inner, outer]@, skip
+--    unnamed → @\"outer::inner::inner_inner_inner\"@
 --
--- Anonymous declarations have no doxygen comment of their own: doxygen
+-- Unnamed declarations have no doxygen comment of their own: doxygen
 -- associates the comment with the enclosing field, which we pick up via
 -- 'enrichStructField'\/'enrichUnionField' below.
 --
@@ -95,8 +95,8 @@ module HsBindgen.Frontend.Pass.EnrichComments (enrichComments) where
 import Control.Applicative ((<|>))
 import Data.Text qualified as Text
 
-import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (AssignAnonIds)
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass (EnrichComments)
+import HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass (FillUnnamedIds)
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -112,13 +112,13 @@ import Doxygen.Parser.Types qualified as Doxy
 -- | Enrich parsed declarations with doxygen comments
 enrichComments ::
      forall l. Doxygen
-  -> [ParseResult l AssignAnonIds ]
+  -> [ParseResult l FillUnnamedIds ]
   -> [ParseResult l EnrichComments]
 enrichComments doxy results =
     map enrichOne coerced
   where
     -- Coerce input to 'EnrichComments' before enrichment. The coercion sets
-    -- every @comment@ field to 'Nothing' (since 'CommentDecl AssignAnonIds'
+    -- every @comment@ field to 'Nothing' (since 'CommentDecl FillUnnamedIds'
     -- is @()@ and 'CommentDecl EnrichComments' is @Maybe (Comment EnrichComments)@)
     -- via 'CoercePassCommentDecl'. We then fill in comments by looking up the
     -- doxygen state.
@@ -165,7 +165,7 @@ lookupCommentForId ::
   -> C.DeclInfo EnrichComments
   -> Maybe (Doxy.Comment Doxy.DoxyRef)
 lookupCommentForId doxy info
-  | not info.id.isAnon =
+  | not info.id.isUnnamed =
       let qualName = resolveQualifiedName info
       in  lookupComment (KeyDecl qualName) doxy
             <|> lookupComment (KeyStruct qualName) doxy
@@ -184,9 +184,9 @@ enrichDeclKind doxy name = \case
     C.DeclStruct struct -> C.DeclStruct $ enrichStruct doxy name struct
     C.DeclUnion  union  -> C.DeclUnion  $ enrichUnion  doxy name union
     C.DeclEnum   enum   -> C.DeclEnum   $ enrichEnum   doxy name enum
-    C.DeclAnonEnumConstant aec ->
-      C.DeclAnonEnumConstant $
-        aec & #constant %~ enrichEnumConstant doxy name
+    C.DeclUntaggedEnumConstant uec ->
+      C.DeclUntaggedEnumConstant $
+        uec & #constant %~ enrichEnumConstant doxy name
     other -> other
 
 enrichStruct :: Doxygen -> Text -> C.Struct EnrichComments -> C.Struct EnrichComments
@@ -238,7 +238,7 @@ enrichEnumConstant doxy name ec =
 -- | Build the @\"::\"@-qualified name that doxygen uses for this declaration.
 --
 -- Named ancestors are joined with @\"::\"@ (e.g., @outer::inner@).
--- Anonymous ancestors are skipped. Anonymous decls resolve to the nearest
+-- Unnamed ancestors are skipped. Unnamed decls resolve to the nearest
 -- named ancestor.
 resolveQualifiedName :: C.DeclInfo EnrichComments -> Text
 resolveQualifiedName info =
@@ -246,7 +246,7 @@ resolveQualifiedName info =
   where
     path :: [C.DeclId]
     path =
-      filter (not . (.isAnon)) $
+      filter (not . (.isUnnamed)) $
       reverse (map getEnclosingRef info.enclosing) ++ [info.id]
 
     getEnclosingRef :: C.EnclosingRef EnrichComments -> C.DeclId

@@ -66,17 +66,17 @@ ctypes:
   cname: dyn_array_t
   hsname: Dyn_array_t
 - headers: documentation/doxygen_docs.h
-  cname: struct multi_anon_t
-  hsname: Multi_anon_t
+  cname: struct multi_untagged_t
+  hsname: Multi_untagged_t
 - headers: documentation/doxygen_docs.h
-  cname: struct @multi_anon_t_pos
-  hsname: Multi_anon_t_pos
+  cname: struct @multi_untagged_t_pos
+  hsname: Multi_untagged_t_pos
 - headers: documentation/doxygen_docs.h
-  cname: struct @multi_anon_t_dim
-  hsname: Multi_anon_t_dim
+  cname: struct @multi_untagged_t_dim
+  hsname: Multi_untagged_t_dim
 - headers: documentation/doxygen_docs.h
-  cname: multi_anon_t
-  hsname: Multi_anon_t
+  cname: multi_untagged_t
+  hsname: Multi_untagged_t
 - headers: documentation/doxygen_docs.h
   cname: struct named_outer
   hsname: Named_outer
@@ -90,8 +90,8 @@ ctypes:
   cname: struct deep_mid
   hsname: Deep_mid
 - headers: documentation/doxygen_docs.h
-  cname: struct @deep_mid_anon_field
-  hsname: Deep_mid_anon_field
+  cname: struct @deep_mid_untagged_field
+  hsname: Deep_mid_untagged_field
 - headers: documentation/doxygen_docs.h
   cname: struct unnamed_field_t
   hsname: Unnamed_field_t
@@ -248,7 +248,7 @@ hstypes:
       constructor: Deep_mid
       fields:
       - deep_mid_m
-      - deep_mid_anon_field
+      - deep_mid_untagged_field
   instances:
   - Eq
   - Generic
@@ -262,12 +262,12 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Deep_mid_anon_field
+- hsname: Deep_mid_untagged_field
   representation:
     record:
-      constructor: Deep_mid_anon_field
+      constructor: Deep_mid_untagged_field
       fields:
-      - deep_mid_anon_field_deep_a
+      - deep_mid_untagged_field_deep_a
   instances:
   - Eq
   - Generic
@@ -383,13 +383,13 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Multi_anon_t
+- hsname: Multi_untagged_t
   representation:
     record:
-      constructor: Multi_anon_t
+      constructor: Multi_untagged_t
       fields:
-      - multi_anon_t_pos
-      - multi_anon_t_dim
+      - multi_untagged_t_pos
+      - multi_untagged_t_dim
   instances:
   - Eq
   - Generic
@@ -403,13 +403,13 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Multi_anon_t_dim
+- hsname: Multi_untagged_t_dim
   representation:
     record:
-      constructor: Multi_anon_t_dim
+      constructor: Multi_untagged_t_dim
       fields:
-      - multi_anon_t_dim_w
-      - multi_anon_t_dim_h
+      - multi_untagged_t_dim_w
+      - multi_untagged_t_dim_h
   instances:
   - Eq
   - Generic
@@ -423,13 +423,13 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Multi_anon_t_pos
+- hsname: Multi_untagged_t_pos
   representation:
     record:
-      constructor: Multi_anon_t_pos
+      constructor: Multi_untagged_t_pos
       fields:
-      - multi_anon_t_pos_x
-      - multi_anon_t_pos_y
+      - multi_untagged_t_pos_x
+      - multi_untagged_t_pos_y
   instances:
   - Eq
   - Generic

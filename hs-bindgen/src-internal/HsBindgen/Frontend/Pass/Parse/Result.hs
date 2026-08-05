@@ -30,7 +30,7 @@ import HsBindgen.Util.Tracer
 -- | Parse result
 --
 -- NOTE: This does /NOT/ depend on the @Parse@ pass specifically: we transform
--- these results in the @AssignAnonIds@ pass.
+-- these results in the @FillUnnamedIds@ pass.
 type ParseResult :: Star -> Pass -> Star
 data ParseResult l p = ParseResult{
       id             :: Id p

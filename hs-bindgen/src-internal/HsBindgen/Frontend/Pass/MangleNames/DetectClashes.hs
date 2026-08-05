@@ -103,16 +103,16 @@ derivedNames strategy nameMap owner loc = \case
     C.DeclEnum enum ->
          newtypeNames enum.ann
       ++ concatMap enumConstantName enum.constants
-    -- An anonymous enum constant is a top-level declaration in its own right;
+    -- An untagged enum constant is a top-level declaration in its own right;
     -- its name is registered as a 'Declaration'. We must /not/ also register
     -- the inner enum-constant scoped name, or it would collide with itself.
-    C.DeclAnonEnumConstant{} -> []
-    C.DeclTypedef typedef    -> typedefNames typedef.ann
+    C.DeclUntaggedEnumConstant{}      -> []
+    C.DeclTypedef typedef             -> typedefNames typedef.ann
     C.DeclMacro (MacroType macroType) -> newtypeNames macroType.ann
-    C.DeclMacro MacroValue{} -> []
-    C.DeclFunction{}         -> []
-    C.DeclGlobal{}           -> []
-    C.DeclOpaque{}           -> []
+    C.DeclMacro MacroValue{}          -> []
+    C.DeclFunction{}                  -> []
+    C.DeclGlobal{}                    -> []
+    C.DeclOpaque{}                    -> []
   where
     success :: (NameRole, Scope, SingleLoc, Hs.SomeName) -> DerivedNamesResult
     success = Right

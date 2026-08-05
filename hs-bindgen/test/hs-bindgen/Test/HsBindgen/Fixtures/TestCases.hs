@@ -156,7 +156,7 @@ commonKnownEmpty = [
   , "types/anonymous/edge-cases/empty_anon"
   , "types/anonymous/edge-cases/unnamed_bitfield"
   , "types/special/long_double"
-  , "types/structs/unnamed_struct"
+  , "types/structs/untagged_struct"
   , "types/typedefs/typenames"
   ]
 

@@ -20,15 +20,15 @@ resolveMacroWith ::
   -> C.Decl l In
   -> Either MacroResolutionError (C.Decl l Out)
 resolveMacroWith macroLang allDeclIds decl = case decl.kind of
-    C.DeclStruct           x -> Right $ aux $ C.DeclStruct           $ coercePass x
-    C.DeclUnion            x -> Right $ aux $ C.DeclUnion            $ coercePass x
-    C.DeclTypedef          x -> Right $ aux $ C.DeclTypedef          $ coercePass x
-    C.DeclEnum             x -> Right $ aux $ C.DeclEnum             $ coercePass x
-    C.DeclAnonEnumConstant x -> Right $ aux $ C.DeclAnonEnumConstant $ coercePass x
-    C.DeclOpaque           x -> Right $ aux $ C.DeclOpaque           $ x
-    C.DeclMacro            x -> resolveMacro macroLang allDeclIds info' decl.ann x
-    C.DeclFunction         x -> Right $ aux $ C.DeclFunction         $ coercePass x
-    C.DeclGlobal           x -> Right $ aux $ C.DeclGlobal           $ coercePass x
+    C.DeclStruct               x -> Right $ aux $ C.DeclStruct               $ coercePass x
+    C.DeclUnion                x -> Right $ aux $ C.DeclUnion                $ coercePass x
+    C.DeclTypedef              x -> Right $ aux $ C.DeclTypedef              $ coercePass x
+    C.DeclEnum                 x -> Right $ aux $ C.DeclEnum                 $ coercePass x
+    C.DeclUntaggedEnumConstant x -> Right $ aux $ C.DeclUntaggedEnumConstant $ coercePass x
+    C.DeclOpaque               x -> Right $ aux $ C.DeclOpaque               $ x
+    C.DeclMacro                x -> resolveMacro macroLang allDeclIds info' decl.ann x
+    C.DeclFunction             x -> Right $ aux $ C.DeclFunction             $ coercePass x
+    C.DeclGlobal               x -> Right $ aux $ C.DeclGlobal               $ coercePass x
   where
     info' :: C.DeclInfo Out
     info' = coercePass decl.info

@@ -59,15 +59,15 @@ processDecl decl =
 processDeclKind :: C.DeclKind l MangleNames -> C.DeclKind l AdjustTypes
 processDeclKind kind =
     case kind of
-      C.DeclStruct struct                  -> C.DeclStruct           $ processStruct struct
-      C.DeclUnion union                    -> C.DeclUnion            $ processUnion union
-      C.DeclTypedef typedef                -> C.DeclTypedef          $ processTypedef typedef
-      C.DeclEnum enum                      -> C.DeclEnum             $ processEnum enum
-      C.DeclAnonEnumConstant anonEnumConst -> C.DeclAnonEnumConstant $ processAnonEnumConstant anonEnumConst
+      C.DeclStruct struct                  -> C.DeclStruct               $ processStruct struct
+      C.DeclUnion union                    -> C.DeclUnion                $ processUnion union
+      C.DeclTypedef typedef                -> C.DeclTypedef              $ processTypedef typedef
+      C.DeclEnum enum                      -> C.DeclEnum                 $ processEnum enum
+      C.DeclUntaggedEnumConstant enumConst -> C.DeclUntaggedEnumConstant $ processUntaggedEnumConstant enumConst
       C.DeclOpaque mSize                   -> C.DeclOpaque mSize
-      C.DeclMacro macro                    -> C.DeclMacro            $ processMacro macro
-      C.DeclFunction function              -> C.DeclFunction         $ processFunction function
-      C.DeclGlobal global                  -> C.DeclGlobal           $ processGlobal global
+      C.DeclMacro macro                    -> C.DeclMacro                $ processMacro macro
+      C.DeclFunction function              -> C.DeclFunction             $ processFunction function
+      C.DeclGlobal global                  -> C.DeclGlobal               $ processGlobal global
 
 processStruct :: C.Struct MangleNames -> C.Struct AdjustTypes
 processStruct struct =
@@ -153,13 +153,13 @@ processEnumConstant enumConstant =
       , value = enumConstant.value
       }
 
-processAnonEnumConstant ::
-     C.AnonEnumConstant MangleNames
-  -> C.AnonEnumConstant AdjustTypes
-processAnonEnumConstant anonEnumConstant =
-    C.AnonEnumConstant {
-        typ = anonEnumConstant.typ
-      , constant = processEnumConstant anonEnumConstant.constant
+processUntaggedEnumConstant ::
+     C.UntaggedEnumConstant MangleNames
+  -> C.UntaggedEnumConstant AdjustTypes
+processUntaggedEnumConstant enumConst =
+    C.UntaggedEnumConstant {
+        typ = enumConst.typ
+      , constant = processEnumConstant enumConst.constant
       }
 
 processMacro :: MacroBody MangleNames l -> MacroBody AdjustTypes l

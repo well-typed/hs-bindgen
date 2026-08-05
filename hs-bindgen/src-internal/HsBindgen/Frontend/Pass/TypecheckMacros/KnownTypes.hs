@@ -22,19 +22,19 @@ collectKnownTypes decls = Map.fromList $ mapMaybe getKnownType decls
 getKnownType :: C.Decl l In -> Maybe (C.DeclId, CType)
 getKnownType decl = case decl.kind of
     -- We do not know the types of macros, yet.
-    C.DeclMacro{}            -> Nothing
-    C.DeclTypedef typedef    -> Just $ (declId, getKnownTypedef typedef)
-    C.DeclStruct{}           -> Just $ (declId,  knownStructOrUnion)
-    C.DeclUnion{}            -> Just $ (declId,  knownStructOrUnion)
-    C.DeclEnum enum          -> Just $ (declId,  getKnownEnum enum)
-    C.DeclAnonEnumConstant{} -> Nothing
+    C.DeclMacro{}                -> Nothing
+    C.DeclTypedef typedef        -> Just $ (declId, getKnownTypedef typedef)
+    C.DeclStruct{}               -> Just $ (declId,  knownStructOrUnion)
+    C.DeclUnion{}                -> Just $ (declId,  knownStructOrUnion)
+    C.DeclEnum enum              -> Just $ (declId,  getKnownEnum enum)
+    C.DeclUntaggedEnumConstant{} -> Nothing
     -- Include opaque tagged types: they can be referenced by macros (e.g. as a
     -- pointer type). The only opaque type-like declarations carrying an
     -- ordinary name are @typedef void foo@, which is not a valid standalone
     -- type, so macros using them will fail anyway.
-    C.DeclOpaque{}           -> getKnownTaggedTypeOpaque
-    C.DeclFunction{}         -> Nothing
-    C.DeclGlobal{}           -> Nothing
+    C.DeclOpaque{}               -> getKnownTaggedTypeOpaque
+    C.DeclFunction{}             -> Nothing
+    C.DeclGlobal{}               -> Nothing
   where
     info :: C.DeclInfo In
     info = decl.info

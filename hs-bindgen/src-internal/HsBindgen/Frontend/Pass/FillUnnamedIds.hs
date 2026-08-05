@@ -1,0 +1,443 @@
+module HsBindgen.Frontend.Pass.FillUnnamedIds (
+    fillUnnamedIds
+  ) where
+
+import Control.Monad.Except
+import Control.Monad.Reader
+import Data.Either (partitionEithers)
+import Data.Map qualified as Map
+import Data.Tuple
+
+import HsBindgen.Frontend.Analysis.UnnamedIdUsage
+import HsBindgen.Frontend.Pass.FillUnnamedIds.ChooseNames
+import HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass
+import HsBindgen.Frontend.Pass.Parse.Msg
+import HsBindgen.Frontend.Pass.Parse.Result
+import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST)
+import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass
+import HsBindgen.Util.Tracer (withCallStack)
+
+{-------------------------------------------------------------------------------
+  Top-level
+-------------------------------------------------------------------------------}
+
+-- | Assign name to all unnamed declarations
+fillUnnamedIds ::
+     HasCallStack
+  => UnnamedIdUsageAnalysis
+  -> [ParseResult l SimplifyAST]
+  -> ([ParseResult l FillUnnamedIds], [AnnMsg FillUnnamedIds])
+fillUnnamedIds usage parseResults =
+    swap . partitionEithers $
+      map (updateParseResult chosenNames) parseResults
+  where
+    chosenNames :: ChosenNames
+    chosenNames = chooseNames usage
+
+{-------------------------------------------------------------------------------
+  Update 'ParseResults' with chosen names
+-------------------------------------------------------------------------------}
+
+updateParseResult ::
+     forall l. HasCallStack
+  => ChosenNames
+  -> ParseResult l SimplifyAST
+  -> Either (AnnMsg FillUnnamedIds) (ParseResult l FillUnnamedIds)
+updateParseResult chosenNames result =
+    case result.classification of
+      ParseResultSuccess success -> do
+        auxSuccess success <$>
+          updateDefSite chosenNames success.decl.info.id
+      ParseResultUnavailable ->
+        auxUnavailable <$>
+          updateDefSite chosenNames result.id
+      ParseResultFailure failure ->
+        auxFailure failure <$>
+          updateDefSite chosenNames result.id
+  where
+    auxSuccess ::
+         ParseSuccess l SimplifyAST
+      -> C.DeclId
+      -> ParseResult l FillUnnamedIds
+    auxSuccess success declId' =
+        case runM chosenNames updated of
+          Left (UnusableUnnamedDecl unnamedId) -> ParseResult{
+              id             = declId'
+            , loc            = result.loc
+            , classification = ParseResultFailure $ ParseUnusableUnnamedDecl unnamedId
+            }
+          Right (declInfo', declKind') -> ParseResult{
+              id             = declInfo'.id
+            , loc            = result.loc
+            , classification = ParseResultSuccess ParseSuccess{
+                  decl = C.Decl{
+                      info = declInfo'
+                    , kind = declKind'
+                    , ann  = NoAnn
+                    }
+                , delayedParseMsgs = success.delayedParseMsgs
+                }
+            }
+
+      where
+        updated :: M (C.DeclInfo FillUnnamedIds, C.DeclKind l FillUnnamedIds)
+        updated = (,)
+            <$> updateDeclInfo declId' success.decl.info
+            <*> updateUseSites         success.decl.kind
+
+    auxUnavailable ::
+         C.DeclId
+      -> ParseResult l FillUnnamedIds
+    auxUnavailable declId' = ParseResult{
+          id             = declId'
+        , loc            = result.loc
+        , classification = ParseResultUnavailable
+        }
+
+    auxFailure ::
+         DelayedParseMsg
+      -> C.DeclId
+      -> ParseResult l FillUnnamedIds
+    auxFailure failure declId' = ParseResult{
+          id             = declId'
+        , loc            = result.loc
+        , classification = ParseResultFailure failure
+        }
+
+{-------------------------------------------------------------------------------
+  Update definition sites
+-------------------------------------------------------------------------------}
+
+updateDefSite ::
+     HasCallStack
+  => ChosenNames
+  -> Id SimplifyAST
+  -> Either (AnnMsg FillUnnamedIds) (Id FillUnnamedIds)
+updateDefSite chosenNames =
+    first (withCallStack . FillUnnamedIdsSkippedDecl) . fromPrelimDeclId chosenNames
+
+updateDeclInfo ::
+     C.DeclId
+  -> C.DeclInfo SimplifyAST
+  -> M (C.DeclInfo FillUnnamedIds)
+updateDeclInfo declId' info = do
+    enclosing' <- mapM updateEnclosing info.enclosing
+    pure C.DeclInfo{
+          loc              = info.loc
+        , id               = declId'
+        , sourceOrderIndex = info.sourceOrderIndex
+        , headerInfo       = info.headerInfo
+        , availability     = info.availability
+        , comment          = ()
+        , enclosing        = enclosing'
+        }
+  where
+    updateEnclosing ::
+      C.EnclosingRef SimplifyAST -> M (C.EnclosingRef FillUnnamedIds)
+    updateEnclosing = \case
+      C.EnclosingRef         x -> C.EnclosingRef <$> updateDeclId x
+      C.UnusableEnclosingRef x -> pure $ C.UnusableEnclosingRef x
+
+{-------------------------------------------------------------------------------
+  Internal auxiliary: monad for updating use sites
+-------------------------------------------------------------------------------}
+
+newtype M a = WrapM (
+      ReaderT ChosenNames (Except UnusableUnnamedDecl) a
+    )
+  deriving newtype (
+      Functor
+    , Applicative
+    , Monad
+    )
+
+-- | We encountered an unusable unnamed declaration
+--
+-- Not all use sites of unnamed decls are given a name; for example, if we have a
+-- function signature with an untagged struct, we will not even traverse that
+-- function signature in "HsBindgen.Frontend.Analysis.UnnamedIdUsage". This means
+-- that if we then try to /update/ those use sites, that will fail.
+--
+-- This is an internal type; the external equivalent is 'ParseUnusableUnnamedDecl'.
+data UnusableUnnamedDecl = UnusableUnnamedDecl C.UnnamedId
+  deriving stock (Show)
+
+runM :: ChosenNames -> M a -> Either UnusableUnnamedDecl a
+runM chosenNames (WrapM ma) = runExcept $ runReaderT ma chosenNames
+
+{-------------------------------------------------------------------------------
+  Update use sites
+-------------------------------------------------------------------------------}
+
+class UpdateUseSites a where
+  updateUseSites :: a SimplifyAST -> M (a FillUnnamedIds)
+
+instance UpdateUseSites (C.DeclKind l) where
+  updateUseSites = \case
+      C.DeclStruct               x -> C.DeclStruct               <$> updateUseSites x
+      C.DeclUnion                x -> C.DeclUnion                <$> updateUseSites x
+      C.DeclTypedef              x -> C.DeclTypedef              <$> updateUseSites x
+      C.DeclEnum                 x -> C.DeclEnum                 <$> updateUseSites x
+      C.DeclUntaggedEnumConstant x -> C.DeclUntaggedEnumConstant <$> updateUseSites x
+      C.DeclFunction             x -> C.DeclFunction             <$> updateUseSites x
+      C.DeclGlobal               x -> C.DeclGlobal               <$> updateUseSites x
+      C.DeclMacro                x -> return $ C.DeclMacro x
+      C.DeclOpaque mSize           -> return $ C.DeclOpaque mSize
+
+instance UpdateUseSites C.Struct where
+  updateUseSites struct =
+      reconstruct
+        <$> mapM updateUseSites struct.fields
+        <*> C.traverseFlamField updateUseSites struct.flam
+    where
+      reconstruct ::
+           [C.Field FillUnnamedIds]
+        -> C.Flam FillUnnamedIds
+        -> C.Struct FillUnnamedIds
+      reconstruct fields' flam' = C.Struct {
+            fields    = fields'
+          , flam      = flam'
+          , sizeof    = struct.sizeof
+          , alignment = struct.alignment
+          , ann       = NoAnn
+          }
+
+instance UpdateUseSites C.Union where
+  updateUseSites union =
+      reconstruct <$> mapM updateUseSites union.fields
+    where
+      reconstruct :: [C.Field FillUnnamedIds] -> C.Union FillUnnamedIds
+      reconstruct fields' = C.Union {
+            fields    = fields'
+          , sizeof    = union.sizeof
+          , alignment = union.alignment
+          , ann       = NoAnn
+          }
+
+instance UpdateUseSites C.Field where
+  updateUseSites = C.mapMField updateUseSites updateUseSites
+
+instance UpdateUseSites C.FieldInfo where
+  updateUseSites info = pure C.FieldInfo{
+        comment = ()
+      , name    = info.name
+      , loc     = info.loc
+      }
+
+instance UpdateUseSites C.ExplicitField where
+  updateUseSites field =
+      reconstruct
+        <$> updateUseSites field.info
+        <*> updateUseSites field.typ
+    where
+      reconstruct ::
+           C.FieldInfo FillUnnamedIds
+        -> C.Type FillUnnamedIds
+        -> C.ExplicitField FillUnnamedIds
+      reconstruct info' typ' = C.ExplicitField {
+            info   = info'
+          , typ    = typ'
+          , offset = field.offset
+          , width  = field.width
+          , ann    = field.ann
+          }
+
+instance UpdateUseSites C.ImplicitField where
+  updateUseSites field =
+      reconstruct
+        <$> updateUseSites field.info
+        <*> updateUseSites field.typRef
+        <*> mapM updateUseSites field.indirect
+    where
+      reconstruct ::
+           C.FieldInfo FillUnnamedIds
+        -> C.AnonRef FillUnnamedIds
+        -> [C.IndirectField FillUnnamedIds]
+        -> C.ImplicitField FillUnnamedIds
+      reconstruct info' typRef' indirect' = C.ImplicitField {
+            info     = info'
+          , typRef   = typRef'
+          , offset   = field.offset
+          , indirect = indirect'
+          , ann      = NoAnn
+          }
+
+instance UpdateUseSites C.AnonRef where
+  updateUseSites = \case
+      C.AnonRef ref -> C.AnonRef <$> updateDeclId ref
+
+instance UpdateUseSites C.IndirectField where
+  updateUseSites field =
+      reconstruct
+        <$> updateUseSites field.info
+        <*> updateUseSites field.typ
+        <*> mapM updateUseSites field.path
+    where
+      reconstruct ::
+           C.FieldInfo FillUnnamedIds
+        -> C.Type FillUnnamedIds
+        -> [C.AnonRef FillUnnamedIds]
+        -> C.IndirectField FillUnnamedIds
+      reconstruct info' typ' path' = C.IndirectField {
+            info = info'
+          , typ = typ'
+          , offset = field.offset
+          , width = Nothing
+          , path = path'
+          , ann = field.ann
+          }
+
+instance UpdateUseSites C.Typedef where
+  updateUseSites typedef =
+      reconstruct <$> updateUseSites typedef.typ
+    where
+      reconstruct :: C.Type FillUnnamedIds -> C.Typedef FillUnnamedIds
+      reconstruct typedefType' = C.Typedef {
+          typ = typedefType'
+        , ann = typedef.ann
+        }
+
+instance UpdateUseSites C.Global where
+  updateUseSites global =
+      reconstruct <$> updateUseSites global.typ
+    where
+      reconstruct :: C.Type FillUnnamedIds -> C.Global FillUnnamedIds
+      reconstruct globalType' = C.Global {
+          typ = globalType'
+        , ann = global.ann
+        }
+
+instance UpdateUseSites C.Enum where
+  updateUseSites enum =
+      reconstruct
+        <$> updateUseSites enum.typ
+        <*> mapM updateUseSites enum.constants
+    where
+      reconstruct ::
+           C.Type FillUnnamedIds
+        -> [C.EnumConstant FillUnnamedIds]
+        -> C.Enum FillUnnamedIds
+      reconstruct enumType' enumConstants' = C.Enum {
+            typ       = enumType'
+          , constants = enumConstants'
+          , sizeof    = enum.sizeof
+          , alignment = enum.alignment
+          , ann       = enum.ann
+          }
+
+instance UpdateUseSites C.Function where
+  updateUseSites function =
+      reconstruct
+        <$> mapM updateUseSites function.args
+        <*> updateUseSites function.res
+    where
+      reconstruct ::
+           [C.FunctionArg FillUnnamedIds]
+        -> C.Type FillUnnamedIds
+        -> C.Function FillUnnamedIds
+      reconstruct functionArgs' functionRes' = C.Function {
+            args  = functionArgs'
+          , res   = functionRes'
+          , attrs = function.attrs
+          , ann   = function.ann
+          }
+
+instance UpdateUseSites C.FunctionArg where
+  updateUseSites functionArg =
+      reconstruct
+        <$> pure functionArg.name
+        <*> updateUseSites functionArg.argTyp
+    where
+      reconstruct ::
+           Maybe (ScopedName FillUnnamedIds)
+        -> C.TypeFunArg FillUnnamedIds
+        -> C.FunctionArg FillUnnamedIds
+      reconstruct name' typ' = C.FunctionArg {
+            name = name'
+          , argTyp = typ'
+          }
+
+instance UpdateUseSites C.Type where
+  updateUseSites = go
+    where
+      go :: C.Type SimplifyAST -> M (C.Type FillUnnamedIds)
+      go = \case
+          -- Actual modifications
+          C.TypeRef     ref     -> C.TypeRef     <$> updateDeclId ref
+          C.TypeEnum    ref     ->
+            fmap C.TypeEnum $ C.Ref
+                <$> updateDeclId ref.name
+                <*> updateUseSites ref.underlying
+          C.TypeTypedef ref ->
+            fmap C.TypeTypedef $ C.Ref
+                <$> updateDeclId ref.name
+                <*> updateUseSites ref.underlying
+
+          -- Recursive cases
+          C.TypePointers n      ty -> C.TypePointers n <$> go ty
+          C.TypeConstArray n    ty -> C.TypeConstArray n <$> go ty
+          C.TypeIncompleteArray ty -> C.TypeIncompleteArray <$> go ty
+          C.TypeBlock           ty -> C.TypeBlock <$> go ty
+          C.TypeQual qual       ty -> C.TypeQual qual <$> go ty
+          C.TypeFun args res       -> C.TypeFun <$> mapM updateUseSites args <*> go res
+
+          -- SimpleCases
+          C.TypeVoid           -> return $ C.TypeVoid
+          C.TypePrim    pt     -> return $ C.TypePrim    pt
+          C.TypeComplex pt     -> return $ C.TypeComplex pt
+
+instance UpdateUseSites C.TypeFunArg where
+  updateUseSites arg = do
+      typ' <- updateUseSites arg.typ
+      pure C.TypeFunArgF {
+          typ = typ'
+        , ann = arg.ann
+        }
+
+updateDeclId :: C.PrelimDeclId -> M C.DeclId
+updateDeclId prelimDeclId = WrapM $ do
+    chosenNames <- ask
+    case fromPrelimDeclId chosenNames prelimDeclId of
+      Left  unnamedId -> throwError $ UnusableUnnamedDecl unnamedId
+      Right declId -> return declId
+
+{-------------------------------------------------------------------------------
+  Comments
+-------------------------------------------------------------------------------}
+
+instance UpdateUseSites C.EnumConstant where
+  updateUseSites constant =
+      reconstruct <$> updateUseSites constant.info
+    where
+      reconstruct :: C.FieldInfo FillUnnamedIds -> C.EnumConstant FillUnnamedIds
+      reconstruct enumConstantInfo' = C.EnumConstant{
+            info  = enumConstantInfo'
+          , value = constant.value
+          }
+
+instance UpdateUseSites C.UntaggedEnumConstant where
+  updateUseSites enumConst =
+      reconstruct <$> updateUseSites enumConst.constant
+    where
+      reconstruct :: C.EnumConstant FillUnnamedIds -> C.UntaggedEnumConstant FillUnnamedIds
+      reconstruct constant' = C.UntaggedEnumConstant{
+            typ      = enumConst.typ  -- PrimType has no use sites to update
+          , constant = constant'
+          }
+
+{-------------------------------------------------------------------------------
+  Internal auxiliary
+-------------------------------------------------------------------------------}
+
+-- | Construct 'C.DeclId' from 'C.PrelimDeclId'
+--
+-- Returns 'Left' an 'C.UnnamedId' if the 'C.PrelimDeclId' is unnamed and we
+-- have assigned no name.
+fromPrelimDeclId :: ChosenNames -> C.PrelimDeclId -> Either C.UnnamedId C.DeclId
+fromPrelimDeclId chosenNames = \case
+    C.PrelimDeclIdNamed name ->
+      Right C.DeclId{name = name, isUnnamed = False}
+    C.PrelimDeclIdUnnamed unnamedId ->
+      maybe (Left unnamedId) Right $ Map.lookup unnamedId chosenNames

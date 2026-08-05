@@ -70,15 +70,15 @@ instance Simplify (C.TranslationUnit l) where
 instance Simplify (C.Decl l) where
   type Ctx (C.Decl l) = ()
   simplifyIt _ decl = case decl.kind of
-      C.DeclStruct struct      -> recurse struct
-      C.DeclUnion union        -> recurse union
-      C.DeclTypedef typedef    -> recurse typedef
-      C.DeclEnum enum          -> recurse enum
-      C.DeclAnonEnumConstant c -> recurse c
-      C.DeclOpaque{}           -> nothing
-      C.DeclMacro macro        -> recurse $ Flip macro
-      C.DeclFunction function  -> recurse function
-      C.DeclGlobal global      -> recurse global
+      C.DeclStruct struct          -> recurse struct
+      C.DeclUnion union            -> recurse union
+      C.DeclTypedef typedef        -> recurse typedef
+      C.DeclEnum enum              -> recurse enum
+      C.DeclUntaggedEnumConstant c -> recurse c
+      C.DeclOpaque{}               -> nothing
+      C.DeclMacro macro            -> recurse $ Flip macro
+      C.DeclFunction function      -> recurse function
+      C.DeclGlobal global          -> recurse global
     where
       recurse :: forall a.
            (Simplify a, Ctx a ~ C.DeclInfo TypecheckMacros)
@@ -121,7 +121,7 @@ instance Simplify C.Typedef where
 instance Simplify C.Enum where
   simplifyIt _ _ = nothing
 
-instance Simplify C.AnonEnumConstant where
+instance Simplify C.UntaggedEnumConstant where
   simplifyIt _ _ = nothing
 
 instance Simplify (Flip TypecheckedMacro l) where

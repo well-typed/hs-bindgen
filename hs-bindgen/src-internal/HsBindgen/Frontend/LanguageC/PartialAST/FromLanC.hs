@@ -198,10 +198,10 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
                         LanC.CStructTag -> C.TagKindStruct
                         LanC.CUnionTag  -> C.TagKindUnion
         checkNoDef "struct or union definition" mDef
-        name <- checkNotAnon mTag tagKind
+        name <- checkTagged mTag tagKind
         notFun (typeRef name) partial
       LanC.CEnumType (LanC.CEnum mTag mDef _attrs _a) _a' -> \partial -> do
-        name <- checkNotAnon mTag C.TagKindEnum
+        name <- checkTagged mTag C.TagKindEnum
         checkNoDef "enum definition" mDef
         env <- getReparseEnv
         case lookupType (C.renderDeclNameC name) env of
@@ -215,15 +215,15 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
           Just typ -> notFun typ partial
     where
       typeRef :: C.DeclName -> C.Type LanC
-      typeRef name = C.TypeRef $ C.DeclId{name = name, isAnon = False}
+      typeRef name = C.TypeRef $ C.DeclId{name = name, isUnnamed = False}
 
-      checkNotAnon :: Maybe LanC.Ident -> C.TagKind -> FromLanC C.DeclName
-      checkNotAnon mName cTagKind =
+      checkTagged :: Maybe LanC.Ident -> C.TagKind -> FromLanC C.DeclName
+      checkTagged mName cTagKind =
           case mName of
             Just name ->
               return $ C.DeclName (mkCName name) (C.NameKindTagged cTagKind)
             Nothing ->
-              skipped $ "Anonymous " ++ show cTagKind
+              skipped $ "Untagged " ++ show cTagKind
 
       checkNoDef :: String -> Maybe def -> FromLanC ()
       checkNoDef _   Nothing  = return ()

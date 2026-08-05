@@ -139,15 +139,15 @@ resolveDeclKind ::
   -> C.DeclKind l CreateNames
   -> ResolveE (C.DeclKind l MangleNames)
 resolveDeclKind info = \case
-    C.DeclStruct           x -> C.DeclStruct           <$> resolve info x
-    C.DeclUnion            x -> C.DeclUnion            <$> resolve info x
-    C.DeclEnum             x -> C.DeclEnum             <$> resolve info x
-    C.DeclAnonEnumConstant x -> C.DeclAnonEnumConstant <$> resolve info x
-    C.DeclTypedef          x -> C.DeclTypedef          <$> resolve info x
-    C.DeclFunction         x -> C.DeclFunction         <$> resolve info x
-    C.DeclMacro            x -> C.DeclMacro            <$> resolveMacro x
-    C.DeclGlobal           x -> C.DeclGlobal           <$> resolve info x
-    C.DeclOpaque mSize       -> pure (C.DeclOpaque mSize)
+    C.DeclStruct               x -> C.DeclStruct               <$> resolve info x
+    C.DeclUnion                x -> C.DeclUnion                <$> resolve info x
+    C.DeclEnum                 x -> C.DeclEnum                 <$> resolve info x
+    C.DeclUntaggedEnumConstant x -> C.DeclUntaggedEnumConstant <$> resolve info x
+    C.DeclTypedef              x -> C.DeclTypedef              <$> resolve info x
+    C.DeclFunction             x -> C.DeclFunction             <$> resolve info x
+    C.DeclMacro                x -> C.DeclMacro                <$> resolveMacro x
+    C.DeclGlobal               x -> C.DeclGlobal               <$> resolve info x
+    C.DeclOpaque mSize           -> pure (C.DeclOpaque mSize)
 
 {-------------------------------------------------------------------------------
   Traversal 3: name-map lookups
@@ -308,10 +308,10 @@ instance Resolve C.EnumConstant where
       , value = constant.value
       }
 
-instance Resolve C.AnonEnumConstant where
-  resolve info (C.AnonEnumConstant primTyp constant) = do
+instance Resolve C.UntaggedEnumConstant where
+  resolve info (C.UntaggedEnumConstant primTyp constant) = do
     constant' <- (resolve info) constant
-    pure C.AnonEnumConstant{
+    pure C.UntaggedEnumConstant{
         typ      = primTyp
       , constant = constant'
       }

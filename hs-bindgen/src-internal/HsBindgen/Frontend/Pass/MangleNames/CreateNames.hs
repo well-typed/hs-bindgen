@@ -152,14 +152,14 @@ withDeclNamespace ::
   -> r
 withDeclNamespace kind k =
     case kind of
-      C.DeclStruct{}           -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclUnion{}            -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclTypedef{}          -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclEnum{}             -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclAnonEnumConstant{} -> k (Proxy @Hs.NsConstr)
-      C.DeclOpaque{}           -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclFunction{}         -> k (Proxy @Hs.NsVar)
-      C.DeclGlobal{}           -> k (Proxy @Hs.NsVar)
+      C.DeclStruct{}               -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclUnion{}                -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclTypedef{}              -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclEnum{}                 -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclUntaggedEnumConstant{} -> k (Proxy @Hs.NsConstr)
+      C.DeclOpaque{}               -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclFunction{}             -> k (Proxy @Hs.NsVar)
+      C.DeclGlobal{}               -> k (Proxy @Hs.NsVar)
 
       C.DeclMacro macro ->
         case macro of
@@ -443,15 +443,15 @@ createDeclKind ::
   -> C.DeclKind l ResolveBindingSpecs
   -> CreateE (C.DeclKind l CreateNames)
 createDeclKind hsName = \case
-    C.DeclStruct           x -> C.DeclStruct           <$> createStruct hsName x
-    C.DeclUnion            x -> C.DeclUnion            <$> createUnion hsName x
-    C.DeclEnum             x -> C.DeclEnum             <$> createEnum hsName x
-    C.DeclAnonEnumConstant x -> C.DeclAnonEnumConstant <$> createAnonEnumConstant x
-    C.DeclTypedef          x -> C.DeclTypedef          <$> createTypedef hsName x
-    C.DeclFunction         x -> C.DeclFunction         <$> createFunction x
-    C.DeclMacro            x -> C.DeclMacro            <$> createMacro hsName x
-    C.DeclGlobal           x -> C.DeclGlobal           <$> createGlobal x
-    C.DeclOpaque mSize       -> pure (C.DeclOpaque mSize)
+    C.DeclStruct               x -> C.DeclStruct               <$> createStruct hsName x
+    C.DeclUnion                x -> C.DeclUnion                <$> createUnion hsName x
+    C.DeclEnum                 x -> C.DeclEnum                 <$> createEnum hsName x
+    C.DeclUntaggedEnumConstant x -> C.DeclUntaggedEnumConstant <$> createUntaggedEnumConstant x
+    C.DeclTypedef              x -> C.DeclTypedef              <$> createTypedef hsName x
+    C.DeclFunction             x -> C.DeclFunction             <$> createFunction x
+    C.DeclMacro                x -> C.DeclMacro                <$> createMacro hsName x
+    C.DeclGlobal               x -> C.DeclGlobal               <$> createGlobal x
+    C.DeclOpaque mSize           -> pure (C.DeclOpaque mSize)
 
 {-------------------------------------------------------------------------------
   Traversal 1b: name-bundle constructors
@@ -686,12 +686,12 @@ createEnumConstant constant = do
       , value = constant.value
       }
 
-createAnonEnumConstant ::
-     C.AnonEnumConstant ResolveBindingSpecs
-  -> CreateE (C.AnonEnumConstant CreateNames)
-createAnonEnumConstant (C.AnonEnumConstant primTyp constant) = do
+createUntaggedEnumConstant ::
+     C.UntaggedEnumConstant ResolveBindingSpecs
+  -> CreateE (C.UntaggedEnumConstant CreateNames)
+createUntaggedEnumConstant (C.UntaggedEnumConstant primTyp constant) = do
     constant' <- createEnumConstant constant
-    pure C.AnonEnumConstant{
+    pure C.UntaggedEnumConstant{
         typ      = primTyp
       , constant = constant'
       }

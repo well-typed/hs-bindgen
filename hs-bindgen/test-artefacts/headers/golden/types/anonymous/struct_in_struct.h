@@ -8,7 +8,7 @@ struct outer1 {
   struct {
     int fieldX;
     int fieldY;
-  }; // <-- an anonymous struct: an unnamed struct with an unnamed field
+  }; // <-- an anonymous struct: an untagged struct with an unnamed field
   int fieldC;
 };
 
@@ -17,7 +17,7 @@ struct outer2 {
   struct {
     int fieldX;
     int fieldY;
-  } fieldB; // <-- an unnamed struct with a named field
+  } fieldB; // <-- an untagged struct with a named field
   int fieldC;
 };
 

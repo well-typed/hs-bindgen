@@ -25,7 +25,7 @@ module HsBindgen.IR.C.Naming (
   , parseScopedName
 
     -- * PrelimDeclId
-  , AnonId(..)
+  , UnnamedId(..)
   , PrelimDeclId(..)
   , prelimDeclIdSourceName
   , prelimDeclIdNameKind
@@ -34,7 +34,7 @@ module HsBindgen.IR.C.Naming (
     -- * DeclId
   , DeclId(..)
   , declIdSourceName
-  , renderNonAnonDeclId
+  , renderNamedDeclId
   , renderDeclId
   , parseDeclId
   ) where
@@ -194,18 +194,18 @@ parseScopedName t = case Text.words t of
   PrelimDeclId
 -------------------------------------------------------------------------------}
 
--- | Anonymous declaration identifier
+-- | Unnamed declaration identifier
 --
--- A single macro expansion can produce multiple anonymous tag declarations,
+-- A single macro expansion can produce multiple unnamed declarations,
 -- and libclang reports the /same/ expansion location for all of them
 -- (the macro call site). Without further information they would share an
--- 'AnonId'.  Example:
+-- 'UnnamedId'.  Example:
 --
--- > #define TwoAnons \
+-- > #define TwoUntaggedStructs \
 -- >     struct { int a; } x; \
 -- >     struct { int b; } y;
 -- >
--- > TwoAnons   // both 'struct {}'s share the expansion location
+-- > TwoUntaggedStructs   // both 'struct {}'s share the expansion location
 --
 -- The /spelling/ location points back to where each token was originally
 -- written -- for macro-expanded code, an offset inside the macro body rather
@@ -215,12 +215,12 @@ parseScopedName t = case Text.words t of
 -- 'loc' (expansion) is what we surface in traces and Haddock, so it stays the
 -- human-facing identifier; 'spelling' exists only to make the derived 'Eq' and
 -- 'Ord' fine-grained enough.  For non-macro code 'spelling' equals 'loc' and
--- 'AnonId' behaves as before.
+-- 'UnnamedId' behaves as before.
 --
 -- The spelling location is only populated correctly on @llvm >= 19.1.0@; on
 -- older toolchains it equals the expansion location and the collision
 -- returns.
-data AnonId = AnonId {
+data UnnamedId = UnnamedId {
       -- | Macro expansion site, or the source location for non-macro decls.
       -- Used for tracing and Haddock comments.
       loc      :: SingleLoc
@@ -231,10 +231,10 @@ data AnonId = AnonId {
     }
   deriving stock (Eq, Generic, Ord, Show)
 
-instance PrettyForTrace AnonId where
-  prettyForTrace anonId = PP.singleQuotes $ PP.hsep $ [
+instance PrettyForTrace UnnamedId where
+  prettyForTrace unnamedId = PP.singleQuotes $ PP.hsep $ [
       "unnamed"
-    , case anonId.kind of
+    , case unnamedId.kind of
         NameKindTagged tagKind ->
           PP.text (tagKindPrefix tagKind)
         NameKindOrdinary ->
@@ -242,13 +242,13 @@ instance PrettyForTrace AnonId where
         NameKindMacro ->
           "macro"
     , "at"
-    , PP.string $ HighLevel.prettySingleLoc ShowFile anonId.loc
+    , PP.string $ HighLevel.prettySingleLoc ShowFile unnamedId.loc
     ] ++ [
       PP.string $
            "<Spelling="
-        ++ HighLevel.prettySingleLoc ShowFile anonId.spelling
+        ++ HighLevel.prettySingleLoc ShowFile unnamedId.spelling
         ++ ">"
-    | anonId.spelling /= anonId.loc
+    | unnamedId.spelling /= unnamedId.loc
     ]
 
 --------------------------------------------------------------------------------
@@ -258,31 +258,31 @@ instance PrettyForTrace AnonId where
 -- Not all declarations in a C header have names; to be able to nonetheless
 -- refer to these declarations we use the source location.  We replace these by
 -- proper names in the
--- "HsBindgen.Frontend.Pass.AssignAnonIds.IsPass.AssignAnonIds" pass.
+-- "HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass.FillUnnamedIds" pass.
 data PrelimDeclId =
     -- | Named declaration
     PrelimDeclIdNamed DeclName
 
-    -- | Anonymous declaration
+    -- | Unnamed declaration
     --
     -- This can only happen for tagged types: structs, unions and enums
-  | PrelimDeclIdAnon AnonId
+  | PrelimDeclIdUnnamed UnnamedId
   deriving stock (Eq, Ord, Show)
 
 instance PrettyForTrace PrelimDeclId where
   prettyForTrace = \case
-    PrelimDeclIdNamed name   -> prettyForTrace name
-    PrelimDeclIdAnon  anonId -> prettyForTrace anonId
+    PrelimDeclIdNamed name        -> prettyForTrace name
+    PrelimDeclIdUnnamed unnamedId -> prettyForTrace unnamedId
 
 prelimDeclIdSourceName :: PrelimDeclId -> Maybe DeclName
 prelimDeclIdSourceName = \case
-    PrelimDeclIdNamed  name   -> Just name
-    PrelimDeclIdAnon  _anonId -> Nothing
+    PrelimDeclIdNamed  name         -> Just name
+    PrelimDeclIdUnnamed  _unnamedId -> Nothing
 
 prelimDeclIdNameKind :: PrelimDeclId -> NameKind
 prelimDeclIdNameKind = \case
-    PrelimDeclIdNamed name -> name.kind
-    PrelimDeclIdAnon  anon -> anon.kind
+    PrelimDeclIdNamed name        -> name.kind
+    PrelimDeclIdUnnamed unnamedId -> unnamedId.kind
 
 prelimDeclIdAtCursor :: forall m.
      MonadIO m
@@ -292,36 +292,36 @@ prelimDeclIdAtCursor :: forall m.
 prelimDeclIdAtCursor curr kind = do
     text <- clang_getCursorSpelling curr
     if | Text.null text ->
-           -- clang-15 and older use an empty string for anon declarations
-           markAsAnon
+           -- clang-15 and older use an empty string for unnamed declarations
+           markAsUnnamed
        | Text.elem ' ' text ->
            -- clang-16 and newer assign names such as
            --
            -- > struct (unnamed at ....)
            --
-           -- /except/ in one case: when we have an anonymous struct inside a
+           -- /except/ in one case: when we have an untagged struct inside a
            -- typedef, such as
            --
            -- > typedef struct { .. } foo;
            --
            -- newer versions of clang will assign the name @foo@ to the typedef.
            -- This means that in this case we will misclassify the struct as
-           -- not-anonymous (and this will then also depend on the clang
-           -- version: for older versions we /will/ classify it as anonymous).
+           -- tagged (and this will then also depend on the clang
+           -- version: for older versions we /will/ classify it as untagged).
            -- We smooth over this difference in the
-           -- "HsBindgen.Frontend.Pass.AssignAnonIds" pass (see
-           -- "HsBindgen.Frontend.Pass.AssignAnonIds.ChooseNames").
-           markAsAnon
+           -- "HsBindgen.Frontend.Pass.FillUnnamedIds" pass (see
+           -- "HsBindgen.Frontend.Pass.FillUnnamedIds.ChooseNames").
+           markAsUnnamed
        | otherwise ->
            return $ PrelimDeclIdNamed DeclName{text = text, kind = kind}
   where
-    markAsAnon :: m PrelimDeclId
-    markAsAnon = do
+    markAsUnnamed :: m PrelimDeclId
+    markAsUnnamed = do
       cxLoc    <- clang_getCursorLocation curr
       loc      <- HighLevel.clang_getExpansionLocation cxLoc
       spelling <- HighLevel.clang_getSpellingLocation  cxLoc
       return $
-        PrelimDeclIdAnon AnonId{loc = loc, spelling = spelling, kind = kind}
+        PrelimDeclIdUnnamed UnnamedId{loc = loc, spelling = spelling, kind = kind}
 
 {-------------------------------------------------------------------------------
   DeclId
@@ -333,24 +333,24 @@ prelimDeclIdAtCursor curr kind = do
 data DeclId = DeclId {
       -- | Name of the declaration
       --
-      -- For named (non-anonymous) declarations, this is /always/ the name as it
+      -- For named declarations, this is /always/ the name as it
       -- appears in the C source; @hs-bindgen@ assigns names to declarations in
       -- the generated /Haskell/ code, and, in particular, does not rename the C
       -- declarations.
       --
-      -- For anonymous declarations, this is the name as it is assigned by the
-      -- @AssignAnonIds@ pass, which is also how we then refer to this
+      -- For unnamed declarations, this is the name as it is assigned by the
+      -- @FillUnnamedIds@ pass, which is also how we then refer to this
       -- declaration in binding specs. The user-facing syntax for untagged
       -- declarations uses an \@-sign in the name; that is not present in the
       -- Haskell value.
       name :: DeclName
 
-      -- | Is this declaration anonymous?
+      -- | Is this declaration unnamed?
       --
-      -- We do /NOT/ record the original anon ID here, because that is a source
+      -- We do /NOT/ record the original unnamed ID here, because that is a source
       -- location, which is impossible to construct in many places (for example,
       -- when parsing @struct \@foo@ in binding specs).
-    , isAnon :: Bool
+    , isUnnamed :: Bool
     }
   deriving stock (Eq, Ord, Show)
 
@@ -359,19 +359,19 @@ instance PrettyForTrace DeclId where
 
 declIdSourceName :: DeclId -> Maybe DeclName
 declIdSourceName declId = do
-    guard $ not declId.isAnon
+    guard $ not declId.isUnnamed
     return declId.name
 
-renderNonAnonDeclId :: DeclId -> Maybe Text
-renderNonAnonDeclId declId
-    | declId.isAnon = Nothing
-    | otherwise     = Just $ renderDeclName declId.name
+renderNamedDeclId :: DeclId -> Maybe Text
+renderNamedDeclId declId
+    | declId.isUnnamed = Nothing
+    | otherwise        = Just $ renderDeclName declId.name
 
 -- | User-facing syntax for t'DeclId'
 renderDeclId :: DeclId -> Text
 renderDeclId declId
-    | declId.isAnon = renderDeclName $ mapDeclNameText ("@" <>) declId.name
-    | otherwise     = renderDeclName declId.name
+    | declId.isUnnamed = renderDeclName $ mapDeclNameText ("@" <>) declId.name
+    | otherwise        = renderDeclName declId.name
   where
     mapDeclNameText :: (Text -> Text) -> DeclName -> DeclName
     mapDeclNameText f name = DeclName{text = f name.text, kind = name.kind}
@@ -381,5 +381,5 @@ parseDeclId :: Text -> Maybe DeclId
 parseDeclId t = do
     declName <- parseDeclName t
     return $ case Text.uncons declName.text of
-      Just ('@', n) -> DeclId{name = DeclName n declName.kind, isAnon = True}
-      _otherwise    -> DeclId{name = declName, isAnon = False}
+      Just ('@', n) -> DeclId{name = DeclName n declName.kind, isUnnamed = True}
+      _otherwise    -> DeclId{name = declName, isUnnamed = False}

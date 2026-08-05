@@ -259,7 +259,7 @@ showsId :: IsPass p => Proxy p -> Id p -> ShowS
 showsId p declId =
     case idSourceName p declId of
       Just name -> showsDeclName name
-      Nothing   -> panicPure $ "Cannot refer to anon decl " ++ show declId
+      Nothing   -> panicPure $ "Cannot refer to unnamed decl " ++ show declId
 
 showsDeclName :: C.DeclName -> ShowS
 showsDeclName = showsText . C.renderDeclNameC

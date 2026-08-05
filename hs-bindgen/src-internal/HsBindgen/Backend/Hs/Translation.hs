@@ -145,7 +145,7 @@ scanAllFunctionTypes = foldMap $ \decl ->
         | otherwise
         -> C.getAllFunTypeIndirections typedef.typ
       C.DeclEnum enum -> C.getAllFunTypes enum.typ
-      C.DeclAnonEnumConstant{} -> Set.empty
+      C.DeclUntaggedEnumConstant{} -> Set.empty
       C.DeclOpaque{} -> Set.empty
       C.DeclMacro{} -> Set.empty
       C.DeclFunction fn ->
@@ -184,8 +184,8 @@ generateDecs macroLang (C.Decl info kind spec) =
         HsM.immediateM $ unionDecs info union spec
       C.DeclEnum enum -> withCategoryM CType $
         HsM.immediateM $ enumDecs info enum spec
-      C.DeclAnonEnumConstant anonEnumConst -> withCategoryM CType $ do
-        HsM.immediateM $ anonEnumConstantDecs info anonEnumConst
+      C.DeclUntaggedEnumConstant enumConst -> withCategoryM CType $ do
+        HsM.immediateM $ untaggedEnumConstantDecs info enumConst
       C.DeclTypedef typedef -> withCategoryM CType $
         case C.getFirstFunTypeIndirection typedef.typ of
           Just (args, res, reconstruct) ->
@@ -1085,12 +1085,12 @@ referencesUntagged = go
         C.TypeComplex _pty -> False
         C.TypeRef ref ->
           -- a struct or union can be untagged
-          ref.cName.isAnon
+          ref.cName.isUnnamed
         C.TypeEnum ref ->
           -- an enum can be untagged
-          ref.name.cName.isAnon
+          ref.name.cName.isUnnamed
         C.TypeMacro ref
-          | ref.name.cName.isAnon
+          | ref.name.cName.isUnnamed
           -> panicPure "macros can not be unnamed"
           -- NOTE: macros are expanded by the C preprocessor, so if pretty-print
           -- a macro name then we should make sure that it does not expand to a
@@ -1100,7 +1100,7 @@ referencesUntagged = go
           | otherwise
           -> False
         C.TypeTypedef ref
-          | ref.name.cName.isAnon
+          | ref.name.cName.isUnnamed
           -> panicPure "typedefs can not be unnamed"
           | otherwise
           -> False
@@ -1115,7 +1115,7 @@ referencesUntagged = go
         C.TypeExtBinding ref ->
           -- an external binding reference can wrap references to untagged
           -- types
-          ref.name.cName.isAnon
+          ref.name.cName.isUnnamed
 
     goTypeFunArg :: C.TypeFunArg p -> Bool
     goTypeFunArg arg = go arg.typ
@@ -1143,15 +1143,15 @@ macroVarDecs info macroValue = do
     hsVarName = Hs.assertNs (Proxy @Hs.NsVar) info.id.hsName
 
 {-------------------------------------------------------------------------------
-  Anon Enum Constants
+  Untagged Enum Constants
 -------------------------------------------------------------------------------}
 
-anonEnumConstantDecs ::
+untaggedEnumConstantDecs ::
      HasCallStack
   => C.DeclInfo Final
-  -> C.AnonEnumConstant Final
+  -> C.UntaggedEnumConstant Final
   -> HsM [Hs.Decl l]
-anonEnumConstantDecs info anonEnumConstant = do
+untaggedEnumConstantDecs info enumConstant = do
     env <- Reader.ask
     pure $ aux env
   where
@@ -1162,18 +1162,18 @@ anonEnumConstantDecs info anonEnumConstant = do
           patSynName =
             Hs.assertNs
               (Proxy @Hs.NsConstr)
-              anonEnumConstant.constant.info.name.hsName
+              enumConstant.constant.info.name.hsName
 
           patSynType :: Hs.Type
-          patSynType = Type.topLevel (C.TypePrim anonEnumConstant.typ)
+          patSynType = Type.topLevel (C.TypePrim enumConstant.typ)
 
           typeSigDecl :: Hs.Decl l
           typeSigDecl = Hs.DeclPatSyn Hs.PatSyn{
                 name    = patSynName
               , typ     = patSynType
               , constr  = Nothing
-              , value   = fromInteger anonEnumConstant.constant.value
-              , origin  = Origin.EnumConstant anonEnumConstant.constant
+              , value   = fromInteger enumConstant.constant.value
+              , origin  = Origin.EnumConstant enumConstant.constant
               , comment = mkHaddocks env.haddockConfig info
               }
         in  [typeSigDecl]

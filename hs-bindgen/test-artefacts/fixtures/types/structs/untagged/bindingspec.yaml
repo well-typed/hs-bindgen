@@ -1,0 +1,166 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/structs/untagged.h
+  cname: struct S1
+  hsname: S1
+- headers: types/structs/untagged.h
+  cname: struct @S1_c
+  hsname: S1_c
+- headers: types/structs/untagged.h
+  cname: struct S2
+  hsname: S2
+- headers: types/structs/untagged.h
+  cname: struct @S2_inner
+  hsname: S2_inner
+- headers: types/structs/untagged.h
+  cname: struct @S2_inner_deep
+  hsname: S2_inner_deep
+- headers: types/structs/untagged.h
+  cname: struct S3
+  hsname: S3
+- headers: types/structs/untagged.h
+  cname: struct @S3_c
+  hsname: S3_c
+hstypes:
+- hsname: S1
+  representation:
+    record:
+      constructor: S1
+      fields:
+      - s1_c
+      - s1_d
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S1_c
+  representation:
+    record:
+      constructor: S1_c
+      fields:
+      - s1_c_a
+      - s1_c_b
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S2
+  representation:
+    record:
+      constructor: S2
+      fields:
+      - s2_inner
+      - s2_d
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S2_inner
+  representation:
+    record:
+      constructor: S2_inner
+      fields:
+      - s2_inner_a
+      - s2_inner_deep
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S2_inner_deep
+  representation:
+    record:
+      constructor: S2_inner_deep
+      fields:
+      - s2_inner_deep_b
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S3
+  representation:
+    record:
+      constructor: S3
+      fields:
+      - s3_c
+      - s3_d
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S3_c
+  representation:
+    record:
+      constructor: S3_c
+      fields:
+      - s3_c_a
+      - s3_c_b
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

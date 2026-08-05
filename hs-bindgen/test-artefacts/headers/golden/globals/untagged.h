@@ -9,13 +9,13 @@
 /* -------------------------------------------------------------------------- */
 /* basic examples */
 
-struct { int x; int y; } anonPoint;
+struct { int x; int y; } untaggedPoint;
 // with initializer
-struct { int a; int b; } anonPair = { 1, 2 };
+struct { int a; int b; } untaggedPair = { 1, 2 };
 
-enum { VAL_A = 0, VAL_B = 1 } anonEnum;
+enum { VAL_A = 0, VAL_B = 1 } untaggedEnum;
 // with initializer
-enum { X = 10, Y = 20, Z = 30 } anonEnumCoords = { X };
+enum { X = 10, Y = 20, Z = 30 } untaggedEnumCoords = { X };
 
 /* -------------------------------------------------------------------------- */
 /* examples with indirections */

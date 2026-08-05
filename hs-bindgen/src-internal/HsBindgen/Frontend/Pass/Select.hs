@@ -580,8 +580,8 @@ selectDeclIndex declUseGraph predicate declIndex =
             -- the list of declarations
             False
           Just (locs, availability) ->
-            if declId.isAnon
-              then matchAnon declId
+            if declId.isUnnamed
+              then matchUnnamed declId
               else Foldable.any
                      (\loc -> predicate declId.name loc availability)
                      (C.declLocsToList locs)
@@ -606,12 +606,12 @@ selectDeclIndex declUseGraph predicate declIndex =
         _otherwise ->
           Just (DeclIndex.entryToLoc entry, DeclIndex.entryToAvailability entry)
 
-    -- We match anonymous declarations based on their use sites.
+    -- We match unnamed declarations based on their use sites.
     --
-    -- Looking at the use sites means we treat anonymous declarations in a very
+    -- Looking at the use sites means we treat unnamed declarations in a very
     -- similar way to auxiliary declarations. It's however worth spelling out
-    -- why this is possible. There are two main classes of anonymous
-    -- declarations. The first is anonymous declarations inside of typedefs:
+    -- why this is possible. There are two main classes of unnamed
+    -- declarations. The first is unnamed declarations inside of typedefs:
     --
     -- > typedef struct { .. } foo;
     --
@@ -619,7 +619,7 @@ selectDeclIndex declUseGraph predicate declIndex =
     -- struct but not the typedef does, but is already captured by support for
     -- squashing typedefs.
     --
-    -- The second class is anonymous declarations inside structs or unions:
+    -- The second class is unnamed declarations inside structs or unions:
     --
     -- > struct outer {
     -- >    struct { .. } field1, field2;
@@ -632,11 +632,11 @@ selectDeclIndex declUseGraph predicate declIndex =
     -- select the inner but not the outer, but it seems a pretty rare use case,
     -- and not a big deal if the outer struct will "come along" even if only the
     -- inner struct is needed.
-    matchAnon :: C.DeclId -> Bool
-    matchAnon anon =
-       case DeclUseGraph.getUseSites declUseGraph anon of
+    matchUnnamed :: C.DeclId -> Bool
+    matchUnnamed unnamed =
+       case DeclUseGraph.getUseSites declUseGraph unnamed of
          (declId, _) :_ ->
-           -- The only way that anonymous declarations can have multiple use
+           -- The only way that unnamed declarations can have multiple use
            -- sites is when multiple fields are defined together:
            --
            -- > struct foo {
@@ -646,7 +646,7 @@ selectDeclIndex declUseGraph predicate declIndex =
            -- From the perspective of selection, any of these will do.
            matchDeclId declId
          [] ->
-           -- An anonymous declaration can have no use sites if those
+           -- An unnamed declaration can have no use sites if those
            -- dependencies were removed from the graph because the parent
            -- declaration is opaqued using a prescriptive binding specification.
            False

@@ -8,7 +8,7 @@ struct outer1 {
   union {
     int fieldX;
     int fieldY;
-  }; // <-- an anonymous union: an unnamed union with an unnamed field
+  }; // <-- an anonymous union: an untagged union with an unnamed field
   int fieldC;
 };
 
@@ -17,7 +17,7 @@ struct outer2 {
   union {
     int fieldX;
     int fieldY;
-  } fieldB; // <-- an unnamed union with a named field
+  } fieldB; // <-- an untagged union with a named field
   int fieldC;
 };
 

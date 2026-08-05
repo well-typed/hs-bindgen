@@ -251,7 +251,7 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
     getMacroName :: C.PrelimDeclId -> Maybe Text
     getMacroName = \case
         C.PrelimDeclIdNamed declName -> Just declName.text
-        C.PrelimDeclIdAnon{}         -> Nothing
+        C.PrelimDeclIdUnnamed{}         -> Nothing
 
 -- | Parse an struct declaration
 --
@@ -632,14 +632,14 @@ functionDecl macroLang enclosing ctx info =
                   (fails, decls)   = partitionEithers $
                                        map getParseResultEitherDecl parseRs
                   purity = C.decideFunctionPurity attrs
-                  (anonDecls, otherDecls) = partitionAnonDecls decls
+                  (unnamedDecls, otherDecls) = partitionUnnamedDecls decls
 
               -- This declaration may act as a definition.
               let isDefn = declCls == Definition
 
               (fails ++) <$>
-                if not (null anonDecls) then do
-                  parseFail ctx info.id info.loc ParseUnsupportedAnonInSignature
+                if not (null unnamedDecls) then do
+                  parseFail ctx info.id info.loc ParseUnsupportedUnnamedInSignature
                 else
                   let nonPublicVisibility = [
                           ParseNonPublicVisibility
@@ -774,7 +774,7 @@ varDecl macroLang enclosing ctx info = do
             (fails, nestedDecls)    = partitionEithers $
                                         map getParseResultEitherDecl $
                                           concat nestedRs
-            (anonDecls, otherDecls) = partitionAnonDecls nestedDecls
+            (unnamedDecls, otherDecls) = partitionUnnamedDecls nestedDecls
 
           -- This declaration may act as a definition even if it has no
           -- initialiser.
@@ -794,11 +794,11 @@ varDecl macroLang enclosing ctx info = do
                 msgs = nonPublicVisibility ++ potentialDuplicate
              in case cls of
                   VarGlobal IsExtern
-                    | not (null anonDecls) -> do
-                      parseFail ctx info.id info.loc ParseUnsupportedAnonInExtern
+                    | not (null unnamedDecls) -> do
+                      parseFail ctx info.id info.loc ParseUnsupportedUnnamedInExtern
                   VarGlobal _ -> do
                     globalAnn <- getReparseInfo curr
-                    pure $ (map parseSucceed (anonDecls ++ otherDecls) ++) $
+                    pure $ (map parseSucceed (unnamedDecls ++ otherDecls) ++) $
                       singleton $ parseSucceedWith msgs $
                         mkDecl $ C.DeclGlobal C.Global{
                             typ = typ
@@ -1097,19 +1097,19 @@ withCursorVisibility ctx info k = \curr -> do
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
--- | Partition declarations into anonymous and non-anonymous
+-- | Partition declarations into named and unnamed
 --
 -- We are only interested in the name of the declaration /itself/; if a named
--- declaration /contains/ anonymous declarations, that's perfectly fine.
-partitionAnonDecls ::
+-- declaration /contains/ unnamed declarations, that's perfectly fine.
+partitionUnnamedDecls ::
      [C.Decl l Parse]
   -> ([C.Decl l Parse], [C.Decl l Parse])
-partitionAnonDecls =
-    List.partition $ \decl -> declIdIsAnon decl.info.id
+partitionUnnamedDecls =
+    List.partition $ \decl -> declIdIsUnnamed decl.info.id
   where
-    declIdIsAnon :: C.PrelimDeclId -> Bool
-    declIdIsAnon C.PrelimDeclIdAnon{} = True
-    declIdIsAnon _otherwise           = False
+    declIdIsUnnamed :: C.PrelimDeclId -> Bool
+    declIdIsUnnamed C.PrelimDeclIdUnnamed{} = True
+    declIdIsUnnamed _otherwise           = False
 
 -- | Parse macro tokens
 --
@@ -1129,7 +1129,7 @@ parseMacroTokens macroLang name = \case
 -- | Whether a global variable has @extern@ storage class
 --
 -- This is only used locally during parsing to reject extern declarations with
--- anonymous types; it is not propagated into the AST.
+-- unnamed types; it is not propagated into the AST.
 data IsExtern = IsExtern | IsNotExtern
   deriving stock (Show)
 

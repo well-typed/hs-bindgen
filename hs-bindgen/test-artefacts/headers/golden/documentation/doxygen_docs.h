@@ -574,10 +574,10 @@ int tagged_code_example(int x);
 int backslash_syntax(const char* input, char* output);
 
 /**
- * @brief Struct with multiple anonymous inner structs
+ * @brief Struct with multiple untagged inner structs
  *
  * Tests that doxygen comment enrichment correctly associates field comments
- * with anonymous inner structs at multiple nesting levels.
+ * with untagged inner structs at multiple nesting levels.
  */
 typedef struct {
     /**
@@ -595,7 +595,7 @@ typedef struct {
         float w;  /**< @brief Width */
         float h;  /**< @brief Height */
     } /** Dimension fields */ dim;
-} multi_anon_t;
+} multi_untagged_t;
 
 /**
  * @brief Struct with a named inner struct
@@ -616,29 +616,29 @@ struct named_outer {
 };
 
 /**
- * @brief Deeply nested mix of named and anonymous structs
+ * @brief Deeply nested mix of tagged and untagged structs
  *
- * Tests the full genealogy walk through mixed named/anonymous nesting.
+ * Tests the full genealogy walk through mixed tagged/untagged nesting.
  */
 struct deep_outer {
     /** The named mid-level struct */
     struct deep_mid {
         /** Mid-level field */
         int m;
-        /** Anonymous struct inside named mid */
+        /** Untagged struct inside named mid */
         struct {
-            /** Deep anonymous field */
+            /** Deep field */
             int deep_a;
-        } anon_field;
+        } untagged_field;
     } mid_field;
     /** Outer-only field */
     int o;
 };
 
 /**
- * @brief Struct with unnamed anonymous field
+ * @brief Struct with anonymous struct
  *
- * Tests the case where the anonymous inner struct has no field name.
+ * Tests the case where the inner struct is anonymous: no struct tag and no field name.
  * The inner fields are flattened directly into the parent.
  */
 typedef struct {

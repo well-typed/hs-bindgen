@@ -1,4 +1,4 @@
-// `clang-16` and up assign the name `foo` to the anonymous struct (older
+// `clang-16` and up assign the name `foo` to the untagged struct (older
 // versions return an empty string), resulting in name clashes unless we squash
 // that second struct, leaving only `struct foo` (the first struct) and `foo`
 // (the typedef). For consistency we replicate this behaviour for older `clang`.

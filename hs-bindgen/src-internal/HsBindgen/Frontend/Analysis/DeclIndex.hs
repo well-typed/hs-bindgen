@@ -112,7 +112,7 @@ type Out = ConstructTranslationUnit
 -- typedef foo_t foo;  // D3
 -- @
 --
--- - D1 declares an anonymous @struct@
+-- - D1 declares an untagged @struct@
 -- - D2 declares the typedef @foo_t@ depending on D1
 -- - D3 declares a typedef @foo@ depending on D2
 --
@@ -398,7 +398,7 @@ buildIndex results = flip execState empty $ mapM_ aux results
                               text = declId.name.text
                             , kind = C.NameKindMacro
                             }
-                        , isAnon = False
+                        , isUnnamed = False
                         }
                   old <- Map.lookup altDeclId index.map
                   pure $ checkIsConflict new (altDeclId, old)
@@ -408,7 +408,7 @@ buildIndex results = flip execState empty $ mapM_ aux results
                               text = declId.name.text
                             , kind = C.NameKindOrdinary
                             }
-                        , isAnon = False
+                        , isUnnamed = False
                         }
                   old <- Map.lookup altDeclId index.map
                   pure $ checkIsConflict new (altDeclId, old)

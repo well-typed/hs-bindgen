@@ -9,7 +9,7 @@ void normal(struct opaque* ptr_to_opaque, struct outside* ptr_to_defined, struct
 /**
  * Error cases
  *
- * See 'UnexpectedAnonInSignature' for discussion (of both these error cases
+ * See 'UnexpectedUnnamedInSignature' for discussion (of both these error cases
  * and the edge cases below).
  */
 
@@ -24,11 +24,11 @@ void f2(union named_union { int x; char y; } arg);
  * generate bindings for these.
  */
 
-// anonymous struct declared inline
+// Untagged struct declared inline
 void f3(struct { int x; int y; } arg);
 
-// _multiple_ anonymous structs declared inline
+// _multiple_ untagged structs declared inline
 void f4(struct { int x; int y; } p1, struct { int x; int y; } p2);
 
-// anonymous union
+// untagged union
 void f5(union { int x; char y; } arg);

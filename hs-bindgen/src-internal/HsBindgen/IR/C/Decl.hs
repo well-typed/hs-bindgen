@@ -27,7 +27,7 @@ module HsBindgen.IR.C.Decl (
   , Typedef(..)
   , Enum(..)
   , EnumConstant(..)
-  , AnonEnumConstant(..)
+  , UntaggedEnumConstant(..)
   , Function(..)
   , FunctionArg(..)
   , FunctionAttributes(..)
@@ -125,7 +125,7 @@ data DeclInfo (p :: Pass) = DeclInfo{
       -- ^ List of enclosing declarations, if this declaration is nested.
       --
       -- Set during parsing for declarations nested inside another declaration
-      -- (e.g., anonymous or named structs\/unions inside an enclosing
+      -- (e.g., tagged, untagged, or anonymous structs\/unions inside an enclosing
       -- struct\/union). Empty for top-level declarations.
       --
       -- Used by 'EnrichComments' to build doxygen-qualified names and look up
@@ -163,11 +163,11 @@ data DeclKind l p =
   | DeclUnion (Union p)
   | DeclTypedef (Typedef p)
   | DeclEnum (Enum p)
-    -- | Anonymous Enum Constant
+    -- | Untagged Enum Constant
     --
-    -- Represents individual constants from an anonymous enum (e.g., @enum { FOO, BAR }@)
+    -- Represents individual constants from an untagged enum (e.g., @enum { FOO, BAR }@)
     -- as separate pattern synonym declarations.
-  | DeclAnonEnumConstant (AnonEnumConstant p)
+  | DeclUntaggedEnumConstant (UntaggedEnumConstant p)
     -- | Opaque type
     --
     -- When parsing, a C @struct@, @union@, or @enum@ may be opaque.  Users may
@@ -277,11 +277,11 @@ data EnumConstant (p :: Pass) = EnumConstant {
     }
   deriving stock (Generic)
 
--- | Anonymous Enum Constant
+-- | Untagged Enum Constant
 --
--- This represents an anonymous enum constant (e.g., from @enum { FOO, BAR }@)
+-- This represents an untagged enum constant (e.g., from @enum { FOO, BAR }@)
 -- that will be rendered as a pattern synonym in Haskell (e.g., @pattern fOO :: CUInt@)
-data AnonEnumConstant (p :: Pass) = AnonEnumConstant {
+data UntaggedEnumConstant (p :: Pass) = UntaggedEnumConstant {
       typ       :: PrimType
     , constant  :: EnumConstant p
     }
@@ -534,45 +534,45 @@ data CommentRef p = CommentRef Text (Maybe (Id p)) (Maybe Doxy.RefKind)
   Eq and Show instances
 -------------------------------------------------------------------------------}
 
-deriving stock instance IsPass p => Eq (AnonEnumConstant p)
-deriving stock instance IsPass p => Eq (AnonRef          p)
-deriving stock instance IsPass p => Eq (Comment          p)
-deriving stock instance IsPass p => Eq (CommentRef       p)
-deriving stock instance IsPass p => Eq (DeclInfo         p)
-deriving stock instance IsPass p => Eq (Enum             p)
-deriving stock instance IsPass p => Eq (EnumConstant     p)
-deriving stock instance IsPass p => Eq (ExplicitField    p)
-deriving stock instance IsPass p => Eq (Field            p)
-deriving stock instance IsPass p => Eq (FieldInfo        p)
-deriving stock instance IsPass p => Eq (Flam             p)
-deriving stock instance IsPass p => Eq (Function         p)
-deriving stock instance IsPass p => Eq (FunctionArg      p)
-deriving stock instance IsPass p => Eq (Global           p)
-deriving stock instance IsPass p => Eq (ImplicitField    p)
-deriving stock instance IsPass p => Eq (IndirectField    p)
-deriving stock instance IsPass p => Eq (Struct           p)
-deriving stock instance IsPass p => Eq (Typedef          p)
-deriving stock instance IsPass p => Eq (Union            p)
+deriving stock instance IsPass p => Eq (AnonRef              p)
+deriving stock instance IsPass p => Eq (Comment              p)
+deriving stock instance IsPass p => Eq (CommentRef           p)
+deriving stock instance IsPass p => Eq (DeclInfo             p)
+deriving stock instance IsPass p => Eq (Enum                 p)
+deriving stock instance IsPass p => Eq (EnumConstant         p)
+deriving stock instance IsPass p => Eq (ExplicitField        p)
+deriving stock instance IsPass p => Eq (Field                p)
+deriving stock instance IsPass p => Eq (FieldInfo            p)
+deriving stock instance IsPass p => Eq (Flam                 p)
+deriving stock instance IsPass p => Eq (Function             p)
+deriving stock instance IsPass p => Eq (FunctionArg          p)
+deriving stock instance IsPass p => Eq (Global               p)
+deriving stock instance IsPass p => Eq (ImplicitField        p)
+deriving stock instance IsPass p => Eq (IndirectField        p)
+deriving stock instance IsPass p => Eq (Struct               p)
+deriving stock instance IsPass p => Eq (Typedef              p)
+deriving stock instance IsPass p => Eq (Union                p)
+deriving stock instance IsPass p => Eq (UntaggedEnumConstant p)
 
-deriving stock instance IsPass p => Show (AnonEnumConstant p)
-deriving stock instance IsPass p => Show (AnonRef          p)
-deriving stock instance IsPass p => Show (Comment          p)
-deriving stock instance IsPass p => Show (CommentRef       p)
-deriving stock instance IsPass p => Show (DeclInfo         p)
-deriving stock instance IsPass p => Show (Enum             p)
-deriving stock instance IsPass p => Show (EnumConstant     p)
-deriving stock instance IsPass p => Show (ExplicitField    p)
-deriving stock instance IsPass p => Show (Field            p)
-deriving stock instance IsPass p => Show (FieldInfo        p)
-deriving stock instance IsPass p => Show (Flam             p)
-deriving stock instance IsPass p => Show (Function         p)
-deriving stock instance IsPass p => Show (FunctionArg      p)
-deriving stock instance IsPass p => Show (Global           p)
-deriving stock instance IsPass p => Show (ImplicitField    p)
-deriving stock instance IsPass p => Show (IndirectField    p)
-deriving stock instance IsPass p => Show (Struct           p)
-deriving stock instance IsPass p => Show (Typedef          p)
-deriving stock instance IsPass p => Show (Union            p)
+deriving stock instance IsPass p => Show (AnonRef              p)
+deriving stock instance IsPass p => Show (Comment              p)
+deriving stock instance IsPass p => Show (CommentRef           p)
+deriving stock instance IsPass p => Show (DeclInfo             p)
+deriving stock instance IsPass p => Show (Enum                 p)
+deriving stock instance IsPass p => Show (EnumConstant         p)
+deriving stock instance IsPass p => Show (ExplicitField        p)
+deriving stock instance IsPass p => Show (Field                p)
+deriving stock instance IsPass p => Show (FieldInfo            p)
+deriving stock instance IsPass p => Show (Flam                 p)
+deriving stock instance IsPass p => Show (Function             p)
+deriving stock instance IsPass p => Show (FunctionArg          p)
+deriving stock instance IsPass p => Show (Global               p)
+deriving stock instance IsPass p => Show (ImplicitField        p)
+deriving stock instance IsPass p => Show (IndirectField        p)
+deriving stock instance IsPass p => Show (Struct               p)
+deriving stock instance IsPass p => Show (Typedef              p)
+deriving stock instance IsPass p => Show (Union                p)
+deriving stock instance IsPass p => Show (UntaggedEnumConstant p)
 
 deriving stock instance (Macro.HasTypes l, IsPass p) => Eq (DeclKind l p)
 
@@ -632,19 +632,19 @@ instance (
      , CoercePass Typedef  p p'
      , CoercePass Function p p'
      , CoercePass Global   p p'
-     , CoercePass AnonEnumConstant p p'
+     , CoercePass UntaggedEnumConstant p p'
      , CoercePassMacroBody p p'
      ) => CoercePass (DeclKind l) p p' where
   coercePass = \case
-      DeclStruct           x -> DeclStruct           $ coercePass x
-      DeclUnion            x -> DeclUnion            $ coercePass x
-      DeclTypedef          x -> DeclTypedef          $ coercePass x
-      DeclEnum             x -> DeclEnum             $ coercePass x
-      DeclAnonEnumConstant x -> DeclAnonEnumConstant $ coercePass x
-      DeclFunction         x -> DeclFunction         $ coercePass x
-      DeclGlobal           x -> DeclGlobal           $ coercePass x
-      DeclMacro            x -> DeclMacro            $ coercePassMacroBody (Proxy @'(p, p')) x
-      DeclOpaque        mSize -> DeclOpaque mSize
+      DeclStruct               x -> DeclStruct               $ coercePass x
+      DeclUnion                x -> DeclUnion                $ coercePass x
+      DeclTypedef              x -> DeclTypedef              $ coercePass x
+      DeclEnum                 x -> DeclEnum                 $ coercePass x
+      DeclUntaggedEnumConstant x -> DeclUntaggedEnumConstant $ coercePass x
+      DeclFunction             x -> DeclFunction             $ coercePass x
+      DeclGlobal               x -> DeclGlobal               $ coercePass x
+      DeclMacro                x -> DeclMacro                $ coercePassMacroBody (Proxy @'(p, p')) x
+      DeclOpaque           mSize -> DeclOpaque mSize
 
 instance (
       CoercePass Flam p p'
@@ -770,8 +770,8 @@ instance (
 instance (
        CoercePass EnumConstant p p'
      , Ann "PatternSynonym" p ~ Ann "PatternSynonym" p'
-     ) => CoercePass AnonEnumConstant p p' where
-  coercePass (AnonEnumConstant typ' constant') = AnonEnumConstant{
+     ) => CoercePass UntaggedEnumConstant p p' where
+  coercePass (UntaggedEnumConstant typ' constant') = UntaggedEnumConstant{
         typ      = typ'
       , constant = coercePass constant'
       }

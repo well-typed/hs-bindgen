@@ -23,9 +23,7 @@ import Test.HsBindgen.Resources
 testCases :: [TestCase]
 testCases = [
       -- Default tests
-      defaultTest "edge-cases/anon_multiple_fields"
-    , defaultTest "edge-cases/anon_multiple_typedefs"
-    , defaultTest "edge-cases/aux_funptr_newtypes"
+      defaultTest "edge-cases/aux_funptr_newtypes"
     , defaultTest "edge-cases/distilled_lib_1"
     , defaultTest "edge-cases/enum_as_array_size"
     , defaultTest "edge-cases/flam_functions"
@@ -35,6 +33,8 @@ testCases = [
     , defaultTest "edge-cases/spec_examples"
     , defaultTest "edge-cases/typedef_bitfield"
     , defaultTest "edge-cases/typedef_void"
+    , defaultTest "edge-cases/unnamed_type_multiple_fields"
+    , defaultTest "edge-cases/unnamed_type_multiple_typedefs"
     , defaultTest "edge-cases/uses_utf8"
       -- Bespoke tests
     , test_edgeCases_adios
@@ -44,7 +44,7 @@ testCases = [
     , test_edgeCases_headers
     , test_edgeCases_include_macro
     , test_edgeCases_iterator
-    , test_edgeCases_ordinary_anon
+    , test_edgeCases_ordinary_unnamed_decl
     , test_edgeCases_select_no_match
     , test_edgeCases_thread_local
     , test_edgeCases_unsupported_builtin
@@ -130,9 +130,9 @@ test_edgeCases_iterator =
       & #cStandard    .~ c23
       & #onBoot       .~ ( #clangArgs % #enableBlocks .~ True )
 
-test_edgeCases_ordinary_anon :: TestCase
-test_edgeCases_ordinary_anon =
-    defaultTest "edge-cases/ordinary_anon_parent"
+test_edgeCases_ordinary_unnamed_decl :: TestCase
+test_edgeCases_ordinary_unnamed_decl =
+    defaultTest "edge-cases/ordinary_unnamed_decl_parent"
       & #onFrontend .~ ( #selectionPredicate .~ BTrue )
 
 test_edgeCases_select_no_match :: TestCase

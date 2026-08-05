@@ -4,7 +4,7 @@ struct pascal {
     char data[];
 };
 
-// anonymous struct as flam
+// untagged struct as flam
 struct foo {
 	int len;
 	struct {

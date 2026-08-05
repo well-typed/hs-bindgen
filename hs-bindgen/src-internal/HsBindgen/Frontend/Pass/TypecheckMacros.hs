@@ -48,7 +48,7 @@ typecheckMacros macroLang unit =
         , Map.fromList [
               (n, v)
             | (declId, v) <- Map.toList knownTypes
-            , Just n <- [C.renderNonAnonDeclId declId]
+            , Just n <- [C.renderNamedDeclId declId]
             ]
         , knownMacroTypes
         )

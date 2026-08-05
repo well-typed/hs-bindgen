@@ -335,7 +335,7 @@ typedef int an_int;
  * have corresponding test cases in the c2hsc test suite.
  */
 
-// Arrays of anonymous structs need a generated name (#21)
+// Arrays of untagged structs need a generated name (#21)
 struct cal_table {
     int size;
     struct {
@@ -343,7 +343,7 @@ struct cal_table {
     } table[32];
 };
 
-// Anonymous unions within structs seem to not work (#23)
+// Untagged unions within structs seem to not work (#23)
 typedef struct {
   unsigned char d_tag[4];   /* entry tag value */
   union {

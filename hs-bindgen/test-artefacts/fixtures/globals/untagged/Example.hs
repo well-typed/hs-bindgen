@@ -16,12 +16,12 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
-    ( Example.AnonPoint(..)
-    , Example.AnonPair(..)
-    , Example.AnonEnum(..)
+    ( Example.UntaggedPoint(..)
+    , Example.UntaggedPair(..)
+    , Example.UntaggedEnum(..)
     , pattern Example.VAL_A
     , pattern Example.VAL_B
-    , Example.AnonEnumCoords(..)
+    , Example.UntaggedEnumCoords(..)
     , pattern Example.X
     , pattern Example.Y
     , pattern Example.Z
@@ -40,21 +40,21 @@ import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
 
-{-| __C declaration:__ @struct \@anonPoint@
+{-| __C declaration:__ @struct \@untaggedPoint@
 
     __defined at:__ @globals\/untagged.h 12:1@
 
     __exported by:__ @globals\/untagged.h@
 -}
-data AnonPoint = AnonPoint
-  { anonPoint_x :: BG.CInt
+data UntaggedPoint = UntaggedPoint
+  { untaggedPoint_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @globals\/untagged.h 12:14@
 
          __exported by:__ @globals\/untagged.h@
     -}
-  , anonPoint_y :: BG.CInt
+  , untaggedPoint_y :: BG.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @globals\/untagged.h 12:21@
@@ -64,33 +64,33 @@ data AnonPoint = AnonPoint
   }
   deriving stock (Eq, BG.Generic, Show)
 
-instance Marshal.StaticSize AnonPoint where
+instance Marshal.StaticSize UntaggedPoint where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw AnonPoint where
+instance Marshal.ReadRaw UntaggedPoint where
 
   readRaw =
     \ptr0 ->
-          pure AnonPoint
-      <*> HasCField.readRaw (BG.Proxy @"anonPoint_x") ptr0
-      <*> HasCField.readRaw (BG.Proxy @"anonPoint_y") ptr0
+          pure UntaggedPoint
+      <*> HasCField.readRaw (BG.Proxy @"untaggedPoint_x") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"untaggedPoint_y") ptr0
 
-instance Marshal.WriteRaw AnonPoint where
+instance Marshal.WriteRaw UntaggedPoint where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          AnonPoint anonPoint_x2 anonPoint_y3 ->
-               HasCField.writeRaw (BG.Proxy @"anonPoint_x") ptr0 anonPoint_x2
-            >> HasCField.writeRaw (BG.Proxy @"anonPoint_y") ptr0 anonPoint_y3
+          UntaggedPoint untaggedPoint_x2 untaggedPoint_y3 ->
+               HasCField.writeRaw (BG.Proxy @"untaggedPoint_x") ptr0 untaggedPoint_x2
+            >> HasCField.writeRaw (BG.Proxy @"untaggedPoint_y") ptr0 untaggedPoint_y3
 
-deriving via Marshal.EquivStorable AnonPoint instance BG.Storable AnonPoint
+deriving via Marshal.EquivStorable UntaggedPoint instance BG.Storable UntaggedPoint
 
-deriving via Struct.IsStructViaReadRaw AnonPoint instance Struct.IsStruct AnonPoint
+deriving via Struct.IsStructViaReadRaw UntaggedPoint instance Struct.IsStruct UntaggedPoint
 
 {-| __C declaration:__ @x@
 
@@ -99,24 +99,25 @@ deriving via Struct.IsStructViaReadRaw AnonPoint instance Struct.IsStruct AnonPo
     __exported by:__ @globals\/untagged.h@
 -}
 instance ( ty ~ BG.CInt
-         ) => BG.CompatHasField.HasField "anonPoint_x" AnonPoint ty where
+         ) => BG.CompatHasField.HasField "untaggedPoint_x" UntaggedPoint ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          AnonPoint {anonPoint_x = y1, anonPoint_y = BG.getField @"anonPoint_y" x0}
-      , BG.getField @"anonPoint_x" x0
+          UntaggedPoint {untaggedPoint_x = y1, untaggedPoint_y = BG.getField @"untaggedPoint_y" x0}
+      , BG.getField @"untaggedPoint_x" x0
       )
 
 instance ( ty ~ BG.CInt
-         ) => BG.HasField "anonPoint_x" (BG.Ptr AnonPoint) (BG.Ptr ty) where
+         ) => BG.HasField "untaggedPoint_x" (BG.Ptr UntaggedPoint) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (BG.Proxy @"anonPoint_x")
+    HasCField.fromPtr (BG.Proxy @"untaggedPoint_x")
 
-instance HasCField.HasCField AnonPoint "anonPoint_x" where
+instance HasCField.HasCField UntaggedPoint "untaggedPoint_x" where
 
-  type CFieldType AnonPoint "anonPoint_x" = BG.CInt
+  type CFieldType UntaggedPoint "untaggedPoint_x" =
+    BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -127,42 +128,43 @@ instance HasCField.HasCField AnonPoint "anonPoint_x" where
     __exported by:__ @globals\/untagged.h@
 -}
 instance ( ty ~ BG.CInt
-         ) => BG.CompatHasField.HasField "anonPoint_y" AnonPoint ty where
+         ) => BG.CompatHasField.HasField "untaggedPoint_y" UntaggedPoint ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          AnonPoint {anonPoint_y = y1, anonPoint_x = BG.getField @"anonPoint_x" x0}
-      , BG.getField @"anonPoint_y" x0
+          UntaggedPoint {untaggedPoint_y = y1, untaggedPoint_x = BG.getField @"untaggedPoint_x" x0}
+      , BG.getField @"untaggedPoint_y" x0
       )
 
 instance ( ty ~ BG.CInt
-         ) => BG.HasField "anonPoint_y" (BG.Ptr AnonPoint) (BG.Ptr ty) where
+         ) => BG.HasField "untaggedPoint_y" (BG.Ptr UntaggedPoint) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (BG.Proxy @"anonPoint_y")
+    HasCField.fromPtr (BG.Proxy @"untaggedPoint_y")
 
-instance HasCField.HasCField AnonPoint "anonPoint_y" where
+instance HasCField.HasCField UntaggedPoint "untaggedPoint_y" where
 
-  type CFieldType AnonPoint "anonPoint_y" = BG.CInt
+  type CFieldType UntaggedPoint "untaggedPoint_y" =
+    BG.CInt
 
   offset# = \_ -> \_ -> 4
 
-{-| __C declaration:__ @struct \@anonPair@
+{-| __C declaration:__ @struct \@untaggedPair@
 
     __defined at:__ @globals\/untagged.h 14:1@
 
     __exported by:__ @globals\/untagged.h@
 -}
-data AnonPair = AnonPair
-  { anonPair_a :: BG.CInt
+data UntaggedPair = UntaggedPair
+  { untaggedPair_a :: BG.CInt
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @globals\/untagged.h 14:14@
 
          __exported by:__ @globals\/untagged.h@
     -}
-  , anonPair_b :: BG.CInt
+  , untaggedPair_b :: BG.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @globals\/untagged.h 14:21@
@@ -172,33 +174,33 @@ data AnonPair = AnonPair
   }
   deriving stock (Eq, BG.Generic, Show)
 
-instance Marshal.StaticSize AnonPair where
+instance Marshal.StaticSize UntaggedPair where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw AnonPair where
+instance Marshal.ReadRaw UntaggedPair where
 
   readRaw =
     \ptr0 ->
-          pure AnonPair
-      <*> HasCField.readRaw (BG.Proxy @"anonPair_a") ptr0
-      <*> HasCField.readRaw (BG.Proxy @"anonPair_b") ptr0
+          pure UntaggedPair
+      <*> HasCField.readRaw (BG.Proxy @"untaggedPair_a") ptr0
+      <*> HasCField.readRaw (BG.Proxy @"untaggedPair_b") ptr0
 
-instance Marshal.WriteRaw AnonPair where
+instance Marshal.WriteRaw UntaggedPair where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          AnonPair anonPair_a2 anonPair_b3 ->
-               HasCField.writeRaw (BG.Proxy @"anonPair_a") ptr0 anonPair_a2
-            >> HasCField.writeRaw (BG.Proxy @"anonPair_b") ptr0 anonPair_b3
+          UntaggedPair untaggedPair_a2 untaggedPair_b3 ->
+               HasCField.writeRaw (BG.Proxy @"untaggedPair_a") ptr0 untaggedPair_a2
+            >> HasCField.writeRaw (BG.Proxy @"untaggedPair_b") ptr0 untaggedPair_b3
 
-deriving via Marshal.EquivStorable AnonPair instance BG.Storable AnonPair
+deriving via Marshal.EquivStorable UntaggedPair instance BG.Storable UntaggedPair
 
-deriving via Struct.IsStructViaReadRaw AnonPair instance Struct.IsStruct AnonPair
+deriving via Struct.IsStructViaReadRaw UntaggedPair instance Struct.IsStruct UntaggedPair
 
 {-| __C declaration:__ @a@
 
@@ -207,23 +209,25 @@ deriving via Struct.IsStructViaReadRaw AnonPair instance Struct.IsStruct AnonPai
     __exported by:__ @globals\/untagged.h@
 -}
 instance ( ty ~ BG.CInt
-         ) => BG.CompatHasField.HasField "anonPair_a" AnonPair ty where
+         ) => BG.CompatHasField.HasField "untaggedPair_a" UntaggedPair ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          AnonPair {anonPair_a = y1, anonPair_b = BG.getField @"anonPair_b" x0}
-      , BG.getField @"anonPair_a" x0
+          UntaggedPair {untaggedPair_a = y1, untaggedPair_b = BG.getField @"untaggedPair_b" x0}
+      , BG.getField @"untaggedPair_a" x0
       )
 
 instance ( ty ~ BG.CInt
-         ) => BG.HasField "anonPair_a" (BG.Ptr AnonPair) (BG.Ptr ty) where
+         ) => BG.HasField "untaggedPair_a" (BG.Ptr UntaggedPair) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (BG.Proxy @"anonPair_a")
+  getField =
+    HasCField.fromPtr (BG.Proxy @"untaggedPair_a")
 
-instance HasCField.HasCField AnonPair "anonPair_a" where
+instance HasCField.HasCField UntaggedPair "untaggedPair_a" where
 
-  type CFieldType AnonPair "anonPair_a" = BG.CInt
+  type CFieldType UntaggedPair "untaggedPair_a" =
+    BG.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -234,97 +238,99 @@ instance HasCField.HasCField AnonPair "anonPair_a" where
     __exported by:__ @globals\/untagged.h@
 -}
 instance ( ty ~ BG.CInt
-         ) => BG.CompatHasField.HasField "anonPair_b" AnonPair ty where
+         ) => BG.CompatHasField.HasField "untaggedPair_b" UntaggedPair ty where
 
   hasField =
     \x0 ->
       ( \y1 ->
-          AnonPair {anonPair_b = y1, anonPair_a = BG.getField @"anonPair_a" x0}
-      , BG.getField @"anonPair_b" x0
+          UntaggedPair {untaggedPair_b = y1, untaggedPair_a = BG.getField @"untaggedPair_a" x0}
+      , BG.getField @"untaggedPair_b" x0
       )
 
 instance ( ty ~ BG.CInt
-         ) => BG.HasField "anonPair_b" (BG.Ptr AnonPair) (BG.Ptr ty) where
+         ) => BG.HasField "untaggedPair_b" (BG.Ptr UntaggedPair) (BG.Ptr ty) where
 
-  getField = HasCField.fromPtr (BG.Proxy @"anonPair_b")
+  getField =
+    HasCField.fromPtr (BG.Proxy @"untaggedPair_b")
 
-instance HasCField.HasCField AnonPair "anonPair_b" where
+instance HasCField.HasCField UntaggedPair "untaggedPair_b" where
 
-  type CFieldType AnonPair "anonPair_b" = BG.CInt
+  type CFieldType UntaggedPair "untaggedPair_b" =
+    BG.CInt
 
   offset# = \_ -> \_ -> 4
 
-{-| __C declaration:__ @enum \@anonEnum@
+{-| __C declaration:__ @enum \@untaggedEnum@
 
     __defined at:__ @globals\/untagged.h 16:1@
 
     __exported by:__ @globals\/untagged.h@
 -}
-newtype AnonEnum = AnonEnum
-  { unwrapAnonEnum :: BG.CUInt
+newtype UntaggedEnum = UntaggedEnum
+  { unwrapUntaggedEnum :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
   deriving newtype (BG.HasFFIType)
 
-instance Marshal.StaticSize AnonEnum where
+instance Marshal.StaticSize UntaggedEnum where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw AnonEnum where
+instance Marshal.ReadRaw UntaggedEnum where
 
   readRaw =
     \ptr0 ->
-          pure AnonEnum
+          pure UntaggedEnum
       <*> Marshal.readRawByteOff ptr0 (0 :: Int)
 
-instance Marshal.WriteRaw AnonEnum where
+instance Marshal.WriteRaw UntaggedEnum where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          AnonEnum unwrapAnonEnum2 ->
-            Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapAnonEnum2
+          UntaggedEnum unwrapUntaggedEnum2 ->
+            Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapUntaggedEnum2
 
-deriving via Marshal.EquivStorable AnonEnum instance BG.Storable AnonEnum
+deriving via Marshal.EquivStorable UntaggedEnum instance BG.Storable UntaggedEnum
 
-deriving via BG.CUInt instance BG.Prim AnonEnum
+deriving via BG.CUInt instance BG.Prim UntaggedEnum
 
-instance CEnum.CEnum AnonEnum where
+instance CEnum.CEnum UntaggedEnum where
 
-  type CEnumZ AnonEnum = BG.CUInt
+  type CEnumZ UntaggedEnum = BG.CUInt
 
-  toCEnum = AnonEnum
+  toCEnum = UntaggedEnum
 
-  fromCEnum = BG.getField @"unwrapAnonEnum"
+  fromCEnum = BG.getField @"unwrapUntaggedEnum"
 
   declaredValues =
     \_ ->
       CEnum.declaredValuesFromList [(0, BG.singleton "VAL_A"), (1, BG.singleton "VAL_B")]
 
   showsUndeclared =
-    CEnum.showsWrappedUndeclared "AnonEnum"
+    CEnum.showsWrappedUndeclared "UntaggedEnum"
 
   readPrecUndeclared =
-    CEnum.readPrecWrappedUndeclared "AnonEnum"
+    CEnum.readPrecWrappedUndeclared "UntaggedEnum"
 
   isDeclared = CEnum.seqIsDeclared
 
   mkDeclared = CEnum.seqMkDeclared
 
-instance CEnum.SequentialCEnum AnonEnum where
+instance CEnum.SequentialCEnum UntaggedEnum where
 
   minDeclaredValue = VAL_A
 
   maxDeclaredValue = VAL_B
 
-instance Show AnonEnum where
+instance Show UntaggedEnum where
 
   showsPrec = CEnum.shows
 
-instance Read AnonEnum where
+instance Read UntaggedEnum where
 
   readPrec = CEnum.readPrec
 
@@ -333,22 +339,24 @@ instance Read AnonEnum where
   readListPrec = BG.readListPrecDefault
 
 instance ( ty ~ BG.CUInt
-         ) => BG.CompatHasField.HasField "unwrapAnonEnum" AnonEnum ty where
+         ) => BG.CompatHasField.HasField "unwrapUntaggedEnum" UntaggedEnum ty where
 
   hasField =
     \x0 ->
-      (\y1 ->
-         AnonEnum {unwrapAnonEnum = y1}, BG.getField @"unwrapAnonEnum" x0)
+      ( \y1 -> UntaggedEnum {unwrapUntaggedEnum = y1}
+      , BG.getField @"unwrapUntaggedEnum" x0
+      )
 
 instance ( ty ~ BG.CUInt
-         ) => BG.HasField "unwrapAnonEnum" (BG.Ptr AnonEnum) (BG.Ptr ty) where
+         ) => BG.HasField "unwrapUntaggedEnum" (BG.Ptr UntaggedEnum) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (BG.Proxy @"unwrapAnonEnum")
+    HasCField.fromPtr (BG.Proxy @"unwrapUntaggedEnum")
 
-instance HasCField.HasCField AnonEnum "unwrapAnonEnum" where
+instance HasCField.HasCField UntaggedEnum "unwrapUntaggedEnum" where
 
-  type CFieldType AnonEnum "unwrapAnonEnum" = BG.CUInt
+  type CFieldType UntaggedEnum "unwrapUntaggedEnum" =
+    BG.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -358,8 +366,8 @@ instance HasCField.HasCField AnonEnum "unwrapAnonEnum" where
 
     __exported by:__ @globals\/untagged.h@
 -}
-pattern VAL_A :: AnonEnum
-pattern VAL_A = AnonEnum 0
+pattern VAL_A :: UntaggedEnum
+pattern VAL_A = UntaggedEnum 0
 
 {-| __C declaration:__ @VAL_B@
 
@@ -367,70 +375,70 @@ pattern VAL_A = AnonEnum 0
 
     __exported by:__ @globals\/untagged.h@
 -}
-pattern VAL_B :: AnonEnum
-pattern VAL_B = AnonEnum 1
+pattern VAL_B :: UntaggedEnum
+pattern VAL_B = UntaggedEnum 1
 
-{-| __C declaration:__ @enum \@anonEnumCoords@
+{-| __C declaration:__ @enum \@untaggedEnumCoords@
 
     __defined at:__ @globals\/untagged.h 18:1@
 
     __exported by:__ @globals\/untagged.h@
 -}
-newtype AnonEnumCoords = AnonEnumCoords
-  { unwrapAnonEnumCoords :: BG.CUInt
+newtype UntaggedEnumCoords = UntaggedEnumCoords
+  { unwrapUntaggedEnumCoords :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
   deriving newtype (BG.HasFFIType)
 
-instance Marshal.StaticSize AnonEnumCoords where
+instance Marshal.StaticSize UntaggedEnumCoords where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw AnonEnumCoords where
+instance Marshal.ReadRaw UntaggedEnumCoords where
 
   readRaw =
     \ptr0 ->
-          pure AnonEnumCoords
+          pure UntaggedEnumCoords
       <*> Marshal.readRawByteOff ptr0 (0 :: Int)
 
-instance Marshal.WriteRaw AnonEnumCoords where
+instance Marshal.WriteRaw UntaggedEnumCoords where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          AnonEnumCoords unwrapAnonEnumCoords2 ->
-            Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapAnonEnumCoords2
+          UntaggedEnumCoords unwrapUntaggedEnumCoords2 ->
+            Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapUntaggedEnumCoords2
 
-deriving via Marshal.EquivStorable AnonEnumCoords instance BG.Storable AnonEnumCoords
+deriving via Marshal.EquivStorable UntaggedEnumCoords instance BG.Storable UntaggedEnumCoords
 
-deriving via BG.CUInt instance BG.Prim AnonEnumCoords
+deriving via BG.CUInt instance BG.Prim UntaggedEnumCoords
 
-instance CEnum.CEnum AnonEnumCoords where
+instance CEnum.CEnum UntaggedEnumCoords where
 
-  type CEnumZ AnonEnumCoords = BG.CUInt
+  type CEnumZ UntaggedEnumCoords = BG.CUInt
 
-  toCEnum = AnonEnumCoords
+  toCEnum = UntaggedEnumCoords
 
-  fromCEnum = BG.getField @"unwrapAnonEnumCoords"
+  fromCEnum = BG.getField @"unwrapUntaggedEnumCoords"
 
   declaredValues =
     \_ ->
       CEnum.declaredValuesFromList [(10, BG.singleton "X"), (20, BG.singleton "Y"), (30, BG.singleton "Z")]
 
   showsUndeclared =
-    CEnum.showsWrappedUndeclared "AnonEnumCoords"
+    CEnum.showsWrappedUndeclared "UntaggedEnumCoords"
 
   readPrecUndeclared =
-    CEnum.readPrecWrappedUndeclared "AnonEnumCoords"
+    CEnum.readPrecWrappedUndeclared "UntaggedEnumCoords"
 
-instance Show AnonEnumCoords where
+instance Show UntaggedEnumCoords where
 
   showsPrec = CEnum.shows
 
-instance Read AnonEnumCoords where
+instance Read UntaggedEnumCoords where
 
   readPrec = CEnum.readPrec
 
@@ -439,23 +447,24 @@ instance Read AnonEnumCoords where
   readListPrec = BG.readListPrecDefault
 
 instance ( ty ~ BG.CUInt
-         ) => BG.CompatHasField.HasField "unwrapAnonEnumCoords" AnonEnumCoords ty where
+         ) => BG.CompatHasField.HasField "unwrapUntaggedEnumCoords" UntaggedEnumCoords ty where
 
   hasField =
     \x0 ->
-      ( \y1 -> AnonEnumCoords {unwrapAnonEnumCoords = y1}
-      , BG.getField @"unwrapAnonEnumCoords" x0
+      ( \y1 ->
+          UntaggedEnumCoords {unwrapUntaggedEnumCoords = y1}
+      , BG.getField @"unwrapUntaggedEnumCoords" x0
       )
 
 instance ( ty ~ BG.CUInt
-         ) => BG.HasField "unwrapAnonEnumCoords" (BG.Ptr AnonEnumCoords) (BG.Ptr ty) where
+         ) => BG.HasField "unwrapUntaggedEnumCoords" (BG.Ptr UntaggedEnumCoords) (BG.Ptr ty) where
 
   getField =
-    HasCField.fromPtr (BG.Proxy @"unwrapAnonEnumCoords")
+    HasCField.fromPtr (BG.Proxy @"unwrapUntaggedEnumCoords")
 
-instance HasCField.HasCField AnonEnumCoords "unwrapAnonEnumCoords" where
+instance HasCField.HasCField UntaggedEnumCoords "unwrapUntaggedEnumCoords" where
 
-  type CFieldType AnonEnumCoords "unwrapAnonEnumCoords" =
+  type CFieldType UntaggedEnumCoords "unwrapUntaggedEnumCoords" =
     BG.CUInt
 
   offset# = \_ -> \_ -> 0
@@ -466,8 +475,8 @@ instance HasCField.HasCField AnonEnumCoords "unwrapAnonEnumCoords" where
 
     __exported by:__ @globals\/untagged.h@
 -}
-pattern X :: AnonEnumCoords
-pattern X = AnonEnumCoords 10
+pattern X :: UntaggedEnumCoords
+pattern X = UntaggedEnumCoords 10
 
 {-| __C declaration:__ @Y@
 
@@ -475,8 +484,8 @@ pattern X = AnonEnumCoords 10
 
     __exported by:__ @globals\/untagged.h@
 -}
-pattern Y :: AnonEnumCoords
-pattern Y = AnonEnumCoords 20
+pattern Y :: UntaggedEnumCoords
+pattern Y = UntaggedEnumCoords 20
 
 {-| __C declaration:__ @Z@
 
@@ -484,8 +493,8 @@ pattern Y = AnonEnumCoords 20
 
     __exported by:__ @globals\/untagged.h@
 -}
-pattern Z :: AnonEnumCoords
-pattern Z = AnonEnumCoords 30
+pattern Z :: UntaggedEnumCoords
+pattern Z = UntaggedEnumCoords 30
 
 {-| __C declaration:__ @enum \@A@
 

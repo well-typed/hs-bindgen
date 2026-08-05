@@ -217,7 +217,7 @@ data DelayedParseMsg =
     -- specially in order to optimize memory allocation.
   | ParseUnexposedType
 
-    -- | Unsupported anonymous declaration inside @extern@
+    -- | Unsupported unnamed declaration inside @extern@
     --
     -- Something like
     --
@@ -238,9 +238,9 @@ data DelayedParseMsg =
     -- (As of C23, the situation is different for /named/ structs: multiple uses
     -- of a struct with the same name are considered compatible as of
     -- WG14-N3037.)
-  | ParseUnsupportedAnonInExtern
+  | ParseUnsupportedUnnamedInExtern
 
-    -- | Unsupported anonymous declaration inside function signature
+    -- | Unsupported unnamed declaration inside function signature
     --
     -- Consider:
     --
@@ -252,9 +252,9 @@ data DelayedParseMsg =
     -- > warning: declaration of 'struct named' will not be visible outside of
     -- > this function
     --
-    -- but accepts the second (anonymous struct); @gcc@ warns in both cases:
+    -- but accepts the second (untagged struct); @gcc@ warns in both cases:
     --
-    -- > {‘struct named’, anonymous struct} declared inside parameter list will
+    -- > {‘struct named’, untagged struct} declared inside parameter list will
     -- > not be visible outside of this definition or declaration
     --
     -- as does the C compiler used by vscode, which in both cases says
@@ -264,11 +264,11 @@ data DelayedParseMsg =
     -- It's not entirely clear if C23/WG14-N3037 affects this or not; @gcc@
     -- warns about both declarations even with @-std=c2x@.
     --
-    -- For our purposes, only the anonymous case is really problematic (we have
+    -- For our purposes, only the unnamed case is really problematic (we have
     -- no way of assigning a name to the struct). Since it is relatively clear
-    -- that the anonymous version is anyway unusable (callers would have no way
+    -- that the unnamed version is anyway unusable (callers would have no way
     -- of constructing any values), we rule them out.
-  | ParseUnsupportedAnonInSignature
+  | ParseUnsupportedUnnamedInSignature
 
     -- | Clang built-in declaration
   | ParseUnsupportedBuiltin Text
@@ -289,15 +289,15 @@ data DelayedParseMsg =
     -- | We do not support variadic (varargs) functions
   | ParseUnsupportedVariadicFunction
 
-    -- | Unusable anonymous declaration
+    -- | Unusable unnamed declaration
     --
     -- When an unusable declaration appears in some outer declaration (say a
     -- function signature), we will fail to \"parse\" that outer declaration
     -- (actually this happens as a separate post-processing step in
-    -- @AssignAnonIds@). We record the identifier of the anonymous declaration
+    -- @FillUnnamedIds@). We record the identifier of the unnamed declaration
     -- here (that is, it's source location); the identifier of the outer
     -- declaration is recorded in the encloding 'HsBindgen.Frontend.Pass.Parse.Result.ParseResult'.
-  | ParseUnusableAnonDecl C.AnonId
+  | ParseUnusableUnnamedDecl C.UnnamedId
 
   | ParseExpectedFunctionType String
 
@@ -390,10 +390,10 @@ instance PrettyForTrace DelayedParseMsg where
         ]
       ParseUnexposedType ->
         "Unexposed type"
-      ParseUnsupportedAnonInExtern ->
-        "Unexpected anonymous declaration in global variable"
-      ParseUnsupportedAnonInSignature ->
-        "Unexpected anonymous declaration in function signature"
+      ParseUnsupportedUnnamedInExtern ->
+        "Unexpected unnamed declaration in global variable"
+      ParseUnsupportedUnnamedInSignature ->
+        "Unexpected unnamed declaration in function signature"
       ParseUnsupportedBuiltin name ->
         "Unsupported built-in " >< PP.show name
       ParseUnsupportedFloat128 ->
@@ -411,9 +411,9 @@ instance PrettyForTrace DelayedParseMsg where
         "Unsupported thread-local variable"
       ParseUnsupportedVariadicFunction ->
         "Unsupported variadic (varargs) function"
-      ParseUnusableAnonDecl anonId -> PP.hsep [
-          "Unusable anonymous declaration "
-        , prettyForTrace anonId
+      ParseUnusableUnnamedDecl unnamedId -> PP.hsep [
+          "Unusable unnamed declaration "
+        , prettyForTrace unnamedId
         ]
       ParseDeclarationNotVisible kind name -> PP.hcat [
             "Declaration of '"
@@ -458,37 +458,37 @@ instance PrettyForTrace DelayedParseMsg where
 -- | Unsupported features are warnings
 instance IsTrace Level DelayedParseMsg where
   getDefaultLogLevel = \case
-      ParseUnderlyingTypeFailed _ x     -> getDefaultLogLevel x
-      ParseImplicitFieldFailed    x     -> getDefaultLogLevel x
-      ParseMacroEmpty{}                 -> Info
-      ParseMacroErrorParse{}            -> Info
-      ParsePotentialDuplicateSymbol{}   -> Notice
-      ParseDeclarationNotVisible{}      -> Warning
-      ParseFunctionOfTypeTypedef{}      -> Warning
-      ParseInvalidLinkage               -> Warning
-      ParseInvalidVisibility            -> Warning
-      ParseNestedDeclsFailed{}          -> Warning
-      ParseNonPublicVisibility{}        -> Warning
-      ParseUnknownCursorAvailability{}  -> Warning
-      ParseUnknownStorageClass{}        -> Warning
-      ParseUnexposedType                -> Warning
-      ParseUnsupportedAnonInExtern{}    -> Warning
-      ParseUnsupportedAnonInSignature{} -> Warning
-      ParseUnsupportedBuiltin{}         -> Warning
-      ParseUnsupportedFloat128          -> Warning
-      ParseUnsupportedLinkage{}         -> Warning
-      ParseUnsupportedLongDouble        -> Warning
-      ParseUnsupportedTLS{}             -> Warning
-      ParseUnsupportedVariadicFunction  -> Warning
-      ParseUnusableAnonDecl{}           -> Warning
-      ParseExpectedFunctionType{}       -> Bug
-      ParseMacroDefinitionNoMacroName{} -> Bug
-      ParseUnexpectedComplexType{}      -> Bug
-      ParseUnexpectedCursorKind{}       -> Bug
-      ParseUnexpectedLinkage{}          -> Bug
-      ParseUnexpectedTypeKind{}         -> Bug
-      ParseUnexpectedVisibility{}       -> Bug
-      ParseNoMainHeadersException{}     -> Error
+      ParseUnderlyingTypeFailed _ x        -> getDefaultLogLevel x
+      ParseImplicitFieldFailed    x        -> getDefaultLogLevel x
+      ParseMacroEmpty{}                    -> Info
+      ParseMacroErrorParse{}               -> Info
+      ParsePotentialDuplicateSymbol{}      -> Notice
+      ParseDeclarationNotVisible{}         -> Warning
+      ParseFunctionOfTypeTypedef{}         -> Warning
+      ParseInvalidLinkage                  -> Warning
+      ParseInvalidVisibility               -> Warning
+      ParseNestedDeclsFailed{}             -> Warning
+      ParseNonPublicVisibility{}           -> Warning
+      ParseUnknownCursorAvailability{}     -> Warning
+      ParseUnknownStorageClass{}           -> Warning
+      ParseUnexposedType                   -> Warning
+      ParseUnsupportedUnnamedInExtern{}    -> Warning
+      ParseUnsupportedUnnamedInSignature{} -> Warning
+      ParseUnsupportedBuiltin{}            -> Warning
+      ParseUnsupportedFloat128             -> Warning
+      ParseUnsupportedLinkage{}            -> Warning
+      ParseUnsupportedLongDouble           -> Warning
+      ParseUnsupportedTLS{}                -> Warning
+      ParseUnsupportedVariadicFunction     -> Warning
+      ParseUnusableUnnamedDecl{}           -> Warning
+      ParseExpectedFunctionType{}          -> Bug
+      ParseMacroDefinitionNoMacroName{}    -> Bug
+      ParseUnexpectedComplexType{}         -> Bug
+      ParseUnexpectedCursorKind{}          -> Bug
+      ParseUnexpectedLinkage{}             -> Bug
+      ParseUnexpectedTypeKind{}            -> Bug
+      ParseUnexpectedVisibility{}          -> Bug
+      ParseNoMainHeadersException{}        -> Error
   getSource  = const HsBindgen
   getTraceId = \case
       ParseImplicitFieldFailed x        -> "parse-" <> getTraceId x

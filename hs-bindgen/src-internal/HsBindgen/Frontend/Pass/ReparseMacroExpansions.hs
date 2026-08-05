@@ -119,15 +119,15 @@ reparseDecl ::
      C.Decl l PrepareReparse
   -> M (C.Decl l ReparseMacroExpansions)
 reparseDecl decl = case decl.kind of
-    C.DeclMacro macro                    -> processMacro            info' macro
-    C.DeclTypedef typedef                -> processTypedef          info' typedef
-    C.DeclStruct struct                  -> processStruct           info' struct
-    C.DeclUnion union                    -> processUnion            info' union
-    C.DeclEnum enum                      -> processEnum             info' enum
-    C.DeclAnonEnumConstant anonEnumConst -> processAnonEnumConstant info' anonEnumConst
-    C.DeclOpaque mSize                   -> processOpaque           info' (C.DeclOpaque mSize)
-    C.DeclFunction fun                   -> processFunction         info' fun
-    C.DeclGlobal global                  -> processGlobal           info' global
+    C.DeclMacro macro                    -> processMacro                info' macro
+    C.DeclTypedef typedef                -> processTypedef              info' typedef
+    C.DeclStruct struct                  -> processStruct               info' struct
+    C.DeclUnion union                    -> processUnion                info' union
+    C.DeclEnum enum                      -> processEnum                 info' enum
+    C.DeclUntaggedEnumConstant enumConst -> processUntaggedEnumConstant info' enumConst
+    C.DeclOpaque mSize                   -> processOpaque               info' (C.DeclOpaque mSize)
+    C.DeclFunction fun                   -> processFunction             info' fun
+    C.DeclGlobal global                  -> processGlobal               info' global
   where
     info' :: C.DeclInfo ReparseMacroExpansions
     info' = coercePass decl.info
@@ -302,12 +302,12 @@ processEnum info enum =
             }
         }
 
-processAnonEnumConstant ::
+processUntaggedEnumConstant ::
      C.DeclInfo ReparseMacroExpansions
-  -> C.AnonEnumConstant PrepareReparse
+  -> C.UntaggedEnumConstant PrepareReparse
   -> M (C.Decl l ReparseMacroExpansions)
-processAnonEnumConstant info anonEnumConst =
-    mkDecl <$> processEnumConstant anonEnumConst.constant
+processUntaggedEnumConstant info enumConst =
+    mkDecl <$> processEnumConstant enumConst.constant
   where
     mkDecl ::
          C.EnumConstant ReparseMacroExpansions
@@ -315,8 +315,8 @@ processAnonEnumConstant info anonEnumConst =
     mkDecl constant = C.Decl{
           info = info
         , ann  = NoAnn
-        , kind = C.DeclAnonEnumConstant C.AnonEnumConstant{
-              typ      = anonEnumConst.typ
+        , kind = C.DeclUntaggedEnumConstant C.UntaggedEnumConstant{
+              typ      = enumConst.typ
             , constant = constant
             }
         }
