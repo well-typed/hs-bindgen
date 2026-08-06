@@ -26,9 +26,9 @@ executable run-manual
     Manual.Functions.FirstOrder
     Manual.Functions.HigherOrder
     Manual.GeneratedNames
+    Manual.GeneratedNames.UnprefixedFieldNames
     Manual.Globals
     Manual.Macros
-    Manual.OmitFieldPrefixes
     Manual.PointerManipulation
     Manual.Tools
     Manual.Types.Arrays
@@ -83,11 +83,13 @@ library generated
     FunctionPointers.FunPtr
     FunctionPointers.Global
     FunctionPointers.Safe
+    GeneratedNames
+    GeneratedNames.UnprefixedFieldNames
+    GeneratedNames.Unsafe
     Globals
     Globals.Global
     Macro
     Macro.Unsafe
-    OmitFieldPrefixes
     PointerManipulation
     Structs
     Structs.Nesting

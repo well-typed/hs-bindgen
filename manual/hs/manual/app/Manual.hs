@@ -21,9 +21,9 @@ into separate modules corresponding to the manual's structure:
 == Other
 * 'Manual.Macros' - Examples for macro bindings
 * 'Manual.GeneratedNames' - Examples for name generation (awkward names)
+* 'Manual.GeneratedNames.UnprefixedFieldNames' - Examples for unprefixed field names
 * 'Manual.BindingSpecifications' - Examples for external binding specifications
 * 'Manual.Globals' - Examples for global variables and constants
-* 'Manual.OmitFieldPrefixes' - Examples for unprefixed field names
 * 'Manual.PointerManipulation' - Examples for the pointer manipulation API
 -}
 module Manual (main) where
@@ -37,9 +37,9 @@ import Manual.BindingSpecifications qualified
 import Manual.Functions.FirstOrder qualified
 import Manual.Functions.HigherOrder qualified
 import Manual.GeneratedNames qualified
+import Manual.GeneratedNames.UnprefixedFieldNames qualified
 import Manual.Globals qualified
 import Manual.Macros qualified
-import Manual.OmitFieldPrefixes qualified
 import Manual.PointerManipulation qualified
 import Manual.Types.Arrays qualified
 import Manual.Types.Complex qualified
@@ -64,13 +64,13 @@ main = do
     Manual.Macros.examples
     Manual.Types.Unions.examples
     Manual.GeneratedNames.examples
+    Manual.GeneratedNames.UnprefixedFieldNames.examples
     Manual.BindingSpecifications.examples
     Manual.Globals.examples
     Manual.Types.Arrays.examples
     Manual.Functions.FirstOrder.examples
     Manual.Types.Complex.examples
     Manual.Functions.HigherOrder.examples
-    Manual.OmitFieldPrefixes.examples
     Manual.PointerManipulation.examples
 
 {-------------------------------------------------------------------------------

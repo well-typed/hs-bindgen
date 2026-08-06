@@ -3,12 +3,12 @@
 {-# LANGUAGE OverloadedRecordDot #-}
 {-# OPTIONS_GHC -Wno-ambiguous-fields #-}
 
-module Manual.OmitFieldPrefixes (examples) where
+module Manual.GeneratedNames.UnprefixedFieldNames (examples) where
 
 import Prelude
 
+import GeneratedNames.UnprefixedFieldNames
 import Manual.Tools
-import OmitFieldPrefixes
 
 {-------------------------------------------------------------------------------
   Examples
