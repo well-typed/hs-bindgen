@@ -1,0 +1,257 @@
+{-# LANGUAGE OverloadedStrings #-}
+
+-- | Out-parameters: 'output' and the unmarshallers behind it
+-- ('unmarshalOut' \/ 'unmarshalOutWith' \/ 'peekCStringOut' \/ 'byteStringOut' \/
+-- 'outForeignPtr'), how several outputs become arguments to the closer's
+-- assembler, and how an output's allocation nests around a later input.
+module Test.HsBindgen.HighLevel.Outputs (tests) where
+
+import Control.Exception (IOException, catch, finally, throwIO)
+import Data.ByteString (ByteString)
+import Data.IORef (modifyIORef', newIORef, readIORef)
+import Foreign.C.Types (CChar (..), CInt (..), CUChar)
+import Foreign.ForeignPtr (withForeignPtr)
+import Foreign.Marshal.Alloc (alloca, finalizerFree, mallocBytes)
+import Foreign.Marshal.Array (pokeArray)
+import Foreign.Ptr (Ptr)
+import Foreign.Storable (peek, poke)
+import Test.Tasty (TestTree, testGroup)
+import Test.Tasty.HUnit (testCase, (@?=))
+
+import HsBindgen.Runtime.PtrConst (PtrConst)
+import HsBindgen.Runtime.PtrConst qualified as PtrConst
+
+import HsBindgen.HighLevel (input, output, resultPure, toHighLevel)
+import HsBindgen.HighLevel.Marshaller (scalar, unmarshalOut, unmarshalOutWith)
+import HsBindgen.HighLevel.Marshaller.Utils (byteStringOut, outForeignPtr,
+                                             peekCStringOut, withCStringIn,
+                                             zeroedCStringOut)
+
+import Test.HsBindgen.HighLevel.Util (peekIntOut)
+
+{-------------------------------------------------------------------------------
+  Fixtures
+-------------------------------------------------------------------------------}
+
+-- | Fills six out-parameters with @1..6@; the return value is discarded.
+sixOut :: Ptr CInt -> Ptr CInt -> Ptr CInt -> Ptr CInt -> Ptr CInt -> Ptr CInt
+       -> IO CInt
+sixOut p1 p2 p3 p4 p5 p6 = do
+    poke p1 1; poke p2 2; poke p3 3; poke p4 4; poke p5 5; poke p6 6
+    pure 0
+
+-- | Fills nine out-parameters; with the C return that is a ten-component result,
+-- well past the arity any tuple could hold, which the assembler handles because it
+-- is an ordinary curried function.
+nineOut :: Ptr CInt -> Ptr CInt -> Ptr CInt -> Ptr CInt -> Ptr CInt -> Ptr CInt
+        -> Ptr CInt -> Ptr CInt -> Ptr CInt -> IO CInt
+nineOut p1 p2 p3 p4 p5 p6 p7 p8 p9 = do
+    poke p1 1; poke p2 2; poke p3 3; poke p4 4; poke p5 5
+    poke p6 6; poke p7 7; poke p8 8; poke p9 9
+    pure 0
+
+-- | Writes an out-parameter before and after reading an @int@ input.
+interleaved :: Ptr CInt -> CInt -> Ptr CInt -> IO CInt
+interleaved pOut1 (CInt n) pOut2 = do
+    poke pOut1 (CInt n)
+    poke pOut2 (CInt (n * 2))
+    pure 0
+
+writeInt :: Ptr CInt -> IO CInt
+writeInt p = poke p (CInt 41) >> pure 0
+
+-- | Writes @"boom"@ into the output buffer and returns a status.
+writeErrorString :: Ptr CChar -> IO CInt
+writeErrorString buf = pokeArray buf [c 'b', c 'o', c 'o', c 'm', CChar 0] >> pure 1
+  where c = CChar . fromIntegral . fromEnum
+
+-- | Writes the first byte of the input string into the output buffer.
+firstCharInto :: Ptr CChar -> PtrConst CChar -> IO CInt
+firstCharInto outBuf inStr = do
+    c <- PtrConst.peek inStr
+    pokeArray outBuf [c, CChar 0]
+    pure 1
+
+writeThreeBytes :: Ptr CUChar -> IO CInt
+writeThreeBytes p = pokeArray p [0x61, 0x62, 0x63] >> pure 0   -- "abc"
+
+-- | Mallocs a @CInt@, pokes @v@, and hands the pointer back through a @T**@
+-- out-parameter (the @thing_open@ idiom).
+openThing :: CInt -> Ptr (Ptr CInt) -> IO CInt
+openThing v outp = do
+    p <- mallocBytes 8
+    poke p v
+    poke outp p
+    pure 0
+
+{-------------------------------------------------------------------------------
+  Tests
+-------------------------------------------------------------------------------}
+
+tests :: TestTree
+tests = testGroup "outputs"
+    [ testGroup "assembling several outputs"
+        [ testCase "six outputs, the C return dropped by the assembler" $
+            hsSixOut >>= (@?= (1, 2, 3, 4, 5, 6))
+        , testCase "nine outputs plus the C return: there is no width cap" $
+            hsNineOut >>= (@?= (1, 2, 3, 4, 5, 6, 7, 8, 9, 0))
+        , testCase "interleaved out-in-out: the outputs sandwich an input" $
+            hsInterleaved 7 >>= (@?= (7, 14, 0))
+        ]
+
+    , testGroup "unmarshallers"
+        [ testCase "unmarshalOut: read an out-parameter with an IO conversion" $
+            hsUnmarshalOut >>= (@?= (42, 0))
+        , testCase "unmarshalOutWith: a custom allocator and reader" $
+            hsUnmarshalOutWith >>= (@?= (41, 0))
+        , testCase "zeroedCStringOut: a buffer the call wrote reads back" $
+            hsErrbufWritten >>= (@?= ("bad input", 1))
+        , testCase "zeroedCStringOut: a buffer the call left alone reads back empty" $
+            hsErrbufUntouched >>= (@?= ("", 0))
+        , testCase "peekCStringOut: a fixed-cap NUL-terminated buffer" $
+            hsWriteError >>= (@?= ("boom", 1))
+        , testCase "byteStringOut: a caller-sized buffer read back as bytes" $
+            hsBytesOut >>= (@?= ("abc", 0))
+        , testCase "output then bracket input: the input nests inside the output" $
+            hsFirstChar "xyz" >>= (@?= ("x", 1))
+        ]
+
+    , testCase "outForeignPtr: a T** out-parameter becomes a managed ForeignPtr" $
+        hsOpenThing 55 >>= (@?= 55)
+
+    , testGroup "ordering and unwinding"
+        [ testCase "slots are allocated, and read back, in spec order" $ do
+            (r, journal) <- tracedTwoOut writeTwo
+            r @?= Just (1, 2)
+            journal @?= [ "alloc A", "alloc B"    -- allocated in spec order
+                        , "read A", "read B"      -- read back in spec order, after the call
+                        , "free B", "free A"      -- released as the brackets unwind
+                        ]
+
+        , testCase "a throwing call runs no read-back and still unwinds" $ do
+            (r, journal) <- tracedTwoOut (\_ _ -> throwIO (userError "boom"))
+            r @?= Nothing
+            journal @?= ["alloc A", "alloc B", "free B", "free A"]
+        ]
+    ]
+
+-- | Run a two-output spec against @call@, recording every allocation, release and
+-- read-back in order. The read-backs must run after the call and in spec order, and
+-- a throwing call must run none of them while still releasing both slots.
+tracedTwoOut ::
+     (Ptr CInt -> Ptr CInt -> IO CInt) -> IO (Maybe (Int, Int), [String])
+tracedTwoOut call = do
+    ref <- newIORef []
+    let note msg  = modifyIORef' ref (++ [msg])
+        traced nm = unmarshalOutWith
+          (\k -> note ("alloc " ++ nm) *> (alloca k `finally` note ("free " ++ nm)))
+          (\p -> note ("read " ++ nm) *> (fromIntegral <$> peek p))
+        wrapped = toHighLevel call
+                $ output (traced "A")
+                $ output (traced "B")
+                $ resultPure (\a b _ -> (a, b))
+    r <- (Just <$> wrapped) `catch` \(_ :: IOException) -> pure Nothing
+    (,) r <$> readIORef ref
+
+-- | Writes @1@ and @2@ into its two out-parameters.
+writeTwo :: Ptr CInt -> Ptr CInt -> IO CInt
+writeTwo p q = poke p 1 >> poke q 2 >> pure 0
+
+{-------------------------------------------------------------------------------
+  Wrappers under test
+-------------------------------------------------------------------------------}
+
+hsSixOut :: IO (Int, Int, Int, Int, Int, Int)
+hsSixOut = toHighLevel sixOut
+         $ output peekIntOut
+         $ output peekIntOut
+         $ output peekIntOut
+         $ output peekIntOut
+         $ output peekIntOut
+         $ output peekIntOut
+         $ resultPure (\a b c d e f _ -> (a, b, c, d, e, f))
+
+hsNineOut :: IO (Int, Int, Int, Int, Int, Int, Int, Int, Int, Int)
+hsNineOut = toHighLevel nineOut
+          $ output peekIntOut
+          $ output peekIntOut
+          $ output peekIntOut
+          $ output peekIntOut
+          $ output peekIntOut
+          $ output peekIntOut
+          $ output peekIntOut
+          $ output peekIntOut
+          $ output peekIntOut
+          $ resultPure (\a b c d e f g h i r ->
+              (a, b, c, d, e, f, g, h, i, fromIntegral (r :: CInt)))
+
+hsInterleaved :: Int -> IO (Int, Int, Int)
+hsInterleaved = toHighLevel interleaved
+              $ output peekIntOut
+              $ input (scalar (CInt . fromIntegral))
+              $ output peekIntOut
+              $ resultPure (\a b c -> (a, b, fromIntegral c))
+
+hsUnmarshalOut :: IO (Int, Int)
+hsUnmarshalOut = toHighLevel writeInt
+               $ output (unmarshalOut (\(CInt n) -> pure (fromIntegral n + 1)))
+               $ resultPure (\v c -> (v, fromIntegral c))
+
+hsUnmarshalOutWith :: IO (Int, Int)
+hsUnmarshalOutWith = toHighLevel writeInt
+                   $ output (unmarshalOutWith alloca readInt)
+                   $ resultPure (\v c -> (v, fromIntegral c))
+  where
+    readInt :: Ptr CInt -> IO Int
+    readInt p = (\(CInt n) -> fromIntegral n) <$> peek p
+
+hsWriteError :: IO (String, Int)
+hsWriteError = toHighLevel writeErrorString
+             $ output (peekCStringOut 32)
+             $ resultPure (\s c -> (s, fromIntegral c))
+
+hsBytesOut :: IO (ByteString, Int)
+hsBytesOut = toHighLevel writeThreeBytes
+           $ output (byteStringOut 3)
+           $ resultPure (\b c -> (b, fromIntegral c))
+
+hsFirstChar :: String -> IO (String, Int)
+hsFirstChar = toHighLevel firstCharInto
+            $ output (peekCStringOut 8)
+            $ input withCStringIn
+            $ resultPure (\s c -> (s, fromIntegral c))
+
+hsOpenThing :: Int -> IO Int
+hsOpenThing v = do
+    fp <- toHighLevel openThing
+            ( input (scalar (fromIntegral :: Int -> CInt))
+            $ output (outForeignPtr finalizerFree)
+            $ resultPure (\fp _ -> fp)
+            ) v
+    withForeignPtr fp (fmap fromIntegral . peek)
+
+{-------------------------------------------------------------------------------
+  The C errbuf convention: a caller-supplied char[] the call writes only on failure
+-------------------------------------------------------------------------------}
+
+-- | @int with_errbuf(char *errbuf, int fail);@ writes a message and returns 1 when
+-- asked to fail, and leaves the buffer entirely alone otherwise.
+c_withErrbuf :: Ptr CChar -> CInt -> IO CInt
+c_withErrbuf errbuf shouldFail
+  | shouldFail == 0 = pure 0
+  | otherwise       = do
+      pokeArray errbuf (map (CChar . fromIntegral . fromEnum) "bad input" ++ [CChar 0])
+      pure 1
+
+-- | Reading the buffer back is only defined because 'zeroedCStringOut' zeroes it: on
+-- the success path C writes nothing at all, so 'peekCStringOut' would scan whatever
+-- happened to be in the allocation.
+hsErrbuf :: Bool -> IO (String, Int)
+hsErrbuf = toHighLevel c_withErrbuf
+         $ output (zeroedCStringOut 32)
+         $ input (scalar (\b -> if b then 1 else 0 :: CInt))
+         $ resultPure (\msg c -> (msg, fromIntegral c))
+
+hsErrbufWritten, hsErrbufUntouched :: IO (String, Int)
+hsErrbufWritten   = hsErrbuf True
+hsErrbufUntouched = hsErrbuf False
