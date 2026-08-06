@@ -2,7 +2,7 @@ module Main where
 
 import Control.Exception (AsyncException (UserInterrupt), IOException, catch,
                           finally, throwIO, try)
-import Control.Monad (unless, when)
+import Control.Monad (when)
 import Data.List (intercalate)
 import Data.Word (Word8)
 import Foreign qualified
@@ -15,6 +15,7 @@ import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
 import Generated.Pcap qualified as Pcap
 import Generated.Pcap.Safe qualified as Pcap
+import HighLevel (findAllDevNames)
 
 main :: IO ()
 main = do
@@ -47,24 +48,6 @@ canCapturePackets = do
     Right sock -> do
       close sock
       pure True
-
-findAllDevNames :: IO [String]
-findAllDevNames = Foreign.alloca $ \pcapIfTPtrPtr -> do
-    Foreign.allocaBytes (fromIntegral Pcap.pCAP_ERRBUF_SIZE) $ \errBuf -> do
-      success <- Pcap.pcap_findalldevs pcapIfTPtrPtr errBuf
-      unless (success == 0) $ fail "find all devices failed"
-    pcapIfTPtr <- Foreign.peek pcapIfTPtrPtr
-    devNames <- aux [] pcapIfTPtr
-    Pcap.pcap_freealldevs pcapIfTPtr
-    return devNames
-  where
-    aux :: [String] -> Foreign.Ptr Pcap.Pcap_if_t -> IO [String]
-    aux acc ptr
-      | ptr == Foreign.nullPtr = return $ reverse acc
-      | otherwise = do
-          pcapIfT <- Foreign.peek ptr
-          devName <- C.peekCString $ Pcap.pcap_if_t_name pcapIfT
-          aux (devName : acc) (Pcap.pcap_if_t_next pcapIfT)
 
 -- | Open a device for live capture and print a human-readable summary of
 -- every packet until interrupted with Ctrl-C.

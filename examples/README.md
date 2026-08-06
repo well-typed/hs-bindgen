@@ -9,6 +9,11 @@ examples include bindings and toy programs for various C libraries.
   bindings for different target architectures (e.g., generating ARM bindings on
   x86_64).  Includes a Nix development environment, QEMU testing, and detailed
   beginner-friendly documentation.
+* **[libclang-ffi](libclang-ffi/)** - Builds a high-level API over libclang's
+  raw FFI rather than over generated bindings, which exercises the by-value
+  (unlifted `R` / `W`) combinators.  It does not follow the structure below: it
+  has its own `cabal.project`, and its script is at
+  `hs-project/generate-and-run.sh`.
 
 ## Library binding examples
 
@@ -16,7 +21,9 @@ examples include bindings and toy programs for various C libraries.
 * `c-minisat`
 * `c-qrcode`
 * `c-yaml`
+* `libgit2`
 * `libpcap`
+* `libsodium`
 
 ## Running examples
 
@@ -148,7 +155,7 @@ expose a single override env var (e.g. `LIBFOO_INCLUDE_DIR`) that, when
 set, skips the bundled build and points `hs-bindgen-cli` at the system
 headers instead.
 
-`examples/libpcap/generate.sh:14` is the worked example:
+`examples/libpcap/generate.sh` is the worked example:
 
 ```sh
 module_flags=(
