@@ -90,6 +90,7 @@ test_macros_macro_resolution_log_level_warnings =
             MatchUnusable name (UnusableMacroResolutionFailure{})
               | applyCustomLogLevel customLogLevel trace (getDefaultLogLevel trace)
                   == Warning -> Just $ Expected name
+            MatchMacrosDropped{} -> Just Tolerated
             _otherwise -> Nothing
           )
   where
