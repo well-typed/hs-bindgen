@@ -1,7 +1,6 @@
 #include "function_pointers.h"
-#include <stdio.h>
 
-int square (int x) {
+int square2 (int x) {
   return (x * x);
 }
 

@@ -27,84 +27,73 @@ ifeq ($(OS),Windows_NT)
 endif
 
 default: \
-	libexample${TARGET_EXT} \
-	libmacro${TARGET_EXT} \
+	libmanual${TARGET_EXT} \
 	libvector${TARGET_EXT} \
 	libgame${TARGET_EXT} \
-	libglobals${TARGET_EXT} \
-	libarrays${TARGET_EXT} \
-	libfunctionpointers${TARGET_EXT} \
-	libhsb_complex_test${TARGET_EXT} \
-	libcallbacks${TARGET_EXT} \
-	libpointermanipulation${TARGET_EXT} \
-	libstructs${TARGET_EXT} \
-	libunions${TARGET_EXT}
 
 .PHONY: clean
 clean:
 	rm -f *.so *.dll *.o */*.o
 
-# Basic examples
+# Manual
 
-libexample${TARGET_EXT}: manual_examples.o
-	clang ${EXTRAFLAGS} -Wall -shared -o libexample${TARGET_EXT} manual_examples.o
+libmanual${TARGET_EXT}: \
+		manual_examples.o \
+		macro.o \
+		globals.o \
+		arrays.o \
+		function_pointers.o \
+		hsb_complex_test.o \
+		callbacks.o \
+		pointer_manipulation.o \
+		structs.o \
+		structs/nesting.o \
+		unions.o \
+		unions/nesting.o \
+		omit_field_prefixes.o
+
+	clang ${EXTRAFLAGS} -Wall -shared -o libmanual${TARGET_EXT} \
+		manual_examples.o \
+		macro.o \
+		globals.o \
+		arrays.o \
+		function_pointers.o \
+		hsb_complex_test.o \
+		callbacks.o \
+		pointer_manipulation.o \
+		structs.o \
+		structs/nesting.o \
+		unions.o \
+		unions/nesting.o \
+		omit_field_prefixes.o
 
 manual_examples.o: manual_examples.c manual_examples.h
 	clang ${EXTRAFLAGS} -Wall -o manual_examples.o -c -fPIC manual_examples.c -I${PROJECT_ROOT}/hs-bindgen/manual/c
 
-libmacro${TARGET_EXT}: macro.o
-	clang ${EXTRAFLAGS} -Wall -shared -o libmacro${TARGET_EXT} macro.o
-
 macro.o: macro.c macro.h
 	clang ${EXTRAFLAGS} -Wall -o macro.o -c -fPIC macro.c
-
-
-libglobals${TARGET_EXT}: globals.o
-	clang ${EXTRAFLAGS} -Wall -shared -o libglobals${TARGET_EXT} globals.o
 
 globals.o: globals.c globals.h
 	clang ${EXTRAFLAGS} -Wall -o globals.o -c -fPIC globals.c
 
-libarrays${TARGET_EXT}: arrays.o
-	clang ${EXTRAFLAGS} -Wall -shared -o libarrays${TARGET_EXT} arrays.o
-
 arrays.o: arrays.c arrays.h
 	clang ${EXTRAFLAGS} -Wall -o arrays.o -c -fPIC arrays.c
-
-libfunctionpointers${TARGET_EXT}: function_pointers.o
-	clang ${EXTRAFLAGS} -Wall -shared -o libfunctionpointers${TARGET_EXT} function_pointers.o
 
 function_pointers.o: function_pointers.c function_pointers.h
 	clang ${EXTRAFLAGS} -Wall -o function_pointers.o -c -fPIC function_pointers.c
 
-libhsb_complex_test${TARGET_EXT}: hsb_complex_test.o
-	clang ${EXTRAFLAGS} -Wall -shared -o libhsb_complex_test${TARGET_EXT} hsb_complex_test.o
-
 hsb_complex_test.o: hsb_complex_test.c hsb_complex_test.h
 	clang ${EXTRAFLAGS} -Wall -o hsb_complex_test.o -c -fPIC hsb_complex_test.c
-
-libcallbacks${TARGET_EXT}: callbacks.o
-	clang ${EXTRAFLAGS} -Wall -shared -o libcallbacks${TARGET_EXT} callbacks.o
 
 callbacks.o: callbacks.c callbacks.h
 	clang ${EXTRAFLAGS} -Wall -o callbacks.o -c -fPIC callbacks.c
 
 ## Pointer manipulation API
 
-libpointermanipulation${TARGET_EXT}: pointer_manipulation.o
-	clang ${EXTRAFLAGS} -Wall -shared -o libpointermanipulation${TARGET_EXT} pointer_manipulation.o
-
 pointer_manipulation.o: pointer_manipulation.c pointer_manipulation.h
 	clang ${EXTRAFLAGS} -Wall -o pointer_manipulation.o -c -fPIC pointer_manipulation.c
 
 ## Structs
-
-libstructs${TARGET_EXT}: \
-		structs.o \
-		structs/nesting.o
-	clang ${EXTRAFLAGS} -Wall -shared -o libstructs${TARGET_EXT} \
-		structs.o \
-		structs/nesting.o
 
 structs.o: structs.c structs.h
 	clang ${EXTRAFLAGS} -Wall -o structs.o -c -fPIC structs.c
@@ -114,20 +103,18 @@ structs/nesting.o: structs/nesting.c structs/nesting.h
 
 ## Unions
 
-libunions${TARGET_EXT}: \
-		unions.o \
-		unions/nesting.o
-	clang ${EXTRAFLAGS} -Wall -shared -o libunions${TARGET_EXT} \
-		unions.o \
-		unions/nesting.o
-
 unions.o: unions.c unions.h
 	clang ${EXTRAFLAGS} -Wall -o unions.o -c -fPIC unions.c
 
 unions/nesting.o: unions/nesting.c unions/nesting.h
 	clang ${EXTRAFLAGS} -Wall -Wno-missing-declarations -o unions/nesting.o -c -fPIC unions/nesting.c
 
-# Example for external bindings
+## Unprefixed field names
+
+omit_field_prefixes.o: omit_field_prefixes.c omit_field_prefixes.h
+	clang ${EXTRAFLAGS} -Wall -o omit_field_prefixes.o -c -fPIC omit_field_prefixes.c
+
+# External bindings: vector example
 
 libvector${TARGET_EXT}: vector.o vector_length.o vector_rotate.o
 	clang ${EXTRAFLAGS} -Wall -shared -o libvector${TARGET_EXT} vector.o vector_length.o vector_rotate.o -lm
@@ -140,6 +127,8 @@ vector_length.o: vector_length.c vector_length.h
 
 vector_rotate.o: vector_rotate.c vector_rotate.h
 	clang ${EXTRAFLAGS} -Wall -o vector_rotate.o -c -fPIC vector_rotate.c
+
+# External bindings: vector example
 
 libgame${TARGET_EXT}: game_world.o game_player.o
 	clang ${EXTRAFLAGS} -Wall -shared -o libgame${TARGET_EXT} game_world.o game_player.o
