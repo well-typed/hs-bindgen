@@ -2,7 +2,7 @@
  * Function pointers
  */
 
-extern int square(int);
+extern int square2(int);
 
 extern int plus(int, int);
 

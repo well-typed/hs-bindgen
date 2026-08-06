@@ -26,7 +26,7 @@ echo "# "
 mkdir -p binding-specs
 
 echo "# "
-echo "# Basic examples"
+echo "# Manual"
 echo "# "
 
 mkdir -p hs/manual/generated
@@ -102,7 +102,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     callbacks.h
 
 echo "# "
-echo "# Pointer manipulation API"
+echo "## Pointer manipulation API"
 echo "# "
 
 cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
@@ -116,7 +116,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     pointer_manipulation.h
 
 echo "# "
-echo "# Structs"
+echo "## Structs"
 echo "# "
 
 cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
@@ -140,7 +140,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     structs/nesting.h
 
 echo "# "
-echo "# Unions"
+echo "## Unions"
 echo "# "
 
 cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
@@ -164,7 +164,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     unions/nesting.h
 
 echo "# "
-echo "# Unprefixed field names"
+echo "## Unprefixed field names"
 echo "# "
 
 cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \

@@ -59,17 +59,7 @@ library generated
   import:          lang
   visibility:      private
   hs-source-dirs:  generated
-  extra-libraries:
-    arrays
-    callbacks
-    example
-    functionpointers
-    globals
-    hsb_complex_test
-    macro
-    pointermanipulation
-    structs
-    unions
+  extra-libraries: manual
 
   -- External
   build-depends:

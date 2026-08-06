@@ -46,11 +46,24 @@ struct S {
 A *bit-field* is a special kind of [field][t:field] that has a bit-width, used
 for packing and [padding][t:padding].
 
+### Direct field
+[t:direct_field]: #direct-field
+
+A [field][t:field] of a struct/union is called a *direct field* if it is
+declared directly in its member list. A field can alternatively be an [indirect
+field][t:indirect_field].
+
 ### Enclosing struct/union
 [t:enclosing]: #enclosing-structunion
 
 A [field][t:field] is declared inside a struct/union definition. This parent
 definition is called the *enclosing struct/union*.
+
+### Explicit field
+[t:explicit_field]: #explicit-field
+
+A [named][t:named_field], [direct][t:direct_field] field is called an *explicit
+field*.
 
 ### Field
 [t:field]: #field
@@ -64,7 +77,28 @@ declarations.
 
 <https://en.cppreference.com/w/c/language/scope.html#File_scope>
 
+### Implicit field
+
+Any non-[explicit][t:explicit_field] is an implicit field. This covers these
+types of fields:
+
+1. An [unnamed][t:named_field], [direct][t:direct_field] field (this can declare
+   an [anonymous struct/union][t:anon]).
+2. A [named][t:named_field], [indirect][t:indirect_field] field
+3. An [unnamed][t:named_field], [indirect][t:indirect_field] field
+
+<details>
+<summary>NOTE</summary>
+
+Though implicit fields are broadly defined, in our code and documentation we
+generally only consider an implicit field to be an unnamed, direct field that
+declares an [anonymous struct/union][t:anon].
+
+</details>
+
+
 ### Indirect field
+[t:indirect_field]: #indirect-field
 
 [Fields][t:field] of an [anonymous struct/union][t:anon] can be accessed as if
 they were fields of the [enclosing struct/union][t:enclosing]. Such a field is
@@ -72,10 +106,19 @@ called an *indirect field* with respect to the enclosing struct/union. Such
 fields are still fields of the anonymous struct/union as well.
 
 <details>
+<summary>NOTE</summary>
+
+Though indirect fields can be [named][t:named_field] or unnamed in this
+definition, in our code and documentation we generally only considered named
+fields as indirect fields.
+
+</details>
+
+<details>
 <summary>Binding generation</summary>
 
-Haskell bindings are generated for the field declaring the [anonymous
-struct/union][t:anon] rather than for the indirect fields.
+* [Binding generation for anonymous structs][manual:structs/nesting-indirect-fields]
+* [Binding generation for anonymous unions][manual:unions/nesting-indirect-fields]
 
 </details>
 
@@ -130,18 +173,11 @@ A [field][t:field] without a name is called an *unnamed field*.
 
 A struct or union or enum without a [tag][t:tag] is called *untagged*.
 
-## Internal
-
-### Implicit field
-
-Any field that is not directly accessible through the `libclang` API is
-represented as an *implicit field* in `libclang`'s C AST. Fields that declare an
-anonymous struct/union are such implicit fields. Indirect fields are also
-represented in `libclang` internally as implicit fields.
-
 
 
 <!-- sources and references -->
 
 [manual:structs/nesting-example-e]: low-level/translation/structs/nesting.md#example-e
+[manual:structs/nesting-indirect-fields]: low-level/translation/structs/nesting.md#indirect-fields
 [manual:unions/nesting-example-e]: low-level/translation/unions/nesting.md#example-e
+[manual:unions/nesting-indirect-fields]: low-level/translation/unions/nesting.md#indirect-fields
