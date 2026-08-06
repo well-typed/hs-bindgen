@@ -173,9 +173,10 @@ data ShapeD = ShapeD
 
 ## Example E
 
-Finally, we could leave out the name of the `size` field as well. Now the nested
-union becomes an *anonymous* union. The definition of anonymous unions can be
-found in the [C reference][creference:union]:
+Finally, we could leave out the name of the `size` field as well. Now the field
+becomes an *implicit* field and the nested union becomes an *anonymous* union.
+The definition of anonymous unions can be found in the [C
+reference][creference:union]:
 
 > An unnamed member of a union whose type is a union without name is known as
 > anonymous union.
@@ -242,19 +243,27 @@ In C, fields of an anonymous union can be accessed from the parent union *as if*
 they were fields of the parent union. This works recursively: if there are
 multiple levels of anonymous unions, then their fields can be accessed from the
 (top-level) parent union. Generated Haskell bindings reflect this behaviour by
-providing class instances for indirect fields as if they were any other (direct)
-field. For example, `HasField` instances such as:
+providing class instances for *named* indirect fields as if they were any other
+direct field. For example, `HasField` instances such as:
 
 ```hs
 instance HasField "shapeE_radius" ShapeE CFloat
 instance HasField "shapeE_length" ShapeE CInt
 ```
 
-Given all these instances, users can treat indirect fields as any other field,
-including in the context of: [binding
-specifications][manual:binding-specifications], the [pointer manipulation
-API][manual:pointer-manipulation-api], and [record dot
+For *unnamed* indirect fields (e.g., fields that reference an anonymous
+struct/union), we do not generate additional bindings.
+
+Indirect fields are not represented in the Haskell datatype that is generated
+for a union, just like any other direct field. As such, users can treat indirect
+fields as any other field, including in the context of: the [pointer
+manipulation API][manual:pointer-manipulation-api], and [record dot
 syntax][manual:record-dot-syntax].
+
+Exceptions:
+
+* Indirect fields are not yet supported in [binding
+  specifications][manual:binding-specifications] ([issue #2178][is-2178])
 
 ### Limitations
 
@@ -268,6 +277,7 @@ supported. A warning-level trace message will be emitted in this case.
 <!-- sources and references -->
 
 [creference:union]: https://en.cppreference.com/w/c/language/union.html
+[is-2178]: https://github.com/well-typed/hs-bindgen/issues/2178
 [manual:binding-specifications]: ../../usage/binding-specifications.md
 [manual:pointer-manipulation-api]: ../pointer-manipulation.md
 [manual:record-dot-syntax]: ../record-dot-syntax.md
