@@ -19,6 +19,7 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , pattern MatchResolveBindingSpecs
     -- * Select
   , pattern MatchNoDeclarations
+  , pattern MatchMacrosDropped
   , pattern MatchSelect
   , pattern MatchUnusable
   , pattern MatchTransMissing
@@ -159,6 +160,13 @@ pattern MatchNoDeclarations :: TraceMsg
 pattern MatchNoDeclarations <- TraceFrontend (
       FrontendSelect C.WithLocationInfo{
           msg = SelectNoDeclarationsMatched
+        }
+    )
+
+pattern MatchMacrosDropped :: Int -> TraceMsg
+pattern MatchMacrosDropped n <- TraceFrontend (
+      FrontendSelect C.WithLocationInfo{
+          msg = SelectMacrosDropped n
         }
     )
 
