@@ -56,7 +56,7 @@ data Triple = Triple {
 
 (The capitalization is a result of candidate name _fixing_, see below.)
 
-#### Duplicate record fields
+#### Unprefixed field names
 
 Instead of using a prefix to make field labels globally unique, we can take
 advantage of [`DuplicateRecordFields`][ghc:guide:duplicate-record-fields] in the
@@ -94,8 +94,8 @@ newtype Index = Index {
  }
 ```
 
-If [`--omit-field-prefixes`](#duplicate-record-fields) is enabled, we simply use
-`unwrap` without any suffix:
+If [`--omit-field-prefixes`](#unprefixed-field-names) is enabled, we simply use `unwrap` without any
+suffix:
 
 ```haskell
 newtype Index = Index {

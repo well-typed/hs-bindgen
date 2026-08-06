@@ -6,9 +6,9 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-echo "# "
-echo "# Configuring"
-echo "# "
+#
+# Configuring
+#
 
 # shellcheck disable=SC1091
 source ./configure.sh
@@ -23,13 +23,23 @@ echo "# "
 echo "# Generating Haskell bindings"
 echo "# "
 
-mkdir -p binding-specs
+SPECS_DIR=binding-specs
+if [ -d "$SPECS_DIR" ]; then
+  rm -r "$SPECS_DIR"
+fi
+
+mkdir -p "$SPECS_DIR"
+
+GENERATED_DIR=hs/manual/generated
+if [ -d "$GENERATED_DIR" ]; then
+  rm -r "$GENERATED_DIR"
+fi
+
+mkdir -p "$GENERATED_DIR"
 
 echo "# "
 echo "# Manual"
 echo "# "
-
-mkdir -p hs/manual/generated
 
 cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
@@ -37,7 +47,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.example \
-    --hs-output-dir hs/manual/generated \
+    --hs-output-dir "$GENERATED_DIR" \
     --module Example \
     manual_examples.h
 
@@ -47,7 +57,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.macro \
-    --hs-output-dir hs/manual/generated \
+    --hs-output-dir "$GENERATED_DIR" \
     --module Macro \
     macro.h
 
@@ -57,7 +67,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.globals \
-    --hs-output-dir hs/manual/generated \
+    --hs-output-dir "$GENERATED_DIR" \
     --module Globals \
     globals.h
 
@@ -67,7 +77,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.arrays \
-    --hs-output-dir hs/manual/generated \
+    --hs-output-dir "$GENERATED_DIR" \
     --module Arrays \
     arrays.h
 
@@ -77,7 +87,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.funptrs \
-    --hs-output-dir hs/manual/generated \
+    --hs-output-dir "$GENERATED_DIR" \
     --module FunctionPointers \
     function_pointers.h
 
@@ -87,7 +97,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.complex \
-    --hs-output-dir hs/manual/generated \
+    --hs-output-dir "$GENERATED_DIR" \
     --module Complex \
     hsb_complex_test.h
 
@@ -97,9 +107,35 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.callbacks \
-    --hs-output-dir hs/manual/generated \
+    --hs-output-dir "$GENERATED_DIR" \
     --module Callbacks \
     callbacks.h
+
+echo "# "
+echo "## Generated names"
+echo "# "
+
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+    preprocess \
+    -I c \
+    --create-output-dirs \
+    --overwrite-files \
+    --unique-id com.hs-bindgen.manual.generated-names \
+    --hs-output-dir "$GENERATED_DIR" \
+    --module GeneratedNames \
+    --omit-field-prefixes \
+    generated_names.h
+
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+    preprocess \
+    -I c \
+    --create-output-dirs \
+    --overwrite-files \
+    --unique-id com.hs-bindgen.manual.generated-names \
+    --hs-output-dir "$GENERATED_DIR" \
+    --module GeneratedNames.UnprefixedFieldNames \
+    --omit-field-prefixes \
+    generated-names/unprefixed_field_names.h
 
 echo "# "
 echo "## Pointer manipulation API"
@@ -111,7 +147,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.pointermanipulation \
-    --hs-output-dir hs/manual/generated \
+    --hs-output-dir "$GENERATED_DIR" \
     --module PointerManipulation \
     pointer_manipulation.h
 
@@ -125,7 +161,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.structs \
-    --hs-output-dir hs/manual/generated \
+    --hs-output-dir "$GENERATED_DIR" \
     --module Structs \
     structs.h
 
@@ -135,7 +171,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.structs \
-    --hs-output-dir hs/manual/generated \
+    --hs-output-dir "$GENERATED_DIR" \
     --module Structs.Nesting \
     structs/nesting.h
 
@@ -149,7 +185,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.unions \
-    --hs-output-dir hs/manual/generated \
+    --hs-output-dir "$GENERATED_DIR" \
     --module Unions \
     unions.h
 
@@ -159,24 +195,9 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --create-output-dirs \
     --overwrite-files \
     --unique-id com.hs-bindgen.manual.unions \
-    --hs-output-dir hs/manual/generated \
+    --hs-output-dir "$GENERATED_DIR" \
     --module Unions.Nesting \
     unions/nesting.h
-
-echo "# "
-echo "## Unprefixed field names"
-echo "# "
-
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
-    preprocess \
-    -I c \
-    --create-output-dirs \
-    --overwrite-files \
-    --unique-id com.hs-bindgen.manual.omitfieldprefixes \
-    --hs-output-dir hs/manual/generated \
-    --module OmitFieldPrefixes \
-    --omit-field-prefixes \
-    omit_field_prefixes.h
 
 echo "# "
 echo "# External bindings: vector example"

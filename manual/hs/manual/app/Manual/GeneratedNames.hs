@@ -2,7 +2,7 @@
 
 module Manual.GeneratedNames (examples) where
 
-import Example.Unsafe
+import GeneratedNames.Unsafe
 import Manual.Tools
 
 {-------------------------------------------------------------------------------
@@ -11,7 +11,9 @@ import Manual.Tools
 
 examples :: IO ()
 examples = do
-    section "Awkward names"
+    section "Generated names"
+
+    subsection "Awkward names"
 
 -- There's a quirk with Apple assembler and LLVM IR that do not accept
 -- Unicode characters. So make sure to set SUPPORTS_UNICODE environment

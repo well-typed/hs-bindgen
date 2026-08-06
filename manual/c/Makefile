@@ -45,12 +45,13 @@ libmanual${TARGET_EXT}: \
 		function_pointers.o \
 		hsb_complex_test.o \
 		callbacks.o \
+		generated_names.o \
+		generated-names/unprefixed_field_names.o \
 		pointer_manipulation.o \
 		structs.o \
 		structs/nesting.o \
 		unions.o \
-		unions/nesting.o \
-		omit_field_prefixes.o
+		unions/nesting.o
 
 	clang ${EXTRAFLAGS} -Wall -shared -o libmanual${TARGET_EXT} \
 		manual_examples.o \
@@ -60,12 +61,13 @@ libmanual${TARGET_EXT}: \
 		function_pointers.o \
 		hsb_complex_test.o \
 		callbacks.o \
+		generated_names.o \
+		generated-names/unprefixed_field_names.o \
 		pointer_manipulation.o \
 		structs.o \
 		structs/nesting.o \
 		unions.o \
-		unions/nesting.o \
-		omit_field_prefixes.o
+		unions/nesting.o
 
 manual_examples.o: manual_examples.c manual_examples.h
 	clang ${EXTRAFLAGS} -Wall -o manual_examples.o -c -fPIC manual_examples.c -I${PROJECT_ROOT}/hs-bindgen/manual/c
@@ -88,6 +90,14 @@ hsb_complex_test.o: hsb_complex_test.c hsb_complex_test.h
 callbacks.o: callbacks.c callbacks.h
 	clang ${EXTRAFLAGS} -Wall -o callbacks.o -c -fPIC callbacks.c
 
+## Generated names
+
+generated_names.o: generated_names.c generated_names.h
+	clang ${EXTRAFLAGS} -Wall -o generated_names.o -c -fPIC generated_names.c
+
+generated-names/unprefixed_field_names.o: generated-names/unprefixed_field_names.c generated-names/unprefixed_field_names.h
+	clang ${EXTRAFLAGS} -Wall -o generated-names/unprefixed_field_names.o -c -fPIC generated-names/unprefixed_field_names.c
+
 ## Pointer manipulation API
 
 pointer_manipulation.o: pointer_manipulation.c pointer_manipulation.h
@@ -109,10 +119,7 @@ unions.o: unions.c unions.h
 unions/nesting.o: unions/nesting.c unions/nesting.h
 	clang ${EXTRAFLAGS} -Wall -Wno-missing-declarations -o unions/nesting.o -c -fPIC unions/nesting.c
 
-## Unprefixed field names
 
-omit_field_prefixes.o: omit_field_prefixes.c omit_field_prefixes.h
-	clang ${EXTRAFLAGS} -Wall -o omit_field_prefixes.o -c -fPIC omit_field_prefixes.c
 
 # External bindings: vector example
 
