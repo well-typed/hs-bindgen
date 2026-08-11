@@ -55,7 +55,7 @@ This script will:
 ### Omitting field prefixes
 
 We use the
-[`--omit-field-prefixes` option](../../manual/low-level/translation/generated-names.md#duplicate-record-fields)
+[`--omit-field-prefixes` option](../../manual/low-level/translation/generated-names.md#unprefixed-field-names)
 to generate field labels that are not prefixed by the name of the type.
 Note that for the Haskell type `Yaml_event_t`, this would result in labels `type` and
 `data`, which
