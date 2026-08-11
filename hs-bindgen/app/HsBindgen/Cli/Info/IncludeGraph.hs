@@ -42,6 +42,7 @@ data Opts = Opts {
       config         :: Config
     , predicate      :: Boolean Regex
     , showPaths      :: Bool
+    , toposort       :: Bool
     , output         :: Maybe FilePath
     , inputs         :: [C.UncheckedHashIncludeArg]
     , filePolicy     :: FilePolicy
@@ -54,6 +55,7 @@ parseOpts =
       <$> parseConfig
       <*> parsePredicate
       <*> parseShowPaths
+      <*> parseToposort
       <*> optional parseOutput'
       <*> parseInputs
       <*> parseFilePolicy
@@ -87,6 +89,12 @@ parseShowPaths = switch $ mconcat [
     , help "Show paths of include header files instead of their '#include' arguments"
     ]
 
+parseToposort :: Parser Bool
+parseToposort = switch $ mconcat [
+      long "toposort"
+    , help "Output a topologically sorted list of headers instead of a Mermaid graph"
+    ]
+
 parseOutput' :: Parser FilePath
 parseOutput' = strOption $ mconcat [
       short 'o'
@@ -113,6 +121,7 @@ exec global opts =
       writeIncludeGraph
         opts.predicate
         opts.showPaths
+        opts.toposort
         opts.filePolicy
         opts.dirPolicy
         opts.output

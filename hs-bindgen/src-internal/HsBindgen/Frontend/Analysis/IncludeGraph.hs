@@ -23,6 +23,7 @@ module HsBindgen.Frontend.Analysis.IncludeGraph (
   , Predicate
   , VisOpts(..)
   , renderMermaid
+  , renderSortedList
   ) where
 
 import Data.Digraph (Digraph)
@@ -193,10 +194,7 @@ renderMermaid o g =
     opts :: Digraph.VisOptions Edge Vertex
     opts = Digraph.VisOptions{
         visVertex = \v -> Digraph.VisVertex{
-            label =
-              if o.showPaths
-                then Just (getSourcePath v.path)
-                else Just (getIncludePath v)
+            label = Just (vertexLabel o v)
           }
       , visEdge = \e -> Digraph.VisEdge{
             label = Nothing
@@ -210,6 +208,22 @@ renderMermaid o g =
     predicate :: Vertex -> Bool
     predicate v = o.predicate v.path
 
+-- | Render the include graph as a topologically sorted list of headers
+--
+-- One header per line, in an order such that a header is listed only after all
+-- the headers it @#include@s.  This is the linear form of 'toSortedList'; the
+-- t'VisOpts' 'predicate' and 'showPaths' fields filter and label exactly as for
+-- 'renderMermaid'.
+renderSortedList :: VisOpts -> IncludeGraph -> String
+renderSortedList o g =
+      unlines
+    . map (vertexLabel o)
+    . filter (o.predicate . (.path))
+    $ Digraph.sort annotated
+  where
+    annotated :: Digraph Include Vertex
+    annotated = Digraph.mapVerticesOutgoingEdges Vertex g.graph
+
 data Vertex = Vertex {
       path     :: SourcePath
     , includes :: Set Include
@@ -218,6 +232,13 @@ data Vertex = Vertex {
 
 data Edge = Direct | Transient
   deriving stock (Show, Eq, Ord)
+
+-- | Display label for a vertex: its resolved path, or the shortest @#include@
+-- argument used to include it (see t'VisOpts' @showPaths@).
+vertexLabel :: VisOpts -> Vertex -> String
+vertexLabel o v
+  | o.showPaths = getSourcePath v.path
+  | otherwise   = getIncludePath v
 
 getIncludePath :: Vertex -> FilePath
 getIncludePath =

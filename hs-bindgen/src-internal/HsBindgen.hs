@@ -182,12 +182,13 @@ hsBindgenEMacroLang
 -- | Write the include graph to @STDOUT@ or a file.
 writeIncludeGraph ::
      Boolean Regex
-  -> Bool
+  -> Bool      -- ^ Show paths instead of @#include@ arguments
+  -> Bool      -- ^ Topologically sorted list instead of a Mermaid graph
   -> FilePolicy
   -> DirPolicy
   -> Maybe FilePath
   -> Artefact l ()
-writeIncludeGraph regex showPaths filePolicy dirPolicy mPath = do
+writeIncludeGraph regex showPaths toposort filePolicy dirPolicy mPath = do
     includeGraph <- getIncludeGraph
     let predicateUser, predicateRoot :: SourcePath -> Bool
         predicateUser (SourcePath p) = eval (\r -> matchTest r p) regex
@@ -196,7 +197,9 @@ writeIncludeGraph regex showPaths filePolicy dirPolicy mPath = do
             predicate = \p -> predicateUser p && predicateRoot p
           , showPaths = showPaths
           }
-        rendered = IncludeGraph.renderMermaid opts includeGraph
+        rendered
+          | toposort  = IncludeGraph.renderSortedList opts includeGraph
+          | otherwise = IncludeGraph.renderMermaid    opts includeGraph
     case mPath of
       Nothing   ->
         Lift $ delay $ WriteToStdOut $ StringContent rendered

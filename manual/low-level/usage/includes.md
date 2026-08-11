@@ -343,6 +343,16 @@ include graph for one or more headers, in [Mermaid][mermaid] syntax.
 hs-bindgen-cli info include-graph stdint.h
 ```
 
+Pass `--toposort` to instead print the headers as a topologically sorted list,
+one per line, in an order in which each header only depends on those listed
+before it. This is convenient for scripting binding generation header by header,
+without post-processing the Mermaid diagram. It respects the same
+`--include`/`--exclude` and `--show-paths` options.
+
+```console
+hs-bindgen-cli info include-graph --toposort stdint.h
+```
+
 The `hs-bindgen-cli info libclang` command may be used to run `libclang` with
 Clang options such as `-v`, to confirm the `libclang` version, C include search
 paths, etc.
