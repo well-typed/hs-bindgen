@@ -336,6 +336,9 @@
 * Union setters would zero out all bytes outside of the field that was being
   set. Now union setters only modify the bytes strictly belonging to the field,
   and none outside of it. See [issue #2183][is-2183].
+* Fix a bug where bindings for indirect fields could cause "conflicting use
+  sites for unnamed IDs" panics if the indirect fields referenced untagged
+  structs/unions/enums. See [issue #2194][is-2194].
 
 [is-1225]: https://github.com/well-typed/hs-bindgen/issues/1225
 [is-1253]: https://github.com/well-typed/hs-bindgen/issues/1253
@@ -360,6 +363,7 @@
 [is-2166]: https://github.com/well-typed/hs-bindgen/issues/2166
 [is-2183]: https://github.com/well-typed/hs-bindgen/issues/2183
 [is-2185]: https://github.com/well-typed/hs-bindgen/issues/2185
+[is-2194]: https://github.com/well-typed/hs-bindgen/issues/2194
 [is-2198]: https://github.com/well-typed/hs-bindgen/issues/2198
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892

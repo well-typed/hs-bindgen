@@ -1,0 +1,134 @@
+-- addDependentFile test-artefacts/headers/golden/types/anonymous/indirect-fields/_internal_macros.h
+-- addDependentFile test-artefacts/headers/golden/types/anonymous/indirect-fields/single_nesting_enum_untagged.h
+{-| __C declaration:__ @enum \@S_anon\'x_x@
+
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_untagged.h 3:1@
+
+    __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_untagged.h@
+-}
+newtype S_anon'x_x
+    = S_anon'x_x {unwrapS_anon'x_x :: CUInt}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize S_anon'x_x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S_anon'x_x
+    where readRaw = \ptr_0 -> pure S_anon'x_x <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw S_anon'x_x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S_anon'x_x unwrapS_anon'x_x_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapS_anon'x_x_2
+deriving via (EquivStorable S_anon'x_x) instance Storable S_anon'x_x
+deriving via CUInt instance Prim S_anon'x_x
+instance CEnum S_anon'x_x
+    where type CEnumZ S_anon'x_x = CUInt
+          toCEnum = S_anon'x_x
+          fromCEnum = getField @"unwrapS_anon'x_x"
+          declaredValues = \_ -> declaredValuesFromList [(0, singleton "A")]
+          showsUndeclared = showsWrappedUndeclared "S_anon'x_x"
+          readPrecUndeclared = readPrecWrappedUndeclared "S_anon'x_x"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum S_anon'x_x
+    where minDeclaredValue = A
+          maxDeclaredValue = A
+instance Show S_anon'x_x
+    where showsPrec = shows
+instance Read S_anon'x_x
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapS_anon'x_x" S_anon'x_x ty
+    where hasField = \x_0 -> (\y_1 -> S_anon'x_x{unwrapS_anon'x_x = y_1},
+                              getField @"unwrapS_anon'x_x" x_0)
+instance (~) ty CUInt =>
+         HasField "unwrapS_anon'x_x" (Ptr S_anon'x_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapS_anon'x_x")
+instance HasCField S_anon'x_x "unwrapS_anon'x_x"
+    where type CFieldType S_anon'x_x "unwrapS_anon'x_x" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @a@
+
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_untagged.h 3:1@
+
+    __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_untagged.h@
+-}
+pattern A :: S_anon'x_x
+pattern A = S_anon'x_x 0
+{-| __C declaration:__ @struct \@S_anon\'x@
+
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_untagged.h 3:1@
+
+    __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_untagged.h@
+-}
+data S_anon'x
+    = S_anon'x {s_anon'x_x :: S_anon'x_x
+                {- ^ __C declaration:__ @x@
+
+                     __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_untagged.h 3:1@
+
+                     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_untagged.h@
+                -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S_anon'x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S_anon'x
+    where readRaw = \ptr_0 -> pure S_anon'x <*> readRaw (Proxy @"s_anon'x_x") ptr_0
+instance WriteRaw S_anon'x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S_anon'x s_anon'x_x_2 -> writeRaw (Proxy @"s_anon'x_x") ptr_0 s_anon'x_x_2
+deriving via (EquivStorable S_anon'x) instance Storable S_anon'x
+deriving via (IsStructViaReadRaw S_anon'x) instance IsStruct S_anon'x
+instance (~) ty S_anon'x_x => HasField "s_anon'x_x" S_anon'x ty
+    where hasField = \x_0 -> (\y_1 -> S_anon'x{s_anon'x_x = y_1},
+                              getField @"s_anon'x_x" x_0)
+instance (~) ty S_anon'x_x =>
+         HasField "s_anon'x_x" (Ptr S_anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'x_x")
+instance HasCField S_anon'x "s_anon'x_x"
+    where type CFieldType S_anon'x "s_anon'x_x" = S_anon'x_x
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_untagged.h 3:1@
+
+    __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_untagged.h@
+-}
+data S
+    = S {s_anon'x :: S_anon'x
+         {- ^ __C declaration:__ @anon\'x@
+
+              __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_untagged.h 3:1@
+
+              __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_untagged.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_anon'x") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_anon'x_2 -> writeRaw (Proxy @"s_anon'x") ptr_0 s_anon'x_2
+deriving via (EquivStorable S) instance Storable S
+deriving via (IsStructViaReadRaw S) instance IsStruct S
+instance (~) ty S_anon'x => HasField "s_anon'x" S ty
+    where hasField = \x_0 -> (\y_1 -> S{s_anon'x = y_1},
+                              getField @"s_anon'x" x_0)
+instance (~) ty S_anon'x => HasField "s_anon'x" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'x")
+instance HasCField S "s_anon'x"
+    where type CFieldType S "s_anon'x" = S_anon'x
+          offset# = \_ -> \_ -> 0
+instance (~) ty S_anon'x_x => HasField "s_x" S ty
+    where getField = \x_0 -> getField @"s_anon'x_x" (getField @"s_anon'x" x_0)
+instance (~) ty S_anon'x_x => HasField "s_x" S ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"s_anon'x" x_0 (\z_2 -> setField @"s_anon'x_x" z_2 y_1),
+                              getField @"s_x" x_0)
+instance (~) ty S_anon'x_x => HasField "s_x" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_x")
+instance HasCField S "s_x"
+    where type CFieldType S "s_x" = S_anon'x_x
+          offset# = \_ -> \_ -> 0
