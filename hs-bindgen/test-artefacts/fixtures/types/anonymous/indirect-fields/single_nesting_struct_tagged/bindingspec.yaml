@@ -1,0 +1,72 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/anonymous/indirect-fields/single_nesting_struct_tagged.h
+  cname: struct @S_anon'x
+  hsname: S_anon'x
+- headers: types/anonymous/indirect-fields/single_nesting_struct_tagged.h
+  cname: struct S
+  hsname: S
+- headers: types/anonymous/indirect-fields/single_nesting_struct_tagged.h
+  cname: struct T
+  hsname: T
+hstypes:
+- hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - s_anon'x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S_anon'x
+  representation:
+    record:
+      constructor: S_anon'x
+      fields:
+      - s_anon'x_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T
+  representation:
+    record:
+      constructor: T
+      fields:
+      - t_a
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
