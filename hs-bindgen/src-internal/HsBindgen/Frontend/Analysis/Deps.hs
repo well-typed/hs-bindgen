@@ -4,7 +4,7 @@ module HsBindgen.Frontend.Analysis.Deps (
   , depsOfStruct
   , depsOfUnion
   , depsOfField
-  , depsOfExplicitField
+  , depsOfRegularField
     -- * Parsed macros
   , depsOfDeclParsedMacro
   ) where
@@ -92,7 +92,7 @@ typecheckedMacroDeps = \case
 depsOfStruct :: IsPass p => C.Struct p -> [(Id p, Dependency)]
 depsOfStruct struct = concat [
       concatMap depsOfField struct.fields
-    , foldMap   depsOfExplicitField (C.flamStructField struct.flam)
+    , foldMap   depsOfRegularField (C.flamStructField struct.flam)
     ]
 
 depsOfUnion :: IsPass p => C.Union p -> [(Id p, Dependency)]
@@ -103,13 +103,13 @@ depsOfField ::
      forall p. IsPass p
   => C.Field p
   -> [(Id p, Dependency)]
-depsOfField = C.elimField depsOfExplicitField depsOfImplicitField
+depsOfField = C.elimField depsOfRegularField depsOfImplicitField
 
-depsOfExplicitField ::
+depsOfRegularField ::
      forall p. IsPass p
-  => C.ExplicitField p
+  => C.RegularField p
   -> [(Id p, Dependency)]
-depsOfExplicitField field = C.depsOfType field.typ
+depsOfRegularField field = C.depsOfType field.typ
 
 depsOfImplicitField ::
      forall p. IsPass p

@@ -27,8 +27,8 @@ class ForgetAnn a where
   Instances
 -------------------------------------------------------------------------------}
 
-instance ForgetAnn C.ExplicitField where
-  forgetAnn field = C.ExplicitField{
+instance ForgetAnn C.RegularField where
+  forgetAnn field = C.RegularField{
           typ    = coercePass field.typ
         , ann    = NoAnn
         , offset = field.offset

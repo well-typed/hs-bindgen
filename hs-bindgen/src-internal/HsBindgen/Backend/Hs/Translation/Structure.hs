@@ -68,7 +68,7 @@ getDeclsRegular spec info struct = do
 
 getDeclsFlam ::
      HasCallStack
-  => C.ExplicitField Final
+  => C.RegularField Final
   -> Hs.Name Hs.NsTypeConstr -- ^ Auxiliary type-constructor name
   -> PrescriptiveDeclSpec
   -> C.DeclInfo Final
@@ -315,9 +315,9 @@ hasFieldDecs ::
   -> Field
   -> [Hs.Decl l]
 hasFieldDecs env info struct field = case field of
-    -- Explicit and implicit fields are translated to Haskell record datatype
+    -- Regular and implicit fields are translated to Haskell record datatype
     -- fields, so they get @HasField@ instances
-    ExplicitField _ -> []
+    RegularField  _ -> []
     ImplicitField _ -> []
     -- Indirect fields are not translated to Haskell record datatype fields, so
     -- they get custom @HasField@ instances composed from existing @HasField@
@@ -398,7 +398,7 @@ hasFieldCompatDecs env info struct field = [
 
     impl, implRecord :: Hs.HasFieldCompatImpl
     impl = case field of
-            ExplicitField _ -> implRecord
+            RegularField  _ -> implRecord
             ImplicitField _ -> implRecord
             IndirectField impF indF -> implIndirect impF indF
 

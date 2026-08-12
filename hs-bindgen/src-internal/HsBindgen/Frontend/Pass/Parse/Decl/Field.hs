@@ -1,6 +1,6 @@
 -- | Parse functions related to struct and union fields
 module HsBindgen.Frontend.Pass.Parse.Decl.Field (
-    explicitFieldDecl
+    regularFieldDecl
   , getFieldInfo
   ) where
 
@@ -18,14 +18,14 @@ import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
 import HsBindgen.Frontend.Pass.Parse.Type (fromCXType)
 import HsBindgen.IR.C qualified as C
 
-explicitFieldDecl :: ParseCtx -> CXCursor -> ParseDecl (C.ExplicitField Parse)
-explicitFieldDecl ctx = \curr -> do
+regularFieldDecl :: ParseCtx -> CXCursor -> ParseDecl (C.RegularField Parse)
+regularFieldDecl ctx = \curr -> do
     info   <- getFieldInfo curr
     typ    <- fromCXType ctx =<< clang_getCursorType curr
     offset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
     width  <- getFieldWidth curr
     ann    <- getReparseInfo curr
-    pure C.ExplicitField{
+    pure C.RegularField{
         info   = info
       , typ    = typ
       , offset = offset

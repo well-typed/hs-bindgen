@@ -97,7 +97,7 @@ instance Simplify C.Union where
 instance Simplify C.Field where
   simplifyIt info = C.elimField (simplifyIt info) (simplifyIt info)
 
-instance Simplify C.ExplicitField where
+instance Simplify C.RegularField where
   simplifyIt info field = case field.ann of
         ReparseNotNeeded -> nothing
         ReparseNeeded tokens _macroInvs -> singleTarget $

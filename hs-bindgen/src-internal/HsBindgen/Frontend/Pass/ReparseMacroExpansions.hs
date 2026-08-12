@@ -155,7 +155,7 @@ processStruct ::
 processStruct info struct = do
     mkDecl
       <$> mapM (processField info.id) struct.fields
-      <*> C.traverseFlamField (processExplicitField info.id) struct.flam
+      <*> C.traverseFlamField (processRegularField info.id) struct.flam
   where
     mkDecl ::
          [C.Field ReparseMacroExpansions]
@@ -213,21 +213,21 @@ processField ::
   -> C.Field PrepareReparse
   -> M (C.Field ReparseMacroExpansions)
 processField declId = \case
-    C.FieldExplicit field -> C.FieldExplicit <$> processExplicitField declId field
+    C.FieldRegular  field -> C.FieldRegular  <$> processRegularField declId field
     C.FieldImplicit field -> C.FieldImplicit <$> processImplicitField declId field
 
-processExplicitField ::
+processRegularField ::
      C.DeclId
-  -> C.ExplicitField PrepareReparse
-  -> M (C.ExplicitField ReparseMacroExpansions)
-processExplicitField declId field =
+  -> C.RegularField PrepareReparse
+  -> M (C.RegularField ReparseMacroExpansions)
+processRegularField declId field =
     reparseWith declId LanC.reparseField field.ann withoutReparse withReparse
   where
-    withoutReparse :: C.ExplicitField PrepareReparse
+    withoutReparse :: C.RegularField PrepareReparse
     withoutReparse = field
 
-    withReparse :: (C.Type LanC, Text) -> M (C.ExplicitField LanC)
-    withReparse (ty, name) = pure C.ExplicitField{
+    withReparse :: (C.Type LanC, Text) -> M (C.RegularField LanC)
+    withReparse (ty, name) = pure C.RegularField{
           info   = mkFieldInfo field.info (Just name)
         , typ    = ty
         , offset = field.offset

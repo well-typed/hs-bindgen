@@ -73,7 +73,7 @@ processStruct :: C.Struct MangleNames -> C.Struct AdjustTypes
 processStruct struct =
     C.Struct {
         fields    = map processField struct.fields
-      , flam      = C.mapFlamField processExplicitField struct.flam
+      , flam      = C.mapFlamField processRegularField struct.flam
       , sizeof    = struct.sizeof
       , alignment = struct.alignment
       , ann       = struct.ann
@@ -90,12 +90,12 @@ processUnion union =
 
 processField :: C.Field MangleNames -> C.Field AdjustTypes
 processField = \case
-    C.FieldExplicit field -> C.FieldExplicit $ processExplicitField field
+    C.FieldRegular field -> C.FieldRegular $ processRegularField field
     C.FieldImplicit field -> C.FieldImplicit $ processImplicitField field
 
-processExplicitField :: C.ExplicitField MangleNames -> C.ExplicitField AdjustTypes
-processExplicitField field =
-    C.ExplicitField {
+processRegularField :: C.RegularField MangleNames -> C.RegularField AdjustTypes
+processRegularField field =
+    C.RegularField {
         info   = coercePass field.info
       , typ    = processType field.typ
       , offset = field.offset

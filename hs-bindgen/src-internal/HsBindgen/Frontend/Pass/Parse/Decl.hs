@@ -322,17 +322,17 @@ structDecl macroLang enclosing ctx info = \curr -> do
     -- Split off FLAM, if any
     partitionFields ::
          [C.Field Parse]
-      -> ([C.Field Parse], Maybe (C.ExplicitField Parse))
+      -> ([C.Field Parse], Maybe (C.RegularField Parse))
     partitionFields = go []
       where
         go ::
              [C.Field Parse]
           -> [C.Field Parse]
-          -> ([C.Field Parse], Maybe (C.ExplicitField Parse))
+          -> ([C.Field Parse], Maybe (C.RegularField Parse))
         go acc []     = (reverse acc, Nothing)
         go acc (f:fs) = case f of
-            -- only an explicit field can be FLAM
-            C.FieldExplicit f'
+            -- only a regular field can be FLAM
+            C.FieldRegular f'
               | C.TypeIncompleteArray ty <- f'.typ ->
                   let f'' = f' & #typ .~ ty
                   in (reverse acc ++ fs, Just f'')
@@ -409,10 +409,10 @@ unionDecl macroLang enclosing ctx info = \curr -> do
 -- out such bit-fields.
 removePaddingFields :: C.Field Parse -> Maybe (C.Field Parse)
 removePaddingFields = \case
-    C.FieldExplicit field ->
+    C.FieldRegular field ->
       if Text.null field.info.name.text && isJust field.width
       then Nothing
-      else Just (C.FieldExplicit field)
+      else Just (C.FieldRegular field)
     C.FieldImplicit field ->
       -- implicit fields don't have a bit-width
       Just (C.FieldImplicit field)
