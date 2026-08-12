@@ -473,7 +473,7 @@ createStructNames name = do
 createFlam :: Text -> C.Flam ResolveBindingSpecs -> CreateE (C.Flam CreateNames)
 createFlam _      C.NoFlam        = pure C.NoFlam
 createFlam hsName (C.Flam field _) = do
-    field'  <- createExplicitField hsName field
+    field'  <- createRegularField hsName field
     auxName <- mkName (Proxy @Hs.NsTypeConstr) (hsName <> "_Aux")
     pure $ C.Flam field' FlamNames{ aux = auxName }
 
@@ -592,15 +592,15 @@ createField ::
      Text
   -> C.Field ResolveBindingSpecs
   -> CreateE (C.Field CreateNames)
-createField hsName = C.mapMField (createExplicitField hsName) (createImplicitField hsName)
+createField hsName = C.mapMField (createRegularField hsName) (createImplicitField hsName)
 
-createExplicitField ::
+createRegularField ::
      Text
-  -> C.ExplicitField ResolveBindingSpecs
-  -> CreateE (C.ExplicitField CreateNames)
-createExplicitField hsName field = do
+  -> C.RegularField ResolveBindingSpecs
+  -> CreateE (C.RegularField CreateNames)
+createRegularField hsName field = do
     name' <- createFieldName hsName field.info.name
-    pure C.ExplicitField{
+    pure C.RegularField{
         info   = C.FieldInfo{
                      loc     = field.info.loc
                    , name    = name'.cName

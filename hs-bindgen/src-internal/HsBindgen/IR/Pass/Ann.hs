@@ -25,12 +25,12 @@ import HsBindgen.IR.Pass.Definition
 class (
       -- For @Eq DeclKind@ in @DeclIndex@ construction
       Eq   (Ann "Enum"                 p)
-    , Eq   (Ann "ExplicitField"        p)
     , Eq   (Ann "Flam"                 p)
     , Eq   (Ann "Function"             p)
     , Eq   (Ann "Global"               p)
     , Eq   (Ann "ImplicitField"        p)
     , Eq   (Ann "IndirectField"        p)
+    , Eq   (Ann "RegularField"         p)
     , Eq   (Ann "Struct"               p)
     , Eq   (Ann "TypeFunArg"           p)
     , Eq   (Ann "TypecheckedMacroType" p)
@@ -43,12 +43,12 @@ class (
       -- For debugging
     , Show (Ann "Decl"                 p)
     , Show (Ann "Enum"                 p)
-    , Show (Ann "ExplicitField"        p)
     , Show (Ann "Flam"                 p)
     , Show (Ann "Function"             p)
     , Show (Ann "Global"               p)
     , Show (Ann "ImplicitField"        p)
     , Show (Ann "IndirectField"        p)
+    , Show (Ann "RegularField"         p)
     , Show (Ann "Struct"               p)
     , Show (Ann "TranslationUnit"      p)
     , Show (Ann "TypeFunArg"           p)

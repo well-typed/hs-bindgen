@@ -188,8 +188,8 @@ analyseStruct info struct = concat [
     aux :: C.Field Parse -> [(C.UnnamedId, Context)]
     aux f = analyseField (Field info f.info) f
 
-    auxFlam :: C.ExplicitField Parse -> [(C.UnnamedId, Context)]
-    auxFlam f = analyseExplicitField (Field info f.info) f
+    auxFlam :: C.RegularField Parse -> [(C.UnnamedId, Context)]
+    auxFlam f = analyseRegularField (Field info f.info) f
 
 analyseUnion :: C.DeclInfo Parse -> C.Union Parse -> [(C.UnnamedId, Context)]
 analyseUnion info union =
@@ -199,10 +199,10 @@ analyseUnion info union =
     aux f = analyseField (Field info f.info) f
 
 analyseField :: Context -> C.Field Parse -> [(C.UnnamedId, Context)]
-analyseField ctx = C.elimField (analyseExplicitField ctx) (analyseImplicitField ctx)
+analyseField ctx = C.elimField (analyseRegularField ctx) (analyseImplicitField ctx)
 
-analyseExplicitField :: Context -> C.ExplicitField Parse -> [(C.UnnamedId, Context)]
-analyseExplicitField ctx field = analyseType ctx field.typ
+analyseRegularField :: Context -> C.RegularField Parse -> [(C.UnnamedId, Context)]
+analyseRegularField ctx field = analyseType ctx field.typ
 
 analyseImplicitField :: Context -> C.ImplicitField Parse -> [(C.UnnamedId, Context)]
 analyseImplicitField ctx field = concat [

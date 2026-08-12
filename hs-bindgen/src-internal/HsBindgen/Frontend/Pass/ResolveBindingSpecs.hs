@@ -468,17 +468,17 @@ instance Resolve C.Union l where
 
 instance Resolve C.Field l where
   resolve ctx = \case
-      C.FieldExplicit field -> C.FieldExplicit <$> resolve ctx field
+      C.FieldRegular  field -> C.FieldRegular  <$> resolve ctx field
       C.FieldImplicit field -> C.FieldImplicit <$> resolve ctx field
 
-instance Resolve C.ExplicitField l where
+instance Resolve C.RegularField l where
   resolve ctx field =
       reconstruct <$> resolve ctx field.typ
     where
       reconstruct ::
            C.Type ResolveBindingSpecs
-        -> C.ExplicitField ResolveBindingSpecs
-      reconstruct typ' = C.ExplicitField {
+        -> C.RegularField ResolveBindingSpecs
+      reconstruct typ' = C.RegularField {
           typ    = typ'
         , info   = coercePass field.info
         , offset = field.offset

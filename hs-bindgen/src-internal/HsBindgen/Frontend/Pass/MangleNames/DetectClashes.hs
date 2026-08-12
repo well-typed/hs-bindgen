@@ -96,7 +96,7 @@ derivedNames strategy nameMap owner loc = \case
        : [ success (AuxType, GlobalScope, loc, Hs.demoteNs flamNames.aux)
          | C.Flam _ flamNames <- [struct.flam] ]
       ++ concatMap fieldNames struct.fields
-      ++ foldMap explicitFieldNames (C.flamStructField struct.flam)
+      ++ foldMap regularFieldNames (C.flamStructField struct.flam)
     C.DeclUnion union ->
          newtypeNames union.ann
       ++ concatMap fieldNames union.fields
@@ -130,10 +130,10 @@ derivedNames strategy nameMap owner loc = \case
       OmitFieldPrefixes -> DeclScope owner
 
     fieldNames :: C.Field CreateNames -> [DerivedNamesResult]
-    fieldNames = C.elimField explicitFieldNames implicitFieldNames
+    fieldNames = C.elimField regularFieldNames implicitFieldNames
 
-    explicitFieldNames :: C.ExplicitField CreateNames -> [DerivedNamesResult]
-    explicitFieldNames field =
+    regularFieldNames :: C.RegularField CreateNames -> [DerivedNamesResult]
+    regularFieldNames field =
         case lookupScopedName owner field.info.name nameMap of
           Nothing     -> [ failure owner field.info.name ]
           Just hsName -> [ success (Field, fieldScope, field.info.loc, hsName) ]

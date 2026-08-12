@@ -232,14 +232,14 @@ instance Resolve C.Union where
 
 instance Resolve C.Field where
   resolve info = \case
-      C.FieldExplicit field -> C.FieldExplicit <$> (resolve info) field
+      C.FieldRegular  field -> C.FieldRegular  <$> (resolve info) field
       C.FieldImplicit field -> C.FieldImplicit <$> (resolve info) field
 
-instance Resolve C.ExplicitField where
+instance Resolve C.RegularField where
   resolve info field = do
     fieldInfo' <- resolveFieldInfo info field.info
     typ'       <- (resolve info) field.typ
-    pure C.ExplicitField{
+    pure C.RegularField{
         info   = fieldInfo'
       , typ    = typ'
       , offset = field.offset

@@ -25,7 +25,7 @@ import Data.Text qualified as Text
 
 import Clang.LowLevel.Core (CXType, CallFailed, clang_Type_getOffsetOf)
 
-import HsBindgen.Frontend.Analysis.Deps (depsOfExplicitField, depsOfStruct,
+import HsBindgen.Frontend.Analysis.Deps (depsOfRegularField, depsOfStruct,
                                          depsOfUnion)
 import HsBindgen.Frontend.Pass.Parse.IsPass (IsAnon (isAnon), Parse)
 import HsBindgen.Frontend.Pass.Parse.IsPass qualified as Origin (FieldOrigin (..))
@@ -40,14 +40,14 @@ import HsBindgen.IR.Pass (PassScopedName (ScopedName))
 
 -- | A list of nested struct\/union declarations and field declarations
 newtype Inputs l = Inputs {
-    nestedDecls :: [Either (C.Decl l Parse) (C.ExplicitField Parse)]
+    nestedDecls :: [Either (C.Decl l Parse) (C.RegularField Parse)]
   }
   deriving newtype (Semigroup, Monoid)
 
 inputEmpty :: Inputs l
 inputEmpty = Inputs []
 
-inputField :: C.ExplicitField Parse -> Inputs l
+inputField :: C.RegularField Parse -> Inputs l
 inputField x = Inputs [Right x]
 
 inputDecl :: C.Decl l Parse -> Inputs l
@@ -62,7 +62,7 @@ data Outputs =
     OutputFail {
         exception :: ParseImplicitFieldsMsg
       }
-    -- | All explicit and implicit fields
+    -- | All regular and implicit fields
   | OutputSuccess {
         fields    :: [C.Field Parse]
       }
@@ -125,7 +125,7 @@ data Outputs =
 --
 -- Using the computed offset, we generate a so-called implicit field and we
 -- include it as a struct\/union field in the C AST. Haskell bindings are
--- generated for such implicit fields like for any other explicit field.
+-- generated for such implicit fields like for any other regular field.
 --
 -- The implicit field detection algorithm is the same for any nesting of structs
 -- or unions, in any order, even recursively.
@@ -177,7 +177,7 @@ withImplicitFields encObj inputs = do
           fields =
               fmap (.numberee)
             $ sortOn (.number)
-            $ fmap (fmap C.FieldExplicit) classifications.explicitFields
+            $ fmap (fmap C.FieldRegular) classifications.regularFields
                 ++ fmap (fmap C.FieldImplicit) implicitFields
         }
   where
@@ -194,10 +194,10 @@ withImplicitFields encObj inputs = do
 -------------------------------------------------------------------------------}
 
 data Classification l = Classification {
-    -- | Parsed explicit fields
-    explicitFields :: [Numbered (C.ExplicitField Parse)]
+    -- | Parsed regular fields
+    regularFields :: [Numbered (C.RegularField Parse)]
     -- | Candidates for implicit fields
-  , candidates     :: [Numbered (C.Decl l Parse)]
+  , candidates    :: [Numbered (C.Decl l Parse)]
   }
 
 -- | Declarations are numbered so that we can sort them in the order that they
@@ -210,18 +210,18 @@ data Numbered a = Numbered {
 
 classifyInputs :: forall l. Inputs l -> Classification l
 classifyInputs inputs = Classification {
-      explicitFields = explicitFields
+      regularFields = regularFields
     , candidates = candidates
     }
   where
     -- | Number all the declarations so that we can re-sort them at the end of
     -- the algorithm
     membersNumbered ::
-      [Numbered (Either (C.Decl l Parse) (C.ExplicitField Parse))]
+      [Numbered (Either (C.Decl l Parse) (C.RegularField Parse))]
     membersNumbered = zipWith Numbered [0..] inputs.nestedDecls
     nestedDecls :: [Numbered (C.Decl l Parse)]
-    explicitFields :: [Numbered (C.ExplicitField Parse)]
-    (nestedDecls, explicitFields) = partitionEithers $ fmap numberedIn membersNumbered
+    regularFields :: [Numbered (C.RegularField Parse)]
+    (nestedDecls, regularFields) = partitionEithers $ fmap numberedIn membersNumbered
 
     -- | A struct\/union declaration requires an implicit field if the
     -- declaration is anonymous, and if we have not already created an implicit
@@ -230,7 +230,7 @@ classifyInputs inputs = Classification {
     candidates = [
           decl
         | let decls = fmap (.numberee) nestedDecls
-              fields = fmap (.numberee) explicitFields
+              fields = fmap (.numberee) regularFields
         , decl <- nestedDecls
         , isAnon decl.numberee
         , not (isReferenced decl.numberee fields decls)
@@ -254,13 +254,13 @@ isAnon decl = case decl.kind of
 isReferenced ::
      C.Decl l Parse
      -- | Fields that are declared directly in the enclosing object
-  -> [C.ExplicitField Parse]
+  -> [C.RegularField Parse]
      -- | Struct and union declarations (recursively) nested in the enclosing
      -- object
   -> [C.Decl l Parse]
   -> Bool
 isReferenced decl fields decls =
-       decl.info.id `elem` map fst (concatMap depsOfExplicitField fields)
+       decl.info.id `elem` map fst (concatMap depsOfRegularField fields)
     || decl.info.id `elem` map fst (concatMap depsOfStructOrUnion decls)
   where
     depsOfStructOrUnion d = case d.kind of
@@ -342,7 +342,7 @@ getCandidateField encObj decl field = do
     pure $ mkCandidateField offsetOuter
   where
     -- | When the field is implicit and we want to ask for its offset using its
-    -- name, then we should ask for the offset to an explicit field of the
+    -- name, then we should ask for the offset to an regular field of the
     -- referenced anonymous object instead.
     --
     -- Implicit fields are generated by @hs-bindgen@ and therefore not present in
@@ -401,15 +401,15 @@ getIndirectFields encObj decl anonRef =
     -- We do not generate indirect fields for implicit fields because that would
     -- violate the invariant that untagged structs and unions can only be
     -- referenced by a single field (the implicit field).
-    candidateFields :: [Either (C.ExplicitField Parse) (C.IndirectField Parse)]
+    candidateFields :: [Either (C.RegularField Parse) (C.IndirectField Parse)]
     candidateFields = case decl.kind of
         C.DeclStruct struct -> concatMap isCandidateField struct.fields
         C.DeclUnion  union  -> concatMap isCandidateField union.fields
         _ -> []
 
-    isCandidateField :: C.Field Parse -> [Either (C.ExplicitField Parse) (C.IndirectField Parse)]
+    isCandidateField :: C.Field Parse -> [Either (C.RegularField Parse) (C.IndirectField Parse)]
     isCandidateField = \case
-      C.FieldExplicit field -> [Left field]
+      C.FieldRegular  field -> [Left field]
       C.FieldImplicit field -> fmap Right field.indirect
 
 getIndirectField ::
@@ -422,7 +422,7 @@ getIndirectField ::
   -> C.Decl l Parse
   -> C.AnonRef Parse
      -- | A /non-implicit/ field of the anonymous object
-  -> Either (C.ExplicitField Parse) (C.IndirectField Parse)
+  -> Either (C.RegularField Parse) (C.IndirectField Parse)
   -> M m (C.IndirectField Parse)
 getIndirectField encObj _decl anonRef field = do
     offsetOuter <- offsetOf encObj fieldName

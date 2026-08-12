@@ -153,9 +153,10 @@ scanAllFunctionTypes = foldMap $ \decl ->
       C.DeclGlobal g -> C.getAllFunTypes g.typ
   where
     scanField :: C.Field Final -> Set ([C.TypeFunArg Final], C.Type Final)
-    scanField = C.elimField scanExplicitField scanImplicitField
-    scanExplicitField field = C.getAllFunTypes field.typ
-    scanImplicitField field = C.getAllFunTypes field.typ
+    scanField = C.elimField scanRegularField scanImplicitField
+    scanRegularField  field = C.getAllFunTypes field.typ
+    scanImplicitField field = C.getAllFunTypes field.typ <>
+        foldMap (C.getAllFunTypes . (.typ)) field.indirect
 
 -- | Check if a type is defined in the current module
 isDefinedInCurrentModule :: DeclIndex l -> C.Type Final -> Bool

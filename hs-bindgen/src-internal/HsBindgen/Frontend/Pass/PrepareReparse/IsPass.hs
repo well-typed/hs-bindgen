@@ -27,10 +27,10 @@ type PrepareReparse :: Pass
 data PrepareReparse a
 
 type family AnnPrepareReparse (ix :: Symbol) :: Star where
-  AnnPrepareReparse "ExplicitField" = ReparseInfo FlatTokens
   AnnPrepareReparse "Function"      = ReparseInfo FlatTokens
   AnnPrepareReparse "Global"        = ReparseInfo FlatTokens
   AnnPrepareReparse "IndirectField" = ReparseInfo FlatTokens
+  AnnPrepareReparse "RegularField"  = ReparseInfo FlatTokens
   AnnPrepareReparse "Typedef"       = ReparseInfo FlatTokens
   AnnPrepareReparse _               = NoAnn
 

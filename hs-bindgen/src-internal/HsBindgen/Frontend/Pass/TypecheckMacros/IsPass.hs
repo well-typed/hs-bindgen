@@ -27,10 +27,10 @@ data TypecheckMacros a
 -- 'ConstructTranslationUnit'; these are consumed in the following
 -- 'ReparseMacroExpansions' pass.
 type family AnnTypecheckMacros (ix :: Symbol) :: Star where
-  AnnTypecheckMacros "ExplicitField" = ReparseInfo Tokens
   AnnTypecheckMacros "IndirectField" = ReparseInfo Tokens
   AnnTypecheckMacros "Function"      = ReparseInfo Tokens
   AnnTypecheckMacros "Global"        = ReparseInfo Tokens
+  AnnTypecheckMacros "RegularField"  = ReparseInfo Tokens
   AnnTypecheckMacros "Typedef"       = ReparseInfo Tokens
   AnnTypecheckMacros _               = NoAnn
 
@@ -144,10 +144,10 @@ instance CoercePassMacroId          ConstructTranslationUnit TypecheckMacros whe
     coercePassMacroId _ = absurd
 instance CoercePassMacroUnderlying  ConstructTranslationUnit TypecheckMacros
 
-instance CoercePassAnn "ExplicitField" ConstructTranslationUnit TypecheckMacros
 instance CoercePassAnn "Function"      ConstructTranslationUnit TypecheckMacros
 instance CoercePassAnn "Global"        ConstructTranslationUnit TypecheckMacros
 instance CoercePassAnn "IndirectField" ConstructTranslationUnit TypecheckMacros
+instance CoercePassAnn "RegularField"  ConstructTranslationUnit TypecheckMacros
 instance CoercePassAnn "TypeFunArg"    ConstructTranslationUnit TypecheckMacros
 instance CoercePassAnn "Typedef"       ConstructTranslationUnit TypecheckMacros
 instance CoercePassCommentDecl         ConstructTranslationUnit TypecheckMacros where

@@ -201,10 +201,10 @@ instance Update C.Union where
 instance Update C.Field where
   updateIt info = C.mapMField (updateIt info) (updateIt info)
 
-instance Update C.ExplicitField where
+instance Update C.RegularField where
   updateIt info field = do
       ann' <- updateReparseInfo info (fieldTag info field.info) field.ann
-      pure C.ExplicitField {
+      pure C.RegularField {
           info   = coercePass field.info
         , typ    = coercePass field.typ
         , offset = field.offset

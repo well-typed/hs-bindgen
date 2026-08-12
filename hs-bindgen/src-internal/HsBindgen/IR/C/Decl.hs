@@ -39,7 +39,7 @@ module HsBindgen.IR.C.Decl (
   , mapField
   , mapMField
   , elimField
-  , ExplicitField(..)
+  , RegularField(..)
   , ImplicitField(..)
   , AnonRef(..)
   , IndirectField(..)
@@ -218,11 +218,11 @@ data Struct (p :: Pass) = Struct {
 -- minted (see <https://github.com/well-typed/hs-bindgen/issues/1925>).
 data Flam (p :: Pass) =
     NoFlam
-  | Flam (ExplicitField p) (Ann "Flam" p)
+  | Flam (RegularField p) (Ann "Flam" p)
   deriving stock (Generic)
 
 -- | The element-type field of a FLAM, if present
-flamStructField :: Flam p -> Maybe (ExplicitField p)
+flamStructField :: Flam p -> Maybe (RegularField p)
 flamStructField = \case
     NoFlam   -> Nothing
     Flam f _ -> Just f
@@ -230,7 +230,7 @@ flamStructField = \case
 -- | Traverse the element-type field of a FLAM, preserving its annotation
 traverseFlamField ::
      (Applicative f, Ann "Flam" p ~ Ann "Flam" p')
-  => (ExplicitField p -> f (ExplicitField p'))
+  => (RegularField p -> f (RegularField p'))
   -> Flam p
   -> f (Flam p')
 traverseFlamField f = \case
@@ -240,7 +240,7 @@ traverseFlamField f = \case
 -- | Map over the element-type field of a FLAM, preserving its annotation
 mapFlamField ::
      (Ann "Flam" p ~ Ann "Flam" p')
-  => (ExplicitField p -> ExplicitField p')
+  => (RegularField p -> RegularField p')
   -> Flam p
   -> Flam p'
 mapFlamField f = \case
@@ -407,7 +407,7 @@ data Global (p :: Pass) = Global {
 -------------------------------------------------------------------------------}
 
 data Field p =
-    FieldExplicit (ExplicitField p)
+    FieldRegular  (RegularField p)
   | FieldImplicit (ImplicitField p)
   deriving stock (Generic)
 
@@ -424,36 +424,36 @@ instance HasField "width" (Field p) (Maybe Int) where
   getField = elimField (.width) (.width)
 
 mapField ::
-     (ExplicitField p -> ExplicitField p')
+     (RegularField p -> RegularField p')
   -> (ImplicitField p -> ImplicitField p')
   -> Field p
   -> Field p'
 mapField f g = \case
-    FieldExplicit field -> FieldExplicit $ f field
+    FieldRegular  field -> FieldRegular  $ f field
     FieldImplicit field -> FieldImplicit $ g field
 
 mapMField ::
      Monad m
-  => (ExplicitField p -> m (ExplicitField p'))
+  => (RegularField p -> m (RegularField p'))
   -> (ImplicitField p -> m (ImplicitField p'))
   -> Field p
   -> m (Field p')
 mapMField f g = \case
-    FieldExplicit field -> FieldExplicit <$> f field
+    FieldRegular  field -> FieldRegular  <$> f field
     FieldImplicit field -> FieldImplicit <$> g field
 
-elimField :: (ExplicitField p -> a) -> (ImplicitField p -> a) -> Field p -> a
+elimField :: (RegularField p -> a) -> (ImplicitField p -> a) -> Field p -> a
 elimField f g = \case
-    FieldExplicit field -> f field
+    FieldRegular  field -> f field
     FieldImplicit field -> g field
 
-data ExplicitField p = ExplicitField {
+data RegularField p = RegularField {
       info   :: FieldInfo p
     , typ    :: C.Type p
       -- | Offset in bits
     , offset :: Int
     , width  :: Maybe Int
-    , ann    :: Ann "ExplicitField" p
+    , ann    :: Ann "RegularField" p
     }
     deriving stock (Generic)
 
@@ -540,7 +540,6 @@ deriving stock instance IsPass p => Eq (CommentRef           p)
 deriving stock instance IsPass p => Eq (DeclInfo             p)
 deriving stock instance IsPass p => Eq (Enum                 p)
 deriving stock instance IsPass p => Eq (EnumConstant         p)
-deriving stock instance IsPass p => Eq (ExplicitField        p)
 deriving stock instance IsPass p => Eq (Field                p)
 deriving stock instance IsPass p => Eq (FieldInfo            p)
 deriving stock instance IsPass p => Eq (Flam                 p)
@@ -549,6 +548,7 @@ deriving stock instance IsPass p => Eq (FunctionArg          p)
 deriving stock instance IsPass p => Eq (Global               p)
 deriving stock instance IsPass p => Eq (ImplicitField        p)
 deriving stock instance IsPass p => Eq (IndirectField        p)
+deriving stock instance IsPass p => Eq (RegularField         p)
 deriving stock instance IsPass p => Eq (Struct               p)
 deriving stock instance IsPass p => Eq (Typedef              p)
 deriving stock instance IsPass p => Eq (Union                p)
@@ -560,7 +560,6 @@ deriving stock instance IsPass p => Show (CommentRef           p)
 deriving stock instance IsPass p => Show (DeclInfo             p)
 deriving stock instance IsPass p => Show (Enum                 p)
 deriving stock instance IsPass p => Show (EnumConstant         p)
-deriving stock instance IsPass p => Show (ExplicitField        p)
 deriving stock instance IsPass p => Show (Field                p)
 deriving stock instance IsPass p => Show (FieldInfo            p)
 deriving stock instance IsPass p => Show (Flam                 p)
@@ -569,6 +568,7 @@ deriving stock instance IsPass p => Show (FunctionArg          p)
 deriving stock instance IsPass p => Show (Global               p)
 deriving stock instance IsPass p => Show (ImplicitField        p)
 deriving stock instance IsPass p => Show (IndirectField        p)
+deriving stock instance IsPass p => Show (RegularField         p)
 deriving stock instance IsPass p => Show (Struct               p)
 deriving stock instance IsPass p => Show (Typedef              p)
 deriving stock instance IsPass p => Show (Union                p)
@@ -660,7 +660,7 @@ instance (
       }
 
 instance (
-      CoercePass ExplicitField p p'
+      CoercePass RegularField p p'
     , Ann "Flam" p ~ Ann "Flam" p'
     ) => CoercePass Flam p p' where
   coercePass = \case
@@ -679,19 +679,19 @@ instance (
       }
 
 instance (
-      CoercePass ExplicitField p p'
+      CoercePass RegularField p p'
     , CoercePass ImplicitField p p'
     ) => CoercePass Field p p' where
   coercePass = \case
-      FieldExplicit field -> FieldExplicit (coercePass field)
+      FieldRegular field -> FieldRegular (coercePass field)
       FieldImplicit field -> FieldImplicit (coercePass field)
 
 instance (
       CoercePass FieldInfo p p'
     , CoercePass C.Type p p'
-    , Ann "ExplicitField" p ~ Ann "ExplicitField" p'
-    ) => CoercePass ExplicitField p p' where
-  coercePass field = ExplicitField {
+    , Ann "RegularField" p ~ Ann "RegularField" p'
+    ) => CoercePass RegularField p p' where
+  coercePass field = RegularField {
         info = coercePass field.info
       , typ = coercePass field.typ
       , offset = field.offset
