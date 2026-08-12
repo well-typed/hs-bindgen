@@ -22,6 +22,8 @@ import HsBindgen.ArtefactM
 import HsBindgen.Backend.Category
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
+import HsBindgen.Frontend.Analysis.IncludeGraph (HeaderLabelStyle (..),
+                                                 IncludeGraphFormat (..))
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -41,8 +43,8 @@ info = progDesc "Output the include graph"
 data Opts = Opts {
       config         :: Config
     , predicate      :: Boolean Regex
-    , showPaths      :: Bool
-    , toposort       :: Bool
+    , labelStyle     :: HeaderLabelStyle
+    , format         :: IncludeGraphFormat
     , output         :: Maybe FilePath
     , inputs         :: [C.UncheckedHashIncludeArg]
     , filePolicy     :: FilePolicy
@@ -54,8 +56,8 @@ parseOpts =
     Opts
       <$> parseConfig
       <*> parsePredicate
-      <*> parseShowPaths
-      <*> parseToposort
+      <*> parseHeaderLabelStyle
+      <*> parseIncludeGraphFormat
       <*> optional parseOutput'
       <*> parseInputs
       <*> parseFilePolicy
@@ -83,14 +85,14 @@ parsePredicate = fmap merge . many . asum $ [
       [] -> [BTrue]
       xs -> xs
 
-parseShowPaths :: Parser Bool
-parseShowPaths = switch $ mconcat [
+parseHeaderLabelStyle :: Parser HeaderLabelStyle
+parseHeaderLabelStyle = flag ShowIncludeArgs ShowPaths $ mconcat [
       long "show-paths"
     , help "Show paths of include header files instead of their '#include' arguments"
     ]
 
-parseToposort :: Parser Bool
-parseToposort = switch $ mconcat [
+parseIncludeGraphFormat :: Parser IncludeGraphFormat
+parseIncludeGraphFormat = flag Mermaid SortedList $ mconcat [
       long "toposort"
     , help "Output a topologically sorted list of headers instead of a Mermaid graph"
     ]
@@ -120,8 +122,8 @@ exec global opts =
     artefact =
       writeIncludeGraph
         opts.predicate
-        opts.showPaths
-        opts.toposort
+        opts.labelStyle
+        opts.format
         opts.filePolicy
         opts.dirPolicy
         opts.output

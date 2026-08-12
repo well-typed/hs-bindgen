@@ -21,6 +21,8 @@ module HsBindgen.Frontend.Analysis.IncludeGraph (
   , getIncludes
     -- * Visualization
   , Predicate
+  , HeaderLabelStyle(..)
+  , IncludeGraphFormat(..)
   , VisOpts(..)
   , renderMermaid
   , renderSortedList
@@ -148,6 +150,22 @@ getIncludes includeGraph path = Digraph.findEdges path includeGraph.graph
 -- | Include graph predicate
 type Predicate = SourcePath -> Bool
 
+-- | How should we show the include header?
+data HeaderLabelStyle =
+    -- | Show the @#include@ argument, which is usually shorter
+    ShowIncludeArgs
+    -- | Show paths of include header files
+  | ShowPaths
+  deriving stock (Show, Eq)
+
+-- | How should we render the include graph?
+data IncludeGraphFormat =
+    -- | Mermaid diagram
+    Mermaid
+    -- | Topologically sorted list of headers, one per line
+  | SortedList
+  deriving stock (Show, Eq)
+
 data VisOpts = VisOpts {
       -- | Only show vertices satisfying the predicate
       --
@@ -173,11 +191,7 @@ data VisOpts = VisOpts {
       predicate :: Predicate
 
       -- | How should we show the include header?
-      --
-      -- - If 'True': Show paths of include header files
-      --
-      -- - If 'False': Show the @#include@ argument, which usually shorter
-    , showPaths :: Bool
+    , labelStyle :: HeaderLabelStyle
     }
 
 -- | Render a Mermaid diagram
@@ -212,7 +226,7 @@ renderMermaid o g =
 --
 -- One header per line, in an order such that a header is listed only after all
 -- the headers it @#include@s.  This is the linear form of 'toSortedList'; the
--- t'VisOpts' 'predicate' and 'showPaths' fields filter and label exactly as for
+-- t'VisOpts' 'predicate' and 'labelStyle' fields filter and label exactly as for
 -- 'renderMermaid'.
 renderSortedList :: VisOpts -> IncludeGraph -> String
 renderSortedList o g =
@@ -234,11 +248,11 @@ data Edge = Direct | Transient
   deriving stock (Show, Eq, Ord)
 
 -- | Display label for a vertex: its resolved path, or the shortest @#include@
--- argument used to include it (see t'VisOpts' @showPaths@).
+-- argument used to include it (see t'VisOpts' @labelStyle@).
 vertexLabel :: VisOpts -> Vertex -> String
-vertexLabel o v
-  | o.showPaths = getSourcePath v.path
-  | otherwise   = getIncludePath v
+vertexLabel o v = case o.labelStyle of
+    ShowPaths       -> getSourcePath v.path
+    ShowIncludeArgs -> getIncludePath v
 
 getIncludePath :: Vertex -> FilePath
 getIncludePath =
