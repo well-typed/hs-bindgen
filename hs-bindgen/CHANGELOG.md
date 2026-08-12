@@ -81,6 +81,12 @@
 
 ### New features
 
+* `hs-bindgen` now emits a single, default-visible summary line reporting how
+  many selected macros it failed to translate, e.g. `14 macros failed to
+  translate; use --log-enable-macro-warnings for details`. Previously these
+  failures were only logged at `Info` level and hidden at the default
+  verbosity, giving the impression that macros were not translated at all. See
+  [issue #2185][is-2185].
 * A new CLI option `--color WHEN` controls ANSI colors in diagnostics, where
   `WHEN` is `always`, `auto` (default, unchanged behavior: detect terminal
   support), or `never`. See [issue #2166][is-2166].
@@ -346,6 +352,7 @@
 [is-2121]: https://github.com/well-typed/hs-bindgen/issues/2121
 [is-2166]: https://github.com/well-typed/hs-bindgen/issues/2166
 [is-2183]: https://github.com/well-typed/hs-bindgen/issues/2183
+[is-2185]: https://github.com/well-typed/hs-bindgen/issues/2185
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917

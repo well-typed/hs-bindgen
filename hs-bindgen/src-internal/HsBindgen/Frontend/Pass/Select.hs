@@ -30,6 +30,7 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.TranslationUnit qualified as C
@@ -213,18 +214,36 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
           | Set.null rootIds
           ]
 
+        selectionRootMsgs :: [AnnMsg Select]
+        selectionRootMsgs = getDelayedMsgsSelectionRoots selectionRootsIndex
+
+        -- Number of selected macros that hs-bindgen dropped.
+        droppedMacroCount :: Int
+        droppedMacroCount =
+          length $ filter (\m -> isDroppedMacro m.traceMsg.msg) selectionRootMsgs
+
+        -- Single summary of dropped macros.
+        macrosDroppedSummaryMsg :: [AnnMsg Select]
+        macrosDroppedSummaryMsg = [
+            withCallStack C.WithLocationInfo{
+                loc = C.LocationUnavailable
+              , msg = SelectMacrosDropped droppedMacroCount
+              }
+          | droppedMacroCount > 0
+          ]
+
         msgs :: [AnnMsg Select]
         msgs =
           concat [
               selectMsgs
-            , getDelayedMsgsSelectionRoots selectionRootsIndex
+            , selectionRootMsgs
             , getDelayedMsgsAdditionalSelectedTransDeps additionalSelectedTransDepsIndex
             , getBugMsgsNotSelected notSelectedIndex
             , noDeclarationsMatchedMsg
             ]
 
     in  ( unitSelect
-        , sortSelectMsgs unit.includeGraph msgs
+        , sortSelectMsgs unit.includeGraph msgs ++ macrosDroppedSummaryMsg
         )
   where
     index :: DeclIndex l
@@ -519,6 +538,28 @@ getBugMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
       UnusableMangleNamesFailure     err -> getDefaultLogLevel err == Bug
       UnusableMacroTypecheckFailure  err -> getDefaultLogLevel err == Bug
       UnusableMacroResolutionFailure err -> getDefaultLogLevel err == Bug
+
+-- | Does this selection-root message represent a macro that hs-bindgen dropped?
+--
+isDroppedMacro :: SelectMsg -> Bool
+isDroppedMacro = \case
+    SelectUnusable reason -> case reason of
+      UnusableMacroTypecheckFailure  _ -> True
+      UnusableMacroResolutionFailure _ -> True
+      -- A parse failure counts as a dropped macro iff it is a macro parse
+      -- failure.
+      UnusableParseFailure p           -> isMacroParseFailure p
+      UnusableUnavailable              -> False
+      UnusableOmitted                  -> False
+      UnusableMangleNamesFailure _     -> False
+    _otherwise                         -> False
+  where
+    isMacroParseFailure :: DelayedParseMsg -> Bool
+    isMacroParseFailure = \case
+      ParseMacroDefinitionNoMacroName{} -> True
+      ParseMacroEmpty{}                 -> True
+      ParseMacroErrorParse{}            -> True
+      _otherwise                        -> False
 
 {-------------------------------------------------------------------------------
   Sort traces

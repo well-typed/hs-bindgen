@@ -115,6 +115,8 @@ test_programAnalysis_circular_macro =
                   Just $ Expected (name, "typecheck")
                 MatchSelect name TransitiveDependenciesMissing{} ->
                   Just $ Expected (name, "transitive")
+                MatchMacrosDropped{} ->
+                  Just Tolerated
                 _otherwise ->
                   Nothing
               )
