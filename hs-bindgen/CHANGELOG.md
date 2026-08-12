@@ -90,6 +90,11 @@
 * A new CLI option `--color WHEN` controls ANSI colors in diagnostics, where
   `WHEN` is `always`, `auto` (default, unchanged behavior: detect terminal
   support), or `never`. See [issue #2166][is-2166].
+* The `hs-bindgen-cli info include-graph` command gained a `--toposort` flag
+  that outputs the headers as a topologically sorted list (one per line, each
+  header after the ones it `#include`s) instead of a Mermaid graph, so the
+  include order can be scripted directly. Respects `--include`/`--exclude` and
+  `--show-paths`. See [issue #2080][is-2080].
 * Variable names in macro bodies are resolved against all known declarations.
 * The macro-language implementation is now pluggable. The `Macro.HasTypes` type
   class and the `Macro.Lang` record (in the internal library) define the
@@ -348,6 +353,7 @@
 [is-2060]: https://github.com/well-typed/hs-bindgen/issues/2060
 [is-2061]: https://github.com/well-typed/hs-bindgen/issues/2061
 [is-2064]: https://github.com/well-typed/hs-bindgen/issues/2064
+[is-2080]: https://github.com/well-typed/hs-bindgen/issues/2080
 [is-2083]: https://github.com/well-typed/hs-bindgen/issues/2083
 [is-2121]: https://github.com/well-typed/hs-bindgen/issues/2121
 [is-2166]: https://github.com/well-typed/hs-bindgen/issues/2166
