@@ -70,30 +70,30 @@ testCases = [
     ++ test_indirect_fields
     ++ [
       -- Bespoke tests
-      test_types_anonymous_edge_cases_drop_indirect_fields_1
-    , test_types_anonymous_edge_cases_drop_indirect_fields_2
-    , test_types_anonymous_edge_cases_empty_anon
-    , test_types_anonymous_edge_cases_multi_nesting
-    , test_types_anonymous_edge_cases_multi_nesting_omit_field_prefixes
-    , test_types_anonymous_edge_cases_reparse
-    , test_types_long_double
-    , test_types_primitives_bool_c23
-    , test_types_primitives_bool_macro_override
-    , test_types_primitives_bool_typedef_override
-    , test_types_primitives_least_fast
-    , test_types_scoping_deep_nesting
-    , test_types_scoping_nesting
-    , test_types_scoping_wide_nesting
-    , test_types_small_floats
-    , test_types_special_parse_failure_long_double
-    , test_types_structs_bitfields
-    , test_types_structs_omit_field_prefixes
-    , test_types_structs_post_qualified
-    , test_types_structs_tagged_vs_untagged
-    , test_types_structs_untagged_struct
-    , test_types_typedefs_auxiliary_function_pointer_block
-    , test_types_typedefs_typedefs
-    , test_types_typedefs_typenames
+      test_anonymous_edge_cases_drop_indirect_fields_1
+    , test_anonymous_edge_cases_drop_indirect_fields_2
+    , test_anonymous_edge_cases_empty_anon
+    , test_anonymous_edge_cases_multi_nesting
+    , test_anonymous_edge_cases_multi_nesting_omit_field_prefixes
+    , test_anonymous_edge_cases_reparse
+    , test_long_double
+    , test_primitives_bool_c23
+    , test_primitives_bool_macro_override
+    , test_primitives_bool_typedef_override
+    , test_primitives_least_fast
+    , test_scoping_deep_nesting
+    , test_scoping_nesting
+    , test_scoping_wide_nesting
+    , test_small_floats
+    , test_special_parse_failure_long_double
+    , test_structs_bitfields
+    , test_structs_omit_field_prefixes
+    , test_structs_post_qualified
+    , test_structs_tagged_vs_untagged
+    , test_structs_untagged_struct
+    , test_typedefs_auxiliary_function_pointer_block
+    , test_typedefs_typedefs
+    , test_typedefs_typenames
     ]
 
 {-------------------------------------------------------------------------------
@@ -127,8 +127,8 @@ test_indirect_fields = [
 
 -- | Test that indirect fields are dropped if they would cross an external
 -- binding spec abstraction boundary
-test_types_anonymous_edge_cases_drop_indirect_fields_1 :: TestCase
-test_types_anonymous_edge_cases_drop_indirect_fields_1 =
+test_anonymous_edge_cases_drop_indirect_fields_1 :: TestCase
+test_anonymous_edge_cases_drop_indirect_fields_1 =
     defaultTest "types/anonymous/edge-cases/drop_indirect_fields"
       & #name %~ (++ "_1")
       & #outputDir %~ (++ "_1")
@@ -156,8 +156,8 @@ test_types_anonymous_edge_cases_drop_indirect_fields_1 =
 
 -- | Test that indirect fields are dropped if they would cross an external
 -- binding spec abstraction boundary
-test_types_anonymous_edge_cases_drop_indirect_fields_2 :: TestCase
-test_types_anonymous_edge_cases_drop_indirect_fields_2 =
+test_anonymous_edge_cases_drop_indirect_fields_2 :: TestCase
+test_anonymous_edge_cases_drop_indirect_fields_2 =
     defaultTest "types/anonymous/edge-cases/drop_indirect_fields"
       & #name %~ (++ "_2")
       & #outputDir %~ (++ "_2")
@@ -182,8 +182,8 @@ test_types_anonymous_edge_cases_drop_indirect_fields_2 =
       _otherwise ->
         Nothing
 
-test_types_anonymous_edge_cases_empty_anon :: TestCase
-test_types_anonymous_edge_cases_empty_anon =
+test_anonymous_edge_cases_empty_anon :: TestCase
+test_anonymous_edge_cases_empty_anon =
     testTraceMulti "types/anonymous/edge-cases/empty_anon" declsWithMsgs $ \case
       MatchDelayedImplicitField "struct S1" UnsupportedEmptyAnon ->
         Just $ Expected "struct S1"
@@ -195,55 +195,55 @@ test_types_anonymous_edge_cases_empty_anon =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct S1", "struct S2"]
 
-test_types_anonymous_edge_cases_multi_nesting :: TestCase
-test_types_anonymous_edge_cases_multi_nesting =
+test_anonymous_edge_cases_multi_nesting :: TestCase
+test_anonymous_edge_cases_multi_nesting =
     defaultTest "types/anonymous/edge-cases/multi_nesting"
 
-test_types_anonymous_edge_cases_multi_nesting_omit_field_prefixes :: TestCase
-test_types_anonymous_edge_cases_multi_nesting_omit_field_prefixes =
+test_anonymous_edge_cases_multi_nesting_omit_field_prefixes :: TestCase
+test_anonymous_edge_cases_multi_nesting_omit_field_prefixes =
     testVariant "types/anonymous/edge-cases/multi_nesting" Nothing "omit_field_prefixes"
       & #onFrontend .~ ( #fieldNamingStrategy .~ OmitFieldPrefixes )
 
 -- | Test that indirect fields are reparsed
-test_types_anonymous_edge_cases_reparse :: TestCase
-test_types_anonymous_edge_cases_reparse =
+test_anonymous_edge_cases_reparse :: TestCase
+test_anonymous_edge_cases_reparse =
     defaultTest "types/anonymous/edge-cases/reparse"
 
-test_types_long_double :: TestCase
-test_types_long_double =
+test_long_double :: TestCase
+test_long_double =
     testTraceSimple "types/special/long_double" $ \case
       MatchDelayed _name (ParseUnsupportedFloatType UnsupportedLongDouble) ->
         Just $ Expected ()
       _otherwise ->
         Nothing
 
-test_types_primitives_bool_c23 :: TestCase
-test_types_primitives_bool_c23 =
+test_primitives_bool_c23 :: TestCase
+test_primitives_bool_c23 =
     defaultTest "types/primitives/bool_c23"
       & #clangVersion .~ Just (>= (15, 0, 0))
       & #cStandard    .~ c23
 
 -- | Test that when @bool@ is given a definition (via @#define@), it is /not/
 -- parsed as @PrimBool@ by @language-c@.
-test_types_primitives_bool_macro_override :: TestCase
-test_types_primitives_bool_macro_override =
+test_primitives_bool_macro_override :: TestCase
+test_primitives_bool_macro_override =
     defaultTest "types/primitives/bool_macro_override"
       & #clangVersion .~ Just (>= (15, 0, 0))
       & #cStandard    .~ c23
 
 -- | Test that when @bool@ is given a definition (via @typedef@), it is /not/
 -- parsed as @PrimBool@ by @language-c@.
-test_types_primitives_bool_typedef_override :: TestCase
-test_types_primitives_bool_typedef_override =
+test_primitives_bool_typedef_override :: TestCase
+test_primitives_bool_typedef_override =
     defaultTest "types/primitives/bool_typedef_override"
 
-test_types_primitives_least_fast :: TestCase
-test_types_primitives_least_fast =
+test_primitives_least_fast :: TestCase
+test_primitives_least_fast =
     defaultTest "types/primitives/least_fast"
       & #onFrontend .~ ( #programSlicing .~ EnableProgramSlicing )
 
-test_types_scoping_deep_nesting :: TestCase
-test_types_scoping_deep_nesting =
+test_scoping_deep_nesting :: TestCase
+test_scoping_deep_nesting =
     testTraceMulti "types/scoping/deep_nesting" declsWithMsgs $ \case
       MatchDelayed name@"struct foo" ParseNestedDeclsFailed ->
         Just $ Expected name
@@ -256,8 +256,8 @@ test_types_scoping_deep_nesting =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct foo", "struct bar"]
 
-test_types_scoping_nesting :: TestCase
-test_types_scoping_nesting =
+test_scoping_nesting :: TestCase
+test_scoping_nesting =
     testTraceMulti "types/scoping/nesting" declsWithMsgs $ \case
       MatchDelayed name@"struct foo"
         (ParseUnsupportedFloatType UnsupportedLongDouble) ->
@@ -268,8 +268,8 @@ test_types_scoping_nesting =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct foo"]
 
-test_types_scoping_wide_nesting :: TestCase
-test_types_scoping_wide_nesting =
+test_scoping_wide_nesting :: TestCase
+test_scoping_wide_nesting =
     testTraceMulti "types/scoping/wide_nesting" declsWithMsgs $ \case
       MatchDelayed name@"struct foo" ParseNestedDeclsFailed ->
         Just $ Expected name
@@ -285,8 +285,8 @@ test_types_scoping_wide_nesting =
 -- | Test that small floating-point types are unsupported, but do not crash us
 --
 -- Clang only supports @_Float16@ on x86 since version 15.
-test_types_small_floats :: TestCase
-test_types_small_floats =
+test_small_floats :: TestCase
+test_small_floats =
     testTraceMulti "types/special/small_floats" declsWithMsgs (\case
       MatchDelayed name (ParseUnsupportedFloatType UnsupportedFloat16) ->
         Just $ Expected name
@@ -299,8 +299,8 @@ test_types_small_floats =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["float16_t", "fp16_t", "struct small_floats", "fun"]
 
-test_types_special_parse_failure_long_double :: TestCase
-test_types_special_parse_failure_long_double =
+test_special_parse_failure_long_double :: TestCase
+test_special_parse_failure_long_double =
     testTraceMulti "types/special/parse_failure_long_double" declsWithMsgs $ \case
       MatchDelayed name (ParseUnsupportedFloatType UnsupportedLongDouble) ->
         Just $ Expected name
@@ -310,28 +310,28 @@ test_types_special_parse_failure_long_double =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["fun1", "struct struct1"]
 
-test_types_structs_tagged_vs_untagged :: TestCase
-test_types_structs_tagged_vs_untagged =
+test_structs_tagged_vs_untagged :: TestCase
+test_structs_tagged_vs_untagged =
     defaultTest "types/structs/tagged_vs_untagged"
       & #clangVersion .~ Just (>= (19, 1, 0))
 
-test_types_structs_bitfields :: TestCase
-test_types_structs_bitfields =
+test_structs_bitfields :: TestCase
+test_structs_bitfields =
     defaultTest "types/structs/bitfields"
       & #cStandard .~ c99  -- C99 required for inline functions
 
-test_types_structs_omit_field_prefixes :: TestCase
-test_types_structs_omit_field_prefixes =
+test_structs_omit_field_prefixes :: TestCase
+test_structs_omit_field_prefixes =
     testVariant "types/structs/simple_structs" Nothing "omit_field_prefixes"
       & #onFrontend .~ ( #fieldNamingStrategy .~ OmitFieldPrefixes )
 
-test_types_structs_post_qualified :: TestCase
-test_types_structs_post_qualified =
+test_structs_post_qualified :: TestCase
+test_structs_post_qualified =
     testVariant "types/structs/simple_structs" Nothing "post_qualified"
       & #qualifiedStyle .~ PostQualified
 
-test_types_structs_untagged_struct :: TestCase
-test_types_structs_untagged_struct =
+test_structs_untagged_struct :: TestCase
+test_structs_untagged_struct =
     testTraceSimple "types/structs/untagged_struct" $ \case
       MatchDiagnosticCategory "Semantic Issue" ->
         Just $ Expected ()
@@ -340,15 +340,15 @@ test_types_structs_untagged_struct =
       _otherwise ->
         Nothing
 
-test_types_typedefs_auxiliary_function_pointer_block :: TestCase
-test_types_typedefs_auxiliary_function_pointer_block =
+test_typedefs_auxiliary_function_pointer_block :: TestCase
+test_typedefs_auxiliary_function_pointer_block =
     defaultTest "types/typedefs/auxiliary/function-pointer/block"
       & #clangVersion .~ Just (>= (15, 0, 0))
       & #cStandard    .~ c23
       & #onBoot       .~ ( #clangArgs % #enableBlocks .~ True )
 
-test_types_typedefs_typedefs :: TestCase
-test_types_typedefs_typedefs =
+test_typedefs_typedefs :: TestCase
+test_typedefs_typedefs =
     testTraceMulti "types/typedefs/typedefs" declsWithMsgs $ \case
       MatchDelayed name ParseFunctionOfTypeTypedef ->
         Just $ Expected name
@@ -359,8 +359,8 @@ test_types_typedefs_typedefs =
     declsWithMsgs = ["foo"]
 
 -- This tests https://github.com/well-typed/hs-bindgen/issues/1389.
-test_types_typedefs_typenames :: TestCase
-test_types_typedefs_typenames =
+test_typedefs_typenames :: TestCase
+test_typedefs_typenames =
     testTraceMulti "types/typedefs/typenames" declsWithMsgs $ \case
       MatchUnusable name (UnusableMangleNamesFailure (MangleNamesCollisionError DetectClashesCollision{})) ->
         Just $ Expected name

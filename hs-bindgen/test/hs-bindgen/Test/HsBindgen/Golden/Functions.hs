@@ -34,23 +34,23 @@ testCases = [
     , defaultTest "functions/heap_types/union"
     , defaultTest "functions/typedef_funptr"
       -- Bespoke tests
-    , test_functions_decls_in_signature
-    , test_functions_fun_attributes
-    , test_functions_fun_attributes_conflict
-    , test_functions_hash_defines
-    , test_functions_hash_defines_select_all
-    , test_functions_not_visible_decl
-    , test_functions_simple_func
-    , test_functions_simple_func_rename
-    , test_functions_varargs
+    , test_decls_in_signature
+    , test_fun_attributes
+    , test_fun_attributes_conflict
+    , test_hash_defines
+    , test_hash_defines_select_all
+    , test_not_visible_decl
+    , test_simple_func
+    , test_simple_func_rename
+    , test_varargs
     ]
 
 {-------------------------------------------------------------------------------
   Individual test definitions
 -------------------------------------------------------------------------------}
 
-test_functions_decls_in_signature :: TestCase
-test_functions_decls_in_signature =
+test_decls_in_signature :: TestCase
+test_decls_in_signature =
     testTraceMulti "functions/decls_in_signature" declsWithMsgs $ \case
       MatchDelayed name ParseDeclarationNotVisible{} ->
         Just $ Expected name
@@ -64,8 +64,8 @@ test_functions_decls_in_signature =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["f1", "f2", "f3", "f4", "f5"]
 
-test_functions_fun_attributes :: TestCase
-test_functions_fun_attributes =
+test_fun_attributes :: TestCase
+test_fun_attributes =
     defaultTest "functions/fun_attributes"
       & #clangVersion   .~ Just (>= (15, 0, 0))
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
@@ -92,8 +92,8 @@ test_functions_fun_attributes =
         , "old_fn_unavailable"
         ]
 
-test_functions_fun_attributes_conflict :: TestCase
-test_functions_fun_attributes_conflict =
+test_fun_attributes_conflict :: TestCase
+test_fun_attributes_conflict =
     testTraceMulti "functions/fun_attributes_conflict" declsWithMsgs $ \case
       MatchDiagnosticOption "-Wno-ignored-attributes" ->
         Just Tolerated
@@ -108,8 +108,8 @@ test_functions_fun_attributes_conflict =
 -- The header does not preprocess without @MY_SIZE@, so PP\/TH fixture
 -- compilation only succeeds if the directives are forwarded to the wrapper
 -- source.
-test_functions_hash_defines :: TestCase
-test_functions_hash_defines =
+test_hash_defines :: TestCase
+test_hash_defines =
     defaultTest "functions/hash_defines"
       & #hashDefines .~ hashDefines
 
@@ -118,8 +118,8 @@ test_functions_hash_defines =
 -- They live in the synthetic root header, which is not a main header of
 -- anything, so they are not attempted at all — no macro bindings, and no
 -- traces.
-test_functions_hash_defines_select_all :: TestCase
-test_functions_hash_defines_select_all =
+test_hash_defines_select_all :: TestCase
+test_hash_defines_select_all =
     testVariant "functions/hash_defines" (Just 1) "select_all"
       & #hashDefines .~ hashDefines
       & #onFrontend  .~ ( #selectionPredicate .~ BTrue)
@@ -131,8 +131,8 @@ hashDefines = [
     , C.HashDefine "MY_EMPTY"   ""
     ]
 
-test_functions_not_visible_decl :: TestCase
-test_functions_not_visible_decl =
+test_not_visible_decl :: TestCase
+test_not_visible_decl =
     testTraceMulti "functions/not_visible_decl" declsWithMsgs $ \case
       MatchDelayed name ParseDeclarationNotVisible{} ->
         Just $ Expected name
@@ -146,13 +146,13 @@ test_functions_not_visible_decl =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["f", "g", "h"]
 
-test_functions_simple_func :: TestCase
-test_functions_simple_func =
+test_simple_func :: TestCase
+test_simple_func =
     defaultTest "functions/simple_func"
       & #cStandard .~ c99
 
-test_functions_simple_func_rename :: TestCase
-test_functions_simple_func_rename =
+test_simple_func_rename :: TestCase
+test_simple_func_rename =
     testVariant "functions/simple_func" (Just 1) "rename"
       & #cStandard .~ c99
       & #onBackend .~ ( #categoryChoice .~ ByCategory {
@@ -163,8 +163,8 @@ test_functions_simple_func_rename =
           , cGlobal = ExcludeCategory
           })
 
-test_functions_varargs :: TestCase
-test_functions_varargs =
+test_varargs :: TestCase
+test_varargs =
     testTraceMulti "functions/varargs" declsWithMsgs $ \case
       MatchDelayed name ParseUnsupportedVariadicFunction ->
         Just $ Expected name

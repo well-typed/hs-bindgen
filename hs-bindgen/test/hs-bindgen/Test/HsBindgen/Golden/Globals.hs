@@ -14,16 +14,16 @@ import Test.HsBindgen.Golden.Infra.TestCase
 
 testCases :: [TestCase]
 testCases = [
-      test_globals_globals
-    , test_globals_untagged
+      test_globals
+    , test_untagged
     ]
 
 {-------------------------------------------------------------------------------
   Individual test definitions
 -------------------------------------------------------------------------------}
 
-test_globals_globals :: TestCase
-test_globals_globals =
+test_globals :: TestCase
+test_globals =
     testTraceMulti "globals/globals" declsWithMsgs $ \case
       MatchDelayed name ParsePotentialDuplicateSymbol{} ->
         Just $ Expected name
@@ -52,5 +52,5 @@ test_globals_globals =
         , "streamBinary"
         ]
 
-test_globals_untagged :: TestCase
-test_globals_untagged = defaultTest "globals/untagged"
+test_untagged :: TestCase
+test_untagged = defaultTest "globals/untagged"

@@ -34,21 +34,21 @@ testCases = [
     , defaultTest "macros/parse/macro_typedef_scope"
     , defaultTest "macros/undef"
       -- Bespoke tests
-    , test_macros_macro_comma
-    , test_macros_macro_ext_binding_dep
-    , test_macros_macro_resolution_log_level_default
-    , test_macros_macro_resolution_log_level_warnings
-    , test_macros_macro_type_unresolved_tagged
-    , test_macros_macro_in_fundecl
-    , test_macros_macro_in_fundecl_vs_typedef
-    , test_macros_macro_redefines_global
-    , test_macros_macros
-    , test_macros_parse_simple
-    , test_macros_parse_elaborate
-    , test_macros_parse_intermittent_include
-    , test_macros_parse_intermittent_include_conditional
-    , test_macros_parse_macro_typedef_scope_multiple
-    , test_macros_wrong_source_location
+    , test_macro_comma
+    , test_macro_ext_binding_dep
+    , test_macro_resolution_log_level_default
+    , test_macro_resolution_log_level_warnings
+    , test_macro_type_unresolved_tagged
+    , test_macro_in_fundecl
+    , test_macro_in_fundecl_vs_typedef
+    , test_macro_redefines_global
+    , test_macros
+    , test_parse_simple
+    , test_parse_elaborate
+    , test_parse_intermittent_include
+    , test_parse_intermittent_include_conditional
+    , test_parse_macro_typedef_scope_multiple
+    , test_wrong_source_location
     ]
 
 {-------------------------------------------------------------------------------
@@ -61,16 +61,16 @@ testCases = [
 -- bodies no meaning of their own, and tuples support the argument-list idiom
 -- (@#define ARGS 1, 2@ used as @f(ARGS)@). Consequently, a comma expression
 -- does not compose with arithmetic; @ARITH@ is dropped with a parse failure.
-test_macros_macro_comma :: TestCase
-test_macros_macro_comma =
+test_macro_comma :: TestCase
+test_macro_comma =
     testTraceMulti "macros/macro_comma" ["macro ARITH"] $ \case
       MatchUnusable name@"macro ARITH" (UnusableParseFailure ParseMacroErrorParse{}) ->
         Just $ Expected name
       _otherwise ->
         Nothing
 
-test_macros_macro_ext_binding_dep :: TestCase
-test_macros_macro_ext_binding_dep =
+test_macro_ext_binding_dep :: TestCase
+test_macro_ext_binding_dep =
     defaultTest "macros/macro_ext_binding_dep"
       & #specExternal .~
           [ "test-artefacts/headers/golden/macros/macro_ext_binding_dep.yaml"
@@ -81,8 +81,8 @@ test_macros_macro_ext_binding_dep =
 -- Regression test for <https://github.com/well-typed/hs-bindgen/issues/2147>:
 -- such failures are common in real headers (e.g. preprocessor-only operators),
 -- so they must not be warnings by default.
-test_macros_macro_resolution_log_level_default :: TestCase
-test_macros_macro_resolution_log_level_default =
+test_macro_resolution_log_level_default :: TestCase
+test_macro_resolution_log_level_default =
     testVariant "macros/macro_resolution_log_level" Nothing "default"
       & #tracePredicate .~ multiTracePredicate expected (\trace -> case trace of
             MatchUnusable name (UnusableMacroResolutionFailure{})
@@ -95,10 +95,10 @@ test_macros_macro_resolution_log_level_default =
 
 -- | 'EnableMacroWarnings' raises macro name-resolution failures to 'Warning'.
 --
--- Companion to 'test_macros_macro_resolution_log_level_default'; the predicate
+-- Companion to 'test_macro_resolution_log_level_default'; the predicate
 -- insists the (custom) log level is 'Warning'.
-test_macros_macro_resolution_log_level_warnings :: TestCase
-test_macros_macro_resolution_log_level_warnings =
+test_macro_resolution_log_level_warnings :: TestCase
+test_macro_resolution_log_level_warnings =
     testVariant "macros/macro_resolution_log_level" Nothing "enable_macro_warnings"
       & #tracePredicate .~ multiTracePredicateCustomLogLevel customLogLevel
           expected (\trace -> case trace of
@@ -114,8 +114,8 @@ test_macros_macro_resolution_log_level_warnings =
     expected :: [C.DeclName]
     expected = ["macro UNRESOLVED_MACRO"]
 
-test_macros_macro_type_unresolved_tagged :: TestCase
-test_macros_macro_type_unresolved_tagged =
+test_macro_type_unresolved_tagged :: TestCase
+test_macro_type_unresolved_tagged =
     testTraceMulti "macros/macro_type_unresolved_tagged" declsWithMsgs $ \case
       MatchUnusable name@"struct Unparsable"
         (UnusableParseFailure (ParseUnsupportedFloatType UnsupportedLongDouble)) ->
@@ -142,8 +142,8 @@ test_macros_macro_type_unresolved_tagged =
       , ("macro DOES_NOT_EXIST",     "macro-unresolved-tagged-type")
       ]
 
-test_macros_macro_in_fundecl :: TestCase
-test_macros_macro_in_fundecl =
+test_macro_in_fundecl :: TestCase
+test_macro_in_fundecl =
     testTraceMulti "macros/macro_in_fundecl" declsWithMsgs $ \case
       MatchDelayed name ParsePotentialDuplicateSymbol{} ->
         Just $ Expected name
@@ -160,8 +160,8 @@ test_macros_macro_in_fundecl =
         , "wam"
         ]
 
-test_macros_macro_in_fundecl_vs_typedef :: TestCase
-test_macros_macro_in_fundecl_vs_typedef =
+test_macro_in_fundecl_vs_typedef :: TestCase
+test_macro_in_fundecl_vs_typedef =
     testTraceMulti "macros/macro_in_fundecl_vs_typedef" declsWithMsgs $ \case
       MatchDelayed name ParsePotentialDuplicateSymbol{} ->
         Just $ Expected name
@@ -171,8 +171,8 @@ test_macros_macro_in_fundecl_vs_typedef =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["quux1", "quux2", "wam1", "wam2"]
 
-test_macros_macro_redefines_global :: TestCase
-test_macros_macro_redefines_global =
+test_macro_redefines_global :: TestCase
+test_macro_redefines_global =
     testTraceMulti "macros/macro_redefines_global" declsWithMsgs $ \case
       MatchSelect name SelectConflict{} ->
         Just $ Expected name
@@ -189,34 +189,34 @@ test_macros_macro_redefines_global =
       , "macro stderr"
       ]
 
-test_macros_macros :: TestCase
-test_macros_macros =
+test_macros :: TestCase
+test_macros =
     defaultTest "macros/macros"
       & #cStandard .~ c23
 
-test_macros_parse_simple :: TestCase
-test_macros_parse_simple =
+test_parse_simple :: TestCase
+test_parse_simple =
     defaultTest "macros/parse/simple"
       & #onFrontend .~ (\cfg -> cfg
           & #selectionPredicate .~ BTrue
           )
 
-test_macros_parse_elaborate :: TestCase
-test_macros_parse_elaborate =
+test_parse_elaborate :: TestCase
+test_parse_elaborate =
     defaultTest "macros/parse/elaborate"
       & #onFrontend .~ (\cfg -> cfg
           & #selectionPredicate .~ BTrue
           )
 
-test_macros_parse_intermittent_include :: TestCase
-test_macros_parse_intermittent_include =
+test_parse_intermittent_include :: TestCase
+test_parse_intermittent_include =
     defaultTest "macros/parse/intermittent_include"
       & #onFrontend .~ (\cfg -> cfg
           & #selectionPredicate .~ BTrue
           )
 
-test_macros_parse_intermittent_include_conditional :: TestCase
-test_macros_parse_intermittent_include_conditional =
+test_parse_intermittent_include_conditional :: TestCase
+test_parse_intermittent_include_conditional =
     defaultTest "macros/parse/intermittent_include_conditional"
       & #onFrontend .~ (\cfg -> cfg
           & #selectionPredicate .~ BTrue
@@ -236,15 +236,15 @@ test_macros_parse_intermittent_include_conditional =
       , ("macro FOO", "conflict")
       ]
 
-test_macros_parse_macro_typedef_scope_multiple :: TestCase
-test_macros_parse_macro_typedef_scope_multiple =
+test_parse_macro_typedef_scope_multiple :: TestCase
+test_parse_macro_typedef_scope_multiple =
     defaultTest "macros/parse/macro_typedef_scope_multiple"
       & #onFrontend .~ (\cfg -> cfg
           & #selectionPredicate .~ BTrue
           )
 
-test_macros_wrong_source_location :: TestCase
-test_macros_wrong_source_location =
+test_wrong_source_location :: TestCase
+test_wrong_source_location =
     defaultTest "macros/wrong_source_location"
       -- Spelling location is only populated correctly on llvm >= 19.1.0;
       -- older toolchains cannot disambiguate unnamed declarations
