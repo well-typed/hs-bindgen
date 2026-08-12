@@ -30,6 +30,7 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.TranslationUnit qualified as C
@@ -547,11 +548,18 @@ isDroppedMacro = \case
       UnusableMacroResolutionFailure _ -> True
       -- A parse failure counts as a dropped macro iff it is a macro parse
       -- failure.
-      UnusableParseFailure p           -> "macro" `List.isInfixOf` (getTraceId p).id
+      UnusableParseFailure p           -> isMacroParseFailure p
       UnusableUnavailable              -> False
       UnusableOmitted                  -> False
       UnusableMangleNamesFailure _     -> False
     _otherwise                         -> False
+  where
+    isMacroParseFailure :: DelayedParseMsg -> Bool
+    isMacroParseFailure = \case
+      ParseMacroDefinitionNoMacroName{} -> True
+      ParseMacroEmpty{}                 -> True
+      ParseMacroErrorParse{}            -> True
+      _otherwise                        -> False
 
 {-------------------------------------------------------------------------------
   Sort traces
