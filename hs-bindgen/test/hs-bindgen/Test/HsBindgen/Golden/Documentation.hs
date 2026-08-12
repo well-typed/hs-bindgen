@@ -17,7 +17,7 @@ import Test.HsBindgen.Resources
 testCases :: [TestCase]
 testCases = [
       defaultTest "documentation/data_kind_pragma"
-    , test_documentation_doxygen_docs
+    , test_doxygen_docs
     , defaultTest "documentation/javadoc_banner"
     ]
 
@@ -25,8 +25,8 @@ testCases = [
   Individual test definitions
 -------------------------------------------------------------------------------}
 
-test_documentation_doxygen_docs :: TestCase
-test_documentation_doxygen_docs =
+test_doxygen_docs :: TestCase
+test_doxygen_docs =
     testTrace "documentation/doxygen_docs"
       (multiTracePredicate @Text [] $ \case
         MatchDoxygen (DoxygenUnsupported _) -> Just Tolerated

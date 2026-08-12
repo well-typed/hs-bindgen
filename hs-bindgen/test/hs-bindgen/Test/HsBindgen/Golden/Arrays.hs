@@ -15,25 +15,25 @@ import Test.HsBindgen.Golden.Infra.TestCase
 
 testCases :: [TestCase]
 testCases = [
-      test_arrays_array
-    , test_arrays_const_qualifier
-    , test_arrays_multi_dim
-    , test_arrays_failing_array_res_1
-    , test_arrays_failing_array_res_2
-    , test_arrays_failing_array_res_3
-    , test_arrays_failing_array_res_4
-    , test_arrays_failing_array_res_5
-    , test_arrays_failing_array_res_6
-    , test_arrays_failing_array_res_7
-    , test_arrays_failing_array_res_8
+      test_array
+    , test_const_qualifier
+    , test_multi_dim
+    , test_failing_array_res_1
+    , test_failing_array_res_2
+    , test_failing_array_res_3
+    , test_failing_array_res_4
+    , test_failing_array_res_5
+    , test_failing_array_res_6
+    , test_failing_array_res_7
+    , test_failing_array_res_8
     ]
 
 {-------------------------------------------------------------------------------
   Individual test definitions
 -------------------------------------------------------------------------------}
 
-test_arrays_array :: TestCase
-test_arrays_array =
+test_array :: TestCase
+test_array =
     defaultTest "arrays/array"
       & #clangVersion   .~ Just (>= (19, 0, 0))
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
@@ -58,14 +58,14 @@ test_arrays_array =
 
 -- | @const@ qualifiers applied to arrays (through typedefs) should be
 -- represented in the bindings.
-test_arrays_const_qualifier :: TestCase
-test_arrays_const_qualifier = defaultTest "arrays/const_qualifier"
+test_const_qualifier :: TestCase
+test_const_qualifier = defaultTest "arrays/const_qualifier"
 
-test_arrays_multi_dim :: TestCase
-test_arrays_multi_dim = defaultTest "arrays/multi_dim"
+test_multi_dim :: TestCase
+test_multi_dim = defaultTest "arrays/multi_dim"
 
-test_arrays_failing_array_res_1 :: TestCase
-test_arrays_failing_array_res_1 =
+test_failing_array_res_1 :: TestCase
+test_failing_array_res_1 =
     failingTestLibclangSimple "arrays/failing/array_res_1" $ \case
       (matchDiagnosticSpelling "function cannot return array type" -> Just _diag) ->
         Just $ Expected ()
@@ -76,8 +76,8 @@ test_arrays_failing_array_res_1 =
       _otherwise ->
         Nothing
 
-test_arrays_failing_array_res_2 :: TestCase
-test_arrays_failing_array_res_2 =
+test_failing_array_res_2 :: TestCase
+test_failing_array_res_2 =
     failingTestLibclangSimple "arrays/failing/array_res_2" $ \case
       (matchDiagnosticSpelling "function cannot return array type" -> Just _diag) ->
         Just $ Expected ()
@@ -88,8 +88,8 @@ test_arrays_failing_array_res_2 =
       _otherwise ->
         Nothing
 
-test_arrays_failing_array_res_3 :: TestCase
-test_arrays_failing_array_res_3 =
+test_failing_array_res_3 :: TestCase
+test_failing_array_res_3 =
     failingTestLibclangSimple "arrays/failing/array_res_3" $ \case
       (matchDiagnosticSpelling "function cannot return array type" -> Just _diag) ->
         Just $ Expected ()
@@ -100,8 +100,8 @@ test_arrays_failing_array_res_3 =
       _otherwise ->
         Nothing
 
-test_arrays_failing_array_res_4 :: TestCase
-test_arrays_failing_array_res_4 =
+test_failing_array_res_4 :: TestCase
+test_failing_array_res_4 =
     failingTestLibclangSimple "arrays/failing/array_res_4" $ \case
       (matchDiagnosticSpelling "function cannot return array type" -> Just _diag) ->
         Just $ Expected ()
@@ -112,8 +112,8 @@ test_arrays_failing_array_res_4 =
       _otherwise ->
         Nothing
 
-test_arrays_failing_array_res_5 :: TestCase
-test_arrays_failing_array_res_5 =
+test_failing_array_res_5 :: TestCase
+test_failing_array_res_5 =
     failingTestLibclangSimple "arrays/failing/array_res_5" $ \case
       (matchDiagnosticSpelling "function cannot return array type" -> Just _diag) ->
         Just $ Expected ()
@@ -124,8 +124,8 @@ test_arrays_failing_array_res_5 =
       _otherwise ->
         Nothing
 
-test_arrays_failing_array_res_6 :: TestCase
-test_arrays_failing_array_res_6 =
+test_failing_array_res_6 :: TestCase
+test_failing_array_res_6 =
     failingTestLibclangSimple "arrays/failing/array_res_6" $ \case
       (matchDiagnosticSpelling "function cannot return array type" -> Just _diag) ->
         Just $ Expected ()
@@ -136,8 +136,8 @@ test_arrays_failing_array_res_6 =
       _otherwise ->
         Nothing
 
-test_arrays_failing_array_res_7 :: TestCase
-test_arrays_failing_array_res_7 =
+test_failing_array_res_7 :: TestCase
+test_failing_array_res_7 =
     failingTestLibclangSimple "arrays/failing/array_res_7" $ \case
       (matchDiagnosticSpelling "function cannot return array type" -> Just _diag) ->
         Just $ Expected ()
@@ -148,8 +148,8 @@ test_arrays_failing_array_res_7 =
       _otherwise ->
         Nothing
 
-test_arrays_failing_array_res_8 :: TestCase
-test_arrays_failing_array_res_8 =
+test_failing_array_res_8 :: TestCase
+test_failing_array_res_8 =
     failingTestLibclangSimple "arrays/failing/array_res_8" $ \case
       (matchDiagnosticSpelling "function cannot return array type" -> Just _diag) ->
         Just $ Expected ()

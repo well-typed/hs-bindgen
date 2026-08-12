@@ -23,44 +23,44 @@ import Test.HsBindgen.Golden.Infra.TestCase
 
 testCases :: [TestCase]
 testCases = [
-      test_programAnalysis_delay_traces
+      test_delay_traces
       -- * Circular programs
-    , test_programAnalysis_circular_includes
-    , test_programAnalysis_circular_macro
+    , test_circular_includes
+    , test_circular_macro
       -- * Program slicing
-    , test_programAnalysis_program_slicing_macro_selected
-    , test_programAnalysis_program_slicing_macro_unselected
-    , test_programAnalysis_program_slicing_typedef_selected
-    , test_programAnalysis_program_slicing_typedef_unselected
-    , test_programAnalysis_program_slicing_selection
-    , test_programAnalysis_program_slicing_simple
+    , test_program_slicing_macro_selected
+    , test_program_slicing_macro_unselected
+    , test_program_slicing_typedef_selected
+    , test_program_slicing_typedef_unselected
+    , test_program_slicing_selection
+    , test_program_slicing_simple
       -- * Selection
-    , test_programAnalysis_selection_bad
-    , test_programAnalysis_selection_fail
-    , test_programAnalysis_selection_fail_variant_1
-    , test_programAnalysis_selection_fail_variant_2
-    , test_programAnalysis_selection_fail_variant_3
-    , test_programAnalysis_selection_foo
-    , test_programAnalysis_selection_matches_c_names_1
-    , test_programAnalysis_selection_matches_c_names_2
-    , test_programAnalysis_selection_merge_traces
-    , test_programAnalysis_selection_omit_external_a
-    , test_programAnalysis_selection_omit_external_b
-    , test_programAnalysis_selection_omit_prescriptive
-    , test_programAnalysis_selection_squash
+    , test_selection_bad
+    , test_selection_fail
+    , test_selection_fail_variant_1
+    , test_selection_fail_variant_2
+    , test_selection_fail_variant_3
+    , test_selection_foo
+    , test_selection_matches_c_names_1
+    , test_selection_matches_c_names_2
+    , test_selection_merge_traces
+    , test_selection_omit_external_a
+    , test_selection_omit_external_b
+    , test_selection_omit_prescriptive
+    , test_selection_squash
       -- * Typedef analysis
-    , test_programAnalysis_typedef_analysis
-    , test_programAnalysis_typedef_block
-    , test_programAnalysis_typedef_name_clash
-    , test_programAnalysis_typedef_suffix_clash
+    , test_typedef_analysis
+    , test_typedef_block
+    , test_typedef_name_clash
+    , test_typedef_suffix_clash
     ]
 
 {-------------------------------------------------------------------------------
   Delay traces
 -------------------------------------------------------------------------------}
 
-test_programAnalysis_delay_traces :: TestCase
-test_programAnalysis_delay_traces =
+test_delay_traces :: TestCase
+test_delay_traces =
     defaultTest "program-analysis/delay_traces"
       & #onFrontend .~ ( #selectionPredicate .~
             -- NOTE: Matching for name kind is not good practice, but we want to
@@ -100,12 +100,12 @@ test_programAnalysis_delay_traces =
   Circularities
 -------------------------------------------------------------------------------}
 
-test_programAnalysis_circular_includes :: TestCase
-test_programAnalysis_circular_includes =
+test_circular_includes :: TestCase
+test_circular_includes =
     defaultTest "program-analysis/circular_includes"
 
-test_programAnalysis_circular_macro :: TestCase
-test_programAnalysis_circular_macro =
+test_circular_macro :: TestCase
+test_circular_macro =
     defaultTest "program-analysis/circular_macro"
       & #tracePredicate .~
           multiTracePredicateCustomLogLevel
@@ -133,15 +133,15 @@ test_programAnalysis_circular_macro =
   Program slicing
 -------------------------------------------------------------------------------}
 
-test_programAnalysis_program_slicing_macro_selected :: TestCase
-test_programAnalysis_program_slicing_macro_selected =
+test_program_slicing_macro_selected :: TestCase
+test_program_slicing_macro_selected =
     defaultTest "program-analysis/program-slicing/macro_selected"
       & #onFrontend .~ (\cfg -> cfg
             & #programSlicing .~ EnableProgramSlicing
           )
 
-test_programAnalysis_program_slicing_macro_unselected :: TestCase
-test_programAnalysis_program_slicing_macro_unselected =
+test_program_slicing_macro_unselected :: TestCase
+test_program_slicing_macro_unselected =
     defaultTest "program-analysis/program-slicing/macro_unselected"
       & #onFrontend .~ (\cfg -> cfg
             & #programSlicing .~ DisableProgramSlicing
@@ -156,15 +156,15 @@ test_programAnalysis_program_slicing_macro_unselected =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["foo"]
 
-test_programAnalysis_program_slicing_typedef_selected :: TestCase
-test_programAnalysis_program_slicing_typedef_selected =
+test_program_slicing_typedef_selected :: TestCase
+test_program_slicing_typedef_selected =
     defaultTest "program-analysis/program-slicing/typedef_selected"
       & #onFrontend .~ (\cfg -> cfg
             & #programSlicing .~ EnableProgramSlicing
           )
 
-test_programAnalysis_program_slicing_typedef_unselected :: TestCase
-test_programAnalysis_program_slicing_typedef_unselected =
+test_program_slicing_typedef_unselected :: TestCase
+test_program_slicing_typedef_unselected =
     defaultTest "program-analysis/program-slicing/typedef_unselected"
       & #onFrontend .~ (\cfg -> cfg
             & #programSlicing .~ DisableProgramSlicing
@@ -179,8 +179,8 @@ test_programAnalysis_program_slicing_typedef_unselected =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["foo"]
 
-test_programAnalysis_program_slicing_selection :: TestCase
-test_programAnalysis_program_slicing_selection =
+test_program_slicing_selection :: TestCase
+test_program_slicing_selection =
     defaultTest "program-analysis/program_slicing_selection"
       & #onFrontend .~ (\cfg -> cfg
           & #selectionPredicate .~ BOr
@@ -206,8 +206,8 @@ test_programAnalysis_program_slicing_selection =
 
 -- Check that program slicing generates bindings for uint32_t and uint64_t if we
 -- only provide external binding specifications for uint64_t.
-test_programAnalysis_program_slicing_simple :: TestCase
-test_programAnalysis_program_slicing_simple =
+test_program_slicing_simple :: TestCase
+test_program_slicing_simple =
     defaultTest "program-analysis/program_slicing_simple"
       & #onFrontend .~ (\cfg -> cfg
           & #selectionPredicate .~ BIf (SelectHeader FromMainHeaders)
@@ -235,8 +235,8 @@ test_programAnalysis_program_slicing_simple =
   Selection
 -------------------------------------------------------------------------------}
 
-test_programAnalysis_selection_bad :: TestCase
-test_programAnalysis_selection_bad =
+test_selection_bad :: TestCase
+test_selection_bad =
     testTraceMulti "program-analysis/selection_bad" declsWithMsgs $ \case
       MatchSelect name MatchTransMissing{} ->
         Just $ Expected name
@@ -247,8 +247,8 @@ test_programAnalysis_selection_bad =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["f"]
 
-test_programAnalysis_selection_fail :: TestCase
-test_programAnalysis_selection_fail =
+test_selection_fail :: TestCase
+test_selection_fail =
     testTraceMulti "program-analysis/selection_fail" declsWithMsgs $ \case
       MatchUnusable name UnusableParseFailure{} ->
         Just $ Expected name
@@ -273,8 +273,8 @@ test_programAnalysis_selection_fail =
         , "struct OkAfter"
         ]
 
-test_programAnalysis_selection_fail_variant_1 :: TestCase
-test_programAnalysis_selection_fail_variant_1 =
+test_selection_fail_variant_1 :: TestCase
+test_selection_fail_variant_1 =
     testVariant "program-analysis/selection_fail" (Just 1) "deselect_failed"
       & #onFrontend .~ ( #selectionPredicate .~  BAnd
             (       BIf $ SelectHeader   FromMainHeaders)
@@ -301,8 +301,8 @@ test_programAnalysis_selection_fail_variant_1 =
         , "struct OkAfter"
         ]
 
-test_programAnalysis_selection_fail_variant_2 :: TestCase
-test_programAnalysis_selection_fail_variant_2 =
+test_selection_fail_variant_2 :: TestCase
+test_selection_fail_variant_2 =
     testVariant "program-analysis/selection_fail" (Just 2) "program_slicing"
       & #onFrontend .~ (\cfg -> cfg
           & #selectionPredicate .~ BAnd
@@ -331,8 +331,8 @@ test_programAnalysis_selection_fail_variant_2 =
         , "struct OkAfter"
         ]
 
-test_programAnalysis_selection_fail_variant_3 :: TestCase
-test_programAnalysis_selection_fail_variant_3 =
+test_selection_fail_variant_3 :: TestCase
+test_selection_fail_variant_3 =
     testVariant "program-analysis/selection_fail" (Just 3) "select_ok"
       & #onFrontend .~ (\cfg -> cfg
           & #selectionPredicate .~ BAnd
@@ -350,8 +350,8 @@ test_programAnalysis_selection_fail_variant_3 =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct OkBefore"]
 
-test_programAnalysis_selection_foo :: TestCase
-test_programAnalysis_selection_foo =
+test_selection_foo :: TestCase
+test_selection_foo =
     testTraceMulti "program-analysis/selection_foo" declsWithMsgs $ \case
       MatchSelect _name (MatchTransMissing [_]) ->
         Just $ Expected ("macro A", "foo_t not selected")
@@ -372,8 +372,8 @@ test_programAnalysis_selection_foo =
       , ("f", "unsupported underlying type")
       ]
 
-test_programAnalysis_selection_matches_c_names_1 :: TestCase
-test_programAnalysis_selection_matches_c_names_1 =
+test_selection_matches_c_names_1 :: TestCase
+test_selection_matches_c_names_1 =
     testVariant "program-analysis/selection_matches_c_names" (Just 1) "positive_case"
       & #specPrescriptive .~ Just "test-artefacts/headers/golden/program-analysis/selection_matches_c_names.yaml"
       & #onFrontend .~ ( #selectionPredicate .~ predicate )
@@ -384,8 +384,8 @@ test_programAnalysis_selection_matches_c_names_1 =
               (BIf (SelectDecl $ DeclNameMatches "FunctionWithAssignedHaskellNameByNameMangler"))
               (BIf (SelectDecl $ DeclNameMatches "struct StructWithAssignedHaskellNameByPrescriptiveBindingSpecs"))
 
-test_programAnalysis_selection_matches_c_names_2 :: TestCase
-test_programAnalysis_selection_matches_c_names_2 =
+test_selection_matches_c_names_2 :: TestCase
+test_selection_matches_c_names_2 =
     testVariant "program-analysis/selection_matches_c_names" (Just 2) "negative_case"
       & #specPrescriptive .~ Just "test-artefacts/headers/golden/program-analysis/selection_matches_c_names.yaml"
       & #onFrontend .~ ( #selectionPredicate .~ predicate )
@@ -402,8 +402,8 @@ test_programAnalysis_selection_matches_c_names_2 =
               (BIf (SelectDecl $ DeclNameMatches "functionWithAssignedHaskellNameByNameMangler"))
               (BIf (SelectDecl $ DeclNameMatches "NewName"))
 
-test_programAnalysis_selection_merge_traces :: TestCase
-test_programAnalysis_selection_merge_traces =
+test_selection_merge_traces :: TestCase
+test_selection_merge_traces =
     defaultTest "program-analysis/selection_merge_traces"
       & #onFrontend .~ ( #selectionPredicate .~ predicate )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
@@ -423,8 +423,8 @@ test_programAnalysis_selection_merge_traces =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["dependsOnXAndY"]
 
-test_programAnalysis_selection_omit_external_a :: TestCase
-test_programAnalysis_selection_omit_external_a =
+test_selection_omit_external_a :: TestCase
+test_selection_omit_external_a =
     defaultTest "program-analysis/selection_omit_external_a"
       & #specExternal .~ ["test-artefacts/headers/golden/program-analysis/selection_omit_external.yaml"]
       & #onFrontend .~ ( #programSlicing .~ EnableProgramSlicing )
@@ -441,14 +441,14 @@ test_programAnalysis_selection_omit_external_a =
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1361>
 -- We should warn when we create bindings for a declaration omitted by an
 -- /external/ binding specification.
-test_programAnalysis_selection_omit_external_b :: TestCase
-test_programAnalysis_selection_omit_external_b =
+test_selection_omit_external_b :: TestCase
+test_selection_omit_external_b =
     defaultTest "program-analysis/selection_omit_external_b"
       & #specExternal .~ ["test-artefacts/headers/golden/program-analysis/selection_omit_external.yaml"]
       & #onFrontend   .~ ( #programSlicing .~  EnableProgramSlicing )
 
-test_programAnalysis_selection_omit_prescriptive :: TestCase
-test_programAnalysis_selection_omit_prescriptive =
+test_selection_omit_prescriptive :: TestCase
+test_selection_omit_prescriptive =
     defaultTest "program-analysis/selection_omit_prescriptive"
       & #specPrescriptive .~ Just "test-artefacts/headers/golden/program-analysis/selection_omit_prescriptive.yaml"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
@@ -467,8 +467,8 @@ test_programAnalysis_selection_omit_prescriptive =
         , ("struct IndirectlyDependsOnOmitted", "select")
         ]
 
-test_programAnalysis_selection_squash :: TestCase
-test_programAnalysis_selection_squash =
+test_selection_squash :: TestCase
+test_selection_squash =
     defaultTest "program-analysis/selection_squash_typedef"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name (MatchTransMissing [MatchTransNotSelected]) ->
@@ -486,11 +486,11 @@ test_programAnalysis_selection_squash =
 
 -- | Locally resolvable typedef/tag clashes: squashing and suffixing.
 --
--- See also 'test_programAnalysis_typedef_block' (the @-fblocks@ path) and
--- 'test_programAnalysis_typedef_name_clash' (clashes that are /not/ locally
+-- See also 'test_typedef_block' (the @-fblocks@ path) and
+-- 'test_typedef_name_clash' (clashes that are /not/ locally
 -- resolvable and are reported as failures).
-test_programAnalysis_typedef_analysis :: TestCase
-test_programAnalysis_typedef_analysis =
+test_typedef_analysis :: TestCase
+test_typedef_analysis =
     testTraceMulti "program-analysis/typedef_analysis" declsWithMsgs $ \case
       MatchSelect name SelectMangleNamesSquashed{} ->
         Just $ Expected (name, Nothing)
@@ -535,10 +535,10 @@ test_programAnalysis_typedef_analysis =
 
 -- | Exercise the 'C.TypeBlock' path in 'taggedPayloads'.
 --
--- Kept separate from 'test_programAnalysis_typedef_analysis' because this
+-- Kept separate from 'test_typedef_analysis' because this
 -- header requires @-fblocks@.
-test_programAnalysis_typedef_block :: TestCase
-test_programAnalysis_typedef_block =
+test_typedef_block :: TestCase
+test_typedef_block =
     testTraceMulti "program-analysis/typedef_block" declsWithMsgs (\case
           MatchMangle name (MangleNamesAssignedName new) ->
             Just $ Expected (name, new.text)
@@ -556,10 +556,10 @@ test_programAnalysis_typedef_block =
 -- | Clash cases that the typedef analysis deliberately does NOT resolve
 -- locally; both colliding declarations are deselected via 'DetectClashesCollision'.
 --
--- Complements 'test_programAnalysis_typedef_analysis', which covers the cases
+-- Complements 'test_typedef_analysis', which covers the cases
 -- that /are/ locally resolvable.
-test_programAnalysis_typedef_name_clash :: TestCase
-test_programAnalysis_typedef_name_clash =
+test_typedef_name_clash :: TestCase
+test_typedef_name_clash =
     testTraceMulti "program-analysis/typedef_name_clash" declsWithMsgs $ \case
       MatchUnusable name (UnusableMangleNamesFailure (MangleNamesCollisionError DetectClashesCollision{})) ->
         Just $ Expected (name, "collision")
@@ -585,11 +585,11 @@ test_programAnalysis_typedef_name_clash =
 -- check deselects /both/ colliding declarations (it does not invent a
 -- @_struct2@); the eponymous typedef then loses its dropped dependency.
 --
--- Complements 'test_programAnalysis_typedef_analysis' (the suffix in isolation)
--- and 'test_programAnalysis_typedef_name_clash' (clashes with no suffix
+-- Complements 'test_typedef_analysis' (the suffix in isolation)
+-- and 'test_typedef_name_clash' (clashes with no suffix
 -- involved).
-test_programAnalysis_typedef_suffix_clash :: TestCase
-test_programAnalysis_typedef_suffix_clash =
+test_typedef_suffix_clash :: TestCase
+test_typedef_suffix_clash =
     testTraceMulti "program-analysis/typedef_suffix_clash" declsWithMsgs $ \case
       MatchUnusable name (UnusableMangleNamesFailure (MangleNamesCollisionError DetectClashesCollision{})) ->
         Just $ Expected (name, "collision")
