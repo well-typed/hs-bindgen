@@ -27,6 +27,9 @@
   instance. [issue #2121][is-2121] and [PR #2164][pr-2164].
 * Add new `setUnionPayloadBits` and `getUnionPayloadBits` functions for setting
   and getting bit-fields in unions. See [issue #1253][is-1253].
+* Add `withFunPtrAs` to `HsBindgen.Runtime.Support.FunPtr`. `withFunPtrAs` is
+  useful for callbacks whose own type has no `ToFunPtr` instance. Calls
+  `withFunPtr` provided the callback is `Coercible`.
 
 ### Minor changes
 
