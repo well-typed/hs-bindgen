@@ -58,6 +58,7 @@ cxtype ty = do
       CXType_LongDouble -> failure ParseUnsupportedLongDouble
       CXType_Bool       -> prim $ C.PrimBool
       CXType_Complex    -> complex
+      CXType_Vector     -> failure ParseUnsupportedVector
 
       CXType_Attributed      -> attributed
       CXType_BlockPointer    -> blockPointer
