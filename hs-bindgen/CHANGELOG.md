@@ -341,6 +341,7 @@
 [is-2121]: https://github.com/well-typed/hs-bindgen/issues/2121
 [is-2166]: https://github.com/well-typed/hs-bindgen/issues/2166
 [is-2183]: https://github.com/well-typed/hs-bindgen/issues/2183
+[is-2198]: https://github.com/well-typed/hs-bindgen/issues/2198
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917

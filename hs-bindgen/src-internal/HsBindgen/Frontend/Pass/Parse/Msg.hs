@@ -289,6 +289,9 @@ data DelayedParseMsg =
     -- | We do not support variadic (varargs) functions
   | ParseUnsupportedVariadicFunction
 
+    -- | We do not support vector type
+  | ParseUnsupportedVector
+
     -- | Unusable unnamed declaration
     --
     -- When an unusable declaration appears in some outer declaration (say a
@@ -411,6 +414,8 @@ instance PrettyForTrace DelayedParseMsg where
         "Unsupported thread-local variable"
       ParseUnsupportedVariadicFunction ->
         "Unsupported variadic (varargs) function"
+      ParseUnsupportedVector ->
+        "Unsupported vector extension type"
       ParseUnusableUnnamedDecl unnamedId -> PP.hsep [
           "Unusable unnamed declaration "
         , prettyForTrace unnamedId
@@ -480,6 +485,7 @@ instance IsTrace Level DelayedParseMsg where
       ParseUnsupportedLongDouble           -> Warning
       ParseUnsupportedTLS{}                -> Warning
       ParseUnsupportedVariadicFunction     -> Warning
+      ParseUnsupportedVector               -> Warning
       ParseUnusableUnnamedDecl{}           -> Warning
       ParseExpectedFunctionType{}          -> Bug
       ParseMacroDefinitionNoMacroName{}    -> Bug
