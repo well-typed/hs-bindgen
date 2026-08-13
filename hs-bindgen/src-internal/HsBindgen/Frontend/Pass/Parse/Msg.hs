@@ -289,7 +289,7 @@ data DelayedParseMsg =
     -- | We do not support variadic (varargs) functions
   | ParseUnsupportedVariadicFunction
 
-    -- | We do not support vector type
+    -- | We do not support SIMD vector types (yet)
   | ParseUnsupportedVector
 
     -- | Unusable unnamed declaration
@@ -415,7 +415,7 @@ instance PrettyForTrace DelayedParseMsg where
       ParseUnsupportedVariadicFunction ->
         "Unsupported variadic (varargs) function"
       ParseUnsupportedVector ->
-        "Unsupported vector extension type"
+        "Unsupported SIMD vector type"
       ParseUnusableUnnamedDecl unnamedId -> PP.hsep [
           "Unusable unnamed declaration "
         , prettyForTrace unnamedId

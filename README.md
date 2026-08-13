@@ -104,6 +104,7 @@ including:
 * [`aveltras`](https://github.com/aveltras)
 * [Chandler Barlow](https://github.com/chandler-barlow)
 * [Curtis Chin Jen Sem](https://github.com/crtschin)
+* [Dmitry Kovalev](https://github.com/KovalevDima)
 * [Dominik Schrempf](https://github.com/dschrempf)
 * [Duncan Coutts](https://github.com/dcoutts)
 * [Edsko de Vries](https://github.com/edsko)

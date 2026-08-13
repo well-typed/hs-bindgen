@@ -255,6 +255,7 @@
 
 ### Bug fixes
 
+* Skip declarations using SIMD vector types. See [issue #2198][is-2198].
 * The `--path-style` CLI option now shows its intended help text and value hint.
   Previously two `help` modifiers were given, so the descriptive text and the
   `(short|full)` hint clobbered each other; its default is also now displayed in
