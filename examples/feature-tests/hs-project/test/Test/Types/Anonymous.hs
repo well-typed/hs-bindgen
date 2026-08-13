@@ -65,7 +65,7 @@ prop_offsets_unionInUnion =
 --   generated Haskell bindings.
 --
 -- * Test that the offset for a generated implicit field is the same as the
---   offset for a an equivalent parsed explicit field.
+--   offset for a an equivalent parsed regular field.
 --
 prop_offsets ::
      forall (t1 :: Type) (field1 :: Symbol) (t2 :: Type) (field2 :: Symbol).

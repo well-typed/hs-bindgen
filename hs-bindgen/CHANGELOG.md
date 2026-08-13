@@ -81,9 +81,20 @@
 
 ### New features
 
+* `hs-bindgen` now emits a single, default-visible summary line reporting how
+  many selected macros it failed to translate, e.g. `14 macros failed to
+  translate; use --log-enable-macro-warnings for details`. Previously these
+  failures were only logged at `Info` level and hidden at the default
+  verbosity, giving the impression that macros were not translated at all. See
+  [issue #2185][is-2185].
 * A new CLI option `--color WHEN` controls ANSI colors in diagnostics, where
   `WHEN` is `always`, `auto` (default, unchanged behavior: detect terminal
   support), or `never`. See [issue #2166][is-2166].
+* The `hs-bindgen-cli info include-graph` command gained a `--toposort` flag
+  that outputs the headers as a topologically sorted list (one per line, each
+  header after the ones it `#include`s) instead of a Mermaid graph, so the
+  include order can be scripted directly. Respects `--include`/`--exclude` and
+  `--show-paths`. See [issue #2080][is-2080].
 * Variable names in macro bodies are resolved against all known declarations.
 * The macro-language implementation is now pluggable. The `Macro.HasTypes` type
   class and the `Macro.Lang` record (in the internal library) define the
@@ -244,6 +255,11 @@
 
 ### Bug fixes
 
+* The `--path-style` CLI option now shows its intended help text and value hint.
+  Previously two `help` modifiers were given, so the descriptive text and the
+  `(short|full)` hint clobbered each other; its default is also now displayed in
+  the lowercase form the option accepts. See [issue
+  #2163](https://github.com/well-typed/hs-bindgen/issues/2163).
 * Macro name-resolution failures (e.g. references to unresolved tagged types)
   produce an `Info`-level diagnostic (`MacroResolutionError`) instead of
   panicking. Such failures are common in real headers (e.g. preprocessor-only
@@ -337,10 +353,12 @@
 [is-2060]: https://github.com/well-typed/hs-bindgen/issues/2060
 [is-2061]: https://github.com/well-typed/hs-bindgen/issues/2061
 [is-2064]: https://github.com/well-typed/hs-bindgen/issues/2064
+[is-2080]: https://github.com/well-typed/hs-bindgen/issues/2080
 [is-2083]: https://github.com/well-typed/hs-bindgen/issues/2083
 [is-2121]: https://github.com/well-typed/hs-bindgen/issues/2121
 [is-2166]: https://github.com/well-typed/hs-bindgen/issues/2166
 [is-2183]: https://github.com/well-typed/hs-bindgen/issues/2183
+[is-2185]: https://github.com/well-typed/hs-bindgen/issues/2185
 [is-2198]: https://github.com/well-typed/hs-bindgen/issues/2198
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892

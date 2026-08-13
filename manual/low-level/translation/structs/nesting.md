@@ -144,9 +144,10 @@ data RoomD = RoomD
 
 ## Example E
 
-Finally, we could leave out the name of the `door1` field as well. Now the
-nested struct becomes an *anonymous* struct. The definition of anonymous structs
-can be found in the [C reference][creference:struct]:
+Finally, we could leave out the name of the `door1` field as well. Now the field
+becomes an *implicit* field and the nested struct becomes an *anonymous* struct.
+The definition of anonymous structs can be found in the [C
+reference][creference:struct]:
 
 > An unnamed member of a struct or union whose type is a struct without a name
 > is known as an anonymous struct.
@@ -204,11 +205,11 @@ they can be shortened considerably by omitting field prefixes.
 
 ### Indirect fields
 
-In C, fields of an anonymous struct can be accessed from the parent struct *as
+In C, *named* fields of an anonymous struct can be accessed from the parent struct *as
 if* they were fields of the parent struct. This works recursively: if there are
 multiple levels of anonymous structs, then their fields can be accessed from the
 (top-level) parent struct. Generated Haskell bindings reflect this behaviour by
-providing class instances for indirect fields as if they were any other (direct)
+providing class instances for such *indirect* fields as if they were any other direct
 field. For example, `HasField` instances such as:
 
 ```hs
@@ -216,12 +217,16 @@ instance HasField "ShapeE_height" RoomE CFloat
 instance HasField "ShapeE_width" RoomE CFloat
 ```
 
-Given all these instances, users can treat indirect fields as any other field,
-including in the context of: [binding
-specifications][manual:binding-specifications], the [pointer manipulation
-API][manual:pointer-manipulation-api], and [record dot
-syntax][manual:record-dot-syntax]. The only difference is that indirect fields
-are not repesented in the Haskell datatype that is generated for a struct.
+Indirect fields are not repesented in the Haskell datatype that is generated for
+a struct, as opposed to other direct fields. Beyond that, users can treat
+indirect fields as any other field, including in the context of: the [pointer
+manipulation API][manual:pointer-manipulation-api], and [record dot
+syntax][manual:record-dot-syntax].
+
+Exceptions:
+
+* Indirect fields are not yet supported in [binding
+  specifications][manual:binding-specifications] ([issue #2178][is-2178])
 
 ### Limitations
 
@@ -235,6 +240,7 @@ supported. A warning-level trace message will be emitted in this case.
 <!-- sources and references -->
 
 [creference:struct]: https://en.cppreference.com/w/c/language/struct.html
+[is-2178]: https://github.com/well-typed/hs-bindgen/issues/2178
 [manual:binding-specifications]: ../../usage/binding-specifications.md
 [manual:pointer-manipulation-api]: ../pointer-manipulation.md
 [manual:record-dot-syntax]: ../record-dot-syntax.md

@@ -226,7 +226,7 @@ instance UpdateUseSites C.FieldInfo where
       , loc     = info.loc
       }
 
-instance UpdateUseSites C.ExplicitField where
+instance UpdateUseSites C.RegularField where
   updateUseSites field =
       reconstruct
         <$> updateUseSites field.info
@@ -235,8 +235,8 @@ instance UpdateUseSites C.ExplicitField where
       reconstruct ::
            C.FieldInfo FillUnnamedIds
         -> C.Type FillUnnamedIds
-        -> C.ExplicitField FillUnnamedIds
-      reconstruct info' typ' = C.ExplicitField {
+        -> C.RegularField FillUnnamedIds
+      reconstruct info' typ' = C.RegularField {
             info   = info'
           , typ    = typ'
           , offset = field.offset

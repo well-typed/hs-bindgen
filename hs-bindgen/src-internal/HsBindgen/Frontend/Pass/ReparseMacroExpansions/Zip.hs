@@ -150,13 +150,13 @@ zipEither pre post =
   Instances
 -------------------------------------------------------------------------------}
 
-instance ZipReparsed C.ExplicitField where
+instance ZipReparsed C.RegularField where
   zipReparsed fieldPre field = do
       info'   <- checkEqCoerce fieldPre.info   field.info
       typ'    <- zipType      fieldPre.typ    field.typ
       offset' <- checkEq      fieldPre.offset field.offset
       width'  <- checkEq      fieldPre.width  field.width
-      success C.ExplicitField{
+      success C.RegularField{
           info   = info'
         , typ    = typ'
         , offset = offset'

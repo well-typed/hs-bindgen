@@ -192,7 +192,7 @@ enrichDeclKind doxy name = \case
 enrichStruct :: Doxygen -> Text -> C.Struct EnrichComments -> C.Struct EnrichComments
 enrichStruct doxy name struct = struct
     & #fields %~ map (enrichField doxy name)
-    & #flam   %~ C.mapFlamField (enrichExplicitField doxy name)
+    & #flam   %~ C.mapFlamField (enrichRegularField doxy name)
 
 enrichUnion :: Doxygen -> Text -> C.Union EnrichComments -> C.Union EnrichComments
 enrichUnion doxy name union = union
@@ -204,11 +204,11 @@ enrichEnum doxy name enum = enum
 
 enrichField ::
      Doxygen -> Text -> C.Field EnrichComments -> C.Field EnrichComments
-enrichField doxy name = C.mapField (enrichExplicitField doxy name) (enrichImplicitField doxy name)
+enrichField doxy name = C.mapField (enrichRegularField doxy name) (enrichImplicitField doxy name)
 
-enrichExplicitField ::
-     Doxygen -> Text -> C.ExplicitField EnrichComments -> C.ExplicitField EnrichComments
-enrichExplicitField doxy name field =
+enrichRegularField ::
+     Doxygen -> Text -> C.RegularField EnrichComments -> C.RegularField EnrichComments
+enrichRegularField doxy name field =
     maybe field (\c -> field & #info % #comment .~ Just c) $ do
       lookupFieldComment doxy (KeyField name field.info.name.text)
 

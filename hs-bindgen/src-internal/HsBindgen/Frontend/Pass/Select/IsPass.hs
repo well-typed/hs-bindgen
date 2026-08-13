@@ -175,6 +175,9 @@ data SelectMsg =
   | SelectDelayedReparseMacroExpansionsMsg DelayedReparseMacroExpansionsMsg
     -- | Inform the user that no declarations matched the selection predicate.
   | SelectNoDeclarationsMatched
+    -- | Summary of the number of selected macros that hs-bindgen failed to
+    -- translate.
+  | SelectMacrosDropped Int
   deriving stock (Show)
 
 instance PrettyForTrace SelectMsg where
@@ -217,6 +220,12 @@ instance PrettyForTrace SelectMsg where
         during x $ prettyForTrace x
       SelectNoDeclarationsMatched ->
         "No declarations matched the selection predicate"
+      SelectMacrosDropped n ->
+        PP.string $
+          show n
+            <> (if n == 1 then " macro failed to translate; "
+                          else " macros failed to translate; ")
+            <> "use --log-enable-macro-warnings for details"
     where
       during :: IsTrace l e => e -> CtxDoc -> CtxDoc
       during x = PP.hang (PP.string ("During " <> (getTraceId x).id <> ":")) 2
@@ -253,6 +262,7 @@ instance IsTrace Level SelectMsg where
     SelectDelayedPrepareReparseMsg x         -> getDefaultLogLevel x
     SelectDelayedReparseMacroExpansionsMsg x -> getDefaultLogLevel x
     SelectNoDeclarationsMatched              -> Warning
+    SelectMacrosDropped{}                    -> Notice
   getSource  = const HsBindgen
   getTraceId = \case
     SelectStatusInfo{}                       -> "select"
@@ -271,6 +281,7 @@ instance IsTrace Level SelectMsg where
     SelectDelayedPrepareReparseMsg x         -> "select-" <> getTraceId x
     SelectDelayedReparseMacroExpansionsMsg x -> "select-" <> getTraceId x
     SelectNoDeclarationsMatched              -> "select"
+    SelectMacrosDropped{}                    -> "select-dropped-macros"
 
 {-------------------------------------------------------------------------------
   CoercePass

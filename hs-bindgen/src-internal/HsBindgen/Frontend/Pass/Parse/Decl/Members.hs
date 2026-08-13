@@ -15,7 +15,7 @@ import Clang.LowLevel.Core (CXCursor, CXCursorKind (CXCursor_FieldDecl), CXType,
 
 import HsBindgen.Frontend.Pass.Parse.Context (ExceptionInCtx (exception),
                                               ParseCtx)
-import HsBindgen.Frontend.Pass.Parse.Decl.Field (explicitFieldDecl)
+import HsBindgen.Frontend.Pass.Parse.Decl.Field (regularFieldDecl)
 import HsBindgen.Frontend.Pass.Parse.Decl.ImplicitFields qualified as IFields
 import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
@@ -89,12 +89,12 @@ parseMembersWith ty ctx parseObject k =
         -- structs\/unions were parsed successfully, and we can properly detect
         -- implicit fields using 'IFields.withImplicitFields'.
         | otherwise
-        -> do -- From the explicit members, derive implicit fields and include them in
+        -> do -- From the regular members, derive implicit fields and include them in
               -- the list of members
               members <- IFields.withImplicitFields (IFields.EnclosingObject ty) successes
               k $ case members of
                 -- Some implicit fields were not successfully detected. It is unsafe
-                -- to return an incomplete list of implicit and explicit fields, so we
+                -- to return an incomplete list of implicit and regular fields, so we
                 -- return a failure message instead.
                 IFields.OutputFail exc ->
                   ParseMembersResult {
@@ -111,7 +111,7 @@ parseMembersWith ty ctx parseObject k =
 data ParseMemberResult l =
     ParseMemberResultFoldException (FoldException (ExceptionInCtx DelayedParseMsg))
   | ParseMemberResultDecls [ParseResult l Parse]
-  | ParseMemberResultField (C.ExplicitField Parse)
+  | ParseMemberResultField (C.RegularField Parse)
 
 partitionParseMemberResults ::
      [ParseMemberResult l]
@@ -148,7 +148,7 @@ parseMember ctx parseObject =
       kind <- fromSimpleEnum <$> clang_getCursorKind curr
       case kind of
         Right CXCursor_FieldDecl -> do
-          field <- explicitFieldDecl ctx curr
+          field <- regularFieldDecl ctx curr
           -- Field declarations can have struct\/union declarations as children in
           -- the clang AST; however, those are duplicates of declarations that
           -- appear elsewhere, so here we choose not to recurse.

@@ -213,10 +213,10 @@ hasFieldDecs st env info union field =
     impl, implUnion :: Hs.HasFieldImpl
     impl = case field of
         -- Unions are not translated to Haskell record datatypes. Therefore
-        -- explicit and implicit fields are not translated to Haskell record
+        -- regular and implicit fields are not translated to Haskell record
         -- datatype fields either. Instead of getting @HasField@ instances for
         -- free we have to define custom instances.
-        ExplicitField _ -> implUnion
+        RegularField  _ -> implUnion
         ImplicitField _ -> implUnion
         -- Indirect fields are not translated to Haskell record datatype fields, so
         -- they get custom @HasField@ instances composed from existing @HasField@
@@ -286,10 +286,10 @@ hasFieldCompatDecs st env info union field =
     impl, implUnion :: Hs.HasFieldCompatImpl
     impl = case field of
         -- Unions are not translated to Haskell record datatypes. Therefore
-        -- explicit and implicit fields are not translated to Haskell record
+        -- regular and implicit fields are not translated to Haskell record
         -- datatype fields either. Instead of getting @HasField@ instances for
         -- free we have to define custom instances.
-        ExplicitField _ -> implUnion
+        RegularField  _ -> implUnion
         ImplicitField _ -> implUnion
         -- Indirect fields are not translated to Haskell record datatype fields, so
         -- they get custom @HasField@ instances composed from existing @HasField@

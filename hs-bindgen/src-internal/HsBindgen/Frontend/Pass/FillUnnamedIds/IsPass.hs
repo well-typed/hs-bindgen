@@ -21,10 +21,10 @@ data FillUnnamedIds a
 
 -- We preserve the annotations from the @Parse@ pass
 type family AnnFillUnnamedIds ix where
-  AnnFillUnnamedIds "ExplicitField" = ReparseInfo Tokens
   AnnFillUnnamedIds "Function"      = ReparseInfo Tokens
   AnnFillUnnamedIds "Global"        = ReparseInfo Tokens
   AnnFillUnnamedIds "IndirectField" = ReparseInfo Tokens
+  AnnFillUnnamedIds "RegularField"  = ReparseInfo Tokens
   AnnFillUnnamedIds "Typedef"       = ReparseInfo Tokens
   AnnFillUnnamedIds _               = NoAnn
 
