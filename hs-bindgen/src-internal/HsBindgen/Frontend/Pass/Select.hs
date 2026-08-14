@@ -557,7 +557,7 @@ isDroppedMacro = \case
     isMacroParseFailure :: DelayedParseMsg -> Bool
     isMacroParseFailure = \case
       ParseMacroDefinitionNoMacroName{} -> True
-      ParseMacroEmpty{}                 -> True
+      ParseMacroEmpty{}                 -> False
       ParseMacroErrorParse{}            -> True
       _otherwise                        -> False
 
