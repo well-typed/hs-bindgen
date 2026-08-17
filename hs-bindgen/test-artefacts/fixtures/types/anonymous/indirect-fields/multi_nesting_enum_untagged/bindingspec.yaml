@@ -4,9 +4,8 @@ version:
 hsmodule: Example
 ctypes:
 - headers: types/anonymous/indirect-fields/multi_nesting_enum_untagged.h
-  cname: enum @S_anon'anon'x_anon'x_x
-  hsname: S_anon'anon'x_anon'x_x
-  enum: open
+  cname: struct S
+  hsname: S
 - headers: types/anonymous/indirect-fields/multi_nesting_enum_untagged.h
   cname: struct @S_anon'anon'x
   hsname: S_anon'anon'x
@@ -14,8 +13,9 @@ ctypes:
   cname: struct @S_anon'anon'x_anon'x
   hsname: S_anon'anon'x_anon'x
 - headers: types/anonymous/indirect-fields/multi_nesting_enum_untagged.h
-  cname: struct S
-  hsname: S
+  cname: enum @S_anon'anon'x_anon'x_x
+  hsname: S_anon'anon'x_anon'x_x
+  enum: open
 hstypes:
 - hsname: S
   representation:

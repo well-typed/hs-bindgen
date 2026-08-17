@@ -4,14 +4,14 @@ version:
 hsmodule: Example
 ctypes:
 - headers: types/anonymous/indirect-fields/multi_nesting_union_tagged.h
+  cname: struct S
+  hsname: S
+- headers: types/anonymous/indirect-fields/multi_nesting_union_tagged.h
   cname: struct @S_anon'anon'x
   hsname: S_anon'anon'x
 - headers: types/anonymous/indirect-fields/multi_nesting_union_tagged.h
   cname: struct @S_anon'anon'x_anon'x
   hsname: S_anon'anon'x_anon'x
-- headers: types/anonymous/indirect-fields/multi_nesting_union_tagged.h
-  cname: struct S
-  hsname: S
 - headers: types/anonymous/indirect-fields/multi_nesting_union_tagged.h
   cname: union T
   hsname: T
