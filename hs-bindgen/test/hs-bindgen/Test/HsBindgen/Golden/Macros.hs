@@ -34,6 +34,7 @@ testCases = [
     , defaultTest "macros/parse/macro_typedef_scope"
     , defaultTest "macros/undef"
       -- Bespoke tests
+    , test_macros_macro_comma
     , test_macros_macro_ext_binding_dep
     , test_macros_macro_resolution_log_level_default
     , test_macros_macro_resolution_log_level_warnings
@@ -53,6 +54,20 @@ testCases = [
 {-------------------------------------------------------------------------------
   Individual test definitions
 -------------------------------------------------------------------------------}
+
+-- | A comma in a macro body denotes a tuple, not the C comma operator.
+--
+-- See <https://github.com/well-typed/hs-bindgen/issues/2182>: C gives macro
+-- bodies no meaning of their own, and tuples support the argument-list idiom
+-- (@#define ARGS 1, 2@ used as @f(ARGS)@). Consequently, a comma expression
+-- does not compose with arithmetic; @ARITH@ is dropped with a parse failure.
+test_macros_macro_comma :: TestCase
+test_macros_macro_comma =
+    testTraceMulti "macros/macro_comma" ["macro ARITH"] $ \case
+      MatchUnusable name@"macro ARITH" (UnusableParseFailure ParseMacroErrorParse{}) ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
 
 test_macros_macro_ext_binding_dep :: TestCase
 test_macros_macro_ext_binding_dep =

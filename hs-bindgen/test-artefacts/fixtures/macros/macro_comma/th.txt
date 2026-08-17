@@ -1,0 +1,58 @@
+-- addDependentFile test-artefacts/headers/golden/macros/macro_comma.h
+{-| __C declaration:__ @macro OBJ@
+
+    __defined at:__ @macros\/macro_comma.h 8:9@
+
+    __exported by:__ @macros\/macro_comma.h@
+-}
+oBJ :: (CInt, CInt)
+{-| __C declaration:__ @macro OBJ@
+
+    __defined at:__ @macros\/macro_comma.h 8:9@
+
+    __exported by:__ @macros\/macro_comma.h@
+-}
+oBJ = (1 :: CInt, 2 :: CInt)
+{-| __C declaration:__ @macro OBJ_NO_PARENS@
+
+    __defined at:__ @macros\/macro_comma.h 9:9@
+
+    __exported by:__ @macros\/macro_comma.h@
+-}
+oBJ_NO_PARENS :: (CInt, CInt)
+{-| __C declaration:__ @macro OBJ_NO_PARENS@
+
+    __defined at:__ @macros\/macro_comma.h 9:9@
+
+    __exported by:__ @macros\/macro_comma.h@
+-}
+oBJ_NO_PARENS = (1 :: CInt, 2 :: CInt)
+{-| __C declaration:__ @macro FUN@
+
+    __defined at:__ @macros\/macro_comma.h 10:9@
+
+    __exported by:__ @macros\/macro_comma.h@
+-}
+fUN :: forall a_0 b_1 . a_0 -> b_1 -> (a_0, b_1)
+{-| __C declaration:__ @macro FUN@
+
+    __defined at:__ @macros\/macro_comma.h 10:9@
+
+    __exported by:__ @macros\/macro_comma.h@
+-}
+fUN = \x_0 -> \y_1 -> (x_0, y_1)
+{-| __C declaration:__ @macro FUN_THREE@
+
+    __defined at:__ @macros\/macro_comma.h 11:9@
+
+    __exported by:__ @macros\/macro_comma.h@
+-}
+fUN_THREE :: forall a_0 b_1 c_2 .
+             a_0 -> b_1 -> c_2 -> (a_0, b_1, c_2)
+{-| __C declaration:__ @macro FUN_THREE@
+
+    __defined at:__ @macros\/macro_comma.h 11:9@
+
+    __exported by:__ @macros\/macro_comma.h@
+-}
+fUN_THREE = \x_0 -> \y_1 -> \z_2 -> (x_0, y_1, z_2)
