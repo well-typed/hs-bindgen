@@ -34,10 +34,11 @@ exec = mapM_ putStrLn (aux def)
   where
     aux :: Inst.SupportedInstances -> [String]
     aux supportedInstances =
-         auxKind "struct"  supportedInstances.struct
-      ++ auxKind "union"   supportedInstances.union
-      ++ auxKind "enum"    supportedInstances.enum
-      ++ auxKind "typedef" supportedInstances.typedef
+         auxKind "struct"    supportedInstances.struct
+      ++ auxKind "union"     supportedInstances.union
+      ++ auxKind "enum"      supportedInstances.enum
+      ++ auxKind "typedef"   supportedInstances.typedef
+      ++ auxKind "emptydata" supportedInstances.emptydata
 
     auxKind :: String -> Map Inst.TypeClass Inst.SupportedStrategies -> [String]
     auxKind kind classMap =
