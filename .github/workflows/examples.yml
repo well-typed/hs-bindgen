@@ -249,6 +249,7 @@ jobs:
     - name: 🛠️ Configure (${{ matrix.example }})
       working-directory: ${{ env.hs-project-directory }}
       run: |
+        touch cabal.project.paths
         cabal configure --enable-test --disable-benchmark --disable-documentation --ghc-options="-Werror"
         cat "cabal.project.local"
 

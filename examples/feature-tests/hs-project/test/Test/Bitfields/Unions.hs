@@ -4,8 +4,6 @@
 
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-{-# OPTIONS_GHC -ddump-splices #-}
-
 -- | C bit-field tests for unions
 --
 -- This module implements two types of tests for various @union@s:

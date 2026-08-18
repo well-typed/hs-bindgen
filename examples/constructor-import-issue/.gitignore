@@ -1,3 +1,8 @@
+# Custom
+cabal.project.paths
+external/
+hs-project/generated/
+
 # https://github.com/github/gitignore/blob/main/Haskell.gitignore
 dist
 dist-*

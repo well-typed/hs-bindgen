@@ -662,17 +662,17 @@ if [ ${#SKIPPED_HEADERS[@]} -gt 0 ]; then
 fi
 
 echo "# "
-echo "# Updating cabal.project.local"
+echo "# Generating cabal.project.paths"
 echo "# "
 
-cat > "$SCRIPT_DIR/hs-project/cabal.project.local" <<-EOF
+cat > "$SCRIPT_DIR/hs-project/cabal.project.paths" <<EOF
 package cef
     extra-include-dirs:
         $INCLUDE_DIR
     extra-lib-dirs:
         $LIB_DIR
 EOF
-cat "$SCRIPT_DIR/hs-project/cabal.project.local"
+cat "$SCRIPT_DIR/hs-project/cabal.project.paths"
 
 echo "# "
 echo "# Done!"

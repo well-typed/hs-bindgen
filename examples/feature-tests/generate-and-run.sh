@@ -173,7 +173,7 @@ cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     unions.h
 
 echo "# "
-echo "# Updating cabal.project.local"
+echo "# Generating cabal.project.paths"
 echo "# "
 
 # On Windows, Cabal expects Windows-style paths in extra-include-dirs /
@@ -184,15 +184,12 @@ else
     CABAL_C_DIR="$C_DIR"
 fi
 
-LINE=$(cat <<-EOF
+cat > "$SCRIPT_DIR/hs-project/cabal.project.paths" <<EOF
 package feature-tests
     extra-include-dirs: $CABAL_C_DIR
     extra-lib-dirs: $CABAL_C_DIR
 EOF
-)
-
-grep -qxF "$LINE" "$SCRIPT_DIR/hs-project/cabal.project.local" || echo "$LINE" >> "$SCRIPT_DIR/hs-project/cabal.project.local"
-cat "$SCRIPT_DIR/hs-project/cabal.project.local"
+cat "$SCRIPT_DIR/hs-project/cabal.project.paths"
 
 echo "# "
 echo "# Done!"

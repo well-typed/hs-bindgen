@@ -75,6 +75,7 @@ as the following requirements are met:
 
     ```cabal
     import: ../../../cabal.project.base
+    import: cabal.project.paths
     packages: .
               ../../../hs-bindgen-runtime
     ```
@@ -86,8 +87,8 @@ as the following requirements are met:
     the generated modules into the Haskell project
 * The script should make sure that the Haskell package can find the installed
     `libfoo` package. For locally installed packages, this probably means
-    setting `LD_LIBRARY_PATH` and updating the
-    `REPOSITORY_ROOT/examples/libfoo/hs-project/cabal.project.local` file so
+    setting `LD_LIBRARY_PATH` and generating a
+    `REPOSITORY_ROOT/examples/libfoo/hs-project/cabal.project.paths` file so
     that it includes:
 
     ```cabal
@@ -97,11 +98,10 @@ as the following requirements are met:
       extra-lib-dirs:
         -- insert absolute path to installation directory for dll files here
     ```
-
-    If a `cabal.project.local` file already exists, then the file should be
-    updated to include the lines above. Otherwise, it should create the file
-    with the lines above.
 * The script should run the Haskell executable
+* Add a `.gitignore` file at `REPOSITORY_ROOT/examples/libfoo/.gitignore`
+  * Make sure that it ignores: generated files, build artifacts,
+    `cabal.project.paths`, etc.
 * Add a composite action by creating a new file at
    `REPOSITORY_ROOT/.github/actions/examples/libfoo.action.yml`
   * The composite action should install example-specific prerequisites, such as

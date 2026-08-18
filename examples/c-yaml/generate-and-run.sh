@@ -33,19 +33,17 @@ echo "# "
 ./generate.sh
 
 echo "# "
-echo "# Updating cabal.project.local"
+echo "# Generating cabal.project.paths"
 echo "# "
 
-LINE=$(cat <<-EOF
+cat > "$SCRIPT_DIR/hs-project/cabal.project.paths" <<EOF
 package c-yaml
     extra-include-dirs:
         $LIBYAML_INCLUDE_DIR
     extra-lib-dirs:
         $LIBYAML_LIB_DIR
 EOF
-)
-grep -qxF "$LINE" "$SCRIPT_DIR/hs-project/cabal.project.local" || echo "$LINE" >>"$SCRIPT_DIR/hs-project/cabal.project.local"
-cat "$SCRIPT_DIR/hs-project/cabal.project.local"
+cat "$SCRIPT_DIR/hs-project/cabal.project.paths"
 
 echo "# "
 echo "# Done!"
