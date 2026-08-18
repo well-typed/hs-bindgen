@@ -62,16 +62,16 @@ jobs:
       run: |
         { echo 'MATRIX_COMBINATIONS<<EOF'
           # default (ordered alphabetically)
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "blocktest"},'
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "bundled-c"},'
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "constructor-import-issue"},'
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "feature-tests"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "blocktest"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "bundled-c"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "constructor-import-issue"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "feature-tests"},'
           # feature-tests is also exercised on macOS and Windows (#1912).
           # macOS uses LLVM 14, matching the haskell.yml convention.
           # Windows uses the LLVM bundled with GHC, so llvm-version is unused
           # on that runner (but kept in the matrix for cache-key uniqueness).
-          echo '{"runner": "macos-latest"  , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "14"     , "example": "feature-tests"},'
-          echo '{"runner": "windows-latest", "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "bundled", "example": "feature-tests"},'
+          echo '{"runner": "macos-latest"  , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "14"     , "example": "feature-tests"},'
+          echo '{"runner": "windows-latest", "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "bundled", "example": "feature-tests"},'
           echo EOF
         } >> "$GITHUB_ENV"
 
@@ -82,25 +82,25 @@ jobs:
       run: |
         { echo 'MATRIX_COMBINATIONS<<EOF'
           # first the default tests, same as above (ordered alphabetically)
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "blocktest"},'
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "bundled-c"},'
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "constructor-import-issue"},'
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "feature-tests"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "blocktest"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "bundled-c"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "constructor-import-issue"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "feature-tests"},'
           # feature-tests is also exercised on macOS and Windows (#1912).
           # macOS uses LLVM 14, matching the haskell.yml convention.
           # Windows uses the LLVM bundled with GHC, so llvm-version is unused
           # on that runner (but kept in the matrix for cache-key uniqueness).
-          echo '{"runner": "macos-latest"  , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "14"     , "example": "feature-tests"},'
-          echo '{"runner": "windows-latest", "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "bundled", "example": "feature-tests"},'
+          echo '{"runner": "macos-latest"  , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "14"     , "example": "feature-tests"},'
+          echo '{"runner": "windows-latest", "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "bundled", "example": "feature-tests"},'
           # then the remaining ones, which we only run for the comprehensive check (ordered alphabetically)
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "botan"},'
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-minisat"},'
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-qrcode"},'
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-rogueutil"},'
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-rpm"},'
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "c-yaml"},'
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "cef"},'
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.16", "llvm-version": "15", "example": "libpcap"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "botan"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "c-minisat"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "c-qrcode"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "c-rogueutil"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "c-rpm"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "c-yaml"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "cef"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "libpcap"},'
           echo EOF
         } >> "$GITHUB_ENV"
 
@@ -246,9 +246,13 @@ jobs:
         cabal configure --disable-test --disable-benchmark --disable-documentation --ghc-options="-Werror"
         cat "cabal.project.local"
 
+    # HACK: if we don't touch cabal.project.paths, then configuring fails because
+    # it sees an import for a file that does not exist. It is fine for the file to
+    # exist but be empty at first.
     - name: 🛠️ Configure (${{ matrix.example }})
       working-directory: ${{ env.hs-project-directory }}
       run: |
+        touch cabal.project.paths
         cabal configure --enable-test --disable-benchmark --disable-documentation --ghc-options="-Werror"
         cat "cabal.project.local"
 

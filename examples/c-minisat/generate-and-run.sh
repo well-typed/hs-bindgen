@@ -47,7 +47,7 @@ echo "# "
 echo "# Generating Haskell bindings"
 echo "# "
 
-cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" hs-bindgen-cli -- \
     preprocess \
     -I "minisat-c-bindings" \
     --hs-output-dir "hs-project/src" \
@@ -57,11 +57,10 @@ cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     "minisat.h"
 
 echo "# "
-echo "# Updating cabal.project.local"
+echo "# Generating cabal.project.paths"
 echo "# "
 
-LINE=$(
-    cat <<-EOF
+cat > "$SCRIPT_DIR/hs-project/cabal.project.paths" <<EOF
 package c-minisat
     extra-include-dirs:
         $SCRIPT_DIR/minisat-c-bindings
@@ -70,9 +69,7 @@ package c-minisat
         $SCRIPT_DIR/minisat-c-bindings
       , $SCRIPT_DIR/minisat-c-bindings/build/dynamic/lib
 EOF
-)
-grep -qxF "$LINE" "$SCRIPT_DIR/hs-project/cabal.project.local" || echo "$LINE" >>"$SCRIPT_DIR/hs-project/cabal.project.local"
-cat "$SCRIPT_DIR/hs-project/cabal.project.local"
+cat "$SCRIPT_DIR/hs-project/cabal.project.paths"
 
 echo "# "
 echo "# Done!"

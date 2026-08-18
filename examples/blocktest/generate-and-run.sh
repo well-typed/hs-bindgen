@@ -27,7 +27,7 @@ echo "# "
 echo "# Generating Haskell bindings"
 echo "# "
 
-cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --hs-output-dir hs-project/generated \
@@ -40,18 +40,15 @@ cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     iterator.h
 
 echo "# "
-echo "# Updating cabal.project.local"
+echo "# Generating cabal.project.paths"
 echo "# "
 
-LINE=$(cat <<-EOF
+cat > "$SCRIPT_DIR/hs-project/cabal.project.paths" <<EOF
 package blocktest
     extra-include-dirs: $C_DIR
     extra-lib-dirs: $C_DIR
 EOF
-)
-
-grep -qxF "$LINE" "$SCRIPT_DIR/hs-project/cabal.project.local" || echo "$LINE" >> "$SCRIPT_DIR/hs-project/cabal.project.local"
-cat "$SCRIPT_DIR/hs-project/cabal.project.local"
+cat "$SCRIPT_DIR/hs-project/cabal.project.paths"
 
 echo "# "
 echo "# Done!"

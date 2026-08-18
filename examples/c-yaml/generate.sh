@@ -10,7 +10,7 @@ fi
 
 LIBYAML_INCLUDE_DIR="${LIBYAML_INCLUDE_DIR:-./yaml/include}"
 
-cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" hs-bindgen-cli -- \
     preprocess \
     -I "$LIBYAML_INCLUDE_DIR" \
     --unique-id org.hs-bindgen.c-yaml \

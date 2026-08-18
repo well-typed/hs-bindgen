@@ -42,19 +42,17 @@ echo "# "
 ./generate.sh
 
 echo "# "
-echo "# Writing cabal.project.local"
+echo "# Generating cabal.project.paths"
 echo "# "
 
-# cabal.project.local is gitignored and machine-specific, so rewrite it from
-# scratch each run rather than appending (which would accumulate stale paths).
-cat > "$SCRIPT_DIR/hs-project/cabal.project.local" <<EOF
+cat > "$SCRIPT_DIR/hs-project/cabal.project.paths" <<EOF
 package libpcap
     extra-include-dirs:
         $LIBPCAP_DIR
     extra-lib-dirs:
         $LIBPCAP_DIR
 EOF
-cat "$SCRIPT_DIR/hs-project/cabal.project.local"
+cat "$SCRIPT_DIR/hs-project/cabal.project.paths"
 
 echo "# "
 echo "# Done!"

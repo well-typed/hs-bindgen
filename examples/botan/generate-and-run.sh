@@ -38,7 +38,7 @@ echo "# "
 echo "# Generating Haskell bindings"
 echo "# "
 
-cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" hs-bindgen-cli -- \
     preprocess \
     -I "botan/build/include/public" \
     --hs-output-dir "hs-project/src" \
@@ -48,20 +48,17 @@ cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
     "botan/ffi.h"
 
 echo "# "
-echo "# Updating cabal.project.local"
+echo "# Generating cabal.project.paths"
 echo "# "
 
-LINE=$(
-    cat <<-EOF
+cat > "$SCRIPT_DIR/hs-project/cabal.project.paths" <<EOF
 package botan
     extra-include-dirs:
         $BOTAN_DIR/build/include/public
     extra-lib-dirs:
         $BOTAN_DIR
 EOF
-)
-grep -qxF "$LINE" "$SCRIPT_DIR/hs-project/cabal.project.local" || echo "$LINE" >>"$SCRIPT_DIR/hs-project/cabal.project.local"
-cat "$SCRIPT_DIR/hs-project/cabal.project.local"
+cat "$SCRIPT_DIR/hs-project/cabal.project.paths"
 
 echo "# "
 echo "# Done!"

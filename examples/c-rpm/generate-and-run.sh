@@ -165,11 +165,10 @@ generate_bindings "rpmlib.h" "RPM.Lib" \
     "$BINDING_SPEC_DIR/rpmver.yaml"
 
 echo "# "
-echo "# Updating cabal.project.local"
+echo "# Generating cabal.project.paths"
 echo "# "
 
-LINE=$(
-    cat <<-EOF
+cat > "$SCRIPT_DIR/hs-project/cabal.project.paths" <<EOF
 package c-rpm
     extra-include-dirs:
         $INCLUDE_DIR
@@ -177,9 +176,7 @@ package c-rpm
         $RPMIO_DIR
         $RPMBUILD_DIR
 EOF
-)
-grep -qxF "$LINE" "$SCRIPT_DIR/hs-project/cabal.project.local" || echo "$LINE" >>"$SCRIPT_DIR/hs-project/cabal.project.local"
-cat "$SCRIPT_DIR/hs-project/cabal.project.local"
+cat "$SCRIPT_DIR/hs-project/cabal.project.paths"
 
 echo "# "
 echo "# Done!"

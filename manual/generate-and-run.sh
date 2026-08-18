@@ -41,7 +41,7 @@ echo "# "
 echo "# Manual"
 echo "# "
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c/ \
     --create-output-dirs \
@@ -51,7 +51,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --module Example \
     manual_examples.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c/ \
     --create-output-dirs \
@@ -61,7 +61,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --module Macro \
     macro.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -71,7 +71,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --module Globals \
     globals.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -81,7 +81,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --module Arrays \
     arrays.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -91,7 +91,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --module FunctionPointers \
     function_pointers.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c/ \
     --create-output-dirs \
@@ -101,7 +101,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --module Complex \
     hsb_complex_test.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c/ \
     --create-output-dirs \
@@ -115,7 +115,7 @@ echo "# "
 echo "## Generated names"
 echo "# "
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -126,7 +126,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --omit-field-prefixes \
     generated_names.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -141,7 +141,7 @@ echo "# "
 echo "## Pointer manipulation API"
 echo "# "
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c/ \
     --create-output-dirs \
@@ -155,7 +155,7 @@ echo "# "
 echo "## Structs"
 echo "# "
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -165,7 +165,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --module Structs \
     structs.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -179,7 +179,7 @@ echo "# "
 echo "## Unions"
 echo "# "
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -189,7 +189,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --module Unions \
     unions.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -206,7 +206,7 @@ echo "# "
 mkdir -p hs/hs-vector/generated
 
 # Organize the generated bindings all in a single Haskell module.
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -220,7 +220,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     vector_rotate.h \
     vector_length.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -239,7 +239,7 @@ sed -i.bak \
   -e '/ - vector_/s/vector_/cVector_/' \
   binding-specs/vector.yaml
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -252,7 +252,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --unsafe '' \
     vector.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -286,7 +286,7 @@ hstypes:
       - Show
 EOF
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -306,7 +306,7 @@ echo "# "
 
 mkdir -p hs/hs-game/generated/Game
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -320,7 +320,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     game_world.h \
     game_player.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -331,7 +331,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --module Game.World \
     game_world.h
 
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \

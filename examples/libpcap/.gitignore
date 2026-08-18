@@ -1,3 +1,8 @@
+# Custom
+cabal.project.paths
+hs-project/src/Generated/
+libpcap/
+
 # https://github.com/github/gitignore/blob/main/Haskell.gitignore
 dist
 dist-*
@@ -22,7 +27,3 @@ cabal.project.local
 cabal.project.local~
 .HTF/
 .ghc.environment.*
-
-# Custom
-hs-project/src/Generated/
-libpcap/

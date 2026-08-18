@@ -1,3 +1,10 @@
+# Custom
+cabal.project.paths
+hs-project/src/
+binding-specs/
+## Fetched on demand by generate-and-run.sh
+rpm/
+
 # https://github.com/github/gitignore/blob/main/Haskell.gitignore
 dist
 dist-*
@@ -22,10 +29,3 @@ cabal.project.local
 cabal.project.local~
 .HTF/
 .ghc.environment.*
-
-# Custom
-hs-project/src/
-binding-specs/
-
-# Fetched on demand by generate-and-run.sh
-rpm/
