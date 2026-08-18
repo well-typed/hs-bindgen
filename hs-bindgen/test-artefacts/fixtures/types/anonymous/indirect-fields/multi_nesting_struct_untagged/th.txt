@@ -1,0 +1,174 @@
+-- addDependentFile test-artefacts/headers/golden/types/anonymous/indirect-fields/_internal_macros.h
+-- addDependentFile test-artefacts/headers/golden/types/anonymous/indirect-fields/multi_nesting_struct_untagged.h
+{-| __C declaration:__ @struct \@S_anon\'anon\'x_anon\'x_x@
+
+    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 12:7@
+
+    __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
+-}
+data S_anon'anon'x_anon'x_x
+    = S_anon'anon'x_anon'x_x {s_anon'anon'x_anon'x_x_a :: CInt
+                              {- ^ __C declaration:__ @a@
+
+                                   __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 13:13@
+
+                                   __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
+                              -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S_anon'anon'x_anon'x_x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S_anon'anon'x_anon'x_x
+    where readRaw = \ptr_0 -> pure S_anon'anon'x_anon'x_x <*> readRaw (Proxy @"s_anon'anon'x_anon'x_x_a") ptr_0
+instance WriteRaw S_anon'anon'x_anon'x_x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S_anon'anon'x_anon'x_x s_anon'anon'x_anon'x_x_a_2 -> writeRaw (Proxy @"s_anon'anon'x_anon'x_x_a") ptr_0 s_anon'anon'x_anon'x_x_a_2
+deriving via (EquivStorable S_anon'anon'x_anon'x_x) instance Storable S_anon'anon'x_anon'x_x
+deriving via (IsStructViaReadRaw S_anon'anon'x_anon'x_x) instance IsStruct S_anon'anon'x_anon'x_x
+instance (~) ty CInt =>
+         HasField "s_anon'anon'x_anon'x_x_a" S_anon'anon'x_anon'x_x ty
+    where hasField = \x_0 -> (\y_1 -> S_anon'anon'x_anon'x_x{s_anon'anon'x_anon'x_x_a = y_1},
+                              getField @"s_anon'anon'x_anon'x_x_a" x_0)
+instance (~) ty CInt =>
+         HasField "s_anon'anon'x_anon'x_x_a"
+                  (Ptr S_anon'anon'x_anon'x_x)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'anon'x_anon'x_x_a")
+instance HasCField S_anon'anon'x_anon'x_x
+                   "s_anon'anon'x_anon'x_x_a"
+    where type CFieldType S_anon'anon'x_anon'x_x
+                          "s_anon'anon'x_anon'x_x_a" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct \@S_anon\'anon\'x_anon\'x@
+
+    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 11:5@
+
+    __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
+-}
+data S_anon'anon'x_anon'x
+    = S_anon'anon'x_anon'x {s_anon'anon'x_anon'x_x :: S_anon'anon'x_anon'x_x
+                            {- ^ __C declaration:__ @x@
+
+                                 __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 14:9@
+
+                                 __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
+                            -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S_anon'anon'x_anon'x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S_anon'anon'x_anon'x
+    where readRaw = \ptr_0 -> pure S_anon'anon'x_anon'x <*> readRaw (Proxy @"s_anon'anon'x_anon'x_x") ptr_0
+instance WriteRaw S_anon'anon'x_anon'x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S_anon'anon'x_anon'x s_anon'anon'x_anon'x_x_2 -> writeRaw (Proxy @"s_anon'anon'x_anon'x_x") ptr_0 s_anon'anon'x_anon'x_x_2
+deriving via (EquivStorable S_anon'anon'x_anon'x) instance Storable S_anon'anon'x_anon'x
+deriving via (IsStructViaReadRaw S_anon'anon'x_anon'x) instance IsStruct S_anon'anon'x_anon'x
+instance (~) ty S_anon'anon'x_anon'x_x =>
+         HasField "s_anon'anon'x_anon'x_x" S_anon'anon'x_anon'x ty
+    where hasField = \x_0 -> (\y_1 -> S_anon'anon'x_anon'x{s_anon'anon'x_anon'x_x = y_1},
+                              getField @"s_anon'anon'x_anon'x_x" x_0)
+instance (~) ty S_anon'anon'x_anon'x_x =>
+         HasField "s_anon'anon'x_anon'x_x"
+                  (Ptr S_anon'anon'x_anon'x)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'anon'x_anon'x_x")
+instance HasCField S_anon'anon'x_anon'x "s_anon'anon'x_anon'x_x"
+    where type CFieldType S_anon'anon'x_anon'x
+                          "s_anon'anon'x_anon'x_x" = S_anon'anon'x_anon'x_x
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct \@S_anon\'anon\'x@
+
+    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 10:3@
+
+    __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
+-}
+data S_anon'anon'x
+    = S_anon'anon'x {s_anon'anon'x_anon'x :: S_anon'anon'x_anon'x
+                     {- ^ __C declaration:__ @anon\'x@
+
+                          __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 11:5@
+
+                          __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
+                     -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S_anon'anon'x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S_anon'anon'x
+    where readRaw = \ptr_0 -> pure S_anon'anon'x <*> readRaw (Proxy @"s_anon'anon'x_anon'x") ptr_0
+instance WriteRaw S_anon'anon'x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S_anon'anon'x s_anon'anon'x_anon'x_2 -> writeRaw (Proxy @"s_anon'anon'x_anon'x") ptr_0 s_anon'anon'x_anon'x_2
+deriving via (EquivStorable S_anon'anon'x) instance Storable S_anon'anon'x
+deriving via (IsStructViaReadRaw S_anon'anon'x) instance IsStruct S_anon'anon'x
+instance (~) ty S_anon'anon'x_anon'x =>
+         HasField "s_anon'anon'x_anon'x" S_anon'anon'x ty
+    where hasField = \x_0 -> (\y_1 -> S_anon'anon'x{s_anon'anon'x_anon'x = y_1},
+                              getField @"s_anon'anon'x_anon'x" x_0)
+instance (~) ty S_anon'anon'x_anon'x =>
+         HasField "s_anon'anon'x_anon'x" (Ptr S_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'anon'x_anon'x")
+instance HasCField S_anon'anon'x "s_anon'anon'x_anon'x"
+    where type CFieldType S_anon'anon'x
+                          "s_anon'anon'x_anon'x" = S_anon'anon'x_anon'x
+          offset# = \_ -> \_ -> 0
+instance (~) ty S_anon'anon'x_anon'x_x =>
+         HasField "s_anon'anon'x_x" S_anon'anon'x ty
+    where getField = \x_0 -> getField @"s_anon'anon'x_anon'x_x" (getField @"s_anon'anon'x_anon'x" x_0)
+instance (~) ty S_anon'anon'x_anon'x_x =>
+         HasField "s_anon'anon'x_x" S_anon'anon'x ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"s_anon'anon'x_anon'x" x_0 (\z_2 -> setField @"s_anon'anon'x_anon'x_x" z_2 y_1),
+                              getField @"s_anon'anon'x_x" x_0)
+instance (~) ty S_anon'anon'x_anon'x_x =>
+         HasField "s_anon'anon'x_x" (Ptr S_anon'anon'x) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'anon'x_x")
+instance HasCField S_anon'anon'x "s_anon'anon'x_x"
+    where type CFieldType S_anon'anon'x
+                          "s_anon'anon'x_x" = S_anon'anon'x_anon'x_x
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 9:8@
+
+    __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
+-}
+data S
+    = S {s_anon'anon'x :: S_anon'anon'x
+         {- ^ __C declaration:__ @anon\'anon\'x@
+
+              __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 10:3@
+
+              __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_anon'anon'x") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_anon'anon'x_2 -> writeRaw (Proxy @"s_anon'anon'x") ptr_0 s_anon'anon'x_2
+deriving via (EquivStorable S) instance Storable S
+deriving via (IsStructViaReadRaw S) instance IsStruct S
+instance (~) ty S_anon'anon'x => HasField "s_anon'anon'x" S ty
+    where hasField = \x_0 -> (\y_1 -> S{s_anon'anon'x = y_1},
+                              getField @"s_anon'anon'x" x_0)
+instance (~) ty S_anon'anon'x =>
+         HasField "s_anon'anon'x" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_anon'anon'x")
+instance HasCField S "s_anon'anon'x"
+    where type CFieldType S "s_anon'anon'x" = S_anon'anon'x
+          offset# = \_ -> \_ -> 0
+instance (~) ty S_anon'anon'x_anon'x_x => HasField "s_x" S ty
+    where getField = \x_0 -> getField @"s_anon'anon'x_x" (getField @"s_anon'anon'x" x_0)
+instance (~) ty S_anon'anon'x_anon'x_x => HasField "s_x" S ty
+    where hasField = \x_0 -> (\y_1 -> modifyField @"s_anon'anon'x" x_0 (\z_2 -> setField @"s_anon'anon'x_x" z_2 y_1),
+                              getField @"s_x" x_0)
+instance (~) ty S_anon'anon'x_anon'x_x =>
+         HasField "s_x" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_x")
+instance HasCField S "s_x"
+    where type CFieldType S "s_x" = S_anon'anon'x_anon'x_x
+          offset# = \_ -> \_ -> 0

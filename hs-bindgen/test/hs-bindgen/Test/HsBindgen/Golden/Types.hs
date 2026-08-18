@@ -65,8 +65,12 @@ testCases = [
     , defaultTest "types/unions/bitfields"
     , defaultTest "types/unions/nested_unions"
     , defaultTest "types/unions/unions"
+    ]
+      -- Indirect fields
+    ++ test_indirect_fields
+    ++ [
       -- Bespoke tests
-    , test_types_anonymous_edge_cases_drop_indirect_fields_1
+      test_types_anonymous_edge_cases_drop_indirect_fields_1
     , test_types_anonymous_edge_cases_drop_indirect_fields_2
     , test_types_anonymous_edge_cases_empty_anon
     , test_types_anonymous_edge_cases_multi_nesting
@@ -89,6 +93,31 @@ testCases = [
     , test_types_typedefs_auxiliary_function_pointer_block
     , test_types_typedefs_typedefs
     , test_types_typedefs_typenames
+    ]
+
+{-------------------------------------------------------------------------------
+  Indirect fields
+-------------------------------------------------------------------------------}
+
+-- | Tests related to indirect fields
+--
+-- Indirect fields are handled the same for structs as for unions, so it does
+-- not matter whether we nest structs or unions or a combination of them. We
+-- arbitrarily decided to use structs in these test headers.
+test_indirect_fields :: [TestCase]
+test_indirect_fields = [
+      defaultTest "types/anonymous/indirect-fields/multi_nesting_enum_tagged"
+    , defaultTest "types/anonymous/indirect-fields/multi_nesting_enum_untagged"
+    , defaultTest "types/anonymous/indirect-fields/multi_nesting_struct_tagged"
+    , defaultTest "types/anonymous/indirect-fields/multi_nesting_struct_untagged"
+    , defaultTest "types/anonymous/indirect-fields/multi_nesting_union_tagged"
+    , defaultTest "types/anonymous/indirect-fields/multi_nesting_union_untagged"
+    , defaultTest "types/anonymous/indirect-fields/single_nesting_enum_tagged"
+    , defaultTest "types/anonymous/indirect-fields/single_nesting_enum_untagged"
+    , defaultTest "types/anonymous/indirect-fields/single_nesting_struct_tagged"
+    , defaultTest "types/anonymous/indirect-fields/single_nesting_struct_untagged"
+    , defaultTest "types/anonymous/indirect-fields/single_nesting_union_tagged"
+    , defaultTest "types/anonymous/indirect-fields/single_nesting_union_untagged"
     ]
 
 {-------------------------------------------------------------------------------

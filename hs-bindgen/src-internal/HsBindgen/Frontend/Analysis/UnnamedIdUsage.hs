@@ -28,7 +28,7 @@ data UnnamedIdUsageAnalysis = UnnamedIdUsageAnalysis{
   deriving stock (Show)
 
 data Context =
-    -- | Unnamed declaration used inside a named field.
+    -- | Unnamed declaration inside a direct, named field
     --
     -- E.g.
     --
@@ -37,10 +37,30 @@ data Context =
     -- >   struct { int x; int y; } bottomright;
     -- > }
     --
-    -- NOTE: fields can not be unnamed. In case we parse unnamed fields (i.e.,
-    -- implicit fields) in the @Parse@ pass, then we generate a name for those
-    -- fields. See the "HsBindgen.Frontend.Pass.Parse.Decl.ImplicitFields"
-    -- module for more information.
+    -- @topleft@ and @bottomright@ are fields that reference untagged structs.
+    -- Both fields are direct fields of struct @rect@.
+    --
+    -- NOTE: after the @Parse@ pass, unnamed fields can not exist. In case we
+    -- parse unnamed fields (i.e., implicit fields) in the @Parse@ pass, then we
+    -- generate a name for those fields. See the
+    -- "HsBindgen.Frontend.Pass.Parse.Decl.ImplicitFields" module for more
+    -- information.
+    --
+    -- Indirect fields are not analysed, because indirect fields only exist for
+    -- regular fields and those will have been analysed already.
+    --
+    -- E.g.
+    --
+    -- > struct S {
+    -- >   struct { // <-- anonymous struct
+    -- >     struct { // <-- untagged struct
+    -- >       int y;
+    -- >     } x;
+    -- >   };
+    -- > };
+    --
+    -- @x@ is a field that references an untagged struct. @x@ is a direct field
+    -- of the anonymous struct, and an indirect field of struct @rect@.
     Field (C.DeclInfo Parse) (C.FieldInfo Parse)
 
     -- | Direct use of unnamed declaration inside in a typedef
@@ -94,6 +114,10 @@ fromDecls decls = UnnamedIdUsageAnalysis{
 resolveConflicts :: C.UnnamedId -> Context -> Context -> Context
 resolveConflicts unnamedId new old =
     case (old, new) of
+      {-----------------------------------------------------------------------------
+        Fields
+      -----------------------------------------------------------------------------}
+
       (Field decl1 _, Field decl2 _) | decl1.id == decl2.id ->
         -- Example:
         --
@@ -181,37 +205,31 @@ analyseDecl decl =
 
 analyseStruct :: C.DeclInfo Parse -> C.Struct Parse -> [(C.UnnamedId, Context)]
 analyseStruct info struct = concat [
-      concatMap aux     struct.fields
-    , foldMap   auxFlam (C.flamStructField struct.flam)
+      concatMap (analyseField info)        struct.fields
+    , foldMap   (analyseRegularField info) (C.flamStructField struct.flam)
     ]
-  where
-    aux :: C.Field Parse -> [(C.UnnamedId, Context)]
-    aux f = analyseField (Field info f.info) f
-
-    auxFlam :: C.RegularField Parse -> [(C.UnnamedId, Context)]
-    auxFlam f = analyseRegularField (Field info f.info) f
 
 analyseUnion :: C.DeclInfo Parse -> C.Union Parse -> [(C.UnnamedId, Context)]
 analyseUnion info union =
-    concatMap aux union.fields
-  where
-    aux :: C.Field Parse -> [(C.UnnamedId, Context)]
-    aux f = analyseField (Field info f.info) f
+    concatMap (analyseField info) union.fields
 
-analyseField :: Context -> C.Field Parse -> [(C.UnnamedId, Context)]
-analyseField ctx = C.elimField (analyseRegularField ctx) (analyseImplicitField ctx)
+analyseField :: C.DeclInfo Parse -> C.Field Parse -> [(C.UnnamedId, Context)]
+analyseField info = C.elimField (analyseRegularField info) (analyseImplicitField info)
 
-analyseRegularField :: Context -> C.RegularField Parse -> [(C.UnnamedId, Context)]
-analyseRegularField ctx field = analyseType ctx field.typ
+analyseRegularField :: C.DeclInfo Parse -> C.RegularField Parse -> [(C.UnnamedId, Context)]
+analyseRegularField info field = analyseType (Field info field.info) field.typ
 
-analyseImplicitField :: Context -> C.ImplicitField Parse -> [(C.UnnamedId, Context)]
-analyseImplicitField ctx field = concat [
-      analyseType ctx field.typ
-    , concatMap (analyseIndirectField ctx) field.indirect
+analyseImplicitField :: C.DeclInfo Parse -> C.ImplicitField Parse -> [(C.UnnamedId, Context)]
+analyseImplicitField info field = concat [
+      analyseType (Field info field.info) field.typ
+    , concatMap (analyseIndirectField info) field.indirect
     ]
 
-analyseIndirectField :: Context -> C.IndirectField Parse -> [(C.UnnamedId, Context)]
-analyseIndirectField ctx field = analyseType ctx field.typ
+analyseIndirectField :: C.DeclInfo Parse -> C.IndirectField Parse -> [(C.UnnamedId, Context)]
+analyseIndirectField _info _field =
+    -- Indirect fields can only exist if there is a direct field, and we always
+    -- prefer the direct field. See also the haddocks on 'Field'.
+    []
 
 analyseTypedef :: C.DeclInfo Parse -> C.Typedef Parse -> [(C.UnnamedId, Context)]
 analyseTypedef info typedef = analyseType (TypedefDirect info) typedef.typ

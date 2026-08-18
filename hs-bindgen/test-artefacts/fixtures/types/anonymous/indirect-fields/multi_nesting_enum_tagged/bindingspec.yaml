@@ -1,0 +1,100 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/anonymous/indirect-fields/multi_nesting_enum_tagged.h
+  cname: struct S
+  hsname: S
+- headers: types/anonymous/indirect-fields/multi_nesting_enum_tagged.h
+  cname: struct @S_anon'anon'x
+  hsname: S_anon'anon'x
+- headers: types/anonymous/indirect-fields/multi_nesting_enum_tagged.h
+  cname: struct @S_anon'anon'x_anon'x
+  hsname: S_anon'anon'x_anon'x
+- headers: types/anonymous/indirect-fields/multi_nesting_enum_tagged.h
+  cname: enum T
+  hsname: T
+  enum: open
+hstypes:
+- hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - s_anon'anon'x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S_anon'anon'x
+  representation:
+    record:
+      constructor: S_anon'anon'x
+      fields:
+      - s_anon'anon'x_anon'x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S_anon'anon'x_anon'x
+  representation:
+    record:
+      constructor: S_anon'anon'x_anon'x
+      fields:
+      - s_anon'anon'x_anon'x_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T
+  representation:
+    newtype:
+      constructor: T
+      fields:
+      - unwrapT
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
