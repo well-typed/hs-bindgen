@@ -38,7 +38,7 @@ echo "# "
 echo "# Generating Haskell bindings"
 echo "# "
 
-cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" hs-bindgen-cli -- \
     preprocess \
     -I "botan/build/include/public" \
     --hs-output-dir "hs-project/src" \

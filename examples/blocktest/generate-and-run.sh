@@ -27,7 +27,7 @@ echo "# "
 echo "# Generating Haskell bindings"
 echo "# "
 
-cabal run --project-file="${PROJECT_ROOT}/cabal.project" -- hs-bindgen-cli \
+cabal run --project-file="${PROJECT_ROOT}/cabal.project" hs-bindgen-cli -- \
     preprocess \
     -I c \
     --hs-output-dir hs-project/generated \
