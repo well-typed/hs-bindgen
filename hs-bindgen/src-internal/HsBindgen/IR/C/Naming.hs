@@ -40,6 +40,7 @@ module HsBindgen.IR.C.Naming (
   ) where
 
 import Data.Text qualified as Text
+import Foreign.C.Types (CUInt)
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel (ShowFile (..))
@@ -196,10 +197,10 @@ parseScopedName t = case Text.words t of
 
 -- | Unnamed declaration identifier
 --
--- A single macro expansion can produce multiple unnamed declarations,
--- and libclang reports the /same/ expansion location for all of them
--- (the macro call site). Without further information they would share an
--- 'UnnamedId'.  Example:
+-- A single macro expansion can produce multiple unnamed declarations, and
+-- libclang reports the /same/ expansion location for all of them (the macro
+-- call site). Without further information they would share an 'UnnamedId'.
+-- Example:
 --
 -- > #define TwoUntaggedStructs \
 -- >     struct { int a; } x; \
@@ -207,19 +208,21 @@ parseScopedName t = case Text.words t of
 -- >
 -- > TwoUntaggedStructs   // both 'struct {}'s share the expansion location
 --
--- The /spelling/ location points back to where each token was originally
--- written -- for macro-expanded code, an offset inside the macro body rather
--- than the call site.  The two structs above have distinct spelling locations
--- (one per @struct@ token in the macro), so keying on it disambiguates them.
+-- To make sure that each unnamed ID is unique, we include a 'hash' of the
+-- cursor pointing to the associated unnamed declaration. With 'hash' in hand,
+-- we can also properly compare unnamed IDs via 'Eq' and 'Ord'. There is a
+-- possilibity that hashes collide accidentally, but the probability of this
+-- happening is very small.
 --
--- 'loc' (expansion) is what we surface in traces and Haddock, so it stays the
--- human-facing identifier; 'spelling' exists only to make the derived 'Eq' and
--- 'Ord' fine-grained enough.  For non-macro code 'spelling' equals 'loc' and
--- 'UnnamedId' behaves as before.
+-- For human convenience, we also include the /spelling/ location of a
+-- declaration in the unnamed ID. The spelling location points back to where
+-- each token was originally written. For macro-expanded code, this an offset
+-- inside the macro body rather than the call site. The two structs above have
+-- distinct spelling locations (one per @struct@ token in the macro).
 --
--- The spelling location is only populated correctly on @llvm >= 19.1.0@; on
--- older toolchains it equals the expansion location and the collision
--- returns.
+-- NOTE: The spelling location is only populated correctly on @llvm >= 19.1.0@;
+-- on older toolchains, the spelling location is the same as the expansion
+-- location.
 data UnnamedId = UnnamedId {
       -- | Macro expansion site, or the source location for non-macro decls.
       -- Used for tracing and Haddock comments.
@@ -228,6 +231,10 @@ data UnnamedId = UnnamedId {
       -- (inside the macro definition, for macro-expanded decls).
     , spelling :: SingleLoc
     , kind     :: NameKind
+      -- | Hash of the cursor pointing to the associated unnamed declaration
+      --
+      -- The hash uniquely keys each unnamed declaration.
+    , hash     :: CUInt
     }
   deriving stock (Eq, Generic, Ord, Show)
 
@@ -249,6 +256,8 @@ instance PrettyForTrace UnnamedId where
         ++ HighLevel.prettySingleLoc ShowFile unnamedId.spelling
         ++ ">"
     | unnamedId.spelling /= unnamedId.loc
+    ] ++ [
+      PP.string $ "<Hash=" ++ show unnamedId.hash ++ ">"
     ]
 
 --------------------------------------------------------------------------------
@@ -320,8 +329,9 @@ prelimDeclIdAtCursor curr kind = do
       cxLoc    <- clang_getCursorLocation curr
       loc      <- HighLevel.clang_getExpansionLocation cxLoc
       spelling <- HighLevel.clang_getSpellingLocation  cxLoc
+      hash     <- clang_hashCursor curr
       return $
-        PrelimDeclIdUnnamed UnnamedId{loc = loc, spelling = spelling, kind = kind}
+        PrelimDeclIdUnnamed UnnamedId{loc = loc, spelling = spelling, kind = kind, hash = hash}
 
 {-------------------------------------------------------------------------------
   DeclId

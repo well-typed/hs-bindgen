@@ -32,7 +32,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @enum T@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 11:10@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h@
 -}
@@ -125,7 +125,7 @@ instance HasCField.HasCField T "unwrapT" where
 
 {-| __C declaration:__ @a@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 11:14@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h@
 -}
@@ -134,7 +134,7 @@ pattern A = T 0
 
 {-| __C declaration:__ @struct \@S_anon\'x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 10:3@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h@
 -}
@@ -142,7 +142,7 @@ data S_anon'x = S_anon'x
   { s_anon'x_x :: T
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 11:18@
+         __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 3:1@
 
          __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h@
     -}
@@ -177,7 +177,7 @@ deriving via Struct.IsStructViaReadRaw S_anon'x instance Struct.IsStruct S_anon'
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 11:18@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h@
 -}
@@ -201,7 +201,7 @@ instance HasCField.HasCField S_anon'x "s_anon'x_x" where
 
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 9:8@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h@
 -}
@@ -209,7 +209,7 @@ data S = S
   { s_anon'x :: S_anon'x
     {- ^ __C declaration:__ @anon\'x@
 
-         __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 10:3@
+         __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 3:1@
 
          __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h@
     -}
@@ -244,7 +244,7 @@ deriving via Struct.IsStructViaReadRaw S instance Struct.IsStruct S
 
 {-| __C declaration:__ @anon\'x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 10:3@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h@
 -}
@@ -267,7 +267,7 @@ instance HasCField.HasCField S "s_anon'x" where
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 11:18@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h@
 -}
@@ -279,7 +279,7 @@ instance (ty ~ T) => BG.HasField "s_x" S ty where
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 11:18@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_enum_tagged.h@
 -}

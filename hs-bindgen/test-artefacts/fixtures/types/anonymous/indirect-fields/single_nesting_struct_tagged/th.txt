@@ -2,7 +2,7 @@
 -- addDependentFile test-artefacts/headers/golden/types/anonymous/indirect-fields/single_nesting_struct_tagged.h
 {-| __C declaration:__ @struct T@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h 11:12@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h@
 -}
@@ -10,7 +10,7 @@ data T
     = T {t_a :: CInt
          {- ^ __C declaration:__ @a@
 
-              __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h 12:11@
+              __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h 3:1@
 
               __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h@
          -}}
@@ -35,7 +35,7 @@ instance HasCField T "t_a"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@S_anon\'x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h 10:3@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h@
 -}
@@ -43,7 +43,7 @@ data S_anon'x
     = S_anon'x {s_anon'x_x :: T
                 {- ^ __C declaration:__ @x@
 
-                     __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h 13:7@
+                     __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h 3:1@
 
                      __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h@
                 -}}
@@ -68,7 +68,7 @@ instance HasCField S_anon'x "s_anon'x_x"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h 9:8@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h@
 -}
@@ -76,7 +76,7 @@ data S
     = S {s_anon'x :: S_anon'x
          {- ^ __C declaration:__ @anon\'x@
 
-              __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h 10:3@
+              __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h 3:1@
 
               __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_struct_tagged.h@
          -}}
