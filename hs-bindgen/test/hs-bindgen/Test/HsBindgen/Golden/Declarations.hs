@@ -26,26 +26,26 @@ testCases = [
     , defaultTest "declarations/forward_declaration"
     , defaultTest "declarations/opaque_declaration"
       -- Bespoke tests
-    , test_declarations_declaration_unselected_b
-    , test_declarations_definitions
-    , test_declarations_duplicate_field_name_omit
-    , test_declarations_failing_tentative_definitions_linkage
-    , test_declarations_field_name_reuse_omit
-    , test_declarations_name_collision
-    , test_declarations_name_collision_aux
-    , test_declarations_redeclaration
-    , test_declarations_redeclaration_different
-    , test_declarations_redeclaration_identical
-    , test_declarations_select_scoping
-    , test_declarations_tentative_definitions
+    , test_declaration_unselected_b
+    , test_definitions
+    , test_duplicate_field_name_omit
+    , test_failing_tentative_definitions_linkage
+    , test_field_name_reuse_omit
+    , test_name_collision
+    , test_name_collision_aux
+    , test_redeclaration
+    , test_redeclaration_different
+    , test_redeclaration_identical
+    , test_select_scoping
+    , test_tentative_definitions
     ]
 
 {-------------------------------------------------------------------------------
   Individual test definitions
 -------------------------------------------------------------------------------}
 
-test_declarations_declaration_unselected_b :: TestCase
-test_declarations_declaration_unselected_b =
+test_declaration_unselected_b :: TestCase
+test_declaration_unselected_b =
     testTraceMulti "declarations/declaration_unselected_b" declsWithMsgs $ \case
       MatchSelect name (MatchTransMissing [MatchTransNotSelected]) ->
         Just $ Expected name
@@ -55,8 +55,8 @@ test_declarations_declaration_unselected_b =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["f"]
 
-test_declarations_definitions :: TestCase
-test_declarations_definitions =
+test_definitions :: TestCase
+test_definitions =
     testTraceMulti "declarations/definitions" declsWithMsgs $ \case
       MatchDelayed name ParsePotentialDuplicateSymbol{} ->
         Just $ Expected name
@@ -66,8 +66,8 @@ test_declarations_definitions =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["foo", "n"]
 
-test_declarations_duplicate_field_name_omit :: TestCase
-test_declarations_duplicate_field_name_omit =
+test_duplicate_field_name_omit :: TestCase
+test_duplicate_field_name_omit =
     defaultTest "declarations/duplicate_field_name_omit"
       & #onFrontend      .~ (\cfg -> cfg
             & #fieldNamingStrategy .~ OmitFieldPrefixes
@@ -82,8 +82,8 @@ test_declarations_duplicate_field_name_omit =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct S"]
 
-test_declarations_failing_tentative_definitions_linkage :: TestCase
-test_declarations_failing_tentative_definitions_linkage =
+test_failing_tentative_definitions_linkage :: TestCase
+test_failing_tentative_definitions_linkage =
     failingTestLibclangMulti "declarations/failing/tentative_definitions_linkage" [(), ()] $ \case
       (matchDiagnosticSpelling "non-static declaration of" -> Just _diag) ->
         Just $ Expected ()
@@ -97,8 +97,8 @@ test_declarations_failing_tentative_definitions_linkage =
 -- coincide with a non-field declaration of the same name. Here @struct S@'s
 -- field @foo@ shares a name with a global @foo@, and @struct T@'s field @bar@
 -- with a function @bar@; none collide and all are generated and compile.
-test_declarations_field_name_reuse_omit :: TestCase
-test_declarations_field_name_reuse_omit =
+test_field_name_reuse_omit :: TestCase
+test_field_name_reuse_omit =
     defaultTest "declarations/field_name_reuse_omit"
       & #onFrontend .~ (\cfg -> cfg
             & #fieldNamingStrategy .~ OmitFieldPrefixes
@@ -111,8 +111,8 @@ test_declarations_field_name_reuse_omit =
 -- intra-declaration collisions: @enum Color { Color }@, whose tag and
 -- enumerator share the C name; and @enum A { a }@ (issue #2020), where the tag
 -- and the case-mangled enumerator both produce the Haskell name @A@.
-test_declarations_name_collision :: TestCase
-test_declarations_name_collision =
+test_name_collision :: TestCase
+test_name_collision =
     testTraceMulti "declarations/name_collision" declsWithMsgs $ \case
       MatchUnusable name (UnusableMangleNamesFailure (MangleNamesCollisionError DetectClashesCollision{})) ->
         Just $ Expected name
@@ -130,8 +130,8 @@ test_declarations_name_collision =
 --
 -- * A function-pointer typedef generates @Bar_Aux@ (the function-pointer
 --   auxiliary type), which clashes with a top-level @bar_Aux@ declaration.
-test_declarations_name_collision_aux :: TestCase
-test_declarations_name_collision_aux =
+test_name_collision_aux :: TestCase
+test_name_collision_aux =
     testTraceMulti "declarations/name_collision_aux" declsWithMsgs $ \case
       MatchUnusable name (UnusableMangleNamesFailure (MangleNamesCollisionError DetectClashesCollision{})) ->
         Just $ Expected name
@@ -141,8 +141,8 @@ test_declarations_name_collision_aux =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct foo", "foo_Aux", "bar", "bar_Aux"]
 
-test_declarations_redeclaration :: TestCase
-test_declarations_redeclaration =
+test_redeclaration :: TestCase
+test_redeclaration =
     defaultTest "declarations/redeclaration"
       & #cStandard      .~ c11
       & #tracePredicate .~ multiTracePredicate expected trace
@@ -157,8 +157,8 @@ test_declarations_redeclaration =
       _otherwise ->
         Nothing
 
-test_declarations_redeclaration_different :: TestCase
-test_declarations_redeclaration_different =
+test_redeclaration_different :: TestCase
+test_redeclaration_different =
     testTraceSimple "declarations/redeclaration_different" $ \case
       MatchSelect _name SelectConflict{} ->
         Just $ Expected ()
@@ -169,8 +169,8 @@ test_declarations_redeclaration_different =
       _otherwise ->
         Nothing
 
-test_declarations_redeclaration_identical :: TestCase
-test_declarations_redeclaration_identical =
+test_redeclaration_identical :: TestCase
+test_redeclaration_identical =
     defaultTest "declarations/redeclaration_identical"
       & #cStandard      .~ c11
       & #tracePredicate .~ multiTracePredicate expected trace
@@ -185,8 +185,8 @@ test_declarations_redeclaration_identical =
       _otherwise ->
         Nothing
 
-test_declarations_select_scoping :: TestCase
-test_declarations_select_scoping =
+test_select_scoping :: TestCase
+test_select_scoping =
     defaultTest "declarations/select_scoping"
       & #onFrontend .~ (\cfg -> cfg
           & #selectionPredicate .~ BIf (SelectHeader FromMainHeaders)
@@ -204,8 +204,8 @@ test_declarations_select_scoping =
         , "ParsedAndSelected3"
         ]
 
-test_declarations_tentative_definitions :: TestCase
-test_declarations_tentative_definitions =
+test_tentative_definitions :: TestCase
+test_tentative_definitions =
     testTraceMulti "declarations/tentative_definitions" declsWithMsgs $ \case
       MatchDelayed name ParsePotentialDuplicateSymbol{} ->
         Just $ Expected name
