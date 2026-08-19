@@ -41,3 +41,9 @@ if impl(ghc >= 9.14)
   allow-newer: fin-0.3.2:QuickCheck
   allow-newer: skew-list-0.1:QuickCheck
   allow-newer: vec-0.5.1:QuickCheck
+
+source-repository-package
+   type:     git
+   location: https://github.com/well-typed/libclang-bindings
+   tag:      c1340ddbd9b26cd59f143f7625beb48187a863bf
+   subdir:   libclang-bindings

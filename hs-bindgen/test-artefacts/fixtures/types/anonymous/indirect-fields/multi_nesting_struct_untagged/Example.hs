@@ -28,7 +28,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct \@S_anon\'anon\'x_anon\'x_x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 12:7@
+    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
 -}
@@ -36,7 +36,7 @@ data S_anon'anon'x_anon'x_x = S_anon'anon'x_anon'x_x
   { s_anon'anon'x_anon'x_x_a :: BG.CInt
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 13:13@
+         __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 3:1@
 
          __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
     -}
@@ -71,7 +71,7 @@ deriving via Struct.IsStructViaReadRaw S_anon'anon'x_anon'x_x instance Struct.Is
 
 {-| __C declaration:__ @a@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 13:13@
+    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
 -}
@@ -100,7 +100,7 @@ instance HasCField.HasCField S_anon'anon'x_anon'x_x "s_anon'anon'x_anon'x_x_a" w
 
 {-| __C declaration:__ @struct \@S_anon\'anon\'x_anon\'x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 11:5@
+    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
 -}
@@ -108,7 +108,7 @@ data S_anon'anon'x_anon'x = S_anon'anon'x_anon'x
   { s_anon'anon'x_anon'x_x :: S_anon'anon'x_anon'x_x
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 14:9@
+         __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 3:1@
 
          __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
     -}
@@ -143,7 +143,7 @@ deriving via Struct.IsStructViaReadRaw S_anon'anon'x_anon'x instance Struct.IsSt
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 14:9@
+    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
 -}
@@ -172,7 +172,7 @@ instance HasCField.HasCField S_anon'anon'x_anon'x "s_anon'anon'x_anon'x_x" where
 
 {-| __C declaration:__ @struct \@S_anon\'anon\'x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 10:3@
+    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
 -}
@@ -180,7 +180,7 @@ data S_anon'anon'x = S_anon'anon'x
   { s_anon'anon'x_anon'x :: S_anon'anon'x_anon'x
     {- ^ __C declaration:__ @anon\'x@
 
-         __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 11:5@
+         __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 3:1@
 
          __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
     -}
@@ -215,7 +215,7 @@ deriving via Struct.IsStructViaReadRaw S_anon'anon'x instance Struct.IsStruct S_
 
 {-| __C declaration:__ @anon\'x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 11:5@
+    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
 -}
@@ -243,7 +243,7 @@ instance HasCField.HasCField S_anon'anon'x "s_anon'anon'x_anon'x" where
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 14:9@
+    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
 -}
@@ -256,7 +256,7 @@ instance ( ty ~ S_anon'anon'x_anon'x_x
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 14:9@
+    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
 -}
@@ -286,7 +286,7 @@ instance HasCField.HasCField S_anon'anon'x "s_anon'anon'x_x" where
 
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 9:8@
+    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
 -}
@@ -294,7 +294,7 @@ data S = S
   { s_anon'anon'x :: S_anon'anon'x
     {- ^ __C declaration:__ @anon\'anon\'x@
 
-         __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 10:3@
+         __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 3:1@
 
          __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
     -}
@@ -329,7 +329,7 @@ deriving via Struct.IsStructViaReadRaw S instance Struct.IsStruct S
 
 {-| __C declaration:__ @anon\'anon\'x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 10:3@
+    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
 -}
@@ -355,7 +355,7 @@ instance HasCField.HasCField S "s_anon'anon'x" where
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 14:9@
+    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
 -}
@@ -367,7 +367,7 @@ instance (ty ~ S_anon'anon'x_anon'x_x) => BG.HasField "s_x" S ty where
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 14:9@
+    __defined at:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/multi_nesting_struct_untagged.h@
 -}

@@ -2,7 +2,7 @@
 -- addDependentFile test-artefacts/headers/golden/types/anonymous/indirect-fields/single_nesting_union_untagged.h
 {-| __C declaration:__ @union \@S_anon\'x_x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_untagged.h 11:5@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_untagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_union_untagged.h@
 -}
@@ -27,7 +27,7 @@ instance HasCField S_anon'x_x "s_anon'x_x_a"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@S_anon\'x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_untagged.h 10:3@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_untagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_union_untagged.h@
 -}
@@ -35,7 +35,7 @@ data S_anon'x
     = S_anon'x {s_anon'x_x :: S_anon'x_x
                 {- ^ __C declaration:__ @x@
 
-                     __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_untagged.h 13:7@
+                     __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_untagged.h 3:1@
 
                      __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_union_untagged.h@
                 -}}
@@ -61,7 +61,7 @@ instance HasCField S_anon'x "s_anon'x_x"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_untagged.h 9:8@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_untagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_union_untagged.h@
 -}
@@ -69,7 +69,7 @@ data S
     = S {s_anon'x :: S_anon'x
          {- ^ __C declaration:__ @anon\'x@
 
-              __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_untagged.h 10:3@
+              __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_untagged.h 3:1@
 
               __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_union_untagged.h@
          -}}

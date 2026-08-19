@@ -9,6 +9,19 @@ inputs:
 runs:
   using: composite
   steps:
+  # Some mirrors for the Ubuntu software repositories, like Microsoft
+  # Azure-hosted ones, are sometimes unstable. This is a known issue (see links
+  # below). This can cause apt-get commands to be prohibitively slow, causing CI
+  # jobs to time out. We use fast-apt-mirror to pick suitable alternative
+  # mirrors.
+  #
+  # <https://github.com/actions/runner-images/issues?q=is%3Aissue+azure.archive.ubuntu.com>
+  # <https://github.com/actions/runner-images/issues/12949>
+  # <https://github.com/actions/runner-images/issues/7048>
+  - name: Configure Fast APT Mirror (Linux)
+    if: ${{ runner.os == 'Linux' }}
+    uses: vegardit/fast-apt-mirror.sh@v1
+
   # Linux: install from apt. Ubuntu noble ships clang/llvm 14-19 in its own repos;
   # newer versions come from apt.llvm.org (its noble repo covers >= 17, used here
   # for >= 20). Both sources install to /usr/lib/llvm-N with an unversioned bin/

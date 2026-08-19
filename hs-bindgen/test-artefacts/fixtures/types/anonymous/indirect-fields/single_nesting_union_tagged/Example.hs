@@ -28,7 +28,7 @@ import qualified HsBindgen.Runtime.Union as Union
 
 {-| __C declaration:__ @union T@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 11:11@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h@
 -}
@@ -49,7 +49,7 @@ deriving via BG.SizedByteArray 4 4 instance Union.IsUnion T
 
 {-| __C declaration:__ @a@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 12:11@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h@
 -}
@@ -59,7 +59,7 @@ instance (ty ~ BG.CInt) => BG.HasField "t_a" T ty where
 
 {-| __C declaration:__ @a@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 12:11@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h@
 -}
@@ -82,7 +82,7 @@ instance HasCField.HasCField T "t_a" where
 
 {-| __C declaration:__ @struct \@S_anon\'x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 10:3@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h@
 -}
@@ -90,7 +90,7 @@ data S_anon'x = S_anon'x
   { s_anon'x_x :: T
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 13:7@
+         __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 3:1@
 
          __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h@
     -}
@@ -125,7 +125,7 @@ deriving via Struct.IsStructViaReadRaw S_anon'x instance Struct.IsStruct S_anon'
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 13:7@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h@
 -}
@@ -149,7 +149,7 @@ instance HasCField.HasCField S_anon'x "s_anon'x_x" where
 
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 9:8@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h@
 -}
@@ -157,7 +157,7 @@ data S = S
   { s_anon'x :: S_anon'x
     {- ^ __C declaration:__ @anon\'x@
 
-         __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 10:3@
+         __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 3:1@
 
          __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h@
     -}
@@ -192,7 +192,7 @@ deriving via Struct.IsStructViaReadRaw S instance Struct.IsStruct S
 
 {-| __C declaration:__ @anon\'x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 10:3@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h@
 -}
@@ -215,7 +215,7 @@ instance HasCField.HasCField S "s_anon'x" where
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 13:7@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h@
 -}
@@ -227,7 +227,7 @@ instance (ty ~ T) => BG.HasField "s_x" S ty where
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 13:7@
+    __defined at:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h 3:1@
 
     __exported by:__ @types\/anonymous\/indirect-fields\/single_nesting_union_tagged.h@
 -}

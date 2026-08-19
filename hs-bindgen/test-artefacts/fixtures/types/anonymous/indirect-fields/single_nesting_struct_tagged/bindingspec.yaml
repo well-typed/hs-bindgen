@@ -4,11 +4,11 @@ version:
 hsmodule: Example
 ctypes:
 - headers: types/anonymous/indirect-fields/single_nesting_struct_tagged.h
-  cname: struct S
-  hsname: S
-- headers: types/anonymous/indirect-fields/single_nesting_struct_tagged.h
   cname: struct @S_anon'x
   hsname: S_anon'x
+- headers: types/anonymous/indirect-fields/single_nesting_struct_tagged.h
+  cname: struct S
+  hsname: S
 - headers: types/anonymous/indirect-fields/single_nesting_struct_tagged.h
   cname: struct T
   hsname: T

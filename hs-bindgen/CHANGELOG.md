@@ -339,6 +339,9 @@
 * Fix a bug where bindings for indirect fields could cause "conflicting use
   sites for unnamed IDs" panics if the indirect fields referenced untagged
   structs/unions/enums. See [issue #2194][is-2194].
+* Make `UnnamedId`s unique by including a hash of the unnamed declaration's AST.
+  This prevents accidental `UnnamedId` collisions on all supported `llvm`
+  versions, even on `llvm < 19.1.0`. See [issue #2210][is-2210].
 
 [is-1225]: https://github.com/well-typed/hs-bindgen/issues/1225
 [is-1253]: https://github.com/well-typed/hs-bindgen/issues/1253
@@ -365,6 +368,7 @@
 [is-2185]: https://github.com/well-typed/hs-bindgen/issues/2185
 [is-2194]: https://github.com/well-typed/hs-bindgen/issues/2194
 [is-2198]: https://github.com/well-typed/hs-bindgen/issues/2198
+[is-2210]: https://github.com/well-typed/hs-bindgen/issues/2210
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917

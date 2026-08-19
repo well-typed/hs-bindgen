@@ -4,15 +4,15 @@ version:
 hsmodule: Example
 ctypes:
 - headers: types/anonymous/indirect-fields/single_nesting_enum_tagged.h
-  cname: struct S
-  hsname: S
+  cname: enum T
+  hsname: T
+  enum: open
 - headers: types/anonymous/indirect-fields/single_nesting_enum_tagged.h
   cname: struct @S_anon'x
   hsname: S_anon'x
 - headers: types/anonymous/indirect-fields/single_nesting_enum_tagged.h
-  cname: enum T
-  hsname: T
-  enum: open
+  cname: struct S
+  hsname: S
 hstypes:
 - hsname: S
   representation:
