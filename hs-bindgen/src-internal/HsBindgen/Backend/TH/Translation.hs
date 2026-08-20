@@ -90,7 +90,10 @@ mkRolledExpr env expr = case expr of
         )
         (mkType EmptyEnv t)
     ECChar (CChar i) -> [| CChar $(TH.lift i) |]
-    EString s -> [| s |]
+    -- Not @[| s |]@: cross-stage lifting of a 'String' yields a list of 'Char'
+    -- literals unless the @TH:liftString@ rewrite rule fires, which needs @-O@.
+    -- This is problematic during development.
+    EString s -> TH.litE (TH.StringL s)
     ECString bs ->
       TH.appE
         (mkGlobalExpr (bindgenGlobalTerm ByteString_pack))
