@@ -226,7 +226,10 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
               hsRep     = Just BindingSpec.HsTypeRepEmptyData
-            , instances = Map.empty
+            , instances =
+                mkInstSpecs
+                  (maybe Map.empty (.instances) $ originDecl.spec.hsSpec)
+                  edata.instances
             }
       in  ( (originDecl.info, cTypeSpec)
           , (edata.name, hsTypeSpec)

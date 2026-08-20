@@ -140,9 +140,10 @@ data Struct = Struct{
   deriving stock (Generic, Show)
 
 data EmptyData = EmptyData{
-      name    :: Hs.Name Hs.NsTypeConstr
-    , origin  :: Origin.Decl Origin.EmptyData
-    , comment :: Maybe HsDoc.Comment
+      name      :: Hs.Name Hs.NsTypeConstr
+    , origin    :: Origin.Decl Origin.EmptyData
+    , instances :: Set Inst.TypeClass
+    , comment   :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 

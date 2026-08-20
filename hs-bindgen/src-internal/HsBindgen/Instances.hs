@@ -154,13 +154,15 @@ data Instance = Instance {
 -- binding specifications.
 data SupportedInstances = SupportedInstances {
       -- | Supported instances for @struct@ types
-      struct  :: Map TypeClass SupportedStrategies
+      struct    :: Map TypeClass SupportedStrategies
     , -- | Supported instances for @union@ types
-      union   :: Map TypeClass SupportedStrategies
+      union     :: Map TypeClass SupportedStrategies
     , -- | Supported instances for @enum@ types
-      enum    :: Map TypeClass SupportedStrategies
+      enum      :: Map TypeClass SupportedStrategies
     , -- | Supported instances for @typedef@ types
-      typedef :: Map TypeClass SupportedStrategies
+      typedef   :: Map TypeClass SupportedStrategies
+    , -- | Supported instances for types with Haskell @emptydata@ representation
+      emptydata :: Map TypeClass SupportedStrategies
     }
   deriving stock (Show)
 
@@ -274,6 +276,9 @@ instance Default SupportedInstances where
           , mkDef Storable        Dependent   Newtype   []
           , mkDef ToFunPtr        Independent HsBindgen []
           , mkDef WriteRaw        Dependent   Newtype   []
+          ]
+      , emptydata = Map.fromList [
+            mkDef StaticSize      Independent HsBindgen []
           ]
       }
     where
