@@ -28,6 +28,15 @@ Options are passed to Clang in the following order:
 See `hs-bindgen-cli preprocess --help` for details about which options are
 managed by `hs-bindgen`.
 
+> [!IMPORTANT]
+> Clang options configure the *generation* stage only: they are not forwarded to
+> the C compiler that GHC uses to compile the generated bindings. In particular,
+> a macro defined with `-D` via `--clang-option` or `BINDGEN_EXTRA_CLANG_ARGS`
+> holds while the headers are parsed but not while the generated C wrapper
+> source is compiled. Use a `#define` root directive (`--hash-define NAME
+> VALUE`, or `hashDefine` in Template Haskell) to define a macro for all C
+> stages at once. See [C stages][manual:c-stages].
+
 Example:
 
 ```console
@@ -65,4 +74,5 @@ environment variables.
 [clang]: https://clang.llvm.org/
 [clang:docs:cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
 [libclang]: https://clang.llvm.org/doxygen/group__CINDEX.html
+[manual:c-stages]: c-stages.md
 [rust-bindgen:env]: https://github.com/rust-lang/rust-bindgen?tab=readme-ov-file#environment-variables

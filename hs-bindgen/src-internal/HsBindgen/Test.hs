@@ -23,12 +23,12 @@ import HsBindgen.Test.Readme (genTestsReadme)
 
 -- | Generate test suite
 genTests ::
-     [C.HashIncludeArg]
+     [C.RootDirective C.HashIncludeArg]
   -> ByCategory_ [Hs.Decl l]
   -> BaseModuleName -- ^ Generated Haskell module name
   -> FilePath       -- ^ Test suite directory path
   -> IO ()
-genTests hashIncludeArgs decls baseModule testSuitePath = do
+genTests rootDirectives decls baseModule testSuitePath = do
     -- fails when testSuitePath already exists
     mapM_ Dir.createDirectory $
       testSuitePath : cbitsPath : srcPath : modulePaths
@@ -41,7 +41,7 @@ genTests hashIncludeArgs decls baseModule testSuitePath = do
     genTestsC
       cTestHeaderPath
       cTestSourcePath
-      hashIncludeArgs
+      rootDirectives
       decls
     genTestsHs
       hsTestPath

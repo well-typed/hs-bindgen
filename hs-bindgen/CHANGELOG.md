@@ -78,6 +78,36 @@
 * The `--log-show-time` CLI flag has been removed, along with the
   `ShowTimeStamp` type and the `showTimeStamp` field of `TracerConfig`.
   Trace output no longer includes timestamps.
+  * Macro definitions are no longer a Clang argument but a *root directive*: an
+    entry of an ordered list containing `#include` and `#define` statements. The
+    root header is rendered from that list, and the very same rendering is
+    prepended to the generated CAPI wrapper source, so both, binding generation
+    stage and binding compilation stage agree by construction. Previously a `-D
+    FOO` had to be stated twice, once for `hs-bindgen` and once as `ghc-options:
+    -optc-DFOO` in the `.cabal` file. See [issue #2214][is-2214] and the [C
+    stages](../manual/low-level/usage/c-stages.md) manual page. Concretely:
+      * `ClangArgsConfig.defineMacros` is **removed**. Use a `#define` root
+        directive instead. Raw `-D` passed via
+        `argsBefore`/`argsInner`/`argsAfter` or `BINDGEN_EXTRA_CLANG_ARGS` still
+        reaches the binding generation stage only.
+      * The CLI option `-D`/`--define-macro` is **removed**, replaced by
+        `--hash-define NAME VALUE`. It is an *input* directive: its position
+        relative to the `HEADER` arguments matters, and it takes *two* arguments.
+        `-DFOO` becomes `--hash-define FOO 1`; an empty replacement list is
+        `--hash-define FOO ''`.
+      * Template Haskell gains `hashDefine :: String -> String -> BindgenM ()`,
+        next to `hashInclude`. This is `#define` syntax, *not* `-D` syntax:
+        `hashDefine "FOO" ""` is `#define FOO`, `hashDefine "FOO" "1"` is
+        `#define FOO 1`.
+      * The `HashIncludeArgs` artefact is renamed `RootDirectives` and carries the
+        `#define`s too; `runBoot` takes `[C.UncheckedRootDirective]`.
+        `CWrapper.hashIncludeArg` is removed, and `RootHeader.fromMainFiles`
+        becomes `RootHeader.fromRootDirectives`.
+      * Behaviour: the generated C wrapper source now starts with the whole root
+        header rather than the includes its own wrappers reference, so a module's
+        wrapper translation unit includes every main header.
+      * Declarations in the root header (i.e., the `#define`s) are not parsed: a
+        root directive is configuration.
 
 ### New features
 
@@ -369,6 +399,7 @@
 [is-2194]: https://github.com/well-typed/hs-bindgen/issues/2194
 [is-2198]: https://github.com/well-typed/hs-bindgen/issues/2198
 [is-2210]: https://github.com/well-typed/hs-bindgen/issues/2210
+[is-2214]: https://github.com/well-typed/hs-bindgen/issues/2214
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917

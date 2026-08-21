@@ -41,6 +41,18 @@ Options controlling module generation:
 - `--unique-id ID` - Unique identifier for C wrapper functions (e.g., `org.example.mylib`)
 - `--create-output-dirs` - Create output directories if they do not exist
 
+#### Input
+
+The headers to translate are given as positional arguments. They are interleaved
+with `#define` root directives:
+
+- `HEADER` - Emit `#include <HEADER>`
+- `--hash-define NAME VALUE` - Emit `#define NAME VALUE` before the following
+  headers
+
+Root directives are ordered, and apply to the compilation of the generated C
+source as well. See [C stages][manual:c-stages].
+
 #### Clang configuration
 
 Options configuring `libclang`:
@@ -342,6 +354,21 @@ let cfg = def
       hashInclude "header2.h"
 ```
 
+### Macro definitions
+
+Use `hashDefine` for macros the headers expect. It is `#define` syntax, not C
+compiler `-D` syntax, and it only affects the `hashInclude`s that follow it:
+
+```haskell
+let cfg = def
+ in withHsBindgen cfg def $ do
+      hashDefine "USE_EXTENDED" "1"
+      hashInclude "header1.h"
+```
+
+The definition also reaches the generated C source that GHC compiles. See [C
+stages][manual:c-stages].
+
 ### Troubleshooting
 
 **"Not in scope" errors:** Verify that `{-# LANGUAGE TemplateHaskell #-}` is
@@ -423,6 +450,7 @@ A complete working example is available in
 
 [example:bundled-c]: ../../../examples/bundled-c
 [example:literate-example]: ../../../examples/literate-example
+[manual:c-stages]: c-stages.md
 [manual:clang-options]: clang-options.md
 [manual:installation]: ../../installation.md
 [manual:installation-clang-vs-gcc]: ../../installation.md#clang-vs-gcc

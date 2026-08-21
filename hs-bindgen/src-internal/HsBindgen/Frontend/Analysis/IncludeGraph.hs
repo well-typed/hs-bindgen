@@ -17,8 +17,12 @@ module HsBindgen.Frontend.Analysis.IncludeGraph (
     -- * Query
   , reaches
   , toSortedList
-  , toOrderMap
   , getIncludes
+    -- * Include order
+  , IncludeOrder -- opaque
+  , IncludeOrderIx(..)
+  , toIncludeOrder
+  , lookupIncludeOrder
     -- * Visualization
   , Predicate
   , HeaderLabelStyle(..)
@@ -134,14 +138,46 @@ toSortedList :: IncludeGraph -> [SourcePath]
 toSortedList includeGraph =
     List.delete RootHeader.name (Digraph.sort includeGraph.graph)
 
-toOrderMap :: IncludeGraph -> Map SourcePath Int
-toOrderMap graph = Map.fromList (zip (toSortedList graph) [0..])
-
 getIncludes ::
      IncludeGraph
   -> SourcePath
   -> Digraph.FindEdgesResult Include
 getIncludes includeGraph path = Digraph.findEdges path includeGraph.graph
+
+{-------------------------------------------------------------------------------
+  Include order
+-------------------------------------------------------------------------------}
+
+-- | Position of a source in the include order
+--
+-- The constructor order /is/ the specification: the root header precedes every
+-- real source, and an unknown path sorts last. Do not reorder.
+data IncludeOrderIx =
+    -- | The root header
+    --
+    -- The root header is synthetic and not a source file, so it is not part of
+    -- the include order proper. Anything located in it comes from a root
+    -- directive, i.e. directly from the user, and hence comes first.
+    InRootHeader
+    -- | Position in the topologically sorted include graph
+  | InIncludeGraph Int
+    -- | Path unknown to the include graph
+    --
+    -- Reaching this is a bug; see
+    -- 'HsBindgen.Frontend.Pass.Select.IsPass.SelectSourceNotInIncludeGraph'.
+  | NotInIncludeGraph
+  deriving stock (Show, Eq, Ord)
+
+-- | The include order of a t'IncludeGraph', for repeated lookup
+newtype IncludeOrder = IncludeOrder (Map SourcePath Int)
+
+toIncludeOrder :: IncludeGraph -> IncludeOrder
+toIncludeOrder graph = IncludeOrder $ Map.fromList (zip (toSortedList graph) [0..])
+
+lookupIncludeOrder :: IncludeOrder -> SourcePath -> IncludeOrderIx
+lookupIncludeOrder (IncludeOrder order) path
+  | RootHeader.isRootHeaderPath path = InRootHeader
+  | otherwise = maybe NotInIncludeGraph InIncludeGraph (Map.lookup path order)
 
 {-------------------------------------------------------------------------------
   Visualization

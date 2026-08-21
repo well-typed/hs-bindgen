@@ -23,10 +23,10 @@ typedef struct {
 } my_record;
 ```
 
-When `hs-bindgen` processes this header with `-DUSE_EXTENDED`, the generated
-struct will have three fields (`type`, `extra`, `value`). Without that flag, it
-will have only two (`type`, `value`). The generated binding specification will
-differ accordingly.
+When `hs-bindgen` processes this header with `USE_EXTENDED` defined, the
+generated struct will have three fields (`type`, `extra`, `value`). Without it,
+the struct will have only two (`type`, `value`). The generated binding
+specification will differ accordingly.
 
 ## Configure-generated headers
 
@@ -51,25 +51,25 @@ hand-written content. The generated bindings will simply reflect whichever
 
 There are several strategies for managing non-portable bindings.
 
-### Pass `-D` flags explicitly
+### Define macros explicitly
 
-When generating bindings, pass `-D` flags to ensure that the CPP resolution
-matches the intended target. There are three mechanisms for doing so (see
-[Clang options][manual:clang-options] for details):
+State the macros the headers expect as `#define` root directives, so that the
+CPP resolution matches the intended target:
 
-* `hs-bindgen-cli preprocess --clang-option="-DUSE_EXTENDED" ...`
-* `BINDGEN_EXTRA_CLANG_ARGS="-DUSE_EXTENDED" hs-bindgen-cli preprocess ...`
-* `--clang-option-before` / `--clang-option-after` for controlling precedence
+* `hs-bindgen-cli preprocess --hash-define USE_EXTENDED 1 ... foo.h`
+* `hashDefine "USE_EXTENDED" "1"` in Template Haskell
 
-### Keep `-D` flags consistent
+A root directive is stated once and reaches every C stage: both the headers
+`libclang` parses and the generated C wrapper source that GHC compiles. This
+matters, because a header parsed under one set of macros and compiled under
+another gives missing symbols or, worse, silently mismatched `struct` layouts.
+Note that a `-D` passed via `--clang-option` or `BINDGEN_EXTRA_CLANG_ARGS` does
+*not* have this property: it affects binding generation alone. See [C
+stages][manual:c-stages].
 
-If a C header requires certain CPP flags to be set (e.g. `-DUSE_IPV6`), those
-same flags must be passed both to `hs-bindgen` when generating bindings *and* as
-C compiler options in the `cabal.project` file (via `ghc-options`), or the
-`.cabal` file (via `cc-options`), when compiling the generated bindings.
-Otherwise, `hs-bindgen` will generate bindings against one view of the header,
-but `cabal` will compile against a different view, leading to missing symbols
-or type mismatches.
+Macros that select an *implementation*, as in a header-only library, are the
+exception: they must be confined to a single translation unit. See [Header-only
+libraries][manual:c-stages-header-only].
 
 ### Treat binding generation as part of the build process
 
@@ -102,5 +102,6 @@ silent runtime data corruption.
 <!-- sources and references -->
 
 [example:bundled-c]: ../../../examples/bundled-c
-[manual:clang-options]: clang-options.md
+[manual:c-stages]: c-stages.md
+[manual:c-stages-header-only]: c-stages.md#header-only-libraries
 [manual:installation]: ../../installation.md

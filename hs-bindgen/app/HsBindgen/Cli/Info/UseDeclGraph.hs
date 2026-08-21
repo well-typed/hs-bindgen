@@ -40,7 +40,7 @@ data Opts = Opts {
     , uniqueId       :: UniqueId
     , baseModuleName :: BaseModuleName
     , output         :: Maybe FilePath
-    , inputs         :: [C.UncheckedHashIncludeArg]
+    , inputs         :: [C.UncheckedRootDirective]
     , filePolicy     :: FilePolicy
     , dirPolicy      :: DirPolicy
     }

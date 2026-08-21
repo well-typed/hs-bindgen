@@ -25,6 +25,7 @@ import HsBindgen.Frontend.Pass.Parse.Monad.Decl
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Parse.Type
+import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
@@ -81,14 +82,20 @@ parseDeclTopLevel macroLang curr = do
     -- potentially get the location twice. We could store the 'CXSourceLocation'
     -- next to all parse results and use it to retrieve the single location
     -- stored in the 'DeclInfo'.
-    loc       <- clang_getCursorLocation curr
-    nextDecls <- parseDecl' macroLang [] Nothing curr
-    -- Note the subtle difference between `foldContinue` and
-    -- `foldContinueWith []`: the 'Functor' instance of 'Next' drops values on
-    -- `Continue Nothing`, so a parser using `foldContinue` contributes no entry
-    -- to the result list here, whereas `foldContinueWith []` contributes an
-    -- empty entry (with location attached).
-    pure $ (loc,) <$> nextDecls
+    loc     <- clang_getCursorLocation curr
+    declLoc <- HighLevel.clang_getCursorLocation' curr
+    -- The root header is a synthetic in-memory file, so a @#define@ root
+    -- directive in it has no main header and 'withHeaderInfo' would fail the
+    -- parse (and it shouldn't have one). We consider root directives
+    -- configuration, not API. Do not attempt to parse it.
+    if RootHeader.isRootHeaderPath (singleLocPath declLoc) then foldContinue else do
+      nextDecls <- parseDecl' macroLang [] Nothing curr
+      -- Note the subtle difference between `foldContinue` and
+      -- `foldContinueWith []`: the 'Functor' instance of 'Next' drops values on
+      -- `Continue Nothing`, so a parser using `foldContinue` contributes no
+      -- entry to the result list here, whereas `foldContinueWith []`
+      -- contributes an empty entry (with location attached).
+      pure $ (loc,) <$> nextDecls
 
 -- | Auxiliary function; use 'parseDeclNested' or 'parseDeclTopLevel'
 parseDecl' ::

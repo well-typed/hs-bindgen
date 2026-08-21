@@ -39,7 +39,7 @@ data Opts = Opts {
     , uniqueId       :: UniqueId
     , baseModuleName :: BaseModuleName
     , output         :: FilePath
-    , inputs         :: [C.UncheckedHashIncludeArg]
+    , inputs         :: [C.UncheckedRootDirective]
     }
 
 parseOpts :: Parser Opts

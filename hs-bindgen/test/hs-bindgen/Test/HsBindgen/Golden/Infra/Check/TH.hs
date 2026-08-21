@@ -49,14 +49,14 @@ check getTestResources test =
         pkgroot <- (.packageRoot) <$> getTestResources
         -- We do not have access to 'Q', and so have to compute the 'getThDecls'
         -- artefact manually.
-        (deps, decls) <-
+        (deps, (dirs, decls)) <-
           runTestHsBindgenSuccess report getTestResources testTh
-            ((,) <$> getDependencies <*> FinalDecls)
+            ((,) <$> getDependencies <*> ((,) <$> RootDirectives <*> FinalDecls))
 
         let fns :: FieldNamingStrategy
             fns = (.fieldNamingStrategy) $ getTestFrontendConfig test
             thDecls :: Qu [TH.Dec]
-            thDecls = uncurry (getThDecls fns deps) $ Foldable.fold decls
+            thDecls = uncurry (getThDecls fns deps dirs) $ Foldable.fold decls
 
             (st, thdecs) = runQu thDecls
 

@@ -124,6 +124,7 @@ cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     --hs-output-dir "$GENERATED_DIR" \
     --module GeneratedNames \
     --omit-field-prefixes \
+    "${SUPPORTS_UNICODE_ARGS[@]}" \
     generated_names.h
 
 cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
@@ -150,6 +151,22 @@ cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     --hs-output-dir "$GENERATED_DIR" \
     --module PointerManipulation \
     pointer_manipulation.h
+
+echo "# "
+echo "## Header-only library"
+echo "# "
+
+# No --hash-define HEADER_ONLY_IMPLEMENTATION: the definitions are compiled
+# once, by hs/manual/cbits/header_only.c.
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
+    preprocess \
+    -I c \
+    --create-output-dirs \
+    --overwrite-files \
+    --unique-id com.hs-bindgen.manual.header-only \
+    --hs-output-dir "$GENERATED_DIR" \
+    --module HeaderOnly \
+    header_only.h
 
 echo "# "
 echo "## Structs"

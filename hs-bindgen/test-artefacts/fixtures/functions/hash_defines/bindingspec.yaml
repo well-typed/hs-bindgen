@@ -1,0 +1,28 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: functions/hash_defines.h
+  cname: struct hash_defines_buffer
+  hsname: Hash_defines_buffer
+hstypes:
+- hsname: Hash_defines_buffer
+  representation:
+    record:
+      constructor: Hash_defines_buffer
+      fields:
+      - hash_defines_buffer_data
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

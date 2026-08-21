@@ -9,7 +9,7 @@ module Test.HsBindgen.Golden.Infra.TestCase (
   , macroLangCExpr
   , macroLangEmpty
   , macroLangRaw
-  , testInputInclude
+  , testInputDirectives
     -- * Construction
   , defaultTest
   , defaultFailingTest
@@ -150,6 +150,9 @@ data TestCase = TestCase {
       -- | In imports, put "qualified" before or after the module name
     , qualifiedStyle :: QualifiedStyle
 
+      -- | @#define@s emitted before the input header
+    , hashDefines :: [C.HashDefine]
+
       -- | The macro language to run this test with
     , macroLang :: SomeMacroLang
     }
@@ -159,8 +162,11 @@ data TestCase = TestCase {
   Derived
 -------------------------------------------------------------------------------}
 
-testInputInclude :: TestCase -> C.UncheckedHashIncludeArg
-testInputInclude test = test.inputHeader
+-- | The root directives of a test: the @#define@s, then the input header
+testInputDirectives :: TestCase -> [C.UncheckedRootDirective]
+testInputDirectives test =
+    map C.DirectiveHashDefine test.hashDefines
+      ++ [C.DirectiveHashInclude test.inputHeader]
 
 {-------------------------------------------------------------------------------
   Construction
@@ -186,6 +192,7 @@ defaultTest fp = TestCase{
     , specPrescriptive = Nothing
     , pathStyle        = Short
     , qualifiedStyle   = def
+    , hashDefines      = []
     , macroLang        = macroLangCExpr
     }
 
@@ -356,7 +363,7 @@ runTestHsBindgen report getTestResources test artefacts = do
             traceConfigUnsafe
             quietTracerConfig
             bindgenConfig
-            [testInputInclude test]
+            (testInputDirectives test)
             artefacts
 
 runTestHsBindgenSuccess ::

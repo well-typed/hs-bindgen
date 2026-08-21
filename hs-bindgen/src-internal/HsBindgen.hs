@@ -97,7 +97,7 @@ hsBindgenMacroLang ::
   -> TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
-  -> [C.UncheckedHashIncludeArg]
+  -> [C.UncheckedRootDirective]
   -> Artefact l a
   -> IO a
 hsBindgenMacroLang mkMacroLang tu ts b i a = do
@@ -124,7 +124,7 @@ hsBindgenEMacroLang ::
   -> TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
-  -> [C.UncheckedHashIncludeArg]
+  -> [C.UncheckedRootDirective]
   -> Artefact l a
   -> IO (Either BindgenError a)
 hsBindgenEMacroLang
@@ -132,14 +132,14 @@ hsBindgenEMacroLang
   tracerConfigUnsafe
   tracerConfigSafe
   config
-  uncheckedHashIncludeArgs
+  uncheckedRootDirectives
   artefacts = do
     eRes <- withTracer tracerConfigUnsafe $ \tracerUnsafe -> do
       -- 1. Boot.
       let tracerBoot :: Tracer BootMsg
           tracerBoot = contramap TraceBoot tracerUnsafe
       bootArtefact <-
-        runBoot tracerBoot mkMacroLang config uncheckedHashIncludeArgs
+        runBoot tracerBoot mkMacroLang config uncheckedRootDirectives
       -- 2. Frontend.
       let tracerFrontend :: Tracer FrontendMsg
           tracerFrontend = contramap TraceFrontend tracerUnsafe
@@ -232,13 +232,14 @@ writeDoxygen filePolicy dirPolicy mPath = do
 getBindings :: ModuleRenderConfig -> Artefact l String
 getBindings mrc = do
     name   <- ModuleBaseName
+    dirs   <- RootDirectives
     decls  <- FinalDecls
     tags   <- getExportTags
     when (all nullDecls decls) $ EmitTrace $ NoBindingsSingleModule name
     config <- getConfig
     let fns = config.frontend.fieldNamingStrategy
     pure $ render $
-      translateModuleSingle fns mrc name (resolveExports tags) decls
+      translateModuleSingle fns mrc dirs name (resolveExports tags) decls
 
 -- | Write bindings to file.
 writeBindings ::
@@ -281,6 +282,7 @@ writeBindingsSingle mrc filePolicy dirPolicy hsOutputDir = do
 getBindingsMultiple :: ModuleRenderConfig -> Artefact l (ByCategory_ (Maybe String))
 getBindingsMultiple mrc = do
     name   <- ModuleBaseName
+    dirs   <- RootDirectives
     decls  <- FinalDecls
     tags   <- getExportTags
     when (all nullDecls decls) $
@@ -288,7 +290,7 @@ getBindingsMultiple mrc = do
     config <- getConfig
     let fns = config.frontend.fieldNamingStrategy
     pure $ fmap render <$>
-      translateModuleMultiple fns mrc name (resolveExports tags) decls
+      translateModuleMultiple fns mrc dirs name (resolveExports tags) decls
 
 -- | Write bindings to files in provided output directory.
 --
@@ -350,11 +352,11 @@ writeBindingSpec filePolicy dirPolicy path = do
 writeTests :: FilePath -> Artefact l ()
 writeTests _testDir = do
     -- moduleBaseName  <- ModuleBaseName
-    -- hashIncludeArgs <- HashIncludeArgs
+    -- rootDirectives  <- RootDirectives
     -- hsDecls         <- HsDecls
     -- liftIO $
     --   genTests
-    --     hashIncludeArgs
+    --     rootDirectives
     --     hsDecls
     --     moduleBaseName
     --     testDir

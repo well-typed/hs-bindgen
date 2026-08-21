@@ -38,7 +38,10 @@ execCliParser :: IO Cli
 execCliParser = customExecParser prefs' opts
   where
     prefs' :: ParserPrefs
-    prefs' = prefs $ helpShowGlobals <> subparserInline
+    -- 'multiSuffix' marks repeatable options and arguments in the usage
+    -- synopsis; without it, @(HEADER | --hash-define NAME VALUE)@ reads as an
+    -- exclusive choice of one.
+    prefs' = prefs $ multiSuffix "..." <> helpShowGlobals <> subparserInline
 
     opts :: ParserInfo Cli
     opts = info (parseCli <**> simpleVersioner vers <**> helper) $

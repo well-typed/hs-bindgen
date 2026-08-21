@@ -13,8 +13,10 @@ import Data.List qualified as List
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs (ClangArgsConfig (..))
 import HsBindgen.Config.Internal
+import HsBindgen.IR.C qualified as C
 
-import Test.HsBindgen.Golden.Infra.TestCase (TestCase (..), getTestBootConfig)
+import Test.HsBindgen.Golden.Infra.TestCase (TestCase (..), getTestBootConfig,
+                                             testInputDirectives)
 import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------
@@ -27,7 +29,7 @@ generateModule testResources tc = unlines $ List.intercalate [""] [
       languagePragmas
     , moduleHeader bootConfig
     , imports
-    , letBlock bootConfig tc.inputHeader
+    , letBlock bootConfig (testInputDirectives tc)
     ]
   where
     bootConfig :: BootConfig
@@ -76,13 +78,12 @@ imports = [
     , "import Optics ((%), (&), (.~))"
     ]
 
-letBlock :: BootConfig -> FilePath -> [String]
-letBlock bootConfig inputHeader = [
+letBlock :: BootConfig -> [C.UncheckedRootDirective] -> [String]
+letBlock bootConfig directives = [
       "let cfg :: Config"
     , "    cfg = def"
     , "      & #clang % #builtinIncDir                 .~ " ++ builtinIncDir'
     , "      & #clang % #extraIncludeDirs              .~ " ++ extraIncludeDirs'
-    , "      & #clang % #defineMacros                  .~ " ++ defineMacros'
     , "      & #clang % #enableBlocks                  .~ " ++ enableBlocks'
     , "      & #clang % #argsBefore                    .~ " ++ argsBefore'
     , "      & #clang % #argsInner                     .~ " ++ argsInner'
@@ -100,17 +101,25 @@ letBlock bootConfig inputHeader = [
     , "    cfgTh :: ConfigTH"
     , "    cfgTh = def"
     , "      & #categoryChoice .~ thCategoryChoice"
-    , " in withHsBindgen cfg cfgTh $"
-    , "      hashInclude " ++ show inputHeader
-    ]
+    , " in withHsBindgen cfg cfgTh $ do"
+    ] ++ map (("      " ++) . renderDirective) directives
   where
+    renderDirective :: C.UncheckedRootDirective -> String
+    renderDirective = \case
+      C.DirectiveHashInclude arg ->
+        "hashInclude " ++ show arg
+      C.DirectiveHashDefine hashDefine -> unwords [
+          "hashDefine"
+        , show hashDefine.name
+        , show hashDefine.value
+        ]
+
     -- All type 'String':
     builtinIncDir' = show bootConfig.clangArgs.builtinIncDir
     extraIncludeDirs' = ("[" ++) . (++ "]") $ List.intercalate ", " [
         "Dir " ++ show includeDir
       | includeDir <- bootConfig.clangArgs.extraIncludeDirs
       ]
-    defineMacros' = show bootConfig.clangArgs.defineMacros
     enableBlocks' = show bootConfig.clangArgs.enableBlocks
     argsBefore' = show bootConfig.clangArgs.argsBefore
     argsInner' = show bootConfig.clangArgs.argsInner
