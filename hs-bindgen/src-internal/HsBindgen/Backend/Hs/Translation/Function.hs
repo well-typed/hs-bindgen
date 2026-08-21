@@ -1,11 +1,9 @@
 module HsBindgen.Backend.Hs.Translation.Function (
     functionDecs
-  , getMainHashIncludeArg
   ) where
 
 import Control.Monad.Reader qualified as Reader
 import Data.Kind (Type)
-import Data.List.NonEmpty qualified as NonEmpty
 import Data.Text qualified as T
 import Data.Type.Equality ((:~:) (Refl))
 import DeBruijn (Add, Ctx, Env (..), Idx (..), lzeroAdd, sizeEnv, swapAdd,
@@ -139,8 +137,7 @@ functionDecs safety info origCFun _spec = do
 
             cWrapper :: CWrapper
             cWrapper = CWrapper {
-                  definition     = PC.prettyFunDefn cWrapperDecl ""
-                , hashIncludeArg = getMainHashIncludeArg info
+                  definition = PC.prettyFunDefn cWrapperDecl ""
                 }
 
         foreignImportParams :: [Hs.ForeignImport.FunParam]
@@ -223,9 +220,6 @@ functionDecs safety info origCFun _spec = do
 
         mbIoComment :: Maybe HsDoc.Comment
         mbIoComment = ioComment origCFun.attrs.purity
-
-getMainHashIncludeArg :: C.DeclInfo Final -> C.HashIncludeArg
-getMainHashIncludeArg info = NonEmpty.head info.headerInfo.mainHeaders
 
 {-------------------------------------------------------------------------------
   Purity

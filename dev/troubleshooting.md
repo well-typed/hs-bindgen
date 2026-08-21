@@ -58,6 +58,25 @@ Solution:
 - Ensure `extra-include-dirs` points to the correct directory
 - Check that header files exist in the specified location
 
+### `cc-options` Do Not Reach the Generated C Source
+
+Error: the generated C wrapper source fails to compile, or compiles against a
+different view of the header than the bindings were generated from, even though
+the `.cabal` file sets the required flags in `cc-options`.
+
+Cause: `hs-bindgen` attaches the generated C source via Template Haskell
+(`addForeignSource`).  GHC compiles it itself, and Cabal's `cc-options` are
+*not* passed to that compilation; only `-optc-…` flags in `ghc-options` are.
+
+Solution:
+
+- Macro definitions belong in a `#define` root directive (`--hash-define NAME
+  VALUE` on the command line, `hashDefine` in Template Haskell).  Those are
+  emitted into the generated C source itself, so they reach every C stage.  See
+  the [C stages](../manual/low-level/usage/c-stages.md) manual page.
+- For anything not expressible as a root directive, use `ghc-options:
+  -optc-<flag>` rather than `cc-options: <flag>`.
+
 ### Linking Issues (Bindings for c-example)
 
 Error:

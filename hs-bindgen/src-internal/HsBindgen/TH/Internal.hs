@@ -4,6 +4,7 @@ module HsBindgen.TH.Internal (
   , IncludeDir(..)
   , withHsBindgenMacroLang
   , hashInclude
+  , hashDefine
   , BindgenM
 
    -- * Internal artefacts
@@ -69,6 +70,7 @@ toFilePath _    (Dir x) = x
 -- For example,
 --
 -- > withHsBindgenMacroLang myMacroLang def def $ do
+-- >   hashDefine "FOO_FEATURE" "1"
 -- >   hashInclude "foo.h"
 -- >   hashInclude "bar.h"
 withHsBindgenMacroLang ::
@@ -95,26 +97,32 @@ withHsBindgenMacroLang mkMacroLang config configTH hashIncludes = do
           tracerConfigDefTH
             & #verbosity .~ configTH.verbosity
 
-        -- Traverse #include directives.
+        -- Traverse root directives.
         bindgenState :: BindgenState
         bindgenState = execBindgenM hashIncludes (BindgenState [])
 
-        -- Restore original order of include directives.
-        uncheckedHashIncludeArgs :: [C.UncheckedHashIncludeArg]
-        uncheckedHashIncludeArgs = reverse bindgenState.hashIncludeArgs
+        -- Restore original order of the directives.
+        uncheckedRootDirectives :: [C.UncheckedRootDirective]
+        uncheckedRootDirectives = reverse bindgenState.rootDirectives
 
-        artefact :: Artefact l ([SourcePath], ([CWrapper], [SHs.SDecl]))
+        artefact ::
+          Artefact l
+            ( [SourcePath]
+            , ( [C.RootDirective C.HashIncludeArg]
+              , ([CWrapper], [SHs.SDecl])
+              )
+            )
         artefact = (,)
           <$> getDependencies
-          <*> (Foldable.fold <$> FinalDecls)
+          <*> ((,) <$> RootDirectives <*> (Foldable.fold <$> FinalDecls))
 
-    (deps, decls) <- liftIO $ do
+    (deps, (rootDirectives, decls)) <- liftIO $ do
         hsBindgenMacroLang
           mkMacroLang
           tracerConfigUnsafe
           tracerConfigSafe
           bindgenConfig
-          uncheckedHashIncludeArgs
+          uncheckedRootDirectives
           artefact
 
     let fns  = bindgenConfig.frontend.fieldNamingStrategy
@@ -123,7 +131,7 @@ withHsBindgenMacroLang mkMacroLang config configTH hashIncludes = do
     -- Reverse SDecl order to counteract GHC reversing TH type/class
     -- declarations during dependency analysis, which causes Haddock to show
     -- declarations in reverse order.
-    uncurry (getThDecls fns deps) (second reverse decls)
+    uncurry (getThDecls fns deps rootDirectives) (second reverse decls)
 
 -- | @#include@ (i.e., generate bindings for) a C header
 --
@@ -138,8 +146,28 @@ withHsBindgenMacroLang mkMacroLang config configTH hashIncludes = do
 -- See 'withHsBindgen'.
 hashInclude :: FilePath -> BindgenM ()
 hashInclude arg = do
-    -- Prepend the C header to the list (the order will be reversed)
-    modify $ #hashIncludeArgs %~ (arg:)
+    -- Prepend the directive to the list (the order will be reversed)
+    modify $ #rootDirectives %~ (C.DirectiveHashInclude arg:)
+
+-- | @#define@ a macro, in effect for all subsequent 'hashInclude's
+--
+-- This is @#define@ syntax, /not/ Clang's @-D@ syntax:
+--
+-- > hashDefine "FOO" "1"    -- #define FOO 1
+-- > hashDefine "FOO" ""     -- #define FOO      (empty replacement list)
+-- > hashDefine "FOO(x)" "x" -- #define FOO(x) x
+--
+-- The directive applies to /all/ C stages: it is emitted both into the header
+-- @libclang@ parses and into the generated C wrapper source GHC compiles.
+--
+-- Neither argument is validated; see t'C.HashDefine'.
+hashDefine ::
+     String -- ^ Macro name; may be function-like, e.g. @FOO(x)@
+  -> String -- ^ Replacement list; @""@ for @#define FOO@
+  -> BindgenM ()
+hashDefine name value = do
+    -- Prepend the directive to the list (the order will be reversed)
+    modify $ #rootDirectives %~ (C.DirectiveHashDefine (C.HashDefine name value):)
 
 {-------------------------------------------------------------------------------
   Internal artefacts
@@ -163,15 +191,16 @@ getThDecls
     :: Guasi q
     => FieldNamingStrategy
     -> [SourcePath]
+    -> [C.RootDirective C.HashIncludeArg]
     -> [CWrapper]
     -> [SHs.SDecl]
     -> q [TH.Dec]
-getThDecls fns deps wrappers decls = do
+getThDecls fns deps rootDirectives wrappers decls = do
     -- Record dependencies, including transitively included headers.
     mapM_ (addDependentFile . getSourcePath) deps
 
     -- Add userland-CAPI wrappers source code.
-    addCSource wrapperSrc
+    unless (null wrapperSrc) $ addCSource wrapperSrc
 
     -- Generate TH declarations.
     xs <- fmap concat $ traverse (mkDecl fns) decls
@@ -182,7 +211,7 @@ getThDecls fns deps wrappers decls = do
     pure xs
   where
     wrapperSrc :: String
-    wrapperSrc = getCWrappersSource wrappers
+    wrapperSrc = getCWrappersSource rootDirectives wrappers
 
     reportMissingModules :: Guasi q => q ()
     reportMissingModules = do
@@ -211,11 +240,11 @@ newtype BindgenM a = BindgenM { unwrap :: State BindgenState a }
 execBindgenM :: BindgenM a -> BindgenState -> BindgenState
 execBindgenM = execState . (.unwrap)
 
--- | State manipulated by 'hashInclude'
+-- | State manipulated by 'hashInclude' and 'hashDefine'
 --
 -- Internal!
 data BindgenState = BindgenState {
-      hashIncludeArgs :: [C.UncheckedHashIncludeArg]
+      rootDirectives :: [C.UncheckedRootDirective]
     }
   deriving stock (Generic)
 

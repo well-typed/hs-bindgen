@@ -39,7 +39,7 @@ info = progDesc "Output the parsed doxygen state"
 data Opts = Opts {
       config     :: Config
     , output     :: Maybe FilePath
-    , inputs     :: [C.UncheckedHashIncludeArg]
+    , inputs     :: [C.UncheckedRootDirective]
     , filePolicy :: FilePolicy
     , dirPolicy  :: DirPolicy
     }

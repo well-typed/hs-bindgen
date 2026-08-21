@@ -46,7 +46,7 @@ data Opts = Opts {
     , labelStyle     :: HeaderLabelStyle
     , format         :: IncludeGraphFormat
     , output         :: Maybe FilePath
-    , inputs         :: [C.UncheckedHashIncludeArg]
+    , inputs         :: [C.UncheckedRootDirective]
     , filePolicy     :: FilePolicy
     , dirPolicy      :: DirPolicy
     }

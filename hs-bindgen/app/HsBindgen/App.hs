@@ -61,7 +61,7 @@ hsBindgen ::
      TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
-  -> [C.UncheckedHashIncludeArg]
+  -> [C.UncheckedRootDirective]
   -> Artefact CExpr a
   -> IO a
 hsBindgen = hsBindgenMacroLang (pure . Macro.cExpr)
@@ -318,7 +318,6 @@ parseClangArgsConfig = do
     enableBlocks     <- parseEnableBlocks
     builtinIncDir    <- parseBuiltinIncDirConfig
     extraIncludeDirs <- many parseIncludeDir
-    defineMacros     <- many parseDefineMacro
     argsBefore       <- many parseClangOptionBefore
     argsInner        <- many parseClangOptionInner
     argsAfter        <- many parseClangOptionAfter
@@ -326,7 +325,6 @@ parseClangArgsConfig = do
         enableBlocks     = enableBlocks
       , builtinIncDir    = builtinIncDir
       , extraIncludeDirs = extraIncludeDirs
-      , defineMacros     = defineMacros
       , argsBefore       = argsBefore
       , argsInner        = argsInner
       , argsAfter        = argsAfter
@@ -343,14 +341,6 @@ parseIncludeDir = strOption $ mconcat [
       short 'I'
     , metavar "DIR"
     , help "Include search path directory"
-    ]
-
-parseDefineMacro :: Parser String
-parseDefineMacro = strOption $ mconcat [
-      short 'D'
-    , long "define-macro"
-    , metavar "<macro>=<value>"
-    , help "Define <macro> to <value> (or 1 if <value> omitted)"
     ]
 
 parseClangOptionBefore :: Parser String
@@ -539,15 +529,42 @@ parseGenTestsOutput = strOption $ mconcat [
   Input arguments
 -------------------------------------------------------------------------------}
 
--- | Parse one or more input header arguments
+-- | Parse one or more input root directives
 --
--- This uses standard syntax for one or more arguments, which
--- @optparse-applicative@ does not get right when just using 'Control.Applicative.some'.
-parseInputs :: Parser [C.UncheckedHashIncludeArg]
-parseInputs = some . strArgument $ mconcat [
-      metavar "HEADER..."
-    , help "Input C header(s), relative to an include path directory"
+-- @#include@s and @#define@s form a single ordered list, because the order
+-- matters: a @#define@ only affects the headers listed after it.
+--
+-- That at least one of them must be an @#include@ is checked when the root
+-- header is constructed ('HsBindgen.Frontend.RootHeader.fromRootDirectives'),
+-- not here: @optparse-applicative@ can only reject the parsed list with monadic
+-- sequencing, which its usage renderer does not distinguish from repetition, so
+-- every such bind would pick up the @multiSuffix@ marker.
+parseInputs :: Parser [C.UncheckedRootDirective]
+parseInputs = some . asum $ [
+      C.DirectiveHashInclude <$> parseHashInclude
+    , C.DirectiveHashDefine  <$> parseHashDefine
     ]
+  where
+    parseHashInclude :: Parser C.UncheckedHashIncludeArg
+    parseHashInclude = strArgument $ mconcat [
+        metavar "HEADER"
+      , help "Input C header(s), relative to an include path directory"
+      ]
+
+    parseHashDefine :: Parser C.HashDefine
+    parseHashDefine =
+        C.HashDefine
+          -- The metavar covers both arguments, so that @--help@ shows the
+          -- @#define@ shape; the value argument itself renders nothing.
+          <$> strOption   (long "hash-define" <> metavar "NAME VALUE" <> help hashDefineHelp)
+          <*> strArgument mempty
+
+    hashDefineHelp :: String
+    hashDefineHelp = unwords [
+        "Emit '#define NAME VALUE' before the following headers."
+      , "See 'Root directives' in the manual"
+      , "(manual/low-level/usage/c-stages.md)."
+      ]
 
 {-------------------------------------------------------------------------------
   Haddock options

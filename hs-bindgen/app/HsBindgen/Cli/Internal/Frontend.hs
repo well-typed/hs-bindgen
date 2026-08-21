@@ -96,7 +96,7 @@ data Opts = Opts {
     , uniqueId       :: UniqueId
     , baseModuleName :: BaseModuleName
     , dirPolicy      :: DirPolicy
-    , inputs         :: [C.UncheckedHashIncludeArg]
+    , inputs         :: [C.UncheckedRootDirective]
     , filePolicy     :: FilePolicy
     }
 

@@ -26,7 +26,7 @@ instance Pretty HsModule where
       PP.vcat (map pretty hsModule.pragmas)
     : prettyModuleHeader hsModule.name hsModule.exports
     : PP.vcat (map (prettyImport hsModule.qualifiedStyle) hsModule.imports)
-    : (prettyCapiWrappers hsModule.cWrappers)
+    : (prettyCapiWrappers hsModule.rootDirectives hsModule.cWrappers)
     : map pretty hsModule.decls
 
 -- | Render the module header with an explicit export list

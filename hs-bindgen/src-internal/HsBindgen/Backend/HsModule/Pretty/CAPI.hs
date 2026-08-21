@@ -12,16 +12,19 @@ import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 -- | Pretty print the CAPI 'HsBindgen.Config.Internal.addCSource' code fragment.
-prettyCapiWrappers :: [CWrapper] -> CtxDoc
-prettyCapiWrappers wrappers
-  | null src  = PP.empty
-  | otherwise = prettyCapiWrappers' src
+prettyCapiWrappers ::
+     [C.RootDirective C.HashIncludeArg]
+  -> [CWrapper]
+  -> CtxDoc
+prettyCapiWrappers directives wrappers
+    | null src  = PP.empty
+    | otherwise = prettyCapiWrappers' src
   where
-    src :: String
-    src = getCWrappersSource wrappers
+    src = getCWrappersSource directives wrappers
 
 prettyCapiWrappers' :: String -> CtxDoc
 prettyCapiWrappers' src = PP.vcat [

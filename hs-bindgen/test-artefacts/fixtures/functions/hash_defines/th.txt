@@ -1,0 +1,208 @@
+-- addDependentFile test-artefacts/headers/golden/functions/hash_defines.h
+-- #define MY_FEATURE 1
+-- #define MY_SIZE 8
+-- #define MY_EMPTY
+-- #include <functions/hash_defines.h>
+-- signed int hs_bindgen_8b3d8c537a5a6361 (
+--   signed int arg1
+-- )
+-- {
+--   return (hash_defines_feature)(arg1);
+-- }
+-- signed int hs_bindgen_60d52d7fed356c54 (void)
+-- {
+--   return (hash_defines_empty)();
+-- }
+-- signed int hs_bindgen_2d6dbb74d32d186a (
+--   signed int arg1
+-- )
+-- {
+--   return (hash_defines_feature)(arg1);
+-- }
+-- signed int hs_bindgen_ba61b6fc716692e4 (void)
+-- {
+--   return (hash_defines_empty)();
+-- }
+-- /* test_functionshash_defines_Example_get_hash_defines_feature */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_ebc7bd37f43918fa (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &hash_defines_feature;
+-- }
+-- /* test_functionshash_defines_Example_get_hash_defines_empty */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_11624d9d43a105dc (void)) (void)
+-- {
+--   return &hash_defines_empty;
+-- }
+{-| __C declaration:__ @struct hash_defines_buffer@
+
+    __defined at:__ @functions\/hash_defines.h 13:8@
+
+    __exported by:__ @functions\/hash_defines.h@
+-}
+data Hash_defines_buffer
+    = Hash_defines_buffer {hash_defines_buffer_data :: (ConstantArray 8
+                                                                      CChar)
+                           {- ^ __C declaration:__ @data@
+
+                                __defined at:__ @functions\/hash_defines.h 14:10@
+
+                                __exported by:__ @functions\/hash_defines.h@
+                           -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Hash_defines_buffer
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Hash_defines_buffer
+    where readRaw = \ptr_0 -> pure Hash_defines_buffer <*> readRaw (Proxy @"hash_defines_buffer_data") ptr_0
+instance WriteRaw Hash_defines_buffer
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Hash_defines_buffer hash_defines_buffer_data_2 -> writeRaw (Proxy @"hash_defines_buffer_data") ptr_0 hash_defines_buffer_data_2
+deriving via (EquivStorable Hash_defines_buffer) instance Storable Hash_defines_buffer
+deriving via (IsStructViaReadRaw Hash_defines_buffer) instance IsStruct Hash_defines_buffer
+instance (~) ty (ConstantArray 8 CChar) =>
+         HasField "hash_defines_buffer_data" Hash_defines_buffer ty
+    where hasField = \x_0 -> (\y_1 -> Hash_defines_buffer{hash_defines_buffer_data = y_1},
+                              getField @"hash_defines_buffer_data" x_0)
+instance (~) ty (ConstantArray 8 CChar) =>
+         HasField "hash_defines_buffer_data"
+                  (Ptr Hash_defines_buffer)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"hash_defines_buffer_data")
+instance HasCField Hash_defines_buffer "hash_defines_buffer_data"
+    where type CFieldType Hash_defines_buffer
+                          "hash_defines_buffer_data" = ConstantArray 8 CChar
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_functionshash_defines_Example_Safe_hash_defines_feature@
+foreign import ccall safe "hs_bindgen_8b3d8c537a5a6361" hs_bindgen_8b3d8c537a5a6361_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_functionshash_defines_Example_Safe_hash_defines_feature@
+hs_bindgen_8b3d8c537a5a6361 :: CInt -> IO CInt
+-- __unique:__ @test_functionshash_defines_Example_Safe_hash_defines_feature@
+hs_bindgen_8b3d8c537a5a6361 = fromFFIType hs_bindgen_8b3d8c537a5a6361_base
+{-| __C declaration:__ @hash_defines_feature@
+
+    __defined at:__ @functions\/hash_defines.h 8:5@
+
+    __exported by:__ @functions\/hash_defines.h@
+-}
+hash_defines_feature_safe :: CInt -> IO CInt
+{-| __C declaration:__ @hash_defines_feature@
+
+    __defined at:__ @functions\/hash_defines.h 8:5@
+
+    __exported by:__ @functions\/hash_defines.h@
+-}
+hash_defines_feature_safe = hs_bindgen_8b3d8c537a5a6361
+-- __unique:__ @test_functionshash_defines_Example_Safe_hash_defines_empty@
+foreign import ccall safe "hs_bindgen_60d52d7fed356c54" hs_bindgen_60d52d7fed356c54_base ::
+    IO Int32
+-- __unique:__ @test_functionshash_defines_Example_Safe_hash_defines_empty@
+hs_bindgen_60d52d7fed356c54 :: IO CInt
+-- __unique:__ @test_functionshash_defines_Example_Safe_hash_defines_empty@
+hs_bindgen_60d52d7fed356c54 = fromFFIType hs_bindgen_60d52d7fed356c54_base
+{-| __C declaration:__ @hash_defines_empty@
+
+    __defined at:__ @functions\/hash_defines.h 19:5@
+
+    __exported by:__ @functions\/hash_defines.h@
+-}
+hash_defines_empty_safe :: IO CInt
+{-| __C declaration:__ @hash_defines_empty@
+
+    __defined at:__ @functions\/hash_defines.h 19:5@
+
+    __exported by:__ @functions\/hash_defines.h@
+-}
+hash_defines_empty_safe = hs_bindgen_60d52d7fed356c54
+-- __unique:__ @test_functionshash_defines_Example_Unsafe_hash_defines_feature@
+foreign import ccall unsafe "hs_bindgen_2d6dbb74d32d186a" hs_bindgen_2d6dbb74d32d186a_base ::
+    Int32
+ -> IO Int32
+-- __unique:__ @test_functionshash_defines_Example_Unsafe_hash_defines_feature@
+hs_bindgen_2d6dbb74d32d186a :: CInt -> IO CInt
+-- __unique:__ @test_functionshash_defines_Example_Unsafe_hash_defines_feature@
+hs_bindgen_2d6dbb74d32d186a = fromFFIType hs_bindgen_2d6dbb74d32d186a_base
+{-| __C declaration:__ @hash_defines_feature@
+
+    __defined at:__ @functions\/hash_defines.h 8:5@
+
+    __exported by:__ @functions\/hash_defines.h@
+-}
+hash_defines_feature_unsafe :: CInt -> IO CInt
+{-| __C declaration:__ @hash_defines_feature@
+
+    __defined at:__ @functions\/hash_defines.h 8:5@
+
+    __exported by:__ @functions\/hash_defines.h@
+-}
+hash_defines_feature_unsafe = hs_bindgen_2d6dbb74d32d186a
+-- __unique:__ @test_functionshash_defines_Example_Unsafe_hash_defines_empty@
+foreign import ccall unsafe "hs_bindgen_ba61b6fc716692e4" hs_bindgen_ba61b6fc716692e4_base ::
+    IO Int32
+-- __unique:__ @test_functionshash_defines_Example_Unsafe_hash_defines_empty@
+hs_bindgen_ba61b6fc716692e4 :: IO CInt
+-- __unique:__ @test_functionshash_defines_Example_Unsafe_hash_defines_empty@
+hs_bindgen_ba61b6fc716692e4 = fromFFIType hs_bindgen_ba61b6fc716692e4_base
+{-| __C declaration:__ @hash_defines_empty@
+
+    __defined at:__ @functions\/hash_defines.h 19:5@
+
+    __exported by:__ @functions\/hash_defines.h@
+-}
+hash_defines_empty_unsafe :: IO CInt
+{-| __C declaration:__ @hash_defines_empty@
+
+    __defined at:__ @functions\/hash_defines.h 19:5@
+
+    __exported by:__ @functions\/hash_defines.h@
+-}
+hash_defines_empty_unsafe = hs_bindgen_ba61b6fc716692e4
+-- __unique:__ @test_functionshash_defines_Example_get_hash_defines_feature@
+foreign import ccall unsafe "hs_bindgen_ebc7bd37f43918fa" hs_bindgen_ebc7bd37f43918fa_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_functionshash_defines_Example_get_hash_defines_feature@
+hs_bindgen_ebc7bd37f43918fa :: IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @test_functionshash_defines_Example_get_hash_defines_feature@
+hs_bindgen_ebc7bd37f43918fa = fromFFIType hs_bindgen_ebc7bd37f43918fa_base
+{-# NOINLINE hash_defines_feature_funptr #-}
+{-| __C declaration:__ @hash_defines_feature@
+
+    __defined at:__ @functions\/hash_defines.h 8:5@
+
+    __exported by:__ @functions\/hash_defines.h@
+-}
+hash_defines_feature_funptr :: FunPtr (CInt -> IO CInt)
+{-| __C declaration:__ @hash_defines_feature@
+
+    __defined at:__ @functions\/hash_defines.h 8:5@
+
+    __exported by:__ @functions\/hash_defines.h@
+-}
+hash_defines_feature_funptr = unsafePerformIO hs_bindgen_ebc7bd37f43918fa
+-- __unique:__ @test_functionshash_defines_Example_get_hash_defines_empty@
+foreign import ccall unsafe "hs_bindgen_11624d9d43a105dc" hs_bindgen_11624d9d43a105dc_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_functionshash_defines_Example_get_hash_defines_empty@
+hs_bindgen_11624d9d43a105dc :: IO (FunPtr (IO CInt))
+-- __unique:__ @test_functionshash_defines_Example_get_hash_defines_empty@
+hs_bindgen_11624d9d43a105dc = fromFFIType hs_bindgen_11624d9d43a105dc_base
+{-# NOINLINE hash_defines_empty_funptr #-}
+{-| __C declaration:__ @hash_defines_empty@
+
+    __defined at:__ @functions\/hash_defines.h 19:5@
+
+    __exported by:__ @functions\/hash_defines.h@
+-}
+hash_defines_empty_funptr :: FunPtr (IO CInt)
+{-| __C declaration:__ @hash_defines_empty@
+
+    __defined at:__ @functions\/hash_defines.h 19:5@
+
+    __exported by:__ @functions\/hash_defines.h@
+-}
+hash_defines_empty_funptr = unsafePerformIO hs_bindgen_11624d9d43a105dc

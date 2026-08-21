@@ -31,6 +31,7 @@ import HsBindgen.Backend.SHs.AST.Expr (FBind (FBind))
 import HsBindgen.Config.Prelims
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -102,6 +103,8 @@ data HsModule = HsModule {
     , exports        :: [ExportEntry]
     , imports        :: [ImportListItem]
     , qualifiedStyle :: QualifiedStyle
+      -- | Root directives, prepended to the CAPI wrapper source
+    , rootDirectives :: [C.RootDirective C.HashIncludeArg]
     , cWrappers      :: [CWrapper]
     , decls          :: [SDecl]
     }
@@ -113,44 +116,48 @@ data HsModule = HsModule {
 translateModuleMultiple ::
      FieldNamingStrategy
   -> ModuleRenderConfig
+  -> [C.RootDirective C.HashIncludeArg]
   -> BaseModuleName
   -> ([SDecl] -> [ExportEntry])
   -> ByCategory_ ([CWrapper], [SDecl])
   -> ByCategory_ (Maybe HsModule)
-translateModuleMultiple fns mrc moduleBaseName resolveExports declsByCat =
+translateModuleMultiple fns mrc dirs moduleBaseName resolveExports declsByCat =
     mapWithCategory_ go declsByCat
   where
     go :: Category -> ([CWrapper], [SDecl]) -> Maybe HsModule
     go _ ([], []) = Nothing
     go cat xs     = Just $
-      translateModule' fns mrc (Just cat) moduleBaseName resolveExports xs
+      translateModule' fns mrc dirs (Just cat) moduleBaseName resolveExports xs
 
 translateModuleSingle ::
      FieldNamingStrategy
   -> ModuleRenderConfig
+  -> [C.RootDirective C.HashIncludeArg]
   -> BaseModuleName
   -> ([SDecl] -> [ExportEntry])
   -> ByCategory_ ([CWrapper], [SDecl])
   -> HsModule
-translateModuleSingle fns mrc name resolveExports declsByCat =
-    translateModule' fns mrc Nothing name resolveExports $
+translateModuleSingle fns mrc dirs name resolveExports declsByCat =
+    translateModule' fns mrc dirs Nothing name resolveExports $
       Foldable.fold declsByCat
 
 translateModule' ::
      FieldNamingStrategy
   -> ModuleRenderConfig
+  -> [C.RootDirective C.HashIncludeArg]
   -> Maybe Category
   -> BaseModuleName
   -> ([SDecl] -> [ExportEntry])
   -> ([CWrapper], [SDecl])
   -> HsModule
-translateModule' fns mrc mcat moduleBaseName resolveExports (cWrappers, decs) =
+translateModule' fns mrc dirs mcat moduleBaseName resolveExports (cWrappers, decs) =
     HsModule{
         pragmas        = resolvePragmas fns mrc.qualifiedStyle cWrappers decs
       , exports        = resolveExports decs
       , imports        = resolveImports moduleBaseName mcat cWrappers decs
       , name           = fromBaseModuleName moduleBaseName mcat
       , qualifiedStyle = mrc.qualifiedStyle
+      , rootDirectives = dirs
       , cWrappers      = cWrappers
       , decls          = decs
       }

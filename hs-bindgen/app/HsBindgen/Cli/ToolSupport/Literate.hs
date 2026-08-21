@@ -88,7 +88,7 @@ data Lit = Lit {
     , baseModuleName :: BaseModuleName
     , qualifiedStyle :: QualifiedStyle
     , outputOptions  :: OutputOptions
-    , inputs         :: [C.UncheckedHashIncludeArg]
+    , inputs         :: [C.UncheckedRootDirective]
     }
 
 parseLit :: Parser Lit

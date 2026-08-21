@@ -35,14 +35,18 @@ package hs-vector
 ```
 
 On Linux, since it supports Unicode characters, also add the following to the
-file:
+file, which enables the Haskell CPP branch that calls the Unicode-named
+functions:
 
 ```cabal
-package *
+package manual
   ghc-options:
-    -optc-DSUPPORTS_UNICODE
     -DSUPPORTS_UNICODE
 ```
+
+The C stages get `SUPPORTS_UNICODE` from a `#define` root directive
+(`--hash-define SUPPORTS_UNICODE 1`) that `generate-and-run.sh` passes when
+generating the `GeneratedNames` bindings, so no `-optc-D` flag is needed.
 
 Change directory to the [`c/`](../manual/c/) folder and compile the binaries
 using the Makefile.
@@ -65,7 +69,7 @@ all in one step:
 
 ### Unicode Support
 
-- Linux: Full Unicode support available with `SUPPORTS_UNICODE=1`
+- Linux: Full Unicode support available with `SUPPORTS_UNICODE` defined
 - macOS: No Unicode support (Apple assembler limitation), disabled by default.
 - Windows: No Unicode support (Windows assembler limitation), disabled by default.
 - LLVM Backend: No Unicode support (LLVM IR limitation), disabled by default.

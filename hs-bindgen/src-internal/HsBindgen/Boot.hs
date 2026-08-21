@@ -43,19 +43,20 @@ runBoot ::
      Tracer BootMsg
   -> (ClangCStandard -> IO (Macro.Lang l))
   -> BindgenConfig
-  -> [C.UncheckedHashIncludeArg]
+  -> [C.UncheckedRootDirective]
   -> IO (BootArtefact l)
-runBoot tracer mkMacroLang config uncheckedHashIncludeArgs = do
+runBoot tracer mkMacroLang config uncheckedRootDirectives = do
     traceStatus $ BootStatusStart config
 
     checkBackendConfig (contramap BootBackendConfig tracer) config.backend
 
     checkMacosEnv (contramap BootMacos tracer)
 
-    getHashIncludeArgs <- cache "hashIncludeArgs" $ Cached $ do
+    getRootDirectives <- cache "rootDirectives" $ Cached $ do
       let tracer' = contramap BootHashIncludeArg tracer
-      withTrace BootStatusHashIncludeArgs $
-        mapM (C.hashIncludeArgWithTrace tracer') uncheckedHashIncludeArgs
+      withTrace BootStatusRootDirectives $
+        traverse (traverse (C.hashIncludeArgWithTrace tracer'))
+          uncheckedRootDirectives
 
     getClangArtefacts' <- cache "clangArtefacts" $ Cached $
       getClangArtefacts tracer config.boot.clangArgs
@@ -99,7 +100,7 @@ runBoot tracer mkMacroLang config uncheckedHashIncludeArgs = do
         , clangExe                = getClangExe
         , clangArgs               = getClangArgs
         , macroLang               = getMacroLang
-        , hashIncludeArgs         = getHashIncludeArgs
+        , rootDirectives          = getRootDirectives
         , externalBindingSpecs    = getExternalBindingSpecs
         , prescriptiveBindingSpec = getPrescriptiveBindingSpec
         , sizeofs                 = sizeofs
@@ -189,7 +190,7 @@ data BootArtefact l = BootArtefact {
     , clangExe                :: Cached (Maybe ClangExe)
     , clangArgs               :: Cached ClangArgs
     , macroLang               :: Cached (Macro.Lang l)
-    , hashIncludeArgs         :: Cached [C.HashIncludeArg]
+    , rootDirectives          :: Cached [C.RootDirective C.HashIncludeArg]
     , externalBindingSpecs    :: Cached MergedBindingSpecs
     , prescriptiveBindingSpec :: Cached PrescriptiveBindingSpec
     , sizeofs                 :: Cached Sizeofs
@@ -204,7 +205,7 @@ data BootStatusMsg =
   | BootStatusCStandard               ClangCStandard
   | BootStatusClangExe                (Maybe ClangExe)
   | BootStatusClangArgs               ClangArgs
-  | BootStatusHashIncludeArgs         [C.HashIncludeArg]
+  | BootStatusRootDirectives          [C.RootDirective C.HashIncludeArg]
   | BootStatusExternalBindingSpecs    MergedBindingSpecs
   | BootStatusPrescriptiveBindingSpec PrescriptiveBindingSpec
   deriving stock (Show, Generic)
@@ -219,7 +220,7 @@ instance PrettyForTrace BootStatusMsg where
     BootStatusCStandard               x -> bootStatus "ClangCStandard"          x
     BootStatusClangExe                x -> bootStatus "ClangExe"                x
     BootStatusClangArgs               x -> bootStatus "ClangArgs"               x
-    BootStatusHashIncludeArgs         x -> bootStatus "HashIncludeArgs"         x
+    BootStatusRootDirectives          x -> bootStatus "RootDirectives"          x
     BootStatusExternalBindingSpecs    x -> bootStatus "ExternalBindingSpecs"    x
     BootStatusPrescriptiveBindingSpec x -> bootStatus "PrescriptiveBindingSpec" x
 

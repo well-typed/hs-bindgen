@@ -15,7 +15,8 @@ import HsBindgen.IR.C qualified as C
 genTestsC ::
      FilePath                -- ^ C test header file path
   -> FilePath                -- ^ C test source file path
-  -> [C.HashIncludeArg]      -- ^ C header paths
+  -> [C.RootDirective C.HashIncludeArg]
+                             -- ^ Root directives (rendered verbatim)
   -> ByCategory_ [Hs.Decl l] -- ^ Declarations
   -> IO ()
 genTestsC = throwPure_TODO 22 "generate test suite"

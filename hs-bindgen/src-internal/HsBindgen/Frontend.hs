@@ -54,7 +54,7 @@ import HsBindgen.Frontend.Pass.TypecheckMacros
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
-import HsBindgen.Frontend.RootHeader (RootHeader)
+import HsBindgen.Frontend.RootHeader (RootHeader, RootHeaderMsg)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
@@ -240,8 +240,13 @@ runFrontend ::
   -> BootArtefact l
   -> IO (FrontendArtefact l)
 runFrontend tracer config boot = do
+    rootHeaderC <- cache "rootHeader" $ do
+      (msgs, rootHeader) <- RootHeader.fromRootDirectives <$> boot.rootDirectives
+      liftIO $ mapM_ (traceWith tracerRootHeader . withCallStack) msgs
+      pure rootHeader
+
     parsePass <- cache "parse" $ do
-      setup     <- getSetup
+      setup     <- getSetup =<< rootHeaderC
       macroLang <- boot.macroLang
       liftIO $ withClang (contramap FrontendClang tracer) setup $ \unit -> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude, mainHeaderPaths) <-
@@ -335,8 +340,8 @@ runFrontend tracer config boot = do
       afterParse <- parsePass
       (afterTypecheckMacros, _, _) <- typecheckMacrosPass
       clangExe <- boot.clangExe
-      setup <- getSetup
-      rootHeader <- getRootHeader
+      rootHeader <- rootHeaderC
+      setup <- getSetup rootHeader
       liftIO $ prepareReparse
                   (contramap FrontendPrepareReparse tracer)
                   clangExe
@@ -403,14 +408,11 @@ runFrontend tracer config boot = do
       , final                    = finalPass
       }
   where
-    getRootHeader :: Cached RootHeader
-    getRootHeader = RootHeader.fromMainFiles <$> boot.hashIncludeArgs
-
-    getSetup :: Cached ClangSetup
-    getSetup = do
+    getSetup :: RootHeader -> Cached ClangSetup
+    getSetup rootHeader = do
       clangArgs <- boot.clangArgs
-      hContent <- RootHeader.content <$> getRootHeader
-      let setup = defaultClangSetup clangArgs $ ClangInputMemory hFilePath hContent
+      let hContent = RootHeader.content rootHeader
+          setup = defaultClangSetup clangArgs $ ClangInputMemory hFilePath hContent
       pure $ setup {
           flags = bitfieldEnum [
               CXTranslationUnit_DetailedPreprocessingRecord
@@ -430,6 +432,9 @@ runFrontend tracer config boot = do
 
     cache :: String -> Cached a -> IO (Cached a)
     cache = cacheWith (contramap (FrontendCache . SafeTrace) tracer) . Just
+
+    tracerRootHeader :: Tracer RootHeaderMsg
+    tracerRootHeader = contramap FrontendRootHeader tracer
 
 {-------------------------------------------------------------------------------
   Artefact
@@ -471,6 +476,7 @@ data FrontendMsg =
   | FrontendSelect                   (Msg Select)
   | FrontendCache                    (SafeTrace CacheMsg)
   | FrontendDoxygen                   DoxygenMsg
+  | FrontendRootHeader                RootHeaderMsg
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
 

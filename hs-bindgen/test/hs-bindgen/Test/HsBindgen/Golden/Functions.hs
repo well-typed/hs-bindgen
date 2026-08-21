@@ -5,6 +5,7 @@ import HsBindgen.Backend.Category
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex (UnusableReason (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
+import HsBindgen.Frontend.Predicate (Boolean (..))
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
@@ -36,6 +37,8 @@ testCases = [
     , test_functions_decls_in_signature
     , test_functions_fun_attributes
     , test_functions_fun_attributes_conflict
+    , test_functions_hash_defines
+    , test_functions_hash_defines_select_all
     , test_functions_not_visible_decl
     , test_functions_simple_func
     , test_functions_simple_func_rename
@@ -99,6 +102,34 @@ test_functions_fun_attributes_conflict =
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = []
+
+-- | @#define@ root directives reach the generation /and/ compilation stage
+--
+-- The header does not preprocess without @MY_SIZE@, so PP\/TH fixture
+-- compilation only succeeds if the directives are forwarded to the wrapper
+-- source.
+test_functions_hash_defines :: TestCase
+test_functions_hash_defines =
+    defaultTest "functions/hash_defines"
+      & #hashDefines .~ hashDefines
+
+-- | Root-header @#define@s produce no bindings, not even under @--select-all@
+--
+-- They live in the synthetic root header, which is not a main header of
+-- anything, so they are not attempted at all — no macro bindings, and no
+-- traces.
+test_functions_hash_defines_select_all :: TestCase
+test_functions_hash_defines_select_all =
+    testVariant "functions/hash_defines" (Just 1) "select_all"
+      & #hashDefines .~ hashDefines
+      & #onFrontend  .~ ( #selectionPredicate .~ BTrue)
+
+hashDefines :: [C.HashDefine]
+hashDefines = [
+      C.HashDefine "MY_FEATURE" "1"
+    , C.HashDefine "MY_SIZE"    "8"
+    , C.HashDefine "MY_EMPTY"   ""
+    ]
 
 test_functions_not_visible_decl :: TestCase
 test_functions_not_visible_decl =

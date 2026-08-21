@@ -65,7 +65,7 @@ genBindingSpec
     compareCDeclId :: C.DeclId -> C.DeclId -> Ordering
     compareCDeclId cDeclIdL cDeclIdR = Ord.comparing aux cDeclIdL cDeclIdR
 
-    aux :: C.DeclId -> (Int, Int, Int, Text)
+    aux :: C.DeclId -> (IncludeGraph.IncludeOrderIx, Int, Int, Text)
     aux cDeclId =
       case DeclIndex.lookupLoc cDeclId declIndex of
         Just locs ->
@@ -74,15 +74,20 @@ genBindingSpec
           -- colliding definitions). This is OK, since we only use the location
           -- to sort the binding specifications before generating them.
           let loc = C.declLocsMin locs
-          in  ( fromMaybe maxBound (Map.lookup loc.singleLocPath orderMap)
+          in  ( IncludeGraph.lookupIncludeOrder order loc.singleLocPath
               , loc.singleLocLine
               , loc.singleLocColumn
               , C.renderDeclId cDeclId
               )
-        Nothing -> (maxBound, maxBound, maxBound, C.renderDeclId cDeclId)
+        Nothing -> (
+            IncludeGraph.NotInIncludeGraph
+          , maxBound
+          , maxBound
+          , C.renderDeclId cDeclId
+          )
 
-    orderMap :: Map SourcePath Int
-    orderMap = IncludeGraph.toOrderMap includeGraph
+    order :: IncludeGraph.IncludeOrder
+    order = IncludeGraph.toIncludeOrder includeGraph
 
 {-------------------------------------------------------------------------------
   Auxiliary functions

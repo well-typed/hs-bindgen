@@ -61,7 +61,7 @@ data ConfigCLI = ConfigCLI {
     , dirPolicy         :: DirPolicy
     , filePolicy        :: FilePolicy
     -- NOTE: Inputs (arguments) must be last, options must go before it.
-    , inputs            :: [C.UncheckedHashIncludeArg]
+    , inputs            :: [C.UncheckedRootDirective]
     }
   deriving (Generic)
 

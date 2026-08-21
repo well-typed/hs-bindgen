@@ -15,31 +15,33 @@ import HsBindgen.Backend.Runtime qualified as Runtime
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
-import Witherable (ordNub)
-
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
 
 -- | The 'CallConvUserlandCapi' requires a wrapper on the C side with a
 -- corresponding import.
-data CWrapper = CWrapper {
-      definition     :: String
-    , hashIncludeArg :: C.HashIncludeArg
+newtype CWrapper = CWrapper {
+      definition :: String
     }
   deriving (Show, Generic)
 
-getCWrappersSource :: [CWrapper] -> String
-getCWrappersSource wrappers = concat headers ++ concat bodies
-    where
-      getImport :: CWrapper -> String
-      getImport wrapper = "#include <" ++ wrapper.hashIncludeArg.path ++ ">" ++ "\n"
-
-      headers, bodies :: [String]
-      -- It is important that we don't include the same header more than once,
-      -- /especially/ for non-extern non-static globals.
-      headers = ordNub $ map getImport wrappers
-      bodies = map (.definition) wrappers
+-- | Source of the C translation unit containing the wrappers
+--
+-- The wrappers are preceded by the /whole/ root header, verbatim and in order:
+-- only that reproduces the environment in which the declarations were parsed,
+-- including the interleaving of @#define@s and @#include@s.
+--
+-- Duplicate @#include@s are preserved deliberately: re-inclusion at a different
+-- point in the sequence is meaningful (X-macro headers). A header that cannot
+-- tolerate double inclusion fails the root header parse, before any C stage.
+--
+-- We emit nothing when there are no wrappers, so that a module without wrappers
+-- does not gain a C translation unit.
+getCWrappersSource :: [C.RootDirective C.HashIncludeArg] -> [CWrapper] -> String
+getCWrappersSource _         [] = ""
+getCWrappersSource directives wrappers =
+    C.renderRootDirectives directives ++ concatMap (.definition) wrappers
 
 data CallConv =
     -- | Our default calling convention: userland CAPI

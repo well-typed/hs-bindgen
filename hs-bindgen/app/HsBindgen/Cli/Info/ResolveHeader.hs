@@ -41,7 +41,7 @@ info = progDesc "Resolve C headers to source paths"
 
 data Opts = Opts {
       clangArgsConfig :: ClangArgsConfig FilePath
-    , inputs          :: [C.UncheckedHashIncludeArg]
+    , inputs          :: [C.UncheckedRootDirective]
     }
 
 parseOpts :: Parser Opts
@@ -57,7 +57,8 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec global opts = do
     eErr <- withTracer tracerConfig' $ \tracer -> do
-      hashIncludeArgs <- checkInputs tracer opts.inputs
+      -- This command only resolves headers; #define directives play no role.
+      hashIncludeArgs <- checkInputs tracer (C.hashIncludeArgsOf opts.inputs)
       checkMacosEnv (contramap (TraceBoot . BootMacos) tracer)
       clangArgs <- (.clangArgs) <$>
         getClangArtefacts (contramap TraceBoot tracer) opts.clangArgsConfig
