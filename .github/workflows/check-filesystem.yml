@@ -24,3 +24,6 @@ jobs:
 
     - name: "Check for symbolic links"
       run: ./scripts/ci/check-symlinks.sh
+
+    - name: "Check Nix git pins"
+      run: ./scripts/ci/check-nix-pins.sh

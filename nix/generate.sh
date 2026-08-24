@@ -9,11 +9,18 @@
 # The source of truth for external packages is cabal.project.base: a package
 # with a `source-repository-package` stanza is fetched from git at the pinned
 # `tag`; any other external package (see HACKAGE_PACKAGES) is fetched from
-# Hackage. To bump a git dependency, edit its `tag` in cabal.project.base and
-# rerun; the sha256 is recomputed automatically.
+# Hackage at the version pinned below.
+#
+# To bump a git dependency, use scripts/update-git-dependency.sh, which edits
+# the `tag` and reruns this script; the sha256 is recomputed automatically.
+# scripts/ci/check-nix-pins.sh verifies that the two sides stay in sync.
 set -euo pipefail
 
-cd "$(dirname "$0")/.."
+here="$(cd "$(dirname "$0")" && pwd)"
+# shellcheck source=../scripts/lib/git-pins.sh
+source "${here}/../scripts/lib/git-pins.sh"
+
+cd "${here}/.."
 out=nix/generated
 mkdir -p "$out"
 
@@ -21,47 +28,101 @@ project=cabal.project.base
 
 # External packages we build ourselves (not available from Nixpkgs). Those with
 # a source-repository-package stanza in $project are fetched from git; the rest
-# are fetched from Hackage. An entry may pin a version as "name=version"
-# (otherwise the latest Hackage version is used).
+# are fetched from Hackage at the version pinned here.
+#
+# The versions are pinned so that regeneration is reproducible: an unpinned
+# `cabal://pkg` resolves to whatever is newest on Hackage, which is unrelated to
+# the `index-state` in $project. Revisit them when bumping `index-state`.
 HACKAGE_PACKAGES=(
-  libclang-bindings
-  doxygen-parser
-  c-expr-dsl
-  c-expr-runtime
-  # libclang-bindings requires tasty 1.5.3, but Nixpkgs has 1.5.4; also
+  libclang-bindings=0.1.0.0
+  doxygen-parser=0.1.1
+  c-expr-dsl=0.1.0.1
+  c-expr-runtime=0.1.0.0
+  # libclang-bindings requires tasty <1.5.4, but Nixpkgs has 1.5.4; also
   # overridden (scoped to libclang-bindings only) in
   # nix/overlay/libclang-bindings.nix, keep both in sync.
   tasty=1.5.3
 )
 
+for entry in "${HACKAGE_PACKAGES[@]}" ; do
+  case "$entry" in
+    *=* ) ;;
+    * )
+      echo "error: HACKAGE_PACKAGES entry '$entry' pins no version" >&2
+      exit 1
+      ;;
+  esac
+done
+
 # Our own packages, built from their in-repo directory.
 LOCAL_PACKAGES=(hs-bindgen hs-bindgen-runtime hs-bindgen-test-runtime)
 
-c2n() { nix run nixpkgs#cabal2nix -- "$@"; }
+# Every name this script knows how to generate: the two hardcoded lists above,
+# plus any git pin not already listed there.
+known=("${HACKAGE_PACKAGES[@]%=*}" "${LOCAL_PACKAGES[@]}")
+while IFS=$'\t' read -r name _url _rev _subpath _tagline ; do
+  [ -n "$name" ] || continue
+  printf '%s\n' "${known[@]}" | grep -qxF "$name" || known+=("$name")
+done < <(git_pins "$project")
 
-# Emit one TSV line (name, url, rev, subpath) per package in each
-# source-repository-package stanza of $project. A stanza with N subdirs yields N
-# lines; a stanza with no subdir yields one line named after the repo.
-parse_stanzas() {
-  awk '
-    /^source-repository-package/ { in_stanza=1; url=""; rev=""; subdir=""; next }
-    in_stanza && /^[[:space:]]*location:/ { url=$2; next }
-    in_stanza && /^[[:space:]]*tag:/      { rev=$2; next }
-    in_stanza && /^[[:space:]]*subdir:/   { $1=""; subdir=$0; next }
-    in_stanza && /^[^[:space:]]/ && !/^source-repository-package/ { flush(); in_stanza=0 }
-    END { flush() }
-    function flush(  n, a, i, name) {
-      if (url == "") return
-      if (subdir == "") {
-        n = split(url, a, "/"); name = a[n]
-        printf "%s\t%s\t%s\t\n", name, url, rev
-      } else {
-        n = split(subdir, a, " ")
-        for (i = 1; i <= n; i++)
-          if (a[i] != "") printf "%s\t%s\t%s\t%s\n", a[i], url, rev, a[i]
-      }
-    }
-  ' "$project"
+usage() {
+  echo "Usage: $0 [PACKAGE ...]"
+  echo
+  echo 'Regenerate the cabal2nix expressions under nix/generated/. With no'
+  echo 'arguments, regenerate all of them.'
+  echo
+  echo 'Known packages:'
+  local name
+  for name in "${known[@]}" ; do
+    echo "  ${name}"
+  done
+}
+
+for arg in "$@" ; do
+  case "$arg" in
+    '-h' | '--help' )
+      usage
+      exit 0
+      ;;
+    -* )
+      usage >&2
+      exit 2
+      ;;
+  esac
+done
+
+selected=("$@")
+
+for requested in "${selected[@]:+${selected[@]}}" ; do
+  if ! printf '%s\n' "${known[@]}" | grep -qxF "$requested" ; then
+    echo "error: unknown package '${requested}'" >&2
+    usage >&2
+    exit 2
+  fi
+done
+
+# Regenerate $1 only if it was named on the command line, or if none was.
+wanted() {
+  [ ${#selected[@]} -gt 0 ] || return 0
+  local requested
+  for requested in "${selected[@]}" ; do
+    [ "$requested" != "$1" ] || return 0
+  done
+  return 1
+}
+
+# Run cabal2nix, writing $1 only if it succeeds. Redirecting straight into the
+# target would truncate it on failure, leaving an empty expression behind for
+# the next reader -- or committer -- to find.
+c2n() {
+  local target="$1" ; shift
+  if nix run nixpkgs#cabal2nix -- "$@" >"${target}.tmp" ; then
+    mv "${target}.tmp" "$target"
+  else
+    rm -f "${target}.tmp"
+    echo "error: failed to generate $target" >&2
+    return 1
+  fi
 }
 
 # Git: generate from the pinned source-repository-package stanzas. `src` is a
@@ -73,33 +134,31 @@ parse_stanzas() {
 # git repo URL, before falling back to nix-prefetch-git. These are expected and
 # harmless as long as generation exits 0 and the output contains a fetchgit src.
 declare -A from_git=()
-while IFS=$'\t' read -r name url rev subpath; do
+while IFS=$'\t' read -r name url rev subpath _tagline ; do
   [ -n "$name" ] || continue
   from_git[$name]=1
+  wanted "$name" || continue
   echo "generating $out/$name.nix (git $rev)"
   if [ -n "$subpath" ]; then
-    c2n --revision "$rev" --subpath "$subpath" "$url" >"$out/$name.nix"
+    c2n "$out/$name.nix" --revision "$rev" --subpath "$subpath" "$url"
   else
-    c2n --revision "$rev" "$url" >"$out/$name.nix"
+    c2n "$out/$name.nix" --revision "$rev" "$url"
   fi
-done < <(parse_stanzas)
+done < <(git_pins "$project")
 
 # Hackage: any external package without a git stanza.
 for entry in "${HACKAGE_PACKAGES[@]}"; do
   p=${entry%=*}
+  ver=${entry#*=}
   [ -z "${from_git[$p]:-}" ] || continue
-  if [ "$entry" != "$p" ]; then
-    ver=${entry#*=}
-    echo "generating $out/$p.nix (hackage, pinned $ver)"
-    c2n "cabal://$p-$ver" >"$out/$p.nix"
-  else
-    echo "generating $out/$p.nix (hackage)"
-    c2n "cabal://$p" >"$out/$p.nix"
-  fi
+  wanted "$p" || continue
+  echo "generating $out/$p.nix (hackage, pinned $ver)"
+  c2n "$out/$p.nix" "cabal://$p-$ver"
 done
 
 # Local: `src` is the in-repo directory, relative to the generated file.
 for p in "${LOCAL_PACKAGES[@]}"; do
+  wanted "$p" || continue
   echo "generating $out/$p.nix (local)"
-  c2n --src-expression "../../$p" "./$p" >"$out/$p.nix"
+  c2n "$out/$p.nix" --src-expression "../../$p" "./$p"
 done

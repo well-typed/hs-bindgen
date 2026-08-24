@@ -13,6 +13,8 @@ please refer to the [main documentation](../manual).
 - [Development Environment](dev-environment.md): Instructions for setting up your
   development environment on Linux, NixOS, macOS, and Windows, including
   platform-specific quirks and requirements.
+- [Managing Dependencies](dependencies.md): Location of Hackage and git pins,
+  how to bump a git-pinned dependency.
 - [Manual Style Guide](manual-style-guide.md): Manual style guide.
 - [Building the Manual](building-manual.md): Detailed instructions for building
   and running the manual on all supported platforms (Linux, macOS, and
