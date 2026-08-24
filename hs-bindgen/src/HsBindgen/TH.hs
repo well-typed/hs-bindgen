@@ -8,6 +8,7 @@ module HsBindgen.TH (
     withHsBindgen
   , TH.withHsBindgenMacroLang
   , TH.hashInclude
+  , TH.hashDefine
   , TH.BindgenM -- opaque, used in type signatures
 
     -- * Configuration

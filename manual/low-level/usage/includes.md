@@ -284,7 +284,9 @@ compiler (such as `C_INCLUDE_PATH`) are also relevant.
 
 Note that `hs-bindgen` configuration is not relevant.  Header resolution at this
 stage is *not* affected by `hs-bindgen-cli` options or the
-`BINDGEN_EXTRA_CLANG_ARGS` environment variable.
+`BINDGEN_EXTRA_CLANG_ARGS` environment variable.  Macro definitions are the
+exception: `#define` root directives are emitted into the generated C source and
+therefore apply here too.  See [C stages][manual:c-stages].
 
 ## Debugging
 
@@ -368,5 +370,6 @@ hs-bindgen-cli info libclang --clang-option=-v
 [clang:docs]: https://clang.llvm.org/docs/index.html
 [clang:docs:cli-include-path]: https://clang.llvm.org/docs/ClangCommandLineReference.html#include-path-management
 [manual:binding-specifications]: binding-specifications.md
+[manual:c-stages]: c-stages.md
 [manual:clang-options]: clang-options.md
 [mermaid]: https://mermaid.js.org/

@@ -3,12 +3,10 @@ module HsBindgen.Frontend.Pass.Select (
   ) where
 
 import Data.Foldable qualified as Foldable
-import Data.List (sortBy)
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
-import Data.Maybe (maybeToList)
-import Data.Ord (comparing)
+import Data.Maybe (listToMaybe, maybeToList)
 import Data.Set ((\\))
 import Data.Set qualified as Set
 
@@ -565,40 +563,64 @@ isDroppedMacro = \case
   Sort traces
 -------------------------------------------------------------------------------}
 
-compareByOrder :: Map SourcePath Int -> SourcePath -> SourcePath -> Ordering
-compareByOrder xs x y =
-  let ix = lookupUnsafe x
-      iy = lookupUnsafe y
-  in  compare ix iy
-  where
-    lookupUnsafe z = case Map.lookup z xs of
-      Nothing -> panicPure $ "Unknown source path: " <> show z
-      Just v  -> v
+-- | Location a trace message is sorted by
+--
+-- Only conflicting declarations carry more than one location; we sort by the
+-- first.
+msgLoc :: AnnMsg Select -> Maybe SingleLoc
+msgLoc msg = listToMaybe $ C.locationInfoLocs msg.traceMsg.loc
 
-compareSingleLocs :: Map SourcePath Int -> SingleLoc -> SingleLoc -> Ordering
-compareSingleLocs xs x y =
-    case compareByOrder xs (singleLocPath x) (singleLocPath y) of
-      LT -> LT
-      EQ -> comparing getLineCol x y
-      GT -> GT
-  where
-    getLineCol :: SingleLoc -> (Int, Int)
-    getLineCol z = (singleLocLine z, singleLocColumn z)
+-- | Sort key of a trace message
+--
+-- The constructor order /is/ the specification: messages not attached to a
+-- declaration sort to the back. Do not reorder.
+data MsgSortKey =
+    MsgAt {
+        msgSource :: IncludeGraph.IncludeOrderIx
+      , msgLine   :: Int
+      , msgColumn :: Int
+      }
+  | MsgNoLocation
+  deriving stock (Eq, Ord)
 
-compareMsgs :: Map SourcePath Int -> AnnMsg Select -> AnnMsg Select -> Ordering
-compareMsgs orderMap x y =
-  case (C.locationInfoLocs x.traceMsg.loc, C.locationInfoLocs y.traceMsg.loc) of
-    (lx : __, ly : _) -> compareSingleLocs orderMap lx ly
-    -- Sort messages not attached to a declaration to the back.
-    ([] , _ ) -> GT
-    (_  , []) -> LT
+msgSortKey :: IncludeGraph.IncludeOrder -> AnnMsg Select -> MsgSortKey
+msgSortKey order msg = case msgLoc msg of
+    Nothing  -> MsgNoLocation
+    Just loc -> MsgAt {
+        msgSource = IncludeGraph.lookupIncludeOrder order (singleLocPath loc)
+      , msgLine   = singleLocLine   loc
+      , msgColumn = singleLocColumn loc
+      }
 
 sortSelectMsgs :: IncludeGraph -> [AnnMsg Select] -> [AnnMsg Select]
-sortSelectMsgs includeGraph = sortBy (compareMsgs orderMap)
+sortSelectMsgs includeGraph msgs =
+    bugMsgs ++ List.sortOn (msgSortKey order) msgs
   where
-    -- Compute the order map once.
-    orderMap :: Map SourcePath Int
-    orderMap = IncludeGraph.toOrderMap includeGraph
+    -- Compute the include order once.
+    order :: IncludeGraph.IncludeOrder
+    order = IncludeGraph.toIncludeOrder includeGraph
+
+    -- We do not know where to sort a message whose source is not in the include
+    -- graph, but a mis-sorted message is no reason to abort: report the bug and
+    -- sort the message to the back.
+    bugMsgs :: [AnnMsg Select]
+    bugMsgs = [
+        withCallStack C.WithLocationInfo{
+            loc = C.LocationUnavailable
+          , msg = SelectSourceNotInIncludeGraph path
+          }
+      | path <- Set.toList unknownPaths
+      ]
+
+    unknownPaths :: Set SourcePath
+    unknownPaths = Set.fromList [
+        path
+      | msg <- msgs
+      , Just loc <- [msgLoc msg]
+      , let path = singleLocPath loc
+      , IncludeGraph.lookupIncludeOrder order path
+          == IncludeGraph.NotInIncludeGraph
+      ]
 
 {-------------------------------------------------------------------------------
   Apply the selection predicate

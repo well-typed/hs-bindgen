@@ -83,7 +83,7 @@ data FrontendPass (l :: Star) (result :: Star) where
 -- | Build artefact.
 data Artefact l (a :: Star) where
   -- * Boot
-  HashIncludeArgs :: Artefact l [C.HashIncludeArg]
+  RootDirectives  :: Artefact l [C.RootDirective C.HashIncludeArg]
   ModuleBaseName  :: Artefact l BaseModuleName
   -- * Frontend
   ParseInfoA      :: Artefact l ParseInfo
@@ -134,7 +134,7 @@ runArtefacts tracer config boot frontend backend artefact =
     runArtefact :: forall x. Artefact l x -> ArtefactM x
     runArtefact = \case
         --Boot.
-        HashIncludeArgs -> runCached boot.hashIncludeArgs
+        RootDirectives  -> runCached boot.rootDirectives
         ModuleBaseName  -> pure boot.baseModule
         -- Frontend.
         ParseInfoA      -> runCached frontend.parseMeta

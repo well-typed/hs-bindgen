@@ -14,6 +14,7 @@
 * [Invocation](low-level/usage/invocation.md)
 * [Tracing](low-level/usage/tracing.md)
 * [Clang options](low-level/usage/clang-options.md)
+* [C stages](low-level/usage/c-stages.md)
 * [Includes](low-level/usage/includes.md)
 * [Selecting and program slicing](low-level/usage/selecting-and-program-slicing.md)
 * [Binding specifications](low-level/usage/binding-specifications.md)

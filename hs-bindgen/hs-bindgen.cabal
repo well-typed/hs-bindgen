@@ -259,10 +259,12 @@ library internal
     HsBindgen.IR.C
     HsBindgen.IR.C.Conflict
     HsBindgen.IR.C.Decl
+    HsBindgen.IR.C.HashDefine
     HsBindgen.IR.C.HashIncludeArg
     HsBindgen.IR.C.LocationInfo
     HsBindgen.IR.C.Naming
     HsBindgen.IR.C.PrettyPrinter
+    HsBindgen.IR.C.RootDirective
     HsBindgen.IR.C.Type
     HsBindgen.IR.Hs
     HsBindgen.IR.Hs.Type
@@ -341,7 +343,6 @@ library internal
     , transformers        >=0.5        && <0.7
     , unliftio-core       >=0.2.1      && <0.3
     , vec                 >=0.5        && <0.6
-    , witherable          >=0.4.2      && <0.6
     , yaml                >=0.11.11.1  && <0.12
 
   if impl(ghc <9.4)
@@ -551,6 +552,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Unit.Digraph
     Test.HsBindgen.Unit.Frontend
     Test.HsBindgen.Unit.Pretty
+    Test.HsBindgen.Unit.RootDirective
     Test.HsBindgen.Unit.Runtime
     Test.HsBindgen.Unit.Tracer
 

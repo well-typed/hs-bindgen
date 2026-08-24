@@ -36,16 +36,6 @@ data ClangArgsConfig path = ClangArgsConfig {
       -- argument](https://clang.llvm.org/docs/ClangCommandLineReference.html#include-path-management).
     , extraIncludeDirs :: [path]
 
-      -- | Preprocessor macro definitions
-      --
-      -- A definition of form @<macro>=<value>@ defines a macro with the
-      -- specified value. A definition of form @<macro>@ defines a macro with
-      -- value @1@.
-      --
-      -- This corresponds to the [@-D@ Clang
-      -- argument](https://clang.llvm.org/docs/ClangCommandLineReference.html#preprocessor-options).
-    , defineMacros :: [String]
-
       -- | Enable block support
       --
       -- Running code that uses blocks will need the blocks runtime. This is not
@@ -89,7 +79,6 @@ instance Default (ClangArgsConfig path) where
  def = ClangArgsConfig {
       builtinIncDir    = BuiltinIncDirClang
     , extraIncludeDirs = []
-    , defineMacros     = []
     , enableBlocks     = False
     , argsBefore       = []
     , argsInner        = []
@@ -113,10 +102,6 @@ clangArgsConfigToClangArgs config = ClangArgs $ concat [
         concat [
             ["-I", path]
           | path <- config.extraIncludeDirs
-          ]
-      , concat [
-            ["-D" ++ defn]
-          | defn <- config.defineMacros
           ]
       , [ "-fblocks" | config.enableBlocks ]
       ]

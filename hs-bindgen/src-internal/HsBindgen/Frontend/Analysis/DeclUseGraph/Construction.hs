@@ -10,11 +10,9 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph.Construction (
 import Data.Digraph (Digraph)
 import Data.Digraph qualified as Digraph
 import Data.List qualified as List
-import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
-import Clang.Paths
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis
@@ -42,13 +40,13 @@ construct includeGraph declIndex = declUseGraph
   where
     -- The include graph informs us about the order of declarations which is
     -- key.
-    orderMap :: Map SourcePath Int
-    orderMap = IncludeGraph.toOrderMap includeGraph
+    order :: IncludeGraph.IncludeOrder
+    order = IncludeGraph.toIncludeOrder includeGraph
     -- The declaration index contains declarations that we cannot use. Macros
     -- have already been resolved while constructing the declaration index.
     successfulDecls, sortedSuccessfulDecls :: [C.Decl l ConstructTranslationUnit]
     successfulDecls       = DeclIndex.getDecls declIndex
-    sortedSuccessfulDecls = List.sortOn (annSortKey orderMap) successfulDecls
+    sortedSuccessfulDecls = List.sortOn (annSortKey order) successfulDecls
 
     allDeclIds, successfulDeclIds, failedDeclIds :: Set C.DeclId
     allDeclIds        = DeclIndex.keysSet declIndex
@@ -137,20 +135,23 @@ deleteRevDeps depIds declUseGraph = DeclUseGraph{
 -------------------------------------------------------------------------------}
 
 data SortKey = SortKey{
-      sortPathIx :: Int
+      sortPathIx :: IncludeGraph.IncludeOrderIx
     , sortLineNo :: Int
     , sortColNo  :: Int
     }
   deriving (Eq, Ord, Show)
 
-annSortKey :: Map SourcePath Int -> C.Decl l p -> SortKey
-annSortKey sourceMap decl = SortKey{
+annSortKey :: HasCallStack => IncludeGraph.IncludeOrder -> C.Decl l p -> SortKey
+annSortKey order decl = SortKey{
       sortPathIx = sortPathIx
     , sortLineNo = singleLocLine   decl.info.loc
     , sortColNo  = singleLocColumn decl.info.loc
     }
   where
-    key        = singleLocPath decl.info.loc
-    sortPathIx = fromMaybe
-      (panicPure $ "Source of declaration " <> show key <> " not in source map")
-      (Map.lookup key sourceMap)
+    path = singleLocPath decl.info.loc
+    -- Unlike a trace message, a declaration whose source is not in the include
+    -- graph means the frontend is broken; there is nothing to salvage.
+    sortPathIx = case IncludeGraph.lookupIncludeOrder order path of
+      IncludeGraph.NotInIncludeGraph ->
+        panicPure $ "Source of declaration " <> show path <> " not in include graph"
+      ix -> ix

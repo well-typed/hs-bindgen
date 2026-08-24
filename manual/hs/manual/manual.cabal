@@ -28,6 +28,7 @@ executable run-manual
     Manual.GeneratedNames
     Manual.GeneratedNames.UnprefixedFieldNames
     Manual.Globals
+    Manual.HeaderOnly
     Manual.Macros
     Manual.PointerManipulation
     Manual.Tools
@@ -88,6 +89,7 @@ library generated
     GeneratedNames.Unsafe
     Globals
     Globals.Global
+    HeaderOnly.Unsafe
     Macro
     Macro.Unsafe
     PointerManipulation
@@ -99,6 +101,10 @@ library generated
     Unions.Nesting
     Unions.Safe
     Unions.Unsafe
+
+  -- The implementation of the header-only library; see cbits/header_only.c and
+  -- the manual page on the C stages.
+  c-sources:       cbits/header_only.c
 
   -- Avoid gcc warnings about non-NFC characters
   -- See <https://github.com/well-typed/hs-bindgen/issues/918>

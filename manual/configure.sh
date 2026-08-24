@@ -71,18 +71,25 @@ fi
 
 
 
-### BINDGEN_EXTRA_CLANG_ARGS ###
+### SUPPORTS_UNICODE ###
 
 # There's a quirk with Apple and Windows assembler and LLVM IR that do not
 # accept Unicode characters. There's SUPPORTS_UNICODE flag that allows Unicode
 # characters and we only enable that for non-MacOS and non-LLVM backend
 # compilation
 #
-# Check inside manual_examples.{c,h} for where this macro flag is used.
+# Check inside generated_names.{c,h} for where this macro flag is used.
 #
+# The root directive is stated once and reaches every C stage: the headers
+# libclang parses and the generated C wrapper source GHC compiles.  Sourcing
+# this file makes the array available to generate-and-run.sh.
+#
+# shellcheck disable=SC2034  # used by generate-and-run.sh, which sources this file
+SUPPORTS_UNICODE_ARGS=()
+# shellcheck disable=SC2034
 if is_linux && [[ "${LLVM_BACKEND}" != "1" ]]; then
-    echo "Setting SUPPORTS_UNICODE in BINDGEN_EXTRA_CLANG_ARGS"
-    export BINDGEN_EXTRA_CLANG_ARGS="-DSUPPORTS_UNICODE ${BINDGEN_EXTRA_CLANG_ARGS:-}"
+    echo "Setting SUPPORTS_UNICODE root directive"
+    SUPPORTS_UNICODE_ARGS=(--hash-define SUPPORTS_UNICODE 1)
 else
     echo "Not setting SUPPORTS_UNICODE (not Linux or LLVM backend enabled)"
 fi
@@ -128,12 +135,12 @@ EOF
 }
 
 generate_cabal_project_local_unix () {
+  # Haskell CPP only; the C stages get SUPPORTS_UNICODE as a root directive.
   local SUPPORTS_UNICODE_STANZA
   SUPPORTS_UNICODE_STANZA=""
   if [[ "$(uname -s)" == "Linux" && "${LLVM_BACKEND}" != "1" ]]; then
       SUPPORTS_UNICODE_STANZA="package manual
   ghc-options:
-    -optc-DSUPPORTS_UNICODE
     -DSUPPORTS_UNICODE
 
 "

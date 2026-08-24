@@ -15,6 +15,7 @@ import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
+import Clang.Paths
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.DeclIndex (Squashed (..), UnusableEntry,
@@ -178,6 +179,9 @@ data SelectMsg =
     -- | Summary of the number of selected macros that hs-bindgen failed to
     -- translate.
   | SelectMacrosDropped Int
+    -- | The source of a trace message is not part of the include graph, so we
+    -- do not know where to sort it.
+  | SelectSourceNotInIncludeGraph SourcePath
   deriving stock (Show)
 
 instance PrettyForTrace SelectMsg where
@@ -226,6 +230,10 @@ instance PrettyForTrace SelectMsg where
             <> (if n == 1 then " macro failed to translate; "
                           else " macros failed to translate; ")
             <> "use --log-enable-macro-warnings for details"
+      SelectSourceNotInIncludeGraph path -> PP.hsep [
+          "Source not in include graph:"
+        , PP.string $ getSourcePath path
+        ]
     where
       during :: IsTrace l e => e -> CtxDoc -> CtxDoc
       during x = PP.hang (PP.string ("During " <> (getTraceId x).id <> ":")) 2
@@ -263,6 +271,7 @@ instance IsTrace Level SelectMsg where
     SelectDelayedReparseMacroExpansionsMsg x -> getDefaultLogLevel x
     SelectNoDeclarationsMatched              -> Warning
     SelectMacrosDropped{}                    -> Notice
+    SelectSourceNotInIncludeGraph{}          -> Bug
   getSource  = const HsBindgen
   getTraceId = \case
     SelectStatusInfo{}                       -> "select"
@@ -282,6 +291,7 @@ instance IsTrace Level SelectMsg where
     SelectDelayedReparseMacroExpansionsMsg x -> "select-" <> getTraceId x
     SelectNoDeclarationsMatched              -> "select"
     SelectMacrosDropped{}                    -> "select-dropped-macros"
+    SelectSourceNotInIncludeGraph{}          -> "select-source-not-in-include-graph"
 
 {-------------------------------------------------------------------------------
   CoercePass
