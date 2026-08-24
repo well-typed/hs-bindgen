@@ -51,7 +51,6 @@ import Data.IORef (IORef, modifyIORef', newIORef, readIORef)
 import Data.Kind (Type)
 import GHC.Generics as GHC
 import GHC.Stack (CallStack, prettyCallStack)
-import Language.Haskell.TH (reportError, reportWarning, runQ)
 import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
                             ConsoleIntensity (BoldIntensity),
                             ConsoleLayer (Foreground),
@@ -377,22 +376,17 @@ instance Default OutputHandle where
 -- | Output configuration suitable for compile-time code generation with
 -- Template Haskell.
 --
--- Propagate warnings and errors to GHC.
+-- Report all traces to @stderr@, without ANSI colours (GHC output is usually
+-- captured by the build tool).
 --
--- Report traces with other log levels to @stdout@.
+-- NOTE: We cannot use GHC's own diagnostics (@reportWarning@/@reportError@),
+-- because the pipeline runs in @IO@, not in @Q@; @runQ@ would then pick
+-- @instance Quasi IO@, which labels /every/ message a Template Haskell error.
 outputConfigTH :: OutputConfig e
-outputConfigTH = OutputConfigCustom OutputCustom{
-      report    = report
-    , ansiColor = DisableAnsiColor
+outputConfigTH = OutputConfigHandle OutputHandle{
+      handle    = stderr
+    , ansiColor = Just DisableAnsiColor
     }
-  where
-    report :: Report e
-    report level _ = case level of
-      -- NOTE: In general, 'runQ' is a bad idea, but it supports 'reportWarning'
-      -- and 'reportError'.
-      Warning -> runQ . reportWarning
-      Error   -> runQ . reportError
-      _level  -> putStr
 
 -- | Sometimes, we want to change log levels. For example, we want to suppress
 -- specific traces in tests.
