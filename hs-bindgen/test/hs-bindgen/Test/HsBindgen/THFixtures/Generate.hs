@@ -117,7 +117,7 @@ letBlock bootConfig directives = [
     -- All type 'String':
     builtinIncDir' = show bootConfig.clangArgs.builtinIncDir
     extraIncludeDirs' = ("[" ++) . (++ "]") $ List.intercalate ", " [
-        "Dir " ++ show includeDir
+        "AbsDir " ++ show includeDir
       | includeDir <- bootConfig.clangArgs.extraIncludeDirs
       ]
     enableBlocks' = show bootConfig.clangArgs.enableBlocks

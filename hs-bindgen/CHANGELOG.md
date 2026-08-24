@@ -4,6 +4,12 @@
 
 ### Breaking changes
 
+* The `IncludeDir` data constructors have been renamed: `Dir` → `AbsDir` and
+  `Pkg` → `PkgDir`. Their paths are now checked in TH mode: a relative `AbsDir`
+  path warns (it is resolved against the working directory of the compiler
+  invocation), and an absolute `PkgDir` path is an error (the package root would
+  be discarded). See
+  [#2217](https://github.com/well-typed/hs-bindgen/issues/2217).
 * The `SelectPredicate` type has been renamed to `SelectionPredicate`, and the
   `selectPredicate` field of `FrontendConfig` has been renamed to
   `selectionPredicate`. Update any code that references these names.

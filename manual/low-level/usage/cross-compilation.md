@@ -520,15 +520,16 @@ import HsBindgen.TH
 
 let cfg :: Config
     cfg = def
-      & #clang % #extraIncludeDirs .~ [Pkg "../c-src"]
+      & #clang % #extraIncludeDirs .~ [PkgDir "../c-src"]
     cfgTh :: ConfigTH
     cfgTh = def
  in withHsBindgen cfg cfgTh $
       hashInclude "arch_types.h"
 ```
 
-`Pkg` paths are resolved relative to the package root (the directory
-containing the `.cabal` file). `Dir` accepts an absolute path. Cross- and
+`PkgDir` paths are resolved relative to the package root (the directory
+containing the `.cabal` file); passing an absolute path is an error. `AbsDir`
+accepts an absolute path; a relative path is warned about. Cross- and
 host-target flags (e.g. `--target=aarch64-linux-gnu`) can be passed via
 `Config`'s clang fields.
 

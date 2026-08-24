@@ -15,9 +15,10 @@ module HsBindgen.TH.Internal (
 import Control.Monad.State (State, execState)
 import Control.Monad.State.Class (MonadState, modify)
 import Data.Foldable qualified as Foldable
+import Data.List qualified as List
 import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
-import System.FilePath ((</>))
+import System.FilePath (isAbsolute, (</>))
 
 import Clang.CStandard
 import Clang.Paths
@@ -48,19 +49,78 @@ import HsBindgen.Util.Tracer
 -- | Configuration with C include directories
 --
 -- C include directories can be provided relative to the package root (see the
--- 'IncludeDir' data constructor 'Pkg').
+-- 'IncludeDir' data constructor 'PkgDir').
 type Config = Config_ IncludeDir
 
 -- | C include directory added to the C include search path
 data IncludeDir =
-    Dir FilePath
+    -- | Include directory at absolute path
+    --
+    -- A relative path is warned about: it is resolved against the working
+    -- directory of the compiler invocation, not the package root.
+    AbsDir FilePath
+
     -- | Include directory relative to package root
-  | Pkg FilePath
+    --
+    -- An absolute path is an error: it would discard the package root.
+  | PkgDir FilePath
   deriving stock (Eq, Show, Generic)
 
 toFilePath :: FilePath -> IncludeDir -> FilePath
-toFilePath root (Pkg x) = root </> x
-toFilePath _    (Dir x) = x
+toFilePath root (PkgDir x) = root </> x
+toFilePath _    (AbsDir x) = x
+
+-- | Misuse of an 'IncludeDir' constructor
+data IncludeDirMisuse =
+    -- | 'AbsDir' with a relative path
+    RelativeAbsDir FilePath
+
+    -- | 'PkgDir' with an absolute path
+  | AbsolutePkgDir FilePath
+  deriving stock (Eq, Show)
+
+checkIncludeDir :: IncludeDir -> Maybe IncludeDirMisuse
+checkIncludeDir = \case
+    AbsDir path | not (isAbsolute path) -> Just $ RelativeAbsDir path
+    PkgDir path | isAbsolute path       -> Just $ AbsolutePkgDir path
+    _otherwise                          -> Nothing
+
+-- | An absolute 'PkgDir' path discards the package root, so it is never what
+-- the user meant; a relative 'AbsDir' path does work, but only by accident.
+isFatal :: IncludeDirMisuse -> Bool
+isFatal RelativeAbsDir{}  = False
+isFatal AbsolutePkgDir{}  = True
+
+prettyIncludeDirMisuse :: IncludeDirMisuse -> String
+prettyIncludeDirMisuse = \case
+    RelativeAbsDir path -> unwords [
+        "Relative path in 'AbsDir " ++ show path ++ "':"
+      , "it is resolved relative to the working directory of the compiler"
+      , "invocation, which is not necessarily the package root."
+      , "Use an absolute path, or 'PkgDir' for a path relative to the"
+      , "package root."
+      ]
+    AbsolutePkgDir path -> unwords [
+        "Absolute path in 'PkgDir " ++ show path ++ "':"
+      , "the package root is discarded, so the path is not relative to it."
+      , "Use 'AbsDir' for an absolute path."
+      ]
+
+-- | Warn about, or reject, misuses of 'IncludeDir' constructors
+--
+-- NOTE: We report through Template Haskell instead of the tracer: the tracers
+-- are only created in 'hsBindgenMacroLang', which needs the configuration we
+-- are checking here. Consequently, the warning cannot be silenced via
+-- 'ConfigTH'. The same applies to 'checkLanguageExtensions'.
+checkIncludeDirs :: [IncludeDir] -> TH.Q ()
+checkIncludeDirs includeDirs = do
+    mapM_ (TH.reportWarning . prettyIncludeDirMisuse) warnings
+    unless (null errors) $
+      failQ $ List.intercalate "\n" $ map prettyIncludeDirMisuse errors
+  where
+    errors, warnings :: [IncludeDirMisuse]
+    (errors, warnings) =
+      List.partition isFatal $ mapMaybe checkIncludeDir includeDirs
 
 -- | Generate bindings for given C headers at compile-time using a custom
 -- macro language.
@@ -251,6 +311,9 @@ data BindgenState = BindgenState {
 
 -- NOTE: We could also check which enabled extension may interfere with the
 -- generated code (e.g. Strict/Data).
+--
+-- NOTE: We report through Template Haskell instead of the tracer; see
+-- 'checkIncludeDirs'.
 checkLanguageExtensions :: Set TH.Extension -> TH.Q ()
 checkLanguageExtensions requiredExts = do
     enabledExts <- Set.fromList <$> extsEnabled
@@ -263,6 +326,7 @@ checkLanguageExtensions requiredExts = do
 
 toBindgenConfigTH :: Config -> FilePath -> ByCategory Choice -> TH.Q BindgenConfig
 toBindgenConfigTH config packageRoot choice = do
+    checkIncludeDirs $ Foldable.toList config
     uniqueId <- getUniqueId
     hsModuleName <- fromString . TH.loc_module <$> TH.location
     let bindgenConfig :: BindgenConfig

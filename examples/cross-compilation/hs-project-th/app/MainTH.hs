@@ -11,7 +11,7 @@ import PrintStructs
 -- cross-compilation, the splice runs inside iserv under QEMU.
 let cfg :: Config
     cfg = def
-      & #clang % #extraIncludeDirs .~ [Pkg "../c-src"]
+      & #clang % #extraIncludeDirs .~ [PkgDir "../c-src"]
     cfgTh :: ConfigTH
     cfgTh = def
  in withHsBindgen cfg cfgTh $

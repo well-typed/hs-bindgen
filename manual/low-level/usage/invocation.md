@@ -264,7 +264,7 @@ import HsBindgen.TH
 import Optics ((&), (%), (.~))
 
 let cfg :: Config
-    cfg = def & #clang % #extraIncludeDirs .~ [Pkg "my-c-lib"]
+    cfg = def & #clang % #extraIncludeDirs .~ [PkgDir "my-c-lib"]
 
     cfgTH :: ConfigTH
     cfgTH = def & #verbosity .~ Verbosity Warning
@@ -285,9 +285,10 @@ The `withHsBindgen` function takes three arguments:
 The `Config` type configures binding generation.  Common fields:
 
 - `#clang % #extraIncludeDirs` - Include directories
-  - `Pkg "package"` - Package directory
-  - `Abs "/path"` - Absolute path
-  - `Rel "path"` - Relative path (relative to module directory)
+  - `PkgDir "path"` - Path relative to the package root; an absolute path is an
+    error, because the package root would be discarded
+  - `AbsDir "/path"` - Absolute path; a relative path is resolved against the
+    working directory of the compiler invocation and therefore warned about
 - `#clang % #gnu` - GNU extensions (`GnuEnabled` or `GnuDisabled`)
 - `#clang % #cStandard` - C standard (e.g., `C99`, `C11`)
 - `#selectionPredicate` - Select a subset of declarations
@@ -319,8 +320,8 @@ import Optics ((&), (%), (.~))
 let cfg :: Config
     cfg = def
             & #clang % #extraIncludeDirs .~ [
-                  Pkg "my-c-library"
-                , Abs "/usr/local/include"
+                  PkgDir "my-c-library"
+                , AbsDir "/usr/local/include"
                 ]
             & #clang % #gnu .~ GnuEnabled
             & #clang % #cStandard .~ C11
