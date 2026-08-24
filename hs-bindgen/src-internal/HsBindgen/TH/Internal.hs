@@ -48,19 +48,20 @@ import HsBindgen.Util.Tracer
 -- | Configuration with C include directories
 --
 -- C include directories can be provided relative to the package root (see the
--- 'IncludeDir' data constructor 'Pkg').
+-- 'IncludeDir' data constructor 'PkgDir').
 type Config = Config_ IncludeDir
 
 -- | C include directory added to the C include search path
 data IncludeDir =
-    Dir FilePath
+    -- | Include directory at absolute path
+    AbsDir FilePath
     -- | Include directory relative to package root
-  | Pkg FilePath
+  | PkgDir FilePath
   deriving stock (Eq, Show, Generic)
 
 toFilePath :: FilePath -> IncludeDir -> FilePath
-toFilePath root (Pkg x) = root </> x
-toFilePath _    (Dir x) = x
+toFilePath root (PkgDir x) = root </> x
+toFilePath _    (AbsDir x) = x
 
 -- | Generate bindings for given C headers at compile-time using a custom
 -- macro language.

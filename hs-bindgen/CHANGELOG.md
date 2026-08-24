@@ -4,6 +4,9 @@
 
 ### Breaking changes
 
+* The `IncludeDir` data constructors have been renamed: `Dir` → `AbsDir` and
+  `Pkg` → `PkgDir`. See
+  [#2217](https://github.com/well-typed/hs-bindgen/issues/2217).
 * The `SelectPredicate` type has been renamed to `SelectionPredicate`, and the
   `selectPredicate` field of `FrontendConfig` has been renamed to
   `selectionPredicate`. Update any code that references these names.
