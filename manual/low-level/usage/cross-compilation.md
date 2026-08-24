@@ -528,7 +528,8 @@ let cfg :: Config
 ```
 
 `PkgDir` paths are resolved relative to the package root (the directory
-containing the `.cabal` file). `AbsDir` accepts an absolute path. Cross- and
+containing the `.cabal` file); passing an absolute path is an error. `AbsDir`
+accepts an absolute path; a relative path is warned about. Cross- and
 host-target flags (e.g. `--target=aarch64-linux-gnu`) can be passed via
 `Config`'s clang fields.
 

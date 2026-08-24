@@ -285,8 +285,10 @@ The `withHsBindgen` function takes three arguments:
 The `Config` type configures binding generation.  Common fields:
 
 - `#clang % #extraIncludeDirs` - Include directories
-  - `PkgDir "path"` - Path relative to the package root
-  - `AbsDir "/path"` - Absolute path
+  - `PkgDir "path"` - Path relative to the package root; an absolute path is an
+    error, because the package root would be discarded
+  - `AbsDir "/path"` - Absolute path; a relative path is resolved against the
+    working directory of the compiler invocation and therefore warned about
 - `#clang % #gnu` - GNU extensions (`GnuEnabled` or `GnuDisabled`)
 - `#clang % #cStandard` - C standard (e.g., `C99`, `C11`)
 - `#selectionPredicate` - Select a subset of declarations
