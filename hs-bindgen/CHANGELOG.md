@@ -372,6 +372,10 @@
 * Make `UnnamedId`s unique by including a hash of the unnamed declaration's AST.
   This prevents accidental `UnnamedId` collisions on all supported `llvm`
   versions, even on `llvm < 19.1.0`. See [issue #2210][is-2210].
+* In Template Haskell mode, traces are no longer prefixed with "Template
+  Haskell error: ", which made warnings look like errors. All traces now go to
+  `stderr` (previously, only warnings and errors did). See [issue
+  #2216][is-2216].
 
 [is-1225]: https://github.com/well-typed/hs-bindgen/issues/1225
 [is-1253]: https://github.com/well-typed/hs-bindgen/issues/1253
@@ -400,6 +404,7 @@
 [is-2198]: https://github.com/well-typed/hs-bindgen/issues/2198
 [is-2210]: https://github.com/well-typed/hs-bindgen/issues/2210
 [is-2214]: https://github.com/well-typed/hs-bindgen/issues/2214
+[is-2216]: https://github.com/well-typed/hs-bindgen/issues/2216
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917
