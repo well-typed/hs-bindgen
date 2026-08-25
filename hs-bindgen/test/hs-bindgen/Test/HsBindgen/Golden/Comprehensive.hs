@@ -25,8 +25,8 @@ import Test.HsBindgen.Resources
 
 testCases :: [TestCase]
 testCases = map omitFieldPrefixes [
-      test_comprehensive_c2hsc
-    , test_comprehensive_smoke
+      test_c2hsc
+    , test_smoke
     ]
   where
     omitFieldPrefixes :: TestCase -> TestCase
@@ -37,8 +37,8 @@ testCases = map omitFieldPrefixes [
   Individual test definitions
 -------------------------------------------------------------------------------}
 
-test_comprehensive_c2hsc :: TestCase
-test_comprehensive_c2hsc =
+test_c2hsc :: TestCase
+test_c2hsc =
     defaultTest "comprehensive/c2hsc"
       & #tracePredicate .~ multiTracePredicate expected trace
   where
@@ -63,7 +63,7 @@ test_comprehensive_c2hsc =
       _otherwise ->
         Nothing
 
-test_comprehensive_smoke :: TestCase
-test_comprehensive_smoke =
+test_smoke :: TestCase
+test_smoke =
     defaultTest "comprehensive/smoke"
       & #cStandard .~ c99

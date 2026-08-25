@@ -37,30 +37,30 @@ testCases = [
     , defaultTest "edge-cases/unnamed_type_multiple_typedefs"
     , defaultTest "edge-cases/uses_utf8"
       -- Bespoke tests
-    , test_edgeCases_adios
-    , test_edgeCases_clang_generated_collision
-    , test_edgeCases_duplicate
-    , test_edgeCases_duplicate_record_field
-    , test_edgeCases_headers
-    , test_edgeCases_include_macro
-    , test_edgeCases_iterator
-    , test_edgeCases_ordinary_unnamed_decl
-    , test_edgeCases_select_no_match
-    , test_edgeCases_thread_local
-    , test_edgeCases_unsupported_builtin
+    , test_adios
+    , test_clang_generated_collision
+    , test_duplicate
+    , test_duplicate_record_field
+    , test_headers
+    , test_include_macro
+    , test_iterator
+    , test_ordinary_unnamed_decl
+    , test_select_no_match
+    , test_thread_local
+    , test_unsupported_builtin
     ]
 
 {-------------------------------------------------------------------------------
   Individual test definitions
 -------------------------------------------------------------------------------}
 
-test_edgeCases_adios :: TestCase
-test_edgeCases_adios =
+test_adios :: TestCase
+test_adios =
     defaultTest "edge-cases/adios"
       & #cStandard .~ c11
 
-test_edgeCases_clang_generated_collision :: TestCase
-test_edgeCases_clang_generated_collision =
+test_clang_generated_collision :: TestCase
+test_clang_generated_collision =
     defaultTest "edge-cases/clang_generated_collision"
       & #clangVersion   .~ Just (>= (16, 0, 0))
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
@@ -75,8 +75,8 @@ test_edgeCases_clang_generated_collision =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct foo"]
 
-test_edgeCases_duplicate :: TestCase
-test_edgeCases_duplicate =
+test_duplicate :: TestCase
+test_duplicate =
     defaultTest "edge-cases/duplicate"
       & #onFrontend .~ (\cfg -> cfg
           & #selectionPredicate .~ BOr
@@ -103,40 +103,40 @@ test_edgeCases_duplicate =
         , ("function",        "mangle")
         ]
 
-test_edgeCases_duplicate_record_field :: TestCase
-test_edgeCases_duplicate_record_field =
+test_duplicate_record_field :: TestCase
+test_duplicate_record_field =
     defaultTest "edge-cases/duplicate_record_field"
       & #onFrontend .~ (\cfg -> cfg
             & #fieldNamingStrategy .~ OmitFieldPrefixes
           )
 
-test_edgeCases_headers :: TestCase
-test_edgeCases_headers =
+test_headers :: TestCase
+test_headers =
     testTraceSimple "edge-cases/headers" $ \case
       MatchNoDeclarations ->
         Just $ Expected ()
       _otherwise ->
         Nothing
 
-test_edgeCases_include_macro :: TestCase
-test_edgeCases_include_macro =
+test_include_macro :: TestCase
+test_include_macro =
     defaultTest "edge-cases/include_macro_parent"
       & #onFrontend .~ ( #selectionPredicate .~ BTrue )
 
-test_edgeCases_iterator :: TestCase
-test_edgeCases_iterator =
+test_iterator :: TestCase
+test_iterator =
     defaultTest "edge-cases/iterator"
       & #clangVersion .~ Just (>= (15, 0, 0))
       & #cStandard    .~ c23
       & #onBoot       .~ ( #clangArgs % #enableBlocks .~ True )
 
-test_edgeCases_ordinary_unnamed_decl :: TestCase
-test_edgeCases_ordinary_unnamed_decl =
+test_ordinary_unnamed_decl :: TestCase
+test_ordinary_unnamed_decl =
     defaultTest "edge-cases/ordinary_unnamed_decl_parent"
       & #onFrontend .~ ( #selectionPredicate .~ BTrue )
 
-test_edgeCases_select_no_match :: TestCase
-test_edgeCases_select_no_match =
+test_select_no_match :: TestCase
+test_select_no_match =
     defaultTest "edge-cases/select_no_match"
       & #onFrontend .~ ( #selectionPredicate .~
             BIf (SelectDecl (DeclNameMatches "this_pattern_will_never_match"))
@@ -148,8 +148,8 @@ test_edgeCases_select_no_match =
               Nothing
           )
 
-test_edgeCases_thread_local :: TestCase
-test_edgeCases_thread_local =
+test_thread_local :: TestCase
+test_thread_local =
     defaultTest "edge-cases/thread_local"
       & #clangVersion   .~ Just (>= (16, 0, 0))
       & #cStandard    .~ c23
@@ -160,8 +160,8 @@ test_edgeCases_thread_local =
               Nothing
           )
 
-test_edgeCases_unsupported_builtin :: TestCase
-test_edgeCases_unsupported_builtin =
+test_unsupported_builtin :: TestCase
+test_unsupported_builtin =
     testTraceMulti "edge-cases/unsupported_builtin" declsWithMsgs $ \case
       MatchDelayed name (ParseUnsupportedBuiltin "__builtin_va_list") ->
         Just $ Expected name

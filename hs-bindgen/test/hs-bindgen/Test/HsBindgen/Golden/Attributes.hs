@@ -21,31 +21,31 @@ testCases :: [TestCase]
 testCases = [
       defaultTest "attributes/visibility/edge-cases/nested_types"
     , defaultTest "attributes/visibility/types"
-    , test_attributes_asm
-    , test_attributes_attributes
-    , test_attributes_deprecated
-    , test_attributes_type_attributes
-    , test_attributes_visibility_functions
-    , test_attributes_visibility_variables
+    , test_asm
+    , test_attributes
+    , test_deprecated
+    , test_type_attributes
+    , test_visibility_functions
+    , test_visibility_variables
     ]
 
 {-------------------------------------------------------------------------------
   Individual test definitions
 -------------------------------------------------------------------------------}
 
-test_attributes_asm :: TestCase
-test_attributes_asm =
+test_asm :: TestCase
+test_asm =
     defaultTest "attributes/asm"
       & #clangVersion .~ Just (>= (18, 0, 0))
       & #cStandard    .~ gnu23
 
-test_attributes_attributes :: TestCase
-test_attributes_attributes =
+test_attributes :: TestCase
+test_attributes =
     testDiagnostic "attributes/attributes" $ \diag ->
       diagnosticCategoryText diag == "Nullability Issue"
 
-test_attributes_deprecated :: TestCase
-test_attributes_deprecated =
+test_deprecated :: TestCase
+test_deprecated =
   defaultTest "attributes/deprecated"
     & #onFrontend .~ ( #selectionPredicate .~
           BAnd
@@ -59,16 +59,16 @@ test_attributes_deprecated =
               Nothing
           )
 
-test_attributes_type_attributes :: TestCase
-test_attributes_type_attributes =
+test_type_attributes :: TestCase
+test_type_attributes =
     testTraceSimple "attributes/type_attributes" $ \case
       MatchSelect _name SelectDeprecated{} ->
         Just $ Expected ()
       _otherwise ->
         Nothing
 
-test_attributes_visibility_functions :: TestCase
-test_attributes_visibility_functions =
+test_visibility_functions :: TestCase
+test_visibility_functions =
     defaultTest "attributes/visibility/functions"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchDelayed name ParsePotentialDuplicateSymbol{} ->
@@ -92,8 +92,8 @@ test_attributes_visibility_functions =
         , "f15", "f16", "f17", "f18", "f19"
         ]
 
-test_attributes_visibility_variables :: TestCase
-test_attributes_visibility_variables =
+test_visibility_variables :: TestCase
+test_visibility_variables =
     defaultTest "attributes/visibility/variables"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchDelayed name ParsePotentialDuplicateSymbol{} ->
