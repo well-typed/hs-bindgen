@@ -84,6 +84,7 @@ testCases = [
     , test_types_scoping_deep_nesting
     , test_types_scoping_nesting
     , test_types_scoping_wide_nesting
+    , test_types_small_floats
     , test_types_special_parse_failure_long_double
     , test_types_structs_bitfields
     , test_types_structs_omit_field_prefixes
@@ -211,7 +212,7 @@ test_types_anonymous_edge_cases_reparse =
 test_types_long_double :: TestCase
 test_types_long_double =
     testTraceSimple "types/special/long_double" $ \case
-      MatchDelayed _name ParseUnsupportedLongDouble ->
+      MatchDelayed _name (ParseUnsupportedFloatType UnsupportedLongDouble) ->
         Just $ Expected ()
       _otherwise ->
         Nothing
@@ -246,7 +247,8 @@ test_types_scoping_deep_nesting =
     testTraceMulti "types/scoping/deep_nesting" declsWithMsgs $ \case
       MatchDelayed name@"struct foo" ParseNestedDeclsFailed ->
         Just $ Expected name
-      MatchDelayed name@"struct bar" ParseUnsupportedLongDouble ->
+      MatchDelayed name@"struct bar"
+        (ParseUnsupportedFloatType UnsupportedLongDouble) ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -257,7 +259,8 @@ test_types_scoping_deep_nesting =
 test_types_scoping_nesting :: TestCase
 test_types_scoping_nesting =
     testTraceMulti "types/scoping/nesting" declsWithMsgs $ \case
-      MatchDelayed name@"struct foo" ParseUnsupportedLongDouble ->
+      MatchDelayed name@"struct foo"
+        (ParseUnsupportedFloatType UnsupportedLongDouble) ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -270,7 +273,8 @@ test_types_scoping_wide_nesting =
     testTraceMulti "types/scoping/wide_nesting" declsWithMsgs $ \case
       MatchDelayed name@"struct foo" ParseNestedDeclsFailed ->
         Just $ Expected name
-      MatchDelayed name@"struct bar" ParseUnsupportedLongDouble ->
+      MatchDelayed name@"struct bar"
+        (ParseUnsupportedFloatType UnsupportedLongDouble) ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -278,10 +282,27 @@ test_types_scoping_wide_nesting =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct foo", "struct bar"]
 
+-- | Test that small floating-point types are unsupported, but do not crash us
+--
+-- Clang only supports @_Float16@ on x86 since version 15.
+test_types_small_floats :: TestCase
+test_types_small_floats =
+    testTraceMulti "types/special/small_floats" declsWithMsgs (\case
+      MatchDelayed name (ParseUnsupportedFloatType UnsupportedFloat16) ->
+        Just $ Expected name
+      MatchDelayed name (ParseUnsupportedFloatType UnsupportedHalf) ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing)
+      & #clangVersion .~ Just (>= (15, 0, 0))
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["float16_t", "fp16_t", "struct small_floats", "fun"]
+
 test_types_special_parse_failure_long_double :: TestCase
 test_types_special_parse_failure_long_double =
     testTraceMulti "types/special/parse_failure_long_double" declsWithMsgs $ \case
-      MatchDelayed name ParseUnsupportedLongDouble ->
+      MatchDelayed name (ParseUnsupportedFloatType UnsupportedLongDouble) ->
         Just $ Expected name
       _otherwise ->
         Nothing

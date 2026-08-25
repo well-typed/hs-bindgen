@@ -54,7 +54,8 @@ test_arithmetic_types :: TestCase
 test_arithmetic_types =
     defaultTest "macros/reparse/arithmetic_types"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchDelayed name@"f29" ParseUnsupportedLongDouble ->
+            MatchDelayed name@"f29"
+              (ParseUnsupportedFloatType UnsupportedLongDouble) ->
               Just $ Expected name
             _otherwise ->
               Nothing
