@@ -43,7 +43,7 @@ cabal run hs-bindgen-cli -- \
     --safe "" \
     --hs-output-dir "$SCRIPT_DIR/hs-project/src" \
     --module RogueUtil.Generated \
-    --clang-option=-D_POSIX_C_SOURCE=200809L \
+    --hash-define _POSIX_C_SOURCE 200809L \
     "$SCRIPT_DIR/rogueutil/rogueutil.h"
 
 echo "# "

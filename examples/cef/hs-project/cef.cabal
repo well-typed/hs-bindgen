@@ -230,7 +230,6 @@ library
 
   hs-source-dirs:  src
   extra-libraries: cef
-  cc-options:      -DCEF_API_VERSION=14500
   ghc-options:     -Wno-missing-export-lists
 
 executable cef-bin

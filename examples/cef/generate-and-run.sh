@@ -73,7 +73,7 @@ generate_bindings() {
     local CMD=(
         cabal run hs-bindgen-cli -- preprocess
         -I "$INCLUDE_DIR"
-        -D CEF_API_VERSION=14500
+        --hash-define CEF_API_VERSION 14500
         --hs-output-dir "$HS_OUTPUT_DIR"
         --create-output-dirs
         --overwrite-files
@@ -122,7 +122,7 @@ generate_non_capi_binding() {
     local CMD=(
         cabal run hs-bindgen-cli -- preprocess
         -I "$INCLUDE_DIR"
-        -D CEF_API_VERSION=14500
+        --hash-define CEF_API_VERSION 14500
         --hs-output-dir "$HS_OUTPUT_DIR"
         --create-output-dirs
         --overwrite-files
