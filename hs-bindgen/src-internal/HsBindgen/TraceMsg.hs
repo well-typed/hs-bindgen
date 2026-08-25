@@ -14,6 +14,7 @@ module HsBindgen.TraceMsg (
   , ImmediateFillUnnamedIdsMsg (..)
   , ImmediateParseMsg(..)
   , DelayedParseMsg(..)
+  , UnsupportedFloatType(..)
   , ResolveBindingSpecsMsg(..)
   , ResolveHeaderMsg(..)
   , SelectMsg(..)
@@ -33,7 +34,8 @@ import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass (ImmediateFillUnnamedIdsMsg (..))
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNamesMsg (..))
 import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (..),
-                                          ImmediateParseMsg (..))
+                                          ImmediateParseMsg (..),
+                                          UnsupportedFloatType (..))
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecsMsg (..))
 import HsBindgen.Frontend.Pass.Select.IsPass (SelectMsg (..))
 import HsBindgen.Imports

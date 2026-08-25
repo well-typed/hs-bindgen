@@ -291,6 +291,10 @@
 
 ### Bug fixes
 
+* Declarations using `_Float16`, `__fp16`, `__bf16`, or `__ibm128` are now
+  skipped with an unsupported-feature warning, instead of being reported as a
+  bug in `hs-bindgen`. See
+  [#2230](https://github.com/well-typed/hs-bindgen/issues/2230).
 * Skip declarations using SIMD vector types. See [issue #2198][is-2198].
 * The `--path-style` CLI option now shows its intended help text and value hint.
   Previously two `help` modifiers were given, so the descriptive text and the

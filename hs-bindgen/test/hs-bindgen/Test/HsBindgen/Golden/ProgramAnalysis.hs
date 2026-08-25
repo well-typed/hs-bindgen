@@ -74,7 +74,7 @@ test_programAnalysis_delay_traces =
               )
             )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchDelayed name ParseUnsupportedLongDouble ->
+            MatchDelayed name (ParseUnsupportedFloatType UnsupportedLongDouble) ->
               Just $ Expected name
             MatchDelayed name ParseUnsupportedVariadicFunction ->
               Just $ Expected name

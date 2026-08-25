@@ -56,7 +56,7 @@ test_comprehensive_c2hsc =
 
     trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
-      MatchDelayed name ParseUnsupportedLongDouble ->
+      MatchDelayed name (ParseUnsupportedFloatType UnsupportedLongDouble) ->
         Just $ Expected name
       MatchDoxygen (DoxygenUnsupported _) ->
         Just Tolerated

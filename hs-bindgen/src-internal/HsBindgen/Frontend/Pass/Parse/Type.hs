@@ -53,12 +53,17 @@ cxtype ty = do
       CXType_LongLong   -> prim $ C.PrimIntegral C.PrimLongLong C.Signed
       CXType_ULongLong  -> prim $ C.PrimIntegral C.PrimLongLong C.Unsigned
       CXType_Float      -> prim $ C.PrimFloating C.PrimFloat
-      CXType_Float128   -> failure ParseUnsupportedFloat128
       CXType_Double     -> prim $ C.PrimFloating C.PrimDouble
-      CXType_LongDouble -> failure ParseUnsupportedLongDouble
       CXType_Bool       -> prim $ C.PrimBool
       CXType_Complex    -> complex
       CXType_Vector     -> failure ParseUnsupportedVector
+
+      CXType_LongDouble -> unsupportedFloatType UnsupportedLongDouble
+      CXType_Float128   -> unsupportedFloatType UnsupportedFloat128
+      CXType_Float16    -> unsupportedFloatType UnsupportedFloat16
+      CXType_Half       -> unsupportedFloatType UnsupportedHalf
+      CXType_BFloat16   -> unsupportedFloatType UnsupportedBFloat16
+      CXType_Ibm128     -> unsupportedFloatType UnsupportedIbm128
 
       CXType_Attributed      -> attributed
       CXType_BlockPointer    -> blockPointer
@@ -81,6 +86,10 @@ cxtype ty = do
   where
     failure :: DelayedParseMsg -> CXType -> ParseType (C.Type Parse)
     failure err _ty = throwError err
+
+    unsupportedFloatType ::
+         UnsupportedFloatType -> CXType -> ParseType (C.Type Parse)
+    unsupportedFloatType = failure . ParseUnsupportedFloatType
 
 qualifiers :: CXType -> ParseType (C.Type Parse -> C.Type Parse)
 qualifiers ty = do

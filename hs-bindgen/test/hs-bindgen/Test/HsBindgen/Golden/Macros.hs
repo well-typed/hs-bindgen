@@ -117,7 +117,8 @@ test_macros_macro_resolution_log_level_warnings =
 test_macros_macro_type_unresolved_tagged :: TestCase
 test_macros_macro_type_unresolved_tagged =
     testTraceMulti "macros/macro_type_unresolved_tagged" declsWithMsgs $ \case
-      MatchUnusable name@"struct Unparsable" (UnusableParseFailure ParseUnsupportedLongDouble) ->
+      MatchUnusable name@"struct Unparsable"
+        (UnusableParseFailure (ParseUnsupportedFloatType UnsupportedLongDouble)) ->
         Just $ Expected (name, "select-parse-failure")
       MatchSelect name@"macro PTR_UNPARSABLE" (TransitiveDependenciesMissing{}) ->
         Just $ Expected (name, "select-transitive-dependencies-missing")

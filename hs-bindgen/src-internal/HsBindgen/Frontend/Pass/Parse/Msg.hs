@@ -5,6 +5,7 @@ module HsBindgen.Frontend.Pass.Parse.Msg (
 
     -- * Delayed parse messages
   , DelayedParseMsg(..)
+  , UnsupportedFloatType(..)
   , ParseImplicitFieldsMsg(..)
   ) where
 
@@ -273,13 +274,10 @@ data DelayedParseMsg =
     -- | Clang built-in declaration
   | ParseUnsupportedBuiltin Text
 
-    -- | We do not support @float128@
-  | ParseUnsupportedFloat128
+    -- | We do not support this floating-point type
+  | ParseUnsupportedFloatType UnsupportedFloatType
 
   | ParseUnsupportedLinkage String CXLinkageKind
-
-    -- | We do not support @long double@
-  | ParseUnsupportedLongDouble
 
     -- | Thread local variables
     --
@@ -331,6 +329,43 @@ data DelayedParseMsg =
 
   | ParseNoMainHeadersException String SourcePath
   deriving stock (Show, Generic)
+
+-- | Floating-point types we do not support
+--
+-- @float@ and @double@ are the only floating-point types we support; all others
+-- either have a platform dependent representation or lack a Haskell FFI
+-- counterpart.
+--
+-- <https://github.com/well-typed/hs-bindgen/issues/349>
+-- <https://github.com/well-typed/hs-bindgen/issues/2232>
+data UnsupportedFloatType =
+    -- | @long double@
+    UnsupportedLongDouble
+
+    -- | @__float128@, @_Float128@
+  | UnsupportedFloat128
+
+    -- | @_Float16@
+  | UnsupportedFloat16
+
+    -- | @__fp16@ (half precision, storage only)
+  | UnsupportedHalf
+
+    -- | @__bf16@ (brain floating point)
+  | UnsupportedBFloat16
+
+    -- | @__ibm128@ (PowerPC double-double)
+  | UnsupportedIbm128
+  deriving stock (Show, Eq, Ord, Enum, Bounded, Generic)
+
+instance PrettyForTrace UnsupportedFloatType where
+  prettyForTrace = \case
+      UnsupportedLongDouble -> "long double"
+      UnsupportedFloat128   -> "__float128"
+      UnsupportedFloat16    -> "_Float16"
+      UnsupportedHalf       -> "__fp16"
+      UnsupportedBFloat16   -> "__bf16"
+      UnsupportedIbm128     -> "__ibm128"
 
 instance Exception DelayedParseMsg where
   displayException = PP.renderCtxDoc (PP.mkContext 100) . prettyForTrace
@@ -399,8 +434,8 @@ instance PrettyForTrace DelayedParseMsg where
         "Unexpected unnamed declaration in function signature"
       ParseUnsupportedBuiltin name ->
         "Unsupported built-in " >< PP.show name
-      ParseUnsupportedFloat128 ->
-        "Unsupported float128"
+      ParseUnsupportedFloatType ty ->
+        "Unsupported floating-point type " >< prettyForTrace ty
       ParseUnsupportedLinkage comment linkage -> PP.hcat [
           "Unsupported linkage: "
         , PP.show linkage
@@ -408,8 +443,6 @@ instance PrettyForTrace DelayedParseMsg where
         , PP.string comment
         , ")"
         ]
-      ParseUnsupportedLongDouble ->
-        "Unsupported long double"
       ParseUnsupportedTLS ->
         "Unsupported thread-local variable"
       ParseUnsupportedVariadicFunction ->
@@ -480,9 +513,8 @@ instance IsTrace Level DelayedParseMsg where
       ParseUnsupportedUnnamedInExtern{}    -> Warning
       ParseUnsupportedUnnamedInSignature{} -> Warning
       ParseUnsupportedBuiltin{}            -> Warning
-      ParseUnsupportedFloat128             -> Warning
+      ParseUnsupportedFloatType{}          -> Warning
       ParseUnsupportedLinkage{}            -> Warning
-      ParseUnsupportedLongDouble           -> Warning
       ParseUnsupportedTLS{}                -> Warning
       ParseUnsupportedVariadicFunction     -> Warning
       ParseUnsupportedVector               -> Warning
