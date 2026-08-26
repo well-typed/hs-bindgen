@@ -53,6 +53,8 @@ newtype Triple_t = Triple_t { unwrapTriple_t :: Triple }
 In some cases an uninitialised struct value is required. In such cases, the
 `zero` function from the `IsStruct` class provides a suitable struct value.
 Instances of `IsStruct` are generated automatically for generated struct types.
+Zero values are specially useful in combination with [record dot
+syntax][manual:record-dot-syntax-zero-values].
 
 ## Nesting
 
@@ -241,6 +243,7 @@ used by value.
 [header:struct.h]: ../../c/structs.h
 [manual:generated-names]: generated-names.md
 [manual:introduction]: ../introduction.md
+[manual:record-dot-syntax-zero-values]: record-dot-syntax.md#zero-values
 [manual:structs/nesting]: structs/nesting.md
 [wikipedia:bit-field]: https://en.wikipedia.org/wiki/Bit_field
 [wikipedia:flam]: https://en.wikipedia.org/wiki/Flexible_array_member

@@ -24,6 +24,7 @@ The pointer manipulation API supports:
 * Indexing of struct fields through a pointer
 * Indexing of union fields through a pointer
 * Indexing of bit-fields (for both structs and unions) through a pointer
+* Indexing of indirect fields (for both structs and unions) through a pointer
 * Erasing `newtype` sugar (introduced by `typedef`s or macro-defined types) from
   a pointer type
 * Converting a pointer to an array to a pointer to the array's first element
@@ -83,8 +84,9 @@ example should be sufficient to illustrate how to *use* the pointer manipulation
 API.
 
 Since full marshalling may be undesirable, `hs-bindgen` also generates
-`HasField` instances for pointers, so that record dot syntax can be used to
-index C data structures. These instances roughly look like so (details omitted):
+`HasField` instances for pointers, so that [record dot
+syntax][manual:record-dot-syntax] can be used to index C data structures. These
+instances roughly look like so (details omitted):
 
 ```hs
 instance ( ty ~ CInt
@@ -128,3 +130,4 @@ infrastructure. If you prefer to avoid record-dot syntax, you can either:
 <!-- sources and references -->
 
 [pr-2065]: https://github.com/well-typed/hs-bindgen/pull/2065/files
+[manual:record-dot-syntax]: ./record-dot-syntax.md

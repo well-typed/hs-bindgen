@@ -103,6 +103,8 @@ be get and set like so:
 In some cases an uninitialised union value is required. In such cases, the
 `zero` function from the `IsUnion` class provides a suitable union value.
 Instances of `IsUnion` are generated automatically for generated union types.
+Zero values are also specially useful in combination with [record dot
+syntax][manual:record-dot-syntax-zero-values].
 
 ## High-level API generation
 
@@ -215,5 +217,6 @@ union forced_width {
 
 [hackage:base:ByteArray]: https://hackage.haskell.org/package/base/docs/Data-Array-Byte.html#t:ByteArray
 [manual:generated-names]: generated-names.md
+[manual:record-dot-syntax-zero-values]: record-dot-syntax.md#zero-values
 [manual:structs-bit-fields]: structs.md#bit-fields
 [manual:unions/nesting]: unions/nesting.md

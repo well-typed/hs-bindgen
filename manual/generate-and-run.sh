@@ -139,20 +139,6 @@ cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     generated-names/unprefixed_field_names.h
 
 echo "# "
-echo "## Pointer manipulation API"
-echo "# "
-
-cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
-    preprocess \
-    -I c/ \
-    --create-output-dirs \
-    --overwrite-files \
-    --unique-id com.hs-bindgen.manual.pointermanipulation \
-    --hs-output-dir "$GENERATED_DIR" \
-    --module PointerManipulation \
-    pointer_manipulation.h
-
-echo "# "
 echo "## Header-only library"
 echo "# "
 
@@ -167,6 +153,34 @@ cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     --hs-output-dir "$GENERATED_DIR" \
     --module HeaderOnly \
     header_only.h
+
+echo "# "
+echo "## Pointer manipulation API"
+echo "# "
+
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
+    preprocess \
+    -I c/ \
+    --create-output-dirs \
+    --overwrite-files \
+    --unique-id com.hs-bindgen.manual.pointermanipulation \
+    --hs-output-dir "$GENERATED_DIR" \
+    --module PointerManipulation \
+    pointer_manipulation.h
+
+echo "## Record dot syntax"
+echo "# "
+
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
+    preprocess \
+    -I c/ \
+    --create-output-dirs \
+    --overwrite-files \
+    --unique-id com.hs-bindgen.manual.recorddotsyntax \
+    --hs-output-dir "$GENERATED_DIR" \
+    --module RecordDotSyntax \
+    --omit-field-prefixes \
+    record_dot_syntax.h
 
 echo "# "
 echo "## Structs"

@@ -48,6 +48,7 @@ libmanual${TARGET_EXT}: \
 		generated_names.o \
 		generated-names/unprefixed_field_names.o \
 		pointer_manipulation.o \
+		record_dot_syntax.o \
 		structs.o \
 		structs/nesting.o \
 		unions.o \
@@ -64,6 +65,7 @@ libmanual${TARGET_EXT}: \
 		generated_names.o \
 		generated-names/unprefixed_field_names.o \
 		pointer_manipulation.o \
+		record_dot_syntax.o \
 		structs.o \
 		structs/nesting.o \
 		unions.o \
@@ -102,6 +104,11 @@ generated-names/unprefixed_field_names.o: generated-names/unprefixed_field_names
 
 pointer_manipulation.o: pointer_manipulation.c pointer_manipulation.h
 	clang ${EXTRAFLAGS} -Wall -o pointer_manipulation.o -c -fPIC pointer_manipulation.c
+
+## Record dot syntax
+
+record_dot_syntax.o: record_dot_syntax.c record_dot_syntax.h
+	clang ${EXTRAFLAGS} -Wall -o record_dot_syntax.o -c -fPIC record_dot_syntax.c
 
 ## Structs
 
