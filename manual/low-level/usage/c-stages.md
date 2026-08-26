@@ -137,7 +137,15 @@ Such a macro must *not* be a root directive. It would be emitted into the
 wrapper source of every generated module, and each of those translation units
 would define the function, giving duplicate symbols at link time.
 
-Define it in exactly one C source file of your own package instead:
+Instead, the macro should only be defined when building a C object out of the
+library header. If the library was shipped with a built C (shared) object, then all
+is good. However, if the C object is intended to be built by you, the user, then
+it is up to you to ensure that the macro is defined when compiling the header
+into a C object.
+
+One way to ensure that the C object is built with the macro defined is to bundle
+the C header with your own Cabal package. Define the macro and include the
+header in exactly one C source file and include it in the Cabal package like so:
 
 ```c
 /* cbits/header_only.c */
