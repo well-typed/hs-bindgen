@@ -26,6 +26,7 @@ into separate modules corresponding to the manual's structure:
 * 'Manual.Globals' - Examples for global variables and constants
 * 'Manual.HeaderOnly' - Example for the header-only library recipe
 * 'Manual.PointerManipulation' - Examples for the pointer manipulation API
+* 'Manual.RecordDotSyntax' -- Examples for record dot syntax
 -}
 module Manual (main) where
 
@@ -43,6 +44,7 @@ import Manual.Globals qualified
 import Manual.HeaderOnly qualified
 import Manual.Macros qualified
 import Manual.PointerManipulation qualified
+import Manual.RecordDotSyntax qualified
 import Manual.Types.Arrays qualified
 import Manual.Types.Complex qualified
 import Manual.Types.Enums qualified
@@ -75,6 +77,7 @@ main = do
     Manual.Functions.HigherOrder.examples
     Manual.PointerManipulation.examples
     Manual.HeaderOnly.examples
+    Manual.RecordDotSyntax.examples
 
 {-------------------------------------------------------------------------------
   Helper - shared across modules

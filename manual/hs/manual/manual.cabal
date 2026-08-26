@@ -31,6 +31,7 @@ executable run-manual
     Manual.HeaderOnly
     Manual.Macros
     Manual.PointerManipulation
+    Manual.RecordDotSyntax
     Manual.Tools
     Manual.Types.Arrays
     Manual.Types.Complex
@@ -93,6 +94,9 @@ library generated
     Macro
     Macro.Unsafe
     PointerManipulation
+    RecordDotSyntax
+    RecordDotSyntax.Global
+    RecordDotSyntax.Unsafe
     Structs
     Structs.Nesting
     Structs.Safe
