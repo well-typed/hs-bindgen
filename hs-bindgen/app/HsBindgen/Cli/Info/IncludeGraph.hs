@@ -86,9 +86,9 @@ parsePredicate = fmap merge . many . asum $ [
       xs -> xs
 
 parseHeaderLabelStyle :: Parser HeaderLabelStyle
-parseHeaderLabelStyle = flag ShowIncludeArgs ShowPaths $ mconcat [
+parseHeaderLabelStyle = flag ShowHeaderNames ShowRealPaths $ mconcat [
       long "show-paths"
-    , help "Show paths of include header files instead of their '#include' arguments"
+    , help "Label headers by their path on disk instead of by their name"
     ]
 
 parseIncludeGraphFormat :: Parser IncludeGraphFormat

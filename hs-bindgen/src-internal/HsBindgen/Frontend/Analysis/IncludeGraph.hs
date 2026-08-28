@@ -302,12 +302,21 @@ lookupIncludeOrder (IncludeOrder order) file
 -- | Include graph predicate
 type Predicate = SourceFile -> Bool
 
--- | How should we show the include header?
+-- | How should we label a header?
 data HeaderLabelStyle =
-    -- | Show the @#include@ argument, which is usually shorter
-    ShowIncludeArgs
-    -- | Show paths of include header files
-  | ShowPaths
+    -- | The header's name
+    --
+    -- One name per file, derived from the file rather than from whichever
+    -- directive reached it. This is the string a selection predicate matches
+    -- and a binding specification is keyed on, so a name read off the graph
+    -- can be pasted into either.
+    ShowHeaderNames
+
+    -- | The real path of the file on disk
+    --
+    -- Names this machine, so it answers \"which file is this vertex\" and
+    -- nothing that outlives the run.
+  | ShowRealPaths
   deriving stock (Show, Eq)
 
 -- | How should we render the include graph?
@@ -342,7 +351,7 @@ data VisOpts = VisOpts {
       -- Combined edges are rendered using dotted lines instead of solid lines.
       predicate :: Predicate
 
-      -- | How should we show the include header?
+      -- | How should we label a header?
     , labelStyle :: HeaderLabelStyle
     }
 
@@ -353,14 +362,14 @@ renderMermaid :: VisOpts -> IncludeGraph -> String
 renderMermaid o g =
       Digraph.renderMermaid opts
     . Digraph.combineParallelEdges combineParallel
-    . Digraph.filterVerticesCombineEdges predicate combineSequential
+    . Digraph.filterVerticesCombineEdges o.predicate combineSequential
     . Digraph.mapEdges (const Direct)
-    $ Digraph.mapVerticesOutgoingEdges Vertex g.graph
+    $ g.graph
   where
-    opts :: Digraph.VisOptions Edge Vertex
+    opts :: Digraph.VisOptions Edge SourceFile
     opts = Digraph.VisOptions{
-        visVertex = \v -> Digraph.VisVertex{
-            label = Just (vertexLabel o g v)
+        visVertex = \file -> Digraph.VisVertex{
+            label = Just (vertexLabel o.labelStyle g file)
           }
       , visEdge = \e -> Digraph.VisEdge{
             label = Nothing
@@ -371,9 +380,6 @@ renderMermaid o g =
       , reverseEdges = True
       }
 
-    predicate :: Vertex -> Bool
-    predicate v = o.predicate v.file
-
 -- | Render the include graph as a topologically sorted list of headers
 --
 -- One header per line, in an order such that a header is listed only after all
@@ -383,43 +389,30 @@ renderMermaid o g =
 renderSortedList :: VisOpts -> IncludeGraph -> String
 renderSortedList o g =
       unlines
-    . map (vertexLabel o g)
-    . filter (o.predicate . (.file))
-    $ Digraph.sort annotated
-  where
-    annotated :: Digraph Include Vertex
-    annotated = Digraph.mapVerticesOutgoingEdges Vertex g.graph
-
-data Vertex = Vertex {
-      file     :: SourceFile
-    , includes :: Set Include
-    }
-  deriving stock (Show, Eq, Ord)
+    . map (vertexLabel o.labelStyle g)
+    . filter o.predicate
+    $ Digraph.sort g.graph
 
 data Edge = Direct | Transient
   deriving stock (Show, Eq, Ord)
 
 -- | Display label for a vertex
 --
--- Under 'ShowPaths' this is the header's name rather than a real path: the real
--- path names this machine, which is no use to a reader.
-vertexLabel :: VisOpts -> IncludeGraph -> Vertex -> String
-vertexLabel o g v = case o.labelStyle of
-    ShowPaths       -> fileLabel g v.file
-    ShowIncludeArgs -> getIncludePath g v
-
-fileLabel :: IncludeGraph -> SourceFile -> String
-fileLabel g file = case headerNameOf g file of
-    Just name  -> (C.headerNameArg name).path
-    Nothing    -> case file of
+-- Labelling by name and not by an incoming @#include@ argument is the point: a
+-- file is reached by as many spellings as there are directives, and picking one
+-- of them puts a second name for the file in front of the reader, which is what
+-- the rest of this module exists to avoid.
+vertexLabel :: HeaderLabelStyle -> IncludeGraph -> SourceFile -> String
+vertexLabel style g file = case style of
+    ShowHeaderNames -> maybe realPath ((.path) . C.headerNameArg) (headerNameOf g file)
+    ShowRealPaths   -> realPath
+  where
+    -- A vertex with no name is one @clang@ gave no real path for, i.e. the
+    -- synthetic root header, so its reported name is all either style has.
+    realPath :: String
+    realPath = case file of
       InMemory path -> getSourcePath path
       OnDisk fileId -> fileId.path
-
-getIncludePath :: IncludeGraph -> Vertex -> FilePath
-getIncludePath g v =
-    case List.sortOn length . map ((.path) . getIncludeArg) . Set.elems $ v.includes of
-      x:_ -> x
-      []  -> fileLabel g v.file
 
 -- | Sequential combination of simple include edges.
 --
