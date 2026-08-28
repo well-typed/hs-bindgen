@@ -38,7 +38,6 @@ tests = testGroup "Test.HsBindgen.Unit.Digraph" [
     , testNeighbors
     , testReaches
     , testSort
-    , testSortBy
     , testDfs
     , testDff
     , testDfFindMember
@@ -449,29 +448,6 @@ testSort = testGroup "sort" [
         let expected = mkVs [1, 2, 6, 8, 11, 3, 7, 4, 10, 5, 9]
         expected @=? Digraph.sort graph3E
     ]
-
-testSortBy :: TestTree
-testSortBy = testGroup "sortBy" [
-      testCase "empty" $
-        [] @=? Digraph.sortBy cmp graph0
-    , testCase "no edges" $ do
-        let expected = List.sortBy cmp graph1Vs
-        expected @=? Digraph.sortBy cmp graph1V
-    , testCase "with edges" $ do
-        let expected =
-              mkVs [1, 4, 6, 7, 8, 5, 9, 10, 11, 13, 16, 2, 14, 3, 12, 15]
-        expected @=? Digraph.sortBy cmp graph1E
-    , testCase "with cycle" $ do
-        let expected = mkVs [2, 3, 1]
-        expected @=? Digraph.sortBy cmp graph2E
-    , testCase "with cycles" $ do
-        let expected = mkVs [1, 2, 6, 3, 7, 8, 11, 4, 10, 5, 9]
-        expected @=? Digraph.sortBy cmp graph3E
-    ]
-  where
-    cmp :: String -> String -> Ordering
-    cmp (_ : l) (_ : r) = compare (read @Int l) (read @Int r)
-    cmp l       r       = compare l r
 
 testDfs :: TestTree
 testDfs = testGroup "dfs" [

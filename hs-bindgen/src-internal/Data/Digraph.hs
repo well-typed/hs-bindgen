@@ -28,7 +28,6 @@ module Data.Digraph (
   , neighbors
   , reaches
   , sort
-  , sortBy
   , dfs
   , dff
   , dfFindMember
@@ -549,11 +548,6 @@ sort graph = vs
         graph.idxMap IntMap.! idx
       | idx <- sccFromMap IntMap.! idx'
       ]
-
--- | Sort the vertices of a graph using a topological sort of groups of strongly
--- connected components, ordering with the specified ordering function
-sortBy :: Ord v => (v -> v -> Ordering) -> Digraph e v -> [v]
-sortBy cmp = sort . reIndex cmp
 
 -- | Depth-first traversal of the graph from the specified vertices
 --
