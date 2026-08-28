@@ -12,6 +12,7 @@ module HsBindgen.IR.C (
   , module HsBindgen.IR.C.Decl
   , module HsBindgen.IR.C.HashDefine
   , module HsBindgen.IR.C.HashIncludeArg
+  , module HsBindgen.IR.C.HeaderName
   , module HsBindgen.IR.C.LocationInfo
   , module HsBindgen.IR.C.Naming
   , module HsBindgen.IR.C.PrettyPrinter
@@ -23,6 +24,7 @@ import HsBindgen.IR.C.Conflict
 import HsBindgen.IR.C.Decl
 import HsBindgen.IR.C.HashDefine
 import HsBindgen.IR.C.HashIncludeArg
+import HsBindgen.IR.C.HeaderName
 import HsBindgen.IR.C.LocationInfo
 import HsBindgen.IR.C.Naming
 import HsBindgen.IR.C.PrettyPrinter

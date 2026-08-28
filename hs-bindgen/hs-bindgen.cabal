@@ -261,6 +261,7 @@ library internal
     HsBindgen.IR.C.Decl
     HsBindgen.IR.C.HashDefine
     HsBindgen.IR.C.HashIncludeArg
+    HsBindgen.IR.C.HeaderName
     HsBindgen.IR.C.LocationInfo
     HsBindgen.IR.C.Naming
     HsBindgen.IR.C.PrettyPrinter
