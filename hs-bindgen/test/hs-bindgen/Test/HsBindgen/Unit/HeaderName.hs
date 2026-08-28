@@ -1,5 +1,6 @@
 module Test.HsBindgen.Unit.HeaderName (tests) where
 
+import Data.IORef (modifyIORef', newIORef, readIORef)
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import System.Directory qualified as Dir
@@ -41,6 +42,8 @@ tests getTestResources = testGroup "Test.HsBindgen.Unit.HeaderName" [
     , testCase "a shadowed header cannot be keyed as the shadowing one" $
         testShadowingSpecKeys getTestResources
     , testCase "a persisted name reads back as itself" testKeyRoundTrip
+    , testCase "shadowing is reported, having no bracket name is not" $
+        testShadowingIsReported getTestResources
     ]
 
 {-------------------------------------------------------------------------------
@@ -135,6 +138,41 @@ testOutside getTestResources = do
           (relativeToRoot env lone) arg
       other ->
         assertFailure $ "expected a quote name, got " ++ show other
+
+-- | Shadowing is reported, and merely having no bracket name is not
+--
+-- Both end in a quote name, so the fallback on its own cannot tell them apart.
+-- What separates them is whether any candidate reached a file at all: for the
+-- shadowed copy @\<widget\/core.h\>@ reaches vendor's, while nothing whatsoever
+-- reaches @lone.h@.
+testShadowingIsReported :: IO TestResources -> Assertion
+testShadowingIsReported getTestResources = do
+    env      <- mkEnv getTestResources ["vendor", "include"]
+    shadowed <- fileIn env ("include" </> "widget" </> "core.h")
+    lone     <- fileIn env ("outside" </> "lone.h")
+
+    reports <- shadowingReports env [shadowed]
+    case reports of
+      [(arg, _by)] ->
+        assertEqual "the name that was taken"
+          (C.HashIncludeArg "widget/core.h") arg
+      _otherwise ->
+        assertFailure $
+          "expected one report, got " ++ show (length reports)
+
+    assertEqual "a header with no bracket name is not shadowed"
+      [] =<< shadowingReports env [lone]
+
+-- | Name the given files, keeping whatever shadowing was reported
+shadowingReports :: Env -> [FileId] -> IO [(C.HashIncludeArg, FileId)]
+shadowingReports env files = do
+    ref <- newIORef []
+    let tracer = simpleTracer $ \case
+          HeaderName.HeaderShadowed arg by _name -> modifyIORef' ref ((arg, by):)
+          HeaderName.HeaderNameClang{}           -> return ()
+    _ <- HeaderName.headerNamesOf tracer env.clangArgs env.projectRoot
+           env.incDirs files
+    reverse <$> readIORef ref
 
 -- | The specification: including a name finds the file it names
 --

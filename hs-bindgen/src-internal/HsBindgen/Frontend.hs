@@ -253,7 +253,7 @@ runFrontend tracer config boot = do
         projectRoot <- HeaderName.getProjectRoot
         (includeGraph, getMainHeadersAndInclude, mainHeaderPaths) <-
           processIncludes
-            (contramap FrontendClang tracer)
+            (contramap FrontendHeaderName tracer)
             clangArgs
             projectRoot
             (HeaderName.includeSearchPath clangArgs)
@@ -475,6 +475,7 @@ data FrontendMsg =
   | FrontendCache                    (SafeTrace CacheMsg)
   | FrontendDoxygen                   DoxygenMsg
   | FrontendRootHeader                RootHeaderMsg
+  | FrontendHeaderName                HeaderName.HeaderNameMsg
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
 

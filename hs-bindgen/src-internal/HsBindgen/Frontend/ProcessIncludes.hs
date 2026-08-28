@@ -24,7 +24,6 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 
-import HsBindgen.Clang (ClangMsg)
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.HeaderName (ProjectRoot)
 import HsBindgen.Frontend.Analysis.HeaderName qualified as HeaderName
@@ -122,7 +121,7 @@ type GetMainHeadersAndInclude =
 -- Naming the files costs one extra parse, of a synthetic header holding every
 -- candidate name at once. See 'HeaderName.headerNamesOf'.
 processIncludes ::
-     Tracer ClangMsg
+     Tracer HeaderName.HeaderNameMsg
   -> ClangArgs      -- ^ the arguments this unit was parsed with
   -> ProjectRoot
   -> [CIncludeDir]  -- ^ include search path, in order

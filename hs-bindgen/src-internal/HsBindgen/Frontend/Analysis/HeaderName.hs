@@ -9,6 +9,8 @@
 module HsBindgen.Frontend.Analysis.HeaderName (
     -- * File identity
     fileIdOf
+    -- * Trace messages
+  , HeaderNameMsg(..)
     -- * Derivation
   , ProjectRoot(..)
   , getProjectRoot
@@ -19,10 +21,12 @@ module HsBindgen.Frontend.Analysis.HeaderName (
 
 import Data.Containers.ListUtils (nubOrd)
 import Data.List qualified as List
+import Data.Maybe (listToMaybe)
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as Text
 import System.Directory qualified as Dir
 import System.FilePath qualified as FilePath
+import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Args
 import Clang.Enum.Simple
@@ -48,6 +52,50 @@ import HsBindgen.Util.Tracer
 fileIdOf :: MonadIO m => CXFile -> m (Maybe FileId)
 fileIdOf file =
     fmap (C.FileId . Text.unpack) <$> clang_File_tryGetRealPathName file
+
+{-------------------------------------------------------------------------------
+  Trace messages
+-------------------------------------------------------------------------------}
+
+-- | Messages emitted while naming headers
+data HeaderNameMsg =
+    HeaderNameClang ClangMsg
+
+    -- | A header has no bracket name, because another file answers to one of
+    -- the names it could have used
+    --
+    -- Reported because within one project this usually means an earlier @-I@
+    -- is hiding a header behind another, which is not something anyone sets
+    -- out to do. It is not an error and not always a mistake: the C standard
+    -- library shadows itself, since @clang@ ships headers that reach the
+    -- platform's through @#include_next@.
+  | HeaderShadowed
+      C.HashIncludeArg  -- ^ the name that was taken
+      FileId            -- ^ the file that answers to it
+      HeaderName        -- ^ what we called this header instead
+  deriving stock (Show)
+
+instance PrettyForTrace HeaderNameMsg where
+  prettyForTrace = \case
+    HeaderNameClang msg -> prettyForTrace msg
+    HeaderShadowed arg by name -> PP.string $ concat [
+        "#include <", arg.path, "> reaches ", by.path
+      , ", so this header is named: ", C.renderHeaderName name
+      ]
+
+instance IsTrace Level HeaderNameMsg where
+  getDefaultLogLevel = \case
+    HeaderNameClang msg -> getDefaultLogLevel msg
+    -- Fires on the C standard library on an ordinary system, so it belongs
+    -- with the rest of the "why did that come out like that" detail rather
+    -- than among the warnings.
+    HeaderShadowed{}    -> Info
+  getSource = \case
+    HeaderNameClang msg -> getSource msg
+    HeaderShadowed{}    -> HsBindgen
+  getTraceId = \case
+    HeaderNameClang msg -> getTraceId msg
+    HeaderShadowed{}    -> "header-shadowed"
 
 {-------------------------------------------------------------------------------
   The search path
@@ -123,7 +171,7 @@ getProjectRoot = ProjectRoot <$> (Dir.canonicalizePath =<< Dir.getCurrentDirecto
 -- name survive a change of include order, and it is why the search path has to
 -- be the one the main parse used.
 headerNamesOf ::
-     Tracer ClangMsg
+     Tracer HeaderNameMsg
   -> ClangArgs      -- ^ must match the main parse, or answers diverge
   -> ProjectRoot    -- ^ anchor for quote names
   -> [CIncludeDir]  -- ^ search path, in order
@@ -137,17 +185,29 @@ headerNamesOf tracer args root incDirs files = do
     -- Shadowing makes repeated arguments the normal case rather than a corner:
     -- both copies of a shadowed header subtract to the same string. What an
     -- argument resolves to depends only on the argument, so ask once each.
-    resolved <- resolveHeaderNames tracer args root . nubOrd $
-                  map ByBracket (concatMap snd candidates)
+    resolved <- resolveHeaderNames (contramap HeaderNameClang tracer) args root
+                  . nubOrd $ map ByBracket (concatMap snd candidates)
 
     let reaches :: C.HashIncludeArg -> Maybe FileId
         reaches arg = Map.findWithDefault Nothing (ByBracket arg) resolved
 
-    return $ Map.fromList [
-        (file, maybe (ByQuote (quoteName root file)) ByBracket accepted)
-      | (file, candidateArgs) <- candidates
-      , let accepted = List.find ((== Just file) . reaches) candidateArgs
-      ]
+    fmap Map.fromList . forM candidates $ \(file, candidateArgs) ->
+      case List.find ((== Just file) . reaches) candidateArgs of
+        Just arg -> return (file, ByBracket arg)
+        Nothing  -> do
+          -- Running out of candidates has two causes and only one is worth
+          -- reporting. A candidate that reached some other file says the name
+          -- exists and is taken, which is shadowing. A candidate that reached
+          -- nothing says only that this header has no bracket name, which is
+          -- ordinary for a library that includes its own internals by quote.
+          let name  = ByQuote (quoteName root file)
+              taken = listToMaybe [ (arg, by)
+                                  | arg     <- candidateArgs
+                                  , Just by <- [reaches arg]
+                                  ]
+          forM_ taken $ \(arg, by) ->
+            traceWith tracer $ withCallStack $ HeaderShadowed arg by name
+          return (file, name)
   where
     canonicalDir :: CIncludeDir -> IO FilePath
     canonicalDir = Dir.canonicalizePath . getCIncludeDir
