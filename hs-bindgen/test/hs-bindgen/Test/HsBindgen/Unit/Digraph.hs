@@ -37,6 +37,7 @@ tests = testGroup "Test.HsBindgen.Unit.Digraph" [
     , testVertices
     , testNeighbors
     , testReaches
+    , testSortSccs
     , testSort
     , testDfs
     , testDff
@@ -429,6 +430,24 @@ testReaches = testGroup "reaches" [
     , testCase "multi" $
         vSet [3, 4, 7, 9, 12, 14]
           @=? Digraph.reaches (vSet [4, 7, 9, 14]) graph1E
+    ]
+
+testSortSccs :: TestTree
+testSortSccs = testGroup "sortSccs" [
+      testCase "empty" $
+        [] @=? Digraph.sortSccs graph0
+    , testCase "no edges" $
+        map List.singleton graph1Vs @=? Digraph.sortSccs graph1V
+    , testCase "with edges" $ do
+        let expected = map (mkVs . List.singleton) $
+              [16, 15, 2, 6, 10, 14, 12, 3, 8, 5, 4, 1, 11, 7, 13, 9]
+        expected @=? Digraph.sortSccs graph1E
+    , testCase "with cycle" $ do
+        let expected = map mkVs [[3, 2], [1]]
+        expected @=? Digraph.sortSccs graph2E
+    , testCase "with cycles" $ do
+        let expected = map mkVs [[1], [2, 6], [8, 11, 3, 7], [4, 10], [5], [9]]
+        expected @=? Digraph.sortSccs graph3E
     ]
 
 testSort :: TestTree

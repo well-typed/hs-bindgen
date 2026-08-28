@@ -27,6 +27,7 @@ module Data.Digraph (
   , vertices
   , neighbors
   , reaches
+  , sortSccs
   , sort
   , dfs
   , dff
@@ -438,8 +439,10 @@ reaches fromVs graph =
 
 -- | Sort the vertices of a graph using a topological sort of groups of strongly
 -- connected components
-sort :: forall e v. Digraph e v -> [v]
-sort graph = vs
+--
+-- This function returns sorted groups of strongly connected componenets.
+sortSccs :: forall e v. Digraph e v -> [[v]]
+sortSccs graph = vss
   where
     -- Get the strongly connected components for the graph.
     sccs :: [Tree Idx]
@@ -540,14 +543,18 @@ sort graph = vs
           [] -> (startIdxs, rEdgeMap)
 
     -- Transform the topological sort of the internal graph to a list of
-    -- vertices in the actual graph.  Each representative index is expanded to
-    -- the (already sorted) list of graph indices, and the actual vertices are
-    -- queried.
-    vs :: [v]
-    vs = flip Foldable.concatMap idxs' $ \idx' -> [
-        graph.idxMap IntMap.! idx
-      | idx <- sccFromMap IntMap.! idx'
-      ]
+    -- strongly connected components (already sorted), querying the actual
+    -- vertices.
+    vss :: [[v]]
+    vss = map (graph.idxMap IntMap.!) . (sccFromMap IntMap.!) <$> idxs'
+
+-- | Sort the vertices of a graph using a topological sort of groups of strongly
+-- connected components
+--
+-- This function concatenates the sorted groups of strongly connected
+-- componenets.
+sort :: Digraph e v -> [v]
+sort = concat . sortSccs
 
 -- | Depth-first traversal of the graph from the specified vertices
 --
