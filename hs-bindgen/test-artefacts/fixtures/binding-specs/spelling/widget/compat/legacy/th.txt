@@ -1,0 +1,38 @@
+-- addDependentFile test-artefacts/headers/golden/binding-specs/spelling/widget/core.h
+-- addDependentFile test-artefacts/headers/golden/binding-specs/spelling/widget/compat/legacy.h
+{-| __C declaration:__ @struct spelling_user@
+
+    __defined at:__ @binding-specs\/spelling\/widget\/compat\/legacy.h 10:8@
+
+    __exported by:__ @binding-specs\/spelling\/widget\/compat\/legacy.h@
+-}
+data Spelling_user
+    = Spelling_user {spelling_user_core :: Spelling.Core.Spelling_core
+                     {- ^ __C declaration:__ @core@
+
+                          __defined at:__ @binding-specs\/spelling\/widget\/compat\/legacy.h 11:24@
+
+                          __exported by:__ @binding-specs\/spelling\/widget\/compat\/legacy.h@
+                     -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Spelling_user
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Spelling_user
+    where readRaw = \ptr_0 -> pure Spelling_user <*> readRaw (Proxy @"spelling_user_core") ptr_0
+instance WriteRaw Spelling_user
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Spelling_user spelling_user_core_2 -> writeRaw (Proxy @"spelling_user_core") ptr_0 spelling_user_core_2
+deriving via (EquivStorable Spelling_user) instance Storable Spelling_user
+deriving via (IsStructViaReadRaw Spelling_user) instance IsStruct Spelling_user
+instance (~) ty Spelling.Core.Spelling_core =>
+         HasField "spelling_user_core" Spelling_user ty
+    where hasField = \x_0 -> (\y_1 -> Spelling_user{spelling_user_core = y_1},
+                              getField @"spelling_user_core" x_0)
+instance (~) ty Spelling.Core.Spelling_core =>
+         HasField "spelling_user_core" (Ptr Spelling_user) (Ptr ty)
+    where getField = fromPtr (Proxy @"spelling_user_core")
+instance HasCField Spelling_user "spelling_user_core"
+    where type CFieldType Spelling_user
+                          "spelling_user_core" = Spelling.Core.Spelling_core
+          offset# = \_ -> \_ -> 0

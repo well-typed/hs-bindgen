@@ -28,7 +28,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @T2@
 
-    __defined at:__ @intermittent_include_conditional_inner.h 2:15@
+    __defined at:__ @macros\/parse\/intermittent_include_conditional_inner.h 2:15@
 
     __exported by:__ @macros\/parse\/intermittent_include_conditional.h@
 -}
@@ -72,7 +72,7 @@ instance HasCField.HasCField T2 "unwrapT2" where
 
 {-| __C declaration:__ @T4@
 
-    __defined at:__ @intermittent_include_conditional_inner.h 6:16@
+    __defined at:__ @macros\/parse\/intermittent_include_conditional_inner.h 6:16@
 
     __exported by:__ @macros\/parse\/intermittent_include_conditional.h@
 -}

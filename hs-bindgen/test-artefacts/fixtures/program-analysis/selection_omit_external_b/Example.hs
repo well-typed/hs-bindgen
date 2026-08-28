@@ -27,7 +27,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct Omitted@
 
-    __defined at:__ @selection_omit_external_root.h 1:8@
+    __defined at:__ @program-analysis\/selection_omit_external_root.h 1:8@
 
     __exported by:__ @program-analysis\/selection_omit_external_b.h@
 -}
@@ -35,7 +35,7 @@ data Omitted = Omitted
   { omitted_n :: BG.CInt
     {- ^ __C declaration:__ @n@
 
-         __defined at:__ @selection_omit_external_root.h 2:7@
+         __defined at:__ @program-analysis\/selection_omit_external_root.h 2:7@
 
          __exported by:__ @program-analysis\/selection_omit_external_b.h@
     -}
@@ -70,7 +70,7 @@ deriving via Struct.IsStructViaReadRaw Omitted instance Struct.IsStruct Omitted
 
 {-| __C declaration:__ @n@
 
-    __defined at:__ @selection_omit_external_root.h 2:7@
+    __defined at:__ @program-analysis\/selection_omit_external_root.h 2:7@
 
     __exported by:__ @program-analysis\/selection_omit_external_b.h@
 -}

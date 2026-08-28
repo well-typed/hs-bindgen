@@ -25,9 +25,10 @@ import System.FilePath qualified as FilePath
 import Text.Regex.PCRE qualified as PCRE
 import Text.Regex.PCRE.Text ()
 
-import Clang.Paths
+import Data.Text qualified as Text
 
 import HsBindgen.Imports
+import HsBindgen.IR.C (HeaderName)
 import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -107,42 +108,47 @@ instance Default SelectionPredicate where
 --
 -- Dealing with main headers is somewhat subtle.  See
 -- "HsBindgen.Frontend.ProcessIncludes" for discussion.
-type IsMainHeader = SourcePath -> Bool
+type IsMainHeader = HeaderName -> Bool
 
--- | Construct an 'IsMainHeader' function for the given main header paths
+-- | Construct an 'IsMainHeader' function for the given main header names
 mkIsMainHeader ::
-     Set SourcePath -- ^ Main header paths
+     Set HeaderName -- ^ Main header names
   -> IsMainHeader
-mkIsMainHeader paths path = path `Set.member` paths
+mkIsMainHeader names name = name `Set.member` names
 
 -- | Check if a declaration is in a main header directory, including
 -- subdirectories
-type IsInMainHeaderDir = SourcePath -> Bool
+type IsInMainHeaderDir = HeaderName -> Bool
 
--- | Construct an 'IsInMainHeaderDir' function for the given main header paths
+-- | Construct an 'IsInMainHeaderDir' function for the given main header names
+--
+-- Directories are compared segment by segment, so @compat@ does not match
+-- @compatibility@.
 mkIsInMainHeaderDir ::
-     Set SourcePath -- ^ Main header paths
+     Set HeaderName -- ^ Main header names
   -> IsInMainHeaderDir
-mkIsInMainHeaderDir paths path =
-    let dir = FilePath.splitDirectories . FilePath.takeDirectory $
-          getSourcePath path
-    in  any (`List.isPrefixOf` dir) mainDirs
+mkIsInMainHeaderDir names name =
+    any (`List.isPrefixOf` dirOf name) mainDirs
   where
+    dirOf :: HeaderName -> [FilePath]
+    dirOf =
+        FilePath.splitDirectories . FilePath.takeDirectory
+      . (.path) . C.headerNameArg
+
     mainDirs :: [[FilePath]]
-    mainDirs = map FilePath.splitDirectories . Set.toList $
-      Set.map (FilePath.takeDirectory . getSourcePath) paths
+    mainDirs = map dirOf (Set.toList names)
 
 -- | Match 'SelectionPredicate' predicates
 matchSelect ::
      IsMainHeader
   -> IsInMainHeaderDir
-  -> SourcePath
+  -> HeaderName
   -> C.DeclName
   -> C.Availability
   -> Boolean SelectionPredicate
   -> Bool
-matchSelect isMainHeader isInMainHeaderDir path cDeclName availability = eval $ \case
-    SelectHeader p -> matchHeaderPath isMainHeader isInMainHeaderDir path p
+matchSelect isMainHeader isInMainHeaderDir name cDeclName availability = eval $ \case
+    SelectHeader p -> matchHeaderPath isMainHeader isInMainHeaderDir name p
     SelectDecl   p -> matchDecl cDeclName availability p
 
 {-------------------------------------------------------------------------------
@@ -209,16 +215,20 @@ eval f = go
       BIf    p1    -> f p1
 
 -- | Match 'HeaderPathPredicate' predicates
+--
+-- 'HeaderPathMatches' sees the @#include@ argument alone, without the brackets
+-- or quotes around it, which is the form existing patterns are written against.
 matchHeaderPath ::
      IsMainHeader
   -> IsInMainHeaderDir
-  -> SourcePath
+  -> HeaderName
   -> HeaderPathPredicate
   -> Bool
-matchHeaderPath isMainHeader isInMainHeaderDir path@(SourcePath pathT) = \case
-    FromMainHeaders      -> isMainHeader path
-    FromMainHeaderDirs   -> isInMainHeaderDir path
-    HeaderPathMatches re -> matchTest re pathT
+matchHeaderPath isMainHeader isInMainHeaderDir name = \case
+    FromMainHeaders      -> isMainHeader name
+    FromMainHeaderDirs   -> isInMainHeaderDir name
+    HeaderPathMatches re ->
+      matchTest re . Text.pack $ (C.headerNameArg name).path
 
 -- | Match 'DeclPredicate' predicates
 matchDecl :: C.DeclName -> C.Availability -> DeclPredicate -> Bool

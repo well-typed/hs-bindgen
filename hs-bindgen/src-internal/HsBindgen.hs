@@ -26,7 +26,6 @@ module HsBindgen (
   , getReifiedC
   , getSquashedTypes
   , getDependencies
-  , getGetMainHeaders
 
     -- * Errors
   , BindgenError(..)
@@ -47,6 +46,8 @@ import System.Exit (ExitCode (..), exitWith)
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.CStandard
+import Data.Text qualified as Text
+
 import Clang.Paths
 
 import HsBindgen.Artefact
@@ -75,7 +76,6 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Predicate
-import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
@@ -190,9 +190,16 @@ writeIncludeGraph ::
   -> Artefact l ()
 writeIncludeGraph regex labelStyle format filePolicy dirPolicy mPath = do
     includeGraph <- getIncludeGraph
-    let predicateUser, predicateRoot :: SourcePath -> Bool
-        predicateUser (SourcePath p) = eval (\r -> matchTest r p) regex
-        predicateRoot                = (/= RootHeader.name)
+    let predicateUser, predicateRoot :: IncludeGraph.SourceFile -> Bool
+        -- Match the regex against the header's name, which is what the user
+        -- sees in the rendered graph, rather than against a real path that
+        -- names this machine.
+        predicateUser file = case IncludeGraph.headerNameOf includeGraph file of
+          Just name -> eval (\r -> matchTest r (Text.pack (C.headerNameArg name).path)) regex
+          Nothing   -> False
+        predicateRoot = \case
+          IncludeGraph.InMemory path -> path /= RootHeader.name
+          IncludeGraph.OnDisk{}      -> True
         opts = IncludeGraph.VisOpts{
             predicate  = \p -> predicateUser p && predicateRoot p
           , labelStyle = labelStyle
@@ -324,7 +331,6 @@ writeBindingSpec filePolicy dirPolicy path = do
     moduleBaseName <- ModuleBaseName
     includeGraph   <- getIncludeGraph
     declIndex      <- getDeclIndex
-    getMainHeaders <- getGetMainHeaders
     omittedTypes   <- getOmittedTypes
     squashedTypes  <- getSquashedTypes
     hsDecls        <- HsDecls
@@ -335,7 +341,6 @@ writeBindingSpec filePolicy dirPolicy path = do
             (fromBaseModuleName moduleBaseName (Just CType))
             includeGraph
             declIndex
-            getMainHeaders
             omittedTypes
             squashedTypes
             (view (lensForCategory CType) hsDecls)
@@ -369,9 +374,6 @@ writeTests _testDir = do
 getConfig :: Artefact l BindgenConfig
 getConfig = Lift askConfig
 
-getGetMainHeaders :: Artefact l ProcessIncludes.GetMainHeaders
-getGetMainHeaders = (.getMainHeaders) <$> ParseInfoA
-
 getIncludeGraph :: Artefact l IncludeGraph
 getIncludeGraph = (.includeGraph) <$> ParseInfoA
 
@@ -400,8 +402,17 @@ getSquashedTypes = do
   declIndex <- getDeclIndex
   pure $ Map.toList $ DeclIndex.getSquashed declIndex translatedDeclIds
 
+-- | Real paths of the files the bindings were generated from
+--
+-- Real paths, not names: this feeds @addDependentFile@, which has to open the
+-- file that was actually read.
 getDependencies :: Artefact l [SourcePath]
-getDependencies = IncludeGraph.toSortedList <$> getIncludeGraph
+getDependencies = mapMaybe realPath . IncludeGraph.toSortedList <$> getIncludeGraph
+  where
+    realPath :: IncludeGraph.SourceFile -> Maybe SourcePath
+    realPath = \case
+      IncludeGraph.OnDisk fileId -> Just (SourcePath (Text.pack fileId.path))
+      IncludeGraph.InMemory{}    -> Nothing
 
 {-------------------------------------------------------------------------------
   Helpers

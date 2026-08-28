@@ -1,10 +1,9 @@
 module HsBindgen.Frontend.ProcessIncludes (
     GetMainHeadersAndInclude
   , processIncludes
-  , GetMainHeaders
-  , toGetMainHeaders
     -- * Auxiliary
   , getIncludeTo
+  , namesFile
   ) where
 
 import Control.Applicative (asum)
@@ -13,21 +12,29 @@ import Data.List qualified as List
 import Data.List.Compat (unsnoc)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 import Data.Text qualified as Text
+import System.FilePath qualified as FilePath
 import System.FilePath.Posix qualified as Posix
 
+import Clang.Args
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 
+import HsBindgen.Clang (ClangMsg)
 import HsBindgen.Errors
-import HsBindgen.Frontend.Analysis.IncludeGraph (Include, IncludeGraph)
+import HsBindgen.Frontend.Analysis.HeaderName (ProjectRoot)
+import HsBindgen.Frontend.Analysis.HeaderName qualified as HeaderName
+import HsBindgen.Frontend.Analysis.IncludeGraph (Include, IncludeGraph,
+                                                 SourceFile (..))
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
+import HsBindgen.IR.C (FileId, HeaderName)
 import HsBindgen.IR.C qualified as C
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Process includes.
@@ -101,27 +108,33 @@ import HsBindgen.IR.C qualified as C
   in principle resolve to the /same/ 'SourcePath.')
 -------------------------------------------------------------------------------}
 
--- | Function to get the main headers that (transitively) include a source path,
--- as well as the @#include@ argument used to include the source path
+-- | Function to get the main headers that (transitively) include a source file,
+-- as well as the @#include@ argument used to include it
 type GetMainHeadersAndInclude =
-   SourcePath -> Either String (NonEmpty C.HashIncludeArg, Include)
+   SourceFile
+     -> Either String (NonEmpty C.HashIncludeArg, Include, IncludeGraph.Header)
 
 -- | Process includes
 --
 -- We do this as separate pass over the clang AST; this should be relatively
 -- cheap, as we can reuse the same 'CXTranslationUnit'.
+--
+-- Naming the files costs one extra parse, of a synthetic header holding every
+-- candidate name at once. See 'HeaderName.headerNamesOf'.
 processIncludes ::
-     CXTranslationUnit
+     Tracer ClangMsg
+  -> ClangArgs      -- ^ the arguments this unit was parsed with
+  -> ProjectRoot
+  -> [CIncludeDir]  -- ^ include search path, in order
+  -> CXTranslationUnit
   -> IO ( IncludeGraph
-        , IsMainHeader
-        , IsInMainHeaderDir
         , GetMainHeadersAndInclude
         , [SourcePath]
           -- ^ Resolved paths of the main headers (from the root header).
           -- These are the actual filesystem paths that clang resolved from
           -- the user's @#include@ arguments.
         )
-processIncludes unit = do
+processIncludes tracer args projectRoot incDirs unit = do
     root     <- clang_getTranslationUnitCursor unit
     includes <- HighLevel.clang_visitChildren root $ simpleFold $ \curr -> do
                   mKind <- fromSimpleEnum <$> clang_getCursorKind curr
@@ -132,55 +145,145 @@ processIncludes unit = do
                     _otherwise ->
                       foldContinue
 
-    let includeGraph :: IncludeGraph
-        includeGraph = IncludeGraph.fromList $
-          map (\incDir -> (incDir.from, incDir.include, incDir.to)) includes
+    -- Every file we saw, named in one batch.
+    let allFiles :: [FileId]
+        allFiles = Set.toList . Set.fromList $
+          [ fileId
+          | incDir <- includes
+          , OnDisk fileId <- [incDir.from, incDir.to]
+          ]
+    names <- HeaderName.headerNamesOf tracer args projectRoot incDirs allFiles
 
-        mainPathPairs :: [(SourcePath, C.HashIncludeArg)]
-        mainPathPairs = [
+    let headers :: Map FileId IncludeGraph.Header
+        headers = Map.mapWithKey mkHeader names
+
+        mkHeader :: FileId -> HeaderName -> IncludeGraph.Header
+        mkHeader fileId name = IncludeGraph.Header{
+              name    = name
+            , aliases = Map.findWithDefault Set.empty fileId aliasMap
+            }
+
+        -- An include argument is an alias when it does not name the file it
+        -- reached, which is exactly when showing the derived name would put a
+        -- different name in front of the reader than the one they wrote.
+        --
+        -- Compared against the argument alone, segment by segment. Comparing
+        -- against the path clang reported would need it made absolute first,
+        -- and would then call every header an alias of itself whenever @-I@ was
+        -- given a relative directory.
+        aliasMap :: Map FileId (Set C.HashIncludeArg)
+        aliasMap = Map.fromListWith Set.union [
+            (fileId, Set.singleton arg)
+          | incDir <- includes
+          , OnDisk fileId <- [incDir.to]
+          , let arg = IncludeGraph.getIncludeArg incDir.include
+          , not (namesFile fileId arg)
+          ]
+
+        -- Every name clang printed for a file, pointing at the file. Both
+        -- endpoints contribute: the including file is reported by its first
+        -- lookup name, the included file by the spelling that requested it.
+        pathIndex :: Map SourcePath SourceFile
+        pathIndex = Map.fromList $ concat [
+            [ (incDir.fromReported, incDir.from)
+            , (incDir.toReported,   incDir.to)
+            ]
+          | incDir <- includes
+          ]
+
+        includeGraph :: IncludeGraph
+        includeGraph =
+          IncludeGraph.fromEdges
+            [ (incDir.from, incDir.include, incDir.to) | incDir <- includes ]
+            headers
+            pathIndex
+            mainNames
+
+        mainFilePairs :: [(SourceFile, C.HashIncludeArg)]
+        mainFilePairs = [
             (incDir.to, IncludeGraph.getIncludeArg incDir.include)
           | incDir <- includes
           , incDir.inRoot
           ]
 
-        mainPathMap :: Map SourcePath C.HashIncludeArg
-        mainPathMap = Map.fromList mainPathPairs
-
-        mainPaths :: Set SourcePath
-        mainPaths = Map.keysSet mainPathMap
-
-        isMainHeader :: IsMainHeader
-        isMainHeader = mkIsMainHeader mainPaths
-
-        isInMainHeaderDir :: IsInMainHeaderDir
-        isInMainHeaderDir = mkIsInMainHeaderDir mainPaths
+        -- Taken from the header map rather than from the graph, which is
+        -- already carrying this set by the time it is built.
+        mainNames :: Set HeaderName
+        mainNames = Set.fromList [
+            header.name
+          | (OnDisk fileId, _arg) <- mainFilePairs
+          , Just header           <- [Map.lookup fileId headers]
+          ]
 
         getMainHeadersAndInclude :: GetMainHeadersAndInclude
-        getMainHeadersAndInclude path =
+        getMainHeadersAndInclude file =
           let error' msg = Left $
-                "getMainHeadersAndInclude failed for " ++ show path ++ ": "
+                "getMainHeadersAndInclude failed for " ++ show file ++ ": "
                   ++ msg
-          in  case IncludeGraph.getIncludes includeGraph path of
-                Digraph.FindEdgesFound startIncludes termIncludes -> Right $
-                  ( IncludeGraph.getIncludeArg <$> termIncludes
-                  , NonEmpty.head startIncludes
-                  )
-                Digraph.FindEdgesNone    -> error' "none"
-                Digraph.FindEdgesInvalid -> error' "invalid"
+          in  case IncludeGraph.lookupHeader includeGraph file of
+                Nothing     -> error' "no header name"
+                Just header -> case IncludeGraph.getIncludes includeGraph file of
+                  Digraph.FindEdgesFound startIncludes termIncludes -> Right $
+                    ( IncludeGraph.getIncludeArg <$> termIncludes
+                    , NonEmpty.head startIncludes
+                    , header
+                    )
+                  Digraph.FindEdgesNone    -> error' "none"
+                  Digraph.FindEdgesInvalid -> error' "invalid"
 
     return (
         includeGraph
-      , isMainHeader
-      , isInMainHeaderDir
       , getMainHeadersAndInclude
-      , map fst mainPathPairs
+      , [ incDir.toReported | incDir <- includes, incDir.inRoot ]
       )
 
--- | Function to get the main headers that (transitively) include a source path
-type GetMainHeaders = SourcePath -> Either String (NonEmpty C.HashIncludeArg)
+-- | Does this @#include@ argument name the file it reached?
+--
+-- True when the file's real path ends in whatever the argument works out to,
+-- so @\<widget\/core.h\>@ names @\/abs\/include\/widget\/core.h@, and so do
+-- @\"..\/core.h\"@ and the roundabout @\<widget\/..\/widget\/core.h\>@. False
+-- when it works out to something else, as @\<widget\/alias.h\>@ does for a file
+-- called @core.h@.
+--
+-- Lexical on purpose: this asks what the argument calls the file, not how the
+-- filesystem reached it, and the two come apart in both directions. A symlink
+-- whose name matches its target's is not reported, because nothing was renamed
+-- and the reader is shown the name they wrote. A search directory that is
+-- itself a symlink is not reported either, which is the point: resolving the
+-- argument on disk would make every header under it an alias.
+namesFile :: FileId -> C.HashIncludeArg -> Bool
+namesFile fileId arg = argSegs `List.isSuffixOf` fileSegs
+  where
+    -- Split each side the way it was written. A real path came from the
+    -- filesystem and uses this platform's separator; an @#include@ argument is
+    -- C syntax and uses forward slashes wherever it runs. Splitting the real
+    -- path as POSIX would leave a Windows path in one piece, and then nothing
+    -- would ever match.
+    fileSegs, argSegs :: [FilePath]
+    fileSegs = FilePath.splitDirectories fileId.path
+    argSegs  = dropWhile (== "..") . resolveDotDot $
+                 Posix.splitDirectories arg.path
 
-toGetMainHeaders :: GetMainHeadersAndInclude -> GetMainHeaders
-toGetMainHeaders f = fmap fst . f
+-- | Cancel each @..@ against the segment before it, keeping the ones that escape
+--
+-- A @..@ cancels what precedes it, so an argument has to be worked out rather
+-- than merely stripped of dots: dropping both halves of @widget\/..@ would
+-- leave @widget\/widget\/core.h@ and make the file an alias of itself.
+--
+-- What survives is only ever leading, since a @..@ is kept only when there is
+-- nothing left to cancel against. 'namesFile' drops those: they walk above
+-- where the argument starts, which says nothing about what the file is called.
+resolveDotDot :: [FilePath] -> [FilePath]
+resolveDotDot = reverse . List.foldl' step []
+  where
+    -- Accumulated in reverse, so cancelling is a look at the head.
+    step :: [FilePath] -> FilePath -> [FilePath]
+    step acc = \case
+      "."  -> acc
+      ".." -> case acc of
+                prev : rest | prev /= ".." -> rest
+                _otherwise                 -> ".." : acc
+      seg  -> seg : acc
 
 {-------------------------------------------------------------------------------
   Process inclusion directives
@@ -194,34 +297,60 @@ toGetMainHeaders f = fmap fst . f
 --
 -- Then
 --
--- * 'from'    will be @/full/path/to/a.h@
--- * 'include' will be @#include "b.h"@ (exact path as in source)
--- * 'to'      will be @/full/path/to/b.h@
--- * 'inRoot'  will be 'True' if the include is in the root header
+-- * 'from'       identifies @a.h@
+-- * 'include'    will be @#include "b.h"@ (exact path as in source)
+-- * 'to'         identifies @b.h@
+-- * 'toReported' is the path @clang@ reported for @b.h@, which is the
+--   directive spelling resolved against the search path, not an identity
+-- * 'inRoot'     will be 'True' if the include is in the root header
 --
--- The full 'HsBindgen.Clang.HighLevel.Types.SourcePath's are constructed by @libclang@, and depend on factors
--- such as @-I@ command line arguments, environment variables such as
--- @C_INCLUDE_PATH@, etc.
+-- 'from' and 'to' are real paths, so one file is one 'SourceFile' whichever
+-- spelling reached it. 'toReported' is kept only to tell a symlinked route
+-- apart from a roundabout spelling of the same path.
 data IncDir = IncDir {
-      from    :: SourcePath
-    , include :: Include
-    , to      :: SourcePath
-    , inRoot  :: Bool
+      from         :: SourceFile
+    , fromReported :: SourcePath
+    , include      :: Include
+    , to           :: SourceFile
+    , toReported   :: SourcePath
+    , inRoot       :: Bool
     }
 
 processInclude :: CXTranslationUnit -> CXCursor -> IO IncDir
 processInclude unit curr = do
     incDirFromLoc <- HighLevel.clang_getCursorLocation' curr
-    incDirTo      <- getIncludeTo curr
-    incDirInclude <- getInclude unit curr incDirTo
+    incDirFrom    <- sourceFileOfLoc curr (singleLocPath incDirFromLoc)
+    includedFile  <- clang_getIncludedFile curr
+    incDirTo      <- sourceFileOf includedFile
+    reported      <- SourcePath <$> clang_getFileName includedFile
+    incDirInclude <- getInclude unit curr reported
     incDirInRoot  <-
       clang_Location_isFromMainFile =<< clang_getCursorLocation curr
     return IncDir{
-        from    = singleLocPath incDirFromLoc
-      , include = incDirInclude
-      , to      = incDirTo
-      , inRoot  = incDirInRoot
+        from         = incDirFrom
+      , fromReported = singleLocPath incDirFromLoc
+      , include      = incDirInclude
+      , to           = incDirTo
+      , toReported   = reported
+      , inRoot       = incDirInRoot
       }
+
+-- | Identify the file a cursor sits in
+--
+-- Falls back to the reported path when @clang@ has no real path, which is the
+-- case for the synthetic root header.
+sourceFileOfLoc :: CXCursor -> SourcePath -> IO SourceFile
+sourceFileOfLoc curr reported = do
+    (file, _line, _column, _offset) <-
+      clang_getFileLocation =<< clang_getCursorLocation curr
+    maybe (InMemory reported) OnDisk <$> HeaderName.fileIdOf file
+
+sourceFileOf :: CXFile -> IO SourceFile
+sourceFileOf file = do
+    mFileId <- HeaderName.fileIdOf file
+    case mFileId of
+      Just fileId -> return (OnDisk fileId)
+      Nothing     -> InMemory . SourcePath <$> clang_getFileName file
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

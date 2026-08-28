@@ -30,7 +30,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @macro INNER_A@
 
-    __defined at:__ @elaborate_inner.h 1:9@
+    __defined at:__ @macros\/parse\/elaborate_inner.h 1:9@
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
@@ -39,7 +39,7 @@ iNNER_A = ["OUTER_A"]
 
 {-| __C declaration:__ @macro INNER_B@
 
-    __defined at:__ @elaborate_inner.h 2:9@
+    __defined at:__ @macros\/parse\/elaborate_inner.h 2:9@
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
@@ -105,7 +105,7 @@ instance HasCField.HasCField Outer_int "unwrapOuter_int" where
 
 {-| __C declaration:__ @inner_int@
 
-    __defined at:__ @elaborate_inner.h 3:19@
+    __defined at:__ @macros\/parse\/elaborate_inner.h 3:19@
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}

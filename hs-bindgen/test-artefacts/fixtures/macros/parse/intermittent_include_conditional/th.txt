@@ -2,7 +2,7 @@
 -- addDependentFile test-artefacts/headers/golden/macros/parse/intermittent_include_conditional.h
 {-| __C declaration:__ @T2@
 
-    __defined at:__ @intermittent_include_conditional_inner.h 2:15@
+    __defined at:__ @macros\/parse\/intermittent_include_conditional_inner.h 2:15@
 
     __exported by:__ @macros\/parse\/intermittent_include_conditional.h@
 -}
@@ -32,7 +32,7 @@ instance HasCField T2 "unwrapT2"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @T4@
 
-    __defined at:__ @intermittent_include_conditional_inner.h 6:16@
+    __defined at:__ @macros\/parse\/intermittent_include_conditional_inner.h 6:16@
 
     __exported by:__ @macros\/parse\/intermittent_include_conditional.h@
 -}

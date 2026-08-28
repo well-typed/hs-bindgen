@@ -27,7 +27,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @macro M1@
 
-    __defined at:__ @macro_typedef_scope_multiple_inner1.h 1:9@
+    __defined at:__ @macros\/parse\/macro_typedef_scope_multiple_inner1.h 1:9@
 
     __exported by:__ @macros\/parse\/macro_typedef_scope_multiple.h@
 -}
@@ -72,7 +72,7 @@ instance HasCField.HasCField M1 "unwrapM1" where
 
 {-| __C declaration:__ @T2@
 
-    __defined at:__ @macro_typedef_scope_multiple_inner1.h 2:12@
+    __defined at:__ @macros\/parse\/macro_typedef_scope_multiple_inner1.h 2:12@
 
     __exported by:__ @macros\/parse\/macro_typedef_scope_multiple.h@
 -}
@@ -117,7 +117,7 @@ instance HasCField.HasCField T2 "unwrapT2" where
 
 {-| __C declaration:__ @macro M3@
 
-    __defined at:__ @macro_typedef_scope_multiple_inner2.h 1:9@
+    __defined at:__ @macros\/parse\/macro_typedef_scope_multiple_inner2.h 1:9@
 
     __exported by:__ @macros\/parse\/macro_typedef_scope_multiple.h@
 -}
@@ -162,7 +162,7 @@ instance HasCField.HasCField M3 "unwrapM3" where
 
 {-| __C declaration:__ @T4@
 
-    __defined at:__ @macro_typedef_scope_multiple_inner2.h 2:12@
+    __defined at:__ @macros\/parse\/macro_typedef_scope_multiple_inner2.h 2:12@
 
     __exported by:__ @macros\/parse\/macro_typedef_scope_multiple.h@
 -}

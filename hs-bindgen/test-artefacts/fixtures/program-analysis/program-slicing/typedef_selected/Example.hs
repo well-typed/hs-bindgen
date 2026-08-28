@@ -25,7 +25,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @T@
 
-    __defined at:__ @typedef_selected_t.h 3:13@
+    __defined at:__ @program-analysis\/program-slicing\/typedef_selected_t.h 3:13@
 
     __exported by:__ @program-analysis\/program-slicing\/typedef_selected.h@
 -}

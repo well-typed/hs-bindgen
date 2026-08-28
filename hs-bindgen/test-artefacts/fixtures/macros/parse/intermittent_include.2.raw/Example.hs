@@ -31,7 +31,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @macro Ma@
 
-    __defined at:__ @intermittent_include_inner.h 1:9@
+    __defined at:__ @macros\/parse\/intermittent_include_inner.h 1:9@
 
     __exported by:__ @macros\/parse\/intermittent_include.h@
 -}
@@ -40,7 +40,7 @@ ma = ["Ta"]
 
 {-| __C declaration:__ @Ta@
 
-    __defined at:__ @intermittent_include_inner.h 3:13@
+    __defined at:__ @macros\/parse\/intermittent_include_inner.h 3:13@
 
     __exported by:__ @macros\/parse\/intermittent_include.h@
 -}

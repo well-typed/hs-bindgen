@@ -22,6 +22,7 @@ import HsBindgen.Clang
 import HsBindgen.Clang.Macros
 import HsBindgen.Config.Internal
 import HsBindgen.Doxygen
+import HsBindgen.Frontend.Analysis.HeaderName qualified as HeaderName
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.UnnamedIdUsage (UnnamedIdUsageAnalysis)
 import HsBindgen.Frontend.Analysis.UnnamedIdUsage qualified as UnnamedIdUsageAnalysis
@@ -52,7 +53,6 @@ import HsBindgen.Frontend.Pass.SimplifyAST
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
-import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader, RootHeaderMsg)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
@@ -248,9 +248,16 @@ runFrontend tracer config boot = do
     parsePass <- cache "parse" $ do
       setup     <- getSetup =<< rootHeaderC
       macroLang <- boot.macroLang
+      clangArgs <- boot.clangArgs
       liftIO $ withClang (contramap FrontendClang tracer) setup $ \unit -> do
-        (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude, mainHeaderPaths) <-
-          processIncludes unit
+        projectRoot <- HeaderName.getProjectRoot
+        (includeGraph, getMainHeadersAndInclude, mainHeaderPaths) <-
+          processIncludes
+            (contramap FrontendClang tracer)
+            clangArgs
+            projectRoot
+            (HeaderName.includeSearchPath clangArgs)
+            unit
         -- Run doxygen on the resolved main header paths to extract
         -- structured comments.  The paths come from clang's own include
         -- resolution (via processIncludes), so no separate path search
@@ -286,9 +293,6 @@ runFrontend tracer config boot = do
             results           = parseResults
           , doxygen           = doxyResult.doxygen
           , includeGraph      = includeGraph
-          , isMainHeader      = isMainHeader
-          , isInMainHeaderDir = isInMainHeaderDir
-          , getMainHeaders    = toGetMainHeaders getMainHeadersAndInclude
           , usageAnalysis     = usageAnalysis
           , macroDefinitions  = macroDefinitions
           }
@@ -297,7 +301,6 @@ runFrontend tracer config boot = do
       afterParse <- parsePass
       pure ParseInfo {
         includeGraph   = afterParse.includeGraph
-      , getMainHeaders = afterParse.getMainHeaders
       }
 
     simplifyASTPass <- cache "simplifyAST" $ do
@@ -378,14 +381,9 @@ runFrontend tracer config boot = do
       pure $ adjustTypes afterMangleNamesPass
 
     selectPass <- cache "select" $ do
-      afterParse <- parsePass
       afterAdjustTypesPass <- adjustTypesPass
       let (afterSelect, msgsSelect) =
-            selectDecls
-              afterParse.isMainHeader
-              afterParse.isInMainHeaderDir
-              selectConfig
-              afterAdjustTypesPass
+            selectDecls selectConfig afterAdjustTypesPass
       forM_ msgsSelect $  traceWith (contramap FrontendSelect tracer)
       pure afterSelect
 
@@ -489,7 +487,6 @@ data FrontendMsg =
 -- Excluded from the parse pass result because there is no 'Show' instance.
 data ParseInfo = ParseInfo {
       includeGraph      :: IncludeGraph
-    , getMainHeaders    :: GetMainHeaders
     }
 
 {-------------------------------------------------------------------------------
@@ -500,9 +497,6 @@ data ParsePassResult l = ParsePassResult {
       results           :: [ParseResult l Parse]
     , doxygen           :: Doxygen
     , includeGraph      :: IncludeGraph
-    , isMainHeader      :: IsMainHeader
-    , isInMainHeaderDir :: IsInMainHeaderDir
-    , getMainHeaders    :: GetMainHeaders
     , usageAnalysis     :: UnnamedIdUsageAnalysis
     , macroDefinitions  :: [MacroDefinition]
     }

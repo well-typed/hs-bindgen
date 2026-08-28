@@ -33,7 +33,7 @@ hs_bindgen_751dc472004ee482 =
 
 {-| __C declaration:__ @_acos@
 
-    __defined at:__ @ordinary_unnamed_decl_child.h 4:1@
+    __defined at:__ @edge-cases\/ordinary_unnamed_decl_child.h 4:1@
 
     __exported by:__ @edge-cases\/ordinary_unnamed_decl_parent.h@
 -}

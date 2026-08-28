@@ -19,9 +19,7 @@ import System.Exit (exitFailure)
 
 import HsBindgen.App
 import HsBindgen.BindingSpec
-import HsBindgen.Boot
 import HsBindgen.Config.ClangArgs
-import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -60,12 +58,8 @@ parseOpts =
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec global opts = do
-    mSpec <- withTracer global.unsafe $ \tracer -> do
-      clangArgs <- (.clangArgs) <$>
-        getClangArtefacts (contramap TraceBoot tracer) opts.clangArgsConfig
+    mSpec <- withTracer global.unsafe $ \_tracer ->
       getStdlibBindingSpec
-        (contramap (TraceBoot . BootBindingSpec) tracer)
-        clangArgs
     case mSpec of
       Left _ -> do
         putStrLn $ "An error happened (see above)"

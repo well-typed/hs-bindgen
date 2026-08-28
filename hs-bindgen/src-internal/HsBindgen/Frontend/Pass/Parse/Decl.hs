@@ -14,6 +14,7 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
 import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis.HeaderName qualified as HeaderName
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Pass.Parse.Builtin
 import HsBindgen.Frontend.Pass.Parse.Context
@@ -995,18 +996,37 @@ withHeaderInfo ::
   -> (C.HeaderInfo -> Parser l)
   -> Parser l
 withHeaderInfo ctx declId declLoc k = \curr -> do
-  eRes <- evalGetMainHeadersAndInclude (singleLocPath declLoc)
+  -- Identify the file from the handle behind the cursor rather than from the
+  -- path clang printed: the path is whichever spelling looked the file up
+  -- first, and that depends on include order.
+  (file, _line, _column, _offset) <-
+    clang_getFileLocation =<< clang_getCursorLocation curr
+  mFileId <- HeaderName.fileIdOf file
+  let source = maybe (IncludeGraph.InMemory (singleLocPath declLoc))
+                     IncludeGraph.OnDisk
+                     mFileId
+  eRes <- evalGetMainHeadersAndInclude source (singleLocPath declLoc)
   case eRes of
     Left err -> do
       failures <- parseFail ctx declId declLoc err
       foldContinueWith failures
     Right res ->
-      k (uncurry aux res) curr
+      case mFileId of
+        Nothing -> do
+          failures <- parseFail ctx declId declLoc $
+            ParseNoMainHeadersException "no real path" (singleLocPath declLoc)
+          foldContinueWith failures
+        Just fileId -> k (aux fileId res) curr
   where
-    aux :: NonEmpty C.HashIncludeArg -> IncludeGraph.Include -> C.HeaderInfo
-    aux mainHeaders include = C.HeaderInfo{
+    aux ::
+         C.FileId
+      -> (NonEmpty C.HashIncludeArg, IncludeGraph.Include, IncludeGraph.Header)
+      -> C.HeaderInfo
+    aux fileId (mainHeaders, include, header) = C.HeaderInfo{
         mainHeaders     = mainHeaders
-      , includeArg      = IncludeGraph.getIncludeArg      include
+      , fileId          = fileId
+      , headerName      = header.name
+      , aliases         = header.aliases
       , includeMacroArg = IncludeGraph.getIncludeMacroArg include
       }
 

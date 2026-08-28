@@ -89,12 +89,10 @@ data TransitiveSelectability =
 
 selectDecls ::
      forall l. HasCallStack
-  => IsMainHeader
-  -> IsInMainHeaderDir
-  -> SelectConfig
+  => SelectConfig
   -> C.TranslationUnit l AdjustTypes
   -> (C.TranslationUnit l Select, [AnnMsg Select])
-selectDecls isMainHeader isInMainHeaderDir config unit =
+selectDecls config unit =
     let -- Directly match the selection predicate on the 'DeclIndex', obtaining
         -- information about succeeded _and failed_ selection roots.
         selectionRootsIndex :: DeclIndex l
@@ -244,6 +242,17 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
         , sortSelectMsgs unit.includeGraph msgs ++ macrosDroppedSummaryMsg
         )
   where
+    includeGraph :: IncludeGraph
+    includeGraph = unit.includeGraph
+
+    -- Derived here rather than passed in, so the predicate and the graph it is
+    -- asked about cannot disagree about which headers are the main ones.
+    isMainHeader :: IsMainHeader
+    isMainHeader = mkIsMainHeader includeGraph.mainHeaders
+
+    isInMainHeaderDir :: IsInMainHeaderDir
+    isInMainHeaderDir = mkIsInMainHeaderDir includeGraph.mainHeaders
+
     index :: DeclIndex l
     index = unit.meta.declIndex
 
@@ -252,13 +261,18 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
 
     match :: Match
     match name loc availability =
-      matchSelect
-        isMainHeader
-        isInMainHeaderDir
-        (singleLocPath loc)
-        name
-        availability
-        config.selectionPredicate
+      case IncludeGraph.headerNameOfPath includeGraph (singleLocPath loc) of
+        -- A declaration whose file we never saw included cannot be in a main
+        -- header, so no header predicate can hold of it.
+        Nothing         -> False
+        Just headerName ->
+          matchSelect
+            isMainHeader
+            isInMainHeaderDir
+            headerName
+            name
+            availability
+            config.selectionPredicate
 
 {-------------------------------------------------------------------------------
   Filter list of declarations
@@ -583,18 +597,24 @@ data MsgSortKey =
   | MsgNoLocation
   deriving stock (Eq, Ord)
 
-msgSortKey :: IncludeGraph.IncludeOrder -> AnnMsg Select -> MsgSortKey
-msgSortKey order msg = case msgLoc msg of
+msgSortKey ::
+     IncludeGraph
+  -> IncludeGraph.IncludeOrder
+  -> AnnMsg Select
+  -> MsgSortKey
+msgSortKey includeGraph order msg = case msgLoc msg of
     Nothing  -> MsgNoLocation
     Just loc -> MsgAt {
-        msgSource = IncludeGraph.lookupIncludeOrder order (singleLocPath loc)
+        msgSource = maybe IncludeGraph.NotInIncludeGraph
+                          (IncludeGraph.lookupIncludeOrder order)
+                          (IncludeGraph.lookupPath includeGraph (singleLocPath loc))
       , msgLine   = singleLocLine   loc
       , msgColumn = singleLocColumn loc
       }
 
 sortSelectMsgs :: IncludeGraph -> [AnnMsg Select] -> [AnnMsg Select]
 sortSelectMsgs includeGraph msgs =
-    bugMsgs ++ List.sortOn (msgSortKey order) msgs
+    bugMsgs ++ List.sortOn (msgSortKey includeGraph order) msgs
   where
     -- Compute the include order once.
     order :: IncludeGraph.IncludeOrder
@@ -618,7 +638,9 @@ sortSelectMsgs includeGraph msgs =
       | msg <- msgs
       , Just loc <- [msgLoc msg]
       , let path = singleLocPath loc
-      , IncludeGraph.lookupIncludeOrder order path
+      , maybe IncludeGraph.NotInIncludeGraph
+              (IncludeGraph.lookupIncludeOrder order)
+              (IncludeGraph.lookupPath includeGraph path)
           == IncludeGraph.NotInIncludeGraph
       ]
 

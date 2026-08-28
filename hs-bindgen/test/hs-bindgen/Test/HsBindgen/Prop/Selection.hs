@@ -11,8 +11,6 @@ import Test.Tasty.QuickCheck (Arbitrary (arbitrary), CoArbitrary (coarbitrary),
                               coarbitraryShow, elements, functionMap, oneof,
                               pattern Fn, testProperty, (=/=), (===))
 
-import Clang.Paths
-
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
@@ -48,17 +46,17 @@ tests = testGroup "Test.HsBindgen.Prop.Selection" [
   Select pass selection properties
 -------------------------------------------------------------------------------}
 
-prop_selectTrue :: SourcePath -> C.DeclName -> C.Availability -> Bool
+prop_selectTrue :: C.HeaderName -> C.DeclName -> C.Availability -> Bool
 prop_selectTrue path name availability =
   matchSelect (const True) (const True) path name availability BTrue
 
-prop_selectFalse :: SourcePath -> C.DeclName -> C.Availability -> Bool
+prop_selectFalse :: C.HeaderName -> C.DeclName -> C.Availability -> Bool
 prop_selectFalse path name availability =
     not $ matchSelect (const True) (const True) path name availability BFalse
 
 prop_selectAnd
-  :: Fun SourcePath Bool -> Fun SourcePath Bool
-  -> SourcePath -> C.DeclName -> C.Availability
+  :: Fun C.HeaderName Bool -> Fun C.HeaderName Bool
+  -> C.HeaderName -> C.DeclName -> C.Availability
   -> Boolean SelectionPredicate -> Boolean SelectionPredicate -> Bool
 prop_selectAnd (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p1 p2 =
     let p1Res = matchSelect isMainHeader isInMainHeaderDir path name availability p1
@@ -68,8 +66,8 @@ prop_selectAnd (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p
      in (p1Res && p2Res) == p1AndP2Res
 
 prop_selectOr
-  :: Fun SourcePath Bool -> Fun SourcePath Bool
-  -> SourcePath -> C.DeclName -> C.Availability
+  :: Fun C.HeaderName Bool -> Fun C.HeaderName Bool
+  -> C.HeaderName -> C.DeclName -> C.Availability
   -> Boolean SelectionPredicate -> Boolean SelectionPredicate -> Bool
 prop_selectOr (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p1 p2 =
     let p1Res = matchSelect isMainHeader isInMainHeaderDir path name availability p1
@@ -79,47 +77,48 @@ prop_selectOr (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p1
      in (p1Res || p2Res) == p1OrP2Res
 
 prop_selectNot
-  :: Fun SourcePath Bool -> Fun SourcePath Bool
-  -> SourcePath -> C.DeclName -> C.Availability
+  :: Fun C.HeaderName Bool -> Fun C.HeaderName Bool
+  -> C.HeaderName -> C.DeclName -> C.Availability
   -> Boolean SelectionPredicate -> Property
 prop_selectNot (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p =
       matchSelect isMainHeader isInMainHeaderDir path name availability p
   =/= matchSelect isMainHeader isInMainHeaderDir path name availability (BNot p)
 
 prop_selectFromMainHeaders
-  :: Fun SourcePath Bool -> SourcePath -> C.DeclName -> C.Availability -> Bool
+  :: Fun C.HeaderName Bool -> C.HeaderName -> C.DeclName -> C.Availability -> Bool
 prop_selectFromMainHeaders (Fn isMainHeader) path name availability =
   let p = BIf $ SelectHeader FromMainHeaders
    in matchSelect isMainHeader unused path name availability p == isMainHeader path
 
 prop_selectFromMainHeaderDirs
-  :: Fun SourcePath Bool -> SourcePath -> C.DeclName -> C.Availability -> Bool
+  :: Fun C.HeaderName Bool -> C.HeaderName -> C.DeclName -> C.Availability -> Bool
 prop_selectFromMainHeaderDirs (Fn isInMainHeaderDir) path name availability =
   let p = BIf $ SelectHeader FromMainHeaderDirs
    in matchSelect unused isInMainHeaderDir path name availability p
         == isInMainHeaderDir path
 
 prop_selectHeaderPathMatchesAll ::
-  SourcePath -> C.DeclName -> C.Availability -> Bool
+  C.HeaderName -> C.DeclName -> C.Availability -> Bool
 prop_selectHeaderPathMatchesAll path name availability =
   let p = BIf $ SelectHeader (HeaderPathMatches ".*")
    in matchSelect unused unused path name availability p
 
 prop_selectHeaderPathMatchesNeedle ::
-  SourcePath -> C.DeclName -> C.Availability -> Bool
-prop_selectHeaderPathMatchesNeedle (SourcePath pathT) name availability =
-  let path = SourcePath $ pathT <> "NEEDLE" <> pathT
-      p = BIf $ SelectHeader (HeaderPathMatches "NEEDLE")
-   in matchSelect unused unused path name availability p
+  C.HeaderName -> C.DeclName -> C.Availability -> Bool
+prop_selectHeaderPathMatchesNeedle header name availability =
+  let arg     = (C.headerNameArg header).path
+      header' = C.ByBracket (C.HashIncludeArg (arg ++ "NEEDLE" ++ arg))
+      p       = BIf $ SelectHeader (HeaderPathMatches "NEEDLE")
+   in matchSelect unused unused header' name availability p
 
 prop_selectDeclNameMatchesAll ::
-  SourcePath -> C.DeclName -> C.Availability -> Bool
+  C.HeaderName -> C.DeclName -> C.Availability -> Bool
 prop_selectDeclNameMatchesAll path name availability =
   let p = BIf $ SelectDecl (DeclNameMatches ".*")
    in matchSelect unused unused path name availability p
 
 prop_selectDeclNameMatchesNeedle ::
-  SourcePath -> C.DeclName -> C.Availability -> Bool
+  C.HeaderName -> C.DeclName -> C.Availability -> Bool
 prop_selectDeclNameMatchesNeedle path declName availability =
   let name  = declName.text
       name' = C.DeclName (name <> "NEEDLE" <> name) declName.kind
@@ -127,7 +126,7 @@ prop_selectDeclNameMatchesNeedle path declName availability =
    in matchSelect unused unused path name' availability p
 
 prop_selectDeclMatchDeprecated ::
-  SourcePath -> C.DeclName -> C.Availability -> Bool
+  C.HeaderName -> C.DeclName -> C.Availability -> Bool
 prop_selectDeclMatchDeprecated path name availability =
   let p = BIf $ SelectDecl DeclDeprecated
    in matchSelect unused unused path name availability p
@@ -174,15 +173,21 @@ mergeDeselectTwo = mergeBooleans [pa, pb] [BTrue] @?= BAnd (BNot pa) (BNot pb)
   Helpers
 -------------------------------------------------------------------------------}
 
-instance Arbitrary SourcePath where
-  arbitrary = SourcePath . Text.pack <$> arbitrary
+instance Arbitrary C.HeaderName where
+  arbitrary = do
+    arg <- C.HashIncludeArg <$> arbitrary
+    elements [C.ByBracket arg, C.ByQuote arg]
 
-instance Function SourcePath where
+instance Function C.HeaderName where
   function = functionMap
-               (\(SourcePath t) -> Text.unpack t)
-               (SourcePath . Text.pack)
+               (\h -> (isQuote h, (C.headerNameArg h).path))
+               (\(q, p) -> (if q then C.ByQuote else C.ByBracket) (C.HashIncludeArg p))
+    where
+      isQuote = \case
+        C.ByQuote{}   -> True
+        C.ByBracket{} -> False
 
-instance CoArbitrary SourcePath where
+instance CoArbitrary C.HeaderName where
   coarbitrary = coarbitraryShow
 
 instance Arbitrary C.NameKind where

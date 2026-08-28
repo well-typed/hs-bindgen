@@ -91,14 +91,15 @@ getTranslationUnit :: ParseDecl CXTranslationUnit
 getTranslationUnit = wrapEff $ \support -> return support.env.unit
 
 evalGetMainHeadersAndInclude ::
-     SourcePath
+     IncludeGraph.SourceFile
+  -> SourcePath  -- ^ the path to name in a diagnostic, if this fails
   -> ParseDecl
       (Either DelayedParseMsg
-        (NonEmpty C.HashIncludeArg, IncludeGraph.Include))
-evalGetMainHeadersAndInclude path = wrapEff $ \support ->
+        (NonEmpty C.HashIncludeArg, IncludeGraph.Include, IncludeGraph.Header))
+evalGetMainHeadersAndInclude file path = wrapEff $ \support ->
     pure $
       first (\err -> ParseNoMainHeadersException err path) $
-      support.env.getMainHeadersAndInclude path
+      support.env.getMainHeadersAndInclude file
 
 {-------------------------------------------------------------------------------
   "State"

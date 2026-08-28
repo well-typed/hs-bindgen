@@ -31,14 +31,14 @@ hs_bindgen_dfefd17e87559d1a :: CDouble -> IO CDouble
 hs_bindgen_dfefd17e87559d1a = fromFFIType hs_bindgen_dfefd17e87559d1a_base
 {-| __C declaration:__ @_acos@
 
-    __defined at:__ @ordinary_unnamed_decl_child.h 4:1@
+    __defined at:__ @edge-cases\/ordinary_unnamed_decl_child.h 4:1@
 
     __exported by:__ @edge-cases\/ordinary_unnamed_decl_parent.h@
 -}
 _acos_safe :: CDouble -> IO CDouble
 {-| __C declaration:__ @_acos@
 
-    __defined at:__ @ordinary_unnamed_decl_child.h 4:1@
+    __defined at:__ @edge-cases\/ordinary_unnamed_decl_child.h 4:1@
 
     __exported by:__ @edge-cases\/ordinary_unnamed_decl_parent.h@
 -}
@@ -53,14 +53,14 @@ hs_bindgen_751dc472004ee482 :: CDouble -> IO CDouble
 hs_bindgen_751dc472004ee482 = fromFFIType hs_bindgen_751dc472004ee482_base
 {-| __C declaration:__ @_acos@
 
-    __defined at:__ @ordinary_unnamed_decl_child.h 4:1@
+    __defined at:__ @edge-cases\/ordinary_unnamed_decl_child.h 4:1@
 
     __exported by:__ @edge-cases\/ordinary_unnamed_decl_parent.h@
 -}
 _acos_unsafe :: CDouble -> IO CDouble
 {-| __C declaration:__ @_acos@
 
-    __defined at:__ @ordinary_unnamed_decl_child.h 4:1@
+    __defined at:__ @edge-cases\/ordinary_unnamed_decl_child.h 4:1@
 
     __exported by:__ @edge-cases\/ordinary_unnamed_decl_parent.h@
 -}
@@ -75,14 +75,14 @@ hs_bindgen_3e079012b2dabc0c = fromFFIType hs_bindgen_3e079012b2dabc0c_base
 {-# NOINLINE _acos_funptr #-}
 {-| __C declaration:__ @_acos@
 
-    __defined at:__ @ordinary_unnamed_decl_child.h 4:1@
+    __defined at:__ @edge-cases\/ordinary_unnamed_decl_child.h 4:1@
 
     __exported by:__ @edge-cases\/ordinary_unnamed_decl_parent.h@
 -}
 _acos_funptr :: FunPtr (CDouble -> IO CDouble)
 {-| __C declaration:__ @_acos@
 
-    __defined at:__ @ordinary_unnamed_decl_child.h 4:1@
+    __defined at:__ @edge-cases\/ordinary_unnamed_decl_child.h 4:1@
 
     __exported by:__ @edge-cases\/ordinary_unnamed_decl_parent.h@
 -}

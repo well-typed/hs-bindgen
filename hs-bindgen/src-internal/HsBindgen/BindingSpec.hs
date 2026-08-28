@@ -55,8 +55,6 @@ module HsBindgen.BindingSpec (
 import Data.ByteString (ByteString)
 import Data.Ord qualified as Ord
 
-import Clang.Args (ClangArgs)
-import Clang.Paths (SourcePath)
 
 import HsBindgen.BindingSpec.Private.Common qualified as Common
 import HsBindgen.BindingSpec.Private.Stdlib qualified as Stdlib
@@ -155,16 +153,10 @@ instance Default BindingSpecConfig where
 -------------------------------------------------------------------------------}
 
 -- | Get the standard library external binding specification
-getStdlibBindingSpec ::
-     Tracer Common.BindingSpecMsg
-  -> ClangArgs
-  -> IO ExternalBindingSpec
-getStdlibBindingSpec tracer args = BindingSpec Stdlib.bindingSpec <$>
-    BindingSpec.resolve
-      (contramap Common.BindingSpecResolveMsg tracer)
-      Common.BindingSpecResolveExternalHeader
-      args
-      Stdlib.bindingSpec
+getStdlibBindingSpec :: IO ExternalBindingSpec
+getStdlibBindingSpec =
+    return . BindingSpec Stdlib.bindingSpec $
+      BindingSpec.resolve Stdlib.bindingSpec
 
 -- | Load external binding specifications
 --
@@ -175,15 +167,14 @@ getStdlibBindingSpec tracer args = BindingSpec Stdlib.bindingSpec <$>
 -- * JSON (@.json@ extension)
 loadExtBindingSpecs ::
      Tracer Common.BindingSpecMsg
-  -> ClangArgs
   -> EnableStdlibBindingSpec
   -> Version.BindingSpecCompatibility
   -> [FilePath]
   -> IO BindingSpec.MergedBindingSpecs
-loadExtBindingSpecs tracer args enableStdlib cmpt paths = do
+loadExtBindingSpecs tracer enableStdlib cmpt paths = do
     uspecs <- withStdlib <$> mapMaybeM read' paths
-    rspecs <- mapM resolve' uspecs
-    let (msgs, mspec) = BindingSpec.merge rspecs
+    let rspecs        = map BindingSpec.resolve uspecs
+        (msgs, mspec) = BindingSpec.merge rspecs
     mapM_ (traceWith tracerMerge . withCallStack) msgs
     return mspec
   where
@@ -197,20 +188,8 @@ loadExtBindingSpecs tracer args enableStdlib cmpt paths = do
     read' :: FilePath -> IO (Maybe BindingSpec.UnresolvedBindingSpec)
     read' = BindingSpec.readFile tracerRead cmpt Nothing
 
-    resolve' ::
-         BindingSpec.UnresolvedBindingSpec
-      -> IO BindingSpec.ResolvedBindingSpec
-    resolve' =
-      BindingSpec.resolve
-        tracerResolve
-        Common.BindingSpecResolveExternalHeader
-        args
-
     tracerRead :: Tracer Common.BindingSpecReadMsg
     tracerRead = contramap Common.BindingSpecReadMsg tracer
-
-    tracerResolve :: Tracer Common.BindingSpecResolveMsg
-    tracerResolve = contramap Common.BindingSpecResolveMsg tracer
 
     tracerMerge :: Tracer Common.BindingSpecMergeMsg
     tracerMerge = contramap Common.BindingSpecMergeMsg tracer
@@ -224,49 +203,37 @@ loadExtBindingSpecs tracer args enableStdlib cmpt paths = do
 -- * JSON (@.json@ extension)
 loadPrescriptiveBindingSpec ::
      Tracer Common.BindingSpecMsg
-  -> ClangArgs
   -> Hs.ModuleName
   -> Version.BindingSpecCompatibility
   -> Maybe FilePath
   -> IO PrescriptiveBindingSpec
-loadPrescriptiveBindingSpec tracer args hsModuleName cmpt =
+loadPrescriptiveBindingSpec tracer hsModuleName cmpt =
     fmap (fromMaybe $ empty hsModuleName) . \case
       Nothing   -> return Nothing
       Just path ->
         BindingSpec.readFile tracerRead cmpt (Just hsModuleName) path >>= \case
           Nothing -> return Nothing
           Just uspec ->
-            Just . BindingSpec uspec <$>
-              BindingSpec.resolve
-                tracerResolve
-                Common.BindingSpecResolvePrescriptiveHeader
-                args
-                uspec
+            return . Just . BindingSpec uspec $ BindingSpec.resolve uspec
   where
     tracerRead :: Tracer Common.BindingSpecReadMsg
     tracerRead = contramap Common.BindingSpecReadMsg tracer
 
-    tracerResolve :: Tracer Common.BindingSpecResolveMsg
-    tracerResolve = contramap Common.BindingSpecResolveMsg tracer
-
 -- | A combination of 'loadExtBindingSpecs' and 'loadPrescriptiveBindingSpec'
 loadBindingSpecs ::
      Tracer Common.BindingSpecMsg
-  -> ClangArgs
   -> Hs.ModuleName
   -> BindingSpecConfig
   -> IO (BindingSpec.MergedBindingSpecs, PrescriptiveBindingSpec)
-loadBindingSpecs tracer args hsModuleName config =
+loadBindingSpecs tracer hsModuleName config =
     (,)
       <$> loadExtBindingSpecs
             tracer
-            args
             config.stdlibSpec
             config.compatibility
             config.extBindingSpecs
       <*> loadPrescriptiveBindingSpec
             tracer
-            args
             hsModuleName
             config.compatibility
             config.prescriptiveBindingSpec
@@ -302,14 +269,14 @@ moduleName spec = spec.unresolved.moduleName
 -------------------------------------------------------------------------------}
 
 -- | Get the C types in a binding specification
-getCTypes :: BindingSpec -> Map C.DeclId [Set SourcePath]
+getCTypes :: BindingSpec -> Map C.DeclId [Set C.HeaderName]
 getCTypes spec = BindingSpec.getCTypes spec.resolved
 
 -- | Lookup the @'Common.Omittable' 'BindingSpec.CTypeSpec'@ associated with a C
 -- type
 lookupCTypeSpec ::
      C.DeclId
-  -> Set SourcePath
+  -> Set C.HeaderName
   -> BindingSpec
   -> Maybe (Hs.ModuleName, Common.Omittable BindingSpec.CTypeSpec)
 lookupCTypeSpec cDeclId headers spec =

@@ -57,6 +57,7 @@ import Clang.HighLevel.Types
 
 import HsBindgen.Imports
 import HsBindgen.IR.C.HashIncludeArg qualified as C
+import HsBindgen.IR.C.HeaderName (FileId, HeaderName)
 import HsBindgen.IR.C.Naming qualified as C
 import HsBindgen.IR.C.Type (CoercePassExtBindingRef (coercePassExtBindingRef))
 import HsBindgen.IR.C.Type qualified as C
@@ -138,11 +139,30 @@ data HeaderInfo = HeaderInfo{
       --
       -- Note that the declaration may not be in this header directly, but in
       -- one of its (transitive) includes.
+      --
+      -- These name root directives, which are always emitted as
+      -- @#include \<...\>@, so they are bracket arguments by construction.
       mainHeaders :: NonEmpty C.HashIncludeArg
 
-      -- | @#include@ argument used to include the file where the declaration is
-      -- actually declared
-    , includeArg :: C.HashIncludeArg
+      -- | Identity of the file the declaration is in
+      --
+      -- Resolved from the file handle behind the declaration's cursor, so it
+      -- does not depend on which spelling reached the file. This is what joins
+      -- a declaration to its vertex in the include graph.
+    , fileId :: FileId
+
+      -- | Name of the file where the declaration is actually declared
+      --
+      -- A t'HeaderName' rather than a bare argument, because the file can be
+      -- shadowed, in which case no bracket name reaches it.
+    , headerName :: HeaderName
+
+      -- | Other @#include@ arguments that reach the same file
+      --
+      -- Non-empty when a symlink lets one file be reached under more than one
+      -- name. Collapsing those to one file is right, but the name someone
+      -- wrote is worth showing them, so it is kept rather than dropped.
+    , aliases :: Set C.HashIncludeArg
 
       -- | Raw macro used as a @#include@ argument, when applicable
       --

@@ -9,7 +9,6 @@ module HsBindgen.BindingSpec.Gen (
   ) where
 
 import Data.ByteString (ByteString)
-import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Ord qualified as Ord
 import Data.Set qualified as Set
@@ -29,7 +28,6 @@ import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
-import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
@@ -46,7 +44,6 @@ genBindingSpec ::
   -> Hs.ModuleName
   -> IncludeGraph
   -> DeclIndex l
-  -> GetMainHeaders
   -> [(C.DeclId, SourcePath)]
   -> [(C.DeclId, (SourcePath, Hs.Name Hs.NsTypeConstr))]
   -> [Hs.Decl l]
@@ -56,12 +53,22 @@ genBindingSpec
   hsModuleName
   includeGraph
   declIndex
-  getMainHeaders
   omitTypes
   squashedTypes =
       BindingSpec.encode compareCDeclId format
-    . genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes
+    . genBindingSpec' hsModuleName mainHeaderKeys omitTypes squashedTypes
   where
+    -- The main headers that reach a file, as the names a later run will
+    -- reproduce. Writing the raw root directive argument instead would key the
+    -- specification on how this invocation happened to spell things.
+    mainHeaderKeys :: SourcePath -> Set C.HashIncludeArg
+    mainHeaderKeys path =
+        case IncludeGraph.lookupPath includeGraph path of
+          Nothing   -> panicPure $
+            "Could not get main headers: " ++ show path ++ " not in include graph"
+          Just file -> Set.map C.headerNameKey $
+            IncludeGraph.mainHeaderNamesOf includeGraph file
+
     compareCDeclId :: C.DeclId -> C.DeclId -> Ordering
     compareCDeclId cDeclIdL cDeclIdR = Ord.comparing aux cDeclIdL cDeclIdR
 
@@ -74,7 +81,9 @@ genBindingSpec
           -- colliding definitions). This is OK, since we only use the location
           -- to sort the binding specifications before generating them.
           let loc = C.declLocsMin locs
-          in  ( IncludeGraph.lookupIncludeOrder order loc.singleLocPath
+          in  ( maybe IncludeGraph.NotInIncludeGraph
+                      (IncludeGraph.lookupIncludeOrder order)
+                      (IncludeGraph.lookupPath includeGraph loc.singleLocPath)
               , loc.singleLocLine
               , loc.singleLocColumn
               , C.renderDeclId cDeclId
@@ -98,12 +107,12 @@ genBindingSpec
 -- Once squashing is configurable (#1436), we should deal with aliases (#1549).
 genBindingSpec' ::
      Hs.ModuleName
-  -> GetMainHeaders
+  -> (SourcePath -> Set C.HashIncludeArg)
   -> [(C.DeclId, SourcePath)]
   -> [(C.DeclId, (SourcePath, Hs.Name Hs.NsTypeConstr))]
   -> [Hs.Decl l]
   -> UnresolvedBindingSpec
-genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
+genBindingSpec' hsModuleName getMainHeaders' omitTypes squashedTypes =
     foldr aux spec0
   where
     spec0 :: UnresolvedBindingSpec
@@ -124,13 +133,6 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
           ]
       , hsTypes = Map.empty
       }
-
-    getMainHeaders' :: SourcePath -> Set C.HashIncludeArg
-    getMainHeaders' =
-        either
-          (\s -> panicPure ("Could not get main headers: " ++ s))
-          (Set.fromList . NonEmpty.toList)
-      . getMainHeaders
 
     aux ::
          Hs.Decl l

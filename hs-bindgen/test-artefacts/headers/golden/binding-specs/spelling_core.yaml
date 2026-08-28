@@ -1,0 +1,28 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Spelling.Core
+ctypes:
+- headers: binding-specs/spelling/widget/core.h
+  cname: struct spelling_core
+  hsname: Spelling_core
+hstypes:
+- hsname: Spelling_core
+  representation:
+    record:
+      constructor: Spelling_core
+      fields:
+      - spelling_core_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

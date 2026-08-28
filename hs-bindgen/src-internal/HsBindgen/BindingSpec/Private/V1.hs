@@ -66,8 +66,6 @@ import Data.Yaml.Pretty qualified
 import Text.Read (readMaybe)
 import Text.SimplePrettyPrint qualified as PP
 
-import Clang.Args
-import Clang.Paths
 
 import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.Version
@@ -79,8 +77,6 @@ import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Orphans ()
-import HsBindgen.Resolve
-import HsBindgen.Util.Monad
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -143,8 +139,9 @@ type UnresolvedBindingSpec = BindingSpec C.HashIncludeArg
 
 -- | Binding specification with resolved headers
 --
--- The resolved header is the filesystem path in the current environment.
-type ResolvedBindingSpec = BindingSpec (C.HashIncludeArg, SourcePath)
+-- The key is the header's name, which is what makes a specification portable:
+-- it means the same thing in any checkout, given the same include search path.
+type ResolvedBindingSpec = BindingSpec C.HeaderName
 
 --------------------------------------------------------------------------------
 
@@ -275,18 +272,18 @@ empty hsModuleName = BindingSpec{
     }
 
 -- | Get the C types in a binding specification
-getCTypes :: ResolvedBindingSpec -> Map C.DeclId [Set SourcePath]
-getCTypes spec = map (Set.map snd . fst) <$> spec.cTypes
+getCTypes :: ResolvedBindingSpec -> Map C.DeclId [Set C.HeaderName]
+getCTypes spec = map fst <$> spec.cTypes
 
 -- | Lookup a C type in a 'ResolvedBindingSpec'
 lookupCTypeSpec ::
      C.DeclId
-  -> Set SourcePath
+  -> Set C.HeaderName
   -> ResolvedBindingSpec
   -> Maybe (Hs.ModuleName, Omittable CTypeSpec)
 lookupCTypeSpec cDeclId headers spec = do
     ps <- Map.lookup cDeclId spec.cTypes
-    oCTypeSpec <- lookupBy (not . Set.disjoint headers . Set.map snd) ps
+    oCTypeSpec <- lookupBy (not . Set.disjoint headers) ps
     return (spec.moduleName, oCTypeSpec)
 
 -- | Lookup a Haskell type in a 'ResolvedBindingSpec'
@@ -402,62 +399,25 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
   API: Header resolution
 -------------------------------------------------------------------------------}
 
--- | Resolve headers in a binding specification
-resolve ::
-     Tracer BindingSpecResolveMsg
-  -> (ResolveHeaderMsg -> BindingSpecResolveMsg)
-  -> ClangArgs
-  -> UnresolvedBindingSpec
-  -> IO ResolvedBindingSpec
-resolve tracer injResolveHeader args uSpec = do
-    headerMap <-
-      resolveHeaders (contramap injResolveHeader tracer) args allHeaders
-
-    let lookup' :: C.HashIncludeArg -> Maybe (C.HashIncludeArg, SourcePath)
-        lookup' uHeader = (uHeader,) <$> Map.lookup uHeader headerMap
-
-        resolveSet ::
-             Set C.HashIncludeArg
-          -> Maybe (Set (C.HashIncludeArg, SourcePath))
-        resolveSet uHeaders =
-          -- ignore headers that are not found
-          case mapMaybe lookup' (Set.toList uHeaders) of
-            []       -> Nothing
-            rHeaders -> Just (Set.fromList rHeaders)
-
-        resolveType ::
-             C.DeclId
-          -> (Set C.HashIncludeArg, a)
-          -> IO (Maybe (Set (C.HashIncludeArg, SourcePath), a))
-        resolveType cDeclId (uHeaders, x) = case resolveSet uHeaders of
-          Just rHeaders -> return $ Just (rHeaders, x)
-          Nothing       -> do
-            traceWith tracer $ withCallStack $ BindingSpecResolveTypeDropped cDeclId
-            return Nothing
-
-        resolveTypes ::
-             C.DeclId
-          -> [(Set C.HashIncludeArg, a)]
-          -> IO
-               ( Maybe
-                   (C.DeclId, [(Set (C.HashIncludeArg, SourcePath), a)])
-               )
-        resolveTypes cDeclId uKVs =
-          mapMaybeM (resolveType cDeclId) uKVs >>= \case
-            rKVs
-              | null rKVs -> return Nothing
-              | otherwise -> return $ Just (cDeclId, rKVs)
-
-    cTypes <- Map.fromList <$>
-      mapMaybeM (uncurry resolveTypes) (Map.toList uSpec.cTypes)
-    return BindingSpec{
-        moduleName = uSpec.moduleName
-      , cTypes     = cTypes
-      , hsTypes    = uSpec.hsTypes
-      }
+-- | Read the headers in a binding specification as header names
+--
+-- A key written the way it would appear in a C directive keeps that meaning:
+-- @\<foo.h\>@ and a bare @foo.h@ are bracket names, @\"foo.h\"@ is a quote
+-- name. Specifications written before quote names existed therefore still say
+-- what they always said.
+--
+-- This used to parse a second translation unit to turn each key into a
+-- filesystem path. It no longer needs to: a name is compared against the name
+-- we derived for the file, and neither side depends on include order.
+resolve :: UnresolvedBindingSpec -> ResolvedBindingSpec
+resolve uSpec = BindingSpec{
+      moduleName = uSpec.moduleName
+    , cTypes     = map (first (Set.map resolveHeader)) <$> uSpec.cTypes
+    , hsTypes    = uSpec.hsTypes
+    }
   where
-    allHeaders :: Set C.HashIncludeArg
-    allHeaders = mconcat $ fst <$> concat (Map.elems uSpec.cTypes)
+    resolveHeader :: C.HashIncludeArg -> C.HeaderName
+    resolveHeader = C.parseHeaderName . (.path)
 
 {-------------------------------------------------------------------------------
   API: Merging
@@ -469,7 +429,7 @@ resolve tracer injResolveHeader args uSpec = do
 -- binding specifications across multiple Haskell modules.  It is a performance
 -- optimization for resolving external binding specifications.
 newtype MergedBindingSpecs = MergedBindingSpecs {
-      map :: Map C.DeclId [(Set SourcePath, ResolvedBindingSpec)]
+      map :: Map C.DeclId [(Set C.HeaderName, ResolvedBindingSpec)]
     }
   deriving stock (Show)
 
@@ -486,14 +446,14 @@ merge =
 
     mergeSpec ::
          ( Set C.DeclId
-         , ( Map C.DeclId (Set C.HashIncludeArg)
-           , Map C.DeclId [(Set SourcePath, ResolvedBindingSpec)]
+         , ( Map C.DeclId (Set C.HeaderName)
+           , Map C.DeclId [(Set C.HeaderName, ResolvedBindingSpec)]
            )
          )
       -> ResolvedBindingSpec
       -> ( Set C.DeclId
-         , ( Map C.DeclId (Set C.HashIncludeArg)
-           , Map C.DeclId [(Set SourcePath, ResolvedBindingSpec)]
+         , ( Map C.DeclId (Set C.HeaderName)
+           , Map C.DeclId [(Set C.HeaderName, ResolvedBindingSpec)]
            )
          )
     mergeSpec ctx spec =
@@ -504,19 +464,19 @@ merge =
     mergeType ::
          ResolvedBindingSpec
       -> ( Set C.DeclId
-         , ( Map C.DeclId (Set C.HashIncludeArg)
-           , Map C.DeclId [(Set SourcePath, ResolvedBindingSpec)]
+         , ( Map C.DeclId (Set C.HeaderName)
+           , Map C.DeclId [(Set C.HeaderName, ResolvedBindingSpec)]
            )
          )
-      -> (C.DeclId, [Set (C.HashIncludeArg, SourcePath)])
+      -> (C.DeclId, [Set C.HeaderName])
       -> ( Set C.DeclId
-         , ( Map C.DeclId (Set C.HashIncludeArg)
-           , Map C.DeclId [(Set SourcePath, ResolvedBindingSpec)]
+         , ( Map C.DeclId (Set C.HeaderName)
+           , Map C.DeclId [(Set C.HeaderName, ResolvedBindingSpec)]
            )
          )
     mergeType spec (dupSet, (seenMap, acc)) (cDeclId, sourceSets) =
-      let seenS = Set.unions $ map (Set.map fst) sourceSets
-          keyS  = Set.unions $ map (Set.map snd) sourceSets
+      let seenS = Set.unions sourceSets
+          keyS  = seenS
           acc'  = Map.insertWith (++) cDeclId [(keyS, spec)] acc
       in  case Map.insertLookupWithKey (const (<>)) cDeclId seenS seenMap of
             (Nothing, seenMap') -> (dupSet, (seenMap', acc'))
@@ -527,7 +487,7 @@ merge =
 -- | Lookup type specs in t'MergedBindingSpecs'
 lookupMergedBindingSpecs ::
      C.DeclId
-  -> Set SourcePath
+  -> Set C.HeaderName
   -> MergedBindingSpecs
   -> Maybe (Hs.ModuleName, Omittable CTypeSpec, Maybe HsTypeSpec)
 lookupMergedBindingSpecs cDeclId headers specs = do

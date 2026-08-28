@@ -1,4 +1,4 @@
-module Test.HsBindgen.Unit.Frontend (tests) where
+module Test.HsBindgen.Unit.Frontend (tests, execFrontendIncludeGraph) where
 
 import Data.List
 import System.FilePath ((</>))
@@ -12,6 +12,7 @@ import HsBindgen.Cache
 import HsBindgen.Config.Internal
 import HsBindgen.Errors
 import HsBindgen.Frontend
+import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports
@@ -135,6 +136,20 @@ execFrontend getTestResources cStdStr incDirs header k =
   where
     noReport :: a -> IO ()
     noReport = const $ pure ()
+
+-- | The include graph the frontend built for one header
+--
+-- Exposed for "Test.HsBindgen.Unit.IncludeGraph", which is about the graph
+-- rather than about parsing.
+execFrontendIncludeGraph ::
+     IO TestResources
+  -> CStandard
+  -> [FilePath]  -- ^ Include directories
+  -> FilePath    -- ^ Header
+  -> IO IncludeGraph
+execFrontendIncludeGraph getTestResources cStdStr incDirs header =
+    execFrontend getTestResources cStdStr incDirs header $
+      fmap (.includeGraph) . getCached . (.parseMeta)
 
 getParseResults :: FrontendArtefact CExpr -> IO [ParseResult CExpr Parse]
 getParseResults = getCached . (.parse)

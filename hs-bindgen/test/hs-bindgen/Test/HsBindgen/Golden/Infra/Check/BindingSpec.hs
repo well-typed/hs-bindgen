@@ -29,7 +29,6 @@ check getTestResources test =
         runTestHsBindgenSuccess report getTestResources test $ do
           includeGraph   <- getIncludeGraph
           declIndex      <- getDeclIndex
-          getMainHeaders <- getGetMainHeaders
           omitTypes      <- getOmittedTypes
           squashedTypes  <- getSquashedTypes
           hsDecls        <- HsDecls
@@ -39,7 +38,6 @@ check getTestResources test =
               "Example"
               includeGraph
               declIndex
-              getMainHeaders
               omitTypes
               squashedTypes
               (concat hsDecls)

@@ -148,10 +148,10 @@ annSortKey order decl = SortKey{
     , sortColNo  = singleLocColumn decl.info.loc
     }
   where
-    path = singleLocPath decl.info.loc
+    file = IncludeGraph.OnDisk decl.info.headerInfo.fileId
     -- Unlike a trace message, a declaration whose source is not in the include
     -- graph means the frontend is broken; there is nothing to salvage.
-    sortPathIx = case IncludeGraph.lookupIncludeOrder order path of
+    sortPathIx = case IncludeGraph.lookupIncludeOrder order file of
       IncludeGraph.NotInIncludeGraph ->
-        panicPure $ "Source of declaration " <> show path <> " not in include graph"
+        panicPure $ "Source of declaration " <> show file <> " not in include graph"
       ix -> ix

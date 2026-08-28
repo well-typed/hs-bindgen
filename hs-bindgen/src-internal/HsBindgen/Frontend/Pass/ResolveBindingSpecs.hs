@@ -13,7 +13,6 @@ import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
-import Clang.Paths
 
 import HsBindgen.BindingSpec (MergedBindingSpecs, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -149,7 +148,7 @@ deriving stock instance Macro.HasTypes l => Show (MEnv l)
 data MState = MState {
       traces    :: [AnnMsg ResolveBindingSpecs] -- ^ reverse order
     , extTypes  :: Map C.DeclId (ExtBinding ResolveBindingSpecs)
-    , noPTypes  :: Map C.DeclId [Set SourcePath]
+    , noPTypes  :: Map C.DeclId [Set C.HeaderName]
     , omitTypes :: Map C.DeclId SingleLoc
     , opqTypes  :: Set C.DeclId -- ^ opaqued types
     }
@@ -173,13 +172,13 @@ insertExtType cDeclId typ = #extTypes %~ Map.insert cDeclId typ
 insertOpaquedType :: C.DeclId -> MState -> MState
 insertOpaquedType cDeclId = #opqTypes %~ Set.insert cDeclId
 
-deleteNoPType :: C.DeclId -> SourcePath -> MState -> MState
-deleteNoPType cDeclId path = #noPTypes %~ Map.update (aux []) cDeclId
+deleteNoPType :: C.DeclId -> C.HeaderName -> MState -> MState
+deleteNoPType cDeclId name = #noPTypes %~ Map.update (aux []) cDeclId
   where
-    aux :: [Set SourcePath] -> [Set SourcePath] -> Maybe [Set SourcePath]
+    aux :: [Set C.HeaderName] -> [Set C.HeaderName] -> Maybe [Set C.HeaderName]
     aux acc = \case
       s : ss
-        | Set.member path s ->
+        | Set.member name s ->
             case ss ++ acc of
               []  -> Nothing
               ss' -> Just ss'
@@ -220,8 +219,11 @@ resolveTop ::
            )
        )
 resolveTop decl = Reader.ask >>= \env -> do
-    let sourcePath = singleLocPath decl.info.loc
-        declPaths  = IncludeGraph.reaches env.includeGraph sourcePath
+    let -- The names of every header that reaches this declaration's file. A
+        -- binding specification is keyed on those names, so this comparison no
+        -- longer depends on which spelling clang happened to report.
+        declPaths  = IncludeGraph.reachesNames env.includeGraph $
+                       IncludeGraph.OnDisk decl.info.headerInfo.fileId
         mMsg       = Just $ withCallStack $ ResolveBindingSpecsOmittedType decl.info.id
     isExt <- isJust <$>
       resolveExtBinding
@@ -236,7 +238,7 @@ resolveTop decl = Reader.ask >>= \env -> do
         Just (_hsModuleName, BindingSpec.Require cTypeSpec) -> do
           State.modify' $
               insertTrace (withCallStack $ ResolveBindingSpecsPreRequire decl.info.id)
-            . deleteNoPType decl.info.id sourcePath
+            . deleteNoPType decl.info.id decl.info.headerInfo.headerName
           let mHsTypeSpec = do
                 hsIdentifier <- cTypeSpec.hsName
                 BindingSpec.lookupHsTypeSpec hsIdentifier env.pSpec
@@ -244,7 +246,7 @@ resolveTop decl = Reader.ask >>= \env -> do
         Just (_hsModuleName, BindingSpec.Omit) -> do
           State.modify' $
               insertTrace (withCallStack $ ResolveBindingSpecsPreOmit decl.info.id)
-            . deleteNoPType decl.info.id sourcePath
+            . deleteNoPType decl.info.id decl.info.headerInfo.headerName
             . insertOmittedType decl.info.id decl.info.loc
           return Nothing
         Nothing -> return $ Just (decl, (Nothing, Nothing))
@@ -730,7 +732,11 @@ resolveUseSite ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
                   locs = DeclIndex.unusableToLoc x
                   declPaths =
                     foldMap
-                      (IncludeGraph.reaches env.includeGraph . singleLocPath)
+                      ( maybe Set.empty
+                              (IncludeGraph.reachesNames env.includeGraph)
+                      . IncludeGraph.lookupPath env.includeGraph
+                      . singleLocPath
+                      )
                       (C.declLocsToList locs)
               mTy <- resolveExtBinding cDeclId locs declPaths Nothing
               case mTy of
@@ -753,7 +759,7 @@ resolveExtBinding ::
      HasCallStack
   => C.DeclId
   -> C.DeclLocs
-  -> Set SourcePath
+  -> Set C.HeaderName
      -- | Message to emit for omitted types.
   -> Maybe (AnnMsg ResolveBindingSpecs)
   -> M l (Maybe BindingSpec.ResolvedExtBinding)

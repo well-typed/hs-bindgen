@@ -1,0 +1,28 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: binding-specs/spelling/widget/compat/legacy.h
+  cname: struct spelling_user
+  hsname: Spelling_user
+hstypes:
+- hsname: Spelling_user
+  representation:
+    record:
+      constructor: Spelling_user
+      fields:
+      - spelling_user_core
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

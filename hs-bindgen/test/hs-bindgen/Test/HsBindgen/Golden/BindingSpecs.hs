@@ -24,6 +24,7 @@ testCases = [
       -- * Bugs / regression tests
     , test_trans_dep_macro_trans_dep_missing
     , test_trans_dep_typedef_trans_dep_missing
+    , test_spelling_across_include_spellings
       -- * Naming types
     , test_name_squash_both
     , test_name_squash_struct
@@ -97,6 +98,21 @@ test_trans_dep_typedef_trans_dep_missing =
           ]
       & #onFrontend .~
           #selectionPredicate .~ BIf (SelectDecl (DeclNameMatches "B|foo"))
+
+-- | A specification applies whichever spelling reached the header
+--
+-- @legacy.h@ reaches @core.h@ through a @..@ segment, so @clang@ reports it
+-- under a path that is not the @\<...\>@ form the specification is keyed on.
+-- It is the same file, so the specification has to apply: @spelling_core@ must
+-- come from the external module rather than being defined again here.
+--
+-- See <https://github.com/well-typed/hs-bindgen/issues/2236>.
+test_spelling_across_include_spellings :: TestCase
+test_spelling_across_include_spellings =
+    defaultTest "binding-specs/spelling/widget/compat/legacy"
+      & #specExternal .~
+          [ "test-artefacts/headers/golden/binding-specs/spelling_core.yaml"
+          ]
 
 {-------------------------------------------------------------------------------
   Naming types

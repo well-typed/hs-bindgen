@@ -74,11 +74,9 @@ runBoot tracer mkMacroLang config uncheckedRootDirectives = do
        cStandard <- getCStandard
        liftIO $ mkMacroLang cStandard
 
-    getBindingSpecs <- cache "loadBindingSpecs" $ do
-      clangArgs <- getClangArgs
+    getBindingSpecs <- cache "loadBindingSpecs" $
       liftIO $ loadBindingSpecs
         (contramap BootBindingSpec tracer)
-        clangArgs
         (fromBaseModuleName config.boot.baseModule (Just CType))
         config.boot.bindingSpec
 

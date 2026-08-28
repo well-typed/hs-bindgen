@@ -19,7 +19,7 @@ oUTER_A = (1 :: BG.CInt)
 
 {-| __C declaration:__ @macro INNER_A@
 
-    __defined at:__ @simple_inner.h 1:9@
+    __defined at:__ @macros\/parse\/simple_inner.h 1:9@
 
     __exported by:__ @macros\/parse\/simple.h@
 -}

@@ -28,7 +28,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct pt@
 
-    __defined at:__ @include_macro_child.h (CHILD_HEADER) 1:9@
+    __defined at:__ @edge-cases\/include_macro_child.h (CHILD_HEADER) 1:9@
 
     __exported by:__ @edge-cases\/include_macro_parent.h@
 -}
@@ -36,14 +36,14 @@ data Pt = Pt
   { pt_x :: BG.CDouble
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @include_macro_child.h (CHILD_HEADER) 1:25@
+         __defined at:__ @edge-cases\/include_macro_child.h (CHILD_HEADER) 1:25@
 
          __exported by:__ @edge-cases\/include_macro_parent.h@
     -}
   , pt_y :: BG.CDouble
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @include_macro_child.h (CHILD_HEADER) 1:28@
+         __defined at:__ @edge-cases\/include_macro_child.h (CHILD_HEADER) 1:28@
 
          __exported by:__ @edge-cases\/include_macro_parent.h@
     -}
@@ -80,7 +80,7 @@ deriving via Struct.IsStructViaReadRaw Pt instance Struct.IsStruct Pt
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @include_macro_child.h (CHILD_HEADER) 1:25@
+    __defined at:__ @edge-cases\/include_macro_child.h (CHILD_HEADER) 1:25@
 
     __exported by:__ @edge-cases\/include_macro_parent.h@
 -}
@@ -105,7 +105,7 @@ instance HasCField.HasCField Pt "pt_x" where
 
 {-| __C declaration:__ @y@
 
-    __defined at:__ @include_macro_child.h (CHILD_HEADER) 1:28@
+    __defined at:__ @edge-cases\/include_macro_child.h (CHILD_HEADER) 1:28@
 
     __exported by:__ @edge-cases\/include_macro_parent.h@
 -}

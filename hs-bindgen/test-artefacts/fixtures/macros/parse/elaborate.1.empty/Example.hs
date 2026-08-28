@@ -73,7 +73,7 @@ instance HasCField.HasCField Outer_int "unwrapOuter_int" where
 
 {-| __C declaration:__ @inner_int@
 
-    __defined at:__ @elaborate_inner.h 3:19@
+    __defined at:__ @macros\/parse\/elaborate_inner.h 3:19@
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}

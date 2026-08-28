@@ -88,6 +88,10 @@ commonFixtureStatus tc
   -- compile.
   | "binding-specs/trans_dep/" `isPrefixOf` tc.name
       = Just $ FixtureSkip "Generated bindings reference intentionally-missing module"
+  -- The spelling fixture is about which header a specification is keyed on, so
+  -- it names a module that the test tree does not provide.
+  | "binding-specs/spelling/" `isPrefixOf` tc.name
+      = Just $ FixtureSkip "Generated bindings reference a module outside the test tree"
   -- Apple block extension requires clang
   | tc.name == "edge-cases/iterator"
       = Just $ FixtureSkip "Apple block extension requires clang (issue #913)"

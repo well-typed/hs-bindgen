@@ -7,6 +7,7 @@ module HsBindgen.Backend.HsModule.Pretty.Comment (
   ) where
 
 import Data.List qualified as List
+import Data.Set qualified as Set
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Text qualified as Text
 import DeBruijn (Env (..))
@@ -83,9 +84,9 @@ instance Pretty CommentKind where
                 >< uncurry prettyHashIncludeArgLoc p
                 >< "@"
             ) <$> (liftA2 (,) comment.headerInfo comment.location)
-          , (\hinfo -> "__exported by:__ @"
+          , (\hinfo -> "__exported by:__ "
                     >< prettyMainHeaders hinfo
-                    >< "@") <$> comment.headerInfo
+            ) <$> comment.headerInfo
           ]
         internalMetadata = catMaybes [
             (\u -> "__unique:__ @"
@@ -147,7 +148,7 @@ prettyHashIncludeArgLoc info loc =
     -- * @foo.h 1:2@ is fine
     -- * @foo.h:1:2@ causes mangling issues
     PP.string . escapeMidLineString . unwords $ catMaybes [
-        Just info.includeArg.path
+        Just (C.headerNameArg info.headerName).path
       , formatMacroArg <$> info.includeMacroArg
       , Just sourceLoc
       ]
@@ -158,13 +159,31 @@ prettyHashIncludeArgLoc info loc =
     formatMacroArg :: Text -> String
     formatMacroArg = ('(' :) . (++ ")") . Text.unpack
 
+-- | The headers a declaration is exported by, and any other names for its file
+--
+-- This owns its own @\@@ delimiters, because the alias note needs one pair per
+-- name rather than one pair around the whole thing.
 prettyMainHeaders :: C.HeaderInfo -> CtxDoc
-prettyMainHeaders info =
-      PP.string
-    . List.intercalate "@, @"
-    . map (escapeMidLineString . (.path))
-    . NonEmpty.toList
-    $ info.mainHeaders
+prettyMainHeaders info = PP.string $ quoted mainHeaders ++ aliasNote
+  where
+    mainHeaders :: [String]
+    mainHeaders =
+      map (escapeMidLineString . (.path)) (NonEmpty.toList info.mainHeaders)
+
+    -- A symlinked header is one file, so it is one vertex under one name. Say
+    -- which other names reach it rather than quietly renaming what someone
+    -- wrote.
+    aliasNote :: String
+    aliasNote
+      | Set.null info.aliases = ""
+      | otherwise = " (also reached as " ++ quoted aliases ++ ")"
+
+    aliases :: [String]
+    aliases =
+      [ escapeMidLineString alias.path | alias <- Set.toList info.aliases ]
+
+    quoted :: [String] -> String
+    quoted xs = "@" ++ List.intercalate "@, @" xs ++ "@"
 
 instance Pretty HsDoc.CommentBlockContent where
   pretty = \case

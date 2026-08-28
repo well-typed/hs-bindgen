@@ -171,11 +171,11 @@ library internal
     HsBindgen.Frontend.Analysis.DeclIndex
     HsBindgen.Frontend.Analysis.DeclIndex.ResolveMacro
     HsBindgen.Frontend.Analysis.DeclUseGraph
-    HsBindgen.Frontend.Analysis.HeaderName
     HsBindgen.Frontend.Analysis.DeclUseGraph.Construction
     HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
     HsBindgen.Frontend.Analysis.DeclUseGraph.Query
     HsBindgen.Frontend.Analysis.Deps
+    HsBindgen.Frontend.Analysis.HeaderName
     HsBindgen.Frontend.Analysis.IncludeGraph
     HsBindgen.Frontend.Analysis.Typedefs
     HsBindgen.Frontend.Analysis.UnnamedIdUsage
@@ -554,6 +554,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Unit.Digraph
     Test.HsBindgen.Unit.Frontend
     Test.HsBindgen.Unit.HeaderName
+    Test.HsBindgen.Unit.IncludeGraph
     Test.HsBindgen.Unit.Pretty
     Test.HsBindgen.Unit.RootDirective
     Test.HsBindgen.Unit.Runtime

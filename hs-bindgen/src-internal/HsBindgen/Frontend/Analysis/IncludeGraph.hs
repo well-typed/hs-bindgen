@@ -6,16 +6,21 @@
 -- > import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 module HsBindgen.Frontend.Analysis.IncludeGraph (
     IncludeGraph(..)
+  , SourceFile(..)
+  , Header(..)
   , Include(..)
   , MacroArg
   , getIncludeArg
   , getIncludeMacroArg
     -- * Construction
-  , empty
-  , register
-  , fromList
+  , fromEdges
     -- * Query
-  , reaches
+  , reachesNames
+  , lookupHeader
+  , headerNameOf
+  , lookupPath
+  , headerNameOfPath
+  , mainHeaderNamesOf
   , toSortedList
   , getIncludes
     -- * Include order
@@ -42,6 +47,7 @@ import Clang.Paths
 
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
+import HsBindgen.IR.C (FileId, HeaderName)
 import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -50,10 +56,64 @@ import HsBindgen.IR.C qualified as C
 
 -- | Include graph
 --
--- We create a DAG of C header paths with an edge for each @#include@.
+-- We create a DAG of C source files with an edge for each @#include@.
 -- The edges are /reversed/ to represent an \"included by\" relation.
+--
+-- Vertices are file identities, not the paths @clang@ reported. One file is one
+-- vertex however many spellings reached it, and the spellings survive on the
+-- edges, which is where they belong: a spelling describes a directive, not a
+-- file.
 data IncludeGraph = IncludeGraph{
-      graph :: Digraph Include SourcePath
+      graph :: Digraph Include SourceFile
+
+      -- | What we know about each file on disk, beyond its identity
+      --
+      -- Every 'OnDisk' vertex has an entry.
+    , headers :: Map FileId Header
+
+      -- | Which file each path @clang@ reported actually names
+      --
+      -- @clang@ prints one file under several names: a directive is reported by
+      -- the spelling that requested it, a source location by the name the file
+      -- was first looked up under. So this is many to one, and every entry
+      -- comes from a name @clang@ produced rather than from guessing at a path.
+      --
+      -- Needed because a declaration is not always close enough to its
+      -- t'HeaderInfo' to ask directly. Entries for external, squashed and
+      -- unusable declarations keep a location and nothing else.
+    , paths :: Map SourcePath SourceFile
+
+      -- | Names of the main headers, i.e. those the root header includes
+      --
+      -- Kept as names so that a binding specification generated from this run
+      -- is keyed on something a later run can reproduce.
+    , mainHeaders :: Set HeaderName
+    }
+  deriving stock (Show, Eq)
+
+-- | Vertex of the include graph
+data SourceFile =
+    -- | A file on disk, identified by its real path
+    OnDisk FileId
+
+    -- | Input @clang@ has no real path for, identified by the name it gave
+    --
+    -- The synthetic root header is the case that arises in practice. It is not
+    -- a header the user can name or select, so it carries no t'Header'.
+  | InMemory SourcePath
+  deriving stock (Show, Eq, Ord)
+
+-- | What we know about a header, beyond its identity
+data Header = Header{
+      -- | The name to show the user, and to key a binding spec on
+      name :: HeaderName
+
+      -- | Other @#include@ arguments that reach this same file
+      --
+      -- Populated when a symlink lets one file be reached under more than one
+      -- name. Collapsing those into one vertex is right, since it really is one
+      -- file, but we should not silently rename what the user wrote.
+    , aliases :: Set C.HashIncludeArg
     }
   deriving stock (Show, Eq)
 
@@ -108,41 +168,97 @@ getIncludeMacroArg = \case
   Construction
 -------------------------------------------------------------------------------}
 
-empty :: IncludeGraph
-empty = IncludeGraph Digraph.empty
-
-register ::
-     SourcePath -- ^ Path of header that includes the following header
-  -> Include
-  -> SourcePath -- ^ Path of the included header
+-- | Build the graph from everything observed in one parse
+--
+-- Takes all four parts at once rather than letting a caller assemble them, so
+-- there is no half-built graph whose 'headers' or 'paths' are still empty.
+-- "HsBindgen.Frontend.ProcessIncludes" is the only place that has the
+-- observations, and it has them all together.
+fromEdges ::
+     [(SourceFile, Include, SourceFile)]
+       -- ^ One per @#include@: the file containing it, the directive, the file
+       -- it reached
+  -> Map FileId Header
+       -- ^ What each file is called, and what else reaches it
+  -> Map SourcePath SourceFile
+       -- ^ Which file each path @clang@ reported names
+  -> Set HeaderName
+       -- ^ Names of the main headers
   -> IncludeGraph
-  -> IncludeGraph
-register header include incHeader includeGraph = IncludeGraph $
-    Digraph.insertEdge incHeader include header includeGraph.graph
-
-fromList :: [(SourcePath, Include, SourcePath)] -> IncludeGraph
-fromList edges = List.foldl' add empty edges
+fromEdges edges headers paths mainHeaders = IncludeGraph{
+      graph       = List.foldl' insert Digraph.empty edges
+    , headers     = headers
+    , paths       = paths
+    , mainHeaders = mainHeaders
+    }
   where
-    add :: IncludeGraph -> (SourcePath, Include, SourcePath) -> IncludeGraph
-    add graph (fr, inc, to) = register fr inc to graph
+    -- Reversed, so an edge runs from the included file to the one including it.
+    insert ::
+         Digraph Include SourceFile
+      -> (SourceFile, Include, SourceFile)
+      -> Digraph Include SourceFile
+    insert g (from, include, to) = Digraph.insertEdge to include from g
 
 {-------------------------------------------------------------------------------
   Query
 -------------------------------------------------------------------------------}
 
-reaches :: IncludeGraph -> SourcePath -> Set SourcePath
-reaches includeGraph path =
-    Digraph.reaches (Set.singleton path) includeGraph.graph
+-- | Every file that (transitively) includes the given one, and itself
+reaches :: IncludeGraph -> SourceFile -> Set SourceFile
+reaches includeGraph file =
+    Digraph.reaches (Set.singleton file) includeGraph.graph
 
-toSortedList :: IncludeGraph -> [SourcePath]
+-- | The names of the headers that (transitively) include the given file
+--
+-- This is what a binding spec is keyed on, so the answer must not depend on
+-- which spelling happened to reach the file.
+reachesNames :: IncludeGraph -> SourceFile -> Set HeaderName
+reachesNames includeGraph file = Set.fromList
+    [ header.name
+    | OnDisk fileId <- Set.toList (reaches includeGraph file)
+    , Just header   <- [Map.lookup fileId includeGraph.headers]
+    ]
+
+lookupHeader :: IncludeGraph -> SourceFile -> Maybe Header
+lookupHeader includeGraph = \case
+    OnDisk fileId -> Map.lookup fileId includeGraph.headers
+    InMemory{}    -> Nothing
+
+headerNameOf :: IncludeGraph -> SourceFile -> Maybe HeaderName
+headerNameOf includeGraph = fmap (.name) . lookupHeader includeGraph
+
+-- | Which file a path @clang@ reported names
+lookupPath :: IncludeGraph -> SourcePath -> Maybe SourceFile
+lookupPath includeGraph path = Map.lookup path includeGraph.paths
+
+-- | The name of the header a reported path names
+headerNameOfPath :: IncludeGraph -> SourcePath -> Maybe HeaderName
+headerNameOfPath includeGraph path =
+    headerNameOf includeGraph =<< lookupPath includeGraph path
+
+-- | Names of the main headers that (transitively) include the given file
+--
+-- This is what a generated binding specification is keyed on, and it is a
+-- subset of what 'reachesNames' offers a consumer, so a specification written
+-- here matches when it is read back.
+mainHeaderNamesOf :: IncludeGraph -> SourceFile -> Set HeaderName
+mainHeaderNamesOf includeGraph file =
+    Set.intersection includeGraph.mainHeaders (reachesNames includeGraph file)
+
+toSortedList :: IncludeGraph -> [SourceFile]
 toSortedList includeGraph =
-    List.delete RootHeader.name (Digraph.sort includeGraph.graph)
+    filter (not . isRootHeader) (Digraph.sort includeGraph.graph)
+
+isRootHeader :: SourceFile -> Bool
+isRootHeader = \case
+    InMemory path -> RootHeader.isRootHeaderPath path
+    OnDisk{}      -> False
 
 getIncludes ::
      IncludeGraph
-  -> SourcePath
+  -> SourceFile
   -> Digraph.FindEdgesResult Include
-getIncludes includeGraph path = Digraph.findEdges path includeGraph.graph
+getIncludes includeGraph file = Digraph.findEdges file includeGraph.graph
 
 {-------------------------------------------------------------------------------
   Include order
@@ -151,7 +267,7 @@ getIncludes includeGraph path = Digraph.findEdges path includeGraph.graph
 -- | Position of a source in the include order
 --
 -- The constructor order /is/ the specification: the root header precedes every
--- real source, and an unknown path sorts last. Do not reorder.
+-- real source, and an unknown file sorts last. Do not reorder.
 data IncludeOrderIx =
     -- | The root header
     --
@@ -161,7 +277,7 @@ data IncludeOrderIx =
     InRootHeader
     -- | Position in the topologically sorted include graph
   | InIncludeGraph Int
-    -- | Path unknown to the include graph
+    -- | File unknown to the include graph
     --
     -- Reaching this is a bug; see
     -- 'HsBindgen.Frontend.Pass.Select.IsPass.SelectSourceNotInIncludeGraph'.
@@ -169,22 +285,22 @@ data IncludeOrderIx =
   deriving stock (Show, Eq, Ord)
 
 -- | The include order of a t'IncludeGraph', for repeated lookup
-newtype IncludeOrder = IncludeOrder (Map SourcePath Int)
+newtype IncludeOrder = IncludeOrder (Map SourceFile Int)
 
 toIncludeOrder :: IncludeGraph -> IncludeOrder
 toIncludeOrder graph = IncludeOrder $ Map.fromList (zip (toSortedList graph) [0..])
 
-lookupIncludeOrder :: IncludeOrder -> SourcePath -> IncludeOrderIx
-lookupIncludeOrder (IncludeOrder order) path
-  | RootHeader.isRootHeaderPath path = InRootHeader
-  | otherwise = maybe NotInIncludeGraph InIncludeGraph (Map.lookup path order)
+lookupIncludeOrder :: IncludeOrder -> SourceFile -> IncludeOrderIx
+lookupIncludeOrder (IncludeOrder order) file
+  | isRootHeader file = InRootHeader
+  | otherwise = maybe NotInIncludeGraph InIncludeGraph (Map.lookup file order)
 
 {-------------------------------------------------------------------------------
   Visualization
 -------------------------------------------------------------------------------}
 
 -- | Include graph predicate
-type Predicate = SourcePath -> Bool
+type Predicate = SourceFile -> Bool
 
 -- | How should we show the include header?
 data HeaderLabelStyle =
@@ -244,7 +360,7 @@ renderMermaid o g =
     opts :: Digraph.VisOptions Edge Vertex
     opts = Digraph.VisOptions{
         visVertex = \v -> Digraph.VisVertex{
-            label = Just (vertexLabel o v)
+            label = Just (vertexLabel o g v)
           }
       , visEdge = \e -> Digraph.VisEdge{
             label = Nothing
@@ -256,7 +372,7 @@ renderMermaid o g =
       }
 
     predicate :: Vertex -> Bool
-    predicate v = o.predicate v.path
+    predicate v = o.predicate v.file
 
 -- | Render the include graph as a topologically sorted list of headers
 --
@@ -267,15 +383,15 @@ renderMermaid o g =
 renderSortedList :: VisOpts -> IncludeGraph -> String
 renderSortedList o g =
       unlines
-    . map (vertexLabel o)
-    . filter (o.predicate . (.path))
+    . map (vertexLabel o g)
+    . filter (o.predicate . (.file))
     $ Digraph.sort annotated
   where
     annotated :: Digraph Include Vertex
     annotated = Digraph.mapVerticesOutgoingEdges Vertex g.graph
 
 data Vertex = Vertex {
-      path     :: SourcePath
+      file     :: SourceFile
     , includes :: Set Include
     }
   deriving stock (Show, Eq, Ord)
@@ -283,24 +399,27 @@ data Vertex = Vertex {
 data Edge = Direct | Transient
   deriving stock (Show, Eq, Ord)
 
--- | Display label for a vertex: its resolved path, or the shortest @#include@
--- argument used to include it (see t'VisOpts' @labelStyle@).
-vertexLabel :: VisOpts -> Vertex -> String
-vertexLabel o v = case o.labelStyle of
-    ShowPaths       -> getSourcePath v.path
-    ShowIncludeArgs -> getIncludePath v
+-- | Display label for a vertex
+--
+-- Under 'ShowPaths' this is the header's name rather than a real path: the real
+-- path names this machine, which is no use to a reader.
+vertexLabel :: VisOpts -> IncludeGraph -> Vertex -> String
+vertexLabel o g v = case o.labelStyle of
+    ShowPaths       -> fileLabel g v.file
+    ShowIncludeArgs -> getIncludePath g v
 
-getIncludePath :: Vertex -> FilePath
-getIncludePath =
-      safeHead
-    . List.sortOn length
-    . map ((.path) . getIncludeArg)
-    . Set.elems
-    . (.includes)
-  where
-    safeHead :: [FilePath] -> FilePath
-    safeHead []    = getSourcePath $ RootHeader.name
-    safeHead (x:_) = x
+fileLabel :: IncludeGraph -> SourceFile -> String
+fileLabel g file = case headerNameOf g file of
+    Just name  -> (C.headerNameArg name).path
+    Nothing    -> case file of
+      InMemory path -> getSourcePath path
+      OnDisk fileId -> fileId.path
+
+getIncludePath :: IncludeGraph -> Vertex -> FilePath
+getIncludePath g v =
+    case List.sortOn length . map ((.path) . getIncludeArg) . Set.elems $ v.includes of
+      x:_ -> x
+      []  -> fileLabel g v.file
 
 -- | Sequential combination of simple include edges.
 --
