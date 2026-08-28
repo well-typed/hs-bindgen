@@ -80,12 +80,11 @@ instance Pretty CommentKind where
           , (\lit -> "__C literal:__ @"
                 >< PP.text (escapeMidLine lit)
                 >< "@") <$> comment.literal
-          , (\p -> "__defined at:__ @"
-                >< uncurry prettyHashIncludeArgLoc p
-                >< "@"
+          , (\p -> "__defined at:__"
+               <+> uncurry prettyDefinedAt p
             ) <$> (liftA2 (,) comment.headerInfo comment.location)
-          , (\hinfo -> "__exported by:__ "
-                    >< prettyMainHeaders hinfo
+          , (\hinfo -> "__exported by:__"
+               <+> prettyMainHeaders hinfo
             ) <$> comment.headerInfo
           ]
         internalMetadata = catMaybes [
@@ -140,35 +139,31 @@ instance Pretty CommentKind where
                      , PP.string commentEnd
                      ]
 
-prettyHashIncludeArgLoc :: C.HeaderInfo -> SingleLoc -> CtxDoc
-prettyHashIncludeArgLoc info loc =
+-- | Where the declaration sits, and any other name for the file it sits in
+--
+-- The alias note belongs on this line rather than beside the exporting
+-- headers: a symlink is another route to the file the declaration is in, which
+-- is the file this line names.
+prettyDefinedAt :: C.HeaderInfo -> SingleLoc -> CtxDoc
+prettyDefinedAt info loc = PP.string $ monospaced definedAt ++ aliasNote
+  where
     -- Text like @:1:2@ is mangled by the GHC literate preprocessor, so we
     -- cannot format source locations like that.
     --
     -- * @foo.h 1:2@ is fine
     -- * @foo.h:1:2@ causes mangling issues
-    PP.string . escapeMidLineString . unwords $ catMaybes [
+    definedAt :: String
+    definedAt = unwords $ catMaybes [
         Just (C.headerNameArg info.headerName).path
       , formatMacroArg <$> info.includeMacroArg
       , Just sourceLoc
       ]
-  where
+
     sourceLoc :: String
     sourceLoc = show (singleLocLine loc) ++ ':' : show (singleLocColumn loc)
 
     formatMacroArg :: Text -> String
     formatMacroArg = ('(' :) . (++ ")") . Text.unpack
-
--- | The headers a declaration is exported by, and any other names for its file
---
--- This owns its own @\@@ delimiters, because the alias note needs one pair per
--- name rather than one pair around the whole thing.
-prettyMainHeaders :: C.HeaderInfo -> CtxDoc
-prettyMainHeaders info = PP.string $ quoted mainHeaders ++ aliasNote
-  where
-    mainHeaders :: [String]
-    mainHeaders =
-      map (escapeMidLineString . (.path)) (NonEmpty.toList info.mainHeaders)
 
     -- A symlinked header is one file, so it is one vertex under one name. Say
     -- which other names reach it rather than quietly renaming what someone
@@ -176,14 +171,16 @@ prettyMainHeaders info = PP.string $ quoted mainHeaders ++ aliasNote
     aliasNote :: String
     aliasNote
       | Set.null info.aliases = ""
-      | otherwise = " (also reached as " ++ quoted aliases ++ ")"
+      | otherwise             =
+          " (also reached as "
+            ++ monospacedList [ alias.path | alias <- Set.toList info.aliases ]
+            ++ ")"
 
-    aliases :: [String]
-    aliases =
-      [ escapeMidLineString alias.path | alias <- Set.toList info.aliases ]
-
-    quoted :: [String] -> String
-    quoted xs = "@" ++ List.intercalate "@, @" xs ++ "@"
+-- | The main headers a declaration is exported by
+prettyMainHeaders :: C.HeaderInfo -> CtxDoc
+prettyMainHeaders info =
+    PP.string . monospacedList . map (.path) $
+      NonEmpty.toList info.mainHeaders
 
 instance Pretty HsDoc.CommentBlockContent where
   pretty = \case
@@ -234,6 +231,17 @@ instance Pretty HsDoc.CommentMeta where
 {-------------------------------------------------------------------------------
   Auxiliary functions
 -------------------------------------------------------------------------------}
+
+-- | A Haddock monospace span around escaped content
+monospaced :: String -> String
+monospaced str = "@" ++ escapeMidLineString str ++ "@"
+
+-- | Several monospace spans, comma separated
+--
+-- One pair of @\@@ per name rather than one around the whole list, so a reader
+-- can tell where each name ends.
+monospacedList :: [String] -> String
+monospacedList = List.intercalate ", " . map monospaced
 
 -- | Escape Haddock special characters in mid-line content
 --

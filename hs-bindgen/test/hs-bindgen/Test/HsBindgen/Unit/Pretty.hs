@@ -1,18 +1,27 @@
 module Test.HsBindgen.Unit.Pretty (tests) where
 
+import Data.List.NonEmpty qualified as NonEmpty
+import Data.Set qualified as Set
 import Data.Text (Text)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, testCase, (@?=))
 import Text.SimplePrettyPrint (Pretty (..))
 
+import Clang.HighLevel.Types (SingleLoc (..))
+import Clang.Paths (SourcePath (..))
+
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
+import HsBindgen.Backend.HsModule.Pretty.Comment (CommentKind (..))
 import HsBindgen.Backend.HsModule.Pretty.Expr ()
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 tests :: TestTree
 tests = testGroup "Test.HsBindgen.Unit.Pretty" [
       tupleExprTests
     , tupleTypeTests
+    , headerInfoTests
     ]
 
 tupleExprTests :: TestTree
@@ -105,3 +114,56 @@ tupleTypeTests =
 
 testPretty :: Pretty a => a -> String -> Assertion
 testPretty x res = show (pretty x) @?= res
+
+
+{-------------------------------------------------------------------------------
+  Header information
+-------------------------------------------------------------------------------}
+
+-- | Where each piece of header information lands in a rendered comment
+--
+-- An alias is another name for the file a declaration is /in/, so it belongs
+-- beside that file and not beside the main headers, which are a different set
+-- of files entirely. Rendering the two lines from one record makes it easy to
+-- append the note to whichever is nearest, so this pins which one it is.
+headerInfoTests :: TestTree
+headerInfoTests =
+    testGroup "Header information" [
+        testCase "no alias"   $ testPretty (comment []) plainR
+      , testCase "one alias"  $ testPretty (comment ["alias.h"]) oneR
+      , testCase "two aliases" $ testPretty (comment ["a.h", "b.h"]) twoR
+      ]
+  where
+    comment :: [FilePath] -> CommentKind
+    comment aliases = TopLevelComment mempty{
+          HsDoc.location   = Just loc
+        , HsDoc.headerInfo = Just C.HeaderInfo{
+              mainHeaders     = NonEmpty.singleton (C.HashIncludeArg "root.h")
+            , fileId          = C.FileId "/abs/include/widget/core.h"
+            , headerName      = C.ByBracket (C.HashIncludeArg "widget/core.h")
+            , aliases         = Set.fromList (map C.HashIncludeArg aliases)
+            , includeMacroArg = Nothing
+            }
+        }
+
+    loc :: SingleLoc
+    loc = SingleLoc{
+          singleLocPath   = SourcePath "widget/core.h"
+        , singleLocLine   = 3
+        , singleLocColumn = 8
+        , singleLocOffset = 0
+        }
+
+    -- Metadata entries are separated by a blank line, which is how every
+    -- generated module already looks.
+    rendered :: String -> String
+    rendered definedAt = unlines [
+          "{-| __defined at:__ @widget\\/core.h 3:8@" ++ definedAt
+        , ""
+        , "    __exported by:__ @root.h@"
+        ] ++ "-}"
+
+    plainR, oneR, twoR :: String
+    plainR = rendered ""
+    oneR   = rendered " (also reached as @alias.h@)"
+    twoR   = rendered " (also reached as @a.h@, @b.h@)"
