@@ -9,6 +9,8 @@ module HsBindgen.Frontend.Analysis.Deps (
   , depsOfDeclParsedMacro
   ) where
 
+import Data.Proxy (Proxy (..))
+
 import HsBindgen.Frontend.Analysis
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -34,10 +36,8 @@ depsOfDeclWith depsOfMacro = \case
     (C.DeclTypedef ty)             -> depsOfTypedef ty
     C.DeclOpaque{}                 -> []
     (C.DeclMacro m)                -> depsOfMacro m
-    (C.DeclFunction function)      ->
-      C.depsOfType function.res ++
-      concatMap (\arg -> C.depsOfTypeFunArg arg.argTyp) function.args
-    (C.DeclGlobal global)          -> C.depsOfType global.typ
+    (C.DeclFunction function)      -> C.depsOfType (C.typeOfFunction function)
+    (C.DeclGlobal global)          -> C.depsOfType (cType (Proxy @p) global.typ)
 
 {-------------------------------------------------------------------------------
   Dependencies of declarations with parsed macros only
@@ -109,23 +109,24 @@ depsOfRegularField ::
      forall p. IsPass p
   => C.RegularField p
   -> [(Id p, Dependency)]
-depsOfRegularField field = C.depsOfType field.typ
+depsOfRegularField field = C.depsOfType (cType (Proxy @p) field.typ)
 
 depsOfImplicitField ::
      forall p. IsPass p
   => C.ImplicitField p
   -> [(Id p, Dependency)]
-depsOfImplicitField field = C.depsOfType field.typ ++ concatMap depsOfIndirectField field.indirect
+depsOfImplicitField field = C.depsOfType (cType (Proxy @p) field.typ)
+    ++ concatMap depsOfIndirectField field.indirect
 
 depsOfIndirectField ::
      forall p. IsPass p
   => C.IndirectField p
   -> [(Id p, Dependency)]
-depsOfIndirectField field = C.depsOfType field.typ
+depsOfIndirectField field = C.depsOfType (cType (Proxy @p) field.typ)
 
 {-------------------------------------------------------------------------------
   Typedefs
 -------------------------------------------------------------------------------}
 
-depsOfTypedef :: IsPass p => C.Typedef p -> [(Id p, Dependency)]
-depsOfTypedef typedef = C.depsOfType typedef.typ
+depsOfTypedef :: forall p. IsPass p => C.Typedef p -> [(Id p, Dependency)]
+depsOfTypedef typedef = C.depsOfType (cType (Proxy @p) typedef.typ)

@@ -200,7 +200,7 @@ hasFieldDecs st env info union field =
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel (getFieldTyp field)
+    fieldType = Type.topLevel (getFieldTyp field).c
 
     decl :: Hs.HasFieldInstance
     decl = Hs.HasFieldInstance {
@@ -273,7 +273,7 @@ hasFieldCompatDecs st env info union field =
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel (getFieldTyp field)
+    fieldType = Type.topLevel (getFieldTyp field).c
 
     decl :: Hs.HasFieldCompatInstance
     decl = Hs.HasFieldCompatInstance {
@@ -329,7 +329,7 @@ hasFieldPtrDecs union field =
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel (getFieldTyp field)
+    fieldType = Type.topLevel (getFieldTyp field).c
 
     decl :: Hs.HasFieldPtrInstance
     decl = Hs.HasFieldPtrInstance {
@@ -362,7 +362,7 @@ hasCFieldDecs union field = case getFieldWidth field of
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel (getFieldTyp field)
+    fieldType = Type.topLevel (getFieldTyp field).c
 
     decl :: Hs.HasCFieldInstance
     decl = Hs.HasCFieldInstance {
@@ -392,7 +392,7 @@ hasCBitfieldDecs union field = case getFieldWidth field of
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel (getFieldTyp field)
+    fieldType = Type.topLevel (getFieldTyp field).c
 
     decl :: Int -> Hs.HasCBitfieldInstance
     decl w = Hs.HasCBitfieldInstance {

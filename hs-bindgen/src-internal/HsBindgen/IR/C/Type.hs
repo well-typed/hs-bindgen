@@ -38,6 +38,8 @@ module HsBindgen.IR.C.Type (
   , MacroRef(..)
   , TypedefRef
   , ExtBindingRef
+  , AnonRef (..)
+  , anonRefType
 
     -- * Normal forms
   , Normalize(..)
@@ -167,6 +169,16 @@ deriving stock instance ValidTypeTag tag p => Show (TypeF tag p)
 type TypeFunArg = TypeFunArgF Full
 
 -- | C types in function argument positions
+--
+-- Separate types are used to represent function arguments in declarations
+-- ('HsBindgen.IR.C.Decl.FunctionArg') and function arguments in types.
+--
+-- * An argument in a declaration may have a name, while type arguments do not
+--   have names.
+-- * We translate declaration arguments to Haskell, while recursively
+--   translating type arguments is not necessary.
+--
+-- Both of these types use the @TypeFunArg@ annotation, however.
 data TypeFunArgF (tag :: TypeTag) (p :: Pass) = TypeFunArgF {
     typ :: TypeF tag p
   , ann :: Ann "TypeFunArg" p
@@ -319,6 +331,20 @@ type TypedefRef p = Ref (Id p) p
 --
 -- > Ref { name = ResolvedBinding "S", underlying = TypeRef ("S", StructKind) }
 type ExtBindingRef p = Ref (ExtBinding p) p
+
+-- | A reference to an anonymous struct or union
+data AnonRef p =
+    AnonRef (Id p)
+    -- NOTE: strictness annotations help GHC infer redundant pattern matches
+  | AnonExtBinding !(ExtBindingRef p)
+
+anonRefType :: AnonRef p -> Type p
+anonRefType = \case
+    AnonRef ref -> TypeRef ref
+    AnonExtBinding ext -> TypeExtBinding ext
+
+deriving instance (Eq (Id p), Eq (ExtBindingRef p)) => Eq (AnonRef p)
+deriving instance (Show (Id p), Show (ExtBindingRef p)) => Show (AnonRef p)
 
 {-------------------------------------------------------------------------------
   Normal forms
@@ -856,6 +882,14 @@ instance (
 
       goMacroUnderlying :: MacroUnderlying p -> MacroUnderlying p'
       goMacroUnderlying = coercePassMacroUnderlying (Proxy @'(p, p'))
+
+instance (
+      CoercePassId p p'
+    , CoercePassExtBindingRef p p'
+    ) => CoercePass AnonRef p p' where
+  coercePass = \case
+      AnonRef ref -> AnonRef $ coercePassId (Proxy @'(p, p')) ref
+      AnonExtBinding ext -> AnonExtBinding $ coercePassExtBindingRef ext
 
 class CoercePassExtBindingRef p p' where
   coercePassExtBindingRef :: ExtBindingRef p -> ExtBindingRef p'

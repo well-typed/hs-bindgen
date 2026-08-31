@@ -103,6 +103,9 @@ instance InContext (C.TypeFunArg Final) where
       AdjustedFromFunction _origTy -> inContext ctx arg.typ
       NotAdjusted -> inContext ctx arg.typ
 
+instance InContext (C.FunctionArg Final) where
+  inContext ctx arg = inContext ctx (C.typeOfFunctionArg arg)
+
 {-------------------------------------------------------------------------------
   Internal auxiliary
 -------------------------------------------------------------------------------}

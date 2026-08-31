@@ -42,6 +42,8 @@ instance PassId AdjustTypes where
 instance PassScopedName AdjustTypes where
   type ScopedName AdjustTypes = ScopedNamePair
 
+instance PassTypes AdjustTypes
+
 instance PassMacro AdjustTypes where
   type MacroId         AdjustTypes = Id AdjustTypes
   type MacroBody       AdjustTypes = TypecheckedMacro AdjustTypes
@@ -52,7 +54,7 @@ instance PassMacro AdjustTypes where
 instance PassExtBinding AdjustTypes where
   type ExtBinding AdjustTypes = BindingSpec.ResolvedExtBinding
 
-  extBindingId _ extBinding = BindingSpec.extDeclIdPair extBinding
+  extBindingId _ extBinding = extDeclIdPair extBinding
 
 instance PassCommentDecl AdjustTypes where
   type CommentDecl AdjustTypes = Maybe (C.Comment AdjustTypes)

@@ -34,6 +34,8 @@ instance PassId FillUnnamedIds
 
 instance PassScopedName FillUnnamedIds
 
+instance PassTypes FillUnnamedIds
+
 instance PassMacro FillUnnamedIds where
   type MacroBody FillUnnamedIds = Macro.Unresolved
 

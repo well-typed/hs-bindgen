@@ -11,6 +11,7 @@ module HsBindgen.Backend.Hs.Translation.Field (
 
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass.Types (PassTypes (Types))
 
 flattenFields :: [C.Field Final] -> [Field]
 flattenFields = concatMap flattenField
@@ -31,7 +32,7 @@ getFieldInfo = \case
     ImplicitField field -> field.info
     IndirectField _impField indField -> indField.info
 
-getFieldTyp :: Field -> C.Type Final
+getFieldTyp :: Field -> Types Final
 getFieldTyp = \case
     RegularField  field -> field.typ
     ImplicitField field -> field.typ

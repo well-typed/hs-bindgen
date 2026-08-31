@@ -27,10 +27,12 @@ import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg (DelayedReparseMacroExpansionsMsg)
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
+import HsBindgen.IR.Pass.Types (CoercePassAnonRef (coercePassAnonRef))
 import HsBindgen.IR.Translation
 import HsBindgen.Util.Tracer
 
@@ -65,6 +67,13 @@ instance PassId Select where
 instance PassScopedName Select where
   type ScopedName Select = ScopedNamePair
 
+instance PassTypes Select where
+  type Types Select   = TranslatedTypes Select
+  type AnonRef Select = TranslatedAnonRef Select
+
+  cType _ translatedTypes = translatedTypes.c
+  anonRefTypes _ = translatedAnonRefType
+
 instance PassMacro Select where
   type MacroId Select = Id Select
   type MacroBody       Select = TypecheckedMacro Select
@@ -75,7 +84,7 @@ instance PassMacro Select where
 instance PassExtBinding Select where
   type ExtBinding Select = BindingSpec.ResolvedExtBinding
 
-  extBindingId _ extBinding = BindingSpec.extDeclIdPair extBinding
+  extBindingId _ extBinding = extDeclIdPair extBinding
 
 instance PassCommentDecl Select where
   type CommentDecl Select = Maybe (C.Comment Select)
@@ -297,23 +306,31 @@ instance IsTrace Level SelectMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassId        AdjustTypes Select
-instance CoercePassMacroId   AdjustTypes Select
-instance CoercePassMacroUnderlying AdjustTypes Select where
+instance CoercePassAnonRef TranslateTypes Select where
+  coercePassAnonRef _ = coercePass
+
+instance CoercePassId      TranslateTypes Select
+
+instance CoercePassTypes TranslateTypes Select where
+  coercePassTypes _ = coercePass
+
+instance CoercePassMacroId TranslateTypes Select
+
+instance CoercePassMacroUnderlying TranslateTypes Select where
   coercePassMacroUnderlying _ = coercePass
 
-instance CoercePassMacroBody AdjustTypes Select where
+instance CoercePassMacroBody TranslateTypes Select where
   coercePassMacroBody _ = coercePassParam
 
-instance CoercePassAnn "IndirectField" AdjustTypes Select where
+instance CoercePassAnn "IndirectField" TranslateTypes Select where
   coercePassAnn _ = \case
       IndirectFieldNames name -> IndirectFieldNames name
 
-instance CoercePassAnn "TypeFunArg" AdjustTypes Select where
+instance CoercePassAnn "TypeFunArg" TranslateTypes Select where
   coercePassAnn _ = \case
       AdjustedFromArray ty    -> AdjustedFromArray (coercePass ty)
       AdjustedFromFunction ty -> AdjustedFromFunction (coercePass ty)
       NotAdjusted             -> NotAdjusted
 
-instance CoercePassCommentDecl AdjustTypes Select where
+instance CoercePassCommentDecl TranslateTypes Select where
   coercePassCommentDecl _ = fmap coercePass

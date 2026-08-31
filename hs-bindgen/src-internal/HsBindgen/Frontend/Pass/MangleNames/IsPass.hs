@@ -54,6 +54,8 @@ instance PassId MangleNames where
 instance PassScopedName MangleNames where
   type ScopedName MangleNames = ScopedNamePair
 
+instance PassTypes MangleNames
+
 instance PassMacro MangleNames where
   type MacroId         MangleNames = Id MangleNames
   type MacroBody       MangleNames = TypecheckedMacro MangleNames
@@ -64,7 +66,7 @@ instance PassMacro MangleNames where
 instance PassExtBinding MangleNames where
   type ExtBinding MangleNames = BindingSpec.ResolvedExtBinding
 
-  extBindingId _ extBinding = BindingSpec.extDeclIdPair extBinding
+  extBindingId _ extBinding = extDeclIdPair extBinding
 
 instance PassCommentDecl MangleNames where
   type CommentDecl MangleNames = Maybe (C.Comment MangleNames)

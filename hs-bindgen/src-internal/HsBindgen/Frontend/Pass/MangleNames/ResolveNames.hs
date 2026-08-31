@@ -336,13 +336,15 @@ instance Resolve C.Function where
       }
     where
       resolveArg ::
-           C.FunctionArg CreateNames -> ResolveE (C.FunctionArg MangleNames)
+           C.FunctionArg CreateNames
+        -> ResolveE (C.FunctionArg MangleNames)
       resolveArg arg = do
         name' <- mapM (lookupScopedNamePairR info.id) arg.name
-        argTyp' <- (resolve info) arg.argTyp
+        typ' <- resolve info arg.typ
         pure C.FunctionArg{
-            name   = name'
-          , argTyp = argTyp'
+            name = name'
+          , typ  = typ'
+          , ann  = arg.ann
           }
 
 instance Resolve C.Global where

@@ -110,10 +110,10 @@ functionDecs safety info origCFun _spec = do
                 ]
 
         primResult :: PassResBy
-        primResult = classifyResPassingMethod origCFun.res
+        primResult = classifyResPassingMethod origCFun.res.c
 
         primParams :: [PassArgBy]
-        primParams = map (\arg -> classifyArgPassingMethod (arg.argTyp)) origCFun.args
+        primParams = map classifyArgPassingMethod origCFun.args
 
         foreignImport :: [Hs.Decl l]
         foreignImport =
@@ -203,7 +203,7 @@ functionDecs safety info origCFun _spec = do
           let params :: [(Maybe Text, Hs.FunctionParameter)]
               params = [ ( fmap (.cName.text) arg.name
                         , Hs.FunctionParameter{
-                            typ     = toOrigType Type.FunArg (classifyArgPassingMethod arg.argTyp)
+                            typ     = toOrigType Type.FunArg (classifyArgPassingMethod arg)
                           , comment = Nothing
                           })
                         | arg <- origCFun.args
@@ -292,7 +292,7 @@ ioComment purity =
 
 -- | Classification of the type of a function argument: it is either passed by
 -- value or by address.
-type PassArgBy = PassBy (C.TypeFunArg Final) (C.Type Final)
+type PassArgBy = PassBy (C.FunctionArg Final) (C.Type Final)
 
 -- | Classification of the type of a function result: it is either passed by
 -- value or by address.
@@ -338,26 +338,26 @@ classifyResPassingMethod res
   = PassByValue res
 
 -- | Classify how a function argument is passed from Haskell to C
-classifyArgPassingMethod :: HasCallStack => C.TypeFunArg Final -> PassArgBy
+classifyArgPassingMethod :: HasCallStack => C.FunctionArg Final -> PassArgBy
 classifyArgPassingMethod arg
   -- Heap types
-  | C.isCanonicalTypeStruct arg.typ ||
-    C.isCanonicalTypeUnion arg.typ ||
-    C.isCanonicalTypeComplex arg.typ
+  | C.isCanonicalTypeStruct  arg.typ.c ||
+    C.isCanonicalTypeUnion   arg.typ.c ||
+    C.isCanonicalTypeComplex arg.typ.c
   = if arg.ann == NotAdjusted
-    then PassByAddress arg.typ
+    then PassByAddress arg.typ.c
     else panicPure
           "classifyArgPassingMethod: found a function argument/result type that is \
           \a struct/union/complex with an unexpected annotation. \
           \Is there a bug in the AdjustTypes frontend pass?"
 
-  | C.isCanonicalTypeArray arg.typ
+  | C.isCanonicalTypeArray arg.typ.c
   = panicPure
       "classifyArgPassingMethod: found a function argument/result type that is an array, \
       \which is unexpected because it should have been adjusted to a pointer. \
       \Is there a bug in the AdjustTypes frontend pass?"
 
-  | C.isCanonicalTypeFunction arg.typ
+  | C.isCanonicalTypeFunction arg.typ.c
   = panicPure
       "classifyArgPassingMethod: found a function argument/result type that is a function, \
       \which is unexpected because it should have been adjusted to a pointer. \
@@ -373,7 +373,7 @@ class ToWrapperType a where
 
 instance ToWrapperType PassArgBy where
   toWrapperType = \case
-      PassByValue argTy -> argTy.typ
+      PassByValue argTy -> argTy.typ.c
       PassByAddress ty -> C.TypePointers 1 ty
 
 instance ToWrapperType PassResBy where

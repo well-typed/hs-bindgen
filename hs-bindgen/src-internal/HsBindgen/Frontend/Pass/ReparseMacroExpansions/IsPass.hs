@@ -24,6 +24,8 @@ instance IsPass ReparseMacroExpansions
 
 instance PassId ReparseMacroExpansions
 
+instance PassTypes ReparseMacroExpansions
+
 instance PassScopedName ReparseMacroExpansions
 
 instance PassMacro ReparseMacroExpansions where
@@ -49,6 +51,7 @@ instance PassMsg ReparseMacroExpansions
 
 instance CoercePassId                  PrepareReparse ReparseMacroExpansions
 instance CoercePassMacroId             PrepareReparse ReparseMacroExpansions
+instance CoercePassTypes               PrepareReparse ReparseMacroExpansions
 instance CoercePassAnn "TypeFunArg"    PrepareReparse ReparseMacroExpansions
 
 instance CoercePassCommentDecl PrepareReparse ReparseMacroExpansions where

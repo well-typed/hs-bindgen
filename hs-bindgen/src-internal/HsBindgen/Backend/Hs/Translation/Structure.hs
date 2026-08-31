@@ -96,7 +96,7 @@ getDeclsFlam flam auxName spec info struct = do
           , instanceDecl =
               Hs.InstanceHasFlam hsStruct $
                 Hs.HasFlamInstance
-                  (Type.topLevel flam.typ)
+                  (Type.topLevel flam.typ.c)
                   (flam.offset `div` 8)
           }
 
@@ -109,7 +109,7 @@ getDeclsFlam flam auxName spec info struct = do
             name
           , typ     =
               Hs.WithFlam
-                (Type.topLevel flam.typ)
+                (Type.topLevel flam.typ.c)
                 (Hs.TypRef auxName Nothing)
           , origin  = Origin.Decl{
               info = info
@@ -129,7 +129,7 @@ getInstances supInsts structName fields instanceMap =
     Hs.getInstances instanceMap (Just structName) candidateInsts fieldTypes
   where
     fieldTypes :: [Hs.Type]
-    fieldTypes = Type.topLevel . (.typ) <$> fields
+    fieldTypes = Type.topLevel . (.typ.c) <$> fields
 
     candidateInsts :: Set Inst.TypeClass
     candidateInsts = Hs.getCandidateInsts supInsts
@@ -155,7 +155,7 @@ getDecls supInsts env spec structName info struct insts =
     getHsField field =
         Hs.Field {
             name    = fieldName field
-          , typ     = Type.topLevel field.typ
+          , typ     = Type.topLevel field.typ.c
           , origin  = Origin.StructField field
           , comment = mkHaddocksFieldInfo env.haddockConfig info field.info
           }
@@ -334,7 +334,7 @@ hasFieldDecs env info struct field = case field of
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel (getFieldTyp field)
+    fieldType = Type.topLevel (getFieldTyp field).c
 
     auxIndirectField :: C.ImplicitField Final -> C.IndirectField Final -> [Hs.Decl l]
     auxIndirectField impField indField = [
@@ -386,7 +386,7 @@ hasFieldCompatDecs env info struct field = [
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel (getFieldTyp field)
+    fieldType = Type.topLevel (getFieldTyp field).c
 
     decl :: Hs.HasFieldCompatInstance
     decl = Hs.HasFieldCompatInstance {
@@ -437,7 +437,7 @@ hasFieldPtrDecs struct field =
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel (getFieldTyp field)
+    fieldType = Type.topLevel (getFieldTyp field).c
 
     hasFieldPtrDecl :: Hs.HasFieldPtrInstance
     hasFieldPtrDecl = Hs.HasFieldPtrInstance {
@@ -470,7 +470,7 @@ hasCFieldDecs struct field = case getFieldWidth field of
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel (getFieldTyp field)
+    fieldType = Type.topLevel (getFieldTyp field).c
 
     decl :: Hs.HasCFieldInstance
     decl = Hs.HasCFieldInstance {
@@ -500,7 +500,7 @@ hasCBitfieldDecs struct field = case getFieldWidth field of
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
 
     fieldType :: Hs.Type
-    fieldType = Type.topLevel (getFieldTyp field)
+    fieldType = Type.topLevel (getFieldTyp field).c
 
     decl :: Int -> Hs.HasCBitfieldInstance
     decl w = Hs.HasCBitfieldInstance {

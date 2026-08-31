@@ -13,6 +13,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo, Tokens)
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
+import HsBindgen.IR.Pass.Types (CoercePassAnonRef)
 import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
@@ -39,6 +40,8 @@ instance IsPass TypecheckMacros
 instance PassId TypecheckMacros
 
 instance PassScopedName TypecheckMacros
+
+instance PassTypes TypecheckMacros
 
 instance PassMacro TypecheckMacros where
   type MacroId   TypecheckMacros = Id TypecheckMacros
@@ -139,7 +142,9 @@ instance CoercePassId p p' => CoercePass (TypecheckedMacroValue l) p p' where
   CoercePass: ConstructTranslationUnit → TypecheckMacros
 -------------------------------------------------------------------------------}
 
+instance CoercePassAnonRef          ConstructTranslationUnit TypecheckMacros
 instance CoercePassId               ConstructTranslationUnit TypecheckMacros
+instance CoercePassTypes            ConstructTranslationUnit TypecheckMacros
 instance CoercePassMacroId          ConstructTranslationUnit TypecheckMacros where
     coercePassMacroId _ = absurd
 instance CoercePassMacroUnderlying  ConstructTranslationUnit TypecheckMacros
