@@ -135,8 +135,7 @@ resolveHeaders tracer args headers =
         -- Process inclusion directive
         header <- maybe (panicIO "Unknown include") return $
           headerList !? (singleLocLine sloc - 1)
-        path <- clang_getFileName =<< clang_getIncludedFile curr
-        return $
-          if Text.null path
-            then Left header
-            else Right (header, SourcePath path)
+        mRealPath <- HighLevel.clang_tryGetRealPath =<< clang_getIncludedFile curr
+        return $ case mRealPath of
+          Nothing -> Left header
+          Just rp -> Right (header, realPathToSourcePath rp)
