@@ -9,6 +9,7 @@ module HsBindgen.IR.Translation (
   , extDeclIdPair
     -- * ScopedNamePair
   , ScopedNamePair(..)
+    -- * TranslatedTypes
   , TranslatedTypes(..)
   , TranslatedAnonRef(..)
   , translatedAnonRefType
@@ -59,7 +60,7 @@ data ScopedNamePair = ScopedNamePair {
 -- | A t'C.Type' associated with possible Haskell type translations
 data TranslatedTypes (p :: Pass) = TranslatedTypes {
       c :: C.Type p
---    , hs :: Hs.Type    -- TODO
+--    , hs :: Hs.Type    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>
     }
   deriving stock (Eq, Generic, Show)
 
@@ -73,7 +74,7 @@ instance (
 -- | A t'C.AnonRef' associated with possible Haskell type translations
 data TranslatedAnonRef (p :: Pass) = TranslatedAnonRef {
       c :: C.AnonRef p
---    , hs :: Hs.Type    -- TODO
+--    , hs :: Hs.Type    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>
     }
   deriving stock (Eq, Generic, Show)
 

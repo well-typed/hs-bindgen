@@ -153,11 +153,11 @@ processGlobal global = C.Global{
 processType :: C.Type AdjustTypes -> TranslatedTypes TranslateTypes
 processType typ = TranslatedTypes{
       c = coercePass typ
-      -- TODO
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>
     }
 
 processAnonRef :: C.AnonRef AdjustTypes -> TranslatedAnonRef TranslateTypes
 processAnonRef typ = TranslatedAnonRef{
       c = coercePass typ
-      -- TODO
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>
     }

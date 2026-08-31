@@ -36,9 +36,7 @@ depsOfDeclWith depsOfMacro = \case
     (C.DeclTypedef ty)             -> depsOfTypedef ty
     C.DeclOpaque{}                 -> []
     (C.DeclMacro m)                -> depsOfMacro m
-    (C.DeclFunction function)      ->
-      C.depsOfType (cType (Proxy @p) function.res) ++
-      concatMap (\arg -> C.depsOfType (cType (Proxy @p) arg.typ)) function.args
+    (C.DeclFunction function)      -> C.depsOfType (C.typeOfFunction function)
     (C.DeclGlobal global)          -> C.depsOfType (cType (Proxy @p) global.typ)
 
 {-------------------------------------------------------------------------------
@@ -117,7 +115,8 @@ depsOfImplicitField ::
      forall p. IsPass p
   => C.ImplicitField p
   -> [(Id p, Dependency)]
-depsOfImplicitField field = C.depsOfType (cType (Proxy @p) field.typ) ++ concatMap depsOfIndirectField field.indirect
+depsOfImplicitField field = C.depsOfType (cType (Proxy @p) field.typ)
+    ++ concatMap depsOfIndirectField field.indirect
 
 depsOfIndirectField ::
      forall p. IsPass p
