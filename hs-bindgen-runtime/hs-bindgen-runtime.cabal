@@ -80,6 +80,7 @@ library
     HsBindgen.Runtime.IncompleteArray
     HsBindgen.Runtime.IsArray
     HsBindgen.Runtime.LibC
+    HsBindgen.Runtime.Macro
     HsBindgen.Runtime.Marshal
     HsBindgen.Runtime.Overloading
     HsBindgen.Runtime.Prelude
@@ -115,6 +116,7 @@ library
     , primitive         >=0.9  && <0.10
     , record-hasfield   >=1.0  && <2.0
     , template-haskell  >=2.18 && <2.25
+    , text              >=1.2  && <2.2
     , vector            >=0.13 && <0.14
 
   if impl(ghc <9.4)
@@ -134,6 +136,7 @@ test-suite test-hs-bindgen-runtime
     Test.HsBindgen.Runtime.CEnumArbitrary
     Test.HsBindgen.Runtime.ConstantArray
     Test.HsBindgen.Runtime.IncompleteArray
+    Test.HsBindgen.Runtime.Macro
     Test.HsBindgen.Runtime.SizedByteArray
     Test.HsBindgen.Runtime.Support.ByteArray
     Test.Util.Orphans
@@ -152,4 +155,5 @@ test-suite test-hs-bindgen-runtime
     , tasty-expected-failure  >=0.12.3 && <1.13
     , tasty-hunit             >=0.10.2 && <0.11
     , tasty-quickcheck        >=0.11   && <0.12
+    , text                    >=1.2    && <2.2
     , transformers            >=0.5    && <0.7
