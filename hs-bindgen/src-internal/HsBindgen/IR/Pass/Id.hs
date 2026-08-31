@@ -54,10 +54,10 @@ class (
   idSourceName _ = C.declIdSourceName
 
   -- | Location information
-  idLocationInfo :: Proxy p -> Id p -> [SingleLoc] -> C.LocationInfo
+  idLocationInfo :: Proxy p -> Id p -> [SingleLoc RealPath] -> C.LocationInfo
   default idLocationInfo ::
        Id p ~ C.DeclId
-    => Proxy p -> Id p -> [SingleLoc] -> C.LocationInfo
+    => Proxy p -> Id p -> [SingleLoc RealPath] -> C.LocationInfo
   idLocationInfo _ = C.declIdLocationInfo
 
 {-------------------------------------------------------------------------------

@@ -1,12 +1,18 @@
 { mkDerivation, base, bytestring, c-expr-runtime, containers
-, debruijn, filepath, fin, indexed-traversable, lib
+, debruijn, fetchgit, filepath, fin, indexed-traversable, lib
 , libclang-bindings, mtl, parsec, scientific, some, tasty
 , tasty-golden, tasty-hunit, text, vec
 }:
 mkDerivation {
   pname = "c-expr-dsl";
   version = "0.1.0.1";
-  sha256 = "87789fe7531880ac4fee53dfb6ea13ae6cdbcc7ab75265610bb6732e7a7a6de5";
+  src = fetchgit {
+    url = "https://github.com/well-typed/c-expr";
+    sha256 = "04nirf7sh0lghmgr0my53iji0br3kjrcqdi5fwlnwyr44lrm9i6p";
+    rev = "ca353fb216ee971396678feac277ce3c7015bec6";
+    fetchSubmodules = true;
+  };
+  postUnpack = "sourceRoot+=/c-expr-dsl; echo source root reset to $sourceRoot";
   enableSeparateDataOutput = true;
   libraryHaskellDepends = [
     base bytestring c-expr-runtime containers debruijn fin

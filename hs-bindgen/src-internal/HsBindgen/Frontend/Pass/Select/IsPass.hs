@@ -143,7 +143,7 @@ data TransitiveDependencyMissing =
     -- | Transitive dependency is 'UnusableEntry'.
     TransitiveDependencyUnusable C.DeclId UnusableEntry
     -- | Transitive dependency is not selected.
-  | TransitiveDependencyNotSelected C.DeclId [SingleLoc]
+  | TransitiveDependencyNotSelected C.DeclId [SingleLoc RealPath]
   deriving stock (Show)
 
 instance PrettyForTrace TransitiveDependencyMissing where
@@ -190,7 +190,7 @@ data SelectMsg =
   | SelectMacrosDropped Int
     -- | The source of a trace message is not part of the include graph, so we
     -- do not know where to sort it.
-  | SelectSourceNotInIncludeGraph SourcePath
+  | SelectSourceNotInIncludeGraph RealPath
   deriving stock (Show)
 
 instance PrettyForTrace SelectMsg where
@@ -241,7 +241,7 @@ instance PrettyForTrace SelectMsg where
             <> "use --log-enable-macro-warnings for details"
       SelectSourceNotInIncludeGraph path -> PP.hsep [
           "Source not in include graph:"
-        , PP.string $ getSourcePath path
+        , PP.string $ getRealPath path
         ]
     where
       during :: IsTrace l e => e -> CtxDoc -> CtxDoc

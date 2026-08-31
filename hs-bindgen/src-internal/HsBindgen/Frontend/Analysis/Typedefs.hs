@@ -55,7 +55,7 @@ instance Monoid TypedefAnalysis where
       }
 
 data Squash = SquashTypedef {
-      typedefLoc :: SingleLoc
+      typedefLoc :: SingleLoc RealPath
     , targetId   :: C.DeclId
     }
   deriving stock (Eq, Show, Generic)

@@ -55,7 +55,7 @@ import Data.ByteString (ByteString)
 import Data.Ord qualified as Ord
 
 import Clang.Args (ClangArgs)
-import Clang.Paths (SourcePath)
+import Clang.Paths (RealPath)
 
 import HsBindgen.BindingSpec.Private.Common qualified as Common
 import HsBindgen.BindingSpec.Private.Stdlib qualified as Stdlib
@@ -300,14 +300,14 @@ moduleName spec = spec.unresolved.moduleName
 -------------------------------------------------------------------------------}
 
 -- | Get the C types in a binding specification
-getCTypes :: BindingSpec -> Map C.DeclId [Set SourcePath]
+getCTypes :: BindingSpec -> Map C.DeclId [Set RealPath]
 getCTypes spec = BindingSpec.getCTypes spec.resolved
 
 -- | Lookup the @'Common.Omittable' 'BindingSpec.CTypeSpec'@ associated with a C
 -- type
 lookupCTypeSpec ::
      C.DeclId
-  -> Set SourcePath
+  -> Set RealPath
   -> BindingSpec
   -> Maybe (Hs.ModuleName, Common.Omittable BindingSpec.CTypeSpec)
 lookupCTypeSpec cDeclId headers spec =

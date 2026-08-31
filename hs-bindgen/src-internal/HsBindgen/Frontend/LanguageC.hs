@@ -96,7 +96,7 @@ parseWith fromPartial env tokens =
       fromPartial partial
 
 parseUsingLanC ::
-     Clang.MultiLoc -- ^ Approximate location of the string in the source
+     Clang.MultiLoc Clang.SourcePath -- ^ Approximate location of the string in the source
   -> String         -- ^ Raw string
   -> FromLanC PartialDecl
 parseUsingLanC mloc raw = do
@@ -128,7 +128,7 @@ fromCDeclExt = \case
   Auxiliary: locations
 -------------------------------------------------------------------------------}
 
-multiLocToLanC :: Clang.MultiLoc -> LanC.Position
+multiLocToLanC :: Clang.MultiLoc Clang.SourcePath -> LanC.Position
 multiLocToLanC mloc =
     LanC.position
       (Clang.singleLocOffset sloc)
@@ -139,7 +139,7 @@ multiLocToLanC mloc =
   where
     -- NOTE: It might make sense to use 'multiLocPresumed' instead, but these
     -- don't provide file offsets (see 'Clang.PresumedLoc').
-    sloc :: Clang.SingleLoc
+    sloc :: Clang.SingleLoc Clang.SourcePath
     sloc = Clang.multiLocExpansion mloc
 
 {-------------------------------------------------------------------------------

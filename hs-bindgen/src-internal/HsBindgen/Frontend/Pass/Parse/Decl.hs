@@ -78,17 +78,12 @@ parseDeclTopLevel ::
   -> CXCursor
   -> ParseDecl (Next ParseDecl (CXSourceLocation, [ParseResult l Parse]))
 parseDeclTopLevel macroLang curr = do
-    -- By getting and attaching the location to all parse results, we
-    -- potentially get the location twice. We could store the 'CXSourceLocation'
-    -- next to all parse results and use it to retrieve the single location
-    -- stored in the 'DeclInfo'.
-    loc     <- clang_getCursorLocation curr
-    declLoc <- HighLevel.clang_getCursorLocation' curr
-    -- The root header is a synthetic in-memory file, so a @#define@ root
-    -- directive in it has no main header and 'withHeaderInfo' would fail the
-    -- parse (and it shouldn't have one). We consider root directives
-    -- configuration, not API. Do not attempt to parse it.
-    if RootHeader.isRootHeaderPath (singleLocPath declLoc) then foldContinue else do
+    -- Check for root-header cursors via the low-level API before building a
+    -- SingleLoc: clang_getCursorLocation' throws for virtual files.
+    loc <- clang_getCursorLocation curr
+    (file, _line, _col, _off) <- clang_getExpansionLocation loc
+    path <- clang_getFileName file
+    if RootHeader.isRootHeaderPath (SourcePath path) then foldContinue else do
       nextDecls <- parseDecl' macroLang [] Nothing curr
       -- Note the subtle difference between `foldContinue` and
       -- `foldContinueWith []`: the 'Functor' instance of 'Next' drops values on
@@ -233,7 +228,7 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
         recordMacroDefinitionAt macroName range tokens
         foldContinueWith [mkResult tokens]
   where
-    mkResult :: [Token TokenSpelling] -> ParseResult l Parse
+    mkResult :: [Token SourcePath TokenSpelling] -> ParseResult l Parse
     mkResult tokens =
         case parseMacroTokens macroLang info.id tokens of
           Right parsed -> parseSucceed C.Decl{
@@ -249,11 +244,12 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
 
     getMacroTokens ::
          CXCursor
-      -> ParseDecl (Range MultiLoc, [Token TokenSpelling])
+      -> ParseDecl (Range (MultiLoc RealPath), [Token SourcePath TokenSpelling])
     getMacroTokens curr' = do
-        unit'  <- getTranslationUnit
-        range  <- HighLevel.clang_getCursorExtent curr'
-        (range,) <$> HighLevel.clang_tokenize unit' (multiLocExpansion <$> range)
+        unit'    <- getTranslationUnit
+        range    <- HighLevel.clang_getCursorExtent curr'
+        rawRange <- fromRange unit' (fmap multiLocExpansion range)
+        (range,) <$> HighLevel.clang_tokenize unit' rawRange
 
     getMacroName :: C.PrelimDeclId -> Maybe Text
     getMacroName = \case
@@ -471,13 +467,14 @@ macroExpansion = \curr -> do
   where
     getTokens ::
          CXCursor
-      -> ParseDecl (Range MultiLoc, [Token TokenSpelling])
+      -> ParseDecl (Range (MultiLoc RealPath), [Token SourcePath TokenSpelling])
     getTokens curr' = do
-        unit'  <- getTranslationUnit
-        range  <- HighLevel.clang_getCursorExtent curr'
-        (range,) <$> HighLevel.clang_tokenize unit' (multiLocExpansion <$> range)
+        unit'    <- getTranslationUnit
+        range    <- HighLevel.clang_getCursorExtent curr'
+        rawRange <- fromRange unit' (fmap multiLocExpansion range)
+        (range,) <$> HighLevel.clang_tokenize unit' rawRange
 
-    getMacroName :: [Token TokenSpelling] -> Maybe Text
+    getMacroName :: [Token SourcePath TokenSpelling] -> Maybe Text
     getMacroName []    = Nothing
     -- The spelling of function macros includes the function parameters. For
     -- example, when expanding
@@ -961,7 +958,7 @@ withDeclInfo enclosing ctx k = \curr -> do
 withAvailability ::
      ParseCtx
   -> C.PrelimDeclId
-  -> SingleLoc
+  -> SingleLoc RealPath
   -> (C.Availability -> Parser l)
   -> Parser l
 withAvailability ctx declId declLoc k = \curr -> do
@@ -992,7 +989,7 @@ withAvailability ctx declId declLoc k = \curr -> do
 withHeaderInfo ::
      ParseCtx
   -> C.PrelimDeclId
-  -> SingleLoc
+  -> SingleLoc RealPath
   -> (C.HeaderInfo -> Parser l)
   -> Parser l
 withHeaderInfo ctx declId declLoc k = \curr -> do
@@ -1127,7 +1124,7 @@ partitionUnnamedDecls =
 parseMacroTokens ::
      Macro.Lang l
   -> C.PrelimDeclId
-  -> [Token TokenSpelling]
+  -> [Token SourcePath TokenSpelling]
   -> Either DelayedParseMsg (Macro.Unresolved l)
 parseMacroTokens macroLang name = \case
     []      -> Left $ ParseMacroEmpty name []

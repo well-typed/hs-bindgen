@@ -325,7 +325,7 @@ updateReparseInfo info tag@(Tag typ _) reparseInfo = do
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
-getLocation :: [Clang.Token a] -> Clang.MultiLoc
+getLocation :: [Clang.Token Clang.SourcePath a] -> Clang.MultiLoc Clang.SourcePath
 getLocation []    = panicPure "Unexpected empty list of tokens"
 getLocation (t:_) = Clang.rangeStart $ Clang.tokenExtent t
 
