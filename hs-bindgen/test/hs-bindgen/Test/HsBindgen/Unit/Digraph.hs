@@ -37,8 +37,8 @@ tests = testGroup "Test.HsBindgen.Unit.Digraph" [
     , testVertices
     , testNeighbors
     , testReaches
+    , testSortSccs
     , testSort
-    , testSortBy
     , testDfs
     , testDff
     , testDfFindMember
@@ -432,6 +432,24 @@ testReaches = testGroup "reaches" [
           @=? Digraph.reaches (vSet [4, 7, 9, 14]) graph1E
     ]
 
+testSortSccs :: TestTree
+testSortSccs = testGroup "sortSccs" [
+      testCase "empty" $
+        [] @=? Digraph.sortSccs graph0
+    , testCase "no edges" $
+        map List.singleton graph1Vs @=? Digraph.sortSccs graph1V
+    , testCase "with edges" $ do
+        let expected = map (mkVs . List.singleton) $
+              [16, 15, 2, 6, 10, 14, 12, 3, 8, 5, 4, 1, 11, 7, 13, 9]
+        expected @=? Digraph.sortSccs graph1E
+    , testCase "with cycle" $ do
+        let expected = map mkVs [[3, 2], [1]]
+        expected @=? Digraph.sortSccs graph2E
+    , testCase "with cycles" $ do
+        let expected = map mkVs [[1], [2, 6], [8, 11, 3, 7], [4, 10], [5], [9]]
+        expected @=? Digraph.sortSccs graph3E
+    ]
+
 testSort :: TestTree
 testSort = testGroup "sort" [
       testCase "empty" $
@@ -449,29 +467,6 @@ testSort = testGroup "sort" [
         let expected = mkVs [1, 2, 6, 8, 11, 3, 7, 4, 10, 5, 9]
         expected @=? Digraph.sort graph3E
     ]
-
-testSortBy :: TestTree
-testSortBy = testGroup "sortBy" [
-      testCase "empty" $
-        [] @=? Digraph.sortBy cmp graph0
-    , testCase "no edges" $ do
-        let expected = List.sortBy cmp graph1Vs
-        expected @=? Digraph.sortBy cmp graph1V
-    , testCase "with edges" $ do
-        let expected =
-              mkVs [1, 4, 6, 7, 8, 5, 9, 10, 11, 13, 16, 2, 14, 3, 12, 15]
-        expected @=? Digraph.sortBy cmp graph1E
-    , testCase "with cycle" $ do
-        let expected = mkVs [2, 3, 1]
-        expected @=? Digraph.sortBy cmp graph2E
-    , testCase "with cycles" $ do
-        let expected = mkVs [1, 2, 6, 3, 7, 8, 11, 4, 10, 5, 9]
-        expected @=? Digraph.sortBy cmp graph3E
-    ]
-  where
-    cmp :: String -> String -> Ordering
-    cmp (_ : l) (_ : r) = compare (read @Int l) (read @Int r)
-    cmp l       r       = compare l r
 
 testDfs :: TestTree
 testDfs = testGroup "dfs" [
