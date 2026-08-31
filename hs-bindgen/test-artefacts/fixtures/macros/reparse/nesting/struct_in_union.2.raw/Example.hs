@@ -24,6 +24,7 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Macro as Macro
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
@@ -36,8 +37,8 @@ import qualified HsBindgen.Runtime.Union as Union
 
     __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
 -}
-myInt :: [String]
-myInt = ["int"]
+myInt :: Macro.Raw BG.Text
+myInt = Macro.objectLike "MyInt" ["int"]
 
 {-| __C declaration:__ @struct \@T1_x@
 

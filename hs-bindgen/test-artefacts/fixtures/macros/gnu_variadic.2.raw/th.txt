@@ -1,0 +1,43 @@
+-- addDependentFile test-artefacts/headers/golden/macros/gnu_variadic.h
+{-| __C declaration:__ @macro C99_VARIADIC@
+
+    __defined at:__ @macros\/gnu_variadic.h 9:9@
+
+    __exported by:__ @macros\/gnu_variadic.h@
+-}
+c99_VARIADIC :: Raw Text
+{-| __C declaration:__ @macro C99_VARIADIC@
+
+    __defined at:__ @macros\/gnu_variadic.h 9:9@
+
+    __exported by:__ @macros\/gnu_variadic.h@
+-}
+c99_VARIADIC = variadicFunctionLike "C99_VARIADIC" ["fmt"] ["fmt"]
+{-| __C declaration:__ @macro GNU_VARIADIC@
+
+    __defined at:__ @macros\/gnu_variadic.h 11:9@
+
+    __exported by:__ @macros\/gnu_variadic.h@
+-}
+gNU_VARIADIC :: Raw Text
+{-| __C declaration:__ @macro GNU_VARIADIC@
+
+    __defined at:__ @macros\/gnu_variadic.h 11:9@
+
+    __exported by:__ @macros\/gnu_variadic.h@
+-}
+gNU_VARIADIC = namedVariadicFunctionLike "GNU_VARIADIC" ["fmt"] "args" ["args"]
+{-| __C declaration:__ @macro GNU_VARIADIC_ONLY@
+
+    __defined at:__ @macros\/gnu_variadic.h 13:9@
+
+    __exported by:__ @macros\/gnu_variadic.h@
+-}
+gNU_VARIADIC_ONLY :: Raw Text
+{-| __C declaration:__ @macro GNU_VARIADIC_ONLY@
+
+    __defined at:__ @macros\/gnu_variadic.h 13:9@
+
+    __exported by:__ @macros\/gnu_variadic.h@
+-}
+gNU_VARIADIC_ONLY = namedVariadicFunctionLike "GNU_VARIADIC_ONLY" [] "args" ["args"]

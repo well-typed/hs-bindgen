@@ -1,0 +1,1 @@
+-- addDependentFile test-artefacts/headers/golden/macros/gnu_variadic.h

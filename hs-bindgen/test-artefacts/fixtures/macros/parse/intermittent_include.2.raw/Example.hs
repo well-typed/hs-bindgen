@@ -25,6 +25,7 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Macro as Macro
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
@@ -35,8 +36,8 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/parse\/intermittent_include.h@
 -}
-ma :: [String]
-ma = ["Ta"]
+ma :: Macro.Raw BG.Text
+ma = Macro.objectLike "Ma" ["Ta"]
 
 {-| __C declaration:__ @Ta@
 
@@ -89,8 +90,8 @@ instance HasCField.HasCField Ta "unwrapTa" where
 
     __exported by:__ @macros\/parse\/intermittent_include.h@
 -}
-m1 :: [String]
-m1 = ["T1"]
+m1 :: Macro.Raw BG.Text
+m1 = Macro.objectLike "M1" ["T1"]
 
 {-| __C declaration:__ @T1@
 
@@ -143,8 +144,8 @@ instance HasCField.HasCField T1 "unwrapT1" where
 
     __exported by:__ @macros\/parse\/intermittent_include.h@
 -}
-m2 :: [String]
-m2 = ["T1"]
+m2 :: Macro.Raw BG.Text
+m2 = Macro.objectLike "M2" ["T1"]
 
 {-| __C declaration:__ @macro M3@
 
@@ -152,8 +153,8 @@ m2 = ["T1"]
 
     __exported by:__ @macros\/parse\/intermittent_include.h@
 -}
-m3 :: [String]
-m3 = ["T2"]
+m3 :: Macro.Raw BG.Text
+m3 = Macro.objectLike "M3" ["T2"]
 
 {-| __C declaration:__ @T2@
 
@@ -206,5 +207,5 @@ instance HasCField.HasCField T2 "unwrapT2" where
 
     __exported by:__ @macros\/parse\/intermittent_include.h@
 -}
-m4 :: [String]
-m4 = ["T2"]
+m4 :: Macro.Raw BG.Text
+m4 = Macro.objectLike "M4" ["T2"]

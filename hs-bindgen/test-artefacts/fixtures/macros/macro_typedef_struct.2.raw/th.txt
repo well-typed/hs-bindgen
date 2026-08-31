@@ -5,14 +5,14 @@
 
     __exported by:__ @macros\/macro_typedef_struct.h@
 -}
-mY_TYPE :: [String]
+mY_TYPE :: Raw Text
 {-| __C declaration:__ @macro MY_TYPE@
 
     __defined at:__ @macros\/macro_typedef_struct.h 1:9@
 
     __exported by:__ @macros\/macro_typedef_struct.h@
 -}
-mY_TYPE = ["int"]
+mY_TYPE = objectLike "MY_TYPE" ["int"]
 {-| __C declaration:__ @struct bar@
 
     __defined at:__ @macros\/macro_typedef_struct.h 3:9@

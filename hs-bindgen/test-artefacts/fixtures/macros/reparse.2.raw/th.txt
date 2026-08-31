@@ -2515,14 +2515,14 @@
 
     __exported by:__ @macros\/reparse.h@
 -}
-a :: [String]
+a :: Raw Text
 {-| __C declaration:__ @macro A@
 
     __defined at:__ @macros\/reparse.h 3:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
-a = ["int"]
+a = objectLike "A" ["int"]
 {-| __C declaration:__ @struct some_struct@
 
     __defined at:__ @macros\/reparse.h 7:8@
@@ -4197,7 +4197,7 @@ instance HasCField Const_funptr7 "unwrapConst_funptr7"
 
     __exported by:__ @macros\/reparse.h@
 -}
-bOOL :: [String]
+bOOL :: Raw Text
 {-| Macro-defined types
 
     __C declaration:__ @macro BOOL@
@@ -4206,49 +4206,49 @@ bOOL :: [String]
 
     __exported by:__ @macros\/reparse.h@
 -}
-bOOL = ["_Bool"]
+bOOL = objectLike "BOOL" ["_Bool"]
 {-| __C declaration:__ @macro INT@
 
     __defined at:__ @macros\/reparse.h 279:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
-iNT :: [String]
+iNT :: Raw Text
 {-| __C declaration:__ @macro INT@
 
     __defined at:__ @macros\/reparse.h 279:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
-iNT = ["int"]
+iNT = objectLike "INT" ["int"]
 {-| __C declaration:__ @macro INTP@
 
     __defined at:__ @macros\/reparse.h 280:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
-iNTP :: [String]
+iNTP :: Raw Text
 {-| __C declaration:__ @macro INTP@
 
     __defined at:__ @macros\/reparse.h 280:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
-iNTP = ["int", "*"]
+iNTP = objectLike "INTP" ["int", "*"]
 {-| __C declaration:__ @macro INTCP@
 
     __defined at:__ @macros\/reparse.h 281:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
-iNTCP :: [String]
+iNTCP :: Raw Text
 {-| __C declaration:__ @macro INTCP@
 
     __defined at:__ @macros\/reparse.h 281:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
-iNTCP = ["const", "int", "*", "const"]
+iNTCP = objectLike "INTCP" ["const", "int", "*", "const"]
 -- __unique:__ @test_macrosreparse_2_raw_Example_Safe_args_char1@
 foreign import ccall safe "hs_bindgen_14b56322053baa3f" hs_bindgen_14b56322053baa3f_base ::
     Int32

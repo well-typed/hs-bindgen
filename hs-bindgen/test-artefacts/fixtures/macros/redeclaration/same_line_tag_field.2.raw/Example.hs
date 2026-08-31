@@ -13,16 +13,27 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
-    ( Example.b
+    ( Example.a
+    , Example.b
     , Example.S(..)
     )
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Macro as Macro
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
+
+{-| __C declaration:__ @macro A@
+
+    __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 12:9@
+
+    __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
+-}
+a :: Macro.Raw BG.Text
+a = Macro.objectLike "A" ["S"]
 
 {-| __C declaration:__ @macro B@
 
@@ -30,8 +41,8 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
 -}
-b :: [String]
-b = ["int"]
+b :: Macro.Raw BG.Text
+b = Macro.objectLike "B" ["int"]
 
 {-| __C declaration:__ @struct S@
 
