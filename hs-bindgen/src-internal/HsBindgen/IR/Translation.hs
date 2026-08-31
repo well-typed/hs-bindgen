@@ -9,16 +9,19 @@ module HsBindgen.IR.Translation (
   , extDeclIdPair
     -- * ScopedNamePair
   , ScopedNamePair(..)
-    -- * TranslatedTypes
+    -- * Types
   , TranslatedTypes(..)
   , TranslatedAnonRef(..)
   , translatedAnonRefType
+  , translateCPrimType
   ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -54,13 +57,13 @@ data ScopedNamePair = ScopedNamePair {
   deriving stock (Eq, Generic, Ord, Show)
 
 {-------------------------------------------------------------------------------
-  TranslatedTypes
+  Types
 -------------------------------------------------------------------------------}
 
 -- | A t'C.Type' associated with possible Haskell type translations
 data TranslatedTypes (p :: Pass) = TranslatedTypes {
-      c :: C.Type p
---    , hs :: Hs.Type    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>
+      c  :: C.Type p
+    , hs :: Hs.Type
     }
   deriving stock (Eq, Generic, Show)
 
@@ -68,13 +71,14 @@ instance (
       CoercePass C.Type p p'
     ) => CoercePass TranslatedTypes p p' where
   coercePass translatedTypes = TranslatedTypes{
-      c = coercePass translatedTypes.c
+      c  = coercePass translatedTypes.c
+    , hs = translatedTypes.hs
     }
 
 -- | A t'C.AnonRef' associated with possible Haskell type translations
 data TranslatedAnonRef (p :: Pass) = TranslatedAnonRef {
       c :: C.AnonRef p
---    , hs :: Hs.Type    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>
+    , hs :: Hs.Type
     }
   deriving stock (Eq, Generic, Show)
 
@@ -83,9 +87,38 @@ instance (
     ) => CoercePass TranslatedAnonRef p p' where
   coercePass translatedAnonRef = TranslatedAnonRef {
       c = coercePass translatedAnonRef.c
+    , hs = translatedAnonRef.hs
     }
 
 translatedAnonRefType :: TranslatedAnonRef p -> TranslatedTypes p
 translatedAnonRefType translatedAnonRef = TranslatedTypes {
       c = C.anonRefType translatedAnonRef.c
+    , hs = translatedAnonRef.hs
     }
+
+-- | Translate a primitive type
+translateCPrimType :: C.PrimType -> Hs.PrimType
+translateCPrimType = \case
+    C.PrimBool         -> Hs.PrimCBool
+    C.PrimIntegral i s -> integralType i s
+    C.PrimFloating f   -> floatingType f
+    C.PrimChar sign    -> charType sign
+  where
+    integralType :: C.PrimIntType -> C.PrimSign -> Hs.PrimType
+    integralType C.PrimInt      C.Signed   = Hs.PrimCInt
+    integralType C.PrimInt      C.Unsigned = Hs.PrimCUInt
+    integralType C.PrimShort    C.Signed   = Hs.PrimCShort
+    integralType C.PrimShort    C.Unsigned = Hs.PrimCUShort
+    integralType C.PrimLong     C.Signed   = Hs.PrimCLong
+    integralType C.PrimLong     C.Unsigned = Hs.PrimCULong
+    integralType C.PrimLongLong C.Signed   = Hs.PrimCLLong
+    integralType C.PrimLongLong C.Unsigned = Hs.PrimCULLong
+
+    floatingType :: C.PrimFloatType -> Hs.PrimType
+    floatingType C.PrimFloat  = Hs.PrimCFloat
+    floatingType C.PrimDouble = Hs.PrimCDouble
+
+    charType :: C.PrimSignChar -> Hs.PrimType
+    charType (C.PrimSignImplicit _inferred)  = Hs.PrimCChar
+    charType (C.PrimSignExplicit C.Signed)   = Hs.PrimCSChar
+    charType (C.PrimSignExplicit C.Unsigned) = Hs.PrimCUChar

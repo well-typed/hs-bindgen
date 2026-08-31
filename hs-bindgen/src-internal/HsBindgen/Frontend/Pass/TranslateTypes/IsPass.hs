@@ -48,9 +48,7 @@ instance PassTypes TranslateTypes where
   type AnonRef TranslateTypes = TranslatedAnonRef TranslateTypes
 
   cType _ translatedTypes = translatedTypes.c
-  anonRefTypes _ translatedAnonRef = TranslatedTypes {
-        c = C.anonRefType translatedAnonRef.c
-      }
+  anonRefTypes _ = translatedAnonRefType
 
 instance PassMacro TranslateTypes where
   type MacroId         TranslateTypes = Id TranslateTypes
