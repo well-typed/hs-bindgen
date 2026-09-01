@@ -402,10 +402,11 @@ pattern Length x <- (unwrap -> x)
 ```
 
 When writing such code by hand, it is the user's responsibility to ensure that
-the Haskell type is compatible with the C type as well as usage of the type.  In
-this case, the underlying type `Double` is compatible with the C `double` type.
-We must derive a `HasFFIType` instance for the bindings to work because the
-`len` type is the return type of function `vector_length`.
+the Haskell type is compatible with the C type as well as usage of the type. See
+also [Portable types][manual:portability-portable-types]. In this case, the
+underlying type `Double` is compatible with the C `double` type. We must derive
+a `HasFFIType` instance for the bindings to work because the `len` type is the
+return type of function `vector_length`.
 
 To use this hand-written type, we need to create an external binding
 specification.
@@ -992,6 +993,7 @@ types that use the external bindings.
 [issue:1776]: https://github.com/well-typed/hs-bindgen/issues/1766
 [issue:648]: https://github.com/well-typed/hs-bindgen/issues/648
 [manual:c-names]: ../c-names.md
+[manual:portability-portable-types]: portability.md#use-portable-types
 [source:game_internal.h]: ../../c/game_internal.h
 [source:game_player.h]: ../../c/game_player.h
 [source:game_world.h]: ../../c/game_world.h
