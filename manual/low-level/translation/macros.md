@@ -1,14 +1,95 @@
 # Macros
 
-TODO: General discussion of macro translation.
+A C macro (or simply, a "macro") is a name associated with a replacement text.
 
-## Character and string literals
+## Terminology
+
+/Macro definitions/ are C preprocessor directives termed "control lines". The C
+standard specifies
+
+> object-like macro:
+>   # define identifier replacement-list new-line
+>
+> function-like macro:
+>   # define identifier lparen identifier-listopt ) replacement-list new-line
+>   # define identifier lparen ... ) replacement-list new-line
+>   # define identifier lparen identifier-list , ... ) replacement-list new-line
+>
+> identifier: <complex syntax, see C standard>
+> replacement-list: <preprocessing tokens including spaces>
+> new-line: the new-line character
+> lparen: a ( character not immediately preceded by white space
+> identifier-list: identifier | identifier-list , identifier
+
+A /macro invocation/ references a macro definition by name. Object-like macros
+are invoked by their identifiers alone. Function-like macros are invoked by the
+same syntax as function calls.
+
+The C preprocessor parses macro definitions, and replaces macro invocations with
+their `replacement-list`s. This process is termed /macro expansion/. Macro
+expansion is a string query-replace process, and the replacement strings lack
+any specification. This makes macros extremely powerful, but also terribly
+error-prone. What is worse: (a) macros can be chained (e.g., `A` replaced by `B`
+replaced by `C`); (b) macros have scope (macros comes into scope when they are
+defined, and go out of scope when they are `#undefine`d or at the end), and (c)
+C preprocessor directives can be located anywhere in the C code.
+
+`hs-bindgen` uses `libclang` to parse C headers. By default, `libclang` expands
+all macros, and so, we could opt for `hs-bindgen` being completely unaware of
+the existence of macros. However, macros often carry semantic information.
+For example, when translating a C header including
+
+```c
+#define PI 3.14159265
+```
+
+it is useful to obtain a binding to `PI`. To this end, `hs-bindgen` tries hard
+to handle macros systematically. Similar to a compiler, it parses, resolves, and
+typechecks macros before translating them to Haskell bindings.
+
+Since the expansion of macros has no syntactic constraints, generation of
+Haskell bindings to macros is best-effort. `hs-bindgen` supports common schemes
+used in macros, but may fail on a specific macro you need. Let us know!
+
+## Typical macros and their translations
+
+Typical object-like macros:
+
+```c
+// Object-like macros translating to values
+
+#define TRUE  1
+#define FALSE 0
+#define LETTER   'a'
+#define GREETING "hello"
+
+// Object-like macros translating to types
+// TODO.
+#define PtrInt int*
+```
+
+Typical function-like macros:
+
+```c
+// Function-like macros
+#define CMP(X,Y) ( X < Y )
+
+#define AND    &&
+
+#define ASSERT(n)           if(!(n)){\
+    printf(__FILE__ "@%d: `" #n "` - Failed | Compilation: " __DATE__ " " __TIME__ "\n", __LINE__);\
+    return(-1);}
+```
+
+That is, macros can be object-like (e.g., `PI`) and function-like (e.g., `CMP`),
+
+### Character and string literals
 
 Object-like macros that expand to a single character or string literal are
 translated to Haskell value bindings. The examples in this section come from
 [`macro.h`][header:macro.h].
 
-### Character literals
+#### Character literals
 
 A [character constant][creference:character-constant] such as
 
@@ -60,7 +141,7 @@ Wide character literals (prefixed with `L`, `u`, `U`, or `u8`) and characters
 whose value does not fit in a single byte are rejected. The original C literal
 is preserved in the generated Haddock comment.
 
-### String literals
+#### String literals
 
 A [string literal][creference:string-literal] such as
 
@@ -109,7 +190,7 @@ Two consequences are worth highlighting:
     BS8.unpack gREETING  -- "hello", computed purely, no IO required
     ```
 
-### Passing a string literal to C
+#### Passing a string literal to C
 
 Since the byte-string carries no terminating `null`, handing it to a C function
 that expects a `null`-terminated string requires
@@ -140,3 +221,13 @@ the `null`.
 [hackage:bytestring:useAsCString]: https://hackage.haskell.org/package/bytestring/docs/Data-ByteString.html#v:useAsCString
 [header:macro.h]: ../../c/macro.h
 [manual:translation/globals]: globals.md
+
+
+## The path of a macro through `hs-bindgen`
+
+TODO. Ideas:
+
+- macro languages
+- `c-expr`
+- raw and empty macro languages
+- reparsing of declarations with macro expansions
