@@ -27,6 +27,7 @@ testCases = [
     , TestCaseLeaf test_identical_semantics
     , TestCaseLeaf test_identical_syntax
     , TestCaseLeaf test_same_line_tag_field
+    , TestCaseLeaf test_variadic
     ]
 
 {-------------------------------------------------------------------------------
@@ -177,6 +178,34 @@ test_same_line_tag_field =
     trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
       MatchSelect name@"macro A" SelectConflict{} ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+
+-- | Regression test for issue #2245, where variadic macros were parsed as
+-- object-like macros instead of function-like macros in the context of the
+-- @isExpansionUnique@ query
+--
+-- <https://github.com/well-typed/hs-bindgen/issues/2245>
+test_variadic :: TestCase
+test_variadic =
+    defaultTest_custom "macros/redeclaration/variadic"
+      & #tracePredicate .~ multiTracePredicate_custom expected trace
+  where
+    expected :: [C.DeclName]
+    expected = ["macro A", "macro ID", "T", "T", "T"]
+
+    trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
+    trace = \case
+      MatchSelect name@"macro A" SelectConflict{} ->
+        Just $ Expected name
+      MatchDelayed name@"macro ID" ParseMacroErrorParse{}  ->
+        Just $ Expected name
+      MatchDelayedPrepareReparse name@"T" PrepareReparseExpansionNotUnique{} ->
+        Just $ Expected name
+      MatchDelayedReparseMacroExpansions name@"T" (ReparseMacroExpansionUnknownType "ID") ->
+        Just $ Expected name
+      MatchDelayedReparseMacroExpansions name@"T" ReparseMacroExpansionsLanC{} ->
         Just $ Expected name
       _otherwise ->
         Nothing
