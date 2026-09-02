@@ -288,6 +288,7 @@ library internal
     HsBindgen.Macro.Type
     HsBindgen.NameHint
     HsBindgen.Orphans
+    HsBindgen.PreprocessLibrary.Plan
     HsBindgen.Resolve
     HsBindgen.Test
     HsBindgen.Test.C
@@ -412,6 +413,7 @@ executable hs-bindgen-cli
     HsBindgen.Cli.Internal
     HsBindgen.Cli.Internal.Frontend
     HsBindgen.Cli.Preprocess
+    HsBindgen.Cli.PreprocessLibrary
     HsBindgen.Cli.ToolSupport
     HsBindgen.Cli.ToolSupport.Literate
     Paths_hs_bindgen
@@ -432,8 +434,11 @@ executable hs-bindgen-cli
 
   -- External dependencies
   build-depends:
+    , directory
+    , filepath
     , optparse-applicative  >=0.18  && <0.20
     , prettyprinter         >=1.7.1 && <1.8
+    , temporary
     , text                  >=1.2   && <2.2
 
 executable clang-ast-dump
@@ -539,6 +544,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Types
     Test.HsBindgen.Integration.ExitCode
     Test.HsBindgen.Integration.OverwritePolicy
+    Test.HsBindgen.Integration.PreprocessLibrary
     Test.HsBindgen.PPFixtures
     Test.HsBindgen.PPFixtures.Compile
     Test.HsBindgen.PPFixtures.TestCases
@@ -551,6 +557,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Unit.ClangArgs
     Test.HsBindgen.Unit.Digraph
     Test.HsBindgen.Unit.Frontend
+    Test.HsBindgen.Unit.PreprocessLibrary
     Test.HsBindgen.Unit.Pretty
     Test.HsBindgen.Unit.RootDirective
     Test.HsBindgen.Unit.Runtime
