@@ -76,7 +76,7 @@ invoked by its name followed by a parenthesised argument list.
 #### Macro name
 [t:macro-name]: #macro-name
 
-The identifier immediately following `define` in a [macro
+The identifier immediately following `#define` in a [macro
 definition][t:macro-definition] (6.10.5).
 
 Macro names have their own namespace (6.10.5), separate from the namespaces of
