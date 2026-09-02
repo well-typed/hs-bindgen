@@ -16,26 +16,21 @@ standard][c-standard].
 #### Function-like macro
 [t:function-like-macro]: #function-like-macro
 
-A [macro definition][t:macro-definition] of the form
-
-```c
-#define NAME(a, b) replacement-list
-```
-
-defines a *function-like* macro with [parameters][t:macro-parameter] `a` and `b`
-(6.10.5). An occurrence of `NAME` immediately followed by its arguments enclosed
-in `(` and `)` (similar to C function calls) is an
-[invocation][t:macro-invocation] and is therefore replaced; a bare `NAME` is
-left alone. The [arguments][t:macro-argument] of the invocation are substituted
-for the corresponding parameters in the [replacement list][t:replacement-list]
-(6.10.5.1).
+A *function-like* macro is a [macro][t:macro] that is
+[defined][t:macro-definition] using a list of named [macro
+parameters][t:macro-parameter] (6.10.5). When a function-like macro is
+[invoked][t:macro-invocation] using [macro arguments][t:macro-argument], those
+arguments are substituted for the corresponding parameters in the [replacement
+list][t:replacement-list] (6.10.5.1). See [macros in
+C][manual:translation/macros-in-c].
 
 #### Macro
 [t:macro]: #macro
 
 A *macro* is a [macro name][t:macro-name] associated with a [replacement
 list][t:replacement-list]. Macros are either [object-like][t:object-like-macro]
-or [function-like][t:function-like-macro].
+or [function-like][t:function-like-macro]. See
+[macros][manual:translation/macros].
 
 #### Macro argument
 [t:macro-argument]: #macro-argument
@@ -55,14 +50,18 @@ name][t:macro-name] to a [replacement list][t:replacement-list].
 [t:macro-expansion]: #macro-expansion
 
 The process by which a C preprocessor replaces [invocations][t:macro-invocation]
-with the corresponding [replacement lists][t:replacement-list], substituting
-[arguments][t:macro-argument] for [parameters][t:macro-parameter], applying the
-`#` and `##` operators, and [rescanning][t:rescanning] the result.
+with the corresponding [replacement lists][t:replacement-list]. Macro expansion
+operates on *preprocessing tokens*, not on text. See [macros in
+C][manual:translation/macros-in-c].
 
-Macro expansion operates on *preprocessing tokens*, not on text. The C standard
-specifically refers to the substitution of invocations with their replacement
-lists as "macro replacement" (6.10.5), and the overall process as "macro
-expansion" (6.10.5.1); we use *macro expansion* throughout.
+<details>
+<summary>Notice</summary>
+
+> The C standard specifically refers to the substitution of invocations with
+> their replacement lists as "macro replacement" (6.10.5), and the overall
+> process as "macro expansion" (6.10.5.1); we use *macro expansion* throughout.
+
+</details>
 
 #### Macro invocation
 [t:macro-invocation]: #macro-invocation
@@ -93,14 +92,12 @@ argument][t:macro-argument].
 #### Object-like macro
 [t:object-like-macro]: #object-like-macro
 
-A [macro definition][t:macro-definition] of the form
-
-```c
-#define NAME replacement-list
-```
-
-defines an *object-like* macro. Every subsequent occurrence of `NAME` is
-replaced by the [replacement list][t:replacement-list] (6.10.5).
+An *object-like* macro is a [macro][t:macro] that is
+[defined][t:macro-definition] without [macro parameters][t:macro-parameter].
+Every subsequent occurrence of its [name][t:macro-name] is an
+[invocation][t:macro-invocation], and is replaced by the [replacement
+list][t:replacement-list] (6.10.5). See [macros in
+C][manual:translation/macros-in-c].
 
 #### Replacement list
 [t:replacement-list]: #replacement-list
@@ -257,14 +254,8 @@ field][t:unnamed-field].
 
 A [field][t:field] can declare a new struct or union type, in which case it is
 called a *nested struct/union*. A nested struct/union can be
-[untagged][t:untagged-structunionenum].
-
-Nesting does not introduce a scope of its own. If the nested struct/union has a
-[tag][t:tag], that tag is visible from its declaration onwards in whichever
-scope the [enclosing struct/union][t:enclosing-structunion] is declared in
-(6.2.1). For declarations at [file scope][t:file-scope], this is the rest of the
-[translation unit][t:translation-unit]. An untagged nested struct/union declares
-no tag at all and so cannot be referred to elsewhere.
+[untagged][t:untagged-structunionenum], and nesting does not introduce a scope
+of its own. See [nesting][manual:structs/nesting].
 
 #### Padding
 [t:padding]: #padding
@@ -403,6 +394,7 @@ per [regular field][t:regular-field] of a struct; [unnamed][t:unnamed-field]
 The pluggable `hs-bindgen` component that parses, typechecks and translates
 [macro definitions][t:macro-definition]: the [macro name][t:macro-name], the
 [parameters][t:macro-parameter], and the [replacement list][t:replacement-list].
+See [macro languages][manual:translation/macros-macro-languages].
 
 #### Macro type
 [t:macro-type]: #macro-type
@@ -410,14 +402,14 @@ The pluggable `hs-bindgen` component that parses, typechecks and translates
 A [macro][t:macro] whose [replacement list][t:replacement-list] parses as a C
 *type* expression, and which is therefore translated to a Haskell type using a
 [newtype wrapper][t:newtype-wrapper] around the translation of that C type. For
-example, `#define YEAR int`.
+example, `#define YEAR int`. See [macro types][manual:translation/macros-macro-types].
 
 #### Macro value
 [t:macro-value]: #macro-value
 
 A [macro][t:macro] whose [replacement list][t:replacement-list] parses as a C
 *expression*, and which is therefore translated to a Haskell value binding. For
-example, `#define EPSILON 0.1`.
+example, `#define EPSILON 0.1`. See [macro values][manual:translation/macros-macro-values].
 
 #### Parsable macro
 [t:parsable-macro]: #parsable-macro
@@ -433,7 +425,8 @@ list][t:replacement-list].
 
 The second parse of those declarations that contain macro
 [expansions][t:macro-expansion], recovering the [macro types][t:macro-type] that
-`libclang` had already expanded away; see [macros][manual:translation/macros].
+`libclang` had already expanded away. See [reparsing declarations with macro
+expansions][manual:translation/macros-reparsing].
 
 ### Selection
 
@@ -519,8 +512,14 @@ also apply to the compilation of the generated C source. See
 [manual:roadmap]: roadmap.md
 [manual:selecting-and-program-slicing]: low-level/usage/selecting-and-program-slicing.md
 [manual:structs-opaque]: low-level/translation/structs.md#opaque-structs
+[manual:structs/nesting]: low-level/translation/structs/nesting.md
 [manual:structs/nesting-example-e]: low-level/translation/structs/nesting.md#example-e
 [manual:structs/nesting-indirect-fields]: low-level/translation/structs/nesting.md#indirect-fields
 [manual:translation/macros]: low-level/translation/macros.md
+[manual:translation/macros-in-c]: low-level/translation/macros.md#macros-in-c
+[manual:translation/macros-macro-languages]: low-level/translation/macros.md#macro-languages
+[manual:translation/macros-macro-types]: low-level/translation/macros.md#macro-types
+[manual:translation/macros-macro-values]: low-level/translation/macros.md#macro-values
+[manual:translation/macros-reparsing]: low-level/translation/macros.md#reparsing-declarations-with-macro-expansions
 [manual:unions/nesting-example-e]: low-level/translation/unions/nesting.md#example-e
 [manual:unions/nesting-indirect-fields]: low-level/translation/unions/nesting.md#indirect-fields

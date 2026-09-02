@@ -14,6 +14,14 @@ struct-in-struct case looks like, but note that it works the same for any
 nesting of structs and unions, in any order, and even recursively. See also the
 [Unions/Nesting][manual:unions/nesting] manual section.
 
+Nesting does not introduce a [scope][creference:scope] of its own. If the nested
+struct has a [tag][manual:terminology-tag], that tag is visible from its
+declaration onwards with the same scope the enclosing struct is declared in; for
+declarations at [file scope][manual:terminology-file-scope], this is the rest of
+the [translation unit][manual:terminology-translation-unit]. An
+[untagged][manual:terminology-untagged-structunionenum] nested struct cannot be
+referred to elsewhere.
+
 ## Example A
 
 The most straightforward way to declare nested structs is by declaring `door`
@@ -239,10 +247,15 @@ supported. A warning-level trace message will be emitted in this case.
 
 <!-- sources and references -->
 
+[creference:scope]: https://en.cppreference.com/w/c/language/scope.html
 [creference:struct]: https://en.cppreference.com/w/c/language/struct.html
 [is-2178]: https://github.com/well-typed/hs-bindgen/issues/2178
 [manual:binding-specifications]: ../../usage/binding-specifications.md
 [manual:pointer-manipulation-api]: ../pointer-manipulation.md
 [manual:record-dot-syntax]: ../record-dot-syntax.md
+[manual:terminology-file-scope]: ../../../terminology.md#file-scope
+[manual:terminology-tag]: ../../../terminology.md#tag
+[manual:terminology-translation-unit]: ../../../terminology.md#translation-unit
+[manual:terminology-untagged-structunionenum]: ../../../terminology.md#untagged-structunionenum
 [manual:unions/nesting]: ../unions/nesting.md
 [manual:usage/binding-specs]: ../../usage/binding-specifications.md
