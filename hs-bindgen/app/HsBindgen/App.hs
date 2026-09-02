@@ -14,17 +14,26 @@ module HsBindgen.App (
   , parseConfig
     -- ** Clang arguments
   , parseClangArgsConfig
+    -- ** Binding specifications
+  , parseBindingSpec
     -- ** Translation option
   , parseUniqueId
+    -- ** Field naming
+  , parseFieldNamingStrategy
     -- ** Module option
   , parseBaseModuleName
   , parseQualifiedStyle
+    -- ** Haddock options
+  , parsePathStyle
     -- ** Output options
   , parseHsOutputDir
   , parseDirPolicy
   , parseFilePolicy
   , parseGenBindingSpec
   , parseGenTestsOutput
+    -- ** Selection predicates
+  , parseSelectionPredicate
+  , parseSelectionPredicateWith
     -- ** Input arguments
   , parseInputs
 
@@ -368,15 +377,23 @@ parseClangOptionAfter = strOption $ mconcat [
   Predicates and slicing
 -------------------------------------------------------------------------------}
 
+-- | Parse selection predicates, defaulting to @FromMainHeaders@.
 parseSelectionPredicate :: Parser (Boolean SelectionPredicate)
-parseSelectionPredicate = fmap aux . many . asum $ [
+parseSelectionPredicate = parseSelectionPredicateWith [def]
+
+-- | Parse selection predicates with a caller-chosen default for when no
+-- positive @--select-*@ flags are given.
+parseSelectionPredicateWith ::
+     [Boolean SelectionPredicate]
+  -> Parser (Boolean SelectionPredicate)
+parseSelectionPredicateWith defaultPositives = fmap aux . many . asum $ [
       flag' (Right BTrue) $ mconcat [
           long "select-all"
         , help "Select all declarations"
         ]
     , flag' (Right (BIf (SelectHeader FromMainHeaders))) $ mconcat [
           long "select-from-main-headers"
-        , help "Select declarations in main headers (default)"
+        , help "Select declarations in main headers (default for preprocess)"
         ]
     , flag' (Right (BIf (SelectHeader FromMainHeaderDirs))) $ mconcat [
           long "select-from-main-header-dirs"
@@ -416,9 +433,9 @@ parseSelectionPredicate = fmap aux . many . asum $ [
       -> (Boolean SelectionPredicate)
     aux = uncurry mergeBooleans . fmap applyDefault . partitionEithers
 
-    applyDefault :: Default a => [a] -> [a]
+    applyDefault :: [Boolean SelectionPredicate] -> [Boolean SelectionPredicate]
     applyDefault = \case
-      [] -> [def]
+      [] -> defaultPositives
       ps -> ps
 
 parseProgramSlicing :: Parser ProgramSlicing
