@@ -10,8 +10,8 @@ module HsBindgen.Clang.Macros.UniqueExpansion.Parse (
 
 import Control.Monad (guard, unless)
 import Data.Maybe (catMaybes)
-import Text.Parsec (anyToken, choice, lookAhead, many, manyTill, option, sepBy,
-                    try, unexpected)
+import Text.Parsec (anyToken, choice, lookAhead, many, manyTill, option,
+                    sepEndBy, try, unexpected)
 
 import Clang.Enum.Simple (fromSimpleEnum)
 import Clang.HighLevel.Types (MultiLoc (multiLocExpansion),
@@ -36,12 +36,13 @@ parseDefinition :: Parser Definition
 parseDefinition = do
     (macroLocRange, macroName) <- parseLocName
     isFunction <- isFunctionLike macroLocRange
-    params <-
-      if isFunction then parseParams else pure []
-    macroBody <- parseBody params
-    pure Definition {
+    (params, variadic) <-
+      if isFunction then parseParams else pure ([], False)
+    macroBody <- parseBody params variadic
+    pure $ Definition {
         name = macroName
       , params = params
+      , variadic = variadic
       , body = macroBody
       }
 
@@ -61,8 +62,8 @@ isFunctionLike prevRange =
     --  is function-like if the macro name
     lookAhead (option False (True <$ try (lparen prevRange)))
 
-parseBody :: [Name] -> Parser [Var]
-parseBody params = catMaybes <$> many (choice [parseVar, parseNonVar])
+parseBody :: [Name] -> Bool -> Parser [Var]
+parseBody params variadic = catMaybes <$> many (choice [parseVar, parseNonVar])
   where
     parseVar, parseNonVar :: Parser (Maybe Var)
     parseVar = Just . mkVar <$> parseName
@@ -70,8 +71,21 @@ parseBody params = catMaybes <$> many (choice [parseVar, parseNonVar])
 
     mkVar :: Name -> Var
     mkVar n
-      | n `elem` params = LocalParam n
-      | otherwise = FreeVar n
+      | n `elem` params
+      = LocalParam n
+
+      -- __VA_ARGS__ and __VA_OPT__ are reserved identifiers only in variadic
+      -- macro definitions. We mark them as @LocalParam@ simply to emphasise
+      -- that their expansion relies on parameters.
+      | variadic
+      , n == "__VA_ARGS__"
+      = LocalParam n
+      | variadic
+      , n == "__VA_OPT__"
+      = LocalParam n
+
+      | otherwise
+      = FreeVar n
 
 {-------------------------------------------------------------------------------
   Invocation
@@ -95,8 +109,14 @@ parseInvocation = do
   Parameters
 -------------------------------------------------------------------------------}
 
-parseParams :: Parser [Name]
-parseParams = parens $ parseName `sepBy` comma
+parseParams :: Parser ([Name], Bool)
+parseParams = parens $ do
+    paramNames <- sepEndBy parseName comma
+    variadic <- choice [
+        True <$ try (punctuation "...")
+      , pure False
+      ]
+    pure (paramNames, variadic)
 
 {-------------------------------------------------------------------------------
   Arguments

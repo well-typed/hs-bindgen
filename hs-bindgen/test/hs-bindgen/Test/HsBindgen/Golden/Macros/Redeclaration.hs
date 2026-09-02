@@ -3,8 +3,7 @@ module Test.HsBindgen.Golden.Macros.Redeclaration (testCases) where
 
 import Control.Applicative
 
-import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg (PrepareReparseExpansionNotUnique),
-                                                          PrepareReparseMsg (PrepareReparseMacroDefinitionParseFailures))
+import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg (PrepareReparseExpansionNotUnique))
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
@@ -194,21 +193,15 @@ test_variadic =
       & #tracePredicate .~ multiTracePredicate_custom expected trace
   where
     expected :: [C.DeclName]
-    expected = ["macro A", "macro ID", "ID", "T", "T", "T"]
+    expected = ["macro A", "macro ID", "T"]
 
     trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
       MatchSelect name@"macro A" SelectConflict{} ->
         Just $ Expected name
-      MatchDelayed name@"macro ID" ParseMacroErrorParse{}  ->
-        Just $ Expected name
-      MatchImmediatePrepareReparse (PrepareReparseMacroDefinitionParseFailures ("ID" :| [])) ->
-        Just $ Expected "ID"
-      MatchDelayedPrepareReparse name@"T" PrepareReparseExpansionNotUnique{} ->
+      (MatchDelayed name@"macro ID" ParseMacroErrorParse{})  ->
         Just $ Expected name
       MatchDelayedReparseMacroExpansions name@"T" (ReparseMacroExpansionUnknownType "ID") ->
-        Just $ Expected name
-      MatchDelayedReparseMacroExpansions name@"T" ReparseMacroExpansionsLanC{} ->
         Just $ Expected name
       _otherwise ->
         Nothing
