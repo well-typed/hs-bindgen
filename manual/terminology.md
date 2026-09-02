@@ -400,9 +400,9 @@ per [regular field][t:regular-field] of a struct; [unnamed][t:unnamed-field]
 #### Macro language
 [t:macro-language]: #macro-language
 
-The pluggable `hs-bindgen` component that parses, typechecks and translates the
-[replacement lists][t:replacement-list] of [macro
-definitions][t:macro-definition].
+The pluggable `hs-bindgen` component that parses, typechecks and translates
+[macro definitions][t:macro-definition]: the [macro name][t:macro-name], the
+[parameters][t:macro-parameter], and the [replacement list][t:replacement-list].
 
 #### Macro type
 [t:macro-type]: #macro-type
@@ -422,10 +422,11 @@ example, `#define EPSILON 0.1`.
 #### Parsable macro
 [t:parsable-macro]: #parsable-macro
 
-A [macro definition][t:macro-definition] whose [replacement
-list][t:replacement-list] the active [macro language][t:macro-language] can
-parse, either as a [macro type][t:macro-type] or as a [macro
-value][t:macro-value].
+A [macro definition][t:macro-definition] that the active [macro
+language][t:macro-language] can parse: the [macro name][t:macro-name], the
+[parameters][t:macro-parameter] if the macro is
+[function-like][t:function-like-macro], and the [replacement
+list][t:replacement-list].
 
 #### Reparsing
 [t:reparsing]: #reparsing
