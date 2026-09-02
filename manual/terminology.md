@@ -51,9 +51,6 @@ parentheses and separated by commas (6.10.5). Arguments are substituted for
 A macro *definition* is a `#define` preprocessing directive. It binds a [macro
 name][t:macro-name] to a [replacement list][t:replacement-list].
 
-Macro definitions are one kind of *control line* (6.10.1), the group of
-directives that also contains `#include`, `#undef` and `#pragma`.
-
 #### Macro expansion
 [t:macro-expansion]: #macro-expansion
 
