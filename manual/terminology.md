@@ -79,7 +79,7 @@ invoked by its name followed by a parenthesised argument list.
 The identifier immediately following `define` in a [macro
 definition][t:macro-definition] (6.10.5).
 
-Macro names have their own name space (6.10.5), separate from the name spaces of
+Macro names have their own namespace (6.10.5), separate from the namespaces of
 label names, [tags][t:tag], struct/union [fields][t:field], attributes and
 ordinary identifiers (6.2.3). A macro and a tag can therefore share a spelling.
 
@@ -290,11 +290,11 @@ A *regular field* is a [direct][t:direct-field], [named][t:named-field] field.
 #### Tag
 [t:tag]: #tag
 
-A struct/union/enum (optionally) declares a name in the tag name space. We refer
+A struct/union/enum (optionally) declares a name in the tag namespace. We refer
 to this name as a *tag*.
 
-There is a single tag name space shared by all three tags (6.2.3), and it is
-separate from the name space of ordinary identifiers, so `struct date` and a
+There is a single tag namespace shared by all three tags (6.2.3), and it is
+separate from the namespace of ordinary identifiers, so `struct date` and a
 `typedef` named `date` can coexist.
 
 #### Tagged struct/union/enum
