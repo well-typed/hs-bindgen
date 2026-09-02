@@ -1,51 +1,78 @@
 # Macros
 
-A C macro (or simply, a "macro") is a name associated with a replacement text.
+A C [macro][manual:terminology-macro] is a [macro
+name][manual:terminology-macro-name] associated with a [replacement
+list][manual:terminology-replacement-list]. This chapter describes how
+`hs-bindgen` translates macros to Haskell bindings. The terms used throughout
+are defined in the [terminology][manual:terminology] chapter, and the examples
+come from [`macro.h`][header:macro.h].
 
-## Terminology
+## Macros in C
 
-/Macro definitions/ are C preprocessor directives termed "control lines". The C
-standard specifies
+A [macro definition][manual:terminology-macro-definition] is a `#define`
+preprocessing directive. The [C standard][c-standard] gives its syntax as
+follows (6.10.1).
 
-> object-like macro:
->   # define identifier replacement-list new-line
->
-> function-like macro:
->   # define identifier lparen identifier-listopt ) replacement-list new-line
->   # define identifier lparen ... ) replacement-list new-line
->   # define identifier lparen identifier-list , ... ) replacement-list new-line
->
-> identifier: <complex syntax, see C standard>
-> replacement-list: <preprocessing tokens including spaces>
-> new-line: the new-line character
-> lparen: a ( character not immediately preceded by white space
-> identifier-list: identifier | identifier-list , identifier
+```text
+object-like macro:
+    # define identifier replacement-list new-line
 
-A /macro invocation/ references a macro definition by name. Object-like macros
-are invoked by their identifiers alone. Function-like macros are invoked by the
-same syntax as function calls.
+function-like macro:
+    # define identifier lparen identifier-list_opt ) replacement-list new-line
+    # define identifier lparen ... ) replacement-list new-line
+    # define identifier lparen identifier-list , ... ) replacement-list new-line
 
-The C preprocessor parses macro definitions, and replaces macro invocations with
-their `replacement-list`s. This process is termed /macro expansion/. Macro
-expansion is a string query-replace process, and the replacement strings lack
-any specification. This makes macros extremely powerful, but also terribly
-error-prone. What is worse: (a) macros can be chained (e.g., `A` replaced by `B`
-replaced by `C`); (b) macros have scope (macros comes into scope when they are
-defined, and go out of scope when they are `#undefine`d or at the end), and (c)
-C preprocessor directives can be located anywhere in the C code.
-
-`hs-bindgen` uses `libclang` to parse C headers. By default, `libclang` expands
-all macros, and so, we could opt for `hs-bindgen` being completely unaware of
-the existence of macros. However, macros often carry semantic information.
-For example, when translating a C header including
-
-```c
-#define PI 3.14159265
+replacement-list:
+    pp-tokens_opt
+pp-tokens:
+    preprocessing-token
+    pp-tokens preprocessing-token
+lparen:
+    a ( character not immediately preceded by white space
+identifier-list:
+    identifier
+    identifier-list , identifier
+new-line:
+    the new-line character
 ```
 
-it is useful to obtain a binding to `PI`. To this end, `hs-bindgen` tries hard
-to handle macros systematically. Similar to a compiler, it parses, resolves, and
-typechecks macros before translating them to Haskell bindings.
+The preprocessor replaces each macro
+[invocation][manual:terminology-macro-invocation] by the corresponding
+replacement list, a process termed [macro
+expansion][manual:terminology-macro-expansion].
+[Object-like][manual:terminology-object-like-macro] macros are invoked by their
+name alone; [function-like][manual:terminology-function-like-macro] macros are
+invoked by the same syntax as a function call, and only when the macro name is
+followed by a `(`.
+
+A replacement list is a sequence of *preprocessing tokens* that need not form
+any well-formed C construct. That is what makes macros powerful and, for a
+binding generator, awkward. Three further properties compound the problem.
+
+* Macros chain. The result of an expansion is
+  [rescanned][manual:terminology-rescanning] for further macro names, so `A` can
+  expand to `B`, which expands to `C`. Rescanning does not recurse, however: a
+  macro name encountered during its own expansion is never replaced again.
+* Macro definitions have a lifetime rather than a lexical scope. A definition
+  lasts from its `#define` until a matching `#undef`, or until the end of the
+  translation unit, independent of block structure.
+* A `#define` may appear between any two declarations, although the `#` itself
+  must start a line.
+
+## Macros in `hs-bindgen`
+
+`hs-bindgen` uses `libclang` to parse C headers. By default, `libclang` expands
+all macros, and so we could opt for `hs-bindgen` being completely unaware of the
+existence of macros. However, macros often carry semantic information. For
+example, when translating a C header including
+
+```c
+#define EPSILON 0.1
+```
+
+it is useful to obtain a binding to `EPSILON`. To this end, `hs-bindgen` tries
+hard to handle macros systematically. Similar to a compiler, it parses,
+resolves, and typechecks macros before translating them to Haskell bindings.
 
 Since the expansion of macros has no syntactic constraints, generation of
 Haskell bindings to macros is best-effort. `hs-bindgen` supports common schemes
@@ -53,41 +80,54 @@ used in macros, but may fail on a specific macro you need. Let us know!
 
 ## Typical macros and their translations
 
-Typical object-like macros:
+Object-like macros whose replacement list is a C expression are [macro
+values][manual:terminology-macro-value], and are translated to Haskell value
+bindings:
 
 ```c
-// Object-like macros translating to values
-
-#define TRUE  1
-#define FALSE 0
-#define LETTER   'a'
-#define GREETING "hello"
-
-// Object-like macros translating to types
-// TODO.
-#define PtrInt int*
+#define FIELD_OFFSET 4
+#define EPSILON      0.1
+#define LETTER       'a'
+#define GREETING     "hello"
 ```
 
-Typical function-like macros:
+Object-like macros whose replacement list is a C type are [macro
+types][manual:terminology-macro-type], and are translated to Haskell newtypes:
 
 ```c
-// Function-like macros
-#define CMP(X,Y) ( X < Y )
+#define YEAR  int
+#define MONTH int
+#define DAY   int
+```
 
-#define AND    &&
+Function-like macros are translated to Haskell functions:
 
-#define ASSERT(n)           if(!(n)){\
-    printf(__FILE__ "@%d: `" #n "` - Failed | Compilation: " __DATE__ " " __TIME__ "\n", __LINE__);\
+```c
+#define PTR_TO_FIELD(ptr) ptr + 4
+```
+
+Not every macro has a Haskell counterpart. A macro whose replacement list is
+neither an expression nor a type, such as
+
+```c
+#define AND &&
+```
+
+or one that expands to statements rather than to a value, such as
+
+```c
+#define ASSERT(n) if(!(n)){                                                 \
+    printf(__FILE__ "@%d: `" #n "` - Failed\n", __LINE__);                  \
     return(-1);}
 ```
 
-That is, macros can be object-like (e.g., `PI`) and function-like (e.g., `CMP`),
+is not translated. `hs-bindgen` emits a trace message and carries on; see
+[tracing][manual:tracing].
 
 ### Character and string literals
 
 Object-like macros that expand to a single character or string literal are
-translated to Haskell value bindings. The examples in this section come from
-[`macro.h`][header:macro.h].
+translated to Haskell value bindings.
 
 #### Character literals
 
@@ -212,22 +252,80 @@ If you do not require the string to be terminated by `null`, use
 `Data.ByteString.useAsCStringLen`, which copies the bytes, but does not append
 the `null`.
 
+## The path of a macro through `hs-bindgen`
+
+### Macro languages
+
+How a [replacement list][manual:terminology-replacement-list] is parsed,
+typechecked and translated is not fixed: it is decided by the [macro
+language][manual:terminology-macro-language] in use. `hs-bindgen` ships three.
+
+* `CExpr` is the default. It understands C expressions and C type expressions,
+  and is backed by the [`c-expr-dsl`][hackage:c-expr-dsl] package. It is the
+  only macro language that distinguishes [macro
+  types][manual:terminology-macro-type] from [macro
+  values][manual:terminology-macro-value].
+* `Empty` recognises no macro at all. Nothing is [reparsed][t:reparsing], so the
+  bindings use Clang's own [expansions][manual:terminology-macro-expansion]
+  throughout, and no bindings to macros are generated.
+* `Raw` treats every macro as a macro value whose translation is its token list.
+
+Which macros are [parsable][manual:terminology-parsable-macro] therefore depends
+on the macro language: under `Empty` none are, under `Raw` all of them are.
+
+`hs-bindgen-cli` always uses `CExpr`. The other two are reachable from the
+Template Haskell backend, by using `withHsBindgenMacroLang` in place of
+`withHsBindgen`; they exist mainly for testing and for diagnosing macro
+handling.
+
+### Reparsing declarations with macro expansions
+[t:reparsing]: #reparsing-declarations-with-macro-expansions
+
+By default `libclang` expands macros before `hs-bindgen` sees a declaration.
+Given
+
+```c
+#define YEAR int
+
+YEAR getYear(date *d);
+```
+
+`libclang` reports the return type of `getYear` as `int`; that a macro was
+involved at all is lost. `hs-bindgen` therefore
+[reparses][manual:terminology-reparsing] those declarations that contain macro
+expansions, inspecting the original tokens, so that the generated binding can
+refer to the macro type `YEAR` rather than to `int`.
+
+Macros are typechecked before any declaration is reparsed: the [macro
+type][manual:terminology-macro-type] has to exist before a declaration can refer
+to it.
+
+
+
 <!-- sources and references -->
 
+[c-standard]: https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf
 [creference:character-constant]: https://en.cppreference.com/w/c/language/character_constant.html
 [creference:string-literal]: https://en.cppreference.com/w/c/language/string_literal.html
 [hackage:base:CChar]: https://hackage.haskell.org/package/base/docs/Foreign-C-Types.html#t:CChar
 [hackage:bytestring:ByteString]: https://hackage.haskell.org/package/bytestring/docs/Data-ByteString.html#t:ByteString
 [hackage:bytestring:useAsCString]: https://hackage.haskell.org/package/bytestring/docs/Data-ByteString.html#v:useAsCString
+[hackage:c-expr-dsl]: https://hackage.haskell.org/package/c-expr-dsl
 [header:macro.h]: ../../c/macro.h
+[manual:terminology]: ../../terminology.md
+[manual:terminology-function-like-macro]: ../../terminology.md#function-like-macro
+[manual:terminology-macro]: ../../terminology.md#macro
+[manual:terminology-macro-definition]: ../../terminology.md#macro-definition
+[manual:terminology-macro-expansion]: ../../terminology.md#macro-expansion
+[manual:terminology-macro-invocation]: ../../terminology.md#macro-invocation
+[manual:terminology-macro-language]: ../../terminology.md#macro-language
+[manual:terminology-macro-name]: ../../terminology.md#macro-name
+[manual:terminology-macro-type]: ../../terminology.md#macro-type
+[manual:terminology-macro-value]: ../../terminology.md#macro-value
+[manual:terminology-object-like-macro]: ../../terminology.md#object-like-macro
+[manual:terminology-parsable-macro]: ../../terminology.md#parsable-macro
+[manual:terminology-reparsing]: ../../terminology.md#reparsing
+[manual:terminology-replacement-list]: ../../terminology.md#replacement-list
+[manual:terminology-rescanning]: ../../terminology.md#rescanning
+[manual:tracing]: ../usage/tracing.md
 [manual:translation/globals]: globals.md
-
-
-## The path of a macro through `hs-bindgen`
-
-TODO. Ideas:
-
-- macro languages
-- `c-expr`
-- raw and empty macro languages
-- reparsing of declarations with macro expansions
