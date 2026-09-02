@@ -104,7 +104,7 @@ ePSILON = (0.1 :: CDouble)
 
 The Haskell type is not given in the C code; it follows from typechecking the
 replacement list under the C typing rules. Character and string literals are
-macro values, [see below][t:literals].
+macro values, [see below][t:character-and-string-literals].
 
 ### Macro types
 
@@ -125,8 +125,8 @@ newtype YEAR = YEAR
 We use `newtype` instead of a type synonym because the macro carries semantic
 information (see [typedefs][manual:low-level/introduction-typedefs]).
 
-Declarations that use the macro type refer to the newtype, not to its
-underlying type:
+Declarations that use the macro type refer to the newtype, not to its underlying
+type:
 
 ```c
 YEAR getYear(date *d);
@@ -139,7 +139,8 @@ getYear :: Ptr Date -> IO YEAR
 <details>
 The fact that the return type of `getYear` refers to the macro type is lost by
 `libclang` which reports it as `int`. `hs-bindgen` has to recover the reference
-by [reparsing][t:reparsing] the declaration of `getYear`.
+by [reparsing][t:reparsing-declarations-with-macro-expansions] the declaration
+of `getYear`.
 </details>
 
 ### Function-like macros
@@ -182,7 +183,7 @@ is not translated and no binding is generated. `hs-bindgen` emits a trace
 message and carries on; see [tracing][manual:tracing].
 
 ### Character and string literals
-[t:literals]: #character-and-string-literals
+[t:character-and-string-literals]: #character-and-string-literals
 
 Object-like macros that expand to a single character or string literal are
 [macro values][manual:terminology-macro-value], and are translated to Haskell
@@ -337,7 +338,7 @@ Template Haskell backend, by using `withHsBindgenMacroLang` in place of
 handling.
 
 ### Reparsing declarations with macro expansions
-[t:reparsing]: #reparsing-declarations-with-macro-expansions
+[t:reparsing-declarations-with-macro-expansions]: #reparsing-declarations-with-macro-expansions
 
 By default `libclang` expands macros before `hs-bindgen` sees a declaration.
 Given
@@ -383,7 +384,6 @@ declaration can refer to it.
 [manual:terminology-macro-type]: ../../terminology.md#macro-type
 [manual:terminology-macro-value]: ../../terminology.md#macro-value
 [manual:terminology-object-like-macro]: ../../terminology.md#object-like-macro
-[manual:terminology-parsable-macro]: ../../terminology.md#parsable-macro
 [manual:terminology-reparsing]: ../../terminology.md#reparsing
 [manual:terminology-replacement-list]: ../../terminology.md#replacement-list
 [manual:terminology-rescanning]: ../../terminology.md#rescanning
