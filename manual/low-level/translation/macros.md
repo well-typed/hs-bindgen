@@ -85,9 +85,10 @@ parses as: an expression, a type, or neither.
 
 ### Macro values
 
-Object-like macros whose replacement list is a C expression are [macro
-values][manual:terminology-macro-value], and are translated to Haskell value
-bindings:
+A macro whose replacement list is a C expression is a [macro
+value][manual:terminology-macro-value]. Macro values are translated to Haskell
+value bindings. [Object-like][manual:terminology-object-like-macro] macros yield
+plain values:
 
 ```c
 #define FIELD_OFFSET 4
@@ -103,8 +104,31 @@ ePSILON = (0.1 :: CDouble)
 ```
 
 The Haskell type is not given in the C code; it follows from typechecking the
-replacement list under the C typing rules. Character and string literals are
-macro values, [see below][t:character-and-string-literals].
+replacement list under the C typing rules. [Character and string
+literals][t:character-and-string-literals] are macro values. `hs-bindgen` also
+supports [function-like macro values][t:function-like-macros].
+
+### Function-like macro values
+[t:function-like-macros]: #function-like-macros
+
+[Function-like][manual:terminology-function-like-macro] macros whose replacement
+list is a C expression are [macro values][manual:terminology-macro-value] too;
+they are translated to Haskell functions:
+
+```c
+#define PTR_TO_FIELD(ptr) ptr + 4
+```
+
+```haskell
+pTR_TO_FIELD :: forall a. C.Add a CInt => a -> C.AddRes a CInt
+pTR_TO_FIELD = \ptr -> ptr C.+ (4 :: CInt)
+```
+
+Macro parameters carry no type annotations, so `hs-bindgen` infers the most
+general type. The class `Add` and the type family `AddRes` come from
+[`c-expr-runtime`][hackage:c-expr-runtime], which mirrors the C typing rules at
+the Haskell type level. Instantiating `a` to `Ptr x` yields `Ptr x`;
+instantiating it to `CLong` yields `CLong`.
 
 ### Macro types
 
@@ -125,6 +149,8 @@ newtype YEAR = YEAR
 We use `newtype` instead of a type synonym because the macro carries semantic
 information (see [typedefs][manual:low-level/introduction-typedefs]).
 
+At the moment, we do not support function-like macro types.
+
 Declarations that use the macro type refer to the newtype, not to its underlying
 type:
 
@@ -142,25 +168,6 @@ The fact that the return type of `getYear` refers to the macro type is lost by
 by [reparsing][t:reparsing-declarations-with-macro-expansions] the declaration
 of `getYear`.
 </details>
-
-### Function-like macros
-
-Function-like macros are translated to Haskell functions:
-
-```c
-#define PTR_TO_FIELD(ptr) ptr + 4
-```
-
-```haskell
-pTR_TO_FIELD :: forall a. C.Add a CInt => a -> C.AddRes a CInt
-pTR_TO_FIELD = \ptr -> ptr C.+ (4 :: CInt)
-```
-
-Macro parameters carry no type annotations, so `hs-bindgen` infers the most
-general type. The class `Add` and the type family `AddRes` come from
-[`c-expr-runtime`][hackage:c-expr-runtime], which mirrors the C typing rules at
-the Haskell type level. Instantiating `a` to `Ptr x` yields `Ptr x`;
-instantiating it to `CLong` yields `CLong`.
 
 ### Macros that are not translated
 
@@ -316,10 +323,10 @@ the `null`.
 
 ### Macro languages
 
-The way how `hs-bindgen` parses, typechecks and translates [replacement
-lists][manual:terminology-replacement-list] is not fixed. Instead, a pluggable
-[macro language][manual:terminology-macro-language] is used. At the moment,
-`hs-bindgen` comes with the following macro languages:
+The way how `hs-bindgen` parses, typechecks and translates [macro
+definitions][manual:terminology-macro-definition] is not fixed. Instead, a
+pluggable [macro language][manual:terminology-macro-language] is used. At the
+moment, `hs-bindgen` comes with the following macro languages:
 
 * `CExpr` is the default. `CExpr` understands C expressions and C type
   expressions sorting them into [macro values][manual:terminology-macro-value]
