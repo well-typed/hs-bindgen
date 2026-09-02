@@ -437,8 +437,8 @@ The second parse of those declarations that contain macro
 
 ### Selection
 
-#### Extern declaration
-[t:extern-declaration]: #extern-declaration
+#### External declaration
+[t:external-declaration]: #external-declaration
 
 A declaration listed in an external [binding
 specification][t:binding-specification]. `hs-bindgen` does not generate bindings
