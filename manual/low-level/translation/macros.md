@@ -11,7 +11,7 @@ come from [`macro.h`][header:macro.h].
 
 A [macro definition][manual:terminology-macro-definition] is a `#define`
 preprocessing directive. The [C standard][c-standard] gives its syntax as
-follows (6.10.1).
+follows
 
 ```text
 object-like macro:
@@ -42,20 +42,20 @@ replacement list, a process termed [macro
 expansion][manual:terminology-macro-expansion].
 [Object-like][manual:terminology-object-like-macro] macros are invoked by their
 name alone; [function-like][manual:terminology-function-like-macro] macros are
-invoked by the same syntax as a function call, and only when the macro name is
-followed by a `(`.
+invoked by the same syntax as a function call (i.e., only when the macro name is
+immediately followed by the argument list enclosed by `(` and `)`).
 
 A replacement list is a sequence of *preprocessing tokens* that need not form
 any well-formed C construct. That is what makes macros powerful and, for a
-binding generator, awkward. Three further properties compound the problem.
+binding generator such as `hs-bindgen`, awkward. Three further properties
+augment the problem:
 
-* Macros chain. The result of an expansion is
+* Macros chains. The result of an expansion is
   [rescanned][manual:terminology-rescanning] for further macro names, so `A` can
-  expand to `B`, which expands to `C`. Rescanning does not recurse, however: a
-  macro name encountered during its own expansion is never replaced again.
-* Macro definitions have a lifetime rather than a lexical scope. A definition
-  lasts from its `#define` until a matching `#undef`, or until the end of the
-  translation unit, independent of block structure.
+  expand to `B`, which expands to `C`.
+* Macro definitions have a lifetime rather than a lexical scope. A macro
+  definition lasts from its `#define` until a matching `#undef`, or until the
+  end of the translation unit.
 * A `#define` may appear between any two declarations, although the `#` itself
   must start a line.
 
@@ -80,6 +80,11 @@ used in macros, but may fail on a specific macro you need. Let us know!
 
 ## Typical macros and their translations
 
+The kind of binding `hs-bindgen` generates depends on what the replacement list
+parses as: an expression, a type, or neither.
+
+### Macro values
+
 Object-like macros whose replacement list is a C expression are [macro
 values][manual:terminology-macro-value], and are translated to Haskell value
 bindings:
@@ -87,24 +92,76 @@ bindings:
 ```c
 #define FIELD_OFFSET 4
 #define EPSILON      0.1
-#define LETTER       'a'
-#define GREETING     "hello"
 ```
+
+```haskell
+fIELD_OFFSET :: CInt
+fIELD_OFFSET = (4 :: CInt)
+
+ePSILON :: CDouble
+ePSILON = (0.1 :: CDouble)
+```
+
+The Haskell type is not given in the C code; it follows from typechecking the
+replacement list under the C typing rules. Character and string literals are
+macro values, [see below][t:literals].
+
+### Macro types
 
 Object-like macros whose replacement list is a C type are [macro
 types][manual:terminology-macro-type], and are translated to Haskell newtypes:
 
 ```c
-#define YEAR  int
-#define MONTH int
-#define DAY   int
+#define YEAR int
 ```
+
+```haskell
+newtype YEAR = YEAR
+  { unwrapYEAR :: CInt
+  }
+  -- Many derived instances here.
+```
+
+We use `newtype` instead of a type synonym because the macro carries semantic
+information (see [typedefs][manual:low-level/introduction-typedefs]).
+
+Declarations that use the macro type refer to the newtype, not to its
+underlying type:
+
+```c
+YEAR getYear(date *d);
+```
+
+```haskell
+getYear :: Ptr Date -> IO YEAR
+```
+
+<details>
+The fact that the return type of `getYear` refers to the macro type is lost by
+`libclang` which reports it as `int`. `hs-bindgen` has to recover the reference
+by [reparsing][t:reparsing] the declaration of `getYear`.
+</details>
+
+### Function-like macros
 
 Function-like macros are translated to Haskell functions:
 
 ```c
 #define PTR_TO_FIELD(ptr) ptr + 4
 ```
+
+```haskell
+pTR_TO_FIELD :: forall a. C.Add a CInt => a -> C.AddRes a CInt
+pTR_TO_FIELD = \ptr -> ptr C.+ (4 :: CInt)
+```
+
+Macro parameters carry no type annotations, so `hs-bindgen` infers the most
+general type. The class `Add` and the type family `AddRes` come from
+[`c-expr-runtime`][hackage:c-expr-runtime], which mirrors the C typing rules at
+the Haskell type level. Instantiating `a` to `Ptr x` yields `Ptr x`;
+instantiating it to `CLong` yields `CLong`.
+
+### Macros that are not translated
 
 Not every macro has a Haskell counterpart. A macro whose replacement list is
 neither an expression nor a type, such as
@@ -121,13 +178,15 @@ or one that expands to statements rather than to a value, such as
     return(-1);}
 ```
 
-is not translated. `hs-bindgen` emits a trace message and carries on; see
-[tracing][manual:tracing].
+is not translated and no binding is generated. `hs-bindgen` emits a trace
+message and carries on; see [tracing][manual:tracing].
 
 ### Character and string literals
+[t:literals]: #character-and-string-literals
 
 Object-like macros that expand to a single character or string literal are
-translated to Haskell value bindings.
+[macro values][manual:terminology-macro-value], and are translated to Haskell
+value bindings.
 
 #### Character literals
 
@@ -200,8 +259,8 @@ The byte-string holds the *execution-encoding bytes* of the literal, assuming a
 UTF-8 execution character set _excluding the terminating `null`_. Apart from the
 terminating `null`, the representation is *bit-for-bit accurate*: the bytes are
 exactly what a C compiler would embed in the object file. This is why we use
-`ByteString` rather than `String` — the generated binding can be passed directly
-to a C function that expects that byte sequence.
+`ByteString` rather than `String`. Then, the generated binding can be passed
+directly to a C function that expects that byte sequence.
 
 Two consequences are worth highlighting:
 
@@ -222,8 +281,8 @@ Two consequences are worth highlighting:
               , 0xE3, 0x81, 0xA1, 0xE3, 0x81, 0xAF ]
     ```
 
-* Because the binding is an ordinary (pure) value rather than an `IO` action —
-  unlike a [global variable][manual:translation/globals] — it can be inspected
+* Because the binding is an ordinary (pure) value rather than an `IO` action
+  (unlike a [global variable][manual:translation/globals]), it can be inspected
   and rendered in pure code:
 
     ```haskell
@@ -256,22 +315,21 @@ the `null`.
 
 ### Macro languages
 
-How a [replacement list][manual:terminology-replacement-list] is parsed,
-typechecked and translated is not fixed: it is decided by the [macro
-language][manual:terminology-macro-language] in use. `hs-bindgen` ships three.
+The way how `hs-bindgen` parses, typechecks and translates [replacement
+lists][manual:terminology-replacement-list] is not fixed. Instead, a pluggable
+[macro language][manual:terminology-macro-language] is used. At the moment,
+`hs-bindgen` comes with the following macro languages:
 
-* `CExpr` is the default. It understands C expressions and C type expressions,
-  and is backed by the [`c-expr-dsl`][hackage:c-expr-dsl] package. It is the
-  only macro language that distinguishes [macro
-  types][manual:terminology-macro-type] from [macro
-  values][manual:terminology-macro-value].
-* `Empty` recognises no macro at all. Nothing is [reparsed][t:reparsing], so the
-  bindings use Clang's own [expansions][manual:terminology-macro-expansion]
-  throughout, and no bindings to macros are generated.
+* `CExpr` is the default. `CExpr` understands C expressions and C type
+  expressions sorting them into [macro values][manual:terminology-macro-value]
+  and [macro types][manual:terminology-macro-type], respectively. The
+  implementation of `CExpr` is available in a separate repository containing the
+  macro language ([`c-expr-dsl`][hackage:c-expr-dsl]), and a corresponding
+  runtime ([`c-expr-runtime`][hackage:c-expr-runtime]).
+* `Empty` recognises no macro at all, so the generated bindings directly use the
+  macro [expansions][manual:terminology-macro-expansion] from `libclang`. No
+  bindings to macros are generated.
 * `Raw` treats every macro as a macro value whose translation is its token list.
-
-Which macros are [parsable][manual:terminology-parsable-macro] therefore depends
-on the macro language: under `Empty` none are, under `Raw` all of them are.
 
 `hs-bindgen-cli` always uses `CExpr`. The other two are reachable from the
 Template Haskell backend, by using `withHsBindgenMacroLang` in place of
@@ -290,15 +348,15 @@ Given
 YEAR getYear(date *d);
 ```
 
-`libclang` reports the return type of `getYear` as `int`; that a macro was
-involved at all is lost. `hs-bindgen` therefore
+`libclang` reports the return type of `getYear` as `int`. The information that a
+macro was involved at all is lost. `hs-bindgen` therefore
 [reparses][manual:terminology-reparsing] those declarations that contain macro
 expansions, inspecting the original tokens, so that the generated binding can
 refer to the macro type `YEAR` rather than to `int`.
 
-Macros are typechecked before any declaration is reparsed: the [macro
-type][manual:terminology-macro-type] has to exist before a declaration can refer
-to it.
+Macros are typechecked before any declaration with macro expansions is reparsed:
+the [macro type][manual:terminology-macro-type] has to exist before a
+declaration can refer to it.
 
 
 
@@ -311,7 +369,9 @@ to it.
 [hackage:bytestring:ByteString]: https://hackage.haskell.org/package/bytestring/docs/Data-ByteString.html#t:ByteString
 [hackage:bytestring:useAsCString]: https://hackage.haskell.org/package/bytestring/docs/Data-ByteString.html#v:useAsCString
 [hackage:c-expr-dsl]: https://hackage.haskell.org/package/c-expr-dsl
+[hackage:c-expr-runtime]: https://hackage.haskell.org/package/c-expr-runtime
 [header:macro.h]: ../../c/macro.h
+[manual:low-level/introduction-typedefs]: ../introduction.md#typedefs
 [manual:terminology]: ../../terminology.md
 [manual:terminology-function-like-macro]: ../../terminology.md#function-like-macro
 [manual:terminology-macro]: ../../terminology.md#macro
