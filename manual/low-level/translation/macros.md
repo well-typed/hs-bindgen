@@ -36,23 +36,39 @@ new-line:
     the new-line character
 ```
 
+For example,
+
+```c
+#define EPSILON 0.1
+#define PTR_TO_FIELD(ptr) ptr + 4
+```
+
+defines an [object-like][manual:terminology-object-like-macro] macro `EPSILON`
+with the replacement list `0.1`, and a
+[function-like][manual:terminology-function-like-macro] macro `PTR_TO_FIELD`
+with the single [parameter][manual:terminology-macro-parameter] `ptr` and the
+replacement list `ptr + 4`.
+
 The preprocessor replaces each macro
 [invocation][manual:terminology-macro-invocation] by the corresponding
 replacement list, a process termed [macro
-expansion][manual:terminology-macro-expansion].
-[Object-like][manual:terminology-object-like-macro] macros are invoked by their
-name alone; [function-like][manual:terminology-function-like-macro] macros are
-invoked by the same syntax as a function call (i.e., only when the macro name is
-immediately followed by the argument list enclosed by `(` and `)`).
+expansion][manual:terminology-macro-expansion]. Object-like macros are invoked
+by their name alone, so every occurrence of `EPSILON` is replaced. Function-like
+macros are invoked by the same syntax as a function call, that is, *only* when
+the macro name is immediately followed by an argument list enclosed by `(` and
+`)`: `PTR_TO_FIELD(p)` is replaced, but a bare `PTR_TO_FIELD` is left alone. The
+[arguments][manual:terminology-macro-argument] of an invocation are substituted
+for the corresponding parameters in the replacement list, the `#` and `##`
+operators are applied, and the result is
+[rescanned][manual:terminology-rescanning] for further macro names.
 
 A replacement list is a sequence of *preprocessing tokens* that need not form
 any well-formed C construct. That is what makes macros powerful and, for a
 binding generator such as `hs-bindgen`, awkward. Three further properties
 augment the problem:
 
-* Macros chains. The result of an expansion is
-  [rescanned][manual:terminology-rescanning] for further macro names, so `A` can
-  expand to `B`, which expands to `C`.
+* Macros chain. Because the result of an expansion is rescanned, `A` can expand
+  to `B`, which expands to `C`.
 * Macro definitions have a lifetime rather than a lexical scope. A macro
   definition lasts from its `#define` until a matching `#undef`, or until the
   end of the translation unit.
@@ -106,10 +122,10 @@ ePSILON = (0.1 :: CDouble)
 The Haskell type is not given in the C code; it follows from typechecking the
 replacement list under the C typing rules. [Character and string
 literals][t:character-and-string-literals] are macro values. `hs-bindgen` also
-supports [function-like macro values][t:function-like-macros].
+supports [function-like macro values][t:function-like-macro-values].
 
 ### Function-like macro values
-[t:function-like-macros]: #function-like-macros
+[t:function-like-macro-values]: #function-like-macro-values
 
 [Function-like][manual:terminology-function-like-macro] macros whose replacement
 list is a C expression are [macro values][manual:terminology-macro-value] too;
@@ -383,11 +399,13 @@ declaration can refer to it.
 [manual:terminology]: ../../terminology.md
 [manual:terminology-function-like-macro]: ../../terminology.md#function-like-macro
 [manual:terminology-macro]: ../../terminology.md#macro
+[manual:terminology-macro-argument]: ../../terminology.md#macro-argument
 [manual:terminology-macro-definition]: ../../terminology.md#macro-definition
 [manual:terminology-macro-expansion]: ../../terminology.md#macro-expansion
 [manual:terminology-macro-invocation]: ../../terminology.md#macro-invocation
 [manual:terminology-macro-language]: ../../terminology.md#macro-language
 [manual:terminology-macro-name]: ../../terminology.md#macro-name
+[manual:terminology-macro-parameter]: ../../terminology.md#macro-parameter
 [manual:terminology-macro-type]: ../../terminology.md#macro-type
 [manual:terminology-macro-value]: ../../terminology.md#macro-value
 [manual:terminology-object-like-macro]: ../../terminology.md#object-like-macro
