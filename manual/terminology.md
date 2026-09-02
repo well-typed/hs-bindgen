@@ -442,7 +442,7 @@ The second parse of those declarations that contain macro
 
 A declaration listed in an external [binding
 specification][t:binding-specification]. `hs-bindgen` does not generate bindings
-for it, and instead imports the declaration from the specified module instead.
+for it, and imports the declaration from the specified module instead.
 
 #### Omitted declaration
 [t:omitted-declaration]: #omitted-declaration
