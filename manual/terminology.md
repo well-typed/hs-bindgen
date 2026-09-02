@@ -87,8 +87,8 @@ ordinary identifiers (6.2.3). A macro and a tag can therefore share a spelling.
 [t:macro-parameter]: #macro-parameter
 
 One of the identifiers in the identifier list of a [function-like
-macro][t:function-like-macro] definition (6.10.5). Its scope ends at the
-new-line terminating the `#define`. Contrast [macro argument][t:macro-argument].
+macro][t:function-like-macro] definition (6.10.5). Contrast [macro
+argument][t:macro-argument].
 
 #### Object-like macro
 [t:object-like-macro]: #object-like-macro
