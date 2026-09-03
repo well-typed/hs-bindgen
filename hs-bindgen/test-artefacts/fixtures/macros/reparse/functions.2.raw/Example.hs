@@ -20,6 +20,7 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Macro as Macro
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
@@ -30,8 +31,8 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
-iD :: [String]
-iD = ["(", "X", ")", "(", "X", ")"]
+iD :: Macro.Raw BG.Text
+iD = Macro.functionLike "ID" ["X"] ["(", "X", ")"]
 
 {-| __C declaration:__ @macro MY_INT@
 
@@ -39,8 +40,8 @@ iD = ["(", "X", ")", "(", "X", ")"]
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
-mY_INT :: [String]
-mY_INT = ["int"]
+mY_INT :: Macro.Raw BG.Text
+mY_INT = Macro.objectLike "MY_INT" ["int"]
 
 {-| __C declaration:__ @my_int_t@
 

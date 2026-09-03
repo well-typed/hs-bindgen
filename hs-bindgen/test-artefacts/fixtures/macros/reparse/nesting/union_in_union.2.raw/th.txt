@@ -24,14 +24,14 @@
 
     __exported by:__ @macros\/reparse\/nesting\/union_in_union.h@
 -}
-myInt :: [String]
+myInt :: Raw Text
 {-| __C declaration:__ @macro MyInt@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_union.h 1:9@
 
     __exported by:__ @macros\/reparse\/nesting\/union_in_union.h@
 -}
-myInt = ["int"]
+myInt = objectLike "MyInt" ["int"]
 {-| __C declaration:__ @union \@T1_x@
 
     __defined at:__ @macros\/reparse\/nesting\/union_in_union.h 3:9@

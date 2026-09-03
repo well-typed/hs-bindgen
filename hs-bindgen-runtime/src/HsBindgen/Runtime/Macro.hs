@@ -54,6 +54,13 @@ data Params a =
     NoParams
     -- | Function-like macro: parameter names, and whether the list ends in
     -- @...@.
+    --
+    -- Variadic macros are technically a C99 feature, but @libclang@ has
+    -- backported them to C89 as well. We follow @libclang@ behaviour here, and
+    -- support variadic macros regardless of the C standard that is configured
+    -- (C89 is the first standard).
+    --
+    -- <https://clang.llvm.org/docs/LanguageExtensions.html#language-extensions-back-ported-to-previous-standards>
   | Params [a] Bool
   deriving stock (Eq, Ord, Show, Functor, Foldable, Traversable)
 

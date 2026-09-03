@@ -7,14 +7,18 @@ module Example
     )
   where
 
+import qualified HsBindgen.Runtime.Macro as Macro
+import qualified HsBindgen.Runtime.Support as BG
+
 {-| __C declaration:__ @macro OBJ@
 
     __defined at:__ @macros\/macro_comma.h 8:9@
 
     __exported by:__ @macros\/macro_comma.h@
 -}
-oBJ :: [String]
-oBJ = ["(", "1", ",", "2", ")"]
+oBJ :: Macro.Raw BG.Text
+oBJ =
+  Macro.objectLike "OBJ" ["(", "1", ",", "2", ")"]
 
 {-| __C declaration:__ @macro OBJ_NO_PARENS@
 
@@ -22,8 +26,9 @@ oBJ = ["(", "1", ",", "2", ")"]
 
     __exported by:__ @macros\/macro_comma.h@
 -}
-oBJ_NO_PARENS :: [String]
-oBJ_NO_PARENS = ["1", ",", "2"]
+oBJ_NO_PARENS :: Macro.Raw BG.Text
+oBJ_NO_PARENS =
+  Macro.objectLike "OBJ_NO_PARENS" ["1", ",", "2"]
 
 {-| __C declaration:__ @macro FUN@
 
@@ -31,9 +36,9 @@ oBJ_NO_PARENS = ["1", ",", "2"]
 
     __exported by:__ @macros\/macro_comma.h@
 -}
-fUN :: [String]
+fUN :: Macro.Raw BG.Text
 fUN =
-  ["(", "x", ",", "y", ")", "(", "x", ",", "y", ")"]
+  Macro.functionLike "FUN" ["x", "y"] ["(", "x", ",", "y", ")"]
 
 {-| __C declaration:__ @macro FUN_THREE@
 
@@ -41,29 +46,9 @@ fUN =
 
     __exported by:__ @macros\/macro_comma.h@
 -}
-fUN_THREE :: [String]
+fUN_THREE :: Macro.Raw BG.Text
 fUN_THREE =
-  [ "("
-  , "x"
-  , ","
-  , "y"
-  , ","
-  , "z"
-  , ")"
-  , "("
-  , "("
-  , "x"
-  , ")"
-  , ","
-  , "("
-  , "y"
-  , ")"
-  , ","
-  , "("
-  , "z"
-  , ")"
-  , ")"
-  ]
+  Macro.functionLike "FUN_THREE" ["x", "y", "z"] ["(", "(", "x", ")", ",", "(", "y", ")", ",", "(", "z", ")", ")"]
 
 {-| __C declaration:__ @macro ARITH@
 
@@ -71,5 +56,6 @@ fUN_THREE =
 
     __exported by:__ @macros\/macro_comma.h@
 -}
-aRITH :: [String]
-aRITH = ["(", "(", "1", ",", "2", ")", "+", "3", ")"]
+aRITH :: Macro.Raw BG.Text
+aRITH =
+  Macro.objectLike "ARITH" ["(", "(", "1", ",", "2", ")", "+", "3", ")"]
