@@ -19,13 +19,13 @@ bindings.
 ### Basic usage
 
 ```bash
-cabal run hs-bindgen-cli -- preprocess [OPTIONS] HEADER_FILE
+hs-bindgen-cli preprocess [OPTIONS] HEADER_FILE
 ```
 
 On Windows:
 
 ```powershell
-cabal run hs-bindgen-cli.exe -- preprocess [OPTIONS] HEADER_FILE
+hs-bindgen-cli.exe preprocess [OPTIONS] HEADER_FILE
 ```
 
 ### Options
@@ -91,7 +91,7 @@ details.
 The following example is adapted from `examples/libpcap/generate.sh`:
 
 ```bash
-cabal run hs-bindgen-cli -- preprocess \
+hs-bindgen-cli preprocess \
     -I "./libpcap" \
     --unique-id org.hs-bindgen.libpcap \
     --hs-output-dir hs-project/src \
@@ -124,7 +124,7 @@ Besides `preprocess`, `hs-bindgen-cli` provides:
 - `binding-spec` - Manage binding specifications
 - `info` - Query information (libclang, headers, etc.)
 
-Run `cabal run hs-bindgen-cli -- --help` for details.
+Run `hs-bindgen-cli --help` for details.
 
 ### Exit codes
 
