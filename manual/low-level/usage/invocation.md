@@ -19,13 +19,13 @@ bindings.
 ### Basic usage
 
 ```bash
-hs-bindgen-cli preprocess [OPTIONS] HEADER_FILE
+hs-bindgen-cli preprocess [OPTIONS] HEADER_FILE ...
 ```
 
 On Windows:
 
 ```powershell
-hs-bindgen-cli.exe preprocess [OPTIONS] HEADER_FILE
+hs-bindgen-cli.exe preprocess [OPTIONS] HEADER_FILE ...
 ```
 
 ### Options
