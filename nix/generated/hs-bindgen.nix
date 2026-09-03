@@ -7,7 +7,7 @@
 , optparse-applicative, parsec, pretty, prettyprinter, primitive
 , process, regex-pcre-builtin, some, syb, tasty, tasty-hunit
 , tasty-quickcheck, template-haskell, temporary, text, transformers
-, unliftio-core, utf8-string, vec, vector, witherable, yaml
+, unliftio-core, utf8-string, vec, vector, yaml
 }:
 mkDerivation {
   pname = "hs-bindgen";
@@ -23,7 +23,7 @@ mkDerivation {
     hs-bindgen-runtime language-c libclang-bindings mtl optics-core
     parsec pretty primitive process regex-pcre-builtin some tasty
     tasty-hunit template-haskell temporary text transformers
-    unliftio-core utf8-string vec witherable yaml
+    unliftio-core utf8-string vec yaml
   ];
   executableHaskellDepends = [
     base bytestring containers data-default libclang-bindings
