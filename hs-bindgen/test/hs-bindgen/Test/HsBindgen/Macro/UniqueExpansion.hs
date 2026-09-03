@@ -1,21 +1,21 @@
 {-# LANGUAGE RoleAnnotations #-}
 
-module Test.HsBindgen.Clang.Macros.UniqueExpansion (
+module Test.HsBindgen.Macro.UniqueExpansion (
     tests
   ) where
 
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck
 
-import HsBindgen.Clang.Macros.UniqueExpansion
-import HsBindgen.Clang.Macros.UniqueExpansion.Types
+import HsBindgen.Macro.UniqueExpansion
+import HsBindgen.Macro.UniqueExpansion.Types
 
 {-------------------------------------------------------------------------------
   Tests
 -------------------------------------------------------------------------------}
 
 tests :: TestTree
-tests = testGroup "Test.HsBindgen.Clang.Macros.UniqueExpansion" [
+tests = testGroup "Test.HsBindgen.Macro.UniqueExpansion" [
       testGroup "propIsExpansionUnique" [
           testProperty "example1" example1
         , testProperty "example2" example2

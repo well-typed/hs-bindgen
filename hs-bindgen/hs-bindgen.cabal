@@ -150,11 +150,6 @@ library internal
     HsBindgen.Clang.Discover
     HsBindgen.Clang.ExtraClangArgs
     HsBindgen.Clang.Macos
-    HsBindgen.Clang.Macros
-    HsBindgen.Clang.Macros.UniqueExpansion
-    HsBindgen.Clang.Macros.UniqueExpansion.Parse
-    HsBindgen.Clang.Macros.UniqueExpansion.Parse.Infra
-    HsBindgen.Clang.Macros.UniqueExpansion.Types
     HsBindgen.Clang.Sizeof
     HsBindgen.Clang.Tokens
     HsBindgen.Config.ClangArgs
@@ -287,8 +282,13 @@ library internal
     HsBindgen.Macro.Error
     HsBindgen.Macro.Flip
     HsBindgen.Macro.Interface
+    HsBindgen.Macro.Parse
     HsBindgen.Macro.Raw
+    HsBindgen.Macro.Syntax
     HsBindgen.Macro.Type
+    HsBindgen.Macro.UniqueExpansion
+    HsBindgen.Macro.UniqueExpansion.Parse
+    HsBindgen.Macro.UniqueExpansion.Types
     HsBindgen.NameHint
     HsBindgen.Orphans
     HsBindgen.Resolve
@@ -511,7 +511,6 @@ test-suite test-hs-bindgen
   -- (it's only used when compiling generated TH modules)
   ghc-options:        -threaded -Wno-unused-packages
   other-modules:
-    Test.HsBindgen.Clang.Macros.UniqueExpansion
     Test.HsBindgen.Fixtures.Haddock
     Test.HsBindgen.Fixtures.TestCases
     Test.HsBindgen.Fixtures.Utils
@@ -542,6 +541,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Types
     Test.HsBindgen.Integration.ExitCode
     Test.HsBindgen.Integration.OverwritePolicy
+    Test.HsBindgen.Macro.UniqueExpansion
     Test.HsBindgen.PPFixtures
     Test.HsBindgen.PPFixtures.Compile
     Test.HsBindgen.PPFixtures.TestCases
