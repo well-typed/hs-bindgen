@@ -375,8 +375,8 @@ stages][manual:c-stages].
 **"Not in scope" errors:** Verify that `{-# LANGUAGE TemplateHaskell #-}` is
 enabled, `HsBindgen.TH` is imported, and `hs-bindgen` is in `build-depends`.
 
-**"Could not find header" errors:** Check include directories in `#clang %
-#extraIncludeDirs`.  Try absolute paths if relative paths fail.
+**"Could not find header" errors:** Check include directories in
+`#clang % #extraIncludeDirs`.  Try absolute paths if relative paths fail.
 
 **Long compilation times:** Reduce selected declarations via predicates, or
 use command-line or preprocessor invocation instead.  Use higher verbosity
