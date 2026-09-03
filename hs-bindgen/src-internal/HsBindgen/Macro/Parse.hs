@@ -1,29 +1,22 @@
--- |
+-- | @parsec@ infrastructure for parsing streams of @libclang@ tokens.
 --
 -- Intended for unqualified import.
-module HsBindgen.Clang.Macros.UniqueExpansion.Parse.Infra (
+module HsBindgen.Macro.Parse (
     -- * Parser type
     Parser
   , runParser
-    -- * Parse errors
-  , MacroParseError(..)
     -- * Dealing with individual tokens
   , token
     -- * Punctuation
   , punctuation
   , parens
   , comma
-    -- * Parse tokens
-  , TokenParser
-  , parseTokenOfKind
   ) where
 
-import Control.Exception (Exception)
 import Control.Monad (guard)
 import Data.Bifunctor (Bifunctor (first))
 import Data.Text (Text)
 import Data.Text qualified as Text
-import GHC.Generics (Generic)
 import GHC.Stack (HasCallStack)
 import Text.Parsec (ParseError, Parsec, SourcePos)
 import Text.Parsec qualified as Parsec
@@ -38,6 +31,7 @@ import Clang.LowLevel.Core (CXTokenKind (CXToken_Punctuation))
 import Clang.Paths (getSourcePath)
 
 import HsBindgen.Errors (panicPure)
+import HsBindgen.Macro.Error (MacroParseError (..))
 
 {-------------------------------------------------------------------------------
   Parser type
@@ -64,20 +58,9 @@ runParser p tokens =
 
     unrecognized :: ParseError -> MacroParseError
     unrecognized err = MacroParseError{
-          reparseError       = show err
-        , reparseErrorTokens = tokens
+          macroParseError       = show err
+        , macroParseErrorTokens = tokens
         }
-
-{-------------------------------------------------------------------------------
-  Parse errors
--------------------------------------------------------------------------------}
-
-data MacroParseError = MacroParseError {
-      reparseError       :: String
-    , reparseErrorTokens :: [Token TokenSpelling]
-    }
-  deriving stock (Show, Eq, Generic)
-  deriving anyclass (Exception)
 
 {-------------------------------------------------------------------------------
   Dealing with individual tokens
@@ -145,14 +128,3 @@ removeMultilines = \case
     go prev []        = [prev]
     go '\\' ('\n':cs) = removeMultilines cs
     go prev (c   :cs) = prev : go c cs
-
-{-------------------------------------------------------------------------------
-  Parse individual tokens
--------------------------------------------------------------------------------}
-
-type TokenParser = Parsec Text ()
-
-parseTokenOfKind :: CXTokenKind -> TokenParser a -> Parser (Text, a)
-parseTokenOfKind kind p = tokenOfKind kind $ \str -> fmap (str,) $
-    either (const Nothing) Just $
-      Parsec.parse (p <* Parsec.eof) "" str

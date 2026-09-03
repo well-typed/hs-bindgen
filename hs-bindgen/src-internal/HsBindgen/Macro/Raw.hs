@@ -54,7 +54,7 @@ instance Macro.HasTypes Raw where
   type TypecheckedValue Raw = RawMacro
 
 parseRaw :: [Token TokenSpelling] -> Either MacroParseError (Macro.Unresolved Raw)
-parseRaw []     = Left  $ MacroParseError "parseRaw: empty macro"
+parseRaw []     = Left  $ MacroParseError "parseRaw: empty macro" []
 parseRaw (t:ts) = Right $ Macro.Unresolved $ RawMacro{
       name   = t.tokenSpelling.getTokenSpelling
     , tokens = ts

@@ -1,4 +1,5 @@
-module HsBindgen.Clang.Macros (
+-- | Macro definitions and invocations, as reported by @libclang@.
+module HsBindgen.Macro.Syntax (
     MacroDefinition (..)
   , MacroInvocation (..)
   ) where

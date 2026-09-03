@@ -23,8 +23,6 @@ import Data.Map.Lazy qualified as Map
 
 import Clang.HighLevel.Types qualified as Clang
 
-import HsBindgen.Clang.Macros (MacroDefinition, MacroInvocation)
-import HsBindgen.Clang.Macros.UniqueExpansion
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
@@ -41,6 +39,8 @@ import HsBindgen.Imports (Map, mapMaybe)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Macro.Flip
+import HsBindgen.Macro.Syntax (MacroDefinition, MacroInvocation)
+import HsBindgen.Macro.UniqueExpansion
 import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
 
 {-------------------------------------------------------------------------------
