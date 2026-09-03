@@ -129,10 +129,12 @@ Run `hs-bindgen-cli --help` for details.
 ### Exit codes
 
 `hs-bindgen` uses the following exit codes:
+
 - 0: Success
-- 1: Other errors (panics)
-- 2: Invocation of `libclang` has failed
-- 3: An `hs-bindgen`-specific error has happened
+- 1: Unexpected errors (panics)
+- 2: CLI usage errors
+- 3: Invocation of `libclang` has failed
+- 4: An `hs-bindgen`-specific error has happened
 
 ## Cabal preprocessor integration
 

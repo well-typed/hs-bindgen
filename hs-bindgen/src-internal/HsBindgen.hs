@@ -105,16 +105,16 @@ hsBindgenMacroLang mkMacroLang tu ts b i a = do
       case fromException e of
         Just (LibclangException msg) -> do
           print $ PP.string msg
-          -- We specifically use exit code 2 here; it means that the call to
+          -- We specifically use exit code 3 here; it means that the call to
           -- `libclang` has failed.
-          exitWith (ExitFailure 2)
+          exitWith (ExitFailure 3)
         _ -> throwIO e
     case eRes of
       Left err -> do
         print $ prettyForTrace err
-        -- We specifically use exit code 3 here; it means that `hs-bindgen` ran
+        -- We specifically use exit code 4 here; it means that `hs-bindgen` ran
         -- to completion, but an error has occurred.
-        exitWith (ExitFailure 3)
+        exitWith (ExitFailure 4)
       Right r -> pure r
 
 -- | Like 'hsBindgen' but does not exit with failure when an error has occurred.

@@ -47,6 +47,7 @@ execCliParser = customExecParser prefs' opts
     opts = info (parseCli <**> simpleVersioner vers <**> helper) $
       mconcat [
           header "hs-bindgen - generate Haskell bindings from C headers"
+        , failureCode 2
         , footerDoc . Just . Help.vcat $ List.intersperse "" [
               envVarsFooter
             , clangArgsFooter
