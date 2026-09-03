@@ -33,7 +33,6 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 
-import HsBindgen.Clang.Macros (MacroDefinition (..), MacroInvocation (..))
 import HsBindgen.Eff
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Pass.Parse.Context
@@ -49,6 +48,7 @@ import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
+import HsBindgen.Macro.Syntax (MacroDefinition (..), MacroInvocation (..))
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------

@@ -18,4 +18,4 @@ parseMacro ::
 parseMacro cStd tokens =
     case CExpr.runParser (CExpr.parseMacro cStd) tokens of
       Right macro -> Right $ Macro.Unresolved macro
-      Left  err   -> Left  $ MacroParseError err.parseError
+      Left  err   -> Left  $ MacroParseError err.parseError tokens

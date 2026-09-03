@@ -3,7 +3,7 @@
 -- |
 --
 -- Intended for unqualified import.
-module HsBindgen.Clang.Macros.UniqueExpansion.Parse (
+module HsBindgen.Macro.UniqueExpansion.Parse (
     parseDefinition
   , parseInvocation
   ) where
@@ -21,12 +21,9 @@ import Clang.HighLevel.Types (MultiLoc (multiLocExpansion),
                               TokenSpelling (getTokenSpelling))
 import Clang.LowLevel.Core (CXTokenKind (CXToken_Identifier, CXToken_Keyword))
 
-import HsBindgen.Clang.Macros.UniqueExpansion.Parse.Infra (Parser, comma,
-                                                           parens, punctuation,
-                                                           token)
-import HsBindgen.Clang.Macros.UniqueExpansion.Types (Definition (..),
-                                                     Invocation (..),
-                                                     Name (Name), Var (..))
+import HsBindgen.Macro.Parse (Parser, comma, parens, punctuation, token)
+import HsBindgen.Macro.UniqueExpansion.Types (Definition (..), Invocation (..),
+                                              Name (Name), Var (..))
 
 {-------------------------------------------------------------------------------
   Definition

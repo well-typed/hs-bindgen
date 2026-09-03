@@ -3,12 +3,12 @@ module Main (main) where
 import Data.Sequence qualified as Seq
 import Test.Tasty
 
-import Test.HsBindgen.Clang.Macros.UniqueExpansion qualified as Clang.Macros.UniqueExpansion
 import Test.HsBindgen.Frontend.LanguageC qualified as Frontend.LanguageC
 import Test.HsBindgen.Frontend.Pass.PrepareReparse qualified as Frontend.Pass.PrepareReparse
 import Test.HsBindgen.Golden qualified as Golden
 import Test.HsBindgen.Integration.ExitCode qualified as Integration.ExitCode
 import Test.HsBindgen.Integration.OverwritePolicy qualified as Integration.OverwritePolicy
+import Test.HsBindgen.Macro.UniqueExpansion qualified as Macro.UniqueExpansion
 import Test.HsBindgen.PPFixtures qualified as PPFixtures
 import Test.HsBindgen.Prop.Selection qualified as Prop.Selection
 import Test.HsBindgen.Resources
@@ -29,9 +29,9 @@ main :: IO ()
 main = defaultMain $
     withTestResources $ \testResources ->
     testGroup "test-hs-bindgen" [
-        Clang.Macros.UniqueExpansion.tests
-      , Frontend.LanguageC.tests
+        Frontend.LanguageC.tests
       , Frontend.Pass.PrepareReparse.tests
+      , Macro.UniqueExpansion.tests
       , testGroup "unit tests" [
             Unit.ClangArgs.tests testResources
           , Unit.Digraph.tests

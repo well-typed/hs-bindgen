@@ -1,7 +1,7 @@
 -- |
 --
 -- Intended for unqualified import.
-module HsBindgen.Clang.Macros.UniqueExpansion.Types (
+module HsBindgen.Macro.UniqueExpansion.Types (
     Definition (..)
   , Var (..)
   , Invocation (..)

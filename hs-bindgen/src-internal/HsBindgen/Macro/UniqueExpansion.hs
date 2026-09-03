@@ -1,7 +1,7 @@
 -- |
 --
 -- Intended for unqualified import.
-module HsBindgen.Clang.Macros.UniqueExpansion (
+module HsBindgen.Macro.UniqueExpansion (
     isExpansionUnique
     -- * Parse
   , ParseResult
@@ -29,12 +29,12 @@ import Data.Set qualified as Set
 import Data.Text (Text)
 import Text.Parsec (eof)
 
-import HsBindgen.Clang.Macros (MacroDefinition (name, tokens),
+import HsBindgen.Macro.Error (MacroParseError)
+import HsBindgen.Macro.Parse (runParser)
+import HsBindgen.Macro.Syntax (MacroDefinition (name, tokens),
                                MacroInvocation (name, tokens))
-import HsBindgen.Clang.Macros.UniqueExpansion.Parse qualified as P
-import HsBindgen.Clang.Macros.UniqueExpansion.Parse.Infra (MacroParseError,
-                                                           runParser)
-import HsBindgen.Clang.Macros.UniqueExpansion.Types
+import HsBindgen.Macro.UniqueExpansion.Parse qualified as P
+import HsBindgen.Macro.UniqueExpansion.Types
 
 {-------------------------------------------------------------------------------
   Parse
