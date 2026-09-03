@@ -106,36 +106,36 @@
 
     __exported by:__ @macros\/reparse\/gnu_attributes.h@
 -}
-bOOL :: [String]
+bOOL :: Raw Text
 {-| __C declaration:__ @macro BOOL@
 
     __defined at:__ @macros\/reparse\/gnu_attributes.h 2:9@
 
     __exported by:__ @macros\/reparse\/gnu_attributes.h@
 -}
-bOOL = ["int"]
+bOOL = objectLike "BOOL" ["int"]
 {-| __C declaration:__ @macro EXPORT@
 
     __defined at:__ @macros\/reparse\/gnu_attributes.h 10:9@
 
     __exported by:__ @macros\/reparse\/gnu_attributes.h@
 -}
-eXPORT :: [String]
+eXPORT :: Raw Text
 {-| __C declaration:__ @macro EXPORT@
 
     __defined at:__ @macros\/reparse\/gnu_attributes.h 10:9@
 
     __exported by:__ @macros\/reparse\/gnu_attributes.h@
 -}
-eXPORT = ["__attribute__",
-          "(",
-          "(",
-          "visibility",
-          "(",
-          "\"default\"",
-          ")",
-          ")",
-          ")"]
+eXPORT = objectLike "EXPORT" ["__attribute__",
+                              "(",
+                              "(",
+                              "visibility",
+                              "(",
+                              "\"default\"",
+                              ")",
+                              ")",
+                              ")"]
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_5e910042f66236ac" hs_bindgen_5e910042f66236ac_base ::
     Int32

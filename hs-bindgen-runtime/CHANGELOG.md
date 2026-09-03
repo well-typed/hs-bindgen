@@ -38,6 +38,8 @@
 
 * Deprecate `zeroUnionValue` in favour of the `zero` function from the new
   `IsUnion` class. See [issue #2060][is-2060] and [PR #2091][pr-2091].
+* `HsBindgen.Runtime.Support` re-exports `Data.Text.Text`, which generated
+  bindings need for raw macros. See [issue #2242][is-2242].
 
 ### Bug fixes
 

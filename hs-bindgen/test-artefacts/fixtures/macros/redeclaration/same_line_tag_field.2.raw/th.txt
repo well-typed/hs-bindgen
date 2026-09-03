@@ -1,18 +1,32 @@
 -- addDependentFile test-artefacts/headers/golden/macros/redeclaration/same_line_tag_field.h
+{-| __C declaration:__ @macro A@
+
+    __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 12:9@
+
+    __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
+-}
+a :: Raw Text
+{-| __C declaration:__ @macro A@
+
+    __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 12:9@
+
+    __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
+-}
+a = objectLike "A" ["S"]
 {-| __C declaration:__ @macro B@
 
     __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 14:9@
 
     __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
 -}
-b :: [String]
+b :: Raw Text
 {-| __C declaration:__ @macro B@
 
     __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 14:9@
 
     __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
 -}
-b = ["int"]
+b = objectLike "B" ["int"]
 {-| __C declaration:__ @struct S@
 
     __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 15:8@

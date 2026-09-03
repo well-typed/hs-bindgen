@@ -40,6 +40,20 @@
 -- {
 --   return &bar;
 -- }
+{-| __C declaration:__ @macro T@
+
+    __defined at:__ @macros\/redeclaration\/identical_syntax.h 5:9@
+
+    __exported by:__ @macros\/redeclaration\/identical_syntax.h@
+-}
+t :: Raw Text
+{-| __C declaration:__ @macro T@
+
+    __defined at:__ @macros\/redeclaration\/identical_syntax.h 5:9@
+
+    __exported by:__ @macros\/redeclaration\/identical_syntax.h@
+-}
+t = objectLike "T" ["A"]
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_3a672aa51059499f" hs_bindgen_3a672aa51059499f_base ::
     Int32

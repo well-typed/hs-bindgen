@@ -26,14 +26,14 @@
 
     __exported by:__ @macros\/undef.h@
 -}
-t :: [String]
+t :: Raw Text
 {-| __C declaration:__ @macro T@
 
     __defined at:__ @macros\/undef.h 3:9@
 
     __exported by:__ @macros\/undef.h@
 -}
-t = ["int"]
+t = objectLike "T" ["int"]
 -- __unique:__ @test_macrosundef_2_raw_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_21a957e75025b18b" hs_bindgen_21a957e75025b18b_base ::
     Int32

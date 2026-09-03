@@ -1,18 +1,32 @@
 -- addDependentFile test-artefacts/headers/golden/macros/redeclaration/variadic.h
+{-| __C declaration:__ @macro A@
+
+    __defined at:__ @macros\/redeclaration\/variadic.h 1:9@
+
+    __exported by:__ @macros\/redeclaration\/variadic.h@
+-}
+a :: Raw Text
+{-| __C declaration:__ @macro A@
+
+    __defined at:__ @macros\/redeclaration\/variadic.h 1:9@
+
+    __exported by:__ @macros\/redeclaration\/variadic.h@
+-}
+a = objectLike "A" ["int"]
 {-| __C declaration:__ @macro ID@
 
     __defined at:__ @macros\/redeclaration\/variadic.h 3:9@
 
     __exported by:__ @macros\/redeclaration\/variadic.h@
 -}
-iD :: [String]
+iD :: Raw Text
 {-| __C declaration:__ @macro ID@
 
     __defined at:__ @macros\/redeclaration\/variadic.h 3:9@
 
     __exported by:__ @macros\/redeclaration\/variadic.h@
 -}
-iD = ["(", "A", ",", "...", ")", "A", "__VA_ARGS__"]
+iD = variadicFunctionLike "ID" ["A"] ["A", "__VA_ARGS__"]
 {-| __C declaration:__ @T@
 
     __defined at:__ @macros\/redeclaration\/variadic.h 4:24@

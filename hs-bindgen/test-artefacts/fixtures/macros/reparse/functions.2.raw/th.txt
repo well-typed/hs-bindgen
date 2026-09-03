@@ -66,28 +66,28 @@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
-iD :: [String]
+iD :: Raw Text
 {-| __C declaration:__ @macro ID@
 
     __defined at:__ @macros\/reparse\/functions.h 1:9@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
-iD = ["(", "X", ")", "(", "X", ")"]
+iD = functionLike "ID" ["X"] ["(", "X", ")"]
 {-| __C declaration:__ @macro MY_INT@
 
     __defined at:__ @macros\/reparse\/functions.h 2:9@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
-mY_INT :: [String]
+mY_INT :: Raw Text
 {-| __C declaration:__ @macro MY_INT@
 
     __defined at:__ @macros\/reparse\/functions.h 2:9@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
-mY_INT = ["int"]
+mY_INT = objectLike "MY_INT" ["int"]
 {-| __C declaration:__ @my_int_t@
 
     __defined at:__ @macros\/reparse\/functions.h 19:16@
