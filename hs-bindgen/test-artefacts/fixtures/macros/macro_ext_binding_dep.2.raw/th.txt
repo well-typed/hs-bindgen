@@ -26,14 +26,14 @@
 
     __exported by:__ @macros\/macro_ext_binding_dep.h@
 -}
-b :: [String]
+b :: Raw Text
 {-| __C declaration:__ @macro B@
 
     __defined at:__ @macros\/macro_ext_binding_dep.h 6:9@
 
     __exported by:__ @macros\/macro_ext_binding_dep.h@
 -}
-b = ["A"]
+b = objectLike "B" ["A"]
 -- __unique:__ @test_macrosmacro_ext_binding_dep_2_Example_Safe_use_b@
 foreign import ccall safe "hs_bindgen_92afe64d8d8fc053" hs_bindgen_92afe64d8d8fc053_base ::
     Int32

@@ -6,14 +6,17 @@ module Example
     )
   where
 
+import qualified HsBindgen.Runtime.Macro as Macro
+import qualified HsBindgen.Runtime.Support as BG
+
 {-| __C declaration:__ @macro ValueB@
 
     __defined at:__ @macros\/parse\/first_parse_then_typecheck.h 6:9@
 
     __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
 -}
-valueB :: [String]
-valueB = ["ValueA"]
+valueB :: Macro.Raw BG.Text
+valueB = Macro.objectLike "ValueB" ["ValueA"]
 
 {-| __C declaration:__ @macro ValueA@
 
@@ -21,8 +24,8 @@ valueB = ["ValueA"]
 
     __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
 -}
-valueA :: [String]
-valueA = ["1"]
+valueA :: Macro.Raw BG.Text
+valueA = Macro.objectLike "ValueA" ["1"]
 
 {-| __C declaration:__ @macro TypeB@
 
@@ -30,8 +33,8 @@ valueA = ["1"]
 
     __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
 -}
-typeB :: [String]
-typeB = ["TypeA"]
+typeB :: Macro.Raw BG.Text
+typeB = Macro.objectLike "TypeB" ["TypeA"]
 
 {-| __C declaration:__ @macro TypeA@
 
@@ -39,5 +42,5 @@ typeB = ["TypeA"]
 
     __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
 -}
-typeA :: [String]
-typeA = ["int"]
+typeA :: Macro.Raw BG.Text
+typeA = Macro.objectLike "TypeA" ["int"]

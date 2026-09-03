@@ -66,37 +66,37 @@
 
     __exported by:__ @macros\/reparse\/cref_attributes.h@
 -}
-bOOL :: [String]
+bOOL :: Raw Text
 {-| __C declaration:__ @macro BOOL@
 
     __defined at:__ @macros\/reparse\/cref_attributes.h 2:9@
 
     __exported by:__ @macros\/reparse\/cref_attributes.h@
 -}
-bOOL = ["int"]
+bOOL = objectLike "BOOL" ["int"]
 {-| __C declaration:__ @macro EXPORT@
 
     __defined at:__ @macros\/reparse\/cref_attributes.h 10:9@
 
     __exported by:__ @macros\/reparse\/cref_attributes.h@
 -}
-eXPORT :: [String]
+eXPORT :: Raw Text
 {-| __C declaration:__ @macro EXPORT@
 
     __defined at:__ @macros\/reparse\/cref_attributes.h 10:9@
 
     __exported by:__ @macros\/reparse\/cref_attributes.h@
 -}
-eXPORT = ["[",
-          "[",
-          "gnu",
-          "::",
-          "visibility",
-          "(",
-          "\"default\"",
-          ")",
-          "]",
-          "]"]
+eXPORT = objectLike "EXPORT" ["[",
+                              "[",
+                              "gnu",
+                              "::",
+                              "visibility",
+                              "(",
+                              "\"default\"",
+                              ")",
+                              "]",
+                              "]"]
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_9f4b1c3748016429" hs_bindgen_9f4b1c3748016429_base ::
     Int32

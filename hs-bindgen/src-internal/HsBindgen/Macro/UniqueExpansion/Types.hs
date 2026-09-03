@@ -2,8 +2,7 @@
 --
 -- Intended for unqualified import.
 module HsBindgen.Macro.UniqueExpansion.Types (
-    Definition (..)
-  , Var (..)
+    Definition
   , Invocation (..)
   , Name (..)
   ) where
@@ -11,27 +10,14 @@ module HsBindgen.Macro.UniqueExpansion.Types (
 import Data.String (IsString)
 import Data.Text (Text)
 
-data Definition = Definition {
-      name     :: Name
-    , params   :: [Name]
-      -- | A macro definition is variadic if it has @...@ at the end of its
-      -- parameter list
-      --
-      -- Variadic macros are technically a C99 feature, but @libclang@ has
-      -- backported them to C89 as well. We follow @libclang@ behaviour here,
-      -- and support variadic macros regardless of the C standard that is
-      -- configured (because C89 is the first standard).
-      --
-      -- <https://clang.llvm.org/docs/LanguageExtensions.html#language-extensions-back-ported-to-previous-standards>
-    , variadic :: Bool
-    , body     :: [Var]
-    }
-  deriving stock (Show, Eq)
+import HsBindgen.Runtime.Macro qualified as RawMacro
 
-data Var =
-    LocalParam Name
-  | FreeVar Name
-  deriving stock (Show, Eq)
+-- | A macro definition, reduced to the names it mentions
+--
+-- The body is the list of identifiers occurring in it; the ambiguity analysis
+-- is not interested in anything else. Whether a name in the body refers to
+-- another macro or to a parameter of this one follows from 'RawMacro.params'.
+type Definition = RawMacro.Raw Name
 
 data Invocation = Invocation {
       name   :: Name

@@ -31,6 +31,7 @@ import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Parse (splitMacro)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -230,7 +231,7 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
         failures <- parseFail ctx info.id info.loc ParseMacroDefinitionNoMacroName
         foldContinueWith failures
       Just macroName -> do
-        recordMacroDefinitionAt macroName range tokens
+        recordMacroDefinitionAt macroName range (splitMacro tokens)
         foldContinueWith [mkResult tokens]
   where
     mkResult :: [Token TokenSpelling] -> ParseResult l Parse

@@ -1,88 +1,17 @@
-{-# LANGUAGE OverloadedRecordDot #-}
-
 -- |
 --
 -- Intended for unqualified import.
 module HsBindgen.Macro.UniqueExpansion.Parse (
-    parseDefinition
-  , parseInvocation
+    parseInvocation
   ) where
 
-import Control.Monad (guard, unless)
-import Data.Maybe (catMaybes)
-import Text.Parsec (anyToken, choice, lookAhead, many, manyTill, option,
-                    sepEndBy, try, unexpected)
+import Text.Parsec (anyToken, choice, manyTill, try)
 
-import Clang.Enum.Simple (fromSimpleEnum)
-import Clang.HighLevel.Types (MultiLoc (multiLocExpansion),
-                              Range (rangeEnd, rangeStart),
-                              SingleLoc (singleLocColumn, singleLocLine, singleLocPath),
-                              Token (tokenExtent, tokenKind, tokenSpelling),
-                              TokenSpelling (getTokenSpelling))
-import Clang.LowLevel.Core (CXTokenKind (CXToken_Identifier, CXToken_Keyword))
+import Clang.HighLevel.Types (Token, TokenSpelling)
 
-import HsBindgen.Macro.Parse (Parser, comma, parens, punctuation, token)
-import HsBindgen.Macro.UniqueExpansion.Types (Definition (..), Invocation (..),
-                                              Name (Name), Var (..))
-
-{-------------------------------------------------------------------------------
-  Definition
--------------------------------------------------------------------------------}
-
-parseDefinition :: Parser Definition
-parseDefinition = do
-    (macroLocRange, macroName) <- parseLocName
-    isFunction <- isFunctionLike macroLocRange
-    (params, variadic) <-
-      if isFunction then parseParams else pure ([], False)
-    macroBody <- parseBody params variadic
-    pure $ Definition {
-        name = macroName
-      , params = params
-      , variadic = variadic
-      , body = macroBody
-      }
-
--- | Check if a macro definition is function-like. If not, then the definition
--- is object-like.
---
--- A macro definition is function-like if the macro definition's name is
--- followed immediately by a ( character without any whitespace in between. See
--- 'lparen'.
---
--- @isFunctionLike@ does not consume input.
-isFunctionLike ::
-     -- | Source location of the macro definition's name
-     Range MultiLoc
-  -> Parser Bool
-isFunctionLike prevRange =
-    --  is function-like if the macro name
-    lookAhead (option False (True <$ try (lparen prevRange)))
-
-parseBody :: [Name] -> Bool -> Parser [Var]
-parseBody params variadic = catMaybes <$> many (choice [parseVar, parseNonVar])
-  where
-    parseVar, parseNonVar :: Parser (Maybe Var)
-    parseVar = Just . mkVar <$> parseName
-    parseNonVar = Nothing <$ anyToken
-
-    mkVar :: Name -> Var
-    mkVar n
-      | n `elem` params
-      = LocalParam n
-
-      -- __VA_ARGS__ and __VA_OPT__ are reserved identifiers only in variadic
-      -- macro definitions. We mark them as @LocalParam@ simply to emphasise
-      -- that their expansion relies on parameters.
-      | variadic
-      , n == "__VA_ARGS__"
-      = LocalParam n
-      | variadic
-      , n == "__VA_OPT__"
-      = LocalParam n
-
-      | otherwise
-      = FreeVar n
+import HsBindgen.Macro.Parse (Parser, identifier, identifierOrKeyword,
+                              punctuation, spelling)
+import HsBindgen.Macro.UniqueExpansion.Types (Invocation (..), Name (Name))
 
 {-------------------------------------------------------------------------------
   Invocation
@@ -90,7 +19,7 @@ parseBody params variadic = catMaybes <$> many (choice [parseVar, parseNonVar])
 
 parseInvocation :: Parser Invocation
 parseInvocation = do
-    (_, macroName) <- parseLocName
+    macroName <- toName <$> identifierOrKeyword
     let
         functionLike :: Parser Invocation
         functionLike = do
@@ -103,19 +32,6 @@ parseInvocation = do
     choice [try functionLike, objectLike]
 
 {-------------------------------------------------------------------------------
-  Parameters
--------------------------------------------------------------------------------}
-
-parseParams :: Parser ([Name], Bool)
-parseParams = parens $ do
-    paramNames <- sepEndBy parseName comma
-    variadic <- choice [
-        True <$ try (punctuation "...")
-      , pure False
-      ]
-    pure (paramNames, variadic)
-
-{-------------------------------------------------------------------------------
   Arguments
 -------------------------------------------------------------------------------}
 
@@ -125,7 +41,7 @@ parseArgs = fmap concat $ do
     manyTill
       (choice [
           -- try to parse a name
-          try ((:[]) <$> try parseName)
+          try ((:[]) . toName <$> try identifier)
           -- try to parse recursively inside nested matching parentheses
         , try parseArgs
           -- otherwise skip the next token
@@ -135,55 +51,8 @@ parseArgs = fmap concat $ do
       (try (punctuation ")"))
 
 {-------------------------------------------------------------------------------
-  Punctuation
--------------------------------------------------------------------------------}
-
--- | Parse a ( character not immediately preceded by white space
---
--- @lparen@ consumes input when it fails. Combine with @try@ if this is
--- undesirable.
---
--- NOTE: @lparen@ is defined in the C reference
---
--- We used to not check whitespace, which was the source of a bug. See issue
--- #1903: <https://github.com/well-typed/hs-bindgen/issues/1903>
-lparen :: Range MultiLoc -> Parser ()
-lparen prevRange = do
-    tok <- anyToken
-    let prev    = prevRange.rangeEnd.multiLocExpansion
-        current = tok.tokenExtent.rangeStart.multiLocExpansion
-        p       = prev.singleLocPath   == current.singleLocPath &&
-                  prev.singleLocLine   == current.singleLocLine &&
-                  prev.singleLocColumn == current.singleLocColumn
-    unless p $ unexpected "whitespace before lparen"
-
-{-------------------------------------------------------------------------------
   Identifiers
 -------------------------------------------------------------------------------}
 
--- | Parse a name (identifier only)
---
--- Does not accept C keywords. Use 'parseLocName' when the token may be a
--- keyword (e.g. for macro names, where @#define bool int@ is valid C).
-parseName :: Parser Name
-parseName = token $ \t -> do
-    let spelling = getTokenSpelling (tokenSpelling t)
-    let ki = fromSimpleEnum (tokenKind t)
-    guard $ ki == Right CXToken_Identifier
-    return $ Name spelling
-
--- | Parse a name together with its source location
---
--- Accepts both identifiers and keywords. In later LLVMs (not in 14, surely in
--- 16), @bool@ is classified as a keyword rather than an identifier. We accept
--- keywords here so that macros such as @#define bool int@ can be parsed. Even
--- in C23 the meaning of @bool@ can be overwritten (the macro takes precedence).
-parseLocName :: Parser (Range MultiLoc, Name)
-parseLocName = token $ \t -> do
-    let spelling = getTokenSpelling (tokenSpelling t)
-    let ki = fromSimpleEnum (tokenKind t)
-    guard $ ki == Right CXToken_Identifier || ki == Right CXToken_Keyword
-    return (
-        tokenExtent t
-      , Name spelling
-      )
+toName :: Token TokenSpelling -> Name
+toName = Name . spelling

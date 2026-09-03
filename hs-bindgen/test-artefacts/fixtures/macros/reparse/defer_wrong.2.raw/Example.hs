@@ -22,6 +22,7 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Macro as Macro
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
@@ -97,8 +98,8 @@ instance HasCField.HasCField S "s_x" where
 
     __exported by:__ @macros\/reparse\/defer_wrong.h@
 -}
-t :: [String]
-t = ["struct", "S"]
+t :: Macro.Raw BG.Text
+t = Macro.objectLike "T" ["struct", "S"]
 
 {-| __C declaration:__ @foo@
 

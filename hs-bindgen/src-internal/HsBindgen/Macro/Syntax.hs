@@ -8,10 +8,18 @@ import Data.Text (Text)
 
 import Clang.HighLevel.Types (MultiLoc, Range, Token, TokenSpelling)
 
+import HsBindgen.Runtime.Macro qualified as RawMacro
+
+import HsBindgen.Macro.Error (MacroParseError)
+
 data MacroDefinition = MacroDefinition {
     name     :: Text
   , locRange :: Range MultiLoc
-  , tokens   :: [Token TokenSpelling]
+    -- | The definition, split into name, parameters and body
+    --
+    -- The split is language-independent and happens once, while parsing; see
+    -- 'HsBindgen.Macro.Parse.splitMacro'.
+  , macro    :: Either MacroParseError (RawMacro.Raw (Token TokenSpelling))
   }
 
 data MacroInvocation = MacroInvocation {

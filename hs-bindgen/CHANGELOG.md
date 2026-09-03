@@ -114,6 +114,14 @@
         wrapper translation unit includes every main header.
       * Declarations in the root header (i.e., the `#define`s) are not parsed: a
         root directive is configuration.
+* The `Raw` macro language (`HsBindgen.Macro.raw`) now translates a macro to a
+  `HsBindgen.Runtime.Macro.Raw Text` value rather than to the `[String]` of its
+  tokens. Name, parameter list and body are kept apart, so the parameter list is
+  no longer spliced into the body, and the whitespace rule that tells
+  `#define F(x) ...` from `#define G (x) ...` applies here too. Two identical
+  redefinitions of the same macro now collapse into one declaration instead of
+  clashing, because the translated value no longer carries source locations. See
+  [issue #2242][is-2242] and [issue #2243][is-2243].
 
 ### New features
 
@@ -415,6 +423,8 @@
 [is-2210]: https://github.com/well-typed/hs-bindgen/issues/2210
 [is-2214]: https://github.com/well-typed/hs-bindgen/issues/2214
 [is-2216]: https://github.com/well-typed/hs-bindgen/issues/2216
+[is-2242]: https://github.com/well-typed/hs-bindgen/issues/2242
+[is-2243]: https://github.com/well-typed/hs-bindgen/issues/2243
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917
