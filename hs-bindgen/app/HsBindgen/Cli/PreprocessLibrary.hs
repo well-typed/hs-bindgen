@@ -93,10 +93,10 @@ module HsBindgen.Cli.PreprocessLibrary (
 import Control.Monad (foldM_)
 import Data.Text qualified as Text
 import Options.Applicative hiding (info)
-import System.Directory (canonicalizePath, createDirectoryIfMissing,
-                         getTemporaryDirectory)
+import System.Directory (canonicalizePath, createDirectoryIfMissing)
+import System.Exit (ExitCode (..), exitWith)
 import System.FilePath (takeDirectory, (<.>), (</>))
-import System.IO.Temp (createTempDirectory)
+import System.IO.Temp (withSystemTempDirectory)
 
 import Clang.Paths
 
@@ -286,7 +286,7 @@ exec global opts = do
     let ClangArgsConfig{extraIncludeDirs = includeDirs} = opts.config.clang
     roots <- resolveLibraryRoots opts.libraryRoots includeDirs
 
-    _eErr <- withTracer global.unsafe $ \tracer -> do
+    eErr <- withTracer global.unsafe $ \tracer -> do
       let ppTracer = contramap TracePreprocessLibrary tracer
       unless (null opts.libraryRoots) $
         warnWideRoots ppTracer roots includeDirs
@@ -300,7 +300,11 @@ exec global opts = do
         then printPlan plan
         else executePlan global opts ppTracer plan
 
-    pure ()
+    case eErr of
+      Right () -> pure ()
+      Left err -> do
+        print $ prettyForTrace err
+        exitWith (ExitFailure 3)
 
 {-------------------------------------------------------------------------------
   Library root resolution
@@ -416,10 +420,9 @@ executePlan ::
   -> Tracer PreprocessLibraryMsg
   -> Plan
   -> IO ()
-executePlan global opts tracer plan = do
-    tempDir <- getTemporaryDirectory >>= \d ->
-      createTempDirectory d "hs-bindgen-library"
-    foldM_ (executeStep global opts tracer tempDir) [] plan.steps
+executePlan global opts tracer plan =
+    withSystemTempDirectory "hs-bindgen-library" $ \tempDir ->
+      foldM_ (executeStep global opts tracer tempDir) [] plan.steps
 
 -- | Run one step of the plan, producing a Haskell module and a binding spec.
 --
