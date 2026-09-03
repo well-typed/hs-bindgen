@@ -166,7 +166,7 @@ automatically during `cabal build`.  Instead of literate Haskell markup, the
 Haskell list.
 
 A minimal demonstration of the literate preprocessor mechanism (independent of
-hs-bindgen) is available [here][example:literate-example].
+`hs-bindgen`) is available [here][example:literate-example].
 
 ### Configuration
 
