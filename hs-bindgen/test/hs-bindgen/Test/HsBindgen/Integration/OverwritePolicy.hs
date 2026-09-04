@@ -32,9 +32,9 @@ testDirPolicy getTestResources = testCase "do not create output directory by def
                                                , headerPath
                                                ]
                                                ""
-    -- We specifically test for exit code 3 here; it means that `hs-bindgen` ran
+    -- We specifically test for exit code 4 here; it means that `hs-bindgen` ran
     -- to completion, but an error has ocurred.
-    exitCode @?= ExitFailure 3
+    exitCode @?= ExitFailure 4
 
 testFilePolicy :: IO TestResources -> TestTree
 testFilePolicy getTestResources = testCase "do not overwrite existing files by default" $ do
@@ -52,9 +52,9 @@ testFilePolicy getTestResources = testCase "do not overwrite existing files by d
                                                , headerPath
                                                ]
                                                ""
-    -- We specifically test for exit code 3 here; it means that `hs-bindgen` ran
+    -- We specifically test for exit code 4 here; it means that `hs-bindgen` ran
     -- to completion, but an error has ocurred.
-    exitCode @?= ExitFailure 3
+    exitCode @?= ExitFailure 4
 
 testOverwritePolicies :: IO TestResources -> TestTree
 testOverwritePolicies getTestResources = testCase "create directories and overwrite files if told by user" $ do
@@ -115,4 +115,4 @@ testBindingSpecNoDirByDefault getTestResources = testCase "do not create --gen-b
                                                , headerPath
                                                ]
                                                ""
-    exitCode @?= ExitFailure 3
+    exitCode @?= ExitFailure 4

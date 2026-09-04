@@ -101,6 +101,6 @@ testUnresolvedIncludeProcess = testCase "unresolved include returns non-zero" $ 
                                                , tempHeader
                                                ]
                                                ""
-    -- We specifically test for exit code 2 here; it means that the `hs-bindgen`
+    -- We specifically test for exit code 3 here; it means that the `hs-bindgen`
     -- invocation of `libclang` has failed.
-    exitCode @?= ExitFailure 2
+    exitCode @?= ExitFailure 3

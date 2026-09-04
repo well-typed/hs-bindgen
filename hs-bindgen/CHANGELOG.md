@@ -114,6 +114,8 @@
         wrapper translation unit includes every main header.
       * Declarations in the root header (i.e., the `#define`s) are not parsed: a
         root directive is configuration.
+* CLI exit codes are changed so that exit code 2 is used for CLI usage errors.
+  See the invocation section of the manual for details.
 
 ### New features
 
