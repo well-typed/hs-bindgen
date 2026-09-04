@@ -32,6 +32,9 @@ tests = testGroup "Test.HsBindgen.Clang.Macros.UniqueExpansion" [
         , testProperty "example11" example11
         , testProperty "example12" example12
         , testProperty "example13" example13
+          -- Variadic macros
+        , testProperty "example14" example14
+        , testProperty "example15" example15
         ]
     ]
 
@@ -53,7 +56,7 @@ example1 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "A" []
     defs = [
-        Definition "A" [] []
+        Definition "A" [] False []
       ]
 
 -- | Invoked object-like macro has dependencies. Expansion is unique.
@@ -62,8 +65,8 @@ example2 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "B" []
     defs = [
-        Definition "A" [] []
-      , Definition "B" [] [FreeVar "A"]
+        Definition "A" [] False []
+      , Definition "B" [] False [FreeVar "A"]
       ]
 
 -- | Invoked object-like macro has no dependencies. Invoked macro has two definitions.
@@ -73,8 +76,8 @@ example3 = once $ propIsExpansionUnique False defs inv
   where
     inv = Invocation "A" []
     defs = [
-        Definition "A" [] []
-      , Definition "A" [] []
+        Definition "A" [] False []
+      , Definition "A" [] False []
       ]
 
 -- | Invoked macro has dependencies. Dependencies do not have unique expansions.
@@ -84,9 +87,9 @@ example4 = once $ propIsExpansionUnique False defs inv
   where
     inv = Invocation "B" []
     defs = [
-        Definition "A" [] []
-      , Definition "A" [] []
-      , Definition "B" [] [FreeVar "A"]
+        Definition "A" [] False []
+      , Definition "A" [] False []
+      , Definition "B" [] False [FreeVar "A"]
       ]
 
 -- | Invoked function-like macro has no dependencies. Invoked with a argument
@@ -96,10 +99,10 @@ example5 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "F" ["B"]
     defs = [
-        Definition "A" [] []
-      , Definition "A" [] []
-      , Definition "B" [] []
-      , Definition "F" ["C"] [LocalParam "C"]
+        Definition "A" []    False []
+      , Definition "A" []    False []
+      , Definition "B" []    False []
+      , Definition "F" ["C"] False [LocalParam "C"]
       ]
 
 -- | Invoked function-like macro has no dependencies. Invoked with an argument
@@ -109,10 +112,10 @@ example6 = once $ propIsExpansionUnique False defs inv
   where
     inv = Invocation "F" ["A"]
     defs = [
-        Definition "A" [] []
-      , Definition "A" [] []
-      , Definition "B" [] []
-      , Definition "F" ["C"] [LocalParam "C"]
+        Definition "A" []    False []
+      , Definition "A" []    False []
+      , Definition "B" []    False []
+      , Definition "F" ["C"] False [LocalParam "C"]
       ]
 
 --
@@ -127,10 +130,10 @@ example7 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "F" ["B"]
     defs = [
-        Definition "A" [] []
-      , Definition "A" [] []
-      , Definition "B" [] []
-      , Definition "F" ["A"] [LocalParam "A"]
+        Definition "A" []    False []
+      , Definition "A" []    False []
+      , Definition "B" []    False []
+      , Definition "F" ["A"] False [LocalParam "A"]
       ]
 
 -- | Invoked function-like macro has no dependencies. The parameter name matches
@@ -141,10 +144,10 @@ example8 = once $ propIsExpansionUnique False defs inv
   where
     inv = Invocation "F" ["A"]
     defs = [
-        Definition "A" [] []
-      , Definition "A" [] []
-      , Definition "B" [] []
-      , Definition "F" ["A"] [LocalParam "A"]
+        Definition "A" []    False []
+      , Definition "A" []    False []
+      , Definition "B" []    False []
+      , Definition "F" ["A"] False [LocalParam "A"]
       ]
 
 --
@@ -165,7 +168,7 @@ example10 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "B" []
     defs = [
-        Definition "B" [] [FreeVar "A"]
+        Definition "B" [] False [FreeVar "A"]
       ]
 
 -- | Invoked function-like macro is undefined. Expansion is unique.
@@ -174,7 +177,7 @@ example11 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "F" ["A"]
     defs = [
-        Definition "A" [] []
+        Definition "A" [] False []
       ]
 
 -- | Invoked function-like macro has undefined dependencies. Expansion is
@@ -184,8 +187,8 @@ example12 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "F" ["C"]
     defs = [
-        Definition "C" [] []
-      , Definition "F" ["A"] [FreeVar "B"]
+        Definition "C" []    False []
+      , Definition "F" ["A"] False [FreeVar "B"]
       ]
 
 -- | Invoked function-like macro with an undefined argument. Expansion is unique.
@@ -194,5 +197,28 @@ example13 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "F" ["B"]
     defs = [
-        Definition "F" ["A"] [LocalParam "A"]
+        Definition "F" ["A"] False [LocalParam "A"]
+      ]
+
+--
+-- Variadic macros
+--
+
+-- | Invoked function-like macro is variadic. Expansion is unique.
+example14 :: Property
+example14 = once $ propIsExpansionUnique True defs inv
+  where
+    inv = Invocation "F" ["A", "B"]
+    defs = [
+        Definition "F" [] True []
+      ]
+
+-- | Invoked function-like macro is variadic. The variadic function uses
+-- reserved @__VA_ARGS__@ in its body. Expansion is unique.
+example15 :: Property
+example15 = once $ propIsExpansionUnique True defs inv
+  where
+    inv = Invocation "F" ["A", "B"]
+    defs = [
+        Definition "F" [] True  [LocalParam "__VA_ARGS__"]
       ]
