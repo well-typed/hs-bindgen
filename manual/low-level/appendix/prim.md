@@ -122,7 +122,7 @@ This could in principle work:
   <-4bytes->  <-4bytes-> <-4bytes->  <-4bytes-> <-4bytes->  <-4bytes->
 ```
 
-The "virtual offstets" for the `YYYY` elements (where we pretend this is an
+The "virtual offsets" for the `YYYY` elements (where we pretend this is an
 array of YYYY elements only) are shown in quotes underneath the diagram. That
 is, to read the three `YYYY` elements, we'd need virtual indices 1, 3 and 5:
 

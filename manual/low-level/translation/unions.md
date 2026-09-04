@@ -151,7 +151,7 @@ See the [Unions/Nesting][manual:unions/nesting] manual section.
 
 ## Bit-fields
 
-[_Bit-fields_][wikipedia:bit-field] are fields of unions (or stucts) with a
+[_Bit-fields_][wikipedia:bit-field] are fields of unions (or structs) with a
 field width defined in number of bits. See the [Bit-fields section of the
 Structs manual page][manual:structs-bit-fields] for an example of how bit-fields
 are supported for structs. The support for bit-fields in unions is largely the
@@ -165,7 +165,7 @@ there are a few cases where bit-fields in unions may still be useful.
 
 An anonymous struct's bit-fields can be accessed from the top-level union *as
 if* they were bit-fields of the union themselves. In the example below, we
-represent colours in two alternative formats: RGB and CYMK. If the two anonymous
+represent colours in two alternative formats: RGB and CMYK. If the two anonymous
 structs get nice packing behaviour, then the union size should stay within 32
 bits. The bit-fields can also be used from the top-level union.
 
@@ -178,11 +178,11 @@ union colour {
     unsigned B : 10;
   };
 
-  // CYMK (Cyan, Yellow, Magenta, Black)
+  // CMYK (Cyan, Magenta, Yellow, Black)
   struct {
     unsigned C : 8;
-    unsigned Y : 8;
     unsigned M : 8;
+    unsigned Y : 8;
     unsigned K : 8;
   };
 };
