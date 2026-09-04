@@ -7,14 +7,17 @@ module Example
     )
   where
 
+import qualified HsBindgen.Runtime.Macro as Macro
+import qualified HsBindgen.Runtime.Support as BG
+
 {-| __C declaration:__ @macro I@
 
     __defined at:__ @macros\/macro_in_fundecl.h 5:9@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-i :: [String]
-i = ["int"]
+i :: Macro.Raw BG.Text
+i = Macro.objectLike "I" ["int"]
 
 {-| __C declaration:__ @macro C@
 
@@ -22,8 +25,8 @@ i = ["int"]
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-c :: [String]
-c = ["char"]
+c :: Macro.Raw BG.Text
+c = Macro.objectLike "C" ["char"]
 
 {-| __C declaration:__ @macro F@
 
@@ -31,8 +34,8 @@ c = ["char"]
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-f :: [String]
-f = ["float"]
+f :: Macro.Raw BG.Text
+f = Macro.objectLike "F" ["float"]
 
 {-| __C declaration:__ @macro L@
 
@@ -40,8 +43,8 @@ f = ["float"]
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-l :: [String]
-l = ["long"]
+l :: Macro.Raw BG.Text
+l = Macro.objectLike "L" ["long"]
 
 {-| __C declaration:__ @macro S@
 
@@ -49,5 +52,5 @@ l = ["long"]
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-s :: [String]
-s = ["short"]
+s :: Macro.Raw BG.Text
+s = Macro.objectLike "S" ["short"]

@@ -5,84 +5,88 @@
 
     __exported by:__ @macros\/macro_types.h@
 -}
-ptrInt :: [String]
+ptrInt :: Raw Text
 {-| __C declaration:__ @macro PtrInt@
 
     __defined at:__ @macros\/macro_types.h 2:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
-ptrInt = ["int", "*"]
+ptrInt = objectLike "PtrInt" ["int", "*"]
 {-| __C declaration:__ @macro ShortInt@
 
     __defined at:__ @macros\/macro_types.h 3:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
-shortInt :: [String]
+shortInt :: Raw Text
 {-| __C declaration:__ @macro ShortInt@
 
     __defined at:__ @macros\/macro_types.h 3:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
-shortInt = ["short", "int"]
+shortInt = objectLike "ShortInt" ["short", "int"]
 {-| __C declaration:__ @macro SignedShortInt@
 
     __defined at:__ @macros\/macro_types.h 4:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
-signedShortInt :: [String]
+signedShortInt :: Raw Text
 {-| __C declaration:__ @macro SignedShortInt@
 
     __defined at:__ @macros\/macro_types.h 4:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
-signedShortInt = ["signed", "short", "int"]
+signedShortInt = objectLike "SignedShortInt" ["signed",
+                                              "short",
+                                              "int"]
 {-| __C declaration:__ @macro UnsignedShortInt@
 
     __defined at:__ @macros\/macro_types.h 5:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
-unsignedShortInt :: [String]
+unsignedShortInt :: Raw Text
 {-| __C declaration:__ @macro UnsignedShortInt@
 
     __defined at:__ @macros\/macro_types.h 5:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
-unsignedShortInt = ["unsigned", "short", "int"]
+unsignedShortInt = objectLike "UnsignedShortInt" ["unsigned",
+                                                  "short",
+                                                  "int"]
 {-| __C declaration:__ @macro PtrPtrChar@
 
     __defined at:__ @macros\/macro_types.h 8:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
-ptrPtrChar :: [String]
+ptrPtrChar :: Raw Text
 {-| __C declaration:__ @macro PtrPtrChar@
 
     __defined at:__ @macros\/macro_types.h 8:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
-ptrPtrChar = ["char", "*", "*"]
+ptrPtrChar = objectLike "PtrPtrChar" ["char", "*", "*"]
 {-| __C declaration:__ @macro MTy@
 
     __defined at:__ @macros\/macro_types.h 11:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
-mTy :: [String]
+mTy :: Raw Text
 {-| __C declaration:__ @macro MTy@
 
     __defined at:__ @macros\/macro_types.h 11:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
-mTy = ["float"]
+mTy = objectLike "MTy" ["float"]
 {-| __C declaration:__ @tty@
 
     __defined at:__ @macros\/macro_types.h 12:13@
@@ -119,28 +123,28 @@ instance HasCField Tty "unwrapTty"
 
     __exported by:__ @macros\/macro_types.h@
 -}
-uINT8_T :: [String]
+uINT8_T :: Raw Text
 {-| __C declaration:__ @macro UINT8_T@
 
     __defined at:__ @macros\/macro_types.h 14:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
-uINT8_T = ["unsigned", "char"]
+uINT8_T = objectLike "UINT8_T" ["unsigned", "char"]
 {-| __C declaration:__ @macro BOOLEAN_T@
 
     __defined at:__ @macros\/macro_types.h 15:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
-bOOLEAN_T :: [String]
+bOOLEAN_T :: Raw Text
 {-| __C declaration:__ @macro BOOLEAN_T@
 
     __defined at:__ @macros\/macro_types.h 15:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
-bOOLEAN_T = ["UINT8_T"]
+bOOLEAN_T = objectLike "BOOLEAN_T" ["UINT8_T"]
 {-| __C declaration:__ @boolean_T@
 
     __defined at:__ @macros\/macro_types.h 16:19@

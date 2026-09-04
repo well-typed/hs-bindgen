@@ -29,6 +29,7 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Macro as Macro
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
@@ -40,30 +41,23 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/wrong_source_location.h@
 -}
-nestedUnnamed :: [String]
+nestedUnnamed :: Macro.Raw BG.Text
 nestedUnnamed =
-  [ "("
-  , "t1"
-  , ","
-  , "n1"
-  , ","
-  , "t2"
-  , ")"
-  , "typedef"
-  , "t1"
-  , "{"
-  , "t2"
-  , "{"
-  , "int"
-  , "fieldX"
-  , ";"
-  , "}"
-  , "fieldY"
-  , ";"
-  , "}"
-  , "n1"
-  , ";"
-  ]
+  Macro.functionLike "NestedUnnamed" ["t1", "n1", "t2"] [ "typedef"
+                                                        , "t1"
+                                                        , "{"
+                                                        , "t2"
+                                                        , "{"
+                                                        , "int"
+                                                        , "fieldX"
+                                                        , ";"
+                                                        , "}"
+                                                        , "fieldY"
+                                                        , ";"
+                                                        , "}"
+                                                        , "n1"
+                                                        , ";"
+                                                        ]
 
 {-| __C declaration:__ @struct \@UU1_fieldY@
 
@@ -349,33 +343,30 @@ instance HasCField.HasCField UU2 "uU2_fieldY" where
 
     __exported by:__ @macros\/wrong_source_location.h@
 -}
-twoUntaggedStructs :: [String]
+twoUntaggedStructs :: Macro.Raw BG.Text
 twoUntaggedStructs =
-  [ "("
-  , "name"
-  , ")"
-  , "struct"
-  , "name"
-  , "{"
-  , "struct"
-  , "{"
-  , "int"
-  , "a"
-  , ";"
-  , "}"
-  , "fieldA"
-  , ";"
-  , "struct"
-  , "{"
-  , "int"
-  , "b"
-  , ";"
-  , "}"
-  , "fieldB"
-  , ";"
-  , "}"
-  , ";"
-  ]
+  Macro.functionLike "TwoUntaggedStructs" ["name"] [ "struct"
+                                                   , "name"
+                                                   , "{"
+                                                   , "struct"
+                                                   , "{"
+                                                   , "int"
+                                                   , "a"
+                                                   , ";"
+                                                   , "}"
+                                                   , "fieldA"
+                                                   , ";"
+                                                   , "struct"
+                                                   , "{"
+                                                   , "int"
+                                                   , "b"
+                                                   , ";"
+                                                   , "}"
+                                                   , "fieldB"
+                                                   , ";"
+                                                   , "}"
+                                                   , ";"
+                                                   ]
 
 {-| __C declaration:__ @struct \@VV1_fieldA@
 

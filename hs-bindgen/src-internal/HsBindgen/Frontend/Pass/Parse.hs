@@ -11,7 +11,6 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
-import HsBindgen.Clang.Macros (MacroDefinition)
 import HsBindgen.Frontend.Pass.Parse.Decl
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl qualified as ParseDecl
@@ -21,6 +20,7 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Syntax (MacroDefinition)
 
 {-------------------------------------------------------------------------------
   Construction

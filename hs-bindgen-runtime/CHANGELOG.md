@@ -30,11 +30,16 @@
 * Add `withFunPtrAs` to `HsBindgen.Runtime.Support.FunPtr`. `withFunPtrAs` is
   useful for callbacks whose own type has no `ToFunPtr` instance. Calls
   `withFunPtr` provided the callback is `Coercible`.
+* Add a new `HsBindgen.Runtime.Macro` module providing `Raw`, the type of macros
+  that are kept as their token spelling only, rather than typechecked. See
+  [issue #2242][is-2242].
 
 ### Minor changes
 
 * Deprecate `zeroUnionValue` in favour of the `zero` function from the new
   `IsUnion` class. See [issue #2060][is-2060] and [PR #2091][pr-2091].
+* `HsBindgen.Runtime.Support` re-exports `Data.Text.Text`, which generated
+  bindings need for raw macros. See [issue #2242][is-2242].
 
 ### Bug fixes
 
@@ -47,6 +52,7 @@
 [is-2085]: https://github.com/well-typed/hs-bindgen/issues/2085
 [is-2121]: https://github.com/well-typed/hs-bindgen/issues/2121
 [is-2183]: https://github.com/well-typed/hs-bindgen/issues/2183
+[is-2242]: https://github.com/well-typed/hs-bindgen/issues/2242
 [pr-2091]: https://github.com/well-typed/hs-bindgen/pull/2091
 [pr-2164]: https://github.com/well-typed/hs-bindgen/pull/2164
 [pr-2168]: https://github.com/well-typed/hs-bindgen/pull/2168

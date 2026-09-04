@@ -1,9 +1,8 @@
 -- |
 --
 -- Intended for unqualified import.
-module HsBindgen.Clang.Macros.UniqueExpansion.Types (
-    Definition (..)
-  , Var (..)
+module HsBindgen.Macro.UniqueExpansion.Types (
+    Definition
   , Invocation (..)
   , Name (..)
   ) where
@@ -11,17 +10,14 @@ module HsBindgen.Clang.Macros.UniqueExpansion.Types (
 import Data.String (IsString)
 import Data.Text (Text)
 
-data Definition = Definition {
-      name   :: Name
-    , params :: [Name]
-    , body   :: [Var]
-    }
-  deriving stock (Show, Eq)
+import HsBindgen.Runtime.Macro qualified as RawMacro
 
-data Var =
-    LocalParam Name
-  | FreeVar Name
-  deriving stock (Show, Eq)
+-- | A macro definition, reduced to the names it mentions
+--
+-- The body is the list of identifiers occurring in it; the ambiguity analysis
+-- is not interested in anything else. Whether a name in the body refers to
+-- another macro or to a parameter of this one follows from 'RawMacro.params'.
+type Definition = RawMacro.Raw Name
 
 data Invocation = Invocation {
       name   :: Name

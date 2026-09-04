@@ -19,6 +19,7 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Macro as Macro
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
@@ -30,8 +31,8 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/macro_typedef_struct.h@
 -}
-mY_TYPE :: [String]
-mY_TYPE = ["int"]
+mY_TYPE :: Macro.Raw BG.Text
+mY_TYPE = Macro.objectLike "MY_TYPE" ["int"]
 
 {-| __C declaration:__ @struct bar@
 

@@ -35,6 +35,7 @@ import HsBindgen.Runtime.HasCBitfield qualified as HasCBitfield
 import HsBindgen.Runtime.HasCField qualified as HasCField
 import HsBindgen.Runtime.IncompleteArray qualified as IA
 import HsBindgen.Runtime.IsArray qualified as IsA
+import HsBindgen.Runtime.Macro qualified as RawMacro
 import HsBindgen.Runtime.Marshal qualified as Marshal
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 import HsBindgen.Runtime.Struct qualified as Struct
@@ -65,6 +66,7 @@ data RuntimeModule =
   | Union
   | Struct
   | CAPI
+  | Macro
 
     -- Re-export-only modules: their path cannot be derived via Template Haskell
     -- (see the module top-level documentation), so it is spelled out in
@@ -91,6 +93,7 @@ moduleName = \case
     Union           -> derived ''Union.IsUnion
     Struct          -> derived ''Struct.IsStruct
     CAPI            -> derived 'CAPI.addCSource
+    Macro           -> derived ''RawMacro.Raw
     -- Re-export-only modules; no self-defined name to derive from.
     Support         -> "HsBindgen.Runtime.Support"
     CompatHasField  -> "HsBindgen.Runtime.Support.CompatHasField"
@@ -127,6 +130,7 @@ qualifiedImport rm = Hs.QualifiedImport (moduleName rm) (qualifier rm)
         Union           -> Just "Union"
         Struct          -> Just "Struct"
         CAPI            -> Nothing
+        Macro           -> Just "Macro"
         Support         -> Just "BG"
         CompatHasField  -> Just "BG.CompatHasField"
         LibC            -> Nothing
