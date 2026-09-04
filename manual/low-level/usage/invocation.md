@@ -461,6 +461,50 @@ Since the C code is compiled by Cabal, there is no need to update
 A complete working example is available in
 [`examples/bundled-c`][example:bundled-c].
 
+## Warnings and errors
+
+When there are warnings/errors, understanding what is displaying them can help
+with debugging.  Running `cabal build` with the `-j1` option to turn off
+parallel building can make the context easier to understand when `hs-bindgen`
+is used to generate code in more than one module.
+
+`hs-bindgen` traces are easy to distinguish because they are formatted like
+the following, with the log level, source, and trace ID displayed in brackets.
+
+```
+[Warning] [HsBindgen] [select-parse] 'struct foo' at "./ex.h 1:9":
+  Could not select declaration:
+    Unsupported long double
+```
+
+`hs-bindgen` uses `libclang` to parse headers.  All `libclang` warnings/errors
+are output in the context of an `hs-bindgen` trace.
+
+```
+[Error  ] [Libclang ] [clang] ./ex.h:2:3: error: unknown type name 'intt'
+Call to 'libclang' returned an error
+```
+
+The generated Haskell source code generally contains C source code, which
+includes the specified headers.  When Cabal invokes GHC to compile the
+generated code, GHC invokes a C compiler to compile any C source code.  That C
+compiler may also output warnings/errors, which are output in the context of a
+GHC error.  An easy way to distinguish warnings/errors output by the GHC C
+compiler is that the source line is displayed twice: once by the C compiler and
+again by GHC.
+
+```
+In file included from /tmp/ghc2319546_0/ghc_1.c:1:0: error:
+
+/path/to/ex.h:1:20: error:
+     warning: ‘foo’ used but never defined
+        1 | static inline void foo(void);
+          |                    ^~~
+  |
+1 | static inline void foo(void);
+  |                    ^
+```
+
 
 
 <!-- sources and references -->
