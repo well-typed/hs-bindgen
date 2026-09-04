@@ -33,6 +33,8 @@ ctypes:
 hstypes:
 - hsname: Color
   representation: emptydata
+  instances:
+  - StaticSize
 - hsname: Counter
   representation: emptydata
 - hsname: MacroPtr
@@ -41,11 +43,21 @@ hstypes:
   representation: emptydata
 - hsname: Point2d
   representation: emptydata
+  instances:
+  - StaticSize
 - hsname: TdChain
   representation: emptydata
+  instances:
+  - StaticSize
 - hsname: TdStruct
   representation: emptydata
+  instances:
+  - StaticSize
 - hsname: TdUnion
   representation: emptydata
+  instances:
+  - StaticSize
 - hsname: Value
   representation: emptydata
+  instances:
+  - StaticSize

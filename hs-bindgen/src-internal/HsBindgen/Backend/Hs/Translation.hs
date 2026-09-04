@@ -246,19 +246,25 @@ opaqueDecs info spec mSize = do
 
     mkDecl :: HsM.Env -> Hs.Decl l
     mkDecl env = Hs.DeclEmpty Hs.EmptyData {
-          name   = name
-        , comment = mkHaddocks env.haddockConfig info
-        , origin = Origin.Decl{
+          name      = name
+        , origin    = Origin.Decl{
               info = info
             , kind = Origin.Opaque info.id.cName.name.kind
             , spec = spec
             }
+        , instances = insts
+        , comment   = mkHaddocks env.haddockConfig info
         }
 
-    -- We generate a 'StaticSize' instance when the (otherwise opaque) C type
-    -- has a known size and alignment, that is, when a /complete/ C type was
-    -- given the @emptydata@ representation.  Its methods use proxies, so the
-    -- field-less data type can have the instance.
+    -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1528>
+    -- Do not generate a 'StaticSize' instance if it is omitted in a
+    -- prescriptive binding specification.
+
+    -- We generate a 'StaticSize' instance for C types with known size and
+    -- alignment that are made /opaque/ in Haskell bindings by prescribing an
+    -- @emptydata@ representation.  This makes it possible to allocate memory
+    -- for such a type, necessary to support APIs that require users to manage
+    -- the memory.
     (insts, staticSizeDecls)
       | Just (C.OpaqueSize sz al) <- mSize =
           ( Set.singleton Inst.StaticSize
