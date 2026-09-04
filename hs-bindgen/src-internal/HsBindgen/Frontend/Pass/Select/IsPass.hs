@@ -28,6 +28,7 @@ import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseM
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg (DelayedReparseMacroExpansionsMsg)
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (DelayedTranslateTypesMsg)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
@@ -183,6 +184,8 @@ data SelectMsg =
   | SelectDelayedPrepareReparseMsg DelayedPrepareReparseMsg
     -- | Delayed @ReparseMacroExpansions@ message
   | SelectDelayedReparseMacroExpansionsMsg DelayedReparseMacroExpansionsMsg
+    -- | Delayed @TranslateTypes@ message
+  | SelectDelayedTranslateTypesMsg DelayedTranslateTypesMsg
     -- | Inform the user that no declarations matched the selection predicate.
   | SelectNoDeclarationsMatched
     -- | Summary of the number of selected macros that hs-bindgen failed to
@@ -231,6 +234,8 @@ instance PrettyForTrace SelectMsg where
         during x $ prettyForTrace x
       SelectDelayedReparseMacroExpansionsMsg x ->
         during x $ prettyForTrace x
+      SelectDelayedTranslateTypesMsg x ->
+        during x $ prettyForTrace x
       SelectNoDeclarationsMatched ->
         "No declarations matched the selection predicate"
       SelectMacrosDropped n ->
@@ -278,6 +283,7 @@ instance IsTrace Level SelectMsg where
     SelectMangleNamesSquashed{}              -> Notice
     SelectDelayedPrepareReparseMsg x         -> getDefaultLogLevel x
     SelectDelayedReparseMacroExpansionsMsg x -> getDefaultLogLevel x
+    SelectDelayedTranslateTypesMsg x         -> getDefaultLogLevel x
     SelectNoDeclarationsMatched              -> Warning
     SelectMacrosDropped{}                    -> Notice
     SelectSourceNotInIncludeGraph{}          -> Bug
@@ -298,6 +304,7 @@ instance IsTrace Level SelectMsg where
     SelectMangleNamesSquashed{}              -> "select-mangle-names-squashed"
     SelectDelayedPrepareReparseMsg x         -> "select-" <> getTraceId x
     SelectDelayedReparseMacroExpansionsMsg x -> "select-" <> getTraceId x
+    SelectDelayedTranslateTypesMsg x         -> "select-" <> getTraceId x
     SelectNoDeclarationsMatched              -> "select"
     SelectMacrosDropped{}                    -> "select-dropped-macros"
     SelectSourceNotInIncludeGraph{}          -> "select-source-not-in-include-graph"

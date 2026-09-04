@@ -8,6 +8,8 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , pattern MatchImmediate
   , pattern MatchDelayed
   , pattern MatchDelayedImplicitField
+    -- * Doxygen
+  , pattern MatchDoxygen
     -- * PrepareReparse
   , pattern MatchImmediatePrepareReparse
   , pattern MatchDelayedPrepareReparse
@@ -17,6 +19,11 @@ module Test.Common.HsBindgen.Trace.Patterns (
     -- * ResolveBindingSpecs
   , pattern MatchBindingSpec
   , pattern MatchResolveBindingSpecs
+    -- * MangleNames
+  , pattern MatchMangle
+    -- * TranslateTypes
+  , pattern MatchImmediateTranslateTypes
+  , pattern MatchDelayedTranslateTypes
     -- * Select
   , pattern MatchNoDeclarations
   , pattern MatchMacrosDropped
@@ -25,10 +32,6 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , pattern MatchTransMissing
   , pattern MatchTransNotSelected
   , pattern MatchTransUnusable
-    -- * MangleNames
-  , pattern MatchMangle
-    -- * Doxygen
-  , pattern MatchDoxygen
   ) where
 
 import Data.Text qualified as Text
@@ -41,6 +44,8 @@ import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseM
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg (DelayedReparseMacroExpansionsMsg)
 import HsBindgen.Frontend.Pass.Select.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (DelayedTranslateTypesMsg,
+                                                          TranslateTypesMsg)
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass.Msg (PassMsg (Msg))
@@ -99,6 +104,13 @@ pattern MatchDelayedImplicitField ::
 pattern MatchDelayedImplicitField name x <- MatchDelayed name (ParseImplicitFieldFailed x)
 
 {-------------------------------------------------------------------------------
+  Doxygen
+-------------------------------------------------------------------------------}
+
+pattern MatchDoxygen :: DoxygenMsg -> TraceMsg
+pattern MatchDoxygen x <- TraceFrontend (FrontendDoxygen x)
+
+{-------------------------------------------------------------------------------
   PrepareReparse
 -------------------------------------------------------------------------------}
 
@@ -153,6 +165,28 @@ pattern MatchResolveBindingSpecs x <- TraceFrontend (
     )
 
 {-------------------------------------------------------------------------------
+  MangleNames
+-------------------------------------------------------------------------------}
+
+pattern MatchMangle :: C.DeclName -> MangleNamesMsg -> TraceMsg
+pattern MatchMangle name x <- TraceFrontend (
+      FrontendMangleNames C.WithLocationInfo{
+           loc = C.locationInfoName -> Just name
+         , msg = x
+        }
+    )
+
+{-------------------------------------------------------------------------------
+  TranslateTypes
+-------------------------------------------------------------------------------}
+
+pattern MatchImmediateTranslateTypes :: TranslateTypesMsg -> TraceMsg
+pattern MatchImmediateTranslateTypes x <- TraceFrontend (FrontendTranslateTypes x)
+
+pattern MatchDelayedTranslateTypes :: C.DeclName -> DelayedTranslateTypesMsg -> TraceMsg
+pattern MatchDelayedTranslateTypes name x <- MatchSelect name (SelectDelayedTranslateTypesMsg x)
+
+{-------------------------------------------------------------------------------
   Select
 -------------------------------------------------------------------------------}
 
@@ -192,25 +226,6 @@ pattern MatchTransNotSelected <- TransitiveDependencyNotSelected _ _
 -- | A single transitive dependency of a declaration is unusable
 pattern MatchTransUnusable :: UnusableEntry -> TransitiveDependencyMissing
 pattern MatchTransUnusable x <- TransitiveDependencyUnusable _ x
-
-{-------------------------------------------------------------------------------
-  MangleNames
--------------------------------------------------------------------------------}
-
-pattern MatchMangle :: C.DeclName -> MangleNamesMsg -> TraceMsg
-pattern MatchMangle name x <- TraceFrontend (
-      FrontendMangleNames C.WithLocationInfo{
-           loc = C.locationInfoName -> Just name
-         , msg = x
-        }
-    )
-
-{-------------------------------------------------------------------------------
-  Doxygen
--------------------------------------------------------------------------------}
-
-pattern MatchDoxygen :: DoxygenMsg -> TraceMsg
-pattern MatchDoxygen x <- TraceFrontend (FrontendDoxygen x)
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

@@ -425,12 +425,15 @@ mkSuccessMessages declId success = concat [
         delayedPrepareReparseMsgs
     , fmap (mkAnnMsg . SelectDelayedReparseMacroExpansionsMsg)
         delayedReparseMacroExpansionsMsgs
+    , fmap (mkAnnMsg . SelectDelayedTranslateTypesMsg)
+        delayedTranslateTypesMsgs
     ]
   where
     DeclIndex.Success _
       delayedParseMsgs
       delayedPrepareReparseMsgs
-      delayedReparseMacroExpansionsMsgs = success
+      delayedReparseMacroExpansionsMsgs
+      delayedTranslateTypesMsgs = success
 
     mkAnnMsg :: HasCallStack => SelectMsg -> AnnMsg Select
     mkAnnMsg msg = withCallStack C.WithLocationInfo{
