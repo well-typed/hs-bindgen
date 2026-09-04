@@ -768,15 +768,28 @@ not specified.  It is required when the Haskell type is specified in `hstypes`,
 however.  In particular, any binding specification used as an external binding
 specification must specify `hsname`s.
 
-More than one C type can be mapped to the same Haskell type.  Declaration
-`typedef struct pt { int x, y; } point;` introduces two C types, which are
-mapped to two Haskell types by default: a record type named `Pt` corresponding
-to the `struct` and a `newtype` named `Point` corresponding to the `typedef`.
-By mapping both of the C types to the same Haskell type, a single Haskell type
-is used for both C types.
-
 In this example, C type `struct vector`, provided by header `vector.h`, is
 mapped to Haskell type `Vector`.
+
+More than one C type can be mapped to the same Haskell type.  Declaration
+`typedef struct pt { int x, y; } point;` introduces two C types: `struct pt` and
+`point`.  If `struct pt` is not used elsewhere, then `hs-bindgen` "squashes" the
+`typedef`, mapping both C types to a single Haskell record type named `Point`.
+Note that the `typedef` name is used to determine the Haskell type name.  If
+`struct pt` is used elsewhere, then `hs-bindgen` maps `struct pt` to a Haskell
+record type named `Pt` and maps `point` to a Haskell `newtype` named `Point`.
+To only generate a single Haskell type in this case, use a prescriptive binding
+specification that explicitly maps both C types to the same Haskell type.
+
+```yaml
+ctypes:
+  - headers: point.h
+    cname: struct pt
+    hsname: Point
+  - headers: point.h
+    cname: point
+    hsname: Point
+```
 
 To omit a type, specify the `headers` and `cname` of the type in an `omit`
 object.  With the following, bindings for C type `struct foo`, provided by

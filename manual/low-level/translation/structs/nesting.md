@@ -217,8 +217,8 @@ instance HasField "ShapeE_height" RoomE CFloat
 instance HasField "ShapeE_width" RoomE CFloat
 ```
 
-Indirect fields are not repesented in the Haskell datatype that is generated for
-a struct, as opposed to other direct fields. Beyond that, users can treat
+Indirect fields are not represented in the Haskell datatype that is generated
+for a struct, as opposed to other direct fields. Beyond that, users can treat
 indirect fields as any other field, including in the context of: the [pointer
 manipulation API][manual:pointer-manipulation-api], and [record dot
 syntax][manual:record-dot-syntax].

@@ -19,13 +19,13 @@ bindings.
 ### Basic usage
 
 ```bash
-cabal run hs-bindgen-cli -- preprocess [OPTIONS] HEADER_FILE
+hs-bindgen-cli preprocess [OPTIONS] HEADER_FILE ...
 ```
 
 On Windows:
 
 ```powershell
-cabal run hs-bindgen-cli.exe -- preprocess [OPTIONS] HEADER_FILE
+hs-bindgen-cli.exe preprocess [OPTIONS] HEADER_FILE ...
 ```
 
 ### Options
@@ -91,7 +91,7 @@ details.
 The following example is adapted from `examples/libpcap/generate.sh`:
 
 ```bash
-cabal run hs-bindgen-cli -- preprocess \
+hs-bindgen-cli preprocess \
     -I "./libpcap" \
     --unique-id org.hs-bindgen.libpcap \
     --hs-output-dir hs-project/src \
@@ -124,7 +124,7 @@ Besides `preprocess`, `hs-bindgen-cli` provides:
 - `binding-spec` - Manage binding specifications
 - `info` - Query information (libclang, headers, etc.)
 
-Run `cabal run hs-bindgen-cli -- --help` for details.
+Run `hs-bindgen-cli --help` for details.
 
 ### Exit codes
 
@@ -166,7 +166,7 @@ automatically during `cabal build`.  Instead of literate Haskell markup, the
 Haskell list.
 
 A minimal demonstration of the literate preprocessor mechanism (independent of
-hs-bindgen) is available [here][example:literate-example].
+`hs-bindgen`) is available [here][example:literate-example].
 
 ### Configuration
 
@@ -215,14 +215,30 @@ generating Haskell code.
 
 When `cabal build` is invoked:
 
- 1. Cabal detects the `.lhs` file
-2. Cabal invokes `hs-bindgen-cli tool-support literate src/MyBindings.lhs
-   src/MyBindings.hs -I ./c-lib --module=MyBindings --unique-id org.example.mybindings --gnu --enable-program-slicing mylib.h`
-3. The preprocessor reads the configuration from the file
-4. The preprocessor generates bindings, equivalent to `hs-bindgen-cli
-   preprocess`
-5. The preprocessor writes the generated code to `src/MyBindings.hs`
-6. GHC compiles the resulting `.hs` file
+1. Cabal detects the `.lhs` file
+
+2. Cabal invokes the following command:
+
+    ```
+    hs-bindgen-cli tool-support literate src/MyBindings.lhs
+    ```
+
+3. `hs-bindgen-cli` reads the configuration in `src/MyBindings.lhs` and
+  generates bindings like the following command:
+
+    ```
+    hs-bindgen-cli preprocess \
+      -I ./c-lib \
+      --module=MyBindings \
+      --unique-id org.example.mybindings \
+      --gnu \
+      --enable-program-slicing \
+      mylib.h
+    ```
+
+4. Cabal writes the generated code to a file under `dist-newstyle`.
+
+5. Cabal invokes GHC to compile that file.
 
 ### Example
 
@@ -375,8 +391,8 @@ stages][manual:c-stages].
 **"Not in scope" errors:** Verify that `{-# LANGUAGE TemplateHaskell #-}` is
 enabled, `HsBindgen.TH` is imported, and `hs-bindgen` is in `build-depends`.
 
-**"Could not find header" errors:** Check include directories in `#clang %
-#extraIncludeDirs`.  Try absolute paths if relative paths fail.
+**"Could not find header" errors:** Check include directories in
+`#clang % #extraIncludeDirs`.  Try absolute paths if relative paths fail.
 
 **Long compilation times:** Reduce selected declarations via predicates, or
 use command-line or preprocessor invocation instead.  Use higher verbosity
@@ -444,6 +460,50 @@ Since the C code is compiled by Cabal, there is no need to update
 
 A complete working example is available in
 [`examples/bundled-c`][example:bundled-c].
+
+## Warnings and errors
+
+When there are warnings/errors, understanding what is displaying them can help
+with debugging.  Running `cabal build` with the `-j1` option to turn off
+parallel building can make the context easier to understand when `hs-bindgen`
+is used to generate code in more than one module.
+
+`hs-bindgen` traces are easy to distinguish because they are formatted like
+the following, with the log level, source, and trace ID displayed in brackets.
+
+```
+[Warning] [HsBindgen] [select-parse] 'struct foo' at "./ex.h 1:9":
+  Could not select declaration:
+    Unsupported long double
+```
+
+`hs-bindgen` uses `libclang` to parse headers.  All `libclang` warnings/errors
+are output in the context of an `hs-bindgen` trace.
+
+```
+[Error  ] [Libclang ] [clang] ./ex.h:2:3: error: unknown type name 'intt'
+Call to 'libclang' returned an error
+```
+
+The generated Haskell source code generally contains C source code, which
+includes the specified headers.  When Cabal invokes GHC to compile the
+generated code, GHC invokes a C compiler to compile any C source code.  That C
+compiler may also output warnings/errors, which are output in the context of a
+GHC error.  An easy way to distinguish warnings/errors output by the GHC C
+compiler is that the source line is displayed twice: once by the C compiler and
+again by GHC.
+
+```
+In file included from /tmp/ghc2319546_0/ghc_1.c:1:0: error:
+
+/path/to/ex.h:1:20: error:
+     warning: ‘foo’ used but never defined
+        1 | static inline void foo(void);
+          |                    ^~~
+  |
+1 | static inline void foo(void);
+  |                    ^
+```
 
 
 

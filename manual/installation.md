@@ -301,7 +301,7 @@ warnings/errors if there are any inconsistencies, but you can also check for
 inconsistencies on the command line.  Example:
 
 ```bash
-$ cabal run hs-bindgen-cli -- --version
+$ hs-bindgen-cli --version
 hs-bindgen 0.1.0
 binding specification 1.0
 clang compile time version: clang version 21.1.8

@@ -36,7 +36,7 @@ Common target triples:
 Pass the target to `hs-bindgen` using `--clang-option`:
 
 ```console
-cabal run hs-bindgen-cli -- preprocess \
+hs-bindgen-cli preprocess \
   --clang-option="--target=aarch64-linux-gnu" \
   -I include \
   --module Foo \
@@ -47,7 +47,7 @@ cabal run hs-bindgen-cli -- preprocess \
 To verify the target is being used correctly:
 
 ```console
-cabal run hs-bindgen-cli -- info libclang \
+hs-bindgen-cli info libclang \
   --clang-option="--target=aarch64-linux-gnu" \
   --clang-option="-v" \
   2>&1 | grep "^Target:"
