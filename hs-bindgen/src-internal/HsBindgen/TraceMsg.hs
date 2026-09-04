@@ -14,6 +14,7 @@ module HsBindgen.TraceMsg (
   , ImmediateFillUnnamedIdsMsg (..)
   , ImmediateParseMsg(..)
   , DelayedParseMsg(..)
+  , PreprocessLibraryMsg(..)
   , UnsupportedFloatType(..)
   , ResolveBindingSpecsMsg(..)
   , ResolveHeaderMsg(..)
@@ -24,8 +25,10 @@ module HsBindgen.TraceMsg (
   ) where
 
 import Data.List qualified as List
+import Text.SimplePrettyPrint (hsep, string)
 
 import Clang.HighLevel.Types (Diagnostic (..))
+import Clang.Paths
 
 import HsBindgen.BindingSpec (BindingSpecMsg (..))
 import HsBindgen.Boot
@@ -54,11 +57,43 @@ import HsBindgen.Util.Tracer
 -- Does not include backend messages because, unlike 'TraceMsg', backend
 -- messages cannot include 'Error's, or 'Warning's.
 data TraceMsg =
-    TraceBoot          BootMsg
-  | TraceFrontend      FrontendMsg
-  | TraceResolveHeader ResolveHeaderMsg
+    TraceBoot              BootMsg
+  | TraceFrontend          FrontendMsg
+  | TracePreprocessLibrary PreprocessLibraryMsg
+  | TraceResolveHeader     ResolveHeaderMsg
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
+
+{-------------------------------------------------------------------------------
+  Preprocess-library messages
+-------------------------------------------------------------------------------}
+
+data PreprocessLibraryMsg =
+    PreprocessLibraryWideRoot FilePath
+  | PreprocessLibraryProcessing SourcePath String
+  deriving stock (Show)
+
+instance PrettyForTrace PreprocessLibraryMsg where
+  prettyForTrace = \case
+    PreprocessLibraryWideRoot root -> hsep [
+        string "--library-root"
+      , string root
+      , string "is not under any -I directory;"
+      , string "headers outside the include search path will not be found by clang"
+      ]
+    PreprocessLibraryProcessing header modName -> hsep [
+        string "Processing:"
+      , string $ getSourcePath header
+      , string "->"
+      , string modName
+      ]
+
+instance IsTrace Level PreprocessLibraryMsg where
+  getDefaultLogLevel = \case
+    PreprocessLibraryWideRoot{}     -> Warning
+    PreprocessLibraryProcessing{}   -> Notice
+  getSource = const HsBindgen
+  getTraceId = const "preprocess-library"
 
 {-------------------------------------------------------------------------------
   Log level customization

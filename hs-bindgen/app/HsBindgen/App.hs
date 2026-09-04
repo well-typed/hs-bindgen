@@ -14,11 +14,17 @@ module HsBindgen.App (
   , parseConfig
     -- ** Clang arguments
   , parseClangArgsConfig
+    -- ** Binding specifications
+  , parseBindingSpec
     -- ** Translation option
   , parseUniqueId
+    -- ** Field naming
+  , parseFieldNamingStrategy
     -- ** Module option
   , parseBaseModuleName
   , parseQualifiedStyle
+    -- ** Haddock options
+  , parsePathStyle
     -- ** Output options
   , parseHsOutputDir
   , parseDirPolicy
