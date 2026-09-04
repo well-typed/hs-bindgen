@@ -281,7 +281,7 @@ default.
 [t:common-errors-and-solutions]: #common-errors-and-solutions
 
 ### LLVM/Clang version mismatch
-[t:llvm-clang-version-mismatch]: #llvmclang-version-mismatch
+[t:llvmclang-version-mismatch]: #llvmclang-version-mismatch
 
 Three LLVM/Clang versions are relevant:
 
@@ -328,7 +328,7 @@ correctly.  As described in the [Configure `hs-bindgen`][t:configure-hs-bindgen]
 section above, `hs-bindgen` uses the `clang` executable to determine the system
 include directories by default.  Such errors may occur when the `clang`
 executable does not match the `libclang` library.  See
-[LLVM/Clang version mismatch][t:llvm-clang-version-mismatch] above for
+[LLVM/Clang version mismatch][t:llvmclang-version-mismatch] above for
 information about this case.
 
 As a last resort, you may be able to work around such issues using the
@@ -369,7 +369,7 @@ If a different library is missing, see the
 configuring loader library directories.
 
 ### Underlying type mismatches
-[t:underlying type mismatches]: #underlying-type-mismatches
+[t:underlying-type-mismatches]: #underlying-type-mismatches
 
 You might encounter Haskell type errors where, for example, a C `int` is being
 interpreted as a `CUInt` instead of a `CInt`.  This is often due to how
