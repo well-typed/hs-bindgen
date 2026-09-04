@@ -32,6 +32,7 @@ extra-source-files:
 
 extra-doc-files:
   CHANGELOG.md
+  known-issues.md
   README.md
 
 flag dev
