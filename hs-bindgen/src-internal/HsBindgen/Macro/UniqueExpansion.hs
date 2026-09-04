@@ -116,15 +116,24 @@ parseInvocation inv =
 -- A macro invocation has a /unique/ expansion if it can be moved to any
 -- location further down the source file without changing the expansion result.
 --
--- In particular, even /two macros with the same name and definition can be
--- ambiguous/. For example,
+-- Note the scope of this analysis: it decides whether an /invocation/ may be
+-- pre-expanded before reparsing. Whether a macro /definition/ results in a
+-- binding is decided elsewhere, by the conflict check in
+-- "HsBindgen.Frontend.Analysis.DeclIndex" and by the @Select@ pass.
+--
+-- In particular, /a macro can be ambiguous even when it is defined only once/.
+-- For example,
 --
 -- @
 -- #define A Foo
 -- #define B A
 -- #define A Bar
--- #define B A
+-- B x;
 -- @
+--
+-- The invocation of @B@ expands to @Bar@; the same invocation placed above line
+-- 3 would expand to @Foo@. @B@ is defined once, but it refers to @A@, which is
+-- defined twice, so @B@ inherits @A@'s ambiguity through the dependents graph.
 --
 -- A macro expansion has a unique expansion iff a macro (transitively)
 -- referenced by an invocation is not captured by a new macro definition. Such
@@ -185,6 +194,13 @@ cachedIsExpansionUnique cache pInv =
 
 -- | Collect the names of all macros that are defined more than once, and all
 -- macros that (transitively) depend on macros that are defined more than once.
+--
+-- We seed on the /number/ of definitions, without comparing their bodies. That
+-- is a deliberate over-approximation: @\#define B 5@ twice is reported as
+-- ambiguous, although the expansion is stable. Comparing bodies would be more
+-- precise, but it is not obviously the cheaper or the safer choice — two
+-- token-identical definitions can still expand differently, since the tokens in
+-- a replacement list are resolved at the invocation site.
 --
 ambiguityAnalysis :: [ParseResult Definition] -> Set Name
 ambiguityAnalysis defs =
