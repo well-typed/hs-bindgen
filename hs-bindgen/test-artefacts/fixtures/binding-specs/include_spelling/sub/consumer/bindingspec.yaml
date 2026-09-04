@@ -1,0 +1,21 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: binding-specs/include_spelling/sub/consumer.h
+  cname: widget_legacy_t
+  hsname: Widget_legacy_t
+hstypes:
+- hsname: Widget_legacy_t
+  representation:
+    newtype:
+      constructor: Widget_legacy_t
+      fields:
+      - unwrapWidget_legacy_t
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr

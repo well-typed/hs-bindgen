@@ -107,8 +107,9 @@ prop_selectHeaderPathMatchesAll path name availability =
 
 prop_selectHeaderPathMatchesNeedle ::
   SourcePath -> C.DeclName -> C.Availability -> Bool
-prop_selectHeaderPathMatchesNeedle (SourcePath pathT) name availability =
-  let path = SourcePath $ pathT <> "NEEDLE" <> pathT
+prop_selectHeaderPathMatchesNeedle srcPath name availability =
+  let pathT = getSourcePathText srcPath
+      path = SourcePath $ pathT <> "NEEDLE" <> pathT
       p = BIf $ SelectHeader (HeaderPathMatches "NEEDLE")
    in matchSelect unused unused path name availability p
 
@@ -179,7 +180,7 @@ instance Arbitrary SourcePath where
 
 instance Function SourcePath where
   function = functionMap
-               (\(SourcePath t) -> Text.unpack t)
+               (Text.unpack . getSourcePathText)
                (SourcePath . Text.pack)
 
 instance CoArbitrary SourcePath where

@@ -1,0 +1,24 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: M
+ctypes:
+- headers: binding-specs/include_spelling/core.h
+  cname: struct widget_t
+  hsname: WidgetT
+- headers: binding-specs/include_spelling/core.h
+  cname: widget_id_t
+  hsname: WidgetIdT
+hstypes:
+- hsname: WidgetT
+  representation:
+    newtype:
+      constructor: WidgetT
+      fields:
+      - unwrapWidgetT
+- hsname: WidgetIdT
+  representation:
+    newtype:
+      constructor: WidgetIdT
+      fields:
+      - unwrapWidgetIdT

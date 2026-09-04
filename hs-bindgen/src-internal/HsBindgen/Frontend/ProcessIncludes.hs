@@ -92,13 +92,14 @@ import HsBindgen.IR.C qualified as C
   portable (although @hs-bindgen@ is in general not intended to produce portable
   code anyway).
 
-  When we see the @#include@ in the root header, @clang@ again only gives us
-  a 'SourcePath' for the file-to-be-included. We ignore this, and instead use
-  its /location/ as an index into the root header.
+  When we see an @#include@ in the root header, we obtain a 'RealPath' for
+  the included file (its canonical on-disk path, via 'getIncludeTo'). To
+  determine which 'C.HashIncludeArg' the directive corresponds to, we use the
+  directive's /location/ as an index into the root header rather than matching
+  on the resolved path.
 
-  (Note that we cannot really build a map from 'SourcePath' to
-  'C.HashIncludeArg': multiple 'C.HashIncludeArg's in the root header could
-  in principle resolve to the /same/ 'SourcePath.')
+  (Multiple 'C.HashIncludeArg's in the root header could in principle resolve
+  to the /same/ path, so a reverse map would be ambiguous.)
 -------------------------------------------------------------------------------}
 
 -- | Function to get the main headers that (transitively) include a source path,
@@ -134,11 +135,18 @@ processIncludes unit = do
 
     let includeGraph :: IncludeGraph
         includeGraph = IncludeGraph.fromList $
-          map (\incDir -> (incDir.from, incDir.include, incDir.to)) includes
+          map (\incDir ->
+            ( incDir.from
+            , incDir.include
+              , realPathToSourcePath incDir.to
+            )
+          ) includes
 
         mainPathPairs :: [(SourcePath, C.HashIncludeArg)]
         mainPathPairs = [
-            (incDir.to, IncludeGraph.getIncludeArg incDir.include)
+            ( realPathToSourcePath incDir.to
+            , IncludeGraph.getIncludeArg incDir.include
+            )
           | incDir <- includes
           , incDir.inRoot
           ]
@@ -194,18 +202,20 @@ toGetMainHeaders f = fmap fst . f
 --
 -- Then
 --
--- * 'from'    will be @/full/path/to/a.h@
--- * 'include' will be @#include "b.h"@ (exact path as in source)
--- * 'to'      will be @/full/path/to/b.h@
--- * 'inRoot'  will be 'True' if the include is in the root header
+-- * 'from'    will be @/full/path/to/a.h@ (a 'SourcePath' type, since the source
+--   of the directive can be the root header, which is an in-memory file)
+-- * 'include' will be @#include "b.h"@ (the path exactly as written in source)
+-- * 'to'      will be @/full/path/to/b.h@ (a 'RealPath' type, the canonical
+--   on-disk path, since @#include@ targets are always real files)
+-- * 'inRoot'  will be 'True' when the directive is in the root header
 --
--- The full 'HsBindgen.Clang.HighLevel.Types.SourcePath's are constructed by @libclang@, and depend on factors
--- such as @-I@ command line arguments, environment variables such as
+-- Both paths depend on how @libclang@ resolves headers, which is affected by
+-- @-I@ command line arguments, environment variables such as
 -- @C_INCLUDE_PATH@, etc.
 data IncDir = IncDir {
       from    :: SourcePath
     , include :: Include
-    , to      :: SourcePath
+    , to      :: RealPath
     , inRoot  :: Bool
     }
 
@@ -213,7 +223,7 @@ processInclude :: CXTranslationUnit -> CXCursor -> IO IncDir
 processInclude unit curr = do
     incDirFromLoc <- HighLevel.clang_getCursorLocation' curr
     incDirTo      <- getIncludeTo curr
-    incDirInclude <- getInclude unit curr incDirTo
+    incDirInclude <- getInclude unit curr (realPathToSourcePath incDirTo)
     incDirInRoot  <-
       clang_Location_isFromMainFile =<< clang_getCursorLocation curr
     return IncDir{
@@ -227,10 +237,9 @@ processInclude unit curr = do
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
-getIncludeTo :: MonadIO m => CXCursor -> m SourcePath
-getIncludeTo curr = do
-    file <- clang_getIncludedFile curr
-    SourcePath <$> clang_getFileName file
+getIncludeTo :: (MonadIO m, HasCallStack) => CXCursor -> m RealPath
+getIncludeTo curr =
+    HighLevel.clang_getRealPath =<< clang_getIncludedFile curr
 
 getInclude :: CXTranslationUnit -> CXCursor -> SourcePath -> IO Include
 getInclude unit curr path = do

@@ -37,7 +37,7 @@ import Clang.LowLevel.Core (CXErrorCode, CXIndex, CXTranslationUnit,
                             CXUnsavedFile,
                             DisplayDiagnostics (DontDisplayDiagnostics),
                             clang_getTranslationUnitCursor)
-import Clang.Paths (SourcePath (SourcePath))
+import Clang.Paths (SourcePath (..))
 
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.LanguageC qualified as LanC
