@@ -215,14 +215,30 @@ generating Haskell code.
 
 When `cabal build` is invoked:
 
- 1. Cabal detects the `.lhs` file
-2. Cabal invokes `hs-bindgen-cli tool-support literate src/MyBindings.lhs
-   src/MyBindings.hs -I ./c-lib --module=MyBindings --unique-id org.example.mybindings --gnu --enable-program-slicing mylib.h`
-3. The preprocessor reads the configuration from the file
-4. The preprocessor generates bindings, equivalent to `hs-bindgen-cli
-   preprocess`
-5. The preprocessor writes the generated code to `src/MyBindings.hs`
-6. GHC compiles the resulting `.hs` file
+1. Cabal detects the `.lhs` file
+
+2. Cabal invokes the following command:
+
+    ```
+    hs-bindgen-cli tool-support literate src/MyBindings.lhs
+    ```
+
+3. `hs-bindgen-cli` reads the configuration in `src/MyBindings.lhs` and
+  generates bindings like the following command:
+
+    ```
+    hs-bindgen-cli preprocess \
+      -I ./c-lib \
+      --module=MyBindings \
+      --unique-id org.example.mybindings \
+      --gnu \
+      --enable-program-slicing \
+      mylib.h
+    ```
+
+4. Cabal writes the generated code to a file under `dist-newstyle`.
+
+5. Cabal invokes GHC to compile that file.
 
 ### Example
 
