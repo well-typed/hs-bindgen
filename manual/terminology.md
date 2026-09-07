@@ -135,16 +135,14 @@ function prototype scope (6.2.1).
 #### Anonymous struct/union
 [t:anonymous-structunion]: #anonymous-structunion
 
-An [unnamed][t:unnamed-field] [field][t:field] whose type is an
-[untagged][t:untagged-structunionenum] struct or union is called an *anonymous
-struct* or *anonymous union* (6.7.3.2). Its [named fields][t:named-field] become
-[indirect fields][t:indirect-field] of the [enclosing
-struct/union][t:enclosing-structunion].
+A [field][t:field] that declares a nested [untagged][t:untagged] struct or union
+can optionally [omit the field name][t:unnamed-field]. In this case, the [nested
+struct/union][t:nested] is called an *anonymous struct/union* (6.7.3.2). See
+also [indirect fields][t:indirect-field].
 
-The C standard applies the adjective to the *field*; we also apply it to the
-[nested][t:nested-structunion] struct or union type that the field declares. The
-two name the same construct. Our name for the field itself is [implicit
-field][t:implicit-field].
+The C standard calls the whole *field* an anonymous struct/union; we only apply
+that terminology to the [nested][t:nested-structunion] struct or union type. The
+terminology for the field itself is [implicit field][t:implicit-field].
 
 <details>
 <summary>Notice</summary>
