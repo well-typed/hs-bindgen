@@ -194,6 +194,54 @@ desirable solution, so we set out to find a new solution. This became the
 ## The `HasFFIType` class
 [t:the-hasffitype-class]: #the-hasffitype-class
 
+`newtype`s are the source of the compositionality problem, so eliminating them
+from `foreign import` declarations fixes the problem. This is the solution that
+`hs-bindgen` implements. Generated `foreign` import declarations only use *FFI
+types*[^5]: a subset of foreign types without `newtype`s. We still generate a
+*public function binding* -- a separate Haskell function -- with more useful
+types such as `newtype`s. The public function bindings converts the function
+arguments to their FFI types before invoking the `foreign import` declaration,
+and the function result is mapped from its FFI type back to its actual type.
+
+We have a class `HasFFIType` in `hs-bindgen-runtime`, which maps any type to its
+FFI type, along with conversions. The class roughly looks like this:
+
+```
+class HasFFIType a where
+  type FFIType a :: Type
+  toFFIType :: a -> FFIType a
+  fromFFIType :: FFIType a -> a
+```
+
+Though fitting in spirit, this is a simplification of the actual class
+definition. In reality, `FFIType a` is only allowed to map to a fixed set of FFI
+types, and we achieve this using some type trickery that we have chosen to omit
+here because it distracts from the general idea. Currently, `HasFFIType`
+instances can only be derived using `newtype`-deriving.
+
+Going back to the `CFoo` example from the previous sub-section ([The
+compatibility problem][t:t:the-compositionality-problem]), its instance may look
+like so:
+
+```hs
+instance HasFFIType CFoo where
+  type FFIType CFoo = Int32
+```
+
+
+
+: now if we want to use
+a `CFoo` in a function binding, we don't care how that type is *implemented*, we
+just care that it has a (correct) `HasFFIType` instance.[^6] While generating a
+`foreign import` declaration, `hs-bindgen` uses the *underlying C type* of
+`CFoo`, which it can deduce using `libclang`. This opens the door for a
+different problem: the underlying C type of `CFoo` might not match `CFoo`'s FFI
+type. `hs-bindgen` (currently) has no way to check if these two types match,
+because it does not have access to the implementation of `HasFFIType` instances.
+
+
+
+
 
 
 
@@ -205,6 +253,9 @@ desirable solution, so we set out to find a new solution. This became the
 [^3]: `ghc` doesn't actually solve `Coercible` constraints to determine whether
     a `newtype` is a valid foreign type, but the process is similar.
 [^4]: TODO we should verify that this is true
+[^5]: The term "FFI type" is specific to `hs-bindgen`
+[^6]: Arguably, something like this is how things should have been done in `ghc`
+    in the first place.
 
 
 <!-- sources and references -->
