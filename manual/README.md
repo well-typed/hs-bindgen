@@ -18,7 +18,7 @@
 * [Includes](low-level/usage/includes.md)
 * [Selecting and program slicing](low-level/usage/selecting-and-program-slicing.md)
 * [Binding specifications](low-level/usage/binding-specifications.md)
-* [Non-portability](low-level/usage/non-portability.md)
+* [Portability](low-level/usage/portability.md)
 * [Test generation](low-level/usage/test-generation.md)
 * [Cross-compilation](low-level/usage/cross-compilation.md)
 
@@ -33,6 +33,7 @@
 * [Functions](low-level/translation/functions.md)
 * [Global variables and constants](low-level/translation/globals.md)
 * [Macros](low-level/translation/macros.md)
+* [FFI types](low-level/translation/ffi-types.md)
 
 ### Appendix
 
