@@ -200,9 +200,8 @@ A *field* is what the C standard calls a *member* of a struct or union
 (6.7.3.2). Fields are declared using variable declarations or
 [bit-field][t:bit-field] declarations.
 
-We say "field" rather than "member" because the Haskell side generates [record
-fields][t:record-field], and because the C standard itself already uses field in
-*bit-field*.
+We say "field" rather than "member" because Clang calls them fields, and because
+the C standard itself already uses field in *bit-field*.
 
 #### Implicit field
 [t:implicit-field]: #implicit-field
