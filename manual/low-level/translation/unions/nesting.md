@@ -14,6 +14,14 @@ what the union-in-struct case looks like, but note that it works the same for
 any nesting of structs and unions, in any order, and even recursively. See also
 the [Structs/Nesting][manual:structs/nesting] manual section.
 
+Nesting does not introduce a [scope][creference:scope] of its own. If the nested
+union has a [tag][manual:terminology-tag], that tag is visible from its
+declaration onwards with the same scope the enclosing union is declared in; for
+declarations at [file scope][manual:terminology-file-scope], this is the rest of
+the [translation unit][manual:terminology-translation-unit]. An
+[untagged][manual:terminology-untagged-structunionenum] nested union cannot be
+referred to elsewhere.
+
 ## Preliminaries
 
 C unions do not carry any information about which alternative of the union is
