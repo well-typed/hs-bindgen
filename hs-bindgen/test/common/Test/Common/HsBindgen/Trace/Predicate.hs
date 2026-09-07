@@ -201,7 +201,9 @@ withTraceConfigPredicate report (TracePredicate customLogLevel predicate) action
         tracerConfig :: TracerConfig l a
         tracerConfig = def {
             customLogLevel = customLogLevel
-          , verbosity      = Verbosity Info
+            -- The verbosity is @Debug@ so that trace predicates can match on
+            -- trace messages of /every/ log level.
+          , verbosity      = Verbosity Debug
           , outputConfig   = OutputConfigCustom OutputCustom{
                 report    = writer
               , ansiColor = DisableAnsiColor

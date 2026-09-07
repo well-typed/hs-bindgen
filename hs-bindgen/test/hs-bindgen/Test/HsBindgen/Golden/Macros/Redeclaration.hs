@@ -206,18 +206,22 @@ multiTracePredicate_custom expected predicate = multiTracePredicate expected pre
     -- below, this predicate marks all reparse-related trace messages as
     -- unexpected so that we can precisely test every message
     defaultPredicate :: TraceMsg -> Maybe (TraceExpectation b)
-    defaultPredicate = \case
-        -- Parse (macro)
-        MatchDelayed _info ParseMacroErrorParse{} ->
-          Just Unexpected
-        -- PrepareReparse
-        MatchImmediatePrepareReparse _ ->
-          Just Unexpected
-        MatchDelayedPrepareReparse _info _ ->
-          Just Unexpected
-        -- ReparseMacroExpansions
-        MatchImmediateReparseMacroExpansions _ ->
-          Just Unexpected
-        MatchDelayedReparseMacroExpansions _info _ ->
-          Just Unexpected
-        _ -> Nothing
+    defaultPredicate x
+      | getDefaultLogLevel x == Debug
+      = Just Tolerated
+      | otherwise
+      = case x of
+          -- Parse (macro)
+          MatchDelayed _info ParseMacroErrorParse{} ->
+            Just Unexpected
+          -- PrepareReparse
+          MatchImmediatePrepareReparse _ ->
+            Just Unexpected
+          MatchDelayedPrepareReparse _info _ ->
+            Just Unexpected
+          -- ReparseMacroExpansions
+          MatchImmediateReparseMacroExpansions _ ->
+            Just Unexpected
+          MatchDelayedReparseMacroExpansions _info _ ->
+            Just Unexpected
+          _ -> Nothing
