@@ -208,7 +208,7 @@ the C standard itself already uses field in *bit-field*.
 
 An *implicit* field is a [direct][t:direct-field], [unnamed][t:unnamed-field]
 field whose type is an [anonymous struct/union][t:anonymous-structunion]. The C
-standard has no separate name for it, since it calls the field itself the
+standard has no separate name for the field, since it calls the field itself the
 anonymous struct or union.
 
 <details>
@@ -222,10 +222,11 @@ anonymous struct or union.
 [t:indirect-field]: #indirect-field
 
 The [named fields][t:named-field] of an [anonymous
-struct/union][t:anonymous-structunion] are fields of the [enclosing
-struct/union][t:enclosing-structunion] as well (6.7.3.2), and can be accessed as
-such. With respect to the enclosing struct/union, such a field is called an
-*indirect field*. It remains a field of the anonymous struct/union too.
+struct/union][t:anonymous-structunion] can be [accessed as if they were
+fields][dr-449] of the [enclosing struct/union][t:enclosing-structunion] as well
+(6.7.3.2). With respect to the enclosing struct/union, such a field is called an
+*indirect field*. It is only a true a field of the anonymous struct/union
+[dr-449]: https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2396.htm#dr_499
 
 This applies recursively: if an anonymous struct/union has indirect fields, then
 the enclosing struct/union has its own indirect fields for those fields as well.
@@ -288,8 +289,9 @@ separate from the namespace of ordinary identifiers, so `struct date` and a
 #### Tagged struct/union/enum
 [t:tagged-structunionenum]: #tagged-structunionenum
 
-A struct or union or enum with a [tag][t:tag] is called *tagged*. The C standard
-says "with a tag"; we use *tagged*.
+A struct or union or enum with a [tag][t:tag] is called *tagged*.
+
+The C standard says "with a tag"; we use *tagged*.
 
 #### Unnamed field
 [t:unnamed-field]: #unnamed-field
@@ -302,8 +304,9 @@ A [field][t:field] without a name is called an *unnamed field*.
 #### Untagged struct/union/enum
 [t:untagged-structunionenum]: #untagged-structunionenum
 
-A struct or union or enum without a [tag][t:tag] is called *untagged*. The C
-standard says "without a tag"; we use *untagged*.
+A struct or union or enum without a [tag][t:tag] is called *untagged*.
+
+The C standard says "without a tag"; we use *untagged*.
 
 ### Declarations and scope
 
