@@ -216,8 +216,13 @@ class HasFFIType a where
 Though fitting in spirit, this is a simplification of the actual class
 definition. In reality, `FFIType a` is only allowed to map to a fixed set of FFI
 types, and we achieve this using some type trickery that we have chosen to omit
-here because it distracts from the general idea. Currently, `HasFFIType`
-instances can only be derived using `newtype`-deriving.
+here because it distracts from the general idea. FFI types closely correspond to
+functions involving `IO`, `()` and [basic foreign
+types][haskell2010:ffi-foreign-types]. Importantly, most types from
+`Foreign.C.Types`, like `CInt`, are *not* considered FFI types because they are
+`newtype`s. Currently, `HasFFIType` instances can also only be derived using
+`newtype`-deriving to prevent mistakes in defining the mappings between types
+and their FFI types.
 
 Going back to the `CFoo` example from the previous sub-section ([The
 compatibility problem][t:t:the-compositionality-problem]), its instance may look
@@ -225,22 +230,31 @@ like so:
 
 ```hs
 instance HasFFIType CFoo where
-  type FFIType CFoo = Int32
+  type FFIType CFoo = FFIType CInt
+  toFFIType = CFoo
+  fromFFIType (CFoo x) = fromFFIType x
 ```
 
+`HasFFIType` instances are composable, meaning that the `HasFFIType` instance
+for `CFoo` can defer to the the `HasFFIType` instance for `CInt`.
 
+Now, if we want to use `CFoo` in a function binding, we don't care how that type
+is *implemented*, we just care that it has a (correct) `HasFFIType`
+instance.[^6] While generating a `foreign import` declaration, `hs-bindgen` uses
+the *underlying C type* of `CFoo`, which it can deduce using `libclang`. This
+opens the door for a different problem: the underlying C type of `CFoo` might
+not match `CFoo`'s FFI type. `hs-bindgen` (currently) has no way to check if
+these two types match, because it does not have access to the implementation of
+`HasFFIType` instances. The onus is on the user to ensure that underlying C type
+of `CFoo` matches the FFI type of `CFoo` by picking the FFI type of `CFoo`
+correctly.
 
-: now if we want to use
-a `CFoo` in a function binding, we don't care how that type is *implemented*, we
-just care that it has a (correct) `HasFFIType` instance.[^6] While generating a
-`foreign import` declaration, `hs-bindgen` uses the *underlying C type* of
-`CFoo`, which it can deduce using `libclang`. This opens the door for a
-different problem: the underlying C type of `CFoo` might not match `CFoo`'s FFI
-type. `hs-bindgen` (currently) has no way to check if these two types match,
-because it does not have access to the implementation of `HasFFIType` instances.
+```hs
+foreign import ccall safe "g" g_wrapper :: Int32 -> IO Int32
 
-
-
+g :: SomeOtherLib.CFoo -> IO CInt
+g = fromFFIType g_wrapper
+```
 
 
 
