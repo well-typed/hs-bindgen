@@ -12,9 +12,19 @@ import Data.String (IsString)
 import Data.Text (Text)
 
 data Definition = Definition {
-      name   :: Name
-    , params :: [Name]
-    , body   :: [Var]
+      name     :: Name
+    , params   :: [Name]
+      -- | A macro definition is variadic if it has @...@ at the end of its
+      -- parameter list
+      --
+      -- Variadic macros are technically a C99 feature, but @libclang@ has
+      -- backported them to C89 as well. We follow @libclang@ behaviour here,
+      -- and support variadic macros regardless of the C standard that is
+      -- configured (because C89 is the first standard).
+      --
+      -- <https://clang.llvm.org/docs/LanguageExtensions.html#language-extensions-back-ported-to-previous-standards>
+    , variadic :: Bool
+    , body     :: [Var]
     }
   deriving stock (Show, Eq)
 
