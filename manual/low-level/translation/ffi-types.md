@@ -38,9 +38,10 @@ that they are compositional at the cost of portability.
   2. Forcing additional module imports is not desirable due to messy dependency
     management.
 
-* In the [`HasFFIType`][t:the-hasffitype-class] sub-section, we explain our actual solution to
-  the compositionality problem, where we only use *FFI types* (a subset of
-  foreign types without `newtype`s) in `foreign import` declarations.
+* In the [`HasFFIType`][t:the-hasffitype-class] sub-section, we explain our
+  actual solution to the compositionality problem, where we only use *FFI types*
+  -- a set of types that is similar to foreign types, but without `newtype`s --
+  in `foreign import` declarations.
 
 <details>
 <summary>Note</summary>
