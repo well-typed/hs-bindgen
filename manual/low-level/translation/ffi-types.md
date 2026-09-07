@@ -197,16 +197,17 @@ desirable solution, so we set out to find a new solution. This became the
 `newtype`s are the source of the compositionality problem, so eliminating them
 from `foreign import` declarations fixes the problem. This is the solution that
 `hs-bindgen` implements. Generated `foreign` import declarations only use *FFI
-types*[^5]: a subset of foreign types without `newtype`s. We still generate a
-*public function binding* -- a separate Haskell function -- with more useful
-types such as `newtype`s. The public function bindings converts the function
-arguments to their FFI types before invoking the `foreign import` declaration,
-and the function result is mapped from its FFI type back to its actual type.
+types*[^5]: a set of types that is similar to foreign types, but without
+`newtype`s. We still generate a *public function binding* -- a separate Haskell
+function -- with more useful types such as `newtype`s. The public function
+bindings converts the function arguments to their FFI types before invoking the
+`foreign import` declaration, and the function result is mapped from its FFI
+type back to its actual type.
 
 We have a class `HasFFIType` in `hs-bindgen-runtime`, which maps any type to its
 FFI type, along with conversions. The class roughly looks like this:
 
-```
+```hs
 class HasFFIType a where
   type FFIType a :: Type
   toFFIType :: a -> FFIType a
@@ -216,7 +217,44 @@ class HasFFIType a where
 Though fitting in spirit, this is a simplification of the actual class
 definition. In reality, `FFIType a` is only allowed to map to a fixed set of FFI
 types, and we achieve this using some type trickery that we have chosen to omit
-here because it distracts from the general idea. FFI types closely correspond to
+here because it distracts from the general idea.
+
+The set of FFI types is defined using this grammar:
+
+```math
+\begin{align*}
+  FFIType & \rightarrow & & FFIType ~ \texttt{->} ~ FFIType \\
+  ~       & |           & & \texttt{()}                     \\
+  ~       & |           & & \texttt{IO ()}                  \\
+  ~       & |           & & BasicFFIType                    \\
+\end{align*}
+```
+
+```math
+\begin{align*}
+  BasicFFIType & \rightarrow & & \texttt{Char}           \\
+  ~            & |           & & \texttt{Int}            \\
+  ~            & |           & & \texttt{Double}         \\
+  ~            & |           & & \texttt{Float}          \\
+  ~            & |           & & \texttt{Bool}           \\
+  ~            & |           & & \texttt{Int8}           \\
+  ~            & |           & & \texttt{Int16}          \\
+  ~            & |           & & \texttt{Int32}          \\
+  ~            & |           & & \texttt{Int64}          \\
+  ~            & |           & & \texttt{Word}           \\
+  ~            & |           & & \texttt{Word8}          \\
+  ~            & |           & & \texttt{Word16}         \\
+  ~            & |           & & \texttt{Word32}         \\
+  ~            & |           & & \texttt{Word64}         \\
+  ~            & |           & & \texttt{Ptr Void}       \\
+  ~            & |           & & \texttt{FunPtr Void}    \\
+  ~            & |           & & \texttt{StablePtr Void} \\
+\end{align*}
+```
+
+FFI types closely
+
+correspond to
 functions involving `IO`, `()` and [basic foreign
 types][haskell2010:ffi-foreign-types]. Importantly, most types from
 `Foreign.C.Types`, like `CInt`, are *not* considered FFI types because they are
