@@ -244,7 +244,7 @@ instance (HasFFIType a, HasFFIType b) => HasFFIType (a -> b) where
 deriving via ViaFFIType FFI.Unit () instance HasFFIType ()
 
 instance HasFFIType a => HasFFIType (IO a) where
-  type ToFFIType (IO ( a)) = FFI.IO (ToFFIType a)
+  type ToFFIType (IO a) = FFI.IO (ToFFIType a)
   {-# INLINE toFFIType #-}
   toFFIType = fmap toFFIType
   {-# INLINE fromFFIType #-}

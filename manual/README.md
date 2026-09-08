@@ -33,6 +33,7 @@
 * [Functions](low-level/translation/functions.md)
 * [Global variables and constants](low-level/translation/globals.md)
 * [Macros](low-level/translation/macros.md)
+* [FFI types](low-level/translation/ffi-types.md)
 
 ### Appendix
 
