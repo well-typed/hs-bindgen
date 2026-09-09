@@ -14,11 +14,11 @@ import System.Exit (ExitCode (..), exitSuccess, exitWith)
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 import HsBindgen.Runtime.Support.FunPtr qualified as FunPtr
 
-import CEF.ApiHash.Safe (cef_api_hash, cef_api_version)
-import CEF.App (C_Cef_settings_t, Cef_main_args_t (..))
-import CEF.App.Safe (cef_execute_process, cef_initialize, cef_shutdown)
-import CEF.CommandLine (Cef_command_line_t (..))
-import CEF.CommandLine.Safe (cef_command_line_create)
+import CEF.Cef_api_hash.Safe (cef_api_hash, cef_api_version)
+import CEF.Cef_app_capi (C_Cef_settings_t, Cef_main_args_t (..))
+import CEF.Cef_app_capi.Safe (cef_execute_process, cef_initialize, cef_shutdown)
+import CEF.Cef_command_line_capi (Cef_command_line_t (..))
+import CEF.Cef_command_line_capi.Safe (cef_command_line_create)
 
 -- | Initialize CEF in headless mode, create a command line object, and exercise
 -- its vtable methods. This validates that the generated bindings work

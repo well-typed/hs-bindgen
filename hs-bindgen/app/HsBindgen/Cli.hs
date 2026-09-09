@@ -19,6 +19,7 @@ import HsBindgen.Cli.GenTests qualified as GenTests
 import HsBindgen.Cli.Info qualified as Info
 import HsBindgen.Cli.Internal qualified as Internal
 import HsBindgen.Cli.Preprocess qualified as Preprocess
+import HsBindgen.Cli.PreprocessLibrary qualified as PreprocessLibrary
 import HsBindgen.Cli.ToolSupport qualified as ToolSupport
 
 {-------------------------------------------------------------------------------
@@ -27,21 +28,23 @@ import HsBindgen.Cli.ToolSupport qualified as ToolSupport
 
 -- Ordered by usage
 data Cmd =
-    CmdPreprocess  Preprocess.Opts
-  | CmdGenTests    GenTests.Opts
-  | CmdBindingSpec BindingSpec.Cmd
-  | CmdInfo        Info.Cmd
-  | CmdInternal    Internal.Cmd
-  | CmdToolSupport ToolSupport.Cmd
+    CmdPreprocess        Preprocess.Opts
+  | CmdPreprocessLibrary PreprocessLibrary.Opts
+  | CmdGenTests          GenTests.Opts
+  | CmdBindingSpec       BindingSpec.Cmd
+  | CmdInfo              Info.Cmd
+  | CmdInternal          Internal.Cmd
+  | CmdToolSupport       ToolSupport.Cmd
 
 parseCmd :: Parser Cmd
 parseCmd = subparser $ mconcat [
-      cmd  "preprocess"   CmdPreprocess  Preprocess.parseOpts Preprocess.info
-    , cmd  "gen-tests"    CmdGenTests    GenTests.parseOpts   GenTests.info
-    , cmd  "binding-spec" CmdBindingSpec BindingSpec.parseCmd BindingSpec.info
-    , cmd  "info"         CmdInfo        Info.parseCmd        Info.info
-    , cmd  "internal"     CmdInternal    Internal.parseCmd    Internal.info
-    , cmd_ "tool-support" CmdToolSupport ToolSupport.parseCmd ToolSupport.info
+      cmd  "preprocess"         CmdPreprocess         Preprocess.parseOpts        Preprocess.info
+    , cmd  "preprocess-library" CmdPreprocessLibrary  PreprocessLibrary.parseOpts PreprocessLibrary.info
+    , cmd  "gen-tests"          CmdGenTests           GenTests.parseOpts          GenTests.info
+    , cmd  "binding-spec"       CmdBindingSpec        BindingSpec.parseCmd        BindingSpec.info
+    , cmd  "info"               CmdInfo               Info.parseCmd               Info.info
+    , cmd  "internal"           CmdInternal           Internal.parseCmd           Internal.info
+    , cmd_ "tool-support"       CmdToolSupport        ToolSupport.parseCmd        ToolSupport.info
     ]
 
 {-------------------------------------------------------------------------------
@@ -50,9 +53,10 @@ parseCmd = subparser $ mconcat [
 
 exec :: GlobalOpts -> Cmd -> IO ()
 exec gopts = \case
-    CmdPreprocess  opts -> Preprocess.exec  gopts opts
-    CmdGenTests    opts -> GenTests.exec    gopts opts
-    CmdBindingSpec cmd' -> BindingSpec.exec gopts cmd'
-    CmdInfo        cmd' -> Info.exec        gopts cmd'
-    CmdInternal    cmd' -> Internal.exec    gopts cmd'
-    CmdToolSupport cmd' -> ToolSupport.exec gopts cmd'
+    CmdPreprocess        opts -> Preprocess.exec        gopts opts
+    CmdPreprocessLibrary opts -> PreprocessLibrary.exec  gopts opts
+    CmdGenTests          opts -> GenTests.exec           gopts opts
+    CmdBindingSpec       cmd' -> BindingSpec.exec        gopts cmd'
+    CmdInfo              cmd' -> Info.exec               gopts cmd'
+    CmdInternal          cmd' -> Internal.exec           gopts cmd'
+    CmdToolSupport       cmd' -> ToolSupport.exec        gopts cmd'

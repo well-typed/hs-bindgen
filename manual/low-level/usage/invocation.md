@@ -120,11 +120,15 @@ Higher verbosity levels show which declarations are selected or deselected, and 
 
 Besides `preprocess`, `hs-bindgen-cli` provides:
 
+- `preprocess-library` - Generate bindings for a multi-header C library in one
+  invocation. See [Library-level invocation][manual:preprocess-library].
 - `gen-tests` - Generate test cases for bindings
 - `binding-spec` - Manage binding specifications
 - `info` - Query information (libclang, headers, etc.)
 
 Run `hs-bindgen-cli --help` for details.
+
+[manual:preprocess-library]: preprocess-library.md
 
 ### Exit codes
 
@@ -209,7 +213,7 @@ arguments:
 This list contains the same arguments you would pass to `hs-bindgen-cli
 preprocess`, in standard Haskell list syntax.
 
-The `.lhs` file can contain arbitrary content—it is simply passed to the
+The `.lhs` file can contain arbitrary content; it is simply passed to the
 preprocessor.  The preprocessor is responsible for parsing the file and
 generating Haskell code.
 
