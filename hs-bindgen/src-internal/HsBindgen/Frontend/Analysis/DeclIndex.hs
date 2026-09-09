@@ -46,6 +46,8 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
     -- * Support for name mangle failures
   , registerSquashedDeclarations
   , registerMangleNamesFailure
+    -- * Support for the @TranslateTypes@ pass
+  , registerDelayedTranslateTypesMsg
   ) where
 
 import Prelude hiding (filter, lookup)
@@ -68,6 +70,7 @@ import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg (DelayedReparseMacroExpansionsMsg)
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (DelayedTranslateTypesMsg)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports hiding (toList)
 import HsBindgen.IR.C qualified as C
@@ -226,6 +229,7 @@ data Success l p = Success {
   , delayedParseMsgs                  :: [DelayedParseMsg]
   , delayedPrepareReparseMsgs         :: [DelayedPrepareReparseMsg]
   , delayedReparseMacroExpansionsMsgs :: [DelayedReparseMacroExpansionsMsg]
+  , delayedTranslateTypesMsgs         :: [DelayedTranslateTypesMsg]
   }
   deriving stock (Generic)
 
@@ -332,6 +336,7 @@ resolvedResultToEntry = \case
         , delayedParseMsgs = success.delayedParseMsgs
         , delayedPrepareReparseMsgs = []
         , delayedReparseMacroExpansionsMsgs = []
+        , delayedTranslateTypesMsgs = []
         }
 
 -- | Resolve macro names in every successful declaration.
@@ -699,3 +704,25 @@ registerMangleNamesFailure xs index = DeclIndex $
   where
     toEntry (loc, err) =
       UnusableEntry $ UnusableReason loc $ UnusableMangleNamesFailure err
+
+{-------------------------------------------------------------------------------
+  Support for @TranslateTypes@ pass
+-------------------------------------------------------------------------------}
+
+-- | Append a delayed @TranslateTypes@ message to an existing
+-- 'UsableSuccess' entry.
+--
+-- Has no effect if the declaration is not a success
+registerDelayedTranslateTypesMsg ::
+     (C.DeclId, DelayedTranslateTypesMsg)
+  -> DeclIndex l
+  -> DeclIndex l
+registerDelayedTranslateTypesMsg (declId, msg) (DeclIndex i) = DeclIndex $
+    Map.adjust addMsg declId i
+  where
+    addMsg :: Entry l -> Entry l
+    addMsg (UsableEntry (UsableSuccess ps)) =
+      UsableEntry $ UsableSuccess ps{
+          delayedTranslateTypesMsgs = ps.delayedTranslateTypesMsgs ++ [msg]
+        }
+    addMsg entry = entry
