@@ -59,7 +59,7 @@ module HsBindgen.Runtime.Support (
   , Proxy(Proxy)
 
     -- * 'HasFFIType'
-  , HasFFIType(fromFFIType, toFFIType)
+  , HasFFIType(FFIType, fromFFIType, toFFIType)
   , castFunPtrFromFFIType
   , castFunPtrToFFIType
 
@@ -150,7 +150,7 @@ import HsBindgen.Runtime.Support.ByteArray (getUnionPayload,
 import HsBindgen.Runtime.Support.CAPI (allocaAndPeek)
 import HsBindgen.Runtime.Support.FunPtr (FromFunPtr (fromFunPtr),
                                          ToFunPtr (toFunPtr))
-import HsBindgen.Runtime.Support.HasFFIType (HasFFIType (fromFFIType, toFFIType),
+import HsBindgen.Runtime.Support.HasFFIType (HasFFIType (FFIType, fromFFIType, toFFIType),
                                              castFunPtrFromFFIType,
                                              castFunPtrToFFIType)
 import HsBindgen.Runtime.Support.SizedByteArray (SizedByteArray (SizedByteArray))

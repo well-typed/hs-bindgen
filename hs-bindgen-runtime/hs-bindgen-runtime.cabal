@@ -90,7 +90,6 @@ library
     HsBindgen.Runtime.Support.ByteArray
     HsBindgen.Runtime.Support.CAPI
     HsBindgen.Runtime.Support.CompatHasField
-    HsBindgen.Runtime.Support.FFIType
     HsBindgen.Runtime.Support.FunPtr
     HsBindgen.Runtime.Support.HasFFIType
     HsBindgen.Runtime.Support.LibC.Auxiliary
