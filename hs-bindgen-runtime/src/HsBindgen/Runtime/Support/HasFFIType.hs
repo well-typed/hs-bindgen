@@ -8,21 +8,14 @@
 
 module HsBindgen.Runtime.Support.HasFFIType (
     -- * Class
-    HasFFIType
-  , FFIType
-  , toFFIType
-  , fromFFIType
+    HasFFIType (FFIType, toFFIType, fromFFIType)
   , castFunPtrToFFIType
   , castFunPtrFromFFIType
-    -- * Deriving-via
-  , ViaNewtype(..)
-  , ViaCoercible(..)
   ) where
 
 import Prelude as Types (Bool, Char, Double, Float, Int, Word)
 import Prelude hiding (Bool, Char, Double, Float, Int, Word)
 
-import Data.Coerce (Coercible, coerce)
 import Data.Int as Types (Int16, Int32, Int64, Int8)
 import Data.Kind (Type)
 import Data.Void (Void)
@@ -44,7 +37,6 @@ import Foreign.StablePtr as Types (StablePtr)
 
 import HsBindgen.Runtime.PtrConst as Types (PtrConst, unsafeFromPtr,
                                             unsafeToPtr)
-import HsBindgen.Runtime.Support.FFIType qualified as FFI
 
 {-------------------------------------------------------------------------------
   Class
@@ -81,11 +73,9 @@ import HsBindgen.Runtime.Support.FFIType qualified as FFI
 -- 'Prelude.()', and all eligible types from the "Foreign" module hierarchy.
 -- However, we can't magically generate instance for user-defined newtypes, nor
 -- do we try to generate instances for all newtypes from the @base@ package or
--- other core packages. Instead, the user should derive such instances either
--- using newtype-deriving or using deriving-via with the t'ViaNewtype'\ or
--- t'ViaCoercible' helper datatypes. Instances can otherwise not be defined by
--- hand. Regardless of the deriving method, the @UndecidableInstances@ language
--- extension should also be enabled.
+-- other core packages. Instead, the user should newtype-derive those instances
+-- or write them by hand. The @UndecidableInstances@ language extension should
+-- probably also be enabled.
 --
 -- === Foreign types
 --
@@ -101,7 +91,7 @@ import HsBindgen.Runtime.Support.FFIType qualified as FFI
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1560008.4.2>
 --
 class HasFFIType a where
-  type ToFFIType a :: FFI.FFIType
+  type FFIType a :: Type
   -- | Convert a foreign type to its FFI type.
   --
   -- See the 'HasFFIType' class for more information
@@ -110,8 +100,6 @@ class HasFFIType a where
   --
   -- See the 'HasFFIType' class for more information
   fromFFIType :: FFIType a -> a
-
-type FFIType a = FromFFIType (ToFFIType a)
 
 -- | Cast the foreign type inside the function pointer to its FFI type.
 castFunPtrToFFIType ::
@@ -137,101 +125,26 @@ castFunPtrFromFFIType = castFunPtr
     -- definition.
     _unused = fromFFIType @a
 
-type FromFFIType :: FFI.FFIType -> Type
-type family FromFFIType ft where
-  -- === Foreign types ===
-  FromFFIType (FFI.FunArrow a b) = FromFFIType a -> FromFFIType b
-
-  -- === Marshallable foreign result types ===
-  FromFFIType FFI.Unit = ()
-  FromFFIType (FFI.IO a) = IO (FromFFIType a)
-
-  -- === Marshallable foreign types ===
-  FromFFIType (FFI.Basic a) = FromBasicFFIType a
-
-type FromBasicFFIType :: FFI.BasicFFIType -> Type
-type family FromBasicFFIType ft where
-  -- Prelude
-  FromBasicFFIType FFI.Char   = Char
-  FromBasicFFIType FFI.Int    = Int
-  FromBasicFFIType FFI.Double = Double
-  FromBasicFFIType FFI.Float  = Float
-  FromBasicFFIType FFI.Bool   = Bool
-  -- Data.Int
-  FromBasicFFIType FFI.Int8  = Int8
-  FromBasicFFIType FFI.Int16 = Int16
-  FromBasicFFIType FFI.Int32 = Int32
-  FromBasicFFIType FFI.Int64 = Int64
-  -- Data.Word
-  FromBasicFFIType FFI.Word   = Word
-  FromBasicFFIType FFI.Word8  = Word8
-  FromBasicFFIType FFI.Word16 = Word16
-  FromBasicFFIType FFI.Word32 = Word32
-  FromBasicFFIType FFI.Word64 = Word64
-  -- Foreign.Ptr
-  FromBasicFFIType FFI.Ptr     = Ptr Void
-  FromBasicFFIType FFI.FunPtr  = FunPtr Void
-  -- Foreign.StablePtr
-  FromBasicFFIType FFI.StablePtr = StablePtr Void
-
 {-------------------------------------------------------------------------------
   Deriving-via
 -------------------------------------------------------------------------------}
 
--- === Via newtype ===
+type ViaIdentity :: Type -> Type
+newtype ViaIdentity a = ViaIdentity a
 
-type ViaNewtype :: Type -> Type
-newtype ViaNewtype a = ViaNewtype a
-
--- | This produces almost the same instance as you would get using @deriving
--- newtype@, but /this/ instance has explicit @INLINE@ pragmas.
-instance HasFFIType a => HasFFIType (ViaNewtype a) where
-  type ToFFIType (ViaNewtype a) = ToFFIType a
+instance HasFFIType (ViaIdentity a) where
+  type FFIType (ViaIdentity a) = a
   {-# INLINE toFFIType #-}
-  toFFIType (ViaNewtype x) = toFFIType x
+  toFFIType (ViaIdentity x) = x
   {-# INLINE fromFFIType #-}
-  fromFFIType x = ViaNewtype (fromFFIType x)
-
-type ViaCoercible :: Type -> Type -> Type
-newtype ViaCoercible a b = ViaCoercible b
-
-instance (Coercible a b, HasFFIType a) => HasFFIType (ViaCoercible a b) where
-  type ToFFIType (ViaCoercible a b) = ToFFIType a
-  {-# INLINE toFFIType #-}
-  toFFIType (ViaCoercible x) = toFFIType (coerce @b @a x)
-  {-# INLINE fromFFIType #-}
-  fromFFIType x = ViaCoercible (coerce @a @b (fromFFIType x))
-
--- === Via an FFI type ===
-
-type ViaFFIType :: k -> Type -> Type
-newtype ViaFFIType k a = ViaFFIType a
-
-instance FromFFIType ft ~ a => HasFFIType (ViaFFIType ft a) where
-  type ToFFIType (ViaFFIType ft a) = ft
-  {-# INLINE toFFIType #-}
-  toFFIType (ViaFFIType x) = x
-  {-# INLINE fromFFIType #-}
-  fromFFIType x = ViaFFIType x
-
--- === Via a basic foreign type ===
-
-type ViaBasicFFIType :: k -> Type -> Type
-newtype ViaBasicFFIType k a = ViaBasicFFIType a
-
-instance FromFFIType (FFI.Basic ft) ~ a => HasFFIType (ViaBasicFFIType ft a) where
-  type ToFFIType (ViaBasicFFIType ft a) = FFI.Basic ft
-  {-# INLINE toFFIType #-}
-  toFFIType (ViaBasicFFIType x) = x
-  {-# INLINE fromFFIType #-}
-  fromFFIType x = ViaBasicFFIType x
+  fromFFIType x = ViaIdentity x
 
 {-------------------------------------------------------------------------------
   Foreign types
 -------------------------------------------------------------------------------}
 
 instance (HasFFIType a, HasFFIType b) => HasFFIType (a -> b) where
-  type ToFFIType (a -> b) = FFI.FunArrow (ToFFIType a) (ToFFIType b)
+  type FFIType (a -> b) = FFIType a -> FFIType b
   {-# INLINE toFFIType #-}
   toFFIType f = \x -> toFFIType (f $ fromFFIType x)
   {-# INLINE fromFFIType #-}
@@ -241,10 +154,10 @@ instance (HasFFIType a, HasFFIType b) => HasFFIType (a -> b) where
   Marshallable foreign result types
 -------------------------------------------------------------------------------}
 
-deriving via ViaFFIType FFI.Unit () instance HasFFIType ()
+deriving via ViaIdentity () instance HasFFIType ()
 
 instance HasFFIType a => HasFFIType (IO a) where
-  type ToFFIType (IO ( a)) = FFI.IO (ToFFIType a)
+  type FFIType (IO a) = IO (FFIType a)
   {-# INLINE toFFIType #-}
   toFFIType = fmap toFFIType
   {-# INLINE fromFFIType #-}
@@ -258,44 +171,44 @@ instance HasFFIType a => HasFFIType (IO a) where
 
 -- == Basic foreign types ==
 
-deriving via ViaBasicFFIType FFI.Char Char instance HasFFIType Char
-deriving via ViaBasicFFIType FFI.Int Int instance HasFFIType Int
-deriving via ViaBasicFFIType FFI.Double Double instance HasFFIType Double
-deriving via ViaBasicFFIType FFI.Float Float instance HasFFIType Float
-deriving via ViaBasicFFIType FFI.Bool Bool instance HasFFIType Bool
+deriving via ViaIdentity Char   instance HasFFIType Char
+deriving via ViaIdentity Int    instance HasFFIType Int
+deriving via ViaIdentity Double instance HasFFIType Double
+deriving via ViaIdentity Float  instance HasFFIType Float
+deriving via ViaIdentity Bool   instance HasFFIType Bool
 
 -- === Data.Int ===
 
 -- == Basic foreign types ==
 
-deriving via ViaBasicFFIType FFI.Int8 Int8 instance HasFFIType Int8
-deriving via ViaBasicFFIType FFI.Int16 Int16 instance HasFFIType Int16
-deriving via ViaBasicFFIType FFI.Int32 Int32 instance HasFFIType Int32
-deriving via ViaBasicFFIType FFI.Int64 Int64 instance HasFFIType Int64
+deriving via ViaIdentity Int8  instance HasFFIType Int8
+deriving via ViaIdentity Int16 instance HasFFIType Int16
+deriving via ViaIdentity Int32 instance HasFFIType Int32
+deriving via ViaIdentity Int64 instance HasFFIType Int64
 
 -- === Data.Word ===
 
 -- == Basic foreign types ==
 
-deriving via ViaBasicFFIType FFI.Word Word instance HasFFIType Word
-deriving via ViaBasicFFIType FFI.Word8 Word8 instance HasFFIType Word8
-deriving via ViaBasicFFIType FFI.Word16 Word16 instance HasFFIType Word16
-deriving via ViaBasicFFIType FFI.Word32 Word32 instance HasFFIType Word32
-deriving via ViaBasicFFIType FFI.Word64 Word64 instance HasFFIType Word64
+deriving via ViaIdentity Word   instance HasFFIType Word
+deriving via ViaIdentity Word8  instance HasFFIType Word8
+deriving via ViaIdentity Word16 instance HasFFIType Word16
+deriving via ViaIdentity Word32 instance HasFFIType Word32
+deriving via ViaIdentity Word64 instance HasFFIType Word64
 
 -- === Foreign.Ptr ===
 
 -- == Basic foreign types ==
 
 instance HasFFIType (Ptr a) where
-  type ToFFIType (Ptr a) = FFI.Basic FFI.Ptr
+  type FFIType (Ptr a) = Ptr Void
   {-# INLINE toFFIType #-}
   toFFIType = castPtr
   {-# INLINE fromFFIType #-}
   fromFFIType = castPtr
 
 instance HasFFIType (FunPtr a) where
-  type ToFFIType (FunPtr a) = FFI.Basic FFI.FunPtr
+  type FFIType (FunPtr a) = FunPtr Void
   {-# INLINE toFFIType #-}
   toFFIType = castFunPtr
   {-# INLINE fromFFIType #-}
@@ -311,7 +224,7 @@ deriving newtype instance HasFFIType WordPtr
 -- == Basic foreign types ==
 
 instance HasFFIType (StablePtr a) where
-  type ToFFIType (StablePtr a) = FFI.Basic FFI.StablePtr
+  type FFIType (StablePtr a) = StablePtr Void
   {-# INLINE toFFIType #-}
   toFFIType = castStablePtr
   {-# INLINE fromFFIType #-}
@@ -326,7 +239,7 @@ castStablePtr = castPtrToStablePtr . castStablePtrToPtr
 -- == Newtypes around basic foreign types ==
 
 instance HasFFIType (PtrConst a) where
-  type ToFFIType (PtrConst a) = FFI.Basic FFI.Ptr
+  type FFIType (PtrConst a) = Ptr Void
   {-# INLINE toFFIType #-}
   toFFIType = castPtr . unsafeToPtr
   {-# INLINE fromFFIType #-}
