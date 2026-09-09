@@ -85,7 +85,7 @@ mkHaddocksDecorateParams config info params =
 
 data Args = Args{
       isField :: Bool
-    , loc     :: C.SingleLoc
+    , loc     :: C.SingleLoc C.RealPath
     , cName   :: Text
     , hsName  :: Hs.SomeName
     , comment :: Maybe (C.Comment Final)
@@ -332,13 +332,13 @@ convertInline = \case
 -- to either have a short or full path name.
 --
 -- See #966.
-updateSingleLoc :: PathStyle -> C.SingleLoc -> C.SingleLoc
+updateSingleLoc :: PathStyle -> C.SingleLoc C.RealPath -> C.SingleLoc C.RealPath
 updateSingleLoc Short C.SingleLoc{..} =
   C.SingleLoc {
-    singleLocPath = C.SourcePath
+    singleLocPath = C.RealPath
                   . Text.pack
                   . takeFileName
-                  . C.getSourcePath
+                  . C.getRealPath
                   $ singleLocPath
   , ..
   }

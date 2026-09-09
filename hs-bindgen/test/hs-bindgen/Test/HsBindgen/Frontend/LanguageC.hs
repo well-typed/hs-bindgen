@@ -20,6 +20,8 @@ import Data.Map.Lazy qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import GHC.Show (appPrec, showSpace)
+import System.IO (hClose)
+import System.IO.Temp (withSystemTempFile)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck (Arbitrary (arbitrary), Property, conjoin,
                               counterexample, elements, ioProperty, once, oneof,
@@ -30,14 +32,15 @@ import Clang.Enum.Bitfield (BitfieldEnum, bitfieldEnum)
 import Clang.Enum.Simple (SimpleEnum)
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types (Diagnostic, MultiLoc (multiLocExpansion),
-                              Range (rangeStart), Token (tokenExtent),
-                              TokenSpelling, diagnosticIsError)
+                              Range (rangeStart), SourcePath,
+                              Token (tokenExtent), TokenSpelling,
+                              diagnosticIsError, fromRange)
 import Clang.LowLevel.Core (CXErrorCode, CXIndex, CXTranslationUnit,
                             CXTranslationUnit_Flags (CXTranslationUnit_DetailedPreprocessingRecord),
                             CXUnsavedFile,
                             DisplayDiagnostics (DontDisplayDiagnostics),
                             clang_getTranslationUnitCursor)
-import Clang.Paths (SourcePath (SourcePath))
+import Clang.Paths (SourcePath (..))
 
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.LanguageC qualified as LanC
@@ -301,7 +304,7 @@ prop_reparseGlobal input expectedOutput =
         LanC.UpdateUnsupported str  -> UpdateUnsupported str
         LanC.UpdateSkipped str      -> UpdateSkipped str
 
-    getLocation :: [Token a] -> MultiLoc
+    getLocation :: [Token SourcePath a] -> MultiLoc SourcePath
     getLocation []    = panicPure "Unexpected empty list of tokens"
     getLocation (t:_) = t.tokenExtent.rangeStart
 
@@ -508,11 +511,12 @@ instance Enumerate NonCanonicalComplexType where
 -- only select declarations, you will have to define a variant of this function
 -- that uses 'HighLevel.clang_visitChildren' to parse and tokenize individual
 -- declarations.
-tokenize :: String -> IO [Token TokenSpelling]
+tokenize :: String -> IO [Token SourcePath TokenSpelling]
 tokenize contents = withClang contents $ \unit -> do
-    root <- clang_getTranslationUnitCursor unit
+    root  <- clang_getTranslationUnitCursor unit
     range <- HighLevel.clang_getCursorExtent root
-    HighLevel.clang_tokenize unit (multiLocExpansion <$> range)
+    rawRange <- fromRange unit (multiLocExpansion <$> range)
+    HighLevel.clang_tokenize unit rawRange
 
 {-------------------------------------------------------------------------------
   Call clang
@@ -546,9 +550,11 @@ withClang' :: forall a.
   -> (CXTranslationUnit -> IO a)
   -> IO (Either ErrorCode a)
 withClang' contents k =
+    withSystemTempFile "test-.h" $ \tmpPath hdl -> do
+    hClose hdl
     HighLevel.withIndex dispDiags $ \index ->
-    HighLevel.withUnsavedFile path contents $ \file  ->
-      withUnit index file
+      HighLevel.withUnsavedFile tmpPath contents $ \file ->
+        withUnit tmpPath index file
   where
     dispDiags :: DisplayDiagnostics
     dispDiags = DontDisplayDiagnostics
@@ -559,14 +565,11 @@ withClang' contents k =
     flags :: BitfieldEnum CXTranslationUnit_Flags
     flags = bitfieldEnum [CXTranslationUnit_DetailedPreprocessingRecord]
 
-    path :: FilePath
-    path = "virtual.h"
-
     onErrorCode :: SimpleEnum CXErrorCode -> IO (Either ErrorCode a)
     onErrorCode err = pure $ Left err
 
-    withUnit :: CXIndex -> CXUnsavedFile -> IO (Either ErrorCode a)
-    withUnit index unsaved =
+    withUnit :: FilePath -> CXIndex -> CXUnsavedFile -> IO (Either ErrorCode a)
+    withUnit path index unsaved =
       HighLevel.withTranslationUnit2
         index
         (Just $ SourcePath $ Text.pack path)

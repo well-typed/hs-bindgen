@@ -1,5 +1,5 @@
--- addDependentFile test-artefacts/headers/golden/program-analysis/circular_includes.h
 -- addDependentFile test-artefacts/headers/golden/program-analysis/circular_includes_inner.h
+-- addDependentFile test-artefacts/headers/golden/program-analysis/circular_includes.h
 {-| __C declaration:__ @OUTER_BEFORE_CIRCULAR_INCLUDE@
 
     __defined at:__ @program-analysis\/circular_includes.h 2:13@

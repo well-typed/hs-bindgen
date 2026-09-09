@@ -22,7 +22,6 @@ import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-import Clang.Paths
 
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
@@ -151,8 +150,7 @@ instance PrettyForTrace ClangMsg where
                 Just header ->
                   "unable to resolve #include <" <> header
                     <> "> (must specify header relative to directory in C include search path)"
-                Nothing     ->
-                  Text.stripStart $ Text.dropWhile (/= ' ') diag.diagnosticFormatted
+                Nothing     -> diag.diagnosticFormatted
         | otherwise -> PP.text diag.diagnosticFormatted
       ClangSetupMsg   x -> prettyForTrace x
       ClangInvokedWithoutOptions ->

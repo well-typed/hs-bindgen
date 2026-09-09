@@ -15,7 +15,6 @@ import Data.Ord qualified as Ord
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
-import Clang.Paths
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
@@ -47,8 +46,8 @@ genBindingSpec ::
   -> IncludeGraph
   -> DeclIndex l
   -> GetMainHeaders
-  -> [(C.DeclId, SourcePath)]
-  -> [(C.DeclId, (SourcePath, Hs.Name Hs.NsTypeConstr))]
+  -> [(C.DeclId, RealPath)]
+  -> [(C.DeclId, (RealPath, Hs.Name Hs.NsTypeConstr))]
   -> [Hs.Decl l]
   -> ByteString
 genBindingSpec
@@ -74,7 +73,8 @@ genBindingSpec
           -- colliding definitions). This is OK, since we only use the location
           -- to sort the binding specifications before generating them.
           let loc = C.declLocsMin locs
-          in  ( IncludeGraph.lookupIncludeOrder order loc.singleLocPath
+              orderIx = IncludeGraph.lookupIncludeOrder order (singleLocPath loc)
+          in  ( orderIx
               , loc.singleLocLine
               , loc.singleLocColumn
               , C.renderDeclId cDeclId
@@ -99,8 +99,8 @@ genBindingSpec
 genBindingSpec' ::
      Hs.ModuleName
   -> GetMainHeaders
-  -> [(C.DeclId, SourcePath)]
-  -> [(C.DeclId, (SourcePath, Hs.Name Hs.NsTypeConstr))]
+  -> [(C.DeclId, RealPath)]
+  -> [(C.DeclId, (RealPath, Hs.Name Hs.NsTypeConstr))]
   -> [Hs.Decl l]
   -> UnresolvedBindingSpec
 genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
@@ -125,7 +125,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
       , hsTypes = Map.empty
       }
 
-    getMainHeaders' :: SourcePath -> Set C.HashIncludeArg
+    getMainHeaders' :: RealPath -> Set C.HashIncludeArg
     getMainHeaders' =
         either
           (\s -> panicPure ("Could not get main headers: " ++ s))

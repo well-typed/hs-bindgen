@@ -262,7 +262,7 @@ runFrontend tracer config boot = do
         -- structured comments.  The paths come from clang's own include
         -- resolution (via processIncludes), so no separate path search
         -- is needed.
-        let resolvedPaths = map getSourcePath mainHeaderPaths
+        let resolvedPaths = map getRealPath mainHeaderPaths
             emptyResult   = Result {
                 doxygen = emptyDoxygen, warnings = [], doxygenVersion = "unknown"
               }

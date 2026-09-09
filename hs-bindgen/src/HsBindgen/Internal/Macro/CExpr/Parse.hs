@@ -13,7 +13,7 @@ import HsBindgen.Macro.Interface qualified as Macro
 
 parseMacro ::
      ClangCStandard
-  -> [Token TokenSpelling]
+  -> [Token SourcePath TokenSpelling]
   -> Either MacroParseError (Macro.Unresolved CExpr)
 parseMacro cStd tokens =
     case CExpr.runParser (CExpr.parseMacro cStd) tokens of

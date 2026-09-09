@@ -82,7 +82,7 @@ clangAstDump opts = do
       src <- maybe (throwIO HeaderNotFound) return . Map.lookup opts.file
           =<< resolveHeaders tracerResolve clangArgs (Set.singleton opts.file)
       let setup :: ClangSetup
-          setup = (defaultClangSetup clangArgs $ ClangInputFile src) {
+          setup = (defaultClangSetup clangArgs $ ClangInputFile (realPathToSourcePath src)) {
                 flags = cOpts
               }
 
@@ -92,9 +92,9 @@ clangAstDump opts = do
           loc <- clang_getPresumedLocation =<< clang_getCursorLocation cursor
           case loc of
             (file, _, _)
-              | opts.sameFile && SourcePath file /= src -> foldContinue
-              | not opts.builtin && isBuiltIn file      -> foldContinue
-              | otherwise                               -> foldDecls opts cursor
+              | opts.sameFile && file /= getRealPathText src -> foldContinue
+              | not opts.builtin && isBuiltIn file             -> foldContinue
+              | otherwise                                      -> foldDecls opts cursor
     case eitherRes of
       Left  e  -> do
         print $ prettyForTrace e

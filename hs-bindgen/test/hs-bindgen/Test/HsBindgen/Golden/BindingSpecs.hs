@@ -22,6 +22,7 @@ testCases :: [TestCase]
 testCases = [
       test_omit_type
       -- * Bugs / regression tests
+    , test_include_spelling
     , test_trans_dep_macro_trans_dep_missing
     , test_trans_dep_typedef_trans_dep_missing
       -- * Naming types
@@ -71,6 +72,17 @@ test_omit_type =
 {-------------------------------------------------------------------------------
   Bugs / regression tests
 -------------------------------------------------------------------------------}
+
+-- | External binding specs match correctly when the same header is reached by
+--   different @#include@ spellings (@core.h@ vs @../core.h@). See #2236.
+test_include_spelling :: TestCase
+test_include_spelling =
+    defaultTest "binding-specs/include_spelling/sub/consumer"
+      & #specExternal .~
+          [ "test-artefacts/headers/golden/binding-specs/include_spelling/sub/consumer.yaml"
+          ]
+      & #onFrontend .~
+          #selectionPredicate .~ BIf (SelectDecl (DeclNameMatches "widget_legacy_t|use_widget"))
 
 -- | External binding specifications for non-selected macro types should not
 --   lead to warnings/errors

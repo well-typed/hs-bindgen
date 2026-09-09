@@ -5,17 +5,18 @@ module HsBindgen.Clang.Macros (
 
 import Data.Text (Text)
 
-import Clang.HighLevel.Types (MultiLoc, Range, Token, TokenSpelling)
+import Clang.HighLevel.Types (MultiLoc, Range, RealPath, SourcePath, Token,
+                              TokenSpelling)
 
 data MacroDefinition = MacroDefinition {
     name     :: Text
-  , locRange :: Range MultiLoc
-  , tokens   :: [Token TokenSpelling]
+  , locRange :: Range (MultiLoc RealPath)
+  , tokens   :: [Token SourcePath TokenSpelling]
   }
 
 data MacroInvocation = MacroInvocation {
     name     :: Text
-  , locRange :: Range MultiLoc
-  , tokens   :: [Token TokenSpelling]
+  , locRange :: Range (MultiLoc RealPath)
+  , tokens   :: [Token SourcePath TokenSpelling]
   }
   deriving stock (Show, Eq, Ord)

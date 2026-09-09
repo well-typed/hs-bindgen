@@ -22,7 +22,8 @@ import Prelude hiding (lookup)
 
 import Text.SimplePrettyPrint qualified as PP
 
-import Clang.HighLevel.Types
+import Clang.HighLevel.Types (MultiLoc (multiLocExpansion),
+                              SingleLoc (singleLocPath))
 import Clang.Paths
 
 import HsBindgen.IR.C qualified as C
@@ -72,8 +73,8 @@ content (RootHeader directives) = C.renderRootDirectives directives
 isRootHeaderPath :: SourcePath -> Bool
 isRootHeaderPath = (== name)
 
--- | Check if the specified location is in the root header
-isInRootHeader :: MultiLoc -> Bool
+-- | Check if the given location is in the root header
+isInRootHeader :: MultiLoc SourcePath -> Bool
 isInRootHeader = isRootHeaderPath . singleLocPath . multiLocExpansion
 
 {-------------------------------------------------------------------------------
