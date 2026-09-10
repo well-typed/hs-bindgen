@@ -15,11 +15,9 @@ module HsBindgen.Macro.Parse (
   , punctuation
   , parens
   , comma
-    -- * Splitting macro definitions
-  , splitMacro
   ) where
 
-import Control.Monad (guard, unless)
+import Control.Monad (guard)
 import Data.Bifunctor (Bifunctor (first))
 import Data.Text (Text)
 import Data.Text qualified as Text
@@ -29,15 +27,12 @@ import Text.Parsec qualified as Parsec
 import Text.Parsec.Pos (newPos)
 
 import Clang.Enum.Simple (fromSimpleEnum)
-import Clang.HighLevel.Types (MultiLoc (multiLocExpansion),
-                              Range (rangeEnd, rangeStart),
+import Clang.HighLevel.Types (MultiLoc (multiLocExpansion), Range (rangeStart),
                               SingleLoc (singleLocColumn, singleLocLine, singleLocPath),
                               Token (tokenExtent, tokenKind, tokenSpelling),
                               TokenSpelling (getTokenSpelling))
 import Clang.LowLevel.Core (CXTokenKind (CXToken_Identifier, CXToken_Keyword, CXToken_Punctuation))
 import Clang.Paths (getSourcePath)
-
-import HsBindgen.Runtime.Macro qualified as RawMacro
 
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Macro.Error (MacroParseError (..))
@@ -165,88 +160,3 @@ removeMultilines = \case
     go prev []        = [prev]
     go '\\' ('\n':cs) = removeMultilines cs
     go prev (c   :cs) = prev : go c cs
-
-{-------------------------------------------------------------------------------
-  Splitting macro definitions
--------------------------------------------------------------------------------}
-
--- | Split a macro definition into its name, parameters and body
---
--- This is the /one/ language-independent macro parser: every macro definition
--- passes through it before any macro language sees it. The body is left
--- unparsed; interpreting it is the macro language's job.
---
--- The tokens are the tokens of the definition /excluding/ the @#define@ itself,
--- as reported by @libclang@ for a @CXCursor_MacroDefinition@ cursor. For
---
--- > #define ADD(x, y) x + y
---
--- the result is @Raw "ADD" (Params ["x", "y"] False) ["x", "+", "y"]@.
-splitMacro ::
-     HasCallStack
-  => [Token TokenSpelling]
-  -> Either MacroParseError (RawMacro.Raw (Token TokenSpelling))
-splitMacro []     = Left MacroParseError {
-      macroParseError       = "macro definition without a name"
-    , macroParseErrorTokens = []
-    }
-splitMacro tokens = runParser (macroDefinition <* Parsec.eof) tokens
-
-macroDefinition :: Parser (RawMacro.Raw (Token TokenSpelling))
-macroDefinition = do
-    name       <- identifierOrKeyword
-    isFunction <- isFunctionLike (tokenExtent name)
-    params     <- if isFunction then formalParams else pure RawMacro.NoParams
-    body       <- Parsec.many Parsec.anyToken
-    pure RawMacro.Raw {
-        RawMacro.name   = name
-      , RawMacro.params = params
-      , RawMacro.body   = body
-      }
-
--- | Is the macro definition function-like?
---
--- A macro definition is function-like if its name is followed immediately by a
--- @(@, without any whitespace in between; see 'lparen'. Otherwise it is
--- object-like.
---
--- @isFunctionLike@ does not consume input.
-isFunctionLike ::
-     -- | Source location of the macro definition's name
-     Range MultiLoc
-  -> Parser Bool
-isFunctionLike nameRange =
-    Parsec.lookAhead $
-      Parsec.option False (True <$ Parsec.try (lparen nameRange))
-
-formalParams :: Parser (RawMacro.Params (Token TokenSpelling))
-formalParams = parens $ do
-    names    <- Parsec.sepEndBy identifier comma
-    variadic <- Parsec.option False (True <$ Parsec.try (punctuation "..."))
-    pure $ RawMacro.Params names variadic
-
--- | Parse a @(@ not immediately preceded by white space
---
--- @lparen@ consumes input when it fails. Combine with @try@ if this is
--- undesirable.
---
--- NOTE: @lparen@ is defined in the C reference.
---
--- We used to not check whitespace, which was the source of a bug. See issue
--- #1903: <https://github.com/well-typed/hs-bindgen/issues/1903>
-lparen :: Range MultiLoc -> Parser ()
-lparen prevRange = do
-    tok <- Parsec.lookAhead Parsec.anyToken
-    punctuation "("
-    unless (adjacentTo prevRange tok) $
-      Parsec.unexpected "whitespace before lparen"
-
--- | Does the token start exactly where the given range ends?
-adjacentTo :: Range MultiLoc -> Token TokenSpelling -> Bool
-adjacentTo prevRange tok =
-       prev.singleLocPath   == current.singleLocPath
-    && prev.singleLocLine   == current.singleLocLine
-    && prev.singleLocColumn == current.singleLocColumn
-  where
-    prev    = prevRange.rangeEnd.multiLocExpansion
-    current = tok.tokenExtent.rangeStart.multiLocExpansion

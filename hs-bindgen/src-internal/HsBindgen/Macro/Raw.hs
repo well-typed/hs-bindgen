@@ -30,7 +30,8 @@ import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Error (MacroParseError)
 import HsBindgen.Macro.Interface qualified as Macro
-import HsBindgen.Macro.Parse (spelling, splitMacro)
+import HsBindgen.Macro.Parse (spelling)
+import HsBindgen.Macro.Syntax (splitMacro)
 import HsBindgen.Macro.Type qualified as Macro
 
 data Raw
