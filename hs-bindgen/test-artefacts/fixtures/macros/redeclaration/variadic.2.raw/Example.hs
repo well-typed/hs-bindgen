@@ -13,15 +13,26 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
-    ( Example.iD
+    ( Example.a
+    , Example.iD
     , Example.T(..)
     )
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Macro as Macro
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
+
+{-| __C declaration:__ @macro A@
+
+    __defined at:__ @macros\/redeclaration\/variadic.h 1:9@
+
+    __exported by:__ @macros\/redeclaration\/variadic.h@
+-}
+a :: Macro.Raw BG.Text
+a = Macro.objectLike "A" ["int"]
 
 {-| __C declaration:__ @macro ID@
 
@@ -29,8 +40,9 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/redeclaration\/variadic.h@
 -}
-iD :: [String]
-iD = ["(", "A", ",", "...", ")", "A", "__VA_ARGS__"]
+iD :: Macro.Raw BG.Text
+iD =
+  Macro.variadicFunctionLike "ID" ["A"] ["A", "__VA_ARGS__"]
 
 {-| __C declaration:__ @T@
 

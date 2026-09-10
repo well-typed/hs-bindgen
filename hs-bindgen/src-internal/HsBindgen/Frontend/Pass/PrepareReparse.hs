@@ -18,7 +18,6 @@ import Text.Parsec (ParseError)
 import Clang.Discover (ClangExe)
 
 import HsBindgen.Clang (ClangSetup)
-import HsBindgen.Clang.Macros (MacroDefinition)
 import HsBindgen.Frontend.Pass.PrepareReparse.AST (Decl, Include (Include),
                                                    PostHeader (targets),
                                                    PreHeader, Tag,
@@ -38,6 +37,7 @@ import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.IR.Pass
+import HsBindgen.Macro.Syntax (MacroDefinition)
 import HsBindgen.Util.Tracer (Tracer)
 
 {-------------------------------------------------------------------------------

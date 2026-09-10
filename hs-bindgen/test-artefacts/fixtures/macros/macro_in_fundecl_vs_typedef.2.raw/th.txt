@@ -236,14 +236,14 @@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
-mC :: [String]
+mC :: Raw Text
 {-| __C declaration:__ @macro MC@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 4:9@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
-mC = ["char"]
+mC = objectLike "MC" ["char"]
 {-| __C declaration:__ @TC@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 5:14@

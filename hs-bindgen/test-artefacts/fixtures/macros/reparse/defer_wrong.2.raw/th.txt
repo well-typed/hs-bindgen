@@ -38,14 +38,14 @@ instance HasCField S "s_x"
 
     __exported by:__ @macros\/reparse\/defer_wrong.h@
 -}
-t :: [String]
+t :: Raw Text
 {-| __C declaration:__ @macro T@
 
     __defined at:__ @macros\/reparse\/defer_wrong.h 13:9@
 
     __exported by:__ @macros\/reparse\/defer_wrong.h@
 -}
-t = ["struct", "S"]
+t = objectLike "T" ["struct", "S"]
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/reparse\/defer_wrong.h 15:11@

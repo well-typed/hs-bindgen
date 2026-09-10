@@ -566,14 +566,14 @@
 
     __exported by:__ @macros\/reparse\/arithmetic_types.h@
 -}
-a :: [String]
+a :: Raw Text
 {-| __C declaration:__ @macro A@
 
     __defined at:__ @macros\/reparse\/arithmetic_types.h 16:9@
 
     __exported by:__ @macros\/reparse\/arithmetic_types.h@
 -}
-a = ["int"]
+a = objectLike "A" ["int"]
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f1@
 foreign import ccall safe "hs_bindgen_7e7e01d691b1fb2a" hs_bindgen_7e7e01d691b1fb2a_base ::
     Int8

@@ -12,28 +12,28 @@
 
     __exported by:__ @macros\/object_like_as_function_like.h@
 -}
-f :: [String]
+f :: Raw Text
 {-| __C declaration:__ @macro F@
 
     __defined at:__ @macros\/object_like_as_function_like.h 10:9@
 
     __exported by:__ @macros\/object_like_as_function_like.h@
 -}
-f = ["(", "x", ",", "y", ")", "x", "+", "y"]
+f = functionLike "F" ["x", "y"] ["x", "+", "y"]
 {-| __C declaration:__ @macro G@
 
     __defined at:__ @macros\/object_like_as_function_like.h 11:9@
 
     __exported by:__ @macros\/object_like_as_function_like.h@
 -}
-g :: [String]
+g :: Raw Text
 {-| __C declaration:__ @macro G@
 
     __defined at:__ @macros\/object_like_as_function_like.h 11:9@
 
     __exported by:__ @macros\/object_like_as_function_like.h@
 -}
-g = ["(", "x", ",", "y", ")", "x", "+", "y"]
+g = objectLike "G" ["(", "x", ",", "y", ")", "x", "+", "y"]
 -- __unique:__ @test_macrosobject_like_as_function_Example_get_a@
 foreign import ccall unsafe "hs_bindgen_06ace787c069879f" hs_bindgen_06ace787c069879f_base ::
     IO (Ptr Void)

@@ -33,7 +33,8 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 
-import HsBindgen.Clang.Macros (MacroDefinition (..), MacroInvocation (..))
+import HsBindgen.Runtime.Macro qualified as RawMacro
+
 import HsBindgen.Eff
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Pass.Parse.Context
@@ -49,6 +50,8 @@ import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
+import HsBindgen.Macro.Error (MacroParseError)
+import HsBindgen.Macro.Syntax (MacroDefinition (..), MacroInvocation (..))
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -132,16 +135,16 @@ modifyParseState f = wrapEff $ \support -> modifyIORef support.state f
 recordMacroDefinitionAt ::
      Text
   -> Range MultiLoc
-  -> [Token TokenSpelling]
+  -> Either MacroParseError (RawMacro.Raw (Token TokenSpelling))
   -> ParseDecl ()
-recordMacroDefinitionAt macroName locRange tokens =
+recordMacroDefinitionAt macroName locRange macro =
     modifyParseState $ #macroDefinitions %~ (macroDefinition:)
   where
     macroDefinition :: MacroDefinition
     macroDefinition = MacroDefinition {
           name = macroName
         , locRange = locRange
-        , tokens = tokens
+        , macro = macro
         }
 
 getMacroDefinitions :: ParseDecl [MacroDefinition]

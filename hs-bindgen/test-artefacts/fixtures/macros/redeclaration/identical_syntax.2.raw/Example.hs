@@ -8,9 +8,9 @@ import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro T@
 
-    __defined at:__ @macros\/undef.h 3:9@
+    __defined at:__ @macros\/redeclaration\/identical_syntax.h 5:9@
 
-    __exported by:__ @macros\/undef.h@
+    __exported by:__ @macros\/redeclaration\/identical_syntax.h@
 -}
 t :: Macro.Raw BG.Text
-t = Macro.objectLike "T" ["int"]
+t = Macro.objectLike "T" ["A"]

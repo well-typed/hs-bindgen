@@ -5,14 +5,14 @@
 
     __exported by:__ @macros\/reparse\/nesting.h@
 -}
-myInt :: [String]
+myInt :: Raw Text
 {-| __C declaration:__ @macro MyInt@
 
     __defined at:__ @macros\/reparse\/nesting.h 1:9@
 
     __exported by:__ @macros\/reparse\/nesting.h@
 -}
-myInt = ["int"]
+myInt = objectLike "MyInt" ["int"]
 {-| __C declaration:__ @struct TS1@
 
     __defined at:__ @macros\/reparse\/nesting.h 5:16@

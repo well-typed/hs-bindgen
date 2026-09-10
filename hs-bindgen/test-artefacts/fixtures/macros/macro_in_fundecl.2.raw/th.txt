@@ -317,70 +317,70 @@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-i :: [String]
+i :: Raw Text
 {-| __C declaration:__ @macro I@
 
     __defined at:__ @macros\/macro_in_fundecl.h 5:9@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-i = ["int"]
+i = objectLike "I" ["int"]
 {-| __C declaration:__ @macro C@
 
     __defined at:__ @macros\/macro_in_fundecl.h 6:9@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-c :: [String]
+c :: Raw Text
 {-| __C declaration:__ @macro C@
 
     __defined at:__ @macros\/macro_in_fundecl.h 6:9@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-c = ["char"]
+c = objectLike "C" ["char"]
 {-| __C declaration:__ @macro F@
 
     __defined at:__ @macros\/macro_in_fundecl.h 7:9@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-f :: [String]
+f :: Raw Text
 {-| __C declaration:__ @macro F@
 
     __defined at:__ @macros\/macro_in_fundecl.h 7:9@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-f = ["float"]
+f = objectLike "F" ["float"]
 {-| __C declaration:__ @macro L@
 
     __defined at:__ @macros\/macro_in_fundecl.h 8:9@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-l :: [String]
+l :: Raw Text
 {-| __C declaration:__ @macro L@
 
     __defined at:__ @macros\/macro_in_fundecl.h 8:9@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-l = ["long"]
+l = objectLike "L" ["long"]
 {-| __C declaration:__ @macro S@
 
     __defined at:__ @macros\/macro_in_fundecl.h 9:9@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-s :: [String]
+s :: Raw Text
 {-| __C declaration:__ @macro S@
 
     __defined at:__ @macros\/macro_in_fundecl.h 9:9@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-s = ["short"]
+s = objectLike "S" ["short"]
 -- __unique:__ @test_macrosmacro_in_fundecl_2_raw_Example_Safe_quux@
 foreign import ccall safe "hs_bindgen_d9bba200e8ee3d2e" hs_bindgen_d9bba200e8ee3d2e_base ::
     Float
