@@ -13,7 +13,6 @@ import Data.Vec.Lazy qualified as Vec
 import DeBruijn (EmptyCtx, Idx (..), Weaken (..), pattern I1)
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Origin qualified as Origin
@@ -82,7 +81,7 @@ getDeclsFlam flam auxName spec info struct = do
         (hsStruct, decls) =
           getDecls supInsts env spec auxName info struct insts'
     State.modify' $ #instanceMap %~ Map.insert auxName hsStruct.instances
-    pure $ Hs.DeclData hsStruct : decls ++ [getHasFlamInstanceDecl hsStruct, flamDecl env.haddockConfig]
+    pure $ Hs.DeclData hsStruct : decls ++ [getHasFlamInstanceDecl hsStruct, flamDecl]
   where
     name :: Hs.Name Hs.NsTypeConstr
     name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
@@ -99,8 +98,8 @@ getDeclsFlam flam auxName spec info struct = do
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1760>
     -- We generate pointer manipulation bindings for the FLAM field.
-    flamDecl :: HaddockConfig -> Hs.Decl l
-    flamDecl hCfg =
+    flamDecl :: Hs.Decl l
+    flamDecl =
       Hs.DeclTypSyn
         Hs.TypSyn{
             name
@@ -111,7 +110,7 @@ getDeclsFlam flam auxName spec info struct = do
             , kind = Origin.Opaque info.id.cName.name.kind
             , spec = spec
             }
-          , comment = mkHaddocks hCfg info
+          , comment = mkHaddocks info
           }
 
 getInstances ::
@@ -152,7 +151,7 @@ getDecls supInsts env spec structName info struct insts =
             name    = fieldName field
           , typ     = field.typ.hs
           , origin  = Origin.StructField field
-          , comment = mkHaddocksFieldInfo env.haddockConfig info field.info
+          , comment = mkHaddocksFieldInfo info field.info
           }
 
     fieldHint :: C.Field Final -> NameHint
@@ -176,7 +175,7 @@ getDecls supInsts env spec structName info struct insts =
         , constr    = struct.names.constr
         , fields    = map getHsField struct.fields
         , instances = insts <> knownInsts
-        , comment   = mkHaddocks env.haddockConfig info
+        , comment   = mkHaddocks info
         , origin    = Just Origin.Decl{
               info
             , kind = Origin.Struct struct
@@ -320,7 +319,7 @@ hasFieldDecs env info struct field = case field of
     IndirectField impField indField -> auxIndirectField impField indField
   where
     fieldComment :: Maybe HsDoc.Comment
-    fieldComment = mkHaddocksFieldInfo env.haddockConfig info (getFieldInfo field)
+    fieldComment = mkHaddocksFieldInfo info (getFieldInfo field)
 
     parentType :: Hs.Type
     parentType = Hs.TypRef struct.name Nothing
@@ -372,7 +371,7 @@ hasFieldCompatDecs env info struct field = [
     ]
   where
     fieldComment :: Maybe HsDoc.Comment
-    fieldComment = mkHaddocksFieldInfo env.haddockConfig info (getFieldInfo field)
+    fieldComment = mkHaddocksFieldInfo info (getFieldInfo field)
 
     parentType :: Hs.Type
     parentType = Hs.TypRef struct.name Nothing
