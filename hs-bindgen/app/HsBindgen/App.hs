@@ -43,7 +43,6 @@ import System.IO (stderr)
 
 import HsBindgen
 import HsBindgen.ArtefactM (DirPolicy (..), FilePolicy (..))
-import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config
 import HsBindgen.Config.ClangArgs
@@ -240,7 +239,6 @@ parseConfig = Config
     <*> parseSelectionPredicate
     <*> parseProgramSlicing
     <*> parseFieldNamingStrategy
-    <*> parsePathStyle
 
 {-------------------------------------------------------------------------------
   Binding specifications
@@ -566,30 +564,6 @@ parseInputs = some . asum $ [
       , "See 'Root directives' in the manual"
       , "(manual/low-level/usage/c-stages.md)."
       ]
-
-{-------------------------------------------------------------------------------
-  Haddock options
--------------------------------------------------------------------------------}
-
-parsePathStyle :: Parser PathStyle
-parsePathStyle = option readPathStyle $ mconcat [
-      long "path-style"
-    , metavar "STYLE"
-    , help "Render style of file paths in Haddock comments (short|full)"
-    , showDefaultWith renderPathStyle
-    , value Short
-    ]
-  where
-    readPathStyle :: ReadM PathStyle
-    readPathStyle = eitherReader $ \s -> case s of
-      "full"  -> Right Full
-      "short" -> Right Short
-      _       -> Left $ "Invalid path style: " ++ s ++ ". Expected 'full' or 'short'"
-
-    renderPathStyle :: PathStyle -> String
-    renderPathStyle = \case
-      Short -> "short"
-      Full  -> "full"
 
 {-------------------------------------------------------------------------------
   Auxiliary optparse-applicative functions

@@ -135,7 +135,7 @@ instance CoercePassCommentDecl ResolveBindingSpecs CreateNames where
 
 data MangleNamesFailure = MangleNamesFailure {
       id  :: C.DeclId
-    , loc :: SingleLoc
+    , loc :: SingleLoc RealPath
     , err :: MangleNamesError
     }
   deriving (Show, Eq, Ord, Generic)

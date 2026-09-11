@@ -11,7 +11,7 @@ import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Text.SimplePrettyPrint qualified as PP
 
-import Clang.HighLevel.Types (SingleLoc)
+import Clang.HighLevel.Types (RealPath, SingleLoc)
 
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -89,7 +89,7 @@ data MangleNamesCollisionError =
     --
     -- Only fires under 'OmitFieldPrefixes'; under 'AddFieldPrefixes' mangling
     -- is injective within a record.
-  | DetectClashesDuplicateFieldName Hs.SomeName [SingleLoc]
+  | DetectClashesDuplicateFieldName Hs.SomeName [SingleLoc RealPath]
     -- | A name scoped within a declaration was not mangled
   | DetectClashesScopedNameNotMangled C.DeclId C.ScopedName
   deriving stock (Show, Eq, Ord)

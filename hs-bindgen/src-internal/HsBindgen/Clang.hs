@@ -22,7 +22,6 @@ import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-import Clang.Paths
 
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports

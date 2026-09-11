@@ -54,7 +54,7 @@ import HsBindgen.Util.Tracer
 --
 -- Invariant: the 'Set' must have cardinality of 2 or larger.
 data Conflict = Conflict {
-      locs :: Set SingleLoc
+      locs :: Set (SingleLoc RealPath)
     }
   deriving stock (Eq, Ord, Show)
 
@@ -62,23 +62,23 @@ data Conflict = Conflict {
   Construction
 -------------------------------------------------------------------------------}
 
-conflictBetween :: SingleLoc -> SingleLoc -> Conflict
+conflictBetween :: SingleLoc RealPath -> SingleLoc RealPath -> Conflict
 conflictBetween l1 l2 = Conflict $ Set.fromList [l1, l2]
 
-conflictInsert :: Conflict -> SingleLoc -> Conflict
+conflictInsert :: Conflict -> SingleLoc RealPath -> Conflict
 conflictInsert (Conflict xs) x = Conflict $ Set.insert x xs
 
 -- | Precondition: The length of the list must be 2 or longer.
 --
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1577>
-conflictFromList :: [SingleLoc] -> Conflict
+conflictFromList :: [SingleLoc RealPath] -> Conflict
 conflictFromList ls = Conflict $ Set.fromList ls
 
 {-------------------------------------------------------------------------------
   Query
 -------------------------------------------------------------------------------}
 
-conflictToList :: Conflict -> NonEmpty SingleLoc
+conflictToList :: Conflict -> NonEmpty (SingleLoc RealPath)
  -- 'NonEmpty.fromList' safe due to invariant.
 conflictToList conflict = NonEmpty.fromList $ Set.toList conflict.locs
 
@@ -86,7 +86,7 @@ conflictToList conflict = NonEmpty.fromList $ Set.toList conflict.locs
 --
 -- This is only meaningful if the locations share the same source path.
 -- Comparisons across source paths happen in lexicographical order.
-conflictGetMinimumLoc :: Conflict -> SingleLoc
+conflictGetMinimumLoc :: Conflict -> SingleLoc RealPath
  -- 'minimum' safe due to invariant.
 conflictGetMinimumLoc conflict = minimum conflict.locs
 

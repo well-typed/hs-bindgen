@@ -88,7 +88,7 @@ data ReparseInfo tokens =
 invokedMacros :: NonEmpty MacroInvocation -> Set Text
 invokedMacros = foldl' (\acc inv -> Set.insert inv.name acc) Set.empty
 
-type Tokens = [Token TokenSpelling]
+type Tokens = [Token SourcePath TokenSpelling]
 
 {-------------------------------------------------------------------------------
   Fields

@@ -35,7 +35,7 @@ import Clang.HighLevel.Types (MultiLoc (multiLocExpansion), Range (rangeStart),
                               Token (tokenExtent, tokenKind, tokenSpelling),
                               TokenSpelling (getTokenSpelling))
 import Clang.LowLevel.Core (CXTokenKind (CXToken_Punctuation))
-import Clang.Paths (getSourcePath)
+import Clang.Paths (SourcePath, getSourcePath)
 
 import HsBindgen.Errors (panicPure)
 
@@ -43,12 +43,12 @@ import HsBindgen.Errors (panicPure)
   Parser type
 -------------------------------------------------------------------------------}
 
-type Parser = Parsec [Token TokenSpelling] ()
+type Parser = Parsec [Token SourcePath TokenSpelling] ()
 
 runParser ::
      HasCallStack
   => Parser a
-  -> [Token TokenSpelling]
+  -> [Token SourcePath TokenSpelling]
   -> Either MacroParseError a
 runParser p tokens =
     first unrecognized $ Parsec.runParser p () sourcePath tokens
@@ -59,7 +59,7 @@ runParser p tokens =
           []  -> panicPure "runParser: empty list"
           t:_ -> getSourcePath $ singleLocPath start
             where
-              start :: SingleLoc
+              start :: SingleLoc SourcePath
               start = rangeStart $ multiLocExpansion <$> tokenExtent t
 
     unrecognized :: ParseError -> MacroParseError
@@ -74,7 +74,7 @@ runParser p tokens =
 
 data MacroParseError = MacroParseError {
       reparseError       :: String
-    , reparseErrorTokens :: [Token TokenSpelling]
+    , reparseErrorTokens :: [Token SourcePath TokenSpelling]
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (Exception)
@@ -83,10 +83,10 @@ data MacroParseError = MacroParseError {
   Dealing with individual tokens
 -------------------------------------------------------------------------------}
 
-token :: (Token TokenSpelling -> Maybe a) -> Parser a
+token :: (Token SourcePath TokenSpelling -> Maybe a) -> Parser a
 token = Parsec.token tokenPretty tokenSourcePos
   where
-    tokenPretty :: Token TokenSpelling -> String
+    tokenPretty :: Token SourcePath TokenSpelling -> String
     tokenPretty tok = concat [
           show $ Text.unpack tok.tokenSpelling.getTokenSpelling
         , " ("
@@ -94,14 +94,14 @@ token = Parsec.token tokenPretty tokenSourcePos
         ,  ")"
         ]
 
-    tokenSourcePos :: Token a -> SourcePos
+    tokenSourcePos :: Token SourcePath a -> SourcePos
     tokenSourcePos t =
         newPos
           (getSourcePath $ singleLocPath start)
           (singleLocLine start)
           (singleLocColumn start)
       where
-        start :: SingleLoc
+        start :: SingleLoc SourcePath
         start = rangeStart $ multiLocExpansion <$> tokenExtent t
 
 tokenOfKind :: CXTokenKind -> (Text -> Maybe a) -> Parser a

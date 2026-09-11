@@ -38,7 +38,7 @@ absurdVoidMacro m = case m of {}
 
 data RawMacro a = RawMacro {
     name   :: Text
-  , tokens :: [Token TokenSpelling]
+  , tokens :: [Token SourcePath TokenSpelling]
   }
   deriving stock (Functor, Foldable, Traversable, Show, Eq)
 
@@ -53,7 +53,7 @@ instance Macro.HasTypes Raw where
   type TypecheckedType  Raw = VoidMacro
   type TypecheckedValue Raw = RawMacro
 
-parseRaw :: [Token TokenSpelling] -> Either MacroParseError (Macro.Unresolved Raw)
+parseRaw :: [Token SourcePath TokenSpelling] -> Either MacroParseError (Macro.Unresolved Raw)
 parseRaw []     = Left  $ MacroParseError "parseRaw: empty macro"
 parseRaw (t:ts) = Right $ Macro.Unresolved $ RawMacro{
       name   = t.tokenSpelling.getTokenSpelling
@@ -91,7 +91,7 @@ translateRaw name rawMacro mDoc = Binding{
     listOfStringsT :: SHs.ClosedType
     listOfStringsT = SHs.TList $ SHs.TGlobal $ bindgenGlobalType String_type
 
-    tokenToStringE :: Token TokenSpelling -> SHs.ClosedExpr
+    tokenToStringE :: Token SourcePath TokenSpelling -> SHs.ClosedExpr
     tokenToStringE t = SHs.EString $ Text.unpack t.tokenSpelling.getTokenSpelling
 
 raw :: Macro.Lang Raw

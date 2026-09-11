@@ -31,7 +31,6 @@ import Test.Tasty
 
 import HsBindgen.Backend.Category (ByCategory (..), Choice (..),
                                    RenameTerm (..))
-import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Imports
@@ -130,16 +129,14 @@ getTestClangArgsConfig cStandard includeDirs testResources =
   Backend configuration
 -------------------------------------------------------------------------------}
 
-getTestDefaultBackendConfig :: TestName -> PathStyle -> BackendConfig
-getTestDefaultBackendConfig testName pathStyle = def{
-      -- Honor 'maxUniqueIdLength'.
+getTestDefaultBackendConfig :: TestName -> BackendConfig
+getTestDefaultBackendConfig testName = def{
       uniqueId = UniqueId (take 35 $ "test." <> testName)
-    , haddock  = HaddockConfig pathStyle
     }
 
-getTestThBackendConfig :: TestName -> PathStyle -> BackendConfig
-getTestThBackendConfig testName pathStyle =
-    (getTestDefaultBackendConfig testName pathStyle) {
+getTestThBackendConfig :: TestName -> BackendConfig
+getTestThBackendConfig testName =
+    (getTestDefaultBackendConfig testName) {
         categoryChoice = testThCategoryChoice
       }
 

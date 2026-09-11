@@ -44,7 +44,6 @@ import Clang.CStandard (ClangCStandard)
 import Clang.HighLevel.Types qualified as Clang
 
 import HsBindgen
-import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
@@ -140,13 +139,6 @@ data TestCase = TestCase {
       -- | Modify the default prescriptive binding specification configuration
     , specPrescriptive :: Maybe FilePath
 
-      -- | Whether or not the tests show full paths when rendering Haddock
-      -- comments.
-      --
-      -- For tests this value should be 'Short' by default in order to avoid
-      -- #966.
-    , pathStyle :: PathStyle
-
       -- | In imports, put "qualified" before or after the module name
     , qualifiedStyle :: QualifiedStyle
 
@@ -190,7 +182,6 @@ defaultTest fp = TestCase{
     , specStdlib       = EnableStdlibBindingSpec
     , specExternal     = []
     , specPrescriptive = Nothing
-    , pathStyle        = Short
     , qualifiedStyle   = def
     , hashDefines      = []
     , macroLang        = macroLangCExpr
@@ -327,7 +318,7 @@ getTestFrontendConfig test = test.onFrontend def
 
 getTestBackendConfig :: TestCase -> BackendConfig
 getTestBackendConfig test =
-    test.onBackend $ getTestDefaultBackendConfig test.name test.pathStyle
+    test.onBackend $ getTestDefaultBackendConfig test.name
 
 withTestTraceConfig ::
      (String -> IO ())

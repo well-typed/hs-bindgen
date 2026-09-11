@@ -67,7 +67,7 @@ data LocationInfo =
     --
     -- Usually we expect the list of locations to be a singleton: the location
     -- of the declaration.
-    LocationDeclNamed C.DeclName [SingleLoc]
+    LocationDeclNamed C.DeclName [SingleLoc RealPath]
 
     -- | Message about an unnamed declaration
     --
@@ -75,7 +75,7 @@ data LocationInfo =
     --
     -- Usually we expect the list of locations to be a singleton: the location
     -- of the declaration.
-  | LocationDeclUnnamed (Maybe C.DeclName) [SingleLoc]
+  | LocationDeclUnnamed (Maybe C.DeclName) [SingleLoc RealPath]
 
     -- | No location information
   | LocationUnavailable
@@ -111,13 +111,13 @@ instance PrettyForTrace LocationInfo where
   Construction
 -------------------------------------------------------------------------------}
 
-prelimDeclIdLocationInfo :: C.PrelimDeclId -> [SingleLoc] -> LocationInfo
+prelimDeclIdLocationInfo :: C.PrelimDeclId -> [SingleLoc RealPath] -> LocationInfo
 prelimDeclIdLocationInfo prelimDeclId knownLocs =
     case prelimDeclId of
       C.PrelimDeclIdNamed name        -> LocationDeclNamed name knownLocs
       C.PrelimDeclIdUnnamed unnamedId -> LocationDeclUnnamed Nothing [unnamedId.loc]
 
-declIdLocationInfo :: C.DeclId -> [SingleLoc] -> LocationInfo
+declIdLocationInfo :: C.DeclId -> [SingleLoc RealPath] -> LocationInfo
 declIdLocationInfo declId knownLocs =
     if not declId.isUnnamed
       then LocationDeclNamed declId.name knownLocs
@@ -133,7 +133,7 @@ locationInfoName = \case
     LocationDeclUnnamed mName _ -> mName
     LocationUnavailable         -> Nothing
 
-locationInfoLocs :: LocationInfo -> [SingleLoc]
+locationInfoLocs :: LocationInfo -> [SingleLoc RealPath]
 locationInfoLocs = \case
     LocationDeclNamed _ locs   -> locs
     LocationDeclUnnamed _ locs -> locs
@@ -149,7 +149,7 @@ locationInfoLocs = \case
 -- declarations carry more than one.
 data DeclLocs =
     -- | The declaration has a single source location.
-    DeclLoc SingleLoc
+    DeclLoc (SingleLoc RealPath)
     -- | Conflicting declarations, each with its own source location.
   | DeclLocsConflict C.Conflict
   deriving stock (Eq, Ord, Show)
@@ -158,13 +158,13 @@ data DeclLocs =
 --
 -- This is only meaningful if the locations share the same source path.
 -- Comparisons across source paths happen in lexicographical order.
-declLocsMin :: DeclLocs -> SingleLoc
+declLocsMin :: DeclLocs -> SingleLoc RealPath
 declLocsMin = \case
   DeclLoc x                 -> x
   DeclLocsConflict conflict -> C.conflictGetMinimumLoc conflict
 
 -- | All source locations, discarding the single vs conflict distinction.
-declLocsToList :: DeclLocs -> [SingleLoc]
+declLocsToList :: DeclLocs -> [SingleLoc RealPath]
 declLocsToList = \case
     DeclLoc          loc      -> [loc]
     DeclLocsConflict conflict -> NonEmpty.toList $ C.conflictToList conflict

@@ -8,8 +8,8 @@ mkDerivation {
   version = "0.1.0.0";
   src = fetchgit {
     url = "https://github.com/well-typed/libclang-bindings";
-    sha256 = "10xxy0qixhmzincsl172h65fal3zlyvnl9035ip45l1j4prhpvqy";
-    rev = "c1340ddbd9b26cd59f143f7625beb48187a863bf";
+    sha256 = "0aq6d0snfbgwa1ayjfwlhck5za528fm7gnywmjc4185a2xspdfy2";
+    rev = "7c5fbd726aa0ac02ef021f257c93d2f98fb54b27";
     fetchSubmodules = true;
   };
   postUnpack = "sourceRoot+=/libclang-bindings; echo source root reset to $sourceRoot";

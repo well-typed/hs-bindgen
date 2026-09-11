@@ -49,7 +49,7 @@ import HsBindgen.Macro.Type
 data Lang (l :: Star) = Lang {
     -- | Parse a single macro from @libclang@ tokens.
     parse ::
-         [Token TokenSpelling]
+         [Token SourcePath TokenSpelling]
       -> Either MacroParseError (Unresolved l)
 
   , resolve ::
