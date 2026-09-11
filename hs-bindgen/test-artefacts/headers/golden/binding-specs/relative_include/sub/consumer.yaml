@@ -1,0 +1,35 @@
+# Hand-written external binding spec for core.h's types.
+#
+# Simulates having already generated bindings for core.h into module M.
+# An auto-generated spec (via --gen-binding-spec) would differ in naming
+# (Widget_t, Widget_id_t) and would include the full instance list; this
+# trimmed version is enough for the test.
+#
+# The key detail: "headers" uses the root-relative path
+# binding-specs/relative_include/core.h, while consumer.h includes the
+# same file as "../core.h".  The test verifies that RealPath
+# canonicalization makes the match work.
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: M
+ctypes:
+- headers: binding-specs/relative_include/core.h
+  cname: struct widget_t
+  hsname: WidgetT
+- headers: binding-specs/relative_include/core.h
+  cname: widget_id_t
+  hsname: WidgetIdT
+hstypes:
+- hsname: WidgetT
+  representation:
+    newtype:
+      constructor: WidgetT
+      fields:
+      - unwrapWidgetT
+- hsname: WidgetIdT
+  representation:
+    newtype:
+      constructor: WidgetIdT
+      fields:
+      - unwrapWidgetIdT
