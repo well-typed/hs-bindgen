@@ -14,7 +14,6 @@ module HsBindgen.Config (
 where
 
 import HsBindgen.Backend.Category
-import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
@@ -44,8 +43,6 @@ data Config_ path = Config {
   , programSlicing      :: ProgramSlicing
   , fieldNamingStrategy :: FieldNamingStrategy
 
-    -- * Backend
-  , haddockPathStyle :: PathStyle
   }
   deriving stock (Eq, Show, Generic)
   deriving stock (Functor, Foldable, Traversable)
@@ -72,7 +69,6 @@ toBindgenConfig config uniqueId baseModuleName choice =
         }
     , backend = BackendConfig {
           uniqueId       = uniqueId
-        , haddock        = def & #pathStyle .~ config.haddockPathStyle
         , categoryChoice = choice
        }
     }

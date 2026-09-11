@@ -208,7 +208,7 @@ functionDecs safety info origCFun _spec = do
                           })
                         | arg <- origCFun.args
                         ]
-          in  mkHaddocksDecorateParams env.haddockConfig info params
+          in  mkHaddocksDecorateParams info params
 
         runsInIO :: Bool
         runsInIO = functionShouldRunInIO origCFun.attrs.purity primResult primParams

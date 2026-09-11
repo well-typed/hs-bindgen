@@ -64,7 +64,7 @@ unionDecs info union spec = do
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = mkHaddocks env.haddockConfig info
+        newtypeComment = mkHaddocks info
 
         candidateInsts :: Set Inst.TypeClass
         candidateInsts = Set.empty
@@ -190,7 +190,7 @@ hasFieldDecs st env info union field =
                     [fieldType]
 
     fieldComment :: Maybe HsDoc.Comment
-    fieldComment = mkHaddocksFieldInfo env.haddockConfig info (getFieldInfo field)
+    fieldComment = mkHaddocksFieldInfo info (getFieldInfo field)
 
     parentType :: Hs.Type
     parentType = Hs.TypRef union.name Nothing
@@ -263,7 +263,7 @@ hasFieldCompatDecs st env info union field =
                     [fieldType]
 
     fieldComment :: Maybe HsDoc.Comment
-    fieldComment = mkHaddocksFieldInfo env.haddockConfig info (getFieldInfo field)
+    fieldComment = mkHaddocksFieldInfo info (getFieldInfo field)
 
     parentType :: Hs.Type
     parentType = Hs.TypRef union.name Nothing

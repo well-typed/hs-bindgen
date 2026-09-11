@@ -14,7 +14,6 @@ module HsBindgen.Config.Internal (
   ) where
 
 import HsBindgen.Backend.Category
-import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Prelims
@@ -102,7 +101,6 @@ instance Default FrontendConfig where
 -- The backend translates the reified C declarations to Haskell declarations.
 data BackendConfig = BackendConfig {
       uniqueId            :: UniqueId
-    , haddock             :: HaddockConfig
     , categoryChoice      :: ByCategory Choice
     }
   deriving stock (Show, Generic)

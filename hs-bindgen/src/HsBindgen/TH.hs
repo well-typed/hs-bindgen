@@ -47,9 +47,6 @@ module HsBindgen.TH (
   , Category.useUnsafeCategory
   , Category.useFunPtrCategory
 
-    -- ** Haddocks
-  , Haddock.PathStyle(..)
-
     -- ** Tracer
   , Tracer.Verbosity(..)
   , TraceMsg.CustomLogLevelSetting(..)
@@ -75,7 +72,6 @@ import HsBindgen.Runtime.Struct qualified as DerivingViaSupport
 import HsBindgen.Runtime.Support.SizedByteArray qualified as DerivingViaSupport
 
 import HsBindgen.Backend.Category qualified as Category
-import HsBindgen.Backend.Hs.Haddock.Config qualified as Haddock
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config qualified as Config
 import HsBindgen.Config.ClangArgs qualified as ClangArgs

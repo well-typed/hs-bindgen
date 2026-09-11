@@ -7,13 +7,10 @@ module HsBindgen.Backend.Hs.Haddock.Translation (
   ) where
 
 import Data.Text qualified as Text
-import System.FilePath (takeFileName)
 
 import Clang.HighLevel.Types qualified as C
-import Clang.Paths qualified as C
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Pass.Final
@@ -33,11 +30,10 @@ import Doxygen.Parser.Types qualified as Doxy
 -- | Convert a Doxygen comment to a Haddock comment
 --
 mkHaddocks ::
-     HaddockConfig
-  -> C.DeclInfo Final
+     C.DeclInfo Final
   -> Maybe HsDoc.Comment
-mkHaddocks config info =
-    fst $ mkHaddocksWithArgs config info Args{
+mkHaddocks info =
+    fst $ mkHaddocksWithArgs info Args{
         isField = False
       , loc     = info.loc
       , cName   = C.renderDeclId info.id.cName
@@ -47,12 +43,11 @@ mkHaddocks config info =
       }
 
 mkHaddocksFieldInfo ::
-     HaddockConfig
-  -> C.DeclInfo Final
+     C.DeclInfo Final
   -> C.FieldInfo Final
   -> Maybe HsDoc.Comment
-mkHaddocksFieldInfo config declInfo fieldInfo =
-    fst $ mkHaddocksWithArgs config declInfo Args{
+mkHaddocksFieldInfo declInfo fieldInfo =
+    fst $ mkHaddocksWithArgs declInfo Args{
         isField = True
       , loc     = fieldInfo.loc
       , cName   = fieldInfo.name.cName.text
@@ -64,12 +59,11 @@ mkHaddocksFieldInfo config declInfo fieldInfo =
 -- | Extract Haddock documentation for a function; enrich function parameters
 --   with parameter-specific documentation
 mkHaddocksDecorateParams ::
-     HaddockConfig
-  -> C.DeclInfo Final
+     C.DeclInfo Final
   -> [(Maybe Text, Hs.FunctionParameter)]
   -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
-mkHaddocksDecorateParams config info params =
-    let (mbc, xs) = mkHaddocksWithArgs config info Args{
+mkHaddocksDecorateParams info params =
+    let (mbc, xs) = mkHaddocksWithArgs info Args{
         isField = False
       , loc     = info.loc
       , cName   = C.renderDeclId info.id.cName
@@ -95,18 +89,18 @@ data Args = Args{
 -- | Convert a Doxygen comment to a Haddock comment, updating function
 -- parameters with their documentation.
 --
-mkHaddocksWithArgs :: HaddockConfig -> C.DeclInfo Final -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
-mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Nothing, ..} =
+mkHaddocksWithArgs :: C.DeclInfo Final -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
+mkHaddocksWithArgs info Args{comment = Nothing, ..} =
       ( Just $
           mempty
             & #origin     .~ Just cName
-            & #location   .~ Just (updateSingleLoc pathStyle loc)
+            & #location   .~ Just loc
             & #headerInfo .~ Just info.headerInfo
       , map (uncurry addFunctionParameterComment) params
       )
-mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment Doxy.Comment{..}), ..} =
+mkHaddocksWithArgs info Args{comment = Just (C.Comment Doxy.Comment{..}), ..} =
   let commentCName    = cName
-      commentLocation = updateSingleLoc pathStyle loc
+      commentLocation = loc
 
       -- The brief description becomes the Haddock title
       commentTitle = case brief of
@@ -187,7 +181,7 @@ addFunctionParameterComment mbName fp =
   Block content conversion
 
   Doxy.Block maps directly to HsDoc.CommentBlockContent.  No string matching
-  on command names — the Doxygen XML has already classified everything.
+  on command names: the Doxygen XML has already classified everything.
 -------------------------------------------------------------------------------}
 
 -- | Convert a 'Doxy.Block' to Haddock block content
@@ -327,19 +321,3 @@ convertInline = \case
 {-------------------------------------------------------------------------------
   Helpers
 -------------------------------------------------------------------------------}
-
--- | Depending on the configured 'PathStyle', update 'HsBindgen.Clang.HighLevel.Types.SingleLoc'
--- to either have a short or full path name.
---
--- See #966.
-updateSingleLoc :: PathStyle -> C.SingleLoc -> C.SingleLoc
-updateSingleLoc Short C.SingleLoc{..} =
-  C.SingleLoc {
-    singleLocPath = C.SourcePath
-                  . Text.pack
-                  . takeFileName
-                  . C.getSourcePath
-                  $ singleLocPath
-  , ..
-  }
-updateSingleLoc _     sloc = sloc
