@@ -44,6 +44,6 @@ instance Macro.HasTypes Raw where
   type TypecheckedValue Raw = ParsedMacro
 
 parseRaw ::
-     Runtime.Macro.Raw (Token TokenSpelling)
+     Runtime.Macro.Raw (Token SourcePath TokenSpelling)
   -> Either MacroParseError (Macro.Unresolved Raw)
 parseRaw = Right . Macro.Unresolved . ParsedMacro . fmap spelling

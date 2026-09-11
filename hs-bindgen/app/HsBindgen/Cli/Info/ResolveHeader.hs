@@ -94,7 +94,7 @@ exec global opts = do
     customLogLevel :: CustomLogLevel Level TraceMsg
     customLogLevel = CustomLogLevel $ \case
       TraceResolveHeader ResolveHeaderFound{}    -> const Debug
-      TraceResolveHeader ResolveHeaderNotFound{} -> const Debug
+      TraceResolveHeader ResolveHeaderNotAttempted{} -> const Debug
       _otherTrace                                -> id
 
     -- | Check the @#include@ arguments, emitting trace messages

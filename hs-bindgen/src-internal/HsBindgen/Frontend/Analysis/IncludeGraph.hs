@@ -6,6 +6,7 @@
 -- > import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 module HsBindgen.Frontend.Analysis.IncludeGraph (
     IncludeGraph(..)
+  , Node(..)
   , Include(..)
   , MacroArg
   , getIncludeArg
@@ -52,10 +53,29 @@ import HsBindgen.IR.C qualified as C
 --
 -- We create a DAG of C header paths with an edge for each @#include@.
 -- The edges are /reversed/ to represent an \"included by\" relation.
+--
+-- The root header is a vertex too. Nothing includes it, so every path of edges
+-- ends there, and the edges into it are the root directives that include the
+-- main headers. 'getIncludes' relies on this to find the main headers that
+-- include a header.
 data IncludeGraph = IncludeGraph{
-      graph :: Digraph Include SourcePath
+      graph :: Digraph Include Node
     }
   deriving stock (Show, Eq)
+
+-- | Vertex of the include graph
+--
+-- The root header is an in-memory file without a 'RealPath', so it gets a
+-- vertex of its own.
+data Node =
+    RootNode
+  | HeaderNode RealPath
+  deriving stock (Show, Eq, Ord)
+
+headerPath :: Node -> Maybe RealPath
+headerPath = \case
+    RootNode        -> Nothing
+    HeaderNode path -> Just path
 
 -- | Include directive as written in the source
 --
@@ -112,37 +132,40 @@ empty :: IncludeGraph
 empty = IncludeGraph Digraph.empty
 
 register ::
-     SourcePath -- ^ Path of header that includes the following header
+     Node     -- ^ Header that includes the following header
   -> Include
-  -> SourcePath -- ^ Path of the included header
+  -> RealPath -- ^ Path of the included header
   -> IncludeGraph
   -> IncludeGraph
 register header include incHeader includeGraph = IncludeGraph $
-    Digraph.insertEdge incHeader include header includeGraph.graph
+    Digraph.insertEdge (HeaderNode incHeader) include header includeGraph.graph
 
-fromList :: [(SourcePath, Include, SourcePath)] -> IncludeGraph
+fromList :: [(Node, Include, RealPath)] -> IncludeGraph
 fromList edges = List.foldl' add empty edges
   where
-    add :: IncludeGraph -> (SourcePath, Include, SourcePath) -> IncludeGraph
+    add :: IncludeGraph -> (Node, Include, RealPath) -> IncludeGraph
     add graph (fr, inc, to) = register fr inc to graph
 
 {-------------------------------------------------------------------------------
   Query
 -------------------------------------------------------------------------------}
 
-reaches :: IncludeGraph -> SourcePath -> Set SourcePath
+reaches :: IncludeGraph -> RealPath -> Set RealPath
 reaches includeGraph path =
-    Digraph.reaches (Set.singleton path) includeGraph.graph
+      Set.fromList
+    . mapMaybe headerPath
+    . Set.toList
+    $ Digraph.reaches (Set.singleton (HeaderNode path)) includeGraph.graph
 
-toSortedList :: IncludeGraph -> [SourcePath]
-toSortedList includeGraph =
-    List.delete RootHeader.name (Digraph.sort includeGraph.graph)
+toSortedList :: IncludeGraph -> [RealPath]
+toSortedList = mapMaybe headerPath . Digraph.sort . (.graph)
 
 getIncludes ::
      IncludeGraph
-  -> SourcePath
+  -> RealPath
   -> Digraph.FindEdgesResult Include
-getIncludes includeGraph path = Digraph.findEdges path includeGraph.graph
+getIncludes includeGraph path =
+    Digraph.findEdges (HeaderNode path) includeGraph.graph
 
 {-------------------------------------------------------------------------------
   Include order
@@ -150,17 +173,15 @@ getIncludes includeGraph path = Digraph.findEdges path includeGraph.graph
 
 -- | Position of a source in the include order
 --
--- The constructor order /is/ the specification: the root header precedes every
--- real source, and an unknown path sorts last. Do not reorder.
+-- The constructor order /is/ the specification: an unknown path sorts last.
+-- Do not reorder.
+--
+-- The root header has no position: 'toSortedList' leaves it out, since it has
+-- no 'RealPath' to look up. We do not parse declarations located in it (see
+-- @parseDeclTopLevel@).
 data IncludeOrderIx =
-    -- | The root header
-    --
-    -- The root header is synthetic and not a source file, so it is not part of
-    -- the include order proper. Anything located in it comes from a root
-    -- directive, i.e. directly from the user, and hence comes first.
-    InRootHeader
     -- | Position in the topologically sorted include graph
-  | InIncludeGraph Int
+    InIncludeGraph Int
     -- | Path unknown to the include graph
     --
     -- Reaching this is a bug; see
@@ -169,22 +190,21 @@ data IncludeOrderIx =
   deriving stock (Show, Eq, Ord)
 
 -- | The include order of a t'IncludeGraph', for repeated lookup
-newtype IncludeOrder = IncludeOrder (Map SourcePath Int)
+newtype IncludeOrder = IncludeOrder (Map RealPath Int)
 
 toIncludeOrder :: IncludeGraph -> IncludeOrder
 toIncludeOrder graph = IncludeOrder $ Map.fromList (zip (toSortedList graph) [0..])
 
-lookupIncludeOrder :: IncludeOrder -> SourcePath -> IncludeOrderIx
-lookupIncludeOrder (IncludeOrder order) path
-  | RootHeader.isRootHeaderPath path = InRootHeader
-  | otherwise = maybe NotInIncludeGraph InIncludeGraph (Map.lookup path order)
+lookupIncludeOrder :: IncludeOrder -> RealPath -> IncludeOrderIx
+lookupIncludeOrder (IncludeOrder order) path =
+    maybe NotInIncludeGraph InIncludeGraph (Map.lookup path order)
 
 {-------------------------------------------------------------------------------
   Visualization
 -------------------------------------------------------------------------------}
 
 -- | Include graph predicate
-type Predicate = SourcePath -> Bool
+type Predicate = RealPath -> Bool
 
 -- | How should we show the include header?
 data HeaderLabelStyle =
@@ -237,7 +257,7 @@ renderMermaid :: VisOpts -> IncludeGraph -> String
 renderMermaid o g =
       Digraph.renderMermaid opts
     . Digraph.combineParallelEdges combineParallel
-    . Digraph.filterVerticesCombineEdges predicate combineSequential
+    . Digraph.filterVerticesCombineEdges (isShown o) combineSequential
     . Digraph.mapEdges (const Direct)
     $ Digraph.mapVerticesOutgoingEdges Vertex g.graph
   where
@@ -255,9 +275,6 @@ renderMermaid o g =
       , reverseEdges = True
       }
 
-    predicate :: Vertex -> Bool
-    predicate v = o.predicate v.path
-
 -- | Render the include graph as a topologically sorted list of headers
 --
 -- One header per line, in an order such that a header is listed only after all
@@ -268,14 +285,18 @@ renderSortedList :: VisOpts -> IncludeGraph -> String
 renderSortedList o g =
       unlines
     . map (vertexLabel o)
-    . filter (o.predicate . (.path))
+    . filter (isShown o)
     $ Digraph.sort annotated
   where
     annotated :: Digraph Include Vertex
     annotated = Digraph.mapVerticesOutgoingEdges Vertex g.graph
 
+-- | Include graph vertex, annotated with the @#include@s of that vertex
+--
+-- The @#include@s are attached before filtering, so a main header keeps the
+-- root directive that includes it even though the root header is not shown.
 data Vertex = Vertex {
-      path     :: SourcePath
+      node     :: Node
     , includes :: Set Include
     }
   deriving stock (Show, Eq, Ord)
@@ -283,23 +304,28 @@ data Vertex = Vertex {
 data Edge = Direct | Transient
   deriving stock (Show, Eq, Ord)
 
+-- | Is the vertex shown? The root header never is.
+isShown :: VisOpts -> Vertex -> Bool
+isShown o v = maybe False o.predicate (headerPath v.node)
+
 -- | Display label for a vertex: its resolved path, or the shortest @#include@
 -- argument used to include it (see t'VisOpts' @labelStyle@).
 vertexLabel :: VisOpts -> Vertex -> String
-vertexLabel o v = case o.labelStyle of
-    ShowPaths       -> getSourcePath v.path
-    ShowIncludeArgs -> getIncludePath v
+vertexLabel o v = case v.node of
+    RootNode        -> getSourcePath RootHeader.name
+    HeaderNode path -> case o.labelStyle of
+      ShowPaths       -> getRealPath path
+      ShowIncludeArgs -> getIncludePath path v.includes
 
-getIncludePath :: Vertex -> FilePath
-getIncludePath =
+getIncludePath :: RealPath -> Set Include -> FilePath
+getIncludePath path =
       safeHead
     . List.sortOn length
     . map ((.path) . getIncludeArg)
     . Set.elems
-    . (.includes)
   where
     safeHead :: [FilePath] -> FilePath
-    safeHead []    = getSourcePath $ RootHeader.name
+    safeHead []    = getRealPath path
     safeHead (x:_) = x
 
 -- | Sequential combination of simple include edges.

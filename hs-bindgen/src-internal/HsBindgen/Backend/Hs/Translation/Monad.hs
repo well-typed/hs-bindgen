@@ -62,7 +62,7 @@ initEnv ::
   -> BaseModuleName
   -> Inst.SupportedInstances
   -> Env
-initEnv uniqueId baseModuleName haddockConfig supportedInstances =
+initEnv uniqueId baseModuleName supportedInstances =
     Env {
         uniqueId = uniqueId
       , baseModuleName = baseModuleName

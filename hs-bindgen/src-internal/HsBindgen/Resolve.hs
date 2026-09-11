@@ -17,7 +17,7 @@ import Text.SimplePrettyPrint (hang, hsep, string)
 import Clang.Args
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
-import Clang.HighLevel.Types
+import Clang.HighLevel.Types (Fold, foldContinue, foldContinueWith, simpleFold)
 import Clang.LowLevel.Core
 import Clang.Paths
 
@@ -33,7 +33,7 @@ import HsBindgen.Util.Tracer
 
 data ResolveHeaderMsg =
     ResolveHeaderClang ClangMsg
-  | ResolveHeaderFound C.HashIncludeArg SourcePath
+  | ResolveHeaderFound C.HashIncludeArg RealPath
   | ResolveHeaderNotFound C.HashIncludeArg
 
     -- | Header not attempted to be resolved, /perhaps/ due to an error while
@@ -52,7 +52,7 @@ instance PrettyForTrace ResolveHeaderMsg where
         "Header"
       , string header.path
       , "resolved to"
-      , string $ getSourcePath path
+      , string $ getRealPath path
       ]
     ResolveHeaderNotFound header -> hsep [
         "Header"
@@ -87,7 +87,7 @@ resolveHeaders ::
      Tracer ResolveHeaderMsg
   -> ClangArgs
   -> Set C.HashIncludeArg
-  -> IO (Map C.HashIncludeArg SourcePath)
+  -> IO (Map C.HashIncludeArg RealPath)
 resolveHeaders tracer args headers =
       fmap (fromMaybe Map.empty)
     . withClang' (contramap ResolveHeaderClang tracer) clangSetup
@@ -123,20 +123,26 @@ resolveHeaders tracer args headers =
     clangSetup = defaultClangSetup args $
       ClangInputMemory rootHeaderName rootHeaderContent
 
-    visit :: Fold IO (Either C.HashIncludeArg (C.HashIncludeArg, SourcePath))
+    -- We use the low-level location API here because this fold visits every
+    -- cursor, including those in the root header (a virtual in-memory file).
+    -- We only need the file name and line number to identify root-header
+    -- @#include@ directives, so building a full 'SingleLoc' via
+    -- 'clang_getCursorLocation'' would be unnecessary work.
+    visit :: Fold IO (Either C.HashIncludeArg (C.HashIncludeArg, RealPath))
     visit = simpleFold $ \curr ->
       maybe foldContinue foldContinueWith <=< runMaybeT $ do
-        sloc <- HighLevel.clang_getCursorLocation' curr
-        -- Only process the root header
-        guard $ singleLocPath sloc == rootHeaderPath
+        (file, line, _col, _off) <-
+          clang_getExpansionLocation =<< clang_getCursorLocation curr
+        path <- clang_getFileName file
+        guard $ SourcePath path == rootHeaderPath
         -- Only process inclusion directives
         guard . (== Right CXCursor_InclusionDirective) . fromSimpleEnum
           =<< clang_getCursorKind curr
         -- Process inclusion directive
         header <- maybe (panicIO "Unknown include") return $
-          headerList !? (singleLocLine sloc - 1)
-        path <- clang_getFileName =<< clang_getIncludedFile curr
-        return $
-          if Text.null path
-            then Left header
-            else Right (header, SourcePath path)
+          headerList !? (fromIntegral line - 1)
+        includedFile <- clang_getIncludedFile curr
+        mRealPath <- liftIO $ HighLevel.clang_tryGetRealPath includedFile
+        return $ case mRealPath of
+          Nothing -> Left header
+          Just rp -> Right (header, rp)

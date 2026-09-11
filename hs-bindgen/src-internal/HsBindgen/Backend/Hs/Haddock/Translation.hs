@@ -60,10 +60,10 @@ mkHaddocksFieldInfo declInfo fieldInfo =
 -- | Extract Haddock documentation for a function; enrich function parameters
 --   with parameter-specific documentation
 mkHaddocksDecorateParams ::
-  -> C.DeclInfo Final
+    C.DeclInfo Final
   -> [(Maybe Text, Hs.FunctionParameter Hs.Type)]
   -> (Maybe HsDoc.Comment, [Hs.FunctionParameter Hs.Type])
-mkHaddocksDecorateParams config info params =
+mkHaddocksDecorateParams info params =
     let (mbc, xs) = mkHaddocksWithArgs info Args{
         isField = False
       , loc     = info.loc
@@ -80,7 +80,7 @@ mkHaddocksDecorateParams config info params =
 
 data Args = Args{
       isField :: Bool
-    , loc     :: C.SingleLoc
+    , loc     :: C.SingleLoc C.RealPath
     , cName   :: Text
     , hsName  :: Hs.SomeName
     , comment :: Maybe (C.Comment Final)

@@ -7,7 +7,7 @@ module HsBindgen.Macro.UniqueExpansion.Parse (
 
 import Text.Parsec (anyToken, choice, manyTill, try)
 
-import Clang.HighLevel.Types (Token, TokenSpelling)
+import Clang.HighLevel.Types (SourcePath, Token, TokenSpelling)
 
 import HsBindgen.Macro.Parse (Parser, identifierOrKeyword, punctuation,
                               spelling)
@@ -55,5 +55,5 @@ parseArgs = fmap concat $ do
   Identifiers
 -------------------------------------------------------------------------------}
 
-toName :: Token TokenSpelling -> Name
+toName :: Token SourcePath TokenSpelling -> Name
 toName = Name . spelling
