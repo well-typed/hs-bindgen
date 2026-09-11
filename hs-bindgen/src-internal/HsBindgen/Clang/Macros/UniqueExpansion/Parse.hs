@@ -17,6 +17,7 @@ import Clang.Enum.Simple (fromSimpleEnum)
 import Clang.HighLevel.Types (MultiLoc (multiLocExpansion),
                               Range (rangeEnd, rangeStart),
                               SingleLoc (singleLocColumn, singleLocLine, singleLocPath),
+                              SourcePath,
                               Token (tokenExtent, tokenKind, tokenSpelling),
                               TokenSpelling (getTokenSpelling))
 import Clang.LowLevel.Core (CXTokenKind (CXToken_Identifier, CXToken_Keyword))
@@ -56,7 +57,7 @@ parseDefinition = do
 -- @isFunctionLike@ does not consume input.
 isFunctionLike ::
      -- | Source location of the macro definition's name
-     Range MultiLoc
+     Range (MultiLoc SourcePath)
   -> Parser Bool
 isFunctionLike prevRange =
     lookAhead (option False (True <$ try (lparen prevRange)))
@@ -149,7 +150,7 @@ parseArgs = fmap concat $ do
 --
 -- We used to not check whitespace, which was the source of a bug. See issue
 -- #1903: <https://github.com/well-typed/hs-bindgen/issues/1903>
-lparen :: Range MultiLoc -> Parser ()
+lparen :: Range (MultiLoc SourcePath) -> Parser ()
 lparen prevRange = do
     tok <- anyToken
     let prev    = prevRange.rangeEnd.multiLocExpansion
@@ -180,7 +181,7 @@ parseName = token $ \t -> do
 -- 16), @bool@ is classified as a keyword rather than an identifier. We accept
 -- keywords here so that macros such as @#define bool int@ can be parsed. Even
 -- in C23 the meaning of @bool@ can be overwritten (the macro takes precedence).
-parseLocName :: Parser (Range MultiLoc, Name)
+parseLocName :: Parser (Range (MultiLoc SourcePath), Name)
 parseLocName = token $ \t -> do
     let spelling = getTokenSpelling (tokenSpelling t)
     let ki = fromSimpleEnum (tokenKind t)

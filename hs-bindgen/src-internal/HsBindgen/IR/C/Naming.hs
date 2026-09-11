@@ -47,6 +47,7 @@ import Clang.HighLevel (ShowFile (..))
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
+import Clang.Paths (getRealPath)
 
 import HsBindgen.Errors
 import HsBindgen.Imports
@@ -226,10 +227,10 @@ parseScopedName t = case Text.words t of
 data UnnamedId = UnnamedId {
       -- | Macro expansion site, or the source location for non-macro decls.
       -- Used for tracing and Haddock comments.
-      loc      :: SingleLoc
+      loc      :: SingleLoc RealPath
       -- | Spelling location: where the tokens were written in the source
       -- (inside the macro definition, for macro-expanded decls).
-    , spelling :: SingleLoc
+    , spelling :: SingleLoc RealPath
     , kind     :: NameKind
       -- | Hash of the cursor pointing to the associated unnamed declaration
       --
@@ -249,11 +250,11 @@ instance PrettyForTrace UnnamedId where
         NameKindMacro ->
           "macro"
     , "at"
-    , PP.string $ HighLevel.prettySingleLoc ShowFile unnamedId.loc
+    , PP.string $ HighLevel.prettySingleLoc getRealPath ShowFile unnamedId.loc
     ] ++ [
       PP.string $
            "<Spelling="
-        ++ HighLevel.prettySingleLoc ShowFile unnamedId.spelling
+        ++ HighLevel.prettySingleLoc getRealPath ShowFile unnamedId.spelling
         ++ ">"
     | unnamedId.spelling /= unnamedId.loc
     ] ++ [

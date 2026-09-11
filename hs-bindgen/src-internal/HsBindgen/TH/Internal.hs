@@ -167,7 +167,7 @@ withHsBindgenMacroLang mkMacroLang config configTH hashIncludes = do
 
         artefact ::
           Artefact l
-            ( [SourcePath]
+            ( [RealPath]
             , ( [C.RootDirective C.HashIncludeArg]
               , ([CWrapper], [SHs.SDecl])
               )
@@ -251,14 +251,14 @@ getExtensions fieldNaming wrappers decls =
 getThDecls
     :: Guasi q
     => FieldNamingStrategy
-    -> [SourcePath]
+    -> [RealPath]
     -> [C.RootDirective C.HashIncludeArg]
     -> [CWrapper]
     -> [SHs.SDecl]
     -> q [TH.Dec]
 getThDecls fns deps rootDirectives wrappers decls = do
     -- Record dependencies, including transitively included headers.
-    mapM_ (addDependentFile . getSourcePath) deps
+    mapM_ (addDependentFile . getRealPath) deps
 
     -- Add userland-CAPI wrappers source code.
     unless (null wrapperSrc) $ addCSource wrapperSrc

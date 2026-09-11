@@ -11,7 +11,6 @@ import Data.Set ((\\))
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
-import Clang.Paths
 
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex, Entry (..),
@@ -567,7 +566,7 @@ isDroppedMacro = \case
 --
 -- Only conflicting declarations carry more than one location; we sort by the
 -- first.
-msgLoc :: AnnMsg Select -> Maybe SingleLoc
+msgLoc :: AnnMsg Select -> Maybe (SingleLoc RealPath)
 msgLoc msg = listToMaybe $ C.locationInfoLocs msg.traceMsg.loc
 
 -- | Sort key of a trace message
@@ -586,11 +585,13 @@ data MsgSortKey =
 msgSortKey :: IncludeGraph.IncludeOrder -> AnnMsg Select -> MsgSortKey
 msgSortKey order msg = case msgLoc msg of
     Nothing  -> MsgNoLocation
-    Just loc -> MsgAt {
-        msgSource = IncludeGraph.lookupIncludeOrder order (singleLocPath loc)
-      , msgLine   = singleLocLine   loc
-      , msgColumn = singleLocColumn loc
-      }
+    Just loc ->
+      let source = IncludeGraph.lookupIncludeOrder order (singleLocPath loc)
+      in  MsgAt {
+              msgSource = source
+            , msgLine   = singleLocLine   loc
+            , msgColumn = singleLocColumn loc
+            }
 
 sortSelectMsgs :: IncludeGraph -> [AnnMsg Select] -> [AnnMsg Select]
 sortSelectMsgs includeGraph msgs =
@@ -612,13 +613,12 @@ sortSelectMsgs includeGraph msgs =
       | path <- Set.toList unknownPaths
       ]
 
-    unknownPaths :: Set SourcePath
+    unknownPaths :: Set RealPath
     unknownPaths = Set.fromList [
-        path
+        singleLocPath loc
       | msg <- msgs
       , Just loc <- [msgLoc msg]
-      , let path = singleLocPath loc
-      , IncludeGraph.lookupIncludeOrder order path
+      , IncludeGraph.lookupIncludeOrder order (singleLocPath loc)
           == IncludeGraph.NotInIncludeGraph
       ]
 
@@ -627,7 +627,7 @@ sortSelectMsgs includeGraph msgs =
 -------------------------------------------------------------------------------}
 
 -- Match function to find selection roots.
-type Match = C.DeclName -> SingleLoc -> C.Availability -> Bool
+type Match = C.DeclName -> SingleLoc RealPath -> C.Availability -> Bool
 
 -- | Limit the declaration index to those entries that match the select
 --   predicate. Do not include anything external nor omitted.

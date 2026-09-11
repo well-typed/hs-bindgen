@@ -61,7 +61,7 @@ detectClashes strategy nameMap decls =
         owner :: C.DeclId
         owner = decl.info.id
 
-        loc :: SingleLoc
+        loc :: SingleLoc RealPath
         loc = decl.info.loc
 
         -- The declaration's own top-level name. Squashed declarations do not
@@ -74,7 +74,7 @@ detectClashes strategy nameMap decls =
         (failures, successes) = partitionEithers $ derivedNames strategy nameMap owner loc decl.kind
 
 -- | Looking up created names for scoped names can fail
-type DerivedNamesResult = Either MangleNamesFailure (NameRole, Scope, SingleLoc, Hs.SomeName)
+type DerivedNamesResult = Either MangleNamesFailure (NameRole, Scope, SingleLoc RealPath, Hs.SomeName)
 
 -- | All derived (non-top-level) names of a declaration, with the role, scope,
 -- and location under which they must be unique.
@@ -87,7 +87,7 @@ derivedNames :: forall l.
      FieldNamingStrategy
   -> NameMap
   -> C.DeclId
-  -> SingleLoc
+  -> SingleLoc RealPath
   -> C.DeclKind l CreateNames
   -> [DerivedNamesResult]
 derivedNames strategy nameMap owner loc = \case
@@ -114,7 +114,7 @@ derivedNames strategy nameMap owner loc = \case
     C.DeclGlobal{}                    -> []
     C.DeclOpaque{}                    -> []
   where
-    success :: (NameRole, Scope, SingleLoc, Hs.SomeName) -> DerivedNamesResult
+    success :: (NameRole, Scope, SingleLoc RealPath, Hs.SomeName) -> DerivedNamesResult
     success = Right
 
     failure :: C.DeclId -> C.ScopedName -> DerivedNamesResult

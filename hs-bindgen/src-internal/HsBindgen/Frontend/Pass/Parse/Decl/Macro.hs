@@ -6,6 +6,7 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Macro (
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types (MultiLoc (multiLocExpansion))
 import Clang.LowLevel.Core (CXCursor)
+import Clang.Paths (getRealPathText)
 
 import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo (..), Tokens)
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl, getMacroExpansions,
@@ -18,6 +19,6 @@ getReparseInfo = \curr -> do
     case macroExpansionsMay of
       Nothing -> pure ReparseNotNeeded
       Just macroExpansions -> do
-        unit <- getTranslationUnit
-        ReparseNeeded <$>
-          HighLevel.clang_tokenize unit extent <*> pure macroExpansions
+        unit   <- getTranslationUnit
+        tokens <- HighLevel.clang_tokenize unit getRealPathText extent
+        pure $ ReparseNeeded tokens macroExpansions

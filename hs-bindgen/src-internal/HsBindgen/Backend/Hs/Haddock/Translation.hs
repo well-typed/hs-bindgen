@@ -79,7 +79,7 @@ mkHaddocksDecorateParams info params =
 
 data Args = Args{
       isField :: Bool
-    , loc     :: C.SingleLoc
+    , loc     :: C.SingleLoc C.RealPath
     , cName   :: Text
     , hsName  :: Hs.SomeName
     , comment :: Maybe (C.Comment Final)
