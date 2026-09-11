@@ -17,7 +17,6 @@ import HsBindgen.Backend.Category
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Name qualified as Hs
@@ -67,12 +66,11 @@ generateDeclarations ::
      Macro.HasTypes l
   => Macro.Lang l
   -> UniqueId
-  -> HaddockConfig
   -> BaseModuleName
   -> DeclIndex l
   -> [C.Decl l Final]
   -> ByCategory_ [Hs.Decl l]
-generateDeclarations macroLang uniqueId config name declIndex =
+generateDeclarations macroLang uniqueId name declIndex =
     fmap reverse .
       foldl' partitionBindingCategories mempty .
       generateDeclarations' macroLang env declIndex
@@ -86,7 +84,7 @@ generateDeclarations macroLang uniqueId config name declIndex =
     supInsts = def
 
     env :: HsM.Env
-    env = HsM.initEnv uniqueId name config supInsts
+    env = HsM.initEnv uniqueId name supInsts
 
 -- | Internal. Top-level declaration with foreign import category.
 data WithCategory a = WithCategory {
@@ -251,7 +249,7 @@ opaqueDecs info spec mSize = do
             , spec = spec
             }
         , instances = insts
-        , comment   = mkHaddocks env.haddockConfig info
+        , comment   = mkHaddocks info
         }
 
     -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1528>
@@ -338,7 +336,7 @@ enumDecs info enum spec = do
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = mkHaddocks env.haddockConfig info
+        newtypeComment = mkHaddocks info
 
         candidateInsts :: Set Inst.TypeClass
         candidateInsts = Hs.getCandidateInsts env.supportedInstances.enum
@@ -477,7 +475,7 @@ enumDecs info enum spec = do
                 , constr  = Just nt.constr
                 , value   = constant.value
                 , origin  = Origin.EnumConstant constant
-                , comment = mkHaddocksFieldInfo env.haddockConfig info constant.info
+                , comment = mkHaddocksFieldInfo info constant.info
                 }
             | constant <- enum.constants
             ]
@@ -538,7 +536,7 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = mkHaddocks env.haddockConfig info
+        newtypeComment = mkHaddocks info
 
         candidateInsts :: Set Inst.TypeClass
         candidateInsts = Hs.getCandidateInsts env.supportedInstances.typedef
@@ -770,7 +768,7 @@ macroDecsTypedef macroLang info macroType spec = do
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = mkHaddocks env.haddockConfig info
+        newtypeComment = mkHaddocks info
 
         candidateInsts :: Set Inst.TypeClass
         candidateInsts = Hs.getCandidateInsts env.supportedInstances.typedef
@@ -1048,7 +1046,7 @@ addressStubDecs info ty runnerNameSpec _spec = do
             }
 
         mbComment :: Maybe HsDoc.Comment
-        mbComment = mkHaddocks env.haddockConfig info
+        mbComment = mkHaddocks info
 
         mbUniqueSymbolComment :: Maybe HsDoc.Comment
         mbUniqueSymbolComment = case runnerName of
@@ -1146,7 +1144,7 @@ macroVarDecs info macroValue = do
           Hs.MacroValue
             { name    = hsVarName
             , expr    = macroValue
-            , comment = mkHaddocks env.haddockConfig info
+            , comment = mkHaddocks info
             }
       ]
   where
@@ -1185,6 +1183,6 @@ untaggedEnumConstantDecs info enumConstant = do
               , constr  = Nothing
               , value   = fromInteger enumConstant.constant.value
               , origin  = Origin.EnumConstant enumConstant.constant
-              , comment = mkHaddocks env.haddockConfig info
+              , comment = mkHaddocks info
               }
         in  [typeSigDecl]
