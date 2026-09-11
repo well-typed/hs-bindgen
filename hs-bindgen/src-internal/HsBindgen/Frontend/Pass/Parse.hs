@@ -55,7 +55,7 @@ parseDecls macroLang parseEnv = do
           let -- The map is keyed on @('Id' 'Parse', 'SingleLoc')@ rather than
               -- just @'Id' 'Parse'@ to handle forward declarations at different
               -- locations with the same name.
-              sourceOrderMap :: Map (Id Parse, SingleLoc) Natural
+              sourceOrderMap :: Map (Id Parse, SingleLoc RealPath) Natural
               sourceOrderMap = Map.fromList
                 [ ((r.id, r.loc), i)
                 | (i, r) <- zip [0..] resultsSourceOrder
@@ -127,7 +127,7 @@ sortByM isBefore = go
 -- | Populate the source-order index in the 'DeclInfo' of a successful
 --   'ParseResult'
 setSourceOrderIndex ::
-     Map (Id Parse, SingleLoc) Natural
+     Map (Id Parse, SingleLoc RealPath) Natural
   -> ParseResult l Parse
   -> ParseResult l Parse
 setSourceOrderIndex sourceOrderMap result =

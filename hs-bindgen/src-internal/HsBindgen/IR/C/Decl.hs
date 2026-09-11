@@ -103,7 +103,7 @@ deriving stock instance (Ord  (Id p)) => Ord  (EnclosingRef p)
 deriving stock instance (Show (Id p)) => Show (EnclosingRef p)
 
 data DeclInfo (p :: Pass) = DeclInfo{
-      loc           :: SingleLoc
+      loc           :: SingleLoc RealPath
     , id            :: Id p
     -- | Source order index
     --
@@ -153,7 +153,7 @@ data HeaderInfo = HeaderInfo{
   deriving stock (Show, Eq, Generic)
 
 data FieldInfo (p :: Pass) = FieldInfo {
-      loc     :: SingleLoc
+      loc     :: SingleLoc RealPath
     , name    :: ScopedName p
     , comment :: CommentDecl p
     }

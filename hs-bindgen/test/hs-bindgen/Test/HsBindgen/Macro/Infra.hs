@@ -28,7 +28,7 @@ import Data.Text qualified as Text
 
 import Clang.Enum.Simple (simpleEnum)
 import Clang.HighLevel.Types (MultiLoc (..), Range (..), SingleLoc (..),
-                              Token (..), TokenSpelling (..))
+                              SourcePath, Token (..), TokenSpelling (..))
 import Clang.LowLevel.Core (CXCursorKind (CXCursor_UnexposedDecl),
                             CXTokenKind (CXToken_Comment, CXToken_Identifier, CXToken_Keyword, CXToken_Literal, CXToken_Punctuation))
 
@@ -84,10 +84,10 @@ spc = PieceSpace
 --
 -- Each token gets the extent it would have there, ending one past its last
 -- character, as @libclang@ reports it.
-layout :: [Piece] -> [Token TokenSpelling]
+layout :: [Piece] -> [Token SourcePath TokenSpelling]
 layout = go SourceLoc{line = 1, column = 1, offset = 0}
   where
-    go :: SourceLoc -> [Piece] -> [Token TokenSpelling]
+    go :: SourceLoc -> [Piece] -> [Token SourcePath TokenSpelling]
     go _   []                           = []
     go loc (PieceSpace        : pieces) = go (advance loc " ") pieces
     go loc (PieceToken kind s : pieces) = mkToken kind s loc end : go end pieces
@@ -100,14 +100,14 @@ layout = go SourceLoc{line = 1, column = 1, offset = 0}
 -- 'HsBindgen.Macro.Syntax.MacroInvocation' carry the range of the whole
 -- construct. No parser reads it, so any faithful range will do; an empty token
 -- list gets the start of the synthetic source.
-extentOf :: [Token TokenSpelling] -> Range MultiLoc
+extentOf :: [Token SourcePath TokenSpelling] -> Range (MultiLoc SourcePath)
 extentOf = \case
     []     -> Range start start
     t : ts -> Range
                 (rangeStart (tokenExtent t))
                 (rangeEnd   (tokenExtent (NE.last (t :| ts))))
   where
-    start :: MultiLoc
+    start :: MultiLoc SourcePath
     start = multiLoc SourceLoc{line = 1, column = 1, offset = 0}
 
 -- | A location in the synthetic source text
@@ -127,7 +127,7 @@ advance loc text = SourceLoc {
     , offset = loc.offset + Text.length text
     }
 
-mkToken :: CXTokenKind -> Text -> SourceLoc -> SourceLoc -> Token TokenSpelling
+mkToken :: CXTokenKind -> Text -> SourceLoc -> SourceLoc -> Token SourcePath TokenSpelling
 mkToken kind spelling start end = Token {
       tokenKind       = simpleEnum kind
     , tokenSpelling   = TokenSpelling spelling
@@ -135,7 +135,7 @@ mkToken kind spelling start end = Token {
     , tokenCursorKind = simpleEnum CXCursor_UnexposedDecl
     }
 
-multiLoc :: SourceLoc -> MultiLoc
+multiLoc :: SourceLoc -> (MultiLoc SourcePath)
 multiLoc loc = MultiLoc {
       multiLocExpansion = SingleLoc {
           singleLocPath   = "<test>"

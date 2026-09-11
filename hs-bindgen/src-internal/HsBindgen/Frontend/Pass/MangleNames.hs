@@ -124,7 +124,7 @@ updateDeclMeta failures squashes declMeta = declMeta{
           declMeta.declIndex
     }
   where
-    failuresMap :: Map C.DeclId (SingleLoc, MangleNamesError)
+    failuresMap :: Map C.DeclId (SingleLoc RealPath, MangleNamesError)
     failuresMap = Map.fromList $ map (\f -> (f.id, (f.loc, f.err))) failures
 
     squashesMap ::  Map C.DeclId Squashed

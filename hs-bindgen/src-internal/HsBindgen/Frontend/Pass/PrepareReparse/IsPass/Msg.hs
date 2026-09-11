@@ -15,7 +15,7 @@ import System.Exit (ExitCode)
 import Text.Parsec.Error qualified as Parsec
 import Text.SimplePrettyPrint qualified as PP
 
-import Clang.HighLevel.Types (MultiLoc (multiLocExpansion))
+import Clang.HighLevel.Types (MultiLoc (multiLocExpansion), SourcePath)
 
 import HsBindgen.Util.Tracer (IsTrace (..), Level (Bug, Debug, Info, Warning),
                               PrettyForTrace (..), Source (HsBindgen))
@@ -169,7 +169,7 @@ instance IsTrace Level PrepareReparseMsg where
 data DelayedPrepareReparseMsg =
     -- | Can not expand macro invocations in the given declaration because we
     -- can not do so unambiguously. This may cause reparsing to fail.
-    PrepareReparseExpansionNotUnique MultiLoc String
+    PrepareReparseExpansionNotUnique (MultiLoc SourcePath) String
     -- | Failed to parse the structure of some macro invocations
   | PrepareReparseMacroInvocationParseFailures (NonEmpty Text)
     -- | There was no preprocessor output for this declaration

@@ -107,42 +107,42 @@ instance Default SelectionPredicate where
 --
 -- Dealing with main headers is somewhat subtle.  See
 -- "HsBindgen.Frontend.ProcessIncludes" for discussion.
-type IsMainHeader = SourcePath -> Bool
+type IsMainHeader = RealPath -> Bool
 
 -- | Construct an 'IsMainHeader' function for the given main header paths
 mkIsMainHeader ::
-     Set SourcePath -- ^ Main header paths
+     Set RealPath -- ^ Main header paths
   -> IsMainHeader
 mkIsMainHeader paths path = path `Set.member` paths
 
 -- | Check if a declaration is in a main header directory, including
 -- subdirectories
-type IsInMainHeaderDir = SourcePath -> Bool
+type IsInMainHeaderDir = RealPath -> Bool
 
 -- | Construct an 'IsInMainHeaderDir' function for the given main header paths
 mkIsInMainHeaderDir ::
-     Set SourcePath -- ^ Main header paths
+     Set RealPath -- ^ Main header paths
   -> IsInMainHeaderDir
 mkIsInMainHeaderDir paths path =
     let dir = FilePath.splitDirectories . FilePath.takeDirectory $
-          getSourcePath path
+          getRealPath path
     in  any (`List.isPrefixOf` dir) mainDirs
   where
     mainDirs :: [[FilePath]]
     mainDirs = map FilePath.splitDirectories . Set.toList $
-      Set.map (FilePath.takeDirectory . getSourcePath) paths
+      Set.map (FilePath.takeDirectory . getRealPath) paths
 
 -- | Match 'SelectionPredicate' predicates
 matchSelect ::
      IsMainHeader
   -> IsInMainHeaderDir
-  -> SourcePath
+  -> RealPath
   -> C.DeclName
   -> C.Availability
   -> Boolean SelectionPredicate
   -> Bool
-matchSelect isMainHeader isInMainHeaderDir path cDeclName availability = eval $ \case
-    SelectHeader p -> matchHeaderPath isMainHeader isInMainHeaderDir path p
+matchSelect isMainHeader isInMainHeaderDir realPath cDeclName availability = eval $ \case
+    SelectHeader p -> matchHeaderPath isMainHeader isInMainHeaderDir realPath p
     SelectDecl   p -> matchDecl cDeclName availability p
 
 {-------------------------------------------------------------------------------
@@ -212,13 +212,13 @@ eval f = go
 matchHeaderPath ::
      IsMainHeader
   -> IsInMainHeaderDir
-  -> SourcePath
+  -> RealPath
   -> HeaderPathPredicate
   -> Bool
-matchHeaderPath isMainHeader isInMainHeaderDir path@(SourcePath pathT) = \case
-    FromMainHeaders      -> isMainHeader path
-    FromMainHeaderDirs   -> isInMainHeaderDir path
-    HeaderPathMatches re -> matchTest re pathT
+matchHeaderPath isMainHeader isInMainHeaderDir realPath = \case
+    FromMainHeaders      -> isMainHeader realPath
+    FromMainHeaderDirs   -> isInMainHeaderDir realPath
+    HeaderPathMatches re -> matchTest re (getRealPathText realPath)
 
 -- | Match 'DeclPredicate' predicates
 matchDecl :: C.DeclName -> C.Availability -> DeclPredicate -> Bool

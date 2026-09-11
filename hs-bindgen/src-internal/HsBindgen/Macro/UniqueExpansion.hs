@@ -29,7 +29,7 @@ import Data.Set qualified as Set
 import Data.Text (Text)
 import Text.Parsec (eof)
 
-import Clang.HighLevel.Types (Token, TokenSpelling)
+import Clang.HighLevel.Types (SourcePath, Token, TokenSpelling)
 
 import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
@@ -96,7 +96,7 @@ parseDefinition def =
 -- macro definitions. We treat them as parameters there, to emphasise that their
 -- expansion relies on the parameters. In the GNU named-variadic form the name
 -- that stands for the trailing arguments is a parameter like any other.
-definitionDeps :: Runtime.Macro.Raw (Token TokenSpelling) -> Definition
+definitionDeps :: Runtime.Macro.Raw (Token SourcePath TokenSpelling) -> Definition
 definitionDeps m = Definition{
       name = toName m.name
     , deps = Set.fromList
@@ -108,7 +108,7 @@ definitionDeps m = Definition{
         ]
     }
   where
-    toName :: Token TokenSpelling -> Name
+    toName :: Token SourcePath TokenSpelling -> Name
     toName = Name . spelling
 
     isParam :: Name -> Bool
@@ -117,7 +117,7 @@ definitionDeps m = Definition{
         Runtime.Macro.Params names variadic ->
           n `elem` map toName names || isVariadicParam n variadic
 
-    isVariadicParam :: Name -> Runtime.Macro.Variadic (Token TokenSpelling) -> Bool
+    isVariadicParam :: Name -> Runtime.Macro.Variadic (Token SourcePath TokenSpelling) -> Bool
     isVariadicParam n = \case
         Runtime.Macro.NotVariadic                -> False
         Runtime.Macro.NamedEllipsis ellipsisName -> n == toName ellipsisName

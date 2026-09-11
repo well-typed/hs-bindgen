@@ -15,6 +15,7 @@ import GHC.Show (showSpace)
 
 import Clang.HighLevel.Types (Token (tokenSpelling),
                               TokenSpelling (getTokenSpelling))
+import Clang.Paths (SourcePath)
 
 {-------------------------------------------------------------------------------
   Pretty-printing
@@ -26,7 +27,7 @@ import Clang.HighLevel.Types (Token (tokenSpelling),
 -- Any whitespace /inside/ tokens will be preserved. Tokens are at its core a
 -- string of characters, so for example if a token has a newline character in
 -- it, then the printed output will preserve that newline character.
-prettyTokens :: [Token TokenSpelling] -> ShowS
+prettyTokens :: [Token SourcePath TokenSpelling] -> ShowS
 prettyTokens tokens =
       foldr (.) id -- compose all ShowS value
     $ List.intersperse showSpace
@@ -37,5 +38,5 @@ prettyTokens tokens =
 -- Any whitespace /inside/ the token will be preserved. Tokens are at its core a
 -- string of characters, so for example if a token has a newline character in
 -- it, then the printed output will preserve that newline character.
-prettyToken :: Token TokenSpelling -> ShowS
+prettyToken :: Token SourcePath TokenSpelling -> ShowS
 prettyToken token = showString $ Text.unpack token.tokenSpelling.getTokenSpelling

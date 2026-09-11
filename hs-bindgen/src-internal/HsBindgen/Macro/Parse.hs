@@ -31,7 +31,7 @@ import Clang.HighLevel.Types (MultiLoc (multiLocExpansion), Range (rangeStart),
                               Token (tokenExtent, tokenKind, tokenSpelling),
                               TokenSpelling (getTokenSpelling))
 import Clang.LowLevel.Core (CXTokenKind (CXToken_Identifier, CXToken_Keyword, CXToken_Punctuation))
-import Clang.Paths (getSourcePath)
+import Clang.Paths (SourcePath, getSourcePath)
 
 import HsBindgen.Errors
 import HsBindgen.Macro.Error (MacroParseError (..))
@@ -40,7 +40,7 @@ import HsBindgen.Macro.Error (MacroParseError (..))
   Parser type
 -------------------------------------------------------------------------------}
 
-type Parser = Parsec [Token TokenSpelling] ()
+type Parser = Parsec [Token SourcePath TokenSpelling] ()
 
 -- | Run a parser on a stream of tokens
 --
@@ -49,7 +49,7 @@ type Parser = Parsec [Token TokenSpelling] ()
 runParser ::
      HasCallStack
   => Parser a
-  -> [Token TokenSpelling]
+  -> [Token SourcePath TokenSpelling]
   -> Either MacroParseError a
 runParser p tokens =
     first unrecognized $ Parsec.runParser p () sourcePath tokens
@@ -60,7 +60,7 @@ runParser p tokens =
           []  -> panicPure "runParser: empty list"
           t:_ -> getSourcePath $ singleLocPath start
             where
-              start :: SingleLoc
+              start :: SingleLoc SourcePath
               start = rangeStart $ multiLocExpansion <$> tokenExtent t
 
     unrecognized :: ParseError -> MacroParseError
@@ -72,10 +72,10 @@ runParser p tokens =
   Dealing with individual tokens
 -------------------------------------------------------------------------------}
 
-token :: (Token TokenSpelling -> Maybe a) -> Parser a
+token :: (Token SourcePath TokenSpelling -> Maybe a) -> Parser a
 token = Parsec.token tokenPretty tokenSourcePos
   where
-    tokenPretty :: Token TokenSpelling -> String
+    tokenPretty :: Token SourcePath TokenSpelling -> String
     tokenPretty tok = concat [
           show $ Text.unpack tok.tokenSpelling.getTokenSpelling
         , " ("
@@ -83,14 +83,14 @@ token = Parsec.token tokenPretty tokenSourcePos
         ,  ")"
         ]
 
-    tokenSourcePos :: Token a -> SourcePos
+    tokenSourcePos :: Token SourcePath a -> SourcePos
     tokenSourcePos t =
         newPos
           (getSourcePath $ singleLocPath start)
           (singleLocLine start)
           (singleLocColumn start)
       where
-        start :: SingleLoc
+        start :: SingleLoc SourcePath
         start = rangeStart $ multiLocExpansion <$> tokenExtent t
 
 tokenOfKind :: CXTokenKind -> (Text -> Maybe a) -> Parser a
@@ -102,19 +102,19 @@ tokenOfKind kind f = token $ \t ->
 tokenOfKind' :: CXTokenKind -> (Text -> Bool) -> Parser ()
 tokenOfKind' kind cmp = tokenOfKind kind (\actual -> guard $ cmp actual)
 
-isOfKind :: CXTokenKind -> Token TokenSpelling -> Bool
+isOfKind :: CXTokenKind -> Token SourcePath TokenSpelling -> Bool
 isOfKind kind t = fromSimpleEnum (tokenKind t) == Right kind
 
 -- | Is this token a name?
 --
 -- See 'identifierOrKeyword' for why we check for both token kinds, identifier
 -- and keyword.
-isIdentifierOrKeyword :: Token TokenSpelling -> Bool
+isIdentifierOrKeyword :: Token SourcePath TokenSpelling -> Bool
 isIdentifierOrKeyword t =
     isOfKind CXToken_Identifier t || isOfKind CXToken_Keyword t
 
 -- | The spelling of a token
-spelling :: Token TokenSpelling -> Text
+spelling :: Token SourcePath TokenSpelling -> Text
 spelling = getTokenSpelling . tokenSpelling
 
 -- | Parse an identifier or a keyword
@@ -124,7 +124,7 @@ spelling = getTokenSpelling . tokenSpelling
 -- spellings @libclang@ reports as keywords is decided by the translation
 -- unit's language options, so @bool@ is a keyword under C23 and an identifier
 -- under C17; that distinction must not reach the macro grammar.
-identifierOrKeyword :: Parser (Token TokenSpelling)
+identifierOrKeyword :: Parser (Token SourcePath TokenSpelling)
 identifierOrKeyword = token $ \t -> t <$ guard (isIdentifierOrKeyword t)
 
 {-------------------------------------------------------------------------------

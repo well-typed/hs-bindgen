@@ -15,6 +15,7 @@ import Clang.Enum.Simple (fromSimpleEnum)
 import Clang.HighLevel.Types (Token (tokenCursorKind, tokenKind), TokenSpelling)
 import Clang.LowLevel.Core (CXCursorKind (CXCursor_CompoundStmt),
                             CXTokenKind (CXToken_Comment))
+import Clang.Paths (SourcePath)
 
 import HsBindgen.Clang.Tokens qualified as Clang
 import HsBindgen.Frontend.Pass.PrepareReparse.Printer.Util qualified as P
@@ -25,12 +26,12 @@ import HsBindgen.Frontend.Pass.PrepareReparse.Printer.Util qualified as P
 
 -- | Flatten tokens and add a semicolon at the end, while skipping over tokens
 -- that are comments.
-flattenDefault :: [Token TokenSpelling] -> String
+flattenDefault :: [Token SourcePath TokenSpelling] -> String
 flattenDefault tokens = prettyTokens tokens ""
 
 -- | Flatten tokens and add a semicolon at the end, while skipping over tokens
 -- that are comments or part of a function body.
-flattenFunction :: [Token TokenSpelling] -> String
+flattenFunction :: [Token SourcePath TokenSpelling] -> String
 flattenFunction tokens = prettyTokens (skipFunctionBody tokens) ""
 
 {-------------------------------------------------------------------------------
@@ -38,20 +39,20 @@ flattenFunction tokens = prettyTokens (skipFunctionBody tokens) ""
 -------------------------------------------------------------------------------}
 
 -- | Pretty-print tokens and add a semicolon at the end
-prettyTokens :: [Token TokenSpelling] -> ShowS
+prettyTokens :: [Token SourcePath TokenSpelling] -> ShowS
 prettyTokens ts = Clang.prettyTokens (skipComments ts) . P.semicolon
 
 -- | Skip tokens that are comments
-skipComments :: [Token TokenSpelling] -> [Token TokenSpelling]
+skipComments :: [Token SourcePath TokenSpelling] -> [Token SourcePath TokenSpelling]
 skipComments ts = filter p ts
   where
-    p :: Token TokenSpelling -> Bool
+    p :: Token SourcePath TokenSpelling -> Bool
     p t = case fromSimpleEnum t.tokenKind of
         Right CXToken_Comment -> False
         _ -> True
 
 -- | Skip tokens that form a function body
-skipFunctionBody :: [Token TokenSpelling] -> [Token TokenSpelling]
+skipFunctionBody :: [Token SourcePath TokenSpelling] -> [Token SourcePath TokenSpelling]
 skipFunctionBody = go
   where
     go [] = []

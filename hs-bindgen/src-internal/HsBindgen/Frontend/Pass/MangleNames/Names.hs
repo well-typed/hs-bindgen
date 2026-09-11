@@ -48,7 +48,7 @@ import Data.Foldable qualified as Foldable
 import Data.List.NonEmpty qualified as NE
 import Data.Map qualified as Map
 
-import Clang.HighLevel.Types (SingleLoc)
+import Clang.HighLevel.Types (RealPath, SingleLoc)
 
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -208,7 +208,7 @@ data Scope =
 data NameOrigin = NameOrigin {
       -- | The declaration to blame should this name collide
       owner :: C.DeclId
-    , loc   :: SingleLoc
+    , loc   :: SingleLoc RealPath
     , role  :: NameRole
       -- | The scope in which this name must be unique
     , scope :: Scope
@@ -234,7 +234,7 @@ registerName :: forall ns.
   => NameRole
   -> Scope
   -> C.DeclId
-  -> SingleLoc
+  -> SingleLoc RealPath
   -> Hs.Name ns
   -> NameRegistry
   -> NameRegistry
@@ -264,7 +264,7 @@ registerSomeName ::
      NameRole
   -> Scope
   -> C.DeclId
-  -> SingleLoc
+  -> SingleLoc RealPath
   -> Hs.SomeName
   -> NameRegistry
   -> NameRegistry

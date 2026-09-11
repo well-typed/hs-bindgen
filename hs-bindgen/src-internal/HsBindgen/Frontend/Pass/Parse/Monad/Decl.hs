@@ -32,7 +32,6 @@ import Data.IORef
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-import Clang.Paths
 
 import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
@@ -99,14 +98,14 @@ getEmptyMacros :: ParseDecl EmptyMacros
 getEmptyMacros = wrapEff $ \support -> return support.env.emptyMacros
 
 evalGetMainHeadersAndInclude ::
-     SourcePath
+     RealPath
   -> ParseDecl
       (Either DelayedParseMsg
         (NonEmpty C.HashIncludeArg, IncludeGraph.Include))
-evalGetMainHeadersAndInclude path = wrapEff $ \support ->
+evalGetMainHeadersAndInclude realPath = wrapEff $ \support ->
     pure $
-      first (\err -> ParseNoMainHeadersException err path) $
-      support.env.getMainHeadersAndInclude path
+      first (\err -> ParseNoMainHeadersException err realPath) $
+      support.env.getMainHeadersAndInclude realPath
 
 {-------------------------------------------------------------------------------
   "State"
@@ -139,8 +138,8 @@ modifyParseState f = wrapEff $ \support -> modifyIORef support.state f
 
 recordMacroDefinitionAt ::
      Text
-  -> Range MultiLoc
-  -> Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
+  -> Range (MultiLoc RealPath)
+  -> Either MacroParseError (Runtime.Macro.Raw (Token SourcePath TokenSpelling))
   -> ParseDecl ()
 recordMacroDefinitionAt macroName locRange macro =
     modifyParseState $ #macroDefinitions %~ (macroDefinition:)
@@ -157,8 +156,8 @@ getMacroDefinitions = reverse . (.macroDefinitions) <$> getParseState
 
 recordMacroExpansionAt ::
      Text
-  -> Range MultiLoc
-  -> [Token TokenSpelling]
+  -> Range (MultiLoc RealPath)
+  -> [Token SourcePath TokenSpelling]
   -> ParseDecl ()
 recordMacroExpansionAt macroName locRange tokens =
     modifyParseState $ #macroExpansions %~ recordAt loc macroInvocation
@@ -170,10 +169,10 @@ recordMacroExpansionAt macroName locRange tokens =
         , tokens = tokens
         }
 
-    loc :: SingleLoc
+    loc :: SingleLoc RealPath
     loc = locRange.rangeStart.multiLocExpansion
 
-getMacroExpansions :: Range SingleLoc -> ParseDecl (Maybe (NonEmpty MacroInvocation))
+getMacroExpansions :: Range (SingleLoc RealPath) -> ParseDecl (Maybe (NonEmpty MacroInvocation))
 getMacroExpansions range = do
     macroExpansions <- (.macroExpansions) <$> getParseState
     case lookupRange range macroExpansions of
@@ -195,7 +194,7 @@ getMacroExpansions range = do
 traceImmediate ::
      HasCallStack
   => C.PrelimDeclId
-  -> SingleLoc
+  -> SingleLoc RealPath
   -> ImmediateParseMsg
   -> ParseDecl ()
 traceImmediate declId declLoc msg = wrapEff $ \support ->
@@ -226,7 +225,7 @@ traceImmediateGlobal msg = wrapEff $ \support ->
 parseFail ::
      ParseCtx
   -> C.PrelimDeclId
-  -> SingleLoc
+  -> SingleLoc RealPath
   -> DelayedParseMsg
   -> ParseDecl [ParseResult l Parse]
 parseFail ctx declId declLoc msg = do
@@ -254,7 +253,7 @@ parseFailNoInfo ctx msg curr = do
     -- The declaration ID and the location are not always available while
     -- parsing, and so are not part of the declaration context. We have to
     -- obtain them again here.
-    getDeclInfoForTrace :: ParseDecl (C.PrelimDeclId, SingleLoc)
+    getDeclInfoForTrace :: ParseDecl (C.PrelimDeclId, SingleLoc RealPath)
     getDeclInfoForTrace = do
       declId  <- C.prelimDeclIdAtCursor curr ctx.outer.kind
       declLoc <- HighLevel.clang_getCursorLocation' curr
@@ -265,7 +264,7 @@ parseFailNoInfo ctx msg curr = do
 -- Ideally we'd only emit the trace when we /use/ the declaration that
 -- we fail to parse.
 maybeEmitScopingMsg ::
-  RequiredForScoping -> C.PrelimDeclId -> SingleLoc -> ParseDecl ()
+  RequiredForScoping -> C.PrelimDeclId -> SingleLoc RealPath -> ParseDecl ()
 maybeEmitScopingMsg scoping declId declLoc = case scoping of
     RequiredForScoping ->
       traceImmediate declId declLoc $
