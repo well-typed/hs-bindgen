@@ -118,11 +118,7 @@
   See the invocation section of the manual for details.
 * The `Raw` macro language (`HsBindgen.Macro.raw`) now translates a macro to a
   `HsBindgen.Runtime.Macro.Raw Text` value rather than to the `[String]` of its
-  tokens. Name, parameter list and body are kept apart, so the parameter list is
-  no longer spliced into the body, and the whitespace rule that tells
-  `#define F(x) ...` from `#define G (x) ...` applies here too. Two identical
-  redefinitions of the same macro now collapse into one declaration instead of
-  clashing, because the translated value no longer carries source locations. See
+  tokens. `Raw` keeps the macro name, parameter list and body apart. See
   [issue #2242][is-2242] and [issue #2243][is-2243].
 
 ### New features
