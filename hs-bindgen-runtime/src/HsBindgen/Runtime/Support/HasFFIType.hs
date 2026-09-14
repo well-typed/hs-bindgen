@@ -114,31 +114,7 @@ instance HasFFIType (ViaIdentity a) where
   fromFFIType x = ViaIdentity x
 
 {-------------------------------------------------------------------------------
-  Foreign types
--------------------------------------------------------------------------------}
-
-instance (HasFFIType a, HasFFIType b) => HasFFIType (a -> b) where
-  type FFIType (a -> b) = FFIType a -> FFIType b
-  {-# INLINE toFFIType #-}
-  toFFIType f = \x -> toFFIType (f $ fromFFIType x)
-  {-# INLINE fromFFIType #-}
-  fromFFIType f = \x -> fromFFIType (f $ toFFIType x)
-
-{-------------------------------------------------------------------------------
-  Marshallable foreign result types
--------------------------------------------------------------------------------}
-
-deriving via ViaIdentity () instance HasFFIType ()
-
-instance HasFFIType a => HasFFIType (IO a) where
-  type FFIType (IO a) = IO (FFIType a)
-  {-# INLINE toFFIType #-}
-  toFFIType = fmap toFFIType
-  {-# INLINE fromFFIType #-}
-  fromFFIType = fmap fromFFIType
-
-{-------------------------------------------------------------------------------
-  Marshallable foreign types
+  Instances
 -------------------------------------------------------------------------------}
 
 -- === Prelude ===

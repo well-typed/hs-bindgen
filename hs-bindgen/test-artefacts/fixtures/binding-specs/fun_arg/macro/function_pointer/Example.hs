@@ -38,7 +38,6 @@ newtype MyFunctionPointer_Aux = MyFunctionPointer_Aux
   { unwrapMyFunctionPointer_Aux :: BG.CInt -> IO BG.CInt
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toMyFunctionPointer_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_47dfd04698dd2e6f_base ::

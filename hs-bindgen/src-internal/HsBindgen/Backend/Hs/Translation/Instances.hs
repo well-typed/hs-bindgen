@@ -122,10 +122,10 @@ getInstances instanceMap name = aux
     (/\) = Set.intersection
 
     ioInsts :: Set Inst.TypeClass
-    ioInsts = Set.singleton Inst.HasFFIType
+    ioInsts = Set.empty
 
     funInsts :: Set Inst.TypeClass
-    funInsts = Set.singleton Inst.HasFFIType
+    funInsts = Set.empty
 
     blockInsts :: Set Inst.TypeClass
     blockInsts = Set.singleton Inst.HasFFIType

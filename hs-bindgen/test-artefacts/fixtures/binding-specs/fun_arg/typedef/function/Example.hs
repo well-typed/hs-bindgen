@@ -3,7 +3,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
@@ -33,7 +32,6 @@ newtype A = A
   { unwrapA :: BG.CInt -> IO BG.CInt
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toA@
 foreign import ccall safe "wrapper" hs_bindgen_0c7d4776a632d026_base ::
@@ -99,7 +97,6 @@ newtype B = B
   { unwrapB :: A
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 instance (ty ~ A) => BG.CompatHasField.HasField "unwrapB" B ty where
 

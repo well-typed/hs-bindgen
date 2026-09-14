@@ -63,7 +63,6 @@ instance HasCField Intptr "unwrapIntptr"
 newtype Int2int
     = Int2int {unwrapInt2int :: (CInt -> IO CInt)}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toInt2int@
 foreign import ccall safe "wrapper" hs_bindgen_a6c7dd49f5b9d470_base ::
     Int32 -> IO Int32
@@ -106,7 +105,6 @@ instance HasCField Int2int "unwrapInt2int"
 newtype FunctionPointer_Function_Aux
     = FunctionPointer_Function_Aux {unwrapFunctionPointer_Function_Aux :: (IO ())}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toFunctionPointer_Function_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b171c028cdc0781d_base ::
     IO ()
@@ -185,7 +183,6 @@ newtype NonFunctionPointer_Function
     = NonFunctionPointer_Function {unwrapNonFunctionPointer_Function :: (CInt ->
                                                                          IO CInt)}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toNonFunctionPointer_Function@
 foreign import ccall safe "wrapper" hs_bindgen_766ae751d60365e9_base ::
     Int32 -> IO Int32
@@ -236,7 +233,6 @@ instance HasCField NonFunctionPointer_Function
 newtype F1_Aux
     = F1_Aux {unwrapF1_Aux :: (IO ())}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toF1_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_00d16e666202ed6c_base ::
     IO ()
@@ -295,10 +291,7 @@ instance HasCField F1 "unwrapF1"
 
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
-newtype G1
-    = G1 {unwrapG1 :: (IO ())}
-    deriving stock Generic
-    deriving newtype HasFFIType
+newtype G1 = G1 {unwrapG1 :: (IO ())} deriving stock Generic
 -- __unique:__ @toG1@
 foreign import ccall safe "wrapper" hs_bindgen_fa5806570b682579_base ::
     IO ()
@@ -356,10 +349,7 @@ instance HasCField G2 "unwrapG2"
 
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
-newtype H1
-    = H1 {unwrapH1 :: (IO ())}
-    deriving stock Generic
-    deriving newtype HasFFIType
+newtype H1 = H1 {unwrapH1 :: (IO ())} deriving stock Generic
 -- __unique:__ @toH1@
 foreign import ccall safe "wrapper" hs_bindgen_ffae0d1234ed018f_base ::
     IO ()
@@ -394,10 +384,7 @@ instance HasCField H1 "unwrapH1"
 
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
-newtype H2
-    = H2 {unwrapH2 :: H1}
-    deriving stock Generic
-    deriving newtype HasFFIType
+newtype H2 = H2 {unwrapH2 :: H1} deriving stock Generic
 instance (~) ty H1 => HasField "unwrapH2" H2 ty
     where hasField = \x_0 -> (\y_1 -> H2{unwrapH2 = y_1},
                               getField @"unwrapH2" x_0)
