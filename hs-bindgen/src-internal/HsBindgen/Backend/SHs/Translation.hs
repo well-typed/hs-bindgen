@@ -339,7 +339,6 @@ translateType = \case
     Hs.PtrConstArrayElem t  -> tBindgenGlobal PtrConst_type `TApp` (tBindgenGlobal IsArray_Elem `TApp` translateType t)
     Hs.Ptr t                -> TApp (tBindgenGlobal Foreign_Ptr_type) (translateType t)
     Hs.FunPtr t             -> TApp (tBindgenGlobal Foreign_FunPtr_type) (translateType t)
-    Hs.StablePtr t          -> TApp (tBindgenGlobal Foreign_StablePtr_type) (translateType t)
     Hs.PtrConst t           -> TApp (tBindgenGlobal PtrConst_type) (translateType t)
     Hs.IO t                 -> TApp (tBindgenGlobal IO_type) (translateType t)
     Hs.Fun a b              -> TFun (translateType a) (translateType b)
@@ -446,20 +445,7 @@ translateHsPrimType :: Hs.PrimType -> SType ctx
 translateHsPrimType = \case
     Hs.PrimVoid    -> tBindgenGlobal Void_type
     Hs.PrimUnit    -> TUnit
-    Hs.PrimChar    -> tBindgenGlobal Char_type
     Hs.PrimInt     -> tBindgenGlobal Int_type
-    Hs.PrimDouble  -> tBindgenGlobal Double_type
-    Hs.PrimFloat   -> tBindgenGlobal Float_type
-    Hs.PrimBool    -> tBindgenGlobal Bool_type
-    Hs.PrimInt8    -> tBindgenGlobal Int8_type
-    Hs.PrimInt16   -> tBindgenGlobal Int16_type
-    Hs.PrimInt32   -> tBindgenGlobal Int32_type
-    Hs.PrimInt64   -> tBindgenGlobal Int64_type
-    Hs.PrimWord    -> tBindgenGlobal Word_type
-    Hs.PrimWord8   -> tBindgenGlobal Word8_type
-    Hs.PrimWord16  -> tBindgenGlobal Word16_type
-    Hs.PrimWord32  -> tBindgenGlobal Word32_type
-    Hs.PrimWord64  -> tBindgenGlobal Word64_type
     Hs.PrimCChar   -> tBindgenGlobal CChar_type
     Hs.PrimCSChar  -> tBindgenGlobal CSChar_type
     Hs.PrimCUChar  -> tBindgenGlobal CUChar_type

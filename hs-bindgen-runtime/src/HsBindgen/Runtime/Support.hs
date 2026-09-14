@@ -41,7 +41,6 @@ module HsBindgen.Runtime.Support (
   , FunPtr
   , plusPtr
   , castFunPtr
-  , StablePtr
   , getUnionPayload
   , setUnionPayload
   , getUnionPayloadBits
@@ -104,8 +103,6 @@ module HsBindgen.Runtime.Support (
 
     -- C types
   , Void
-  , Int8,  Int16,  Int32,  Int64
-  , Word8, Word16, Word32, Word64
   , CChar(CChar), CSChar(CSChar), CUChar(CUChar)
   , CShort(CShort), CUShort(CUShort)
   , CInt(CInt), CUInt(CUInt)
@@ -121,13 +118,11 @@ import Data.Array.Byte (ByteArray)
 import Data.Bits (Bits, FiniteBits)
 import Data.ByteString qualified as BS (ByteString, pack)
 import Data.Complex (Complex)
-import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ix (Ix)
 import Data.List.NonEmpty (NonEmpty ((:|)), singleton)
 import Data.Primitive.Types (Prim (alignment#, indexByteArray#, indexOffAddr#, readByteArray#, readOffAddr#, sizeOf#, writeByteArray#, writeOffAddr#))
 import Data.Proxy (Proxy (Proxy))
 import Data.Void (Void)
-import Data.Word (Word16, Word32, Word64, Word8)
 import Foreign (Storable (alignment, peek, peekByteOff, poke, pokeByteOff, sizeOf),
                 castFunPtr, with)
 import Foreign.C (CBool (CBool), CChar (CChar), CDouble (CDouble),
@@ -141,7 +136,6 @@ import GHC.Float (castWord32ToFloat, castWord64ToDouble)
 import GHC.Generics (Generic)
 import GHC.Ptr (FunPtr, Ptr (Ptr), plusPtr)
 import GHC.Records (HasField (getField))
-import GHC.Stable (StablePtr)
 import System.IO.Unsafe (unsafePerformIO)
 import Text.Read (readListDefault, readListPrec, readListPrecDefault, readPrec)
 

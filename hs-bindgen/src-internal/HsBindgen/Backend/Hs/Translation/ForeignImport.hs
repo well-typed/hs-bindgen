@@ -367,7 +367,6 @@ toFFIType = go
       Hs.PtrConstArrayElem {} -> yes $ Hs.Ptr $ prim Hs.PrimVoid
       Hs.Ptr{}                -> yes $ Hs.Ptr $ prim Hs.PrimVoid
       Hs.FunPtr{}             -> yes $ Hs.FunPtr $ prim Hs.PrimVoid
-      Hs.StablePtr{}          -> no
       Hs.PtrConst{}           -> yes $ Hs.Ptr $ prim Hs.PrimVoid
       Hs.IO t'                -> Hs.IO <$> go t'
       Hs.Fun s t'             -> Hs.Fun <$> go s <*> go t'
@@ -388,20 +387,7 @@ toFFIType = go
     goPrim pt = case pt of
         Hs.PrimVoid    -> no
         Hs.PrimUnit    -> yesId
-        Hs.PrimChar    -> yesId
         Hs.PrimInt     -> yesId
-        Hs.PrimDouble  -> yesId
-        Hs.PrimFloat   -> yesId
-        Hs.PrimBool    -> yesId
-        Hs.PrimInt8    -> yesId
-        Hs.PrimInt16   -> yesId
-        Hs.PrimInt32   -> yesId
-        Hs.PrimInt64   -> yesId
-        Hs.PrimWord    -> yesId
-        Hs.PrimWord8   -> yesId
-        Hs.PrimWord16  -> yesId
-        Hs.PrimWord32  -> yesId
-        Hs.PrimWord64  -> yesId
         Hs.PrimCChar   -> yesId
         Hs.PrimCSChar  -> yesId
         Hs.PrimCUChar  -> yesId
