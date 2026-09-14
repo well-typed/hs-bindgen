@@ -156,7 +156,6 @@ library internal
     HsBindgen.Clang.Macros.UniqueExpansion.Parse
     HsBindgen.Clang.Macros.UniqueExpansion.Parse.Infra
     HsBindgen.Clang.Macros.UniqueExpansion.Types
-    HsBindgen.Clang.Sizeof
     HsBindgen.Clang.Tokens
     HsBindgen.Config.ClangArgs
     HsBindgen.Config.Internal

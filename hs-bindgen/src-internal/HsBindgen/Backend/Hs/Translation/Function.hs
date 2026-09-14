@@ -118,7 +118,6 @@ functionDecs safety info origCFun _spec = do
         foreignImport :: [Hs.Decl l]
         foreignImport =
             HsFI.foreignImportDec
-              env.sizeofs
               (Hs.ForeignImport.FunName cWrapperName)
               foreignImportParams
               foreignImportResult
