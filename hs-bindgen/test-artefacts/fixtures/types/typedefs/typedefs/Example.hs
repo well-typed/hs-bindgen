@@ -131,7 +131,6 @@ newtype Int2int = Int2int
   { unwrapInt2int :: BG.CInt -> IO BG.CInt
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toInt2int@
 foreign import ccall safe "wrapper" hs_bindgen_a6c7dd49f5b9d470_base ::
@@ -202,7 +201,6 @@ newtype FunctionPointer_Function_Aux = FunctionPointer_Function_Aux
   { unwrapFunctionPointer_Function_Aux :: IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toFunctionPointer_Function_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b171c028cdc0781d_base ::
@@ -312,7 +310,6 @@ newtype NonFunctionPointer_Function = NonFunctionPointer_Function
   { unwrapNonFunctionPointer_Function :: BG.CInt -> IO BG.CInt
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toNonFunctionPointer_Function@
 foreign import ccall safe "wrapper" hs_bindgen_766ae751d60365e9_base ::
@@ -385,7 +382,6 @@ newtype F1_Aux = F1_Aux
   { unwrapF1_Aux :: IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toF1_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_00d16e666202ed6c_base ::
@@ -488,7 +484,6 @@ newtype G1 = G1
   { unwrapG1 :: IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toG1@
 foreign import ccall safe "wrapper" hs_bindgen_fa5806570b682579_base ::
@@ -588,7 +583,6 @@ newtype H1 = H1
   { unwrapH1 :: IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toH1@
 foreign import ccall safe "wrapper" hs_bindgen_ffae0d1234ed018f_base ::
@@ -651,7 +645,6 @@ newtype H2 = H2
   { unwrapH2 :: H1
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 instance (ty ~ H1) => BG.CompatHasField.HasField "unwrapH2" H2 ty where
 

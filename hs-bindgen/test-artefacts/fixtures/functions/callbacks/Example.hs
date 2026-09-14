@@ -71,7 +71,6 @@ newtype FileOpenedNotification_Aux = FileOpenedNotification_Aux
   { unwrapFileOpenedNotification_Aux :: IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toFileOpenedNotification_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b3b8b1fad168671a_base ::
@@ -183,7 +182,6 @@ newtype ProgressUpdate_Aux = ProgressUpdate_Aux
   { unwrapProgressUpdate_Aux :: BG.CInt -> IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toProgressUpdate_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_d551f31556ffa727_base ::
@@ -296,7 +294,6 @@ newtype DataValidator_Aux = DataValidator_Aux
   { unwrapDataValidator_Aux :: BG.CInt -> IO BG.CInt
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toDataValidator_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_c656ca21e63343d6_base ::
@@ -523,7 +520,6 @@ newtype MeasurementReceived_Aux = MeasurementReceived_Aux
   { unwrapMeasurementReceived_Aux :: BG.Ptr Measurement -> IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toMeasurementReceived_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_9259654df9d40f5b_base ::
@@ -714,7 +710,6 @@ newtype SampleBufferFull_Aux = SampleBufferFull_Aux
   { unwrapSampleBufferFull_Aux :: BG.Ptr (IsA.Elem (CA.ConstantArray 10 BG.CInt)) -> IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toSampleBufferFull_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_57d9e30494ae4453_base ::
@@ -1915,7 +1910,6 @@ newtype T = T
   { unwrapT :: BG.FunPtr (D -> IO ()) -> IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toT@
 foreign import ccall safe "wrapper" hs_bindgen_b8534912f6256492_base ::

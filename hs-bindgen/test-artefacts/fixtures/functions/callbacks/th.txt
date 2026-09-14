@@ -441,7 +441,6 @@
 newtype FileOpenedNotification_Aux
     = FileOpenedNotification_Aux {unwrapFileOpenedNotification_Aux :: (IO ())}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toFileOpenedNotification_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b3b8b1fad168671a_base ::
     IO ()
@@ -519,7 +518,6 @@ instance HasCField FileOpenedNotification
 newtype ProgressUpdate_Aux
     = ProgressUpdate_Aux {unwrapProgressUpdate_Aux :: (CInt -> IO ())}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toProgressUpdate_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_d551f31556ffa727_base ::
     Int32 -> IO ()
@@ -592,7 +590,6 @@ instance HasCField ProgressUpdate "unwrapProgressUpdate"
 newtype DataValidator_Aux
     = DataValidator_Aux {unwrapDataValidator_Aux :: (CInt -> IO CInt)}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toDataValidator_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_c656ca21e63343d6_base ::
     Int32 -> IO Int32
@@ -719,7 +716,6 @@ newtype MeasurementReceived_Aux
     = MeasurementReceived_Aux {unwrapMeasurementReceived_Aux :: (Ptr Measurement ->
                                                                  IO ())}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toMeasurementReceived_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_9259654df9d40f5b_base ::
     Ptr Void -> IO ()
@@ -853,7 +849,6 @@ newtype SampleBufferFull_Aux
                                                                                     CInt)) ->
                                                            IO ())}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toSampleBufferFull_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_57d9e30494ae4453_base ::
     Ptr Void -> IO ()
@@ -1563,7 +1558,6 @@ instance HasCField D "unwrapD"
 newtype T
     = T {unwrapT :: (FunPtr (D -> IO ()) -> IO ())}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toT@
 foreign import ccall safe "wrapper" hs_bindgen_b8534912f6256492_base ::
     FunPtr Void -> IO ()

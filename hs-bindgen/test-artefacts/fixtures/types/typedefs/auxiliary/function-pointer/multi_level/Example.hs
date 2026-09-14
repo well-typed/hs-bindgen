@@ -46,7 +46,6 @@ newtype F1_Aux = F1_Aux
   { unwrapF1_Aux :: BG.CInt -> BG.CInt -> IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toF1_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_00d16e666202ed6c_base ::
@@ -156,7 +155,6 @@ newtype F2_Aux = F2_Aux
   { unwrapF2_Aux :: BG.CInt -> BG.CInt -> IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toF2_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_c39d7524b75b54e8_base ::
@@ -267,7 +265,6 @@ newtype F3_Aux = F3_Aux
   { unwrapF3_Aux :: BG.CInt -> BG.CInt -> IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toF3_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_4a960721e7d1dcef_base ::
@@ -378,7 +375,6 @@ newtype F4_Aux = F4_Aux
   { unwrapF4_Aux :: IO BG.CInt
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toF4_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_83bcff023b3bc648_base ::
@@ -484,7 +480,6 @@ newtype F5_Aux = F5_Aux
   { unwrapF5_Aux :: IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toF5_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_6891cbd81d6f42b9_base ::
@@ -638,7 +633,6 @@ newtype F6_Aux = F6_Aux
   { unwrapF6_Aux :: MyInt -> IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toF6_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_c1baf73f98614f45_base ::

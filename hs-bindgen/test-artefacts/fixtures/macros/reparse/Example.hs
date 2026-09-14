@@ -573,7 +573,6 @@ newtype Funptr_typedef1_Aux = Funptr_typedef1_Aux
   { unwrapFunptr_typedef1_Aux :: IO A
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toFunptr_typedef1_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_c584d0f839fd43de_base ::
@@ -684,7 +683,6 @@ newtype Funptr_typedef2_Aux = Funptr_typedef2_Aux
   { unwrapFunptr_typedef2_Aux :: IO (BG.Ptr A)
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toFunptr_typedef2_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_f174457a161ac5a0_base ::
@@ -795,7 +793,6 @@ newtype Funptr_typedef3_Aux = Funptr_typedef3_Aux
   { unwrapFunptr_typedef3_Aux :: IO (BG.Ptr (BG.Ptr A))
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toFunptr_typedef3_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_031d1a7decd790d8_base ::
@@ -906,7 +903,6 @@ newtype Funptr_typedef4_Aux = Funptr_typedef4_Aux
   { unwrapFunptr_typedef4_Aux :: BG.CInt -> BG.CDouble -> IO A
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toFunptr_typedef4_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_da2336d254667386_base ::
@@ -1021,7 +1017,6 @@ newtype Funptr_typedef5_Aux = Funptr_typedef5_Aux
   { unwrapFunptr_typedef5_Aux :: BG.CInt -> BG.CDouble -> IO (BG.Ptr A)
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toFunptr_typedef5_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_1f45632f07742a46_base ::
@@ -2002,7 +1997,6 @@ newtype Const_funptr1_Aux = Const_funptr1_Aux
   { unwrapConst_funptr1_Aux :: BG.CInt -> BG.CDouble -> IO A
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toConst_funptr1_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_7f125e20a9d4075b_base ::
@@ -2117,7 +2111,6 @@ newtype Const_funptr2_Aux = Const_funptr2_Aux
   { unwrapConst_funptr2_Aux :: BG.CInt -> BG.CDouble -> IO A
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toConst_funptr2_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_c7b1e36d845634fb_base ::
@@ -2232,7 +2225,6 @@ newtype Const_funptr3_Aux = Const_funptr3_Aux
   { unwrapConst_funptr3_Aux :: BG.CInt -> BG.CDouble -> IO (PtrConst.PtrConst A)
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toConst_funptr3_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_2dcbfe1c2502178c_base ::
@@ -2347,7 +2339,6 @@ newtype Const_funptr4_Aux = Const_funptr4_Aux
   { unwrapConst_funptr4_Aux :: BG.CInt -> BG.CDouble -> IO (PtrConst.PtrConst A)
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toConst_funptr4_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_5461deeda491de0b_base ::
@@ -2462,7 +2453,6 @@ newtype Const_funptr5_Aux = Const_funptr5_Aux
   { unwrapConst_funptr5_Aux :: BG.CInt -> BG.CDouble -> IO (BG.Ptr A)
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toConst_funptr5_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_7b0174fc978a1ce1_base ::
@@ -2577,7 +2567,6 @@ newtype Const_funptr6_Aux = Const_funptr6_Aux
   { unwrapConst_funptr6_Aux :: BG.CInt -> BG.CDouble -> IO (PtrConst.PtrConst A)
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toConst_funptr6_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_4e32721222f4df9f_base ::
@@ -2692,7 +2681,6 @@ newtype Const_funptr7_Aux = Const_funptr7_Aux
   { unwrapConst_funptr7_Aux :: BG.CInt -> BG.CDouble -> IO (PtrConst.PtrConst A)
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toConst_funptr7_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_0d04fc96ffb9de06_base ::

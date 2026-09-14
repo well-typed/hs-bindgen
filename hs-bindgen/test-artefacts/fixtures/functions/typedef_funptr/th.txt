@@ -10,7 +10,6 @@
 newtype RunDriver_Aux
     = RunDriver_Aux {unwrapRunDriver_Aux :: (Ptr Driver -> IO CInt)}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toRunDriver_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_d86ecf261d7044c6_base ::
     Ptr Void -> IO Int32

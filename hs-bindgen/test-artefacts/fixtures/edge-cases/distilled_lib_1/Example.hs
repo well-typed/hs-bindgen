@@ -1182,7 +1182,6 @@ newtype Callback_t_Aux = Callback_t_Aux
   { unwrapCallback_t_Aux :: BG.Ptr BG.Void -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toCallback_t_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658_base ::
