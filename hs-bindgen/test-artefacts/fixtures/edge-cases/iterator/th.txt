@@ -197,7 +197,6 @@
 newtype Toggle_Aux
     = Toggle_Aux {unwrapToggle_Aux :: (IO CBool)}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toToggle_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_eca2bca8e63194be_base ::
     IO Word8
@@ -259,7 +258,6 @@ instance HasCField Toggle "unwrapToggle"
 newtype Counter_Aux
     = Counter_Aux {unwrapCounter_Aux :: (IO CInt)}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toCounter_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_2202848aad97fe0a_base ::
     IO Int32
@@ -322,7 +320,6 @@ instance HasCField Counter "unwrapCounter"
 newtype VarCounter_Aux
     = VarCounter_Aux {unwrapVarCounter_Aux :: (CInt -> IO CInt)}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toVarCounter_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_42a7337570f8b0d0_base ::
     Int32 -> IO Int32

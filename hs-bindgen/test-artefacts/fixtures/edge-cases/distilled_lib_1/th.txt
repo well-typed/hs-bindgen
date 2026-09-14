@@ -798,7 +798,6 @@ newtype Callback_t_Aux
                                                HsBindgen.Runtime.LibC.Word32 ->
                                                IO HsBindgen.Runtime.LibC.Word32)}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toCallback_t_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658_base ::
     Ptr Void -> Word32 -> IO Word32

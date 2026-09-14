@@ -38,7 +38,6 @@ newtype Fun_ptr_Aux = Fun_ptr_Aux
   { unwrapFun_ptr_Aux :: BG.Ptr Forward_declaration -> IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toFun_ptr_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_5964bbadb359ee4a_base ::

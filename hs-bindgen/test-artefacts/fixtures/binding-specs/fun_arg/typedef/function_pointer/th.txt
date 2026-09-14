@@ -137,7 +137,6 @@
 newtype A_Aux
     = A_Aux {unwrapA_Aux :: (CInt -> IO CInt)}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toA_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_1cabb32c661d9a0e_base ::
     Int32 -> IO Int32

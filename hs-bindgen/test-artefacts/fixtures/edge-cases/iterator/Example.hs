@@ -38,7 +38,6 @@ newtype Toggle_Aux = Toggle_Aux
   { unwrapToggle_Aux :: IO BG.CBool
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toToggle_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_eca2bca8e63194be_base ::
@@ -141,7 +140,6 @@ newtype Counter_Aux = Counter_Aux
   { unwrapCounter_Aux :: IO BG.CInt
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toCounter_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_2202848aad97fe0a_base ::
@@ -244,7 +242,6 @@ newtype VarCounter_Aux = VarCounter_Aux
   { unwrapVarCounter_Aux :: BG.CInt -> IO BG.CInt
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toVarCounter_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_42a7337570f8b0d0_base ::

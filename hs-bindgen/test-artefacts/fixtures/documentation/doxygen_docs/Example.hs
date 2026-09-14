@@ -305,7 +305,6 @@ newtype Event_callback_t_Aux = Event_callback_t_Aux
   { unwrapEvent_callback_t_Aux :: BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toEvent_callback_t_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_111918b0aee2a7fb_base ::
@@ -1418,7 +1417,6 @@ newtype Processor_fn_t_Aux = Processor_fn_t_Aux
   { unwrapProcessor_fn_t_Aux :: BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toProcessor_fn_t_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_d4e16471c82d5df0_base ::

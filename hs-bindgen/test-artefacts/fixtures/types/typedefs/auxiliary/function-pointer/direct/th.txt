@@ -5,10 +5,7 @@
 
     __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/direct.h@
 -}
-newtype T
-    = T {unwrapT :: (CInt -> IO ())}
-    deriving stock Generic
-    deriving newtype HasFFIType
+newtype T = T {unwrapT :: (CInt -> IO ())} deriving stock Generic
 -- __unique:__ @toT@
 foreign import ccall safe "wrapper" hs_bindgen_b8534912f6256492_base ::
     Int32 -> IO ()
