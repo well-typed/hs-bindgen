@@ -21,8 +21,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Safe__acos@
 foreign import ccall safe "hs_bindgen_dfefd17e87559d1a" hs_bindgen_dfefd17e87559d1a_base ::
-     Double
-  -> IO Double
+     BG.CDouble
+  -> IO BG.CDouble
 
 -- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Safe__acos@
 hs_bindgen_dfefd17e87559d1a ::

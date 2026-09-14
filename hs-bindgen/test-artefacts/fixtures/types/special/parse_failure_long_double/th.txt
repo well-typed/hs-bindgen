@@ -55,7 +55,7 @@ instance HasCField Struct2 "struct2_x"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Safe_fun2@
 foreign import ccall safe "hs_bindgen_a1252a3becef09a6" hs_bindgen_a1252a3becef09a6_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Safe_fun2@
 hs_bindgen_a1252a3becef09a6 :: CInt -> IO ()
@@ -77,7 +77,7 @@ fun2_safe :: CInt -> IO ()
 fun2_safe = hs_bindgen_a1252a3becef09a6
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
 foreign import ccall unsafe "hs_bindgen_61793546aa44e36b" hs_bindgen_61793546aa44e36b_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
 hs_bindgen_61793546aa44e36b :: CInt -> IO ()

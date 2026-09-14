@@ -162,8 +162,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 -- __unique:__ @test_functionscallbacks_Example_Unsafe_readFileWithProcessor@
 foreign import ccall unsafe "hs_bindgen_d07f3a3e526e7017" hs_bindgen_d07f3a3e526e7017_base ::
      BG.FunPtr BG.Void
-  -> BG.Int32
-  -> IO BG.Int32
+  -> BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_functionscallbacks_Example_Unsafe_readFileWithProcessor@
 hs_bindgen_d07f3a3e526e7017 ::
@@ -192,7 +192,7 @@ readFileWithProcessor = hs_bindgen_d07f3a3e526e7017
 -- __unique:__ @test_functionscallbacks_Example_Unsafe_watchTemperature@
 foreign import ccall unsafe "hs_bindgen_cb0219aedd5afed5" hs_bindgen_cb0219aedd5afed5_base ::
      BG.FunPtr BG.Void
-  -> BG.Int32
+  -> BG.CInt
   -> IO ()
 
 -- __unique:__ @test_functionscallbacks_Example_Unsafe_watchTemperature@
@@ -272,8 +272,8 @@ onProgressChanged = hs_bindgen_3cb24888fc3e1751
 -- __unique:__ @test_functionscallbacks_Example_Unsafe_validateInput@
 foreign import ccall unsafe "hs_bindgen_567ea6dc040b50a1" hs_bindgen_567ea6dc040b50a1_base ::
      BG.FunPtr BG.Void
-  -> BG.Int32
-  -> IO BG.Int32
+  -> BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_functionscallbacks_Example_Unsafe_validateInput@
 hs_bindgen_567ea6dc040b50a1 ::

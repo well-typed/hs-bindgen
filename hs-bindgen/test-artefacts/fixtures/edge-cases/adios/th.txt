@@ -136,7 +136,7 @@ instance HasCField C数字 "unwrapC\25968\23383"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_edgecasesadios_Example_Safe_adiós_fun@
 foreign import ccall safe "hs_bindgen_2f6d4be143076044" hs_bindgen_2f6d4be143076044_base ::
-    IO Int32
+    IO CInt
 -- __unique:__ @test_edgecasesadios_Example_Safe_adiós_fun@
 hs_bindgen_2f6d4be143076044 :: IO CInt
 -- __unique:__ @test_edgecasesadios_Example_Safe_adiós_fun@
@@ -220,7 +220,7 @@ say拜拜_safe :: IO ()
 say拜拜_safe = hs_bindgen_ad8eb47027b2d49d
 -- __unique:__ @test_edgecasesadios_Example_Unsafe_adiós_fun@
 foreign import ccall unsafe "hs_bindgen_2a3071850c230aa3" hs_bindgen_2a3071850c230aa3_base ::
-    IO Int32
+    IO CInt
 -- __unique:__ @test_edgecasesadios_Example_Unsafe_adiós_fun@
 hs_bindgen_2a3071850c230aa3 :: IO CInt
 -- __unique:__ @test_edgecasesadios_Example_Unsafe_adiós_fun@

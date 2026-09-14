@@ -70,8 +70,8 @@ foo_function = hs_bindgen_3fd2a5c6e681c44b
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_1@
 foreign import ccall safe "hs_bindgen_7978c370c45d3898" hs_bindgen_7978c370c45d3898_base ::
-     BG.Word32
-  -> IO BG.Word32
+     BG.CUInt
+  -> IO BG.CUInt
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_1@
 hs_bindgen_7978c370c45d3898 ::
@@ -94,8 +94,8 @@ foo_33_1 = hs_bindgen_7978c370c45d3898
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_2@
 foreign import ccall safe "hs_bindgen_44aef5175928343d" hs_bindgen_44aef5175928343d_base ::
-     BG.Word32
-  -> IO BG.Word32
+     BG.CUInt
+  -> IO BG.CUInt
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_2@
 hs_bindgen_44aef5175928343d ::
@@ -118,8 +118,8 @@ foo_33_2 = hs_bindgen_44aef5175928343d
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_3@
 foreign import ccall safe "hs_bindgen_9f0b65c4b469b3d8" hs_bindgen_9f0b65c4b469b3d8_base ::
-     BG.Int64
-  -> IO BG.Int64
+     BG.CLLong
+  -> IO BG.CLLong
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_3@
 hs_bindgen_9f0b65c4b469b3d8 ::

@@ -22,7 +22,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_macrosmacro_ext_binding_dep_1_Example_Unsafe_use_b@
 foreign import ccall unsafe "hs_bindgen_495d2cdae3c804b4" hs_bindgen_495d2cdae3c804b4_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_ext_binding_dep_1_Example_Unsafe_use_b@

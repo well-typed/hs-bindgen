@@ -14,6 +14,8 @@ module Test.TH.StaticCounterA where
 import Optics ((%), (&), (.~))
 import System.FilePath ((</>))
 
+import HsBindgen.Runtime.Support
+
 import HsBindgen.TH
 
 let cfg :: Config

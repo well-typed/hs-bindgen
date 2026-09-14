@@ -50,7 +50,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_1@
 foreign import ccall unsafe "hs_bindgen_0bdddf60550fc97b" hs_bindgen_0bdddf60550fc97b_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_1@
 hs_bindgen_0bdddf60550fc97b ::
@@ -76,7 +76,7 @@ thing_fun_1 =
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_2@
 foreign import ccall unsafe "hs_bindgen_c293d866e22be6fc" hs_bindgen_c293d866e22be6fc_base ::
-     BG.Int32
+     BG.CInt
   -> BG.Ptr BG.Void
   -> IO ()
 
@@ -107,9 +107,9 @@ thing_fun_2 =
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3a@
 foreign import ccall unsafe "hs_bindgen_cfd51a9e490a997c" hs_bindgen_cfd51a9e490a997c_base ::
-     BG.Int32
+     BG.CInt
   -> BG.Ptr BG.Void
-  -> Double
+  -> BG.CDouble
   -> BG.Ptr BG.Void
   -> IO ()
 
@@ -151,10 +151,10 @@ thing_fun_3a =
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3b@
 foreign import ccall unsafe "hs_bindgen_23fac8ee5044da6e" hs_bindgen_23fac8ee5044da6e_base ::
-     BG.Int32
+     BG.CInt
   -> BG.Ptr BG.Void
-  -> Double
-  -> IO BG.Int8
+  -> BG.CDouble
+  -> IO BG.CChar
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3b@
 hs_bindgen_23fac8ee5044da6e ::

@@ -21,6 +21,7 @@ module Example.Unsafe
     )
   where
 
+import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CAPI
 import Example
@@ -95,7 +96,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least8_t_fun@
 foreign import ccall unsafe "hs_bindgen_57bd94cbb0575f53" hs_bindgen_57bd94cbb0575f53_base ::
-     IO BG.Int8
+     IO HsBindgen.Runtime.LibC.Int8
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least8_t_fun@
 hs_bindgen_57bd94cbb0575f53 :: IO Int_least8_t
@@ -113,7 +114,7 @@ int_least8_t_fun = hs_bindgen_57bd94cbb0575f53
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least16_t_fun@
 foreign import ccall unsafe "hs_bindgen_f02c70143a88af90" hs_bindgen_f02c70143a88af90_base ::
-     IO BG.Int16
+     IO HsBindgen.Runtime.LibC.Int16
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least16_t_fun@
 hs_bindgen_f02c70143a88af90 :: IO Int_least16_t
@@ -131,7 +132,7 @@ int_least16_t_fun = hs_bindgen_f02c70143a88af90
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least32_t_fun@
 foreign import ccall unsafe "hs_bindgen_f5bbad7b8ac35f06" hs_bindgen_f5bbad7b8ac35f06_base ::
-     IO BG.Int32
+     IO HsBindgen.Runtime.LibC.Int32
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least32_t_fun@
 hs_bindgen_f5bbad7b8ac35f06 :: IO Int_least32_t
@@ -149,7 +150,7 @@ int_least32_t_fun = hs_bindgen_f5bbad7b8ac35f06
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least64_t_fun@
 foreign import ccall unsafe "hs_bindgen_b2036b95960e2751" hs_bindgen_b2036b95960e2751_base ::
-     IO BG.Int64
+     IO HsBindgen.Runtime.LibC.Int64
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least64_t_fun@
 hs_bindgen_b2036b95960e2751 :: IO Int_least64_t
@@ -167,7 +168,7 @@ int_least64_t_fun = hs_bindgen_b2036b95960e2751
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least8_t_fun@
 foreign import ccall unsafe "hs_bindgen_d893fc1d41730120" hs_bindgen_d893fc1d41730120_base ::
-     IO BG.Word8
+     IO HsBindgen.Runtime.LibC.Word8
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least8_t_fun@
 hs_bindgen_d893fc1d41730120 :: IO Uint_least8_t
@@ -185,7 +186,7 @@ uint_least8_t_fun = hs_bindgen_d893fc1d41730120
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least16_t_fun@
 foreign import ccall unsafe "hs_bindgen_eaf2d3e09a41513e" hs_bindgen_eaf2d3e09a41513e_base ::
-     IO BG.Word16
+     IO HsBindgen.Runtime.LibC.Word16
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least16_t_fun@
 hs_bindgen_eaf2d3e09a41513e :: IO Uint_least16_t
@@ -203,7 +204,7 @@ uint_least16_t_fun = hs_bindgen_eaf2d3e09a41513e
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least32_t_fun@
 foreign import ccall unsafe "hs_bindgen_dfdb9c77b9f2e16d" hs_bindgen_dfdb9c77b9f2e16d_base ::
-     IO BG.Word32
+     IO HsBindgen.Runtime.LibC.Word32
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least32_t_fun@
 hs_bindgen_dfdb9c77b9f2e16d :: IO Uint_least32_t
@@ -221,7 +222,7 @@ uint_least32_t_fun = hs_bindgen_dfdb9c77b9f2e16d
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least64_t_fun@
 foreign import ccall unsafe "hs_bindgen_35c7ddf6def5281e" hs_bindgen_35c7ddf6def5281e_base ::
-     IO BG.Word64
+     IO HsBindgen.Runtime.LibC.Word64
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least64_t_fun@
 hs_bindgen_35c7ddf6def5281e :: IO Uint_least64_t
@@ -239,7 +240,7 @@ uint_least64_t_fun = hs_bindgen_35c7ddf6def5281e
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast8_t_fun@
 foreign import ccall unsafe "hs_bindgen_5144ac530f23abd8" hs_bindgen_5144ac530f23abd8_base ::
-     IO BG.Int8
+     IO HsBindgen.Runtime.LibC.Int8
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast8_t_fun@
 hs_bindgen_5144ac530f23abd8 :: IO Int_fast8_t
@@ -257,7 +258,7 @@ int_fast8_t_fun = hs_bindgen_5144ac530f23abd8
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast16_t_fun@
 foreign import ccall unsafe "hs_bindgen_a102db8605e0b669" hs_bindgen_a102db8605e0b669_base ::
-     IO BG.Int32
+     IO HsBindgen.Runtime.LibC.Int32
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast16_t_fun@
 hs_bindgen_a102db8605e0b669 :: IO Int_fast16_t
@@ -275,7 +276,7 @@ int_fast16_t_fun = hs_bindgen_a102db8605e0b669
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast32_t_fun@
 foreign import ccall unsafe "hs_bindgen_97faff4568d5bc6a" hs_bindgen_97faff4568d5bc6a_base ::
-     IO BG.Int32
+     IO HsBindgen.Runtime.LibC.Int32
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast32_t_fun@
 hs_bindgen_97faff4568d5bc6a :: IO Int_fast32_t
@@ -293,7 +294,7 @@ int_fast32_t_fun = hs_bindgen_97faff4568d5bc6a
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast64_t_fun@
 foreign import ccall unsafe "hs_bindgen_ce1a64e61a9f9432" hs_bindgen_ce1a64e61a9f9432_base ::
-     IO BG.Int64
+     IO HsBindgen.Runtime.LibC.Int64
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast64_t_fun@
 hs_bindgen_ce1a64e61a9f9432 :: IO Int_fast64_t
@@ -311,7 +312,7 @@ int_fast64_t_fun = hs_bindgen_ce1a64e61a9f9432
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast8_t_fun@
 foreign import ccall unsafe "hs_bindgen_653d74ee9fd982e2" hs_bindgen_653d74ee9fd982e2_base ::
-     IO BG.Word8
+     IO HsBindgen.Runtime.LibC.Word8
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast8_t_fun@
 hs_bindgen_653d74ee9fd982e2 :: IO Uint_fast8_t
@@ -329,7 +330,7 @@ uint_fast8_t_fun = hs_bindgen_653d74ee9fd982e2
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast16_t_fun@
 foreign import ccall unsafe "hs_bindgen_31bf7eba8a098bae" hs_bindgen_31bf7eba8a098bae_base ::
-     IO BG.Word32
+     IO HsBindgen.Runtime.LibC.Word32
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast16_t_fun@
 hs_bindgen_31bf7eba8a098bae :: IO Uint_fast16_t
@@ -347,7 +348,7 @@ uint_fast16_t_fun = hs_bindgen_31bf7eba8a098bae
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast32_t_fun@
 foreign import ccall unsafe "hs_bindgen_fb324d72364e5685" hs_bindgen_fb324d72364e5685_base ::
-     IO BG.Word32
+     IO HsBindgen.Runtime.LibC.Word32
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast32_t_fun@
 hs_bindgen_fb324d72364e5685 :: IO Uint_fast32_t
@@ -365,7 +366,7 @@ uint_fast32_t_fun = hs_bindgen_fb324d72364e5685
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast64_t_fun@
 foreign import ccall unsafe "hs_bindgen_a2995f3603c68c65" hs_bindgen_a2995f3603c68c65_base ::
-     IO BG.Word64
+     IO HsBindgen.Runtime.LibC.Word64
 
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast64_t_fun@
 hs_bindgen_a2995f3603c68c65 :: IO Uint_fast64_t

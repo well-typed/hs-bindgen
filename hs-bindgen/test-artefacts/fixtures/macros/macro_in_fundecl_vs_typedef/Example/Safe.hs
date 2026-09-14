@@ -95,9 +95,9 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_quux1@
 foreign import ccall safe "hs_bindgen_02e0e3b28d470fd4" hs_bindgen_02e0e3b28d470fd4_base ::
-     BG.Int8
-  -> BG.Int8
-  -> IO BG.Int8
+     BG.CChar
+  -> BG.CChar
+  -> IO BG.CChar
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_quux1@
 hs_bindgen_02e0e3b28d470fd4 ::
@@ -125,9 +125,9 @@ quux1 = hs_bindgen_02e0e3b28d470fd4
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_quux2@
 foreign import ccall safe "hs_bindgen_bb79188c8775e2e4" hs_bindgen_bb79188c8775e2e4_base ::
-     BG.Int8
-  -> BG.Int8
-  -> IO BG.Int8
+     BG.CChar
+  -> BG.CChar
+  -> IO BG.CChar
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_quux2@
 hs_bindgen_bb79188c8775e2e4 ::
@@ -155,7 +155,7 @@ quux2 = hs_bindgen_bb79188c8775e2e4
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_wam1@
 foreign import ccall safe "hs_bindgen_a398fb73645271c5" hs_bindgen_a398fb73645271c5_base ::
-     Float
+     BG.CFloat
   -> BG.Ptr BG.Void
   -> IO (BG.Ptr BG.Void)
 
@@ -185,7 +185,7 @@ wam1 = hs_bindgen_a398fb73645271c5
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_wam2@
 foreign import ccall safe "hs_bindgen_ad904da072e0711e" hs_bindgen_ad904da072e0711e_base ::
-     Float
+     BG.CFloat
   -> BG.Ptr BG.Void
   -> IO (BG.Ptr BG.Void)
 
@@ -216,7 +216,7 @@ wam2 = hs_bindgen_ad904da072e0711e
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef1@
 foreign import ccall safe "hs_bindgen_88e976dc10571000" hs_bindgen_88e976dc10571000_base ::
      BG.Ptr BG.Void
-  -> BG.Int8
+  -> BG.CChar
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef1@
@@ -246,7 +246,7 @@ struct_typedef1 = hs_bindgen_88e976dc10571000
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef2@
 foreign import ccall safe "hs_bindgen_edb3806d45d7605b" hs_bindgen_edb3806d45d7605b_base ::
      BG.Ptr BG.Void
-  -> BG.Int8
+  -> BG.CChar
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef2@
@@ -276,7 +276,7 @@ struct_typedef2 = hs_bindgen_edb3806d45d7605b
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef3@
 foreign import ccall safe "hs_bindgen_7c7f3ab0dd790fe8" hs_bindgen_7c7f3ab0dd790fe8_base ::
      BG.Ptr BG.Void
-  -> BG.Int8
+  -> BG.CChar
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef3@
@@ -306,7 +306,7 @@ struct_typedef3 = hs_bindgen_7c7f3ab0dd790fe8
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name1@
 foreign import ccall safe "hs_bindgen_2cfbb4f5834d4bcb" hs_bindgen_2cfbb4f5834d4bcb_base ::
      BG.Ptr BG.Void
-  -> BG.Int8
+  -> BG.CChar
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name1@
@@ -336,7 +336,7 @@ struct_name1 = hs_bindgen_2cfbb4f5834d4bcb
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name2@
 foreign import ccall safe "hs_bindgen_c8b765fa70f95167" hs_bindgen_c8b765fa70f95167_base ::
      BG.Ptr BG.Void
-  -> BG.Int8
+  -> BG.CChar
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name2@
@@ -366,7 +366,7 @@ struct_name2 = hs_bindgen_c8b765fa70f95167
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name3@
 foreign import ccall safe "hs_bindgen_0ff3632971f092bb" hs_bindgen_0ff3632971f092bb_base ::
      BG.Ptr BG.Void
-  -> BG.Int8
+  -> BG.CChar
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name3@

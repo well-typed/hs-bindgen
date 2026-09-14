@@ -42,8 +42,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cp@
 foreign import ccall safe "hs_bindgen_5d7162df3a16d8d5" hs_bindgen_5d7162df3a16d8d5_base ::
-     BG.Int32
-  -> BG.Int32
+     BG.CInt
+  -> BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cp@
 hs_bindgen_5d7162df3a16d8d5 ::
@@ -71,8 +71,8 @@ square_cp = hs_bindgen_5d7162df3a16d8d5
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pc@
 foreign import ccall safe "hs_bindgen_7f240b4e0c2eea24" hs_bindgen_7f240b4e0c2eea24_base ::
-     BG.Int32
-  -> BG.Int32
+     BG.CInt
+  -> BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pc@
 hs_bindgen_7f240b4e0c2eea24 ::
@@ -100,8 +100,8 @@ square_pc = hs_bindgen_7f240b4e0c2eea24
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cc@
 foreign import ccall safe "hs_bindgen_d32b50f04af10764" hs_bindgen_d32b50f04af10764_base ::
-     BG.Int32
-  -> BG.Int32
+     BG.CInt
+  -> BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cc@
 hs_bindgen_d32b50f04af10764 ::
@@ -129,8 +129,8 @@ square_cc = hs_bindgen_d32b50f04af10764
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pp@
 foreign import ccall safe "hs_bindgen_fab6c9860ff1400b" hs_bindgen_fab6c9860ff1400b_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pp@
 hs_bindgen_fab6c9860ff1400b ::

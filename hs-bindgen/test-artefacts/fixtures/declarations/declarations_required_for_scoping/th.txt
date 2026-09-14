@@ -58,7 +58,7 @@ instance HasCField A "unwrapA"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Safe_f@
 foreign import ccall safe "hs_bindgen_0d1c75136a36e326" hs_bindgen_0d1c75136a36e326_base ::
-    Word64
+    HsBindgen.Runtime.LibC.CSize
  -> IO ()
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Safe_f@
 hs_bindgen_0d1c75136a36e326 :: A -> IO ()
@@ -80,7 +80,7 @@ f_safe :: A -> IO ()
 f_safe = hs_bindgen_0d1c75136a36e326
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
 foreign import ccall unsafe "hs_bindgen_93ed1628a0edf6b0" hs_bindgen_93ed1628a0edf6b0_base ::
-    Word64
+    HsBindgen.Runtime.LibC.CSize
  -> IO ()
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
 hs_bindgen_93ed1628a0edf6b0 :: A -> IO ()

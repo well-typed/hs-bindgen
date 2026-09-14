@@ -65,17 +65,17 @@ newtype Int2int
     deriving stock Generic
 -- __unique:__ @toInt2int@
 foreign import ccall safe "wrapper" hs_bindgen_a6c7dd49f5b9d470_base ::
-    Int32 -> IO Int32
- -> IO (FunPtr (Int32 -> IO Int32))
+    CInt -> IO CInt
+ -> IO (FunPtr (CInt -> IO CInt))
 -- __unique:__ @toInt2int@
 hs_bindgen_a6c7dd49f5b9d470 :: Int2int -> IO (FunPtr Int2int)
 -- __unique:__ @toInt2int@
 hs_bindgen_a6c7dd49f5b9d470 = \fun_0 -> fmap castFunPtr (hs_bindgen_a6c7dd49f5b9d470_base (\x_1 -> fmap toFFIType (getField @"unwrapInt2int" fun_0 (fromFFIType x_1))))
 -- __unique:__ @fromInt2int@
 foreign import ccall safe "dynamic" hs_bindgen_65378a8a3cf640ad_base ::
-    FunPtr (Int32 -> IO Int32)
- -> Int32
- -> IO Int32
+    FunPtr (CInt -> IO CInt)
+ -> CInt
+ -> IO CInt
 -- __unique:__ @fromInt2int@
 hs_bindgen_65378a8a3cf640ad :: FunPtr Int2int -> Int2int
 -- __unique:__ @fromInt2int@
@@ -185,8 +185,8 @@ newtype NonFunctionPointer_Function
     deriving stock Generic
 -- __unique:__ @toNonFunctionPointer_Function@
 foreign import ccall safe "wrapper" hs_bindgen_766ae751d60365e9_base ::
-    Int32 -> IO Int32
- -> IO (FunPtr (Int32 -> IO Int32))
+    CInt -> IO CInt
+ -> IO (FunPtr (CInt -> IO CInt))
 -- __unique:__ @toNonFunctionPointer_Function@
 hs_bindgen_766ae751d60365e9 :: NonFunctionPointer_Function ->
                                IO (FunPtr NonFunctionPointer_Function)
@@ -194,9 +194,9 @@ hs_bindgen_766ae751d60365e9 :: NonFunctionPointer_Function ->
 hs_bindgen_766ae751d60365e9 = \fun_0 -> fmap castFunPtr (hs_bindgen_766ae751d60365e9_base (\x_1 -> fmap toFFIType (getField @"unwrapNonFunctionPointer_Function" fun_0 (fromFFIType x_1))))
 -- __unique:__ @fromNonFunctionPointer_Function@
 foreign import ccall safe "dynamic" hs_bindgen_36c7108d046bcbc3_base ::
-    FunPtr (Int32 -> IO Int32)
- -> Int32
- -> IO Int32
+    FunPtr (CInt -> IO CInt)
+ -> CInt
+ -> IO CInt
 -- __unique:__ @fromNonFunctionPointer_Function@
 hs_bindgen_36c7108d046bcbc3 :: FunPtr NonFunctionPointer_Function ->
                                NonFunctionPointer_Function

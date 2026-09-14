@@ -93,8 +93,8 @@ instance HasCField Y "y_o"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_declarationsdefinitions_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_9cdc88a6d09442d6" hs_bindgen_9cdc88a6d09442d6_base ::
-    Double
- -> IO Int32
+    CDouble
+ -> IO CInt
 -- __unique:__ @test_declarationsdefinitions_Example_Safe_foo@
 hs_bindgen_9cdc88a6d09442d6 :: CDouble -> IO CInt
 -- __unique:__ @test_declarationsdefinitions_Example_Safe_foo@
@@ -115,8 +115,8 @@ foo_safe :: CDouble -> IO CInt
 foo_safe = hs_bindgen_9cdc88a6d09442d6
 -- __unique:__ @test_declarationsdefinitions_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_07fd5b433f381094" hs_bindgen_07fd5b433f381094_base ::
-    Double
- -> IO Int32
+    CDouble
+ -> IO CInt
 -- __unique:__ @test_declarationsdefinitions_Example_Unsafe_foo@
 hs_bindgen_07fd5b433f381094 :: CDouble -> IO CInt
 -- __unique:__ @test_declarationsdefinitions_Example_Unsafe_foo@

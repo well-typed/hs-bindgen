@@ -28,9 +28,9 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
 foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" hs_bindgen_57cb99ed92c001ad_base ::
      BG.Ptr BG.Void
-  -> BG.Word32
+  -> HsBindgen.Runtime.LibC.Word32
   -> BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO HsBindgen.Runtime.LibC.Int32
 
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
 hs_bindgen_57cb99ed92c001ad ::

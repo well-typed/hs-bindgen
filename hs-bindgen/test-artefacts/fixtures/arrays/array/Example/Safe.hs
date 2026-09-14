@@ -202,9 +202,9 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_1@
 foreign import ccall safe "hs_bindgen_a836491d63ff3a2c" hs_bindgen_a836491d63ff3a2c_base ::
-     BG.Int32
+     BG.CInt
   -> BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_1@
 hs_bindgen_a836491d63ff3a2c ::
@@ -235,7 +235,7 @@ fun_1 = hs_bindgen_a836491d63ff3a2c
 -- __unique:__ @test_arraysarray_Example_Safe_fun_2@
 foreign import ccall safe "hs_bindgen_c69f41e5ccc441ab" hs_bindgen_c69f41e5ccc441ab_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_2@
 hs_bindgen_c69f41e5ccc441ab ::
@@ -262,7 +262,7 @@ fun_2 = hs_bindgen_c69f41e5ccc441ab
 -- __unique:__ @test_arraysarray_Example_Safe_fun_3@
 foreign import ccall safe "hs_bindgen_30065ddbffdd7502" hs_bindgen_30065ddbffdd7502_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_3@
 hs_bindgen_30065ddbffdd7502 ::
@@ -289,7 +289,7 @@ fun_3 = hs_bindgen_30065ddbffdd7502
 -- __unique:__ @test_arraysarray_Example_Safe_fun_4@
 foreign import ccall safe "hs_bindgen_6e8db8abcb5fe22a" hs_bindgen_6e8db8abcb5fe22a_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_4@
 hs_bindgen_6e8db8abcb5fe22a ::
@@ -316,7 +316,7 @@ fun_4 = hs_bindgen_6e8db8abcb5fe22a
 -- __unique:__ @test_arraysarray_Example_Safe_fun_5@
 foreign import ccall safe "hs_bindgen_b2f48c31265a3f47" hs_bindgen_b2f48c31265a3f47_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_5@
 hs_bindgen_b2f48c31265a3f47 ::
@@ -343,7 +343,7 @@ fun_5 = hs_bindgen_b2f48c31265a3f47
 -- __unique:__ @test_arraysarray_Example_Safe_fun_6@
 foreign import ccall safe "hs_bindgen_343fe8ca0dbb7eb1" hs_bindgen_343fe8ca0dbb7eb1_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_6@
 hs_bindgen_343fe8ca0dbb7eb1 ::
@@ -370,7 +370,7 @@ fun_6 = hs_bindgen_343fe8ca0dbb7eb1
 -- __unique:__ @test_arraysarray_Example_Safe_fun_7@
 foreign import ccall safe "hs_bindgen_d98a58d39b578fd6" hs_bindgen_d98a58d39b578fd6_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_7@
 hs_bindgen_d98a58d39b578fd6 ::
@@ -397,7 +397,7 @@ fun_7 = hs_bindgen_d98a58d39b578fd6
 -- __unique:__ @test_arraysarray_Example_Safe_fun_8@
 foreign import ccall safe "hs_bindgen_4db12be6f46d98f5" hs_bindgen_4db12be6f46d98f5_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_8@
 hs_bindgen_4db12be6f46d98f5 ::
@@ -424,7 +424,7 @@ fun_8 = hs_bindgen_4db12be6f46d98f5
 -- __unique:__ @test_arraysarray_Example_Safe_isSolved@
 foreign import ccall safe "hs_bindgen_825f9aeca071df21" hs_bindgen_825f9aeca071df21_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_isSolved@
 hs_bindgen_825f9aeca071df21 ::
@@ -450,10 +450,10 @@ isSolved = hs_bindgen_825f9aeca071df21
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_1_const@
 foreign import ccall safe "hs_bindgen_a2bf6bc667c9e769" hs_bindgen_a2bf6bc667c9e769_base ::
-     BG.Int32
+     BG.CInt
   -> BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_1_const@
 hs_bindgen_a2bf6bc667c9e769 ::
@@ -489,7 +489,7 @@ fun_1_const = hs_bindgen_a2bf6bc667c9e769
 foreign import ccall safe "hs_bindgen_ec5a6dd15a457a1d" hs_bindgen_ec5a6dd15a457a1d_base ::
      BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_2_const@
 hs_bindgen_ec5a6dd15a457a1d ::
@@ -521,7 +521,7 @@ fun_2_const = hs_bindgen_ec5a6dd15a457a1d
 foreign import ccall safe "hs_bindgen_84df1030280611db" hs_bindgen_84df1030280611db_base ::
      BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_3_const@
 hs_bindgen_84df1030280611db ::
@@ -553,7 +553,7 @@ fun_3_const = hs_bindgen_84df1030280611db
 foreign import ccall safe "hs_bindgen_e9dc927aa39d14d3" hs_bindgen_e9dc927aa39d14d3_base ::
      BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_4_const@
 hs_bindgen_e9dc927aa39d14d3 ::
@@ -585,7 +585,7 @@ fun_4_const = hs_bindgen_e9dc927aa39d14d3
 foreign import ccall safe "hs_bindgen_cd0bfb26f385dfaa" hs_bindgen_cd0bfb26f385dfaa_base ::
      BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_5_const@
 hs_bindgen_cd0bfb26f385dfaa ::
@@ -617,7 +617,7 @@ fun_5_const = hs_bindgen_cd0bfb26f385dfaa
 foreign import ccall safe "hs_bindgen_1054ce6b48ed0f13" hs_bindgen_1054ce6b48ed0f13_base ::
      BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_6_const@
 hs_bindgen_1054ce6b48ed0f13 ::
@@ -649,7 +649,7 @@ fun_6_const = hs_bindgen_1054ce6b48ed0f13
 foreign import ccall safe "hs_bindgen_496902d7c6466098" hs_bindgen_496902d7c6466098_base ::
      BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_7_const@
 hs_bindgen_496902d7c6466098 ::
@@ -681,7 +681,7 @@ fun_7_const = hs_bindgen_496902d7c6466098
 foreign import ccall safe "hs_bindgen_eb65cb5074167c48" hs_bindgen_eb65cb5074167c48_base ::
      BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_8_const@
 hs_bindgen_eb65cb5074167c48 ::
@@ -713,7 +713,7 @@ fun_8_const = hs_bindgen_eb65cb5074167c48
 foreign import ccall safe "hs_bindgen_9bb064e9eddf07f7" hs_bindgen_9bb064e9eddf07f7_base ::
      BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysarray_Example_Safe_isSolved_const@
 hs_bindgen_9bb064e9eddf07f7 ::

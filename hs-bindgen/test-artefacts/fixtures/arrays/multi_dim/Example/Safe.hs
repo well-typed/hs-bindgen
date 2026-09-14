@@ -77,7 +77,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_57b00b79dd5b838e" hs_bindgen_57b00b79dd5b838e_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_foo@
 hs_bindgen_57b00b79dd5b838e ::
@@ -102,7 +102,7 @@ foo = hs_bindgen_57b00b79dd5b838e
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_foo_const@
 foreign import ccall safe "hs_bindgen_b75122693c32e26c" hs_bindgen_b75122693c32e26c_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_foo_const@
 hs_bindgen_b75122693c32e26c ::
@@ -127,7 +127,7 @@ foo_const = hs_bindgen_b75122693c32e26c
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_595b7d50222e502a" hs_bindgen_595b7d50222e502a_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_bar@
 hs_bindgen_595b7d50222e502a ::
@@ -152,7 +152,7 @@ bar = hs_bindgen_595b7d50222e502a
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_bar_const@
 foreign import ccall safe "hs_bindgen_1e0c14a0ed027681" hs_bindgen_1e0c14a0ed027681_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_bar_const@
 hs_bindgen_1e0c14a0ed027681 ::
@@ -177,7 +177,7 @@ bar_const = hs_bindgen_1e0c14a0ed027681
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_baz@
 foreign import ccall safe "hs_bindgen_39849d83dadd53d9" hs_bindgen_39849d83dadd53d9_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_baz@
 hs_bindgen_39849d83dadd53d9 ::
@@ -202,7 +202,7 @@ baz = hs_bindgen_39849d83dadd53d9
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_baz_const@
 foreign import ccall safe "hs_bindgen_0c873d371c129e78" hs_bindgen_0c873d371c129e78_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_baz_const@
 hs_bindgen_0c873d371c129e78 ::
@@ -227,7 +227,7 @@ baz_const = hs_bindgen_0c873d371c129e78
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_quuz@
 foreign import ccall safe "hs_bindgen_a364da5adecafb37" hs_bindgen_a364da5adecafb37_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_quuz@
 hs_bindgen_a364da5adecafb37 ::
@@ -252,7 +252,7 @@ quuz = hs_bindgen_a364da5adecafb37
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_quuz_const@
 foreign import ccall safe "hs_bindgen_e39fa59aeb1fef3d" hs_bindgen_e39fa59aeb1fef3d_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_quuz_const@
 hs_bindgen_e39fa59aeb1fef3d ::

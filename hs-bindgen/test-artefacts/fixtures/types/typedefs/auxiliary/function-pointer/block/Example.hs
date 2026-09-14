@@ -37,8 +37,8 @@ newtype T_Aux = T_Aux
 
 -- __unique:__ @toT_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_5927fedc3abfa99c_base ::
-     (BG.Int32 -> IO ())
-  -> IO (BG.FunPtr (BG.Int32 -> IO ()))
+     (BG.CInt -> IO ())
+  -> IO (BG.FunPtr (BG.CInt -> IO ()))
 
 -- __unique:__ @toT_Aux@
 hs_bindgen_5927fedc3abfa99c ::
@@ -51,8 +51,8 @@ hs_bindgen_5927fedc3abfa99c =
 
 -- __unique:__ @fromT_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_281617c90fa9307a_base ::
-     BG.FunPtr (BG.Int32 -> IO ())
-  -> BG.Int32 -> IO ()
+     BG.FunPtr (BG.CInt -> IO ())
+  -> BG.CInt -> IO ()
 
 -- __unique:__ @fromT_Aux@
 hs_bindgen_281617c90fa9307a ::

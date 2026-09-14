@@ -42,7 +42,7 @@
 -- }
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_79fe9113b0a5d6a5" hs_bindgen_79fe9113b0a5d6a5_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_Safe_foo@
 hs_bindgen_79fe9113b0a5d6a5 :: CInt -> IO ()
@@ -64,7 +64,7 @@ foo_safe :: CInt -> IO ()
 foo_safe = hs_bindgen_79fe9113b0a5d6a5
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_4327dd00f245ace9" hs_bindgen_4327dd00f245ace9_base ::
-    Int8
+    CChar
  -> IO ()
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_Safe_bar@
 hs_bindgen_4327dd00f245ace9 :: CChar -> IO ()
@@ -86,7 +86,7 @@ bar_safe :: CChar -> IO ()
 bar_safe = hs_bindgen_4327dd00f245ace9
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_cd656f42f4fc25f4" hs_bindgen_cd656f42f4fc25f4_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_Unsafe_foo@
 hs_bindgen_cd656f42f4fc25f4 :: CInt -> IO ()
@@ -108,7 +108,7 @@ foo_unsafe :: CInt -> IO ()
 foo_unsafe = hs_bindgen_cd656f42f4fc25f4
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_fe4fb459e811e272" hs_bindgen_fe4fb459e811e272_base ::
-    Int8
+    CChar
  -> IO ()
 -- __unique:__ @test_macrosredeclarationdef_undef_Example_Unsafe_bar@
 hs_bindgen_fe4fb459e811e272 :: CChar -> IO ()

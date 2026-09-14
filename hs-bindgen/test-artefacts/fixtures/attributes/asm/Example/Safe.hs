@@ -22,9 +22,9 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_attributesasm_Example_Safe_asm_labeled_function@
 foreign import ccall safe "hs_bindgen_369133049bfc1e73" hs_bindgen_369133049bfc1e73_base ::
-     BG.Int32
-  -> BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_attributesasm_Example_Safe_asm_labeled_function@
 hs_bindgen_369133049bfc1e73 ::

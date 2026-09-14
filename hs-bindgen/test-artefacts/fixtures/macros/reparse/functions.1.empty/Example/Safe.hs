@@ -35,7 +35,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_macrosreparsefunctions_1_emp_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_9b92d478f1b3a709" hs_bindgen_9b92d478f1b3a709_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosreparsefunctions_1_emp_Example_Safe_foo@
@@ -60,8 +60,8 @@ foo = hs_bindgen_9b92d478f1b3a709
 
 -- __unique:__ @test_macrosreparsefunctions_1_emp_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_27c1a1b289182157" hs_bindgen_27c1a1b289182157_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsefunctions_1_emp_Example_Safe_bar@
 hs_bindgen_27c1a1b289182157 ::
@@ -85,8 +85,8 @@ bar = hs_bindgen_27c1a1b289182157
 
 -- __unique:__ @test_macrosreparsefunctions_1_emp_Example_Safe_baz@
 foreign import ccall safe "hs_bindgen_36638004661f2e8f" hs_bindgen_36638004661f2e8f_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsefunctions_1_emp_Example_Safe_baz@
 hs_bindgen_36638004661f2e8f ::

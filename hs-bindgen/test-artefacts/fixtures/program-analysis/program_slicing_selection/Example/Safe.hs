@@ -27,8 +27,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 foreign import ccall safe "hs_bindgen_b2a91b3b7edf2ad3" hs_bindgen_b2a91b3b7edf2ad3_base ::
      BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> BG.Word64
-  -> IO BG.Int32
+  -> HsBindgen.Runtime.LibC.CSize
+  -> IO BG.CInt
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_read_file_chunk@
 hs_bindgen_b2a91b3b7edf2ad3 ::

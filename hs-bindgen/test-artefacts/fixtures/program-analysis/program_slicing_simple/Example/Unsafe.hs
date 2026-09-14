@@ -6,7 +6,7 @@ module Example.Unsafe
     )
   where
 
-import qualified Foreign
+import qualified Foreign.C.Types
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CAPI
 import Example
@@ -24,13 +24,13 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295ba8ab_base ::
-     BG.Word64
-  -> BG.Word32
-  -> IO BG.Int32
+     BG.CULong
+  -> BG.CUInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
 hs_bindgen_fe855d53295ba8ab ::
-     Foreign.Word64
+     Foreign.C.Types.CULong
   -> Uint32_t
   -> IO BG.CInt
 hs_bindgen_fe855d53295ba8ab =
@@ -45,7 +45,7 @@ hs_bindgen_fe855d53295ba8ab =
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
 bar ::
-     Foreign.Word64
+     Foreign.C.Types.CULong
      -- ^ __C declaration:__ @x@
   -> Uint32_t
      -- ^ __C declaration:__ @y@

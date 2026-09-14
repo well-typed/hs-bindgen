@@ -25,6 +25,7 @@ import HsBindgen.Backend.SHs.AST.Expr qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.SHs.Translation.MapFunction
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol (..))
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors (panicPure)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
@@ -352,7 +353,7 @@ unsafeToFFI sizeofs ty = case toFFIType sizeofs ty of
 -- After issue #1599 is resolved, we should reconsider whether we want to
 -- use @Hs.Type@ as an input here, or @C.Type Final@, or something else.
 toFFIType :: C.Sizeofs -> Hs.Type -> Maybe Hs.Type
-toFFIType sizeofs = go
+toFFIType _sizeofs = go
   where
     no = Nothing
     yes = Just
@@ -374,7 +375,10 @@ toFFIType sizeofs = go
       Hs.PtrConst{}           -> yes $ Hs.Ptr $ prim Hs.PrimVoid
       Hs.IO t'                -> Hs.IO <$> go t'
       Hs.Fun s t'             -> Hs.Fun <$> go s <*> go t'
-      Hs.ExtBinding _ _ _ t'  -> go t'
+      Hs.ExtBinding _ref _cSpec hsSpec t' ->
+        case BindingSpec.hsSpecFFIType hsSpec of
+          Nothing -> go t'
+          Just hsFFIType -> pure $ extFFIType hsFFIType t'
       Hs.ByteArray            -> no
       Hs.SizedByteArray{}     -> no
       Hs.Block{}              -> yes $ Hs.Ptr $ prim Hs.PrimVoid
@@ -402,32 +406,27 @@ toFFIType sizeofs = go
         Hs.PrimWord16  -> yesId
         Hs.PrimWord32  -> yesId
         Hs.PrimWord64  -> yesId
-        Hs.PrimCChar   -> yes $ signedType sizeofs.char
-        Hs.PrimCSChar  -> yes $ signedType sizeofs.schar
-        Hs.PrimCUChar  -> yes $ unsignedType sizeofs.uchar
-        Hs.PrimCShort  -> yes $ signedType sizeofs.short
-        Hs.PrimCUShort -> yes $ unsignedType sizeofs.ushort
-        Hs.PrimCInt    -> yes $ signedType sizeofs.int
-        Hs.PrimCUInt   -> yes $ unsignedType sizeofs.uint
-        Hs.PrimCLong   -> yes $ signedType sizeofs.long
-        Hs.PrimCULong  -> yes $ unsignedType sizeofs.ulong
-        Hs.PrimCLLong  -> yes $ signedType sizeofs.longlong
-        Hs.PrimCULLong -> yes $ unsignedType sizeofs.ulonglong
-        Hs.PrimCBool   -> yes $ unsignedType sizeofs.bool
-        Hs.PrimCFloat  -> yes Hs.PrimFloat
-        Hs.PrimCDouble -> yes Hs.PrimDouble
+        Hs.PrimCChar   -> yesId
+        Hs.PrimCSChar  -> yesId
+        Hs.PrimCUChar  -> yesId
+        Hs.PrimCShort  -> yesId
+        Hs.PrimCUShort -> yesId
+        Hs.PrimCInt    -> yesId
+        Hs.PrimCUInt   -> yesId
+        Hs.PrimCLong   -> yesId
+        Hs.PrimCULong  -> yesId
+        Hs.PrimCLLong  -> yesId
+        Hs.PrimCULLong -> yesId
+        Hs.PrimCBool   -> yesId
+        Hs.PrimCFloat  -> yesId
+        Hs.PrimCDouble -> yesId
       where yesId = yes pt
 
-signedType :: C.NumBytes -> Hs.PrimType
-signedType = \case
-    C.One   -> Hs.PrimInt8
-    C.Two   -> Hs.PrimInt16
-    C.Four  -> Hs.PrimInt32
-    C.Eight -> Hs.PrimInt64
-
-unsignedType :: C.NumBytes -> Hs.PrimType
-unsignedType = \case
-    C.One   -> Hs.PrimWord8
-    C.Two   -> Hs.PrimWord16
-    C.Four  -> Hs.PrimWord32
-    C.Eight -> Hs.PrimWord64
+-- TODO <?>: rather than reusing the 'Hs.ExtBinding' constructor, it would
+-- probably be better if an binding spec FFI type maps to its own constructor.
+extFFIType :: BindingSpec.HsFFIType -> Hs.Type -> Hs.Type
+extFFIType hsFFIType underlying =  Hs.ExtBinding extRef cSpec hsSpec underlying
+  where
+    extRef = Hs.ExtRef hsFFIType.moduleName hsFFIType.typeName
+    cSpec = BindingSpec.CTypeSpec { hsName = Nothing, enum = Nothing }
+    hsSpec = BindingSpec.HsTypeSpec { hsRep = Nothing, instances = mempty }

@@ -210,7 +210,7 @@ foreign import ccall safe "hs_bindgen_7eada9f65d982412" hs_bindgen_7eada9f65d982
      BG.Ptr BG.Void
   -> BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 hs_bindgen_7eada9f65d982412 ::
@@ -270,7 +270,7 @@ process_data = hs_bindgen_7eada9f65d982412
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_file@
 foreign import ccall safe "hs_bindgen_fb85499c501da1a7" hs_bindgen_fb85499c501da1a7_base ::
      BG.Ptr BG.Void
-  -> IO BG.Word8
+  -> IO BG.CBool
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_file@
 hs_bindgen_fb85499c501da1a7 ::
@@ -307,9 +307,9 @@ process_file = hs_bindgen_fb85499c501da1a7
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_calculate_value@
 foreign import ccall safe "hs_bindgen_a73fc7b108035c5c" hs_bindgen_a73fc7b108035c5c_base ::
-     BG.Int32
-  -> BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_calculate_value@
 hs_bindgen_a73fc7b108035c5c ::
@@ -362,8 +362,8 @@ calculate_value = hs_bindgen_a73fc7b108035c5c
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_html_example@
 foreign import ccall safe "hs_bindgen_9b7f6745401b4652" hs_bindgen_9b7f6745401b4652_base ::
-     BG.Int32
-  -> IO BG.Word8
+     BG.CInt
+  -> IO BG.CBool
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_html_example@
 hs_bindgen_9b7f6745401b4652 ::
@@ -413,8 +413,8 @@ html_example = hs_bindgen_9b7f6745401b4652
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_list_example@
 foreign import ccall safe "hs_bindgen_825411dc114e599b" hs_bindgen_825411dc114e599b_base ::
      BG.Ptr BG.Void
-  -> BG.Word64
-  -> IO BG.Word8
+  -> HsBindgen.Runtime.LibC.CSize
+  -> IO BG.CBool
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_list_example@
 hs_bindgen_825411dc114e599b ::
@@ -529,7 +529,7 @@ dangerous_function = hs_bindgen_17264dcff7e9b698
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_detailed_return_codes@
 foreign import ccall safe "hs_bindgen_c8ca619ec2e70d8d" hs_bindgen_c8ca619ec2e70d8d_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_detailed_return_codes@
 hs_bindgen_c8ca619ec2e70d8d ::
@@ -570,8 +570,8 @@ detailed_return_codes = hs_bindgen_c8ca619ec2e70d8d
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_old_function@
 foreign import ccall safe "hs_bindgen_25e1070e2ce10048" hs_bindgen_25e1070e2ce10048_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_old_function@
 hs_bindgen_25e1070e2ce10048 ::
@@ -608,8 +608,8 @@ old_function = hs_bindgen_25e1070e2ce10048
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_versioned_function@
 foreign import ccall safe "hs_bindgen_a9eeeb09808e71cc" hs_bindgen_a9eeeb09808e71cc_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_versioned_function@
 hs_bindgen_a9eeeb09808e71cc ::
@@ -649,8 +649,8 @@ versioned_function = hs_bindgen_a9eeeb09808e71cc
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
 foreign import ccall safe "hs_bindgen_0c0057f1700372a7" hs_bindgen_0c0057f1700372a7_base ::
      BG.Ptr BG.Void
-  -> BG.Word64
-  -> IO BG.Int32
+  -> HsBindgen.Runtime.LibC.CSize
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
 hs_bindgen_0c0057f1700372a7 ::
@@ -698,7 +698,7 @@ process_buffer = hs_bindgen_0c0057f1700372a7
 foreign import ccall safe "hs_bindgen_294db77671f95524" hs_bindgen_294db77671f95524_base ::
      BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> BG.Word64
+  -> HsBindgen.Runtime.LibC.CSize
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_my_memcpy@
@@ -756,8 +756,8 @@ my_memcpy = hs_bindgen_294db77671f95524
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_double_value@
 foreign import ccall safe "hs_bindgen_f5bc63a9952c2618" hs_bindgen_f5bc63a9952c2618_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_double_value@
 hs_bindgen_f5bc63a9952c2618 ::
@@ -792,10 +792,10 @@ double_value = hs_bindgen_f5bc63a9952c2618
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_read_chunk@
 foreign import ccall safe "hs_bindgen_3545f99d29c4fc53" hs_bindgen_3545f99d29c4fc53_base ::
-     BG.Int32
+     BG.CInt
   -> BG.Ptr BG.Void
-  -> BG.Word64
-  -> IO BG.Int32
+  -> HsBindgen.Runtime.LibC.CSize
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_read_chunk@
 hs_bindgen_3545f99d29c4fc53 ::
@@ -854,10 +854,10 @@ read_chunk = hs_bindgen_3545f99d29c4fc53
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_write_chunk@
 foreign import ccall safe "hs_bindgen_839c1d19dfe95042" hs_bindgen_839c1d19dfe95042_base ::
-     BG.Int32
+     BG.CInt
   -> BG.Ptr BG.Void
-  -> BG.Word64
-  -> IO BG.Int32
+  -> HsBindgen.Runtime.LibC.CSize
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_write_chunk@
 hs_bindgen_839c1d19dfe95042 ::
@@ -916,8 +916,8 @@ write_chunk = hs_bindgen_839c1d19dfe95042
 foreign import ccall safe "hs_bindgen_c4e7e99dba20204d" hs_bindgen_c4e7e99dba20204d_base ::
      BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> BG.Word64
-  -> IO BG.Int32
+  -> HsBindgen.Runtime.LibC.CSize
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_complex_function@
 hs_bindgen_c4e7e99dba20204d ::
@@ -1028,7 +1028,7 @@ complex_function = hs_bindgen_c4e7e99dba20204d
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_hash@
 foreign import ccall safe "hs_bindgen_935f2aead358d9ef" hs_bindgen_935f2aead358d9ef_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_hash@
 hs_bindgen_935f2aead358d9ef ::
@@ -1056,8 +1056,8 @@ hash = hs_bindgen_935f2aead358d9ef
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_square@
 foreign import ccall safe "hs_bindgen_39fef54c23d4e1ee" hs_bindgen_39fef54c23d4e1ee_base ::
-     BG.Int32
-  -> BG.Int32
+     BG.CInt
+  -> BG.CInt
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_square@
 hs_bindgen_39fef54c23d4e1ee ::
@@ -1085,8 +1085,8 @@ square = hs_bindgen_39fef54c23d4e1ee
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_auto_brief_func@
 foreign import ccall safe "hs_bindgen_29749932a4449f10" hs_bindgen_29749932a4449f10_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_auto_brief_func@
 hs_bindgen_29749932a4449f10 ::
@@ -1124,7 +1124,7 @@ auto_brief_func = hs_bindgen_29749932a4449f10
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_multi_paragraph_details@
 foreign import ccall safe "hs_bindgen_03f0269c9296b8c0" hs_bindgen_03f0269c9296b8c0_base ::
      BG.Ptr BG.Void
-  -> BG.Word64
+  -> HsBindgen.Runtime.LibC.CSize
   -> IO ()
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_multi_paragraph_details@
@@ -1175,7 +1175,7 @@ multi_paragraph_details = hs_bindgen_03f0269c9296b8c0
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_todo_remark_attention@
 foreign import ccall safe "hs_bindgen_0446a821eb966f46" hs_bindgen_0446a821eb966f46_base ::
-     BG.Int32
+     BG.CInt
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_todo_remark_attention@
@@ -1219,8 +1219,8 @@ todo_remark_attention = hs_bindgen_0446a821eb966f46
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_html_entities_func@
 foreign import ccall safe "hs_bindgen_25a9ea376bb793e9" hs_bindgen_25a9ea376bb793e9_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_html_entities_func@
 hs_bindgen_25a9ea376bb793e9 ::
@@ -1257,7 +1257,7 @@ html_entities_func = hs_bindgen_25a9ea376bb793e9
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_nested_inline_format@
 foreign import ccall safe "hs_bindgen_6f311771e5e063e6" hs_bindgen_6f311771e5e063e6_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_nested_inline_format@
@@ -1291,8 +1291,8 @@ nested_inline_format = hs_bindgen_6f311771e5e063e6
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_tagged_code_example@
 foreign import ccall safe "hs_bindgen_34473a588f1157e4" hs_bindgen_34473a588f1157e4_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_tagged_code_example@
 hs_bindgen_34473a588f1157e4 ::
@@ -1336,7 +1336,7 @@ tagged_code_example = hs_bindgen_34473a588f1157e4
 foreign import ccall safe "hs_bindgen_471f4a3c2db31252" hs_bindgen_471f4a3c2db31252_base ::
      BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_backslash_syntax@
 hs_bindgen_471f4a3c2db31252 ::

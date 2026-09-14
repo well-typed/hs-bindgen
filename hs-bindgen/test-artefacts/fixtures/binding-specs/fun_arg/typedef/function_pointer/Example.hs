@@ -40,8 +40,8 @@ newtype A_Aux = A_Aux
 
 -- __unique:__ @toA_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_1cabb32c661d9a0e_base ::
-     (BG.Int32 -> IO BG.Int32)
-  -> IO (BG.FunPtr (BG.Int32 -> IO BG.Int32))
+     (BG.CInt -> IO BG.CInt)
+  -> IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 
 -- __unique:__ @toA_Aux@
 hs_bindgen_1cabb32c661d9a0e ::
@@ -54,8 +54,8 @@ hs_bindgen_1cabb32c661d9a0e =
 
 -- __unique:__ @fromA_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_cdb12400c6863f15_base ::
-     BG.FunPtr (BG.Int32 -> IO BG.Int32)
-  -> BG.Int32 -> IO BG.Int32
+     BG.FunPtr (BG.CInt -> IO BG.CInt)
+  -> BG.CInt -> IO BG.CInt
 
 -- __unique:__ @fromA_Aux@
 hs_bindgen_cdb12400c6863f15 ::

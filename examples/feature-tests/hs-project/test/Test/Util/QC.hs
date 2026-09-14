@@ -4,10 +4,11 @@ module Test.Util.QC (
   , shrinkByteArray
   ) where
 
+import Data.Word (Word8)
 import GHC.IsList (IsList (fromList, toList))
 import Test.QuickCheck (Gen, shrinkList, vectorOf)
 
-import HsBindgen.Runtime.Support (ByteArray, Word8)
+import HsBindgen.Runtime.Support (ByteArray)
 
 {-------------------------------------------------------------------------------
   Arbitrary byte arrays

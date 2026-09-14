@@ -34,7 +34,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_edgecasesadios_Example_Unsafe_adiós_fun@
 foreign import ccall unsafe "hs_bindgen_2a3071850c230aa3" hs_bindgen_2a3071850c230aa3_base ::
-     IO BG.Int32
+     IO BG.CInt
 
 -- __unique:__ @test_edgecasesadios_Example_Unsafe_adiós_fun@
 hs_bindgen_2a3071850c230aa3 :: IO BG.CInt
