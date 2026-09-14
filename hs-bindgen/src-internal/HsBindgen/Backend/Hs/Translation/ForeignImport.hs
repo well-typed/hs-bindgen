@@ -29,7 +29,6 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors (panicPure)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 
@@ -53,8 +52,7 @@ data FunRes = FunRes {
 -- > foreign import ccall "foo" foo :: CInt -> IO CInt
 --
 foreignImportDec ::
-     C.Sizeofs
-  -> FunName
+     FunName
   -> [FunParam]
   -> FunRes
   -> C.DeclName
@@ -62,7 +60,7 @@ foreignImportDec ::
   -> Origin.ForeignImport
   -> Safety
   -> [Hs.Decl l]
-foreignImportDec sizeofs name params res origName callConv origin safety =
+foreignImportDec name params res origName callConv origin safety =
     [ Hs.DeclForeignImport foreignImportDecl
     , Hs.DeclFunction funDecl
     ]
@@ -70,7 +68,7 @@ foreignImportDec sizeofs name params res origName callConv origin safety =
     foreignImportDecl :: Hs.ForeignImportDecl
     foreignImportDecl =  Hs.ForeignImportDecl{
           name       = fiName
-        , result     = unsafeToFFI sizeofs res.hsType
+        , result     = unsafeToFFI res.hsType
         , parameters = fiParameters
         , origName   = origName
         , callConv   = callConv
@@ -85,7 +83,7 @@ foreignImportDec sizeofs name params res origName callConv origin safety =
     fiParameters = over each (\x ->
         x.hsParam
           & #comment .~ Nothing
-          & #typ .~ unsafeToFFI sizeofs x.hsParam.typ
+          & #typ .~ unsafeToFFI x.hsParam.typ
           ) params
 
     fiComment =  Just $ HsDoc.uniqueSymbol name.uniqSymbol
@@ -128,13 +126,12 @@ foreignImportDec sizeofs name params res origName callConv origin safety =
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1620008.5.1>
 --
 foreignImportWrapperDec ::
-     C.Sizeofs
-  -> FunName
+     FunName
   -> Hs.Type
   -> ImportFor
   -> Origin.ForeignImport
   -> [Hs.Decl l]
-foreignImportWrapperDec sizeofs name hsType importFor origin =
+foreignImportWrapperDec name hsType importFor origin =
     [ Hs.DeclForeignImportWrapper foreignImportWrapperDecl
     , Hs.DeclFunction funDecl
     ]
@@ -150,7 +147,7 @@ foreignImportWrapperDec sizeofs name hsType importFor origin =
     -- fiName is unique because it is created from a unique name + suffix
     fiName :: UniqueSymbol
     fiName = name.uniqSymbol & #unique %~ (<> "_base")
-    fiFunType = unsafeToFFI sizeofs hsType
+    fiFunType = unsafeToFFI hsType
 
     funDecl :: Hs.FunctionDecl
     funDecl = Hs.FunctionDecl
@@ -195,13 +192,12 @@ foreignImportWrapperDec sizeofs name hsType importFor origin =
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1620008.5.1>
 --
 foreignImportDynamicDec ::
-     C.Sizeofs
-  -> FunName
+     FunName
   -> Hs.Type
   -> ImportFor
   -> Origin.ForeignImport
   -> [Hs.Decl l]
-foreignImportDynamicDec sizeofs name hsType importFor origin =
+foreignImportDynamicDec name hsType importFor origin =
     [ Hs.DeclForeignImportDynamic foreignImportDynamicDecl
     , Hs.DeclFunction funDecl
     ]
@@ -217,7 +213,7 @@ foreignImportDynamicDec sizeofs name hsType importFor origin =
     -- fiName is unique because it is created from a unique name + suffix
     fiName :: UniqueSymbol
     fiName = name.uniqSymbol & #unique %~ (<> "_base")
-    fiFunType = unsafeToFFI sizeofs hsType
+    fiFunType = unsafeToFFI hsType
 
     funDecl :: Hs.FunctionDecl
     funDecl = Hs.FunctionDecl
@@ -342,8 +338,8 @@ mkConvRes g = ConvRes $ \typ e -> case typ of
 -- only uses FFI types. The downside is that it requires quite a bit of (boring)
 -- plumbing. For now, the YAGNI principle applies.
 
-unsafeToFFI :: C.Sizeofs -> Hs.Type -> Hs.Type
-unsafeToFFI sizeofs ty = case toFFIType sizeofs ty of
+unsafeToFFI :: Hs.Type -> Hs.Type
+unsafeToFFI ty = case toFFIType ty of
     Nothing ->
       panicPure $ printf "Type does not have an FFI type: %s" (show ty)
     Just ty' ->
@@ -352,8 +348,8 @@ unsafeToFFI sizeofs ty = case toFFIType sizeofs ty of
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>
 -- After issue #1599 is resolved, we should reconsider whether we want to
 -- use @Hs.Type@ as an input here, or @C.Type Final@, or something else.
-toFFIType :: C.Sizeofs -> Hs.Type -> Maybe Hs.Type
-toFFIType _sizeofs = go
+toFFIType :: Hs.Type -> Maybe Hs.Type
+toFFIType = go
   where
     no = Nothing
     yes = Just

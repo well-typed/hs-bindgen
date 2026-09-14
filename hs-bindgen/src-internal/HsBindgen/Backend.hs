@@ -41,7 +41,6 @@ runBackend tracer config boot frontend = do
     backendHsDeclsAll <- cache "hsDeclsAll" $ do
       final     <- frontend.final
       macroLang <- boot.macroLang
-      sizeofs   <- boot.sizeofs
       let declIndex :: DeclIndex l
           declIndex = final.meta.declIndex
 
@@ -53,7 +52,6 @@ runBackend tracer config boot frontend = do
         config.backend.haddock
         boot.baseModule
         declIndex
-        sizeofs
         cDecls
 
     -- 2. Apply binding category choice.
