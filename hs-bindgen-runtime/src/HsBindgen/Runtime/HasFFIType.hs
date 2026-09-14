@@ -1,12 +1,6 @@
-{-# OPTIONS_HADDOCK hide #-}
-
 {-# LANGUAGE CPP #-}
 
--- NOTE: For now, this module is classified "Support"; however, it may become
--- public in the future. See also
--- https://github.com/well-typed/hs-bindgen/issues/1565.
-
-module HsBindgen.Runtime.Support.HasFFIType (
+module HsBindgen.Runtime.HasFFIType (
     -- * Class
     HasFFIType (FFIType, toFFIType, fromFFIType)
     -- * Deriving-via

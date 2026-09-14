@@ -1,4 +1,5 @@
--- | Generate Haskell foreign imports (using the 'HsBindgen.Runtime.Support.HasFFIType.HasFFIType' class)
+-- | Generate Haskell foreign imports (using the
+-- 'HsBindgen.Runtime.Support.HasFFIType' class)
 module HsBindgen.Backend.Hs.Translation.ForeignImport (
     FunName (..)
   , FunParam (..)

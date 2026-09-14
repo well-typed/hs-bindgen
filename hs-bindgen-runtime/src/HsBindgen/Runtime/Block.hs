@@ -16,7 +16,7 @@ module HsBindgen.Runtime.Block (
 
 import Foreign (Ptr)
 
-import HsBindgen.Runtime.Support.HasFFIType (HasFFIType)
+import HsBindgen.Runtime.HasFFIType (HasFFIType)
 
 {-------------------------------------------------------------------------------
   Definition

@@ -59,7 +59,7 @@ module HsBindgen.Runtime.Support (
   , Proxy(Proxy)
 
     -- * 'HasFFIType'
-  , HasFFIType(FFIType, fromFFIType, toFFIType)
+  , HasFFIType(fromFFIType, toFFIType)
 
     -- * Unsafe
   , unsafePerformIO
@@ -139,6 +139,7 @@ import GHC.Records (HasField (getField))
 import System.IO.Unsafe (unsafePerformIO)
 import Text.Read (readListDefault, readListPrec, readListPrecDefault, readPrec)
 
+import HsBindgen.Runtime.HasFFIType (HasFFIType (fromFFIType, toFFIType))
 import HsBindgen.Runtime.Support.Bitfield (Bitfield)
 import HsBindgen.Runtime.Support.ByteArray (getUnionPayload,
                                             getUnionPayloadBits,
@@ -147,5 +148,4 @@ import HsBindgen.Runtime.Support.ByteArray (getUnionPayload,
 import HsBindgen.Runtime.Support.CAPI (allocaAndPeek)
 import HsBindgen.Runtime.Support.FunPtr (FromFunPtr (fromFunPtr),
                                          ToFunPtr (toFunPtr))
-import HsBindgen.Runtime.Support.HasFFIType (HasFFIType (FFIType, fromFFIType, toFFIType))
 import HsBindgen.Runtime.Support.SizedByteArray (SizedByteArray (SizedByteArray))
