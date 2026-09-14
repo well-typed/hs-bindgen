@@ -31,7 +31,6 @@ import HsBindgen.Backend.Hs.Translation.Instances
 import HsBindgen.Config.Prelims
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
-import HsBindgen.Language.C qualified as C
 
 newtype HsM a = HsM (ReaderT Env (State St) a)
   deriving newtype (Functor, Applicative, Monad)
@@ -57,7 +56,6 @@ data Env = Env {
     uniqueId           :: UniqueId
   , baseModuleName     :: BaseModuleName
   , haddockConfig      :: HaddockConfig
-  , sizeofs            :: C.Sizeofs
   , supportedInstances :: Inst.SupportedInstances
   }
 
@@ -65,15 +63,13 @@ initEnv ::
      UniqueId
   -> BaseModuleName
   -> HaddockConfig
-  -> C.Sizeofs
   -> Inst.SupportedInstances
   -> Env
-initEnv uniqueId baseModuleName haddockConfig sizeofs supportedInstances =
+initEnv uniqueId baseModuleName haddockConfig supportedInstances =
     Env {
         uniqueId = uniqueId
       , baseModuleName = baseModuleName
       , haddockConfig = haddockConfig
-      , sizeofs = sizeofs
       , supportedInstances = supportedInstances
       }
 

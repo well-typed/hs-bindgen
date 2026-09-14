@@ -401,7 +401,7 @@ foreign import ccall unsafe "hs_bindgen_d77490b2fc5f4d07" hs_bindgen_d77490b2fc5
 -- __unique:__ @test_globalsuntagged_Example_get_untaggedPoint@
 hs_bindgen_d77490b2fc5f4d07 :: IO (Ptr UntaggedPoint)
 -- __unique:__ @test_globalsuntagged_Example_get_untaggedPoint@
-hs_bindgen_d77490b2fc5f4d07 = fromFFIType hs_bindgen_d77490b2fc5f4d07_base
+hs_bindgen_d77490b2fc5f4d07 = fmap fromFFIType hs_bindgen_d77490b2fc5f4d07_base
 {-# NOINLINE untaggedPoint #-}
 {-| __C declaration:__ @untaggedPoint@
 
@@ -423,7 +423,7 @@ foreign import ccall unsafe "hs_bindgen_0c5d4010212a5c60" hs_bindgen_0c5d4010212
 -- __unique:__ @test_globalsuntagged_Example_get_untaggedPair@
 hs_bindgen_0c5d4010212a5c60 :: IO (Ptr UntaggedPair)
 -- __unique:__ @test_globalsuntagged_Example_get_untaggedPair@
-hs_bindgen_0c5d4010212a5c60 = fromFFIType hs_bindgen_0c5d4010212a5c60_base
+hs_bindgen_0c5d4010212a5c60 = fmap fromFFIType hs_bindgen_0c5d4010212a5c60_base
 {-# NOINLINE untaggedPair #-}
 {-| __C declaration:__ @untaggedPair@
 
@@ -445,7 +445,7 @@ foreign import ccall unsafe "hs_bindgen_6913d0b9652bbf6f" hs_bindgen_6913d0b9652
 -- __unique:__ @test_globalsuntagged_Example_get_untaggedEnum@
 hs_bindgen_6913d0b9652bbf6f :: IO (Ptr UntaggedEnum)
 -- __unique:__ @test_globalsuntagged_Example_get_untaggedEnum@
-hs_bindgen_6913d0b9652bbf6f = fromFFIType hs_bindgen_6913d0b9652bbf6f_base
+hs_bindgen_6913d0b9652bbf6f = fmap fromFFIType hs_bindgen_6913d0b9652bbf6f_base
 {-# NOINLINE untaggedEnum #-}
 {-| __C declaration:__ @untaggedEnum@
 
@@ -467,7 +467,7 @@ foreign import ccall unsafe "hs_bindgen_d7232446972b888a" hs_bindgen_d7232446972
 -- __unique:__ @test_globalsuntagged_Example_get_untaggedEnumCoords@
 hs_bindgen_d7232446972b888a :: IO (Ptr UntaggedEnumCoords)
 -- __unique:__ @test_globalsuntagged_Example_get_untaggedEnumCoords@
-hs_bindgen_d7232446972b888a = fromFFIType hs_bindgen_d7232446972b888a_base
+hs_bindgen_d7232446972b888a = fmap fromFFIType hs_bindgen_d7232446972b888a_base
 {-# NOINLINE untaggedEnumCoords #-}
 {-| __C declaration:__ @untaggedEnumCoords@
 
@@ -489,7 +489,7 @@ foreign import ccall unsafe "hs_bindgen_9d7d1fc84d6966f1" hs_bindgen_9d7d1fc84d6
 -- __unique:__ @test_globalsuntagged_Example_get_A@
 hs_bindgen_9d7d1fc84d6966f1 :: IO (Ptr (ConstantArray 17 A))
 -- __unique:__ @test_globalsuntagged_Example_get_A@
-hs_bindgen_9d7d1fc84d6966f1 = fromFFIType hs_bindgen_9d7d1fc84d6966f1_base
+hs_bindgen_9d7d1fc84d6966f1 = fmap fromFFIType hs_bindgen_9d7d1fc84d6966f1_base
 {-# NOINLINE a #-}
 {-| __C declaration:__ @A@
 
@@ -511,7 +511,7 @@ foreign import ccall unsafe "hs_bindgen_38f1407628b3330b" hs_bindgen_38f1407628b
 -- __unique:__ @test_globalsuntagged_Example_get_B@
 hs_bindgen_38f1407628b3330b :: IO (PtrConst B)
 -- __unique:__ @test_globalsuntagged_Example_get_B@
-hs_bindgen_38f1407628b3330b = fromFFIType hs_bindgen_38f1407628b3330b_base
+hs_bindgen_38f1407628b3330b = fmap fromFFIType hs_bindgen_38f1407628b3330b_base
 {-# NOINLINE hs_bindgen_c84e7bea962cf7bc #-}
 {-| __C declaration:__ @B@
 
@@ -540,7 +540,7 @@ foreign import ccall unsafe "hs_bindgen_492f8d9f3437df29" hs_bindgen_492f8d9f343
 -- __unique:__ @test_globalsuntagged_Example_get_C@
 hs_bindgen_492f8d9f3437df29 :: IO (Ptr (PtrConst (IncompleteArray (Ptr C))))
 -- __unique:__ @test_globalsuntagged_Example_get_C@
-hs_bindgen_492f8d9f3437df29 = fromFFIType hs_bindgen_492f8d9f3437df29_base
+hs_bindgen_492f8d9f3437df29 = fmap fromFFIType hs_bindgen_492f8d9f3437df29_base
 {-# NOINLINE c #-}
 {-| __C declaration:__ @C@
 

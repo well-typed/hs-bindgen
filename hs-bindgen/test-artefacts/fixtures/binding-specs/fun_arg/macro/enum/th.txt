@@ -238,12 +238,12 @@ instance HasCField E "unwrapE"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_d49a011eb7da5969" hs_bindgen_d49a011eb7da5969_base ::
-    Word32
+    CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_foo@
 hs_bindgen_d49a011eb7da5969 :: MyEnum -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_foo@
-hs_bindgen_d49a011eb7da5969 = fromFFIType hs_bindgen_d49a011eb7da5969_base
+hs_bindgen_d49a011eb7da5969 = \x_0 -> hs_bindgen_d49a011eb7da5969_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 6:6@
@@ -260,12 +260,12 @@ foo_safe :: MyEnum -> IO ()
 foo_safe = hs_bindgen_d49a011eb7da5969
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_32c6f6f9bb440690" hs_bindgen_32c6f6f9bb440690_base ::
-    Word32
+    CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooA@
 hs_bindgen_32c6f6f9bb440690 :: A -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooA@
-hs_bindgen_32c6f6f9bb440690 = fromFFIType hs_bindgen_32c6f6f9bb440690_base
+hs_bindgen_32c6f6f9bb440690 = \x_0 -> hs_bindgen_32c6f6f9bb440690_base (toFFIType x_0)
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 12:6@
@@ -282,12 +282,12 @@ fooA_safe :: A -> IO ()
 fooA_safe = hs_bindgen_32c6f6f9bb440690
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_16e7856908d06f71" hs_bindgen_16e7856908d06f71_base ::
-    Word32
+    CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooB@
 hs_bindgen_16e7856908d06f71 :: B -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooB@
-hs_bindgen_16e7856908d06f71 = fromFFIType hs_bindgen_16e7856908d06f71_base
+hs_bindgen_16e7856908d06f71 = \x_0 -> hs_bindgen_16e7856908d06f71_base (toFFIType x_0)
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 13:6@
@@ -304,12 +304,12 @@ fooB_safe :: B -> IO ()
 fooB_safe = hs_bindgen_16e7856908d06f71
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooC@
 foreign import ccall safe "hs_bindgen_2ebd95eb71d88a64" hs_bindgen_2ebd95eb71d88a64_base ::
-    Word32
+    CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooC@
 hs_bindgen_2ebd95eb71d88a64 :: M.C -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooC@
-hs_bindgen_2ebd95eb71d88a64 = fromFFIType hs_bindgen_2ebd95eb71d88a64_base
+hs_bindgen_2ebd95eb71d88a64 = \x_0 -> hs_bindgen_2ebd95eb71d88a64_base (toFFIType x_0)
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 33:6@
@@ -326,12 +326,12 @@ fooC_safe :: M.C -> IO ()
 fooC_safe = hs_bindgen_2ebd95eb71d88a64
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooD@
 foreign import ccall safe "hs_bindgen_deddaf3108b305bb" hs_bindgen_deddaf3108b305bb_base ::
-    Word32
+    CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooD@
 hs_bindgen_deddaf3108b305bb :: M.D -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooD@
-hs_bindgen_deddaf3108b305bb = fromFFIType hs_bindgen_deddaf3108b305bb_base
+hs_bindgen_deddaf3108b305bb = \x_0 -> hs_bindgen_deddaf3108b305bb_base (toFFIType x_0)
 {-| __C declaration:__ @fooD@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 34:6@
@@ -348,12 +348,12 @@ fooD_safe :: M.D -> IO ()
 fooD_safe = hs_bindgen_deddaf3108b305bb
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooE@
 foreign import ccall safe "hs_bindgen_9ed085d5f2e5837e" hs_bindgen_9ed085d5f2e5837e_base ::
-    Word32
+    CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooE@
 hs_bindgen_9ed085d5f2e5837e :: E -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooE@
-hs_bindgen_9ed085d5f2e5837e = fromFFIType hs_bindgen_9ed085d5f2e5837e_base
+hs_bindgen_9ed085d5f2e5837e = \x_0 -> hs_bindgen_9ed085d5f2e5837e_base (toFFIType x_0)
 {-| __C declaration:__ @fooE@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 35:6@
@@ -370,12 +370,12 @@ fooE_safe :: E -> IO ()
 fooE_safe = hs_bindgen_9ed085d5f2e5837e
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_0e6b98e93cad73ef" hs_bindgen_0e6b98e93cad73ef_base ::
-    Word32
+    CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
 hs_bindgen_0e6b98e93cad73ef :: MyEnum -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
-hs_bindgen_0e6b98e93cad73ef = fromFFIType hs_bindgen_0e6b98e93cad73ef_base
+hs_bindgen_0e6b98e93cad73ef = \x_0 -> hs_bindgen_0e6b98e93cad73ef_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 6:6@
@@ -392,12 +392,12 @@ foo_unsafe :: MyEnum -> IO ()
 foo_unsafe = hs_bindgen_0e6b98e93cad73ef
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_1c6de1b89014dc52" hs_bindgen_1c6de1b89014dc52_base ::
-    Word32
+    CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
 hs_bindgen_1c6de1b89014dc52 :: A -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
-hs_bindgen_1c6de1b89014dc52 = fromFFIType hs_bindgen_1c6de1b89014dc52_base
+hs_bindgen_1c6de1b89014dc52 = \x_0 -> hs_bindgen_1c6de1b89014dc52_base (toFFIType x_0)
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 12:6@
@@ -414,12 +414,12 @@ fooA_unsafe :: A -> IO ()
 fooA_unsafe = hs_bindgen_1c6de1b89014dc52
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_a8e579f3b5035c03" hs_bindgen_a8e579f3b5035c03_base ::
-    Word32
+    CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
 hs_bindgen_a8e579f3b5035c03 :: B -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
-hs_bindgen_a8e579f3b5035c03 = fromFFIType hs_bindgen_a8e579f3b5035c03_base
+hs_bindgen_a8e579f3b5035c03 = \x_0 -> hs_bindgen_a8e579f3b5035c03_base (toFFIType x_0)
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 13:6@
@@ -436,12 +436,12 @@ fooB_unsafe :: B -> IO ()
 fooB_unsafe = hs_bindgen_a8e579f3b5035c03
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooC@
 foreign import ccall unsafe "hs_bindgen_00ad8122da6609fc" hs_bindgen_00ad8122da6609fc_base ::
-    Word32
+    CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooC@
 hs_bindgen_00ad8122da6609fc :: M.C -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooC@
-hs_bindgen_00ad8122da6609fc = fromFFIType hs_bindgen_00ad8122da6609fc_base
+hs_bindgen_00ad8122da6609fc = \x_0 -> hs_bindgen_00ad8122da6609fc_base (toFFIType x_0)
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 33:6@
@@ -458,12 +458,12 @@ fooC_unsafe :: M.C -> IO ()
 fooC_unsafe = hs_bindgen_00ad8122da6609fc
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooD@
 foreign import ccall unsafe "hs_bindgen_2be41098f80a9019" hs_bindgen_2be41098f80a9019_base ::
-    Word32
+    CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooD@
 hs_bindgen_2be41098f80a9019 :: M.D -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooD@
-hs_bindgen_2be41098f80a9019 = fromFFIType hs_bindgen_2be41098f80a9019_base
+hs_bindgen_2be41098f80a9019 = \x_0 -> hs_bindgen_2be41098f80a9019_base (toFFIType x_0)
 {-| __C declaration:__ @fooD@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 34:6@
@@ -480,12 +480,12 @@ fooD_unsafe :: M.D -> IO ()
 fooD_unsafe = hs_bindgen_2be41098f80a9019
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooE@
 foreign import ccall unsafe "hs_bindgen_07241b4b6cbf2991" hs_bindgen_07241b4b6cbf2991_base ::
-    Word32
+    CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooE@
 hs_bindgen_07241b4b6cbf2991 :: E -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooE@
-hs_bindgen_07241b4b6cbf2991 = fromFFIType hs_bindgen_07241b4b6cbf2991_base
+hs_bindgen_07241b4b6cbf2991 = \x_0 -> hs_bindgen_07241b4b6cbf2991_base (toFFIType x_0)
 {-| __C declaration:__ @fooE@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 35:6@
@@ -506,7 +506,7 @@ foreign import ccall unsafe "hs_bindgen_098964a440956602" hs_bindgen_098964a4409
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_foo@
 hs_bindgen_098964a440956602 :: IO (FunPtr (MyEnum -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_foo@
-hs_bindgen_098964a440956602 = fromFFIType hs_bindgen_098964a440956602_base
+hs_bindgen_098964a440956602 = fmap fromFFIType hs_bindgen_098964a440956602_base
 {-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 
@@ -528,7 +528,7 @@ foreign import ccall unsafe "hs_bindgen_86b685b9d27ce50e" hs_bindgen_86b685b9d27
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooA@
 hs_bindgen_86b685b9d27ce50e :: IO (FunPtr (A -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooA@
-hs_bindgen_86b685b9d27ce50e = fromFFIType hs_bindgen_86b685b9d27ce50e_base
+hs_bindgen_86b685b9d27ce50e = fmap fromFFIType hs_bindgen_86b685b9d27ce50e_base
 {-# NOINLINE fooA_funptr #-}
 {-| __C declaration:__ @fooA@
 
@@ -550,7 +550,7 @@ foreign import ccall unsafe "hs_bindgen_9383ae52414c2c19" hs_bindgen_9383ae52414
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooB@
 hs_bindgen_9383ae52414c2c19 :: IO (FunPtr (B -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooB@
-hs_bindgen_9383ae52414c2c19 = fromFFIType hs_bindgen_9383ae52414c2c19_base
+hs_bindgen_9383ae52414c2c19 = fmap fromFFIType hs_bindgen_9383ae52414c2c19_base
 {-# NOINLINE fooB_funptr #-}
 {-| __C declaration:__ @fooB@
 
@@ -572,7 +572,7 @@ foreign import ccall unsafe "hs_bindgen_e677debf9f8f8884" hs_bindgen_e677debf9f8
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooC@
 hs_bindgen_e677debf9f8f8884 :: IO (FunPtr (M.C -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooC@
-hs_bindgen_e677debf9f8f8884 = fromFFIType hs_bindgen_e677debf9f8f8884_base
+hs_bindgen_e677debf9f8f8884 = fmap fromFFIType hs_bindgen_e677debf9f8f8884_base
 {-# NOINLINE fooC_funptr #-}
 {-| __C declaration:__ @fooC@
 
@@ -594,7 +594,7 @@ foreign import ccall unsafe "hs_bindgen_7d8aecf79b372251" hs_bindgen_7d8aecf79b3
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooD@
 hs_bindgen_7d8aecf79b372251 :: IO (FunPtr (M.D -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooD@
-hs_bindgen_7d8aecf79b372251 = fromFFIType hs_bindgen_7d8aecf79b372251_base
+hs_bindgen_7d8aecf79b372251 = fmap fromFFIType hs_bindgen_7d8aecf79b372251_base
 {-# NOINLINE fooD_funptr #-}
 {-| __C declaration:__ @fooD@
 
@@ -616,7 +616,7 @@ foreign import ccall unsafe "hs_bindgen_24fe84901d848b4c" hs_bindgen_24fe84901d8
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooE@
 hs_bindgen_24fe84901d848b4c :: IO (FunPtr (E -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooE@
-hs_bindgen_24fe84901d848b4c = fromFFIType hs_bindgen_24fe84901d848b4c_base
+hs_bindgen_24fe84901d848b4c = fmap fromFFIType hs_bindgen_24fe84901d848b4c_base
 {-# NOINLINE fooE_funptr #-}
 {-| __C declaration:__ @fooE@
 

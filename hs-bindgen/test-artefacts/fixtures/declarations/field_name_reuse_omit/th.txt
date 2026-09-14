@@ -92,7 +92,7 @@ foreign import ccall safe "hs_bindgen_1a3fb33e9aadacd9" hs_bindgen_1a3fb33e9aada
 -- __unique:__ @test_declarationsfield_name_reuse__Example_Safe_bar@
 hs_bindgen_1a3fb33e9aadacd9 :: IO ()
 -- __unique:__ @test_declarationsfield_name_reuse__Example_Safe_bar@
-hs_bindgen_1a3fb33e9aadacd9 = fromFFIType hs_bindgen_1a3fb33e9aadacd9_base
+hs_bindgen_1a3fb33e9aadacd9 = hs_bindgen_1a3fb33e9aadacd9_base
 {-| __C declaration:__ @bar@
 
     __defined at:__ @declarations\/field_name_reuse_omit.h 28:6@
@@ -113,7 +113,7 @@ foreign import ccall unsafe "hs_bindgen_b64ebb06c53fc1b3" hs_bindgen_b64ebb06c53
 -- __unique:__ @test_declarationsfield_name_reuse__Example_Unsafe_bar@
 hs_bindgen_b64ebb06c53fc1b3 :: IO ()
 -- __unique:__ @test_declarationsfield_name_reuse__Example_Unsafe_bar@
-hs_bindgen_b64ebb06c53fc1b3 = fromFFIType hs_bindgen_b64ebb06c53fc1b3_base
+hs_bindgen_b64ebb06c53fc1b3 = hs_bindgen_b64ebb06c53fc1b3_base
 {-| __C declaration:__ @bar@
 
     __defined at:__ @declarations\/field_name_reuse_omit.h 28:6@
@@ -134,7 +134,7 @@ foreign import ccall unsafe "hs_bindgen_2b628f8ea7c448cd" hs_bindgen_2b628f8ea7c
 -- __unique:__ @test_declarationsfield_name_reuse__Example_get_bar@
 hs_bindgen_2b628f8ea7c448cd :: IO (FunPtr (IO ()))
 -- __unique:__ @test_declarationsfield_name_reuse__Example_get_bar@
-hs_bindgen_2b628f8ea7c448cd = fromFFIType hs_bindgen_2b628f8ea7c448cd_base
+hs_bindgen_2b628f8ea7c448cd = fmap fromFFIType hs_bindgen_2b628f8ea7c448cd_base
 {-# NOINLINE bar_funptr #-}
 {-| __C declaration:__ @bar@
 
@@ -156,7 +156,7 @@ foreign import ccall unsafe "hs_bindgen_8612ede7c1c9d541" hs_bindgen_8612ede7c1c
 -- __unique:__ @test_declarationsfield_name_reuse__Example_get_foo@
 hs_bindgen_8612ede7c1c9d541 :: IO (Ptr CInt)
 -- __unique:__ @test_declarationsfield_name_reuse__Example_get_foo@
-hs_bindgen_8612ede7c1c9d541 = fromFFIType hs_bindgen_8612ede7c1c9d541_base
+hs_bindgen_8612ede7c1c9d541 = fmap fromFFIType hs_bindgen_8612ede7c1c9d541_base
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
 

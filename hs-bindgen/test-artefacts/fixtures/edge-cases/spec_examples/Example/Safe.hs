@@ -31,8 +31,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 foreign import ccall safe "hs_bindgen_8a72aafc705daf44" hs_bindgen_8a72aafc705daf44_base ::
      BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> BG.Int64
-  -> BG.Int64
+  -> BG.CLLong
+  -> BG.CLLong
   -> BG.Ptr BG.Void
   -> IO ()
 
@@ -45,7 +45,12 @@ hs_bindgen_8a72aafc705daf44 ::
   -> BG.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T))
   -> IO ()
 hs_bindgen_8a72aafc705daf44 =
-  BG.fromFFIType hs_bindgen_8a72aafc705daf44_base
+  \x0 ->
+    \x1 ->
+      \x2 ->
+        \x3 ->
+          \x4 ->
+            hs_bindgen_8a72aafc705daf44_base (BG.toFFIType x0) (BG.toFFIType x1) (BG.toFFIType x2) (BG.toFFIType x3) (BG.toFFIType x4)
 
 {-| __C declaration:__ @resample@
 

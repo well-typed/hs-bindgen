@@ -3,7 +3,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
@@ -33,12 +32,11 @@ newtype A = A
   { unwrapA :: BG.CInt -> IO BG.CInt
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toA@
 foreign import ccall safe "wrapper" hs_bindgen_0c7d4776a632d026_base ::
-     (BG.Int32 -> IO BG.Int32)
-  -> IO (BG.FunPtr (BG.Int32 -> IO BG.Int32))
+     (BG.CInt -> IO BG.CInt)
+  -> IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 
 -- __unique:__ @toA@
 hs_bindgen_0c7d4776a632d026 ::
@@ -46,12 +44,13 @@ hs_bindgen_0c7d4776a632d026 ::
   -> IO (BG.FunPtr A)
 hs_bindgen_0c7d4776a632d026 =
   \fun0 ->
-    fmap BG.castFunPtrFromFFIType (hs_bindgen_0c7d4776a632d026_base (BG.toFFIType fun0))
+    fmap BG.castFunPtr (hs_bindgen_0c7d4776a632d026_base (\x1 ->
+                                                            fmap BG.toFFIType (BG.getField @"unwrapA" fun0 (BG.fromFFIType x1))))
 
 -- __unique:__ @fromA@
 foreign import ccall safe "dynamic" hs_bindgen_0cf9a6d50f563441_base ::
-     BG.FunPtr (BG.Int32 -> IO BG.Int32)
-  -> BG.Int32 -> IO BG.Int32
+     BG.FunPtr (BG.CInt -> IO BG.CInt)
+  -> BG.CInt -> IO BG.CInt
 
 -- __unique:__ @fromA@
 hs_bindgen_0cf9a6d50f563441 ::
@@ -59,7 +58,8 @@ hs_bindgen_0cf9a6d50f563441 ::
   -> A
 hs_bindgen_0cf9a6d50f563441 =
   \funPtr0 ->
-    BG.fromFFIType (hs_bindgen_0cf9a6d50f563441_base (BG.castFunPtrToFFIType funPtr0))
+    A (\x1 ->
+         fmap BG.fromFFIType (hs_bindgen_0cf9a6d50f563441_base (BG.castFunPtr funPtr0) (BG.toFFIType x1)))
 
 instance BG.ToFunPtr A where
 
@@ -97,7 +97,6 @@ newtype B = B
   { unwrapB :: A
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 instance (ty ~ A) => BG.CompatHasField.HasField "unwrapB" B ty where
 

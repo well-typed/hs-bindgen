@@ -82,12 +82,12 @@
 -- }
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cp@
 foreign import ccall safe "hs_bindgen_5d7162df3a16d8d5" hs_bindgen_5d7162df3a16d8d5_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cp@
 hs_bindgen_5d7162df3a16d8d5 :: CInt -> CInt
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cp@
-hs_bindgen_5d7162df3a16d8d5 = fromFFIType hs_bindgen_5d7162df3a16d8d5_base
+hs_bindgen_5d7162df3a16d8d5 = \x_0 -> fromFFIType (hs_bindgen_5d7162df3a16d8d5_base (toFFIType x_0))
 {-|
 
     Marked @__attribute((const))__@
@@ -112,12 +112,12 @@ square_cp_safe :: CInt -> CInt
 square_cp_safe = hs_bindgen_5d7162df3a16d8d5
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pc@
 foreign import ccall safe "hs_bindgen_7f240b4e0c2eea24" hs_bindgen_7f240b4e0c2eea24_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pc@
 hs_bindgen_7f240b4e0c2eea24 :: CInt -> CInt
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pc@
-hs_bindgen_7f240b4e0c2eea24 = fromFFIType hs_bindgen_7f240b4e0c2eea24_base
+hs_bindgen_7f240b4e0c2eea24 = \x_0 -> fromFFIType (hs_bindgen_7f240b4e0c2eea24_base (toFFIType x_0))
 {-|
 
     Marked @__attribute((const))__@
@@ -142,12 +142,12 @@ square_pc_safe :: CInt -> CInt
 square_pc_safe = hs_bindgen_7f240b4e0c2eea24
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cc@
 foreign import ccall safe "hs_bindgen_d32b50f04af10764" hs_bindgen_d32b50f04af10764_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cc@
 hs_bindgen_d32b50f04af10764 :: CInt -> CInt
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cc@
-hs_bindgen_d32b50f04af10764 = fromFFIType hs_bindgen_d32b50f04af10764_base
+hs_bindgen_d32b50f04af10764 = \x_0 -> fromFFIType (hs_bindgen_d32b50f04af10764_base (toFFIType x_0))
 {-|
 
     Marked @__attribute((const))__@
@@ -172,12 +172,12 @@ square_cc_safe :: CInt -> CInt
 square_cc_safe = hs_bindgen_d32b50f04af10764
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pp@
 foreign import ccall safe "hs_bindgen_fab6c9860ff1400b" hs_bindgen_fab6c9860ff1400b_base ::
-    Int32
- -> IO Int32
+    CInt
+ -> IO CInt
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pp@
 hs_bindgen_fab6c9860ff1400b :: CInt -> IO CInt
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pp@
-hs_bindgen_fab6c9860ff1400b = fromFFIType hs_bindgen_fab6c9860ff1400b_base
+hs_bindgen_fab6c9860ff1400b = \x_0 -> fmap fromFFIType (hs_bindgen_fab6c9860ff1400b_base (toFFIType x_0))
 {-|
 
     Marked @__attribute((pure))__@
@@ -202,12 +202,12 @@ square_pp_safe :: CInt -> IO CInt
 square_pp_safe = hs_bindgen_fab6c9860ff1400b
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cp@
 foreign import ccall unsafe "hs_bindgen_648d4f0fd0df4c79" hs_bindgen_648d4f0fd0df4c79_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cp@
 hs_bindgen_648d4f0fd0df4c79 :: CInt -> CInt
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cp@
-hs_bindgen_648d4f0fd0df4c79 = fromFFIType hs_bindgen_648d4f0fd0df4c79_base
+hs_bindgen_648d4f0fd0df4c79 = \x_0 -> fromFFIType (hs_bindgen_648d4f0fd0df4c79_base (toFFIType x_0))
 {-|
 
     Marked @__attribute((const))__@
@@ -232,12 +232,12 @@ square_cp_unsafe :: CInt -> CInt
 square_cp_unsafe = hs_bindgen_648d4f0fd0df4c79
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pc@
 foreign import ccall unsafe "hs_bindgen_632a1e6eb5ceeda7" hs_bindgen_632a1e6eb5ceeda7_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pc@
 hs_bindgen_632a1e6eb5ceeda7 :: CInt -> CInt
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pc@
-hs_bindgen_632a1e6eb5ceeda7 = fromFFIType hs_bindgen_632a1e6eb5ceeda7_base
+hs_bindgen_632a1e6eb5ceeda7 = \x_0 -> fromFFIType (hs_bindgen_632a1e6eb5ceeda7_base (toFFIType x_0))
 {-|
 
     Marked @__attribute((const))__@
@@ -262,12 +262,12 @@ square_pc_unsafe :: CInt -> CInt
 square_pc_unsafe = hs_bindgen_632a1e6eb5ceeda7
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cc@
 foreign import ccall unsafe "hs_bindgen_56d75b1ff2482f13" hs_bindgen_56d75b1ff2482f13_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cc@
 hs_bindgen_56d75b1ff2482f13 :: CInt -> CInt
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cc@
-hs_bindgen_56d75b1ff2482f13 = fromFFIType hs_bindgen_56d75b1ff2482f13_base
+hs_bindgen_56d75b1ff2482f13 = \x_0 -> fromFFIType (hs_bindgen_56d75b1ff2482f13_base (toFFIType x_0))
 {-|
 
     Marked @__attribute((const))__@
@@ -292,12 +292,12 @@ square_cc_unsafe :: CInt -> CInt
 square_cc_unsafe = hs_bindgen_56d75b1ff2482f13
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pp@
 foreign import ccall unsafe "hs_bindgen_eac2f9645ef29119" hs_bindgen_eac2f9645ef29119_base ::
-    Int32
- -> IO Int32
+    CInt
+ -> IO CInt
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pp@
 hs_bindgen_eac2f9645ef29119 :: CInt -> IO CInt
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pp@
-hs_bindgen_eac2f9645ef29119 = fromFFIType hs_bindgen_eac2f9645ef29119_base
+hs_bindgen_eac2f9645ef29119 = \x_0 -> fmap fromFFIType (hs_bindgen_eac2f9645ef29119_base (toFFIType x_0))
 {-|
 
     Marked @__attribute((pure))__@
@@ -326,7 +326,7 @@ foreign import ccall unsafe "hs_bindgen_9445b7269de35e9e" hs_bindgen_9445b7269de
 -- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cp@
 hs_bindgen_9445b7269de35e9e :: IO (FunPtr (CInt -> IO CInt))
 -- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cp@
-hs_bindgen_9445b7269de35e9e = fromFFIType hs_bindgen_9445b7269de35e9e_base
+hs_bindgen_9445b7269de35e9e = fmap fromFFIType hs_bindgen_9445b7269de35e9e_base
 {-# NOINLINE square_cp_funptr #-}
 {-| __C declaration:__ @square_cp@
 
@@ -348,7 +348,7 @@ foreign import ccall unsafe "hs_bindgen_b0c647124e93645d" hs_bindgen_b0c647124e9
 -- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pc@
 hs_bindgen_b0c647124e93645d :: IO (FunPtr (CInt -> IO CInt))
 -- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pc@
-hs_bindgen_b0c647124e93645d = fromFFIType hs_bindgen_b0c647124e93645d_base
+hs_bindgen_b0c647124e93645d = fmap fromFFIType hs_bindgen_b0c647124e93645d_base
 {-# NOINLINE square_pc_funptr #-}
 {-| __C declaration:__ @square_pc@
 
@@ -370,7 +370,7 @@ foreign import ccall unsafe "hs_bindgen_87ee2f018e6d262a" hs_bindgen_87ee2f018e6
 -- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cc@
 hs_bindgen_87ee2f018e6d262a :: IO (FunPtr (CInt -> IO CInt))
 -- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cc@
-hs_bindgen_87ee2f018e6d262a = fromFFIType hs_bindgen_87ee2f018e6d262a_base
+hs_bindgen_87ee2f018e6d262a = fmap fromFFIType hs_bindgen_87ee2f018e6d262a_base
 {-# NOINLINE square_cc_funptr #-}
 {-| __C declaration:__ @square_cc@
 
@@ -392,7 +392,7 @@ foreign import ccall unsafe "hs_bindgen_0f31a17bf5ee4e4f" hs_bindgen_0f31a17bf5e
 -- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pp@
 hs_bindgen_0f31a17bf5ee4e4f :: IO (FunPtr (CInt -> IO CInt))
 -- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pp@
-hs_bindgen_0f31a17bf5ee4e4f = fromFFIType hs_bindgen_0f31a17bf5ee4e4f_base
+hs_bindgen_0f31a17bf5ee4e4f = fmap fromFFIType hs_bindgen_0f31a17bf5ee4e4f_base
 {-# NOINLINE square_pp_funptr #-}
 {-| __C declaration:__ @square_pp@
 

@@ -50,14 +50,15 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_1@
 foreign import ccall safe "hs_bindgen_4ad25504590fdd2b" hs_bindgen_4ad25504590fdd2b_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_1@
 hs_bindgen_4ad25504590fdd2b ::
      BG.Ptr Thing
   -> IO BG.CInt
 hs_bindgen_4ad25504590fdd2b =
-  BG.fromFFIType hs_bindgen_4ad25504590fdd2b_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_4ad25504590fdd2b_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @thing_fun_1@
 
@@ -75,7 +76,7 @@ thing_fun_1 =
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_2@
 foreign import ccall safe "hs_bindgen_04a435522bf64978" hs_bindgen_04a435522bf64978_base ::
-     BG.Int32
+     BG.CInt
   -> BG.Ptr BG.Void
   -> IO ()
 
@@ -85,7 +86,9 @@ hs_bindgen_04a435522bf64978 ::
   -> BG.Ptr Thing
   -> IO ()
 hs_bindgen_04a435522bf64978 =
-  BG.fromFFIType hs_bindgen_04a435522bf64978_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_04a435522bf64978_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @thing_fun_2@
 
@@ -104,9 +107,9 @@ thing_fun_2 =
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3a@
 foreign import ccall safe "hs_bindgen_5e3271324df7ced2" hs_bindgen_5e3271324df7ced2_base ::
-     BG.Int32
+     BG.CInt
   -> BG.Ptr BG.Void
-  -> Double
+  -> BG.CDouble
   -> BG.Ptr BG.Void
   -> IO ()
 
@@ -118,7 +121,11 @@ hs_bindgen_5e3271324df7ced2 ::
   -> BG.Ptr Thing
   -> IO ()
 hs_bindgen_5e3271324df7ced2 =
-  BG.fromFFIType hs_bindgen_5e3271324df7ced2_base
+  \x0 ->
+    \x1 ->
+      \x2 ->
+        \x3 ->
+          hs_bindgen_5e3271324df7ced2_base (BG.toFFIType x0) (BG.toFFIType x1) (BG.toFFIType x2) (BG.toFFIType x3)
 
 {-| __C declaration:__ @thing_fun_3a@
 
@@ -144,10 +151,10 @@ thing_fun_3a =
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3b@
 foreign import ccall safe "hs_bindgen_3525c7d1c72f2fae" hs_bindgen_3525c7d1c72f2fae_base ::
-     BG.Int32
+     BG.CInt
   -> BG.Ptr BG.Void
-  -> Double
-  -> IO BG.Int8
+  -> BG.CDouble
+  -> IO BG.CChar
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3b@
 hs_bindgen_3525c7d1c72f2fae ::
@@ -156,7 +163,10 @@ hs_bindgen_3525c7d1c72f2fae ::
   -> BG.CDouble
   -> IO BG.CChar
 hs_bindgen_3525c7d1c72f2fae =
-  BG.fromFFIType hs_bindgen_3525c7d1c72f2fae_base
+  \x0 ->
+    \x1 ->
+      \x2 ->
+        fmap BG.fromFFIType (hs_bindgen_3525c7d1c72f2fae_base (BG.toFFIType x0) (BG.toFFIType x1) (BG.toFFIType x2))
 
 {-| __C declaration:__ @thing_fun_3b@
 

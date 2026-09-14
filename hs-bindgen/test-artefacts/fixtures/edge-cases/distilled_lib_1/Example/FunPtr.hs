@@ -34,7 +34,7 @@ foreign import ccall unsafe "hs_bindgen_1ade3cfc18679577" hs_bindgen_1ade3cfc186
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun@
 hs_bindgen_1ade3cfc18679577 :: IO (BG.FunPtr (BG.Ptr A_type_t -> HsBindgen.Runtime.LibC.Word32 -> BG.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8)) -> IO HsBindgen.Runtime.LibC.Int32))
 hs_bindgen_1ade3cfc18679577 =
-  BG.fromFFIType hs_bindgen_1ade3cfc18679577_base
+  fmap BG.fromFFIType hs_bindgen_1ade3cfc18679577_base
 
 {-# NOINLINE some_fun #-}
 {-| __C declaration:__ @some_fun@

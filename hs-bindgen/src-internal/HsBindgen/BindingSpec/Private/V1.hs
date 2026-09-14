@@ -28,6 +28,8 @@ module HsBindgen.BindingSpec.Private.V1 (
   , HsTypeRep(..)
   , HsRecordRep(..)
   , HsNewtypeRep(..)
+  , HsFFIType(..)
+  , hsSpecFFIType
     -- ** Instances
   , InstanceSpec(..)
     -- * API
@@ -184,6 +186,13 @@ instance Default HsTypeSpec where
     , instances = Map.empty
     }
 
+hsSpecFFIType :: HsTypeSpec -> Maybe HsFFIType
+hsSpecFFIType hsSpec = do
+    rep <- hsSpec.hsRep
+    case rep of
+      HsTypeRepNewtype ntRep -> ntRep.ffiType
+      _ -> Nothing
+
 --------------------------------------------------------------------------------
 
 -- | Haskell type representation
@@ -229,6 +238,15 @@ data HsNewtypeRep = HsNewtypeRep {
 
       -- | Field name
     , field :: Maybe (Hs.Name Hs.NsVar)
+
+      -- | FFI type
+    , ffiType :: Maybe HsFFIType
+    }
+  deriving stock (Show, Eq, Ord, Generic)
+
+data HsFFIType = HsFFIType {
+      moduleName :: Hs.ModuleName
+    , typeName   :: Hs.Name Hs.NsTypeConstr
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -236,6 +254,7 @@ instance Default HsNewtypeRep where
   def = HsNewtypeRep{
         constructor = Nothing
       , field       = Nothing
+      , ffiType     = Nothing
       }
 
 {-------------------------------------------------------------------------------
@@ -396,6 +415,12 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
       "constructor"           -> 18
       -- HsRecordRep:2, HsNewtypeRep:2
       "fields"                -> 19
+      -- HsNewtypeRep:3
+      "ffitype"               -> 20
+      -- HsFFIType: 1
+      "module"                -> 21
+      -- HsFFIType: 2
+      "type"                  -> 22
       key -> panicPure $ "Unknown key: " ++ show key
 
 {-------------------------------------------------------------------------------
@@ -1025,9 +1050,11 @@ instance Aeson.FromJSON (ARep V1 HsTypeRep) where
             Aeson.parseFail "newtype representation with no fields"
           Just{}           ->
             Aeson.parseFail "newtype representation with more than one field"
+        hsNewtypeRepFFIType <- o .:? "ffitype"
         return HsNewtypeRep{
             constructor = fromARep' <$> hsNewtypeRepConstructor
           , field       = fromARep' <$> hsNewtypeRepField
+          , ffiType     = fromARep' <$> hsNewtypeRepFFIType
           }
 
 instance Aeson.ToJSON (ARep V1 HsTypeRep) where
@@ -1049,9 +1076,34 @@ instance Aeson.ToJSON (ARep V1 HsTypeRep) where
           $ catMaybes [
                 ("constructor" .=) . toARep' <$> x.constructor
               , ("fields"      .=) . (: []) . toARep' <$> x.field
+              , ("ffitype"     .=) . toARep' <$> x.ffiType
               ]
     HsTypeRepEmptyData -> Aeson.String "emptydata"
     HsTypeRepTypeAlias -> Aeson.String "typealias"
+
+--------------------------------------------------------------------------------
+
+newtype instance ARep V1 HsFFIType = AHsFFIType HsFFIType
+  deriving stock (Show)
+
+instance ARepIso V1 HsFFIType
+
+instance Aeson.FromJSON (ARep V1 HsFFIType) where
+  parseJSON = fmap AHsFFIType . parseHsFFIType
+    where
+      parseHsFFIType = Aeson.withObject "HsFFIType" $ \o -> do
+          moduleName <- o .: "module"
+          typeName <- o .: "type"
+          pure HsFFIType {
+              moduleName = fromARep' moduleName
+            , typeName = fromARep' typeName
+            }
+
+instance Aeson.ToJSON (ARep V1 HsFFIType) where
+  toJSON (AHsFFIType ffiType) = Aeson.object [
+        "module" .= toARep' ffiType.moduleName
+      , "type"   .= toARep' ffiType.typeName
+      ]
 
 --------------------------------------------------------------------------------
 

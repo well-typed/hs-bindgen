@@ -46,7 +46,7 @@ foreign import ccall unsafe "hs_bindgen_0ee6ccf5e9065e6c" hs_bindgen_0ee6ccf5e90
 -- __unique:__ @test_macrosreparsefunctions_Example_get_foo@
 hs_bindgen_0ee6ccf5e9065e6c :: IO (BG.FunPtr (BG.CInt -> IO ()))
 hs_bindgen_0ee6ccf5e9065e6c =
-  BG.fromFFIType hs_bindgen_0ee6ccf5e9065e6c_base
+  fmap BG.fromFFIType hs_bindgen_0ee6ccf5e9065e6c_base
 
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
@@ -65,7 +65,7 @@ foreign import ccall unsafe "hs_bindgen_8ec5846013c7fa41" hs_bindgen_8ec5846013c
 -- __unique:__ @test_macrosreparsefunctions_Example_get_bar@
 hs_bindgen_8ec5846013c7fa41 :: IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 hs_bindgen_8ec5846013c7fa41 =
-  BG.fromFFIType hs_bindgen_8ec5846013c7fa41_base
+  fmap BG.fromFFIType hs_bindgen_8ec5846013c7fa41_base
 
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
@@ -84,7 +84,7 @@ foreign import ccall unsafe "hs_bindgen_740f410e15c8820e" hs_bindgen_740f410e15c
 -- __unique:__ @test_macrosreparsefunctions_Example_get_baz@
 hs_bindgen_740f410e15c8820e :: IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 hs_bindgen_740f410e15c8820e =
-  BG.fromFFIType hs_bindgen_740f410e15c8820e_base
+  fmap BG.fromFFIType hs_bindgen_740f410e15c8820e_base
 
 {-# NOINLINE baz #-}
 {-| __C declaration:__ @baz@

@@ -29,15 +29,16 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Unsafe_hash_defines_feature@
 foreign import ccall unsafe "hs_bindgen_9c64b65744839a8b" hs_bindgen_9c64b65744839a8b_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Unsafe_hash_defines_feature@
 hs_bindgen_9c64b65744839a8b ::
      BG.CInt
   -> IO BG.CInt
 hs_bindgen_9c64b65744839a8b =
-  BG.fromFFIType hs_bindgen_9c64b65744839a8b_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_9c64b65744839a8b_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @hash_defines_feature@
 
@@ -53,12 +54,12 @@ hash_defines_feature = hs_bindgen_9c64b65744839a8b
 
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Unsafe_hash_defines_empty@
 foreign import ccall unsafe "hs_bindgen_f811fa46f514d285" hs_bindgen_f811fa46f514d285_base ::
-     IO BG.Int32
+     IO BG.CInt
 
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Unsafe_hash_defines_empty@
 hs_bindgen_f811fa46f514d285 :: IO BG.CInt
 hs_bindgen_f811fa46f514d285 =
-  BG.fromFFIType hs_bindgen_f811fa46f514d285_base
+  fmap BG.fromFFIType hs_bindgen_f811fa46f514d285_base
 
 {-| __C declaration:__ @hash_defines_empty@
 

@@ -66,7 +66,7 @@ instance HasCField Uint32_t "unwrapUint32_t"
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
 data Foo
-    = Foo {foo_sixty_four :: Foreign.Word64
+    = Foo {foo_sixty_four :: Foreign.C.Types.CULong
            {- ^ __C declaration:__ @sixty_four@
 
                 __defined at:__ @program-analysis\/program_slicing_simple.h 4:12@
@@ -88,15 +88,16 @@ instance Storable Foo
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Foo foo_sixty_four_3
                                        foo_thirty_two_4 -> poke (Proxy @"foo_sixty_four") ptr_1 foo_sixty_four_3 >> poke (Proxy @"foo_thirty_two") ptr_1 foo_thirty_two_4
-instance (~) ty Foreign.Word64 => HasField "foo_sixty_four" Foo ty
+instance (~) ty Foreign.C.Types.CULong =>
+         HasField "foo_sixty_four" Foo ty
     where hasField = \x_0 -> (\y_1 -> Foo{foo_sixty_four = y_1,
                                           foo_thirty_two = getField @"foo_thirty_two" x_0},
                               getField @"foo_sixty_four" x_0)
-instance (~) ty Foreign.Word64 =>
+instance (~) ty Foreign.C.Types.CULong =>
          HasField "foo_sixty_four" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"foo_sixty_four")
 instance HasCField Foo "foo_sixty_four"
-    where type CFieldType Foo "foo_sixty_four" = Foreign.Word64
+    where type CFieldType Foo "foo_sixty_four" = Foreign.C.Types.CULong
           offset# = \_ -> \_ -> 0
 instance (~) ty Uint32_t => HasField "foo_thirty_two" Foo ty
     where hasField = \x_0 -> (\y_1 -> Foo{foo_thirty_two = y_1,
@@ -110,21 +111,21 @@ instance HasCField Foo "foo_thirty_two"
           offset# = \_ -> \_ -> 8
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_48dbbf4b09b5b3c1" hs_bindgen_48dbbf4b09b5b3c1_base ::
-    Word64
- -> Word32
- -> IO Int32
+    CULong
+ -> CUInt
+ -> IO CInt
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
-hs_bindgen_48dbbf4b09b5b3c1 :: Foreign.Word64 ->
+hs_bindgen_48dbbf4b09b5b3c1 :: Foreign.C.Types.CULong ->
                                Uint32_t -> IO CInt
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
-hs_bindgen_48dbbf4b09b5b3c1 = fromFFIType hs_bindgen_48dbbf4b09b5b3c1_base
+hs_bindgen_48dbbf4b09b5b3c1 = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_48dbbf4b09b5b3c1_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
-bar_safe :: Foreign.Word64 -> Uint32_t -> IO CInt
+bar_safe :: Foreign.C.Types.CULong -> Uint32_t -> IO CInt
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
@@ -134,21 +135,21 @@ bar_safe :: Foreign.Word64 -> Uint32_t -> IO CInt
 bar_safe = hs_bindgen_48dbbf4b09b5b3c1
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295ba8ab_base ::
-    Word64
- -> Word32
- -> IO Int32
+    CULong
+ -> CUInt
+ -> IO CInt
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
-hs_bindgen_fe855d53295ba8ab :: Foreign.Word64 ->
+hs_bindgen_fe855d53295ba8ab :: Foreign.C.Types.CULong ->
                                Uint32_t -> IO CInt
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
-hs_bindgen_fe855d53295ba8ab = fromFFIType hs_bindgen_fe855d53295ba8ab_base
+hs_bindgen_fe855d53295ba8ab = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_fe855d53295ba8ab_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
-bar_unsafe :: Foreign.Word64 -> Uint32_t -> IO CInt
+bar_unsafe :: Foreign.C.Types.CULong -> Uint32_t -> IO CInt
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
@@ -160,10 +161,10 @@ bar_unsafe = hs_bindgen_fe855d53295ba8ab
 foreign import ccall unsafe "hs_bindgen_993162e0dadfa2c9" hs_bindgen_993162e0dadfa2c9_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_bar@
-hs_bindgen_993162e0dadfa2c9 :: IO (FunPtr (Foreign.Word64 ->
+hs_bindgen_993162e0dadfa2c9 :: IO (FunPtr (Foreign.C.Types.CULong ->
                                            Uint32_t -> IO CInt))
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_bar@
-hs_bindgen_993162e0dadfa2c9 = fromFFIType hs_bindgen_993162e0dadfa2c9_base
+hs_bindgen_993162e0dadfa2c9 = fmap fromFFIType hs_bindgen_993162e0dadfa2c9_base
 {-# NOINLINE bar_funptr #-}
 {-| __C declaration:__ @bar@
 
@@ -171,7 +172,8 @@ hs_bindgen_993162e0dadfa2c9 = fromFFIType hs_bindgen_993162e0dadfa2c9_base
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
-bar_funptr :: FunPtr (Foreign.Word64 -> Uint32_t -> IO CInt)
+bar_funptr :: FunPtr (Foreign.C.Types.CULong ->
+                      Uint32_t -> IO CInt)
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@

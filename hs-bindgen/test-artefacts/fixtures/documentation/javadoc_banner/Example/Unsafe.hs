@@ -21,15 +21,16 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_documentationjavadoc_banner_Example_Unsafe_banner_double@
 foreign import ccall unsafe "hs_bindgen_3d6508e65f7dad3c" hs_bindgen_3d6508e65f7dad3c_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationjavadoc_banner_Example_Unsafe_banner_double@
 hs_bindgen_3d6508e65f7dad3c ::
      BG.CInt
   -> IO BG.CInt
 hs_bindgen_3d6508e65f7dad3c =
-  BG.fromFFIType hs_bindgen_3d6508e65f7dad3c_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_3d6508e65f7dad3c_base (BG.toFFIType x0))
 
 {-| A function documented with a Javadoc banner-style comment.
 

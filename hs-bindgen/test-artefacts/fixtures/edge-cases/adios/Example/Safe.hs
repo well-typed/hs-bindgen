@@ -34,12 +34,12 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_edgecasesadios_Example_Safe_adiós_fun@
 foreign import ccall safe "hs_bindgen_2f6d4be143076044" hs_bindgen_2f6d4be143076044_base ::
-     IO BG.Int32
+     IO BG.CInt
 
 -- __unique:__ @test_edgecasesadios_Example_Safe_adiós_fun@
 hs_bindgen_2f6d4be143076044 :: IO BG.CInt
 hs_bindgen_2f6d4be143076044 =
-  BG.fromFFIType hs_bindgen_2f6d4be143076044_base
+  fmap BG.fromFFIType hs_bindgen_2f6d4be143076044_base
 
 {-| __C declaration:__ @adiós_fun@
 
@@ -57,7 +57,7 @@ foreign import ccall safe "hs_bindgen_2010521804ef9a6e" hs_bindgen_2010521804ef9
 -- __unique:__ @test_edgecasesadios_Example_Safe_ϒ@
 hs_bindgen_2010521804ef9a6e :: IO ()
 hs_bindgen_2010521804ef9a6e =
-  BG.fromFFIType hs_bindgen_2010521804ef9a6e_base
+  hs_bindgen_2010521804ef9a6e_base
 
 {-| __C declaration:__ @ϒ@
 
@@ -75,7 +75,7 @@ foreign import ccall safe "hs_bindgen_3bc3e53cc82c9580" hs_bindgen_3bc3e53cc82c9
 -- __unique:__ @test_edgecasesadios_Example_Safe_拜拜@
 hs_bindgen_3bc3e53cc82c9580 :: IO ()
 hs_bindgen_3bc3e53cc82c9580 =
-  BG.fromFFIType hs_bindgen_3bc3e53cc82c9580_base
+  hs_bindgen_3bc3e53cc82c9580_base
 
 {-| __C declaration:__ @拜拜@
 
@@ -93,7 +93,7 @@ foreign import ccall safe "hs_bindgen_ad8eb47027b2d49d" hs_bindgen_ad8eb47027b2d
 -- __unique:__ @test_edgecasesadios_Example_Safe_Say拜拜@
 hs_bindgen_ad8eb47027b2d49d :: IO ()
 hs_bindgen_ad8eb47027b2d49d =
-  BG.fromFFIType hs_bindgen_ad8eb47027b2d49d_base
+  hs_bindgen_ad8eb47027b2d49d_base
 
 {-| __C declaration:__ @Say拜拜@
 

@@ -198,7 +198,7 @@ foreign import ccall unsafe "hs_bindgen_793b9ca86a272b6a" hs_bindgen_793b9ca86a2
 -- __unique:__ @test_functionscallbacks_Example_get_readFileWithProcessor@
 hs_bindgen_793b9ca86a272b6a :: IO (BG.FunPtr (BG.FunPtr (BG.CInt -> IO ()) -> BG.CInt -> IO BG.CInt))
 hs_bindgen_793b9ca86a272b6a =
-  BG.fromFFIType hs_bindgen_793b9ca86a272b6a_base
+  fmap BG.fromFFIType hs_bindgen_793b9ca86a272b6a_base
 
 {-# NOINLINE readFileWithProcessor #-}
 {-| __C declaration:__ @readFileWithProcessor@
@@ -218,7 +218,7 @@ foreign import ccall unsafe "hs_bindgen_a2b606291df27114" hs_bindgen_a2b606291df
 -- __unique:__ @test_functionscallbacks_Example_get_watchTemperature@
 hs_bindgen_a2b606291df27114 :: IO (BG.FunPtr (BG.FunPtr (BG.CInt -> IO ()) -> BG.CInt -> IO ()))
 hs_bindgen_a2b606291df27114 =
-  BG.fromFFIType hs_bindgen_a2b606291df27114_base
+  fmap BG.fromFFIType hs_bindgen_a2b606291df27114_base
 
 {-# NOINLINE watchTemperature #-}
 {-| __C declaration:__ @watchTemperature@
@@ -238,7 +238,7 @@ foreign import ccall unsafe "hs_bindgen_2c00a09a05e4c87b" hs_bindgen_2c00a09a05e
 -- __unique:__ @test_functionscallbacks_Example_get_onFileOpened@
 hs_bindgen_2c00a09a05e4c87b :: IO (BG.FunPtr (FileOpenedNotification -> IO ()))
 hs_bindgen_2c00a09a05e4c87b =
-  BG.fromFFIType hs_bindgen_2c00a09a05e4c87b_base
+  fmap BG.fromFFIType hs_bindgen_2c00a09a05e4c87b_base
 
 {-# NOINLINE onFileOpened #-}
 {-| __C declaration:__ @onFileOpened@
@@ -258,7 +258,7 @@ foreign import ccall unsafe "hs_bindgen_84066778519d3ea8" hs_bindgen_84066778519
 -- __unique:__ @test_functionscallbacks_Example_get_onProgressChanged@
 hs_bindgen_84066778519d3ea8 :: IO (BG.FunPtr (ProgressUpdate -> IO ()))
 hs_bindgen_84066778519d3ea8 =
-  BG.fromFFIType hs_bindgen_84066778519d3ea8_base
+  fmap BG.fromFFIType hs_bindgen_84066778519d3ea8_base
 
 {-# NOINLINE onProgressChanged #-}
 {-| __C declaration:__ @onProgressChanged@
@@ -278,7 +278,7 @@ foreign import ccall unsafe "hs_bindgen_4d522e3ec1eb0b9f" hs_bindgen_4d522e3ec1e
 -- __unique:__ @test_functionscallbacks_Example_get_validateInput@
 hs_bindgen_4d522e3ec1eb0b9f :: IO (BG.FunPtr (DataValidator -> BG.CInt -> IO BG.CInt))
 hs_bindgen_4d522e3ec1eb0b9f =
-  BG.fromFFIType hs_bindgen_4d522e3ec1eb0b9f_base
+  fmap BG.fromFFIType hs_bindgen_4d522e3ec1eb0b9f_base
 
 {-# NOINLINE validateInput #-}
 {-| __C declaration:__ @validateInput@
@@ -298,7 +298,7 @@ foreign import ccall unsafe "hs_bindgen_a26d6914af82ade0" hs_bindgen_a26d6914af8
 -- __unique:__ @test_functionscallbacks_Example_get_onNewMeasurement@
 hs_bindgen_a26d6914af82ade0 :: IO (BG.FunPtr (MeasurementReceived -> IO ()))
 hs_bindgen_a26d6914af82ade0 =
-  BG.fromFFIType hs_bindgen_a26d6914af82ade0_base
+  fmap BG.fromFFIType hs_bindgen_a26d6914af82ade0_base
 
 {-# NOINLINE onNewMeasurement #-}
 {-| __C declaration:__ @onNewMeasurement@
@@ -318,7 +318,7 @@ foreign import ccall unsafe "hs_bindgen_2c377b597bd80e50" hs_bindgen_2c377b597bd
 -- __unique:__ @test_functionscallbacks_Example_get_onNewMeasurement2@
 hs_bindgen_2c377b597bd80e50 :: IO (BG.FunPtr (MeasurementReceived2 -> IO ()))
 hs_bindgen_2c377b597bd80e50 =
-  BG.fromFFIType hs_bindgen_2c377b597bd80e50_base
+  fmap BG.fromFFIType hs_bindgen_2c377b597bd80e50_base
 
 {-# NOINLINE onNewMeasurement2 #-}
 {-| __C declaration:__ @onNewMeasurement2@
@@ -338,7 +338,7 @@ foreign import ccall unsafe "hs_bindgen_d1ce142d0c667e22" hs_bindgen_d1ce142d0c6
 -- __unique:__ @test_functionscallbacks_Example_get_onBufferReady@
 hs_bindgen_d1ce142d0c667e22 :: IO (BG.FunPtr (SampleBufferFull -> IO ()))
 hs_bindgen_d1ce142d0c667e22 =
-  BG.fromFFIType hs_bindgen_d1ce142d0c667e22_base
+  fmap BG.fromFFIType hs_bindgen_d1ce142d0c667e22_base
 
 {-# NOINLINE onBufferReady #-}
 {-| __C declaration:__ @onBufferReady@
@@ -358,7 +358,7 @@ foreign import ccall unsafe "hs_bindgen_2e8d6b201521b14a" hs_bindgen_2e8d6b20152
 -- __unique:__ @test_functionscallbacks_Example_get_transformMeasurement@
 hs_bindgen_2e8d6b201521b14a :: IO (BG.FunPtr (BG.Ptr Measurement -> BG.FunPtr (BG.Ptr Measurement -> BG.FunPtr (BG.CDouble -> BG.CInt -> IO BG.CDouble) -> BG.CInt -> IO ()) -> IO ()))
 hs_bindgen_2e8d6b201521b14a =
-  BG.fromFFIType hs_bindgen_2e8d6b201521b14a_base
+  fmap BG.fromFFIType hs_bindgen_2e8d6b201521b14a_base
 
 {-# NOINLINE transformMeasurement #-}
 {-| __C declaration:__ @transformMeasurement@
@@ -378,7 +378,7 @@ foreign import ccall unsafe "hs_bindgen_7f4acb7260277d86" hs_bindgen_7f4acb72602
 -- __unique:__ @test_functionscallbacks_Example_get_processWithCallbacks@
 hs_bindgen_7f4acb7260277d86 :: IO (BG.FunPtr (BG.FunPtr (BG.Ptr Measurement -> FileOpenedNotification -> BG.CInt -> IO ()) -> IO ()))
 hs_bindgen_7f4acb7260277d86 =
-  BG.fromFFIType hs_bindgen_7f4acb7260277d86_base
+  fmap BG.fromFFIType hs_bindgen_7f4acb7260277d86_base
 
 {-# NOINLINE processWithCallbacks #-}
 {-| __C declaration:__ @processWithCallbacks@
@@ -398,7 +398,7 @@ foreign import ccall unsafe "hs_bindgen_80684ecfa6d982b7" hs_bindgen_80684ecfa6d
 -- __unique:__ @test_functionscallbacks_Example_get_registerHandler@
 hs_bindgen_80684ecfa6d982b7 :: IO (BG.FunPtr (BG.Ptr MeasurementHandler -> IO ()))
 hs_bindgen_80684ecfa6d982b7 =
-  BG.fromFFIType hs_bindgen_80684ecfa6d982b7_base
+  fmap BG.fromFFIType hs_bindgen_80684ecfa6d982b7_base
 
 {-# NOINLINE registerHandler #-}
 {-| __C declaration:__ @registerHandler@
@@ -418,7 +418,7 @@ foreign import ccall unsafe "hs_bindgen_1714a267564c9f6f" hs_bindgen_1714a267564
 -- __unique:__ @test_functionscallbacks_Example_get_executePipeline@
 hs_bindgen_1714a267564c9f6f :: IO (BG.FunPtr (BG.Ptr Measurement -> BG.Ptr DataPipeline -> IO ()))
 hs_bindgen_1714a267564c9f6f =
-  BG.fromFFIType hs_bindgen_1714a267564c9f6f_base
+  fmap BG.fromFFIType hs_bindgen_1714a267564c9f6f_base
 
 {-# NOINLINE executePipeline #-}
 {-| __C declaration:__ @executePipeline@
@@ -438,7 +438,7 @@ foreign import ccall unsafe "hs_bindgen_fedf80fe8e91dc7a" hs_bindgen_fedf80fe8e9
 -- __unique:__ @test_functionscallbacks_Example_get_runProcessor@
 hs_bindgen_fedf80fe8e91dc7a :: IO (BG.FunPtr (BG.Ptr Measurement -> BG.Ptr Processor -> IO ()))
 hs_bindgen_fedf80fe8e91dc7a =
-  BG.fromFFIType hs_bindgen_fedf80fe8e91dc7a_base
+  fmap BG.fromFFIType hs_bindgen_fedf80fe8e91dc7a_base
 
 {-# NOINLINE runProcessor #-}
 {-| __C declaration:__ @runProcessor@
@@ -458,7 +458,7 @@ foreign import ccall unsafe "hs_bindgen_443cb57c681c2cab" hs_bindgen_443cb57c681
 -- __unique:__ @test_functionscallbacks_Example_get_processMeasurementWithValidation@
 hs_bindgen_443cb57c681c2cab :: IO (BG.FunPtr (BG.Ptr Measurement -> BG.FunPtr (BG.Ptr Measurement -> BG.FunPtr (BG.Ptr Measurement -> DataValidator -> BG.CInt -> IO ()) -> DataValidator -> IO ()) -> IO ()))
 hs_bindgen_443cb57c681c2cab =
-  BG.fromFFIType hs_bindgen_443cb57c681c2cab_base
+  fmap BG.fromFFIType hs_bindgen_443cb57c681c2cab_base
 
 {-# NOINLINE processMeasurementWithValidation #-}
 {-| __C declaration:__ @processMeasurementWithValidation@
@@ -478,7 +478,7 @@ foreign import ccall unsafe "hs_bindgen_7cf6cffd19682c36" hs_bindgen_7cf6cffd196
 -- __unique:__ @test_functionscallbacks_Example_get_f@
 hs_bindgen_7cf6cffd19682c36 :: IO (BG.FunPtr (BG.FunPtr (Foo -> IO ()) -> IO ()))
 hs_bindgen_7cf6cffd19682c36 =
-  BG.fromFFIType hs_bindgen_7cf6cffd19682c36_base
+  fmap BG.fromFFIType hs_bindgen_7cf6cffd19682c36_base
 
 {-# NOINLINE f #-}
 {-| __C declaration:__ @f@
@@ -497,7 +497,7 @@ foreign import ccall unsafe "hs_bindgen_81fde2984e04c791" hs_bindgen_81fde2984e0
 -- __unique:__ @test_functionscallbacks_Example_get_f2@
 hs_bindgen_81fde2984e04c791 :: IO (BG.FunPtr (BG.FunPtr (Foo2 -> IO ()) -> IO ()))
 hs_bindgen_81fde2984e04c791 =
-  BG.fromFFIType hs_bindgen_81fde2984e04c791_base
+  fmap BG.fromFFIType hs_bindgen_81fde2984e04c791_base
 
 {-# NOINLINE f2 #-}
 {-| __C declaration:__ @f2@

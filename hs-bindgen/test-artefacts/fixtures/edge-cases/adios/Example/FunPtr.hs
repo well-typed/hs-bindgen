@@ -47,7 +47,7 @@ foreign import ccall unsafe "hs_bindgen_4ac23afef85d3af0" hs_bindgen_4ac23afef85
 -- __unique:__ @test_edgecasesadios_Example_get_adiós_fun@
 hs_bindgen_4ac23afef85d3af0 :: IO (BG.FunPtr (IO BG.CInt))
 hs_bindgen_4ac23afef85d3af0 =
-  BG.fromFFIType hs_bindgen_4ac23afef85d3af0_base
+  fmap BG.fromFFIType hs_bindgen_4ac23afef85d3af0_base
 
 {-# NOINLINE adio'0301s_fun #-}
 {-| __C declaration:__ @adiós_fun@
@@ -67,7 +67,7 @@ foreign import ccall unsafe "hs_bindgen_0b1168f405aafe83" hs_bindgen_0b1168f405a
 -- __unique:__ @test_edgecasesadios_Example_get_ϒ@
 hs_bindgen_0b1168f405aafe83 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_0b1168f405aafe83 =
-  BG.fromFFIType hs_bindgen_0b1168f405aafe83_base
+  fmap BG.fromFFIType hs_bindgen_0b1168f405aafe83_base
 
 {-# NOINLINE cϒ #-}
 {-| __C declaration:__ @ϒ@
@@ -86,7 +86,7 @@ foreign import ccall unsafe "hs_bindgen_0a95358747546f1b" hs_bindgen_0a953587475
 -- __unique:__ @test_edgecasesadios_Example_get_拜拜@
 hs_bindgen_0a95358747546f1b :: IO (BG.FunPtr (IO ()))
 hs_bindgen_0a95358747546f1b =
-  BG.fromFFIType hs_bindgen_0a95358747546f1b_base
+  fmap BG.fromFFIType hs_bindgen_0a95358747546f1b_base
 
 {-# NOINLINE 拜拜 #-}
 {-| __C declaration:__ @拜拜@
@@ -105,7 +105,7 @@ foreign import ccall unsafe "hs_bindgen_a01e420336bfa879" hs_bindgen_a01e420336b
 -- __unique:__ @test_edgecasesadios_Example_get_Say拜拜@
 hs_bindgen_a01e420336bfa879 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_a01e420336bfa879 =
-  BG.fromFFIType hs_bindgen_a01e420336bfa879_base
+  fmap BG.fromFFIType hs_bindgen_a01e420336bfa879_base
 
 {-# NOINLINE say拜拜 #-}
 {-| __C declaration:__ @Say拜拜@

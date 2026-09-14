@@ -27,7 +27,7 @@ foreign import ccall unsafe "hs_bindgen_226b16768d8906f3" hs_bindgen_226b16768d8
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_v@
 hs_bindgen_226b16768d8906f3 :: IO (BG.Ptr Var_t)
 hs_bindgen_226b16768d8906f3 =
-  BG.fromFFIType hs_bindgen_226b16768d8906f3_base
+  fmap BG.fromFFIType hs_bindgen_226b16768d8906f3_base
 
 {-# NOINLINE v #-}
 {-| __C declaration:__ @v@

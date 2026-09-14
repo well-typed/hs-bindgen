@@ -112,13 +112,13 @@ instance HasCField Bool' "unwrapBool'"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_f@
 foreign import ccall safe "hs_bindgen_fc2c0275afbb3c2e" hs_bindgen_fc2c0275afbb3c2e_base ::
-    Int32
- -> Word8
+    CInt
+ -> CBool
  -> IO ()
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_f@
 hs_bindgen_fc2c0275afbb3c2e :: A -> CBool -> IO ()
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_f@
-hs_bindgen_fc2c0275afbb3c2e = fromFFIType hs_bindgen_fc2c0275afbb3c2e_base
+hs_bindgen_fc2c0275afbb3c2e = \x_0 -> \x_1 -> hs_bindgen_fc2c0275afbb3c2e_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @f@
 
     __defined at:__ @types\/primitives\/bool_macro_override.h 10:6@
@@ -135,13 +135,13 @@ f_safe :: A -> CBool -> IO ()
 f_safe = hs_bindgen_fc2c0275afbb3c2e
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_g@
 foreign import ccall safe "hs_bindgen_d07d93e6b7330d03" hs_bindgen_d07d93e6b7330d03_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
  -> IO ()
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_g@
 hs_bindgen_d07d93e6b7330d03 :: A -> Bool' -> IO ()
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_g@
-hs_bindgen_d07d93e6b7330d03 = fromFFIType hs_bindgen_d07d93e6b7330d03_base
+hs_bindgen_d07d93e6b7330d03 = \x_0 -> \x_1 -> hs_bindgen_d07d93e6b7330d03_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @g@
 
     __defined at:__ @types\/primitives\/bool_macro_override.h 13:6@
@@ -158,13 +158,13 @@ g_safe :: A -> Bool' -> IO ()
 g_safe = hs_bindgen_d07d93e6b7330d03
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_f@
 foreign import ccall unsafe "hs_bindgen_c170f90cc5412c59" hs_bindgen_c170f90cc5412c59_base ::
-    Int32
- -> Word8
+    CInt
+ -> CBool
  -> IO ()
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_f@
 hs_bindgen_c170f90cc5412c59 :: A -> CBool -> IO ()
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_f@
-hs_bindgen_c170f90cc5412c59 = fromFFIType hs_bindgen_c170f90cc5412c59_base
+hs_bindgen_c170f90cc5412c59 = \x_0 -> \x_1 -> hs_bindgen_c170f90cc5412c59_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @f@
 
     __defined at:__ @types\/primitives\/bool_macro_override.h 10:6@
@@ -181,13 +181,13 @@ f_unsafe :: A -> CBool -> IO ()
 f_unsafe = hs_bindgen_c170f90cc5412c59
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_g@
 foreign import ccall unsafe "hs_bindgen_18fbcf94c0b76854" hs_bindgen_18fbcf94c0b76854_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
  -> IO ()
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_g@
 hs_bindgen_18fbcf94c0b76854 :: A -> Bool' -> IO ()
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_g@
-hs_bindgen_18fbcf94c0b76854 = fromFFIType hs_bindgen_18fbcf94c0b76854_base
+hs_bindgen_18fbcf94c0b76854 = \x_0 -> \x_1 -> hs_bindgen_18fbcf94c0b76854_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @g@
 
     __defined at:__ @types\/primitives\/bool_macro_override.h 13:6@
@@ -208,7 +208,7 @@ foreign import ccall unsafe "hs_bindgen_aa1f6a0351ab44da" hs_bindgen_aa1f6a0351a
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_get_f@
 hs_bindgen_aa1f6a0351ab44da :: IO (FunPtr (A -> CBool -> IO ()))
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_get_f@
-hs_bindgen_aa1f6a0351ab44da = fromFFIType hs_bindgen_aa1f6a0351ab44da_base
+hs_bindgen_aa1f6a0351ab44da = fmap fromFFIType hs_bindgen_aa1f6a0351ab44da_base
 {-# NOINLINE f_funptr #-}
 {-| __C declaration:__ @f@
 
@@ -230,7 +230,7 @@ foreign import ccall unsafe "hs_bindgen_c0944c7d91c77d18" hs_bindgen_c0944c7d91c
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_get_g@
 hs_bindgen_c0944c7d91c77d18 :: IO (FunPtr (A -> Bool' -> IO ()))
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_get_g@
-hs_bindgen_c0944c7d91c77d18 = fromFFIType hs_bindgen_c0944c7d91c77d18_base
+hs_bindgen_c0944c7d91c77d18 = fmap fromFFIType hs_bindgen_c0944c7d91c77d18_base
 {-# NOINLINE g_funptr #-}
 {-| __C declaration:__ @g@
 

@@ -16,7 +16,7 @@ module HsBindgen.Runtime.Block (
 
 import Foreign (Ptr)
 
-import HsBindgen.Runtime.Support.HasFFIType (HasFFIType, ViaNewtype (..))
+import HsBindgen.Runtime.HasFFIType (HasFFIType)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -37,4 +37,4 @@ import HsBindgen.Runtime.Support.HasFFIType (HasFFIType, ViaNewtype (..))
 -- > newtype VarCounter = VarCounter (Block (CInt -> IO CInt))
 newtype Block t = Block (Ptr ())
 
-deriving via ViaNewtype (Ptr ()) instance HasFFIType (Block t)
+deriving newtype instance HasFFIType (Block t)

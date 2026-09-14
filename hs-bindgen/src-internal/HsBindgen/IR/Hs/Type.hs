@@ -25,21 +25,8 @@ data PrimType =
       PrimVoid
     | PrimUnit
 
-      -- * Basic FFI types (see 'BasicFFIType')
-    | PrimChar
+      -- * Data.Int
     | PrimInt
-    | PrimDouble
-    | PrimFloat
-    | PrimBool
-    | PrimInt8
-    | PrimInt16
-    | PrimInt32
-    | PrimInt64
-    | PrimWord
-    | PrimWord8
-    | PrimWord16
-    | PrimWord32
-    | PrimWord64
 
       -- * Foreign.C.Types
     | PrimCChar
@@ -69,7 +56,6 @@ data Type =
   | PtrConstArrayElem Type
   | Ptr Type
   | FunPtr Type
-  | StablePtr Type
   | PtrConst Type
   | IO Type
   | Fun Type Type

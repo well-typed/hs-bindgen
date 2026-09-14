@@ -50,7 +50,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_702437d53bf7e32f" hs_bindgen_702437d53bf7e32f_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_foo@
@@ -58,7 +58,8 @@ hs_bindgen_702437d53bf7e32f ::
      BOOL
   -> IO ()
 hs_bindgen_702437d53bf7e32f =
-  BG.fromFFIType hs_bindgen_702437d53bf7e32f_base
+  \x0 ->
+    hs_bindgen_702437d53bf7e32f_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @foo@
 
@@ -73,7 +74,7 @@ foo = hs_bindgen_702437d53bf7e32f
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_432c6480e8c1355b" hs_bindgen_432c6480e8c1355b_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_bar@
@@ -81,7 +82,8 @@ hs_bindgen_432c6480e8c1355b ::
      BOOL
   -> IO ()
 hs_bindgen_432c6480e8c1355b =
-  BG.fromFFIType hs_bindgen_432c6480e8c1355b_base
+  \x0 ->
+    hs_bindgen_432c6480e8c1355b_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @bar@
 
@@ -96,7 +98,7 @@ bar = hs_bindgen_432c6480e8c1355b
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_dash@
 foreign import ccall safe "hs_bindgen_b7cd534964204668" hs_bindgen_b7cd534964204668_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_dash@
@@ -104,7 +106,8 @@ hs_bindgen_b7cd534964204668 ::
      BOOL
   -> IO ()
 hs_bindgen_b7cd534964204668 =
-  BG.fromFFIType hs_bindgen_b7cd534964204668_base
+  \x0 ->
+    hs_bindgen_b7cd534964204668_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @dash@
 
@@ -119,7 +122,7 @@ dash = hs_bindgen_b7cd534964204668
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_quux@
 foreign import ccall safe "hs_bindgen_24c242811e7f290b" hs_bindgen_24c242811e7f290b_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_quux@
@@ -127,7 +130,8 @@ hs_bindgen_24c242811e7f290b ::
      BOOL
   -> IO ()
 hs_bindgen_24c242811e7f290b =
-  BG.fromFFIType hs_bindgen_24c242811e7f290b_base
+  \x0 ->
+    hs_bindgen_24c242811e7f290b_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @quux@
 
@@ -142,7 +146,7 @@ quux = hs_bindgen_24c242811e7f290b
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_heq@
 foreign import ccall safe "hs_bindgen_9bea1bb33c269bc2" hs_bindgen_9bea1bb33c269bc2_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_heq@
@@ -150,7 +154,8 @@ hs_bindgen_9bea1bb33c269bc2 ::
      BOOL
   -> IO ()
 hs_bindgen_9bea1bb33c269bc2 =
-  BG.fromFFIType hs_bindgen_9bea1bb33c269bc2_base
+  \x0 ->
+    hs_bindgen_9bea1bb33c269bc2_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @heq@
 

@@ -250,12 +250,11 @@ newtype Foo_Aux = Foo_Aux
   { unwrap :: BG.CInt -> IO BG.CInt
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toFoo_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b5a7b5e83ffee6b4_base ::
-     (BG.Int32 -> IO BG.Int32)
-  -> IO (BG.FunPtr (BG.Int32 -> IO BG.Int32))
+     (BG.CInt -> IO BG.CInt)
+  -> IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 
 -- __unique:__ @toFoo_Aux@
 hs_bindgen_b5a7b5e83ffee6b4 ::
@@ -263,12 +262,13 @@ hs_bindgen_b5a7b5e83ffee6b4 ::
   -> IO (BG.FunPtr Foo_Aux)
 hs_bindgen_b5a7b5e83ffee6b4 =
   \fun0 ->
-    fmap BG.castFunPtrFromFFIType (hs_bindgen_b5a7b5e83ffee6b4_base (BG.toFFIType fun0))
+    fmap BG.castFunPtr (hs_bindgen_b5a7b5e83ffee6b4_base (\x1 ->
+                                                            fmap BG.toFFIType (BG.getField @"unwrap" fun0 (BG.fromFFIType x1))))
 
 -- __unique:__ @fromFoo_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_223d08172bb37c01_base ::
-     BG.FunPtr (BG.Int32 -> IO BG.Int32)
-  -> BG.Int32 -> IO BG.Int32
+     BG.FunPtr (BG.CInt -> IO BG.CInt)
+  -> BG.CInt -> IO BG.CInt
 
 -- __unique:__ @fromFoo_Aux@
 hs_bindgen_223d08172bb37c01 ::
@@ -276,7 +276,8 @@ hs_bindgen_223d08172bb37c01 ::
   -> Foo_Aux
 hs_bindgen_223d08172bb37c01 =
   \funPtr0 ->
-    BG.fromFFIType (hs_bindgen_223d08172bb37c01_base (BG.castFunPtrToFFIType funPtr0))
+    Foo_Aux (\x1 ->
+               fmap BG.fromFFIType (hs_bindgen_223d08172bb37c01_base (BG.castFunPtr funPtr0) (BG.toFFIType x1)))
 
 instance BG.ToFunPtr Foo_Aux where
 

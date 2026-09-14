@@ -31,7 +31,7 @@ foreign import ccall unsafe "hs_bindgen_a370a6faf1531caa" hs_bindgen_a370a6faf15
 -- __unique:__ @test_functionscallbacks_Example_get_globalVar@
 hs_bindgen_a370a6faf1531caa :: IO (BG.Ptr (CA.ConstantArray 3 (BG.FunPtr (A -> IO ()))))
 hs_bindgen_a370a6faf1531caa =
-  BG.fromFFIType hs_bindgen_a370a6faf1531caa_base
+  fmap BG.fromFFIType hs_bindgen_a370a6faf1531caa_base
 
 {-# NOINLINE globalVar #-}
 {-| __C declaration:__ @globalVar@

@@ -223,7 +223,7 @@ foreign import ccall unsafe "hs_bindgen_4d50a5da1d788aef" hs_bindgen_4d50a5da1d7
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_bool_fun@
 hs_bindgen_4d50a5da1d788aef :: IO (BG.FunPtr (IO BG.CBool))
 hs_bindgen_4d50a5da1d788aef =
-  BG.fromFFIType hs_bindgen_4d50a5da1d788aef_base
+  fmap BG.fromFFIType hs_bindgen_4d50a5da1d788aef_base
 
 {-# NOINLINE bool_fun #-}
 {-| __C declaration:__ @bool_fun@
@@ -243,7 +243,7 @@ foreign import ccall unsafe "hs_bindgen_afc12424e14cd900" hs_bindgen_afc12424e14
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_int8_t_fun@
 hs_bindgen_afc12424e14cd900 :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.Int8))
 hs_bindgen_afc12424e14cd900 =
-  BG.fromFFIType hs_bindgen_afc12424e14cd900_base
+  fmap BG.fromFFIType hs_bindgen_afc12424e14cd900_base
 
 {-# NOINLINE int8_t_fun #-}
 {-| __C declaration:__ @int8_t_fun@
@@ -263,7 +263,7 @@ foreign import ccall unsafe "hs_bindgen_bb1fdb972582362b" hs_bindgen_bb1fdb97258
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_int16_t_fun@
 hs_bindgen_bb1fdb972582362b :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.Int16))
 hs_bindgen_bb1fdb972582362b =
-  BG.fromFFIType hs_bindgen_bb1fdb972582362b_base
+  fmap BG.fromFFIType hs_bindgen_bb1fdb972582362b_base
 
 {-# NOINLINE int16_t_fun #-}
 {-| __C declaration:__ @int16_t_fun@
@@ -283,7 +283,7 @@ foreign import ccall unsafe "hs_bindgen_3ddcee1ca6e45ed1" hs_bindgen_3ddcee1ca6e
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_int32_t_fun@
 hs_bindgen_3ddcee1ca6e45ed1 :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.Int32))
 hs_bindgen_3ddcee1ca6e45ed1 =
-  BG.fromFFIType hs_bindgen_3ddcee1ca6e45ed1_base
+  fmap BG.fromFFIType hs_bindgen_3ddcee1ca6e45ed1_base
 
 {-# NOINLINE int32_t_fun #-}
 {-| __C declaration:__ @int32_t_fun@
@@ -303,7 +303,7 @@ foreign import ccall unsafe "hs_bindgen_87f02bc29c3faac0" hs_bindgen_87f02bc29c3
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_int64_t_fun@
 hs_bindgen_87f02bc29c3faac0 :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.Int64))
 hs_bindgen_87f02bc29c3faac0 =
-  BG.fromFFIType hs_bindgen_87f02bc29c3faac0_base
+  fmap BG.fromFFIType hs_bindgen_87f02bc29c3faac0_base
 
 {-# NOINLINE int64_t_fun #-}
 {-| __C declaration:__ @int64_t_fun@
@@ -323,7 +323,7 @@ foreign import ccall unsafe "hs_bindgen_e41f6841cb24d084" hs_bindgen_e41f6841cb2
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uint8_t_fun@
 hs_bindgen_e41f6841cb24d084 :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.Word8))
 hs_bindgen_e41f6841cb24d084 =
-  BG.fromFFIType hs_bindgen_e41f6841cb24d084_base
+  fmap BG.fromFFIType hs_bindgen_e41f6841cb24d084_base
 
 {-# NOINLINE uint8_t_fun #-}
 {-| __C declaration:__ @uint8_t_fun@
@@ -343,7 +343,7 @@ foreign import ccall unsafe "hs_bindgen_a99c4081312f9a64" hs_bindgen_a99c4081312
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uint16_t_fun@
 hs_bindgen_a99c4081312f9a64 :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.Word16))
 hs_bindgen_a99c4081312f9a64 =
-  BG.fromFFIType hs_bindgen_a99c4081312f9a64_base
+  fmap BG.fromFFIType hs_bindgen_a99c4081312f9a64_base
 
 {-# NOINLINE uint16_t_fun #-}
 {-| __C declaration:__ @uint16_t_fun@
@@ -363,7 +363,7 @@ foreign import ccall unsafe "hs_bindgen_d7c52be7143a7a68" hs_bindgen_d7c52be7143
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uint32_t_fun@
 hs_bindgen_d7c52be7143a7a68 :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.Word32))
 hs_bindgen_d7c52be7143a7a68 =
-  BG.fromFFIType hs_bindgen_d7c52be7143a7a68_base
+  fmap BG.fromFFIType hs_bindgen_d7c52be7143a7a68_base
 
 {-# NOINLINE uint32_t_fun #-}
 {-| __C declaration:__ @uint32_t_fun@
@@ -383,7 +383,7 @@ foreign import ccall unsafe "hs_bindgen_ce7fc806ab2fc8e0" hs_bindgen_ce7fc806ab2
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uint64_t_fun@
 hs_bindgen_ce7fc806ab2fc8e0 :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.Word64))
 hs_bindgen_ce7fc806ab2fc8e0 =
-  BG.fromFFIType hs_bindgen_ce7fc806ab2fc8e0_base
+  fmap BG.fromFFIType hs_bindgen_ce7fc806ab2fc8e0_base
 
 {-# NOINLINE uint64_t_fun #-}
 {-| __C declaration:__ @uint64_t_fun@
@@ -403,7 +403,7 @@ foreign import ccall unsafe "hs_bindgen_5b1986d8b6b49f7e" hs_bindgen_5b1986d8b6b
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_intmax_t_fun@
 hs_bindgen_5b1986d8b6b49f7e :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.CIntMax))
 hs_bindgen_5b1986d8b6b49f7e =
-  BG.fromFFIType hs_bindgen_5b1986d8b6b49f7e_base
+  fmap BG.fromFFIType hs_bindgen_5b1986d8b6b49f7e_base
 
 {-# NOINLINE intmax_t_fun #-}
 {-| __C declaration:__ @intmax_t_fun@
@@ -423,7 +423,7 @@ foreign import ccall unsafe "hs_bindgen_022ea568c1d290f4" hs_bindgen_022ea568c1d
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uintmax_t_fun@
 hs_bindgen_022ea568c1d290f4 :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.CUIntMax))
 hs_bindgen_022ea568c1d290f4 =
-  BG.fromFFIType hs_bindgen_022ea568c1d290f4_base
+  fmap BG.fromFFIType hs_bindgen_022ea568c1d290f4_base
 
 {-# NOINLINE uintmax_t_fun #-}
 {-| __C declaration:__ @uintmax_t_fun@
@@ -443,7 +443,7 @@ foreign import ccall unsafe "hs_bindgen_35eda59e93c8db9a" hs_bindgen_35eda59e93c
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_intptr_t_fun@
 hs_bindgen_35eda59e93c8db9a :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.CIntPtr))
 hs_bindgen_35eda59e93c8db9a =
-  BG.fromFFIType hs_bindgen_35eda59e93c8db9a_base
+  fmap BG.fromFFIType hs_bindgen_35eda59e93c8db9a_base
 
 {-# NOINLINE intptr_t_fun #-}
 {-| __C declaration:__ @intptr_t_fun@
@@ -463,7 +463,7 @@ foreign import ccall unsafe "hs_bindgen_a45e879780c141ec" hs_bindgen_a45e879780c
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uintptr_t_fun@
 hs_bindgen_a45e879780c141ec :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.CUIntPtr))
 hs_bindgen_a45e879780c141ec =
-  BG.fromFFIType hs_bindgen_a45e879780c141ec_base
+  fmap BG.fromFFIType hs_bindgen_a45e879780c141ec_base
 
 {-# NOINLINE uintptr_t_fun #-}
 {-| __C declaration:__ @uintptr_t_fun@
@@ -483,7 +483,7 @@ foreign import ccall unsafe "hs_bindgen_266815b1305c1241" hs_bindgen_266815b1305
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_fenv_t_fun@
 hs_bindgen_266815b1305c1241 :: IO (BG.FunPtr (IO (BG.Ptr HsBindgen.Runtime.LibC.CFenvT)))
 hs_bindgen_266815b1305c1241 =
-  BG.fromFFIType hs_bindgen_266815b1305c1241_base
+  fmap BG.fromFFIType hs_bindgen_266815b1305c1241_base
 
 {-# NOINLINE fenv_t_fun #-}
 {-| __C declaration:__ @fenv_t_fun@
@@ -503,7 +503,7 @@ foreign import ccall unsafe "hs_bindgen_d0eee798617140b8" hs_bindgen_d0eee798617
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_fexcept_t_fun@
 hs_bindgen_d0eee798617140b8 :: IO (BG.FunPtr (IO (BG.Ptr HsBindgen.Runtime.LibC.CFexceptT)))
 hs_bindgen_d0eee798617140b8 =
-  BG.fromFFIType hs_bindgen_d0eee798617140b8_base
+  fmap BG.fromFFIType hs_bindgen_d0eee798617140b8_base
 
 {-# NOINLINE fexcept_t_fun #-}
 {-| __C declaration:__ @fexcept_t_fun@
@@ -523,7 +523,7 @@ foreign import ccall unsafe "hs_bindgen_0120eaefb471d45e" hs_bindgen_0120eaefb47
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_size_t_fun@
 hs_bindgen_0120eaefb471d45e :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.CSize))
 hs_bindgen_0120eaefb471d45e =
-  BG.fromFFIType hs_bindgen_0120eaefb471d45e_base
+  fmap BG.fromFFIType hs_bindgen_0120eaefb471d45e_base
 
 {-# NOINLINE size_t_fun #-}
 {-| __C declaration:__ @size_t_fun@
@@ -543,7 +543,7 @@ foreign import ccall unsafe "hs_bindgen_aa0444e3b2fda3de" hs_bindgen_aa0444e3b2f
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_ptrdiff_t_fun@
 hs_bindgen_aa0444e3b2fda3de :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.CPtrdiff))
 hs_bindgen_aa0444e3b2fda3de =
-  BG.fromFFIType hs_bindgen_aa0444e3b2fda3de_base
+  fmap BG.fromFFIType hs_bindgen_aa0444e3b2fda3de_base
 
 {-# NOINLINE ptrdiff_t_fun #-}
 {-| __C declaration:__ @ptrdiff_t_fun@
@@ -563,7 +563,7 @@ foreign import ccall unsafe "hs_bindgen_c3e6697f6a14bc13" hs_bindgen_c3e6697f6a1
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_wchar_t_fun@
 hs_bindgen_c3e6697f6a14bc13 :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.CWchar))
 hs_bindgen_c3e6697f6a14bc13 =
-  BG.fromFFIType hs_bindgen_c3e6697f6a14bc13_base
+  fmap BG.fromFFIType hs_bindgen_c3e6697f6a14bc13_base
 
 {-# NOINLINE wchar_t_fun #-}
 {-| __C declaration:__ @wchar_t_fun@
@@ -583,7 +583,7 @@ foreign import ccall unsafe "hs_bindgen_f3077dc66d53977f" hs_bindgen_f3077dc66d5
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_wint_t_fun@
 hs_bindgen_f3077dc66d53977f :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.CWintT))
 hs_bindgen_f3077dc66d53977f =
-  BG.fromFFIType hs_bindgen_f3077dc66d53977f_base
+  fmap BG.fromFFIType hs_bindgen_f3077dc66d53977f_base
 
 {-# NOINLINE wint_t_fun #-}
 {-| __C declaration:__ @wint_t_fun@
@@ -603,7 +603,7 @@ foreign import ccall unsafe "hs_bindgen_b863e606ff088408" hs_bindgen_b863e606ff0
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_mbstate_t_fun@
 hs_bindgen_b863e606ff088408 :: IO (BG.FunPtr (IO (BG.Ptr HsBindgen.Runtime.LibC.CMbstateT)))
 hs_bindgen_b863e606ff088408 =
-  BG.fromFFIType hs_bindgen_b863e606ff088408_base
+  fmap BG.fromFFIType hs_bindgen_b863e606ff088408_base
 
 {-# NOINLINE mbstate_t_fun #-}
 {-| __C declaration:__ @mbstate_t_fun@
@@ -623,7 +623,7 @@ foreign import ccall unsafe "hs_bindgen_a9599637dbc12608" hs_bindgen_a9599637dbc
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_wctrans_t_fun@
 hs_bindgen_a9599637dbc12608 :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.CWctransT))
 hs_bindgen_a9599637dbc12608 =
-  BG.fromFFIType hs_bindgen_a9599637dbc12608_base
+  fmap BG.fromFFIType hs_bindgen_a9599637dbc12608_base
 
 {-# NOINLINE wctrans_t_fun #-}
 {-| __C declaration:__ @wctrans_t_fun@
@@ -643,7 +643,7 @@ foreign import ccall unsafe "hs_bindgen_207a54450593099a" hs_bindgen_207a5445059
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_wctype_t_fun@
 hs_bindgen_207a54450593099a :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.CWctypeT))
 hs_bindgen_207a54450593099a =
-  BG.fromFFIType hs_bindgen_207a54450593099a_base
+  fmap BG.fromFFIType hs_bindgen_207a54450593099a_base
 
 {-# NOINLINE wctype_t_fun #-}
 {-| __C declaration:__ @wctype_t_fun@
@@ -663,7 +663,7 @@ foreign import ccall unsafe "hs_bindgen_28a6e39f56489ba2" hs_bindgen_28a6e39f564
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_char16_t_fun@
 hs_bindgen_28a6e39f56489ba2 :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.CChar16T))
 hs_bindgen_28a6e39f56489ba2 =
-  BG.fromFFIType hs_bindgen_28a6e39f56489ba2_base
+  fmap BG.fromFFIType hs_bindgen_28a6e39f56489ba2_base
 
 {-# NOINLINE char16_t_fun #-}
 {-| __C declaration:__ @char16_t_fun@
@@ -683,7 +683,7 @@ foreign import ccall unsafe "hs_bindgen_f918c5a2d6c16885" hs_bindgen_f918c5a2d6c
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_char32_t_fun@
 hs_bindgen_f918c5a2d6c16885 :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.CChar32T))
 hs_bindgen_f918c5a2d6c16885 =
-  BG.fromFFIType hs_bindgen_f918c5a2d6c16885_base
+  fmap BG.fromFFIType hs_bindgen_f918c5a2d6c16885_base
 
 {-# NOINLINE char32_t_fun #-}
 {-| __C declaration:__ @char32_t_fun@
@@ -703,7 +703,7 @@ foreign import ccall unsafe "hs_bindgen_f29cfe7708be784f" hs_bindgen_f29cfe7708b
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_time_t_fun@
 hs_bindgen_f29cfe7708be784f :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.CTime))
 hs_bindgen_f29cfe7708be784f =
-  BG.fromFFIType hs_bindgen_f29cfe7708be784f_base
+  fmap BG.fromFFIType hs_bindgen_f29cfe7708be784f_base
 
 {-# NOINLINE time_t_fun #-}
 {-| __C declaration:__ @time_t_fun@
@@ -723,7 +723,7 @@ foreign import ccall unsafe "hs_bindgen_509d092c2afe1ddc" hs_bindgen_509d092c2af
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_clock_t_fun@
 hs_bindgen_509d092c2afe1ddc :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.CClock))
 hs_bindgen_509d092c2afe1ddc =
-  BG.fromFFIType hs_bindgen_509d092c2afe1ddc_base
+  fmap BG.fromFFIType hs_bindgen_509d092c2afe1ddc_base
 
 {-# NOINLINE clock_t_fun #-}
 {-| __C declaration:__ @clock_t_fun@
@@ -743,7 +743,7 @@ foreign import ccall unsafe "hs_bindgen_8f5880570a38b5dd" hs_bindgen_8f5880570a3
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_FILE_fun@
 hs_bindgen_8f5880570a38b5dd :: IO (BG.FunPtr (IO (BG.Ptr HsBindgen.Runtime.LibC.CFile)))
 hs_bindgen_8f5880570a38b5dd =
-  BG.fromFFIType hs_bindgen_8f5880570a38b5dd_base
+  fmap BG.fromFFIType hs_bindgen_8f5880570a38b5dd_base
 
 {-# NOINLINE fILE_fun #-}
 {-| __C declaration:__ @FILE_fun@
@@ -763,7 +763,7 @@ foreign import ccall unsafe "hs_bindgen_8b563cc85422e790" hs_bindgen_8b563cc8542
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_fpos_t_fun@
 hs_bindgen_8b563cc85422e790 :: IO (BG.FunPtr (IO (BG.Ptr HsBindgen.Runtime.LibC.CFpos)))
 hs_bindgen_8b563cc85422e790 =
-  BG.fromFFIType hs_bindgen_8b563cc85422e790_base
+  fmap BG.fromFFIType hs_bindgen_8b563cc85422e790_base
 
 {-# NOINLINE fpos_t_fun #-}
 {-| __C declaration:__ @fpos_t_fun@
@@ -783,7 +783,7 @@ foreign import ccall unsafe "hs_bindgen_9fcd36cfaa3ea373" hs_bindgen_9fcd36cfaa3
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_sig_atomic_t_fun@
 hs_bindgen_9fcd36cfaa3ea373 :: IO (BG.FunPtr (IO HsBindgen.Runtime.LibC.CSigAtomic))
 hs_bindgen_9fcd36cfaa3ea373 =
-  BG.fromFFIType hs_bindgen_9fcd36cfaa3ea373_base
+  fmap BG.fromFFIType hs_bindgen_9fcd36cfaa3ea373_base
 
 {-# NOINLINE sig_atomic_t_fun #-}
 {-| __C declaration:__ @sig_atomic_t_fun@

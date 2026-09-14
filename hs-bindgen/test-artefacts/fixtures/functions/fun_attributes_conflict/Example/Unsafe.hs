@@ -42,15 +42,16 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cp@
 foreign import ccall unsafe "hs_bindgen_648d4f0fd0df4c79" hs_bindgen_648d4f0fd0df4c79_base ::
-     BG.Int32
-  -> BG.Int32
+     BG.CInt
+  -> BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cp@
 hs_bindgen_648d4f0fd0df4c79 ::
      BG.CInt
   -> BG.CInt
 hs_bindgen_648d4f0fd0df4c79 =
-  BG.fromFFIType hs_bindgen_648d4f0fd0df4c79_base
+  \x0 ->
+    BG.fromFFIType (hs_bindgen_648d4f0fd0df4c79_base (BG.toFFIType x0))
 
 {-|
 
@@ -70,15 +71,16 @@ square_cp = hs_bindgen_648d4f0fd0df4c79
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pc@
 foreign import ccall unsafe "hs_bindgen_632a1e6eb5ceeda7" hs_bindgen_632a1e6eb5ceeda7_base ::
-     BG.Int32
-  -> BG.Int32
+     BG.CInt
+  -> BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pc@
 hs_bindgen_632a1e6eb5ceeda7 ::
      BG.CInt
   -> BG.CInt
 hs_bindgen_632a1e6eb5ceeda7 =
-  BG.fromFFIType hs_bindgen_632a1e6eb5ceeda7_base
+  \x0 ->
+    BG.fromFFIType (hs_bindgen_632a1e6eb5ceeda7_base (BG.toFFIType x0))
 
 {-|
 
@@ -98,15 +100,16 @@ square_pc = hs_bindgen_632a1e6eb5ceeda7
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cc@
 foreign import ccall unsafe "hs_bindgen_56d75b1ff2482f13" hs_bindgen_56d75b1ff2482f13_base ::
-     BG.Int32
-  -> BG.Int32
+     BG.CInt
+  -> BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cc@
 hs_bindgen_56d75b1ff2482f13 ::
      BG.CInt
   -> BG.CInt
 hs_bindgen_56d75b1ff2482f13 =
-  BG.fromFFIType hs_bindgen_56d75b1ff2482f13_base
+  \x0 ->
+    BG.fromFFIType (hs_bindgen_56d75b1ff2482f13_base (BG.toFFIType x0))
 
 {-|
 
@@ -126,15 +129,16 @@ square_cc = hs_bindgen_56d75b1ff2482f13
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pp@
 foreign import ccall unsafe "hs_bindgen_eac2f9645ef29119" hs_bindgen_eac2f9645ef29119_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pp@
 hs_bindgen_eac2f9645ef29119 ::
      BG.CInt
   -> IO BG.CInt
 hs_bindgen_eac2f9645ef29119 =
-  BG.fromFFIType hs_bindgen_eac2f9645ef29119_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_eac2f9645ef29119_base (BG.toFFIType x0))
 
 {-|
 

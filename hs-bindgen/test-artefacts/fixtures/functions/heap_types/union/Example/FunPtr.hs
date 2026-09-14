@@ -29,7 +29,7 @@ foreign import ccall unsafe "hs_bindgen_d5d6e9f882bc09ed" hs_bindgen_d5d6e9f882b
 -- __unique:__ @test_functionsheap_typesunion_Example_get_fun@
 hs_bindgen_d5d6e9f882bc09ed :: IO (BG.FunPtr (T -> IO T))
 hs_bindgen_d5d6e9f882bc09ed =
-  BG.fromFFIType hs_bindgen_d5d6e9f882bc09ed_base
+  fmap BG.fromFFIType hs_bindgen_d5d6e9f882bc09ed_base
 
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@

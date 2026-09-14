@@ -87,7 +87,6 @@ hstypes:
   - FromFunPtr
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -122,7 +121,6 @@ hstypes:
   - FromFunPtr
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -136,7 +134,6 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -170,7 +167,6 @@ hstypes:
   - FromFunPtr
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -236,7 +232,6 @@ hstypes:
   - FromFunPtr
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr

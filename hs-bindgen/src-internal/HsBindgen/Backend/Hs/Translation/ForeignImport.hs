@@ -1,4 +1,5 @@
--- | Generate Haskell foreign imports (using the 'HsBindgen.Runtime.Support.HasFFIType.HasFFIType' class)
+-- | Generate Haskell foreign imports (using the
+-- 'HsBindgen.Runtime.Support.HasFFIType' class)
 module HsBindgen.Backend.Hs.Translation.ForeignImport (
     FunName (..)
   , FunParam (..)
@@ -6,14 +7,13 @@ module HsBindgen.Backend.Hs.Translation.ForeignImport (
   , foreignImportDec
   , foreignImportWrapperDec
   , foreignImportDynamicDec
+  , ImportFor (..)
   ) where
 
 import Data.Function
-import DeBruijn (Idx (IZ))
+import DeBruijn (Idx (IZ), Size (SS, SZ))
 import Optics.Core
 import Text.Printf (printf)
-
-import HsBindgen.Runtime.Support.FFIType qualified as FFI
 
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -22,11 +22,15 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.SHs.AST.Expr qualified as SHs
+import HsBindgen.Backend.SHs.Translation qualified as SHs
+import HsBindgen.Backend.SHs.Translation.MapFunction
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol (..))
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors (panicPure)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
-import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 
 -- | Info about a function name
@@ -49,8 +53,7 @@ data FunRes = FunRes {
 -- > foreign import ccall "foo" foo :: CInt -> IO CInt
 --
 foreignImportDec ::
-     C.Sizeofs
-  -> FunName
+     FunName
   -> [FunParam]
   -> FunRes
   -> C.DeclName
@@ -58,7 +61,7 @@ foreignImportDec ::
   -> Origin.ForeignImport
   -> Safety
   -> [Hs.Decl l]
-foreignImportDec sizeofs name params res origName callConv origin safety =
+foreignImportDec name params res origName callConv origin safety =
     [ Hs.DeclForeignImport foreignImportDecl
     , Hs.DeclFunction funDecl
     ]
@@ -66,7 +69,7 @@ foreignImportDec sizeofs name params res origName callConv origin safety =
     foreignImportDecl :: Hs.ForeignImportDecl
     foreignImportDecl =  Hs.ForeignImportDecl{
           name       = fiName
-        , result     = unsafeToFFI sizeofs res.hsType
+        , result     = unsafeToFFI res.hsType
         , parameters = fiParameters
         , origName   = origName
         , callConv   = callConv
@@ -81,7 +84,7 @@ foreignImportDec sizeofs name params res origName callConv origin safety =
     fiParameters = over each (\x ->
         x.hsParam
           & #comment .~ Nothing
-          & #typ .~ unsafeToFFI sizeofs x.hsParam.typ
+          & #typ .~ unsafeToFFI x.hsParam.typ
           ) params
 
     fiComment =  Just $ HsDoc.uniqueSymbol name.uniqSymbol
@@ -91,10 +94,16 @@ foreignImportDec sizeofs name params res origName callConv origin safety =
         { name       = fName
         , parameters = fParameters
         , result     = res.hsType
-        , body       = eBindgenGlobal HasFFIType_fromFFIType `EApp` EFree fiName
+        , body       = mapFromFFI importFor SZ (SHs.EFree fiName)
         , origin     = origin
         , pragmas    = []
         , comment    = fComment
+        }
+
+    importFor :: ImportFor
+    importFor = ImportForFunction {
+          args = fmap (.hsParam.typ) params
+        , res = res.hsType
         }
 
     -- fName is unique
@@ -118,12 +127,12 @@ foreignImportDec sizeofs name params res origName callConv origin safety =
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1620008.5.1>
 --
 foreignImportWrapperDec ::
-     C.Sizeofs
-  -> FunName
+     FunName
   -> Hs.Type
+  -> ImportFor
   -> Origin.ForeignImport
   -> [Hs.Decl l]
-foreignImportWrapperDec sizeofs name hsType origin =
+foreignImportWrapperDec name hsType importFor origin =
     [ Hs.DeclForeignImportWrapper foreignImportWrapperDecl
     , Hs.DeclFunction funDecl
     ]
@@ -139,7 +148,7 @@ foreignImportWrapperDec sizeofs name hsType origin =
     -- fiName is unique because it is created from a unique name + suffix
     fiName :: UniqueSymbol
     fiName = name.uniqSymbol & #unique %~ (<> "_base")
-    fiFunType = unsafeToFFI sizeofs hsType
+    fiFunType = unsafeToFFI hsType
 
     funDecl :: Hs.FunctionDecl
     funDecl = Hs.FunctionDecl
@@ -164,11 +173,8 @@ foreignImportWrapperDec sizeofs name hsType origin =
     fBody =
         ELam (NameHint "fun") $
         eBindgenGlobal Functor_fmap `EApp`
-        eBindgenGlobal HasFFIType_castFunPtrFromFFIType `EApp`
-        (EFree (Hs.InternalName fiName) `EApp`
-        (eBindgenGlobal HasFFIType_toFFIType `EApp`
-        EBound IZ
-        ))
+        eBindgenGlobal Foreign_castFunPtr `EApp`
+        (EFree (Hs.InternalName fiName) `EApp` mapToFFI importFor (SS SZ) (EBound IZ))
     fComment = Just $ HsDoc.uniqueSymbol name.uniqSymbol
 
 {-------------------------------------------------------------------------------
@@ -187,12 +193,12 @@ foreignImportWrapperDec sizeofs name hsType origin =
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1620008.5.1>
 --
 foreignImportDynamicDec ::
-     C.Sizeofs
-  -> FunName
+     FunName
   -> Hs.Type
+  -> ImportFor
   -> Origin.ForeignImport
   -> [Hs.Decl l]
-foreignImportDynamicDec sizeofs name hsType origin =
+foreignImportDynamicDec name hsType importFor origin =
     [ Hs.DeclForeignImportDynamic foreignImportDynamicDecl
     , Hs.DeclFunction funDecl
     ]
@@ -208,7 +214,7 @@ foreignImportDynamicDec sizeofs name hsType origin =
     -- fiName is unique because it is created from a unique name + suffix
     fiName :: UniqueSymbol
     fiName = name.uniqSymbol & #unique %~ (<> "_base")
-    fiFunType = unsafeToFFI sizeofs hsType
+    fiFunType = unsafeToFFI hsType
 
     funDecl :: Hs.FunctionDecl
     funDecl = Hs.FunctionDecl
@@ -232,12 +238,96 @@ foreignImportDynamicDec sizeofs name hsType origin =
     fResult = hsType
     fBody =
         ELam (NameHint "funPtr") $
-        eBindgenGlobal HasFFIType_fromFFIType `EApp`
+        (mapFromFFI importFor (SS SZ)
         (EFree (Hs.InternalName fiName) `EApp`
-        (eBindgenGlobal HasFFIType_castFunPtrToFFIType `EApp`
+        (eBindgenGlobal Foreign_castFunPtr `EApp`
         EBound IZ
-        ))
+        )))
     fComment = Just $ HsDoc.uniqueSymbol name.uniqSymbol
+
+{-------------------------------------------------------------------------------
+  ImportFor
+-------------------------------------------------------------------------------}
+
+data ImportFor =
+    ImportForFunction {
+        args :: [Hs.Type]
+      , res  :: Hs.Type
+      }
+  | ImportForNewtype {
+        args   :: [Hs.Type]
+      , res    :: Hs.Type
+      , newtyp :: Hs.Newtype
+      }
+
+mapToFFI :: ImportFor -> Size ctx -> SHs.SExpr ctx -> SHs.SExpr ctx
+mapToFFI dynFor size funExpr = case dynFor of
+    ImportForFunction args res -> forFunction args res
+    ImportForNewtype args res nt -> forNewtype args res nt
+  where
+    convArg = mkConvArg HasFFIType_fromFFIType
+    convRes = mkConvRes HasFFIType_toFFIType
+
+    forFunction args res =
+        mapFunctionExpr (MapFunctionParams {
+            convArg = convArg
+          , convRes = convRes
+          , args    = args
+          , res     = res
+          , funExpr = funExpr
+          , size    = size
+          })
+
+    forNewtype args res nt =
+        mapFunctionExpr (MapFunctionParams {
+            convArg = convArg
+          , convRes = convRes
+          , args    = args
+          , res     = res
+          , funExpr = eBindgenGlobal HasField_getField `ETypeApp` fieldLit `EApp` funExpr
+          , size    = size
+          })
+      where
+        fieldLit = SHs.translateType $ Hs.StrLit $ Hs.nameToStr nt.field.name
+
+mapFromFFI :: ImportFor -> Size ctx -> SHs.SExpr ctx -> SHs.SExpr ctx
+mapFromFFI dynFor size funExpr = case dynFor of
+    ImportForFunction args res -> forFunction args res
+    ImportForNewtype args res nt -> forNewtype args res nt
+  where
+    convArg = mkConvArg HasFFIType_toFFIType
+    convRes = mkConvRes HasFFIType_fromFFIType
+
+    forFunction args res =
+        mapFunctionExpr (MapFunctionParams {
+            convArg = convArg
+          , convRes = convRes
+          , args    = args
+          , res     = res
+          , funExpr = funExpr
+          , size    = size
+          })
+
+    forNewtype args res nt =
+        ECon nt.constr `EApp`
+        mapFunctionExpr (MapFunctionParams {
+            convArg = convArg
+          , convRes = convRes
+          , args    = args
+          , res     = res
+          , funExpr = funExpr
+          , size    = size
+          })
+
+mkConvArg :: BindgenGlobalTerm -> ConvArg
+mkConvArg g =  ConvArg $ \_typ idx -> SHs.eBindgenGlobal g  `EApp` SHs.EBound idx
+
+mkConvRes :: BindgenGlobalTerm -> ConvRes
+mkConvRes g = ConvRes $ \typ e -> case typ of
+    Hs.IO (Hs.PrimType Hs.PrimUnit) -> e
+    Hs.PrimType Hs.PrimUnit -> e
+    Hs.IO{} -> eBindgenGlobal Functor_fmap `EApp` eBindgenGlobal g `EApp` e
+    _ -> eBindgenGlobal g `EApp` e
 
 {-------------------------------------------------------------------------------
   FFI types
@@ -249,127 +339,77 @@ foreignImportDynamicDec sizeofs name hsType origin =
 -- only uses FFI types. The downside is that it requires quite a bit of (boring)
 -- plumbing. For now, the YAGNI principle applies.
 
-unsafeToFFI :: C.Sizeofs -> Hs.Type -> Hs.Type
-unsafeToFFI sizeofs ty = case toFFI sizeofs ty of
+unsafeToFFI :: Hs.Type -> Hs.Type
+unsafeToFFI ty = case toFFIType ty of
     Nothing ->
       panicPure $ printf "Type does not have an FFI type: %s" (show ty)
     Just ty' ->
       ty'
 
-toFFI :: C.Sizeofs -> Hs.Type -> Maybe Hs.Type
-toFFI sizeofs ty =
-      fmap fromFFIType
-    $ toFFIType sizeofs ty
-
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>
 -- After issue #1599 is resolved, we should reconsider whether we want to
 -- use @Hs.Type@ as an input here, or @C.Type Final@, or something else.
-toFFIType :: C.Sizeofs -> Hs.Type -> Maybe FFI.FFIType
-toFFIType sizeofs = go
+toFFIType :: Hs.Type -> Maybe Hs.Type
+toFFIType = go
   where
     no = Nothing
     yes = Just
 
-    go :: Hs.Type -> Maybe FFI.FFIType
+    prim :: Hs.PrimType -> Hs.Type
+    prim = Hs.PrimType
+
+    go :: Hs.Type -> Maybe Hs.Type
     go = \case
-      Hs.PrimType pt          -> goPrim pt
+      Hs.PrimType pt          -> Hs.PrimType <$> goPrim pt
       Hs.TypRef _ t           -> t >>= go
       Hs.ConstArray{}         -> no
       Hs.IncompleteArray{}    -> no
-      Hs.PtrArrayElem {}      -> yes $ FFI.Basic FFI.Ptr
-      Hs.PtrConstArrayElem {} -> yes $ FFI.Basic FFI.Ptr
-      Hs.Ptr{}                -> yes $ FFI.Basic FFI.Ptr
-      Hs.FunPtr{}             -> yes $ FFI.Basic FFI.FunPtr
-      Hs.StablePtr{}          -> no
-      Hs.PtrConst{}           -> yes $ FFI.Basic FFI.Ptr
-      Hs.IO t'                -> FFI.IO <$> go t'
-      Hs.Fun s t'             -> FFI.FunArrow <$> go s <*> go t'
-      Hs.ExtBinding _ _ _ t'  -> go t'
+      Hs.PtrArrayElem {}      -> yes $ Hs.Ptr $ prim Hs.PrimVoid
+      Hs.PtrConstArrayElem {} -> yes $ Hs.Ptr $ prim Hs.PrimVoid
+      Hs.Ptr{}                -> yes $ Hs.Ptr $ prim Hs.PrimVoid
+      Hs.FunPtr{}             -> yes $ Hs.FunPtr $ prim Hs.PrimVoid
+      Hs.PtrConst{}           -> yes $ Hs.Ptr $ prim Hs.PrimVoid
+      Hs.IO t'                -> Hs.IO <$> go t'
+      Hs.Fun s t'             -> Hs.Fun <$> go s <*> go t'
+      Hs.ExtBinding _ref _cSpec hsSpec t' ->
+        case BindingSpec.hsSpecFFIType hsSpec of
+          Nothing -> go t'
+          Just hsFFIType -> pure $ extFFIType hsFFIType t'
       Hs.ByteArray            -> no
       Hs.SizedByteArray{}     -> no
-      Hs.Block{}              -> yes $ FFI.Basic FFI.Ptr
+      Hs.Block{}              -> yes $ Hs.Ptr $ prim Hs.PrimVoid
       Hs.ComplexType{}        -> no
       Hs.StrLit{}             -> no
       Hs.WithFlam{}           -> no
       Hs.EquivStorable{}      -> no
       Hs.IsStructViaReadRaw{} -> no
 
-    goPrim :: Hs.PrimType -> Maybe FFI.FFIType
+    goPrim :: Hs.PrimType -> Maybe Hs.PrimType
     goPrim pt = case pt of
         Hs.PrimVoid    -> no
-        Hs.PrimUnit    -> yes $ FFI.Unit
-        Hs.PrimChar    -> yes $ FFI.Basic FFI.Char
-        Hs.PrimInt     -> yes $ FFI.Basic FFI.Int
-        Hs.PrimDouble  -> yes $ FFI.Basic FFI.Double
-        Hs.PrimFloat   -> yes $ FFI.Basic FFI.Float
-        Hs.PrimBool    -> yes $ FFI.Basic FFI.Bool
-        Hs.PrimInt8    -> yes $ FFI.Basic FFI.Int8
-        Hs.PrimInt16   -> yes $ FFI.Basic FFI.Int16
-        Hs.PrimInt32   -> yes $ FFI.Basic FFI.Int32
-        Hs.PrimInt64   -> yes $ FFI.Basic FFI.Int64
-        Hs.PrimWord    -> yes $ FFI.Basic FFI.Word
-        Hs.PrimWord8   -> yes $ FFI.Basic FFI.Word8
-        Hs.PrimWord16  -> yes $ FFI.Basic FFI.Word16
-        Hs.PrimWord32  -> yes $ FFI.Basic FFI.Word32
-        Hs.PrimWord64  -> yes $ FFI.Basic FFI.Word64
-        Hs.PrimCChar   -> yes $ FFI.Basic $ signedType sizeofs.char
-        Hs.PrimCSChar  -> yes $ FFI.Basic $ signedType sizeofs.schar
-        Hs.PrimCUChar  -> yes $ FFI.Basic $ unsignedType sizeofs.uchar
-        Hs.PrimCShort  -> yes $ FFI.Basic $ signedType sizeofs.short
-        Hs.PrimCUShort -> yes $ FFI.Basic $ unsignedType sizeofs.ushort
-        Hs.PrimCInt    -> yes $ FFI.Basic $ signedType sizeofs.int
-        Hs.PrimCUInt   -> yes $ FFI.Basic $ unsignedType sizeofs.uint
-        Hs.PrimCLong   -> yes $ FFI.Basic $ signedType sizeofs.long
-        Hs.PrimCULong  -> yes $ FFI.Basic $ unsignedType sizeofs.ulong
-        Hs.PrimCLLong  -> yes $ FFI.Basic $ signedType sizeofs.longlong
-        Hs.PrimCULLong -> yes $ FFI.Basic $ unsignedType sizeofs.ulonglong
-        Hs.PrimCBool   -> yes $ FFI.Basic $ unsignedType sizeofs.bool
-        Hs.PrimCFloat  -> yes $ FFI.Basic FFI.Float
-        Hs.PrimCDouble -> yes $ FFI.Basic FFI.Double
+        Hs.PrimUnit    -> yesId
+        Hs.PrimInt     -> yesId
+        Hs.PrimCChar   -> yesId
+        Hs.PrimCSChar  -> yesId
+        Hs.PrimCUChar  -> yesId
+        Hs.PrimCShort  -> yesId
+        Hs.PrimCUShort -> yesId
+        Hs.PrimCInt    -> yesId
+        Hs.PrimCUInt   -> yesId
+        Hs.PrimCLong   -> yesId
+        Hs.PrimCULong  -> yesId
+        Hs.PrimCLLong  -> yesId
+        Hs.PrimCULLong -> yesId
+        Hs.PrimCBool   -> yesId
+        Hs.PrimCFloat  -> yesId
+        Hs.PrimCDouble -> yesId
+      where yesId = yes pt
 
-signedType :: C.NumBytes -> FFI.BasicFFIType
-signedType = \case
-    C.One   -> FFI.Int8
-    C.Two   -> FFI.Int16
-    C.Four  -> FFI.Int32
-    C.Eight -> FFI.Int64
-
-unsignedType :: C.NumBytes -> FFI.BasicFFIType
-unsignedType = \case
-    C.One   -> FFI.Word8
-    C.Two   -> FFI.Word16
-    C.Four  -> FFI.Word32
-    C.Eight -> FFI.Word64
-
-fromFFIType :: FFI.FFIType -> Hs.Type
-fromFFIType = goBase
+-- TODO <?>: rather than reusing the 'Hs.ExtBinding' constructor, it would
+-- probably be better if an binding spec FFI type maps to its own constructor.
+extFFIType :: BindingSpec.HsFFIType -> Hs.Type -> Hs.Type
+extFFIType hsFFIType underlying =  Hs.ExtBinding extRef cSpec hsSpec underlying
   where
-    prim :: Hs.PrimType -> Hs.Type
-    prim = Hs.PrimType
-
-    goBase :: FFI.FFIType -> Hs.Type
-    goBase t = case t of
-        FFI.FunArrow s t' -> goBase s `Hs.Fun` goBase t'
-        FFI.Unit          -> prim Hs.PrimUnit
-        FFI.IO t'         -> Hs.IO (goBase t')
-        FFI.Basic t'      -> goBasic t'
-
-    goBasic :: FFI.BasicFFIType -> Hs.Type
-    goBasic t = case t of
-        FFI.Char      -> prim Hs.PrimChar
-        FFI.Int       -> prim Hs.PrimInt
-        FFI.Double    -> prim Hs.PrimDouble
-        FFI.Float     -> prim Hs.PrimFloat
-        FFI.Bool      -> prim Hs.PrimBool
-        FFI.Int8      -> prim Hs.PrimInt8
-        FFI.Int16     -> prim Hs.PrimInt16
-        FFI.Int32     -> prim Hs.PrimInt32
-        FFI.Int64     -> prim Hs.PrimInt64
-        FFI.Word      -> prim Hs.PrimWord
-        FFI.Word8     -> prim Hs.PrimWord8
-        FFI.Word16    -> prim Hs.PrimWord16
-        FFI.Word32    -> prim Hs.PrimWord32
-        FFI.Word64    -> prim Hs.PrimWord64
-        FFI.Ptr       -> Hs.Ptr       $ prim Hs.PrimVoid
-        FFI.FunPtr    -> Hs.FunPtr    $ prim Hs.PrimVoid
-        FFI.StablePtr -> Hs.StablePtr $ prim Hs.PrimVoid
+    extRef = Hs.ExtRef hsFFIType.moduleName hsFFIType.typeName
+    cSpec = BindingSpec.CTypeSpec { hsName = Nothing, enum = Nothing }
+    hsSpec = BindingSpec.HsTypeSpec { hsRep = Nothing, instances = mempty }

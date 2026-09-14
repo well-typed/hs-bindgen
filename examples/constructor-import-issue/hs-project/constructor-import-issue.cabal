@@ -19,10 +19,17 @@ executable constructor-import-issue-bin
   extra-libraries: constructor_import_issue
   build-depends:   hs-bindgen-runtime
   other-modules:
-    Generated
-    Generated.A
-    Generated.B
-    Generated.FunPtr
-    Generated.Global
-    Generated.Safe
-    Generated.Unsafe
+    Generated.NoStdlib.A
+    Generated.NoStdlib.B
+    Generated.NoStdlib.C
+    Generated.NoStdlib.C.FunPtr
+    Generated.NoStdlib.C.Global
+    Generated.NoStdlib.C.Safe
+    Generated.NoStdlib.C.Unsafe
+    Generated.Stdlib.A
+    Generated.Stdlib.B
+    Generated.Stdlib.C
+    Generated.Stdlib.C.FunPtr
+    Generated.Stdlib.C.Global
+    Generated.Stdlib.C.Safe
+    Generated.Stdlib.C.Unsafe
