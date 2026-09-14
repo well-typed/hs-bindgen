@@ -29,7 +29,8 @@ hs_bindgen_e7a8db67218e71f8 ::
      BG.CInt
   -> IO ()
 hs_bindgen_e7a8db67218e71f8 =
-  BG.fromFFIType hs_bindgen_e7a8db67218e71f8_base
+  \x0 ->
+    hs_bindgen_e7a8db67218e71f8_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @foo@
 

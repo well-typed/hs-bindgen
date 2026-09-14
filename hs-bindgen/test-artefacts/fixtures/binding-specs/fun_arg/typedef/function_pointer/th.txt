@@ -145,7 +145,7 @@ foreign import ccall safe "wrapper" hs_bindgen_1cabb32c661d9a0e_base ::
 -- __unique:__ @toA_Aux@
 hs_bindgen_1cabb32c661d9a0e :: A_Aux -> IO (FunPtr A_Aux)
 -- __unique:__ @toA_Aux@
-hs_bindgen_1cabb32c661d9a0e = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_1cabb32c661d9a0e_base (toFFIType fun_0))
+hs_bindgen_1cabb32c661d9a0e = \fun_0 -> fmap castFunPtr (hs_bindgen_1cabb32c661d9a0e_base (\x_1 -> fmap toFFIType (getField @"unwrapA_Aux" fun_0 (fromFFIType x_1))))
 -- __unique:__ @fromA_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_cdb12400c6863f15_base ::
     FunPtr (Int32 -> IO Int32)
@@ -154,7 +154,7 @@ foreign import ccall safe "dynamic" hs_bindgen_cdb12400c6863f15_base ::
 -- __unique:__ @fromA_Aux@
 hs_bindgen_cdb12400c6863f15 :: FunPtr A_Aux -> A_Aux
 -- __unique:__ @fromA_Aux@
-hs_bindgen_cdb12400c6863f15 = \funPtr_0 -> fromFFIType (hs_bindgen_cdb12400c6863f15_base (castFunPtrToFFIType funPtr_0))
+hs_bindgen_cdb12400c6863f15 = \funPtr_0 -> A_Aux (\x_1 -> fmap fromFFIType (hs_bindgen_cdb12400c6863f15_base (castFunPtr funPtr_0) (toFFIType x_1)))
 instance ToFunPtr A_Aux
     where toFunPtr = hs_bindgen_1cabb32c661d9a0e
 instance FromFunPtr A_Aux
@@ -239,7 +239,7 @@ foreign import ccall safe "hs_bindgen_99bb90e6d7637d2c" hs_bindgen_99bb90e6d7637
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
 hs_bindgen_99bb90e6d7637d2c :: FunPtr (CInt -> IO CInt) -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
-hs_bindgen_99bb90e6d7637d2c = fromFFIType hs_bindgen_99bb90e6d7637d2c_base
+hs_bindgen_99bb90e6d7637d2c = \x_0 -> hs_bindgen_99bb90e6d7637d2c_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 4:6@
@@ -261,7 +261,7 @@ foreign import ccall safe "hs_bindgen_392e3092a2681c13" hs_bindgen_392e3092a2681
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
 hs_bindgen_392e3092a2681c13 :: A -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
-hs_bindgen_392e3092a2681c13 = fromFFIType hs_bindgen_392e3092a2681c13_base
+hs_bindgen_392e3092a2681c13 = \x_0 -> hs_bindgen_392e3092a2681c13_base (toFFIType x_0)
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 9:6@
@@ -283,7 +283,7 @@ foreign import ccall safe "hs_bindgen_6011faf8531be4fa" hs_bindgen_6011faf8531be
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
 hs_bindgen_6011faf8531be4fa :: B -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
-hs_bindgen_6011faf8531be4fa = fromFFIType hs_bindgen_6011faf8531be4fa_base
+hs_bindgen_6011faf8531be4fa = \x_0 -> hs_bindgen_6011faf8531be4fa_base (toFFIType x_0)
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 10:6@
@@ -305,7 +305,7 @@ foreign import ccall safe "hs_bindgen_40a50b8e6ac3b09d" hs_bindgen_40a50b8e6ac3b
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
 hs_bindgen_40a50b8e6ac3b09d :: M.C -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
-hs_bindgen_40a50b8e6ac3b09d = fromFFIType hs_bindgen_40a50b8e6ac3b09d_base
+hs_bindgen_40a50b8e6ac3b09d = \x_0 -> hs_bindgen_40a50b8e6ac3b09d_base (toFFIType x_0)
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 21:6@
@@ -327,7 +327,7 @@ foreign import ccall safe "hs_bindgen_32b4f35bf27a4bf8" hs_bindgen_32b4f35bf27a4
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
 hs_bindgen_32b4f35bf27a4bf8 :: M.D -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
-hs_bindgen_32b4f35bf27a4bf8 = fromFFIType hs_bindgen_32b4f35bf27a4bf8_base
+hs_bindgen_32b4f35bf27a4bf8 = \x_0 -> hs_bindgen_32b4f35bf27a4bf8_base (toFFIType x_0)
 {-| __C declaration:__ @fooD@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 22:6@
@@ -349,7 +349,7 @@ foreign import ccall safe "hs_bindgen_6e59183c0a861d01" hs_bindgen_6e59183c0a861
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
 hs_bindgen_6e59183c0a861d01 :: E -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
-hs_bindgen_6e59183c0a861d01 = fromFFIType hs_bindgen_6e59183c0a861d01_base
+hs_bindgen_6e59183c0a861d01 = \x_0 -> hs_bindgen_6e59183c0a861d01_base (toFFIType x_0)
 {-| __C declaration:__ @fooE@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 23:6@
@@ -371,7 +371,7 @@ foreign import ccall unsafe "hs_bindgen_51195acecf6b880e" hs_bindgen_51195acecf6
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_foo@
 hs_bindgen_51195acecf6b880e :: FunPtr (CInt -> IO CInt) -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_foo@
-hs_bindgen_51195acecf6b880e = fromFFIType hs_bindgen_51195acecf6b880e_base
+hs_bindgen_51195acecf6b880e = \x_0 -> hs_bindgen_51195acecf6b880e_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 4:6@
@@ -393,7 +393,7 @@ foreign import ccall unsafe "hs_bindgen_eb4a794c10ca94f9" hs_bindgen_eb4a794c10c
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooA@
 hs_bindgen_eb4a794c10ca94f9 :: A -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooA@
-hs_bindgen_eb4a794c10ca94f9 = fromFFIType hs_bindgen_eb4a794c10ca94f9_base
+hs_bindgen_eb4a794c10ca94f9 = \x_0 -> hs_bindgen_eb4a794c10ca94f9_base (toFFIType x_0)
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 9:6@
@@ -415,7 +415,7 @@ foreign import ccall unsafe "hs_bindgen_a11eb4471a953b64" hs_bindgen_a11eb4471a9
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooB@
 hs_bindgen_a11eb4471a953b64 :: B -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooB@
-hs_bindgen_a11eb4471a953b64 = fromFFIType hs_bindgen_a11eb4471a953b64_base
+hs_bindgen_a11eb4471a953b64 = \x_0 -> hs_bindgen_a11eb4471a953b64_base (toFFIType x_0)
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 10:6@
@@ -437,7 +437,7 @@ foreign import ccall unsafe "hs_bindgen_1dea92b3f3346311" hs_bindgen_1dea92b3f33
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
 hs_bindgen_1dea92b3f3346311 :: M.C -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
-hs_bindgen_1dea92b3f3346311 = fromFFIType hs_bindgen_1dea92b3f3346311_base
+hs_bindgen_1dea92b3f3346311 = \x_0 -> hs_bindgen_1dea92b3f3346311_base (toFFIType x_0)
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 21:6@
@@ -459,7 +459,7 @@ foreign import ccall unsafe "hs_bindgen_dba6d56e1a316e2d" hs_bindgen_dba6d56e1a3
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
 hs_bindgen_dba6d56e1a316e2d :: M.D -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
-hs_bindgen_dba6d56e1a316e2d = fromFFIType hs_bindgen_dba6d56e1a316e2d_base
+hs_bindgen_dba6d56e1a316e2d = \x_0 -> hs_bindgen_dba6d56e1a316e2d_base (toFFIType x_0)
 {-| __C declaration:__ @fooD@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 22:6@
@@ -481,7 +481,7 @@ foreign import ccall unsafe "hs_bindgen_23b6f403a534aeae" hs_bindgen_23b6f403a53
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
 hs_bindgen_23b6f403a534aeae :: E -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
-hs_bindgen_23b6f403a534aeae = fromFFIType hs_bindgen_23b6f403a534aeae_base
+hs_bindgen_23b6f403a534aeae = \x_0 -> hs_bindgen_23b6f403a534aeae_base (toFFIType x_0)
 {-| __C declaration:__ @fooE@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h 23:6@
@@ -504,7 +504,7 @@ hs_bindgen_2020929269c10652 :: IO (FunPtr (FunPtr (CInt ->
                                                    IO CInt) ->
                                            IO ()))
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_foo@
-hs_bindgen_2020929269c10652 = fromFFIType hs_bindgen_2020929269c10652_base
+hs_bindgen_2020929269c10652 = fmap fromFFIType hs_bindgen_2020929269c10652_base
 {-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 
@@ -526,7 +526,7 @@ foreign import ccall unsafe "hs_bindgen_3fbd7681308a7575" hs_bindgen_3fbd7681308
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooA@
 hs_bindgen_3fbd7681308a7575 :: IO (FunPtr (A -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooA@
-hs_bindgen_3fbd7681308a7575 = fromFFIType hs_bindgen_3fbd7681308a7575_base
+hs_bindgen_3fbd7681308a7575 = fmap fromFFIType hs_bindgen_3fbd7681308a7575_base
 {-# NOINLINE fooA_funptr #-}
 {-| __C declaration:__ @fooA@
 
@@ -548,7 +548,7 @@ foreign import ccall unsafe "hs_bindgen_118f9a485493ca2d" hs_bindgen_118f9a48549
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooB@
 hs_bindgen_118f9a485493ca2d :: IO (FunPtr (B -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooB@
-hs_bindgen_118f9a485493ca2d = fromFFIType hs_bindgen_118f9a485493ca2d_base
+hs_bindgen_118f9a485493ca2d = fmap fromFFIType hs_bindgen_118f9a485493ca2d_base
 {-# NOINLINE fooB_funptr #-}
 {-| __C declaration:__ @fooB@
 
@@ -570,7 +570,7 @@ foreign import ccall unsafe "hs_bindgen_dbe89d4787aae78a" hs_bindgen_dbe89d4787a
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooC@
 hs_bindgen_dbe89d4787aae78a :: IO (FunPtr (M.C -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooC@
-hs_bindgen_dbe89d4787aae78a = fromFFIType hs_bindgen_dbe89d4787aae78a_base
+hs_bindgen_dbe89d4787aae78a = fmap fromFFIType hs_bindgen_dbe89d4787aae78a_base
 {-# NOINLINE fooC_funptr #-}
 {-| __C declaration:__ @fooC@
 
@@ -592,7 +592,7 @@ foreign import ccall unsafe "hs_bindgen_cf5702eef5ab2ac4" hs_bindgen_cf5702eef5a
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooD@
 hs_bindgen_cf5702eef5ab2ac4 :: IO (FunPtr (M.D -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooD@
-hs_bindgen_cf5702eef5ab2ac4 = fromFFIType hs_bindgen_cf5702eef5ab2ac4_base
+hs_bindgen_cf5702eef5ab2ac4 = fmap fromFFIType hs_bindgen_cf5702eef5ab2ac4_base
 {-# NOINLINE fooD_funptr #-}
 {-| __C declaration:__ @fooD@
 
@@ -614,7 +614,7 @@ foreign import ccall unsafe "hs_bindgen_dc10cdc4b07670d1" hs_bindgen_dc10cdc4b07
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooE@
 hs_bindgen_dc10cdc4b07670d1 :: IO (FunPtr (E -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooE@
-hs_bindgen_dc10cdc4b07670d1 = fromFFIType hs_bindgen_dc10cdc4b07670d1_base
+hs_bindgen_dc10cdc4b07670d1 = fmap fromFFIType hs_bindgen_dc10cdc4b07670d1_base
 {-# NOINLINE fooE_funptr #-}
 {-| __C declaration:__ @fooE@
 

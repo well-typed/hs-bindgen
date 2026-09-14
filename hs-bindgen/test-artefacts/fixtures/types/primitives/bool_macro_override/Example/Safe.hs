@@ -41,7 +41,9 @@ hs_bindgen_fc2c0275afbb3c2e ::
   -> BG.CBool
   -> IO ()
 hs_bindgen_fc2c0275afbb3c2e =
-  BG.fromFFIType hs_bindgen_fc2c0275afbb3c2e_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_fc2c0275afbb3c2e_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @f@
 
@@ -69,7 +71,9 @@ hs_bindgen_d07d93e6b7330d03 ::
   -> Bool'
   -> IO ()
 hs_bindgen_d07d93e6b7330d03 =
-  BG.fromFFIType hs_bindgen_d07d93e6b7330d03_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_d07d93e6b7330d03_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @g@
 

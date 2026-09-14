@@ -26,7 +26,7 @@ foreign import ccall unsafe "hs_bindgen_1ccc97a484f823b2" hs_bindgen_1ccc97a484f
 -- __unique:__ @test_programanalysisselection_mat_Example_get_FunctionWithAssignedHaskellNameByNameMangler@
 hs_bindgen_1ccc97a484f823b2 :: IO (BG.FunPtr (IO BG.CInt))
 hs_bindgen_1ccc97a484f823b2 =
-  BG.fromFFIType hs_bindgen_1ccc97a484f823b2_base
+  fmap BG.fromFFIType hs_bindgen_1ccc97a484f823b2_base
 
 {-# NOINLINE functionWithAssignedHaskellNameByNameMangler #-}
 {-| __C declaration:__ @FunctionWithAssignedHaskellNameByNameMangler@

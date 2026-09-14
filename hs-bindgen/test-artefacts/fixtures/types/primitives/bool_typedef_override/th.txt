@@ -95,7 +95,7 @@ foreign import ccall safe "hs_bindgen_ea0e9b7fd1e9560c" hs_bindgen_ea0e9b7fd1e95
 -- __unique:__ @test_typesprimitivesbool_typedef__Example_Safe_f@
 hs_bindgen_ea0e9b7fd1e9560c :: A -> Bool' -> IO ()
 -- __unique:__ @test_typesprimitivesbool_typedef__Example_Safe_f@
-hs_bindgen_ea0e9b7fd1e9560c = fromFFIType hs_bindgen_ea0e9b7fd1e9560c_base
+hs_bindgen_ea0e9b7fd1e9560c = \x_0 -> \x_1 -> hs_bindgen_ea0e9b7fd1e9560c_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @f@
 
     __defined at:__ @types\/primitives\/bool_typedef_override.h 6:6@
@@ -118,7 +118,7 @@ foreign import ccall unsafe "hs_bindgen_1ab53e827ec0c8e2" hs_bindgen_1ab53e827ec
 -- __unique:__ @test_typesprimitivesbool_typedef__Example_Unsafe_f@
 hs_bindgen_1ab53e827ec0c8e2 :: A -> Bool' -> IO ()
 -- __unique:__ @test_typesprimitivesbool_typedef__Example_Unsafe_f@
-hs_bindgen_1ab53e827ec0c8e2 = fromFFIType hs_bindgen_1ab53e827ec0c8e2_base
+hs_bindgen_1ab53e827ec0c8e2 = \x_0 -> \x_1 -> hs_bindgen_1ab53e827ec0c8e2_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @f@
 
     __defined at:__ @types\/primitives\/bool_typedef_override.h 6:6@
@@ -139,7 +139,7 @@ foreign import ccall unsafe "hs_bindgen_54e8e1ffb47ff670" hs_bindgen_54e8e1ffb47
 -- __unique:__ @test_typesprimitivesbool_typedef__Example_get_f@
 hs_bindgen_54e8e1ffb47ff670 :: IO (FunPtr (A -> Bool' -> IO ()))
 -- __unique:__ @test_typesprimitivesbool_typedef__Example_get_f@
-hs_bindgen_54e8e1ffb47ff670 = fromFFIType hs_bindgen_54e8e1ffb47ff670_base
+hs_bindgen_54e8e1ffb47ff670 = fmap fromFFIType hs_bindgen_54e8e1ffb47ff670_base
 {-# NOINLINE f_funptr #-}
 {-| __C declaration:__ @f@
 

@@ -32,7 +32,9 @@ hs_bindgen_369133049bfc1e73 ::
   -> BG.CInt
   -> IO BG.CInt
 hs_bindgen_369133049bfc1e73 =
-  BG.fromFFIType hs_bindgen_369133049bfc1e73_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_369133049bfc1e73_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @asm_labeled_function@
 

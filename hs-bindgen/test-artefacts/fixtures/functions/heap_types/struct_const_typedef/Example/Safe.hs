@@ -34,7 +34,9 @@ hs_bindgen_67465eb5641985dc ::
   -> PtrConst.PtrConst T
   -> IO ()
 hs_bindgen_67465eb5641985dc =
-  BG.fromFFIType hs_bindgen_67465eb5641985dc_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_67465eb5641985dc_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @fun@
 

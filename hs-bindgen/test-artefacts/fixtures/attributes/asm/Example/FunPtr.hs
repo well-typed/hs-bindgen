@@ -29,7 +29,7 @@ foreign import ccall unsafe "hs_bindgen_4f7c4fceed28f171" hs_bindgen_4f7c4fceed2
 -- __unique:__ @test_attributesasm_Example_get_asm_labeled_function@
 hs_bindgen_4f7c4fceed28f171 :: IO (BG.FunPtr (BG.CInt -> BG.CInt -> IO BG.CInt))
 hs_bindgen_4f7c4fceed28f171 =
-  BG.fromFFIType hs_bindgen_4f7c4fceed28f171_base
+  fmap BG.fromFFIType hs_bindgen_4f7c4fceed28f171_base
 
 {-# NOINLINE asm_labeled_function #-}
 {-| __C declaration:__ @asm_labeled_function@

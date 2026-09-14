@@ -139,7 +139,7 @@ foreign import ccall safe "hs_bindgen_702437d53bf7e32f" hs_bindgen_702437d53bf7e
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_foo@
 hs_bindgen_702437d53bf7e32f :: BOOL -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_foo@
-hs_bindgen_702437d53bf7e32f = fromFFIType hs_bindgen_702437d53bf7e32f_base
+hs_bindgen_702437d53bf7e32f = \x_0 -> hs_bindgen_702437d53bf7e32f_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/reparse\/gnu_attributes.h 3:6@
@@ -161,7 +161,7 @@ foreign import ccall safe "hs_bindgen_432c6480e8c1355b" hs_bindgen_432c6480e8c13
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_bar@
 hs_bindgen_432c6480e8c1355b :: BOOL -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_bar@
-hs_bindgen_432c6480e8c1355b = fromFFIType hs_bindgen_432c6480e8c1355b_base
+hs_bindgen_432c6480e8c1355b = \x_0 -> hs_bindgen_432c6480e8c1355b_base (toFFIType x_0)
 {-| __C declaration:__ @bar@
 
     __defined at:__ @macros\/reparse\/gnu_attributes.h 6:46@
@@ -183,7 +183,7 @@ foreign import ccall safe "hs_bindgen_b7cd534964204668" hs_bindgen_b7cd534964204
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_dash@
 hs_bindgen_b7cd534964204668 :: BOOL -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_dash@
-hs_bindgen_b7cd534964204668 = fromFFIType hs_bindgen_b7cd534964204668_base
+hs_bindgen_b7cd534964204668 = \x_0 -> hs_bindgen_b7cd534964204668_base (toFFIType x_0)
 {-| __C declaration:__ @dash@
 
     __defined at:__ @macros\/reparse\/gnu_attributes.h 7:46@
@@ -205,7 +205,7 @@ foreign import ccall safe "hs_bindgen_24c242811e7f290b" hs_bindgen_24c242811e7f2
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_quux@
 hs_bindgen_24c242811e7f290b :: BOOL -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_quux@
-hs_bindgen_24c242811e7f290b = fromFFIType hs_bindgen_24c242811e7f290b_base
+hs_bindgen_24c242811e7f290b = \x_0 -> hs_bindgen_24c242811e7f290b_base (toFFIType x_0)
 {-| __C declaration:__ @quux@
 
     __defined at:__ @macros\/reparse\/gnu_attributes.h 11:13@
@@ -227,7 +227,7 @@ foreign import ccall safe "hs_bindgen_9bea1bb33c269bc2" hs_bindgen_9bea1bb33c269
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_heq@
 hs_bindgen_9bea1bb33c269bc2 :: BOOL -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Safe_heq@
-hs_bindgen_9bea1bb33c269bc2 = fromFFIType hs_bindgen_9bea1bb33c269bc2_base
+hs_bindgen_9bea1bb33c269bc2 = \x_0 -> hs_bindgen_9bea1bb33c269bc2_base (toFFIType x_0)
 {-| __C declaration:__ @heq@
 
     __defined at:__ @macros\/reparse\/gnu_attributes.h 12:13@
@@ -249,7 +249,7 @@ foreign import ccall unsafe "hs_bindgen_6716bcb05c1aff64" hs_bindgen_6716bcb05c1
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_foo@
 hs_bindgen_6716bcb05c1aff64 :: BOOL -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_foo@
-hs_bindgen_6716bcb05c1aff64 = fromFFIType hs_bindgen_6716bcb05c1aff64_base
+hs_bindgen_6716bcb05c1aff64 = \x_0 -> hs_bindgen_6716bcb05c1aff64_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/reparse\/gnu_attributes.h 3:6@
@@ -271,7 +271,7 @@ foreign import ccall unsafe "hs_bindgen_04dc8fc0c78d4f3a" hs_bindgen_04dc8fc0c78
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_bar@
 hs_bindgen_04dc8fc0c78d4f3a :: BOOL -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_bar@
-hs_bindgen_04dc8fc0c78d4f3a = fromFFIType hs_bindgen_04dc8fc0c78d4f3a_base
+hs_bindgen_04dc8fc0c78d4f3a = \x_0 -> hs_bindgen_04dc8fc0c78d4f3a_base (toFFIType x_0)
 {-| __C declaration:__ @bar@
 
     __defined at:__ @macros\/reparse\/gnu_attributes.h 6:46@
@@ -293,7 +293,7 @@ foreign import ccall unsafe "hs_bindgen_8e06931d2ef7ccdb" hs_bindgen_8e06931d2ef
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_dash@
 hs_bindgen_8e06931d2ef7ccdb :: BOOL -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_dash@
-hs_bindgen_8e06931d2ef7ccdb = fromFFIType hs_bindgen_8e06931d2ef7ccdb_base
+hs_bindgen_8e06931d2ef7ccdb = \x_0 -> hs_bindgen_8e06931d2ef7ccdb_base (toFFIType x_0)
 {-| __C declaration:__ @dash@
 
     __defined at:__ @macros\/reparse\/gnu_attributes.h 7:46@
@@ -315,7 +315,7 @@ foreign import ccall unsafe "hs_bindgen_ec7c3016706a46c2" hs_bindgen_ec7c3016706
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_quux@
 hs_bindgen_ec7c3016706a46c2 :: BOOL -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_quux@
-hs_bindgen_ec7c3016706a46c2 = fromFFIType hs_bindgen_ec7c3016706a46c2_base
+hs_bindgen_ec7c3016706a46c2 = \x_0 -> hs_bindgen_ec7c3016706a46c2_base (toFFIType x_0)
 {-| __C declaration:__ @quux@
 
     __defined at:__ @macros\/reparse\/gnu_attributes.h 11:13@
@@ -337,7 +337,7 @@ foreign import ccall unsafe "hs_bindgen_f6865acd1e6f7475" hs_bindgen_f6865acd1e6
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_heq@
 hs_bindgen_f6865acd1e6f7475 :: BOOL -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_Unsafe_heq@
-hs_bindgen_f6865acd1e6f7475 = fromFFIType hs_bindgen_f6865acd1e6f7475_base
+hs_bindgen_f6865acd1e6f7475 = \x_0 -> hs_bindgen_f6865acd1e6f7475_base (toFFIType x_0)
 {-| __C declaration:__ @heq@
 
     __defined at:__ @macros\/reparse\/gnu_attributes.h 12:13@
@@ -358,7 +358,7 @@ foreign import ccall unsafe "hs_bindgen_82e23f370cc161df" hs_bindgen_82e23f370cc
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_get_foo@
 hs_bindgen_82e23f370cc161df :: IO (FunPtr (BOOL -> IO ()))
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_get_foo@
-hs_bindgen_82e23f370cc161df = fromFFIType hs_bindgen_82e23f370cc161df_base
+hs_bindgen_82e23f370cc161df = fmap fromFFIType hs_bindgen_82e23f370cc161df_base
 {-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 
@@ -380,7 +380,7 @@ foreign import ccall unsafe "hs_bindgen_30ffbacf53832dc4" hs_bindgen_30ffbacf538
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_get_bar@
 hs_bindgen_30ffbacf53832dc4 :: IO (FunPtr (BOOL -> IO ()))
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_get_bar@
-hs_bindgen_30ffbacf53832dc4 = fromFFIType hs_bindgen_30ffbacf53832dc4_base
+hs_bindgen_30ffbacf53832dc4 = fmap fromFFIType hs_bindgen_30ffbacf53832dc4_base
 {-# NOINLINE bar_funptr #-}
 {-| __C declaration:__ @bar@
 
@@ -402,7 +402,7 @@ foreign import ccall unsafe "hs_bindgen_3cc756628379222d" hs_bindgen_3cc75662837
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_get_dash@
 hs_bindgen_3cc756628379222d :: IO (FunPtr (BOOL -> IO ()))
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_get_dash@
-hs_bindgen_3cc756628379222d = fromFFIType hs_bindgen_3cc756628379222d_base
+hs_bindgen_3cc756628379222d = fmap fromFFIType hs_bindgen_3cc756628379222d_base
 {-# NOINLINE dash_funptr #-}
 {-| __C declaration:__ @dash@
 
@@ -424,7 +424,7 @@ foreign import ccall unsafe "hs_bindgen_c4a1e50d1013ab7d" hs_bindgen_c4a1e50d101
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_get_quux@
 hs_bindgen_c4a1e50d1013ab7d :: IO (FunPtr (BOOL -> IO ()))
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_get_quux@
-hs_bindgen_c4a1e50d1013ab7d = fromFFIType hs_bindgen_c4a1e50d1013ab7d_base
+hs_bindgen_c4a1e50d1013ab7d = fmap fromFFIType hs_bindgen_c4a1e50d1013ab7d_base
 {-# NOINLINE quux_funptr #-}
 {-| __C declaration:__ @quux@
 
@@ -446,7 +446,7 @@ foreign import ccall unsafe "hs_bindgen_646f1f9d97aa3318" hs_bindgen_646f1f9d97a
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_get_heq@
 hs_bindgen_646f1f9d97aa3318 :: IO (FunPtr (BOOL -> IO ()))
 -- __unique:__ @test_macrosreparsegnu_attributes_Example_get_heq@
-hs_bindgen_646f1f9d97aa3318 = fromFFIType hs_bindgen_646f1f9d97aa3318_base
+hs_bindgen_646f1f9d97aa3318 = fmap fromFFIType hs_bindgen_646f1f9d97aa3318_base
 {-# NOINLINE heq_funptr #-}
 {-| __C declaration:__ @heq@
 

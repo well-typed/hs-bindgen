@@ -97,7 +97,7 @@ foreign import ccall unsafe "hs_bindgen_02d97ecc46bbc8e0" hs_bindgen_02d97ecc46b
 -- __unique:__ @test_arraysmulti_dim_Example_get_foo@
 hs_bindgen_02d97ecc46bbc8e0 :: IO (BG.FunPtr (BG.Ptr (IsA.Elem (CA.ConstantArray 3 (CA.ConstantArray 4 BG.CInt))) -> IO BG.CInt))
 hs_bindgen_02d97ecc46bbc8e0 =
-  BG.fromFFIType hs_bindgen_02d97ecc46bbc8e0_base
+  fmap BG.fromFFIType hs_bindgen_02d97ecc46bbc8e0_base
 
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
@@ -116,7 +116,7 @@ foreign import ccall unsafe "hs_bindgen_8baaa4bee7bf2bf7" hs_bindgen_8baaa4bee7b
 -- __unique:__ @test_arraysmulti_dim_Example_get_foo_const@
 hs_bindgen_8baaa4bee7bf2bf7 :: IO (BG.FunPtr (PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 3 (CA.ConstantArray 4 BG.CInt))) -> IO BG.CInt))
 hs_bindgen_8baaa4bee7bf2bf7 =
-  BG.fromFFIType hs_bindgen_8baaa4bee7bf2bf7_base
+  fmap BG.fromFFIType hs_bindgen_8baaa4bee7bf2bf7_base
 
 {-# NOINLINE foo_const #-}
 {-| __C declaration:__ @foo_const@
@@ -136,7 +136,7 @@ foreign import ccall unsafe "hs_bindgen_27d306f03bbe4aeb" hs_bindgen_27d306f03bb
 -- __unique:__ @test_arraysmulti_dim_Example_get_bar@
 hs_bindgen_27d306f03bbe4aeb :: IO (BG.FunPtr (BG.Ptr (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 2 BG.CInt))) -> IO BG.CInt))
 hs_bindgen_27d306f03bbe4aeb =
-  BG.fromFFIType hs_bindgen_27d306f03bbe4aeb_base
+  fmap BG.fromFFIType hs_bindgen_27d306f03bbe4aeb_base
 
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
@@ -155,7 +155,7 @@ foreign import ccall unsafe "hs_bindgen_dedcf308a5d44f1d" hs_bindgen_dedcf308a5d
 -- __unique:__ @test_arraysmulti_dim_Example_get_bar_const@
 hs_bindgen_dedcf308a5d44f1d :: IO (BG.FunPtr (PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 2 BG.CInt))) -> IO BG.CInt))
 hs_bindgen_dedcf308a5d44f1d =
-  BG.fromFFIType hs_bindgen_dedcf308a5d44f1d_base
+  fmap BG.fromFFIType hs_bindgen_dedcf308a5d44f1d_base
 
 {-# NOINLINE bar_const #-}
 {-| __C declaration:__ @bar_const@
@@ -175,7 +175,7 @@ foreign import ccall unsafe "hs_bindgen_f8c450c8715a6834" hs_bindgen_f8c450c8715
 -- __unique:__ @test_arraysmulti_dim_Example_get_baz@
 hs_bindgen_f8c450c8715a6834 :: IO (BG.FunPtr (BG.Ptr (IsA.Elem Matrix) -> IO BG.CInt))
 hs_bindgen_f8c450c8715a6834 =
-  BG.fromFFIType hs_bindgen_f8c450c8715a6834_base
+  fmap BG.fromFFIType hs_bindgen_f8c450c8715a6834_base
 
 {-# NOINLINE baz #-}
 {-| __C declaration:__ @baz@
@@ -194,7 +194,7 @@ foreign import ccall unsafe "hs_bindgen_520d9475875f88b2" hs_bindgen_520d9475875
 -- __unique:__ @test_arraysmulti_dim_Example_get_baz_const@
 hs_bindgen_520d9475875f88b2 :: IO (BG.FunPtr (PtrConst.PtrConst (IsA.Elem Matrix) -> IO BG.CInt))
 hs_bindgen_520d9475875f88b2 =
-  BG.fromFFIType hs_bindgen_520d9475875f88b2_base
+  fmap BG.fromFFIType hs_bindgen_520d9475875f88b2_base
 
 {-# NOINLINE baz_const #-}
 {-| __C declaration:__ @baz_const@
@@ -214,7 +214,7 @@ foreign import ccall unsafe "hs_bindgen_cb1714c714867d37" hs_bindgen_cb1714c7148
 -- __unique:__ @test_arraysmulti_dim_Example_get_quuz@
 hs_bindgen_cb1714c714867d37 :: IO (BG.FunPtr (BG.Ptr (IsA.Elem Triplets) -> IO BG.CInt))
 hs_bindgen_cb1714c714867d37 =
-  BG.fromFFIType hs_bindgen_cb1714c714867d37_base
+  fmap BG.fromFFIType hs_bindgen_cb1714c714867d37_base
 
 {-# NOINLINE quuz #-}
 {-| __C declaration:__ @quuz@
@@ -233,7 +233,7 @@ foreign import ccall unsafe "hs_bindgen_b4e5ee141d4c7703" hs_bindgen_b4e5ee141d4
 -- __unique:__ @test_arraysmulti_dim_Example_get_quuz_const@
 hs_bindgen_b4e5ee141d4c7703 :: IO (BG.FunPtr (PtrConst.PtrConst (IsA.Elem Triplets) -> IO BG.CInt))
 hs_bindgen_b4e5ee141d4c7703 =
-  BG.fromFFIType hs_bindgen_b4e5ee141d4c7703_base
+  fmap BG.fromFFIType hs_bindgen_b4e5ee141d4c7703_base
 
 {-# NOINLINE quuz_const #-}
 {-| __C declaration:__ @quuz_const@

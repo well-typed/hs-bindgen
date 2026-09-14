@@ -135,7 +135,9 @@ hs_bindgen_ab9081efcd629826 ::
   -> BG.CChar
   -> IO BG.CChar
 hs_bindgen_ab9081efcd629826 =
-  BG.fromFFIType hs_bindgen_ab9081efcd629826_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_ab9081efcd629826_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @quux@
 
@@ -163,7 +165,9 @@ hs_bindgen_7db4d5f10d9904d8 ::
   -> BG.Ptr C
   -> IO (BG.Ptr C)
 hs_bindgen_7db4d5f10d9904d8 =
-  BG.fromFFIType hs_bindgen_7db4d5f10d9904d8_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_7db4d5f10d9904d8_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @wam@
 
@@ -191,7 +195,9 @@ hs_bindgen_18401e906d384fd5 ::
   -> BG.FunPtr (BG.CInt -> IO BG.CInt)
   -> IO (BG.Ptr BG.CChar)
 hs_bindgen_18401e906d384fd5 =
-  BG.fromFFIType hs_bindgen_18401e906d384fd5_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_18401e906d384fd5_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @foo1@
 
@@ -219,7 +225,9 @@ hs_bindgen_1e16ebe63a290ff6 ::
   -> BG.FunPtr (BG.CInt -> IO BG.CInt)
   -> IO (BG.Ptr BG.CChar)
 hs_bindgen_1e16ebe63a290ff6 =
-  BG.fromFFIType hs_bindgen_1e16ebe63a290ff6_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_1e16ebe63a290ff6_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @foo2@
 
@@ -247,7 +255,9 @@ hs_bindgen_091043692da958ac ::
   -> BG.FunPtr (BG.CInt -> IO BG.CInt)
   -> IO (BG.Ptr C)
 hs_bindgen_091043692da958ac =
-  BG.fromFFIType hs_bindgen_091043692da958ac_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_091043692da958ac_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @foo3@
 
@@ -273,7 +283,8 @@ hs_bindgen_cf4fa39c5b4ef431 ::
      BG.CLong
   -> IO (BG.FunPtr (BG.CShort -> IO BG.CInt))
 hs_bindgen_cf4fa39c5b4ef431 =
-  BG.fromFFIType hs_bindgen_cf4fa39c5b4ef431_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_cf4fa39c5b4ef431_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @bar1@
 
@@ -297,7 +308,8 @@ hs_bindgen_9092ebfb46f7f31b ::
      L
   -> IO (BG.FunPtr (BG.CShort -> IO BG.CInt))
 hs_bindgen_9092ebfb46f7f31b =
-  BG.fromFFIType hs_bindgen_9092ebfb46f7f31b_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_9092ebfb46f7f31b_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @bar2@
 
@@ -321,7 +333,8 @@ hs_bindgen_a5e6607b472003eb ::
      BG.CLong
   -> IO (BG.FunPtr (S -> IO BG.CInt))
 hs_bindgen_a5e6607b472003eb =
-  BG.fromFFIType hs_bindgen_a5e6607b472003eb_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_a5e6607b472003eb_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @bar3@
 
@@ -345,7 +358,8 @@ hs_bindgen_050bd8903c7b13dd ::
      BG.CLong
   -> IO (BG.FunPtr (BG.CShort -> IO I))
 hs_bindgen_050bd8903c7b13dd =
-  BG.fromFFIType hs_bindgen_050bd8903c7b13dd_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_050bd8903c7b13dd_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @bar4@
 
@@ -369,7 +383,8 @@ hs_bindgen_f378b374e8c8c095 ::
      BG.CInt
   -> IO (BG.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 BG.CInt)))
 hs_bindgen_f378b374e8c8c095 =
-  BG.fromFFIType hs_bindgen_f378b374e8c8c095_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_f378b374e8c8c095_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @baz1@
 
@@ -393,7 +408,8 @@ hs_bindgen_27cf571d08ac8c04 ::
      I
   -> IO (BG.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 BG.CInt)))
 hs_bindgen_27cf571d08ac8c04 =
-  BG.fromFFIType hs_bindgen_27cf571d08ac8c04_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_27cf571d08ac8c04_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @baz2@
 
@@ -417,7 +433,8 @@ hs_bindgen_c4035ef23b908e27 ::
      BG.CInt
   -> IO (BG.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 I)))
 hs_bindgen_c4035ef23b908e27 =
-  BG.fromFFIType hs_bindgen_c4035ef23b908e27_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_c4035ef23b908e27_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @baz3@
 
@@ -438,7 +455,7 @@ foreign import ccall unsafe "hs_bindgen_77a9149f03b2767f" hs_bindgen_77a9149f03b
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Unsafe_no_args_no_void@
 hs_bindgen_77a9149f03b2767f :: IO I
 hs_bindgen_77a9149f03b2767f =
-  BG.fromFFIType hs_bindgen_77a9149f03b2767f_base
+  fmap BG.fromFFIType hs_bindgen_77a9149f03b2767f_base
 
 {-| __C declaration:__ @no_args_no_void@
 

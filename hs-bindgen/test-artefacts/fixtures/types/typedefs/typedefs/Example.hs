@@ -144,7 +144,8 @@ hs_bindgen_a6c7dd49f5b9d470 ::
   -> IO (BG.FunPtr Int2int)
 hs_bindgen_a6c7dd49f5b9d470 =
   \fun0 ->
-    fmap BG.castFunPtrFromFFIType (hs_bindgen_a6c7dd49f5b9d470_base (BG.toFFIType fun0))
+    fmap BG.castFunPtr (hs_bindgen_a6c7dd49f5b9d470_base (\x1 ->
+                                                            fmap BG.toFFIType (BG.getField @"unwrapInt2int" fun0 (BG.fromFFIType x1))))
 
 -- __unique:__ @fromInt2int@
 foreign import ccall safe "dynamic" hs_bindgen_65378a8a3cf640ad_base ::
@@ -157,7 +158,8 @@ hs_bindgen_65378a8a3cf640ad ::
   -> Int2int
 hs_bindgen_65378a8a3cf640ad =
   \funPtr0 ->
-    BG.fromFFIType (hs_bindgen_65378a8a3cf640ad_base (BG.castFunPtrToFFIType funPtr0))
+    Int2int (\x1 ->
+               fmap BG.fromFFIType (hs_bindgen_65378a8a3cf640ad_base (BG.castFunPtr funPtr0) (BG.toFFIType x1)))
 
 instance BG.ToFunPtr Int2int where
 
@@ -213,7 +215,7 @@ hs_bindgen_b171c028cdc0781d ::
   -> IO (BG.FunPtr FunctionPointer_Function_Aux)
 hs_bindgen_b171c028cdc0781d =
   \fun0 ->
-    fmap BG.castFunPtrFromFFIType (hs_bindgen_b171c028cdc0781d_base (BG.toFFIType fun0))
+    fmap BG.castFunPtr (hs_bindgen_b171c028cdc0781d_base (BG.getField @"unwrapFunctionPointer_Function_Aux" fun0))
 
 -- __unique:__ @fromFunctionPointer_Function_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_4c3da8240a31e036_base ::
@@ -226,7 +228,7 @@ hs_bindgen_4c3da8240a31e036 ::
   -> FunctionPointer_Function_Aux
 hs_bindgen_4c3da8240a31e036 =
   \funPtr0 ->
-    BG.fromFFIType (hs_bindgen_4c3da8240a31e036_base (BG.castFunPtrToFFIType funPtr0))
+    FunctionPointer_Function_Aux (hs_bindgen_4c3da8240a31e036_base (BG.castFunPtr funPtr0))
 
 instance BG.ToFunPtr FunctionPointer_Function_Aux where
 
@@ -323,7 +325,8 @@ hs_bindgen_766ae751d60365e9 ::
   -> IO (BG.FunPtr NonFunctionPointer_Function)
 hs_bindgen_766ae751d60365e9 =
   \fun0 ->
-    fmap BG.castFunPtrFromFFIType (hs_bindgen_766ae751d60365e9_base (BG.toFFIType fun0))
+    fmap BG.castFunPtr (hs_bindgen_766ae751d60365e9_base (\x1 ->
+                                                            fmap BG.toFFIType (BG.getField @"unwrapNonFunctionPointer_Function" fun0 (BG.fromFFIType x1))))
 
 -- __unique:__ @fromNonFunctionPointer_Function@
 foreign import ccall safe "dynamic" hs_bindgen_36c7108d046bcbc3_base ::
@@ -336,7 +339,8 @@ hs_bindgen_36c7108d046bcbc3 ::
   -> NonFunctionPointer_Function
 hs_bindgen_36c7108d046bcbc3 =
   \funPtr0 ->
-    BG.fromFFIType (hs_bindgen_36c7108d046bcbc3_base (BG.castFunPtrToFFIType funPtr0))
+    NonFunctionPointer_Function (\x1 ->
+                                   fmap BG.fromFFIType (hs_bindgen_36c7108d046bcbc3_base (BG.castFunPtr funPtr0) (BG.toFFIType x1)))
 
 instance BG.ToFunPtr NonFunctionPointer_Function where
 
@@ -394,7 +398,7 @@ hs_bindgen_00d16e666202ed6c ::
   -> IO (BG.FunPtr F1_Aux)
 hs_bindgen_00d16e666202ed6c =
   \fun0 ->
-    fmap BG.castFunPtrFromFFIType (hs_bindgen_00d16e666202ed6c_base (BG.toFFIType fun0))
+    fmap BG.castFunPtr (hs_bindgen_00d16e666202ed6c_base (BG.getField @"unwrapF1_Aux" fun0))
 
 -- __unique:__ @fromF1_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_ddeb5206e8192425_base ::
@@ -407,7 +411,7 @@ hs_bindgen_ddeb5206e8192425 ::
   -> F1_Aux
 hs_bindgen_ddeb5206e8192425 =
   \funPtr0 ->
-    BG.fromFFIType (hs_bindgen_ddeb5206e8192425_base (BG.castFunPtrToFFIType funPtr0))
+    F1_Aux (hs_bindgen_ddeb5206e8192425_base (BG.castFunPtr funPtr0))
 
 instance BG.ToFunPtr F1_Aux where
 
@@ -497,7 +501,7 @@ hs_bindgen_fa5806570b682579 ::
   -> IO (BG.FunPtr G1)
 hs_bindgen_fa5806570b682579 =
   \fun0 ->
-    fmap BG.castFunPtrFromFFIType (hs_bindgen_fa5806570b682579_base (BG.toFFIType fun0))
+    fmap BG.castFunPtr (hs_bindgen_fa5806570b682579_base (BG.getField @"unwrapG1" fun0))
 
 -- __unique:__ @fromG1@
 foreign import ccall safe "dynamic" hs_bindgen_8405c8e75aa78be5_base ::
@@ -510,7 +514,7 @@ hs_bindgen_8405c8e75aa78be5 ::
   -> G1
 hs_bindgen_8405c8e75aa78be5 =
   \funPtr0 ->
-    BG.fromFFIType (hs_bindgen_8405c8e75aa78be5_base (BG.castFunPtrToFFIType funPtr0))
+    G1 (hs_bindgen_8405c8e75aa78be5_base (BG.castFunPtr funPtr0))
 
 instance BG.ToFunPtr G1 where
 
@@ -597,7 +601,7 @@ hs_bindgen_ffae0d1234ed018f ::
   -> IO (BG.FunPtr H1)
 hs_bindgen_ffae0d1234ed018f =
   \fun0 ->
-    fmap BG.castFunPtrFromFFIType (hs_bindgen_ffae0d1234ed018f_base (BG.toFFIType fun0))
+    fmap BG.castFunPtr (hs_bindgen_ffae0d1234ed018f_base (BG.getField @"unwrapH1" fun0))
 
 -- __unique:__ @fromH1@
 foreign import ccall safe "dynamic" hs_bindgen_1a33688324e1924f_base ::
@@ -610,7 +614,7 @@ hs_bindgen_1a33688324e1924f ::
   -> H1
 hs_bindgen_1a33688324e1924f =
   \funPtr0 ->
-    BG.fromFFIType (hs_bindgen_1a33688324e1924f_base (BG.castFunPtrToFFIType funPtr0))
+    H1 (hs_bindgen_1a33688324e1924f_base (BG.castFunPtr funPtr0))
 
 instance BG.ToFunPtr H1 where
 

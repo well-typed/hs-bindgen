@@ -28,7 +28,7 @@ foreign import ccall unsafe "hs_bindgen_57ce95431493ea3f" hs_bindgen_57ce9543149
 -- __unique:__ @test_documentationjavadoc_banner_Example_get_banner_double@
 hs_bindgen_57ce95431493ea3f :: IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 hs_bindgen_57ce95431493ea3f =
-  BG.fromFFIType hs_bindgen_57ce95431493ea3f_base
+  fmap BG.fromFFIType hs_bindgen_57ce95431493ea3f_base
 
 {-# NOINLINE banner_double #-}
 {-| A function documented with a Javadoc banner-style comment.

@@ -29,7 +29,8 @@ hs_bindgen_dfefd17e87559d1a ::
      BG.CDouble
   -> IO BG.CDouble
 hs_bindgen_dfefd17e87559d1a =
-  BG.fromFFIType hs_bindgen_dfefd17e87559d1a_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_dfefd17e87559d1a_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @_acos@
 

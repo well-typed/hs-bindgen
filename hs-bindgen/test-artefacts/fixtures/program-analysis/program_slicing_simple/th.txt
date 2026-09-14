@@ -117,7 +117,7 @@ foreign import ccall safe "hs_bindgen_48dbbf4b09b5b3c1" hs_bindgen_48dbbf4b09b5b
 hs_bindgen_48dbbf4b09b5b3c1 :: Foreign.Word64 ->
                                Uint32_t -> IO CInt
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
-hs_bindgen_48dbbf4b09b5b3c1 = fromFFIType hs_bindgen_48dbbf4b09b5b3c1_base
+hs_bindgen_48dbbf4b09b5b3c1 = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_48dbbf4b09b5b3c1_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
@@ -141,7 +141,7 @@ foreign import ccall unsafe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295
 hs_bindgen_fe855d53295ba8ab :: Foreign.Word64 ->
                                Uint32_t -> IO CInt
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
-hs_bindgen_fe855d53295ba8ab = fromFFIType hs_bindgen_fe855d53295ba8ab_base
+hs_bindgen_fe855d53295ba8ab = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_fe855d53295ba8ab_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
@@ -163,7 +163,7 @@ foreign import ccall unsafe "hs_bindgen_993162e0dadfa2c9" hs_bindgen_993162e0dad
 hs_bindgen_993162e0dadfa2c9 :: IO (FunPtr (Foreign.Word64 ->
                                            Uint32_t -> IO CInt))
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_bar@
-hs_bindgen_993162e0dadfa2c9 = fromFFIType hs_bindgen_993162e0dadfa2c9_base
+hs_bindgen_993162e0dadfa2c9 = fmap fromFFIType hs_bindgen_993162e0dadfa2c9_base
 {-# NOINLINE bar_funptr #-}
 {-| __C declaration:__ @bar@
 

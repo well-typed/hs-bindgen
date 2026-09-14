@@ -30,7 +30,8 @@ hs_bindgen_f1dab51ba21acc43 ::
      M.A
   -> IO ()
 hs_bindgen_f1dab51ba21acc43 =
-  BG.fromFFIType hs_bindgen_f1dab51ba21acc43_base
+  \x0 ->
+    hs_bindgen_f1dab51ba21acc43_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @use_b@
 

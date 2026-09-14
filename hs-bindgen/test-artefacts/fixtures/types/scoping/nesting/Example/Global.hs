@@ -27,7 +27,7 @@ foreign import ccall unsafe "hs_bindgen_7640032abd722ca9" hs_bindgen_7640032abd7
 -- __unique:__ @test_typesscopingnesting_Example_get_X@
 hs_bindgen_7640032abd722ca9 :: IO (BG.Ptr Bar)
 hs_bindgen_7640032abd722ca9 =
-  BG.fromFFIType hs_bindgen_7640032abd722ca9_base
+  fmap BG.fromFFIType hs_bindgen_7640032abd722ca9_base
 
 {-# NOINLINE x #-}
 {-| __C declaration:__ @X@

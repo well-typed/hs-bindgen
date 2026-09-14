@@ -35,7 +35,6 @@ module Example.Unsafe
     )
   where
 
-import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CAPI
 
 $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
@@ -169,7 +168,7 @@ foreign import ccall unsafe "hs_bindgen_effdd993df42b356" hs_bindgen_effdd993df4
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f0@
 hs_bindgen_effdd993df42b356 :: IO ()
 hs_bindgen_effdd993df42b356 =
-  BG.fromFFIType hs_bindgen_effdd993df42b356_base
+  hs_bindgen_effdd993df42b356_base
 
 {-| __C declaration:__ @f0@
 
@@ -187,7 +186,7 @@ foreign import ccall unsafe "hs_bindgen_8197d65e56e329f3" hs_bindgen_8197d65e56e
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f1@
 hs_bindgen_8197d65e56e329f3 :: IO ()
 hs_bindgen_8197d65e56e329f3 =
-  BG.fromFFIType hs_bindgen_8197d65e56e329f3_base
+  hs_bindgen_8197d65e56e329f3_base
 
 {-| __C declaration:__ @f1@
 
@@ -205,7 +204,7 @@ foreign import ccall unsafe "hs_bindgen_d39f970af8a8a222" hs_bindgen_d39f970af8a
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f2@
 hs_bindgen_d39f970af8a8a222 :: IO ()
 hs_bindgen_d39f970af8a8a222 =
-  BG.fromFFIType hs_bindgen_d39f970af8a8a222_base
+  hs_bindgen_d39f970af8a8a222_base
 
 {-| __C declaration:__ @f2@
 
@@ -223,7 +222,7 @@ foreign import ccall unsafe "hs_bindgen_be64763ec1549ecf" hs_bindgen_be64763ec15
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f3@
 hs_bindgen_be64763ec1549ecf :: IO ()
 hs_bindgen_be64763ec1549ecf =
-  BG.fromFFIType hs_bindgen_be64763ec1549ecf_base
+  hs_bindgen_be64763ec1549ecf_base
 
 {-| __C declaration:__ @f3@
 
@@ -241,7 +240,7 @@ foreign import ccall unsafe "hs_bindgen_79aec631efd41b2a" hs_bindgen_79aec631efd
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f4@
 hs_bindgen_79aec631efd41b2a :: IO ()
 hs_bindgen_79aec631efd41b2a =
-  BG.fromFFIType hs_bindgen_79aec631efd41b2a_base
+  hs_bindgen_79aec631efd41b2a_base
 
 {-| __C declaration:__ @f4@
 
@@ -259,7 +258,7 @@ foreign import ccall unsafe "hs_bindgen_def05384051a5dd9" hs_bindgen_def05384051
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f5@
 hs_bindgen_def05384051a5dd9 :: IO ()
 hs_bindgen_def05384051a5dd9 =
-  BG.fromFFIType hs_bindgen_def05384051a5dd9_base
+  hs_bindgen_def05384051a5dd9_base
 
 {-| __C declaration:__ @f5@
 
@@ -277,7 +276,7 @@ foreign import ccall unsafe "hs_bindgen_92d1f9974393a261" hs_bindgen_92d1f997439
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f6@
 hs_bindgen_92d1f9974393a261 :: IO ()
 hs_bindgen_92d1f9974393a261 =
-  BG.fromFFIType hs_bindgen_92d1f9974393a261_base
+  hs_bindgen_92d1f9974393a261_base
 
 {-| __C declaration:__ @f6@
 
@@ -295,7 +294,7 @@ foreign import ccall unsafe "hs_bindgen_90f3068e094c2abd" hs_bindgen_90f3068e094
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f7@
 hs_bindgen_90f3068e094c2abd :: IO ()
 hs_bindgen_90f3068e094c2abd =
-  BG.fromFFIType hs_bindgen_90f3068e094c2abd_base
+  hs_bindgen_90f3068e094c2abd_base
 
 {-| __C declaration:__ @f7@
 
@@ -313,7 +312,7 @@ foreign import ccall unsafe "hs_bindgen_6d1cfd91b3d13e55" hs_bindgen_6d1cfd91b3d
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f8@
 hs_bindgen_6d1cfd91b3d13e55 :: IO ()
 hs_bindgen_6d1cfd91b3d13e55 =
-  BG.fromFFIType hs_bindgen_6d1cfd91b3d13e55_base
+  hs_bindgen_6d1cfd91b3d13e55_base
 
 {-| __C declaration:__ @f8@
 
@@ -331,7 +330,7 @@ foreign import ccall unsafe "hs_bindgen_d35fb9045bcdab71" hs_bindgen_d35fb9045bc
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f9@
 hs_bindgen_d35fb9045bcdab71 :: IO ()
 hs_bindgen_d35fb9045bcdab71 =
-  BG.fromFFIType hs_bindgen_d35fb9045bcdab71_base
+  hs_bindgen_d35fb9045bcdab71_base
 
 {-| __C declaration:__ @f9@
 
@@ -349,7 +348,7 @@ foreign import ccall unsafe "hs_bindgen_40c723b61f2bee28" hs_bindgen_40c723b61f2
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f10@
 hs_bindgen_40c723b61f2bee28 :: IO ()
 hs_bindgen_40c723b61f2bee28 =
-  BG.fromFFIType hs_bindgen_40c723b61f2bee28_base
+  hs_bindgen_40c723b61f2bee28_base
 
 {-| __C declaration:__ @f10@
 
@@ -367,7 +366,7 @@ foreign import ccall unsafe "hs_bindgen_53a546d2dc84168b" hs_bindgen_53a546d2dc8
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f11@
 hs_bindgen_53a546d2dc84168b :: IO ()
 hs_bindgen_53a546d2dc84168b =
-  BG.fromFFIType hs_bindgen_53a546d2dc84168b_base
+  hs_bindgen_53a546d2dc84168b_base
 
 {-| __C declaration:__ @f11@
 
@@ -385,7 +384,7 @@ foreign import ccall unsafe "hs_bindgen_47e1da4038b5a9b4" hs_bindgen_47e1da4038b
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f12@
 hs_bindgen_47e1da4038b5a9b4 :: IO ()
 hs_bindgen_47e1da4038b5a9b4 =
-  BG.fromFFIType hs_bindgen_47e1da4038b5a9b4_base
+  hs_bindgen_47e1da4038b5a9b4_base
 
 {-| __C declaration:__ @f12@
 
@@ -403,7 +402,7 @@ foreign import ccall unsafe "hs_bindgen_3b90be410cc76ded" hs_bindgen_3b90be410cc
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f13@
 hs_bindgen_3b90be410cc76ded :: IO ()
 hs_bindgen_3b90be410cc76ded =
-  BG.fromFFIType hs_bindgen_3b90be410cc76ded_base
+  hs_bindgen_3b90be410cc76ded_base
 
 {-| __C declaration:__ @f13@
 
@@ -421,7 +420,7 @@ foreign import ccall unsafe "hs_bindgen_d7d157b17d6f4d9e" hs_bindgen_d7d157b17d6
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f14@
 hs_bindgen_d7d157b17d6f4d9e :: IO ()
 hs_bindgen_d7d157b17d6f4d9e =
-  BG.fromFFIType hs_bindgen_d7d157b17d6f4d9e_base
+  hs_bindgen_d7d157b17d6f4d9e_base
 
 {-| __C declaration:__ @f14@
 
@@ -439,7 +438,7 @@ foreign import ccall unsafe "hs_bindgen_32a0e71bc346c633" hs_bindgen_32a0e71bc34
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f15@
 hs_bindgen_32a0e71bc346c633 :: IO ()
 hs_bindgen_32a0e71bc346c633 =
-  BG.fromFFIType hs_bindgen_32a0e71bc346c633_base
+  hs_bindgen_32a0e71bc346c633_base
 
 {-| __C declaration:__ @f15@
 
@@ -457,7 +456,7 @@ foreign import ccall unsafe "hs_bindgen_084799171b269718" hs_bindgen_084799171b2
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f16@
 hs_bindgen_084799171b269718 :: IO ()
 hs_bindgen_084799171b269718 =
-  BG.fromFFIType hs_bindgen_084799171b269718_base
+  hs_bindgen_084799171b269718_base
 
 {-| __C declaration:__ @f16@
 
@@ -475,7 +474,7 @@ foreign import ccall unsafe "hs_bindgen_9399b438ad7d1540" hs_bindgen_9399b438ad7
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f17@
 hs_bindgen_9399b438ad7d1540 :: IO ()
 hs_bindgen_9399b438ad7d1540 =
-  BG.fromFFIType hs_bindgen_9399b438ad7d1540_base
+  hs_bindgen_9399b438ad7d1540_base
 
 {-| __C declaration:__ @f17@
 
@@ -493,7 +492,7 @@ foreign import ccall unsafe "hs_bindgen_b0cfd100fa7549bb" hs_bindgen_b0cfd100fa7
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f18@
 hs_bindgen_b0cfd100fa7549bb :: IO ()
 hs_bindgen_b0cfd100fa7549bb =
-  BG.fromFFIType hs_bindgen_b0cfd100fa7549bb_base
+  hs_bindgen_b0cfd100fa7549bb_base
 
 {-| __C declaration:__ @f18@
 
@@ -511,7 +510,7 @@ foreign import ccall unsafe "hs_bindgen_00c6e9c82555231a" hs_bindgen_00c6e9c8255
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f19@
 hs_bindgen_00c6e9c82555231a :: IO ()
 hs_bindgen_00c6e9c82555231a =
-  BG.fromFFIType hs_bindgen_00c6e9c82555231a_base
+  hs_bindgen_00c6e9c82555231a_base
 
 {-| __C declaration:__ @f19@
 
@@ -529,7 +528,7 @@ foreign import ccall unsafe "hs_bindgen_6630b37e4a8fd258" hs_bindgen_6630b37e4a8
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f20@
 hs_bindgen_6630b37e4a8fd258 :: IO ()
 hs_bindgen_6630b37e4a8fd258 =
-  BG.fromFFIType hs_bindgen_6630b37e4a8fd258_base
+  hs_bindgen_6630b37e4a8fd258_base
 
 {-| __C declaration:__ @f20@
 
@@ -547,7 +546,7 @@ foreign import ccall unsafe "hs_bindgen_1e5e762b3fc32381" hs_bindgen_1e5e762b3fc
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f21@
 hs_bindgen_1e5e762b3fc32381 :: IO ()
 hs_bindgen_1e5e762b3fc32381 =
-  BG.fromFFIType hs_bindgen_1e5e762b3fc32381_base
+  hs_bindgen_1e5e762b3fc32381_base
 
 {-| __C declaration:__ @f21@
 
@@ -565,7 +564,7 @@ foreign import ccall unsafe "hs_bindgen_7a55ac9a1d761c51" hs_bindgen_7a55ac9a1d7
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f22@
 hs_bindgen_7a55ac9a1d761c51 :: IO ()
 hs_bindgen_7a55ac9a1d761c51 =
-  BG.fromFFIType hs_bindgen_7a55ac9a1d761c51_base
+  hs_bindgen_7a55ac9a1d761c51_base
 
 {-| __C declaration:__ @f22@
 
@@ -583,7 +582,7 @@ foreign import ccall unsafe "hs_bindgen_6941e6411b943f0b" hs_bindgen_6941e6411b9
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f23@
 hs_bindgen_6941e6411b943f0b :: IO ()
 hs_bindgen_6941e6411b943f0b =
-  BG.fromFFIType hs_bindgen_6941e6411b943f0b_base
+  hs_bindgen_6941e6411b943f0b_base
 
 {-| __C declaration:__ @f23@
 
@@ -601,7 +600,7 @@ foreign import ccall unsafe "hs_bindgen_654278bb511c1626" hs_bindgen_654278bb511
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f24@
 hs_bindgen_654278bb511c1626 :: IO ()
 hs_bindgen_654278bb511c1626 =
-  BG.fromFFIType hs_bindgen_654278bb511c1626_base
+  hs_bindgen_654278bb511c1626_base
 
 {-| __C declaration:__ @f24@
 
@@ -619,7 +618,7 @@ foreign import ccall unsafe "hs_bindgen_5222f10cec613983" hs_bindgen_5222f10cec6
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f25@
 hs_bindgen_5222f10cec613983 :: IO ()
 hs_bindgen_5222f10cec613983 =
-  BG.fromFFIType hs_bindgen_5222f10cec613983_base
+  hs_bindgen_5222f10cec613983_base
 
 {-| __C declaration:__ @f25@
 
@@ -637,7 +636,7 @@ foreign import ccall unsafe "hs_bindgen_aa77927916c2e213" hs_bindgen_aa77927916c
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f26@
 hs_bindgen_aa77927916c2e213 :: IO ()
 hs_bindgen_aa77927916c2e213 =
-  BG.fromFFIType hs_bindgen_aa77927916c2e213_base
+  hs_bindgen_aa77927916c2e213_base
 
 {-| __C declaration:__ @f26@
 
@@ -655,7 +654,7 @@ foreign import ccall unsafe "hs_bindgen_102db79a88a6b692" hs_bindgen_102db79a88a
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f27@
 hs_bindgen_102db79a88a6b692 :: IO ()
 hs_bindgen_102db79a88a6b692 =
-  BG.fromFFIType hs_bindgen_102db79a88a6b692_base
+  hs_bindgen_102db79a88a6b692_base
 
 {-| __C declaration:__ @f27@
 
@@ -673,7 +672,7 @@ foreign import ccall unsafe "hs_bindgen_d475a551dd32819d" hs_bindgen_d475a551dd3
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f28@
 hs_bindgen_d475a551dd32819d :: IO ()
 hs_bindgen_d475a551dd32819d =
-  BG.fromFFIType hs_bindgen_d475a551dd32819d_base
+  hs_bindgen_d475a551dd32819d_base
 
 {-| __C declaration:__ @f28@
 
@@ -691,7 +690,7 @@ foreign import ccall unsafe "hs_bindgen_afb63d27b0dea11b" hs_bindgen_afb63d27b0d
 -- __unique:__ @test_attributesvisibilityfunction_Example_Unsafe_f29@
 hs_bindgen_afb63d27b0dea11b :: IO ()
 hs_bindgen_afb63d27b0dea11b =
-  BG.fromFFIType hs_bindgen_afb63d27b0dea11b_base
+  hs_bindgen_afb63d27b0dea11b_base
 
 {-| __C declaration:__ @f29@
 

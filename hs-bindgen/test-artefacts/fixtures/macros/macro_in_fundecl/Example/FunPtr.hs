@@ -156,7 +156,7 @@ foreign import ccall unsafe "hs_bindgen_930b4f8122942dae" hs_bindgen_930b4f81229
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_quux@
 hs_bindgen_930b4f8122942dae :: IO (BG.FunPtr (F -> BG.CChar -> IO BG.CChar))
 hs_bindgen_930b4f8122942dae =
-  BG.fromFFIType hs_bindgen_930b4f8122942dae_base
+  fmap BG.fromFFIType hs_bindgen_930b4f8122942dae_base
 
 {-# NOINLINE quux #-}
 {-| __C declaration:__ @quux@
@@ -175,7 +175,7 @@ foreign import ccall unsafe "hs_bindgen_31f433dd4aceda85" hs_bindgen_31f433dd4ac
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_wam@
 hs_bindgen_31f433dd4aceda85 :: IO (BG.FunPtr (BG.CFloat -> BG.Ptr C -> IO (BG.Ptr C)))
 hs_bindgen_31f433dd4aceda85 =
-  BG.fromFFIType hs_bindgen_31f433dd4aceda85_base
+  fmap BG.fromFFIType hs_bindgen_31f433dd4aceda85_base
 
 {-# NOINLINE wam #-}
 {-| __C declaration:__ @wam@
@@ -194,7 +194,7 @@ foreign import ccall unsafe "hs_bindgen_8d7a85b3867041bf" hs_bindgen_8d7a85b3867
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo1@
 hs_bindgen_8d7a85b3867041bf :: IO (BG.FunPtr (BG.CFloat -> BG.FunPtr (BG.CInt -> IO BG.CInt) -> IO (BG.Ptr BG.CChar)))
 hs_bindgen_8d7a85b3867041bf =
-  BG.fromFFIType hs_bindgen_8d7a85b3867041bf_base
+  fmap BG.fromFFIType hs_bindgen_8d7a85b3867041bf_base
 
 {-# NOINLINE foo1 #-}
 {-| __C declaration:__ @foo1@
@@ -213,7 +213,7 @@ foreign import ccall unsafe "hs_bindgen_c9dcd020e5be4af9" hs_bindgen_c9dcd020e5b
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo2@
 hs_bindgen_c9dcd020e5be4af9 :: IO (BG.FunPtr (F -> BG.FunPtr (BG.CInt -> IO BG.CInt) -> IO (BG.Ptr BG.CChar)))
 hs_bindgen_c9dcd020e5be4af9 =
-  BG.fromFFIType hs_bindgen_c9dcd020e5be4af9_base
+  fmap BG.fromFFIType hs_bindgen_c9dcd020e5be4af9_base
 
 {-# NOINLINE foo2 #-}
 {-| __C declaration:__ @foo2@
@@ -232,7 +232,7 @@ foreign import ccall unsafe "hs_bindgen_c2295c3f61edf4e7" hs_bindgen_c2295c3f61e
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo3@
 hs_bindgen_c2295c3f61edf4e7 :: IO (BG.FunPtr (BG.CFloat -> BG.FunPtr (BG.CInt -> IO BG.CInt) -> IO (BG.Ptr C)))
 hs_bindgen_c2295c3f61edf4e7 =
-  BG.fromFFIType hs_bindgen_c2295c3f61edf4e7_base
+  fmap BG.fromFFIType hs_bindgen_c2295c3f61edf4e7_base
 
 {-# NOINLINE foo3 #-}
 {-| __C declaration:__ @foo3@
@@ -251,7 +251,7 @@ foreign import ccall unsafe "hs_bindgen_d9b2e6e188ecbfea" hs_bindgen_d9b2e6e188e
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar1@
 hs_bindgen_d9b2e6e188ecbfea :: IO (BG.FunPtr (BG.CLong -> IO (BG.FunPtr (BG.CShort -> IO BG.CInt))))
 hs_bindgen_d9b2e6e188ecbfea =
-  BG.fromFFIType hs_bindgen_d9b2e6e188ecbfea_base
+  fmap BG.fromFFIType hs_bindgen_d9b2e6e188ecbfea_base
 
 {-# NOINLINE bar1 #-}
 {-| __C declaration:__ @bar1@
@@ -270,7 +270,7 @@ foreign import ccall unsafe "hs_bindgen_111db9707ae2a631" hs_bindgen_111db9707ae
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar2@
 hs_bindgen_111db9707ae2a631 :: IO (BG.FunPtr (L -> IO (BG.FunPtr (BG.CShort -> IO BG.CInt))))
 hs_bindgen_111db9707ae2a631 =
-  BG.fromFFIType hs_bindgen_111db9707ae2a631_base
+  fmap BG.fromFFIType hs_bindgen_111db9707ae2a631_base
 
 {-# NOINLINE bar2 #-}
 {-| __C declaration:__ @bar2@
@@ -289,7 +289,7 @@ foreign import ccall unsafe "hs_bindgen_00996e2c7c9e793b" hs_bindgen_00996e2c7c9
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar3@
 hs_bindgen_00996e2c7c9e793b :: IO (BG.FunPtr (BG.CLong -> IO (BG.FunPtr (S -> IO BG.CInt))))
 hs_bindgen_00996e2c7c9e793b =
-  BG.fromFFIType hs_bindgen_00996e2c7c9e793b_base
+  fmap BG.fromFFIType hs_bindgen_00996e2c7c9e793b_base
 
 {-# NOINLINE bar3 #-}
 {-| __C declaration:__ @bar3@
@@ -308,7 +308,7 @@ foreign import ccall unsafe "hs_bindgen_aa46ba685e4693da" hs_bindgen_aa46ba685e4
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar4@
 hs_bindgen_aa46ba685e4693da :: IO (BG.FunPtr (BG.CLong -> IO (BG.FunPtr (BG.CShort -> IO I))))
 hs_bindgen_aa46ba685e4693da =
-  BG.fromFFIType hs_bindgen_aa46ba685e4693da_base
+  fmap BG.fromFFIType hs_bindgen_aa46ba685e4693da_base
 
 {-# NOINLINE bar4 #-}
 {-| __C declaration:__ @bar4@
@@ -327,7 +327,7 @@ foreign import ccall unsafe "hs_bindgen_86b147342f608069" hs_bindgen_86b147342f6
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz1@
 hs_bindgen_86b147342f608069 :: IO (BG.FunPtr (BG.CInt -> IO (BG.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 BG.CInt)))))
 hs_bindgen_86b147342f608069 =
-  BG.fromFFIType hs_bindgen_86b147342f608069_base
+  fmap BG.fromFFIType hs_bindgen_86b147342f608069_base
 
 {-# NOINLINE baz1 #-}
 {-| __C declaration:__ @baz1@
@@ -346,7 +346,7 @@ foreign import ccall unsafe "hs_bindgen_a7194966e4f375df" hs_bindgen_a7194966e4f
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz2@
 hs_bindgen_a7194966e4f375df :: IO (BG.FunPtr (I -> IO (BG.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 BG.CInt)))))
 hs_bindgen_a7194966e4f375df =
-  BG.fromFFIType hs_bindgen_a7194966e4f375df_base
+  fmap BG.fromFFIType hs_bindgen_a7194966e4f375df_base
 
 {-# NOINLINE baz2 #-}
 {-| __C declaration:__ @baz2@
@@ -365,7 +365,7 @@ foreign import ccall unsafe "hs_bindgen_cd69bb91c3e6d7ea" hs_bindgen_cd69bb91c3e
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz3@
 hs_bindgen_cd69bb91c3e6d7ea :: IO (BG.FunPtr (BG.CInt -> IO (BG.Ptr (CA.ConstantArray 2 (CA.ConstantArray 3 I)))))
 hs_bindgen_cd69bb91c3e6d7ea =
-  BG.fromFFIType hs_bindgen_cd69bb91c3e6d7ea_base
+  fmap BG.fromFFIType hs_bindgen_cd69bb91c3e6d7ea_base
 
 {-# NOINLINE baz3 #-}
 {-| __C declaration:__ @baz3@
@@ -384,7 +384,7 @@ foreign import ccall unsafe "hs_bindgen_d5b5e70d96cc6b8d" hs_bindgen_d5b5e70d96c
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_no_args_no_void@
 hs_bindgen_d5b5e70d96cc6b8d :: IO (BG.FunPtr (IO I))
 hs_bindgen_d5b5e70d96cc6b8d =
-  BG.fromFFIType hs_bindgen_d5b5e70d96cc6b8d_base
+  fmap BG.fromFFIType hs_bindgen_d5b5e70d96cc6b8d_base
 
 {-# NOINLINE no_args_no_void #-}
 {-| __C declaration:__ @no_args_no_void@

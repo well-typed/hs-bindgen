@@ -63,7 +63,7 @@ foreign import ccall unsafe "hs_bindgen_7d72952bb141f2c8" hs_bindgen_7d72952bb14
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_erf@
 hs_bindgen_7d72952bb141f2c8 :: IO (BG.FunPtr (BG.CDouble -> IO BG.CDouble))
 hs_bindgen_7d72952bb141f2c8 =
-  BG.fromFFIType hs_bindgen_7d72952bb141f2c8_base
+  fmap BG.fromFFIType hs_bindgen_7d72952bb141f2c8_base
 
 {-# NOINLINE erf_random_user_specified_suffix #-}
 {-| __C declaration:__ @erf@
@@ -83,7 +83,7 @@ foreign import ccall unsafe "hs_bindgen_d8b56ce4d948e996" hs_bindgen_d8b56ce4d94
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_bad_fma@
 hs_bindgen_d8b56ce4d948e996 :: IO (BG.FunPtr (BG.CDouble -> BG.CDouble -> BG.CDouble -> IO BG.CDouble))
 hs_bindgen_d8b56ce4d948e996 =
-  BG.fromFFIType hs_bindgen_d8b56ce4d948e996_base
+  fmap BG.fromFFIType hs_bindgen_d8b56ce4d948e996_base
 
 {-# NOINLINE bad_fma_random_user_specified_suffix #-}
 {-| __C declaration:__ @bad_fma@
@@ -103,7 +103,7 @@ foreign import ccall unsafe "hs_bindgen_b07b517c1cb304fc" hs_bindgen_b07b517c1cb
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args@
 hs_bindgen_b07b517c1cb304fc :: IO (BG.FunPtr (IO ()))
 hs_bindgen_b07b517c1cb304fc =
-  BG.fromFFIType hs_bindgen_b07b517c1cb304fc_base
+  fmap BG.fromFFIType hs_bindgen_b07b517c1cb304fc_base
 
 {-# NOINLINE no_args_random_user_specified_suffix #-}
 {-| __C declaration:__ @no_args@
@@ -123,7 +123,7 @@ foreign import ccall unsafe "hs_bindgen_cc43ff8560009309" hs_bindgen_cc43ff85600
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args_no_void@
 hs_bindgen_cc43ff8560009309 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_cc43ff8560009309 =
-  BG.fromFFIType hs_bindgen_cc43ff8560009309_base
+  fmap BG.fromFFIType hs_bindgen_cc43ff8560009309_base
 
 {-# NOINLINE no_args_no_void_random_user_specified_suffix #-}
 {-| __C declaration:__ @no_args_no_void@
@@ -143,7 +143,7 @@ foreign import ccall unsafe "hs_bindgen_14a306e8e8f0ba6c" hs_bindgen_14a306e8e8f
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_fun@
 hs_bindgen_14a306e8e8f0ba6c :: IO (BG.FunPtr (BG.CChar -> BG.CDouble -> IO BG.CInt))
 hs_bindgen_14a306e8e8f0ba6c =
-  BG.fromFFIType hs_bindgen_14a306e8e8f0ba6c_base
+  fmap BG.fromFFIType hs_bindgen_14a306e8e8f0ba6c_base
 
 {-# NOINLINE fun_random_user_specified_suffix #-}
 {-| __C declaration:__ @fun@

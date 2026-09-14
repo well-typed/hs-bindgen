@@ -37,7 +37,10 @@ hs_bindgen_654858ed6a5db417 ::
   -> HsBindgen.Runtime.LibC.CSize
   -> IO FileOperationStatus
 hs_bindgen_654858ed6a5db417 =
-  BG.fromFFIType hs_bindgen_654858ed6a5db417_base
+  \x0 ->
+    \x1 ->
+      \x2 ->
+        fmap BG.fromFFIType (hs_bindgen_654858ed6a5db417_base (BG.toFFIType x0) (BG.toFFIType x1) (BG.toFFIType x2))
 
 {-| __C declaration:__ @read_file_chunk@
 

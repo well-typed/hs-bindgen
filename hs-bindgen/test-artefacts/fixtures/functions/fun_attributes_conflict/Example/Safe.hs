@@ -50,7 +50,8 @@ hs_bindgen_5d7162df3a16d8d5 ::
      BG.CInt
   -> BG.CInt
 hs_bindgen_5d7162df3a16d8d5 =
-  BG.fromFFIType hs_bindgen_5d7162df3a16d8d5_base
+  \x0 ->
+    BG.fromFFIType (hs_bindgen_5d7162df3a16d8d5_base (BG.toFFIType x0))
 
 {-|
 
@@ -78,7 +79,8 @@ hs_bindgen_7f240b4e0c2eea24 ::
      BG.CInt
   -> BG.CInt
 hs_bindgen_7f240b4e0c2eea24 =
-  BG.fromFFIType hs_bindgen_7f240b4e0c2eea24_base
+  \x0 ->
+    BG.fromFFIType (hs_bindgen_7f240b4e0c2eea24_base (BG.toFFIType x0))
 
 {-|
 
@@ -106,7 +108,8 @@ hs_bindgen_d32b50f04af10764 ::
      BG.CInt
   -> BG.CInt
 hs_bindgen_d32b50f04af10764 =
-  BG.fromFFIType hs_bindgen_d32b50f04af10764_base
+  \x0 ->
+    BG.fromFFIType (hs_bindgen_d32b50f04af10764_base (BG.toFFIType x0))
 
 {-|
 
@@ -134,7 +137,8 @@ hs_bindgen_fab6c9860ff1400b ::
      BG.CInt
   -> IO BG.CInt
 hs_bindgen_fab6c9860ff1400b =
-  BG.fromFFIType hs_bindgen_fab6c9860ff1400b_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_fab6c9860ff1400b_base (BG.toFFIType x0))
 
 {-|
 

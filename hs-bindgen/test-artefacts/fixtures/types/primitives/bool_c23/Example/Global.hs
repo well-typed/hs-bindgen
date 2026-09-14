@@ -26,7 +26,7 @@ foreign import ccall unsafe "hs_bindgen_31e1e443379b061b" hs_bindgen_31e1e443379
 -- __unique:__ @test_typesprimitivesbool_c23_Example_get_b@
 hs_bindgen_31e1e443379b061b :: IO (BG.Ptr BG.CBool)
 hs_bindgen_31e1e443379b061b =
-  BG.fromFFIType hs_bindgen_31e1e443379b061b_base
+  fmap BG.fromFFIType hs_bindgen_31e1e443379b061b_base
 
 {-# NOINLINE b #-}
 {-| __C declaration:__ @b@

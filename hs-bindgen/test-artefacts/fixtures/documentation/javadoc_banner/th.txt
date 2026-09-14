@@ -86,7 +86,7 @@ foreign import ccall safe "hs_bindgen_7d3fd818d0780e11" hs_bindgen_7d3fd818d0780
 -- __unique:__ @test_documentationjavadoc_banner_Example_Safe_banner_double@
 hs_bindgen_7d3fd818d0780e11 :: CInt -> IO CInt
 -- __unique:__ @test_documentationjavadoc_banner_Example_Safe_banner_double@
-hs_bindgen_7d3fd818d0780e11 = fromFFIType hs_bindgen_7d3fd818d0780e11_base
+hs_bindgen_7d3fd818d0780e11 = \x_0 -> fmap fromFFIType (hs_bindgen_7d3fd818d0780e11_base (toFFIType x_0))
 {-| A function documented with a Javadoc banner-style comment.
 
     The decorative asterisks should be stripped by doxygen, producing clean documentation without any '*' noise.
@@ -124,7 +124,7 @@ foreign import ccall unsafe "hs_bindgen_3d6508e65f7dad3c" hs_bindgen_3d6508e65f7
 -- __unique:__ @test_documentationjavadoc_banner_Example_Unsafe_banner_double@
 hs_bindgen_3d6508e65f7dad3c :: CInt -> IO CInt
 -- __unique:__ @test_documentationjavadoc_banner_Example_Unsafe_banner_double@
-hs_bindgen_3d6508e65f7dad3c = fromFFIType hs_bindgen_3d6508e65f7dad3c_base
+hs_bindgen_3d6508e65f7dad3c = \x_0 -> fmap fromFFIType (hs_bindgen_3d6508e65f7dad3c_base (toFFIType x_0))
 {-| A function documented with a Javadoc banner-style comment.
 
     The decorative asterisks should be stripped by doxygen, producing clean documentation without any '*' noise.
@@ -161,7 +161,7 @@ foreign import ccall unsafe "hs_bindgen_57ce95431493ea3f" hs_bindgen_57ce9543149
 -- __unique:__ @test_documentationjavadoc_banner_Example_get_banner_double@
 hs_bindgen_57ce95431493ea3f :: IO (FunPtr (CInt -> IO CInt))
 -- __unique:__ @test_documentationjavadoc_banner_Example_get_banner_double@
-hs_bindgen_57ce95431493ea3f = fromFFIType hs_bindgen_57ce95431493ea3f_base
+hs_bindgen_57ce95431493ea3f = fmap fromFFIType hs_bindgen_57ce95431493ea3f_base
 {-# NOINLINE banner_double_funptr #-}
 {-| A function documented with a Javadoc banner-style comment.
 

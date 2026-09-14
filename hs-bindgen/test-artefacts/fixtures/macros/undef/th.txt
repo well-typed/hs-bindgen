@@ -59,7 +59,7 @@ foreign import ccall safe "hs_bindgen_2a245181e5fb1e1c" hs_bindgen_2a245181e5fb1
 -- __unique:__ @test_macrosundef_Example_Safe_foo@
 hs_bindgen_2a245181e5fb1e1c :: T -> IO ()
 -- __unique:__ @test_macrosundef_Example_Safe_foo@
-hs_bindgen_2a245181e5fb1e1c = fromFFIType hs_bindgen_2a245181e5fb1e1c_base
+hs_bindgen_2a245181e5fb1e1c = \x_0 -> hs_bindgen_2a245181e5fb1e1c_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/undef.h 4:6@
@@ -81,7 +81,7 @@ foreign import ccall unsafe "hs_bindgen_d73ff9e79242e63c" hs_bindgen_d73ff9e7924
 -- __unique:__ @test_macrosundef_Example_Unsafe_foo@
 hs_bindgen_d73ff9e79242e63c :: T -> IO ()
 -- __unique:__ @test_macrosundef_Example_Unsafe_foo@
-hs_bindgen_d73ff9e79242e63c = fromFFIType hs_bindgen_d73ff9e79242e63c_base
+hs_bindgen_d73ff9e79242e63c = \x_0 -> hs_bindgen_d73ff9e79242e63c_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/undef.h 4:6@
@@ -102,7 +102,7 @@ foreign import ccall unsafe "hs_bindgen_71864e8181a7e9dd" hs_bindgen_71864e8181a
 -- __unique:__ @test_macrosundef_Example_get_foo@
 hs_bindgen_71864e8181a7e9dd :: IO (FunPtr (T -> IO ()))
 -- __unique:__ @test_macrosundef_Example_get_foo@
-hs_bindgen_71864e8181a7e9dd = fromFFIType hs_bindgen_71864e8181a7e9dd_base
+hs_bindgen_71864e8181a7e9dd = fmap fromFFIType hs_bindgen_71864e8181a7e9dd_base
 {-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 

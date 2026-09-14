@@ -20,7 +20,7 @@ foreign import ccall safe "wrapper" hs_bindgen_5964bbadb359ee4a_base ::
 hs_bindgen_5964bbadb359ee4a :: Fun_ptr_Aux ->
                                IO (FunPtr Fun_ptr_Aux)
 -- __unique:__ @toFun_ptr_Aux@
-hs_bindgen_5964bbadb359ee4a = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_5964bbadb359ee4a_base (toFFIType fun_0))
+hs_bindgen_5964bbadb359ee4a = \fun_0 -> fmap castFunPtr (hs_bindgen_5964bbadb359ee4a_base (\x_1 -> getField @"unwrapFun_ptr_Aux" fun_0 (fromFFIType x_1)))
 -- __unique:__ @fromFun_ptr_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_f8391e85af67fcb6_base ::
     FunPtr (Ptr Void -> IO ())
@@ -29,7 +29,7 @@ foreign import ccall safe "dynamic" hs_bindgen_f8391e85af67fcb6_base ::
 -- __unique:__ @fromFun_ptr_Aux@
 hs_bindgen_f8391e85af67fcb6 :: FunPtr Fun_ptr_Aux -> Fun_ptr_Aux
 -- __unique:__ @fromFun_ptr_Aux@
-hs_bindgen_f8391e85af67fcb6 = \funPtr_0 -> fromFFIType (hs_bindgen_f8391e85af67fcb6_base (castFunPtrToFFIType funPtr_0))
+hs_bindgen_f8391e85af67fcb6 = \funPtr_0 -> Fun_ptr_Aux (\x_1 -> hs_bindgen_f8391e85af67fcb6_base (castFunPtr funPtr_0) (toFFIType x_1))
 instance ToFunPtr Fun_ptr_Aux
     where toFunPtr = hs_bindgen_5964bbadb359ee4a
 instance FromFunPtr Fun_ptr_Aux

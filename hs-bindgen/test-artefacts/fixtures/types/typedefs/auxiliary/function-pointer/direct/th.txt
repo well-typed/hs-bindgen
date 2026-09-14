@@ -16,7 +16,7 @@ foreign import ccall safe "wrapper" hs_bindgen_b8534912f6256492_base ::
 -- __unique:__ @toT@
 hs_bindgen_b8534912f6256492 :: T -> IO (FunPtr T)
 -- __unique:__ @toT@
-hs_bindgen_b8534912f6256492 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_b8534912f6256492_base (toFFIType fun_0))
+hs_bindgen_b8534912f6256492 = \fun_0 -> fmap castFunPtr (hs_bindgen_b8534912f6256492_base (\x_1 -> getField @"unwrapT" fun_0 (fromFFIType x_1)))
 -- __unique:__ @fromT@
 foreign import ccall safe "dynamic" hs_bindgen_8f830eadb43a6fe4_base ::
     FunPtr (Int32 -> IO ())
@@ -25,7 +25,7 @@ foreign import ccall safe "dynamic" hs_bindgen_8f830eadb43a6fe4_base ::
 -- __unique:__ @fromT@
 hs_bindgen_8f830eadb43a6fe4 :: FunPtr T -> T
 -- __unique:__ @fromT@
-hs_bindgen_8f830eadb43a6fe4 = \funPtr_0 -> fromFFIType (hs_bindgen_8f830eadb43a6fe4_base (castFunPtrToFFIType funPtr_0))
+hs_bindgen_8f830eadb43a6fe4 = \funPtr_0 -> T (\x_1 -> hs_bindgen_8f830eadb43a6fe4_base (castFunPtr funPtr_0) (toFFIType x_1))
 instance ToFunPtr T
     where toFunPtr = hs_bindgen_b8534912f6256492
 instance FromFunPtr T

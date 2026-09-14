@@ -30,7 +30,7 @@ foreign import ccall unsafe "hs_bindgen_54e8e1ffb47ff670" hs_bindgen_54e8e1ffb47
 -- __unique:__ @test_typesprimitivesbool_typedef__Example_get_f@
 hs_bindgen_54e8e1ffb47ff670 :: IO (BG.FunPtr (A -> Bool' -> IO ()))
 hs_bindgen_54e8e1ffb47ff670 =
-  BG.fromFFIType hs_bindgen_54e8e1ffb47ff670_base
+  fmap BG.fromFFIType hs_bindgen_54e8e1ffb47ff670_base
 
 {-# NOINLINE f #-}
 {-| __C declaration:__ @f@

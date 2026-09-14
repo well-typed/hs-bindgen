@@ -39,7 +39,10 @@ hs_bindgen_57cb99ed92c001ad ::
   -> BG.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8))
   -> IO HsBindgen.Runtime.LibC.Int32
 hs_bindgen_57cb99ed92c001ad =
-  BG.fromFFIType hs_bindgen_57cb99ed92c001ad_base
+  \x0 ->
+    \x1 ->
+      \x2 ->
+        fmap BG.fromFFIType (hs_bindgen_57cb99ed92c001ad_base (BG.toFFIType x0) (BG.toFFIType x1) (BG.toFFIType x2))
 
 {-| __C declaration:__ @some_fun@
 

@@ -63,7 +63,7 @@ foreign import ccall unsafe "hs_bindgen_97654202e0d79fbb" hs_bindgen_97654202e0d
 -- __unique:__ @test_functionssimple_func_Example_get_erf@
 hs_bindgen_97654202e0d79fbb :: IO (BG.FunPtr (BG.CDouble -> IO BG.CDouble))
 hs_bindgen_97654202e0d79fbb =
-  BG.fromFFIType hs_bindgen_97654202e0d79fbb_base
+  fmap BG.fromFFIType hs_bindgen_97654202e0d79fbb_base
 
 {-# NOINLINE erf #-}
 {-| __C declaration:__ @erf@
@@ -82,7 +82,7 @@ foreign import ccall unsafe "hs_bindgen_4c8418e152e9ddbc" hs_bindgen_4c8418e152e
 -- __unique:__ @test_functionssimple_func_Example_get_bad_fma@
 hs_bindgen_4c8418e152e9ddbc :: IO (BG.FunPtr (BG.CDouble -> BG.CDouble -> BG.CDouble -> IO BG.CDouble))
 hs_bindgen_4c8418e152e9ddbc =
-  BG.fromFFIType hs_bindgen_4c8418e152e9ddbc_base
+  fmap BG.fromFFIType hs_bindgen_4c8418e152e9ddbc_base
 
 {-# NOINLINE bad_fma #-}
 {-| __C declaration:__ @bad_fma@
@@ -102,7 +102,7 @@ foreign import ccall unsafe "hs_bindgen_a271856b1fcc9477" hs_bindgen_a271856b1fc
 -- __unique:__ @test_functionssimple_func_Example_get_no_args@
 hs_bindgen_a271856b1fcc9477 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_a271856b1fcc9477 =
-  BG.fromFFIType hs_bindgen_a271856b1fcc9477_base
+  fmap BG.fromFFIType hs_bindgen_a271856b1fcc9477_base
 
 {-# NOINLINE no_args #-}
 {-| __C declaration:__ @no_args@
@@ -122,7 +122,7 @@ foreign import ccall unsafe "hs_bindgen_73f2a4bbf4a49702" hs_bindgen_73f2a4bbf4a
 -- __unique:__ @test_functionssimple_func_Example_get_no_args_no_void@
 hs_bindgen_73f2a4bbf4a49702 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_73f2a4bbf4a49702 =
-  BG.fromFFIType hs_bindgen_73f2a4bbf4a49702_base
+  fmap BG.fromFFIType hs_bindgen_73f2a4bbf4a49702_base
 
 {-# NOINLINE no_args_no_void #-}
 {-| __C declaration:__ @no_args_no_void@
@@ -142,7 +142,7 @@ foreign import ccall unsafe "hs_bindgen_5416cbf886368c01" hs_bindgen_5416cbf8863
 -- __unique:__ @test_functionssimple_func_Example_get_fun@
 hs_bindgen_5416cbf886368c01 :: IO (BG.FunPtr (BG.CChar -> BG.CDouble -> IO BG.CInt))
 hs_bindgen_5416cbf886368c01 =
-  BG.fromFFIType hs_bindgen_5416cbf886368c01_base
+  fmap BG.fromFFIType hs_bindgen_5416cbf886368c01_base
 
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@
