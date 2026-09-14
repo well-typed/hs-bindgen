@@ -18,7 +18,7 @@ module Example
     )
   where
 
-import qualified Foreign
+import qualified Foreign.C.Types
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Support as BG
@@ -79,7 +79,7 @@ instance HasCField.HasCField Uint32_t "unwrapUint32_t" where
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
 data Foo = Foo
-  { foo_sixty_four :: Foreign.Word64
+  { foo_sixty_four :: Foreign.C.Types.CULong
     {- ^ __C declaration:__ @sixty_four@
 
          __defined at:__ @program-analysis\/program_slicing_simple.h 4:12@
@@ -122,7 +122,7 @@ instance BG.Storable Foo where
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
-instance ( ty ~ Foreign.Word64
+instance ( ty ~ Foreign.C.Types.CULong
          ) => BG.CompatHasField.HasField "foo_sixty_four" Foo ty where
 
   hasField =
@@ -132,7 +132,7 @@ instance ( ty ~ Foreign.Word64
       , BG.getField @"foo_sixty_four" x0
       )
 
-instance ( ty ~ Foreign.Word64
+instance ( ty ~ Foreign.C.Types.CULong
          ) => BG.HasField "foo_sixty_four" (BG.Ptr Foo) (BG.Ptr ty) where
 
   getField =
@@ -140,7 +140,8 @@ instance ( ty ~ Foreign.Word64
 
 instance HasCField.HasCField Foo "foo_sixty_four" where
 
-  type CFieldType Foo "foo_sixty_four" = Foreign.Word64
+  type CFieldType Foo "foo_sixty_four" =
+    Foreign.C.Types.CULong
 
   offset# = \_ -> \_ -> 0
 

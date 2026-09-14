@@ -106,11 +106,13 @@ module HsBindgen.Runtime.Support (
   , Void
   , Int8,  Int16,  Int32,  Int64
   , Word8, Word16, Word32, Word64
-  , CChar, CSChar, CUChar, CShort, CUShort
-  , CInt, CUInt, CLong, CULong, CLLong, CULLong
-  , CBool
-  , CFloat(CFloat)
-  , CDouble(CDouble)
+  , CChar(CChar), CSChar(CSChar), CUChar(CUChar)
+  , CShort(CShort), CUShort(CUShort)
+  , CInt(CInt), CUInt(CUInt)
+  , CLong(CLong), CULong(CULong)
+  , CLLong(CLLong), CULLong(CULLong)
+  , CBool(CBool)
+  , CFloat(CFloat), CDouble(CDouble)
   , CStringLen
   , CPtrdiff
   ) where
@@ -128,9 +130,11 @@ import Data.Void (Void)
 import Data.Word (Word16, Word32, Word64, Word8)
 import Foreign (Storable (alignment, peek, peekByteOff, poke, pokeByteOff, sizeOf),
                 castFunPtr, with)
-import Foreign.C (CBool, CChar, CDouble (CDouble), CFloat (CFloat), CInt,
-                  CLLong, CLong, CPtrdiff, CSChar, CShort, CUChar, CUInt,
-                  CULLong, CULong, CUShort)
+import Foreign.C (CBool (CBool), CChar (CChar), CDouble (CDouble),
+                  CFloat (CFloat), CInt (CInt), CLLong (CLLong), CLong (CLong),
+                  CPtrdiff, CSChar (CSChar), CShort (CShort), CUChar (CUChar),
+                  CUInt (CUInt), CULLong (CULLong), CULong (CULong),
+                  CUShort (CUShort))
 import Foreign.C.String (CStringLen)
 import GHC.Base ((*#), (+#))
 import GHC.Float (castWord32ToFloat, castWord64ToDouble)

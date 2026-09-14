@@ -14,6 +14,7 @@ import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Monad (HsM)
 import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.Hs qualified as Hs
@@ -24,13 +25,14 @@ newtypeDec ::
      HasCallStack
   => Hs.Name Hs.NsTypeConstr
   -> Hs.Name Hs.NsConstr
+  -> Maybe BindingSpec.HsFFIType
   -> Hs.Field
   -> Origin.Decl Origin.Newtype
   -> Maybe HsDoc.Comment
   -> Set Inst.TypeClass -- ^ Candidate instances
   -> Set Inst.TypeClass -- ^ Known instances
   -> HsM Hs.Newtype
-newtypeDec name constr field orig comment candidateInsts knownInsts = do
+newtypeDec name constr ffiType field orig comment candidateInsts knownInsts = do
     hsNewtype <- aux <$> State.get
     State.modify' $ #instanceMap %~ Map.insert hsNewtype.name hsNewtype.instances
     pure hsNewtype
@@ -39,6 +41,7 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
     aux transState = Hs.Newtype {
             name      = name
           , constr    = constr
+          , ffiType   = ffiType
           , field     = field
           , origin    = orig
           , instances = insts

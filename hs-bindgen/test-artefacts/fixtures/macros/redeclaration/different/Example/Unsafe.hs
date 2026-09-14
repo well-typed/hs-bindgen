@@ -28,7 +28,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_42c808e061719a11" hs_bindgen_42c808e061719a11_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_foo@
@@ -53,7 +53,7 @@ foo = hs_bindgen_42c808e061719a11
 
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_06a03878580406ca" hs_bindgen_06a03878580406ca_base ::
-     BG.Int8
+     BG.CChar
   -> IO ()
 
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_bar@

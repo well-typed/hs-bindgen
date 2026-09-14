@@ -201,8 +201,8 @@ f1 = hs_bindgen_1a4676387075dc40
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_memalign@
 foreign import ccall safe "hs_bindgen_63adcb061045c5ac" hs_bindgen_63adcb061045c5ac_base ::
-     BG.Int32
-  -> BG.Int32
+     BG.CInt
+  -> BG.CInt
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_memalign@
@@ -229,8 +229,8 @@ my_memalign = hs_bindgen_63adcb061045c5ac
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_calloc@
 foreign import ccall safe "hs_bindgen_733b29547ce864f6" hs_bindgen_733b29547ce864f6_base ::
-     BG.Int32
-  -> BG.Int32
+     BG.CInt
+  -> BG.CInt
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_calloc@
@@ -258,7 +258,7 @@ my_calloc = hs_bindgen_733b29547ce864f6
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_realloc@
 foreign import ccall safe "hs_bindgen_4c69efa2a8a2b7c0" hs_bindgen_4c69efa2a8a2b7c0_base ::
      BG.Ptr BG.Void
-  -> BG.Int32
+  -> BG.CInt
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_realloc@
@@ -285,7 +285,7 @@ my_realloc = hs_bindgen_4c69efa2a8a2b7c0
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_alloc1@
 foreign import ccall safe "hs_bindgen_1eae846583dd415c" hs_bindgen_1eae846583dd415c_base ::
-     BG.Int32
+     BG.CInt
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_alloc1@
@@ -309,7 +309,7 @@ my_alloc1 = hs_bindgen_1eae846583dd415c
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_alloc2@
 foreign import ccall safe "hs_bindgen_790482b4016de326" hs_bindgen_790482b4016de326_base ::
-     BG.Int32
+     BG.CInt
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_alloc2@
@@ -333,8 +333,8 @@ my_alloc2 = hs_bindgen_790482b4016de326
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_square@
 foreign import ccall safe "hs_bindgen_3f72dedf649beccd" hs_bindgen_3f72dedf649beccd_base ::
-     BG.Int32
-  -> BG.Int32
+     BG.CInt
+  -> BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_square@
 hs_bindgen_3f72dedf649beccd ::
@@ -361,7 +361,7 @@ square = hs_bindgen_3f72dedf649beccd
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_old_fn_deprecated@
 foreign import ccall safe "hs_bindgen_a8f71f2272dae572" hs_bindgen_a8f71f2272dae572_base ::
-     IO BG.Int32
+     IO BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_old_fn_deprecated@
 hs_bindgen_a8f71f2272dae572 :: IO BG.CInt
@@ -409,7 +409,7 @@ my_dgettext = hs_bindgen_11a623401451cca5
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_fdopen@
 foreign import ccall safe "hs_bindgen_30143e337a327ef0" hs_bindgen_30143e337a327ef0_base ::
-     BG.Int32
+     BG.CInt
   -> BG.Ptr BG.Void
   -> IO (BG.Ptr BG.Void)
 
@@ -457,7 +457,7 @@ f2 = hs_bindgen_7b2c420d0febf062
 foreign import ccall safe "hs_bindgen_af1f131d9e98a2ff" hs_bindgen_af1f131d9e98a2ff_base ::
      BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> BG.Int32
+  -> BG.CInt
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_memcpy@
@@ -509,7 +509,7 @@ fatal = hs_bindgen_0afa6ff8226517c8
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_hash@
 foreign import ccall safe "hs_bindgen_948fc14ee9d5d56f" hs_bindgen_948fc14ee9d5d56f_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_hash@
 hs_bindgen_948fc14ee9d5d56f ::
@@ -536,7 +536,7 @@ hash = hs_bindgen_948fc14ee9d5d56f
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_mymalloc@
 foreign import ccall safe "hs_bindgen_60517fb6ae2517ff" hs_bindgen_60517fb6ae2517ff_base ::
-     BG.Int32
+     BG.CInt
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_mymalloc@
@@ -579,7 +579,7 @@ foobar = hs_bindgen_f1451b46f1bd3813
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_core2_func@
 foreign import ccall safe "hs_bindgen_07f5843dd5c65611" hs_bindgen_07f5843dd5c65611_base ::
-     IO BG.Int32
+     IO BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_core2_func@
 hs_bindgen_07f5843dd5c65611 :: IO BG.CInt
@@ -597,7 +597,7 @@ core2_func = hs_bindgen_07f5843dd5c65611
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_sse3_func@
 foreign import ccall safe "hs_bindgen_2c7c9e9a45042696" hs_bindgen_2c7c9e9a45042696_base ::
-     IO BG.Int32
+     IO BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_sse3_func@
 hs_bindgen_2c7c9e9a45042696 :: IO BG.CInt
@@ -633,7 +633,7 @@ f3 = hs_bindgen_4ff2d7abd6099082
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_fn@
 foreign import ccall safe "hs_bindgen_c3ae037518ec9b4e" hs_bindgen_c3ae037518ec9b4e_base ::
-     IO BG.Int32
+     IO BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_fn@
 hs_bindgen_c3ae037518ec9b4e :: IO BG.CInt
@@ -651,7 +651,7 @@ fn = hs_bindgen_c3ae037518ec9b4e
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_y@
 foreign import ccall safe "hs_bindgen_da9708096863a242" hs_bindgen_da9708096863a242_base ::
-     IO BG.Int32
+     IO BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_y@
 hs_bindgen_da9708096863a242 :: IO BG.CInt
@@ -669,7 +669,7 @@ y = hs_bindgen_da9708096863a242
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_z1@
 foreign import ccall safe "hs_bindgen_1b5a954ee8d33472" hs_bindgen_1b5a954ee8d33472_base ::
-     IO BG.Int32
+     IO BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_z1@
 hs_bindgen_1b5a954ee8d33472 :: IO BG.CInt
@@ -687,7 +687,7 @@ z1 = hs_bindgen_1b5a954ee8d33472
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_z2@
 foreign import ccall safe "hs_bindgen_871d232f0a2386a3" hs_bindgen_871d232f0a2386a3_base ::
-     IO BG.Int32
+     IO BG.CInt
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_z2@
 hs_bindgen_871d232f0a2386a3 :: IO BG.CInt

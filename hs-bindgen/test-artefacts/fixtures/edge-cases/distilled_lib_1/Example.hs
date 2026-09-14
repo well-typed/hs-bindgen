@@ -1185,8 +1185,8 @@ newtype Callback_t_Aux = Callback_t_Aux
 
 -- __unique:__ @toCallback_t_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658_base ::
-     (BG.Ptr BG.Void -> BG.Word32 -> IO BG.Word32)
-  -> IO (BG.FunPtr (BG.Ptr BG.Void -> BG.Word32 -> IO BG.Word32))
+     (BG.Ptr BG.Void -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32)
+  -> IO (BG.FunPtr (BG.Ptr BG.Void -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32))
 
 -- __unique:__ @toCallback_t_Aux@
 hs_bindgen_b6b6922e35047658 ::
@@ -1200,8 +1200,8 @@ hs_bindgen_b6b6922e35047658 =
 
 -- __unique:__ @fromCallback_t_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_d6debb4b8d5bb869_base ::
-     BG.FunPtr (BG.Ptr BG.Void -> BG.Word32 -> IO BG.Word32)
-  -> BG.Ptr BG.Void -> BG.Word32 -> IO BG.Word32
+     BG.FunPtr (BG.Ptr BG.Void -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32)
+  -> BG.Ptr BG.Void -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32
 
 -- __unique:__ @fromCallback_t_Aux@
 hs_bindgen_d6debb4b8d5bb869 ::

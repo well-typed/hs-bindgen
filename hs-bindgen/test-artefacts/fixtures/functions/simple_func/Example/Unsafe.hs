@@ -48,8 +48,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_erf@
 foreign import ccall unsafe "hs_bindgen_da5d889180d72efd" hs_bindgen_da5d889180d72efd_base ::
-     Double
-  -> Double
+     BG.CDouble
+  -> BG.CDouble
 
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_erf@
 hs_bindgen_da5d889180d72efd ::
@@ -77,10 +77,10 @@ erf = hs_bindgen_da5d889180d72efd
 
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_bad_fma@
 foreign import ccall unsafe "hs_bindgen_d02f37accebc0cb3" hs_bindgen_d02f37accebc0cb3_base ::
-     Double
-  -> Double
-  -> Double
-  -> IO Double
+     BG.CDouble
+  -> BG.CDouble
+  -> BG.CDouble
+  -> IO BG.CDouble
 
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_bad_fma@
 hs_bindgen_d02f37accebc0cb3 ::
@@ -148,9 +148,9 @@ no_args_no_void = hs_bindgen_a3d1783059ec7820
 
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_fun@
 foreign import ccall unsafe "hs_bindgen_91392ef466aa34e7" hs_bindgen_91392ef466aa34e7_base ::
-     BG.Int8
-  -> Double
-  -> IO BG.Int32
+     BG.CChar
+  -> BG.CDouble
+  -> IO BG.CInt
 
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_fun@
 hs_bindgen_91392ef466aa34e7 ::

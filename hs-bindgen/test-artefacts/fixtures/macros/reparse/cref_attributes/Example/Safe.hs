@@ -36,7 +36,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_9f4b1c3748016429" hs_bindgen_9f4b1c3748016429_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_foo@
@@ -60,7 +60,7 @@ foo = hs_bindgen_9f4b1c3748016429
 
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_183028e559c4eff2" hs_bindgen_183028e559c4eff2_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_bar@
@@ -84,7 +84,7 @@ bar = hs_bindgen_183028e559c4eff2
 
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_quux@
 foreign import ccall safe "hs_bindgen_e02b651508844cbb" hs_bindgen_e02b651508844cbb_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_quux@

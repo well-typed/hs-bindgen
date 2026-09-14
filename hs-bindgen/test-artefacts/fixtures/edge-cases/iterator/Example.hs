@@ -41,8 +41,8 @@ newtype Toggle_Aux = Toggle_Aux
 
 -- __unique:__ @toToggle_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_eca2bca8e63194be_base ::
-     IO BG.Word8
-  -> IO (BG.FunPtr (IO BG.Word8))
+     IO BG.CBool
+  -> IO (BG.FunPtr (IO BG.CBool))
 
 -- __unique:__ @toToggle_Aux@
 hs_bindgen_eca2bca8e63194be ::
@@ -54,8 +54,8 @@ hs_bindgen_eca2bca8e63194be =
 
 -- __unique:__ @fromToggle_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_703fc4bdc168721d_base ::
-     BG.FunPtr (IO BG.Word8)
-  -> IO BG.Word8
+     BG.FunPtr (IO BG.CBool)
+  -> IO BG.CBool
 
 -- __unique:__ @fromToggle_Aux@
 hs_bindgen_703fc4bdc168721d ::
@@ -143,8 +143,8 @@ newtype Counter_Aux = Counter_Aux
 
 -- __unique:__ @toCounter_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_2202848aad97fe0a_base ::
-     IO BG.Int32
-  -> IO (BG.FunPtr (IO BG.Int32))
+     IO BG.CInt
+  -> IO (BG.FunPtr (IO BG.CInt))
 
 -- __unique:__ @toCounter_Aux@
 hs_bindgen_2202848aad97fe0a ::
@@ -156,8 +156,8 @@ hs_bindgen_2202848aad97fe0a =
 
 -- __unique:__ @fromCounter_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_73304cb84e9a2f8f_base ::
-     BG.FunPtr (IO BG.Int32)
-  -> IO BG.Int32
+     BG.FunPtr (IO BG.CInt)
+  -> IO BG.CInt
 
 -- __unique:__ @fromCounter_Aux@
 hs_bindgen_73304cb84e9a2f8f ::
@@ -245,8 +245,8 @@ newtype VarCounter_Aux = VarCounter_Aux
 
 -- __unique:__ @toVarCounter_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_42a7337570f8b0d0_base ::
-     (BG.Int32 -> IO BG.Int32)
-  -> IO (BG.FunPtr (BG.Int32 -> IO BG.Int32))
+     (BG.CInt -> IO BG.CInt)
+  -> IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 
 -- __unique:__ @toVarCounter_Aux@
 hs_bindgen_42a7337570f8b0d0 ::
@@ -259,8 +259,8 @@ hs_bindgen_42a7337570f8b0d0 =
 
 -- __unique:__ @fromVarCounter_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_43d902480175fccf_base ::
-     BG.FunPtr (BG.Int32 -> IO BG.Int32)
-  -> BG.Int32 -> IO BG.Int32
+     BG.FunPtr (BG.CInt -> IO BG.CInt)
+  -> BG.CInt -> IO BG.CInt
 
 -- __unique:__ @fromVarCounter_Aux@
 hs_bindgen_43d902480175fccf ::

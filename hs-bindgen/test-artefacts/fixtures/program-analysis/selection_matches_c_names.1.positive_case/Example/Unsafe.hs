@@ -19,7 +19,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_programanalysisselection_mat_Example_Unsafe_FunctionWithAssignedHaskellNameByNameMangler@
 foreign import ccall unsafe "hs_bindgen_9a13a53e6a2f2416" hs_bindgen_9a13a53e6a2f2416_base ::
-     IO BG.Int32
+     IO BG.CInt
 
 -- __unique:__ @test_programanalysisselection_mat_Example_Unsafe_FunctionWithAssignedHaskellNameByNameMangler@
 hs_bindgen_9a13a53e6a2f2416 :: IO BG.CInt

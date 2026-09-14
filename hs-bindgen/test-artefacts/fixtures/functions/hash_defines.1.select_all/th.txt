@@ -78,8 +78,8 @@ instance HasCField Hash_defines_buffer "hash_defines_buffer_data"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Safe_hash_defines_feature@
 foreign import ccall safe "hs_bindgen_6aab0c8e3c921393" hs_bindgen_6aab0c8e3c921393_base ::
-    Int32
- -> IO Int32
+    CInt
+ -> IO CInt
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Safe_hash_defines_feature@
 hs_bindgen_6aab0c8e3c921393 :: CInt -> IO CInt
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Safe_hash_defines_feature@
@@ -100,7 +100,7 @@ hash_defines_feature_safe :: CInt -> IO CInt
 hash_defines_feature_safe = hs_bindgen_6aab0c8e3c921393
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Safe_hash_defines_empty@
 foreign import ccall safe "hs_bindgen_af6bf91e93f5ed0c" hs_bindgen_af6bf91e93f5ed0c_base ::
-    IO Int32
+    IO CInt
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Safe_hash_defines_empty@
 hs_bindgen_af6bf91e93f5ed0c :: IO CInt
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Safe_hash_defines_empty@
@@ -121,8 +121,8 @@ hash_defines_empty_safe :: IO CInt
 hash_defines_empty_safe = hs_bindgen_af6bf91e93f5ed0c
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Unsafe_hash_defines_feature@
 foreign import ccall unsafe "hs_bindgen_9c64b65744839a8b" hs_bindgen_9c64b65744839a8b_base ::
-    Int32
- -> IO Int32
+    CInt
+ -> IO CInt
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Unsafe_hash_defines_feature@
 hs_bindgen_9c64b65744839a8b :: CInt -> IO CInt
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Unsafe_hash_defines_feature@
@@ -143,7 +143,7 @@ hash_defines_feature_unsafe :: CInt -> IO CInt
 hash_defines_feature_unsafe = hs_bindgen_9c64b65744839a8b
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Unsafe_hash_defines_empty@
 foreign import ccall unsafe "hs_bindgen_f811fa46f514d285" hs_bindgen_f811fa46f514d285_base ::
-    IO Int32
+    IO CInt
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Unsafe_hash_defines_empty@
 hs_bindgen_f811fa46f514d285 :: IO CInt
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Unsafe_hash_defines_empty@

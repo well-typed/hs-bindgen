@@ -99,7 +99,7 @@ eXPORT = ["[",
           "]"]
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_9f4b1c3748016429" hs_bindgen_9f4b1c3748016429_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_foo@
 hs_bindgen_9f4b1c3748016429 :: CInt -> IO ()
@@ -121,7 +121,7 @@ foo_safe :: CInt -> IO ()
 foo_safe = hs_bindgen_9f4b1c3748016429
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_183028e559c4eff2" hs_bindgen_183028e559c4eff2_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_bar@
 hs_bindgen_183028e559c4eff2 :: CInt -> IO ()
@@ -143,7 +143,7 @@ bar_safe :: CInt -> IO ()
 bar_safe = hs_bindgen_183028e559c4eff2
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_quux@
 foreign import ccall safe "hs_bindgen_e02b651508844cbb" hs_bindgen_e02b651508844cbb_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Safe_quux@
 hs_bindgen_e02b651508844cbb :: CInt -> IO ()
@@ -165,7 +165,7 @@ quux_safe :: CInt -> IO ()
 quux_safe = hs_bindgen_e02b651508844cbb
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_bc0a3a9b7f66fcad" hs_bindgen_bc0a3a9b7f66fcad_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Unsafe_foo@
 hs_bindgen_bc0a3a9b7f66fcad :: CInt -> IO ()
@@ -187,7 +187,7 @@ foo_unsafe :: CInt -> IO ()
 foo_unsafe = hs_bindgen_bc0a3a9b7f66fcad
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_3e07344f1445a945" hs_bindgen_3e07344f1445a945_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Unsafe_bar@
 hs_bindgen_3e07344f1445a945 :: CInt -> IO ()
@@ -209,7 +209,7 @@ bar_unsafe :: CInt -> IO ()
 bar_unsafe = hs_bindgen_3e07344f1445a945
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Unsafe_quux@
 foreign import ccall unsafe "hs_bindgen_d67e55f386a01958" hs_bindgen_d67e55f386a01958_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsecref_attributes_Example_Unsafe_quux@
 hs_bindgen_d67e55f386a01958 :: CInt -> IO ()

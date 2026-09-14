@@ -41,8 +41,8 @@ newtype MyFunctionPointer_Aux = MyFunctionPointer_Aux
 
 -- __unique:__ @toMyFunctionPointer_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_47dfd04698dd2e6f_base ::
-     (BG.Int32 -> IO BG.Int32)
-  -> IO (BG.FunPtr (BG.Int32 -> IO BG.Int32))
+     (BG.CInt -> IO BG.CInt)
+  -> IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 
 -- __unique:__ @toMyFunctionPointer_Aux@
 hs_bindgen_47dfd04698dd2e6f ::
@@ -55,8 +55,8 @@ hs_bindgen_47dfd04698dd2e6f =
 
 -- __unique:__ @fromMyFunctionPointer_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_5738272f94a589e2_base ::
-     BG.FunPtr (BG.Int32 -> IO BG.Int32)
-  -> BG.Int32 -> IO BG.Int32
+     BG.FunPtr (BG.CInt -> IO BG.CInt)
+  -> BG.CInt -> IO BG.CInt
 
 -- __unique:__ @fromMyFunctionPointer_Aux@
 hs_bindgen_5738272f94a589e2 ::

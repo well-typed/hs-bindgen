@@ -31,8 +31,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 foreign import ccall safe "hs_bindgen_8a72aafc705daf44" hs_bindgen_8a72aafc705daf44_base ::
      BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> BG.Int64
-  -> BG.Int64
+  -> BG.CLLong
+  -> BG.CLLong
   -> BG.Ptr BG.Void
   -> IO ()
 

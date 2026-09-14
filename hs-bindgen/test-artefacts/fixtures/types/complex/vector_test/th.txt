@@ -78,8 +78,8 @@ instance HasCField Vector "vector_y"
           offset# = \_ -> \_ -> 8
 -- __unique:__ @test_typescomplexvector_test_Example_Safe_new_vector@
 foreign import ccall safe "hs_bindgen_cd5f566bc96dcba0" hs_bindgen_cd5f566bc96dcba0_base ::
-    Double
- -> Double
+    CDouble
+ -> CDouble
  -> IO (Ptr Void)
 -- __unique:__ @test_typescomplexvector_test_Example_Safe_new_vector@
 hs_bindgen_cd5f566bc96dcba0 :: CDouble ->
@@ -102,8 +102,8 @@ new_vector_safe :: CDouble -> CDouble -> IO (Ptr Vector)
 new_vector_safe = hs_bindgen_cd5f566bc96dcba0
 -- __unique:__ @test_typescomplexvector_test_Example_Unsafe_new_vector@
 foreign import ccall unsafe "hs_bindgen_1af353788955c7a2" hs_bindgen_1af353788955c7a2_base ::
-    Double
- -> Double
+    CDouble
+ -> CDouble
  -> IO (Ptr Void)
 -- __unique:__ @test_typescomplexvector_test_Example_Unsafe_new_vector@
 hs_bindgen_1af353788955c7a2 :: CDouble ->

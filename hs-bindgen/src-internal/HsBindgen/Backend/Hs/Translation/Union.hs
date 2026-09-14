@@ -39,7 +39,7 @@ unionDecs info union spec = do
   where
     newtypeDec :: HsM.Env -> HsM Hs.Newtype
     newtypeDec env = do
-        Hs.newtypeDec newtypeName newtypeConstr newtypeField
+        Hs.newtypeDec newtypeName newtypeConstr Nothing newtypeField
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr

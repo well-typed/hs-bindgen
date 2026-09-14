@@ -1,13 +1,13 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
-hsmodule: Foreign
+hsmodule: Foreign.C.Types
 ctypes:
 - headers: program-analysis/program_slicing_simple.h
   cname: uint64_t
-  hsname: Word64
+  hsname: CULong
 hstypes:
-- hsname: Word64
+- hsname: CULong
   representation: newtype
   instances:
   - Bits

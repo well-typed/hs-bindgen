@@ -260,6 +260,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
           hsNewtypeRep = BindingSpec.HsNewtypeRep {
               constructor = Just hsNewtype.constr
             , field       = Just hsNewtype.field.name
+            , ffiType     = hsNewtype.ffiType
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
               hsRep     = Just $ BindingSpec.HsTypeRepNewtype hsNewtypeRep

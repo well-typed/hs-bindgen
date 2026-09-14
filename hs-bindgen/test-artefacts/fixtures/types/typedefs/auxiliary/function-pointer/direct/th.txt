@@ -8,16 +8,16 @@
 newtype T = T {unwrapT :: (CInt -> IO ())} deriving stock Generic
 -- __unique:__ @toT@
 foreign import ccall safe "wrapper" hs_bindgen_b8534912f6256492_base ::
-    Int32 -> IO ()
- -> IO (FunPtr (Int32 -> IO ()))
+    CInt -> IO ()
+ -> IO (FunPtr (CInt -> IO ()))
 -- __unique:__ @toT@
 hs_bindgen_b8534912f6256492 :: T -> IO (FunPtr T)
 -- __unique:__ @toT@
 hs_bindgen_b8534912f6256492 = \fun_0 -> fmap castFunPtr (hs_bindgen_b8534912f6256492_base (\x_1 -> getField @"unwrapT" fun_0 (fromFFIType x_1)))
 -- __unique:__ @fromT@
 foreign import ccall safe "dynamic" hs_bindgen_8f830eadb43a6fe4_base ::
-    FunPtr (Int32 -> IO ())
- -> Int32
+    FunPtr (CInt -> IO ())
+ -> CInt
  -> IO ()
 -- __unique:__ @fromT@
 hs_bindgen_8f830eadb43a6fe4 :: FunPtr T -> T

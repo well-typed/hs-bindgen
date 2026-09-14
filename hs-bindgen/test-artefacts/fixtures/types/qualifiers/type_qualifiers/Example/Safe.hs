@@ -25,8 +25,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_Safe_list_example@
 foreign import ccall safe "hs_bindgen_32187cc02676ee72" hs_bindgen_32187cc02676ee72_base ::
      BG.Ptr BG.Void
-  -> BG.Word64
-  -> IO BG.Word8
+  -> HsBindgen.Runtime.LibC.CSize
+  -> IO BG.CBool
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_Safe_list_example@
 hs_bindgen_32187cc02676ee72 ::

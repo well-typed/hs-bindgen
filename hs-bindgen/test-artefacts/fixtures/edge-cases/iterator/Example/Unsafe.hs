@@ -80,7 +80,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeToggle@
 foreign import ccall unsafe "hs_bindgen_1b7a6a61a9c0da07" hs_bindgen_1b7a6a61a9c0da07_base ::
-     BG.Word8
+     BG.CBool
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeToggle@
@@ -106,7 +106,7 @@ makeToggle = hs_bindgen_1b7a6a61a9c0da07
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_toggleNext@
 foreign import ccall unsafe "hs_bindgen_4d2d650f2c8798d6" hs_bindgen_4d2d650f2c8798d6_base ::
      BG.Ptr BG.Void
-  -> IO BG.Word8
+  -> IO BG.CBool
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_toggleNext@
 hs_bindgen_4d2d650f2c8798d6 ::
@@ -155,8 +155,8 @@ releaseToggle = hs_bindgen_ddbe11e76502cbdc
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeCounter@
 foreign import ccall unsafe "hs_bindgen_2b04d558934551d2" hs_bindgen_2b04d558934551d2_base ::
-     BG.Int32
-  -> BG.Int32
+     BG.CInt
+  -> BG.CInt
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeCounter@
@@ -186,7 +186,7 @@ makeCounter = hs_bindgen_2b04d558934551d2
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_counterNext@
 foreign import ccall unsafe "hs_bindgen_5bba69c8bfbeedf0" hs_bindgen_5bba69c8bfbeedf0_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_counterNext@
 hs_bindgen_5bba69c8bfbeedf0 ::
@@ -235,7 +235,7 @@ releaseCounter = hs_bindgen_429845bb55a5a7b5
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeVarCounter@
 foreign import ccall unsafe "hs_bindgen_4421633e88fc96c4" hs_bindgen_4421633e88fc96c4_base ::
-     BG.Int32
+     BG.CInt
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeVarCounter@
@@ -261,8 +261,8 @@ makeVarCounter = hs_bindgen_4421633e88fc96c4
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_varCounterNext@
 foreign import ccall unsafe "hs_bindgen_31edd817cb78027d" hs_bindgen_31edd817cb78027d_base ::
      BG.Ptr BG.Void
-  -> BG.Int32
-  -> IO BG.Int32
+  -> BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_varCounterNext@
 hs_bindgen_31edd817cb78027d ::

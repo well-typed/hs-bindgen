@@ -589,17 +589,17 @@ newtype Foo_Aux
     deriving stock Generic
 -- __unique:__ @toFoo_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b5a7b5e83ffee6b4_base ::
-    Int32 -> IO Int32
- -> IO (FunPtr (Int32 -> IO Int32))
+    CInt -> IO CInt
+ -> IO (FunPtr (CInt -> IO CInt))
 -- __unique:__ @toFoo_Aux@
 hs_bindgen_b5a7b5e83ffee6b4 :: Foo_Aux -> IO (FunPtr Foo_Aux)
 -- __unique:__ @toFoo_Aux@
 hs_bindgen_b5a7b5e83ffee6b4 = \fun_0 -> fmap castFunPtr (hs_bindgen_b5a7b5e83ffee6b4_base (\x_1 -> fmap toFFIType (getField @"unwrap" fun_0 (fromFFIType x_1))))
 -- __unique:__ @fromFoo_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_223d08172bb37c01_base ::
-    FunPtr (Int32 -> IO Int32)
- -> Int32
- -> IO Int32
+    FunPtr (CInt -> IO CInt)
+ -> CInt
+ -> IO CInt
 -- __unique:__ @fromFoo_Aux@
 hs_bindgen_223d08172bb37c01 :: FunPtr Foo_Aux -> Foo_Aux
 -- __unique:__ @fromFoo_Aux@
@@ -4187,8 +4187,8 @@ foo_function_safe :: FunPtr (CInt -> IO CInt) -> IO ()
 foo_function_safe = hs_bindgen_3fd2a5c6e681c44b
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_1@
 foreign import ccall safe "hs_bindgen_7978c370c45d3898" hs_bindgen_7978c370c45d3898_base ::
-    Word32
- -> IO Word32
+    CUInt
+ -> IO CUInt
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_1@
 hs_bindgen_7978c370c45d3898 :: CUInt -> IO CUInt
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_1@
@@ -4209,8 +4209,8 @@ foo_33_1_safe :: CUInt -> IO CUInt
 foo_33_1_safe = hs_bindgen_7978c370c45d3898
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_2@
 foreign import ccall safe "hs_bindgen_44aef5175928343d" hs_bindgen_44aef5175928343d_base ::
-    Word32
- -> IO Word32
+    CUInt
+ -> IO CUInt
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_2@
 hs_bindgen_44aef5175928343d :: CUInt -> IO CUInt
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_2@
@@ -4231,8 +4231,8 @@ foo_33_2_safe :: CUInt -> IO CUInt
 foo_33_2_safe = hs_bindgen_44aef5175928343d
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_3@
 foreign import ccall safe "hs_bindgen_9f0b65c4b469b3d8" hs_bindgen_9f0b65c4b469b3d8_base ::
-    Int64
- -> IO Int64
+    CLLong
+ -> IO CLLong
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_3@
 hs_bindgen_9f0b65c4b469b3d8 :: CLLong -> IO CLLong
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_3@
@@ -4275,8 +4275,8 @@ foo_function_unsafe :: FunPtr (CInt -> IO CInt) -> IO ()
 foo_function_unsafe = hs_bindgen_bf542a744554a894
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_1@
 foreign import ccall unsafe "hs_bindgen_11ca53f1ea9c8230" hs_bindgen_11ca53f1ea9c8230_base ::
-    Word32
- -> IO Word32
+    CUInt
+ -> IO CUInt
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_1@
 hs_bindgen_11ca53f1ea9c8230 :: CUInt -> IO CUInt
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_1@
@@ -4297,8 +4297,8 @@ foo_33_1_unsafe :: CUInt -> IO CUInt
 foo_33_1_unsafe = hs_bindgen_11ca53f1ea9c8230
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_2@
 foreign import ccall unsafe "hs_bindgen_2685a75b0196568e" hs_bindgen_2685a75b0196568e_base ::
-    Word32
- -> IO Word32
+    CUInt
+ -> IO CUInt
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_2@
 hs_bindgen_2685a75b0196568e :: CUInt -> IO CUInt
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_2@
@@ -4319,8 +4319,8 @@ foo_33_2_unsafe :: CUInt -> IO CUInt
 foo_33_2_unsafe = hs_bindgen_2685a75b0196568e
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_3@
 foreign import ccall unsafe "hs_bindgen_bc94ff083e65f7e0" hs_bindgen_bc94ff083e65f7e0_base ::
-    Int64
- -> IO Int64
+    CLLong
+ -> IO CLLong
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_3@
 hs_bindgen_bc94ff083e65f7e0 :: CLLong -> IO CLLong
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_3@

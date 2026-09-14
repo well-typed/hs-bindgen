@@ -60,7 +60,7 @@ bindingSpec = BindingSpec.BindingSpec{
 
     boolTypes :: [(CTypeKV, HsTypeKV)]
     boolTypes = [
-        mkTypeN "macro bool" "CBool" intI ["stdbool.h"]
+        mkTypeN "macro bool" "CBool" intI (Just $ mkFFITypeLibC "CBool") ["stdbool.h"]
       ]
 
     -- Note that the \"least\" and \"fast\" types (such as @int_least32_t@)
@@ -69,21 +69,21 @@ bindingSpec = BindingSpec.BindingSpec{
     -- which @libc@ to use when running @hs-bindgen@.
     integralTypes :: [(CTypeKV, HsTypeKV)]
     integralTypes =
-      let aux (t, hsIdentifier) =
-            mkTypeN t hsIdentifier intI  ["inttypes.h", "stdint.h"]
+      let aux (t, hsIdentifier, ffiType) =
+            mkTypeN t hsIdentifier intI (Just ffiType) ["inttypes.h", "stdint.h"]
       in  map aux [
-              ("int8_t",         "Int8")
-            , ("int16_t",        "Int16")
-            , ("int32_t",        "Int32")
-            , ("int64_t",        "Int64")
-            , ("uint8_t",        "Word8")
-            , ("uint16_t",       "Word16")
-            , ("uint32_t",       "Word32")
-            , ("uint64_t",       "Word64")
-            , ("intmax_t",       "CIntMax")
-            , ("uintmax_t",      "CUIntMax")
-            , ("intptr_t",       "CIntPtr")
-            , ("uintptr_t",      "CUIntPtr")
+              ("int8_t",    "Int8"    , mkFFITypeLibC "Int8")
+            , ("int16_t",   "Int16"   , mkFFITypeLibC "Int16")
+            , ("int32_t",   "Int32"   , mkFFITypeLibC "Int32")
+            , ("int64_t",   "Int64"   , mkFFITypeLibC "Int64")
+            , ("uint8_t",   "Word8"   , mkFFITypeLibC "Word8")
+            , ("uint16_t",  "Word16"  , mkFFITypeLibC "Word16")
+            , ("uint32_t",  "Word32"  , mkFFITypeLibC "Word32")
+            , ("uint64_t",  "Word64"  , mkFFITypeLibC "Word64")
+            , ("intmax_t",  "CIntMax" , mkFFITypeLibC "CIntMax")
+            , ("uintmax_t", "CUIntMax", mkFFITypeLibC "CUIntMax")
+            , ("intptr_t",  "CIntPtr" , mkFFITypeLibC "CIntPtr")
+            , ("uintptr_t", "CUIntPtr", mkFFITypeLibC "CUIntPtr")
             ]
 
     floatingTypes :: [(CTypeKV, HsTypeKV)]
@@ -96,7 +96,7 @@ bindingSpec = BindingSpec.BindingSpec{
 
     stdTypes :: [(CTypeKV, HsTypeKV)]
     stdTypes = [
-        mkTypeN "size_t" "CSize" intI [
+        mkTypeN "size_t" "CSize" intI (Just $ mkFFITypeLibC "CSize") [
             "signal.h"
           , "stddef.h"
           , "stdio.h"
@@ -106,7 +106,7 @@ bindingSpec = BindingSpec.BindingSpec{
           , "uchar.h"
           , "wchar.h"
           ]
-      , mkTypeN "ptrdiff_t" "CPtrdiff" intI ["stddef.h"]
+      , mkTypeN "ptrdiff_t" "CPtrdiff" intI (Just $ mkFFITypeLibC "CPtrdiff") ["stddef.h"]
       ]
 
     nonLocalJumpTypes :: [(CTypeKV, HsTypeKV)]
@@ -116,24 +116,24 @@ bindingSpec = BindingSpec.BindingSpec{
 
     wcharTypes :: [(CTypeKV, HsTypeKV)]
     wcharTypes = [
-        mkTypeN "wchar_t" "CWchar" intI [
+        mkTypeN "wchar_t" "CWchar" intI (Just $ mkFFITypeLibC "CWchar") [
             "inttypes.h"
           , "stddef.h"
           , "stdlib.h"
           , "wchar.h"
           ]
-      , mkTypeN "wint_t"    "CWintT"         intI ["wchar.h", "wctype.h"]
-      , mkType  "mbstate_t" "CMbstateT" hsED []   ["uchar.h", "wchar.h"]
-      , mkTypeN "wctrans_t" "CWctransT"      nEqI ["wctype.h"]
-      , mkTypeN "wctype_t"  "CWctypeT"       nEqI ["wchar.h", "wctype.h"]
-      , mkTypeN "char16_t"  "CChar16T"       intI ["uchar.h"]
-      , mkTypeN "char32_t"  "CChar32T"       intI ["uchar.h"]
+      , mkTypeN "wint_t"    "CWintT"         intI (Just $ mkFFITypeLibC "CWintT")    ["wchar.h", "wctype.h"]
+      , mkType  "mbstate_t" "CMbstateT" hsED []                                         ["uchar.h", "wchar.h"]
+      , mkTypeN "wctrans_t" "CWctransT"      nEqI (Just $ mkFFITypeLibC "CWctransT") ["wctype.h"]
+      , mkTypeN "wctype_t"  "CWctypeT"       nEqI (Just $ mkFFITypeLibC "CWctypeT" ) ["wchar.h", "wctype.h"]
+      , mkTypeN "char16_t"  "CChar16T"       intI (Just $ mkFFITypeLibC "CChar16T" ) ["uchar.h"]
+      , mkTypeN "char32_t"  "CChar32T"       intI (Just $ mkFFITypeLibC "CChar32T" ) ["uchar.h"]
       ]
 
     timeTypes :: [(CTypeKV, HsTypeKV)]
     timeTypes = [
-        mkTypeN "time_t"  "CTime"  timeI ["signal.h", "time.h"]
-      , mkTypeN "clock_t" "CClock" timeI ["signal.h", "time.h"]
+        mkTypeN "time_t"  "CTime"  timeI (Just $ mkFFITypeLibC "CTime")  ["signal.h", "time.h"]
+      , mkTypeN "clock_t" "CClock" timeI (Just $ mkFFITypeLibC "CClock") ["signal.h", "time.h"]
       , let hsR = mkHsR "CTm" [
                 "tm_sec"
               , "tm_min"
@@ -156,7 +156,7 @@ bindingSpec = BindingSpec.BindingSpec{
 
     signalTypes :: [(CTypeKV, HsTypeKV)]
     signalTypes = [
-        mkTypeN "sig_atomic_t" "CSigAtomic" intI ["signal.h"]
+        mkTypeN "sig_atomic_t" "CSigAtomic" intI (Just $ mkFFITypeLibC "CSigAtomic") ["signal.h"]
       ]
 
     intI, nEqI, timeI, tmI :: [Inst.TypeClass]
@@ -295,11 +295,12 @@ mkHsR hsId fieldNames = BindingSpec.HsTypeRepRecord $
 -- name and no field names
 --
 -- The standard @newtype@ types do not have field names.
-mkHsN :: Hs.Name Hs.NsConstr -> BindingSpec.HsTypeRep
-mkHsN constructorName = BindingSpec.HsTypeRepNewtype $
+mkHsN :: Hs.Name Hs.NsConstr -> Maybe BindingSpec.HsFFIType -> BindingSpec.HsTypeRep
+mkHsN constructorName ffiType = BindingSpec.HsTypeRepNewtype $
     BindingSpec.HsNewtypeRep {
         constructor = Just constructorName
       , field       = Nothing
+      , ffiType     = ffiType
       }
 
 -- | Variant of 'mkType' that creates a 'BindingSpec.HsTypeRepNewtype' where the
@@ -308,12 +309,22 @@ mkTypeN ::
      Text
   -> Text
   -> [Inst.TypeClass]
+  -> Maybe BindingSpec.HsFFIType
   -> [FilePath]
   -> (CTypeKV, HsTypeKV)
-mkTypeN t hsId insts headers =
-    mkType t hsId (mkHsN dataConstrName) insts headers
+mkTypeN t hsId insts ffiType headers =
+    mkType t hsId (mkHsN dataConstrName ffiType) insts headers
   where
     -- Names in the stdlib binding spec are statically known-valid Haskell
     -- identifiers, so 'Hs.UnsafeName' is safe here.
     dataConstrName :: Hs.Name Hs.NsConstr
     dataConstrName = Hs.UnsafeName hsId
+
+mkFFIType :: Hs.ModuleName -> Text -> BindingSpec.HsFFIType
+mkFFIType moduleName typeName = BindingSpec.HsFFIType {
+      moduleName = moduleName
+    , typeName = Hs.UnsafeName typeName
+    }
+
+mkFFITypeLibC :: Text -> BindingSpec.HsFFIType
+mkFFITypeLibC = mkFFIType "HsBindgen.Runtime.LibC"

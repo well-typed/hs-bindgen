@@ -21,8 +21,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_declarationsdefinitions_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_07fd5b433f381094" hs_bindgen_07fd5b433f381094_base ::
-     Double
-  -> IO BG.Int32
+     BG.CDouble
+  -> IO BG.CInt
 
 -- __unique:__ @test_declarationsdefinitions_Example_Unsafe_foo@
 hs_bindgen_07fd5b433f381094 ::

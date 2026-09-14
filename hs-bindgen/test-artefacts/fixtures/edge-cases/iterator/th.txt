@@ -199,16 +199,16 @@ newtype Toggle_Aux
     deriving stock Generic
 -- __unique:__ @toToggle_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_eca2bca8e63194be_base ::
-    IO Word8
- -> IO (FunPtr (IO Word8))
+    IO CBool
+ -> IO (FunPtr (IO CBool))
 -- __unique:__ @toToggle_Aux@
 hs_bindgen_eca2bca8e63194be :: Toggle_Aux -> IO (FunPtr Toggle_Aux)
 -- __unique:__ @toToggle_Aux@
 hs_bindgen_eca2bca8e63194be = \fun_0 -> fmap castFunPtr (hs_bindgen_eca2bca8e63194be_base (fmap toFFIType (getField @"unwrapToggle_Aux" fun_0)))
 -- __unique:__ @fromToggle_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_703fc4bdc168721d_base ::
-    FunPtr (IO Word8)
- -> IO Word8
+    FunPtr (IO CBool)
+ -> IO CBool
 -- __unique:__ @fromToggle_Aux@
 hs_bindgen_703fc4bdc168721d :: FunPtr Toggle_Aux -> Toggle_Aux
 -- __unique:__ @fromToggle_Aux@
@@ -260,8 +260,8 @@ newtype Counter_Aux
     deriving stock Generic
 -- __unique:__ @toCounter_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_2202848aad97fe0a_base ::
-    IO Int32
- -> IO (FunPtr (IO Int32))
+    IO CInt
+ -> IO (FunPtr (IO CInt))
 -- __unique:__ @toCounter_Aux@
 hs_bindgen_2202848aad97fe0a :: Counter_Aux ->
                                IO (FunPtr Counter_Aux)
@@ -269,8 +269,8 @@ hs_bindgen_2202848aad97fe0a :: Counter_Aux ->
 hs_bindgen_2202848aad97fe0a = \fun_0 -> fmap castFunPtr (hs_bindgen_2202848aad97fe0a_base (fmap toFFIType (getField @"unwrapCounter_Aux" fun_0)))
 -- __unique:__ @fromCounter_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_73304cb84e9a2f8f_base ::
-    FunPtr (IO Int32)
- -> IO Int32
+    FunPtr (IO CInt)
+ -> IO CInt
 -- __unique:__ @fromCounter_Aux@
 hs_bindgen_73304cb84e9a2f8f :: FunPtr Counter_Aux -> Counter_Aux
 -- __unique:__ @fromCounter_Aux@
@@ -322,8 +322,8 @@ newtype VarCounter_Aux
     deriving stock Generic
 -- __unique:__ @toVarCounter_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_42a7337570f8b0d0_base ::
-    Int32 -> IO Int32
- -> IO (FunPtr (Int32 -> IO Int32))
+    CInt -> IO CInt
+ -> IO (FunPtr (CInt -> IO CInt))
 -- __unique:__ @toVarCounter_Aux@
 hs_bindgen_42a7337570f8b0d0 :: VarCounter_Aux ->
                                IO (FunPtr VarCounter_Aux)
@@ -331,9 +331,9 @@ hs_bindgen_42a7337570f8b0d0 :: VarCounter_Aux ->
 hs_bindgen_42a7337570f8b0d0 = \fun_0 -> fmap castFunPtr (hs_bindgen_42a7337570f8b0d0_base (\x_1 -> fmap toFFIType (getField @"unwrapVarCounter_Aux" fun_0 (fromFFIType x_1))))
 -- __unique:__ @fromVarCounter_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_43d902480175fccf_base ::
-    FunPtr (Int32 -> IO Int32)
- -> Int32
- -> IO Int32
+    FunPtr (CInt -> IO CInt)
+ -> CInt
+ -> IO CInt
 -- __unique:__ @fromVarCounter_Aux@
 hs_bindgen_43d902480175fccf :: FunPtr VarCounter_Aux ->
                                VarCounter_Aux
@@ -377,7 +377,7 @@ instance HasCField VarCounter "unwrapVarCounter"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeToggle@
 foreign import ccall safe "hs_bindgen_9d01035006b66206" hs_bindgen_9d01035006b66206_base ::
-    Word8
+    CBool
  -> IO (Ptr Void)
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeToggle@
 hs_bindgen_9d01035006b66206 :: CBool -> IO Toggle
@@ -400,7 +400,7 @@ makeToggle_safe = hs_bindgen_9d01035006b66206
 -- __unique:__ @test_edgecasesiterator_Example_Safe_toggleNext@
 foreign import ccall safe "hs_bindgen_ccd3ba727d0c0cf4" hs_bindgen_ccd3ba727d0c0cf4_base ::
     Ptr Void
- -> IO Word8
+ -> IO CBool
 -- __unique:__ @test_edgecasesiterator_Example_Safe_toggleNext@
 hs_bindgen_ccd3ba727d0c0cf4 :: Toggle -> IO CBool
 -- __unique:__ @test_edgecasesiterator_Example_Safe_toggleNext@
@@ -443,8 +443,8 @@ releaseToggle_safe :: Toggle -> IO ()
 releaseToggle_safe = hs_bindgen_602b40e971b06c72
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeCounter@
 foreign import ccall safe "hs_bindgen_234fa6f1fb089e1d" hs_bindgen_234fa6f1fb089e1d_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeCounter@
 hs_bindgen_234fa6f1fb089e1d :: CInt -> CInt -> IO Counter
@@ -467,7 +467,7 @@ makeCounter_safe = hs_bindgen_234fa6f1fb089e1d
 -- __unique:__ @test_edgecasesiterator_Example_Safe_counterNext@
 foreign import ccall safe "hs_bindgen_f0fca62d78f225c3" hs_bindgen_f0fca62d78f225c3_base ::
     Ptr Void
- -> IO Int32
+ -> IO CInt
 -- __unique:__ @test_edgecasesiterator_Example_Safe_counterNext@
 hs_bindgen_f0fca62d78f225c3 :: Counter -> IO CInt
 -- __unique:__ @test_edgecasesiterator_Example_Safe_counterNext@
@@ -510,7 +510,7 @@ releaseCounter_safe :: Counter -> IO ()
 releaseCounter_safe = hs_bindgen_e42dcbee8a114957
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeVarCounter@
 foreign import ccall safe "hs_bindgen_2bee4eb5b4d895c1" hs_bindgen_2bee4eb5b4d895c1_base ::
-    Int32
+    CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeVarCounter@
 hs_bindgen_2bee4eb5b4d895c1 :: CInt -> IO VarCounter
@@ -533,8 +533,8 @@ makeVarCounter_safe = hs_bindgen_2bee4eb5b4d895c1
 -- __unique:__ @test_edgecasesiterator_Example_Safe_varCounterNext@
 foreign import ccall safe "hs_bindgen_276b9cb5320fec37" hs_bindgen_276b9cb5320fec37_base ::
     Ptr Void
- -> Int32
- -> IO Int32
+ -> CInt
+ -> IO CInt
 -- __unique:__ @test_edgecasesiterator_Example_Safe_varCounterNext@
 hs_bindgen_276b9cb5320fec37 :: VarCounter -> CInt -> IO CInt
 -- __unique:__ @test_edgecasesiterator_Example_Safe_varCounterNext@
@@ -577,7 +577,7 @@ releaseVarCounter_safe :: VarCounter -> IO ()
 releaseVarCounter_safe = hs_bindgen_8423b076f7c9df21
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeToggle@
 foreign import ccall unsafe "hs_bindgen_1b7a6a61a9c0da07" hs_bindgen_1b7a6a61a9c0da07_base ::
-    Word8
+    CBool
  -> IO (Ptr Void)
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeToggle@
 hs_bindgen_1b7a6a61a9c0da07 :: CBool -> IO Toggle
@@ -600,7 +600,7 @@ makeToggle_unsafe = hs_bindgen_1b7a6a61a9c0da07
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_toggleNext@
 foreign import ccall unsafe "hs_bindgen_4d2d650f2c8798d6" hs_bindgen_4d2d650f2c8798d6_base ::
     Ptr Void
- -> IO Word8
+ -> IO CBool
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_toggleNext@
 hs_bindgen_4d2d650f2c8798d6 :: Toggle -> IO CBool
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_toggleNext@
@@ -643,8 +643,8 @@ releaseToggle_unsafe :: Toggle -> IO ()
 releaseToggle_unsafe = hs_bindgen_ddbe11e76502cbdc
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeCounter@
 foreign import ccall unsafe "hs_bindgen_2b04d558934551d2" hs_bindgen_2b04d558934551d2_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeCounter@
 hs_bindgen_2b04d558934551d2 :: CInt -> CInt -> IO Counter
@@ -667,7 +667,7 @@ makeCounter_unsafe = hs_bindgen_2b04d558934551d2
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_counterNext@
 foreign import ccall unsafe "hs_bindgen_5bba69c8bfbeedf0" hs_bindgen_5bba69c8bfbeedf0_base ::
     Ptr Void
- -> IO Int32
+ -> IO CInt
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_counterNext@
 hs_bindgen_5bba69c8bfbeedf0 :: Counter -> IO CInt
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_counterNext@
@@ -710,7 +710,7 @@ releaseCounter_unsafe :: Counter -> IO ()
 releaseCounter_unsafe = hs_bindgen_429845bb55a5a7b5
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeVarCounter@
 foreign import ccall unsafe "hs_bindgen_4421633e88fc96c4" hs_bindgen_4421633e88fc96c4_base ::
-    Int32
+    CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeVarCounter@
 hs_bindgen_4421633e88fc96c4 :: CInt -> IO VarCounter
@@ -733,8 +733,8 @@ makeVarCounter_unsafe = hs_bindgen_4421633e88fc96c4
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_varCounterNext@
 foreign import ccall unsafe "hs_bindgen_31edd817cb78027d" hs_bindgen_31edd817cb78027d_base ::
     Ptr Void
- -> Int32
- -> IO Int32
+ -> CInt
+ -> IO CInt
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_varCounterNext@
 hs_bindgen_31edd817cb78027d :: VarCounter -> CInt -> IO CInt
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_varCounterNext@

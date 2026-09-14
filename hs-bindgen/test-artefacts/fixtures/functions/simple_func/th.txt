@@ -99,8 +99,8 @@
 -- }
 -- __unique:__ @test_functionssimple_func_Example_Safe_erf@
 foreign import ccall safe "hs_bindgen_1c811bfb80de8f77" hs_bindgen_1c811bfb80de8f77_base ::
-    Double
- -> Double
+    CDouble
+ -> CDouble
 -- __unique:__ @test_functionssimple_func_Example_Safe_erf@
 hs_bindgen_1c811bfb80de8f77 :: CDouble -> CDouble
 -- __unique:__ @test_functionssimple_func_Example_Safe_erf@
@@ -129,10 +129,10 @@ erf_safe :: CDouble -> CDouble
 erf_safe = hs_bindgen_1c811bfb80de8f77
 -- __unique:__ @test_functionssimple_func_Example_Safe_bad_fma@
 foreign import ccall safe "hs_bindgen_180022d3518c53bd" hs_bindgen_180022d3518c53bd_base ::
-    Double
- -> Double
- -> Double
- -> IO Double
+    CDouble
+ -> CDouble
+ -> CDouble
+ -> IO CDouble
 -- __unique:__ @test_functionssimple_func_Example_Safe_bad_fma@
 hs_bindgen_180022d3518c53bd :: CDouble ->
                                CDouble -> CDouble -> IO CDouble
@@ -196,9 +196,9 @@ no_args_no_void_safe :: IO ()
 no_args_no_void_safe = hs_bindgen_d8523e2ccea5c7ba
 -- __unique:__ @test_functionssimple_func_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_48cbd3cd1c6e874f" hs_bindgen_48cbd3cd1c6e874f_base ::
-    Int8
- -> Double
- -> IO Int32
+    CChar
+ -> CDouble
+ -> IO CInt
 -- __unique:__ @test_functionssimple_func_Example_Safe_fun@
 hs_bindgen_48cbd3cd1c6e874f :: CChar -> CDouble -> IO CInt
 -- __unique:__ @test_functionssimple_func_Example_Safe_fun@
@@ -219,8 +219,8 @@ fun_safe :: CChar -> CDouble -> IO CInt
 fun_safe = hs_bindgen_48cbd3cd1c6e874f
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_erf@
 foreign import ccall unsafe "hs_bindgen_da5d889180d72efd" hs_bindgen_da5d889180d72efd_base ::
-    Double
- -> Double
+    CDouble
+ -> CDouble
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_erf@
 hs_bindgen_da5d889180d72efd :: CDouble -> CDouble
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_erf@
@@ -249,10 +249,10 @@ erf_unsafe :: CDouble -> CDouble
 erf_unsafe = hs_bindgen_da5d889180d72efd
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_bad_fma@
 foreign import ccall unsafe "hs_bindgen_d02f37accebc0cb3" hs_bindgen_d02f37accebc0cb3_base ::
-    Double
- -> Double
- -> Double
- -> IO Double
+    CDouble
+ -> CDouble
+ -> CDouble
+ -> IO CDouble
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_bad_fma@
 hs_bindgen_d02f37accebc0cb3 :: CDouble ->
                                CDouble -> CDouble -> IO CDouble
@@ -316,9 +316,9 @@ no_args_no_void_unsafe :: IO ()
 no_args_no_void_unsafe = hs_bindgen_a3d1783059ec7820
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_fun@
 foreign import ccall unsafe "hs_bindgen_91392ef466aa34e7" hs_bindgen_91392ef466aa34e7_base ::
-    Int8
- -> Double
- -> IO Int32
+    CChar
+ -> CDouble
+ -> IO CInt
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_fun@
 hs_bindgen_91392ef466aa34e7 :: CChar -> CDouble -> IO CInt
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_fun@

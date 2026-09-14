@@ -9,6 +9,8 @@
 module HsBindgen.Runtime.Support.HasFFIType (
     -- * Class
     HasFFIType (FFIType, toFFIType, fromFFIType)
+    -- * Deriving-via
+  , ViaIdentity (..)
   ) where
 
 import Prelude as Types (Bool, Char, Double, Float, Int, Word)
@@ -90,11 +92,11 @@ import HsBindgen.Runtime.PtrConst as Types (PtrConst, unsafeFromPtr,
 --
 class HasFFIType a where
   type FFIType a :: Type
-  -- | Convert a foreign type to its FFI type.
+  -- | Convert a type to its FFI type
   --
   -- See the 'HasFFIType' class for more information
   toFFIType :: a -> FFIType a
-  -- | Convert an FFI type a foreign type.
+  -- | Inverse of 'toFFIType'
   --
   -- See the 'HasFFIType' class for more information
   fromFFIType :: FFIType a -> a
@@ -119,8 +121,6 @@ instance HasFFIType (ViaIdentity a) where
 
 -- === Prelude ===
 
--- == Basic foreign types ==
-
 deriving via ViaIdentity Char   instance HasFFIType Char
 deriving via ViaIdentity Int    instance HasFFIType Int
 deriving via ViaIdentity Double instance HasFFIType Double
@@ -129,16 +129,12 @@ deriving via ViaIdentity Bool   instance HasFFIType Bool
 
 -- === Data.Int ===
 
--- == Basic foreign types ==
-
 deriving via ViaIdentity Int8  instance HasFFIType Int8
 deriving via ViaIdentity Int16 instance HasFFIType Int16
 deriving via ViaIdentity Int32 instance HasFFIType Int32
 deriving via ViaIdentity Int64 instance HasFFIType Int64
 
 -- === Data.Word ===
-
--- == Basic foreign types ==
 
 deriving via ViaIdentity Word   instance HasFFIType Word
 deriving via ViaIdentity Word8  instance HasFFIType Word8
@@ -147,8 +143,6 @@ deriving via ViaIdentity Word32 instance HasFFIType Word32
 deriving via ViaIdentity Word64 instance HasFFIType Word64
 
 -- === Foreign.Ptr ===
-
--- == Basic foreign types ==
 
 instance HasFFIType (Ptr a) where
   type FFIType (Ptr a) = Ptr Void
@@ -164,14 +158,10 @@ instance HasFFIType (FunPtr a) where
   {-# INLINE fromFFIType #-}
   fromFFIType = castFunPtr
 
--- == Newtypes around basic foreign types ==
-
-deriving newtype instance HasFFIType IntPtr
-deriving newtype instance HasFFIType WordPtr
+deriving via ViaIdentity IntPtr  instance HasFFIType IntPtr
+deriving via ViaIdentity WordPtr instance HasFFIType WordPtr
 
 -- === Foreign.StablePtr ===
-
--- == Basic foreign types ==
 
 instance HasFFIType (StablePtr a) where
   type FFIType (StablePtr a) = StablePtr Void
@@ -186,8 +176,6 @@ castStablePtr = castPtrToStablePtr . castStablePtrToPtr
 
 -- === Foreign.C.ConstPtr ===
 
--- == Newtypes around basic foreign types ==
-
 instance HasFFIType (PtrConst a) where
   type FFIType (PtrConst a) = Ptr Void
   {-# INLINE toFFIType #-}
@@ -197,48 +185,39 @@ instance HasFFIType (PtrConst a) where
 
 -- === Foreign.C.Error ===
 
--- == Newtypes around basic foreign types ==
-
-deriving newtype instance HasFFIType Errno
+deriving via ViaIdentity Errno instance HasFFIType Errno
 
 -- === Foreign.C.Types ===
 
--- == Newtypes around basic foreign types ==
-
-deriving newtype instance HasFFIType CChar
-deriving newtype instance HasFFIType CSChar
-deriving newtype instance HasFFIType CUChar
-deriving newtype instance HasFFIType CShort
-deriving newtype instance HasFFIType CUShort
-deriving newtype instance HasFFIType CInt
-deriving newtype instance HasFFIType CUInt
-deriving newtype instance HasFFIType CLong
-deriving newtype instance HasFFIType CULong
-deriving newtype instance HasFFIType CPtrdiff
-deriving newtype instance HasFFIType CSize
-deriving newtype instance HasFFIType CWchar
-deriving newtype instance HasFFIType CSigAtomic
-deriving newtype instance HasFFIType CLLong
-deriving newtype instance HasFFIType CULLong
-deriving newtype instance HasFFIType CBool
-deriving newtype instance HasFFIType CIntPtr
-deriving newtype instance HasFFIType CUIntPtr
-deriving newtype instance HasFFIType CIntMax
-deriving newtype instance HasFFIType CUIntMax
+deriving via ViaIdentity CChar      instance HasFFIType CChar
+deriving via ViaIdentity CSChar     instance HasFFIType CSChar
+deriving via ViaIdentity CUChar     instance HasFFIType CUChar
+deriving via ViaIdentity CShort     instance HasFFIType CShort
+deriving via ViaIdentity CUShort    instance HasFFIType CUShort
+deriving via ViaIdentity CInt       instance HasFFIType CInt
+deriving via ViaIdentity CUInt      instance HasFFIType CUInt
+deriving via ViaIdentity CLong      instance HasFFIType CLong
+deriving via ViaIdentity CULong     instance HasFFIType CULong
+deriving via ViaIdentity CPtrdiff   instance HasFFIType CPtrdiff
+deriving via ViaIdentity CSize      instance HasFFIType CSize
+deriving via ViaIdentity CWchar     instance HasFFIType CWchar
+deriving via ViaIdentity CSigAtomic instance HasFFIType CSigAtomic
+deriving via ViaIdentity CLLong     instance HasFFIType CLLong
+deriving via ViaIdentity CULLong    instance HasFFIType CULLong
+deriving via ViaIdentity CBool      instance HasFFIType CBool
+deriving via ViaIdentity CIntPtr    instance HasFFIType CIntPtr
+deriving via ViaIdentity CUIntPtr   instance HasFFIType CUIntPtr
+deriving via ViaIdentity CIntMax    instance HasFFIType CIntMax
+deriving via ViaIdentity CUIntMax   instance HasFFIType CUIntMax
 
 -- === Foreign.C.Types : Numeric types ===
 
--- == Newtypes around basic foreign types ==
-
-deriving newtype instance HasFFIType CClock
-deriving newtype instance HasFFIType CTime
-deriving newtype instance HasFFIType CUSeconds
-deriving newtype instance HasFFIType CSUSeconds
+deriving via ViaIdentity CClock     instance HasFFIType CClock
+deriving via ViaIdentity CTime      instance HasFFIType CTime
+deriving via ViaIdentity CUSeconds  instance HasFFIType CUSeconds
+deriving via ViaIdentity CSUSeconds instance HasFFIType CSUSeconds
 
 -- === Foreign.C.Types : Floating types ===
 
--- == Newtypes around basic foreign types ==
-
-deriving newtype instance HasFFIType CFloat
-deriving newtype instance HasFFIType CDouble
-
+deriving via ViaIdentity CFloat  instance HasFFIType CFloat
+deriving via ViaIdentity CDouble instance HasFFIType CDouble

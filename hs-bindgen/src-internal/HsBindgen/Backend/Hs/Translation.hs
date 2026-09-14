@@ -315,7 +315,7 @@ enumDecs info enum spec = do
 
     newtypeDec :: HsM.Env -> HsM Hs.Newtype
     newtypeDec env = do
-        Hs.newtypeDec newtypeName newtypeConstr newtypeField
+        Hs.newtypeDec newtypeName newtypeConstr ffiType newtypeField
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
@@ -323,6 +323,9 @@ enumDecs info enum spec = do
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = enum.names.dataConstr
+
+        ffiType :: Maybe BindingSpec.HsFFIType
+        ffiType = spec.hsSpec >>= BindingSpec.hsSpecFFIType
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
@@ -515,7 +518,7 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
   where
     newtypeDec :: HsM.Env -> HsM Hs.Newtype
     newtypeDec env = do
-        Hs.newtypeDec newtypeName newtypeConstr newtypeField
+        Hs.newtypeDec newtypeName newtypeConstr ffiType newtypeField
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
@@ -523,6 +526,9 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = typedef.names.orig.dataConstr
+
+        ffiType :: Maybe BindingSpec.HsFFIType
+        ffiType = spec.hsSpec >>= BindingSpec.hsSpecFFIType
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
@@ -737,7 +743,7 @@ macroDecsTypedef macroLang info macroType spec = do
   where
     newtypeDec :: HsM.Env -> HsM Hs.Newtype
     newtypeDec env = do
-        Hs.newtypeDec newtypeName newtypeConstr newtypeField
+        Hs.newtypeDec newtypeName newtypeConstr ffiType newtypeField
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
@@ -745,6 +751,9 @@ macroDecsTypedef macroLang info macroType spec = do
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = macroType.names.dataConstr
+
+        ffiType :: Maybe BindingSpec.HsFFIType
+        ffiType = spec.hsSpec >>= BindingSpec.hsSpecFFIType
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field{

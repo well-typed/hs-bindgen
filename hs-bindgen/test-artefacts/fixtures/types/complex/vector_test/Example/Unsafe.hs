@@ -23,8 +23,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_typescomplexvector_test_Example_Unsafe_new_vector@
 foreign import ccall unsafe "hs_bindgen_1af353788955c7a2" hs_bindgen_1af353788955c7a2_base ::
-     Double
-  -> Double
+     BG.CDouble
+  -> BG.CDouble
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_typescomplexvector_test_Example_Unsafe_new_vector@

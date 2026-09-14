@@ -49,7 +49,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_2794b70af4ccd43b" hs_bindgen_2794b70af4ccd43b_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_foo@
@@ -73,7 +73,7 @@ foo = hs_bindgen_2794b70af4ccd43b
 
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_01135a4a8f379826" hs_bindgen_01135a4a8f379826_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_bar@
@@ -97,7 +97,7 @@ bar = hs_bindgen_01135a4a8f379826
 
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_dash@
 foreign import ccall unsafe "hs_bindgen_0d59701db0fc10c2" hs_bindgen_0d59701db0fc10c2_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_dash@
@@ -121,7 +121,7 @@ dash = hs_bindgen_0d59701db0fc10c2
 
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_quux@
 foreign import ccall unsafe "hs_bindgen_fc3ab959400ab9c8" hs_bindgen_fc3ab959400ab9c8_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_quux@
@@ -145,7 +145,7 @@ quux = hs_bindgen_fc3ab959400ab9c8
 
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_heq@
 foreign import ccall unsafe "hs_bindgen_fa747bfe2b529e61" hs_bindgen_fa747bfe2b529e61_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_heq@
