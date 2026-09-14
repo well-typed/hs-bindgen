@@ -9,8 +9,6 @@
 module HsBindgen.Runtime.Support.HasFFIType (
     -- * Class
     HasFFIType (FFIType, toFFIType, fromFFIType)
-  , castFunPtrToFFIType
-  , castFunPtrFromFFIType
   ) where
 
 import Prelude as Types (Bool, Char, Double, Float, Int, Word)
@@ -100,30 +98,6 @@ class HasFFIType a where
   --
   -- See the 'HasFFIType' class for more information
   fromFFIType :: FFIType a -> a
-
--- | Cast the foreign type inside the function pointer to its FFI type.
-castFunPtrToFFIType ::
-     forall a. HasFFIType a
-  => FunPtr a
-  -> FunPtr (FFIType a)
-castFunPtrToFFIType = castFunPtr
-  where
-    -- NOTE: the constraint is unused, but we want to restrict what types can be
-    -- cast, so we work around "unused constraint" warnings with this local
-    -- definition.
-    _unused = toFFIType @a
-
--- | Cast the FFI type inside a function pointer to a foreign type.
-castFunPtrFromFFIType ::
-     forall a. HasFFIType a
-  => FunPtr (FFIType a)
-  -> FunPtr a
-castFunPtrFromFFIType = castFunPtr
-  where
-    -- NOTE: the constraint is unused, but we want to restrict what types can be
-    -- cast, so we work around "unused constraint" warnings with this local
-    -- definition.
-    _unused = fromFFIType @a
 
 {-------------------------------------------------------------------------------
   Deriving-via

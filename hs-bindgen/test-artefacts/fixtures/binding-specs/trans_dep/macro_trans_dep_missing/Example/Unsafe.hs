@@ -30,7 +30,8 @@ hs_bindgen_83453c8683cd3ff7 ::
      M.B
   -> IO ()
 hs_bindgen_83453c8683cd3ff7 =
-  BG.fromFFIType hs_bindgen_83453c8683cd3ff7_base
+  \x0 ->
+    hs_bindgen_83453c8683cd3ff7_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @foo@
 

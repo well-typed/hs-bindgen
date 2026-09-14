@@ -115,7 +115,7 @@ foreign import ccall unsafe "hs_bindgen_6f47e5cbb92690b9" hs_bindgen_6f47e5cbb92
 -- __unique:__ @test_declarationsredeclaration_Example_get_x@
 hs_bindgen_6f47e5cbb92690b9 :: IO (Ptr CInt)
 -- __unique:__ @test_declarationsredeclaration_Example_get_x@
-hs_bindgen_6f47e5cbb92690b9 = fromFFIType hs_bindgen_6f47e5cbb92690b9_base
+hs_bindgen_6f47e5cbb92690b9 = fmap fromFFIType hs_bindgen_6f47e5cbb92690b9_base
 {-# NOINLINE x #-}
 {-| __C declaration:__ @x@
 
@@ -137,7 +137,7 @@ foreign import ccall unsafe "hs_bindgen_8afd78f6e3766c89" hs_bindgen_8afd78f6e37
 -- __unique:__ @test_declarationsredeclaration_Example_get_n@
 hs_bindgen_8afd78f6e3766c89 :: IO (Ptr CInt)
 -- __unique:__ @test_declarationsredeclaration_Example_get_n@
-hs_bindgen_8afd78f6e3766c89 = fromFFIType hs_bindgen_8afd78f6e3766c89_base
+hs_bindgen_8afd78f6e3766c89 = fmap fromFFIType hs_bindgen_8afd78f6e3766c89_base
 {-# NOINLINE n #-}
 {-| __C declaration:__ @n@
 

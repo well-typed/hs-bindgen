@@ -219,7 +219,10 @@ hs_bindgen_e6085a910ba41ecb ::
   -> BG.Ptr HsBindgen.Runtime.LibC.CSize
   -> IO BG.CInt
 hs_bindgen_e6085a910ba41ecb =
-  BG.fromFFIType hs_bindgen_e6085a910ba41ecb_base
+  \x0 ->
+    \x1 ->
+      \x2 ->
+        fmap BG.fromFFIType (hs_bindgen_e6085a910ba41ecb_base (BG.toFFIType x0) (BG.toFFIType x1) (BG.toFFIType x2))
 
 {-| Function with detailed parameter documentation.
 
@@ -274,7 +277,8 @@ hs_bindgen_c27e893aea0b0a77 ::
      PtrConst.PtrConst BG.CChar
   -> IO BG.CBool
 hs_bindgen_c27e893aea0b0a77 =
-  BG.fromFFIType hs_bindgen_c27e893aea0b0a77_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_c27e893aea0b0a77_base (BG.toFFIType x0))
 
 {-| Function with inline commands and formatting.
 
@@ -313,7 +317,9 @@ hs_bindgen_bc1b0e25a72f4ec0 ::
   -> BG.CInt
   -> IO BG.CInt
 hs_bindgen_bc1b0e25a72f4ec0 =
-  BG.fromFFIType hs_bindgen_bc1b0e25a72f4ec0_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_bc1b0e25a72f4ec0_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| Function with verbatim code blocks.
 
@@ -364,7 +370,8 @@ hs_bindgen_09abc3cb74562964 ::
      BG.CInt
   -> IO BG.CBool
 hs_bindgen_09abc3cb74562964 =
-  BG.fromFFIType hs_bindgen_09abc3cb74562964_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_09abc3cb74562964_base (BG.toFFIType x0))
 
 {-| Function with HTML formatting.
 
@@ -415,7 +422,9 @@ hs_bindgen_47cba1a95d265f84 ::
   -> HsBindgen.Runtime.LibC.CSize
   -> IO BG.CBool
 hs_bindgen_47cba1a95d265f84 =
-  BG.fromFFIType hs_bindgen_47cba1a95d265f84_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_47cba1a95d265f84_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| Function with lists and special formatting.
 
@@ -485,7 +494,8 @@ hs_bindgen_e065fc013e4eccd6 ::
      BG.Ptr BG.Void
   -> IO (BG.Ptr BG.Void)
 hs_bindgen_e065fc013e4eccd6 =
-  BG.fromFFIType hs_bindgen_e065fc013e4eccd6_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_e065fc013e4eccd6_base (BG.toFFIType x0))
 
 {-| Function with warnings and notes.
 
@@ -526,7 +536,8 @@ hs_bindgen_bc4f7e24b2ad4ace ::
      PtrConst.PtrConst BG.CChar
   -> IO BG.CInt
 hs_bindgen_bc4f7e24b2ad4ace =
-  BG.fromFFIType hs_bindgen_bc4f7e24b2ad4ace_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_bc4f7e24b2ad4ace_base (BG.toFFIType x0))
 
 {-| Function with return value details.
 
@@ -567,7 +578,8 @@ hs_bindgen_8deec146389ae8b3 ::
      BG.CInt
   -> IO BG.CInt
 hs_bindgen_8deec146389ae8b3 =
-  BG.fromFFIType hs_bindgen_8deec146389ae8b3_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_8deec146389ae8b3_base (BG.toFFIType x0))
 
 {-| Function with deprecated annotation.
 
@@ -604,7 +616,8 @@ hs_bindgen_da2dcc1473935665 ::
      BG.CInt
   -> IO BG.CInt
 hs_bindgen_da2dcc1473935665 =
-  BG.fromFFIType hs_bindgen_da2dcc1473935665_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_da2dcc1473935665_base (BG.toFFIType x0))
 
 {-| Function with version information.
 
@@ -645,7 +658,9 @@ hs_bindgen_97c1191917e6eece ::
   -> HsBindgen.Runtime.LibC.CSize
   -> IO BG.CInt
 hs_bindgen_97c1191917e6eece =
-  BG.fromFFIType hs_bindgen_97c1191917e6eece_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_97c1191917e6eece_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| Static array parameter.
 
@@ -693,7 +708,10 @@ hs_bindgen_58253bb560dc3eb3 ::
   -> HsBindgen.Runtime.LibC.CSize
   -> IO (BG.Ptr BG.Void)
 hs_bindgen_58253bb560dc3eb3 =
-  BG.fromFFIType hs_bindgen_58253bb560dc3eb3_base
+  \x0 ->
+    \x1 ->
+      \x2 ->
+        fmap BG.fromFFIType (hs_bindgen_58253bb560dc3eb3_base (BG.toFFIType x0) (BG.toFFIType x1) (BG.toFFIType x2))
 
 {-| Function with restrict pointers.
 
@@ -746,7 +764,8 @@ hs_bindgen_44dd19b16ee38e5b ::
      BG.CInt
   -> IO BG.CInt
 hs_bindgen_44dd19b16ee38e5b =
-  BG.fromFFIType hs_bindgen_44dd19b16ee38e5b_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_44dd19b16ee38e5b_base (BG.toFFIType x0))
 
 {-| Inline function.
 
@@ -785,7 +804,10 @@ hs_bindgen_a7d2e6fe1e9b3164 ::
   -> HsBindgen.Runtime.LibC.CSize
   -> IO BG.CInt
 hs_bindgen_a7d2e6fe1e9b3164 =
-  BG.fromFFIType hs_bindgen_a7d2e6fe1e9b3164_base
+  \x0 ->
+    \x1 ->
+      \x2 ->
+        fmap BG.fromFFIType (hs_bindgen_a7d2e6fe1e9b3164_base (BG.toFFIType x0) (BG.toFFIType x1) (BG.toFFIType x2))
 
 {-| Read a chunk of bytes into the provided buffer.
 
@@ -844,7 +866,10 @@ hs_bindgen_59f0c5ef262c5f3b ::
   -> HsBindgen.Runtime.LibC.CSize
   -> IO BG.CInt
 hs_bindgen_59f0c5ef262c5f3b =
-  BG.fromFFIType hs_bindgen_59f0c5ef262c5f3b_base
+  \x0 ->
+    \x1 ->
+      \x2 ->
+        fmap BG.fromFFIType (hs_bindgen_59f0c5ef262c5f3b_base (BG.toFFIType x0) (BG.toFFIType x1) (BG.toFFIType x2))
 
 {-| Write a chunk of bytes from the provided buffer.
 
@@ -901,7 +926,10 @@ hs_bindgen_fd6fce7c8d8b2f79 ::
   -> HsBindgen.Runtime.LibC.CSize
   -> IO Status_code_t
 hs_bindgen_fd6fce7c8d8b2f79 =
-  BG.fromFFIType hs_bindgen_fd6fce7c8d8b2f79_base
+  \x0 ->
+    \x1 ->
+      \x2 ->
+        fmap BG.fromFFIType (hs_bindgen_fd6fce7c8d8b2f79_base (BG.toFFIType x0) (BG.toFFIType x1) (BG.toFFIType x2))
 
 {-| Function with complex documentation.
 
@@ -1007,7 +1035,8 @@ hs_bindgen_dd36c8b317ccfcc4 ::
      BG.Ptr BG.CChar
   -> IO BG.CInt
 hs_bindgen_dd36c8b317ccfcc4 =
-  BG.fromFFIType hs_bindgen_dd36c8b317ccfcc4_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_dd36c8b317ccfcc4_base (BG.toFFIType x0))
 
 {-|
 
@@ -1035,7 +1064,8 @@ hs_bindgen_6875e30a7fe8d30a ::
      BG.CInt
   -> BG.CInt
 hs_bindgen_6875e30a7fe8d30a =
-  BG.fromFFIType hs_bindgen_6875e30a7fe8d30a_base
+  \x0 ->
+    BG.fromFFIType (hs_bindgen_6875e30a7fe8d30a_base (BG.toFFIType x0))
 
 {-|
 
@@ -1063,7 +1093,8 @@ hs_bindgen_3094fd32a3eedd49 ::
      BG.CInt
   -> IO BG.CInt
 hs_bindgen_3094fd32a3eedd49 =
-  BG.fromFFIType hs_bindgen_3094fd32a3eedd49_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_3094fd32a3eedd49_base (BG.toFFIType x0))
 
 {-| Auto-brief function without explicit @brief tag.
 
@@ -1102,7 +1133,9 @@ hs_bindgen_73270d34a2bf31b5 ::
   -> HsBindgen.Runtime.LibC.CSize
   -> IO ()
 hs_bindgen_73270d34a2bf31b5 =
-  BG.fromFFIType hs_bindgen_73270d34a2bf31b5_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_73270d34a2bf31b5_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| Multi-paragraph details.
 
@@ -1150,7 +1183,8 @@ hs_bindgen_836de64a94d7bf03 ::
      BG.CInt
   -> IO (BG.Ptr BG.CInt)
 hs_bindgen_836de64a94d7bf03 =
-  BG.fromFFIType hs_bindgen_836de64a94d7bf03_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_836de64a94d7bf03_base (BG.toFFIType x0))
 
 {-| Function with @todo and @remark.
 
@@ -1193,7 +1227,8 @@ hs_bindgen_aa0467b9d3b1a48d ::
      BG.CInt
   -> IO BG.CInt
 hs_bindgen_aa0467b9d3b1a48d =
-  BG.fromFFIType hs_bindgen_aa0467b9d3b1a48d_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_aa0467b9d3b1a48d_base (BG.toFFIType x0))
 
 {-| HTML entities: & means AND, <tag> is a tag.
 
@@ -1230,7 +1265,8 @@ hs_bindgen_b654d8047edfed77 ::
      BG.CInt
   -> IO ()
 hs_bindgen_b654d8047edfed77 =
-  BG.fromFFIType hs_bindgen_b654d8047edfed77_base
+  \x0 ->
+    hs_bindgen_b654d8047edfed77_base (BG.toFFIType x0)
 
 {-| Nested inline: __bold__ , @code@ , __@bold_code@ ,__ /__emph_bold__ ./
 
@@ -1263,7 +1299,8 @@ hs_bindgen_aeb274aded3470e5 ::
      BG.CInt
   -> IO BG.CInt
 hs_bindgen_aeb274aded3470e5 =
-  BG.fromFFIType hs_bindgen_aeb274aded3470e5_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_aeb274aded3470e5_base (BG.toFFIType x0))
 
 {-| Language-tagged code block.
 
@@ -1307,7 +1344,9 @@ hs_bindgen_907720dffab9442a ::
   -> BG.Ptr BG.CChar
   -> IO BG.CInt
 hs_bindgen_907720dffab9442a =
-  BG.fromFFIType hs_bindgen_907720dffab9442a_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_907720dffab9442a_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| Function documented with backslash syntax.
 

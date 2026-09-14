@@ -30,7 +30,7 @@ foreign import ccall unsafe "hs_bindgen_cb36cf0957839e33" hs_bindgen_cb36cf09578
 -- __unique:__ @test_typescomplexvector_test_Example_get_new_vector@
 hs_bindgen_cb36cf0957839e33 :: IO (BG.FunPtr (BG.CDouble -> BG.CDouble -> IO (BG.Ptr Vector)))
 hs_bindgen_cb36cf0957839e33 =
-  BG.fromFFIType hs_bindgen_cb36cf0957839e33_base
+  fmap BG.fromFFIType hs_bindgen_cb36cf0957839e33_base
 
 {-# NOINLINE new_vector #-}
 {-| __C declaration:__ @new_vector@

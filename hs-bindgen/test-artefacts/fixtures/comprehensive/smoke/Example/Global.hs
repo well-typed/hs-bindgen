@@ -27,7 +27,7 @@ foreign import ccall unsafe "hs_bindgen_dbeef9adb3c4fba3" hs_bindgen_dbeef9adb3c
 -- __unique:__ @test_comprehensivesmoke_Example_get_global@
 hs_bindgen_dbeef9adb3c4fba3 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_dbeef9adb3c4fba3 =
-  BG.fromFFIType hs_bindgen_dbeef9adb3c4fba3_base
+  fmap BG.fromFFIType hs_bindgen_dbeef9adb3c4fba3_base
 
 {-# NOINLINE global #-}
 {-| __C declaration:__ @global@

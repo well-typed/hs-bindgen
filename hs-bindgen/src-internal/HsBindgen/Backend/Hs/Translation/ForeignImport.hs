@@ -6,10 +6,11 @@ module HsBindgen.Backend.Hs.Translation.ForeignImport (
   , foreignImportDec
   , foreignImportWrapperDec
   , foreignImportDynamicDec
+  , ImportFor (..)
   ) where
 
 import Data.Function
-import DeBruijn (Idx (IZ))
+import DeBruijn (Idx (IZ), Size (SS, SZ))
 import Optics.Core
 import Text.Printf (printf)
 
@@ -20,11 +21,15 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.SHs.AST.Expr qualified as SHs
+import HsBindgen.Backend.SHs.Translation qualified as SHs
+import HsBindgen.Backend.SHs.Translation.MapFunction
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol (..))
 import HsBindgen.Errors (panicPure)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 
 -- | Info about a function name
@@ -89,10 +94,16 @@ foreignImportDec sizeofs name params res origName callConv origin safety =
         { name       = fName
         , parameters = fParameters
         , result     = res.hsType
-        , body       = eBindgenGlobal HasFFIType_fromFFIType `EApp` EFree fiName
+        , body       = mapFromFFI importFor SZ (SHs.EFree fiName)
         , origin     = origin
         , pragmas    = []
         , comment    = fComment
+        }
+
+    importFor :: ImportFor
+    importFor = ImportForFunction {
+          args = fmap (.hsParam.typ) params
+        , res = res.hsType
         }
 
     -- fName is unique
@@ -119,9 +130,10 @@ foreignImportWrapperDec ::
      C.Sizeofs
   -> FunName
   -> Hs.Type
+  -> ImportFor
   -> Origin.ForeignImport
   -> [Hs.Decl l]
-foreignImportWrapperDec sizeofs name hsType origin =
+foreignImportWrapperDec sizeofs name hsType importFor origin =
     [ Hs.DeclForeignImportWrapper foreignImportWrapperDecl
     , Hs.DeclFunction funDecl
     ]
@@ -162,11 +174,8 @@ foreignImportWrapperDec sizeofs name hsType origin =
     fBody =
         ELam (NameHint "fun") $
         eBindgenGlobal Functor_fmap `EApp`
-        eBindgenGlobal HasFFIType_castFunPtrFromFFIType `EApp`
-        (EFree (Hs.InternalName fiName) `EApp`
-        (eBindgenGlobal HasFFIType_toFFIType `EApp`
-        EBound IZ
-        ))
+        eBindgenGlobal Foreign_castFunPtr `EApp`
+        (EFree (Hs.InternalName fiName) `EApp` mapToFFI importFor (SS SZ) (EBound IZ))
     fComment = Just $ HsDoc.uniqueSymbol name.uniqSymbol
 
 {-------------------------------------------------------------------------------
@@ -188,9 +197,10 @@ foreignImportDynamicDec ::
      C.Sizeofs
   -> FunName
   -> Hs.Type
+  -> ImportFor
   -> Origin.ForeignImport
   -> [Hs.Decl l]
-foreignImportDynamicDec sizeofs name hsType origin =
+foreignImportDynamicDec sizeofs name hsType importFor origin =
     [ Hs.DeclForeignImportDynamic foreignImportDynamicDecl
     , Hs.DeclFunction funDecl
     ]
@@ -230,12 +240,96 @@ foreignImportDynamicDec sizeofs name hsType origin =
     fResult = hsType
     fBody =
         ELam (NameHint "funPtr") $
-        eBindgenGlobal HasFFIType_fromFFIType `EApp`
+        (mapFromFFI importFor (SS SZ)
         (EFree (Hs.InternalName fiName) `EApp`
-        (eBindgenGlobal HasFFIType_castFunPtrToFFIType `EApp`
+        (eBindgenGlobal Foreign_castFunPtr `EApp`
         EBound IZ
-        ))
+        )))
     fComment = Just $ HsDoc.uniqueSymbol name.uniqSymbol
+
+{-------------------------------------------------------------------------------
+  ImportFor
+-------------------------------------------------------------------------------}
+
+data ImportFor =
+    ImportForFunction {
+        args :: [Hs.Type]
+      , res  :: Hs.Type
+      }
+  | ImportForNewtype {
+        args   :: [Hs.Type]
+      , res    :: Hs.Type
+      , newtyp :: Hs.Newtype
+      }
+
+mapToFFI :: ImportFor -> Size ctx -> SHs.SExpr ctx -> SHs.SExpr ctx
+mapToFFI dynFor size funExpr = case dynFor of
+    ImportForFunction args res -> forFunction args res
+    ImportForNewtype args res nt -> forNewtype args res nt
+  where
+    convArg = mkConvArg HasFFIType_fromFFIType
+    convRes = mkConvRes HasFFIType_toFFIType
+
+    forFunction args res =
+        mapFunctionExpr (MapFunctionParams {
+            convArg = convArg
+          , convRes = convRes
+          , args    = args
+          , res     = res
+          , funExpr = funExpr
+          , size    = size
+          })
+
+    forNewtype args res nt =
+        mapFunctionExpr (MapFunctionParams {
+            convArg = convArg
+          , convRes = convRes
+          , args    = args
+          , res     = res
+          , funExpr = eBindgenGlobal HasField_getField `ETypeApp` fieldLit `EApp` funExpr
+          , size    = size
+          })
+      where
+        fieldLit = SHs.translateType $ Hs.StrLit $ Hs.nameToStr nt.field.name
+
+mapFromFFI :: ImportFor -> Size ctx -> SHs.SExpr ctx -> SHs.SExpr ctx
+mapFromFFI dynFor size funExpr = case dynFor of
+    ImportForFunction args res -> forFunction args res
+    ImportForNewtype args res nt -> forNewtype args res nt
+  where
+    convArg = mkConvArg HasFFIType_toFFIType
+    convRes = mkConvRes HasFFIType_fromFFIType
+
+    forFunction args res =
+        mapFunctionExpr (MapFunctionParams {
+            convArg = convArg
+          , convRes = convRes
+          , args    = args
+          , res     = res
+          , funExpr = funExpr
+          , size    = size
+          })
+
+    forNewtype args res nt =
+        ECon nt.constr `EApp`
+        mapFunctionExpr (MapFunctionParams {
+            convArg = convArg
+          , convRes = convRes
+          , args    = args
+          , res     = res
+          , funExpr = funExpr
+          , size    = size
+          })
+
+mkConvArg :: BindgenGlobalTerm -> ConvArg
+mkConvArg g =  ConvArg $ \_typ idx -> SHs.eBindgenGlobal g  `EApp` SHs.EBound idx
+
+mkConvRes :: BindgenGlobalTerm -> ConvRes
+mkConvRes g = ConvRes $ \typ e -> case typ of
+    Hs.IO (Hs.PrimType Hs.PrimUnit) -> e
+    Hs.PrimType Hs.PrimUnit -> e
+    Hs.IO{} -> eBindgenGlobal Functor_fmap `EApp` eBindgenGlobal g `EApp` e
+    _ -> eBindgenGlobal g `EApp` e
 
 {-------------------------------------------------------------------------------
   FFI types

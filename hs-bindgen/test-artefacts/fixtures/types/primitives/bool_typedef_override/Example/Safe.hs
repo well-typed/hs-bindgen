@@ -33,7 +33,9 @@ hs_bindgen_ea0e9b7fd1e9560c ::
   -> Bool'
   -> IO ()
 hs_bindgen_ea0e9b7fd1e9560c =
-  BG.fromFFIType hs_bindgen_ea0e9b7fd1e9560c_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_ea0e9b7fd1e9560c_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @f@
 

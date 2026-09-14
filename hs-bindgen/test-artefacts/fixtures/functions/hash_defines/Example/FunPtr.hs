@@ -38,7 +38,7 @@ foreign import ccall unsafe "hs_bindgen_ebc7bd37f43918fa" hs_bindgen_ebc7bd37f43
 -- __unique:__ @test_functionshash_defines_Example_get_hash_defines_feature@
 hs_bindgen_ebc7bd37f43918fa :: IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 hs_bindgen_ebc7bd37f43918fa =
-  BG.fromFFIType hs_bindgen_ebc7bd37f43918fa_base
+  fmap BG.fromFFIType hs_bindgen_ebc7bd37f43918fa_base
 
 {-# NOINLINE hash_defines_feature #-}
 {-| __C declaration:__ @hash_defines_feature@
@@ -58,7 +58,7 @@ foreign import ccall unsafe "hs_bindgen_11624d9d43a105dc" hs_bindgen_11624d9d43a
 -- __unique:__ @test_functionshash_defines_Example_get_hash_defines_empty@
 hs_bindgen_11624d9d43a105dc :: IO (BG.FunPtr (IO BG.CInt))
 hs_bindgen_11624d9d43a105dc =
-  BG.fromFFIType hs_bindgen_11624d9d43a105dc_base
+  fmap BG.fromFFIType hs_bindgen_11624d9d43a105dc_base
 
 {-# NOINLINE hash_defines_empty #-}
 {-| __C declaration:__ @hash_defines_empty@

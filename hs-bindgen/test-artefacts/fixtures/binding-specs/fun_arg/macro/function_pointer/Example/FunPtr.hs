@@ -75,7 +75,7 @@ foreign import ccall unsafe "hs_bindgen_e113ab1229902001" hs_bindgen_e113ab12299
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_foo@
 hs_bindgen_e113ab1229902001 :: IO (BG.FunPtr (MyFunctionPointer -> IO ()))
 hs_bindgen_e113ab1229902001 =
-  BG.fromFFIType hs_bindgen_e113ab1229902001_base
+  fmap BG.fromFFIType hs_bindgen_e113ab1229902001_base
 
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
@@ -94,7 +94,7 @@ foreign import ccall unsafe "hs_bindgen_5e83648377d8afc6" hs_bindgen_5e83648377d
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_fooA@
 hs_bindgen_5e83648377d8afc6 :: IO (BG.FunPtr (A -> IO ()))
 hs_bindgen_5e83648377d8afc6 =
-  BG.fromFFIType hs_bindgen_5e83648377d8afc6_base
+  fmap BG.fromFFIType hs_bindgen_5e83648377d8afc6_base
 
 {-# NOINLINE fooA #-}
 {-| __C declaration:__ @fooA@
@@ -113,7 +113,7 @@ foreign import ccall unsafe "hs_bindgen_d6d79c737e65f7e7" hs_bindgen_d6d79c737e6
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_fooB@
 hs_bindgen_d6d79c737e65f7e7 :: IO (BG.FunPtr (B -> IO ()))
 hs_bindgen_d6d79c737e65f7e7 =
-  BG.fromFFIType hs_bindgen_d6d79c737e65f7e7_base
+  fmap BG.fromFFIType hs_bindgen_d6d79c737e65f7e7_base
 
 {-# NOINLINE fooB #-}
 {-| __C declaration:__ @fooB@
@@ -132,7 +132,7 @@ foreign import ccall unsafe "hs_bindgen_566c44a793d222a9" hs_bindgen_566c44a793d
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_fooC@
 hs_bindgen_566c44a793d222a9 :: IO (BG.FunPtr (M.C -> IO ()))
 hs_bindgen_566c44a793d222a9 =
-  BG.fromFFIType hs_bindgen_566c44a793d222a9_base
+  fmap BG.fromFFIType hs_bindgen_566c44a793d222a9_base
 
 {-# NOINLINE fooC #-}
 {-| __C declaration:__ @fooC@
@@ -151,7 +151,7 @@ foreign import ccall unsafe "hs_bindgen_9214c66c2650a721" hs_bindgen_9214c66c265
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_fooD@
 hs_bindgen_9214c66c2650a721 :: IO (BG.FunPtr (M.D -> IO ()))
 hs_bindgen_9214c66c2650a721 =
-  BG.fromFFIType hs_bindgen_9214c66c2650a721_base
+  fmap BG.fromFFIType hs_bindgen_9214c66c2650a721_base
 
 {-# NOINLINE fooD #-}
 {-| __C declaration:__ @fooD@
@@ -170,7 +170,7 @@ foreign import ccall unsafe "hs_bindgen_08a6ea4ce7e2c244" hs_bindgen_08a6ea4ce7e
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_fooE@
 hs_bindgen_08a6ea4ce7e2c244 :: IO (BG.FunPtr (E -> IO ()))
 hs_bindgen_08a6ea4ce7e2c244 =
-  BG.fromFFIType hs_bindgen_08a6ea4ce7e2c244_base
+  fmap BG.fromFFIType hs_bindgen_08a6ea4ce7e2c244_base
 
 {-# NOINLINE fooE #-}
 {-| __C declaration:__ @fooE@

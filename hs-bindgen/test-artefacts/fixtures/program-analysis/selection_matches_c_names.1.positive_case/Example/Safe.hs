@@ -24,7 +24,7 @@ foreign import ccall safe "hs_bindgen_c9b1dc5577fd8ced" hs_bindgen_c9b1dc5577fd8
 -- __unique:__ @test_programanalysisselection_mat_Example_Safe_FunctionWithAssignedHaskellNameByNameMangler@
 hs_bindgen_c9b1dc5577fd8ced :: IO BG.CInt
 hs_bindgen_c9b1dc5577fd8ced =
-  BG.fromFFIType hs_bindgen_c9b1dc5577fd8ced_base
+  fmap BG.fromFFIType hs_bindgen_c9b1dc5577fd8ced_base
 
 {-| __C declaration:__ @FunctionWithAssignedHaskellNameByNameMangler@
 

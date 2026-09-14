@@ -212,7 +212,9 @@ hs_bindgen_6d07a0b03f884547 ::
   -> BG.Ptr (IsA.Elem (CA.ConstantArray 3 BG.CInt))
   -> IO BG.CInt
 hs_bindgen_6d07a0b03f884547 =
-  BG.fromFFIType hs_bindgen_6d07a0b03f884547_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_6d07a0b03f884547_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| Array of known size.
 
@@ -240,7 +242,8 @@ hs_bindgen_04318f98a3ab8d08 ::
      BG.Ptr (IsA.Elem Triplet)
   -> IO BG.CInt
 hs_bindgen_04318f98a3ab8d08 =
-  BG.fromFFIType hs_bindgen_04318f98a3ab8d08_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_04318f98a3ab8d08_base (BG.toFFIType x0))
 
 {-| Array of known size, typedef.
 
@@ -266,7 +269,8 @@ hs_bindgen_2a7c5fa1040fa8db ::
      BG.Ptr (IsA.Elem (IA.IncompleteArray BG.CInt))
   -> IO BG.CInt
 hs_bindgen_2a7c5fa1040fa8db =
-  BG.fromFFIType hs_bindgen_2a7c5fa1040fa8db_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_2a7c5fa1040fa8db_base (BG.toFFIType x0))
 
 {-| Array of unknown size.
 
@@ -292,7 +296,8 @@ hs_bindgen_810acc5cf8729d0e ::
      BG.Ptr (IsA.Elem List)
   -> IO BG.CInt
 hs_bindgen_810acc5cf8729d0e =
-  BG.fromFFIType hs_bindgen_810acc5cf8729d0e_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_810acc5cf8729d0e_base (BG.toFFIType x0))
 
 {-| Array of unknown size, typedef.
 
@@ -318,7 +323,8 @@ hs_bindgen_83b71f7defb3b27a ::
      BG.Ptr (IsA.Elem (CA.ConstantArray 4 (CA.ConstantArray 3 BG.CInt)))
   -> IO BG.CInt
 hs_bindgen_83b71f7defb3b27a =
-  BG.fromFFIType hs_bindgen_83b71f7defb3b27a_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_83b71f7defb3b27a_base (BG.toFFIType x0))
 
 {-| Multi-dimensional array of known size.
 
@@ -344,7 +350,8 @@ hs_bindgen_62b76af3dc65da3f ::
      BG.Ptr (IsA.Elem Matrix)
   -> IO BG.CInt
 hs_bindgen_62b76af3dc65da3f =
-  BG.fromFFIType hs_bindgen_62b76af3dc65da3f_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_62b76af3dc65da3f_base (BG.toFFIType x0))
 
 {-| Multi-dimensional array of known size, typedef.
 
@@ -370,7 +377,8 @@ hs_bindgen_100aa7fb87a5ea74 ::
      BG.Ptr (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 3 BG.CInt)))
   -> IO BG.CInt
 hs_bindgen_100aa7fb87a5ea74 =
-  BG.fromFFIType hs_bindgen_100aa7fb87a5ea74_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_100aa7fb87a5ea74_base (BG.toFFIType x0))
 
 {-| Multi-dimensional array of unknown size.
 
@@ -396,7 +404,8 @@ hs_bindgen_cd6646babeacd609 ::
      BG.Ptr (IsA.Elem Tripletlist)
   -> IO BG.CInt
 hs_bindgen_cd6646babeacd609 =
-  BG.fromFFIType hs_bindgen_cd6646babeacd609_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_cd6646babeacd609_base (BG.toFFIType x0))
 
 {-| Multi-dimensional array of unknown size, typedef.
 
@@ -422,7 +431,8 @@ hs_bindgen_560f1de9a83c3a6a ::
      BG.Ptr (IsA.Elem Sudoku)
   -> IO BG.CInt
 hs_bindgen_560f1de9a83c3a6a =
-  BG.fromFFIType hs_bindgen_560f1de9a83c3a6a_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_560f1de9a83c3a6a_base (BG.toFFIType x0))
 
 {-| Typedef-in-typedef.
 
@@ -452,7 +462,10 @@ hs_bindgen_ef3b85ae74bc06cf ::
   -> PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 3 BG.CInt))
   -> IO BG.CInt
 hs_bindgen_ef3b85ae74bc06cf =
-  BG.fromFFIType hs_bindgen_ef3b85ae74bc06cf_base
+  \x0 ->
+    \x1 ->
+      \x2 ->
+        fmap BG.fromFFIType (hs_bindgen_ef3b85ae74bc06cf_base (BG.toFFIType x0) (BG.toFFIType x1) (BG.toFFIType x2))
 
 {-| Array of known size.
 
@@ -484,7 +497,9 @@ hs_bindgen_1c913685e5e76952 ::
   -> PtrConst.PtrConst (IsA.Elem Triplet)
   -> IO BG.CInt
 hs_bindgen_1c913685e5e76952 =
-  BG.fromFFIType hs_bindgen_1c913685e5e76952_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_1c913685e5e76952_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| Array of known size, typedef.
 
@@ -514,7 +529,9 @@ hs_bindgen_eb8daf22bd5c6f00 ::
   -> PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray BG.CInt))
   -> IO BG.CInt
 hs_bindgen_eb8daf22bd5c6f00 =
-  BG.fromFFIType hs_bindgen_eb8daf22bd5c6f00_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_eb8daf22bd5c6f00_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| Array of unknown size.
 
@@ -544,7 +561,9 @@ hs_bindgen_0b73e4c7695a3b2f ::
   -> PtrConst.PtrConst (IsA.Elem List)
   -> IO BG.CInt
 hs_bindgen_0b73e4c7695a3b2f =
-  BG.fromFFIType hs_bindgen_0b73e4c7695a3b2f_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_0b73e4c7695a3b2f_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| Array of unknown size, typedef.
 
@@ -574,7 +593,9 @@ hs_bindgen_374feb8086895fe3 ::
   -> PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 4 (CA.ConstantArray 3 BG.CInt)))
   -> IO BG.CInt
 hs_bindgen_374feb8086895fe3 =
-  BG.fromFFIType hs_bindgen_374feb8086895fe3_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_374feb8086895fe3_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| Multi-dimensional array of known size.
 
@@ -604,7 +625,9 @@ hs_bindgen_2d1320b468c36708 ::
   -> PtrConst.PtrConst (IsA.Elem Matrix)
   -> IO BG.CInt
 hs_bindgen_2d1320b468c36708 =
-  BG.fromFFIType hs_bindgen_2d1320b468c36708_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_2d1320b468c36708_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| Multi-dimensional array of known size, typedef.
 
@@ -634,7 +657,9 @@ hs_bindgen_f67f5fe5bfb57aa1 ::
   -> PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 3 BG.CInt)))
   -> IO BG.CInt
 hs_bindgen_f67f5fe5bfb57aa1 =
-  BG.fromFFIType hs_bindgen_f67f5fe5bfb57aa1_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_f67f5fe5bfb57aa1_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| Multi-dimensional array of unknown size.
 
@@ -664,7 +689,9 @@ hs_bindgen_2c9356851d76320e ::
   -> PtrConst.PtrConst (IsA.Elem Tripletlist)
   -> IO BG.CInt
 hs_bindgen_2c9356851d76320e =
-  BG.fromFFIType hs_bindgen_2c9356851d76320e_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_2c9356851d76320e_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| Multi-dimensional array of unknown size, typedef.
 
@@ -694,7 +721,9 @@ hs_bindgen_39b08b64fed0c5b8 ::
   -> PtrConst.PtrConst (IsA.Elem Sudoku)
   -> IO BG.CInt
 hs_bindgen_39b08b64fed0c5b8 =
-  BG.fromFFIType hs_bindgen_39b08b64fed0c5b8_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_39b08b64fed0c5b8_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| Typedef-in-typedef.
 
@@ -719,7 +748,7 @@ foreign import ccall unsafe "hs_bindgen_ab431ebc0519545a" hs_bindgen_ab431ebc051
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_9@
 hs_bindgen_ab431ebc0519545a :: IO (BG.Ptr (CA.ConstantArray 3 BG.CInt))
 hs_bindgen_ab431ebc0519545a =
-  BG.fromFFIType hs_bindgen_ab431ebc0519545a_base
+  fmap BG.fromFFIType hs_bindgen_ab431ebc0519545a_base
 
 {-| Array of known size.
 
@@ -739,7 +768,7 @@ foreign import ccall unsafe "hs_bindgen_c9ff623e6f48d3bc" hs_bindgen_c9ff623e6f4
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_10@
 hs_bindgen_c9ff623e6f48d3bc :: IO (BG.Ptr Triplet)
 hs_bindgen_c9ff623e6f48d3bc =
-  BG.fromFFIType hs_bindgen_c9ff623e6f48d3bc_base
+  fmap BG.fromFFIType hs_bindgen_c9ff623e6f48d3bc_base
 
 {-| Array of known size, typedef.
 
@@ -759,7 +788,7 @@ foreign import ccall unsafe "hs_bindgen_e714f0b7c764ba17" hs_bindgen_e714f0b7c76
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_11@
 hs_bindgen_e714f0b7c764ba17 :: IO (BG.Ptr (IA.IncompleteArray BG.CInt))
 hs_bindgen_e714f0b7c764ba17 =
-  BG.fromFFIType hs_bindgen_e714f0b7c764ba17_base
+  fmap BG.fromFFIType hs_bindgen_e714f0b7c764ba17_base
 
 {-| Array of unknown size.
 
@@ -779,7 +808,7 @@ foreign import ccall unsafe "hs_bindgen_cc23741700ba18f7" hs_bindgen_cc23741700b
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_12@
 hs_bindgen_cc23741700ba18f7 :: IO (BG.Ptr List)
 hs_bindgen_cc23741700ba18f7 =
-  BG.fromFFIType hs_bindgen_cc23741700ba18f7_base
+  fmap BG.fromFFIType hs_bindgen_cc23741700ba18f7_base
 
 {-| Array of unknown size, typedef.
 
@@ -799,7 +828,7 @@ foreign import ccall unsafe "hs_bindgen_eb3a1364003829ac" hs_bindgen_eb3a1364003
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_13@
 hs_bindgen_eb3a1364003829ac :: IO (BG.Ptr (CA.ConstantArray 4 (CA.ConstantArray 3 BG.CInt)))
 hs_bindgen_eb3a1364003829ac =
-  BG.fromFFIType hs_bindgen_eb3a1364003829ac_base
+  fmap BG.fromFFIType hs_bindgen_eb3a1364003829ac_base
 
 {-| Multi-dimensional array of known size.
 
@@ -819,7 +848,7 @@ foreign import ccall unsafe "hs_bindgen_0f49ffbe2c13ab46" hs_bindgen_0f49ffbe2c1
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_14@
 hs_bindgen_0f49ffbe2c13ab46 :: IO (BG.Ptr Matrix)
 hs_bindgen_0f49ffbe2c13ab46 =
-  BG.fromFFIType hs_bindgen_0f49ffbe2c13ab46_base
+  fmap BG.fromFFIType hs_bindgen_0f49ffbe2c13ab46_base
 
 {-| Multi-dimensional array of known size, typedef.
 
@@ -839,7 +868,7 @@ foreign import ccall unsafe "hs_bindgen_59de769fbba4ed72" hs_bindgen_59de769fbba
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_15@
 hs_bindgen_59de769fbba4ed72 :: IO (BG.Ptr (IA.IncompleteArray (CA.ConstantArray 3 BG.CInt)))
 hs_bindgen_59de769fbba4ed72 =
-  BG.fromFFIType hs_bindgen_59de769fbba4ed72_base
+  fmap BG.fromFFIType hs_bindgen_59de769fbba4ed72_base
 
 {-| Multi-dimensional array of unknown size.
 
@@ -859,7 +888,7 @@ foreign import ccall unsafe "hs_bindgen_1d6ecccfa4ee16ff" hs_bindgen_1d6ecccfa4e
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_16@
 hs_bindgen_1d6ecccfa4ee16ff :: IO (BG.Ptr Tripletlist)
 hs_bindgen_1d6ecccfa4ee16ff =
-  BG.fromFFIType hs_bindgen_1d6ecccfa4ee16ff_base
+  fmap BG.fromFFIType hs_bindgen_1d6ecccfa4ee16ff_base
 
 {-| Multi-dimensional array of unknown size, typedef.
 
@@ -879,7 +908,7 @@ foreign import ccall unsafe "hs_bindgen_6165085eab7d2806" hs_bindgen_6165085eab7
 -- __unique:__ @test_arraysarray_Example_Unsafe_solve@
 hs_bindgen_6165085eab7d2806 :: IO (BG.Ptr Sudoku)
 hs_bindgen_6165085eab7d2806 =
-  BG.fromFFIType hs_bindgen_6165085eab7d2806_base
+  fmap BG.fromFFIType hs_bindgen_6165085eab7d2806_base
 
 {-| Typedef-in-typedef.
 

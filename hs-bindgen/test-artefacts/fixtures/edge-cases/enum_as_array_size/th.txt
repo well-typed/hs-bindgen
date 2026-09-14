@@ -77,7 +77,7 @@ foreign import ccall unsafe "hs_bindgen_30b94bcf7e387817" hs_bindgen_30b94bcf7e3
 hs_bindgen_30b94bcf7e387817 :: IO (PtrConst (ConstantArray 1
                                                            CChar))
 -- __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array@
-hs_bindgen_30b94bcf7e387817 = fromFFIType hs_bindgen_30b94bcf7e387817_base
+hs_bindgen_30b94bcf7e387817 = fmap fromFFIType hs_bindgen_30b94bcf7e387817_base
 {-# NOINLINE hs_bindgen_e30c033f156164cc #-}
 {-| __C declaration:__ @test_array@
 

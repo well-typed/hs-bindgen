@@ -29,7 +29,7 @@ foreign import ccall unsafe "hs_bindgen_b341ec07f48c8cc1" hs_bindgen_b341ec07f48
 -- __unique:__ @test_macrosmacro_ext_binding_dep_Example_get_use_b@
 hs_bindgen_b341ec07f48c8cc1 :: IO (BG.FunPtr (B -> IO ()))
 hs_bindgen_b341ec07f48c8cc1 =
-  BG.fromFFIType hs_bindgen_b341ec07f48c8cc1_base
+  fmap BG.fromFFIType hs_bindgen_b341ec07f48c8cc1_base
 
 {-# NOINLINE use_b #-}
 {-| __C declaration:__ @use_b@

@@ -36,7 +36,8 @@ hs_bindgen_07088bb3b4171c29 ::
      BG.CInt
   -> IO ()
 hs_bindgen_07088bb3b4171c29 =
-  BG.fromFFIType hs_bindgen_07088bb3b4171c29_base
+  \x0 ->
+    hs_bindgen_07088bb3b4171c29_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @foo@
 
@@ -60,7 +61,8 @@ hs_bindgen_190787b2a527df76 ::
      BG.CChar
   -> IO ()
 hs_bindgen_190787b2a527df76 =
-  BG.fromFFIType hs_bindgen_190787b2a527df76_base
+  \x0 ->
+    hs_bindgen_190787b2a527df76_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @bar@
 

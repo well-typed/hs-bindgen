@@ -84,7 +84,8 @@ hs_bindgen_3389520bc7419af4 ::
      BG.Ptr (IsA.Elem (CA.ConstantArray 3 (CA.ConstantArray 4 BG.CInt)))
   -> IO BG.CInt
 hs_bindgen_3389520bc7419af4 =
-  BG.fromFFIType hs_bindgen_3389520bc7419af4_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_3389520bc7419af4_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @foo@
 
@@ -108,7 +109,8 @@ hs_bindgen_73e2db5ad5d807f7 ::
      PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 3 (CA.ConstantArray 4 BG.CInt)))
   -> IO BG.CInt
 hs_bindgen_73e2db5ad5d807f7 =
-  BG.fromFFIType hs_bindgen_73e2db5ad5d807f7_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_73e2db5ad5d807f7_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @foo_const@
 
@@ -132,7 +134,8 @@ hs_bindgen_a28b81f0afc23eed ::
      BG.Ptr (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 2 BG.CInt)))
   -> IO BG.CInt
 hs_bindgen_a28b81f0afc23eed =
-  BG.fromFFIType hs_bindgen_a28b81f0afc23eed_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_a28b81f0afc23eed_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @bar@
 
@@ -156,7 +159,8 @@ hs_bindgen_58337c492b64ae2c ::
      PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (CA.ConstantArray 2 BG.CInt)))
   -> IO BG.CInt
 hs_bindgen_58337c492b64ae2c =
-  BG.fromFFIType hs_bindgen_58337c492b64ae2c_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_58337c492b64ae2c_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @bar_const@
 
@@ -180,7 +184,8 @@ hs_bindgen_48876e6767cb5923 ::
      BG.Ptr (IsA.Elem Matrix)
   -> IO BG.CInt
 hs_bindgen_48876e6767cb5923 =
-  BG.fromFFIType hs_bindgen_48876e6767cb5923_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_48876e6767cb5923_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @baz@
 
@@ -204,7 +209,8 @@ hs_bindgen_13ce150055e8aa41 ::
      PtrConst.PtrConst (IsA.Elem Matrix)
   -> IO BG.CInt
 hs_bindgen_13ce150055e8aa41 =
-  BG.fromFFIType hs_bindgen_13ce150055e8aa41_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_13ce150055e8aa41_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @baz_const@
 
@@ -228,7 +234,8 @@ hs_bindgen_da5c432144bd5546 ::
      BG.Ptr (IsA.Elem Triplets)
   -> IO BG.CInt
 hs_bindgen_da5c432144bd5546 =
-  BG.fromFFIType hs_bindgen_da5c432144bd5546_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_da5c432144bd5546_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @quuz@
 
@@ -252,7 +259,8 @@ hs_bindgen_70be94a6fb59f547 ::
      PtrConst.PtrConst (IsA.Elem Triplets)
   -> IO BG.CInt
 hs_bindgen_70be94a6fb59f547 =
-  BG.fromFFIType hs_bindgen_70be94a6fb59f547_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_70be94a6fb59f547_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @quuz_const@
 

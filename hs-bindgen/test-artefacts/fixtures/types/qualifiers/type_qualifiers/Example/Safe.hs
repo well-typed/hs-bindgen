@@ -34,7 +34,9 @@ hs_bindgen_32187cc02676ee72 ::
   -> HsBindgen.Runtime.LibC.CSize
   -> IO BG.CBool
 hs_bindgen_32187cc02676ee72 =
-  BG.fromFFIType hs_bindgen_32187cc02676ee72_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_32187cc02676ee72_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @list_example@
 

@@ -29,7 +29,8 @@ hs_bindgen_7d3fd818d0780e11 ::
      BG.CInt
   -> IO BG.CInt
 hs_bindgen_7d3fd818d0780e11 =
-  BG.fromFFIType hs_bindgen_7d3fd818d0780e11_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_7d3fd818d0780e11_base (BG.toFFIType x0))
 
 {-| A function documented with a Javadoc banner-style comment.
 

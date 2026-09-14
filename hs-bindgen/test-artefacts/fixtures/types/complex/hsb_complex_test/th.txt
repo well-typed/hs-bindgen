@@ -228,7 +228,7 @@ foreign import ccall safe "hs_bindgen_687af703c95fba0e" hs_bindgen_687af703c95fb
 hs_bindgen_687af703c95fba0e :: Ptr (Complex CFloat) ->
                                Ptr (Complex CFloat) -> Ptr (Complex CFloat) -> IO ()
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_multiply_complex_f@
-hs_bindgen_687af703c95fba0e = fromFFIType hs_bindgen_687af703c95fba0e_base
+hs_bindgen_687af703c95fba0e = \x_0 -> \x_1 -> \x_2 -> hs_bindgen_687af703c95fba0e_base (toFFIType x_0) (toFFIType x_1) (toFFIType x_2)
 {-| __C declaration:__ @multiply_complex_f@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 21:16@
@@ -254,7 +254,7 @@ foreign import ccall safe "hs_bindgen_3ff14ee8c5914fc6" hs_bindgen_3ff14ee8c5914
 hs_bindgen_3ff14ee8c5914fc6 :: Ptr (Complex CDouble) ->
                                Ptr (Complex CDouble) -> Ptr (Complex CDouble) -> IO ()
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_add_complex@
-hs_bindgen_3ff14ee8c5914fc6 = fromFFIType hs_bindgen_3ff14ee8c5914fc6_base
+hs_bindgen_3ff14ee8c5914fc6 = \x_0 -> \x_1 -> \x_2 -> hs_bindgen_3ff14ee8c5914fc6_base (toFFIType x_0) (toFFIType x_1) (toFFIType x_2)
 {-| __C declaration:__ @add_complex@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 22:16@
@@ -280,7 +280,7 @@ foreign import ccall unsafe "hs_bindgen_e5e3172c2163672b" hs_bindgen_e5e3172c216
 hs_bindgen_e5e3172c2163672b :: Ptr (Complex CFloat) ->
                                Ptr (Complex CFloat) -> Ptr (Complex CFloat) -> IO ()
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_multiply_complex_f@
-hs_bindgen_e5e3172c2163672b = fromFFIType hs_bindgen_e5e3172c2163672b_base
+hs_bindgen_e5e3172c2163672b = \x_0 -> \x_1 -> \x_2 -> hs_bindgen_e5e3172c2163672b_base (toFFIType x_0) (toFFIType x_1) (toFFIType x_2)
 {-| __C declaration:__ @multiply_complex_f@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 21:16@
@@ -306,7 +306,7 @@ foreign import ccall unsafe "hs_bindgen_28f2705e917973ab" hs_bindgen_28f2705e917
 hs_bindgen_28f2705e917973ab :: Ptr (Complex CDouble) ->
                                Ptr (Complex CDouble) -> Ptr (Complex CDouble) -> IO ()
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_add_complex@
-hs_bindgen_28f2705e917973ab = fromFFIType hs_bindgen_28f2705e917973ab_base
+hs_bindgen_28f2705e917973ab = \x_0 -> \x_1 -> \x_2 -> hs_bindgen_28f2705e917973ab_base (toFFIType x_0) (toFFIType x_1) (toFFIType x_2)
 {-| __C declaration:__ @add_complex@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 22:16@
@@ -329,7 +329,7 @@ foreign import ccall unsafe "hs_bindgen_29b4fea741132943" hs_bindgen_29b4fea7411
 hs_bindgen_29b4fea741132943 :: IO (FunPtr (Complex CFloat ->
                                            Complex CFloat -> IO (Complex CFloat)))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_multiply_complex_f@
-hs_bindgen_29b4fea741132943 = fromFFIType hs_bindgen_29b4fea741132943_base
+hs_bindgen_29b4fea741132943 = fmap fromFFIType hs_bindgen_29b4fea741132943_base
 {-# NOINLINE multiply_complex_f_funptr #-}
 {-| __C declaration:__ @multiply_complex_f@
 
@@ -353,7 +353,7 @@ foreign import ccall unsafe "hs_bindgen_b53577d6ad8dd36c" hs_bindgen_b53577d6ad8
 hs_bindgen_b53577d6ad8dd36c :: IO (FunPtr (Complex CDouble ->
                                            Complex CDouble -> IO (Complex CDouble)))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_add_complex@
-hs_bindgen_b53577d6ad8dd36c = fromFFIType hs_bindgen_b53577d6ad8dd36c_base
+hs_bindgen_b53577d6ad8dd36c = fmap fromFFIType hs_bindgen_b53577d6ad8dd36c_base
 {-# NOINLINE add_complex_funptr #-}
 {-| __C declaration:__ @add_complex@
 
@@ -376,7 +376,7 @@ foreign import ccall unsafe "hs_bindgen_209e61216da37381" hs_bindgen_209e61216da
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_float@
 hs_bindgen_209e61216da37381 :: IO (Ptr (Complex CFloat))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_float@
-hs_bindgen_209e61216da37381 = fromFFIType hs_bindgen_209e61216da37381_base
+hs_bindgen_209e61216da37381 = fmap fromFFIType hs_bindgen_209e61216da37381_base
 {-# NOINLINE global_complex_float #-}
 {-| __C declaration:__ @global_complex_float@
 
@@ -398,7 +398,7 @@ foreign import ccall unsafe "hs_bindgen_4d0950cebe4897a7" hs_bindgen_4d0950cebe4
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_double@
 hs_bindgen_4d0950cebe4897a7 :: IO (Ptr (Complex CDouble))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_double@
-hs_bindgen_4d0950cebe4897a7 = fromFFIType hs_bindgen_4d0950cebe4897a7_base
+hs_bindgen_4d0950cebe4897a7 = fmap fromFFIType hs_bindgen_4d0950cebe4897a7_base
 {-# NOINLINE global_complex_double #-}
 {-| __C declaration:__ @global_complex_double@
 
@@ -420,7 +420,7 @@ foreign import ccall unsafe "hs_bindgen_7e9edc1d187b0799" hs_bindgen_7e9edc1d187
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_float_flipped@
 hs_bindgen_7e9edc1d187b0799 :: IO (Ptr (Complex CFloat))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_float_flipped@
-hs_bindgen_7e9edc1d187b0799 = fromFFIType hs_bindgen_7e9edc1d187b0799_base
+hs_bindgen_7e9edc1d187b0799 = fmap fromFFIType hs_bindgen_7e9edc1d187b0799_base
 {-# NOINLINE global_complex_float_flipped #-}
 {-| __C declaration:__ @global_complex_float_flipped@
 
@@ -442,7 +442,7 @@ foreign import ccall unsafe "hs_bindgen_fe8783b71a4e1d3c" hs_bindgen_fe8783b71a4
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_double_flipped@
 hs_bindgen_fe8783b71a4e1d3c :: IO (Ptr (Complex CDouble))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_double_flipped@
-hs_bindgen_fe8783b71a4e1d3c = fromFFIType hs_bindgen_fe8783b71a4e1d3c_base
+hs_bindgen_fe8783b71a4e1d3c = fmap fromFFIType hs_bindgen_fe8783b71a4e1d3c_base
 {-# NOINLINE global_complex_double_flipped #-}
 {-| __C declaration:__ @global_complex_double_flipped@
 
@@ -464,7 +464,7 @@ foreign import ccall unsafe "hs_bindgen_0aa0098565c13195" hs_bindgen_0aa0098565c
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_float@
 hs_bindgen_0aa0098565c13195 :: IO (Ptr (Complex CFloat))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_float@
-hs_bindgen_0aa0098565c13195 = fromFFIType hs_bindgen_0aa0098565c13195_base
+hs_bindgen_0aa0098565c13195 = fmap fromFFIType hs_bindgen_0aa0098565c13195_base
 {-# NOINLINE global_Complex_float #-}
 {-| __C declaration:__ @global_Complex_float@
 
@@ -486,7 +486,7 @@ foreign import ccall unsafe "hs_bindgen_5f43cb32dc9ef6af" hs_bindgen_5f43cb32dc9
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_double@
 hs_bindgen_5f43cb32dc9ef6af :: IO (Ptr (Complex CDouble))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_double@
-hs_bindgen_5f43cb32dc9ef6af = fromFFIType hs_bindgen_5f43cb32dc9ef6af_base
+hs_bindgen_5f43cb32dc9ef6af = fmap fromFFIType hs_bindgen_5f43cb32dc9ef6af_base
 {-# NOINLINE global_Complex_double #-}
 {-| __C declaration:__ @global_Complex_double@
 
@@ -508,7 +508,7 @@ foreign import ccall unsafe "hs_bindgen_40d5347e1c2ae46a" hs_bindgen_40d5347e1c2
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_float_flipped@
 hs_bindgen_40d5347e1c2ae46a :: IO (Ptr (Complex CFloat))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_float_flipped@
-hs_bindgen_40d5347e1c2ae46a = fromFFIType hs_bindgen_40d5347e1c2ae46a_base
+hs_bindgen_40d5347e1c2ae46a = fmap fromFFIType hs_bindgen_40d5347e1c2ae46a_base
 {-# NOINLINE global_Complex_float_flipped #-}
 {-| __C declaration:__ @global_Complex_float_flipped@
 
@@ -530,7 +530,7 @@ foreign import ccall unsafe "hs_bindgen_0e377cedb96a3ba4" hs_bindgen_0e377cedb96
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_double_flipped@
 hs_bindgen_0e377cedb96a3ba4 :: IO (Ptr (Complex CDouble))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_double_flipped@
-hs_bindgen_0e377cedb96a3ba4 = fromFFIType hs_bindgen_0e377cedb96a3ba4_base
+hs_bindgen_0e377cedb96a3ba4 = fmap fromFFIType hs_bindgen_0e377cedb96a3ba4_base
 {-# NOINLINE global_Complex_double_flipped #-}
 {-| __C declaration:__ @global_Complex_double_flipped@
 
@@ -552,7 +552,7 @@ foreign import ccall unsafe "hs_bindgen_d94307879b0a380f" hs_bindgen_d94307879b0
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_const_complex_float@
 hs_bindgen_d94307879b0a380f :: IO (PtrConst (Complex CFloat))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_const_complex_float@
-hs_bindgen_d94307879b0a380f = fromFFIType hs_bindgen_d94307879b0a380f_base
+hs_bindgen_d94307879b0a380f = fmap fromFFIType hs_bindgen_d94307879b0a380f_base
 {-# NOINLINE hs_bindgen_554ede1a618d726f #-}
 {-| __C declaration:__ @const_complex_float@
 
@@ -581,7 +581,7 @@ foreign import ccall unsafe "hs_bindgen_de1422a11860ada5" hs_bindgen_de1422a1186
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_const_complex_double@
 hs_bindgen_de1422a11860ada5 :: IO (PtrConst (Complex CDouble))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_const_complex_double@
-hs_bindgen_de1422a11860ada5 = fromFFIType hs_bindgen_de1422a11860ada5_base
+hs_bindgen_de1422a11860ada5 = fmap fromFFIType hs_bindgen_de1422a11860ada5_base
 {-# NOINLINE hs_bindgen_cf751023874b527f #-}
 {-| __C declaration:__ @const_complex_double@
 
@@ -610,7 +610,7 @@ foreign import ccall unsafe "hs_bindgen_569a907813a0dadd" hs_bindgen_569a907813a
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_volatile_complex_float@
 hs_bindgen_569a907813a0dadd :: IO (Ptr (Complex CFloat))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_volatile_complex_float@
-hs_bindgen_569a907813a0dadd = fromFFIType hs_bindgen_569a907813a0dadd_base
+hs_bindgen_569a907813a0dadd = fmap fromFFIType hs_bindgen_569a907813a0dadd_base
 {-# NOINLINE volatile_complex_float #-}
 {-| __C declaration:__ @volatile_complex_float@
 
@@ -632,7 +632,7 @@ foreign import ccall unsafe "hs_bindgen_e86c9014eb507c96" hs_bindgen_e86c9014eb5
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_volatile_complex_double@
 hs_bindgen_e86c9014eb507c96 :: IO (Ptr (Complex CDouble))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_volatile_complex_double@
-hs_bindgen_e86c9014eb507c96 = fromFFIType hs_bindgen_e86c9014eb507c96_base
+hs_bindgen_e86c9014eb507c96 = fmap fromFFIType hs_bindgen_e86c9014eb507c96_base
 {-# NOINLINE volatile_complex_double #-}
 {-| __C declaration:__ @volatile_complex_double@
 
@@ -655,7 +655,7 @@ foreign import ccall unsafe "hs_bindgen_b548dda6b5993793" hs_bindgen_b548dda6b59
 hs_bindgen_b548dda6b5993793 :: IO (Ptr (ConstantArray 10
                                                       (Complex CFloat)))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_complex_float_array@
-hs_bindgen_b548dda6b5993793 = fromFFIType hs_bindgen_b548dda6b5993793_base
+hs_bindgen_b548dda6b5993793 = fmap fromFFIType hs_bindgen_b548dda6b5993793_base
 {-# NOINLINE complex_float_array #-}
 {-| __C declaration:__ @complex_float_array@
 
@@ -678,7 +678,7 @@ foreign import ccall unsafe "hs_bindgen_c56913da40952669" hs_bindgen_c56913da409
 hs_bindgen_c56913da40952669 :: IO (Ptr (ConstantArray 10
                                                       (Complex CDouble)))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_complex_double_array@
-hs_bindgen_c56913da40952669 = fromFFIType hs_bindgen_c56913da40952669_base
+hs_bindgen_c56913da40952669 = fmap fromFFIType hs_bindgen_c56913da40952669_base
 {-# NOINLINE complex_double_array #-}
 {-| __C declaration:__ @complex_double_array@
 

@@ -66,7 +66,8 @@ hs_bindgen_fbc2ec26cd297034 ::
      MyFunctionPointer
   -> IO ()
 hs_bindgen_fbc2ec26cd297034 =
-  BG.fromFFIType hs_bindgen_fbc2ec26cd297034_base
+  \x0 ->
+    hs_bindgen_fbc2ec26cd297034_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @foo@
 
@@ -90,7 +91,8 @@ hs_bindgen_cf67e2fc00fd28d8 ::
      A
   -> IO ()
 hs_bindgen_cf67e2fc00fd28d8 =
-  BG.fromFFIType hs_bindgen_cf67e2fc00fd28d8_base
+  \x0 ->
+    hs_bindgen_cf67e2fc00fd28d8_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooA@
 
@@ -114,7 +116,8 @@ hs_bindgen_269a46f9680e33ed ::
      B
   -> IO ()
 hs_bindgen_269a46f9680e33ed =
-  BG.fromFFIType hs_bindgen_269a46f9680e33ed_base
+  \x0 ->
+    hs_bindgen_269a46f9680e33ed_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooB@
 
@@ -138,7 +141,8 @@ hs_bindgen_f9bc9d37a12171dd ::
      M.C
   -> IO ()
 hs_bindgen_f9bc9d37a12171dd =
-  BG.fromFFIType hs_bindgen_f9bc9d37a12171dd_base
+  \x0 ->
+    hs_bindgen_f9bc9d37a12171dd_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooC@
 
@@ -162,7 +166,8 @@ hs_bindgen_ca21c7e4aaa33a81 ::
      M.D
   -> IO ()
 hs_bindgen_ca21c7e4aaa33a81 =
-  BG.fromFFIType hs_bindgen_ca21c7e4aaa33a81_base
+  \x0 ->
+    hs_bindgen_ca21c7e4aaa33a81_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooD@
 
@@ -186,7 +191,8 @@ hs_bindgen_e71a09bea0aef335 ::
      E
   -> IO ()
 hs_bindgen_e71a09bea0aef335 =
-  BG.fromFFIType hs_bindgen_e71a09bea0aef335_base
+  \x0 ->
+    hs_bindgen_e71a09bea0aef335_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooE@
 

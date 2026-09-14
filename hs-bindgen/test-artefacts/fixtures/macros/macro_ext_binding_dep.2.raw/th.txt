@@ -41,7 +41,7 @@ foreign import ccall safe "hs_bindgen_92afe64d8d8fc053" hs_bindgen_92afe64d8d8fc
 -- __unique:__ @test_macrosmacro_ext_binding_dep_2_Example_Safe_use_b@
 hs_bindgen_92afe64d8d8fc053 :: M.A -> IO ()
 -- __unique:__ @test_macrosmacro_ext_binding_dep_2_Example_Safe_use_b@
-hs_bindgen_92afe64d8d8fc053 = fromFFIType hs_bindgen_92afe64d8d8fc053_base
+hs_bindgen_92afe64d8d8fc053 = \x_0 -> hs_bindgen_92afe64d8d8fc053_base (toFFIType x_0)
 {-| __C declaration:__ @use_b@
 
     __defined at:__ @macros\/macro_ext_binding_dep.h 8:6@
@@ -63,7 +63,7 @@ foreign import ccall unsafe "hs_bindgen_f1dab51ba21acc43" hs_bindgen_f1dab51ba21
 -- __unique:__ @test_macrosmacro_ext_binding_dep_2_Example_Unsafe_use_b@
 hs_bindgen_f1dab51ba21acc43 :: M.A -> IO ()
 -- __unique:__ @test_macrosmacro_ext_binding_dep_2_Example_Unsafe_use_b@
-hs_bindgen_f1dab51ba21acc43 = fromFFIType hs_bindgen_f1dab51ba21acc43_base
+hs_bindgen_f1dab51ba21acc43 = \x_0 -> hs_bindgen_f1dab51ba21acc43_base (toFFIType x_0)
 {-| __C declaration:__ @use_b@
 
     __defined at:__ @macros\/macro_ext_binding_dep.h 8:6@
@@ -84,7 +84,7 @@ foreign import ccall unsafe "hs_bindgen_2ea258d8b3c67286" hs_bindgen_2ea258d8b3c
 -- __unique:__ @test_macrosmacro_ext_binding_dep_2_Example_get_use_b@
 hs_bindgen_2ea258d8b3c67286 :: IO (FunPtr (M.A -> IO ()))
 -- __unique:__ @test_macrosmacro_ext_binding_dep_2_Example_get_use_b@
-hs_bindgen_2ea258d8b3c67286 = fromFFIType hs_bindgen_2ea258d8b3c67286_base
+hs_bindgen_2ea258d8b3c67286 = fmap fromFFIType hs_bindgen_2ea258d8b3c67286_base
 {-# NOINLINE use_b_funptr #-}
 {-| __C declaration:__ @use_b@
 
