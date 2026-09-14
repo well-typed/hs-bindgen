@@ -37,7 +37,7 @@ import GHC.Records (HasField (..))
 import HsBindgen.Runtime.HasCField (HasCField (..))
 import HsBindgen.Runtime.HasCField qualified as HasCField
 import HsBindgen.Runtime.Support.Bitfield (Bitfield)
-import HsBindgen.Runtime.Support.HasFFIType (HasFFIType, ViaIdentity(..))
+import HsBindgen.Runtime.HasFFIType (HasFFIType, ViaIdentity(..))
 import HsBindgen.Runtime.Marshal
 
 #include <inttypes.h>
