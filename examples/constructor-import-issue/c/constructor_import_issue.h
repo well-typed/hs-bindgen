@@ -1,5 +1,8 @@
 // We generate bindings for A in module A
-typedef char A;
+
+#include <stdint.h>
+
+typedef uint8_t A;
 
 // We generate bindings for B in module B, using the binding spec for A as input
 typedef A B;
