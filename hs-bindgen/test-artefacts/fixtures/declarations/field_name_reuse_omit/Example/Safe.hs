@@ -7,7 +7,6 @@ module Example.Safe
     )
   where
 
-import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CAPI
 
 $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
@@ -25,7 +24,7 @@ foreign import ccall safe "hs_bindgen_1a3fb33e9aadacd9" hs_bindgen_1a3fb33e9aada
 -- __unique:__ @test_declarationsfield_name_reuse__Example_Safe_bar@
 hs_bindgen_1a3fb33e9aadacd9 :: IO ()
 hs_bindgen_1a3fb33e9aadacd9 =
-  BG.fromFFIType hs_bindgen_1a3fb33e9aadacd9_base
+  hs_bindgen_1a3fb33e9aadacd9_base
 
 {-| __C declaration:__ @bar@
 

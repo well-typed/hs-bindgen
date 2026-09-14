@@ -83,7 +83,7 @@ foreign import ccall safe "hs_bindgen_8b3d8c537a5a6361" hs_bindgen_8b3d8c537a5a6
 -- __unique:__ @test_functionshash_defines_Example_Safe_hash_defines_feature@
 hs_bindgen_8b3d8c537a5a6361 :: CInt -> IO CInt
 -- __unique:__ @test_functionshash_defines_Example_Safe_hash_defines_feature@
-hs_bindgen_8b3d8c537a5a6361 = fromFFIType hs_bindgen_8b3d8c537a5a6361_base
+hs_bindgen_8b3d8c537a5a6361 = \x_0 -> fmap fromFFIType (hs_bindgen_8b3d8c537a5a6361_base (toFFIType x_0))
 {-| __C declaration:__ @hash_defines_feature@
 
     __defined at:__ @functions\/hash_defines.h 9:5@
@@ -104,7 +104,7 @@ foreign import ccall safe "hs_bindgen_60d52d7fed356c54" hs_bindgen_60d52d7fed356
 -- __unique:__ @test_functionshash_defines_Example_Safe_hash_defines_empty@
 hs_bindgen_60d52d7fed356c54 :: IO CInt
 -- __unique:__ @test_functionshash_defines_Example_Safe_hash_defines_empty@
-hs_bindgen_60d52d7fed356c54 = fromFFIType hs_bindgen_60d52d7fed356c54_base
+hs_bindgen_60d52d7fed356c54 = fmap fromFFIType hs_bindgen_60d52d7fed356c54_base
 {-| __C declaration:__ @hash_defines_empty@
 
     __defined at:__ @functions\/hash_defines.h 20:5@
@@ -126,7 +126,7 @@ foreign import ccall unsafe "hs_bindgen_2d6dbb74d32d186a" hs_bindgen_2d6dbb74d32
 -- __unique:__ @test_functionshash_defines_Example_Unsafe_hash_defines_feature@
 hs_bindgen_2d6dbb74d32d186a :: CInt -> IO CInt
 -- __unique:__ @test_functionshash_defines_Example_Unsafe_hash_defines_feature@
-hs_bindgen_2d6dbb74d32d186a = fromFFIType hs_bindgen_2d6dbb74d32d186a_base
+hs_bindgen_2d6dbb74d32d186a = \x_0 -> fmap fromFFIType (hs_bindgen_2d6dbb74d32d186a_base (toFFIType x_0))
 {-| __C declaration:__ @hash_defines_feature@
 
     __defined at:__ @functions\/hash_defines.h 9:5@
@@ -147,7 +147,7 @@ foreign import ccall unsafe "hs_bindgen_ba61b6fc716692e4" hs_bindgen_ba61b6fc716
 -- __unique:__ @test_functionshash_defines_Example_Unsafe_hash_defines_empty@
 hs_bindgen_ba61b6fc716692e4 :: IO CInt
 -- __unique:__ @test_functionshash_defines_Example_Unsafe_hash_defines_empty@
-hs_bindgen_ba61b6fc716692e4 = fromFFIType hs_bindgen_ba61b6fc716692e4_base
+hs_bindgen_ba61b6fc716692e4 = fmap fromFFIType hs_bindgen_ba61b6fc716692e4_base
 {-| __C declaration:__ @hash_defines_empty@
 
     __defined at:__ @functions\/hash_defines.h 20:5@
@@ -168,7 +168,7 @@ foreign import ccall unsafe "hs_bindgen_ebc7bd37f43918fa" hs_bindgen_ebc7bd37f43
 -- __unique:__ @test_functionshash_defines_Example_get_hash_defines_feature@
 hs_bindgen_ebc7bd37f43918fa :: IO (FunPtr (CInt -> IO CInt))
 -- __unique:__ @test_functionshash_defines_Example_get_hash_defines_feature@
-hs_bindgen_ebc7bd37f43918fa = fromFFIType hs_bindgen_ebc7bd37f43918fa_base
+hs_bindgen_ebc7bd37f43918fa = fmap fromFFIType hs_bindgen_ebc7bd37f43918fa_base
 {-# NOINLINE hash_defines_feature_funptr #-}
 {-| __C declaration:__ @hash_defines_feature@
 
@@ -190,7 +190,7 @@ foreign import ccall unsafe "hs_bindgen_11624d9d43a105dc" hs_bindgen_11624d9d43a
 -- __unique:__ @test_functionshash_defines_Example_get_hash_defines_empty@
 hs_bindgen_11624d9d43a105dc :: IO (FunPtr (IO CInt))
 -- __unique:__ @test_functionshash_defines_Example_get_hash_defines_empty@
-hs_bindgen_11624d9d43a105dc = fromFFIType hs_bindgen_11624d9d43a105dc_base
+hs_bindgen_11624d9d43a105dc = fmap fromFFIType hs_bindgen_11624d9d43a105dc_base
 {-# NOINLINE hash_defines_empty_funptr #-}
 {-| __C declaration:__ @hash_defines_empty@
 

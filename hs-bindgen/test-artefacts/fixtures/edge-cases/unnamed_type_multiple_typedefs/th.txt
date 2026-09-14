@@ -277,7 +277,7 @@ foreign import ccall safe "hs_bindgen_f01f9e6bbeae9e46" hs_bindgen_f01f9e6bbeae9
 -- __unique:__ @test_edgecasesunnamed_type_multip_Example_Safe_test@
 hs_bindgen_f01f9e6bbeae9e46 :: Ptr Point2a -> Point2b -> IO ()
 -- __unique:__ @test_edgecasesunnamed_type_multip_Example_Safe_test@
-hs_bindgen_f01f9e6bbeae9e46 = fromFFIType hs_bindgen_f01f9e6bbeae9e46_base
+hs_bindgen_f01f9e6bbeae9e46 = \x_0 -> \x_1 -> hs_bindgen_f01f9e6bbeae9e46_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @test@
 
     __defined at:__ @edge-cases\/unnamed_type_multiple_typedefs.h 14:6@
@@ -300,7 +300,7 @@ foreign import ccall unsafe "hs_bindgen_8c745f70a3e4e4af" hs_bindgen_8c745f70a3e
 -- __unique:__ @test_edgecasesunnamed_type_multip_Example_Unsafe_test@
 hs_bindgen_8c745f70a3e4e4af :: Ptr Point2a -> Point2b -> IO ()
 -- __unique:__ @test_edgecasesunnamed_type_multip_Example_Unsafe_test@
-hs_bindgen_8c745f70a3e4e4af = fromFFIType hs_bindgen_8c745f70a3e4e4af_base
+hs_bindgen_8c745f70a3e4e4af = \x_0 -> \x_1 -> hs_bindgen_8c745f70a3e4e4af_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @test@
 
     __defined at:__ @edge-cases\/unnamed_type_multiple_typedefs.h 14:6@
@@ -322,7 +322,7 @@ foreign import ccall unsafe "hs_bindgen_bf2645b646fa0825" hs_bindgen_bf2645b646f
 hs_bindgen_bf2645b646fa0825 :: IO (FunPtr (Point2a ->
                                            Point2b -> IO ()))
 -- __unique:__ @test_edgecasesunnamed_type_multip_Example_get_test@
-hs_bindgen_bf2645b646fa0825 = fromFFIType hs_bindgen_bf2645b646fa0825_base
+hs_bindgen_bf2645b646fa0825 = fmap fromFFIType hs_bindgen_bf2645b646fa0825_base
 {-# NOINLINE test_funptr #-}
 {-| __C declaration:__ @test@
 

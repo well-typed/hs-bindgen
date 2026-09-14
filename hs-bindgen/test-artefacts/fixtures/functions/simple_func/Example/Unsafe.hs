@@ -56,7 +56,8 @@ hs_bindgen_da5d889180d72efd ::
      BG.CDouble
   -> BG.CDouble
 hs_bindgen_da5d889180d72efd =
-  BG.fromFFIType hs_bindgen_da5d889180d72efd_base
+  \x0 ->
+    BG.fromFFIType (hs_bindgen_da5d889180d72efd_base (BG.toFFIType x0))
 
 {-|
 
@@ -88,7 +89,10 @@ hs_bindgen_d02f37accebc0cb3 ::
   -> BG.CDouble
   -> IO BG.CDouble
 hs_bindgen_d02f37accebc0cb3 =
-  BG.fromFFIType hs_bindgen_d02f37accebc0cb3_base
+  \x0 ->
+    \x1 ->
+      \x2 ->
+        fmap BG.fromFFIType (hs_bindgen_d02f37accebc0cb3_base (BG.toFFIType x0) (BG.toFFIType x1) (BG.toFFIType x2))
 
 {-| __C declaration:__ @bad_fma@
 
@@ -113,7 +117,7 @@ foreign import ccall unsafe "hs_bindgen_9ea56ae4fab9a418" hs_bindgen_9ea56ae4fab
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_no_args@
 hs_bindgen_9ea56ae4fab9a418 :: IO ()
 hs_bindgen_9ea56ae4fab9a418 =
-  BG.fromFFIType hs_bindgen_9ea56ae4fab9a418_base
+  hs_bindgen_9ea56ae4fab9a418_base
 
 {-| __C declaration:__ @no_args@
 
@@ -131,7 +135,7 @@ foreign import ccall unsafe "hs_bindgen_a3d1783059ec7820" hs_bindgen_a3d1783059e
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_no_args_no_void@
 hs_bindgen_a3d1783059ec7820 :: IO ()
 hs_bindgen_a3d1783059ec7820 =
-  BG.fromFFIType hs_bindgen_a3d1783059ec7820_base
+  hs_bindgen_a3d1783059ec7820_base
 
 {-| __C declaration:__ @no_args_no_void@
 
@@ -154,7 +158,9 @@ hs_bindgen_91392ef466aa34e7 ::
   -> BG.CDouble
   -> IO BG.CInt
 hs_bindgen_91392ef466aa34e7 =
-  BG.fromFFIType hs_bindgen_91392ef466aa34e7_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_91392ef466aa34e7_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @fun@
 

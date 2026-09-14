@@ -52,7 +52,8 @@ hs_bindgen_d86ecf261d7044c6 ::
   -> IO (BG.FunPtr RunDriver_Aux)
 hs_bindgen_d86ecf261d7044c6 =
   \fun0 ->
-    fmap BG.castFunPtrFromFFIType (hs_bindgen_d86ecf261d7044c6_base (BG.toFFIType fun0))
+    fmap BG.castFunPtr (hs_bindgen_d86ecf261d7044c6_base (\x1 ->
+                                                            fmap BG.toFFIType (BG.getField @"unwrapRunDriver_Aux" fun0 (BG.fromFFIType x1))))
 
 -- __unique:__ @fromRunDriver_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_6520ae39b50ffb4e_base ::
@@ -65,7 +66,8 @@ hs_bindgen_6520ae39b50ffb4e ::
   -> RunDriver_Aux
 hs_bindgen_6520ae39b50ffb4e =
   \funPtr0 ->
-    BG.fromFFIType (hs_bindgen_6520ae39b50ffb4e_base (BG.castFunPtrToFFIType funPtr0))
+    RunDriver_Aux (\x1 ->
+                     fmap BG.fromFFIType (hs_bindgen_6520ae39b50ffb4e_base (BG.castFunPtr funPtr0) (BG.toFFIType x1)))
 
 instance BG.ToFunPtr RunDriver_Aux where
 

@@ -31,7 +31,7 @@ foreign import ccall unsafe "hs_bindgen_993162e0dadfa2c9" hs_bindgen_993162e0dad
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_bar@
 hs_bindgen_993162e0dadfa2c9 :: IO (BG.FunPtr (Foreign.Word64 -> Uint32_t -> IO BG.CInt))
 hs_bindgen_993162e0dadfa2c9 =
-  BG.fromFFIType hs_bindgen_993162e0dadfa2c9_base
+  fmap BG.fromFFIType hs_bindgen_993162e0dadfa2c9_base
 
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@

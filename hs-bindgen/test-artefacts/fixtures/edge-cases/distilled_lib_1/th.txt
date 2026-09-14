@@ -807,7 +807,7 @@ foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658_base ::
 hs_bindgen_b6b6922e35047658 :: Callback_t_Aux ->
                                IO (FunPtr Callback_t_Aux)
 -- __unique:__ @toCallback_t_Aux@
-hs_bindgen_b6b6922e35047658 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_b6b6922e35047658_base (toFFIType fun_0))
+hs_bindgen_b6b6922e35047658 = \fun_0 -> fmap castFunPtr (hs_bindgen_b6b6922e35047658_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapCallback_t_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
 -- __unique:__ @fromCallback_t_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_d6debb4b8d5bb869_base ::
     FunPtr (Ptr Void -> Word32 -> IO Word32)
@@ -818,7 +818,7 @@ foreign import ccall safe "dynamic" hs_bindgen_d6debb4b8d5bb869_base ::
 hs_bindgen_d6debb4b8d5bb869 :: FunPtr Callback_t_Aux ->
                                Callback_t_Aux
 -- __unique:__ @fromCallback_t_Aux@
-hs_bindgen_d6debb4b8d5bb869 = \funPtr_0 -> fromFFIType (hs_bindgen_d6debb4b8d5bb869_base (castFunPtrToFFIType funPtr_0))
+hs_bindgen_d6debb4b8d5bb869 = \funPtr_0 -> Callback_t_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_d6debb4b8d5bb869_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
 instance ToFunPtr Callback_t_Aux
     where toFunPtr = hs_bindgen_b6b6922e35047658
 instance FromFunPtr Callback_t_Aux
@@ -879,7 +879,7 @@ hs_bindgen_57cb99ed92c001ad :: Ptr A_type_t ->
                                Ptr (Elem (IncompleteArray HsBindgen.Runtime.LibC.Word8)) ->
                                IO HsBindgen.Runtime.LibC.Int32
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
-hs_bindgen_57cb99ed92c001ad = fromFFIType hs_bindgen_57cb99ed92c001ad_base
+hs_bindgen_57cb99ed92c001ad = \x_0 -> \x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_57cb99ed92c001ad_base (toFFIType x_0) (toFFIType x_1) (toFFIType x_2))
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 72:9@
@@ -909,7 +909,7 @@ hs_bindgen_2a91c367a9380a63 :: Ptr A_type_t ->
                                Ptr (Elem (IncompleteArray HsBindgen.Runtime.LibC.Word8)) ->
                                IO HsBindgen.Runtime.LibC.Int32
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
-hs_bindgen_2a91c367a9380a63 = fromFFIType hs_bindgen_2a91c367a9380a63_base
+hs_bindgen_2a91c367a9380a63 = \x_0 -> \x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_2a91c367a9380a63_base (toFFIType x_0) (toFFIType x_1) (toFFIType x_2))
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 72:9@
@@ -936,7 +936,7 @@ hs_bindgen_1ade3cfc18679577 :: IO (FunPtr (Ptr A_type_t ->
                                            Ptr (Elem (IncompleteArray HsBindgen.Runtime.LibC.Word8)) ->
                                            IO HsBindgen.Runtime.LibC.Int32))
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun@
-hs_bindgen_1ade3cfc18679577 = fromFFIType hs_bindgen_1ade3cfc18679577_base
+hs_bindgen_1ade3cfc18679577 = fmap fromFFIType hs_bindgen_1ade3cfc18679577_base
 {-# NOINLINE some_fun_funptr #-}
 {-| __C declaration:__ @some_fun@
 
@@ -961,7 +961,7 @@ foreign import ccall unsafe "hs_bindgen_226b16768d8906f3" hs_bindgen_226b16768d8
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_v@
 hs_bindgen_226b16768d8906f3 :: IO (Ptr Var_t)
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_v@
-hs_bindgen_226b16768d8906f3 = fromFFIType hs_bindgen_226b16768d8906f3_base
+hs_bindgen_226b16768d8906f3 = fmap fromFFIType hs_bindgen_226b16768d8906f3_base
 {-# NOINLINE v #-}
 {-| __C declaration:__ @v@
 

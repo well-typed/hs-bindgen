@@ -34,7 +34,9 @@ hs_bindgen_48dbbf4b09b5b3c1 ::
   -> Uint32_t
   -> IO BG.CInt
 hs_bindgen_48dbbf4b09b5b3c1 =
-  BG.fromFFIType hs_bindgen_48dbbf4b09b5b3c1_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_48dbbf4b09b5b3c1_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @bar@
 

@@ -117,13 +117,13 @@
 -- {
 --   return (y)();
 -- }
--- signed int hs_bindgen_037c35609f7728b3 (void)
+-- signed int hs_bindgen_1b5a954ee8d33472 (void)
 -- {
---   return (x1)();
+--   return (z1)();
 -- }
--- signed int hs_bindgen_2c3e8d78049741c3 (void)
+-- signed int hs_bindgen_871d232f0a2386a3 (void)
 -- {
---   return (x2)();
+--   return (z2)();
 -- }
 -- void hs_bindgen_52759f125bf2b140 (void)
 -- {
@@ -242,13 +242,13 @@
 -- {
 --   return (y)();
 -- }
--- signed int hs_bindgen_8562db8b96c10d6b (void)
+-- signed int hs_bindgen_92dc5692c137b4da (void)
 -- {
---   return (x1)();
+--   return (z1)();
 -- }
--- signed int hs_bindgen_150a79fec58eaf56 (void)
+-- signed int hs_bindgen_6e662527d3f0decc (void)
 -- {
---   return (x2)();
+--   return (z2)();
 -- }
 -- /* test_functionsfun_attributes_Example_get___f1 */
 -- __attribute__ ((const))
@@ -411,17 +411,17 @@
 -- {
 --   return &y;
 -- }
--- /* test_functionsfun_attributes_Example_get_x1 */
+-- /* test_functionsfun_attributes_Example_get_z1 */
 -- __attribute__ ((const))
--- signed int (*hs_bindgen_06bd05eb2df3a936 (void)) (void)
+-- signed int (*hs_bindgen_27c558455e5d5b1a (void)) (void)
 -- {
---   return &x1;
+--   return &z1;
 -- }
--- /* test_functionsfun_attributes_Example_get_x2 */
+-- /* test_functionsfun_attributes_Example_get_z2 */
 -- __attribute__ ((const))
--- signed int (*hs_bindgen_f2ae2154ea32940b (void)) (void)
+-- signed int (*hs_bindgen_ef816c1d50bc7bb9 (void)) (void)
 -- {
---   return &x2;
+--   return &z2;
 -- }
 -- /* test_functionsfun_attributes_Example_get_i */
 -- __attribute__ ((const))
@@ -485,7 +485,7 @@ foreign import ccall safe "hs_bindgen_0560fe42a40f777f" hs_bindgen_0560fe42a40f7
 -- __unique:__ @test_functionsfun_attributes_Example_Safe___f1@
 hs_bindgen_0560fe42a40f777f :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe___f1@
-hs_bindgen_0560fe42a40f777f = fromFFIType hs_bindgen_0560fe42a40f777f_base
+hs_bindgen_0560fe42a40f777f = hs_bindgen_0560fe42a40f777f_base
 {-| __C declaration:__ @__f1@
 
     __defined at:__ @functions\/fun_attributes.h 16:13@
@@ -506,7 +506,7 @@ foreign import ccall safe "hs_bindgen_1a4676387075dc40" hs_bindgen_1a4676387075d
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f1@
 hs_bindgen_1a4676387075dc40 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f1@
-hs_bindgen_1a4676387075dc40 = fromFFIType hs_bindgen_1a4676387075dc40_base
+hs_bindgen_1a4676387075dc40 = hs_bindgen_1a4676387075dc40_base
 {-| __C declaration:__ @f1@
 
     __defined at:__ @functions\/fun_attributes.h 19:6@
@@ -529,7 +529,7 @@ foreign import ccall safe "hs_bindgen_63adcb061045c5ac" hs_bindgen_63adcb061045c
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_memalign@
 hs_bindgen_63adcb061045c5ac :: Size_t -> Size_t -> IO (Ptr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_memalign@
-hs_bindgen_63adcb061045c5ac = fromFFIType hs_bindgen_63adcb061045c5ac_base
+hs_bindgen_63adcb061045c5ac = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_63adcb061045c5ac_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @my_memalign@
 
     __defined at:__ @functions\/fun_attributes.h 23:7@
@@ -552,7 +552,7 @@ foreign import ccall safe "hs_bindgen_733b29547ce864f6" hs_bindgen_733b29547ce86
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_calloc@
 hs_bindgen_733b29547ce864f6 :: Size_t -> Size_t -> IO (Ptr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_calloc@
-hs_bindgen_733b29547ce864f6 = fromFFIType hs_bindgen_733b29547ce864f6_base
+hs_bindgen_733b29547ce864f6 = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_733b29547ce864f6_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @my_calloc@
 
     __defined at:__ @functions\/fun_attributes.h 28:7@
@@ -575,7 +575,7 @@ foreign import ccall safe "hs_bindgen_4c69efa2a8a2b7c0" hs_bindgen_4c69efa2a8a2b
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_realloc@
 hs_bindgen_4c69efa2a8a2b7c0 :: Ptr Void -> Size_t -> IO (Ptr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_realloc@
-hs_bindgen_4c69efa2a8a2b7c0 = fromFFIType hs_bindgen_4c69efa2a8a2b7c0_base
+hs_bindgen_4c69efa2a8a2b7c0 = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_4c69efa2a8a2b7c0_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @my_realloc@
 
     __defined at:__ @functions\/fun_attributes.h 29:7@
@@ -597,7 +597,7 @@ foreign import ccall safe "hs_bindgen_1eae846583dd415c" hs_bindgen_1eae846583dd4
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_alloc1@
 hs_bindgen_1eae846583dd415c :: Size_t -> IO (Ptr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_alloc1@
-hs_bindgen_1eae846583dd415c = fromFFIType hs_bindgen_1eae846583dd415c_base
+hs_bindgen_1eae846583dd415c = \x_0 -> fmap fromFFIType (hs_bindgen_1eae846583dd415c_base (toFFIType x_0))
 {-| __C declaration:__ @my_alloc1@
 
     __defined at:__ @functions\/fun_attributes.h 34:7@
@@ -619,7 +619,7 @@ foreign import ccall safe "hs_bindgen_790482b4016de326" hs_bindgen_790482b4016de
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_alloc2@
 hs_bindgen_790482b4016de326 :: Size_t -> IO (Ptr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_alloc2@
-hs_bindgen_790482b4016de326 = fromFFIType hs_bindgen_790482b4016de326_base
+hs_bindgen_790482b4016de326 = \x_0 -> fmap fromFFIType (hs_bindgen_790482b4016de326_base (toFFIType x_0))
 {-| __C declaration:__ @my_alloc2@
 
     __defined at:__ @functions\/fun_attributes.h 35:7@
@@ -641,7 +641,7 @@ foreign import ccall safe "hs_bindgen_3f72dedf649beccd" hs_bindgen_3f72dedf649be
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_square@
 hs_bindgen_3f72dedf649beccd :: CInt -> CInt
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_square@
-hs_bindgen_3f72dedf649beccd = fromFFIType hs_bindgen_3f72dedf649beccd_base
+hs_bindgen_3f72dedf649beccd = \x_0 -> fromFFIType (hs_bindgen_3f72dedf649beccd_base (toFFIType x_0))
 {-|
 
     Marked @__attribute((const))__@
@@ -670,7 +670,7 @@ foreign import ccall safe "hs_bindgen_a8f71f2272dae572" hs_bindgen_a8f71f2272dae
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_old_fn_deprecated@
 hs_bindgen_a8f71f2272dae572 :: IO CInt
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_old_fn_deprecated@
-hs_bindgen_a8f71f2272dae572 = fromFFIType hs_bindgen_a8f71f2272dae572_base
+hs_bindgen_a8f71f2272dae572 = fmap fromFFIType hs_bindgen_a8f71f2272dae572_base
 {-| __C declaration:__ @old_fn_deprecated@
 
     __defined at:__ @functions\/fun_attributes.h 48:5@
@@ -694,7 +694,7 @@ foreign import ccall safe "hs_bindgen_11a623401451cca5" hs_bindgen_11a623401451c
 hs_bindgen_11a623401451cca5 :: Ptr CChar ->
                                PtrConst CChar -> IO (Ptr CChar)
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_dgettext@
-hs_bindgen_11a623401451cca5 = fromFFIType hs_bindgen_11a623401451cca5_base
+hs_bindgen_11a623401451cca5 = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_11a623401451cca5_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @my_dgettext@
 
     __defined at:__ @functions\/fun_attributes.h 64:1@
@@ -718,7 +718,7 @@ foreign import ccall safe "hs_bindgen_30143e337a327ef0" hs_bindgen_30143e337a327
 hs_bindgen_30143e337a327ef0 :: CInt ->
                                PtrConst CChar -> IO (Ptr FILE)
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_fdopen@
-hs_bindgen_30143e337a327ef0 = fromFFIType hs_bindgen_30143e337a327ef0_base
+hs_bindgen_30143e337a327ef0 = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_30143e337a327ef0_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @fdopen@
 
     __defined at:__ @functions\/fun_attributes.h 75:9@
@@ -739,7 +739,7 @@ foreign import ccall safe "hs_bindgen_7b2c420d0febf062" hs_bindgen_7b2c420d0febf
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f2@
 hs_bindgen_7b2c420d0febf062 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f2@
-hs_bindgen_7b2c420d0febf062 = fromFFIType hs_bindgen_7b2c420d0febf062_base
+hs_bindgen_7b2c420d0febf062 = hs_bindgen_7b2c420d0febf062_base
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/fun_attributes.h 79:65@
@@ -764,7 +764,7 @@ foreign import ccall safe "hs_bindgen_af1f131d9e98a2ff" hs_bindgen_af1f131d9e98a
 hs_bindgen_af1f131d9e98a2ff :: Ptr Void ->
                                PtrConst Void -> Size_t -> IO (Ptr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_memcpy@
-hs_bindgen_af1f131d9e98a2ff = fromFFIType hs_bindgen_af1f131d9e98a2ff_base
+hs_bindgen_af1f131d9e98a2ff = \x_0 -> \x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_af1f131d9e98a2ff_base (toFFIType x_0) (toFFIType x_1) (toFFIType x_2))
 {-| __C declaration:__ @my_memcpy@
 
     __defined at:__ @functions\/fun_attributes.h 85:1@
@@ -786,7 +786,7 @@ foreign import ccall safe "hs_bindgen_0afa6ff8226517c8" hs_bindgen_0afa6ff822651
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_fatal@
 hs_bindgen_0afa6ff8226517c8 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_fatal@
-hs_bindgen_0afa6ff8226517c8 = fromFFIType hs_bindgen_0afa6ff8226517c8_base
+hs_bindgen_0afa6ff8226517c8 = hs_bindgen_0afa6ff8226517c8_base
 {-| __C declaration:__ @fatal@
 
     __defined at:__ @functions\/fun_attributes.h 102:6@
@@ -808,7 +808,7 @@ foreign import ccall safe "hs_bindgen_948fc14ee9d5d56f" hs_bindgen_948fc14ee9d5d
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_hash@
 hs_bindgen_948fc14ee9d5d56f :: Ptr CChar -> IO CInt
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_hash@
-hs_bindgen_948fc14ee9d5d56f = fromFFIType hs_bindgen_948fc14ee9d5d56f_base
+hs_bindgen_948fc14ee9d5d56f = \x_0 -> fmap fromFFIType (hs_bindgen_948fc14ee9d5d56f_base (toFFIType x_0))
 {-|
 
     Marked @__attribute((pure))__@
@@ -838,7 +838,7 @@ foreign import ccall safe "hs_bindgen_60517fb6ae2517ff" hs_bindgen_60517fb6ae251
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_mymalloc@
 hs_bindgen_60517fb6ae2517ff :: Size_t -> IO (Ptr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_mymalloc@
-hs_bindgen_60517fb6ae2517ff = fromFFIType hs_bindgen_60517fb6ae2517ff_base
+hs_bindgen_60517fb6ae2517ff = \x_0 -> fmap fromFFIType (hs_bindgen_60517fb6ae2517ff_base (toFFIType x_0))
 {-| __C declaration:__ @mymalloc@
 
     __defined at:__ @functions\/fun_attributes.h 115:1@
@@ -859,7 +859,7 @@ foreign import ccall safe "hs_bindgen_f1451b46f1bd3813" hs_bindgen_f1451b46f1bd3
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_foobar@
 hs_bindgen_f1451b46f1bd3813 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_foobar@
-hs_bindgen_f1451b46f1bd3813 = fromFFIType hs_bindgen_f1451b46f1bd3813_base
+hs_bindgen_f1451b46f1bd3813 = hs_bindgen_f1451b46f1bd3813_base
 {-| __C declaration:__ @foobar@
 
     __defined at:__ @functions\/fun_attributes.h 119:13@
@@ -880,7 +880,7 @@ foreign import ccall safe "hs_bindgen_07f5843dd5c65611" hs_bindgen_07f5843dd5c65
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_core2_func@
 hs_bindgen_07f5843dd5c65611 :: IO CInt
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_core2_func@
-hs_bindgen_07f5843dd5c65611 = fromFFIType hs_bindgen_07f5843dd5c65611_base
+hs_bindgen_07f5843dd5c65611 = fmap fromFFIType hs_bindgen_07f5843dd5c65611_base
 {-| __C declaration:__ @core2_func@
 
     __defined at:__ @functions\/fun_attributes.h 126:5@
@@ -901,7 +901,7 @@ foreign import ccall safe "hs_bindgen_2c7c9e9a45042696" hs_bindgen_2c7c9e9a45042
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_sse3_func@
 hs_bindgen_2c7c9e9a45042696 :: IO CInt
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_sse3_func@
-hs_bindgen_2c7c9e9a45042696 = fromFFIType hs_bindgen_2c7c9e9a45042696_base
+hs_bindgen_2c7c9e9a45042696 = fmap fromFFIType hs_bindgen_2c7c9e9a45042696_base
 {-| __C declaration:__ @sse3_func@
 
     __defined at:__ @functions\/fun_attributes.h 127:5@
@@ -922,7 +922,7 @@ foreign import ccall safe "hs_bindgen_4ff2d7abd6099082" hs_bindgen_4ff2d7abd6099
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f3@
 hs_bindgen_4ff2d7abd6099082 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f3@
-hs_bindgen_4ff2d7abd6099082 = fromFFIType hs_bindgen_4ff2d7abd6099082_base
+hs_bindgen_4ff2d7abd6099082 = hs_bindgen_4ff2d7abd6099082_base
 {-| __C declaration:__ @f3@
 
     __defined at:__ @functions\/fun_attributes.h 131:49@
@@ -943,7 +943,7 @@ foreign import ccall safe "hs_bindgen_c3ae037518ec9b4e" hs_bindgen_c3ae037518ec9
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_fn@
 hs_bindgen_c3ae037518ec9b4e :: IO CInt
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_fn@
-hs_bindgen_c3ae037518ec9b4e = fromFFIType hs_bindgen_c3ae037518ec9b4e_base
+hs_bindgen_c3ae037518ec9b4e = fmap fromFFIType hs_bindgen_c3ae037518ec9b4e_base
 {-| __C declaration:__ @fn@
 
     __defined at:__ @functions\/fun_attributes.h 136:5@
@@ -964,7 +964,7 @@ foreign import ccall safe "hs_bindgen_da9708096863a242" hs_bindgen_da9708096863a
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_y@
 hs_bindgen_da9708096863a242 :: IO CInt
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_y@
-hs_bindgen_da9708096863a242 = fromFFIType hs_bindgen_da9708096863a242_base
+hs_bindgen_da9708096863a242 = fmap fromFFIType hs_bindgen_da9708096863a242_base
 {-| __C declaration:__ @y@
 
     __defined at:__ @functions\/fun_attributes.h 142:12@
@@ -979,55 +979,55 @@ y_safe :: IO CInt
     __exported by:__ @functions\/fun_attributes.h@
 -}
 y_safe = hs_bindgen_da9708096863a242
--- __unique:__ @test_functionsfun_attributes_Example_Safe_x1@
-foreign import ccall safe "hs_bindgen_037c35609f7728b3" hs_bindgen_037c35609f7728b3_base ::
+-- __unique:__ @test_functionsfun_attributes_Example_Safe_z1@
+foreign import ccall safe "hs_bindgen_1b5a954ee8d33472" hs_bindgen_1b5a954ee8d33472_base ::
     IO Int32
--- __unique:__ @test_functionsfun_attributes_Example_Safe_x1@
-hs_bindgen_037c35609f7728b3 :: IO CInt
--- __unique:__ @test_functionsfun_attributes_Example_Safe_x1@
-hs_bindgen_037c35609f7728b3 = fromFFIType hs_bindgen_037c35609f7728b3_base
-{-| __C declaration:__ @x1@
+-- __unique:__ @test_functionsfun_attributes_Example_Safe_z1@
+hs_bindgen_1b5a954ee8d33472 :: IO CInt
+-- __unique:__ @test_functionsfun_attributes_Example_Safe_z1@
+hs_bindgen_1b5a954ee8d33472 = fmap fromFFIType hs_bindgen_1b5a954ee8d33472_base
+{-| __C declaration:__ @z1@
 
     __defined at:__ @functions\/fun_attributes.h 145:12@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x1_safe :: IO CInt
-{-| __C declaration:__ @x1@
+z1_safe :: IO CInt
+{-| __C declaration:__ @z1@
 
     __defined at:__ @functions\/fun_attributes.h 145:12@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x1_safe = hs_bindgen_037c35609f7728b3
--- __unique:__ @test_functionsfun_attributes_Example_Safe_x2@
-foreign import ccall safe "hs_bindgen_2c3e8d78049741c3" hs_bindgen_2c3e8d78049741c3_base ::
+z1_safe = hs_bindgen_1b5a954ee8d33472
+-- __unique:__ @test_functionsfun_attributes_Example_Safe_z2@
+foreign import ccall safe "hs_bindgen_871d232f0a2386a3" hs_bindgen_871d232f0a2386a3_base ::
     IO Int32
--- __unique:__ @test_functionsfun_attributes_Example_Safe_x2@
-hs_bindgen_2c3e8d78049741c3 :: IO CInt
--- __unique:__ @test_functionsfun_attributes_Example_Safe_x2@
-hs_bindgen_2c3e8d78049741c3 = fromFFIType hs_bindgen_2c3e8d78049741c3_base
-{-| __C declaration:__ @x2@
+-- __unique:__ @test_functionsfun_attributes_Example_Safe_z2@
+hs_bindgen_871d232f0a2386a3 :: IO CInt
+-- __unique:__ @test_functionsfun_attributes_Example_Safe_z2@
+hs_bindgen_871d232f0a2386a3 = fmap fromFFIType hs_bindgen_871d232f0a2386a3_base
+{-| __C declaration:__ @z2@
 
     __defined at:__ @functions\/fun_attributes.h 148:12@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x2_safe :: IO CInt
-{-| __C declaration:__ @x2@
+z2_safe :: IO CInt
+{-| __C declaration:__ @z2@
 
     __defined at:__ @functions\/fun_attributes.h 148:12@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x2_safe = hs_bindgen_2c3e8d78049741c3
+z2_safe = hs_bindgen_871d232f0a2386a3
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe___f1@
 foreign import ccall unsafe "hs_bindgen_52759f125bf2b140" hs_bindgen_52759f125bf2b140_base ::
     IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe___f1@
 hs_bindgen_52759f125bf2b140 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe___f1@
-hs_bindgen_52759f125bf2b140 = fromFFIType hs_bindgen_52759f125bf2b140_base
+hs_bindgen_52759f125bf2b140 = hs_bindgen_52759f125bf2b140_base
 {-| __C declaration:__ @__f1@
 
     __defined at:__ @functions\/fun_attributes.h 16:13@
@@ -1048,7 +1048,7 @@ foreign import ccall unsafe "hs_bindgen_80bb9d1445e894ca" hs_bindgen_80bb9d1445e
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f1@
 hs_bindgen_80bb9d1445e894ca :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f1@
-hs_bindgen_80bb9d1445e894ca = fromFFIType hs_bindgen_80bb9d1445e894ca_base
+hs_bindgen_80bb9d1445e894ca = hs_bindgen_80bb9d1445e894ca_base
 {-| __C declaration:__ @f1@
 
     __defined at:__ @functions\/fun_attributes.h 19:6@
@@ -1071,7 +1071,7 @@ foreign import ccall unsafe "hs_bindgen_ebf8d1f009064640" hs_bindgen_ebf8d1f0090
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_memalign@
 hs_bindgen_ebf8d1f009064640 :: Size_t -> Size_t -> IO (Ptr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_memalign@
-hs_bindgen_ebf8d1f009064640 = fromFFIType hs_bindgen_ebf8d1f009064640_base
+hs_bindgen_ebf8d1f009064640 = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_ebf8d1f009064640_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @my_memalign@
 
     __defined at:__ @functions\/fun_attributes.h 23:7@
@@ -1094,7 +1094,7 @@ foreign import ccall unsafe "hs_bindgen_a062d8e757dc6824" hs_bindgen_a062d8e757d
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_calloc@
 hs_bindgen_a062d8e757dc6824 :: Size_t -> Size_t -> IO (Ptr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_calloc@
-hs_bindgen_a062d8e757dc6824 = fromFFIType hs_bindgen_a062d8e757dc6824_base
+hs_bindgen_a062d8e757dc6824 = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_a062d8e757dc6824_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @my_calloc@
 
     __defined at:__ @functions\/fun_attributes.h 28:7@
@@ -1117,7 +1117,7 @@ foreign import ccall unsafe "hs_bindgen_899561850b80c305" hs_bindgen_899561850b8
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_realloc@
 hs_bindgen_899561850b80c305 :: Ptr Void -> Size_t -> IO (Ptr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_realloc@
-hs_bindgen_899561850b80c305 = fromFFIType hs_bindgen_899561850b80c305_base
+hs_bindgen_899561850b80c305 = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_899561850b80c305_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @my_realloc@
 
     __defined at:__ @functions\/fun_attributes.h 29:7@
@@ -1139,7 +1139,7 @@ foreign import ccall unsafe "hs_bindgen_d5eb45f9de991bca" hs_bindgen_d5eb45f9de9
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_alloc1@
 hs_bindgen_d5eb45f9de991bca :: Size_t -> IO (Ptr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_alloc1@
-hs_bindgen_d5eb45f9de991bca = fromFFIType hs_bindgen_d5eb45f9de991bca_base
+hs_bindgen_d5eb45f9de991bca = \x_0 -> fmap fromFFIType (hs_bindgen_d5eb45f9de991bca_base (toFFIType x_0))
 {-| __C declaration:__ @my_alloc1@
 
     __defined at:__ @functions\/fun_attributes.h 34:7@
@@ -1161,7 +1161,7 @@ foreign import ccall unsafe "hs_bindgen_a7aa3949fa7cae3f" hs_bindgen_a7aa3949fa7
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_alloc2@
 hs_bindgen_a7aa3949fa7cae3f :: Size_t -> IO (Ptr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_alloc2@
-hs_bindgen_a7aa3949fa7cae3f = fromFFIType hs_bindgen_a7aa3949fa7cae3f_base
+hs_bindgen_a7aa3949fa7cae3f = \x_0 -> fmap fromFFIType (hs_bindgen_a7aa3949fa7cae3f_base (toFFIType x_0))
 {-| __C declaration:__ @my_alloc2@
 
     __defined at:__ @functions\/fun_attributes.h 35:7@
@@ -1183,7 +1183,7 @@ foreign import ccall unsafe "hs_bindgen_dbe49279b6585cea" hs_bindgen_dbe49279b65
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_square@
 hs_bindgen_dbe49279b6585cea :: CInt -> CInt
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_square@
-hs_bindgen_dbe49279b6585cea = fromFFIType hs_bindgen_dbe49279b6585cea_base
+hs_bindgen_dbe49279b6585cea = \x_0 -> fromFFIType (hs_bindgen_dbe49279b6585cea_base (toFFIType x_0))
 {-|
 
     Marked @__attribute((const))__@
@@ -1212,7 +1212,7 @@ foreign import ccall unsafe "hs_bindgen_f51c36dd7e8f4133" hs_bindgen_f51c36dd7e8
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_old_fn_deprecated@
 hs_bindgen_f51c36dd7e8f4133 :: IO CInt
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_old_fn_deprecated@
-hs_bindgen_f51c36dd7e8f4133 = fromFFIType hs_bindgen_f51c36dd7e8f4133_base
+hs_bindgen_f51c36dd7e8f4133 = fmap fromFFIType hs_bindgen_f51c36dd7e8f4133_base
 {-| __C declaration:__ @old_fn_deprecated@
 
     __defined at:__ @functions\/fun_attributes.h 48:5@
@@ -1236,7 +1236,7 @@ foreign import ccall unsafe "hs_bindgen_bf6f222178bd7c31" hs_bindgen_bf6f222178b
 hs_bindgen_bf6f222178bd7c31 :: Ptr CChar ->
                                PtrConst CChar -> IO (Ptr CChar)
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_dgettext@
-hs_bindgen_bf6f222178bd7c31 = fromFFIType hs_bindgen_bf6f222178bd7c31_base
+hs_bindgen_bf6f222178bd7c31 = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_bf6f222178bd7c31_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @my_dgettext@
 
     __defined at:__ @functions\/fun_attributes.h 64:1@
@@ -1260,7 +1260,7 @@ foreign import ccall unsafe "hs_bindgen_830629dc11c2fdfc" hs_bindgen_830629dc11c
 hs_bindgen_830629dc11c2fdfc :: CInt ->
                                PtrConst CChar -> IO (Ptr FILE)
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_fdopen@
-hs_bindgen_830629dc11c2fdfc = fromFFIType hs_bindgen_830629dc11c2fdfc_base
+hs_bindgen_830629dc11c2fdfc = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_830629dc11c2fdfc_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @fdopen@
 
     __defined at:__ @functions\/fun_attributes.h 75:9@
@@ -1281,7 +1281,7 @@ foreign import ccall unsafe "hs_bindgen_a5f34f5beb1c74f1" hs_bindgen_a5f34f5beb1
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f2@
 hs_bindgen_a5f34f5beb1c74f1 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f2@
-hs_bindgen_a5f34f5beb1c74f1 = fromFFIType hs_bindgen_a5f34f5beb1c74f1_base
+hs_bindgen_a5f34f5beb1c74f1 = hs_bindgen_a5f34f5beb1c74f1_base
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/fun_attributes.h 79:65@
@@ -1306,7 +1306,7 @@ foreign import ccall unsafe "hs_bindgen_0f3586df383dffea" hs_bindgen_0f3586df383
 hs_bindgen_0f3586df383dffea :: Ptr Void ->
                                PtrConst Void -> Size_t -> IO (Ptr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_memcpy@
-hs_bindgen_0f3586df383dffea = fromFFIType hs_bindgen_0f3586df383dffea_base
+hs_bindgen_0f3586df383dffea = \x_0 -> \x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_0f3586df383dffea_base (toFFIType x_0) (toFFIType x_1) (toFFIType x_2))
 {-| __C declaration:__ @my_memcpy@
 
     __defined at:__ @functions\/fun_attributes.h 85:1@
@@ -1328,7 +1328,7 @@ foreign import ccall unsafe "hs_bindgen_667d3280d945cd0c" hs_bindgen_667d3280d94
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_fatal@
 hs_bindgen_667d3280d945cd0c :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_fatal@
-hs_bindgen_667d3280d945cd0c = fromFFIType hs_bindgen_667d3280d945cd0c_base
+hs_bindgen_667d3280d945cd0c = hs_bindgen_667d3280d945cd0c_base
 {-| __C declaration:__ @fatal@
 
     __defined at:__ @functions\/fun_attributes.h 102:6@
@@ -1350,7 +1350,7 @@ foreign import ccall unsafe "hs_bindgen_394fd662d5fb7aa6" hs_bindgen_394fd662d5f
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_hash@
 hs_bindgen_394fd662d5fb7aa6 :: Ptr CChar -> IO CInt
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_hash@
-hs_bindgen_394fd662d5fb7aa6 = fromFFIType hs_bindgen_394fd662d5fb7aa6_base
+hs_bindgen_394fd662d5fb7aa6 = \x_0 -> fmap fromFFIType (hs_bindgen_394fd662d5fb7aa6_base (toFFIType x_0))
 {-|
 
     Marked @__attribute((pure))__@
@@ -1380,7 +1380,7 @@ foreign import ccall unsafe "hs_bindgen_5594a84fb65782e1" hs_bindgen_5594a84fb65
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_mymalloc@
 hs_bindgen_5594a84fb65782e1 :: Size_t -> IO (Ptr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_mymalloc@
-hs_bindgen_5594a84fb65782e1 = fromFFIType hs_bindgen_5594a84fb65782e1_base
+hs_bindgen_5594a84fb65782e1 = \x_0 -> fmap fromFFIType (hs_bindgen_5594a84fb65782e1_base (toFFIType x_0))
 {-| __C declaration:__ @mymalloc@
 
     __defined at:__ @functions\/fun_attributes.h 115:1@
@@ -1401,7 +1401,7 @@ foreign import ccall unsafe "hs_bindgen_1f19397195b32853" hs_bindgen_1f19397195b
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_foobar@
 hs_bindgen_1f19397195b32853 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_foobar@
-hs_bindgen_1f19397195b32853 = fromFFIType hs_bindgen_1f19397195b32853_base
+hs_bindgen_1f19397195b32853 = hs_bindgen_1f19397195b32853_base
 {-| __C declaration:__ @foobar@
 
     __defined at:__ @functions\/fun_attributes.h 119:13@
@@ -1422,7 +1422,7 @@ foreign import ccall unsafe "hs_bindgen_f80f9b58791a9cf2" hs_bindgen_f80f9b58791
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_core2_func@
 hs_bindgen_f80f9b58791a9cf2 :: IO CInt
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_core2_func@
-hs_bindgen_f80f9b58791a9cf2 = fromFFIType hs_bindgen_f80f9b58791a9cf2_base
+hs_bindgen_f80f9b58791a9cf2 = fmap fromFFIType hs_bindgen_f80f9b58791a9cf2_base
 {-| __C declaration:__ @core2_func@
 
     __defined at:__ @functions\/fun_attributes.h 126:5@
@@ -1443,7 +1443,7 @@ foreign import ccall unsafe "hs_bindgen_6a951361c18a91a0" hs_bindgen_6a951361c18
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_sse3_func@
 hs_bindgen_6a951361c18a91a0 :: IO CInt
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_sse3_func@
-hs_bindgen_6a951361c18a91a0 = fromFFIType hs_bindgen_6a951361c18a91a0_base
+hs_bindgen_6a951361c18a91a0 = fmap fromFFIType hs_bindgen_6a951361c18a91a0_base
 {-| __C declaration:__ @sse3_func@
 
     __defined at:__ @functions\/fun_attributes.h 127:5@
@@ -1464,7 +1464,7 @@ foreign import ccall unsafe "hs_bindgen_1d7f2cdf95b3bfa3" hs_bindgen_1d7f2cdf95b
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f3@
 hs_bindgen_1d7f2cdf95b3bfa3 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f3@
-hs_bindgen_1d7f2cdf95b3bfa3 = fromFFIType hs_bindgen_1d7f2cdf95b3bfa3_base
+hs_bindgen_1d7f2cdf95b3bfa3 = hs_bindgen_1d7f2cdf95b3bfa3_base
 {-| __C declaration:__ @f3@
 
     __defined at:__ @functions\/fun_attributes.h 131:49@
@@ -1485,7 +1485,7 @@ foreign import ccall unsafe "hs_bindgen_c1fff017165ba0e1" hs_bindgen_c1fff017165
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_fn@
 hs_bindgen_c1fff017165ba0e1 :: IO CInt
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_fn@
-hs_bindgen_c1fff017165ba0e1 = fromFFIType hs_bindgen_c1fff017165ba0e1_base
+hs_bindgen_c1fff017165ba0e1 = fmap fromFFIType hs_bindgen_c1fff017165ba0e1_base
 {-| __C declaration:__ @fn@
 
     __defined at:__ @functions\/fun_attributes.h 136:5@
@@ -1506,7 +1506,7 @@ foreign import ccall unsafe "hs_bindgen_67dc9f91fbda20c7" hs_bindgen_67dc9f91fbd
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_y@
 hs_bindgen_67dc9f91fbda20c7 :: IO CInt
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_y@
-hs_bindgen_67dc9f91fbda20c7 = fromFFIType hs_bindgen_67dc9f91fbda20c7_base
+hs_bindgen_67dc9f91fbda20c7 = fmap fromFFIType hs_bindgen_67dc9f91fbda20c7_base
 {-| __C declaration:__ @y@
 
     __defined at:__ @functions\/fun_attributes.h 142:12@
@@ -1521,55 +1521,55 @@ y_unsafe :: IO CInt
     __exported by:__ @functions\/fun_attributes.h@
 -}
 y_unsafe = hs_bindgen_67dc9f91fbda20c7
--- __unique:__ @test_functionsfun_attributes_Example_Unsafe_x1@
-foreign import ccall unsafe "hs_bindgen_8562db8b96c10d6b" hs_bindgen_8562db8b96c10d6b_base ::
+-- __unique:__ @test_functionsfun_attributes_Example_Unsafe_z1@
+foreign import ccall unsafe "hs_bindgen_92dc5692c137b4da" hs_bindgen_92dc5692c137b4da_base ::
     IO Int32
--- __unique:__ @test_functionsfun_attributes_Example_Unsafe_x1@
-hs_bindgen_8562db8b96c10d6b :: IO CInt
--- __unique:__ @test_functionsfun_attributes_Example_Unsafe_x1@
-hs_bindgen_8562db8b96c10d6b = fromFFIType hs_bindgen_8562db8b96c10d6b_base
-{-| __C declaration:__ @x1@
+-- __unique:__ @test_functionsfun_attributes_Example_Unsafe_z1@
+hs_bindgen_92dc5692c137b4da :: IO CInt
+-- __unique:__ @test_functionsfun_attributes_Example_Unsafe_z1@
+hs_bindgen_92dc5692c137b4da = fmap fromFFIType hs_bindgen_92dc5692c137b4da_base
+{-| __C declaration:__ @z1@
 
     __defined at:__ @functions\/fun_attributes.h 145:12@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x1_unsafe :: IO CInt
-{-| __C declaration:__ @x1@
+z1_unsafe :: IO CInt
+{-| __C declaration:__ @z1@
 
     __defined at:__ @functions\/fun_attributes.h 145:12@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x1_unsafe = hs_bindgen_8562db8b96c10d6b
--- __unique:__ @test_functionsfun_attributes_Example_Unsafe_x2@
-foreign import ccall unsafe "hs_bindgen_150a79fec58eaf56" hs_bindgen_150a79fec58eaf56_base ::
+z1_unsafe = hs_bindgen_92dc5692c137b4da
+-- __unique:__ @test_functionsfun_attributes_Example_Unsafe_z2@
+foreign import ccall unsafe "hs_bindgen_6e662527d3f0decc" hs_bindgen_6e662527d3f0decc_base ::
     IO Int32
--- __unique:__ @test_functionsfun_attributes_Example_Unsafe_x2@
-hs_bindgen_150a79fec58eaf56 :: IO CInt
--- __unique:__ @test_functionsfun_attributes_Example_Unsafe_x2@
-hs_bindgen_150a79fec58eaf56 = fromFFIType hs_bindgen_150a79fec58eaf56_base
-{-| __C declaration:__ @x2@
+-- __unique:__ @test_functionsfun_attributes_Example_Unsafe_z2@
+hs_bindgen_6e662527d3f0decc :: IO CInt
+-- __unique:__ @test_functionsfun_attributes_Example_Unsafe_z2@
+hs_bindgen_6e662527d3f0decc = fmap fromFFIType hs_bindgen_6e662527d3f0decc_base
+{-| __C declaration:__ @z2@
 
     __defined at:__ @functions\/fun_attributes.h 148:12@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x2_unsafe :: IO CInt
-{-| __C declaration:__ @x2@
+z2_unsafe :: IO CInt
+{-| __C declaration:__ @z2@
 
     __defined at:__ @functions\/fun_attributes.h 148:12@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x2_unsafe = hs_bindgen_150a79fec58eaf56
+z2_unsafe = hs_bindgen_6e662527d3f0decc
 -- __unique:__ @test_functionsfun_attributes_Example_get___f1@
 foreign import ccall unsafe "hs_bindgen_99da7108788a2cf4" hs_bindgen_99da7108788a2cf4_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_get___f1@
 hs_bindgen_99da7108788a2cf4 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionsfun_attributes_Example_get___f1@
-hs_bindgen_99da7108788a2cf4 = fromFFIType hs_bindgen_99da7108788a2cf4_base
+hs_bindgen_99da7108788a2cf4 = fmap fromFFIType hs_bindgen_99da7108788a2cf4_base
 {-# NOINLINE __f1_funptr #-}
 {-| __C declaration:__ @__f1@
 
@@ -1591,7 +1591,7 @@ foreign import ccall unsafe "hs_bindgen_a0d2ec6ffc23fc5a" hs_bindgen_a0d2ec6ffc2
 -- __unique:__ @test_functionsfun_attributes_Example_get_f1@
 hs_bindgen_a0d2ec6ffc23fc5a :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionsfun_attributes_Example_get_f1@
-hs_bindgen_a0d2ec6ffc23fc5a = fromFFIType hs_bindgen_a0d2ec6ffc23fc5a_base
+hs_bindgen_a0d2ec6ffc23fc5a = fmap fromFFIType hs_bindgen_a0d2ec6ffc23fc5a_base
 {-# NOINLINE f1_funptr #-}
 {-| __C declaration:__ @f1@
 
@@ -1614,7 +1614,7 @@ foreign import ccall unsafe "hs_bindgen_16a2a5a807cc26ec" hs_bindgen_16a2a5a807c
 hs_bindgen_16a2a5a807cc26ec :: IO (FunPtr (Size_t ->
                                            Size_t -> IO (Ptr Void)))
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_memalign@
-hs_bindgen_16a2a5a807cc26ec = fromFFIType hs_bindgen_16a2a5a807cc26ec_base
+hs_bindgen_16a2a5a807cc26ec = fmap fromFFIType hs_bindgen_16a2a5a807cc26ec_base
 {-# NOINLINE my_memalign_funptr #-}
 {-| __C declaration:__ @my_memalign@
 
@@ -1637,7 +1637,7 @@ foreign import ccall unsafe "hs_bindgen_976df97f9c9c1223" hs_bindgen_976df97f9c9
 hs_bindgen_976df97f9c9c1223 :: IO (FunPtr (Size_t ->
                                            Size_t -> IO (Ptr Void)))
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_calloc@
-hs_bindgen_976df97f9c9c1223 = fromFFIType hs_bindgen_976df97f9c9c1223_base
+hs_bindgen_976df97f9c9c1223 = fmap fromFFIType hs_bindgen_976df97f9c9c1223_base
 {-# NOINLINE my_calloc_funptr #-}
 {-| __C declaration:__ @my_calloc@
 
@@ -1660,7 +1660,7 @@ foreign import ccall unsafe "hs_bindgen_4021d3c6eae30c8c" hs_bindgen_4021d3c6eae
 hs_bindgen_4021d3c6eae30c8c :: IO (FunPtr (Ptr Void ->
                                            Size_t -> IO (Ptr Void)))
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_realloc@
-hs_bindgen_4021d3c6eae30c8c = fromFFIType hs_bindgen_4021d3c6eae30c8c_base
+hs_bindgen_4021d3c6eae30c8c = fmap fromFFIType hs_bindgen_4021d3c6eae30c8c_base
 {-# NOINLINE my_realloc_funptr #-}
 {-| __C declaration:__ @my_realloc@
 
@@ -1683,7 +1683,7 @@ foreign import ccall unsafe "hs_bindgen_2ca35d0827c76ff7" hs_bindgen_2ca35d0827c
 hs_bindgen_2ca35d0827c76ff7 :: IO (FunPtr (Size_t ->
                                            IO (Ptr Void)))
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_alloc1@
-hs_bindgen_2ca35d0827c76ff7 = fromFFIType hs_bindgen_2ca35d0827c76ff7_base
+hs_bindgen_2ca35d0827c76ff7 = fmap fromFFIType hs_bindgen_2ca35d0827c76ff7_base
 {-# NOINLINE my_alloc1_funptr #-}
 {-| __C declaration:__ @my_alloc1@
 
@@ -1706,7 +1706,7 @@ foreign import ccall unsafe "hs_bindgen_a43746fed9206f42" hs_bindgen_a43746fed92
 hs_bindgen_a43746fed9206f42 :: IO (FunPtr (Size_t ->
                                            IO (Ptr Void)))
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_alloc2@
-hs_bindgen_a43746fed9206f42 = fromFFIType hs_bindgen_a43746fed9206f42_base
+hs_bindgen_a43746fed9206f42 = fmap fromFFIType hs_bindgen_a43746fed9206f42_base
 {-# NOINLINE my_alloc2_funptr #-}
 {-| __C declaration:__ @my_alloc2@
 
@@ -1728,7 +1728,7 @@ foreign import ccall unsafe "hs_bindgen_d41557222fd2ab94" hs_bindgen_d41557222fd
 -- __unique:__ @test_functionsfun_attributes_Example_get_square@
 hs_bindgen_d41557222fd2ab94 :: IO (FunPtr (CInt -> IO CInt))
 -- __unique:__ @test_functionsfun_attributes_Example_get_square@
-hs_bindgen_d41557222fd2ab94 = fromFFIType hs_bindgen_d41557222fd2ab94_base
+hs_bindgen_d41557222fd2ab94 = fmap fromFFIType hs_bindgen_d41557222fd2ab94_base
 {-# NOINLINE square_funptr #-}
 {-| __C declaration:__ @square@
 
@@ -1750,7 +1750,7 @@ foreign import ccall unsafe "hs_bindgen_beee43878922a900" hs_bindgen_beee4387892
 -- __unique:__ @test_functionsfun_attributes_Example_get_old_fn_deprecated@
 hs_bindgen_beee43878922a900 :: IO (FunPtr (IO CInt))
 -- __unique:__ @test_functionsfun_attributes_Example_get_old_fn_deprecated@
-hs_bindgen_beee43878922a900 = fromFFIType hs_bindgen_beee43878922a900_base
+hs_bindgen_beee43878922a900 = fmap fromFFIType hs_bindgen_beee43878922a900_base
 {-# NOINLINE old_fn_deprecated_funptr #-}
 {-| __C declaration:__ @old_fn_deprecated@
 
@@ -1773,7 +1773,7 @@ foreign import ccall unsafe "hs_bindgen_f95f43d50ed8f2b4" hs_bindgen_f95f43d50ed
 hs_bindgen_f95f43d50ed8f2b4 :: IO (FunPtr (Ptr CChar ->
                                            PtrConst CChar -> IO (Ptr CChar)))
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_dgettext@
-hs_bindgen_f95f43d50ed8f2b4 = fromFFIType hs_bindgen_f95f43d50ed8f2b4_base
+hs_bindgen_f95f43d50ed8f2b4 = fmap fromFFIType hs_bindgen_f95f43d50ed8f2b4_base
 {-# NOINLINE my_dgettext_funptr #-}
 {-| __C declaration:__ @my_dgettext@
 
@@ -1797,7 +1797,7 @@ foreign import ccall unsafe "hs_bindgen_986260288574592d" hs_bindgen_98626028857
 hs_bindgen_986260288574592d :: IO (FunPtr (CInt ->
                                            PtrConst CChar -> IO (Ptr FILE)))
 -- __unique:__ @test_functionsfun_attributes_Example_get_fdopen@
-hs_bindgen_986260288574592d = fromFFIType hs_bindgen_986260288574592d_base
+hs_bindgen_986260288574592d = fmap fromFFIType hs_bindgen_986260288574592d_base
 {-# NOINLINE fdopen_funptr #-}
 {-| __C declaration:__ @fdopen@
 
@@ -1819,7 +1819,7 @@ foreign import ccall unsafe "hs_bindgen_fa90d405c15977a2" hs_bindgen_fa90d405c15
 -- __unique:__ @test_functionsfun_attributes_Example_get_f2@
 hs_bindgen_fa90d405c15977a2 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionsfun_attributes_Example_get_f2@
-hs_bindgen_fa90d405c15977a2 = fromFFIType hs_bindgen_fa90d405c15977a2_base
+hs_bindgen_fa90d405c15977a2 = fmap fromFFIType hs_bindgen_fa90d405c15977a2_base
 {-# NOINLINE f2_funptr #-}
 {-| __C declaration:__ @f2@
 
@@ -1842,7 +1842,7 @@ foreign import ccall unsafe "hs_bindgen_481e3a75205c85f2" hs_bindgen_481e3a75205
 hs_bindgen_481e3a75205c85f2 :: IO (FunPtr (Ptr Void ->
                                            PtrConst Void -> Size_t -> IO (Ptr Void)))
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_memcpy@
-hs_bindgen_481e3a75205c85f2 = fromFFIType hs_bindgen_481e3a75205c85f2_base
+hs_bindgen_481e3a75205c85f2 = fmap fromFFIType hs_bindgen_481e3a75205c85f2_base
 {-# NOINLINE my_memcpy_funptr #-}
 {-| __C declaration:__ @my_memcpy@
 
@@ -1865,7 +1865,7 @@ foreign import ccall unsafe "hs_bindgen_99cc62837ebec657" hs_bindgen_99cc62837eb
 -- __unique:__ @test_functionsfun_attributes_Example_get_fatal@
 hs_bindgen_99cc62837ebec657 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionsfun_attributes_Example_get_fatal@
-hs_bindgen_99cc62837ebec657 = fromFFIType hs_bindgen_99cc62837ebec657_base
+hs_bindgen_99cc62837ebec657 = fmap fromFFIType hs_bindgen_99cc62837ebec657_base
 {-# NOINLINE fatal_funptr #-}
 {-| __C declaration:__ @fatal@
 
@@ -1887,7 +1887,7 @@ foreign import ccall unsafe "hs_bindgen_196cbfce2a9df94f" hs_bindgen_196cbfce2a9
 -- __unique:__ @test_functionsfun_attributes_Example_get_hash@
 hs_bindgen_196cbfce2a9df94f :: IO (FunPtr (Ptr CChar -> IO CInt))
 -- __unique:__ @test_functionsfun_attributes_Example_get_hash@
-hs_bindgen_196cbfce2a9df94f = fromFFIType hs_bindgen_196cbfce2a9df94f_base
+hs_bindgen_196cbfce2a9df94f = fmap fromFFIType hs_bindgen_196cbfce2a9df94f_base
 {-# NOINLINE hash_funptr #-}
 {-| __C declaration:__ @hash@
 
@@ -1910,7 +1910,7 @@ foreign import ccall unsafe "hs_bindgen_ae6b503283507bd2" hs_bindgen_ae6b5032835
 hs_bindgen_ae6b503283507bd2 :: IO (FunPtr (Size_t ->
                                            IO (Ptr Void)))
 -- __unique:__ @test_functionsfun_attributes_Example_get_mymalloc@
-hs_bindgen_ae6b503283507bd2 = fromFFIType hs_bindgen_ae6b503283507bd2_base
+hs_bindgen_ae6b503283507bd2 = fmap fromFFIType hs_bindgen_ae6b503283507bd2_base
 {-# NOINLINE mymalloc_funptr #-}
 {-| __C declaration:__ @mymalloc@
 
@@ -1932,7 +1932,7 @@ foreign import ccall unsafe "hs_bindgen_ad3e5c88477c9e92" hs_bindgen_ad3e5c88477
 -- __unique:__ @test_functionsfun_attributes_Example_get_foobar@
 hs_bindgen_ad3e5c88477c9e92 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionsfun_attributes_Example_get_foobar@
-hs_bindgen_ad3e5c88477c9e92 = fromFFIType hs_bindgen_ad3e5c88477c9e92_base
+hs_bindgen_ad3e5c88477c9e92 = fmap fromFFIType hs_bindgen_ad3e5c88477c9e92_base
 {-# NOINLINE foobar_funptr #-}
 {-| __C declaration:__ @foobar@
 
@@ -1954,7 +1954,7 @@ foreign import ccall unsafe "hs_bindgen_508f28109ff2076e" hs_bindgen_508f28109ff
 -- __unique:__ @test_functionsfun_attributes_Example_get_core2_func@
 hs_bindgen_508f28109ff2076e :: IO (FunPtr (IO CInt))
 -- __unique:__ @test_functionsfun_attributes_Example_get_core2_func@
-hs_bindgen_508f28109ff2076e = fromFFIType hs_bindgen_508f28109ff2076e_base
+hs_bindgen_508f28109ff2076e = fmap fromFFIType hs_bindgen_508f28109ff2076e_base
 {-# NOINLINE core2_func_funptr #-}
 {-| __C declaration:__ @core2_func@
 
@@ -1976,7 +1976,7 @@ foreign import ccall unsafe "hs_bindgen_6e4f5b53b36a3ecb" hs_bindgen_6e4f5b53b36
 -- __unique:__ @test_functionsfun_attributes_Example_get_sse3_func@
 hs_bindgen_6e4f5b53b36a3ecb :: IO (FunPtr (IO CInt))
 -- __unique:__ @test_functionsfun_attributes_Example_get_sse3_func@
-hs_bindgen_6e4f5b53b36a3ecb = fromFFIType hs_bindgen_6e4f5b53b36a3ecb_base
+hs_bindgen_6e4f5b53b36a3ecb = fmap fromFFIType hs_bindgen_6e4f5b53b36a3ecb_base
 {-# NOINLINE sse3_func_funptr #-}
 {-| __C declaration:__ @sse3_func@
 
@@ -1998,7 +1998,7 @@ foreign import ccall unsafe "hs_bindgen_e39d5186f5da6c3f" hs_bindgen_e39d5186f5d
 -- __unique:__ @test_functionsfun_attributes_Example_get_f3@
 hs_bindgen_e39d5186f5da6c3f :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionsfun_attributes_Example_get_f3@
-hs_bindgen_e39d5186f5da6c3f = fromFFIType hs_bindgen_e39d5186f5da6c3f_base
+hs_bindgen_e39d5186f5da6c3f = fmap fromFFIType hs_bindgen_e39d5186f5da6c3f_base
 {-# NOINLINE f3_funptr #-}
 {-| __C declaration:__ @f3@
 
@@ -2020,7 +2020,7 @@ foreign import ccall unsafe "hs_bindgen_acb0e567f47dc0eb" hs_bindgen_acb0e567f47
 -- __unique:__ @test_functionsfun_attributes_Example_get_fn@
 hs_bindgen_acb0e567f47dc0eb :: IO (FunPtr (IO CInt))
 -- __unique:__ @test_functionsfun_attributes_Example_get_fn@
-hs_bindgen_acb0e567f47dc0eb = fromFFIType hs_bindgen_acb0e567f47dc0eb_base
+hs_bindgen_acb0e567f47dc0eb = fmap fromFFIType hs_bindgen_acb0e567f47dc0eb_base
 {-# NOINLINE fn_funptr #-}
 {-| __C declaration:__ @fn@
 
@@ -2042,7 +2042,7 @@ foreign import ccall unsafe "hs_bindgen_a1f58949b267b87f" hs_bindgen_a1f58949b26
 -- __unique:__ @test_functionsfun_attributes_Example_get_y@
 hs_bindgen_a1f58949b267b87f :: IO (FunPtr (IO CInt))
 -- __unique:__ @test_functionsfun_attributes_Example_get_y@
-hs_bindgen_a1f58949b267b87f = fromFFIType hs_bindgen_a1f58949b267b87f_base
+hs_bindgen_a1f58949b267b87f = fmap fromFFIType hs_bindgen_a1f58949b267b87f_base
 {-# NOINLINE y_funptr #-}
 {-| __C declaration:__ @y@
 
@@ -2058,57 +2058,57 @@ y_funptr :: FunPtr (IO CInt)
     __exported by:__ @functions\/fun_attributes.h@
 -}
 y_funptr = unsafePerformIO hs_bindgen_a1f58949b267b87f
--- __unique:__ @test_functionsfun_attributes_Example_get_x1@
-foreign import ccall unsafe "hs_bindgen_06bd05eb2df3a936" hs_bindgen_06bd05eb2df3a936_base ::
+-- __unique:__ @test_functionsfun_attributes_Example_get_z1@
+foreign import ccall unsafe "hs_bindgen_27c558455e5d5b1a" hs_bindgen_27c558455e5d5b1a_base ::
     IO (FunPtr Void)
--- __unique:__ @test_functionsfun_attributes_Example_get_x1@
-hs_bindgen_06bd05eb2df3a936 :: IO (FunPtr (IO CInt))
--- __unique:__ @test_functionsfun_attributes_Example_get_x1@
-hs_bindgen_06bd05eb2df3a936 = fromFFIType hs_bindgen_06bd05eb2df3a936_base
-{-# NOINLINE x1_funptr #-}
-{-| __C declaration:__ @x1@
+-- __unique:__ @test_functionsfun_attributes_Example_get_z1@
+hs_bindgen_27c558455e5d5b1a :: IO (FunPtr (IO CInt))
+-- __unique:__ @test_functionsfun_attributes_Example_get_z1@
+hs_bindgen_27c558455e5d5b1a = fmap fromFFIType hs_bindgen_27c558455e5d5b1a_base
+{-# NOINLINE z1_funptr #-}
+{-| __C declaration:__ @z1@
 
     __defined at:__ @functions\/fun_attributes.h 145:12@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x1_funptr :: FunPtr (IO CInt)
-{-| __C declaration:__ @x1@
+z1_funptr :: FunPtr (IO CInt)
+{-| __C declaration:__ @z1@
 
     __defined at:__ @functions\/fun_attributes.h 145:12@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x1_funptr = unsafePerformIO hs_bindgen_06bd05eb2df3a936
--- __unique:__ @test_functionsfun_attributes_Example_get_x2@
-foreign import ccall unsafe "hs_bindgen_f2ae2154ea32940b" hs_bindgen_f2ae2154ea32940b_base ::
+z1_funptr = unsafePerformIO hs_bindgen_27c558455e5d5b1a
+-- __unique:__ @test_functionsfun_attributes_Example_get_z2@
+foreign import ccall unsafe "hs_bindgen_ef816c1d50bc7bb9" hs_bindgen_ef816c1d50bc7bb9_base ::
     IO (FunPtr Void)
--- __unique:__ @test_functionsfun_attributes_Example_get_x2@
-hs_bindgen_f2ae2154ea32940b :: IO (FunPtr (IO CInt))
--- __unique:__ @test_functionsfun_attributes_Example_get_x2@
-hs_bindgen_f2ae2154ea32940b = fromFFIType hs_bindgen_f2ae2154ea32940b_base
-{-# NOINLINE x2_funptr #-}
-{-| __C declaration:__ @x2@
+-- __unique:__ @test_functionsfun_attributes_Example_get_z2@
+hs_bindgen_ef816c1d50bc7bb9 :: IO (FunPtr (IO CInt))
+-- __unique:__ @test_functionsfun_attributes_Example_get_z2@
+hs_bindgen_ef816c1d50bc7bb9 = fmap fromFFIType hs_bindgen_ef816c1d50bc7bb9_base
+{-# NOINLINE z2_funptr #-}
+{-| __C declaration:__ @z2@
 
     __defined at:__ @functions\/fun_attributes.h 148:12@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x2_funptr :: FunPtr (IO CInt)
-{-| __C declaration:__ @x2@
+z2_funptr :: FunPtr (IO CInt)
+{-| __C declaration:__ @z2@
 
     __defined at:__ @functions\/fun_attributes.h 148:12@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x2_funptr = unsafePerformIO hs_bindgen_f2ae2154ea32940b
+z2_funptr = unsafePerformIO hs_bindgen_ef816c1d50bc7bb9
 -- __unique:__ @test_functionsfun_attributes_Example_get_i@
 foreign import ccall unsafe "hs_bindgen_cd32cb4982dd2d1a" hs_bindgen_cd32cb4982dd2d1a_base ::
     IO (Ptr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_get_i@
 hs_bindgen_cd32cb4982dd2d1a :: IO (Ptr CInt)
 -- __unique:__ @test_functionsfun_attributes_Example_get_i@
-hs_bindgen_cd32cb4982dd2d1a = fromFFIType hs_bindgen_cd32cb4982dd2d1a_base
+hs_bindgen_cd32cb4982dd2d1a = fmap fromFFIType hs_bindgen_cd32cb4982dd2d1a_base
 {-# NOINLINE i #-}
 {-| __C declaration:__ @i@
 

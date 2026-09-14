@@ -193,6 +193,8 @@ data BindgenGlobalTerm =
   | ToFunPtr_toFunPtr
   | FromFunPtr_fromFunPtr
 
+  | Foreign_castFunPtr
+
     -- Foreign function interface
   | ByteArray_setUnionPayload
   | ByteArray_getUnionPayload
@@ -253,8 +255,6 @@ data BindgenGlobalTerm =
     -- HasFFIType
   | HasFFIType_fromFFIType
   | HasFFIType_toFFIType
-  | HasFFIType_castFunPtrFromFFIType
-  | HasFFIType_castFunPtrToFFIType
 
     -- Functor
   | Functor_fmap
@@ -451,6 +451,7 @@ bindgenGlobalTerm = globalExpr . \case
     -- Function pointers
     ToFunPtr_toFunPtr     -> (IRuntime Runtime.Support, GVar, 'BG.toFunPtr)
     FromFunPtr_fromFunPtr -> (IRuntime Runtime.Support, GVar, 'BG.fromFunPtr)
+    Foreign_castFunPtr    -> (IRuntime Runtime.Support, GVar, 'BG.castFunPtr)
 
     -- Foreign function interface
     ByteArray_getUnionPayload     -> (IRuntime Runtime.Support, GVar, 'BG.getUnionPayload)
@@ -512,8 +513,6 @@ bindgenGlobalTerm = globalExpr . \case
     -- HasFFIType
     HasFFIType_fromFFIType           -> (IRuntime Runtime.Support, GVar, 'BG.fromFFIType)
     HasFFIType_toFFIType             -> (IRuntime Runtime.Support, GVar, 'BG.toFFIType)
-    HasFFIType_castFunPtrFromFFIType -> (IRuntime Runtime.Support, GVar, 'BG.castFunPtrFromFFIType)
-    HasFFIType_castFunPtrToFFIType   -> (IRuntime Runtime.Support, GVar, 'BG.castFunPtrToFFIType)
 
     -- Functor
     Functor_fmap -> (IHaskellPrelude, GVar, 'fmap)

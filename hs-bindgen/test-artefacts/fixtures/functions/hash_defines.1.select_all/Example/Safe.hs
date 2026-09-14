@@ -37,7 +37,8 @@ hs_bindgen_6aab0c8e3c921393 ::
      BG.CInt
   -> IO BG.CInt
 hs_bindgen_6aab0c8e3c921393 =
-  BG.fromFFIType hs_bindgen_6aab0c8e3c921393_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_6aab0c8e3c921393_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @hash_defines_feature@
 
@@ -58,7 +59,7 @@ foreign import ccall safe "hs_bindgen_af6bf91e93f5ed0c" hs_bindgen_af6bf91e93f5e
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Safe_hash_defines_empty@
 hs_bindgen_af6bf91e93f5ed0c :: IO BG.CInt
 hs_bindgen_af6bf91e93f5ed0c =
-  BG.fromFFIType hs_bindgen_af6bf91e93f5ed0c_base
+  fmap BG.fromFFIType hs_bindgen_af6bf91e93f5ed0c_base
 
 {-| __C declaration:__ @hash_defines_empty@
 

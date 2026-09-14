@@ -51,7 +51,7 @@ hs_bindgen_eca2bca8e63194be ::
   -> IO (BG.FunPtr Toggle_Aux)
 hs_bindgen_eca2bca8e63194be =
   \fun0 ->
-    fmap BG.castFunPtrFromFFIType (hs_bindgen_eca2bca8e63194be_base (BG.toFFIType fun0))
+    fmap BG.castFunPtr (hs_bindgen_eca2bca8e63194be_base (fmap BG.toFFIType (BG.getField @"unwrapToggle_Aux" fun0)))
 
 -- __unique:__ @fromToggle_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_703fc4bdc168721d_base ::
@@ -64,7 +64,7 @@ hs_bindgen_703fc4bdc168721d ::
   -> Toggle_Aux
 hs_bindgen_703fc4bdc168721d =
   \funPtr0 ->
-    BG.fromFFIType (hs_bindgen_703fc4bdc168721d_base (BG.castFunPtrToFFIType funPtr0))
+    Toggle_Aux (fmap BG.fromFFIType (hs_bindgen_703fc4bdc168721d_base (BG.castFunPtr funPtr0)))
 
 instance BG.ToFunPtr Toggle_Aux where
 
@@ -154,7 +154,7 @@ hs_bindgen_2202848aad97fe0a ::
   -> IO (BG.FunPtr Counter_Aux)
 hs_bindgen_2202848aad97fe0a =
   \fun0 ->
-    fmap BG.castFunPtrFromFFIType (hs_bindgen_2202848aad97fe0a_base (BG.toFFIType fun0))
+    fmap BG.castFunPtr (hs_bindgen_2202848aad97fe0a_base (fmap BG.toFFIType (BG.getField @"unwrapCounter_Aux" fun0)))
 
 -- __unique:__ @fromCounter_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_73304cb84e9a2f8f_base ::
@@ -167,7 +167,7 @@ hs_bindgen_73304cb84e9a2f8f ::
   -> Counter_Aux
 hs_bindgen_73304cb84e9a2f8f =
   \funPtr0 ->
-    BG.fromFFIType (hs_bindgen_73304cb84e9a2f8f_base (BG.castFunPtrToFFIType funPtr0))
+    Counter_Aux (fmap BG.fromFFIType (hs_bindgen_73304cb84e9a2f8f_base (BG.castFunPtr funPtr0)))
 
 instance BG.ToFunPtr Counter_Aux where
 
@@ -257,7 +257,8 @@ hs_bindgen_42a7337570f8b0d0 ::
   -> IO (BG.FunPtr VarCounter_Aux)
 hs_bindgen_42a7337570f8b0d0 =
   \fun0 ->
-    fmap BG.castFunPtrFromFFIType (hs_bindgen_42a7337570f8b0d0_base (BG.toFFIType fun0))
+    fmap BG.castFunPtr (hs_bindgen_42a7337570f8b0d0_base (\x1 ->
+                                                            fmap BG.toFFIType (BG.getField @"unwrapVarCounter_Aux" fun0 (BG.fromFFIType x1))))
 
 -- __unique:__ @fromVarCounter_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_43d902480175fccf_base ::
@@ -270,7 +271,8 @@ hs_bindgen_43d902480175fccf ::
   -> VarCounter_Aux
 hs_bindgen_43d902480175fccf =
   \funPtr0 ->
-    BG.fromFFIType (hs_bindgen_43d902480175fccf_base (BG.castFunPtrToFFIType funPtr0))
+    VarCounter_Aux (\x1 ->
+                      fmap BG.fromFFIType (hs_bindgen_43d902480175fccf_base (BG.castFunPtr funPtr0) (BG.toFFIType x1)))
 
 instance BG.ToFunPtr VarCounter_Aux where
 

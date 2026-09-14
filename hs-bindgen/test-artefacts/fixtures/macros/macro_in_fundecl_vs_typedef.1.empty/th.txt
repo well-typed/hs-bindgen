@@ -421,7 +421,7 @@ foreign import ccall safe "hs_bindgen_02e0e3b28d470fd4" hs_bindgen_02e0e3b28d470
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_quux1@
 hs_bindgen_02e0e3b28d470fd4 :: CChar -> TC -> IO CChar
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_quux1@
-hs_bindgen_02e0e3b28d470fd4 = fromFFIType hs_bindgen_02e0e3b28d470fd4_base
+hs_bindgen_02e0e3b28d470fd4 = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_02e0e3b28d470fd4_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @quux1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 8:6@
@@ -444,7 +444,7 @@ foreign import ccall safe "hs_bindgen_bb79188c8775e2e4" hs_bindgen_bb79188c8775e
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_quux2@
 hs_bindgen_bb79188c8775e2e4 :: CChar -> CChar -> IO TC
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_quux2@
-hs_bindgen_bb79188c8775e2e4 = fromFFIType hs_bindgen_bb79188c8775e2e4_base
+hs_bindgen_bb79188c8775e2e4 = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_bb79188c8775e2e4_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @quux2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 9:4@
@@ -467,7 +467,7 @@ foreign import ccall safe "hs_bindgen_a398fb73645271c5" hs_bindgen_a398fb7364527
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_wam1@
 hs_bindgen_a398fb73645271c5 :: CFloat -> Ptr TC -> IO (Ptr CChar)
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_wam1@
-hs_bindgen_a398fb73645271c5 = fromFFIType hs_bindgen_a398fb73645271c5_base
+hs_bindgen_a398fb73645271c5 = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_a398fb73645271c5_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @wam1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 10:5@
@@ -490,7 +490,7 @@ foreign import ccall safe "hs_bindgen_ad904da072e0711e" hs_bindgen_ad904da072e07
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_wam2@
 hs_bindgen_ad904da072e0711e :: CFloat -> Ptr CChar -> IO (Ptr TC)
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_wam2@
-hs_bindgen_ad904da072e0711e = fromFFIType hs_bindgen_ad904da072e0711e_base
+hs_bindgen_ad904da072e0711e = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_ad904da072e0711e_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @wam2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 11:5@
@@ -513,7 +513,7 @@ foreign import ccall safe "hs_bindgen_88e976dc10571000" hs_bindgen_88e976dc10571
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef1@
 hs_bindgen_88e976dc10571000 :: Ptr Struct2 -> CChar -> IO ()
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef1@
-hs_bindgen_88e976dc10571000 = fromFFIType hs_bindgen_88e976dc10571000_base
+hs_bindgen_88e976dc10571000 = \x_0 -> \x_1 -> hs_bindgen_88e976dc10571000_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @struct_typedef1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 23:6@
@@ -536,7 +536,7 @@ foreign import ccall safe "hs_bindgen_edb3806d45d7605b" hs_bindgen_edb3806d45d76
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef2@
 hs_bindgen_edb3806d45d7605b :: Ptr Struct3_t -> CChar -> IO ()
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef2@
-hs_bindgen_edb3806d45d7605b = fromFFIType hs_bindgen_edb3806d45d7605b_base
+hs_bindgen_edb3806d45d7605b = \x_0 -> \x_1 -> hs_bindgen_edb3806d45d7605b_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @struct_typedef2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 24:6@
@@ -559,7 +559,7 @@ foreign import ccall safe "hs_bindgen_7c7f3ab0dd790fe8" hs_bindgen_7c7f3ab0dd790
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef3@
 hs_bindgen_7c7f3ab0dd790fe8 :: Ptr Struct4 -> CChar -> IO ()
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef3@
-hs_bindgen_7c7f3ab0dd790fe8 = fromFFIType hs_bindgen_7c7f3ab0dd790fe8_base
+hs_bindgen_7c7f3ab0dd790fe8 = \x_0 -> \x_1 -> hs_bindgen_7c7f3ab0dd790fe8_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @struct_typedef3@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 25:6@
@@ -582,7 +582,7 @@ foreign import ccall safe "hs_bindgen_2cfbb4f5834d4bcb" hs_bindgen_2cfbb4f5834d4
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name1@
 hs_bindgen_2cfbb4f5834d4bcb :: Ptr Struct1 -> CChar -> IO ()
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name1@
-hs_bindgen_2cfbb4f5834d4bcb = fromFFIType hs_bindgen_2cfbb4f5834d4bcb_base
+hs_bindgen_2cfbb4f5834d4bcb = \x_0 -> \x_1 -> hs_bindgen_2cfbb4f5834d4bcb_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @struct_name1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 27:6@
@@ -605,7 +605,7 @@ foreign import ccall safe "hs_bindgen_c8b765fa70f95167" hs_bindgen_c8b765fa70f95
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name2@
 hs_bindgen_c8b765fa70f95167 :: Ptr Struct3 -> CChar -> IO ()
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name2@
-hs_bindgen_c8b765fa70f95167 = fromFFIType hs_bindgen_c8b765fa70f95167_base
+hs_bindgen_c8b765fa70f95167 = \x_0 -> \x_1 -> hs_bindgen_c8b765fa70f95167_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @struct_name2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 28:6@
@@ -628,7 +628,7 @@ foreign import ccall safe "hs_bindgen_0ff3632971f092bb" hs_bindgen_0ff3632971f09
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name3@
 hs_bindgen_0ff3632971f092bb :: Ptr Struct4 -> CChar -> IO ()
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name3@
-hs_bindgen_0ff3632971f092bb = fromFFIType hs_bindgen_0ff3632971f092bb_base
+hs_bindgen_0ff3632971f092bb = \x_0 -> \x_1 -> hs_bindgen_0ff3632971f092bb_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @struct_name3@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 29:6@
@@ -651,7 +651,7 @@ foreign import ccall unsafe "hs_bindgen_df7e2b8e86de411a" hs_bindgen_df7e2b8e86d
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux1@
 hs_bindgen_df7e2b8e86de411a :: CChar -> TC -> IO CChar
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux1@
-hs_bindgen_df7e2b8e86de411a = fromFFIType hs_bindgen_df7e2b8e86de411a_base
+hs_bindgen_df7e2b8e86de411a = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_df7e2b8e86de411a_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @quux1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 8:6@
@@ -674,7 +674,7 @@ foreign import ccall unsafe "hs_bindgen_6f0b13ed02b696df" hs_bindgen_6f0b13ed02b
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux2@
 hs_bindgen_6f0b13ed02b696df :: CChar -> CChar -> IO TC
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux2@
-hs_bindgen_6f0b13ed02b696df = fromFFIType hs_bindgen_6f0b13ed02b696df_base
+hs_bindgen_6f0b13ed02b696df = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_6f0b13ed02b696df_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @quux2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 9:4@
@@ -697,7 +697,7 @@ foreign import ccall unsafe "hs_bindgen_f92059cc98dde342" hs_bindgen_f92059cc98d
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam1@
 hs_bindgen_f92059cc98dde342 :: CFloat -> Ptr TC -> IO (Ptr CChar)
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam1@
-hs_bindgen_f92059cc98dde342 = fromFFIType hs_bindgen_f92059cc98dde342_base
+hs_bindgen_f92059cc98dde342 = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_f92059cc98dde342_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @wam1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 10:5@
@@ -720,7 +720,7 @@ foreign import ccall unsafe "hs_bindgen_3e6ecd1b2cc616bc" hs_bindgen_3e6ecd1b2cc
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam2@
 hs_bindgen_3e6ecd1b2cc616bc :: CFloat -> Ptr CChar -> IO (Ptr TC)
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam2@
-hs_bindgen_3e6ecd1b2cc616bc = fromFFIType hs_bindgen_3e6ecd1b2cc616bc_base
+hs_bindgen_3e6ecd1b2cc616bc = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_3e6ecd1b2cc616bc_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @wam2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 11:5@
@@ -743,7 +743,7 @@ foreign import ccall unsafe "hs_bindgen_ffa9d5a3e8f0f221" hs_bindgen_ffa9d5a3e8f
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef1@
 hs_bindgen_ffa9d5a3e8f0f221 :: Ptr Struct2 -> CChar -> IO ()
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef1@
-hs_bindgen_ffa9d5a3e8f0f221 = fromFFIType hs_bindgen_ffa9d5a3e8f0f221_base
+hs_bindgen_ffa9d5a3e8f0f221 = \x_0 -> \x_1 -> hs_bindgen_ffa9d5a3e8f0f221_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @struct_typedef1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 23:6@
@@ -766,7 +766,7 @@ foreign import ccall unsafe "hs_bindgen_4801667560542114" hs_bindgen_48016675605
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef2@
 hs_bindgen_4801667560542114 :: Ptr Struct3_t -> CChar -> IO ()
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef2@
-hs_bindgen_4801667560542114 = fromFFIType hs_bindgen_4801667560542114_base
+hs_bindgen_4801667560542114 = \x_0 -> \x_1 -> hs_bindgen_4801667560542114_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @struct_typedef2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 24:6@
@@ -789,7 +789,7 @@ foreign import ccall unsafe "hs_bindgen_04fa5bbd479146eb" hs_bindgen_04fa5bbd479
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef3@
 hs_bindgen_04fa5bbd479146eb :: Ptr Struct4 -> CChar -> IO ()
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef3@
-hs_bindgen_04fa5bbd479146eb = fromFFIType hs_bindgen_04fa5bbd479146eb_base
+hs_bindgen_04fa5bbd479146eb = \x_0 -> \x_1 -> hs_bindgen_04fa5bbd479146eb_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @struct_typedef3@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 25:6@
@@ -812,7 +812,7 @@ foreign import ccall unsafe "hs_bindgen_08025fd0bd589ac2" hs_bindgen_08025fd0bd5
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name1@
 hs_bindgen_08025fd0bd589ac2 :: Ptr Struct1 -> CChar -> IO ()
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name1@
-hs_bindgen_08025fd0bd589ac2 = fromFFIType hs_bindgen_08025fd0bd589ac2_base
+hs_bindgen_08025fd0bd589ac2 = \x_0 -> \x_1 -> hs_bindgen_08025fd0bd589ac2_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @struct_name1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 27:6@
@@ -835,7 +835,7 @@ foreign import ccall unsafe "hs_bindgen_9de286608f952fc7" hs_bindgen_9de286608f9
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name2@
 hs_bindgen_9de286608f952fc7 :: Ptr Struct3 -> CChar -> IO ()
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name2@
-hs_bindgen_9de286608f952fc7 = fromFFIType hs_bindgen_9de286608f952fc7_base
+hs_bindgen_9de286608f952fc7 = \x_0 -> \x_1 -> hs_bindgen_9de286608f952fc7_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @struct_name2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 28:6@
@@ -858,7 +858,7 @@ foreign import ccall unsafe "hs_bindgen_38cce6bb1ac71578" hs_bindgen_38cce6bb1ac
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name3@
 hs_bindgen_38cce6bb1ac71578 :: Ptr Struct4 -> CChar -> IO ()
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name3@
-hs_bindgen_38cce6bb1ac71578 = fromFFIType hs_bindgen_38cce6bb1ac71578_base
+hs_bindgen_38cce6bb1ac71578 = \x_0 -> \x_1 -> hs_bindgen_38cce6bb1ac71578_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @struct_name3@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 29:6@
@@ -880,7 +880,7 @@ foreign import ccall unsafe "hs_bindgen_8c77c87c8985f5b4" hs_bindgen_8c77c87c898
 hs_bindgen_8c77c87c8985f5b4 :: IO (FunPtr (CChar ->
                                            TC -> IO CChar))
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_quux1@
-hs_bindgen_8c77c87c8985f5b4 = fromFFIType hs_bindgen_8c77c87c8985f5b4_base
+hs_bindgen_8c77c87c8985f5b4 = fmap fromFFIType hs_bindgen_8c77c87c8985f5b4_base
 {-# NOINLINE quux1_funptr #-}
 {-| __C declaration:__ @quux1@
 
@@ -903,7 +903,7 @@ foreign import ccall unsafe "hs_bindgen_ad1c057fd2e38491" hs_bindgen_ad1c057fd2e
 hs_bindgen_ad1c057fd2e38491 :: IO (FunPtr (CChar ->
                                            CChar -> IO TC))
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_quux2@
-hs_bindgen_ad1c057fd2e38491 = fromFFIType hs_bindgen_ad1c057fd2e38491_base
+hs_bindgen_ad1c057fd2e38491 = fmap fromFFIType hs_bindgen_ad1c057fd2e38491_base
 {-# NOINLINE quux2_funptr #-}
 {-| __C declaration:__ @quux2@
 
@@ -926,7 +926,7 @@ foreign import ccall unsafe "hs_bindgen_05b0ef45be2bc377" hs_bindgen_05b0ef45be2
 hs_bindgen_05b0ef45be2bc377 :: IO (FunPtr (CFloat ->
                                            Ptr TC -> IO (Ptr CChar)))
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_wam1@
-hs_bindgen_05b0ef45be2bc377 = fromFFIType hs_bindgen_05b0ef45be2bc377_base
+hs_bindgen_05b0ef45be2bc377 = fmap fromFFIType hs_bindgen_05b0ef45be2bc377_base
 {-# NOINLINE wam1_funptr #-}
 {-| __C declaration:__ @wam1@
 
@@ -949,7 +949,7 @@ foreign import ccall unsafe "hs_bindgen_cd643a7a3c18ccf6" hs_bindgen_cd643a7a3c1
 hs_bindgen_cd643a7a3c18ccf6 :: IO (FunPtr (CFloat ->
                                            Ptr CChar -> IO (Ptr TC)))
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_wam2@
-hs_bindgen_cd643a7a3c18ccf6 = fromFFIType hs_bindgen_cd643a7a3c18ccf6_base
+hs_bindgen_cd643a7a3c18ccf6 = fmap fromFFIType hs_bindgen_cd643a7a3c18ccf6_base
 {-# NOINLINE wam2_funptr #-}
 {-| __C declaration:__ @wam2@
 
@@ -972,7 +972,7 @@ foreign import ccall unsafe "hs_bindgen_0322539d81aee229" hs_bindgen_0322539d81a
 hs_bindgen_0322539d81aee229 :: IO (FunPtr (Ptr Struct2 ->
                                            CChar -> IO ()))
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_typedef1@
-hs_bindgen_0322539d81aee229 = fromFFIType hs_bindgen_0322539d81aee229_base
+hs_bindgen_0322539d81aee229 = fmap fromFFIType hs_bindgen_0322539d81aee229_base
 {-# NOINLINE struct_typedef1_funptr #-}
 {-| __C declaration:__ @struct_typedef1@
 
@@ -995,7 +995,7 @@ foreign import ccall unsafe "hs_bindgen_8522498cba39ada6" hs_bindgen_8522498cba3
 hs_bindgen_8522498cba39ada6 :: IO (FunPtr (Ptr Struct3_t ->
                                            CChar -> IO ()))
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_typedef2@
-hs_bindgen_8522498cba39ada6 = fromFFIType hs_bindgen_8522498cba39ada6_base
+hs_bindgen_8522498cba39ada6 = fmap fromFFIType hs_bindgen_8522498cba39ada6_base
 {-# NOINLINE struct_typedef2_funptr #-}
 {-| __C declaration:__ @struct_typedef2@
 
@@ -1018,7 +1018,7 @@ foreign import ccall unsafe "hs_bindgen_e19fc7f7dee46424" hs_bindgen_e19fc7f7dee
 hs_bindgen_e19fc7f7dee46424 :: IO (FunPtr (Ptr Struct4 ->
                                            CChar -> IO ()))
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_typedef3@
-hs_bindgen_e19fc7f7dee46424 = fromFFIType hs_bindgen_e19fc7f7dee46424_base
+hs_bindgen_e19fc7f7dee46424 = fmap fromFFIType hs_bindgen_e19fc7f7dee46424_base
 {-# NOINLINE struct_typedef3_funptr #-}
 {-| __C declaration:__ @struct_typedef3@
 
@@ -1041,7 +1041,7 @@ foreign import ccall unsafe "hs_bindgen_00f81edda453ec64" hs_bindgen_00f81edda45
 hs_bindgen_00f81edda453ec64 :: IO (FunPtr (Ptr Struct1 ->
                                            CChar -> IO ()))
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name1@
-hs_bindgen_00f81edda453ec64 = fromFFIType hs_bindgen_00f81edda453ec64_base
+hs_bindgen_00f81edda453ec64 = fmap fromFFIType hs_bindgen_00f81edda453ec64_base
 {-# NOINLINE struct_name1_funptr #-}
 {-| __C declaration:__ @struct_name1@
 
@@ -1064,7 +1064,7 @@ foreign import ccall unsafe "hs_bindgen_8f4de3d502f3466d" hs_bindgen_8f4de3d502f
 hs_bindgen_8f4de3d502f3466d :: IO (FunPtr (Ptr Struct3 ->
                                            CChar -> IO ()))
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name2@
-hs_bindgen_8f4de3d502f3466d = fromFFIType hs_bindgen_8f4de3d502f3466d_base
+hs_bindgen_8f4de3d502f3466d = fmap fromFFIType hs_bindgen_8f4de3d502f3466d_base
 {-# NOINLINE struct_name2_funptr #-}
 {-| __C declaration:__ @struct_name2@
 
@@ -1087,7 +1087,7 @@ foreign import ccall unsafe "hs_bindgen_ba133ae0ff062248" hs_bindgen_ba133ae0ff0
 hs_bindgen_ba133ae0ff062248 :: IO (FunPtr (Ptr Struct4 ->
                                            CChar -> IO ()))
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name3@
-hs_bindgen_ba133ae0ff062248 = fromFFIType hs_bindgen_ba133ae0ff062248_base
+hs_bindgen_ba133ae0ff062248 = fmap fromFFIType hs_bindgen_ba133ae0ff062248_base
 {-# NOINLINE struct_name3_funptr #-}
 {-| __C declaration:__ @struct_name3@
 

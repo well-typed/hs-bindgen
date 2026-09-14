@@ -40,6 +40,7 @@ module HsBindgen.Runtime.Support (
   , Ptr(Ptr)
   , FunPtr
   , plusPtr
+  , castFunPtr
   , StablePtr
   , getUnionPayload
   , setUnionPayload
@@ -60,8 +61,6 @@ module HsBindgen.Runtime.Support (
 
     -- * 'HasFFIType'
   , HasFFIType(FFIType, fromFFIType, toFFIType)
-  , castFunPtrFromFFIType
-  , castFunPtrToFFIType
 
     -- * Unsafe
   , unsafePerformIO
@@ -127,7 +126,7 @@ import Data.Proxy (Proxy (Proxy))
 import Data.Void (Void)
 import Data.Word (Word16, Word32, Word64, Word8)
 import Foreign (Storable (alignment, peek, peekByteOff, poke, pokeByteOff, sizeOf),
-                with)
+                castFunPtr, with)
 import Foreign.C (CBool, CChar, CDouble (CDouble), CFloat (CFloat), CInt,
                   CLLong, CLong, CPtrdiff, CSChar, CShort, CUChar, CUInt,
                   CULLong, CULong, CUShort)
@@ -149,7 +148,5 @@ import HsBindgen.Runtime.Support.ByteArray (getUnionPayload,
 import HsBindgen.Runtime.Support.CAPI (allocaAndPeek)
 import HsBindgen.Runtime.Support.FunPtr (FromFunPtr (fromFunPtr),
                                          ToFunPtr (toFunPtr))
-import HsBindgen.Runtime.Support.HasFFIType (HasFFIType (FFIType, fromFFIType, toFFIType),
-                                             castFunPtrFromFFIType,
-                                             castFunPtrToFFIType)
+import HsBindgen.Runtime.Support.HasFFIType (HasFFIType (FFIType, fromFFIType, toFFIType))
 import HsBindgen.Runtime.Support.SizedByteArray (SizedByteArray (SizedByteArray))

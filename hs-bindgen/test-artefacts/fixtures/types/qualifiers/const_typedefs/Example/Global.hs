@@ -105,7 +105,7 @@ foreign import ccall unsafe "hs_bindgen_bb40525ba9109d7a" hs_bindgen_bb40525ba91
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_i@
 hs_bindgen_bb40525ba9109d7a :: IO (PtrConst.PtrConst I)
 hs_bindgen_bb40525ba9109d7a =
-  BG.fromFFIType hs_bindgen_bb40525ba9109d7a_base
+  fmap BG.fromFFIType hs_bindgen_bb40525ba9109d7a_base
 
 {-# NOINLINE hs_bindgen_8bf2d89ca41997fb #-}
 {-| __C declaration:__ @i@
@@ -132,7 +132,7 @@ foreign import ccall unsafe "hs_bindgen_e02c667254de325e" hs_bindgen_e02c667254d
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_s@
 hs_bindgen_e02c667254de325e :: IO (PtrConst.PtrConst S)
 hs_bindgen_e02c667254de325e =
-  BG.fromFFIType hs_bindgen_e02c667254de325e_base
+  fmap BG.fromFFIType hs_bindgen_e02c667254de325e_base
 
 {-# NOINLINE hs_bindgen_0e876abf0fe9e3b2 #-}
 {-| __C declaration:__ @s@
@@ -159,7 +159,7 @@ foreign import ccall unsafe "hs_bindgen_db442d4a677f346c" hs_bindgen_db442d4a677
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_u@
 hs_bindgen_db442d4a677f346c :: IO (PtrConst.PtrConst U)
 hs_bindgen_db442d4a677f346c =
-  BG.fromFFIType hs_bindgen_db442d4a677f346c_base
+  fmap BG.fromFFIType hs_bindgen_db442d4a677f346c_base
 
 {-# NOINLINE hs_bindgen_b7bdf87ddb6b9a5b #-}
 {-| __C declaration:__ @u@
@@ -186,7 +186,7 @@ foreign import ccall unsafe "hs_bindgen_f8e0ac7d2c94db95" hs_bindgen_f8e0ac7d2c9
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_e@
 hs_bindgen_f8e0ac7d2c94db95 :: IO (PtrConst.PtrConst E)
 hs_bindgen_f8e0ac7d2c94db95 =
-  BG.fromFFIType hs_bindgen_f8e0ac7d2c94db95_base
+  fmap BG.fromFFIType hs_bindgen_f8e0ac7d2c94db95_base
 
 {-# NOINLINE hs_bindgen_fa2424d094d91a33 #-}
 {-| __C declaration:__ @e@
@@ -213,7 +213,7 @@ foreign import ccall unsafe "hs_bindgen_da8e11a66011da3a" hs_bindgen_da8e11a6601
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ti@
 hs_bindgen_da8e11a66011da3a :: IO (PtrConst.PtrConst TI)
 hs_bindgen_da8e11a66011da3a =
-  BG.fromFFIType hs_bindgen_da8e11a66011da3a_base
+  fmap BG.fromFFIType hs_bindgen_da8e11a66011da3a_base
 
 {-# NOINLINE hs_bindgen_d7dd4362406f73a6 #-}
 {-| __C declaration:__ @ti@
@@ -240,7 +240,7 @@ foreign import ccall unsafe "hs_bindgen_10a3457a0f6b2036" hs_bindgen_10a3457a0f6
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ts@
 hs_bindgen_10a3457a0f6b2036 :: IO (PtrConst.PtrConst TS)
 hs_bindgen_10a3457a0f6b2036 =
-  BG.fromFFIType hs_bindgen_10a3457a0f6b2036_base
+  fmap BG.fromFFIType hs_bindgen_10a3457a0f6b2036_base
 
 {-# NOINLINE hs_bindgen_cd3e2d14ae82b6fc #-}
 {-| __C declaration:__ @ts@
@@ -267,7 +267,7 @@ foreign import ccall unsafe "hs_bindgen_ded2bbcd5f7b0513" hs_bindgen_ded2bbcd5f7
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tu@
 hs_bindgen_ded2bbcd5f7b0513 :: IO (PtrConst.PtrConst TU)
 hs_bindgen_ded2bbcd5f7b0513 =
-  BG.fromFFIType hs_bindgen_ded2bbcd5f7b0513_base
+  fmap BG.fromFFIType hs_bindgen_ded2bbcd5f7b0513_base
 
 {-# NOINLINE hs_bindgen_2d9684fc851b0766 #-}
 {-| __C declaration:__ @tu@
@@ -294,7 +294,7 @@ foreign import ccall unsafe "hs_bindgen_1b4b0fa82bacf9cc" hs_bindgen_1b4b0fa82ba
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_te@
 hs_bindgen_1b4b0fa82bacf9cc :: IO (PtrConst.PtrConst TE)
 hs_bindgen_1b4b0fa82bacf9cc =
-  BG.fromFFIType hs_bindgen_1b4b0fa82bacf9cc_base
+  fmap BG.fromFFIType hs_bindgen_1b4b0fa82bacf9cc_base
 
 {-# NOINLINE hs_bindgen_200eaed7c3fb420d #-}
 {-| __C declaration:__ @te@
@@ -321,7 +321,7 @@ foreign import ccall unsafe "hs_bindgen_b8067bbfe8dc188e" hs_bindgen_b8067bbfe8d
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tti@
 hs_bindgen_b8067bbfe8dc188e :: IO (PtrConst.PtrConst TTI)
 hs_bindgen_b8067bbfe8dc188e =
-  BG.fromFFIType hs_bindgen_b8067bbfe8dc188e_base
+  fmap BG.fromFFIType hs_bindgen_b8067bbfe8dc188e_base
 
 {-# NOINLINE hs_bindgen_1fbea465b2793d07 #-}
 {-| __C declaration:__ @tti@
@@ -348,7 +348,7 @@ foreign import ccall unsafe "hs_bindgen_6ce6ca09ed64a420" hs_bindgen_6ce6ca09ed6
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tts@
 hs_bindgen_6ce6ca09ed64a420 :: IO (PtrConst.PtrConst TTS)
 hs_bindgen_6ce6ca09ed64a420 =
-  BG.fromFFIType hs_bindgen_6ce6ca09ed64a420_base
+  fmap BG.fromFFIType hs_bindgen_6ce6ca09ed64a420_base
 
 {-# NOINLINE hs_bindgen_f23f17df17b3fe36 #-}
 {-| __C declaration:__ @tts@
@@ -375,7 +375,7 @@ foreign import ccall unsafe "hs_bindgen_5d4569e6c5a642c0" hs_bindgen_5d4569e6c5a
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ttu@
 hs_bindgen_5d4569e6c5a642c0 :: IO (PtrConst.PtrConst TTU)
 hs_bindgen_5d4569e6c5a642c0 =
-  BG.fromFFIType hs_bindgen_5d4569e6c5a642c0_base
+  fmap BG.fromFFIType hs_bindgen_5d4569e6c5a642c0_base
 
 {-# NOINLINE hs_bindgen_45ab2258853f641d #-}
 {-| __C declaration:__ @ttu@
@@ -402,7 +402,7 @@ foreign import ccall unsafe "hs_bindgen_cb44d6db796abc21" hs_bindgen_cb44d6db796
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tte@
 hs_bindgen_cb44d6db796abc21 :: IO (PtrConst.PtrConst TTE)
 hs_bindgen_cb44d6db796abc21 =
-  BG.fromFFIType hs_bindgen_cb44d6db796abc21_base
+  fmap BG.fromFFIType hs_bindgen_cb44d6db796abc21_base
 
 {-# NOINLINE hs_bindgen_0956779e634e3dd5 #-}
 {-| __C declaration:__ @tte@

@@ -105,7 +105,9 @@ hs_bindgen_df7e2b8e86de411a ::
   -> TC
   -> IO BG.CChar
 hs_bindgen_df7e2b8e86de411a =
-  BG.fromFFIType hs_bindgen_df7e2b8e86de411a_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_df7e2b8e86de411a_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @quux1@
 
@@ -133,7 +135,9 @@ hs_bindgen_6f0b13ed02b696df ::
   -> BG.CChar
   -> IO TC
 hs_bindgen_6f0b13ed02b696df =
-  BG.fromFFIType hs_bindgen_6f0b13ed02b696df_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_6f0b13ed02b696df_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @quux2@
 
@@ -161,7 +165,9 @@ hs_bindgen_f92059cc98dde342 ::
   -> BG.Ptr TC
   -> IO (BG.Ptr BG.CChar)
 hs_bindgen_f92059cc98dde342 =
-  BG.fromFFIType hs_bindgen_f92059cc98dde342_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_f92059cc98dde342_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @wam1@
 
@@ -189,7 +195,9 @@ hs_bindgen_3e6ecd1b2cc616bc ::
   -> BG.Ptr BG.CChar
   -> IO (BG.Ptr TC)
 hs_bindgen_3e6ecd1b2cc616bc =
-  BG.fromFFIType hs_bindgen_3e6ecd1b2cc616bc_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_3e6ecd1b2cc616bc_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @wam2@
 
@@ -217,7 +225,9 @@ hs_bindgen_ffa9d5a3e8f0f221 ::
   -> BG.CChar
   -> IO ()
 hs_bindgen_ffa9d5a3e8f0f221 =
-  BG.fromFFIType hs_bindgen_ffa9d5a3e8f0f221_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_ffa9d5a3e8f0f221_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @struct_typedef1@
 
@@ -245,7 +255,9 @@ hs_bindgen_4801667560542114 ::
   -> BG.CChar
   -> IO ()
 hs_bindgen_4801667560542114 =
-  BG.fromFFIType hs_bindgen_4801667560542114_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_4801667560542114_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @struct_typedef2@
 
@@ -273,7 +285,9 @@ hs_bindgen_04fa5bbd479146eb ::
   -> BG.CChar
   -> IO ()
 hs_bindgen_04fa5bbd479146eb =
-  BG.fromFFIType hs_bindgen_04fa5bbd479146eb_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_04fa5bbd479146eb_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @struct_typedef3@
 
@@ -301,7 +315,9 @@ hs_bindgen_08025fd0bd589ac2 ::
   -> BG.CChar
   -> IO ()
 hs_bindgen_08025fd0bd589ac2 =
-  BG.fromFFIType hs_bindgen_08025fd0bd589ac2_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_08025fd0bd589ac2_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @struct_name1@
 
@@ -329,7 +345,9 @@ hs_bindgen_9de286608f952fc7 ::
   -> BG.CChar
   -> IO ()
 hs_bindgen_9de286608f952fc7 =
-  BG.fromFFIType hs_bindgen_9de286608f952fc7_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_9de286608f952fc7_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @struct_name2@
 
@@ -357,7 +375,9 @@ hs_bindgen_38cce6bb1ac71578 ::
   -> BG.CChar
   -> IO ()
 hs_bindgen_38cce6bb1ac71578 =
-  BG.fromFFIType hs_bindgen_38cce6bb1ac71578_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_38cce6bb1ac71578_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @struct_name3@
 

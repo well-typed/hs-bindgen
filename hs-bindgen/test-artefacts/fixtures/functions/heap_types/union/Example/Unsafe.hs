@@ -33,7 +33,9 @@ hs_bindgen_54b038887c811176 ::
   -> BG.Ptr T
   -> IO ()
 hs_bindgen_54b038887c811176 =
-  BG.fromFFIType hs_bindgen_54b038887c811176_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_54b038887c811176_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @fun@
 

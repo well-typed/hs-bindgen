@@ -435,7 +435,7 @@ foreign import ccall safe "hs_bindgen_4cd199ba56c14547" hs_bindgen_4cd199ba56c14
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_bool_fun@
 hs_bindgen_4cd199ba56c14547 :: IO CBool
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_bool_fun@
-hs_bindgen_4cd199ba56c14547 = fromFFIType hs_bindgen_4cd199ba56c14547_base
+hs_bindgen_4cd199ba56c14547 = fmap fromFFIType hs_bindgen_4cd199ba56c14547_base
 {-| __C declaration:__ @bool_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 20:6@
@@ -456,7 +456,7 @@ foreign import ccall safe "hs_bindgen_73c8e1f452482878" hs_bindgen_73c8e1f452482
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_int8_t_fun@
 hs_bindgen_73c8e1f452482878 :: IO HsBindgen.Runtime.LibC.Int8
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_int8_t_fun@
-hs_bindgen_73c8e1f452482878 = fromFFIType hs_bindgen_73c8e1f452482878_base
+hs_bindgen_73c8e1f452482878 = fmap fromFFIType hs_bindgen_73c8e1f452482878_base
 {-| __C declaration:__ @int8_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 23:11@
@@ -477,7 +477,7 @@ foreign import ccall safe "hs_bindgen_da3259b2446eb9bf" hs_bindgen_da3259b2446eb
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_int16_t_fun@
 hs_bindgen_da3259b2446eb9bf :: IO HsBindgen.Runtime.LibC.Int16
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_int16_t_fun@
-hs_bindgen_da3259b2446eb9bf = fromFFIType hs_bindgen_da3259b2446eb9bf_base
+hs_bindgen_da3259b2446eb9bf = fmap fromFFIType hs_bindgen_da3259b2446eb9bf_base
 {-| __C declaration:__ @int16_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 24:11@
@@ -498,7 +498,7 @@ foreign import ccall safe "hs_bindgen_7dd577f0c34f0ff7" hs_bindgen_7dd577f0c34f0
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_int32_t_fun@
 hs_bindgen_7dd577f0c34f0ff7 :: IO HsBindgen.Runtime.LibC.Int32
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_int32_t_fun@
-hs_bindgen_7dd577f0c34f0ff7 = fromFFIType hs_bindgen_7dd577f0c34f0ff7_base
+hs_bindgen_7dd577f0c34f0ff7 = fmap fromFFIType hs_bindgen_7dd577f0c34f0ff7_base
 {-| __C declaration:__ @int32_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 25:11@
@@ -519,7 +519,7 @@ foreign import ccall safe "hs_bindgen_7a2709fa911a350e" hs_bindgen_7a2709fa911a3
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_int64_t_fun@
 hs_bindgen_7a2709fa911a350e :: IO HsBindgen.Runtime.LibC.Int64
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_int64_t_fun@
-hs_bindgen_7a2709fa911a350e = fromFFIType hs_bindgen_7a2709fa911a350e_base
+hs_bindgen_7a2709fa911a350e = fmap fromFFIType hs_bindgen_7a2709fa911a350e_base
 {-| __C declaration:__ @int64_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 26:11@
@@ -540,7 +540,7 @@ foreign import ccall safe "hs_bindgen_1b2e687eaa715924" hs_bindgen_1b2e687eaa715
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_uint8_t_fun@
 hs_bindgen_1b2e687eaa715924 :: IO HsBindgen.Runtime.LibC.Word8
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_uint8_t_fun@
-hs_bindgen_1b2e687eaa715924 = fromFFIType hs_bindgen_1b2e687eaa715924_base
+hs_bindgen_1b2e687eaa715924 = fmap fromFFIType hs_bindgen_1b2e687eaa715924_base
 {-| __C declaration:__ @uint8_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 27:11@
@@ -561,7 +561,7 @@ foreign import ccall safe "hs_bindgen_6da73658633b176e" hs_bindgen_6da73658633b1
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_uint16_t_fun@
 hs_bindgen_6da73658633b176e :: IO HsBindgen.Runtime.LibC.Word16
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_uint16_t_fun@
-hs_bindgen_6da73658633b176e = fromFFIType hs_bindgen_6da73658633b176e_base
+hs_bindgen_6da73658633b176e = fmap fromFFIType hs_bindgen_6da73658633b176e_base
 {-| __C declaration:__ @uint16_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 28:11@
@@ -582,7 +582,7 @@ foreign import ccall safe "hs_bindgen_c6cd0ee414c746de" hs_bindgen_c6cd0ee414c74
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_uint32_t_fun@
 hs_bindgen_c6cd0ee414c746de :: IO HsBindgen.Runtime.LibC.Word32
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_uint32_t_fun@
-hs_bindgen_c6cd0ee414c746de = fromFFIType hs_bindgen_c6cd0ee414c746de_base
+hs_bindgen_c6cd0ee414c746de = fmap fromFFIType hs_bindgen_c6cd0ee414c746de_base
 {-| __C declaration:__ @uint32_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 29:11@
@@ -603,7 +603,7 @@ foreign import ccall safe "hs_bindgen_cbb9017c67ce7652" hs_bindgen_cbb9017c67ce7
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_uint64_t_fun@
 hs_bindgen_cbb9017c67ce7652 :: IO HsBindgen.Runtime.LibC.Word64
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_uint64_t_fun@
-hs_bindgen_cbb9017c67ce7652 = fromFFIType hs_bindgen_cbb9017c67ce7652_base
+hs_bindgen_cbb9017c67ce7652 = fmap fromFFIType hs_bindgen_cbb9017c67ce7652_base
 {-| __C declaration:__ @uint64_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 30:11@
@@ -624,7 +624,7 @@ foreign import ccall safe "hs_bindgen_844bf55e16de43a0" hs_bindgen_844bf55e16de4
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_intmax_t_fun@
 hs_bindgen_844bf55e16de43a0 :: IO HsBindgen.Runtime.LibC.CIntMax
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_intmax_t_fun@
-hs_bindgen_844bf55e16de43a0 = fromFFIType hs_bindgen_844bf55e16de43a0_base
+hs_bindgen_844bf55e16de43a0 = fmap fromFFIType hs_bindgen_844bf55e16de43a0_base
 {-| __C declaration:__ @intmax_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 31:11@
@@ -645,7 +645,7 @@ foreign import ccall safe "hs_bindgen_56900c9a548480d5" hs_bindgen_56900c9a54848
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_uintmax_t_fun@
 hs_bindgen_56900c9a548480d5 :: IO HsBindgen.Runtime.LibC.CUIntMax
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_uintmax_t_fun@
-hs_bindgen_56900c9a548480d5 = fromFFIType hs_bindgen_56900c9a548480d5_base
+hs_bindgen_56900c9a548480d5 = fmap fromFFIType hs_bindgen_56900c9a548480d5_base
 {-| __C declaration:__ @uintmax_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 32:11@
@@ -666,7 +666,7 @@ foreign import ccall safe "hs_bindgen_d656827fe2704de3" hs_bindgen_d656827fe2704
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_intptr_t_fun@
 hs_bindgen_d656827fe2704de3 :: IO HsBindgen.Runtime.LibC.CIntPtr
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_intptr_t_fun@
-hs_bindgen_d656827fe2704de3 = fromFFIType hs_bindgen_d656827fe2704de3_base
+hs_bindgen_d656827fe2704de3 = fmap fromFFIType hs_bindgen_d656827fe2704de3_base
 {-| __C declaration:__ @intptr_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 33:11@
@@ -687,7 +687,7 @@ foreign import ccall safe "hs_bindgen_401c738c79c5e4ef" hs_bindgen_401c738c79c5e
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_uintptr_t_fun@
 hs_bindgen_401c738c79c5e4ef :: IO HsBindgen.Runtime.LibC.CUIntPtr
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_uintptr_t_fun@
-hs_bindgen_401c738c79c5e4ef = fromFFIType hs_bindgen_401c738c79c5e4ef_base
+hs_bindgen_401c738c79c5e4ef = fmap fromFFIType hs_bindgen_401c738c79c5e4ef_base
 {-| __C declaration:__ @uintptr_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 34:11@
@@ -708,7 +708,7 @@ foreign import ccall safe "hs_bindgen_eb417aeaae001cd4" hs_bindgen_eb417aeaae001
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_fenv_t_fun@
 hs_bindgen_eb417aeaae001cd4 :: IO (Ptr HsBindgen.Runtime.LibC.CFenvT)
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_fenv_t_fun@
-hs_bindgen_eb417aeaae001cd4 = fromFFIType hs_bindgen_eb417aeaae001cd4_base
+hs_bindgen_eb417aeaae001cd4 = fmap fromFFIType hs_bindgen_eb417aeaae001cd4_base
 {-| __C declaration:__ @fenv_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 37:12@
@@ -729,7 +729,7 @@ foreign import ccall safe "hs_bindgen_42f9ee7a2fa5ed3b" hs_bindgen_42f9ee7a2fa5e
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_fexcept_t_fun@
 hs_bindgen_42f9ee7a2fa5ed3b :: IO (Ptr HsBindgen.Runtime.LibC.CFexceptT)
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_fexcept_t_fun@
-hs_bindgen_42f9ee7a2fa5ed3b = fromFFIType hs_bindgen_42f9ee7a2fa5ed3b_base
+hs_bindgen_42f9ee7a2fa5ed3b = fmap fromFFIType hs_bindgen_42f9ee7a2fa5ed3b_base
 {-| __C declaration:__ @fexcept_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 38:12@
@@ -750,7 +750,7 @@ foreign import ccall safe "hs_bindgen_66f735fc270b795a" hs_bindgen_66f735fc270b7
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_size_t_fun@
 hs_bindgen_66f735fc270b795a :: IO HsBindgen.Runtime.LibC.CSize
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_size_t_fun@
-hs_bindgen_66f735fc270b795a = fromFFIType hs_bindgen_66f735fc270b795a_base
+hs_bindgen_66f735fc270b795a = fmap fromFFIType hs_bindgen_66f735fc270b795a_base
 {-| __C declaration:__ @size_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 41:11@
@@ -771,7 +771,7 @@ foreign import ccall safe "hs_bindgen_2f5574764965bb49" hs_bindgen_2f5574764965b
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_ptrdiff_t_fun@
 hs_bindgen_2f5574764965bb49 :: IO HsBindgen.Runtime.LibC.CPtrdiff
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_ptrdiff_t_fun@
-hs_bindgen_2f5574764965bb49 = fromFFIType hs_bindgen_2f5574764965bb49_base
+hs_bindgen_2f5574764965bb49 = fmap fromFFIType hs_bindgen_2f5574764965bb49_base
 {-| __C declaration:__ @ptrdiff_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 42:11@
@@ -792,7 +792,7 @@ foreign import ccall safe "hs_bindgen_57ff329a6c1ab247" hs_bindgen_57ff329a6c1ab
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_wchar_t_fun@
 hs_bindgen_57ff329a6c1ab247 :: IO HsBindgen.Runtime.LibC.CWchar
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_wchar_t_fun@
-hs_bindgen_57ff329a6c1ab247 = fromFFIType hs_bindgen_57ff329a6c1ab247_base
+hs_bindgen_57ff329a6c1ab247 = fmap fromFFIType hs_bindgen_57ff329a6c1ab247_base
 {-| __C declaration:__ @wchar_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 49:11@
@@ -813,7 +813,7 @@ foreign import ccall safe "hs_bindgen_fef1399636729a64" hs_bindgen_fef1399636729
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_wint_t_fun@
 hs_bindgen_fef1399636729a64 :: IO HsBindgen.Runtime.LibC.CWintT
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_wint_t_fun@
-hs_bindgen_fef1399636729a64 = fromFFIType hs_bindgen_fef1399636729a64_base
+hs_bindgen_fef1399636729a64 = fmap fromFFIType hs_bindgen_fef1399636729a64_base
 {-| __C declaration:__ @wint_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 50:11@
@@ -834,7 +834,7 @@ foreign import ccall safe "hs_bindgen_ec1c0b9428114ec6" hs_bindgen_ec1c0b9428114
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_mbstate_t_fun@
 hs_bindgen_ec1c0b9428114ec6 :: IO (Ptr HsBindgen.Runtime.LibC.CMbstateT)
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_mbstate_t_fun@
-hs_bindgen_ec1c0b9428114ec6 = fromFFIType hs_bindgen_ec1c0b9428114ec6_base
+hs_bindgen_ec1c0b9428114ec6 = fmap fromFFIType hs_bindgen_ec1c0b9428114ec6_base
 {-| __C declaration:__ @mbstate_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 51:12@
@@ -855,7 +855,7 @@ foreign import ccall safe "hs_bindgen_2d9b204c006f0667" hs_bindgen_2d9b204c006f0
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_wctrans_t_fun@
 hs_bindgen_2d9b204c006f0667 :: IO HsBindgen.Runtime.LibC.CWctransT
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_wctrans_t_fun@
-hs_bindgen_2d9b204c006f0667 = fromFFIType hs_bindgen_2d9b204c006f0667_base
+hs_bindgen_2d9b204c006f0667 = fmap fromFFIType hs_bindgen_2d9b204c006f0667_base
 {-| __C declaration:__ @wctrans_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 52:11@
@@ -876,7 +876,7 @@ foreign import ccall safe "hs_bindgen_977cddf620e22ba0" hs_bindgen_977cddf620e22
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_wctype_t_fun@
 hs_bindgen_977cddf620e22ba0 :: IO HsBindgen.Runtime.LibC.CWctypeT
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_wctype_t_fun@
-hs_bindgen_977cddf620e22ba0 = fromFFIType hs_bindgen_977cddf620e22ba0_base
+hs_bindgen_977cddf620e22ba0 = fmap fromFFIType hs_bindgen_977cddf620e22ba0_base
 {-| __C declaration:__ @wctype_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 53:11@
@@ -897,7 +897,7 @@ foreign import ccall safe "hs_bindgen_4780a15ae4e392fd" hs_bindgen_4780a15ae4e39
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_char16_t_fun@
 hs_bindgen_4780a15ae4e392fd :: IO HsBindgen.Runtime.LibC.CChar16T
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_char16_t_fun@
-hs_bindgen_4780a15ae4e392fd = fromFFIType hs_bindgen_4780a15ae4e392fd_base
+hs_bindgen_4780a15ae4e392fd = fmap fromFFIType hs_bindgen_4780a15ae4e392fd_base
 {-| __C declaration:__ @char16_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 54:11@
@@ -918,7 +918,7 @@ foreign import ccall safe "hs_bindgen_d258f4d9903b4e39" hs_bindgen_d258f4d9903b4
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_char32_t_fun@
 hs_bindgen_d258f4d9903b4e39 :: IO HsBindgen.Runtime.LibC.CChar32T
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_char32_t_fun@
-hs_bindgen_d258f4d9903b4e39 = fromFFIType hs_bindgen_d258f4d9903b4e39_base
+hs_bindgen_d258f4d9903b4e39 = fmap fromFFIType hs_bindgen_d258f4d9903b4e39_base
 {-| __C declaration:__ @char32_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 55:11@
@@ -939,7 +939,7 @@ foreign import ccall safe "hs_bindgen_82c178bd7c4d08b0" hs_bindgen_82c178bd7c4d0
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_time_t_fun@
 hs_bindgen_82c178bd7c4d08b0 :: IO HsBindgen.Runtime.LibC.CTime
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_time_t_fun@
-hs_bindgen_82c178bd7c4d08b0 = fromFFIType hs_bindgen_82c178bd7c4d08b0_base
+hs_bindgen_82c178bd7c4d08b0 = fmap fromFFIType hs_bindgen_82c178bd7c4d08b0_base
 {-| __C declaration:__ @time_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 58:9@
@@ -960,7 +960,7 @@ foreign import ccall safe "hs_bindgen_b472ecf9ffec8045" hs_bindgen_b472ecf9ffec8
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_clock_t_fun@
 hs_bindgen_b472ecf9ffec8045 :: IO HsBindgen.Runtime.LibC.CClock
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_clock_t_fun@
-hs_bindgen_b472ecf9ffec8045 = fromFFIType hs_bindgen_b472ecf9ffec8045_base
+hs_bindgen_b472ecf9ffec8045 = fmap fromFFIType hs_bindgen_b472ecf9ffec8045_base
 {-| __C declaration:__ @clock_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 59:9@
@@ -981,7 +981,7 @@ foreign import ccall safe "hs_bindgen_0caa7d72a7701f1f" hs_bindgen_0caa7d72a7701
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_FILE_fun@
 hs_bindgen_0caa7d72a7701f1f :: IO (Ptr HsBindgen.Runtime.LibC.CFile)
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_FILE_fun@
-hs_bindgen_0caa7d72a7701f1f = fromFFIType hs_bindgen_0caa7d72a7701f1f_base
+hs_bindgen_0caa7d72a7701f1f = fmap fromFFIType hs_bindgen_0caa7d72a7701f1f_base
 {-| __C declaration:__ @FILE_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 64:9@
@@ -1002,7 +1002,7 @@ foreign import ccall safe "hs_bindgen_47b37de28902f506" hs_bindgen_47b37de28902f
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_fpos_t_fun@
 hs_bindgen_47b37de28902f506 :: IO (Ptr HsBindgen.Runtime.LibC.CFpos)
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_fpos_t_fun@
-hs_bindgen_47b37de28902f506 = fromFFIType hs_bindgen_47b37de28902f506_base
+hs_bindgen_47b37de28902f506 = fmap fromFFIType hs_bindgen_47b37de28902f506_base
 {-| __C declaration:__ @fpos_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 65:9@
@@ -1023,7 +1023,7 @@ foreign import ccall safe "hs_bindgen_222eab426c700a03" hs_bindgen_222eab426c700
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_sig_atomic_t_fun@
 hs_bindgen_222eab426c700a03 :: IO HsBindgen.Runtime.LibC.CSigAtomic
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_sig_atomic_t_fun@
-hs_bindgen_222eab426c700a03 = fromFFIType hs_bindgen_222eab426c700a03_base
+hs_bindgen_222eab426c700a03 = fmap fromFFIType hs_bindgen_222eab426c700a03_base
 {-| __C declaration:__ @sig_atomic_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 68:14@
@@ -1044,7 +1044,7 @@ foreign import ccall unsafe "hs_bindgen_6b68851ce9c1f36f" hs_bindgen_6b68851ce9c
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_bool_fun@
 hs_bindgen_6b68851ce9c1f36f :: IO CBool
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_bool_fun@
-hs_bindgen_6b68851ce9c1f36f = fromFFIType hs_bindgen_6b68851ce9c1f36f_base
+hs_bindgen_6b68851ce9c1f36f = fmap fromFFIType hs_bindgen_6b68851ce9c1f36f_base
 {-| __C declaration:__ @bool_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 20:6@
@@ -1065,7 +1065,7 @@ foreign import ccall unsafe "hs_bindgen_a408da1bfa030a51" hs_bindgen_a408da1bfa0
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_int8_t_fun@
 hs_bindgen_a408da1bfa030a51 :: IO HsBindgen.Runtime.LibC.Int8
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_int8_t_fun@
-hs_bindgen_a408da1bfa030a51 = fromFFIType hs_bindgen_a408da1bfa030a51_base
+hs_bindgen_a408da1bfa030a51 = fmap fromFFIType hs_bindgen_a408da1bfa030a51_base
 {-| __C declaration:__ @int8_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 23:11@
@@ -1086,7 +1086,7 @@ foreign import ccall unsafe "hs_bindgen_6785058f9844b9b5" hs_bindgen_6785058f984
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_int16_t_fun@
 hs_bindgen_6785058f9844b9b5 :: IO HsBindgen.Runtime.LibC.Int16
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_int16_t_fun@
-hs_bindgen_6785058f9844b9b5 = fromFFIType hs_bindgen_6785058f9844b9b5_base
+hs_bindgen_6785058f9844b9b5 = fmap fromFFIType hs_bindgen_6785058f9844b9b5_base
 {-| __C declaration:__ @int16_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 24:11@
@@ -1107,7 +1107,7 @@ foreign import ccall unsafe "hs_bindgen_191a7b2b445fb350" hs_bindgen_191a7b2b445
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_int32_t_fun@
 hs_bindgen_191a7b2b445fb350 :: IO HsBindgen.Runtime.LibC.Int32
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_int32_t_fun@
-hs_bindgen_191a7b2b445fb350 = fromFFIType hs_bindgen_191a7b2b445fb350_base
+hs_bindgen_191a7b2b445fb350 = fmap fromFFIType hs_bindgen_191a7b2b445fb350_base
 {-| __C declaration:__ @int32_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 25:11@
@@ -1128,7 +1128,7 @@ foreign import ccall unsafe "hs_bindgen_0a523ac71d31b35c" hs_bindgen_0a523ac71d3
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_int64_t_fun@
 hs_bindgen_0a523ac71d31b35c :: IO HsBindgen.Runtime.LibC.Int64
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_int64_t_fun@
-hs_bindgen_0a523ac71d31b35c = fromFFIType hs_bindgen_0a523ac71d31b35c_base
+hs_bindgen_0a523ac71d31b35c = fmap fromFFIType hs_bindgen_0a523ac71d31b35c_base
 {-| __C declaration:__ @int64_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 26:11@
@@ -1149,7 +1149,7 @@ foreign import ccall unsafe "hs_bindgen_f4245406bfdade75" hs_bindgen_f4245406bfd
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_uint8_t_fun@
 hs_bindgen_f4245406bfdade75 :: IO HsBindgen.Runtime.LibC.Word8
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_uint8_t_fun@
-hs_bindgen_f4245406bfdade75 = fromFFIType hs_bindgen_f4245406bfdade75_base
+hs_bindgen_f4245406bfdade75 = fmap fromFFIType hs_bindgen_f4245406bfdade75_base
 {-| __C declaration:__ @uint8_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 27:11@
@@ -1170,7 +1170,7 @@ foreign import ccall unsafe "hs_bindgen_f7a0d726d7268b30" hs_bindgen_f7a0d726d72
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_uint16_t_fun@
 hs_bindgen_f7a0d726d7268b30 :: IO HsBindgen.Runtime.LibC.Word16
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_uint16_t_fun@
-hs_bindgen_f7a0d726d7268b30 = fromFFIType hs_bindgen_f7a0d726d7268b30_base
+hs_bindgen_f7a0d726d7268b30 = fmap fromFFIType hs_bindgen_f7a0d726d7268b30_base
 {-| __C declaration:__ @uint16_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 28:11@
@@ -1191,7 +1191,7 @@ foreign import ccall unsafe "hs_bindgen_432f65d5f6e3c062" hs_bindgen_432f65d5f6e
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_uint32_t_fun@
 hs_bindgen_432f65d5f6e3c062 :: IO HsBindgen.Runtime.LibC.Word32
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_uint32_t_fun@
-hs_bindgen_432f65d5f6e3c062 = fromFFIType hs_bindgen_432f65d5f6e3c062_base
+hs_bindgen_432f65d5f6e3c062 = fmap fromFFIType hs_bindgen_432f65d5f6e3c062_base
 {-| __C declaration:__ @uint32_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 29:11@
@@ -1212,7 +1212,7 @@ foreign import ccall unsafe "hs_bindgen_af91a28f07360676" hs_bindgen_af91a28f073
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_uint64_t_fun@
 hs_bindgen_af91a28f07360676 :: IO HsBindgen.Runtime.LibC.Word64
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_uint64_t_fun@
-hs_bindgen_af91a28f07360676 = fromFFIType hs_bindgen_af91a28f07360676_base
+hs_bindgen_af91a28f07360676 = fmap fromFFIType hs_bindgen_af91a28f07360676_base
 {-| __C declaration:__ @uint64_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 30:11@
@@ -1233,7 +1233,7 @@ foreign import ccall unsafe "hs_bindgen_34ebd7f9b1c9877f" hs_bindgen_34ebd7f9b1c
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_intmax_t_fun@
 hs_bindgen_34ebd7f9b1c9877f :: IO HsBindgen.Runtime.LibC.CIntMax
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_intmax_t_fun@
-hs_bindgen_34ebd7f9b1c9877f = fromFFIType hs_bindgen_34ebd7f9b1c9877f_base
+hs_bindgen_34ebd7f9b1c9877f = fmap fromFFIType hs_bindgen_34ebd7f9b1c9877f_base
 {-| __C declaration:__ @intmax_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 31:11@
@@ -1254,7 +1254,7 @@ foreign import ccall unsafe "hs_bindgen_f147b22f36663ba2" hs_bindgen_f147b22f366
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_uintmax_t_fun@
 hs_bindgen_f147b22f36663ba2 :: IO HsBindgen.Runtime.LibC.CUIntMax
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_uintmax_t_fun@
-hs_bindgen_f147b22f36663ba2 = fromFFIType hs_bindgen_f147b22f36663ba2_base
+hs_bindgen_f147b22f36663ba2 = fmap fromFFIType hs_bindgen_f147b22f36663ba2_base
 {-| __C declaration:__ @uintmax_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 32:11@
@@ -1275,7 +1275,7 @@ foreign import ccall unsafe "hs_bindgen_42bfd915930be089" hs_bindgen_42bfd915930
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_intptr_t_fun@
 hs_bindgen_42bfd915930be089 :: IO HsBindgen.Runtime.LibC.CIntPtr
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_intptr_t_fun@
-hs_bindgen_42bfd915930be089 = fromFFIType hs_bindgen_42bfd915930be089_base
+hs_bindgen_42bfd915930be089 = fmap fromFFIType hs_bindgen_42bfd915930be089_base
 {-| __C declaration:__ @intptr_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 33:11@
@@ -1296,7 +1296,7 @@ foreign import ccall unsafe "hs_bindgen_3d4e032e4f99ccdf" hs_bindgen_3d4e032e4f9
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_uintptr_t_fun@
 hs_bindgen_3d4e032e4f99ccdf :: IO HsBindgen.Runtime.LibC.CUIntPtr
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_uintptr_t_fun@
-hs_bindgen_3d4e032e4f99ccdf = fromFFIType hs_bindgen_3d4e032e4f99ccdf_base
+hs_bindgen_3d4e032e4f99ccdf = fmap fromFFIType hs_bindgen_3d4e032e4f99ccdf_base
 {-| __C declaration:__ @uintptr_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 34:11@
@@ -1317,7 +1317,7 @@ foreign import ccall unsafe "hs_bindgen_d12ec6bea98f91aa" hs_bindgen_d12ec6bea98
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_fenv_t_fun@
 hs_bindgen_d12ec6bea98f91aa :: IO (Ptr HsBindgen.Runtime.LibC.CFenvT)
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_fenv_t_fun@
-hs_bindgen_d12ec6bea98f91aa = fromFFIType hs_bindgen_d12ec6bea98f91aa_base
+hs_bindgen_d12ec6bea98f91aa = fmap fromFFIType hs_bindgen_d12ec6bea98f91aa_base
 {-| __C declaration:__ @fenv_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 37:12@
@@ -1338,7 +1338,7 @@ foreign import ccall unsafe "hs_bindgen_bfb6abdc4397c064" hs_bindgen_bfb6abdc439
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_fexcept_t_fun@
 hs_bindgen_bfb6abdc4397c064 :: IO (Ptr HsBindgen.Runtime.LibC.CFexceptT)
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_fexcept_t_fun@
-hs_bindgen_bfb6abdc4397c064 = fromFFIType hs_bindgen_bfb6abdc4397c064_base
+hs_bindgen_bfb6abdc4397c064 = fmap fromFFIType hs_bindgen_bfb6abdc4397c064_base
 {-| __C declaration:__ @fexcept_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 38:12@
@@ -1359,7 +1359,7 @@ foreign import ccall unsafe "hs_bindgen_3030e3c8a5de2e7e" hs_bindgen_3030e3c8a5d
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_size_t_fun@
 hs_bindgen_3030e3c8a5de2e7e :: IO HsBindgen.Runtime.LibC.CSize
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_size_t_fun@
-hs_bindgen_3030e3c8a5de2e7e = fromFFIType hs_bindgen_3030e3c8a5de2e7e_base
+hs_bindgen_3030e3c8a5de2e7e = fmap fromFFIType hs_bindgen_3030e3c8a5de2e7e_base
 {-| __C declaration:__ @size_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 41:11@
@@ -1380,7 +1380,7 @@ foreign import ccall unsafe "hs_bindgen_7033a7ddfdfe770f" hs_bindgen_7033a7ddfdf
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_ptrdiff_t_fun@
 hs_bindgen_7033a7ddfdfe770f :: IO HsBindgen.Runtime.LibC.CPtrdiff
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_ptrdiff_t_fun@
-hs_bindgen_7033a7ddfdfe770f = fromFFIType hs_bindgen_7033a7ddfdfe770f_base
+hs_bindgen_7033a7ddfdfe770f = fmap fromFFIType hs_bindgen_7033a7ddfdfe770f_base
 {-| __C declaration:__ @ptrdiff_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 42:11@
@@ -1401,7 +1401,7 @@ foreign import ccall unsafe "hs_bindgen_ebae7f4d5db1ecd0" hs_bindgen_ebae7f4d5db
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_wchar_t_fun@
 hs_bindgen_ebae7f4d5db1ecd0 :: IO HsBindgen.Runtime.LibC.CWchar
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_wchar_t_fun@
-hs_bindgen_ebae7f4d5db1ecd0 = fromFFIType hs_bindgen_ebae7f4d5db1ecd0_base
+hs_bindgen_ebae7f4d5db1ecd0 = fmap fromFFIType hs_bindgen_ebae7f4d5db1ecd0_base
 {-| __C declaration:__ @wchar_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 49:11@
@@ -1422,7 +1422,7 @@ foreign import ccall unsafe "hs_bindgen_623e42289a1c3dc3" hs_bindgen_623e42289a1
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_wint_t_fun@
 hs_bindgen_623e42289a1c3dc3 :: IO HsBindgen.Runtime.LibC.CWintT
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_wint_t_fun@
-hs_bindgen_623e42289a1c3dc3 = fromFFIType hs_bindgen_623e42289a1c3dc3_base
+hs_bindgen_623e42289a1c3dc3 = fmap fromFFIType hs_bindgen_623e42289a1c3dc3_base
 {-| __C declaration:__ @wint_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 50:11@
@@ -1443,7 +1443,7 @@ foreign import ccall unsafe "hs_bindgen_bc84314eca8f2a7c" hs_bindgen_bc84314eca8
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_mbstate_t_fun@
 hs_bindgen_bc84314eca8f2a7c :: IO (Ptr HsBindgen.Runtime.LibC.CMbstateT)
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_mbstate_t_fun@
-hs_bindgen_bc84314eca8f2a7c = fromFFIType hs_bindgen_bc84314eca8f2a7c_base
+hs_bindgen_bc84314eca8f2a7c = fmap fromFFIType hs_bindgen_bc84314eca8f2a7c_base
 {-| __C declaration:__ @mbstate_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 51:12@
@@ -1464,7 +1464,7 @@ foreign import ccall unsafe "hs_bindgen_5524c9adc3841732" hs_bindgen_5524c9adc38
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_wctrans_t_fun@
 hs_bindgen_5524c9adc3841732 :: IO HsBindgen.Runtime.LibC.CWctransT
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_wctrans_t_fun@
-hs_bindgen_5524c9adc3841732 = fromFFIType hs_bindgen_5524c9adc3841732_base
+hs_bindgen_5524c9adc3841732 = fmap fromFFIType hs_bindgen_5524c9adc3841732_base
 {-| __C declaration:__ @wctrans_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 52:11@
@@ -1485,7 +1485,7 @@ foreign import ccall unsafe "hs_bindgen_72885cbcc8213893" hs_bindgen_72885cbcc82
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_wctype_t_fun@
 hs_bindgen_72885cbcc8213893 :: IO HsBindgen.Runtime.LibC.CWctypeT
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_wctype_t_fun@
-hs_bindgen_72885cbcc8213893 = fromFFIType hs_bindgen_72885cbcc8213893_base
+hs_bindgen_72885cbcc8213893 = fmap fromFFIType hs_bindgen_72885cbcc8213893_base
 {-| __C declaration:__ @wctype_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 53:11@
@@ -1506,7 +1506,7 @@ foreign import ccall unsafe "hs_bindgen_4284e8eb72d43965" hs_bindgen_4284e8eb72d
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_char16_t_fun@
 hs_bindgen_4284e8eb72d43965 :: IO HsBindgen.Runtime.LibC.CChar16T
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_char16_t_fun@
-hs_bindgen_4284e8eb72d43965 = fromFFIType hs_bindgen_4284e8eb72d43965_base
+hs_bindgen_4284e8eb72d43965 = fmap fromFFIType hs_bindgen_4284e8eb72d43965_base
 {-| __C declaration:__ @char16_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 54:11@
@@ -1527,7 +1527,7 @@ foreign import ccall unsafe "hs_bindgen_74e1167907c5de0e" hs_bindgen_74e1167907c
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_char32_t_fun@
 hs_bindgen_74e1167907c5de0e :: IO HsBindgen.Runtime.LibC.CChar32T
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_char32_t_fun@
-hs_bindgen_74e1167907c5de0e = fromFFIType hs_bindgen_74e1167907c5de0e_base
+hs_bindgen_74e1167907c5de0e = fmap fromFFIType hs_bindgen_74e1167907c5de0e_base
 {-| __C declaration:__ @char32_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 55:11@
@@ -1548,7 +1548,7 @@ foreign import ccall unsafe "hs_bindgen_a0c949d46b12627a" hs_bindgen_a0c949d46b1
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_time_t_fun@
 hs_bindgen_a0c949d46b12627a :: IO HsBindgen.Runtime.LibC.CTime
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_time_t_fun@
-hs_bindgen_a0c949d46b12627a = fromFFIType hs_bindgen_a0c949d46b12627a_base
+hs_bindgen_a0c949d46b12627a = fmap fromFFIType hs_bindgen_a0c949d46b12627a_base
 {-| __C declaration:__ @time_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 58:9@
@@ -1569,7 +1569,7 @@ foreign import ccall unsafe "hs_bindgen_ac7afd479db138db" hs_bindgen_ac7afd479db
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_clock_t_fun@
 hs_bindgen_ac7afd479db138db :: IO HsBindgen.Runtime.LibC.CClock
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_clock_t_fun@
-hs_bindgen_ac7afd479db138db = fromFFIType hs_bindgen_ac7afd479db138db_base
+hs_bindgen_ac7afd479db138db = fmap fromFFIType hs_bindgen_ac7afd479db138db_base
 {-| __C declaration:__ @clock_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 59:9@
@@ -1590,7 +1590,7 @@ foreign import ccall unsafe "hs_bindgen_51b6e01d56713f95" hs_bindgen_51b6e01d567
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_FILE_fun@
 hs_bindgen_51b6e01d56713f95 :: IO (Ptr HsBindgen.Runtime.LibC.CFile)
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_FILE_fun@
-hs_bindgen_51b6e01d56713f95 = fromFFIType hs_bindgen_51b6e01d56713f95_base
+hs_bindgen_51b6e01d56713f95 = fmap fromFFIType hs_bindgen_51b6e01d56713f95_base
 {-| __C declaration:__ @FILE_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 64:9@
@@ -1611,7 +1611,7 @@ foreign import ccall unsafe "hs_bindgen_e9ed5e9a298e9a7e" hs_bindgen_e9ed5e9a298
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_fpos_t_fun@
 hs_bindgen_e9ed5e9a298e9a7e :: IO (Ptr HsBindgen.Runtime.LibC.CFpos)
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_fpos_t_fun@
-hs_bindgen_e9ed5e9a298e9a7e = fromFFIType hs_bindgen_e9ed5e9a298e9a7e_base
+hs_bindgen_e9ed5e9a298e9a7e = fmap fromFFIType hs_bindgen_e9ed5e9a298e9a7e_base
 {-| __C declaration:__ @fpos_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 65:9@
@@ -1632,7 +1632,7 @@ foreign import ccall unsafe "hs_bindgen_1aecb4fb9faabcf5" hs_bindgen_1aecb4fb9fa
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_sig_atomic_t_fun@
 hs_bindgen_1aecb4fb9faabcf5 :: IO HsBindgen.Runtime.LibC.CSigAtomic
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_sig_atomic_t_fun@
-hs_bindgen_1aecb4fb9faabcf5 = fromFFIType hs_bindgen_1aecb4fb9faabcf5_base
+hs_bindgen_1aecb4fb9faabcf5 = fmap fromFFIType hs_bindgen_1aecb4fb9faabcf5_base
 {-| __C declaration:__ @sig_atomic_t_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 68:14@
@@ -1653,7 +1653,7 @@ foreign import ccall unsafe "hs_bindgen_4d50a5da1d788aef" hs_bindgen_4d50a5da1d7
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_bool_fun@
 hs_bindgen_4d50a5da1d788aef :: IO (FunPtr (IO CBool))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_bool_fun@
-hs_bindgen_4d50a5da1d788aef = fromFFIType hs_bindgen_4d50a5da1d788aef_base
+hs_bindgen_4d50a5da1d788aef = fmap fromFFIType hs_bindgen_4d50a5da1d788aef_base
 {-# NOINLINE bool_fun_funptr #-}
 {-| __C declaration:__ @bool_fun@
 
@@ -1675,7 +1675,7 @@ foreign import ccall unsafe "hs_bindgen_afc12424e14cd900" hs_bindgen_afc12424e14
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_int8_t_fun@
 hs_bindgen_afc12424e14cd900 :: IO (FunPtr (IO HsBindgen.Runtime.LibC.Int8))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_int8_t_fun@
-hs_bindgen_afc12424e14cd900 = fromFFIType hs_bindgen_afc12424e14cd900_base
+hs_bindgen_afc12424e14cd900 = fmap fromFFIType hs_bindgen_afc12424e14cd900_base
 {-# NOINLINE int8_t_fun_funptr #-}
 {-| __C declaration:__ @int8_t_fun@
 
@@ -1697,7 +1697,7 @@ foreign import ccall unsafe "hs_bindgen_bb1fdb972582362b" hs_bindgen_bb1fdb97258
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_int16_t_fun@
 hs_bindgen_bb1fdb972582362b :: IO (FunPtr (IO HsBindgen.Runtime.LibC.Int16))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_int16_t_fun@
-hs_bindgen_bb1fdb972582362b = fromFFIType hs_bindgen_bb1fdb972582362b_base
+hs_bindgen_bb1fdb972582362b = fmap fromFFIType hs_bindgen_bb1fdb972582362b_base
 {-# NOINLINE int16_t_fun_funptr #-}
 {-| __C declaration:__ @int16_t_fun@
 
@@ -1719,7 +1719,7 @@ foreign import ccall unsafe "hs_bindgen_3ddcee1ca6e45ed1" hs_bindgen_3ddcee1ca6e
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_int32_t_fun@
 hs_bindgen_3ddcee1ca6e45ed1 :: IO (FunPtr (IO HsBindgen.Runtime.LibC.Int32))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_int32_t_fun@
-hs_bindgen_3ddcee1ca6e45ed1 = fromFFIType hs_bindgen_3ddcee1ca6e45ed1_base
+hs_bindgen_3ddcee1ca6e45ed1 = fmap fromFFIType hs_bindgen_3ddcee1ca6e45ed1_base
 {-# NOINLINE int32_t_fun_funptr #-}
 {-| __C declaration:__ @int32_t_fun@
 
@@ -1741,7 +1741,7 @@ foreign import ccall unsafe "hs_bindgen_87f02bc29c3faac0" hs_bindgen_87f02bc29c3
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_int64_t_fun@
 hs_bindgen_87f02bc29c3faac0 :: IO (FunPtr (IO HsBindgen.Runtime.LibC.Int64))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_int64_t_fun@
-hs_bindgen_87f02bc29c3faac0 = fromFFIType hs_bindgen_87f02bc29c3faac0_base
+hs_bindgen_87f02bc29c3faac0 = fmap fromFFIType hs_bindgen_87f02bc29c3faac0_base
 {-# NOINLINE int64_t_fun_funptr #-}
 {-| __C declaration:__ @int64_t_fun@
 
@@ -1763,7 +1763,7 @@ foreign import ccall unsafe "hs_bindgen_e41f6841cb24d084" hs_bindgen_e41f6841cb2
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uint8_t_fun@
 hs_bindgen_e41f6841cb24d084 :: IO (FunPtr (IO HsBindgen.Runtime.LibC.Word8))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uint8_t_fun@
-hs_bindgen_e41f6841cb24d084 = fromFFIType hs_bindgen_e41f6841cb24d084_base
+hs_bindgen_e41f6841cb24d084 = fmap fromFFIType hs_bindgen_e41f6841cb24d084_base
 {-# NOINLINE uint8_t_fun_funptr #-}
 {-| __C declaration:__ @uint8_t_fun@
 
@@ -1785,7 +1785,7 @@ foreign import ccall unsafe "hs_bindgen_a99c4081312f9a64" hs_bindgen_a99c4081312
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uint16_t_fun@
 hs_bindgen_a99c4081312f9a64 :: IO (FunPtr (IO HsBindgen.Runtime.LibC.Word16))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uint16_t_fun@
-hs_bindgen_a99c4081312f9a64 = fromFFIType hs_bindgen_a99c4081312f9a64_base
+hs_bindgen_a99c4081312f9a64 = fmap fromFFIType hs_bindgen_a99c4081312f9a64_base
 {-# NOINLINE uint16_t_fun_funptr #-}
 {-| __C declaration:__ @uint16_t_fun@
 
@@ -1807,7 +1807,7 @@ foreign import ccall unsafe "hs_bindgen_d7c52be7143a7a68" hs_bindgen_d7c52be7143
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uint32_t_fun@
 hs_bindgen_d7c52be7143a7a68 :: IO (FunPtr (IO HsBindgen.Runtime.LibC.Word32))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uint32_t_fun@
-hs_bindgen_d7c52be7143a7a68 = fromFFIType hs_bindgen_d7c52be7143a7a68_base
+hs_bindgen_d7c52be7143a7a68 = fmap fromFFIType hs_bindgen_d7c52be7143a7a68_base
 {-# NOINLINE uint32_t_fun_funptr #-}
 {-| __C declaration:__ @uint32_t_fun@
 
@@ -1829,7 +1829,7 @@ foreign import ccall unsafe "hs_bindgen_ce7fc806ab2fc8e0" hs_bindgen_ce7fc806ab2
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uint64_t_fun@
 hs_bindgen_ce7fc806ab2fc8e0 :: IO (FunPtr (IO HsBindgen.Runtime.LibC.Word64))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uint64_t_fun@
-hs_bindgen_ce7fc806ab2fc8e0 = fromFFIType hs_bindgen_ce7fc806ab2fc8e0_base
+hs_bindgen_ce7fc806ab2fc8e0 = fmap fromFFIType hs_bindgen_ce7fc806ab2fc8e0_base
 {-# NOINLINE uint64_t_fun_funptr #-}
 {-| __C declaration:__ @uint64_t_fun@
 
@@ -1851,7 +1851,7 @@ foreign import ccall unsafe "hs_bindgen_5b1986d8b6b49f7e" hs_bindgen_5b1986d8b6b
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_intmax_t_fun@
 hs_bindgen_5b1986d8b6b49f7e :: IO (FunPtr (IO HsBindgen.Runtime.LibC.CIntMax))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_intmax_t_fun@
-hs_bindgen_5b1986d8b6b49f7e = fromFFIType hs_bindgen_5b1986d8b6b49f7e_base
+hs_bindgen_5b1986d8b6b49f7e = fmap fromFFIType hs_bindgen_5b1986d8b6b49f7e_base
 {-# NOINLINE intmax_t_fun_funptr #-}
 {-| __C declaration:__ @intmax_t_fun@
 
@@ -1873,7 +1873,7 @@ foreign import ccall unsafe "hs_bindgen_022ea568c1d290f4" hs_bindgen_022ea568c1d
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uintmax_t_fun@
 hs_bindgen_022ea568c1d290f4 :: IO (FunPtr (IO HsBindgen.Runtime.LibC.CUIntMax))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uintmax_t_fun@
-hs_bindgen_022ea568c1d290f4 = fromFFIType hs_bindgen_022ea568c1d290f4_base
+hs_bindgen_022ea568c1d290f4 = fmap fromFFIType hs_bindgen_022ea568c1d290f4_base
 {-# NOINLINE uintmax_t_fun_funptr #-}
 {-| __C declaration:__ @uintmax_t_fun@
 
@@ -1895,7 +1895,7 @@ foreign import ccall unsafe "hs_bindgen_35eda59e93c8db9a" hs_bindgen_35eda59e93c
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_intptr_t_fun@
 hs_bindgen_35eda59e93c8db9a :: IO (FunPtr (IO HsBindgen.Runtime.LibC.CIntPtr))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_intptr_t_fun@
-hs_bindgen_35eda59e93c8db9a = fromFFIType hs_bindgen_35eda59e93c8db9a_base
+hs_bindgen_35eda59e93c8db9a = fmap fromFFIType hs_bindgen_35eda59e93c8db9a_base
 {-# NOINLINE intptr_t_fun_funptr #-}
 {-| __C declaration:__ @intptr_t_fun@
 
@@ -1917,7 +1917,7 @@ foreign import ccall unsafe "hs_bindgen_a45e879780c141ec" hs_bindgen_a45e879780c
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uintptr_t_fun@
 hs_bindgen_a45e879780c141ec :: IO (FunPtr (IO HsBindgen.Runtime.LibC.CUIntPtr))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_uintptr_t_fun@
-hs_bindgen_a45e879780c141ec = fromFFIType hs_bindgen_a45e879780c141ec_base
+hs_bindgen_a45e879780c141ec = fmap fromFFIType hs_bindgen_a45e879780c141ec_base
 {-# NOINLINE uintptr_t_fun_funptr #-}
 {-| __C declaration:__ @uintptr_t_fun@
 
@@ -1939,7 +1939,7 @@ foreign import ccall unsafe "hs_bindgen_266815b1305c1241" hs_bindgen_266815b1305
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_fenv_t_fun@
 hs_bindgen_266815b1305c1241 :: IO (FunPtr (IO (Ptr HsBindgen.Runtime.LibC.CFenvT)))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_fenv_t_fun@
-hs_bindgen_266815b1305c1241 = fromFFIType hs_bindgen_266815b1305c1241_base
+hs_bindgen_266815b1305c1241 = fmap fromFFIType hs_bindgen_266815b1305c1241_base
 {-# NOINLINE fenv_t_fun_funptr #-}
 {-| __C declaration:__ @fenv_t_fun@
 
@@ -1961,7 +1961,7 @@ foreign import ccall unsafe "hs_bindgen_d0eee798617140b8" hs_bindgen_d0eee798617
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_fexcept_t_fun@
 hs_bindgen_d0eee798617140b8 :: IO (FunPtr (IO (Ptr HsBindgen.Runtime.LibC.CFexceptT)))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_fexcept_t_fun@
-hs_bindgen_d0eee798617140b8 = fromFFIType hs_bindgen_d0eee798617140b8_base
+hs_bindgen_d0eee798617140b8 = fmap fromFFIType hs_bindgen_d0eee798617140b8_base
 {-# NOINLINE fexcept_t_fun_funptr #-}
 {-| __C declaration:__ @fexcept_t_fun@
 
@@ -1983,7 +1983,7 @@ foreign import ccall unsafe "hs_bindgen_0120eaefb471d45e" hs_bindgen_0120eaefb47
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_size_t_fun@
 hs_bindgen_0120eaefb471d45e :: IO (FunPtr (IO HsBindgen.Runtime.LibC.CSize))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_size_t_fun@
-hs_bindgen_0120eaefb471d45e = fromFFIType hs_bindgen_0120eaefb471d45e_base
+hs_bindgen_0120eaefb471d45e = fmap fromFFIType hs_bindgen_0120eaefb471d45e_base
 {-# NOINLINE size_t_fun_funptr #-}
 {-| __C declaration:__ @size_t_fun@
 
@@ -2005,7 +2005,7 @@ foreign import ccall unsafe "hs_bindgen_aa0444e3b2fda3de" hs_bindgen_aa0444e3b2f
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_ptrdiff_t_fun@
 hs_bindgen_aa0444e3b2fda3de :: IO (FunPtr (IO HsBindgen.Runtime.LibC.CPtrdiff))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_ptrdiff_t_fun@
-hs_bindgen_aa0444e3b2fda3de = fromFFIType hs_bindgen_aa0444e3b2fda3de_base
+hs_bindgen_aa0444e3b2fda3de = fmap fromFFIType hs_bindgen_aa0444e3b2fda3de_base
 {-# NOINLINE ptrdiff_t_fun_funptr #-}
 {-| __C declaration:__ @ptrdiff_t_fun@
 
@@ -2027,7 +2027,7 @@ foreign import ccall unsafe "hs_bindgen_c3e6697f6a14bc13" hs_bindgen_c3e6697f6a1
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_wchar_t_fun@
 hs_bindgen_c3e6697f6a14bc13 :: IO (FunPtr (IO HsBindgen.Runtime.LibC.CWchar))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_wchar_t_fun@
-hs_bindgen_c3e6697f6a14bc13 = fromFFIType hs_bindgen_c3e6697f6a14bc13_base
+hs_bindgen_c3e6697f6a14bc13 = fmap fromFFIType hs_bindgen_c3e6697f6a14bc13_base
 {-# NOINLINE wchar_t_fun_funptr #-}
 {-| __C declaration:__ @wchar_t_fun@
 
@@ -2049,7 +2049,7 @@ foreign import ccall unsafe "hs_bindgen_f3077dc66d53977f" hs_bindgen_f3077dc66d5
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_wint_t_fun@
 hs_bindgen_f3077dc66d53977f :: IO (FunPtr (IO HsBindgen.Runtime.LibC.CWintT))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_wint_t_fun@
-hs_bindgen_f3077dc66d53977f = fromFFIType hs_bindgen_f3077dc66d53977f_base
+hs_bindgen_f3077dc66d53977f = fmap fromFFIType hs_bindgen_f3077dc66d53977f_base
 {-# NOINLINE wint_t_fun_funptr #-}
 {-| __C declaration:__ @wint_t_fun@
 
@@ -2071,7 +2071,7 @@ foreign import ccall unsafe "hs_bindgen_b863e606ff088408" hs_bindgen_b863e606ff0
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_mbstate_t_fun@
 hs_bindgen_b863e606ff088408 :: IO (FunPtr (IO (Ptr HsBindgen.Runtime.LibC.CMbstateT)))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_mbstate_t_fun@
-hs_bindgen_b863e606ff088408 = fromFFIType hs_bindgen_b863e606ff088408_base
+hs_bindgen_b863e606ff088408 = fmap fromFFIType hs_bindgen_b863e606ff088408_base
 {-# NOINLINE mbstate_t_fun_funptr #-}
 {-| __C declaration:__ @mbstate_t_fun@
 
@@ -2093,7 +2093,7 @@ foreign import ccall unsafe "hs_bindgen_a9599637dbc12608" hs_bindgen_a9599637dbc
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_wctrans_t_fun@
 hs_bindgen_a9599637dbc12608 :: IO (FunPtr (IO HsBindgen.Runtime.LibC.CWctransT))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_wctrans_t_fun@
-hs_bindgen_a9599637dbc12608 = fromFFIType hs_bindgen_a9599637dbc12608_base
+hs_bindgen_a9599637dbc12608 = fmap fromFFIType hs_bindgen_a9599637dbc12608_base
 {-# NOINLINE wctrans_t_fun_funptr #-}
 {-| __C declaration:__ @wctrans_t_fun@
 
@@ -2115,7 +2115,7 @@ foreign import ccall unsafe "hs_bindgen_207a54450593099a" hs_bindgen_207a5445059
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_wctype_t_fun@
 hs_bindgen_207a54450593099a :: IO (FunPtr (IO HsBindgen.Runtime.LibC.CWctypeT))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_wctype_t_fun@
-hs_bindgen_207a54450593099a = fromFFIType hs_bindgen_207a54450593099a_base
+hs_bindgen_207a54450593099a = fmap fromFFIType hs_bindgen_207a54450593099a_base
 {-# NOINLINE wctype_t_fun_funptr #-}
 {-| __C declaration:__ @wctype_t_fun@
 
@@ -2137,7 +2137,7 @@ foreign import ccall unsafe "hs_bindgen_28a6e39f56489ba2" hs_bindgen_28a6e39f564
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_char16_t_fun@
 hs_bindgen_28a6e39f56489ba2 :: IO (FunPtr (IO HsBindgen.Runtime.LibC.CChar16T))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_char16_t_fun@
-hs_bindgen_28a6e39f56489ba2 = fromFFIType hs_bindgen_28a6e39f56489ba2_base
+hs_bindgen_28a6e39f56489ba2 = fmap fromFFIType hs_bindgen_28a6e39f56489ba2_base
 {-# NOINLINE char16_t_fun_funptr #-}
 {-| __C declaration:__ @char16_t_fun@
 
@@ -2159,7 +2159,7 @@ foreign import ccall unsafe "hs_bindgen_f918c5a2d6c16885" hs_bindgen_f918c5a2d6c
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_char32_t_fun@
 hs_bindgen_f918c5a2d6c16885 :: IO (FunPtr (IO HsBindgen.Runtime.LibC.CChar32T))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_char32_t_fun@
-hs_bindgen_f918c5a2d6c16885 = fromFFIType hs_bindgen_f918c5a2d6c16885_base
+hs_bindgen_f918c5a2d6c16885 = fmap fromFFIType hs_bindgen_f918c5a2d6c16885_base
 {-# NOINLINE char32_t_fun_funptr #-}
 {-| __C declaration:__ @char32_t_fun@
 
@@ -2181,7 +2181,7 @@ foreign import ccall unsafe "hs_bindgen_f29cfe7708be784f" hs_bindgen_f29cfe7708b
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_time_t_fun@
 hs_bindgen_f29cfe7708be784f :: IO (FunPtr (IO HsBindgen.Runtime.LibC.CTime))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_time_t_fun@
-hs_bindgen_f29cfe7708be784f = fromFFIType hs_bindgen_f29cfe7708be784f_base
+hs_bindgen_f29cfe7708be784f = fmap fromFFIType hs_bindgen_f29cfe7708be784f_base
 {-# NOINLINE time_t_fun_funptr #-}
 {-| __C declaration:__ @time_t_fun@
 
@@ -2203,7 +2203,7 @@ foreign import ccall unsafe "hs_bindgen_509d092c2afe1ddc" hs_bindgen_509d092c2af
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_clock_t_fun@
 hs_bindgen_509d092c2afe1ddc :: IO (FunPtr (IO HsBindgen.Runtime.LibC.CClock))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_clock_t_fun@
-hs_bindgen_509d092c2afe1ddc = fromFFIType hs_bindgen_509d092c2afe1ddc_base
+hs_bindgen_509d092c2afe1ddc = fmap fromFFIType hs_bindgen_509d092c2afe1ddc_base
 {-# NOINLINE clock_t_fun_funptr #-}
 {-| __C declaration:__ @clock_t_fun@
 
@@ -2225,7 +2225,7 @@ foreign import ccall unsafe "hs_bindgen_8f5880570a38b5dd" hs_bindgen_8f5880570a3
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_FILE_fun@
 hs_bindgen_8f5880570a38b5dd :: IO (FunPtr (IO (Ptr HsBindgen.Runtime.LibC.CFile)))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_FILE_fun@
-hs_bindgen_8f5880570a38b5dd = fromFFIType hs_bindgen_8f5880570a38b5dd_base
+hs_bindgen_8f5880570a38b5dd = fmap fromFFIType hs_bindgen_8f5880570a38b5dd_base
 {-# NOINLINE fILE_fun_funptr #-}
 {-| __C declaration:__ @FILE_fun@
 
@@ -2247,7 +2247,7 @@ foreign import ccall unsafe "hs_bindgen_8b563cc85422e790" hs_bindgen_8b563cc8542
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_fpos_t_fun@
 hs_bindgen_8b563cc85422e790 :: IO (FunPtr (IO (Ptr HsBindgen.Runtime.LibC.CFpos)))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_fpos_t_fun@
-hs_bindgen_8b563cc85422e790 = fromFFIType hs_bindgen_8b563cc85422e790_base
+hs_bindgen_8b563cc85422e790 = fmap fromFFIType hs_bindgen_8b563cc85422e790_base
 {-# NOINLINE fpos_t_fun_funptr #-}
 {-| __C declaration:__ @fpos_t_fun@
 
@@ -2269,7 +2269,7 @@ foreign import ccall unsafe "hs_bindgen_9fcd36cfaa3ea373" hs_bindgen_9fcd36cfaa3
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_sig_atomic_t_fun@
 hs_bindgen_9fcd36cfaa3ea373 :: IO (FunPtr (IO HsBindgen.Runtime.LibC.CSigAtomic))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_sig_atomic_t_fun@
-hs_bindgen_9fcd36cfaa3ea373 = fromFFIType hs_bindgen_9fcd36cfaa3ea373_base
+hs_bindgen_9fcd36cfaa3ea373 = fmap fromFFIType hs_bindgen_9fcd36cfaa3ea373_base
 {-# NOINLINE sig_atomic_t_fun_funptr #-}
 {-| __C declaration:__ @sig_atomic_t_fun@
 
@@ -2291,7 +2291,7 @@ foreign import ccall unsafe "hs_bindgen_68c2b692efbc4734" hs_bindgen_68c2b692efb
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_jmp_buf_val@
 hs_bindgen_68c2b692efbc4734 :: IO (Ptr HsBindgen.Runtime.LibC.CJmpBuf)
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_jmp_buf_val@
-hs_bindgen_68c2b692efbc4734 = fromFFIType hs_bindgen_68c2b692efbc4734_base
+hs_bindgen_68c2b692efbc4734 = fmap fromFFIType hs_bindgen_68c2b692efbc4734_base
 {-# NOINLINE jmp_buf_val #-}
 {-| __C declaration:__ @jmp_buf_val@
 

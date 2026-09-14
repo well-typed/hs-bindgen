@@ -88,7 +88,8 @@ hs_bindgen_9d01035006b66206 ::
      BG.CBool
   -> IO Toggle
 hs_bindgen_9d01035006b66206 =
-  BG.fromFFIType hs_bindgen_9d01035006b66206_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_9d01035006b66206_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @makeToggle@
 
@@ -112,7 +113,8 @@ hs_bindgen_ccd3ba727d0c0cf4 ::
      Toggle
   -> IO BG.CBool
 hs_bindgen_ccd3ba727d0c0cf4 =
-  BG.fromFFIType hs_bindgen_ccd3ba727d0c0cf4_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_ccd3ba727d0c0cf4_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @toggleNext@
 
@@ -136,7 +138,8 @@ hs_bindgen_602b40e971b06c72 ::
      Toggle
   -> IO ()
 hs_bindgen_602b40e971b06c72 =
-  BG.fromFFIType hs_bindgen_602b40e971b06c72_base
+  \x0 ->
+    hs_bindgen_602b40e971b06c72_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @releaseToggle@
 
@@ -162,7 +165,9 @@ hs_bindgen_234fa6f1fb089e1d ::
   -> BG.CInt
   -> IO Counter
 hs_bindgen_234fa6f1fb089e1d =
-  BG.fromFFIType hs_bindgen_234fa6f1fb089e1d_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_234fa6f1fb089e1d_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @makeCounter@
 
@@ -188,7 +193,8 @@ hs_bindgen_f0fca62d78f225c3 ::
      Counter
   -> IO BG.CInt
 hs_bindgen_f0fca62d78f225c3 =
-  BG.fromFFIType hs_bindgen_f0fca62d78f225c3_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_f0fca62d78f225c3_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @counterNext@
 
@@ -212,7 +218,8 @@ hs_bindgen_e42dcbee8a114957 ::
      Counter
   -> IO ()
 hs_bindgen_e42dcbee8a114957 =
-  BG.fromFFIType hs_bindgen_e42dcbee8a114957_base
+  \x0 ->
+    hs_bindgen_e42dcbee8a114957_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @releaseCounter@
 
@@ -236,7 +243,8 @@ hs_bindgen_2bee4eb5b4d895c1 ::
      BG.CInt
   -> IO VarCounter
 hs_bindgen_2bee4eb5b4d895c1 =
-  BG.fromFFIType hs_bindgen_2bee4eb5b4d895c1_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_2bee4eb5b4d895c1_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @makeVarCounter@
 
@@ -262,7 +270,9 @@ hs_bindgen_276b9cb5320fec37 ::
   -> BG.CInt
   -> IO BG.CInt
 hs_bindgen_276b9cb5320fec37 =
-  BG.fromFFIType hs_bindgen_276b9cb5320fec37_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_276b9cb5320fec37_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @varCounterNext@
 
@@ -288,7 +298,8 @@ hs_bindgen_8423b076f7c9df21 ::
      VarCounter
   -> IO ()
 hs_bindgen_8423b076f7c9df21 =
-  BG.fromFFIType hs_bindgen_8423b076f7c9df21_base
+  \x0 ->
+    hs_bindgen_8423b076f7c9df21_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @releaseVarCounter@
 

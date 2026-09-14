@@ -142,7 +142,7 @@ int fn () __attribute__ ((warn_unused_result));
 extern int y (void);
 
 /* the following... */
-static int x1 (void) __attribute__ ((weakref ("y")));
+static int z1 (void) __attribute__ ((weakref ("y")));
 
 /* is equivalent to... */
-static int x2 (void) __attribute__ ((weakref, alias ("y")));
+static int z2 (void) __attribute__ ((weakref, alias ("y")));

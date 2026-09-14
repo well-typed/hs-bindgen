@@ -28,7 +28,7 @@ foreign import ccall safe "hs_bindgen_dfefd17e87559d1a" hs_bindgen_dfefd17e87559
 -- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Safe__acos@
 hs_bindgen_dfefd17e87559d1a :: CDouble -> IO CDouble
 -- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Safe__acos@
-hs_bindgen_dfefd17e87559d1a = fromFFIType hs_bindgen_dfefd17e87559d1a_base
+hs_bindgen_dfefd17e87559d1a = \x_0 -> fmap fromFFIType (hs_bindgen_dfefd17e87559d1a_base (toFFIType x_0))
 {-| __C declaration:__ @_acos@
 
     __defined at:__ @ordinary_unnamed_decl_child.h 4:1@
@@ -50,7 +50,7 @@ foreign import ccall unsafe "hs_bindgen_751dc472004ee482" hs_bindgen_751dc472004
 -- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Unsafe__acos@
 hs_bindgen_751dc472004ee482 :: CDouble -> IO CDouble
 -- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Unsafe__acos@
-hs_bindgen_751dc472004ee482 = fromFFIType hs_bindgen_751dc472004ee482_base
+hs_bindgen_751dc472004ee482 = \x_0 -> fmap fromFFIType (hs_bindgen_751dc472004ee482_base (toFFIType x_0))
 {-| __C declaration:__ @_acos@
 
     __defined at:__ @ordinary_unnamed_decl_child.h 4:1@
@@ -71,7 +71,7 @@ foreign import ccall unsafe "hs_bindgen_3e079012b2dabc0c" hs_bindgen_3e079012b2d
 -- __unique:__ @test_edgecasesordinary_unnamed_de_Example_get__acos@
 hs_bindgen_3e079012b2dabc0c :: IO (FunPtr (CDouble -> IO CDouble))
 -- __unique:__ @test_edgecasesordinary_unnamed_de_Example_get__acos@
-hs_bindgen_3e079012b2dabc0c = fromFFIType hs_bindgen_3e079012b2dabc0c_base
+hs_bindgen_3e079012b2dabc0c = fmap fromFFIType hs_bindgen_3e079012b2dabc0c_base
 {-# NOINLINE _acos_funptr #-}
 {-| __C declaration:__ @_acos@
 

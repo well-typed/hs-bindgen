@@ -12,6 +12,7 @@ import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
+import HsBindgen.Backend.Hs.Translation.ForeignImport (ImportFor (..))
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImport
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
 import HsBindgen.Backend.HsModule.Pretty ()
@@ -50,9 +51,16 @@ forFunction sizeofs (args, res) =
       nameFrom
       funC
       funHs
+      importFor
   where
     funC  = C.TypeFun args res
     funHs = Translation.topLevel funC
+
+    importFor :: ImportFor
+    importFor = ImportForFunction {
+          args = Translation.inContext Translation.FunArg <$> args
+        , res =  Hs.IO $ Translation.inContext Translation.FunRes res
+        }
 
     nameWith :: String -> UniqueSymbol
     nameWith s =
@@ -75,9 +83,17 @@ forNewtype sizeofs newtyp (args, res) =
       nameFrom
       funC
       funHs
+      importFor
   where
     funC  = C.TypeFun args res
     funHs = Hs.TypRef newtyp.name (Just newtyp.field.typ)
+
+    importFor :: ImportFor
+    importFor = ImportForNewtype {
+          args = Translation.inContext Translation.FunArg <$> args
+        , res =  Hs.IO $ Translation.inContext Translation.FunRes res
+        , newtyp = newtyp
+        }
 
     nameWith :: String -> UniqueSymbol
     nameWith s = locallyUnique $ s <> Hs.nameToStr newtyp.name
@@ -96,13 +112,15 @@ instancesFor ::
   -> UniqueSymbol -- ^ Name of the @fromFunPtr@ fun
   -> C.Type Final -- ^ Type of the C function
   -> Hs.Type      -- ^ Corresponding Haskell type
+  -> ImportFor
   -> [Hs.Decl l]
-instancesFor sizeofs nameTo nameFrom funC funHs = concat [
+instancesFor sizeofs nameTo nameFrom funC funHs importFor = concat [
       -- import for @ToFunPtr@ instance
       HsFI.foreignImportWrapperDec
         sizeofs
         (Hs.ForeignImport.FunName nameTo)
         funHs
+        importFor
         (Origin.ToFunPtr funC)
 
       -- import for @FromFunPtr@ instance
@@ -110,6 +128,7 @@ instancesFor sizeofs nameTo nameFrom funC funHs = concat [
         sizeofs
         (Hs.ForeignImport.FunName nameFrom)
         funHs
+        importFor
         (Origin.ToFunPtr funC)
 
       -- @ToFunPtr@ instance proper

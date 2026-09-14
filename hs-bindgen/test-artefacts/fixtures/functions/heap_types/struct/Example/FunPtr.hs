@@ -65,7 +65,7 @@ foreign import ccall unsafe "hs_bindgen_071e2eda58051e4a" hs_bindgen_071e2eda580
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_fun@
 hs_bindgen_071e2eda58051e4a :: IO (BG.FunPtr (T -> IO T))
 hs_bindgen_071e2eda58051e4a =
-  BG.fromFFIType hs_bindgen_071e2eda58051e4a_base
+  fmap BG.fromFFIType hs_bindgen_071e2eda58051e4a_base
 
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@
@@ -84,7 +84,7 @@ foreign import ccall unsafe "hs_bindgen_ee52ac50697405f8" hs_bindgen_ee52ac50697
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_underscore@
 hs_bindgen_ee52ac50697405f8 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_ee52ac50697405f8 =
-  BG.fromFFIType hs_bindgen_ee52ac50697405f8_base
+  fmap BG.fromFFIType hs_bindgen_ee52ac50697405f8_base
 
 {-# NOINLINE param_underscore #-}
 {-| __C declaration:__ @param_underscore@
@@ -104,7 +104,7 @@ foreign import ccall unsafe "hs_bindgen_b51cac34e6c4eca3" hs_bindgen_b51cac34e6c
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_uppercase@
 hs_bindgen_b51cac34e6c4eca3 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_b51cac34e6c4eca3 =
-  BG.fromFFIType hs_bindgen_b51cac34e6c4eca3_base
+  fmap BG.fromFFIType hs_bindgen_b51cac34e6c4eca3_base
 
 {-# NOINLINE param_uppercase #-}
 {-| __C declaration:__ @param_uppercase@
@@ -124,7 +124,7 @@ foreign import ccall unsafe "hs_bindgen_2302284a38d84764" hs_bindgen_2302284a38d
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_undersore_capital@
 hs_bindgen_2302284a38d84764 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_2302284a38d84764 =
-  BG.fromFFIType hs_bindgen_2302284a38d84764_base
+  fmap BG.fromFFIType hs_bindgen_2302284a38d84764_base
 
 {-# NOINLINE param_undersore_capital #-}
 {-| __C declaration:__ @param_undersore_capital@
@@ -144,7 +144,7 @@ foreign import ccall unsafe "hs_bindgen_af57be8569d5f651" hs_bindgen_af57be8569d
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_haskell_reserved_name@
 hs_bindgen_af57be8569d5f651 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_af57be8569d5f651 =
-  BG.fromFFIType hs_bindgen_af57be8569d5f651_base
+  fmap BG.fromFFIType hs_bindgen_af57be8569d5f651_base
 
 {-# NOINLINE param_haskell_reserved_name #-}
 {-| __C declaration:__ @param_haskell_reserved_name@

@@ -60,7 +60,7 @@ foreign import ccall safe "hs_bindgen_a1252a3becef09a6" hs_bindgen_a1252a3becef0
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Safe_fun2@
 hs_bindgen_a1252a3becef09a6 :: CInt -> IO ()
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Safe_fun2@
-hs_bindgen_a1252a3becef09a6 = fromFFIType hs_bindgen_a1252a3becef09a6_base
+hs_bindgen_a1252a3becef09a6 = \x_0 -> hs_bindgen_a1252a3becef09a6_base (toFFIType x_0)
 {-| __C declaration:__ @fun2@
 
     __defined at:__ @types\/special\/parse_failure_long_double.h 7:6@
@@ -82,7 +82,7 @@ foreign import ccall unsafe "hs_bindgen_61793546aa44e36b" hs_bindgen_61793546aa4
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
 hs_bindgen_61793546aa44e36b :: CInt -> IO ()
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
-hs_bindgen_61793546aa44e36b = fromFFIType hs_bindgen_61793546aa44e36b_base
+hs_bindgen_61793546aa44e36b = \x_0 -> hs_bindgen_61793546aa44e36b_base (toFFIType x_0)
 {-| __C declaration:__ @fun2@
 
     __defined at:__ @types\/special\/parse_failure_long_double.h 7:6@
@@ -103,7 +103,7 @@ foreign import ccall unsafe "hs_bindgen_d61a16f2d29260ed" hs_bindgen_d61a16f2d29
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2@
 hs_bindgen_d61a16f2d29260ed :: IO (FunPtr (CInt -> IO ()))
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2@
-hs_bindgen_d61a16f2d29260ed = fromFFIType hs_bindgen_d61a16f2d29260ed_base
+hs_bindgen_d61a16f2d29260ed = fmap fromFFIType hs_bindgen_d61a16f2d29260ed_base
 {-# NOINLINE fun2_funptr #-}
 {-| __C declaration:__ @fun2@
 

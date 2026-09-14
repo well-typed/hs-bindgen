@@ -33,7 +33,9 @@ hs_bindgen_1af353788955c7a2 ::
   -> BG.CDouble
   -> IO (BG.Ptr Vector)
 hs_bindgen_1af353788955c7a2 =
-  BG.fromFFIType hs_bindgen_1af353788955c7a2_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_1af353788955c7a2_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @new_vector@
 

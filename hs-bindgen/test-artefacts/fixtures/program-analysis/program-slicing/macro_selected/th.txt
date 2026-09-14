@@ -112,7 +112,7 @@ foreign import ccall safe "hs_bindgen_27fdf7030b0bb40d" hs_bindgen_27fdf7030b0bb
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_foo@
 hs_bindgen_27fdf7030b0bb40d :: T -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_foo@
-hs_bindgen_27fdf7030b0bb40d = fromFFIType hs_bindgen_27fdf7030b0bb40d_base
+hs_bindgen_27fdf7030b0bb40d = \x_0 -> hs_bindgen_27fdf7030b0bb40d_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @program-analysis\/program-slicing\/macro_selected.h 5:6@
@@ -134,7 +134,7 @@ foreign import ccall safe "hs_bindgen_ef8f97cf27661c20" hs_bindgen_ef8f97cf27661
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_bar@
 hs_bindgen_ef8f97cf27661c20 :: U -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_bar@
-hs_bindgen_ef8f97cf27661c20 = fromFFIType hs_bindgen_ef8f97cf27661c20_base
+hs_bindgen_ef8f97cf27661c20 = \x_0 -> hs_bindgen_ef8f97cf27661c20_base (toFFIType x_0)
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program-slicing\/macro_selected.h 10:6@
@@ -156,7 +156,7 @@ foreign import ccall unsafe "hs_bindgen_72197c1a408e40ac" hs_bindgen_72197c1a408
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_foo@
 hs_bindgen_72197c1a408e40ac :: T -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_foo@
-hs_bindgen_72197c1a408e40ac = fromFFIType hs_bindgen_72197c1a408e40ac_base
+hs_bindgen_72197c1a408e40ac = \x_0 -> hs_bindgen_72197c1a408e40ac_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @program-analysis\/program-slicing\/macro_selected.h 5:6@
@@ -178,7 +178,7 @@ foreign import ccall unsafe "hs_bindgen_401f15168ffec8ae" hs_bindgen_401f15168ff
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
 hs_bindgen_401f15168ffec8ae :: U -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
-hs_bindgen_401f15168ffec8ae = fromFFIType hs_bindgen_401f15168ffec8ae_base
+hs_bindgen_401f15168ffec8ae = \x_0 -> hs_bindgen_401f15168ffec8ae_base (toFFIType x_0)
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program-slicing\/macro_selected.h 10:6@
@@ -199,7 +199,7 @@ foreign import ccall unsafe "hs_bindgen_7fa7d51da57eb497" hs_bindgen_7fa7d51da57
 -- __unique:__ @test_programanalysisprogramslici_Example_get_foo@
 hs_bindgen_7fa7d51da57eb497 :: IO (FunPtr (T -> IO ()))
 -- __unique:__ @test_programanalysisprogramslici_Example_get_foo@
-hs_bindgen_7fa7d51da57eb497 = fromFFIType hs_bindgen_7fa7d51da57eb497_base
+hs_bindgen_7fa7d51da57eb497 = fmap fromFFIType hs_bindgen_7fa7d51da57eb497_base
 {-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 
@@ -221,7 +221,7 @@ foreign import ccall unsafe "hs_bindgen_e57577b970e09cca" hs_bindgen_e57577b970e
 -- __unique:__ @test_programanalysisprogramslici_Example_get_bar@
 hs_bindgen_e57577b970e09cca :: IO (FunPtr (U -> IO ()))
 -- __unique:__ @test_programanalysisprogramslici_Example_get_bar@
-hs_bindgen_e57577b970e09cca = fromFFIType hs_bindgen_e57577b970e09cca_base
+hs_bindgen_e57577b970e09cca = fmap fromFFIType hs_bindgen_e57577b970e09cca_base
 {-# NOINLINE bar_funptr #-}
 {-| __C declaration:__ @bar@
 

@@ -38,7 +38,7 @@ foreign import ccall unsafe "hs_bindgen_7fa7d51da57eb497" hs_bindgen_7fa7d51da57
 -- __unique:__ @test_programanalysisprogramslici_Example_get_foo@
 hs_bindgen_7fa7d51da57eb497 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_7fa7d51da57eb497 =
-  BG.fromFFIType hs_bindgen_7fa7d51da57eb497_base
+  fmap BG.fromFFIType hs_bindgen_7fa7d51da57eb497_base
 
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
@@ -57,7 +57,7 @@ foreign import ccall unsafe "hs_bindgen_e57577b970e09cca" hs_bindgen_e57577b970e
 -- __unique:__ @test_programanalysisprogramslici_Example_get_bar@
 hs_bindgen_e57577b970e09cca :: IO (BG.FunPtr (U -> IO ()))
 hs_bindgen_e57577b970e09cca =
-  BG.fromFFIType hs_bindgen_e57577b970e09cca_base
+  fmap BG.fromFFIType hs_bindgen_e57577b970e09cca_base
 
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
