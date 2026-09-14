@@ -449,6 +449,8 @@ checkIsConflict ::
 checkIsConflict new (oldId, old) = case new of
     Resolved new' -> case (new'.classification, old) of
       (ParseResultSuccess newSuccess, UsableEntry (UsableSuccess oldSuccess))
+        | isMacro newSuccess.decl.kind ->
+          singleConflict
         | newSuccess.decl.kind == oldSuccess.decl.kind ->
           -- TODO <https://github.com/well-typed/hs-bindgen/issues/2099?
           --
@@ -478,6 +480,11 @@ checkIsConflict new (oldId, old) = case new of
               C.conflictFromList $
                 newLoc : C.declLocsToList (entryToLoc old)
       in SingleConflict (Set.fromList [resolvedResultId new, oldId]) conflict
+
+    isMacro :: C.DeclKind l p -> Bool
+    isMacro  = \case
+      (C.DeclMacro _) -> True
+      _otherwise      -> False
 
 {-------------------------------------------------------------------------------
   Filter
