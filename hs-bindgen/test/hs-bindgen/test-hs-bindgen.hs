@@ -8,7 +8,9 @@ import Test.HsBindgen.Frontend.Pass.PrepareReparse qualified as Frontend.Pass.Pr
 import Test.HsBindgen.Golden qualified as Golden
 import Test.HsBindgen.Integration.ExitCode qualified as Integration.ExitCode
 import Test.HsBindgen.Integration.OverwritePolicy qualified as Integration.OverwritePolicy
+import Test.HsBindgen.Macro.CExpr qualified as Macro.CExpr
 import Test.HsBindgen.Macro.Syntax qualified as Macro.Syntax
+import Test.HsBindgen.Macro.Syntax.Clang qualified as Macro.Syntax.Clang
 import Test.HsBindgen.Macro.UniqueExpansion qualified as Macro.UniqueExpansion
 import Test.HsBindgen.PPFixtures qualified as PPFixtures
 import Test.HsBindgen.Prop.Selection qualified as Prop.Selection
@@ -32,7 +34,9 @@ main = defaultMain $
     testGroup "test-hs-bindgen" [
         Frontend.LanguageC.tests
       , Frontend.Pass.PrepareReparse.tests
+      , Macro.CExpr.tests
       , Macro.Syntax.tests
+      , Macro.Syntax.Clang.tests
       , Macro.UniqueExpansion.tests
       , testGroup "unit tests" [
             Unit.ClangArgs.tests testResources

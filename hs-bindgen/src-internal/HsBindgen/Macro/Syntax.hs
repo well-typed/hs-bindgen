@@ -18,7 +18,7 @@ import Clang.HighLevel.Types (MultiLoc (multiLocExpansion),
 
 import HsBindgen.Runtime.Macro qualified as RawMacro
 
-import HsBindgen.Macro.Error (MacroParseError (..))
+import HsBindgen.Macro.Error (MacroParseError)
 import HsBindgen.Macro.Parse
 
 data MacroDefinition = MacroDefinition {
@@ -44,9 +44,9 @@ data MacroInvocation = MacroInvocation {
 
 -- | Split a macro definition into its name, parameters and body
 --
--- This is the /one/ language-independent macro parser: every macro definition
--- passes through it before any macro language sees it. The body is left
--- unparsed; interpreting it is the macro language's job.
+-- This is the /one/ language-independent macro parser in `hs-bindgen`: every
+-- macro definition passes through it before the used macro language parses the
+-- macro body. Here, we do not parse the body.
 --
 -- The tokens are the tokens of the definition /excluding/ the @#define@ itself,
 -- as reported by @libclang@ for a @CXCursor_MacroDefinition@ cursor. For
@@ -58,10 +58,7 @@ splitMacro ::
      HasCallStack
   => [Token TokenSpelling]
   -> Either MacroParseError (RawMacro.Raw (Token TokenSpelling))
-splitMacro []     = Left MacroParseError {
-      macroParseError = "macro definition without a name"
-    }
-splitMacro tokens = runParser (macroDefinition <* Parsec.eof) tokens
+splitMacro = runParser (macroDefinition <* Parsec.eof)
 
 macroDefinition :: Parser (RawMacro.Raw (Token TokenSpelling))
 macroDefinition = do
@@ -102,15 +99,18 @@ isFunctionLike nameRange =
 -- > F(x...)    Params []     (NamedEllipsis x)       -- GNU
 -- > F(x, y...) Params [x]    (NamedEllipsis y)       -- GNU
 --
--- An @...@ that is not preceded by a comma binds to the name before it: that is
--- the GNU form, in which the name, not @__VA_ARGS__@, stands for the trailing
--- arguments.
+-- An @...@ that is not preceded by a comma binds to the name before it (GNU form).
 --
--- A trailing comma (@F(x,)@) is rejected, as @clang@ rejects it.
+-- A trailing comma (@F(x,)@) is /rejected/ (similar to @clang@).
 --
--- Parameter names are identifiers only, never keywords, even though the macro
--- /name/ may be a keyword (see 'identifierOrKeyword'): a macro definition can
--- give a new meaning to @bool@, but it cannot use @bool@ as a parameter.
+-- We do not implement additional logic to reject repeated parameter names
+-- (@F(x, x)@), and /accepted/ them, although C23 6.10.1p6 forbids them.
+-- @clang@ rejects such a definition, so no cursor for it ever reaches us.
+--
+-- A parameter name may be a keyword, just as the macro /name/ may be (see
+-- 'identifierOrKeyword'). The preprocessor sees pp-tokens, which know no
+-- keywords, so @clang@ accepts @#define F(bool) bool@ even in C23, where
+-- @bool@ is one.
 formalParams :: Parser (RawMacro.Params (Token TokenSpelling))
 formalParams = parens $ do
     names <- Parsec.option [] namedParams
@@ -127,7 +127,9 @@ formalParams = parens $ do
     -- that the comma of @F(x, ...)@ is left for the variadic suffix.
     namedParams :: Parser [Token TokenSpelling]
     namedParams =
-        (:) <$> identifier <*> Parsec.many (Parsec.try (comma *> identifier))
+            (:)
+        <$> identifierOrKeyword
+        <*> Parsec.many (Parsec.try (comma *> identifierOrKeyword))
 
     -- @F(...)@ has no name for the ellipsis to bind to.
     namedEllipsis ::

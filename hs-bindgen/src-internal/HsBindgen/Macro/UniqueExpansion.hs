@@ -4,7 +4,8 @@
 module HsBindgen.Macro.UniqueExpansion (
     isExpansionUnique
     -- * Parse
-  , ParseResult
+  , ParseResult (..)
+  , Error (..)
   , isFailure
   , liftDefinition
   , liftInvocation
@@ -33,7 +34,7 @@ import Clang.HighLevel.Types (Token, TokenSpelling)
 import HsBindgen.Runtime.Macro qualified as RawMacro
 
 import HsBindgen.Macro.Error (MacroParseError)
-import HsBindgen.Macro.Parse (isIdentifier, runParser, spelling)
+import HsBindgen.Macro.Parse (isIdentifierOrKeyword, runParser, spelling)
 import HsBindgen.Macro.Syntax (MacroDefinition (macro, name),
                                MacroInvocation (name, tokens))
 import HsBindgen.Macro.UniqueExpansion.Parse qualified as P
@@ -61,12 +62,12 @@ liftInvocation inv = ParseResult inv.name (Right inv)
 data Error =
     ParseError MacroParseError
   | NameMismatch Text Text
-  deriving stock Show
+  deriving stock (Eq, Show)
 
 -- | Project the split macro definition onto the names it mentions
 --
 -- The split itself already happened during parsing; see
--- 'HsBindgen.Macro.Parse.splitMacro'.
+-- 'HsBindgen.Macro.Syntax.splitMacro'.
 --
 -- We keep checking the name against the one @libclang@ reported for the cursor:
 -- the split does not subsume that comparison.
@@ -85,14 +86,17 @@ parseDefinition def =
 
 -- | Reduce a macro definition to the names it mentions
 --
--- Everything in the body that is not an identifier is dropped.
+-- Everything in the body that is not a name is dropped. A keyword is a name:
+-- @#define B bool@ refers to @bool@ whether or not the C standard in force
+-- makes @bool@ a keyword, and a reference we fail to harvest is an ambiguity we
+-- fail to see.
 definitionNames :: RawMacro.Raw (Token TokenSpelling) -> Definition
 definitionNames m = Definition{
-    raw = RawMacro.Raw {
-        RawMacro.name   = toName m.name
-      , RawMacro.params = toName <$> m.params
-      , RawMacro.body   = [toName t | t <- m.body, isIdentifier t]
-      }
+      raw = RawMacro.Raw {
+          RawMacro.name   = toName m.name
+        , RawMacro.params = toName <$> m.params
+        , RawMacro.body   = [toName t | t <- m.body, isIdentifierOrKeyword t]
+        }
     }
   where
     toName :: Token TokenSpelling -> Name
