@@ -125,6 +125,11 @@ data DelayedParseMsg =
     -- it was unsuccessful
   | ParseImplicitFieldFailed ParseImplicitFieldsMsg
 
+    -- | The macro language declined a macro with an empty body (@#define FOO@)
+    --
+    -- Reported separately from 'ParseMacroErrorParse' because every include
+    -- guard has an empty body, and a language that does not translate one is
+    -- not failing.
   | ParseMacroEmpty C.PrelimDeclId [Token TokenSpelling]
 
     -- | We could not parse the macro (macro def sites)
