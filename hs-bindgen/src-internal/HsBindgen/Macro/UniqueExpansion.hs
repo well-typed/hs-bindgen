@@ -1,7 +1,7 @@
 -- |
 --
 -- Intended for unqualified import.
-module HsBindgen.Clang.Macros.UniqueExpansion (
+module HsBindgen.Macro.UniqueExpansion (
     isExpansionUnique
     -- * Parse
   , ParseResult
@@ -23,18 +23,21 @@ import Data.Digraph (Digraph)
 import Data.Digraph qualified as Digraph
 import Data.Either (partitionEithers)
 import Data.Foldable qualified as Foldable
-import Data.Maybe (mapMaybe)
 import Data.Set (Set)
 import Data.Set qualified as Set
 import Data.Text (Text)
 import Text.Parsec (eof)
 
-import HsBindgen.Clang.Macros (MacroDefinition (name, tokens),
+import Clang.HighLevel.Types (Token, TokenSpelling)
+
+import HsBindgen.Runtime.Macro qualified as RawMacro
+
+import HsBindgen.Macro.Error (MacroParseError)
+import HsBindgen.Macro.Parse (isIdentifier, runParser, spelling)
+import HsBindgen.Macro.Syntax (MacroDefinition (macro, name),
                                MacroInvocation (name, tokens))
-import HsBindgen.Clang.Macros.UniqueExpansion.Parse qualified as P
-import HsBindgen.Clang.Macros.UniqueExpansion.Parse.Infra (MacroParseError,
-                                                           runParser)
-import HsBindgen.Clang.Macros.UniqueExpansion.Types
+import HsBindgen.Macro.UniqueExpansion.Parse qualified as P
+import HsBindgen.Macro.UniqueExpansion.Types
 
 {-------------------------------------------------------------------------------
   Parse
@@ -60,16 +63,38 @@ data Error =
   | NameMismatch Text Text
   deriving stock Show
 
+-- | Project the split macro definition onto the names it mentions
+--
+-- The split itself already happened during parsing; see
+-- 'HsBindgen.Macro.Parse.splitMacro'.
+--
+-- We keep checking the name against the one @libclang@ reported for the cursor:
+-- the split does not subsume that comparison.
 parseDefinition :: MacroDefinition -> ParseResult Definition
 parseDefinition def =
     ParseResult (Name def.name) $
-    case runParser (P.parseDefinition <* eof) def.tokens of
+    case def.macro of
       Left e -> throwError $ ParseError e
-      Right def'
+      Right m
         | def.name == def'.name.unwrap
         -> pure def'
         | otherwise
         -> throwError $ NameMismatch def.name def'.name.unwrap
+        where
+          def' = definitionNames m
+
+-- | Reduce a macro definition to the names it mentions
+--
+-- Everything in the body that is not an identifier is dropped.
+definitionNames :: RawMacro.Raw (Token TokenSpelling) -> Definition
+definitionNames m = RawMacro.Raw {
+      RawMacro.name   = toName m.name
+    , RawMacro.params = toName <$> m.params
+    , RawMacro.body   = [toName t | t <- m.body, isIdentifier t]
+    }
+  where
+    toName :: Token TokenSpelling -> Name
+    toName = Name . spelling
 
 parseInvocation :: MacroInvocation -> ParseResult Invocation
 parseInvocation inv =
@@ -91,15 +116,24 @@ parseInvocation inv =
 -- A macro invocation has a /unique/ expansion if it can be moved to any
 -- location further down the source file without changing the expansion result.
 --
--- In particular, even /two macros with the same name and definition can be
--- ambiguous/. For example,
+-- Note the scope of this analysis: it decides whether an /invocation/ may be
+-- pre-expanded before reparsing. Whether a macro /definition/ results in a
+-- binding is decided elsewhere, by the conflict check in
+-- "HsBindgen.Frontend.Analysis.DeclIndex" and by the @Select@ pass.
+--
+-- In particular, /a macro can be ambiguous even when it is defined only once/.
+-- For example,
 --
 -- @
 -- #define A Foo
 -- #define B A
 -- #define A Bar
--- #define B A
+-- B x;
 -- @
+--
+-- The invocation of @B@ expands to @Bar@; the same invocation placed above line
+-- 3 would expand to @Foo@. @B@ is defined once, but it refers to @A@, which is
+-- defined twice, so @B@ inherits @A@'s ambiguity through the dependents graph.
 --
 -- A macro expansion has a unique expansion iff a macro (transitively)
 -- referenced by an invocation is not captured by a new macro definition. Such
@@ -160,6 +194,13 @@ cachedIsExpansionUnique cache pInv =
 
 -- | Collect the names of all macros that are defined more than once, and all
 -- macros that (transitively) depend on macros that are defined more than once.
+--
+-- We seed on the /number/ of definitions, without comparing their bodies. That
+-- is a deliberate over-approximation: @\#define B 5@ twice is reported as
+-- ambiguous, although the expansion is stable. Comparing bodies would be more
+-- precise, but it is not obviously the cheaper or the safer choice — two
+-- token-identical definitions can still expand differently, since the tokens in
+-- a replacement list are resolved at the invocation site.
 --
 ambiguityAnalysis :: [ParseResult Definition] -> Set Name
 ambiguityAnalysis defs =
@@ -227,10 +268,17 @@ addDefinition g0 d = Foldable.foldl' f g0 deps
     f :: DependentsGraph -> Name -> DependentsGraph
     f g dep = Digraph.insertEdge dep () d.name g
 
+-- | The names the body refers to, other than the macro's own parameters
+--
+-- @__VA_ARGS__@ and @__VA_OPT__@ are reserved identifiers only in variadic
+-- macro definitions. We treat them as parameters there, to emphasise that their
+-- expansion relies on the parameters.
 getDependencies :: Definition -> [Name]
-getDependencies def = mapMaybe isDep def.body
+getDependencies def = filter (not . isParam) def.body
   where
-    isDep :: Var -> Maybe Name
-    isDep = \case
-        LocalParam _ -> Nothing
-        FreeVar    n -> Just n
+    isParam :: Name -> Bool
+    isParam n = case def.params of
+        RawMacro.NoParams               -> False
+        RawMacro.Params params variadic ->
+             n `elem` params
+          || variadic && n `elem` ["__VA_ARGS__", "__VA_OPT__"]

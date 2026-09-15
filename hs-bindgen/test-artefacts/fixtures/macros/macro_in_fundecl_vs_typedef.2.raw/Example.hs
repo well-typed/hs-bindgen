@@ -26,6 +26,7 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Macro as Macro
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
@@ -37,8 +38,8 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
-mC :: [String]
-mC = ["char"]
+mC :: Macro.Raw BG.Text
+mC = Macro.objectLike "MC" ["char"]
 
 {-| __C declaration:__ @TC@
 

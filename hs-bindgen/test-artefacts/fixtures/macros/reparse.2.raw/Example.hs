@@ -74,6 +74,7 @@ import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.IsArray as IsA
+import qualified HsBindgen.Runtime.Macro as Macro
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
 import qualified HsBindgen.Runtime.Struct as Struct
@@ -87,8 +88,8 @@ import qualified HsBindgen.Runtime.Union as Union
 
     __exported by:__ @macros\/reparse.h@
 -}
-a :: [String]
-a = ["int"]
+a :: Macro.Raw BG.Text
+a = Macro.objectLike "A" ["int"]
 
 {-| __C declaration:__ @struct some_struct@
 
@@ -2733,8 +2734,8 @@ instance HasCField.HasCField Const_funptr7 "unwrapConst_funptr7" where
 
     __exported by:__ @macros\/reparse.h@
 -}
-bOOL :: [String]
-bOOL = ["_Bool"]
+bOOL :: Macro.Raw BG.Text
+bOOL = Macro.objectLike "BOOL" ["_Bool"]
 
 {-| __C declaration:__ @macro INT@
 
@@ -2742,8 +2743,8 @@ bOOL = ["_Bool"]
 
     __exported by:__ @macros\/reparse.h@
 -}
-iNT :: [String]
-iNT = ["int"]
+iNT :: Macro.Raw BG.Text
+iNT = Macro.objectLike "INT" ["int"]
 
 {-| __C declaration:__ @macro INTP@
 
@@ -2751,8 +2752,8 @@ iNT = ["int"]
 
     __exported by:__ @macros\/reparse.h@
 -}
-iNTP :: [String]
-iNTP = ["int", "*"]
+iNTP :: Macro.Raw BG.Text
+iNTP = Macro.objectLike "INTP" ["int", "*"]
 
 {-| __C declaration:__ @macro INTCP@
 
@@ -2760,5 +2761,6 @@ iNTP = ["int", "*"]
 
     __exported by:__ @macros\/reparse.h@
 -}
-iNTCP :: [String]
-iNTCP = ["const", "int", "*", "const"]
+iNTCP :: Macro.Raw BG.Text
+iNTCP =
+  Macro.objectLike "INTCP" ["const", "int", "*", "const"]

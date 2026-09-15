@@ -5,34 +5,29 @@
 
     __exported by:__ @macros\/wrong_source_location.h@
 -}
-nestedUnnamed :: [String]
+nestedUnnamed :: Raw Text
 {-| __C declaration:__ @macro NestedUnnamed@
 
     __defined at:__ @macros\/wrong_source_location.h 12:9@
 
     __exported by:__ @macros\/wrong_source_location.h@
 -}
-nestedUnnamed = ["(",
-                 "t1",
-                 ",",
-                 "n1",
-                 ",",
-                 "t2",
-                 ")",
-                 "typedef",
-                 "t1",
-                 "{",
-                 "t2",
-                 "{",
-                 "int",
-                 "fieldX",
-                 ";",
-                 "}",
-                 "fieldY",
-                 ";",
-                 "}",
-                 "n1",
-                 ";"]
+nestedUnnamed = functionLike "NestedUnnamed" ["t1",
+                                              "n1",
+                                              "t2"] ["typedef",
+                                                     "t1",
+                                                     "{",
+                                                     "t2",
+                                                     "{",
+                                                     "int",
+                                                     "fieldX",
+                                                     ";",
+                                                     "}",
+                                                     "fieldY",
+                                                     ";",
+                                                     "}",
+                                                     "n1",
+                                                     ";"]
 {-| __C declaration:__ @struct \@UU1_fieldY@
 
     __defined at:__ @macros\/wrong_source_location.h 19:1@
@@ -175,37 +170,34 @@ instance HasCField UU2 "uU2_fieldY"
 
     __exported by:__ @macros\/wrong_source_location.h@
 -}
-twoUntaggedStructs :: [String]
+twoUntaggedStructs :: Raw Text
 {-| __C declaration:__ @macro TwoUntaggedStructs@
 
     __defined at:__ @macros\/wrong_source_location.h 23:9@
 
     __exported by:__ @macros\/wrong_source_location.h@
 -}
-twoUntaggedStructs = ["(",
-                      "name",
-                      ")",
-                      "struct",
-                      "name",
-                      "{",
-                      "struct",
-                      "{",
-                      "int",
-                      "a",
-                      ";",
-                      "}",
-                      "fieldA",
-                      ";",
-                      "struct",
-                      "{",
-                      "int",
-                      "b",
-                      ";",
-                      "}",
-                      "fieldB",
-                      ";",
-                      "}",
-                      ";"]
+twoUntaggedStructs = functionLike "TwoUntaggedStructs" ["name"] ["struct",
+                                                                 "name",
+                                                                 "{",
+                                                                 "struct",
+                                                                 "{",
+                                                                 "int",
+                                                                 "a",
+                                                                 ";",
+                                                                 "}",
+                                                                 "fieldA",
+                                                                 ";",
+                                                                 "struct",
+                                                                 "{",
+                                                                 "int",
+                                                                 "b",
+                                                                 ";",
+                                                                 "}",
+                                                                 "fieldB",
+                                                                 ";",
+                                                                 "}",
+                                                                 ";"]
 {-| __C declaration:__ @struct \@VV1_fieldA@
 
     __defined at:__ @macros\/wrong_source_location.h 29:1@

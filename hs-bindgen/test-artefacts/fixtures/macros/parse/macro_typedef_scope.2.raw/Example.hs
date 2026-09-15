@@ -21,6 +21,7 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Macro as Macro
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
@@ -31,8 +32,8 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/parse\/macro_typedef_scope.h@
 -}
-m1 :: [String]
-m1 = ["int"]
+m1 :: Macro.Raw BG.Text
+m1 = Macro.objectLike "M1" ["int"]
 
 {-| __C declaration:__ @T2@
 
@@ -85,8 +86,8 @@ instance HasCField.HasCField T2 "unwrapT2" where
 
     __exported by:__ @macros\/parse\/macro_typedef_scope.h@
 -}
-m3 :: [String]
-m3 = ["T2"]
+m3 :: Macro.Raw BG.Text
+m3 = Macro.objectLike "M3" ["T2"]
 
 {-| __C declaration:__ @T4@
 

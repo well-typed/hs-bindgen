@@ -24,6 +24,7 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Macro as Macro
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
@@ -35,8 +36,8 @@ import qualified HsBindgen.Runtime.Union as Union
 
     __exported by:__ @macros\/reparse\/nesting\/union_in_typedef.h@
 -}
-myInt :: [String]
-myInt = ["int"]
+myInt :: Macro.Raw BG.Text
+myInt = Macro.objectLike "MyInt" ["int"]
 
 {-| __C declaration:__ @union T1@
 

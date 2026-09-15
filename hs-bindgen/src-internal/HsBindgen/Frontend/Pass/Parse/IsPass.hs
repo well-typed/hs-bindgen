@@ -14,12 +14,12 @@ import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Clang.Macros (MacroInvocation (name))
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Syntax (MacroInvocation (name))
 
 {-------------------------------------------------------------------------------
   Definition

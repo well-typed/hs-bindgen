@@ -5,67 +5,67 @@
 
     __exported by:__ @macros\/issue_890.h@
 -}
-a :: [String]
+a :: Raw Text
 {-| __C declaration:__ @macro A@
 
     __defined at:__ @macros\/issue_890.h 1:9@
 
     __exported by:__ @macros\/issue_890.h@
 -}
-a = ["0"]
+a = objectLike "A" ["0"]
 {-| __C declaration:__ @macro B@
 
     __defined at:__ @macros\/issue_890.h 2:9@
 
     __exported by:__ @macros\/issue_890.h@
 -}
-b :: [String]
+b :: Raw Text
 {-| __C declaration:__ @macro B@
 
     __defined at:__ @macros\/issue_890.h 2:9@
 
     __exported by:__ @macros\/issue_890.h@
 -}
-b = ["(", "x", ")", "(", "x", "+", "1", ")"]
+b = functionLike "B" ["x"] ["(", "x", "+", "1", ")"]
 {-| __C declaration:__ @macro C@
 
     __defined at:__ @macros\/issue_890.h 3:9@
 
     __exported by:__ @macros\/issue_890.h@
 -}
-c :: [String]
+c :: Raw Text
 {-| __C declaration:__ @macro C@
 
     __defined at:__ @macros\/issue_890.h 3:9@
 
     __exported by:__ @macros\/issue_890.h@
 -}
-c = ["B", "(", "0", ")"]
+c = objectLike "C" ["B", "(", "0", ")"]
 {-| __C declaration:__ @macro D@
 
     __defined at:__ @macros\/issue_890.h 4:9@
 
     __exported by:__ @macros\/issue_890.h@
 -}
-d :: [String]
+d :: Raw Text
 {-| __C declaration:__ @macro D@
 
     __defined at:__ @macros\/issue_890.h 4:9@
 
     __exported by:__ @macros\/issue_890.h@
 -}
-d = ["B", "(", "A", ")"]
+d = objectLike "D" ["B", "(", "A", ")"]
 {-| __C declaration:__ @macro E@
 
     __defined at:__ @macros\/issue_890.h 5:9@
 
     __exported by:__ @macros\/issue_890.h@
 -}
-e :: [String]
+e :: Raw Text
 {-| __C declaration:__ @macro E@
 
     __defined at:__ @macros\/issue_890.h 5:9@
 
     __exported by:__ @macros\/issue_890.h@
 -}
-e = ["B", "(", "1", ")"]
+e = objectLike "E" ["B", "(", "1", ")"]
