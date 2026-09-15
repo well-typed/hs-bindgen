@@ -12,32 +12,18 @@ module Test.HsBindgen.Frontend.LanguageC (
   , prop_reparseGlobal_longDouble
   ) where
 
-import Control.Exception (Exception, throwIO)
 import Data.Bifunctor (Bifunctor (first))
 import Data.Default (Default (def))
 import Data.List qualified as List
 import Data.Map.Lazy qualified as Map
 import Data.Set qualified as Set
-import Data.Text qualified as Text
 import GHC.Show (appPrec, showSpace)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck (Arbitrary (arbitrary), Property, conjoin,
                               counterexample, elements, ioProperty, once, oneof,
                               tabulate, testProperty, (===))
 
-import Clang.Args (ClangArgs)
-import Clang.Enum.Bitfield (BitfieldEnum, bitfieldEnum)
-import Clang.Enum.Simple (SimpleEnum)
-import Clang.HighLevel qualified as HighLevel
-import Clang.HighLevel.Types (Diagnostic, MultiLoc (multiLocExpansion),
-                              Range (rangeStart), Token (tokenExtent),
-                              TokenSpelling, diagnosticIsError)
-import Clang.LowLevel.Core (CXErrorCode, CXIndex, CXTranslationUnit,
-                            CXTranslationUnit_Flags (CXTranslationUnit_DetailedPreprocessingRecord),
-                            CXUnsavedFile,
-                            DisplayDiagnostics (DontDisplayDiagnostics),
-                            clang_getTranslationUnitCursor)
-import Clang.Paths (SourcePath (SourcePath))
+import Clang.HighLevel.Types (MultiLoc, Range (rangeStart), Token (tokenExtent))
 
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.LanguageC qualified as LanC
@@ -48,6 +34,8 @@ import HsBindgen.Frontend.Pass.ReparseMacroExpansions.LanC (LanC)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
+
+import Test.HsBindgen.Clang (tokenize)
 
 {-------------------------------------------------------------------------------
   Tests
@@ -282,7 +270,7 @@ prop_reparseGlobal ::
   -> Property
 prop_reparseGlobal input expectedOutput =
     ioProperty $ do
-      tokens <- tokenize contents
+      tokens <- tokenize def contents
       let flatTokens = FlatTokens {
               flatten = flattenDefault tokens
             , locStart = getLocation tokens
@@ -497,81 +485,3 @@ instance Enumerate NonCanonicalComplexType where
           -- NOTE: @long double _Complex@ is not supported by the reparser. See
           -- 'prop_reparseGlobal_longDouble' for a dedicated test instead.
         ]
-
-{-------------------------------------------------------------------------------
-  Tokenization
--------------------------------------------------------------------------------}
-
--- | Tokenize a string representing the contents of a header file
---
--- This tokenizes *all* the contents of the header file. If you want to tokenize
--- only select declarations, you will have to define a variant of this function
--- that uses 'HighLevel.clang_visitChildren' to parse and tokenize individual
--- declarations.
-tokenize :: String -> IO [Token TokenSpelling]
-tokenize contents = withClang contents $ \unit -> do
-    root <- clang_getTranslationUnitCursor unit
-    range <- HighLevel.clang_getCursorExtent root
-    HighLevel.clang_tokenize unit (multiLocExpansion <$> range)
-
-{-------------------------------------------------------------------------------
-  Call clang
--------------------------------------------------------------------------------}
-
-data ClangError =
-    ClangErrorDiagnostics [Diagnostic]
-  | ClangErrorCode ErrorCode
-  deriving stock (Show, Eq)
-  deriving anyclass Exception
-
-withClang :: forall a.
-     String
-  -> (CXTranslationUnit -> IO a)
-  -> IO a
-withClang contents k = do
-    mRes <- withClang' contents $ \unit -> do
-      diags <- HighLevel.clang_getDiagnostics unit Nothing
-      if any diagnosticIsError diags
-      then throwIO $ ClangErrorDiagnostics diags
-      else k unit
-    case mRes of
-      Left e  -> throwIO $ ClangErrorCode e
-      Right res -> pure res
-  where
-
-type ErrorCode = SimpleEnum CXErrorCode
-
-withClang' :: forall a.
-     String
-  -> (CXTranslationUnit -> IO a)
-  -> IO (Either ErrorCode a)
-withClang' contents k =
-    HighLevel.withIndex dispDiags $ \index ->
-    HighLevel.withUnsavedFile path contents $ \file  ->
-      withUnit index file
-  where
-    dispDiags :: DisplayDiagnostics
-    dispDiags = DontDisplayDiagnostics
-
-    args :: ClangArgs
-    args = def
-
-    flags :: BitfieldEnum CXTranslationUnit_Flags
-    flags = bitfieldEnum [CXTranslationUnit_DetailedPreprocessingRecord]
-
-    path :: FilePath
-    path = "virtual.h"
-
-    onErrorCode :: SimpleEnum CXErrorCode -> IO (Either ErrorCode a)
-    onErrorCode err = pure $ Left err
-
-    withUnit :: CXIndex -> CXUnsavedFile -> IO (Either ErrorCode a)
-    withUnit index unsaved =
-      HighLevel.withTranslationUnit2
-        index
-        (Just $ SourcePath $ Text.pack path)
-        args
-        [unsaved]
-        flags
-        onErrorCode
-        (fmap Right . k)

@@ -58,6 +58,14 @@ tests = testGroup "Test.HsBindgen.Macro.Syntax" [
                 splitsTo (RawMacro.functionLike "IGNORE" ["x"] []) [
                     ident "IGNORE", punc "(", ident "x", punc ")"
                   ]
+              -- C23 6.10.1p6 forbids repeating a parameter name and @clang@
+              -- rejects the definition, so this never reaches us through the
+              -- pipeline. The splitter splits; it does not validate C.
+            , testCase "#define F(x, x) x" $
+                splitsTo (RawMacro.functionLike "F" ["x", "x"] ["x"]) [
+                    ident "F", punc "(", ident "x", punc ",", spc, ident "x"
+                  , punc ")", spc, ident "x"
+                  ]
             ]
         , testGroup "variadic" [
               testCase "#define LOG(fmt, ...) fmt" $
@@ -90,12 +98,12 @@ tests = testGroup "Test.HsBindgen.Macro.Syntax" [
                 splitsTo (RawMacro.objectLike "bool" ["int"]) [
                     kw "bool", spc, kw "int"
                   ]
-              -- A parameter may not be a keyword. Under LLVM 14, and for C17
-              -- and earlier, @bool@ is an identifier and this does split; the
-              -- classification is an input here, so the test pins the keyword
-              -- case only.
+              -- A parameter may be a keyword too. Whether @libclang@ calls
+              -- @bool@ a keyword depends on the C standard, and the splitter
+              -- must not care; see 'Test.HsBindgen.Macro.Syntax.Clang', which
+              -- runs this definition under both.
             , testCase "#define F(bool) bool" $
-                failsToSplit [
+                splitsTo (RawMacro.functionLike "F" ["bool"] ["bool"]) [
                     ident "F", punc "(", kw "bool", punc ")", spc, kw "bool"
                   ]
             ]
@@ -125,14 +133,41 @@ tests = testGroup "Test.HsBindgen.Macro.Syntax" [
                 failsToSplit [
                     ident "F", punc "(", ident "x", spc, ident "x"
                   ]
+            , testCase "#define F(" $
+                failsToSplit [
+                    ident "F", punc "("
+                  ]
+            , testCase "#define F(x" $
+                failsToSplit [
+                    ident "F", punc "(", ident "x"
+                  ]
+              -- The name must be an identifier or a keyword; a literal is
+              -- neither.
+            , testCase "#define 1 2" $
+                failsToSplit [
+                    lit "1", spc, lit "2"
+                  ]
+            ]
+          -- A comment is a token, not white space: it separates the name from
+          -- the @(@, and it stays in the body.
+        , testGroup "comments" [
+              testCase "#define FOO/*c*/(1)" $
+                splitsTo (RawMacro.objectLike "FOO" ["/*c*/", "(", "1", ")"]) [
+                    ident "FOO", comment "/*c*/", punc "(", lit "1", punc ")"
+                  ]
             ]
           -- A line continuation splices the lines before the macro is parsed,
-          -- so the @(@ is still adjacent to the name. @libclang@ reports the
-          -- continuation as part of the punctuation token.
+          -- so the tokens around it are still adjacent. @libclang@ reports the
+          -- continuation as part of the punctuation token that follows it.
         , testGroup "line continuations" [
               testCase "between the name and the parameter list" $
                 splitsTo (RawMacro.functionLike "F" ["x"] ["x"]) [
                     ident "F", punc "\\\n(", ident "x", punc ")", spc, ident "x"
+                  ]
+            , testCase "inside the parameter list" $
+                splitsTo (RawMacro.functionLike "F" ["x", "y"] ["x"]) [
+                    ident "F", punc "(", ident "x", punc "\\\n,", spc, ident "y"
+                  , punc ")", spc, ident "x"
                   ]
             ]
         ]

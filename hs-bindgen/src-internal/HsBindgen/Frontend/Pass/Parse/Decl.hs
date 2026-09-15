@@ -13,6 +13,8 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
+import HsBindgen.Runtime.Macro qualified as RawMacro
+
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Pass.Parse.Builtin
@@ -30,6 +32,7 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Macro.Error (MacroParseError)
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Macro.Syntax (splitMacro)
 
@@ -231,12 +234,15 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
         failures <- parseFail ctx info.id info.loc ParseMacroDefinitionNoMacroName
         foldContinueWith failures
       Just macroName -> do
-        recordMacroDefinitionAt macroName range (splitMacro tokens)
-        foldContinueWith [mkResult tokens]
+        let split = splitMacro tokens
+        recordMacroDefinitionAt macroName range split
+        foldContinueWith [mkResult split]
   where
-    mkResult :: [Token TokenSpelling] -> ParseResult l Parse
-    mkResult tokens =
-        case parseMacroTokens macroLang info.id tokens of
+    mkResult ::
+         Either MacroParseError (RawMacro.Raw (Token TokenSpelling))
+      -> ParseResult l Parse
+    mkResult split =
+        case (macroLang.parse =<< split) of
           Right parsed -> parseSucceed C.Decl{
               info = info
             , kind = C.DeclMacro parsed
@@ -245,8 +251,20 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
           Left msg -> ParseResult{
               id             = info.id
             , loc            = info.loc
-            , classification = ParseResultFailure msg
+            , classification = ParseResultFailure $ macroParseMsg split msg
             }
+
+    -- Empty macro bodies (e.g., @#define FOO@) parse in some macro language
+    -- and not in others: 'Raw' translates it, @CExpr@ has no expression to
+    -- translate. Declined empty macro bodies are not a failure worth
+    -- reporting, since they are ubiquitously used by include guards.
+    macroParseMsg ::
+         Either MacroParseError (RawMacro.Raw (Token TokenSpelling))
+      -> MacroParseError
+      -> DelayedParseMsg
+    macroParseMsg (Right macro) _
+      | null macro.body = ParseMacroEmpty info.id (toList macro)
+    macroParseMsg _ err = ParseMacroErrorParse err
 
     getMacroTokens ::
          CXCursor
@@ -1119,21 +1137,6 @@ partitionUnnamedDecls =
     declIdIsUnnamed :: C.PrelimDeclId -> Bool
     declIdIsUnnamed C.PrelimDeclIdUnnamed{} = True
     declIdIsUnnamed _otherwise           = False
-
--- | Parse macro tokens
---
--- We use @c-expr-dsl@ to parse the macro tokens into a 'CExpr.Macro'.
--- No type environment is needed for this step; type resolution and
--- expression typechecking happen later in 'TypecheckMacros'.
-parseMacroTokens ::
-     Macro.Lang l
-  -> C.PrelimDeclId
-  -> [Token TokenSpelling]
-  -> Either DelayedParseMsg (Macro.Unresolved l)
-parseMacroTokens macroLang name = \case
-    []      -> Left $ ParseMacroEmpty name []
-    [token] -> Left $ ParseMacroEmpty name [token]
-    tokens  -> first ParseMacroErrorParse $ macroLang.parse tokens
 
 -- | Whether a global variable has @extern@ storage class
 --

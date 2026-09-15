@@ -142,9 +142,9 @@ recordMacroDefinitionAt macroName locRange macro =
   where
     macroDefinition :: MacroDefinition
     macroDefinition = MacroDefinition {
-          name = macroName
+          name     = macroName
         , locRange = locRange
-        , macro = macro
+        , macro    = macro
         }
 
 getMacroDefinitions :: ParseDecl [MacroDefinition]
