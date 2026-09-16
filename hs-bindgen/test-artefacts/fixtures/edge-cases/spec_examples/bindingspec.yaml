@@ -93,6 +93,9 @@ hstypes:
       constructor: Int16_T
       fields:
       - unwrapInt16_T
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CShort
   instances:
   - Bitfield
   - Bits
@@ -124,6 +127,9 @@ hstypes:
       constructor: Int32_T
       fields:
       - unwrapInt32_T
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -155,6 +161,9 @@ hstypes:
       constructor: Int64_T
       fields:
       - unwrapInt64_T
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CLLong
   instances:
   - Bitfield
   - Bits

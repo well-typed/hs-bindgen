@@ -33,6 +33,9 @@ hstypes:
       constructor: Size_t
       fields:
       - unwrapSize_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits

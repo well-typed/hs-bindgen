@@ -13,6 +13,9 @@ hstypes:
       constructor: MySym
       fields:
       - unwrapMySym
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CChar
   instances:
   - Bitfield
   - Bits

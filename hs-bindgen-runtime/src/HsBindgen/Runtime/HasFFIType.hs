@@ -3,6 +3,9 @@
 module HsBindgen.Runtime.HasFFIType (
     -- * Class
     HasFFIType (FFIType, toFFIType, fromFFIType)
+    -- * Shorthand types
+  , PtrVoid
+  , FunPtrVoid
     -- * Deriving-via
   , ViaIdentity (..)
   ) where
@@ -96,6 +99,16 @@ class HasFFIType a where
   fromFFIType :: FFIType a -> a
 
 {-------------------------------------------------------------------------------
+  Shorthand types
+-------------------------------------------------------------------------------}
+
+-- | 'Ptr' 'Void'
+type PtrVoid = Ptr Void
+
+-- | 'FunPtr' 'Void'
+type FunPtrVoid = FunPtr Void
+
+{-------------------------------------------------------------------------------
   Deriving-via
 -------------------------------------------------------------------------------}
 
@@ -139,14 +152,14 @@ deriving via ViaIdentity Word64 instance HasFFIType Word64
 -- === Foreign.Ptr ===
 
 instance HasFFIType (Ptr a) where
-  type FFIType (Ptr a) = Ptr Void
+  type FFIType (Ptr a) = PtrVoid
   {-# INLINE toFFIType #-}
   toFFIType = castPtr
   {-# INLINE fromFFIType #-}
   fromFFIType = castPtr
 
 instance HasFFIType (FunPtr a) where
-  type FFIType (FunPtr a) = FunPtr Void
+  type FFIType (FunPtr a) = FunPtrVoid
   {-# INLINE toFFIType #-}
   toFFIType = castFunPtr
   {-# INLINE fromFFIType #-}

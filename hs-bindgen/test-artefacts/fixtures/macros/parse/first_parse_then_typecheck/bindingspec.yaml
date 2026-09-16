@@ -16,6 +16,9 @@ hstypes:
       constructor: TypeA
       fields:
       - unwrapTypeA
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits

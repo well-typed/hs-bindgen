@@ -122,6 +122,9 @@ hstypes:
       constructor: A
       fields:
       - unwrapA
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -221,6 +224,9 @@ hstypes:
       constructor: BOOL
       fields:
       - unwrapBOOL
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CBool
   instances:
   - Bitfield
   - Bits
@@ -252,6 +258,9 @@ hstypes:
       constructor: Comments2
       fields:
       - unwrapComments2
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -283,6 +292,9 @@ hstypes:
       constructor: Const_funptr1
       fields:
       - unwrapConst_funptr1
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -303,6 +315,9 @@ hstypes:
       constructor: Const_funptr2
       fields:
       - unwrapConst_funptr2
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -323,6 +338,9 @@ hstypes:
       constructor: Const_funptr3
       fields:
       - unwrapConst_funptr3
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -343,6 +361,9 @@ hstypes:
       constructor: Const_funptr4
       fields:
       - unwrapConst_funptr4
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -363,6 +384,9 @@ hstypes:
       constructor: Const_funptr5
       fields:
       - unwrapConst_funptr5
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -383,6 +407,9 @@ hstypes:
       constructor: Const_funptr6
       fields:
       - unwrapConst_funptr6
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -403,6 +430,9 @@ hstypes:
       constructor: Const_funptr7
       fields:
       - unwrapConst_funptr7
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -423,6 +453,9 @@ hstypes:
       constructor: Const_typedef1
       fields:
       - unwrapConst_typedef1
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -454,6 +487,9 @@ hstypes:
       constructor: Const_typedef2
       fields:
       - unwrapConst_typedef2
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -485,6 +521,9 @@ hstypes:
       constructor: Const_typedef3
       fields:
       - unwrapConst_typedef3
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -505,6 +544,9 @@ hstypes:
       constructor: Const_typedef4
       fields:
       - unwrapConst_typedef4
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -525,6 +567,9 @@ hstypes:
       constructor: Const_typedef5
       fields:
       - unwrapConst_typedef5
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -545,6 +590,9 @@ hstypes:
       constructor: Const_typedef6
       fields:
       - unwrapConst_typedef6
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -565,6 +613,9 @@ hstypes:
       constructor: Const_typedef7
       fields:
       - unwrapConst_typedef7
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -631,6 +682,9 @@ hstypes:
       constructor: Funptr_typedef1
       fields:
       - unwrapFunptr_typedef1
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -651,6 +705,9 @@ hstypes:
       constructor: Funptr_typedef2
       fields:
       - unwrapFunptr_typedef2
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -671,6 +728,9 @@ hstypes:
       constructor: Funptr_typedef3
       fields:
       - unwrapFunptr_typedef3
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -691,6 +751,9 @@ hstypes:
       constructor: Funptr_typedef4
       fields:
       - unwrapFunptr_typedef4
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -711,6 +774,9 @@ hstypes:
       constructor: Funptr_typedef5
       fields:
       - unwrapFunptr_typedef5
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -731,6 +797,9 @@ hstypes:
       constructor: INT
       fields:
       - unwrapINT
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -762,6 +831,9 @@ hstypes:
       constructor: INTCP
       fields:
       - unwrapINTCP
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -782,6 +854,9 @@ hstypes:
       constructor: INTP
       fields:
       - unwrapINTP
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -802,6 +877,9 @@ hstypes:
       constructor: Some_enum
       fields:
       - unwrapSome_enum
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -853,6 +931,9 @@ hstypes:
       constructor: Typedef1
       fields:
       - unwrapTypedef1
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -884,6 +965,9 @@ hstypes:
       constructor: Typedef2
       fields:
       - unwrapTypedef2
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -904,6 +988,9 @@ hstypes:
       constructor: Typedef3
       fields:
       - unwrapTypedef3
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic

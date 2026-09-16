@@ -173,6 +173,9 @@ hstypes:
       constructor: S7a
       fields:
       - unwrap
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -213,6 +216,9 @@ hstypes:
       constructor: S7b
       fields:
       - unwrap
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic

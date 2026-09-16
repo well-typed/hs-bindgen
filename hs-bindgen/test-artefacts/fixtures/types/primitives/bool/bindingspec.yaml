@@ -22,6 +22,9 @@ hstypes:
       constructor: BOOL
       fields:
       - unwrapBOOL
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CBool
   instances:
   - Bitfield
   - Bits

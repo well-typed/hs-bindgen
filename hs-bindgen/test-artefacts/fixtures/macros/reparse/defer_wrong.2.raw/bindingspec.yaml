@@ -19,6 +19,9 @@ hstypes:
       constructor: Bar
       fields:
       - unwrapBar
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic

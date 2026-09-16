@@ -5,16 +5,19 @@ module HsBindgen.Backend.Hs.Translation.Newtype (
   , hasFieldPtrDecs
   ) where
 
+import Control.Applicative (asum)
 import Control.Monad.State qualified as State
 import Data.Map.Strict qualified as Map
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
+import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Monad (HsM)
 import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (PrescriptiveDeclSpec (hsSpec))
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.Hs qualified as Hs
@@ -25,14 +28,14 @@ newtypeDec ::
      HasCallStack
   => Hs.Name Hs.NsTypeConstr
   -> Hs.Name Hs.NsConstr
-  -> Maybe BindingSpec.HsFFIType
+  -> PrescriptiveDeclSpec
   -> Hs.Field
   -> Origin.Decl Origin.Newtype
   -> Maybe HsDoc.Comment
   -> Set Inst.TypeClass -- ^ Candidate instances
   -> Set Inst.TypeClass -- ^ Known instances
   -> HsM Hs.Newtype
-newtypeDec name constr ffiType field orig comment candidateInsts knownInsts = do
+newtypeDec name constr spec field orig comment candidateInsts knownInsts = do
     hsNewtype <- aux <$> State.get
     State.modify' $ #instanceMap %~ Map.insert hsNewtype.name hsNewtype.instances
     pure hsNewtype
@@ -58,6 +61,12 @@ newtypeDec name constr ffiType field orig comment candidateInsts knownInsts = do
 
         insts :: Set Inst.TypeClass
         insts = knownInsts <> resolvedInsts
+
+        ffiType :: Maybe BindingSpec.HsFFIType
+        ffiType = asum [
+              spec.hsSpec >>= BindingSpec.hsSpecFFIType
+            , BindingSpec.HsFFIType . Hs.ffiExtRef <$> Hs.toFFIType field.typ
+            ]
 
 hasFFITypeDecs ::
      Hs.Newtype

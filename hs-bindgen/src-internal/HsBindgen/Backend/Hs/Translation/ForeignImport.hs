@@ -8,6 +8,7 @@ module HsBindgen.Backend.Hs.Translation.ForeignImport (
   , foreignImportWrapperDec
   , foreignImportDynamicDec
   , ImportFor (..)
+  , toFFIType
   ) where
 
 import Data.Function
@@ -40,7 +41,7 @@ data FunName = FunName {
 
 -- | Info about a function argument
 data FunParam = FunParam {
-    hsParam :: Hs.FunctionParameter
+    hsParam :: Hs.FunctionParameter Hs.Type
   }
 
 -- | Info about the function result
@@ -69,7 +70,7 @@ foreignImportDec name params res origName callConv origin safety =
     foreignImportDecl :: Hs.ForeignImportDecl
     foreignImportDecl =  Hs.ForeignImportDecl{
           name       = fiName
-        , result     = unsafeToFFI res.hsType
+        , result     = unsafeToFFIResType res.hsType
         , parameters = fiParameters
         , origName   = origName
         , callConv   = callConv
@@ -148,7 +149,7 @@ foreignImportWrapperDec name hsType importFor origin =
     -- fiName is unique because it is created from a unique name + suffix
     fiName :: UniqueSymbol
     fiName = name.uniqSymbol & #unique %~ (<> "_base")
-    fiFunType = unsafeToFFI hsType
+    fiFunType = unsafeToFFIFunType hsType
 
     funDecl :: Hs.FunctionDecl
     funDecl = Hs.FunctionDecl
@@ -214,7 +215,7 @@ foreignImportDynamicDec name hsType importFor origin =
     -- fiName is unique because it is created from a unique name + suffix
     fiName :: UniqueSymbol
     fiName = name.uniqSymbol & #unique %~ (<> "_base")
-    fiFunType = unsafeToFFI hsType
+    fiFunType = unsafeToFFIFunType hsType
 
     funDecl :: Hs.FunctionDecl
     funDecl = Hs.FunctionDecl
@@ -333,13 +334,39 @@ mkConvRes g = ConvRes $ \typ e -> case typ of
   FFI types
 -------------------------------------------------------------------------------}
 
--- NOTE: we might want to change @ForeignImportDecl@, @ForeignImportWrapper@,
--- and @ForeignImportDynamic@ to store @FFI.FFIType@ rather than @Hs.Type@. The
--- upside would be that we enforce statically that a foreign import declaration
--- only uses FFI types. The downside is that it requires quite a bit of (boring)
--- plumbing. For now, the YAGNI principle applies.
+unsafeToFFIFunType :: Hs.Type -> Hs.FFIFunType
+unsafeToFFIFunType ty = case toFFIFunType ty of
+    Nothing ->
+      panicPure $ printf "Type does not have an FFI function type: %s" (show ty)
+    Just ty' ->
+      ty'
 
-unsafeToFFI :: Hs.Type -> Hs.Type
+toFFIFunType :: Hs.Type -> Maybe Hs.FFIFunType
+toFFIFunType = \case
+    Hs.TypRef _ t  -> t >>= toFFIFunType
+    Hs.Fun arg res -> addArg <$> toFFIType arg <*> toFFIFunType res
+    t -> toFFIResType t >>= \res -> pure Hs.FFIFunType {args = [], res = res }
+  where
+    addArg arg t = Hs.FFIFunType {
+          args = arg : t.args
+        , res  = t.res
+        }
+
+unsafeToFFIResType :: Hs.Type -> Hs.FFIResType
+unsafeToFFIResType ty = case toFFIResType ty of
+    Nothing ->
+      panicPure $ printf "Type does not have an FFI function result type: %s" (show ty)
+    Just ty' ->
+      ty'
+
+toFFIResType :: Hs.Type -> Maybe Hs.FFIResType
+toFFIResType = \case
+    Hs.IO (Hs.PrimType Hs.PrimUnit) -> Just Hs.FFIResIOUnit
+    Hs.PrimType Hs.PrimUnit         -> Just Hs.FFIResUnit
+    Hs.IO t                         -> Hs.FFIResIO <$> toFFIType t
+    t                               -> Hs.FFIRes <$> toFFIType t
+
+unsafeToFFI :: Hs.Type -> Hs.FFIType
 unsafeToFFI ty = case toFFIType ty of
     Nothing ->
       panicPure $ printf "Type does not have an FFI type: %s" (show ty)
@@ -349,67 +376,61 @@ unsafeToFFI ty = case toFFIType ty of
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>
 -- After issue #1599 is resolved, we should reconsider whether we want to
 -- use @Hs.Type@ as an input here, or @C.Type Final@, or something else.
-toFFIType :: Hs.Type -> Maybe Hs.Type
+toFFIType :: Hs.Type -> Maybe Hs.FFIType
 toFFIType = go
   where
     no = Nothing
     yes = Just
 
-    prim :: Hs.PrimType -> Hs.Type
-    prim = Hs.PrimType
-
-    go :: Hs.Type -> Maybe Hs.Type
+    go :: Hs.Type -> Maybe Hs.FFIType
     go = \case
-      Hs.PrimType pt          -> Hs.PrimType <$> goPrim pt
+      Hs.PrimType pt          -> goPrim pt
       Hs.TypRef _ t           -> t >>= go
       Hs.ConstArray{}         -> no
       Hs.IncompleteArray{}    -> no
-      Hs.PtrArrayElem {}      -> yes $ Hs.Ptr $ prim Hs.PrimVoid
-      Hs.PtrConstArrayElem {} -> yes $ Hs.Ptr $ prim Hs.PrimVoid
-      Hs.Ptr{}                -> yes $ Hs.Ptr $ prim Hs.PrimVoid
-      Hs.FunPtr{}             -> yes $ Hs.FunPtr $ prim Hs.PrimVoid
-      Hs.PtrConst{}           -> yes $ Hs.Ptr $ prim Hs.PrimVoid
-      Hs.IO t'                -> Hs.IO <$> go t'
-      Hs.Fun s t'             -> Hs.Fun <$> go s <*> go t'
+      Hs.PtrArrayElem {}      -> yes Hs.FFIPtrVoid
+      Hs.PtrConstArrayElem {} -> yes Hs.FFIPtrVoid
+      Hs.Ptr{}                -> yes Hs.FFIPtrVoid
+      Hs.FunPtr{}             -> yes Hs.FFIFunPtrVoid
+      Hs.PtrConst{}           -> yes Hs.FFIPtrVoid
+      Hs.IO{}                 -> no
+      Hs.Fun{}                -> no
       Hs.ExtBinding _ref _cSpec hsSpec t' ->
         case BindingSpec.hsSpecFFIType hsSpec of
+          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>: Ideally we'd warn if a type does not have an FFI type
           Nothing -> go t'
-          Just hsFFIType -> pure $ extFFIType hsFFIType t'
+          Just hsFFIType -> pure $ extFFIType hsFFIType
       Hs.ByteArray            -> no
       Hs.SizedByteArray{}     -> no
-      Hs.Block{}              -> yes $ Hs.Ptr $ prim Hs.PrimVoid
+      Hs.Block{}              -> yes Hs.FFIPtrVoid
       Hs.ComplexType{}        -> no
       Hs.StrLit{}             -> no
       Hs.WithFlam{}           -> no
       Hs.EquivStorable{}      -> no
       Hs.IsStructViaReadRaw{} -> no
 
-    goPrim :: Hs.PrimType -> Maybe Hs.PrimType
+    goPrim :: Hs.PrimType -> Maybe Hs.FFIType
     goPrim pt = case pt of
         Hs.PrimVoid    -> no
-        Hs.PrimUnit    -> yesId
-        Hs.PrimInt     -> yesId
-        Hs.PrimCChar   -> yesId
-        Hs.PrimCSChar  -> yesId
-        Hs.PrimCUChar  -> yesId
-        Hs.PrimCShort  -> yesId
-        Hs.PrimCUShort -> yesId
-        Hs.PrimCInt    -> yesId
-        Hs.PrimCUInt   -> yesId
-        Hs.PrimCLong   -> yesId
-        Hs.PrimCULong  -> yesId
-        Hs.PrimCLLong  -> yesId
-        Hs.PrimCULLong -> yesId
-        Hs.PrimCBool   -> yesId
-        Hs.PrimCFloat  -> yesId
-        Hs.PrimCDouble -> yesId
-      where yesId = yes pt
+        Hs.PrimUnit    -> no
+        -- We never generate foreign imports with the Haskell-specific @Int@
+        -- type. We use @CInt@ or similar instead.
+        Hs.PrimInt     -> no
+        -- Primitive types that correspond to C keywords
+        Hs.PrimCChar   -> yes Hs.FFIPrimCChar
+        Hs.PrimCSChar  -> yes Hs.FFIPrimCSChar
+        Hs.PrimCUChar  -> yes Hs.FFIPrimCUChar
+        Hs.PrimCShort  -> yes Hs.FFIPrimCShort
+        Hs.PrimCUShort -> yes Hs.FFIPrimCUShort
+        Hs.PrimCInt    -> yes Hs.FFIPrimCInt
+        Hs.PrimCUInt   -> yes Hs.FFIPrimCUInt
+        Hs.PrimCLong   -> yes Hs.FFIPrimCLong
+        Hs.PrimCULong  -> yes Hs.FFIPrimCULong
+        Hs.PrimCLLong  -> yes Hs.FFIPrimCLLong
+        Hs.PrimCULLong -> yes Hs.FFIPrimCULLong
+        Hs.PrimCBool   -> yes Hs.FFIPrimCBool
+        Hs.PrimCFloat  -> yes Hs.FFIPrimCFloat
+        Hs.PrimCDouble -> yes Hs.FFIPrimCDouble
 
--- TODO <?>: rather than reusing the 'Hs.ExtBinding' constructor, it would
--- probably be better if an binding spec FFI type maps to its own constructor.
-extFFIType :: BindingSpec.HsFFIType -> Hs.Type -> Hs.Type
-extFFIType hsFFIType underlying =  Hs.ExtBinding extRef cSpec hsSpec underlying
-  where
-    extRef = Hs.ExtRef hsFFIType.moduleName hsFFIType.typeName
-    cSpec = BindingSpec.CTypeSpec { hsName = Nothing, enum = Nothing }
-    hsSpec = BindingSpec.HsTypeSpec { hsRep = Nothing, instances = mempty }
+    extFFIType :: BindingSpec.HsFFIType -> Hs.FFIType
+    extFFIType hsFFIType =  Hs.FFIExternal hsFFIType.unwrap

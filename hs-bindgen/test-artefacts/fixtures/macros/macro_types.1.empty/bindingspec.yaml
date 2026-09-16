@@ -16,6 +16,9 @@ hstypes:
       constructor: Boolean_T
       fields:
       - unwrapBoolean_T
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUChar
   instances:
   - Bitfield
   - Bits
@@ -47,6 +50,9 @@ hstypes:
       constructor: Tty
       fields:
       - unwrapTty
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CFloat
   instances:
   - Enum
   - Eq

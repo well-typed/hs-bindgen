@@ -244,10 +244,7 @@ data HsNewtypeRep = HsNewtypeRep {
     }
   deriving stock (Show, Eq, Ord, Generic)
 
-data HsFFIType = HsFFIType {
-      moduleName :: Hs.ModuleName
-    , typeName   :: Hs.Name Hs.NsTypeConstr
-    }
+data HsFFIType = HsFFIType { unwrap :: Hs.ExtRef }
   deriving stock (Show, Eq, Ord, Generic)
 
 instance Default HsNewtypeRep where
@@ -389,7 +386,7 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
       "strategy"              ->  5
       -- AInstanceSpec:3
       "constraints"           ->  6
-      -- ABindingSpec:2, AConstraintSpec:2
+      -- ABindingSpec:2, AConstraintSpec:2, HsFFIType:1
       "hsmodule"              ->  7
       -- ABindingSpec:3
       "ctypes"                ->  8
@@ -399,7 +396,7 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
       "headers"               -> 10
       -- ACTypeSpec:2
       "cname"                 -> 11
-      -- ACTypeSpec:3, AHsTypeSpec:1, AConstraintSpec:3
+      -- ACTypeSpec:3, AHsTypeSpec:1, AConstraintSpec:3, HsFFIType:2
       "hsname"                -> 12
       -- ACTypeSpec:4
       "enum"                  -> 13
@@ -1089,20 +1086,20 @@ newtype instance ARep V1 HsFFIType = AHsFFIType HsFFIType
 instance ARepIso V1 HsFFIType
 
 instance Aeson.FromJSON (ARep V1 HsFFIType) where
-  parseJSON = fmap AHsFFIType . parseHsFFIType
+  parseJSON = fmap AHsFFIType . parseFFIType
     where
-      parseHsFFIType = Aeson.withObject "HsFFIType" $ \o -> do
-          moduleName <- o .: "module"
-          typeName <- o .: "type"
-          pure HsFFIType {
+      parseFFIType = Aeson.withObject "HsFFIType" $ \o -> do
+          moduleName <- o .: "hsmodule"
+          typeName   <- o .: "hsname"
+          pure $ HsFFIType $ Hs.ExtRef {
               moduleName = fromARep' moduleName
-            , typeName = fromARep' typeName
+            , name = fromARep' typeName
             }
 
 instance Aeson.ToJSON (ARep V1 HsFFIType) where
   toJSON (AHsFFIType ffiType) = Aeson.object [
-        "module" .= toARep' ffiType.moduleName
-      , "type"   .= toARep' ffiType.typeName
+        "hsmodule" .= toARep' ffiType.unwrap.moduleName
+      , "hsname"   .= toARep' ffiType.unwrap.name
       ]
 
 --------------------------------------------------------------------------------

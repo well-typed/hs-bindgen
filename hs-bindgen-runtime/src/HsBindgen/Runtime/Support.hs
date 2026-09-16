@@ -60,6 +60,8 @@ module HsBindgen.Runtime.Support (
 
     -- * 'HasFFIType'
   , HasFFIType(fromFFIType, toFFIType)
+  , PtrVoid
+  , FunPtrVoid
 
     -- * Unsafe
   , unsafePerformIO
@@ -139,7 +141,9 @@ import GHC.Records (HasField (getField))
 import System.IO.Unsafe (unsafePerformIO)
 import Text.Read (readListDefault, readListPrec, readListPrecDefault, readPrec)
 
-import HsBindgen.Runtime.HasFFIType (HasFFIType (fromFFIType, toFFIType))
+import HsBindgen.Runtime.HasFFIType (FunPtrVoid,
+                                     HasFFIType (fromFFIType, toFFIType),
+                                     PtrVoid)
 import HsBindgen.Runtime.Support.Bitfield (Bitfield)
 import HsBindgen.Runtime.Support.ByteArray (getUnionPayload,
                                             getUnionPayloadBits,

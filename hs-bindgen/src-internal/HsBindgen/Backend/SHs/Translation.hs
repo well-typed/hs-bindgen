@@ -242,8 +242,8 @@ cLiteralText = \case
 
 translateForeignImportDecl :: Hs.ForeignImportDecl -> SDecl
 translateForeignImportDecl importDecl = DForeignImport ForeignImport{
-      parameters = map translateParam importDecl.parameters
-    , result     = Result (translateType importDecl.result) Nothing
+      parameters = map translateFFIParam importDecl.parameters
+    , result     = Result (translateFFIResType importDecl.result) Nothing
       -- The rest of the fields are copied over as-is
     , name       = importDecl.name
     , origName   = importDecl.origName
@@ -253,9 +253,9 @@ translateForeignImportDecl importDecl = DForeignImport ForeignImport{
     , safety     = importDecl.safety
     }
 
-translateParam :: Hs.FunctionParameter -> Parameter
-translateParam param = Parameter {
-      typ     = translateType param.typ
+translateFFIParam :: Hs.FunctionParameter Hs.FFIType -> Parameter
+translateFFIParam param = Parameter {
+      typ     = translateFFIType param.typ
     , comment = param.comment
     }
 
@@ -263,14 +263,14 @@ translateForeignImportWrapper :: Hs.ForeignImportWrapper -> SDecl
 translateForeignImportWrapper importWrapper = DForeignImport ForeignImport{
       parameters = [
             Parameter {
-                typ = translateType importWrapper.funType
+                typ = translateFFIFunType importWrapper.funType
               , comment = Nothing
               }
           ]
     , result     = flip Result Nothing $
           tBindgenGlobal IO_type `TApp`
           (tBindgenGlobal Foreign_FunPtr_type `TApp`
-          translateType importWrapper.funType)
+          translateFFIFunType importWrapper.funType)
     , name       = Hs.InternalName importWrapper.name
     , origName   = C.DeclName "wrapper" C.NameKindOrdinary
     , callConv   = CallConvGhcCCall ImportAsValue
@@ -285,11 +285,11 @@ translateForeignImportDynamic importDyn = DForeignImport ForeignImport{
             Parameter {
                 typ =
                     tBindgenGlobal Foreign_FunPtr_type `TApp`
-                    translateType importDyn.funType
+                    translateFFIFunType importDyn.funType
               , comment = Nothing
               }
           ]
-    , result     = Result (translateType importDyn.funType) Nothing
+    , result     = Result (translateFFIFunType importDyn.funType) Nothing
     , name       = Hs.InternalName importDyn.name
     , origName   = C.DeclName "dynamic" C.NameKindOrdinary
     , callConv   = CallConvGhcCCall ImportAsValue
@@ -300,13 +300,19 @@ translateForeignImportDynamic importDyn = DForeignImport ForeignImport{
 
 translateFunctionDecl :: Hs.FunctionDecl -> SDecl
 translateFunctionDecl functionDecl = DBinding Binding{
-      parameters = map translateParam functionDecl.parameters
+      parameters = map translateFunctionParam functionDecl.parameters
     , result     = Result (translateType functionDecl.result) Nothing
       -- The other fields are copied as-is
     , name       = functionDecl.name
     , body       = functionDecl.body
     , pragmas    = functionDecl.pragmas
     , comment    = functionDecl.comment
+    }
+
+translateFunctionParam :: Hs.FunctionParameter Hs.Type -> Parameter
+translateFunctionParam param = Parameter {
+      typ     = translateType param.typ
+    , comment = param.comment
     }
 
 translatePatSyn :: Hs.PatSyn -> SDecl
@@ -329,6 +335,26 @@ translateCompletePragma = DCompletePragma
   Types
 -------------------------------------------------------------------------------}
 
+translateHsPrimType :: Hs.PrimType -> SType ctx
+translateHsPrimType = \case
+    Hs.PrimVoid    -> tBindgenGlobal Void_type
+    Hs.PrimUnit    -> TUnit
+    Hs.PrimInt     -> tBindgenGlobal Int_type
+    Hs.PrimCChar   -> tBindgenGlobal CChar_type
+    Hs.PrimCSChar  -> tBindgenGlobal CSChar_type
+    Hs.PrimCUChar  -> tBindgenGlobal CUChar_type
+    Hs.PrimCShort  -> tBindgenGlobal CShort_type
+    Hs.PrimCUShort -> tBindgenGlobal CUShort_type
+    Hs.PrimCInt    -> tBindgenGlobal CInt_type
+    Hs.PrimCUInt   -> tBindgenGlobal CUInt_type
+    Hs.PrimCLong   -> tBindgenGlobal CLong_type
+    Hs.PrimCULong  -> tBindgenGlobal CULong_type
+    Hs.PrimCLLong  -> tBindgenGlobal CLLong_type
+    Hs.PrimCULLong -> tBindgenGlobal CULLong_type
+    Hs.PrimCBool   -> tBindgenGlobal CBool_type
+    Hs.PrimCFloat  -> tBindgenGlobal CFloat_type
+    Hs.PrimCDouble -> tBindgenGlobal CDouble_type
+
 translateType :: Hs.Type -> ClosedType
 translateType = \case
     Hs.PrimType t           -> translateHsPrimType t
@@ -342,7 +368,7 @@ translateType = \case
     Hs.PtrConst t           -> TApp (tBindgenGlobal PtrConst_type) (translateType t)
     Hs.IO t                 -> TApp (tBindgenGlobal IO_type) (translateType t)
     Hs.Fun a b              -> TFun (translateType a) (translateType b)
-    Hs.ExtBinding r c hs _  -> TExt r c hs
+    Hs.ExtBinding r _c _hs _-> TExt r
     Hs.ByteArray            -> tBindgenGlobal ByteArray_type
     Hs.SizedByteArray n m   -> tBindgenGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
     Hs.Block t              -> tBindgenGlobal Block_type `TApp` translateType t
@@ -352,6 +378,42 @@ translateType = \case
       TApp (TApp (tBindgenGlobal Flam_WithFlam_type) (translateType x)) (translateType y)
     Hs.EquivStorable t      -> TApp (tBindgenGlobal EquivStorable_type) (translateType t)
     Hs.IsStructViaReadRaw t -> TApp (tBindgenGlobal IsStructViaReadRaw_type) (translateType t)
+
+{-------------------------------------------------------------------------------
+  FFI types
+-------------------------------------------------------------------------------}
+
+translateFFIFunType :: Hs.FFIFunType -> ClosedType
+translateFFIFunType ty = case Hs.unconsArg ty of
+    Left (arg, ty') -> TFun (translateFFIType arg) (translateFFIFunType ty')
+    Right res -> translateFFIResType res
+
+translateFFIResType :: Hs.FFIResType -> ClosedType
+translateFFIResType = \case
+    Hs.FFIResUnit -> TUnit
+    Hs.FFIResIOUnit -> TApp (tBindgenGlobal IO_type) TUnit
+    Hs.FFIResIO ty -> TApp (tBindgenGlobal IO_type) (translateFFIType ty)
+    Hs.FFIRes ty -> translateFFIType ty
+
+translateFFIType :: Hs.FFIType -> ClosedType
+translateFFIType = \case
+    Hs.FFIExternal r -> TExt r
+    Hs.FFIPtrVoid -> TApp (tBindgenGlobal Foreign_Ptr_type) (tBindgenGlobal Void_type)
+    Hs.FFIFunPtrVoid -> TApp (tBindgenGlobal Foreign_FunPtr_type) (tBindgenGlobal Void_type)
+    Hs.FFIPrimCChar -> tBindgenGlobal CChar_type
+    Hs.FFIPrimCSChar -> tBindgenGlobal CSChar_type
+    Hs.FFIPrimCUChar -> tBindgenGlobal CUChar_type
+    Hs.FFIPrimCShort -> tBindgenGlobal CShort_type
+    Hs.FFIPrimCUShort -> tBindgenGlobal CUShort_type
+    Hs.FFIPrimCInt -> tBindgenGlobal CInt_type
+    Hs.FFIPrimCUInt -> tBindgenGlobal CUInt_type
+    Hs.FFIPrimCLong -> tBindgenGlobal CLong_type
+    Hs.FFIPrimCULong -> tBindgenGlobal CULong_type
+    Hs.FFIPrimCLLong -> tBindgenGlobal CLLong_type
+    Hs.FFIPrimCULLong -> tBindgenGlobal CULLong_type
+    Hs.FFIPrimCBool -> tBindgenGlobal CBool_type
+    Hs.FFIPrimCFloat -> tBindgenGlobal CFloat_type
+    Hs.FFIPrimCDouble  -> tBindgenGlobal CDouble_type
 
 {-------------------------------------------------------------------------------
   @StaticSize@, @ReadRaw@, @WriteRaw@
@@ -440,26 +502,6 @@ translateWriteRawCField = \case
         ]
     Hs.WriteRawByteOff ptr i x ->
       appMany WriteRaw_writeRawByteOff [EBound ptr, eInt i, EBound x]
-
-translateHsPrimType :: Hs.PrimType -> SType ctx
-translateHsPrimType = \case
-    Hs.PrimVoid    -> tBindgenGlobal Void_type
-    Hs.PrimUnit    -> TUnit
-    Hs.PrimInt     -> tBindgenGlobal Int_type
-    Hs.PrimCChar   -> tBindgenGlobal CChar_type
-    Hs.PrimCSChar  -> tBindgenGlobal CSChar_type
-    Hs.PrimCUChar  -> tBindgenGlobal CUChar_type
-    Hs.PrimCShort  -> tBindgenGlobal CShort_type
-    Hs.PrimCUShort -> tBindgenGlobal CUShort_type
-    Hs.PrimCInt    -> tBindgenGlobal CInt_type
-    Hs.PrimCUInt   -> tBindgenGlobal CUInt_type
-    Hs.PrimCLong   -> tBindgenGlobal CLong_type
-    Hs.PrimCULong  -> tBindgenGlobal CULong_type
-    Hs.PrimCLLong  -> tBindgenGlobal CLLong_type
-    Hs.PrimCULLong -> tBindgenGlobal CULLong_type
-    Hs.PrimCBool   -> tBindgenGlobal CBool_type
-    Hs.PrimCFloat  -> tBindgenGlobal CFloat_type
-    Hs.PrimCDouble -> tBindgenGlobal CDouble_type
 
 {-------------------------------------------------------------------------------
   'Storable'

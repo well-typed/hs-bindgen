@@ -16,6 +16,9 @@ hstypes:
       constructor: OUTER_AFTER_CIRCULAR_INCLUDE
       fields:
       - unwrapOUTER_AFTER_CIRCULAR_INCLUDE
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -47,6 +50,9 @@ hstypes:
       constructor: OUTER_BEFORE_CIRCULAR_INCLUDE
       fields:
       - unwrapOUTER_BEFORE_CIRCULAR_INCLUDE
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits

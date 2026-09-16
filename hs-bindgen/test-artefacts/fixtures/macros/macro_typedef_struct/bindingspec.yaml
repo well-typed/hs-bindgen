@@ -39,6 +39,9 @@ hstypes:
       constructor: MY_TYPE
       fields:
       - unwrapMY_TYPE
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits

@@ -309,6 +309,9 @@ hstypes:
       constructor: An_int
       fields:
       - unwrap
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -340,6 +343,9 @@ hstypes:
       constructor: An_pchar
       fields:
       - unwrap
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -360,6 +366,9 @@ hstypes:
       constructor: Bar_10
       fields:
       - unwrap
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -384,6 +393,9 @@ hstypes:
       constructor: Bug_24
       fields:
       - unwrap
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -404,6 +416,9 @@ hstypes:
       constructor: Bug_24_2
       fields:
       - unwrap
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -464,6 +479,9 @@ hstypes:
       constructor: E
       fields:
       - unwrap
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -903,6 +921,9 @@ hstypes:
       constructor: Foo
       fields:
       - unwrap
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -1022,6 +1043,9 @@ hstypes:
       constructor: MyType
       fields:
       - unwrap
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic

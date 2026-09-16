@@ -22,6 +22,9 @@ hstypes:
       constructor: MyInt
       fields:
       - unwrapMyInt
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -53,6 +56,9 @@ hstypes:
       constructor: MyLong
       fields:
       - unwrapMyLong
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CLong
   instances:
   - Bitfield
   - Bits
@@ -105,6 +111,9 @@ hstypes:
       constructor: MyUInt
       fields:
       - unwrapMyUInt
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - Bitfield
   - Bits

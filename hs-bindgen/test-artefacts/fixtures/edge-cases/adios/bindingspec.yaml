@@ -16,6 +16,9 @@ hstypes:
       constructor: Adio'0301s
       fields:
       - unwrapAdio'0301s
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -47,6 +50,9 @@ hstypes:
       constructor: C数字
       fields:
       - unwrapC数字
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
