@@ -1,5 +1,0 @@
-import: ../../../cabal.project.base
-import: cabal.project.paths
-
-packages: .
-          ../../../hs-bindgen-runtime
