@@ -74,6 +74,9 @@ hstypes:
       constructor: A
       fields:
       - unwrapA
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -105,6 +108,9 @@ hstypes:
       constructor: B
       fields:
       - unwrapB
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -136,6 +142,9 @@ hstypes:
       constructor: C
       fields:
       - unwrapC
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -167,6 +176,9 @@ hstypes:
       constructor: D
       fields:
       - unwrapD
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -219,6 +231,9 @@ hstypes:
       constructor: DataValidator
       fields:
       - unwrapDataValidator
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -239,6 +254,9 @@ hstypes:
       constructor: FileOpenedNotification
       fields:
       - unwrapFileOpenedNotification
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -259,6 +277,9 @@ hstypes:
       constructor: Foo
       fields:
       - unwrapFoo
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -290,6 +311,9 @@ hstypes:
       constructor: Foo2
       fields:
       - unwrapFoo2
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -362,6 +386,9 @@ hstypes:
       constructor: MeasurementReceived
       fields:
       - unwrapMeasurementReceived
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -382,6 +409,9 @@ hstypes:
       constructor: MeasurementReceived2
       fields:
       - unwrapMeasurementReceived2
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -437,6 +467,9 @@ hstypes:
       constructor: Processor_mode
       fields:
       - unwrapProcessor_mode
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -461,6 +494,9 @@ hstypes:
       constructor: ProgressUpdate
       fields:
       - unwrapProgressUpdate
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -500,6 +536,9 @@ hstypes:
       constructor: SampleBufferFull
       fields:
       - unwrapSampleBufferFull
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -524,7 +563,6 @@ hstypes:
   - FromFunPtr
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr

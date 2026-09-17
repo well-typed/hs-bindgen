@@ -36,12 +36,12 @@ t :: [String]
 t = ["int"]
 -- __unique:__ @test_macrosundef_2_raw_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_21a957e75025b18b" hs_bindgen_21a957e75025b18b_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosundef_2_raw_Example_Safe_foo@
 hs_bindgen_21a957e75025b18b :: CInt -> IO ()
 -- __unique:__ @test_macrosundef_2_raw_Example_Safe_foo@
-hs_bindgen_21a957e75025b18b = fromFFIType hs_bindgen_21a957e75025b18b_base
+hs_bindgen_21a957e75025b18b = \x_0 -> hs_bindgen_21a957e75025b18b_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/undef.h 4:6@
@@ -58,12 +58,12 @@ foo_safe :: CInt -> IO ()
 foo_safe = hs_bindgen_21a957e75025b18b
 -- __unique:__ @test_macrosundef_2_raw_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_03f5b7598cff52b9" hs_bindgen_03f5b7598cff52b9_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosundef_2_raw_Example_Unsafe_foo@
 hs_bindgen_03f5b7598cff52b9 :: CInt -> IO ()
 -- __unique:__ @test_macrosundef_2_raw_Example_Unsafe_foo@
-hs_bindgen_03f5b7598cff52b9 = fromFFIType hs_bindgen_03f5b7598cff52b9_base
+hs_bindgen_03f5b7598cff52b9 = \x_0 -> hs_bindgen_03f5b7598cff52b9_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/undef.h 4:6@
@@ -84,7 +84,7 @@ foreign import ccall unsafe "hs_bindgen_df59e9a307a33580" hs_bindgen_df59e9a307a
 -- __unique:__ @test_macrosundef_2_raw_Example_get_foo@
 hs_bindgen_df59e9a307a33580 :: IO (FunPtr (CInt -> IO ()))
 -- __unique:__ @test_macrosundef_2_raw_Example_get_foo@
-hs_bindgen_df59e9a307a33580 = fromFFIType hs_bindgen_df59e9a307a33580_base
+hs_bindgen_df59e9a307a33580 = fmap fromFFIType hs_bindgen_df59e9a307a33580_base
 {-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 

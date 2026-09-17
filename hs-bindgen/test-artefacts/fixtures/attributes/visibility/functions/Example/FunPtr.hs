@@ -229,7 +229,7 @@ foreign import ccall unsafe "hs_bindgen_b669c12e6c979397" hs_bindgen_b669c12e6c9
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f0@
 hs_bindgen_b669c12e6c979397 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_b669c12e6c979397 =
-  BG.fromFFIType hs_bindgen_b669c12e6c979397_base
+  fmap BG.fromFFIType hs_bindgen_b669c12e6c979397_base
 
 {-# NOINLINE f0 #-}
 {-| __C declaration:__ @f0@
@@ -248,7 +248,7 @@ foreign import ccall unsafe "hs_bindgen_d3717f29814cc38e" hs_bindgen_d3717f29814
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f1@
 hs_bindgen_d3717f29814cc38e :: IO (BG.FunPtr (IO ()))
 hs_bindgen_d3717f29814cc38e =
-  BG.fromFFIType hs_bindgen_d3717f29814cc38e_base
+  fmap BG.fromFFIType hs_bindgen_d3717f29814cc38e_base
 
 {-# NOINLINE f1 #-}
 {-| __C declaration:__ @f1@
@@ -267,7 +267,7 @@ foreign import ccall unsafe "hs_bindgen_9951e77d56815b80" hs_bindgen_9951e77d568
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f2@
 hs_bindgen_9951e77d56815b80 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_9951e77d56815b80 =
-  BG.fromFFIType hs_bindgen_9951e77d56815b80_base
+  fmap BG.fromFFIType hs_bindgen_9951e77d56815b80_base
 
 {-# NOINLINE f2 #-}
 {-| __C declaration:__ @f2@
@@ -286,7 +286,7 @@ foreign import ccall unsafe "hs_bindgen_735be5e937ab9ad0" hs_bindgen_735be5e937a
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f3@
 hs_bindgen_735be5e937ab9ad0 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_735be5e937ab9ad0 =
-  BG.fromFFIType hs_bindgen_735be5e937ab9ad0_base
+  fmap BG.fromFFIType hs_bindgen_735be5e937ab9ad0_base
 
 {-# NOINLINE f3 #-}
 {-| __C declaration:__ @f3@
@@ -305,7 +305,7 @@ foreign import ccall unsafe "hs_bindgen_2e181350411c95e9" hs_bindgen_2e181350411
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f4@
 hs_bindgen_2e181350411c95e9 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_2e181350411c95e9 =
-  BG.fromFFIType hs_bindgen_2e181350411c95e9_base
+  fmap BG.fromFFIType hs_bindgen_2e181350411c95e9_base
 
 {-# NOINLINE f4 #-}
 {-| __C declaration:__ @f4@
@@ -324,7 +324,7 @@ foreign import ccall unsafe "hs_bindgen_514428a6d0d70211" hs_bindgen_514428a6d0d
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f5@
 hs_bindgen_514428a6d0d70211 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_514428a6d0d70211 =
-  BG.fromFFIType hs_bindgen_514428a6d0d70211_base
+  fmap BG.fromFFIType hs_bindgen_514428a6d0d70211_base
 
 {-# NOINLINE f5 #-}
 {-| __C declaration:__ @f5@
@@ -343,7 +343,7 @@ foreign import ccall unsafe "hs_bindgen_9b7f8e653b947b35" hs_bindgen_9b7f8e653b9
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f6@
 hs_bindgen_9b7f8e653b947b35 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_9b7f8e653b947b35 =
-  BG.fromFFIType hs_bindgen_9b7f8e653b947b35_base
+  fmap BG.fromFFIType hs_bindgen_9b7f8e653b947b35_base
 
 {-# NOINLINE f6 #-}
 {-| __C declaration:__ @f6@
@@ -362,7 +362,7 @@ foreign import ccall unsafe "hs_bindgen_53b66f2ee9d5bea3" hs_bindgen_53b66f2ee9d
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f7@
 hs_bindgen_53b66f2ee9d5bea3 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_53b66f2ee9d5bea3 =
-  BG.fromFFIType hs_bindgen_53b66f2ee9d5bea3_base
+  fmap BG.fromFFIType hs_bindgen_53b66f2ee9d5bea3_base
 
 {-# NOINLINE f7 #-}
 {-| __C declaration:__ @f7@
@@ -381,7 +381,7 @@ foreign import ccall unsafe "hs_bindgen_90ce84ff3a158d95" hs_bindgen_90ce84ff3a1
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f8@
 hs_bindgen_90ce84ff3a158d95 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_90ce84ff3a158d95 =
-  BG.fromFFIType hs_bindgen_90ce84ff3a158d95_base
+  fmap BG.fromFFIType hs_bindgen_90ce84ff3a158d95_base
 
 {-# NOINLINE f8 #-}
 {-| __C declaration:__ @f8@
@@ -400,7 +400,7 @@ foreign import ccall unsafe "hs_bindgen_bd91fda2207a62eb" hs_bindgen_bd91fda2207
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f9@
 hs_bindgen_bd91fda2207a62eb :: IO (BG.FunPtr (IO ()))
 hs_bindgen_bd91fda2207a62eb =
-  BG.fromFFIType hs_bindgen_bd91fda2207a62eb_base
+  fmap BG.fromFFIType hs_bindgen_bd91fda2207a62eb_base
 
 {-# NOINLINE f9 #-}
 {-| __C declaration:__ @f9@
@@ -419,7 +419,7 @@ foreign import ccall unsafe "hs_bindgen_f216131cd3bd6919" hs_bindgen_f216131cd3b
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f10@
 hs_bindgen_f216131cd3bd6919 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_f216131cd3bd6919 =
-  BG.fromFFIType hs_bindgen_f216131cd3bd6919_base
+  fmap BG.fromFFIType hs_bindgen_f216131cd3bd6919_base
 
 {-# NOINLINE f10 #-}
 {-| __C declaration:__ @f10@
@@ -438,7 +438,7 @@ foreign import ccall unsafe "hs_bindgen_d40c26619dcfad79" hs_bindgen_d40c26619dc
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f11@
 hs_bindgen_d40c26619dcfad79 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_d40c26619dcfad79 =
-  BG.fromFFIType hs_bindgen_d40c26619dcfad79_base
+  fmap BG.fromFFIType hs_bindgen_d40c26619dcfad79_base
 
 {-# NOINLINE f11 #-}
 {-| __C declaration:__ @f11@
@@ -457,7 +457,7 @@ foreign import ccall unsafe "hs_bindgen_d507bba11a647ae8" hs_bindgen_d507bba11a6
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f12@
 hs_bindgen_d507bba11a647ae8 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_d507bba11a647ae8 =
-  BG.fromFFIType hs_bindgen_d507bba11a647ae8_base
+  fmap BG.fromFFIType hs_bindgen_d507bba11a647ae8_base
 
 {-# NOINLINE f12 #-}
 {-| __C declaration:__ @f12@
@@ -476,7 +476,7 @@ foreign import ccall unsafe "hs_bindgen_a90968b5f0eb111f" hs_bindgen_a90968b5f0e
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f13@
 hs_bindgen_a90968b5f0eb111f :: IO (BG.FunPtr (IO ()))
 hs_bindgen_a90968b5f0eb111f =
-  BG.fromFFIType hs_bindgen_a90968b5f0eb111f_base
+  fmap BG.fromFFIType hs_bindgen_a90968b5f0eb111f_base
 
 {-# NOINLINE f13 #-}
 {-| __C declaration:__ @f13@
@@ -495,7 +495,7 @@ foreign import ccall unsafe "hs_bindgen_f584fb1da48609e4" hs_bindgen_f584fb1da48
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f14@
 hs_bindgen_f584fb1da48609e4 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_f584fb1da48609e4 =
-  BG.fromFFIType hs_bindgen_f584fb1da48609e4_base
+  fmap BG.fromFFIType hs_bindgen_f584fb1da48609e4_base
 
 {-# NOINLINE f14 #-}
 {-| __C declaration:__ @f14@
@@ -514,7 +514,7 @@ foreign import ccall unsafe "hs_bindgen_1c5f8cf4562364d0" hs_bindgen_1c5f8cf4562
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f15@
 hs_bindgen_1c5f8cf4562364d0 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_1c5f8cf4562364d0 =
-  BG.fromFFIType hs_bindgen_1c5f8cf4562364d0_base
+  fmap BG.fromFFIType hs_bindgen_1c5f8cf4562364d0_base
 
 {-# NOINLINE f15 #-}
 {-| __C declaration:__ @f15@
@@ -533,7 +533,7 @@ foreign import ccall unsafe "hs_bindgen_6af855fd845ff731" hs_bindgen_6af855fd845
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f16@
 hs_bindgen_6af855fd845ff731 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_6af855fd845ff731 =
-  BG.fromFFIType hs_bindgen_6af855fd845ff731_base
+  fmap BG.fromFFIType hs_bindgen_6af855fd845ff731_base
 
 {-# NOINLINE f16 #-}
 {-| __C declaration:__ @f16@
@@ -552,7 +552,7 @@ foreign import ccall unsafe "hs_bindgen_c5aa3698b4ac9578" hs_bindgen_c5aa3698b4a
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f17@
 hs_bindgen_c5aa3698b4ac9578 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_c5aa3698b4ac9578 =
-  BG.fromFFIType hs_bindgen_c5aa3698b4ac9578_base
+  fmap BG.fromFFIType hs_bindgen_c5aa3698b4ac9578_base
 
 {-# NOINLINE f17 #-}
 {-| __C declaration:__ @f17@
@@ -571,7 +571,7 @@ foreign import ccall unsafe "hs_bindgen_83b20ec12cdacad3" hs_bindgen_83b20ec12cd
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f18@
 hs_bindgen_83b20ec12cdacad3 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_83b20ec12cdacad3 =
-  BG.fromFFIType hs_bindgen_83b20ec12cdacad3_base
+  fmap BG.fromFFIType hs_bindgen_83b20ec12cdacad3_base
 
 {-# NOINLINE f18 #-}
 {-| __C declaration:__ @f18@
@@ -590,7 +590,7 @@ foreign import ccall unsafe "hs_bindgen_9530c7f467585e16" hs_bindgen_9530c7f4675
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f19@
 hs_bindgen_9530c7f467585e16 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_9530c7f467585e16 =
-  BG.fromFFIType hs_bindgen_9530c7f467585e16_base
+  fmap BG.fromFFIType hs_bindgen_9530c7f467585e16_base
 
 {-# NOINLINE f19 #-}
 {-| __C declaration:__ @f19@
@@ -609,7 +609,7 @@ foreign import ccall unsafe "hs_bindgen_6b7091b3c8333945" hs_bindgen_6b7091b3c83
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f20@
 hs_bindgen_6b7091b3c8333945 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_6b7091b3c8333945 =
-  BG.fromFFIType hs_bindgen_6b7091b3c8333945_base
+  fmap BG.fromFFIType hs_bindgen_6b7091b3c8333945_base
 
 {-# NOINLINE f20 #-}
 {-| __C declaration:__ @f20@
@@ -628,7 +628,7 @@ foreign import ccall unsafe "hs_bindgen_58ed5b745dd5583b" hs_bindgen_58ed5b745dd
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f21@
 hs_bindgen_58ed5b745dd5583b :: IO (BG.FunPtr (IO ()))
 hs_bindgen_58ed5b745dd5583b =
-  BG.fromFFIType hs_bindgen_58ed5b745dd5583b_base
+  fmap BG.fromFFIType hs_bindgen_58ed5b745dd5583b_base
 
 {-# NOINLINE f21 #-}
 {-| __C declaration:__ @f21@
@@ -647,7 +647,7 @@ foreign import ccall unsafe "hs_bindgen_2fc8f17386d9d13f" hs_bindgen_2fc8f17386d
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f22@
 hs_bindgen_2fc8f17386d9d13f :: IO (BG.FunPtr (IO ()))
 hs_bindgen_2fc8f17386d9d13f =
-  BG.fromFFIType hs_bindgen_2fc8f17386d9d13f_base
+  fmap BG.fromFFIType hs_bindgen_2fc8f17386d9d13f_base
 
 {-# NOINLINE f22 #-}
 {-| __C declaration:__ @f22@
@@ -666,7 +666,7 @@ foreign import ccall unsafe "hs_bindgen_155c186bf2426f9c" hs_bindgen_155c186bf24
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f23@
 hs_bindgen_155c186bf2426f9c :: IO (BG.FunPtr (IO ()))
 hs_bindgen_155c186bf2426f9c =
-  BG.fromFFIType hs_bindgen_155c186bf2426f9c_base
+  fmap BG.fromFFIType hs_bindgen_155c186bf2426f9c_base
 
 {-# NOINLINE f23 #-}
 {-| __C declaration:__ @f23@
@@ -685,7 +685,7 @@ foreign import ccall unsafe "hs_bindgen_1c6a122ab1d7cef0" hs_bindgen_1c6a122ab1d
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f24@
 hs_bindgen_1c6a122ab1d7cef0 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_1c6a122ab1d7cef0 =
-  BG.fromFFIType hs_bindgen_1c6a122ab1d7cef0_base
+  fmap BG.fromFFIType hs_bindgen_1c6a122ab1d7cef0_base
 
 {-# NOINLINE f24 #-}
 {-| __C declaration:__ @f24@
@@ -704,7 +704,7 @@ foreign import ccall unsafe "hs_bindgen_80ef1e1dba11ffdd" hs_bindgen_80ef1e1dba1
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f25@
 hs_bindgen_80ef1e1dba11ffdd :: IO (BG.FunPtr (IO ()))
 hs_bindgen_80ef1e1dba11ffdd =
-  BG.fromFFIType hs_bindgen_80ef1e1dba11ffdd_base
+  fmap BG.fromFFIType hs_bindgen_80ef1e1dba11ffdd_base
 
 {-# NOINLINE f25 #-}
 {-| __C declaration:__ @f25@
@@ -723,7 +723,7 @@ foreign import ccall unsafe "hs_bindgen_f7b63b778f9532da" hs_bindgen_f7b63b778f9
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f26@
 hs_bindgen_f7b63b778f9532da :: IO (BG.FunPtr (IO ()))
 hs_bindgen_f7b63b778f9532da =
-  BG.fromFFIType hs_bindgen_f7b63b778f9532da_base
+  fmap BG.fromFFIType hs_bindgen_f7b63b778f9532da_base
 
 {-# NOINLINE f26 #-}
 {-| __C declaration:__ @f26@
@@ -742,7 +742,7 @@ foreign import ccall unsafe "hs_bindgen_01ece11a3077bfd9" hs_bindgen_01ece11a307
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f27@
 hs_bindgen_01ece11a3077bfd9 :: IO (BG.FunPtr (IO ()))
 hs_bindgen_01ece11a3077bfd9 =
-  BG.fromFFIType hs_bindgen_01ece11a3077bfd9_base
+  fmap BG.fromFFIType hs_bindgen_01ece11a3077bfd9_base
 
 {-# NOINLINE f27 #-}
 {-| __C declaration:__ @f27@
@@ -761,7 +761,7 @@ foreign import ccall unsafe "hs_bindgen_0bc3e07b1934c20b" hs_bindgen_0bc3e07b193
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f28@
 hs_bindgen_0bc3e07b1934c20b :: IO (BG.FunPtr (IO ()))
 hs_bindgen_0bc3e07b1934c20b =
-  BG.fromFFIType hs_bindgen_0bc3e07b1934c20b_base
+  fmap BG.fromFFIType hs_bindgen_0bc3e07b1934c20b_base
 
 {-# NOINLINE f28 #-}
 {-| __C declaration:__ @f28@
@@ -780,7 +780,7 @@ foreign import ccall unsafe "hs_bindgen_f3734109e7f7d5ee" hs_bindgen_f3734109e7f
 -- __unique:__ @test_attributesvisibilityfunction_Example_get_f29@
 hs_bindgen_f3734109e7f7d5ee :: IO (BG.FunPtr (IO ()))
 hs_bindgen_f3734109e7f7d5ee =
-  BG.fromFFIType hs_bindgen_f3734109e7f7d5ee_base
+  fmap BG.fromFFIType hs_bindgen_f3734109e7f7d5ee_base
 
 {-# NOINLINE f29 #-}
 {-| __C declaration:__ @f29@

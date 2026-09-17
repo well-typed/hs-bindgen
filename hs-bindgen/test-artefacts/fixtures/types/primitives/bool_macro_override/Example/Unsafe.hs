@@ -31,8 +31,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_f@
 foreign import ccall unsafe "hs_bindgen_c170f90cc5412c59" hs_bindgen_c170f90cc5412c59_base ::
-     BG.Int32
-  -> BG.Word8
+     BG.CInt
+  -> BG.CBool
   -> IO ()
 
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_f@
@@ -41,7 +41,9 @@ hs_bindgen_c170f90cc5412c59 ::
   -> BG.CBool
   -> IO ()
 hs_bindgen_c170f90cc5412c59 =
-  BG.fromFFIType hs_bindgen_c170f90cc5412c59_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_c170f90cc5412c59_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @f@
 
@@ -59,8 +61,8 @@ f = hs_bindgen_c170f90cc5412c59
 
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_g@
 foreign import ccall unsafe "hs_bindgen_18fbcf94c0b76854" hs_bindgen_18fbcf94c0b76854_base ::
-     BG.Int32
-  -> BG.Int32
+     BG.CInt
+  -> BG.CInt
   -> IO ()
 
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_g@
@@ -69,7 +71,9 @@ hs_bindgen_18fbcf94c0b76854 ::
   -> Bool'
   -> IO ()
 hs_bindgen_18fbcf94c0b76854 =
-  BG.fromFFIType hs_bindgen_18fbcf94c0b76854_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_18fbcf94c0b76854_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @g@
 

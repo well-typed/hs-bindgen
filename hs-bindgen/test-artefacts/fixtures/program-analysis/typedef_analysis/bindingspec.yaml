@@ -130,6 +130,9 @@ hstypes:
       constructor: Bar
       fields:
       - unwrapBar
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -170,6 +173,9 @@ hstypes:
       constructor: Foo
       fields:
       - unwrapFoo
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -296,6 +302,9 @@ hstypes:
       constructor: Struct16
       fields:
       - unwrapStruct16
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -376,6 +385,9 @@ hstypes:
       constructor: Struct5_t
       fields:
       - unwrapStruct5_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -396,6 +408,9 @@ hstypes:
       constructor: Struct6a
       fields:
       - unwrapStruct6a
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic

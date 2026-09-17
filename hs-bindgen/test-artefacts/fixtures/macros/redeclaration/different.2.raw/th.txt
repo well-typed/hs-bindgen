@@ -42,12 +42,12 @@
 -- }
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_07088bb3b4171c29" hs_bindgen_07088bb3b4171c29_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Safe_foo@
 hs_bindgen_07088bb3b4171c29 :: CInt -> IO ()
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Safe_foo@
-hs_bindgen_07088bb3b4171c29 = fromFFIType hs_bindgen_07088bb3b4171c29_base
+hs_bindgen_07088bb3b4171c29 = \x_0 -> hs_bindgen_07088bb3b4171c29_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/redeclaration\/different.h 3:6@
@@ -64,12 +64,12 @@ foo_safe :: CInt -> IO ()
 foo_safe = hs_bindgen_07088bb3b4171c29
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_190787b2a527df76" hs_bindgen_190787b2a527df76_base ::
-    Int8
+    CChar
  -> IO ()
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Safe_bar@
 hs_bindgen_190787b2a527df76 :: CChar -> IO ()
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Safe_bar@
-hs_bindgen_190787b2a527df76 = fromFFIType hs_bindgen_190787b2a527df76_base
+hs_bindgen_190787b2a527df76 = \x_0 -> hs_bindgen_190787b2a527df76_base (toFFIType x_0)
 {-| __C declaration:__ @bar@
 
     __defined at:__ @macros\/redeclaration\/different.h 5:6@
@@ -86,12 +86,12 @@ bar_safe :: CChar -> IO ()
 bar_safe = hs_bindgen_190787b2a527df76
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_42c808e061719a11" hs_bindgen_42c808e061719a11_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_foo@
 hs_bindgen_42c808e061719a11 :: CInt -> IO ()
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_foo@
-hs_bindgen_42c808e061719a11 = fromFFIType hs_bindgen_42c808e061719a11_base
+hs_bindgen_42c808e061719a11 = \x_0 -> hs_bindgen_42c808e061719a11_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/redeclaration\/different.h 3:6@
@@ -108,12 +108,12 @@ foo_unsafe :: CInt -> IO ()
 foo_unsafe = hs_bindgen_42c808e061719a11
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_06a03878580406ca" hs_bindgen_06a03878580406ca_base ::
-    Int8
+    CChar
  -> IO ()
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_bar@
 hs_bindgen_06a03878580406ca :: CChar -> IO ()
 -- __unique:__ @test_macrosredeclarationdifferent_Example_Unsafe_bar@
-hs_bindgen_06a03878580406ca = fromFFIType hs_bindgen_06a03878580406ca_base
+hs_bindgen_06a03878580406ca = \x_0 -> hs_bindgen_06a03878580406ca_base (toFFIType x_0)
 {-| __C declaration:__ @bar@
 
     __defined at:__ @macros\/redeclaration\/different.h 5:6@
@@ -134,7 +134,7 @@ foreign import ccall unsafe "hs_bindgen_d0db0eb938233932" hs_bindgen_d0db0eb9382
 -- __unique:__ @test_macrosredeclarationdifferent_Example_get_foo@
 hs_bindgen_d0db0eb938233932 :: IO (FunPtr (CInt -> IO ()))
 -- __unique:__ @test_macrosredeclarationdifferent_Example_get_foo@
-hs_bindgen_d0db0eb938233932 = fromFFIType hs_bindgen_d0db0eb938233932_base
+hs_bindgen_d0db0eb938233932 = fmap fromFFIType hs_bindgen_d0db0eb938233932_base
 {-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 
@@ -156,7 +156,7 @@ foreign import ccall unsafe "hs_bindgen_46700de9dec9ddc2" hs_bindgen_46700de9dec
 -- __unique:__ @test_macrosredeclarationdifferent_Example_get_bar@
 hs_bindgen_46700de9dec9ddc2 :: IO (FunPtr (CChar -> IO ()))
 -- __unique:__ @test_macrosredeclarationdifferent_Example_get_bar@
-hs_bindgen_46700de9dec9ddc2 = fromFFIType hs_bindgen_46700de9dec9ddc2_base
+hs_bindgen_46700de9dec9ddc2 = fmap fromFFIType hs_bindgen_46700de9dec9ddc2_base
 {-# NOINLINE bar_funptr #-}
 {-| __C declaration:__ @bar@
 

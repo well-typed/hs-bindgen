@@ -100,7 +100,6 @@ data BindgenGlobalType =
     -- Foreign function interface
     Foreign_Ptr_type
   | Foreign_FunPtr_type
-  | Foreign_StablePtr_type
   | IO_type
 
       -- Arrays
@@ -142,20 +141,8 @@ data BindgenGlobalType =
 
     -- C types
   | Void_type
-  | Char_type
   | Int_type
-  | Double_type
-  | Float_type
   | Bool_type
-  | Int8_type
-  | Int16_type
-  | Int32_type
-  | Int64_type
-  | Word_type
-  | Word8_type
-  | Word16_type
-  | Word32_type
-  | Word64_type
   | CChar_type
   | CSChar_type
   | CUChar_type
@@ -188,6 +175,8 @@ data BindgenGlobalTerm =
     -- Function pointers
   | ToFunPtr_toFunPtr
   | FromFunPtr_fromFunPtr
+
+  | Foreign_castFunPtr
 
     -- Foreign function interface
   | ByteArray_setUnionPayload
@@ -249,8 +238,6 @@ data BindgenGlobalTerm =
     -- HasFFIType
   | HasFFIType_fromFFIType
   | HasFFIType_toFFIType
-  | HasFFIType_castFunPtrFromFFIType
-  | HasFFIType_castFunPtrToFFIType
 
     -- Functor
   | Functor_fmap
@@ -307,7 +294,6 @@ bindgenGlobalType = globalType . \case
     -- Foreign function interface
     Foreign_Ptr_type       -> (IRuntime Runtime.Support, ''BG.Ptr)
     Foreign_FunPtr_type    -> (IRuntime Runtime.Support, ''BG.FunPtr)
-    Foreign_StablePtr_type -> (IRuntime Runtime.Support, ''BG.StablePtr)
     IO_type                -> (IHaskellPrelude,          ''IO)
 
       -- Arrays
@@ -349,20 +335,8 @@ bindgenGlobalType = globalType . \case
 
     -- C types
     Void_type       -> (IRuntime Runtime.Support, ''BG.Void)
-    Char_type       -> (IHaskellPrelude,          ''Char)
     Int_type        -> (IHaskellPrelude,          ''Int)
-    Double_type     -> (IHaskellPrelude,          ''Double)
-    Float_type      -> (IHaskellPrelude,          ''Float)
     Bool_type       -> (IHaskellPrelude,          ''Bool)
-    Int8_type       -> (IRuntime Runtime.Support, ''BG.Int8)
-    Int16_type      -> (IRuntime Runtime.Support, ''BG.Int16)
-    Int32_type      -> (IRuntime Runtime.Support, ''BG.Int32)
-    Int64_type      -> (IRuntime Runtime.Support, ''BG.Int64)
-    Word_type       -> (IHaskellPrelude,          ''Word)
-    Word8_type      -> (IRuntime Runtime.Support, ''BG.Word8)
-    Word16_type     -> (IRuntime Runtime.Support, ''BG.Word16)
-    Word32_type     -> (IRuntime Runtime.Support, ''BG.Word32)
-    Word64_type     -> (IRuntime Runtime.Support, ''BG.Word64)
     CChar_type      -> (IRuntime Runtime.Support, ''BG.CChar)
     CSChar_type     -> (IRuntime Runtime.Support, ''BG.CSChar)
     CUChar_type     -> (IRuntime Runtime.Support, ''BG.CUChar)
@@ -438,6 +412,7 @@ bindgenGlobalTerm = globalExpr . \case
     -- Function pointers
     ToFunPtr_toFunPtr     -> (IRuntime Runtime.Support, GVar, 'BG.toFunPtr)
     FromFunPtr_fromFunPtr -> (IRuntime Runtime.Support, GVar, 'BG.fromFunPtr)
+    Foreign_castFunPtr    -> (IRuntime Runtime.Support, GVar, 'BG.castFunPtr)
 
     -- Foreign function interface
     ByteArray_getUnionPayload     -> (IRuntime Runtime.Support, GVar, 'BG.getUnionPayload)
@@ -499,8 +474,6 @@ bindgenGlobalTerm = globalExpr . \case
     -- HasFFIType
     HasFFIType_fromFFIType           -> (IRuntime Runtime.Support, GVar, 'BG.fromFFIType)
     HasFFIType_toFFIType             -> (IRuntime Runtime.Support, GVar, 'BG.toFFIType)
-    HasFFIType_castFunPtrFromFFIType -> (IRuntime Runtime.Support, GVar, 'BG.castFunPtrFromFFIType)
-    HasFFIType_castFunPtrToFFIType   -> (IRuntime Runtime.Support, GVar, 'BG.castFunPtrToFFIType)
 
     -- Functor
     Functor_fmap -> (IHaskellPrelude, GVar, 'fmap)

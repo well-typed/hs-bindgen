@@ -36,7 +36,7 @@ foreign import ccall unsafe "hs_bindgen_2b8fc800dad87ec8" hs_bindgen_2b8fc800dad
 -- __unique:__ @test_edgecasesspec_examples_Example_get_resample@
 hs_bindgen_2b8fc800dad87ec8 :: IO (BG.FunPtr (BG.Ptr Int32_T -> BG.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T)) -> Int64_T -> Int64_T -> BG.Ptr (IsA.Elem (CA.ConstantArray 30720000 Cint16_T)) -> IO ()))
 hs_bindgen_2b8fc800dad87ec8 =
-  BG.fromFFIType hs_bindgen_2b8fc800dad87ec8_base
+  fmap BG.fromFFIType hs_bindgen_2b8fc800dad87ec8_base
 
 {-# NOINLINE resample #-}
 {-| __C declaration:__ @resample@

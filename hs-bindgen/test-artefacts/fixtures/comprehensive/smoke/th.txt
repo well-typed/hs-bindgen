@@ -1259,7 +1259,7 @@ foreign import ccall safe "hs_bindgen_2743241662e587e2" hs_bindgen_2743241662e58
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo1@
 hs_bindgen_2743241662e587e2 :: IO ()
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo1@
-hs_bindgen_2743241662e587e2 = fromFFIType hs_bindgen_2743241662e587e2_base
+hs_bindgen_2743241662e587e2 = hs_bindgen_2743241662e587e2_base
 {-| __C declaration:__ @foo1@
 
     __defined at:__ @comprehensive\/smoke.h 10:9@
@@ -1276,12 +1276,12 @@ foo1_safe :: IO ()
 foo1_safe = hs_bindgen_2743241662e587e2
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo2@
 foreign import ccall safe "hs_bindgen_ca1ea7ed39cf6882" hs_bindgen_ca1ea7ed39cf6882_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo2@
 hs_bindgen_ca1ea7ed39cf6882 :: CInt -> IO ()
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo2@
-hs_bindgen_ca1ea7ed39cf6882 = fromFFIType hs_bindgen_ca1ea7ed39cf6882_base
+hs_bindgen_ca1ea7ed39cf6882 = \x_0 -> hs_bindgen_ca1ea7ed39cf6882_base (toFFIType x_0)
 {-| __C declaration:__ @foo2@
 
     __defined at:__ @comprehensive\/smoke.h 11:9@
@@ -1298,13 +1298,13 @@ foo2_safe :: CInt -> IO ()
 foo2_safe = hs_bindgen_ca1ea7ed39cf6882
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo3@
 foreign import ccall safe "hs_bindgen_f0e8a93d6c4bd770" hs_bindgen_f0e8a93d6c4bd770_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
  -> IO ()
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo3@
 hs_bindgen_f0e8a93d6c4bd770 :: CInt -> CInt -> IO ()
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo3@
-hs_bindgen_f0e8a93d6c4bd770 = fromFFIType hs_bindgen_f0e8a93d6c4bd770_base
+hs_bindgen_f0e8a93d6c4bd770 = \x_0 -> \x_1 -> hs_bindgen_f0e8a93d6c4bd770_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @foo3@
 
     __defined at:__ @comprehensive\/smoke.h 12:9@
@@ -1321,11 +1321,11 @@ foo3_safe :: CInt -> CInt -> IO ()
 foo3_safe = hs_bindgen_f0e8a93d6c4bd770
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo4@
 foreign import ccall safe "hs_bindgen_fce3101db708d25c" hs_bindgen_fce3101db708d25c_base ::
-    IO Int32
+    IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo4@
 hs_bindgen_fce3101db708d25c :: IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo4@
-hs_bindgen_fce3101db708d25c = fromFFIType hs_bindgen_fce3101db708d25c_base
+hs_bindgen_fce3101db708d25c = fmap fromFFIType hs_bindgen_fce3101db708d25c_base
 {-| __C declaration:__ @foo4@
 
     __defined at:__ @comprehensive\/smoke.h 13:9@
@@ -1342,12 +1342,12 @@ foo4_safe :: IO CInt
 foo4_safe = hs_bindgen_fce3101db708d25c
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo5@
 foreign import ccall safe "hs_bindgen_65f052a80aab9141" hs_bindgen_65f052a80aab9141_base ::
-    Int32
- -> IO Int8
+    CInt
+ -> IO CChar
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo5@
 hs_bindgen_65f052a80aab9141 :: CInt -> IO CChar
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo5@
-hs_bindgen_65f052a80aab9141 = fromFFIType hs_bindgen_65f052a80aab9141_base
+hs_bindgen_65f052a80aab9141 = \x_0 -> fmap fromFFIType (hs_bindgen_65f052a80aab9141_base (toFFIType x_0))
 {-| __C declaration:__ @foo5@
 
     __defined at:__ @comprehensive\/smoke.h 14:9@
@@ -1364,13 +1364,13 @@ foo5_safe :: CInt -> IO CChar
 foo5_safe = hs_bindgen_65f052a80aab9141
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo6@
 foreign import ccall safe "hs_bindgen_558967a64195919a" hs_bindgen_558967a64195919a_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo6@
 hs_bindgen_558967a64195919a :: CInt -> CInt -> IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo6@
-hs_bindgen_558967a64195919a = fromFFIType hs_bindgen_558967a64195919a_base
+hs_bindgen_558967a64195919a = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_558967a64195919a_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @foo6@
 
     __defined at:__ @comprehensive\/smoke.h 15:9@
@@ -1392,7 +1392,7 @@ foreign import ccall safe "hs_bindgen_1b78d9ead15e9f30" hs_bindgen_1b78d9ead15e9
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo7@
 hs_bindgen_1b78d9ead15e9f30 :: Ptr CChar -> IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo7@
-hs_bindgen_1b78d9ead15e9f30 = fromFFIType hs_bindgen_1b78d9ead15e9f30_base
+hs_bindgen_1b78d9ead15e9f30 = \x_0 -> fmap fromFFIType (hs_bindgen_1b78d9ead15e9f30_base (toFFIType x_0))
 {-| __C declaration:__ @foo7@
 
     __defined at:__ @comprehensive\/smoke.h 16:9@
@@ -1414,7 +1414,7 @@ foreign import ccall safe "hs_bindgen_e7b32da27b5f4414" hs_bindgen_e7b32da27b5f4
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo8@
 hs_bindgen_e7b32da27b5f4414 :: Ptr CChar -> IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo8@
-hs_bindgen_e7b32da27b5f4414 = fromFFIType hs_bindgen_e7b32da27b5f4414_base
+hs_bindgen_e7b32da27b5f4414 = \x_0 -> fmap fromFFIType (hs_bindgen_e7b32da27b5f4414_base (toFFIType x_0))
 {-| __C declaration:__ @foo8@
 
     __defined at:__ @comprehensive\/smoke.h 17:9@
@@ -1437,7 +1437,7 @@ foreign import ccall safe "hs_bindgen_7f4cc2802608a581" hs_bindgen_7f4cc2802608a
 hs_bindgen_7f4cc2802608a581 :: FunPtr (IO (Ptr CChar)) ->
                                IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo9@
-hs_bindgen_7f4cc2802608a581 = fromFFIType hs_bindgen_7f4cc2802608a581_base
+hs_bindgen_7f4cc2802608a581 = \x_0 -> fmap fromFFIType (hs_bindgen_7f4cc2802608a581_base (toFFIType x_0))
 {-| __C declaration:__ @foo9@
 
     __defined at:__ @comprehensive\/smoke.h 18:9@
@@ -1460,7 +1460,7 @@ foreign import ccall safe "hs_bindgen_9e03d7bc759724b3" hs_bindgen_9e03d7bc75972
 hs_bindgen_9e03d7bc759724b3 :: FunPtr (CInt -> IO (Ptr CChar)) ->
                                IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo10@
-hs_bindgen_9e03d7bc759724b3 = fromFFIType hs_bindgen_9e03d7bc759724b3_base
+hs_bindgen_9e03d7bc759724b3 = \x_0 -> fmap fromFFIType (hs_bindgen_9e03d7bc759724b3_base (toFFIType x_0))
 {-| __C declaration:__ @foo10@
 
     __defined at:__ @comprehensive\/smoke.h 19:9@
@@ -1483,7 +1483,7 @@ foreign import ccall safe "hs_bindgen_3ec0b6324e11cfb1" hs_bindgen_3ec0b6324e11c
 hs_bindgen_3ec0b6324e11cfb1 :: FunPtr (IO (Ptr Void)) ->
                                IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo11@
-hs_bindgen_3ec0b6324e11cfb1 = fromFFIType hs_bindgen_3ec0b6324e11cfb1_base
+hs_bindgen_3ec0b6324e11cfb1 = \x_0 -> fmap fromFFIType (hs_bindgen_3ec0b6324e11cfb1_base (toFFIType x_0))
 {-| __C declaration:__ @foo11@
 
     __defined at:__ @comprehensive\/smoke.h 20:9@
@@ -1506,7 +1506,7 @@ foreign import ccall safe "hs_bindgen_50dfd1970330be63" hs_bindgen_50dfd1970330b
 hs_bindgen_50dfd1970330be63 :: FunPtr (CInt -> IO (Ptr Void)) ->
                                IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo12@
-hs_bindgen_50dfd1970330be63 = fromFFIType hs_bindgen_50dfd1970330be63_base
+hs_bindgen_50dfd1970330be63 = \x_0 -> fmap fromFFIType (hs_bindgen_50dfd1970330be63_base (toFFIType x_0))
 {-| __C declaration:__ @foo12@
 
     __defined at:__ @comprehensive\/smoke.h 21:9@
@@ -1529,7 +1529,7 @@ foreign import ccall safe "hs_bindgen_6bee8b08c7819690" hs_bindgen_6bee8b08c7819
 hs_bindgen_6bee8b08c7819690 :: Ptr (Elem (IncompleteArray CChar)) ->
                                IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo13@
-hs_bindgen_6bee8b08c7819690 = fromFFIType hs_bindgen_6bee8b08c7819690_base
+hs_bindgen_6bee8b08c7819690 = \x_0 -> fmap fromFFIType (hs_bindgen_6bee8b08c7819690_base (toFFIType x_0))
 {-| __C declaration:__ @foo13@
 
     __defined at:__ @comprehensive\/smoke.h 22:9@
@@ -1552,7 +1552,7 @@ foreign import ccall safe "hs_bindgen_a670ae425db6b59c" hs_bindgen_a670ae425db6b
 hs_bindgen_a670ae425db6b59c :: Ptr (Elem (IncompleteArray CChar)) ->
                                IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo14@
-hs_bindgen_a670ae425db6b59c = fromFFIType hs_bindgen_a670ae425db6b59c_base
+hs_bindgen_a670ae425db6b59c = \x_0 -> fmap fromFFIType (hs_bindgen_a670ae425db6b59c_base (toFFIType x_0))
 {-| __C declaration:__ @foo14@
 
     __defined at:__ @comprehensive\/smoke.h 23:9@
@@ -1576,7 +1576,7 @@ hs_bindgen_2422a51b7a32f594 :: Ptr (Elem (ConstantArray 5
                                                         CChar)) ->
                                IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo15@
-hs_bindgen_2422a51b7a32f594 = fromFFIType hs_bindgen_2422a51b7a32f594_base
+hs_bindgen_2422a51b7a32f594 = \x_0 -> fmap fromFFIType (hs_bindgen_2422a51b7a32f594_base (toFFIType x_0))
 {-| __C declaration:__ @foo15@
 
     __defined at:__ @comprehensive\/smoke.h 24:9@
@@ -1593,12 +1593,12 @@ foo15_safe :: Ptr (Elem (ConstantArray 5 CChar)) -> IO (Ptr CChar)
 foo15_safe = hs_bindgen_2422a51b7a32f594
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo16@
 foreign import ccall safe "hs_bindgen_cd49431b0bacd0ce" hs_bindgen_cd49431b0bacd0ce_base ::
-    Int32
+    CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo16@
 hs_bindgen_cd49431b0bacd0ce :: CInt -> IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo16@
-hs_bindgen_cd49431b0bacd0ce = fromFFIType hs_bindgen_cd49431b0bacd0ce_base
+hs_bindgen_cd49431b0bacd0ce = \x_0 -> fmap fromFFIType (hs_bindgen_cd49431b0bacd0ce_base (toFFIType x_0))
 {-| __C declaration:__ @foo16@
 
     __defined at:__ @comprehensive\/smoke.h 25:9@
@@ -1616,11 +1616,11 @@ foo16_safe = hs_bindgen_cd49431b0bacd0ce
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo17@
 foreign import ccall safe "hs_bindgen_fe100bb790f40421" hs_bindgen_fe100bb790f40421_base ::
     Ptr Void
- -> IO Int32
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo17@
 hs_bindgen_fe100bb790f40421 :: Ptr (Ptr (Ptr CChar)) -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo17@
-hs_bindgen_fe100bb790f40421 = fromFFIType hs_bindgen_fe100bb790f40421_base
+hs_bindgen_fe100bb790f40421 = \x_0 -> fmap fromFFIType (hs_bindgen_fe100bb790f40421_base (toFFIType x_0))
 {-| __C declaration:__ @foo17@
 
     __defined at:__ @comprehensive\/smoke.h 26:9@
@@ -1637,12 +1637,12 @@ foo17_safe :: Ptr (Ptr (Ptr CChar)) -> IO CInt
 foo17_safe = hs_bindgen_fe100bb790f40421
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo18@
 foreign import ccall safe "hs_bindgen_be2fdd261963c129" hs_bindgen_be2fdd261963c129_base ::
-    Word32
- -> IO Int32
+    CUInt
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo18@
 hs_bindgen_be2fdd261963c129 :: CUInt -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo18@
-hs_bindgen_be2fdd261963c129 = fromFFIType hs_bindgen_be2fdd261963c129_base
+hs_bindgen_be2fdd261963c129 = \x_0 -> fmap fromFFIType (hs_bindgen_be2fdd261963c129_base (toFFIType x_0))
 {-| __C declaration:__ @foo18@
 
     __defined at:__ @comprehensive\/smoke.h 27:9@
@@ -1659,12 +1659,12 @@ foo18_safe :: CUInt -> IO CInt
 foo18_safe = hs_bindgen_be2fdd261963c129
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo19@
 foreign import ccall safe "hs_bindgen_f13f4f1384741d66" hs_bindgen_f13f4f1384741d66_base ::
-    Word32
- -> IO Int32
+    CUInt
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo19@
 hs_bindgen_f13f4f1384741d66 :: CUInt -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo19@
-hs_bindgen_f13f4f1384741d66 = fromFFIType hs_bindgen_f13f4f1384741d66_base
+hs_bindgen_f13f4f1384741d66 = \x_0 -> fmap fromFFIType (hs_bindgen_f13f4f1384741d66_base (toFFIType x_0))
 {-| __C declaration:__ @foo19@
 
     __defined at:__ @comprehensive\/smoke.h 28:9@
@@ -1681,12 +1681,12 @@ foo19_safe :: CUInt -> IO CInt
 foo19_safe = hs_bindgen_f13f4f1384741d66
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo20@
 foreign import ccall safe "hs_bindgen_df4b5257915de35d" hs_bindgen_df4b5257915de35d_base ::
-    Word32
- -> IO Int32
+    CUInt
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo20@
 hs_bindgen_df4b5257915de35d :: Uint -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo20@
-hs_bindgen_df4b5257915de35d = fromFFIType hs_bindgen_df4b5257915de35d_base
+hs_bindgen_df4b5257915de35d = \x_0 -> fmap fromFFIType (hs_bindgen_df4b5257915de35d_base (toFFIType x_0))
 {-| __C declaration:__ @foo20@
 
     __defined at:__ @comprehensive\/smoke.h 29:9@
@@ -1704,11 +1704,11 @@ foo20_safe = hs_bindgen_df4b5257915de35d
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo21@
 foreign import ccall safe "hs_bindgen_d938ee9ccc99950c" hs_bindgen_d938ee9ccc99950c_base ::
     FunPtr Void
- -> IO Int32
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo21@
 hs_bindgen_d938ee9ccc99950c :: FunPtr (CInt -> IO CInt) -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo21@
-hs_bindgen_d938ee9ccc99950c = fromFFIType hs_bindgen_d938ee9ccc99950c_base
+hs_bindgen_d938ee9ccc99950c = \x_0 -> fmap fromFFIType (hs_bindgen_d938ee9ccc99950c_base (toFFIType x_0))
 {-| __C declaration:__ @foo21@
 
     __defined at:__ @comprehensive\/smoke.h 30:9@
@@ -1726,12 +1726,12 @@ foo21_safe = hs_bindgen_d938ee9ccc99950c
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo22@
 foreign import ccall safe "hs_bindgen_aad643346a33f55d" hs_bindgen_aad643346a33f55d_base ::
     FunPtr Void
- -> IO Int32
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo22@
 hs_bindgen_aad643346a33f55d :: FunPtr (CInt -> IO (Ptr CInt)) ->
                                IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo22@
-hs_bindgen_aad643346a33f55d = fromFFIType hs_bindgen_aad643346a33f55d_base
+hs_bindgen_aad643346a33f55d = \x_0 -> fmap fromFFIType (hs_bindgen_aad643346a33f55d_base (toFFIType x_0))
 {-| __C declaration:__ @foo22@
 
     __defined at:__ @comprehensive\/smoke.h 31:9@
@@ -1749,13 +1749,13 @@ foo22_safe = hs_bindgen_aad643346a33f55d
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo23@
 foreign import ccall safe "hs_bindgen_1d8acd1d1684de0c" hs_bindgen_1d8acd1d1684de0c_base ::
     FunPtr Void
- -> IO Int32
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo23@
 hs_bindgen_1d8acd1d1684de0c :: FunPtr (CInt ->
                                        IO (Ptr (Ptr CInt))) ->
                                IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo23@
-hs_bindgen_1d8acd1d1684de0c = fromFFIType hs_bindgen_1d8acd1d1684de0c_base
+hs_bindgen_1d8acd1d1684de0c = \x_0 -> fmap fromFFIType (hs_bindgen_1d8acd1d1684de0c_base (toFFIType x_0))
 {-| __C declaration:__ @foo23@
 
     __defined at:__ @comprehensive\/smoke.h 32:9@
@@ -1773,13 +1773,13 @@ foo23_safe = hs_bindgen_1d8acd1d1684de0c
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo24@
 foreign import ccall safe "hs_bindgen_f754dbb729a16951" hs_bindgen_f754dbb729a16951_base ::
     FunPtr Void
- -> IO Int32
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo24@
 hs_bindgen_f754dbb729a16951 :: FunPtr (CInt ->
                                        IO (Ptr (Ptr (Ptr CInt)))) ->
                                IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo24@
-hs_bindgen_f754dbb729a16951 = fromFFIType hs_bindgen_f754dbb729a16951_base
+hs_bindgen_f754dbb729a16951 = \x_0 -> fmap fromFFIType (hs_bindgen_f754dbb729a16951_base (toFFIType x_0))
 {-| __C declaration:__ @foo24@
 
     __defined at:__ @comprehensive\/smoke.h 33:9@
@@ -1796,12 +1796,12 @@ foo24_safe :: FunPtr (CInt -> IO (Ptr (Ptr (Ptr CInt)))) -> IO CInt
 foo24_safe = hs_bindgen_f754dbb729a16951
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo25@
 foreign import ccall safe "hs_bindgen_bc943db5b2865d6c" hs_bindgen_bc943db5b2865d6c_base ::
-    Int32
+    CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo25@
 hs_bindgen_bc943db5b2865d6c :: CInt -> IO (Ptr CInt)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo25@
-hs_bindgen_bc943db5b2865d6c = fromFFIType hs_bindgen_bc943db5b2865d6c_base
+hs_bindgen_bc943db5b2865d6c = \x_0 -> fmap fromFFIType (hs_bindgen_bc943db5b2865d6c_base (toFFIType x_0))
 {-| __C declaration:__ @foo25@
 
     __defined at:__ @comprehensive\/smoke.h 34:9@
@@ -1818,12 +1818,12 @@ foo25_safe :: CInt -> IO (Ptr CInt)
 foo25_safe = hs_bindgen_bc943db5b2865d6c
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo26@
 foreign import ccall safe "hs_bindgen_51dc51cb7017f47c" hs_bindgen_51dc51cb7017f47c_base ::
-    Int32
+    CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo26@
 hs_bindgen_51dc51cb7017f47c :: CInt -> IO (Ptr (Ptr CInt))
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo26@
-hs_bindgen_51dc51cb7017f47c = fromFFIType hs_bindgen_51dc51cb7017f47c_base
+hs_bindgen_51dc51cb7017f47c = \x_0 -> fmap fromFFIType (hs_bindgen_51dc51cb7017f47c_base (toFFIType x_0))
 {-| __C declaration:__ @foo26@
 
     __defined at:__ @comprehensive\/smoke.h 35:9@
@@ -1840,12 +1840,12 @@ foo26_safe :: CInt -> IO (Ptr (Ptr CInt))
 foo26_safe = hs_bindgen_51dc51cb7017f47c
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo27@
 foreign import ccall safe "hs_bindgen_f53824a6d084bf14" hs_bindgen_f53824a6d084bf14_base ::
-    Int32
+    CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo27@
 hs_bindgen_f53824a6d084bf14 :: CInt -> IO (Ptr (Ptr (Ptr CInt)))
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo27@
-hs_bindgen_f53824a6d084bf14 = fromFFIType hs_bindgen_f53824a6d084bf14_base
+hs_bindgen_f53824a6d084bf14 = \x_0 -> fmap fromFFIType (hs_bindgen_f53824a6d084bf14_base (toFFIType x_0))
 {-| __C declaration:__ @foo27@
 
     __defined at:__ @comprehensive\/smoke.h 36:9@
@@ -1862,12 +1862,12 @@ foo27_safe :: CInt -> IO (Ptr (Ptr (Ptr CInt)))
 foo27_safe = hs_bindgen_f53824a6d084bf14
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo28@
 foreign import ccall safe "hs_bindgen_bbc45bfae582ebaa" hs_bindgen_bbc45bfae582ebaa_base ::
-    Word64
+    CULong
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo28@
 hs_bindgen_bbc45bfae582ebaa :: Size_t -> IO (Ptr (Ptr (Ptr CInt)))
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo28@
-hs_bindgen_bbc45bfae582ebaa = fromFFIType hs_bindgen_bbc45bfae582ebaa_base
+hs_bindgen_bbc45bfae582ebaa = \x_0 -> fmap fromFFIType (hs_bindgen_bbc45bfae582ebaa_base (toFFIType x_0))
 {-| __C declaration:__ @foo28@
 
     __defined at:__ @comprehensive\/smoke.h 37:9@
@@ -1884,14 +1884,14 @@ foo28_safe :: Size_t -> IO (Ptr (Ptr (Ptr CInt)))
 foo28_safe = hs_bindgen_bbc45bfae582ebaa
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_inline_foo@
 foreign import ccall safe "hs_bindgen_258ded5549e4ed29" hs_bindgen_258ded5549e4ed29_base ::
-    Int32
+    CInt
  -> Ptr Void
- -> Int32
+ -> CInt
  -> Ptr Void
  -> Ptr Void
  -> Ptr Void
- -> Word64
- -> IO Int32
+ -> CULong
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_inline_foo@
 hs_bindgen_258ded5549e4ed29 :: CInt ->
                                Ptr CInt ->
@@ -1900,7 +1900,7 @@ hs_bindgen_258ded5549e4ed29 :: CInt ->
                                Ptr (PtrConst CInt) ->
                                PtrConst (PtrConst CInt) -> Size_t -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_inline_foo@
-hs_bindgen_258ded5549e4ed29 = fromFFIType hs_bindgen_258ded5549e4ed29_base
+hs_bindgen_258ded5549e4ed29 = \x_0 -> \x_1 -> \x_2 -> \x_3 -> \x_4 -> \x_5 -> \x_6 -> fmap fromFFIType (hs_bindgen_258ded5549e4ed29_base (toFFIType x_0) (toFFIType x_1) (toFFIType x_2) (toFFIType x_3) (toFFIType x_4) (toFFIType x_5) (toFFIType x_6))
 {-| __C declaration:__ @inline_foo@
 
     __defined at:__ @comprehensive\/smoke.h 80:12@
@@ -1926,7 +1926,7 @@ foreign import ccall unsafe "hs_bindgen_c3403d27760c03de" hs_bindgen_c3403d27760
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo1@
 hs_bindgen_c3403d27760c03de :: IO ()
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo1@
-hs_bindgen_c3403d27760c03de = fromFFIType hs_bindgen_c3403d27760c03de_base
+hs_bindgen_c3403d27760c03de = hs_bindgen_c3403d27760c03de_base
 {-| __C declaration:__ @foo1@
 
     __defined at:__ @comprehensive\/smoke.h 10:9@
@@ -1943,12 +1943,12 @@ foo1_unsafe :: IO ()
 foo1_unsafe = hs_bindgen_c3403d27760c03de
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo2@
 foreign import ccall unsafe "hs_bindgen_4be46c6638f43029" hs_bindgen_4be46c6638f43029_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo2@
 hs_bindgen_4be46c6638f43029 :: CInt -> IO ()
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo2@
-hs_bindgen_4be46c6638f43029 = fromFFIType hs_bindgen_4be46c6638f43029_base
+hs_bindgen_4be46c6638f43029 = \x_0 -> hs_bindgen_4be46c6638f43029_base (toFFIType x_0)
 {-| __C declaration:__ @foo2@
 
     __defined at:__ @comprehensive\/smoke.h 11:9@
@@ -1965,13 +1965,13 @@ foo2_unsafe :: CInt -> IO ()
 foo2_unsafe = hs_bindgen_4be46c6638f43029
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo3@
 foreign import ccall unsafe "hs_bindgen_e8661399efa3c25e" hs_bindgen_e8661399efa3c25e_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
  -> IO ()
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo3@
 hs_bindgen_e8661399efa3c25e :: CInt -> CInt -> IO ()
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo3@
-hs_bindgen_e8661399efa3c25e = fromFFIType hs_bindgen_e8661399efa3c25e_base
+hs_bindgen_e8661399efa3c25e = \x_0 -> \x_1 -> hs_bindgen_e8661399efa3c25e_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @foo3@
 
     __defined at:__ @comprehensive\/smoke.h 12:9@
@@ -1988,11 +1988,11 @@ foo3_unsafe :: CInt -> CInt -> IO ()
 foo3_unsafe = hs_bindgen_e8661399efa3c25e
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo4@
 foreign import ccall unsafe "hs_bindgen_f7977cfca2b865a1" hs_bindgen_f7977cfca2b865a1_base ::
-    IO Int32
+    IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo4@
 hs_bindgen_f7977cfca2b865a1 :: IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo4@
-hs_bindgen_f7977cfca2b865a1 = fromFFIType hs_bindgen_f7977cfca2b865a1_base
+hs_bindgen_f7977cfca2b865a1 = fmap fromFFIType hs_bindgen_f7977cfca2b865a1_base
 {-| __C declaration:__ @foo4@
 
     __defined at:__ @comprehensive\/smoke.h 13:9@
@@ -2009,12 +2009,12 @@ foo4_unsafe :: IO CInt
 foo4_unsafe = hs_bindgen_f7977cfca2b865a1
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo5@
 foreign import ccall unsafe "hs_bindgen_bedb91b426f6e8db" hs_bindgen_bedb91b426f6e8db_base ::
-    Int32
- -> IO Int8
+    CInt
+ -> IO CChar
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo5@
 hs_bindgen_bedb91b426f6e8db :: CInt -> IO CChar
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo5@
-hs_bindgen_bedb91b426f6e8db = fromFFIType hs_bindgen_bedb91b426f6e8db_base
+hs_bindgen_bedb91b426f6e8db = \x_0 -> fmap fromFFIType (hs_bindgen_bedb91b426f6e8db_base (toFFIType x_0))
 {-| __C declaration:__ @foo5@
 
     __defined at:__ @comprehensive\/smoke.h 14:9@
@@ -2031,13 +2031,13 @@ foo5_unsafe :: CInt -> IO CChar
 foo5_unsafe = hs_bindgen_bedb91b426f6e8db
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo6@
 foreign import ccall unsafe "hs_bindgen_2b7a0c438c9bf357" hs_bindgen_2b7a0c438c9bf357_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo6@
 hs_bindgen_2b7a0c438c9bf357 :: CInt -> CInt -> IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo6@
-hs_bindgen_2b7a0c438c9bf357 = fromFFIType hs_bindgen_2b7a0c438c9bf357_base
+hs_bindgen_2b7a0c438c9bf357 = \x_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_2b7a0c438c9bf357_base (toFFIType x_0) (toFFIType x_1))
 {-| __C declaration:__ @foo6@
 
     __defined at:__ @comprehensive\/smoke.h 15:9@
@@ -2059,7 +2059,7 @@ foreign import ccall unsafe "hs_bindgen_463e49e39aad627b" hs_bindgen_463e49e39aa
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo7@
 hs_bindgen_463e49e39aad627b :: Ptr CChar -> IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo7@
-hs_bindgen_463e49e39aad627b = fromFFIType hs_bindgen_463e49e39aad627b_base
+hs_bindgen_463e49e39aad627b = \x_0 -> fmap fromFFIType (hs_bindgen_463e49e39aad627b_base (toFFIType x_0))
 {-| __C declaration:__ @foo7@
 
     __defined at:__ @comprehensive\/smoke.h 16:9@
@@ -2081,7 +2081,7 @@ foreign import ccall unsafe "hs_bindgen_70751b3802485c4e" hs_bindgen_70751b38024
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo8@
 hs_bindgen_70751b3802485c4e :: Ptr CChar -> IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo8@
-hs_bindgen_70751b3802485c4e = fromFFIType hs_bindgen_70751b3802485c4e_base
+hs_bindgen_70751b3802485c4e = \x_0 -> fmap fromFFIType (hs_bindgen_70751b3802485c4e_base (toFFIType x_0))
 {-| __C declaration:__ @foo8@
 
     __defined at:__ @comprehensive\/smoke.h 17:9@
@@ -2104,7 +2104,7 @@ foreign import ccall unsafe "hs_bindgen_7cda1a20c5ed8c7a" hs_bindgen_7cda1a20c5e
 hs_bindgen_7cda1a20c5ed8c7a :: FunPtr (IO (Ptr CChar)) ->
                                IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo9@
-hs_bindgen_7cda1a20c5ed8c7a = fromFFIType hs_bindgen_7cda1a20c5ed8c7a_base
+hs_bindgen_7cda1a20c5ed8c7a = \x_0 -> fmap fromFFIType (hs_bindgen_7cda1a20c5ed8c7a_base (toFFIType x_0))
 {-| __C declaration:__ @foo9@
 
     __defined at:__ @comprehensive\/smoke.h 18:9@
@@ -2127,7 +2127,7 @@ foreign import ccall unsafe "hs_bindgen_25ddc364c2fbc486" hs_bindgen_25ddc364c2f
 hs_bindgen_25ddc364c2fbc486 :: FunPtr (CInt -> IO (Ptr CChar)) ->
                                IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo10@
-hs_bindgen_25ddc364c2fbc486 = fromFFIType hs_bindgen_25ddc364c2fbc486_base
+hs_bindgen_25ddc364c2fbc486 = \x_0 -> fmap fromFFIType (hs_bindgen_25ddc364c2fbc486_base (toFFIType x_0))
 {-| __C declaration:__ @foo10@
 
     __defined at:__ @comprehensive\/smoke.h 19:9@
@@ -2150,7 +2150,7 @@ foreign import ccall unsafe "hs_bindgen_59d6c7b752cf0d2c" hs_bindgen_59d6c7b752c
 hs_bindgen_59d6c7b752cf0d2c :: FunPtr (IO (Ptr Void)) ->
                                IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo11@
-hs_bindgen_59d6c7b752cf0d2c = fromFFIType hs_bindgen_59d6c7b752cf0d2c_base
+hs_bindgen_59d6c7b752cf0d2c = \x_0 -> fmap fromFFIType (hs_bindgen_59d6c7b752cf0d2c_base (toFFIType x_0))
 {-| __C declaration:__ @foo11@
 
     __defined at:__ @comprehensive\/smoke.h 20:9@
@@ -2173,7 +2173,7 @@ foreign import ccall unsafe "hs_bindgen_6f61d879de93f509" hs_bindgen_6f61d879de9
 hs_bindgen_6f61d879de93f509 :: FunPtr (CInt -> IO (Ptr Void)) ->
                                IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo12@
-hs_bindgen_6f61d879de93f509 = fromFFIType hs_bindgen_6f61d879de93f509_base
+hs_bindgen_6f61d879de93f509 = \x_0 -> fmap fromFFIType (hs_bindgen_6f61d879de93f509_base (toFFIType x_0))
 {-| __C declaration:__ @foo12@
 
     __defined at:__ @comprehensive\/smoke.h 21:9@
@@ -2196,7 +2196,7 @@ foreign import ccall unsafe "hs_bindgen_325eccfd4464f38f" hs_bindgen_325eccfd446
 hs_bindgen_325eccfd4464f38f :: Ptr (Elem (IncompleteArray CChar)) ->
                                IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo13@
-hs_bindgen_325eccfd4464f38f = fromFFIType hs_bindgen_325eccfd4464f38f_base
+hs_bindgen_325eccfd4464f38f = \x_0 -> fmap fromFFIType (hs_bindgen_325eccfd4464f38f_base (toFFIType x_0))
 {-| __C declaration:__ @foo13@
 
     __defined at:__ @comprehensive\/smoke.h 22:9@
@@ -2220,7 +2220,7 @@ foreign import ccall unsafe "hs_bindgen_e6168413cff5674e" hs_bindgen_e6168413cff
 hs_bindgen_e6168413cff5674e :: Ptr (Elem (IncompleteArray CChar)) ->
                                IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo14@
-hs_bindgen_e6168413cff5674e = fromFFIType hs_bindgen_e6168413cff5674e_base
+hs_bindgen_e6168413cff5674e = \x_0 -> fmap fromFFIType (hs_bindgen_e6168413cff5674e_base (toFFIType x_0))
 {-| __C declaration:__ @foo14@
 
     __defined at:__ @comprehensive\/smoke.h 23:9@
@@ -2245,7 +2245,7 @@ hs_bindgen_0ea84b195eb56e51 :: Ptr (Elem (ConstantArray 5
                                                         CChar)) ->
                                IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo15@
-hs_bindgen_0ea84b195eb56e51 = fromFFIType hs_bindgen_0ea84b195eb56e51_base
+hs_bindgen_0ea84b195eb56e51 = \x_0 -> fmap fromFFIType (hs_bindgen_0ea84b195eb56e51_base (toFFIType x_0))
 {-| __C declaration:__ @foo15@
 
     __defined at:__ @comprehensive\/smoke.h 24:9@
@@ -2263,12 +2263,12 @@ foo15_unsafe :: Ptr (Elem (ConstantArray 5 CChar)) ->
 foo15_unsafe = hs_bindgen_0ea84b195eb56e51
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo16@
 foreign import ccall unsafe "hs_bindgen_46c499f7b2f29dbb" hs_bindgen_46c499f7b2f29dbb_base ::
-    Int32
+    CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo16@
 hs_bindgen_46c499f7b2f29dbb :: CInt -> IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo16@
-hs_bindgen_46c499f7b2f29dbb = fromFFIType hs_bindgen_46c499f7b2f29dbb_base
+hs_bindgen_46c499f7b2f29dbb = \x_0 -> fmap fromFFIType (hs_bindgen_46c499f7b2f29dbb_base (toFFIType x_0))
 {-| __C declaration:__ @foo16@
 
     __defined at:__ @comprehensive\/smoke.h 25:9@
@@ -2286,11 +2286,11 @@ foo16_unsafe = hs_bindgen_46c499f7b2f29dbb
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo17@
 foreign import ccall unsafe "hs_bindgen_7d34cd671fa1d8c9" hs_bindgen_7d34cd671fa1d8c9_base ::
     Ptr Void
- -> IO Int32
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo17@
 hs_bindgen_7d34cd671fa1d8c9 :: Ptr (Ptr (Ptr CChar)) -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo17@
-hs_bindgen_7d34cd671fa1d8c9 = fromFFIType hs_bindgen_7d34cd671fa1d8c9_base
+hs_bindgen_7d34cd671fa1d8c9 = \x_0 -> fmap fromFFIType (hs_bindgen_7d34cd671fa1d8c9_base (toFFIType x_0))
 {-| __C declaration:__ @foo17@
 
     __defined at:__ @comprehensive\/smoke.h 26:9@
@@ -2307,12 +2307,12 @@ foo17_unsafe :: Ptr (Ptr (Ptr CChar)) -> IO CInt
 foo17_unsafe = hs_bindgen_7d34cd671fa1d8c9
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo18@
 foreign import ccall unsafe "hs_bindgen_68092727aed54767" hs_bindgen_68092727aed54767_base ::
-    Word32
- -> IO Int32
+    CUInt
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo18@
 hs_bindgen_68092727aed54767 :: CUInt -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo18@
-hs_bindgen_68092727aed54767 = fromFFIType hs_bindgen_68092727aed54767_base
+hs_bindgen_68092727aed54767 = \x_0 -> fmap fromFFIType (hs_bindgen_68092727aed54767_base (toFFIType x_0))
 {-| __C declaration:__ @foo18@
 
     __defined at:__ @comprehensive\/smoke.h 27:9@
@@ -2329,12 +2329,12 @@ foo18_unsafe :: CUInt -> IO CInt
 foo18_unsafe = hs_bindgen_68092727aed54767
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo19@
 foreign import ccall unsafe "hs_bindgen_16ecb628ad8bc943" hs_bindgen_16ecb628ad8bc943_base ::
-    Word32
- -> IO Int32
+    CUInt
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo19@
 hs_bindgen_16ecb628ad8bc943 :: CUInt -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo19@
-hs_bindgen_16ecb628ad8bc943 = fromFFIType hs_bindgen_16ecb628ad8bc943_base
+hs_bindgen_16ecb628ad8bc943 = \x_0 -> fmap fromFFIType (hs_bindgen_16ecb628ad8bc943_base (toFFIType x_0))
 {-| __C declaration:__ @foo19@
 
     __defined at:__ @comprehensive\/smoke.h 28:9@
@@ -2351,12 +2351,12 @@ foo19_unsafe :: CUInt -> IO CInt
 foo19_unsafe = hs_bindgen_16ecb628ad8bc943
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo20@
 foreign import ccall unsafe "hs_bindgen_137b6b359edafeb7" hs_bindgen_137b6b359edafeb7_base ::
-    Word32
- -> IO Int32
+    CUInt
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo20@
 hs_bindgen_137b6b359edafeb7 :: Uint -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo20@
-hs_bindgen_137b6b359edafeb7 = fromFFIType hs_bindgen_137b6b359edafeb7_base
+hs_bindgen_137b6b359edafeb7 = \x_0 -> fmap fromFFIType (hs_bindgen_137b6b359edafeb7_base (toFFIType x_0))
 {-| __C declaration:__ @foo20@
 
     __defined at:__ @comprehensive\/smoke.h 29:9@
@@ -2374,11 +2374,11 @@ foo20_unsafe = hs_bindgen_137b6b359edafeb7
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo21@
 foreign import ccall unsafe "hs_bindgen_30ddc0dce4dbba94" hs_bindgen_30ddc0dce4dbba94_base ::
     FunPtr Void
- -> IO Int32
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo21@
 hs_bindgen_30ddc0dce4dbba94 :: FunPtr (CInt -> IO CInt) -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo21@
-hs_bindgen_30ddc0dce4dbba94 = fromFFIType hs_bindgen_30ddc0dce4dbba94_base
+hs_bindgen_30ddc0dce4dbba94 = \x_0 -> fmap fromFFIType (hs_bindgen_30ddc0dce4dbba94_base (toFFIType x_0))
 {-| __C declaration:__ @foo21@
 
     __defined at:__ @comprehensive\/smoke.h 30:9@
@@ -2396,12 +2396,12 @@ foo21_unsafe = hs_bindgen_30ddc0dce4dbba94
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo22@
 foreign import ccall unsafe "hs_bindgen_27c8fe28c4787aef" hs_bindgen_27c8fe28c4787aef_base ::
     FunPtr Void
- -> IO Int32
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo22@
 hs_bindgen_27c8fe28c4787aef :: FunPtr (CInt -> IO (Ptr CInt)) ->
                                IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo22@
-hs_bindgen_27c8fe28c4787aef = fromFFIType hs_bindgen_27c8fe28c4787aef_base
+hs_bindgen_27c8fe28c4787aef = \x_0 -> fmap fromFFIType (hs_bindgen_27c8fe28c4787aef_base (toFFIType x_0))
 {-| __C declaration:__ @foo22@
 
     __defined at:__ @comprehensive\/smoke.h 31:9@
@@ -2419,13 +2419,13 @@ foo22_unsafe = hs_bindgen_27c8fe28c4787aef
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo23@
 foreign import ccall unsafe "hs_bindgen_b88d57f2bfe36cf8" hs_bindgen_b88d57f2bfe36cf8_base ::
     FunPtr Void
- -> IO Int32
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo23@
 hs_bindgen_b88d57f2bfe36cf8 :: FunPtr (CInt ->
                                        IO (Ptr (Ptr CInt))) ->
                                IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo23@
-hs_bindgen_b88d57f2bfe36cf8 = fromFFIType hs_bindgen_b88d57f2bfe36cf8_base
+hs_bindgen_b88d57f2bfe36cf8 = \x_0 -> fmap fromFFIType (hs_bindgen_b88d57f2bfe36cf8_base (toFFIType x_0))
 {-| __C declaration:__ @foo23@
 
     __defined at:__ @comprehensive\/smoke.h 32:9@
@@ -2443,13 +2443,13 @@ foo23_unsafe = hs_bindgen_b88d57f2bfe36cf8
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo24@
 foreign import ccall unsafe "hs_bindgen_257c8c4361081ed9" hs_bindgen_257c8c4361081ed9_base ::
     FunPtr Void
- -> IO Int32
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo24@
 hs_bindgen_257c8c4361081ed9 :: FunPtr (CInt ->
                                        IO (Ptr (Ptr (Ptr CInt)))) ->
                                IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo24@
-hs_bindgen_257c8c4361081ed9 = fromFFIType hs_bindgen_257c8c4361081ed9_base
+hs_bindgen_257c8c4361081ed9 = \x_0 -> fmap fromFFIType (hs_bindgen_257c8c4361081ed9_base (toFFIType x_0))
 {-| __C declaration:__ @foo24@
 
     __defined at:__ @comprehensive\/smoke.h 33:9@
@@ -2467,12 +2467,12 @@ foo24_unsafe :: FunPtr (CInt -> IO (Ptr (Ptr (Ptr CInt)))) ->
 foo24_unsafe = hs_bindgen_257c8c4361081ed9
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo25@
 foreign import ccall unsafe "hs_bindgen_401c9920eb162e99" hs_bindgen_401c9920eb162e99_base ::
-    Int32
+    CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo25@
 hs_bindgen_401c9920eb162e99 :: CInt -> IO (Ptr CInt)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo25@
-hs_bindgen_401c9920eb162e99 = fromFFIType hs_bindgen_401c9920eb162e99_base
+hs_bindgen_401c9920eb162e99 = \x_0 -> fmap fromFFIType (hs_bindgen_401c9920eb162e99_base (toFFIType x_0))
 {-| __C declaration:__ @foo25@
 
     __defined at:__ @comprehensive\/smoke.h 34:9@
@@ -2489,12 +2489,12 @@ foo25_unsafe :: CInt -> IO (Ptr CInt)
 foo25_unsafe = hs_bindgen_401c9920eb162e99
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo26@
 foreign import ccall unsafe "hs_bindgen_bf36517f6f9412b1" hs_bindgen_bf36517f6f9412b1_base ::
-    Int32
+    CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo26@
 hs_bindgen_bf36517f6f9412b1 :: CInt -> IO (Ptr (Ptr CInt))
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo26@
-hs_bindgen_bf36517f6f9412b1 = fromFFIType hs_bindgen_bf36517f6f9412b1_base
+hs_bindgen_bf36517f6f9412b1 = \x_0 -> fmap fromFFIType (hs_bindgen_bf36517f6f9412b1_base (toFFIType x_0))
 {-| __C declaration:__ @foo26@
 
     __defined at:__ @comprehensive\/smoke.h 35:9@
@@ -2511,12 +2511,12 @@ foo26_unsafe :: CInt -> IO (Ptr (Ptr CInt))
 foo26_unsafe = hs_bindgen_bf36517f6f9412b1
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo27@
 foreign import ccall unsafe "hs_bindgen_6727bd704a28f329" hs_bindgen_6727bd704a28f329_base ::
-    Int32
+    CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo27@
 hs_bindgen_6727bd704a28f329 :: CInt -> IO (Ptr (Ptr (Ptr CInt)))
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo27@
-hs_bindgen_6727bd704a28f329 = fromFFIType hs_bindgen_6727bd704a28f329_base
+hs_bindgen_6727bd704a28f329 = \x_0 -> fmap fromFFIType (hs_bindgen_6727bd704a28f329_base (toFFIType x_0))
 {-| __C declaration:__ @foo27@
 
     __defined at:__ @comprehensive\/smoke.h 36:9@
@@ -2533,12 +2533,12 @@ foo27_unsafe :: CInt -> IO (Ptr (Ptr (Ptr CInt)))
 foo27_unsafe = hs_bindgen_6727bd704a28f329
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo28@
 foreign import ccall unsafe "hs_bindgen_c5bd28320c79f368" hs_bindgen_c5bd28320c79f368_base ::
-    Word64
+    CULong
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo28@
 hs_bindgen_c5bd28320c79f368 :: Size_t -> IO (Ptr (Ptr (Ptr CInt)))
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo28@
-hs_bindgen_c5bd28320c79f368 = fromFFIType hs_bindgen_c5bd28320c79f368_base
+hs_bindgen_c5bd28320c79f368 = \x_0 -> fmap fromFFIType (hs_bindgen_c5bd28320c79f368_base (toFFIType x_0))
 {-| __C declaration:__ @foo28@
 
     __defined at:__ @comprehensive\/smoke.h 37:9@
@@ -2555,14 +2555,14 @@ foo28_unsafe :: Size_t -> IO (Ptr (Ptr (Ptr CInt)))
 foo28_unsafe = hs_bindgen_c5bd28320c79f368
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_inline_foo@
 foreign import ccall unsafe "hs_bindgen_4b6dbdd1ba04d213" hs_bindgen_4b6dbdd1ba04d213_base ::
-    Int32
+    CInt
  -> Ptr Void
- -> Int32
+ -> CInt
  -> Ptr Void
  -> Ptr Void
  -> Ptr Void
- -> Word64
- -> IO Int32
+ -> CULong
+ -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_inline_foo@
 hs_bindgen_4b6dbdd1ba04d213 :: CInt ->
                                Ptr CInt ->
@@ -2571,7 +2571,7 @@ hs_bindgen_4b6dbdd1ba04d213 :: CInt ->
                                Ptr (PtrConst CInt) ->
                                PtrConst (PtrConst CInt) -> Size_t -> IO CInt
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_inline_foo@
-hs_bindgen_4b6dbdd1ba04d213 = fromFFIType hs_bindgen_4b6dbdd1ba04d213_base
+hs_bindgen_4b6dbdd1ba04d213 = \x_0 -> \x_1 -> \x_2 -> \x_3 -> \x_4 -> \x_5 -> \x_6 -> fmap fromFFIType (hs_bindgen_4b6dbdd1ba04d213_base (toFFIType x_0) (toFFIType x_1) (toFFIType x_2) (toFFIType x_3) (toFFIType x_4) (toFFIType x_5) (toFFIType x_6))
 {-| __C declaration:__ @inline_foo@
 
     __defined at:__ @comprehensive\/smoke.h 80:12@
@@ -2597,7 +2597,7 @@ foreign import ccall unsafe "hs_bindgen_abdd0c6dd73d0854" hs_bindgen_abdd0c6dd73
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo1@
 hs_bindgen_abdd0c6dd73d0854 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo1@
-hs_bindgen_abdd0c6dd73d0854 = fromFFIType hs_bindgen_abdd0c6dd73d0854_base
+hs_bindgen_abdd0c6dd73d0854 = fmap fromFFIType hs_bindgen_abdd0c6dd73d0854_base
 {-# NOINLINE foo1_funptr #-}
 {-| __C declaration:__ @foo1@
 
@@ -2619,7 +2619,7 @@ foreign import ccall unsafe "hs_bindgen_95f5e8dc2a878cd6" hs_bindgen_95f5e8dc2a8
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo2@
 hs_bindgen_95f5e8dc2a878cd6 :: IO (FunPtr (CInt -> IO ()))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo2@
-hs_bindgen_95f5e8dc2a878cd6 = fromFFIType hs_bindgen_95f5e8dc2a878cd6_base
+hs_bindgen_95f5e8dc2a878cd6 = fmap fromFFIType hs_bindgen_95f5e8dc2a878cd6_base
 {-# NOINLINE foo2_funptr #-}
 {-| __C declaration:__ @foo2@
 
@@ -2641,7 +2641,7 @@ foreign import ccall unsafe "hs_bindgen_9970868a81b829db" hs_bindgen_9970868a81b
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo3@
 hs_bindgen_9970868a81b829db :: IO (FunPtr (CInt -> CInt -> IO ()))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo3@
-hs_bindgen_9970868a81b829db = fromFFIType hs_bindgen_9970868a81b829db_base
+hs_bindgen_9970868a81b829db = fmap fromFFIType hs_bindgen_9970868a81b829db_base
 {-# NOINLINE foo3_funptr #-}
 {-| __C declaration:__ @foo3@
 
@@ -2663,7 +2663,7 @@ foreign import ccall unsafe "hs_bindgen_c2fb72f24a5149fb" hs_bindgen_c2fb72f24a5
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo4@
 hs_bindgen_c2fb72f24a5149fb :: IO (FunPtr (IO CInt))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo4@
-hs_bindgen_c2fb72f24a5149fb = fromFFIType hs_bindgen_c2fb72f24a5149fb_base
+hs_bindgen_c2fb72f24a5149fb = fmap fromFFIType hs_bindgen_c2fb72f24a5149fb_base
 {-# NOINLINE foo4_funptr #-}
 {-| __C declaration:__ @foo4@
 
@@ -2685,7 +2685,7 @@ foreign import ccall unsafe "hs_bindgen_3d952ee4c4ee378f" hs_bindgen_3d952ee4c4e
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo5@
 hs_bindgen_3d952ee4c4ee378f :: IO (FunPtr (CInt -> IO CChar))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo5@
-hs_bindgen_3d952ee4c4ee378f = fromFFIType hs_bindgen_3d952ee4c4ee378f_base
+hs_bindgen_3d952ee4c4ee378f = fmap fromFFIType hs_bindgen_3d952ee4c4ee378f_base
 {-# NOINLINE foo5_funptr #-}
 {-| __C declaration:__ @foo5@
 
@@ -2708,7 +2708,7 @@ foreign import ccall unsafe "hs_bindgen_478897bd7cf090b7" hs_bindgen_478897bd7cf
 hs_bindgen_478897bd7cf090b7 :: IO (FunPtr (CInt ->
                                            CInt -> IO (Ptr CChar)))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo6@
-hs_bindgen_478897bd7cf090b7 = fromFFIType hs_bindgen_478897bd7cf090b7_base
+hs_bindgen_478897bd7cf090b7 = fmap fromFFIType hs_bindgen_478897bd7cf090b7_base
 {-# NOINLINE foo6_funptr #-}
 {-| __C declaration:__ @foo6@
 
@@ -2731,7 +2731,7 @@ foreign import ccall unsafe "hs_bindgen_2804b55bcc6495bd" hs_bindgen_2804b55bcc6
 hs_bindgen_2804b55bcc6495bd :: IO (FunPtr (Ptr CChar ->
                                            IO (Ptr CChar)))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo7@
-hs_bindgen_2804b55bcc6495bd = fromFFIType hs_bindgen_2804b55bcc6495bd_base
+hs_bindgen_2804b55bcc6495bd = fmap fromFFIType hs_bindgen_2804b55bcc6495bd_base
 {-# NOINLINE foo7_funptr #-}
 {-| __C declaration:__ @foo7@
 
@@ -2754,7 +2754,7 @@ foreign import ccall unsafe "hs_bindgen_dc0ab953845109e0" hs_bindgen_dc0ab953845
 hs_bindgen_dc0ab953845109e0 :: IO (FunPtr (Ptr CChar ->
                                            IO (Ptr CChar)))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo8@
-hs_bindgen_dc0ab953845109e0 = fromFFIType hs_bindgen_dc0ab953845109e0_base
+hs_bindgen_dc0ab953845109e0 = fmap fromFFIType hs_bindgen_dc0ab953845109e0_base
 {-# NOINLINE foo8_funptr #-}
 {-| __C declaration:__ @foo8@
 
@@ -2777,7 +2777,7 @@ foreign import ccall unsafe "hs_bindgen_6c6b48e80df5d80b" hs_bindgen_6c6b48e80df
 hs_bindgen_6c6b48e80df5d80b :: IO (FunPtr (FunPtr (IO (Ptr CChar)) ->
                                            IO (Ptr CChar)))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo9@
-hs_bindgen_6c6b48e80df5d80b = fromFFIType hs_bindgen_6c6b48e80df5d80b_base
+hs_bindgen_6c6b48e80df5d80b = fmap fromFFIType hs_bindgen_6c6b48e80df5d80b_base
 {-# NOINLINE foo9_funptr #-}
 {-| __C declaration:__ @foo9@
 
@@ -2801,7 +2801,7 @@ hs_bindgen_fc0a56da1aa3e234 :: IO (FunPtr (FunPtr (CInt ->
                                                    IO (Ptr CChar)) ->
                                            IO (Ptr CChar)))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo10@
-hs_bindgen_fc0a56da1aa3e234 = fromFFIType hs_bindgen_fc0a56da1aa3e234_base
+hs_bindgen_fc0a56da1aa3e234 = fmap fromFFIType hs_bindgen_fc0a56da1aa3e234_base
 {-# NOINLINE foo10_funptr #-}
 {-| __C declaration:__ @foo10@
 
@@ -2825,7 +2825,7 @@ foreign import ccall unsafe "hs_bindgen_b882a6f77db6bd0e" hs_bindgen_b882a6f77db
 hs_bindgen_b882a6f77db6bd0e :: IO (FunPtr (FunPtr (IO (Ptr Void)) ->
                                            IO (Ptr Void)))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo11@
-hs_bindgen_b882a6f77db6bd0e = fromFFIType hs_bindgen_b882a6f77db6bd0e_base
+hs_bindgen_b882a6f77db6bd0e = fmap fromFFIType hs_bindgen_b882a6f77db6bd0e_base
 {-# NOINLINE foo11_funptr #-}
 {-| __C declaration:__ @foo11@
 
@@ -2849,7 +2849,7 @@ hs_bindgen_c219c7d6d459a7e0 :: IO (FunPtr (FunPtr (CInt ->
                                                    IO (Ptr Void)) ->
                                            IO (Ptr Void)))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo12@
-hs_bindgen_c219c7d6d459a7e0 = fromFFIType hs_bindgen_c219c7d6d459a7e0_base
+hs_bindgen_c219c7d6d459a7e0 = fmap fromFFIType hs_bindgen_c219c7d6d459a7e0_base
 {-# NOINLINE foo12_funptr #-}
 {-| __C declaration:__ @foo12@
 
@@ -2873,7 +2873,7 @@ foreign import ccall unsafe "hs_bindgen_caa14e75b1229a54" hs_bindgen_caa14e75b12
 hs_bindgen_caa14e75b1229a54 :: IO (FunPtr (Ptr (Elem (IncompleteArray CChar)) ->
                                            IO (Ptr CChar)))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo13@
-hs_bindgen_caa14e75b1229a54 = fromFFIType hs_bindgen_caa14e75b1229a54_base
+hs_bindgen_caa14e75b1229a54 = fmap fromFFIType hs_bindgen_caa14e75b1229a54_base
 {-# NOINLINE foo13_funptr #-}
 {-| __C declaration:__ @foo13@
 
@@ -2897,7 +2897,7 @@ foreign import ccall unsafe "hs_bindgen_3cb093b66f7944d4" hs_bindgen_3cb093b66f7
 hs_bindgen_3cb093b66f7944d4 :: IO (FunPtr (Ptr (Elem (IncompleteArray CChar)) ->
                                            IO (Ptr CChar)))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo14@
-hs_bindgen_3cb093b66f7944d4 = fromFFIType hs_bindgen_3cb093b66f7944d4_base
+hs_bindgen_3cb093b66f7944d4 = fmap fromFFIType hs_bindgen_3cb093b66f7944d4_base
 {-# NOINLINE foo14_funptr #-}
 {-| __C declaration:__ @foo14@
 
@@ -2922,7 +2922,7 @@ hs_bindgen_fe12aea8f26fdc44 :: IO (FunPtr (Ptr (Elem (ConstantArray 5
                                                                     CChar)) ->
                                            IO (Ptr CChar)))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo15@
-hs_bindgen_fe12aea8f26fdc44 = fromFFIType hs_bindgen_fe12aea8f26fdc44_base
+hs_bindgen_fe12aea8f26fdc44 = fmap fromFFIType hs_bindgen_fe12aea8f26fdc44_base
 {-# NOINLINE foo15_funptr #-}
 {-| __C declaration:__ @foo15@
 
@@ -2945,7 +2945,7 @@ foreign import ccall unsafe "hs_bindgen_7682897a88740d24" hs_bindgen_7682897a887
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo16@
 hs_bindgen_7682897a88740d24 :: IO (FunPtr (CInt -> IO (Ptr CChar)))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo16@
-hs_bindgen_7682897a88740d24 = fromFFIType hs_bindgen_7682897a88740d24_base
+hs_bindgen_7682897a88740d24 = fmap fromFFIType hs_bindgen_7682897a88740d24_base
 {-# NOINLINE foo16_funptr #-}
 {-| __C declaration:__ @foo16@
 
@@ -2968,7 +2968,7 @@ foreign import ccall unsafe "hs_bindgen_a8ad868a6dc425f9" hs_bindgen_a8ad868a6dc
 hs_bindgen_a8ad868a6dc425f9 :: IO (FunPtr (Ptr (Ptr (Ptr CChar)) ->
                                            IO CInt))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo17@
-hs_bindgen_a8ad868a6dc425f9 = fromFFIType hs_bindgen_a8ad868a6dc425f9_base
+hs_bindgen_a8ad868a6dc425f9 = fmap fromFFIType hs_bindgen_a8ad868a6dc425f9_base
 {-# NOINLINE foo17_funptr #-}
 {-| __C declaration:__ @foo17@
 
@@ -2990,7 +2990,7 @@ foreign import ccall unsafe "hs_bindgen_245d12e0c60b976b" hs_bindgen_245d12e0c60
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo18@
 hs_bindgen_245d12e0c60b976b :: IO (FunPtr (CUInt -> IO CInt))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo18@
-hs_bindgen_245d12e0c60b976b = fromFFIType hs_bindgen_245d12e0c60b976b_base
+hs_bindgen_245d12e0c60b976b = fmap fromFFIType hs_bindgen_245d12e0c60b976b_base
 {-# NOINLINE foo18_funptr #-}
 {-| __C declaration:__ @foo18@
 
@@ -3012,7 +3012,7 @@ foreign import ccall unsafe "hs_bindgen_81d64147225cc2ab" hs_bindgen_81d64147225
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo19@
 hs_bindgen_81d64147225cc2ab :: IO (FunPtr (CUInt -> IO CInt))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo19@
-hs_bindgen_81d64147225cc2ab = fromFFIType hs_bindgen_81d64147225cc2ab_base
+hs_bindgen_81d64147225cc2ab = fmap fromFFIType hs_bindgen_81d64147225cc2ab_base
 {-# NOINLINE foo19_funptr #-}
 {-| __C declaration:__ @foo19@
 
@@ -3034,7 +3034,7 @@ foreign import ccall unsafe "hs_bindgen_b9d12fbbd2c70f4f" hs_bindgen_b9d12fbbd2c
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo20@
 hs_bindgen_b9d12fbbd2c70f4f :: IO (FunPtr (Uint -> IO CInt))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo20@
-hs_bindgen_b9d12fbbd2c70f4f = fromFFIType hs_bindgen_b9d12fbbd2c70f4f_base
+hs_bindgen_b9d12fbbd2c70f4f = fmap fromFFIType hs_bindgen_b9d12fbbd2c70f4f_base
 {-# NOINLINE foo20_funptr #-}
 {-| __C declaration:__ @foo20@
 
@@ -3058,7 +3058,7 @@ hs_bindgen_a3c85769041747ba :: IO (FunPtr (FunPtr (CInt ->
                                                    IO CInt) ->
                                            IO CInt))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo21@
-hs_bindgen_a3c85769041747ba = fromFFIType hs_bindgen_a3c85769041747ba_base
+hs_bindgen_a3c85769041747ba = fmap fromFFIType hs_bindgen_a3c85769041747ba_base
 {-# NOINLINE foo21_funptr #-}
 {-| __C declaration:__ @foo21@
 
@@ -3082,7 +3082,7 @@ hs_bindgen_5fc122411b8a03ea :: IO (FunPtr (FunPtr (CInt ->
                                                    IO (Ptr CInt)) ->
                                            IO CInt))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo22@
-hs_bindgen_5fc122411b8a03ea = fromFFIType hs_bindgen_5fc122411b8a03ea_base
+hs_bindgen_5fc122411b8a03ea = fmap fromFFIType hs_bindgen_5fc122411b8a03ea_base
 {-# NOINLINE foo22_funptr #-}
 {-| __C declaration:__ @foo22@
 
@@ -3106,7 +3106,7 @@ hs_bindgen_a7fcbb7f1b7f29cb :: IO (FunPtr (FunPtr (CInt ->
                                                    IO (Ptr (Ptr CInt))) ->
                                            IO CInt))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo23@
-hs_bindgen_a7fcbb7f1b7f29cb = fromFFIType hs_bindgen_a7fcbb7f1b7f29cb_base
+hs_bindgen_a7fcbb7f1b7f29cb = fmap fromFFIType hs_bindgen_a7fcbb7f1b7f29cb_base
 {-# NOINLINE foo23_funptr #-}
 {-| __C declaration:__ @foo23@
 
@@ -3131,7 +3131,7 @@ hs_bindgen_9c5a2b0e6d53b7c9 :: IO (FunPtr (FunPtr (CInt ->
                                                    IO (Ptr (Ptr (Ptr CInt)))) ->
                                            IO CInt))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo24@
-hs_bindgen_9c5a2b0e6d53b7c9 = fromFFIType hs_bindgen_9c5a2b0e6d53b7c9_base
+hs_bindgen_9c5a2b0e6d53b7c9 = fmap fromFFIType hs_bindgen_9c5a2b0e6d53b7c9_base
 {-# NOINLINE foo24_funptr #-}
 {-| __C declaration:__ @foo24@
 
@@ -3155,7 +3155,7 @@ foreign import ccall unsafe "hs_bindgen_5b576a9269d86a85" hs_bindgen_5b576a9269d
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo25@
 hs_bindgen_5b576a9269d86a85 :: IO (FunPtr (CInt -> IO (Ptr CInt)))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo25@
-hs_bindgen_5b576a9269d86a85 = fromFFIType hs_bindgen_5b576a9269d86a85_base
+hs_bindgen_5b576a9269d86a85 = fmap fromFFIType hs_bindgen_5b576a9269d86a85_base
 {-# NOINLINE foo25_funptr #-}
 {-| __C declaration:__ @foo25@
 
@@ -3178,7 +3178,7 @@ foreign import ccall unsafe "hs_bindgen_3d968f750d7c0963" hs_bindgen_3d968f750d7
 hs_bindgen_3d968f750d7c0963 :: IO (FunPtr (CInt ->
                                            IO (Ptr (Ptr CInt))))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo26@
-hs_bindgen_3d968f750d7c0963 = fromFFIType hs_bindgen_3d968f750d7c0963_base
+hs_bindgen_3d968f750d7c0963 = fmap fromFFIType hs_bindgen_3d968f750d7c0963_base
 {-# NOINLINE foo26_funptr #-}
 {-| __C declaration:__ @foo26@
 
@@ -3201,7 +3201,7 @@ foreign import ccall unsafe "hs_bindgen_477d6debd15ec8cc" hs_bindgen_477d6debd15
 hs_bindgen_477d6debd15ec8cc :: IO (FunPtr (CInt ->
                                            IO (Ptr (Ptr (Ptr CInt)))))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo27@
-hs_bindgen_477d6debd15ec8cc = fromFFIType hs_bindgen_477d6debd15ec8cc_base
+hs_bindgen_477d6debd15ec8cc = fmap fromFFIType hs_bindgen_477d6debd15ec8cc_base
 {-# NOINLINE foo27_funptr #-}
 {-| __C declaration:__ @foo27@
 
@@ -3224,7 +3224,7 @@ foreign import ccall unsafe "hs_bindgen_fe8d0bbb3e0e9949" hs_bindgen_fe8d0bbb3e0
 hs_bindgen_fe8d0bbb3e0e9949 :: IO (FunPtr (Size_t ->
                                            IO (Ptr (Ptr (Ptr CInt)))))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo28@
-hs_bindgen_fe8d0bbb3e0e9949 = fromFFIType hs_bindgen_fe8d0bbb3e0e9949_base
+hs_bindgen_fe8d0bbb3e0e9949 = fmap fromFFIType hs_bindgen_fe8d0bbb3e0e9949_base
 {-# NOINLINE foo28_funptr #-}
 {-| __C declaration:__ @foo28@
 
@@ -3251,7 +3251,7 @@ hs_bindgen_3e48bdcc0c25203c :: IO (FunPtr (CInt ->
                                            Ptr (PtrConst CInt) ->
                                            PtrConst (PtrConst CInt) -> Size_t -> IO CInt))
 -- __unique:__ @test_comprehensivesmoke_Example_get_inline_foo@
-hs_bindgen_3e48bdcc0c25203c = fromFFIType hs_bindgen_3e48bdcc0c25203c_base
+hs_bindgen_3e48bdcc0c25203c = fmap fromFFIType hs_bindgen_3e48bdcc0c25203c_base
 {-# NOINLINE inline_foo_funptr #-}
 {-| __C declaration:__ @inline_foo@
 
@@ -3278,7 +3278,7 @@ foreign import ccall unsafe "hs_bindgen_dbeef9adb3c4fba3" hs_bindgen_dbeef9adb3c
 -- __unique:__ @test_comprehensivesmoke_Example_get_global@
 hs_bindgen_dbeef9adb3c4fba3 :: IO (Ptr CInt)
 -- __unique:__ @test_comprehensivesmoke_Example_get_global@
-hs_bindgen_dbeef9adb3c4fba3 = fromFFIType hs_bindgen_dbeef9adb3c4fba3_base
+hs_bindgen_dbeef9adb3c4fba3 = fmap fromFFIType hs_bindgen_dbeef9adb3c4fba3_base
 {-# NOINLINE global #-}
 {-| __C declaration:__ @global@
 

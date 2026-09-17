@@ -27,7 +27,7 @@ foreign import ccall safe "hs_bindgen_6687afc6aaabd927" hs_bindgen_6687afc6aaabd
 -- __unique:__ @test_bindingspecstrans_deptypede_Example_Safe_foo@
 hs_bindgen_6687afc6aaabd927 :: Ptr M.B -> IO ()
 -- __unique:__ @test_bindingspecstrans_deptypede_Example_Safe_foo@
-hs_bindgen_6687afc6aaabd927 = fromFFIType hs_bindgen_6687afc6aaabd927_base
+hs_bindgen_6687afc6aaabd927 = \x_0 -> hs_bindgen_6687afc6aaabd927_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/trans_dep\/typedef_trans_dep_missing.h 9:6@
@@ -49,7 +49,7 @@ foreign import ccall unsafe "hs_bindgen_38d7300ed18eb652" hs_bindgen_38d7300ed18
 -- __unique:__ @test_bindingspecstrans_deptypede_Example_Unsafe_foo@
 hs_bindgen_38d7300ed18eb652 :: Ptr M.B -> IO ()
 -- __unique:__ @test_bindingspecstrans_deptypede_Example_Unsafe_foo@
-hs_bindgen_38d7300ed18eb652 = fromFFIType hs_bindgen_38d7300ed18eb652_base
+hs_bindgen_38d7300ed18eb652 = \x_0 -> hs_bindgen_38d7300ed18eb652_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/trans_dep\/typedef_trans_dep_missing.h 9:6@
@@ -70,7 +70,7 @@ foreign import ccall unsafe "hs_bindgen_e5f763922a0a17ca" hs_bindgen_e5f763922a0
 -- __unique:__ @test_bindingspecstrans_deptypede_Example_get_foo@
 hs_bindgen_e5f763922a0a17ca :: IO (FunPtr (Ptr M.B -> IO ()))
 -- __unique:__ @test_bindingspecstrans_deptypede_Example_get_foo@
-hs_bindgen_e5f763922a0a17ca = fromFFIType hs_bindgen_e5f763922a0a17ca_base
+hs_bindgen_e5f763922a0a17ca = fmap fromFFIType hs_bindgen_e5f763922a0a17ca_base
 {-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 

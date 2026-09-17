@@ -118,7 +118,6 @@ functionDecs safety info origCFun _spec = do
         foreignImport :: [Hs.Decl l]
         foreignImport =
             HsFI.foreignImportDec
-              env.sizeofs
               (Hs.ForeignImport.FunName cWrapperName)
               foreignImportParams
               foreignImportResult
@@ -198,9 +197,9 @@ functionDecs safety info origCFun _spec = do
               (mbRestoreOrigSignatureComment <> mbIoComment)
 
         mbRestoreOrigSignatureComment :: Maybe HsDoc.Comment
-        restoreOrigSignatureParams :: [Hs.FunctionParameter]
+        restoreOrigSignatureParams :: [Hs.FunctionParameter Hs.Type]
         (mbRestoreOrigSignatureComment, restoreOrigSignatureParams) =
-          let params :: [(Maybe Text, Hs.FunctionParameter)]
+          let params :: [(Maybe Text, Hs.FunctionParameter Hs.Type)]
               params = [ ( fmap (.cName.text) arg.name
                         , Hs.FunctionParameter{
                             typ     = toOrigType Translation.FunArg (classifyArgPassingMethod arg)
@@ -468,14 +467,14 @@ getCWrapperDecl origName wrapperName res args
 -- | Generate a function declaration restoring the signature of the original C
 -- function.
 getRestoreOrigSignatureDecl ::
-     Hs.TermName            -- ^ name of new function
-  -> Hs.TermName            -- ^ name of foreign import
-  -> PassResBy              -- ^ C result type
-  -> [PassArgBy]            -- ^ C types of function parameters
-  -> Hs.Type                -- ^ Haskell result type
-  -> [Hs.FunctionParameter] -- ^ Haskell function parameters
-  -> C.Function Final       -- ^ original C function
-  -> Maybe HsDoc.Comment    -- ^ function comment
+     Hs.TermName                    -- ^ name of new function
+  -> Hs.TermName                    -- ^ name of foreign import
+  -> PassResBy                      -- ^ C result type
+  -> [PassArgBy]                    -- ^ C types of function parameters
+  -> Hs.Type                        -- ^ Haskell result type
+  -> [Hs.FunctionParameter Hs.Type] -- ^ Haskell function parameters
+  -> C.Function Final               -- ^ original C function
+  -> Maybe HsDoc.Comment            -- ^ function comment
   -> Hs.Decl l
 getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParams cFunc mbComment =
     Hs.DeclFunction $ Hs.FunctionDecl{
@@ -529,7 +528,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
                       | arg <- cFunc.args
                       ]
 
-        mkFunArg :: Maybe Text -> PassArgBy -> Hs.FunctionParameter -> FunArg
+        mkFunArg :: Maybe Text -> PassArgBy -> Hs.FunctionParameter Hs.Type -> FunArg
         mkFunArg mbCName passBy param = FunArg{
             typ        = passBy
           , cParamName = mbCName
@@ -654,7 +653,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
 data FunArg = FunArg {
     typ        :: PassArgBy
   , cParamName :: Maybe Text
-  , funParam   :: Hs.FunctionParameter
+  , funParam   :: Hs.FunctionParameter Hs.Type
   }
 
 funArgToVarInfo :: FunArg -> VarInfo

@@ -162,8 +162,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 -- __unique:__ @test_functionscallbacks_Example_Safe_readFileWithProcessor@
 foreign import ccall safe "hs_bindgen_99bda9cd8097b0ea" hs_bindgen_99bda9cd8097b0ea_base ::
      BG.FunPtr BG.Void
-  -> BG.Int32
-  -> IO BG.Int32
+  -> BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_functionscallbacks_Example_Safe_readFileWithProcessor@
 hs_bindgen_99bda9cd8097b0ea ::
@@ -171,7 +171,9 @@ hs_bindgen_99bda9cd8097b0ea ::
   -> BG.CInt
   -> IO BG.CInt
 hs_bindgen_99bda9cd8097b0ea =
-  BG.fromFFIType hs_bindgen_99bda9cd8097b0ea_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_99bda9cd8097b0ea_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @readFileWithProcessor@
 
@@ -190,7 +192,7 @@ readFileWithProcessor = hs_bindgen_99bda9cd8097b0ea
 -- __unique:__ @test_functionscallbacks_Example_Safe_watchTemperature@
 foreign import ccall safe "hs_bindgen_84b75366c836fc85" hs_bindgen_84b75366c836fc85_base ::
      BG.FunPtr BG.Void
-  -> BG.Int32
+  -> BG.CInt
   -> IO ()
 
 -- __unique:__ @test_functionscallbacks_Example_Safe_watchTemperature@
@@ -199,7 +201,9 @@ hs_bindgen_84b75366c836fc85 ::
   -> BG.CInt
   -> IO ()
 hs_bindgen_84b75366c836fc85 =
-  BG.fromFFIType hs_bindgen_84b75366c836fc85_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_84b75366c836fc85_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @watchTemperature@
 
@@ -225,7 +229,8 @@ hs_bindgen_f2580f574faa3697 ::
      FileOpenedNotification
   -> IO ()
 hs_bindgen_f2580f574faa3697 =
-  BG.fromFFIType hs_bindgen_f2580f574faa3697_base
+  \x0 ->
+    hs_bindgen_f2580f574faa3697_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @onFileOpened@
 
@@ -249,7 +254,8 @@ hs_bindgen_654057b291ee37ea ::
      ProgressUpdate
   -> IO ()
 hs_bindgen_654057b291ee37ea =
-  BG.fromFFIType hs_bindgen_654057b291ee37ea_base
+  \x0 ->
+    hs_bindgen_654057b291ee37ea_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @onProgressChanged@
 
@@ -266,8 +272,8 @@ onProgressChanged = hs_bindgen_654057b291ee37ea
 -- __unique:__ @test_functionscallbacks_Example_Safe_validateInput@
 foreign import ccall safe "hs_bindgen_5df7aac6996be10f" hs_bindgen_5df7aac6996be10f_base ::
      BG.FunPtr BG.Void
-  -> BG.Int32
-  -> IO BG.Int32
+  -> BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_functionscallbacks_Example_Safe_validateInput@
 hs_bindgen_5df7aac6996be10f ::
@@ -275,7 +281,9 @@ hs_bindgen_5df7aac6996be10f ::
   -> BG.CInt
   -> IO BG.CInt
 hs_bindgen_5df7aac6996be10f =
-  BG.fromFFIType hs_bindgen_5df7aac6996be10f_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_5df7aac6996be10f_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @validateInput@
 
@@ -301,7 +309,8 @@ hs_bindgen_8f1bb1c4d2b5355f ::
      MeasurementReceived
   -> IO ()
 hs_bindgen_8f1bb1c4d2b5355f =
-  BG.fromFFIType hs_bindgen_8f1bb1c4d2b5355f_base
+  \x0 ->
+    hs_bindgen_8f1bb1c4d2b5355f_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @onNewMeasurement@
 
@@ -325,7 +334,8 @@ hs_bindgen_d805e39c6cbdd620 ::
      MeasurementReceived2
   -> IO ()
 hs_bindgen_d805e39c6cbdd620 =
-  BG.fromFFIType hs_bindgen_d805e39c6cbdd620_base
+  \x0 ->
+    hs_bindgen_d805e39c6cbdd620_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @onNewMeasurement2@
 
@@ -349,7 +359,8 @@ hs_bindgen_8d803591bcf10ba5 ::
      SampleBufferFull
   -> IO ()
 hs_bindgen_8d803591bcf10ba5 =
-  BG.fromFFIType hs_bindgen_8d803591bcf10ba5_base
+  \x0 ->
+    hs_bindgen_8d803591bcf10ba5_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @onBufferReady@
 
@@ -375,7 +386,9 @@ hs_bindgen_16c298a15b737eb2 ::
   -> BG.FunPtr (BG.Ptr Measurement -> BG.FunPtr (BG.CDouble -> BG.CInt -> IO BG.CDouble) -> BG.CInt -> IO ())
   -> IO ()
 hs_bindgen_16c298a15b737eb2 =
-  BG.fromFFIType hs_bindgen_16c298a15b737eb2_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_16c298a15b737eb2_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @transformMeasurement@
 
@@ -401,7 +414,8 @@ hs_bindgen_e6a073138e56764f ::
      BG.FunPtr (BG.Ptr Measurement -> FileOpenedNotification -> BG.CInt -> IO ())
   -> IO ()
 hs_bindgen_e6a073138e56764f =
-  BG.fromFFIType hs_bindgen_e6a073138e56764f_base
+  \x0 ->
+    hs_bindgen_e6a073138e56764f_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @processWithCallbacks@
 
@@ -425,7 +439,8 @@ hs_bindgen_ece0d4f94c2319f0 ::
      BG.Ptr MeasurementHandler
   -> IO ()
 hs_bindgen_ece0d4f94c2319f0 =
-  BG.fromFFIType hs_bindgen_ece0d4f94c2319f0_base
+  \x0 ->
+    hs_bindgen_ece0d4f94c2319f0_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @registerHandler@
 
@@ -451,7 +466,9 @@ hs_bindgen_d66d7470a7a213b0 ::
   -> BG.Ptr DataPipeline
   -> IO ()
 hs_bindgen_d66d7470a7a213b0 =
-  BG.fromFFIType hs_bindgen_d66d7470a7a213b0_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_d66d7470a7a213b0_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @executePipeline@
 
@@ -479,7 +496,9 @@ hs_bindgen_e925d3ce6e5fb395 ::
   -> BG.Ptr Processor
   -> IO ()
 hs_bindgen_e925d3ce6e5fb395 =
-  BG.fromFFIType hs_bindgen_e925d3ce6e5fb395_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_e925d3ce6e5fb395_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @runProcessor@
 
@@ -507,7 +526,9 @@ hs_bindgen_1e432e1595a1ef55 ::
   -> BG.FunPtr (BG.Ptr Measurement -> BG.FunPtr (BG.Ptr Measurement -> DataValidator -> BG.CInt -> IO ()) -> DataValidator -> IO ())
   -> IO ()
 hs_bindgen_1e432e1595a1ef55 =
-  BG.fromFFIType hs_bindgen_1e432e1595a1ef55_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_1e432e1595a1ef55_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @processMeasurementWithValidation@
 
@@ -534,7 +555,8 @@ hs_bindgen_d5cd030edf2e0364 ::
      BG.FunPtr (Foo -> IO ())
   -> IO ()
 hs_bindgen_d5cd030edf2e0364 =
-  BG.fromFFIType hs_bindgen_d5cd030edf2e0364_base
+  \x0 ->
+    hs_bindgen_d5cd030edf2e0364_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @f@
 
@@ -558,7 +580,8 @@ hs_bindgen_a10eec74074627ba ::
      BG.FunPtr (Foo2 -> IO ())
   -> IO ()
 hs_bindgen_a10eec74074627ba =
-  BG.fromFFIType hs_bindgen_a10eec74074627ba_base
+  \x0 ->
+    hs_bindgen_a10eec74074627ba_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @f2@
 

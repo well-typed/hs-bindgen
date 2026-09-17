@@ -57,6 +57,9 @@ hstypes:
       constructor: RunDriver
       fields:
       - unwrapRunDriver
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic

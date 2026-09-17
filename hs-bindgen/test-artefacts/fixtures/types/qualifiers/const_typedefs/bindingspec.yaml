@@ -47,6 +47,9 @@ hstypes:
       constructor: E
       fields:
       - unwrapE
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -71,6 +74,9 @@ hstypes:
       constructor: I
       fields:
       - unwrapI
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -116,6 +122,9 @@ hstypes:
       constructor: TE
       fields:
       - unwrapTE
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - Eq
   - Generic
@@ -138,6 +147,9 @@ hstypes:
       constructor: TI
       fields:
       - unwrapTI
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -187,6 +199,9 @@ hstypes:
       constructor: TTE
       fields:
       - unwrapTTE
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - Eq
   - Generic
@@ -209,6 +224,9 @@ hstypes:
       constructor: TTI
       fields:
       - unwrapTTI
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits

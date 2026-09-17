@@ -64,7 +64,7 @@ foreign import ccall unsafe "hs_bindgen_0bb0e3098bde7e0b" hs_bindgen_0bb0e3098bd
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_get_foo@
 hs_bindgen_0bb0e3098bde7e0b :: IO (BG.FunPtr (BG.CInt -> IO ()))
 hs_bindgen_0bb0e3098bde7e0b =
-  BG.fromFFIType hs_bindgen_0bb0e3098bde7e0b_base
+  fmap BG.fromFFIType hs_bindgen_0bb0e3098bde7e0b_base
 
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
@@ -83,7 +83,7 @@ foreign import ccall unsafe "hs_bindgen_b1dbc650a21707a2" hs_bindgen_b1dbc650a21
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_get_bar@
 hs_bindgen_b1dbc650a21707a2 :: IO (BG.FunPtr (BG.CInt -> IO ()))
 hs_bindgen_b1dbc650a21707a2 =
-  BG.fromFFIType hs_bindgen_b1dbc650a21707a2_base
+  fmap BG.fromFFIType hs_bindgen_b1dbc650a21707a2_base
 
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
@@ -102,7 +102,7 @@ foreign import ccall unsafe "hs_bindgen_edc10f73f46266b8" hs_bindgen_edc10f73f46
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_get_dash@
 hs_bindgen_edc10f73f46266b8 :: IO (BG.FunPtr (BG.CInt -> IO ()))
 hs_bindgen_edc10f73f46266b8 =
-  BG.fromFFIType hs_bindgen_edc10f73f46266b8_base
+  fmap BG.fromFFIType hs_bindgen_edc10f73f46266b8_base
 
 {-# NOINLINE dash #-}
 {-| __C declaration:__ @dash@
@@ -121,7 +121,7 @@ foreign import ccall unsafe "hs_bindgen_50fdcccdf0a43b92" hs_bindgen_50fdcccdf0a
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_get_quux@
 hs_bindgen_50fdcccdf0a43b92 :: IO (BG.FunPtr (BG.CInt -> IO ()))
 hs_bindgen_50fdcccdf0a43b92 =
-  BG.fromFFIType hs_bindgen_50fdcccdf0a43b92_base
+  fmap BG.fromFFIType hs_bindgen_50fdcccdf0a43b92_base
 
 {-# NOINLINE quux #-}
 {-| __C declaration:__ @quux@
@@ -140,7 +140,7 @@ foreign import ccall unsafe "hs_bindgen_110df13ac4d9dfc8" hs_bindgen_110df13ac4d
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_get_heq@
 hs_bindgen_110df13ac4d9dfc8 :: IO (BG.FunPtr (BG.CInt -> IO ()))
 hs_bindgen_110df13ac4d9dfc8 =
-  BG.fromFFIType hs_bindgen_110df13ac4d9dfc8_base
+  fmap BG.fromFFIType hs_bindgen_110df13ac4d9dfc8_base
 
 {-# NOINLINE heq #-}
 {-| __C declaration:__ @heq@

@@ -62,7 +62,7 @@ foreign import ccall unsafe "hs_bindgen_c2929de3db3ebc68" hs_bindgen_c2929de3db3
 -- __unique:__ @test_macrosreparse_1_empty_Example_get_global1@
 hs_bindgen_c2929de3db3ebc68 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_c2929de3db3ebc68 =
-  BG.fromFFIType hs_bindgen_c2929de3db3ebc68_base
+  fmap BG.fromFFIType hs_bindgen_c2929de3db3ebc68_base
 
 {-# NOINLINE global1 #-}
 {-| Globals and constants
@@ -84,7 +84,7 @@ foreign import ccall unsafe "hs_bindgen_b642618eb14a88bf" hs_bindgen_b642618eb14
 -- __unique:__ @test_macrosreparse_1_empty_Example_get_global2@
 hs_bindgen_b642618eb14a88bf :: IO (BG.Ptr (BG.Ptr BG.CInt))
 hs_bindgen_b642618eb14a88bf =
-  BG.fromFFIType hs_bindgen_b642618eb14a88bf_base
+  fmap BG.fromFFIType hs_bindgen_b642618eb14a88bf_base
 
 {-# NOINLINE global2 #-}
 {-| __C declaration:__ @global2@
@@ -104,7 +104,7 @@ foreign import ccall unsafe "hs_bindgen_37e22dedff20b0fa" hs_bindgen_37e22dedff2
 -- __unique:__ @test_macrosreparse_1_empty_Example_get_global3@
 hs_bindgen_37e22dedff20b0fa :: IO (BG.Ptr (BG.Ptr (BG.Ptr BG.CInt)))
 hs_bindgen_37e22dedff20b0fa =
-  BG.fromFFIType hs_bindgen_37e22dedff20b0fa_base
+  fmap BG.fromFFIType hs_bindgen_37e22dedff20b0fa_base
 
 {-# NOINLINE global3 #-}
 {-| __C declaration:__ @global3@
@@ -124,7 +124,7 @@ foreign import ccall unsafe "hs_bindgen_f54afb44a4459d9c" hs_bindgen_f54afb44a44
 -- __unique:__ @test_macrosreparse_1_empty_Example_get_const1@
 hs_bindgen_f54afb44a4459d9c :: IO (PtrConst.PtrConst BG.CInt)
 hs_bindgen_f54afb44a4459d9c =
-  BG.fromFFIType hs_bindgen_f54afb44a4459d9c_base
+  fmap BG.fromFFIType hs_bindgen_f54afb44a4459d9c_base
 
 {-# NOINLINE hs_bindgen_c9e1c2f1b5f1a18b #-}
 {-| __C declaration:__ @const1@
@@ -151,7 +151,7 @@ foreign import ccall unsafe "hs_bindgen_139264d86115f755" hs_bindgen_139264d8611
 -- __unique:__ @test_macrosreparse_1_empty_Example_get_const2@
 hs_bindgen_139264d86115f755 :: IO (PtrConst.PtrConst (BG.Ptr BG.CInt))
 hs_bindgen_139264d86115f755 =
-  BG.fromFFIType hs_bindgen_139264d86115f755_base
+  fmap BG.fromFFIType hs_bindgen_139264d86115f755_base
 
 {-# NOINLINE hs_bindgen_e27452ffe7a65d32 #-}
 {-| __C declaration:__ @const2@
@@ -178,7 +178,7 @@ foreign import ccall unsafe "hs_bindgen_a13825d736275018" hs_bindgen_a13825d7362
 -- __unique:__ @test_macrosreparse_1_empty_Example_get_const3@
 hs_bindgen_a13825d736275018 :: IO (PtrConst.PtrConst (BG.Ptr (BG.Ptr BG.CInt)))
 hs_bindgen_a13825d736275018 =
-  BG.fromFFIType hs_bindgen_a13825d736275018_base
+  fmap BG.fromFFIType hs_bindgen_a13825d736275018_base
 
 {-# NOINLINE hs_bindgen_217857747c06d0ce #-}
 {-| __C declaration:__ @const3@

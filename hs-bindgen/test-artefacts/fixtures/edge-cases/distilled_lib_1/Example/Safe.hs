@@ -28,9 +28,9 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
 foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" hs_bindgen_57cb99ed92c001ad_base ::
      BG.Ptr BG.Void
-  -> BG.Word32
+  -> HsBindgen.Runtime.LibC.Word32
   -> BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO HsBindgen.Runtime.LibC.Int32
 
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
 hs_bindgen_57cb99ed92c001ad ::
@@ -39,7 +39,10 @@ hs_bindgen_57cb99ed92c001ad ::
   -> BG.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8))
   -> IO HsBindgen.Runtime.LibC.Int32
 hs_bindgen_57cb99ed92c001ad =
-  BG.fromFFIType hs_bindgen_57cb99ed92c001ad_base
+  \x0 ->
+    \x1 ->
+      \x2 ->
+        fmap BG.fromFFIType (hs_bindgen_57cb99ed92c001ad_base (BG.toFFIType x0) (BG.toFFIType x1) (BG.toFFIType x2))
 
 {-| __C declaration:__ @some_fun@
 

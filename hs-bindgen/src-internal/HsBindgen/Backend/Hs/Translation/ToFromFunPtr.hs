@@ -12,6 +12,7 @@ import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
+import HsBindgen.Backend.Hs.Translation.ForeignImport (ImportFor (..))
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImport
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
 import HsBindgen.Backend.HsModule.Pretty ()
@@ -21,7 +22,6 @@ import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -40,19 +40,24 @@ import HsBindgen.Language.Haskell qualified as Hs
 --
 -- These instances are placed in the main module to avoid orphan instances.
 forFunction ::
-     C.Sizeofs
-  -> ([C.TypeFunArg Final], C.Type Final)
+     ([C.TypeFunArg Final], C.Type Final)
   -> [Hs.Decl l]
-forFunction sizeofs (args, res) =
+forFunction (args, res) =
     instancesFor
-      sizeofs
       nameTo
       nameFrom
       funC
       funHs
+      importFor
   where
     funC  = C.TypeFun args res
     funHs = Translation.topLevel funC
+
+    importFor :: ImportFor
+    importFor = ImportForFunction {
+          args = Translation.inContext Translation.FunArg <$> args
+        , res =  Hs.IO $ Translation.inContext Translation.FunRes res
+        }
 
     nameWith :: String -> UniqueSymbol
     nameWith s =
@@ -64,20 +69,26 @@ forFunction sizeofs (args, res) =
 
 -- | Generate instances for newtype around functions
 forNewtype ::
-     C.Sizeofs
-  -> Hs.Newtype
+     Hs.Newtype
   -> ([C.TypeFunArg Final], C.Type Final)
   -> [Hs.Decl l]
-forNewtype sizeofs newtyp (args, res) =
+forNewtype newtyp (args, res) =
     instancesFor
-      sizeofs
       nameTo
       nameFrom
       funC
       funHs
+      importFor
   where
     funC  = C.TypeFun args res
     funHs = Hs.TypRef newtyp.name (Just newtyp.field.typ)
+
+    importFor :: ImportFor
+    importFor = ImportForNewtype {
+          args = Translation.inContext Translation.FunArg <$> args
+        , res =  Hs.IO $ Translation.inContext Translation.FunRes res
+        , newtyp = newtyp
+        }
 
     nameWith :: String -> UniqueSymbol
     nameWith s = locallyUnique $ s <> Hs.nameToStr newtyp.name
@@ -91,25 +102,25 @@ forNewtype sizeofs newtyp (args, res) =
 -------------------------------------------------------------------------------}
 
 instancesFor ::
-     C.Sizeofs
-  -> UniqueSymbol -- ^ Name of the @toFunPtr@ fun
+     UniqueSymbol -- ^ Name of the @toFunPtr@ fun
   -> UniqueSymbol -- ^ Name of the @fromFunPtr@ fun
   -> C.Type Final -- ^ Type of the C function
   -> Hs.Type      -- ^ Corresponding Haskell type
+  -> ImportFor
   -> [Hs.Decl l]
-instancesFor sizeofs nameTo nameFrom funC funHs = concat [
+instancesFor nameTo nameFrom funC funHs importFor = concat [
       -- import for @ToFunPtr@ instance
       HsFI.foreignImportWrapperDec
-        sizeofs
         (Hs.ForeignImport.FunName nameTo)
         funHs
+        importFor
         (Origin.ToFunPtr funC)
 
       -- import for @FromFunPtr@ instance
     , HsFI.foreignImportDynamicDec
-        sizeofs
         (Hs.ForeignImport.FunName nameFrom)
         funHs
+        importFor
         (Origin.ToFunPtr funC)
 
       -- @ToFunPtr@ instance proper

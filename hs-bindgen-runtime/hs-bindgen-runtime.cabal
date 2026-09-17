@@ -77,6 +77,7 @@ library
     HsBindgen.Runtime.FLAM
     HsBindgen.Runtime.HasCBitfield
     HsBindgen.Runtime.HasCField
+    HsBindgen.Runtime.HasFFIType
     HsBindgen.Runtime.IncompleteArray
     HsBindgen.Runtime.IsArray
     HsBindgen.Runtime.LibC
@@ -90,9 +91,7 @@ library
     HsBindgen.Runtime.Support.ByteArray
     HsBindgen.Runtime.Support.CAPI
     HsBindgen.Runtime.Support.CompatHasField
-    HsBindgen.Runtime.Support.FFIType
     HsBindgen.Runtime.Support.FunPtr
-    HsBindgen.Runtime.Support.HasFFIType
     HsBindgen.Runtime.Support.LibC.Auxiliary
     HsBindgen.Runtime.Support.Ptr
     HsBindgen.Runtime.Support.SizedByteArray

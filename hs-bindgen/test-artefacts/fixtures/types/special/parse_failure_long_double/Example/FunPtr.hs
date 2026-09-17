@@ -28,7 +28,7 @@ foreign import ccall unsafe "hs_bindgen_d61a16f2d29260ed" hs_bindgen_d61a16f2d29
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2@
 hs_bindgen_d61a16f2d29260ed :: IO (BG.FunPtr (BG.CInt -> IO ()))
 hs_bindgen_d61a16f2d29260ed =
-  BG.fromFFIType hs_bindgen_d61a16f2d29260ed_base
+  fmap BG.fromFFIType hs_bindgen_d61a16f2d29260ed_base
 
 {-# NOINLINE fun2 #-}
 {-| __C declaration:__ @fun2@

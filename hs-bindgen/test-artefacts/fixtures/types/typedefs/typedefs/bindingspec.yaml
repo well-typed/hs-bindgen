@@ -43,6 +43,9 @@ hstypes:
       constructor: F1
       fields:
       - unwrapF1
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -63,6 +66,9 @@ hstypes:
       constructor: FunctionPointer_Function
       fields:
       - unwrapFunctionPointer_Function
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -87,7 +93,6 @@ hstypes:
   - FromFunPtr
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -98,6 +103,9 @@ hstypes:
       constructor: G2
       fields:
       - unwrapG2
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -122,7 +130,6 @@ hstypes:
   - FromFunPtr
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -136,7 +143,6 @@ hstypes:
   instances:
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -146,6 +152,9 @@ hstypes:
       constructor: H3
       fields:
       - unwrapH3
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -170,7 +179,6 @@ hstypes:
   - FromFunPtr
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -181,6 +189,9 @@ hstypes:
       constructor: Intptr
       fields:
       - unwrapIntptr
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -201,6 +212,9 @@ hstypes:
       constructor: Myint
       fields:
       - unwrapMyint
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -236,7 +250,6 @@ hstypes:
   - FromFunPtr
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr

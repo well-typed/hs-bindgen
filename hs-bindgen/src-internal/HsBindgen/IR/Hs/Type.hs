@@ -9,7 +9,13 @@
 -- > import HsBindgen.IR.Hs.Type qualified as Hs
 module HsBindgen.IR.Hs.Type (
     PrimType(..)
-  , Type(..),
+  , Type (..)
+    -- * FFI types
+  , FFIFunType(..)
+  , unconsArg
+  , FFIResType(..)
+  , FFIType(..)
+  , ffiExtRef
   ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -25,21 +31,8 @@ data PrimType =
       PrimVoid
     | PrimUnit
 
-      -- * Basic FFI types (see 'BasicFFIType')
-    | PrimChar
+      -- * Data.Int
     | PrimInt
-    | PrimDouble
-    | PrimFloat
-    | PrimBool
-    | PrimInt8
-    | PrimInt16
-    | PrimInt32
-    | PrimInt64
-    | PrimWord
-    | PrimWord8
-    | PrimWord16
-    | PrimWord32
-    | PrimWord64
 
       -- * Foreign.C.Types
     | PrimCChar
@@ -69,7 +62,6 @@ data Type =
   | PtrConstArrayElem Type
   | Ptr Type
   | FunPtr Type
-  | StablePtr Type
   | PtrConst Type
   | IO Type
   | Fun Type Type
@@ -86,3 +78,72 @@ data Type =
     -- | 'HsBindgen.Runtime.Struct.IsStructViaReadRaw'
   | IsStructViaReadRaw Type
   deriving stock (Generic, Show, Eq)
+
+{-------------------------------------------------------------------------------
+  FFI types
+-------------------------------------------------------------------------------}
+
+data FFIFunType = FFIFunType {
+    args :: [FFIType]
+  , res  :: FFIResType
+  }
+  deriving stock (Generic, Show, Eq)
+
+unconsArg :: FFIFunType -> Either (FFIType, FFIFunType) FFIResType
+unconsArg ty = case ty.args of
+    [] -> Right ty.res
+    (arg:args) -> Left (arg, FFIFunType { args = args, res = ty.res })
+
+data FFIResType =
+    FFIResUnit
+  | FFIResIOUnit
+  | FFIResIO FFIType
+  | FFIRes FFIType
+  deriving stock (Generic, Show, Eq)
+
+data FFIType =
+    FFIExternal Hs.ExtRef
+
+    -- * Pointers
+  | FFIPtrVoid
+  | FFIFunPtrVoid
+
+    -- * Primitive
+  | FFIPrimCChar
+  | FFIPrimCSChar
+  | FFIPrimCUChar
+  | FFIPrimCShort
+  | FFIPrimCUShort
+  | FFIPrimCInt
+  | FFIPrimCUInt
+  | FFIPrimCLong
+  | FFIPrimCULong
+  | FFIPrimCLLong
+  | FFIPrimCULLong
+  | FFIPrimCBool
+  | FFIPrimCFloat
+  | FFIPrimCDouble
+  deriving stock (Generic, Show, Eq)
+
+ffiExtRef :: FFIType -> Hs.ExtRef
+ffiExtRef = \case
+    FFIExternal r  -> r
+    FFIPtrVoid     -> mkExtRef "HsBindgen.Runtime.Support" "PtrVoid"
+    FFIFunPtrVoid  -> mkExtRef "HsBindgen.Runtime.Support" "FunPtrVoid"
+    FFIPrimCChar   -> mkExtRef "HsBindgen.Runtime.Support" "CChar"
+    FFIPrimCSChar  -> mkExtRef "HsBindgen.Runtime.Support" "CSChar"
+    FFIPrimCUChar  -> mkExtRef "HsBindgen.Runtime.Support" "CUChar"
+    FFIPrimCShort  -> mkExtRef "HsBindgen.Runtime.Support" "CShort"
+    FFIPrimCUShort -> mkExtRef "HsBindgen.Runtime.Support" "CUShort"
+    FFIPrimCInt    -> mkExtRef "HsBindgen.Runtime.Support" "CInt"
+    FFIPrimCUInt   -> mkExtRef "HsBindgen.Runtime.Support" "CUInt"
+    FFIPrimCLong   -> mkExtRef "HsBindgen.Runtime.Support" "CLong"
+    FFIPrimCULong  -> mkExtRef "HsBindgen.Runtime.Support" "CULong"
+    FFIPrimCLLong  -> mkExtRef "HsBindgen.Runtime.Support" "CLLong"
+    FFIPrimCULLong -> mkExtRef "HsBindgen.Runtime.Support" "CULLong"
+    FFIPrimCBool   -> mkExtRef "HsBindgen.Runtime.Support" "CBool"
+    FFIPrimCFloat  -> mkExtRef "HsBindgen.Runtime.Support" "CFloat"
+    FFIPrimCDouble -> mkExtRef "HsBindgen.Runtime.Support" "CDouble"
+  where
+    mkExtRef :: Hs.ModuleName -> Text -> Hs.ExtRef
+    mkExtRef moduleName typeName = Hs.ExtRef moduleName (Hs.UnsafeName typeName)

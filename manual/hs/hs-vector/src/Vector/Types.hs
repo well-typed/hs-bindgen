@@ -7,6 +7,7 @@ module Vector.Types (
     Length(UnsafeWrap, Length)
   ) where
 
+import Foreign.C.Types
 import GHC.Show
 
 import HsBindgen.Runtime.Support qualified as BG
@@ -14,7 +15,7 @@ import HsBindgen.Runtime.Support qualified as BG
 -- | Vector length
 --
 -- Invariant: must be non-negative.
-newtype Length = UnsafeWrap { unwrap :: Double }
+newtype Length = UnsafeWrap { unwrap :: CDouble }
   deriving stock (Eq, Ord)
   deriving newtype (BG.HasFFIType)
 
@@ -23,7 +24,7 @@ instance Show Length where
         showString "Length " -- use the pattern synonym
       . showsPrec appPrec1 x
 
-pattern Length :: Double -> Length
+pattern Length :: CDouble -> Length
 pattern Length x <- (unwrap -> x)
   where
     Length x

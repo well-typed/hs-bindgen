@@ -22,9 +22,9 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_attributesasm_Example_Safe_asm_labeled_function@
 foreign import ccall safe "hs_bindgen_369133049bfc1e73" hs_bindgen_369133049bfc1e73_base ::
-     BG.Int32
-  -> BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_attributesasm_Example_Safe_asm_labeled_function@
 hs_bindgen_369133049bfc1e73 ::
@@ -32,7 +32,9 @@ hs_bindgen_369133049bfc1e73 ::
   -> BG.CInt
   -> IO BG.CInt
 hs_bindgen_369133049bfc1e73 =
-  BG.fromFFIType hs_bindgen_369133049bfc1e73_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_369133049bfc1e73_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @asm_labeled_function@
 

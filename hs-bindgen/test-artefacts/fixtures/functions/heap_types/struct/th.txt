@@ -143,7 +143,7 @@ foreign import ccall safe "hs_bindgen_a5d53f538e59b1fc" hs_bindgen_a5d53f538e59b
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_fun@
 hs_bindgen_a5d53f538e59b1fc :: Ptr T -> Ptr T -> IO ()
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_fun@
-hs_bindgen_a5d53f538e59b1fc = fromFFIType hs_bindgen_a5d53f538e59b1fc_base
+hs_bindgen_a5d53f538e59b1fc = \x_0 -> \x_1 -> hs_bindgen_a5d53f538e59b1fc_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct.h 9:3@
@@ -165,7 +165,7 @@ foreign import ccall safe "hs_bindgen_8b003c42270f977d" hs_bindgen_8b003c42270f9
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_param_underscore@
 hs_bindgen_8b003c42270f977d :: Ptr T -> IO ()
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_param_underscore@
-hs_bindgen_8b003c42270f977d = fromFFIType hs_bindgen_8b003c42270f977d_base
+hs_bindgen_8b003c42270f977d = \x_0 -> hs_bindgen_8b003c42270f977d_base (toFFIType x_0)
 {-| __C declaration:__ @param_underscore@
 
     __defined at:__ @functions\/heap_types\/struct.h 12:6@
@@ -187,7 +187,7 @@ foreign import ccall safe "hs_bindgen_820d4de13c1d8dff" hs_bindgen_820d4de13c1d8
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_param_uppercase@
 hs_bindgen_820d4de13c1d8dff :: Ptr T -> IO ()
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_param_uppercase@
-hs_bindgen_820d4de13c1d8dff = fromFFIType hs_bindgen_820d4de13c1d8dff_base
+hs_bindgen_820d4de13c1d8dff = \x_0 -> hs_bindgen_820d4de13c1d8dff_base (toFFIType x_0)
 {-| __C declaration:__ @param_uppercase@
 
     __defined at:__ @functions\/heap_types\/struct.h 13:6@
@@ -209,7 +209,7 @@ foreign import ccall safe "hs_bindgen_aa622269ffe58e15" hs_bindgen_aa622269ffe58
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_param_undersore_capital@
 hs_bindgen_aa622269ffe58e15 :: Ptr T -> IO ()
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_param_undersore_capital@
-hs_bindgen_aa622269ffe58e15 = fromFFIType hs_bindgen_aa622269ffe58e15_base
+hs_bindgen_aa622269ffe58e15 = \x_0 -> hs_bindgen_aa622269ffe58e15_base (toFFIType x_0)
 {-| __C declaration:__ @param_undersore_capital@
 
     __defined at:__ @functions\/heap_types\/struct.h 14:6@
@@ -231,7 +231,7 @@ foreign import ccall safe "hs_bindgen_40fff9d72335931a" hs_bindgen_40fff9d723359
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_param_haskell_reserved_name@
 hs_bindgen_40fff9d72335931a :: Ptr T -> IO ()
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_param_haskell_reserved_name@
-hs_bindgen_40fff9d72335931a = fromFFIType hs_bindgen_40fff9d72335931a_base
+hs_bindgen_40fff9d72335931a = \x_0 -> hs_bindgen_40fff9d72335931a_base (toFFIType x_0)
 {-| __C declaration:__ @param_haskell_reserved_name@
 
     __defined at:__ @functions\/heap_types\/struct.h 15:6@
@@ -254,7 +254,7 @@ foreign import ccall unsafe "hs_bindgen_c4af6bb824712c6a" hs_bindgen_c4af6bb8247
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_fun@
 hs_bindgen_c4af6bb824712c6a :: Ptr T -> Ptr T -> IO ()
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_fun@
-hs_bindgen_c4af6bb824712c6a = fromFFIType hs_bindgen_c4af6bb824712c6a_base
+hs_bindgen_c4af6bb824712c6a = \x_0 -> \x_1 -> hs_bindgen_c4af6bb824712c6a_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct.h 9:3@
@@ -276,7 +276,7 @@ foreign import ccall unsafe "hs_bindgen_80a83be02e40bf03" hs_bindgen_80a83be02e4
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_param_underscore@
 hs_bindgen_80a83be02e40bf03 :: Ptr T -> IO ()
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_param_underscore@
-hs_bindgen_80a83be02e40bf03 = fromFFIType hs_bindgen_80a83be02e40bf03_base
+hs_bindgen_80a83be02e40bf03 = \x_0 -> hs_bindgen_80a83be02e40bf03_base (toFFIType x_0)
 {-| __C declaration:__ @param_underscore@
 
     __defined at:__ @functions\/heap_types\/struct.h 12:6@
@@ -298,7 +298,7 @@ foreign import ccall unsafe "hs_bindgen_bda30535ff7fd9f4" hs_bindgen_bda30535ff7
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_param_uppercase@
 hs_bindgen_bda30535ff7fd9f4 :: Ptr T -> IO ()
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_param_uppercase@
-hs_bindgen_bda30535ff7fd9f4 = fromFFIType hs_bindgen_bda30535ff7fd9f4_base
+hs_bindgen_bda30535ff7fd9f4 = \x_0 -> hs_bindgen_bda30535ff7fd9f4_base (toFFIType x_0)
 {-| __C declaration:__ @param_uppercase@
 
     __defined at:__ @functions\/heap_types\/struct.h 13:6@
@@ -320,7 +320,7 @@ foreign import ccall unsafe "hs_bindgen_7b5f5cbdd8a5ff0e" hs_bindgen_7b5f5cbdd8a
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_param_undersore_capital@
 hs_bindgen_7b5f5cbdd8a5ff0e :: Ptr T -> IO ()
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_param_undersore_capital@
-hs_bindgen_7b5f5cbdd8a5ff0e = fromFFIType hs_bindgen_7b5f5cbdd8a5ff0e_base
+hs_bindgen_7b5f5cbdd8a5ff0e = \x_0 -> hs_bindgen_7b5f5cbdd8a5ff0e_base (toFFIType x_0)
 {-| __C declaration:__ @param_undersore_capital@
 
     __defined at:__ @functions\/heap_types\/struct.h 14:6@
@@ -342,7 +342,7 @@ foreign import ccall unsafe "hs_bindgen_5b71629b3ccc3fa8" hs_bindgen_5b71629b3cc
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_param_haskell_reserved_name@
 hs_bindgen_5b71629b3ccc3fa8 :: Ptr T -> IO ()
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_param_haskell_reserved_name@
-hs_bindgen_5b71629b3ccc3fa8 = fromFFIType hs_bindgen_5b71629b3ccc3fa8_base
+hs_bindgen_5b71629b3ccc3fa8 = \x_0 -> hs_bindgen_5b71629b3ccc3fa8_base (toFFIType x_0)
 {-| __C declaration:__ @param_haskell_reserved_name@
 
     __defined at:__ @functions\/heap_types\/struct.h 15:6@
@@ -363,7 +363,7 @@ foreign import ccall unsafe "hs_bindgen_071e2eda58051e4a" hs_bindgen_071e2eda580
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_fun@
 hs_bindgen_071e2eda58051e4a :: IO (FunPtr (T -> IO T))
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_fun@
-hs_bindgen_071e2eda58051e4a = fromFFIType hs_bindgen_071e2eda58051e4a_base
+hs_bindgen_071e2eda58051e4a = fmap fromFFIType hs_bindgen_071e2eda58051e4a_base
 {-# NOINLINE fun_funptr #-}
 {-| __C declaration:__ @fun@
 
@@ -385,7 +385,7 @@ foreign import ccall unsafe "hs_bindgen_ee52ac50697405f8" hs_bindgen_ee52ac50697
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_underscore@
 hs_bindgen_ee52ac50697405f8 :: IO (FunPtr (T -> IO ()))
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_underscore@
-hs_bindgen_ee52ac50697405f8 = fromFFIType hs_bindgen_ee52ac50697405f8_base
+hs_bindgen_ee52ac50697405f8 = fmap fromFFIType hs_bindgen_ee52ac50697405f8_base
 {-# NOINLINE param_underscore_funptr #-}
 {-| __C declaration:__ @param_underscore@
 
@@ -407,7 +407,7 @@ foreign import ccall unsafe "hs_bindgen_b51cac34e6c4eca3" hs_bindgen_b51cac34e6c
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_uppercase@
 hs_bindgen_b51cac34e6c4eca3 :: IO (FunPtr (T -> IO ()))
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_uppercase@
-hs_bindgen_b51cac34e6c4eca3 = fromFFIType hs_bindgen_b51cac34e6c4eca3_base
+hs_bindgen_b51cac34e6c4eca3 = fmap fromFFIType hs_bindgen_b51cac34e6c4eca3_base
 {-# NOINLINE param_uppercase_funptr #-}
 {-| __C declaration:__ @param_uppercase@
 
@@ -429,7 +429,7 @@ foreign import ccall unsafe "hs_bindgen_2302284a38d84764" hs_bindgen_2302284a38d
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_undersore_capital@
 hs_bindgen_2302284a38d84764 :: IO (FunPtr (T -> IO ()))
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_undersore_capital@
-hs_bindgen_2302284a38d84764 = fromFFIType hs_bindgen_2302284a38d84764_base
+hs_bindgen_2302284a38d84764 = fmap fromFFIType hs_bindgen_2302284a38d84764_base
 {-# NOINLINE param_undersore_capital_funptr #-}
 {-| __C declaration:__ @param_undersore_capital@
 
@@ -451,7 +451,7 @@ foreign import ccall unsafe "hs_bindgen_af57be8569d5f651" hs_bindgen_af57be8569d
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_haskell_reserved_name@
 hs_bindgen_af57be8569d5f651 :: IO (FunPtr (T -> IO ()))
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_param_haskell_reserved_name@
-hs_bindgen_af57be8569d5f651 = fromFFIType hs_bindgen_af57be8569d5f651_base
+hs_bindgen_af57be8569d5f651 = fmap fromFFIType hs_bindgen_af57be8569d5f651_base
 {-# NOINLINE param_haskell_reserved_name_funptr #-}
 {-| __C declaration:__ @param_haskell_reserved_name@
 

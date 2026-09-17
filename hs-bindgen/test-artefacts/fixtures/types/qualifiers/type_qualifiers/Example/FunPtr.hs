@@ -31,7 +31,7 @@ foreign import ccall unsafe "hs_bindgen_a19bc138e7f2759b" hs_bindgen_a19bc138e7f
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_list_example@
 hs_bindgen_a19bc138e7f2759b :: IO (BG.FunPtr (BG.Ptr (PtrConst.PtrConst BG.CChar) -> HsBindgen.Runtime.LibC.CSize -> IO BG.CBool))
 hs_bindgen_a19bc138e7f2759b =
-  BG.fromFFIType hs_bindgen_a19bc138e7f2759b_base
+  fmap BG.fromFFIType hs_bindgen_a19bc138e7f2759b_base
 
 {-# NOINLINE list_example #-}
 {-| __C declaration:__ @list_example@

@@ -49,11 +49,11 @@ instance HasCField NewName "newName_x"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_programanalysisselection_mat_Example_Safe_FunctionWithAssignedHaskellNameByNameMangler@
 foreign import ccall safe "hs_bindgen_c9b1dc5577fd8ced" hs_bindgen_c9b1dc5577fd8ced_base ::
-    IO Int32
+    IO CInt
 -- __unique:__ @test_programanalysisselection_mat_Example_Safe_FunctionWithAssignedHaskellNameByNameMangler@
 hs_bindgen_c9b1dc5577fd8ced :: IO CInt
 -- __unique:__ @test_programanalysisselection_mat_Example_Safe_FunctionWithAssignedHaskellNameByNameMangler@
-hs_bindgen_c9b1dc5577fd8ced = fromFFIType hs_bindgen_c9b1dc5577fd8ced_base
+hs_bindgen_c9b1dc5577fd8ced = fmap fromFFIType hs_bindgen_c9b1dc5577fd8ced_base
 {-| __C declaration:__ @FunctionWithAssignedHaskellNameByNameMangler@
 
     __defined at:__ @program-analysis\/selection_matches_c_names.h 5:5@
@@ -70,11 +70,11 @@ functionWithAssignedHaskellNameByNameMangler_safe :: IO CInt
 functionWithAssignedHaskellNameByNameMangler_safe = hs_bindgen_c9b1dc5577fd8ced
 -- __unique:__ @test_programanalysisselection_mat_Example_Unsafe_FunctionWithAssignedHaskellNameByNameMangler@
 foreign import ccall unsafe "hs_bindgen_9a13a53e6a2f2416" hs_bindgen_9a13a53e6a2f2416_base ::
-    IO Int32
+    IO CInt
 -- __unique:__ @test_programanalysisselection_mat_Example_Unsafe_FunctionWithAssignedHaskellNameByNameMangler@
 hs_bindgen_9a13a53e6a2f2416 :: IO CInt
 -- __unique:__ @test_programanalysisselection_mat_Example_Unsafe_FunctionWithAssignedHaskellNameByNameMangler@
-hs_bindgen_9a13a53e6a2f2416 = fromFFIType hs_bindgen_9a13a53e6a2f2416_base
+hs_bindgen_9a13a53e6a2f2416 = fmap fromFFIType hs_bindgen_9a13a53e6a2f2416_base
 {-| __C declaration:__ @FunctionWithAssignedHaskellNameByNameMangler@
 
     __defined at:__ @program-analysis\/selection_matches_c_names.h 5:5@
@@ -95,7 +95,7 @@ foreign import ccall unsafe "hs_bindgen_1ccc97a484f823b2" hs_bindgen_1ccc97a484f
 -- __unique:__ @test_programanalysisselection_mat_Example_get_FunctionWithAssignedHaskellNameByNameMangler@
 hs_bindgen_1ccc97a484f823b2 :: IO (FunPtr (IO CInt))
 -- __unique:__ @test_programanalysisselection_mat_Example_get_FunctionWithAssignedHaskellNameByNameMangler@
-hs_bindgen_1ccc97a484f823b2 = fromFFIType hs_bindgen_1ccc97a484f823b2_base
+hs_bindgen_1ccc97a484f823b2 = fmap fromFFIType hs_bindgen_1ccc97a484f823b2_base
 {-# NOINLINE functionWithAssignedHaskellNameByNameMangler_funptr #-}
 {-| __C declaration:__ @FunctionWithAssignedHaskellNameByNameMangler@
 

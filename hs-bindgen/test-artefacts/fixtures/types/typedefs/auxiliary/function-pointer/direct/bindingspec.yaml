@@ -17,7 +17,6 @@ hstypes:
   - FromFunPtr
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr

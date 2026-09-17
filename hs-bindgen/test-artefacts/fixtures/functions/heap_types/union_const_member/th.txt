@@ -52,7 +52,7 @@ foreign import ccall safe "hs_bindgen_8a303cd5b4f7787b" hs_bindgen_8a303cd5b4f77
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Safe_fun@
 hs_bindgen_8a303cd5b4f7787b :: Ptr T -> Ptr T -> IO ()
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Safe_fun@
-hs_bindgen_8a303cd5b4f7787b = fromFFIType hs_bindgen_8a303cd5b4f7787b_base
+hs_bindgen_8a303cd5b4f7787b = \x_0 -> \x_1 -> hs_bindgen_8a303cd5b4f7787b_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/union_const_member.h 9:3@
@@ -75,7 +75,7 @@ foreign import ccall unsafe "hs_bindgen_4e22c71ca196dc5e" hs_bindgen_4e22c71ca19
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Unsafe_fun@
 hs_bindgen_4e22c71ca196dc5e :: Ptr T -> Ptr T -> IO ()
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Unsafe_fun@
-hs_bindgen_4e22c71ca196dc5e = fromFFIType hs_bindgen_4e22c71ca196dc5e_base
+hs_bindgen_4e22c71ca196dc5e = \x_0 -> \x_1 -> hs_bindgen_4e22c71ca196dc5e_base (toFFIType x_0) (toFFIType x_1)
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/union_const_member.h 9:3@
@@ -96,7 +96,7 @@ foreign import ccall unsafe "hs_bindgen_7e6af500caa71b85" hs_bindgen_7e6af500caa
 -- __unique:__ @test_functionsheap_typesunion_con_Example_get_fun@
 hs_bindgen_7e6af500caa71b85 :: IO (FunPtr (T -> IO T))
 -- __unique:__ @test_functionsheap_typesunion_con_Example_get_fun@
-hs_bindgen_7e6af500caa71b85 = fromFFIType hs_bindgen_7e6af500caa71b85_base
+hs_bindgen_7e6af500caa71b85 = fmap fromFFIType hs_bindgen_7e6af500caa71b85_base
 {-# NOINLINE fun_funptr #-}
 {-| __C declaration:__ @fun@
 

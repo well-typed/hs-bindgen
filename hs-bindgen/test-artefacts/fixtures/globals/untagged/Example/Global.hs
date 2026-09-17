@@ -73,7 +73,7 @@ foreign import ccall unsafe "hs_bindgen_d77490b2fc5f4d07" hs_bindgen_d77490b2fc5
 -- __unique:__ @test_globalsuntagged_Example_get_untaggedPoint@
 hs_bindgen_d77490b2fc5f4d07 :: IO (BG.Ptr UntaggedPoint)
 hs_bindgen_d77490b2fc5f4d07 =
-  BG.fromFFIType hs_bindgen_d77490b2fc5f4d07_base
+  fmap BG.fromFFIType hs_bindgen_d77490b2fc5f4d07_base
 
 {-# NOINLINE untaggedPoint #-}
 {-| __C declaration:__ @untaggedPoint@
@@ -93,7 +93,7 @@ foreign import ccall unsafe "hs_bindgen_0c5d4010212a5c60" hs_bindgen_0c5d4010212
 -- __unique:__ @test_globalsuntagged_Example_get_untaggedPair@
 hs_bindgen_0c5d4010212a5c60 :: IO (BG.Ptr UntaggedPair)
 hs_bindgen_0c5d4010212a5c60 =
-  BG.fromFFIType hs_bindgen_0c5d4010212a5c60_base
+  fmap BG.fromFFIType hs_bindgen_0c5d4010212a5c60_base
 
 {-# NOINLINE untaggedPair #-}
 {-| __C declaration:__ @untaggedPair@
@@ -113,7 +113,7 @@ foreign import ccall unsafe "hs_bindgen_6913d0b9652bbf6f" hs_bindgen_6913d0b9652
 -- __unique:__ @test_globalsuntagged_Example_get_untaggedEnum@
 hs_bindgen_6913d0b9652bbf6f :: IO (BG.Ptr UntaggedEnum)
 hs_bindgen_6913d0b9652bbf6f =
-  BG.fromFFIType hs_bindgen_6913d0b9652bbf6f_base
+  fmap BG.fromFFIType hs_bindgen_6913d0b9652bbf6f_base
 
 {-# NOINLINE untaggedEnum #-}
 {-| __C declaration:__ @untaggedEnum@
@@ -133,7 +133,7 @@ foreign import ccall unsafe "hs_bindgen_d7232446972b888a" hs_bindgen_d7232446972
 -- __unique:__ @test_globalsuntagged_Example_get_untaggedEnumCoords@
 hs_bindgen_d7232446972b888a :: IO (BG.Ptr UntaggedEnumCoords)
 hs_bindgen_d7232446972b888a =
-  BG.fromFFIType hs_bindgen_d7232446972b888a_base
+  fmap BG.fromFFIType hs_bindgen_d7232446972b888a_base
 
 {-# NOINLINE untaggedEnumCoords #-}
 {-| __C declaration:__ @untaggedEnumCoords@
@@ -153,7 +153,7 @@ foreign import ccall unsafe "hs_bindgen_9d7d1fc84d6966f1" hs_bindgen_9d7d1fc84d6
 -- __unique:__ @test_globalsuntagged_Example_get_A@
 hs_bindgen_9d7d1fc84d6966f1 :: IO (BG.Ptr (CA.ConstantArray 17 A))
 hs_bindgen_9d7d1fc84d6966f1 =
-  BG.fromFFIType hs_bindgen_9d7d1fc84d6966f1_base
+  fmap BG.fromFFIType hs_bindgen_9d7d1fc84d6966f1_base
 
 {-# NOINLINE a #-}
 {-| __C declaration:__ @A@
@@ -172,7 +172,7 @@ foreign import ccall unsafe "hs_bindgen_38f1407628b3330b" hs_bindgen_38f1407628b
 -- __unique:__ @test_globalsuntagged_Example_get_B@
 hs_bindgen_38f1407628b3330b :: IO (PtrConst.PtrConst B)
 hs_bindgen_38f1407628b3330b =
-  BG.fromFFIType hs_bindgen_38f1407628b3330b_base
+  fmap BG.fromFFIType hs_bindgen_38f1407628b3330b_base
 
 {-# NOINLINE hs_bindgen_c84e7bea962cf7bc #-}
 {-| __C declaration:__ @B@
@@ -199,7 +199,7 @@ foreign import ccall unsafe "hs_bindgen_492f8d9f3437df29" hs_bindgen_492f8d9f343
 -- __unique:__ @test_globalsuntagged_Example_get_C@
 hs_bindgen_492f8d9f3437df29 :: IO (BG.Ptr (PtrConst.PtrConst (IA.IncompleteArray (BG.Ptr C))))
 hs_bindgen_492f8d9f3437df29 =
-  BG.fromFFIType hs_bindgen_492f8d9f3437df29_base
+  fmap BG.fromFFIType hs_bindgen_492f8d9f3437df29_base
 
 {-# NOINLINE c #-}
 {-| __C declaration:__ @C@

@@ -22,7 +22,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_macrosundef_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_2a245181e5fb1e1c" hs_bindgen_2a245181e5fb1e1c_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosundef_Example_Safe_foo@
@@ -30,7 +30,8 @@ hs_bindgen_2a245181e5fb1e1c ::
      T
   -> IO ()
 hs_bindgen_2a245181e5fb1e1c =
-  BG.fromFFIType hs_bindgen_2a245181e5fb1e1c_base
+  \x0 ->
+    hs_bindgen_2a245181e5fb1e1c_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @foo@
 

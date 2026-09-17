@@ -41,7 +41,7 @@ foreign import ccall unsafe "hs_bindgen_7b488cf23d974403" hs_bindgen_7b488cf23d9
 -- __unique:__ @test_macrosreparsenestingstruct__Example_get_G1@
 hs_bindgen_7b488cf23d974403 :: IO (BG.Ptr G1)
 hs_bindgen_7b488cf23d974403 =
-  BG.fromFFIType hs_bindgen_7b488cf23d974403_base
+  fmap BG.fromFFIType hs_bindgen_7b488cf23d974403_base
 
 {-# NOINLINE g1 #-}
 {-| __C declaration:__ @G1@
@@ -60,7 +60,7 @@ foreign import ccall unsafe "hs_bindgen_be835215a4ac0819" hs_bindgen_be835215a4a
 -- __unique:__ @test_macrosreparsenestingstruct__Example_get_G2@
 hs_bindgen_be835215a4ac0819 :: IO (BG.Ptr (BG.Ptr G2))
 hs_bindgen_be835215a4ac0819 =
-  BG.fromFFIType hs_bindgen_be835215a4ac0819_base
+  fmap BG.fromFFIType hs_bindgen_be835215a4ac0819_base
 
 {-# NOINLINE g2 #-}
 {-| __C declaration:__ @G2@
@@ -79,7 +79,7 @@ foreign import ccall unsafe "hs_bindgen_dad785bf89d140bb" hs_bindgen_dad785bf89d
 -- __unique:__ @test_macrosreparsenestingstruct__Example_get_G3@
 hs_bindgen_dad785bf89d140bb :: IO (BG.Ptr (BG.Ptr (BG.Ptr G3)))
 hs_bindgen_dad785bf89d140bb =
-  BG.fromFFIType hs_bindgen_dad785bf89d140bb_base
+  fmap BG.fromFFIType hs_bindgen_dad785bf89d140bb_base
 
 {-# NOINLINE g3 #-}
 {-| __C declaration:__ @G3@

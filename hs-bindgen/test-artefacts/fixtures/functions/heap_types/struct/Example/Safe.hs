@@ -61,7 +61,9 @@ hs_bindgen_a5d53f538e59b1fc ::
   -> BG.Ptr T
   -> IO ()
 hs_bindgen_a5d53f538e59b1fc =
-  BG.fromFFIType hs_bindgen_a5d53f538e59b1fc_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_a5d53f538e59b1fc_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @fun@
 
@@ -89,7 +91,8 @@ hs_bindgen_8b003c42270f977d ::
      BG.Ptr T
   -> IO ()
 hs_bindgen_8b003c42270f977d =
-  BG.fromFFIType hs_bindgen_8b003c42270f977d_base
+  \x0 ->
+    hs_bindgen_8b003c42270f977d_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @param_underscore@
 
@@ -115,7 +118,8 @@ hs_bindgen_820d4de13c1d8dff ::
      BG.Ptr T
   -> IO ()
 hs_bindgen_820d4de13c1d8dff =
-  BG.fromFFIType hs_bindgen_820d4de13c1d8dff_base
+  \x0 ->
+    hs_bindgen_820d4de13c1d8dff_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @param_uppercase@
 
@@ -142,7 +146,8 @@ hs_bindgen_aa622269ffe58e15 ::
      BG.Ptr T
   -> IO ()
 hs_bindgen_aa622269ffe58e15 =
-  BG.fromFFIType hs_bindgen_aa622269ffe58e15_base
+  \x0 ->
+    hs_bindgen_aa622269ffe58e15_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @param_undersore_capital@
 
@@ -168,7 +173,8 @@ hs_bindgen_40fff9d72335931a ::
      BG.Ptr T
   -> IO ()
 hs_bindgen_40fff9d72335931a =
-  BG.fromFFIType hs_bindgen_40fff9d72335931a_base
+  \x0 ->
+    hs_bindgen_40fff9d72335931a_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @param_haskell_reserved_name@
 

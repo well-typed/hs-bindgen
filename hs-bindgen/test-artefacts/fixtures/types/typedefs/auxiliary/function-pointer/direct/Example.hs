@@ -3,7 +3,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
@@ -30,12 +29,11 @@ newtype T = T
   { unwrapT :: BG.CInt -> IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toT@
 foreign import ccall safe "wrapper" hs_bindgen_b8534912f6256492_base ::
-     (BG.Int32 -> IO ())
-  -> IO (BG.FunPtr (BG.Int32 -> IO ()))
+     (BG.CInt -> IO ())
+  -> IO (BG.FunPtr (BG.CInt -> IO ()))
 
 -- __unique:__ @toT@
 hs_bindgen_b8534912f6256492 ::
@@ -43,12 +41,13 @@ hs_bindgen_b8534912f6256492 ::
   -> IO (BG.FunPtr T)
 hs_bindgen_b8534912f6256492 =
   \fun0 ->
-    fmap BG.castFunPtrFromFFIType (hs_bindgen_b8534912f6256492_base (BG.toFFIType fun0))
+    fmap BG.castFunPtr (hs_bindgen_b8534912f6256492_base (\x1 ->
+                                                            BG.getField @"unwrapT" fun0 (BG.fromFFIType x1)))
 
 -- __unique:__ @fromT@
 foreign import ccall safe "dynamic" hs_bindgen_8f830eadb43a6fe4_base ::
-     BG.FunPtr (BG.Int32 -> IO ())
-  -> BG.Int32 -> IO ()
+     BG.FunPtr (BG.CInt -> IO ())
+  -> BG.CInt -> IO ()
 
 -- __unique:__ @fromT@
 hs_bindgen_8f830eadb43a6fe4 ::
@@ -56,7 +55,8 @@ hs_bindgen_8f830eadb43a6fe4 ::
   -> T
 hs_bindgen_8f830eadb43a6fe4 =
   \funPtr0 ->
-    BG.fromFFIType (hs_bindgen_8f830eadb43a6fe4_base (BG.castFunPtrToFFIType funPtr0))
+    T (\x1 ->
+         hs_bindgen_8f830eadb43a6fe4_base (BG.castFunPtr funPtr0) (BG.toFFIType x1))
 
 instance BG.ToFunPtr T where
 

@@ -58,7 +58,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_99bb90e6d7637d2c" hs_bindgen_99bb90e6d7637d2c_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
@@ -66,7 +66,8 @@ hs_bindgen_99bb90e6d7637d2c ::
      MyEnum
   -> IO ()
 hs_bindgen_99bb90e6d7637d2c =
-  BG.fromFFIType hs_bindgen_99bb90e6d7637d2c_base
+  \x0 ->
+    hs_bindgen_99bb90e6d7637d2c_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @foo@
 
@@ -82,7 +83,7 @@ foo = hs_bindgen_99bb90e6d7637d2c
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_392e3092a2681c13" hs_bindgen_392e3092a2681c13_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
@@ -90,7 +91,8 @@ hs_bindgen_392e3092a2681c13 ::
      A
   -> IO ()
 hs_bindgen_392e3092a2681c13 =
-  BG.fromFFIType hs_bindgen_392e3092a2681c13_base
+  \x0 ->
+    hs_bindgen_392e3092a2681c13_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooA@
 
@@ -106,7 +108,7 @@ fooA = hs_bindgen_392e3092a2681c13
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_6011faf8531be4fa" hs_bindgen_6011faf8531be4fa_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
@@ -114,7 +116,8 @@ hs_bindgen_6011faf8531be4fa ::
      B
   -> IO ()
 hs_bindgen_6011faf8531be4fa =
-  BG.fromFFIType hs_bindgen_6011faf8531be4fa_base
+  \x0 ->
+    hs_bindgen_6011faf8531be4fa_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooB@
 
@@ -130,7 +133,7 @@ fooB = hs_bindgen_6011faf8531be4fa
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
 foreign import ccall safe "hs_bindgen_40a50b8e6ac3b09d" hs_bindgen_40a50b8e6ac3b09d_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
@@ -138,7 +141,8 @@ hs_bindgen_40a50b8e6ac3b09d ::
      M.C
   -> IO ()
 hs_bindgen_40a50b8e6ac3b09d =
-  BG.fromFFIType hs_bindgen_40a50b8e6ac3b09d_base
+  \x0 ->
+    hs_bindgen_40a50b8e6ac3b09d_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooC@
 
@@ -154,7 +158,7 @@ fooC = hs_bindgen_40a50b8e6ac3b09d
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
 foreign import ccall safe "hs_bindgen_32b4f35bf27a4bf8" hs_bindgen_32b4f35bf27a4bf8_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
@@ -162,7 +166,8 @@ hs_bindgen_32b4f35bf27a4bf8 ::
      M.D
   -> IO ()
 hs_bindgen_32b4f35bf27a4bf8 =
-  BG.fromFFIType hs_bindgen_32b4f35bf27a4bf8_base
+  \x0 ->
+    hs_bindgen_32b4f35bf27a4bf8_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooD@
 
@@ -178,7 +183,7 @@ fooD = hs_bindgen_32b4f35bf27a4bf8
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
 foreign import ccall safe "hs_bindgen_6e59183c0a861d01" hs_bindgen_6e59183c0a861d01_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
@@ -186,7 +191,8 @@ hs_bindgen_6e59183c0a861d01 ::
      E
   -> IO ()
 hs_bindgen_6e59183c0a861d01 =
-  BG.fromFFIType hs_bindgen_6e59183c0a861d01_base
+  \x0 ->
+    hs_bindgen_6e59183c0a861d01_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooE@
 

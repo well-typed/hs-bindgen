@@ -23,8 +23,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_typescomplexvector_test_Example_Safe_new_vector@
 foreign import ccall safe "hs_bindgen_cd5f566bc96dcba0" hs_bindgen_cd5f566bc96dcba0_base ::
-     Double
-  -> Double
+     BG.CDouble
+  -> BG.CDouble
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_typescomplexvector_test_Example_Safe_new_vector@
@@ -33,7 +33,9 @@ hs_bindgen_cd5f566bc96dcba0 ::
   -> BG.CDouble
   -> IO (BG.Ptr Vector)
 hs_bindgen_cd5f566bc96dcba0 =
-  BG.fromFFIType hs_bindgen_cd5f566bc96dcba0_base
+  \x0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_cd5f566bc96dcba0_base (BG.toFFIType x0) (BG.toFFIType x1))
 
 {-| __C declaration:__ @new_vector@
 

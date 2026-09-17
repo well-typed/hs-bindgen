@@ -362,7 +362,7 @@ foreign import ccall safe "hs_bindgen_41e3579627406714" hs_bindgen_41e3579627406
 hs_bindgen_41e3579627406714 :: PtrConst (Elem (IncompleteArray CInt)) ->
                                IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_foo@
-hs_bindgen_41e3579627406714 = fromFFIType hs_bindgen_41e3579627406714_base
+hs_bindgen_41e3579627406714 = \x_0 -> hs_bindgen_41e3579627406714_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @arrays\/const_qualifier.h 5:6@
@@ -384,7 +384,7 @@ foreign import ccall safe "hs_bindgen_ef925a32def7d5e9" hs_bindgen_ef925a32def7d
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooA@
 hs_bindgen_ef925a32def7d5e9 :: PtrConst (Elem S) -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooA@
-hs_bindgen_ef925a32def7d5e9 = fromFFIType hs_bindgen_ef925a32def7d5e9_base
+hs_bindgen_ef925a32def7d5e9 = \x_0 -> hs_bindgen_ef925a32def7d5e9_base (toFFIType x_0)
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @arrays\/const_qualifier.h 10:6@
@@ -406,7 +406,7 @@ foreign import ccall safe "hs_bindgen_4237cee8985eb7fc" hs_bindgen_4237cee8985eb
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooB@
 hs_bindgen_4237cee8985eb7fc :: PtrConst (Elem S) -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooB@
-hs_bindgen_4237cee8985eb7fc = fromFFIType hs_bindgen_4237cee8985eb7fc_base
+hs_bindgen_4237cee8985eb7fc = \x_0 -> hs_bindgen_4237cee8985eb7fc_base (toFFIType x_0)
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @arrays\/const_qualifier.h 11:6@
@@ -428,7 +428,7 @@ foreign import ccall safe "hs_bindgen_dc3d2325cbc25f6e" hs_bindgen_dc3d2325cbc25
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooC@
 hs_bindgen_dc3d2325cbc25f6e :: PtrConst (Elem T) -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooC@
-hs_bindgen_dc3d2325cbc25f6e = fromFFIType hs_bindgen_dc3d2325cbc25f6e_base
+hs_bindgen_dc3d2325cbc25f6e = \x_0 -> hs_bindgen_dc3d2325cbc25f6e_base (toFFIType x_0)
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @arrays\/const_qualifier.h 12:6@
@@ -452,7 +452,7 @@ hs_bindgen_0820d6c6e877663d :: PtrConst (Elem (ConstantArray 3
                                                              CInt)) ->
                                IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_bar@
-hs_bindgen_0820d6c6e877663d = fromFFIType hs_bindgen_0820d6c6e877663d_base
+hs_bindgen_0820d6c6e877663d = \x_0 -> hs_bindgen_0820d6c6e877663d_base (toFFIType x_0)
 {-| __C declaration:__ @bar@
 
     __defined at:__ @arrays\/const_qualifier.h 16:6@
@@ -474,7 +474,7 @@ foreign import ccall safe "hs_bindgen_bb3ba1c8635c0008" hs_bindgen_bb3ba1c8635c0
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_barA@
 hs_bindgen_bb3ba1c8635c0008 :: PtrConst (Elem U) -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_barA@
-hs_bindgen_bb3ba1c8635c0008 = fromFFIType hs_bindgen_bb3ba1c8635c0008_base
+hs_bindgen_bb3ba1c8635c0008 = \x_0 -> hs_bindgen_bb3ba1c8635c0008_base (toFFIType x_0)
 {-| __C declaration:__ @barA@
 
     __defined at:__ @arrays\/const_qualifier.h 21:6@
@@ -496,7 +496,7 @@ foreign import ccall safe "hs_bindgen_63794b19284a8cd9" hs_bindgen_63794b19284a8
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_barB@
 hs_bindgen_63794b19284a8cd9 :: PtrConst (Elem U) -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_barB@
-hs_bindgen_63794b19284a8cd9 = fromFFIType hs_bindgen_63794b19284a8cd9_base
+hs_bindgen_63794b19284a8cd9 = \x_0 -> hs_bindgen_63794b19284a8cd9_base (toFFIType x_0)
 {-| __C declaration:__ @barB@
 
     __defined at:__ @arrays\/const_qualifier.h 22:6@
@@ -518,7 +518,7 @@ foreign import ccall safe "hs_bindgen_e936f5907d7bdf9b" hs_bindgen_e936f5907d7bd
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_barC@
 hs_bindgen_e936f5907d7bdf9b :: PtrConst (Elem V) -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_barC@
-hs_bindgen_e936f5907d7bdf9b = fromFFIType hs_bindgen_e936f5907d7bdf9b_base
+hs_bindgen_e936f5907d7bdf9b = \x_0 -> hs_bindgen_e936f5907d7bdf9b_base (toFFIType x_0)
 {-| __C declaration:__ @barC@
 
     __defined at:__ @arrays\/const_qualifier.h 23:6@
@@ -541,7 +541,7 @@ foreign import ccall safe "hs_bindgen_e4f32da8a7d205db" hs_bindgen_e4f32da8a7d20
 hs_bindgen_e4f32da8a7d205db :: PtrConst (ConstantArray 3 CInt) ->
                                IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_baz@
-hs_bindgen_e4f32da8a7d205db = fromFFIType hs_bindgen_e4f32da8a7d205db_base
+hs_bindgen_e4f32da8a7d205db = \x_0 -> hs_bindgen_e4f32da8a7d205db_base (toFFIType x_0)
 {-| __C declaration:__ @baz@
 
     __defined at:__ @arrays\/const_qualifier.h 27:6@
@@ -563,7 +563,7 @@ foreign import ccall safe "hs_bindgen_abced453716ffe1c" hs_bindgen_abced453716ff
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazA@
 hs_bindgen_abced453716ffe1c :: PtrConst W -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazA@
-hs_bindgen_abced453716ffe1c = fromFFIType hs_bindgen_abced453716ffe1c_base
+hs_bindgen_abced453716ffe1c = \x_0 -> hs_bindgen_abced453716ffe1c_base (toFFIType x_0)
 {-| __C declaration:__ @bazA@
 
     __defined at:__ @arrays\/const_qualifier.h 32:6@
@@ -585,7 +585,7 @@ foreign import ccall safe "hs_bindgen_4602d92b6dafcfa7" hs_bindgen_4602d92b6dafc
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazB@
 hs_bindgen_4602d92b6dafcfa7 :: PtrConst W -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazB@
-hs_bindgen_4602d92b6dafcfa7 = fromFFIType hs_bindgen_4602d92b6dafcfa7_base
+hs_bindgen_4602d92b6dafcfa7 = \x_0 -> hs_bindgen_4602d92b6dafcfa7_base (toFFIType x_0)
 {-| __C declaration:__ @bazB@
 
     __defined at:__ @arrays\/const_qualifier.h 33:6@
@@ -607,7 +607,7 @@ foreign import ccall safe "hs_bindgen_b49b704068741c9c" hs_bindgen_b49b704068741
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazC@
 hs_bindgen_b49b704068741c9c :: PtrConst X -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazC@
-hs_bindgen_b49b704068741c9c = fromFFIType hs_bindgen_b49b704068741c9c_base
+hs_bindgen_b49b704068741c9c = \x_0 -> hs_bindgen_b49b704068741c9c_base (toFFIType x_0)
 {-| __C declaration:__ @bazC@
 
     __defined at:__ @arrays\/const_qualifier.h 34:6@
@@ -630,7 +630,7 @@ foreign import ccall unsafe "hs_bindgen_7eb8358d30ebb28b" hs_bindgen_7eb8358d30e
 hs_bindgen_7eb8358d30ebb28b :: PtrConst (Elem (IncompleteArray CInt)) ->
                                IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_foo@
-hs_bindgen_7eb8358d30ebb28b = fromFFIType hs_bindgen_7eb8358d30ebb28b_base
+hs_bindgen_7eb8358d30ebb28b = \x_0 -> hs_bindgen_7eb8358d30ebb28b_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @arrays\/const_qualifier.h 5:6@
@@ -652,7 +652,7 @@ foreign import ccall unsafe "hs_bindgen_2fc1970fe11a3461" hs_bindgen_2fc1970fe11
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooA@
 hs_bindgen_2fc1970fe11a3461 :: PtrConst (Elem S) -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooA@
-hs_bindgen_2fc1970fe11a3461 = fromFFIType hs_bindgen_2fc1970fe11a3461_base
+hs_bindgen_2fc1970fe11a3461 = \x_0 -> hs_bindgen_2fc1970fe11a3461_base (toFFIType x_0)
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @arrays\/const_qualifier.h 10:6@
@@ -674,7 +674,7 @@ foreign import ccall unsafe "hs_bindgen_58689a7e4b1d44f6" hs_bindgen_58689a7e4b1
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooB@
 hs_bindgen_58689a7e4b1d44f6 :: PtrConst (Elem S) -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooB@
-hs_bindgen_58689a7e4b1d44f6 = fromFFIType hs_bindgen_58689a7e4b1d44f6_base
+hs_bindgen_58689a7e4b1d44f6 = \x_0 -> hs_bindgen_58689a7e4b1d44f6_base (toFFIType x_0)
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @arrays\/const_qualifier.h 11:6@
@@ -696,7 +696,7 @@ foreign import ccall unsafe "hs_bindgen_f88b417ee6e28c0c" hs_bindgen_f88b417ee6e
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooC@
 hs_bindgen_f88b417ee6e28c0c :: PtrConst (Elem T) -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooC@
-hs_bindgen_f88b417ee6e28c0c = fromFFIType hs_bindgen_f88b417ee6e28c0c_base
+hs_bindgen_f88b417ee6e28c0c = \x_0 -> hs_bindgen_f88b417ee6e28c0c_base (toFFIType x_0)
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @arrays\/const_qualifier.h 12:6@
@@ -720,7 +720,7 @@ hs_bindgen_78493aa01e9cc5da :: PtrConst (Elem (ConstantArray 3
                                                              CInt)) ->
                                IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bar@
-hs_bindgen_78493aa01e9cc5da = fromFFIType hs_bindgen_78493aa01e9cc5da_base
+hs_bindgen_78493aa01e9cc5da = \x_0 -> hs_bindgen_78493aa01e9cc5da_base (toFFIType x_0)
 {-| __C declaration:__ @bar@
 
     __defined at:__ @arrays\/const_qualifier.h 16:6@
@@ -742,7 +742,7 @@ foreign import ccall unsafe "hs_bindgen_bee2c20f290d25d6" hs_bindgen_bee2c20f290
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barA@
 hs_bindgen_bee2c20f290d25d6 :: PtrConst (Elem U) -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barA@
-hs_bindgen_bee2c20f290d25d6 = fromFFIType hs_bindgen_bee2c20f290d25d6_base
+hs_bindgen_bee2c20f290d25d6 = \x_0 -> hs_bindgen_bee2c20f290d25d6_base (toFFIType x_0)
 {-| __C declaration:__ @barA@
 
     __defined at:__ @arrays\/const_qualifier.h 21:6@
@@ -764,7 +764,7 @@ foreign import ccall unsafe "hs_bindgen_71f805899a96d9f1" hs_bindgen_71f805899a9
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barB@
 hs_bindgen_71f805899a96d9f1 :: PtrConst (Elem U) -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barB@
-hs_bindgen_71f805899a96d9f1 = fromFFIType hs_bindgen_71f805899a96d9f1_base
+hs_bindgen_71f805899a96d9f1 = \x_0 -> hs_bindgen_71f805899a96d9f1_base (toFFIType x_0)
 {-| __C declaration:__ @barB@
 
     __defined at:__ @arrays\/const_qualifier.h 22:6@
@@ -786,7 +786,7 @@ foreign import ccall unsafe "hs_bindgen_89af56a24c359834" hs_bindgen_89af56a24c3
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barC@
 hs_bindgen_89af56a24c359834 :: PtrConst (Elem V) -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barC@
-hs_bindgen_89af56a24c359834 = fromFFIType hs_bindgen_89af56a24c359834_base
+hs_bindgen_89af56a24c359834 = \x_0 -> hs_bindgen_89af56a24c359834_base (toFFIType x_0)
 {-| __C declaration:__ @barC@
 
     __defined at:__ @arrays\/const_qualifier.h 23:6@
@@ -809,7 +809,7 @@ foreign import ccall unsafe "hs_bindgen_71d7d347923cf6e5" hs_bindgen_71d7d347923
 hs_bindgen_71d7d347923cf6e5 :: PtrConst (ConstantArray 3 CInt) ->
                                IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_baz@
-hs_bindgen_71d7d347923cf6e5 = fromFFIType hs_bindgen_71d7d347923cf6e5_base
+hs_bindgen_71d7d347923cf6e5 = \x_0 -> hs_bindgen_71d7d347923cf6e5_base (toFFIType x_0)
 {-| __C declaration:__ @baz@
 
     __defined at:__ @arrays\/const_qualifier.h 27:6@
@@ -831,7 +831,7 @@ foreign import ccall unsafe "hs_bindgen_25cc50be574bcc6c" hs_bindgen_25cc50be574
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazA@
 hs_bindgen_25cc50be574bcc6c :: PtrConst W -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazA@
-hs_bindgen_25cc50be574bcc6c = fromFFIType hs_bindgen_25cc50be574bcc6c_base
+hs_bindgen_25cc50be574bcc6c = \x_0 -> hs_bindgen_25cc50be574bcc6c_base (toFFIType x_0)
 {-| __C declaration:__ @bazA@
 
     __defined at:__ @arrays\/const_qualifier.h 32:6@
@@ -853,7 +853,7 @@ foreign import ccall unsafe "hs_bindgen_3fd3913cc13f61be" hs_bindgen_3fd3913cc13
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazB@
 hs_bindgen_3fd3913cc13f61be :: PtrConst W -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazB@
-hs_bindgen_3fd3913cc13f61be = fromFFIType hs_bindgen_3fd3913cc13f61be_base
+hs_bindgen_3fd3913cc13f61be = \x_0 -> hs_bindgen_3fd3913cc13f61be_base (toFFIType x_0)
 {-| __C declaration:__ @bazB@
 
     __defined at:__ @arrays\/const_qualifier.h 33:6@
@@ -875,7 +875,7 @@ foreign import ccall unsafe "hs_bindgen_a91ac27216749da9" hs_bindgen_a91ac272167
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazC@
 hs_bindgen_a91ac27216749da9 :: PtrConst X -> IO ()
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazC@
-hs_bindgen_a91ac27216749da9 = fromFFIType hs_bindgen_a91ac27216749da9_base
+hs_bindgen_a91ac27216749da9 = \x_0 -> hs_bindgen_a91ac27216749da9_base (toFFIType x_0)
 {-| __C declaration:__ @bazC@
 
     __defined at:__ @arrays\/const_qualifier.h 34:6@
@@ -897,7 +897,7 @@ foreign import ccall unsafe "hs_bindgen_08ac8ef9de29103e" hs_bindgen_08ac8ef9de2
 hs_bindgen_08ac8ef9de29103e :: IO (FunPtr (PtrConst (Elem (IncompleteArray CInt)) ->
                                            IO ()))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_foo@
-hs_bindgen_08ac8ef9de29103e = fromFFIType hs_bindgen_08ac8ef9de29103e_base
+hs_bindgen_08ac8ef9de29103e = fmap fromFFIType hs_bindgen_08ac8ef9de29103e_base
 {-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 
@@ -921,7 +921,7 @@ foreign import ccall unsafe "hs_bindgen_54fbf41deabb186a" hs_bindgen_54fbf41deab
 hs_bindgen_54fbf41deabb186a :: IO (FunPtr (PtrConst (Elem S) ->
                                            IO ()))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_fooA@
-hs_bindgen_54fbf41deabb186a = fromFFIType hs_bindgen_54fbf41deabb186a_base
+hs_bindgen_54fbf41deabb186a = fmap fromFFIType hs_bindgen_54fbf41deabb186a_base
 {-# NOINLINE fooA_funptr #-}
 {-| __C declaration:__ @fooA@
 
@@ -944,7 +944,7 @@ foreign import ccall unsafe "hs_bindgen_639b20c53a422f2a" hs_bindgen_639b20c53a4
 hs_bindgen_639b20c53a422f2a :: IO (FunPtr (PtrConst (Elem S) ->
                                            IO ()))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_fooB@
-hs_bindgen_639b20c53a422f2a = fromFFIType hs_bindgen_639b20c53a422f2a_base
+hs_bindgen_639b20c53a422f2a = fmap fromFFIType hs_bindgen_639b20c53a422f2a_base
 {-# NOINLINE fooB_funptr #-}
 {-| __C declaration:__ @fooB@
 
@@ -967,7 +967,7 @@ foreign import ccall unsafe "hs_bindgen_fef335c60d51fed2" hs_bindgen_fef335c60d5
 hs_bindgen_fef335c60d51fed2 :: IO (FunPtr (PtrConst (Elem T) ->
                                            IO ()))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_fooC@
-hs_bindgen_fef335c60d51fed2 = fromFFIType hs_bindgen_fef335c60d51fed2_base
+hs_bindgen_fef335c60d51fed2 = fmap fromFFIType hs_bindgen_fef335c60d51fed2_base
 {-# NOINLINE fooC_funptr #-}
 {-| __C declaration:__ @fooC@
 
@@ -991,7 +991,7 @@ hs_bindgen_20a55b314c10f7b0 :: IO (FunPtr (PtrConst (Elem (ConstantArray 3
                                                                          CInt)) ->
                                            IO ()))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_bar@
-hs_bindgen_20a55b314c10f7b0 = fromFFIType hs_bindgen_20a55b314c10f7b0_base
+hs_bindgen_20a55b314c10f7b0 = fmap fromFFIType hs_bindgen_20a55b314c10f7b0_base
 {-# NOINLINE bar_funptr #-}
 {-| __C declaration:__ @bar@
 
@@ -1015,7 +1015,7 @@ foreign import ccall unsafe "hs_bindgen_d75c925bc91f45d8" hs_bindgen_d75c925bc91
 hs_bindgen_d75c925bc91f45d8 :: IO (FunPtr (PtrConst (Elem U) ->
                                            IO ()))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_barA@
-hs_bindgen_d75c925bc91f45d8 = fromFFIType hs_bindgen_d75c925bc91f45d8_base
+hs_bindgen_d75c925bc91f45d8 = fmap fromFFIType hs_bindgen_d75c925bc91f45d8_base
 {-# NOINLINE barA_funptr #-}
 {-| __C declaration:__ @barA@
 
@@ -1038,7 +1038,7 @@ foreign import ccall unsafe "hs_bindgen_aecd16e35ff42812" hs_bindgen_aecd16e35ff
 hs_bindgen_aecd16e35ff42812 :: IO (FunPtr (PtrConst (Elem U) ->
                                            IO ()))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_barB@
-hs_bindgen_aecd16e35ff42812 = fromFFIType hs_bindgen_aecd16e35ff42812_base
+hs_bindgen_aecd16e35ff42812 = fmap fromFFIType hs_bindgen_aecd16e35ff42812_base
 {-# NOINLINE barB_funptr #-}
 {-| __C declaration:__ @barB@
 
@@ -1061,7 +1061,7 @@ foreign import ccall unsafe "hs_bindgen_7b514bc063bee42a" hs_bindgen_7b514bc063b
 hs_bindgen_7b514bc063bee42a :: IO (FunPtr (PtrConst (Elem V) ->
                                            IO ()))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_barC@
-hs_bindgen_7b514bc063bee42a = fromFFIType hs_bindgen_7b514bc063bee42a_base
+hs_bindgen_7b514bc063bee42a = fmap fromFFIType hs_bindgen_7b514bc063bee42a_base
 {-# NOINLINE barC_funptr #-}
 {-| __C declaration:__ @barC@
 
@@ -1085,7 +1085,7 @@ hs_bindgen_4839eb9bacfd303d :: IO (FunPtr (PtrConst (ConstantArray 3
                                                                    CInt) ->
                                            IO ()))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_baz@
-hs_bindgen_4839eb9bacfd303d = fromFFIType hs_bindgen_4839eb9bacfd303d_base
+hs_bindgen_4839eb9bacfd303d = fmap fromFFIType hs_bindgen_4839eb9bacfd303d_base
 {-# NOINLINE baz_funptr #-}
 {-| __C declaration:__ @baz@
 
@@ -1107,7 +1107,7 @@ foreign import ccall unsafe "hs_bindgen_0ada0d6bbdb28946" hs_bindgen_0ada0d6bbdb
 -- __unique:__ @test_arraysconst_qualifier_Example_get_bazA@
 hs_bindgen_0ada0d6bbdb28946 :: IO (FunPtr (PtrConst W -> IO ()))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_bazA@
-hs_bindgen_0ada0d6bbdb28946 = fromFFIType hs_bindgen_0ada0d6bbdb28946_base
+hs_bindgen_0ada0d6bbdb28946 = fmap fromFFIType hs_bindgen_0ada0d6bbdb28946_base
 {-# NOINLINE bazA_funptr #-}
 {-| __C declaration:__ @bazA@
 
@@ -1129,7 +1129,7 @@ foreign import ccall unsafe "hs_bindgen_d035691c9268d21a" hs_bindgen_d035691c926
 -- __unique:__ @test_arraysconst_qualifier_Example_get_bazB@
 hs_bindgen_d035691c9268d21a :: IO (FunPtr (PtrConst W -> IO ()))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_bazB@
-hs_bindgen_d035691c9268d21a = fromFFIType hs_bindgen_d035691c9268d21a_base
+hs_bindgen_d035691c9268d21a = fmap fromFFIType hs_bindgen_d035691c9268d21a_base
 {-# NOINLINE bazB_funptr #-}
 {-| __C declaration:__ @bazB@
 
@@ -1151,7 +1151,7 @@ foreign import ccall unsafe "hs_bindgen_fc2dfbe62c6dc8b1" hs_bindgen_fc2dfbe62c6
 -- __unique:__ @test_arraysconst_qualifier_Example_get_bazC@
 hs_bindgen_fc2dfbe62c6dc8b1 :: IO (FunPtr (PtrConst X -> IO ()))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_bazC@
-hs_bindgen_fc2dfbe62c6dc8b1 = fromFFIType hs_bindgen_fc2dfbe62c6dc8b1_base
+hs_bindgen_fc2dfbe62c6dc8b1 = fmap fromFFIType hs_bindgen_fc2dfbe62c6dc8b1_base
 {-# NOINLINE bazC_funptr #-}
 {-| __C declaration:__ @bazC@
 

@@ -68,8 +68,8 @@ module HsBindgen.Runtime.LibC (
 
     -- * Time types
     -- $TimeTypes
-  , Foreign.C.CTime
-  , Foreign.C.CClock
+  , Foreign.C.CTime(..)
+  , Foreign.C.CClock(..)
   , LibC.CTm(..)
 
     -- * File types

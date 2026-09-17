@@ -56,7 +56,7 @@ foreign import ccall unsafe "hs_bindgen_2e4a9e3fbd884275" hs_bindgen_2e4a9e3fbd8
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_get_param_underscore@
 hs_bindgen_2e4a9e3fbd884275 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_2e4a9e3fbd884275 =
-  BG.fromFFIType hs_bindgen_2e4a9e3fbd884275_base
+  fmap BG.fromFFIType hs_bindgen_2e4a9e3fbd884275_base
 
 {-# NOINLINE param_underscore #-}
 {-| __C declaration:__ @param_underscore@
@@ -76,7 +76,7 @@ foreign import ccall unsafe "hs_bindgen_3364ddfa127443d9" hs_bindgen_3364ddfa127
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_get_param_uppercase@
 hs_bindgen_3364ddfa127443d9 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_3364ddfa127443d9 =
-  BG.fromFFIType hs_bindgen_3364ddfa127443d9_base
+  fmap BG.fromFFIType hs_bindgen_3364ddfa127443d9_base
 
 {-# NOINLINE param_uppercase #-}
 {-| __C declaration:__ @param_uppercase@
@@ -96,7 +96,7 @@ foreign import ccall unsafe "hs_bindgen_33f2dcd4eac093b3" hs_bindgen_33f2dcd4eac
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_get_param_undersore_capital@
 hs_bindgen_33f2dcd4eac093b3 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_33f2dcd4eac093b3 =
-  BG.fromFFIType hs_bindgen_33f2dcd4eac093b3_base
+  fmap BG.fromFFIType hs_bindgen_33f2dcd4eac093b3_base
 
 {-# NOINLINE param_undersore_capital #-}
 {-| __C declaration:__ @param_undersore_capital@
@@ -116,7 +116,7 @@ foreign import ccall unsafe "hs_bindgen_89c62efefee0f3b3" hs_bindgen_89c62efefee
 -- __unique:__ @test_edgecasesmangle_fun_param_na_Example_get_param_haskell_reserved_name@
 hs_bindgen_89c62efefee0f3b3 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_89c62efefee0f3b3 =
-  BG.fromFFIType hs_bindgen_89c62efefee0f3b3_base
+  fmap BG.fromFFIType hs_bindgen_89c62efefee0f3b3_base
 
 {-# NOINLINE param_haskell_reserved_name #-}
 {-| __C declaration:__ @param_haskell_reserved_name@

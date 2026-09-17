@@ -40,7 +40,7 @@ foreign import ccall unsafe "hs_bindgen_aa1f6a0351ab44da" hs_bindgen_aa1f6a0351a
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_get_f@
 hs_bindgen_aa1f6a0351ab44da :: IO (BG.FunPtr (A -> BG.CBool -> IO ()))
 hs_bindgen_aa1f6a0351ab44da =
-  BG.fromFFIType hs_bindgen_aa1f6a0351ab44da_base
+  fmap BG.fromFFIType hs_bindgen_aa1f6a0351ab44da_base
 
 {-# NOINLINE f #-}
 {-| __C declaration:__ @f@
@@ -59,7 +59,7 @@ foreign import ccall unsafe "hs_bindgen_c0944c7d91c77d18" hs_bindgen_c0944c7d91c
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_get_g@
 hs_bindgen_c0944c7d91c77d18 :: IO (BG.FunPtr (A -> Bool' -> IO ()))
 hs_bindgen_c0944c7d91c77d18 =
-  BG.fromFFIType hs_bindgen_c0944c7d91c77d18_base
+  fmap BG.fromFFIType hs_bindgen_c0944c7d91c77d18_base
 
 {-# NOINLINE g #-}
 {-| __C declaration:__ @g@

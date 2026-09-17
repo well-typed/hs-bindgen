@@ -30,7 +30,7 @@ foreign import ccall unsafe "hs_bindgen_bf2645b646fa0825" hs_bindgen_bf2645b646f
 -- __unique:__ @test_edgecasesunnamed_type_multip_Example_get_test@
 hs_bindgen_bf2645b646fa0825 :: IO (BG.FunPtr (Point2a -> Point2b -> IO ()))
 hs_bindgen_bf2645b646fa0825 =
-  BG.fromFFIType hs_bindgen_bf2645b646fa0825_base
+  fmap BG.fromFFIType hs_bindgen_bf2645b646fa0825_base
 
 {-# NOINLINE test #-}
 {-| __C declaration:__ @test@

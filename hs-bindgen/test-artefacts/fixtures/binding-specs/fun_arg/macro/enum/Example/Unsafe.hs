@@ -58,7 +58,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_0e6b98e93cad73ef" hs_bindgen_0e6b98e93cad73ef_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
@@ -66,7 +66,8 @@ hs_bindgen_0e6b98e93cad73ef ::
      MyEnum
   -> IO ()
 hs_bindgen_0e6b98e93cad73ef =
-  BG.fromFFIType hs_bindgen_0e6b98e93cad73ef_base
+  \x0 ->
+    hs_bindgen_0e6b98e93cad73ef_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @foo@
 
@@ -82,7 +83,7 @@ foo = hs_bindgen_0e6b98e93cad73ef
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_1c6de1b89014dc52" hs_bindgen_1c6de1b89014dc52_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
@@ -90,7 +91,8 @@ hs_bindgen_1c6de1b89014dc52 ::
      A
   -> IO ()
 hs_bindgen_1c6de1b89014dc52 =
-  BG.fromFFIType hs_bindgen_1c6de1b89014dc52_base
+  \x0 ->
+    hs_bindgen_1c6de1b89014dc52_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooA@
 
@@ -106,7 +108,7 @@ fooA = hs_bindgen_1c6de1b89014dc52
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_a8e579f3b5035c03" hs_bindgen_a8e579f3b5035c03_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
@@ -114,7 +116,8 @@ hs_bindgen_a8e579f3b5035c03 ::
      B
   -> IO ()
 hs_bindgen_a8e579f3b5035c03 =
-  BG.fromFFIType hs_bindgen_a8e579f3b5035c03_base
+  \x0 ->
+    hs_bindgen_a8e579f3b5035c03_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooB@
 
@@ -130,7 +133,7 @@ fooB = hs_bindgen_a8e579f3b5035c03
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooC@
 foreign import ccall unsafe "hs_bindgen_00ad8122da6609fc" hs_bindgen_00ad8122da6609fc_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooC@
@@ -138,7 +141,8 @@ hs_bindgen_00ad8122da6609fc ::
      M.C
   -> IO ()
 hs_bindgen_00ad8122da6609fc =
-  BG.fromFFIType hs_bindgen_00ad8122da6609fc_base
+  \x0 ->
+    hs_bindgen_00ad8122da6609fc_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooC@
 
@@ -154,7 +158,7 @@ fooC = hs_bindgen_00ad8122da6609fc
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooD@
 foreign import ccall unsafe "hs_bindgen_2be41098f80a9019" hs_bindgen_2be41098f80a9019_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooD@
@@ -162,7 +166,8 @@ hs_bindgen_2be41098f80a9019 ::
      M.D
   -> IO ()
 hs_bindgen_2be41098f80a9019 =
-  BG.fromFFIType hs_bindgen_2be41098f80a9019_base
+  \x0 ->
+    hs_bindgen_2be41098f80a9019_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooD@
 
@@ -178,7 +183,7 @@ fooD = hs_bindgen_2be41098f80a9019
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooE@
 foreign import ccall unsafe "hs_bindgen_07241b4b6cbf2991" hs_bindgen_07241b4b6cbf2991_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooE@
@@ -186,7 +191,8 @@ hs_bindgen_07241b4b6cbf2991 ::
      E
   -> IO ()
 hs_bindgen_07241b4b6cbf2991 =
-  BG.fromFFIType hs_bindgen_07241b4b6cbf2991_base
+  \x0 ->
+    hs_bindgen_07241b4b6cbf2991_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooE@
 

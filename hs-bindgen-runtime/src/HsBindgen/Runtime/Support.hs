@@ -40,7 +40,7 @@ module HsBindgen.Runtime.Support (
   , Ptr(Ptr)
   , FunPtr
   , plusPtr
-  , StablePtr
+  , castFunPtr
   , getUnionPayload
   , setUnionPayload
   , getUnionPayloadBits
@@ -60,8 +60,8 @@ module HsBindgen.Runtime.Support (
 
     -- * 'HasFFIType'
   , HasFFIType(fromFFIType, toFFIType)
-  , castFunPtrFromFFIType
-  , castFunPtrToFFIType
+  , PtrVoid
+  , FunPtrVoid
 
     -- * Unsafe
   , unsafePerformIO
@@ -105,13 +105,13 @@ module HsBindgen.Runtime.Support (
 
     -- C types
   , Void
-  , Int8,  Int16,  Int32,  Int64
-  , Word8, Word16, Word32, Word64
-  , CChar, CSChar, CUChar, CShort, CUShort
-  , CInt, CUInt, CLong, CULong, CLLong, CULLong
-  , CBool
-  , CFloat(CFloat)
-  , CDouble(CDouble)
+  , CChar(CChar), CSChar(CSChar), CUChar(CUChar)
+  , CShort(CShort), CUShort(CUShort)
+  , CInt(CInt), CUInt(CUInt)
+  , CLong(CLong), CULong(CULong)
+  , CLLong(CLLong), CULLong(CULLong)
+  , CBool(CBool)
+  , CFloat(CFloat), CDouble(CDouble)
   , CStringLen
   , CPtrdiff
   ) where
@@ -120,28 +120,30 @@ import Data.Array.Byte (ByteArray)
 import Data.Bits (Bits, FiniteBits)
 import Data.ByteString qualified as BS (ByteString, pack)
 import Data.Complex (Complex)
-import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ix (Ix)
 import Data.List.NonEmpty (NonEmpty ((:|)), singleton)
 import Data.Primitive.Types (Prim (alignment#, indexByteArray#, indexOffAddr#, readByteArray#, readOffAddr#, sizeOf#, writeByteArray#, writeOffAddr#))
 import Data.Proxy (Proxy (Proxy))
 import Data.Void (Void)
-import Data.Word (Word16, Word32, Word64, Word8)
 import Foreign (Storable (alignment, peek, peekByteOff, poke, pokeByteOff, sizeOf),
-                with)
-import Foreign.C (CBool, CChar, CDouble (CDouble), CFloat (CFloat), CInt,
-                  CLLong, CLong, CPtrdiff, CSChar, CShort, CUChar, CUInt,
-                  CULLong, CULong, CUShort)
+                castFunPtr, with)
+import Foreign.C (CBool (CBool), CChar (CChar), CDouble (CDouble),
+                  CFloat (CFloat), CInt (CInt), CLLong (CLLong), CLong (CLong),
+                  CPtrdiff, CSChar (CSChar), CShort (CShort), CUChar (CUChar),
+                  CUInt (CUInt), CULLong (CULLong), CULong (CULong),
+                  CUShort (CUShort))
 import Foreign.C.String (CStringLen)
 import GHC.Base ((*#), (+#))
 import GHC.Float (castWord32ToFloat, castWord64ToDouble)
 import GHC.Generics (Generic)
 import GHC.Ptr (FunPtr, Ptr (Ptr), plusPtr)
 import GHC.Records (HasField (getField))
-import GHC.Stable (StablePtr)
 import System.IO.Unsafe (unsafePerformIO)
 import Text.Read (readListDefault, readListPrec, readListPrecDefault, readPrec)
 
+import HsBindgen.Runtime.HasFFIType (FunPtrVoid,
+                                     HasFFIType (fromFFIType, toFFIType),
+                                     PtrVoid)
 import HsBindgen.Runtime.Support.Bitfield (Bitfield)
 import HsBindgen.Runtime.Support.ByteArray (getUnionPayload,
                                             getUnionPayloadBits,
@@ -150,7 +152,4 @@ import HsBindgen.Runtime.Support.ByteArray (getUnionPayload,
 import HsBindgen.Runtime.Support.CAPI (allocaAndPeek)
 import HsBindgen.Runtime.Support.FunPtr (FromFunPtr (fromFunPtr),
                                          ToFunPtr (toFunPtr))
-import HsBindgen.Runtime.Support.HasFFIType (HasFFIType (fromFFIType, toFFIType),
-                                             castFunPtrFromFFIType,
-                                             castFunPtrToFFIType)
 import HsBindgen.Runtime.Support.SizedByteArray (SizedByteArray (SizedByteArray))

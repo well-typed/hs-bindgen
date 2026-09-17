@@ -28,7 +28,7 @@ foreign import ccall unsafe "hs_bindgen_3e079012b2dabc0c" hs_bindgen_3e079012b2d
 -- __unique:__ @test_edgecasesordinary_unnamed_de_Example_get__acos@
 hs_bindgen_3e079012b2dabc0c :: IO (BG.FunPtr (BG.CDouble -> IO BG.CDouble))
 hs_bindgen_3e079012b2dabc0c =
-  BG.fromFFIType hs_bindgen_3e079012b2dabc0c_base
+  fmap BG.fromFFIType hs_bindgen_3e079012b2dabc0c_base
 
 {-# NOINLINE _acos #-}
 {-| __C declaration:__ @_acos@
