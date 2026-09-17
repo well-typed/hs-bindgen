@@ -236,9 +236,9 @@ data DelayedParseMsg =
     -- The /header/ however by itself will not result in a @clang@ warning, so
     -- we detect the situation and warn the user in @hs-bindgen@.
     --
-    -- (As of C23, the situation is different for /named/ structs: multiple uses
-    -- of a struct with the same name are considered compatible as of
-    -- WG14-N3037.)
+    -- (As of C23, the situation is different for /tagged/ structs:
+    -- multiple uses of a struct with the same tag are considered
+    -- compatible as of WG14-N3037.)
   | ParseUnsupportedUnnamedInExtern
 
     -- | Unsupported unnamed declaration inside function signature
@@ -266,7 +266,7 @@ data DelayedParseMsg =
     -- warns about both declarations even with @-std=c2x@.
     --
     -- For our purposes, only the unnamed case is really problematic (we have
-    -- no way of assigning a name to the struct). Since it is relatively clear
+    -- no way of assigning a tag to the struct). Since it is relatively clear
     -- that the unnamed version is anyway unusable (callers would have no way
     -- of constructing any values), we rule them out.
   | ParseUnsupportedUnnamedInSignature

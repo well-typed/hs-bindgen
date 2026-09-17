@@ -329,6 +329,23 @@ A source file together with all the headers and source files it includes is a
 *translation unit* (5.1.1.1). `hs-bindgen` translates one translation unit per
 invocation; see [includes][manual:includes].
 
+#### Unnamed declaration
+[t:unnamed-declaration]: #unnamed-declaration
+
+A declaration without a name is called an *unnamed declaration*. `hs-bindgen`
+treats declarations uniformly and deliberately does not distinguish structs,
+unions and enums from other kinds of declaration at this level, so *unnamed* is
+the declaration-level term and applies to declarations of any kind.
+
+In practice only a struct, union or enum can lack a name, so every unnamed
+declaration is in fact an [untagged][t:untagged-structunionenum] one: *unnamed*
+is a superset of *untagged*. We say *untagged* when we are specifically talking
+about the struct, union or enum, and *unnamed* at the level of declarations; it
+does not make sense to say that a declaration in general is missing a
+[tag][t:tag].
+
+Not to be confused with an [unnamed field][t:unnamed-field].
+
 ## Haskell
 [t:haskell]: #haskell
 
