@@ -19,7 +19,6 @@ import Clang.Paths
 import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Clang
-import HsBindgen.Clang.Macros
 import HsBindgen.Config.Internal
 import HsBindgen.Doxygen
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
@@ -63,6 +62,7 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Macro.Syntax
 import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.Util.Tracer
 

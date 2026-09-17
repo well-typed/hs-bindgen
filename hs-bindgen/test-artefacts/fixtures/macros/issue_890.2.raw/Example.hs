@@ -7,14 +7,16 @@ module Example
     )
   where
 
+import qualified HsBindgen.Runtime.Macro as Macro
+
 {-| __C declaration:__ @macro A@
 
     __defined at:__ @macros\/issue_890.h 1:9@
 
     __exported by:__ @macros\/issue_890.h@
 -}
-a :: [String]
-a = ["0"]
+a :: Macro.Raw String
+a = Macro.objectLike "A" ["0"]
 
 {-| __C declaration:__ @macro B@
 
@@ -22,8 +24,9 @@ a = ["0"]
 
     __exported by:__ @macros\/issue_890.h@
 -}
-b :: [String]
-b = ["(", "x", ")", "(", "x", "+", "1", ")"]
+b :: Macro.Raw String
+b =
+  Macro.functionLike "B" ["x"] ["(", "x", "+", "1", ")"]
 
 {-| __C declaration:__ @macro C@
 
@@ -31,8 +34,8 @@ b = ["(", "x", ")", "(", "x", "+", "1", ")"]
 
     __exported by:__ @macros\/issue_890.h@
 -}
-c :: [String]
-c = ["B", "(", "0", ")"]
+c :: Macro.Raw String
+c = Macro.objectLike "C" ["B", "(", "0", ")"]
 
 {-| __C declaration:__ @macro D@
 
@@ -40,8 +43,8 @@ c = ["B", "(", "0", ")"]
 
     __exported by:__ @macros\/issue_890.h@
 -}
-d :: [String]
-d = ["B", "(", "A", ")"]
+d :: Macro.Raw String
+d = Macro.objectLike "D" ["B", "(", "A", ")"]
 
 {-| __C declaration:__ @macro E@
 
@@ -49,5 +52,5 @@ d = ["B", "(", "A", ")"]
 
     __exported by:__ @macros\/issue_890.h@
 -}
-e :: [String]
-e = ["B", "(", "1", ")"]
+e :: Macro.Raw String
+e = Macro.objectLike "E" ["B", "(", "1", ")"]

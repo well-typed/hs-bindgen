@@ -34,6 +34,7 @@ testCases = [
     , defaultTest "macros/parse/macro_typedef_scope"
     , defaultTest "macros/undef"
       -- Bespoke tests
+    , test_gnu_variadic
     , test_macro_comma
     , test_macro_ext_binding_dep
     , test_macro_resolution_log_level_default
@@ -54,6 +55,27 @@ testCases = [
 {-------------------------------------------------------------------------------
   Individual test definitions
 -------------------------------------------------------------------------------}
+
+-- | The C99 and the GNU named-variadic parameter lists are different macros.
+--
+-- @c-expr@ supports neither form, so the bindings only exist in the @raw@
+-- variant of this fixture; there, @GNU_VARIADIC(fmt, args...)@ must keep its
+-- own spelling, since the C99 form @GNU_VARIADIC(fmt, ...)@ would pass only
+-- @fmt@ on. See <https://github.com/well-typed/hs-bindgen/issues/2242>.
+test_gnu_variadic :: TestCase
+test_gnu_variadic =
+    testTraceMulti "macros/gnu_variadic" declsWithMsgs $ \case
+      MatchUnusable name (UnusableParseFailure ParseMacroErrorParse{}) ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = [
+        "macro C99_VARIADIC"
+      , "macro GNU_VARIADIC"
+      , "macro GNU_VARIADIC_ONLY"
+      ]
 
 -- | A comma in a macro body denotes a tuple, not the C comma operator.
 --

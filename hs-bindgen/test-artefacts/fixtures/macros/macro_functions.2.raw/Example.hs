@@ -16,14 +16,17 @@ module Example
     )
   where
 
+import qualified HsBindgen.Runtime.Macro as Macro
+
 {-| __C declaration:__ @macro INCR@
 
     __defined at:__ @macros\/macro_functions.h 1:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-iNCR :: [String]
-iNCR = ["(", "x", ")", "x", "+", "1"]
+iNCR :: Macro.Raw String
+iNCR =
+  Macro.functionLike "INCR" ["x"] ["x", "+", "1"]
 
 {-| __C declaration:__ @macro ADD@
 
@@ -31,8 +34,9 @@ iNCR = ["(", "x", ")", "x", "+", "1"]
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-aDD :: [String]
-aDD = ["(", "x", ",", "y", ")", "x", "+", "y"]
+aDD :: Macro.Raw String
+aDD =
+  Macro.functionLike "ADD" ["x", "y"] ["x", "+", "y"]
 
 {-| __C declaration:__ @macro ID@
 
@@ -40,8 +44,8 @@ aDD = ["(", "x", ",", "y", ")", "x", "+", "y"]
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-iD :: [String]
-iD = ["(", "X", ")", "X"]
+iD :: Macro.Raw String
+iD = Macro.functionLike "ID" ["X"] ["X"]
 
 {-| __C declaration:__ @macro CONST@
 
@@ -49,8 +53,8 @@ iD = ["(", "X", ")", "X"]
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-cONST :: [String]
-cONST = ["(", "X", ",", "Y", ")", "X"]
+cONST :: Macro.Raw String
+cONST = Macro.functionLike "CONST" ["X", "Y"] ["X"]
 
 {-| __C declaration:__ @macro CONST_3@
 
@@ -58,8 +62,9 @@ cONST = ["(", "X", ",", "Y", ")", "X"]
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-cONST_3 :: [String]
-cONST_3 = ["(", "X", ",", "Y", ",", "Z", ")", "X"]
+cONST_3 :: Macro.Raw String
+cONST_3 =
+  Macro.functionLike "CONST_3" ["X", "Y", "Z"] ["X"]
 
 {-| __C declaration:__ @macro CMP@
 
@@ -67,8 +72,9 @@ cONST_3 = ["(", "X", ",", "Y", ",", "Z", ")", "X"]
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-cMP :: [String]
-cMP = ["(", "X", ",", "Y", ")", "X", "<", "Y"]
+cMP :: Macro.Raw String
+cMP =
+  Macro.functionLike "CMP" ["X", "Y"] ["X", "<", "Y"]
 
 {-| __C declaration:__ @macro FUN1@
 
@@ -76,9 +82,9 @@ cMP = ["(", "X", ",", "Y", ")", "X", "<", "Y"]
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-fUN1 :: [String]
+fUN1 :: Macro.Raw String
 fUN1 =
-  ["(", "X", ",", "Y", ")", "X", "+", "12ull", "*", "Y"]
+  Macro.functionLike "FUN1" ["X", "Y"] ["X", "+", "12ull", "*", "Y"]
 
 {-| __C declaration:__ @macro FUN2@
 
@@ -86,9 +92,9 @@ fUN1 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-fUN2 :: [String]
+fUN2 :: Macro.Raw String
 fUN2 =
-  ["(", "X", ",", "Y", ")", "X", "<<", "(", "3ull", "*", "Y", ")"]
+  Macro.functionLike "FUN2" ["X", "Y"] ["X", "<<", "(", "3ull", "*", "Y", ")"]
 
 {-| __C declaration:__ @macro G@
 
@@ -96,26 +102,9 @@ fUN2 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-g :: [String]
+g :: Macro.Raw String
 g =
-  [ "("
-  , "X"
-  , ","
-  , "Y"
-  , ")"
-  , "CONST"
-  , "("
-  , "INCR"
-  , "("
-  , "Y"
-  , ")"
-  , ","
-  , "ID"
-  , "("
-  , "X"
-  , ")"
-  , ")"
-  ]
+  Macro.functionLike "G" ["X", "Y"] ["CONST", "(", "INCR", "(", "Y", ")", ",", "ID", "(", "X", ")", ")"]
 
 {-| __C declaration:__ @macro G_3@
 
@@ -123,33 +112,26 @@ g =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-g_3 :: [String]
+g_3 :: Macro.Raw String
 g_3 =
-  [ "("
-  , "X"
-  , ","
-  , "Y"
-  , ","
-  , "Z"
-  , ")"
-  , "CONST_3"
-  , "("
-  , "INCR"
-  , "("
-  , "Y"
-  , ")"
-  , ","
-  , "ID"
-  , "("
-  , "X"
-  , ")"
-  , ","
-  , "ID"
-  , "("
-  , "Z"
-  , ")"
-  , ")"
-  ]
+  Macro.functionLike "G_3" ["X", "Y", "Z"] [ "CONST_3"
+                                           , "("
+                                           , "INCR"
+                                           , "("
+                                           , "Y"
+                                           , ")"
+                                           , ","
+                                           , "ID"
+                                           , "("
+                                           , "X"
+                                           , ")"
+                                           , ","
+                                           , "ID"
+                                           , "("
+                                           , "Z"
+                                           , ")"
+                                           , ")"
+                                           ]
 
 {-| __C declaration:__ @macro DIV1@
 
@@ -157,9 +139,9 @@ g_3 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-dIV1 :: [String]
+dIV1 :: Macro.Raw String
 dIV1 =
-  ["(", "X", ",", "Y", ")", "X", "/", "(", "Y", "+", "12u", ")"]
+  Macro.functionLike "DIV1" ["X", "Y"] ["X", "/", "(", "Y", "+", "12u", ")"]
 
 {-| __C declaration:__ @macro DIV2@
 
@@ -167,9 +149,9 @@ dIV1 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-dIV2 :: [String]
+dIV2 :: Macro.Raw String
 dIV2 =
-  ["(", "X", ",", "Y", ")", "10.0f", "*", "X", "/", "Y"]
+  Macro.functionLike "DIV2" ["X", "Y"] ["10.0f", "*", "X", "/", "Y"]
 
 {-| __C declaration:__ @macro SWAP32@
 
@@ -177,35 +159,32 @@ dIV2 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-sWAP32 :: [String]
+sWAP32 :: Macro.Raw String
 sWAP32 =
-  [ "("
-  , "w"
-  , ")"
-  , "("
-  , "("
-  , "("
-  , "w"
-  , ")"
-  , ">>"
-  , "24"
-  , ")"
-  , "&"
-  , "0xff"
-  , ")"
-  , "|"
-  , "("
-  , "("
-  , "("
-  , "w"
-  , ")"
-  , "<<"
-  , "8"
-  , ")"
-  , "&"
-  , "0xff0000"
-  , ")"
-  ]
+  Macro.functionLike "SWAP32" ["w"] [ "("
+                                    , "("
+                                    , "("
+                                    , "w"
+                                    , ")"
+                                    , ">>"
+                                    , "24"
+                                    , ")"
+                                    , "&"
+                                    , "0xff"
+                                    , ")"
+                                    , "|"
+                                    , "("
+                                    , "("
+                                    , "("
+                                    , "w"
+                                    , ")"
+                                    , "<<"
+                                    , "8"
+                                    , ")"
+                                    , "&"
+                                    , "0xff0000"
+                                    , ")"
+                                    ]
 
 {-| __C declaration:__ @macro AV_VERSION_INT@
 
@@ -213,30 +192,23 @@ sWAP32 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-aV_VERSION_INT :: [String]
+aV_VERSION_INT :: Macro.Raw String
 aV_VERSION_INT =
-  [ "("
-  , "a"
-  , ","
-  , "b"
-  , ","
-  , "c"
-  , ")"
-  , "("
-  , "("
-  , "a"
-  , ")"
-  , "<<"
-  , "16"
-  , "|"
-  , "("
-  , "b"
-  , ")"
-  , "<<"
-  , "8"
-  , "|"
-  , "("
-  , "c"
-  , ")"
-  , ")"
-  ]
+  Macro.functionLike "AV_VERSION_INT" ["a", "b", "c"] [ "("
+                                                      , "("
+                                                      , "a"
+                                                      , ")"
+                                                      , "<<"
+                                                      , "16"
+                                                      , "|"
+                                                      , "("
+                                                      , "b"
+                                                      , ")"
+                                                      , "<<"
+                                                      , "8"
+                                                      , "|"
+                                                      , "("
+                                                      , "c"
+                                                      , ")"
+                                                      , ")"
+                                                      ]

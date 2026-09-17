@@ -353,7 +353,9 @@ moment, `hs-bindgen` comes with the following macro languages:
 * `Empty` recognises no macro at all, so the generated bindings directly use the
   macro [expansions][manual:terminology-macro-expansion] from `libclang`. No
   bindings to macros are generated.
-* `Raw` treats every macro as a macro value whose translation is its token list.
+* `Raw` treats every macro as a macro value, translated to a
+  `HsBindgen.Runtime.Macro.Raw` value holding the token spellings of its name,
+  its parameters and its replacement list.
 
 `hs-bindgen-cli` always uses `CExpr`. The other two are reachable from the
 Template Haskell backend, by using `withHsBindgenMacroLang` in place of

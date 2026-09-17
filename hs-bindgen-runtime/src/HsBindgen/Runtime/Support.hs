@@ -99,7 +99,6 @@ module HsBindgen.Runtime.Support (
   , BS.ByteString
   , BS.pack
 
-
     -- Complex numbers
   , Complex
 

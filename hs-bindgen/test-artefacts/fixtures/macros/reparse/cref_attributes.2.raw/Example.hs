@@ -4,14 +4,16 @@ module Example
     )
   where
 
+import qualified HsBindgen.Runtime.Macro as Macro
+
 {-| __C declaration:__ @macro BOOL@
 
     __defined at:__ @macros\/reparse\/cref_attributes.h 2:9@
 
     __exported by:__ @macros\/reparse\/cref_attributes.h@
 -}
-bOOL :: [String]
-bOOL = ["int"]
+bOOL :: Macro.Raw String
+bOOL = Macro.objectLike "BOOL" ["int"]
 
 {-| __C declaration:__ @macro EXPORT@
 
@@ -19,6 +21,6 @@ bOOL = ["int"]
 
     __exported by:__ @macros\/reparse\/cref_attributes.h@
 -}
-eXPORT :: [String]
+eXPORT :: Macro.Raw String
 eXPORT =
-  ["[", "[", "gnu", "::", "visibility", "(", "\"default\"", ")", "]", "]"]
+  Macro.objectLike "EXPORT" ["[", "[", "gnu", "::", "visibility", "(", "\"default\"", ")", "]", "]"]
