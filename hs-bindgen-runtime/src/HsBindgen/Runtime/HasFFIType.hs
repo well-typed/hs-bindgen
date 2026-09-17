@@ -39,52 +39,20 @@ import HsBindgen.Runtime.PtrConst as Types (PtrConst, unsafeFromPtr,
   Class
 -------------------------------------------------------------------------------}
 
--- | The 'HasFFIType' class broadly captures Haskell types that can be
--- converted to and from an /FFI type/.
+-- | The 'HasFFIType' class captures Haskell types that can be converted to and
+-- from its /FFI type/.
 --
--- An FFI type is similar to a /foreign type/, but with all newtypes removed.
--- Foreign types are the kinds of types that are allowed in @foreign import@
--- declarations.
+-- A 'HasFFIType' instance declaration for a type @T@, mapping @FFIType T@ to
+-- @M.T'@, is valid if @T'@ is legal to appear as an argument or result in
+-- @foreign import@ declarations in a context where @M@ is in scope.
 --
--- Some laws apply to this class:
+-- @foreign import@ declarations only compile if their type is a valid /foreign
+-- type/. This depends on the context of which modules are in scope. A @foreign
+-- import@ that uses FFI types exclusively will always compile.
 --
--- * If @x :: a@ is a foreign type, then @toFFIType x :: FFIType
---   a@ is also a valid foreign type and contains no newtypes.
--- * If @x :: FFIType a@ is a foreign type, then @fromFFIType x
---   :: a@ is also a valid foreign type.
---
--- Note in particular that this does /not/ guarantee that:
---
--- * Every type @a@ that is an instance of 'HasFFIType' is a valid
--- foreign type
--- * Every type @'FFIType' a@ is a valid foreign type.
---
--- Informally, 'toFFIType' and 'fromFFIType' preserve
--- /valid-foreign-type-ness/.
---
--- === User-supplied instances
---
--- Generally as a rule of thumb, if @a@ is a valid foreign type, then there
--- should be a sensible 'HasFFIType' instance. Instances are provided in this
--- module for most basic type constructors, like 'Prelude.(->)', 'IO',
--- 'Prelude.()', and all eligible types from the "Foreign" module hierarchy.
--- However, we can't magically generate instance for user-defined newtypes, nor
--- do we try to generate instances for all newtypes from the @base@ package or
--- other core packages. Instead, the user should newtype-derive those instances
--- or write them by hand. The @UndecidableInstances@ language extension should
--- probably also be enabled.
---
--- === Foreign types
---
--- Foreign types and its sub-kinds are described by the the "Haskell 2010 Language"
--- report. Kinds of foreign types include:
---
--- * top-level /foreign types/
--- * /basic foreign types/
--- * /marshallable foreign result types/
--- * /marshallable foreign types/
---
--- See the "8.4.2 Foreign Types" section of the report for more information:
+-- Foreign types and its sub-kinds are described by the the "Haskell 2010
+-- Language" report. See the "8.4.2 Foreign Types" section of the report for
+-- more information:
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1560008.4.2>
 --
 class HasFFIType a where
