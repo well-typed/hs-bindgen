@@ -120,6 +120,12 @@ package manual
   extra-lib-dirs:
     $C_DIR_WINDOWS
 
+package ffi-types
+  extra-include-dirs:
+    $C_DIR_WINDOWS
+  extra-lib-dirs:
+    $C_DIR_WINDOWS
+
 package hs-game
   extra-include-dirs:
     $C_DIR_WINDOWS
@@ -148,6 +154,12 @@ generate_cabal_project_local_unix () {
 
   tee "$HS_DIR/cabal.project.local" <<EOF
 ${SUPPORTS_UNICODE_STANZA}package manual
+  extra-include-dirs:
+      $SCRIPT_DIR/c
+  extra-lib-dirs:
+      $SCRIPT_DIR/c
+
+package ffi-types
   extra-include-dirs:
       $SCRIPT_DIR/c
   extra-lib-dirs:

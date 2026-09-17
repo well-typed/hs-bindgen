@@ -1,0 +1,17 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example5.A
+ctypes:
+- headers: ffi-types/int.h
+  cname: A
+  hsname: A
+hstypes:
+- hsname: A
+  representation:
+    newtype:
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
+  instances:
+  - HasFFIType

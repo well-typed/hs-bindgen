@@ -1,6 +1,7 @@
 import: ../../cabal.project.base.ci
 
 packages:
+  ffi-types
   hs-vector
   hs-game
   manual
