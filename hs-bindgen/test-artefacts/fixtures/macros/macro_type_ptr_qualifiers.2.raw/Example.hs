@@ -9,7 +9,6 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
-import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro PtrToVoid@
 
@@ -17,7 +16,7 @@ import qualified HsBindgen.Runtime.Support as BG
 
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
-ptrToVoid :: Macro.Raw BG.Text
+ptrToVoid :: Macro.Raw String
 ptrToVoid =
   Macro.objectLike "PtrToVoid" ["void", "*"]
 
@@ -27,7 +26,7 @@ ptrToVoid =
 
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
-ptrToConstVoidL :: Macro.Raw BG.Text
+ptrToConstVoidL :: Macro.Raw String
 ptrToConstVoidL =
   Macro.objectLike "PtrToConstVoidL" ["const", "void", "*"]
 
@@ -37,7 +36,7 @@ ptrToConstVoidL =
 
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
-ptrToConstVoidR :: Macro.Raw BG.Text
+ptrToConstVoidR :: Macro.Raw String
 ptrToConstVoidR =
   Macro.objectLike "PtrToConstVoidR" ["void", "const", "*"]
 
@@ -47,7 +46,7 @@ ptrToConstVoidR =
 
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
-ptrToConstIntL :: Macro.Raw BG.Text
+ptrToConstIntL :: Macro.Raw String
 ptrToConstIntL =
   Macro.objectLike "PtrToConstIntL" ["const", "int", "*"]
 
@@ -57,7 +56,7 @@ ptrToConstIntL =
 
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
-ptrToConstIntR :: Macro.Raw BG.Text
+ptrToConstIntR :: Macro.Raw String
 ptrToConstIntR =
   Macro.objectLike "PtrToConstIntR" ["int", "const", "*"]
 
@@ -67,6 +66,6 @@ ptrToConstIntR =
 
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
-constPtrToInt :: Macro.Raw BG.Text
+constPtrToInt :: Macro.Raw String
 constPtrToInt =
   Macro.objectLike "ConstPtrToInt" ["int", "*", "const"]

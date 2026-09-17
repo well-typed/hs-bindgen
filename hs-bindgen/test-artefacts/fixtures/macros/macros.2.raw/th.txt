@@ -5,7 +5,7 @@
 
     __exported by:__ @macros\/macros.h@
 -}
-oBJECTLIKE1 :: Raw Text
+oBJECTLIKE1 :: Raw String
 {-| __C declaration:__ @macro OBJECTLIKE1@
 
     __defined at:__ @macros\/macros.h 1:9@
@@ -19,7 +19,7 @@ oBJECTLIKE1 = objectLike "OBJECTLIKE1" ["1"]
 
     __exported by:__ @macros\/macros.h@
 -}
-oBJECTLIKE2 :: Raw Text
+oBJECTLIKE2 :: Raw String
 {-| __C declaration:__ @macro OBJECTLIKE2@
 
     __defined at:__ @macros\/macros.h 2:9@
@@ -33,7 +33,7 @@ oBJECTLIKE2 = objectLike "OBJECTLIKE2" ["(", "2", ")"]
 
     __exported by:__ @macros\/macros.h@
 -}
-oBJECTLIKE3 :: Raw Text
+oBJECTLIKE3 :: Raw String
 {-| __C declaration:__ @macro OBJECTLIKE3@
 
     __defined at:__ @macros\/macros.h 3:9@
@@ -47,7 +47,7 @@ oBJECTLIKE3 = objectLike "OBJECTLIKE3" ["3", "+", "3"]
 
     __exported by:__ @macros\/macros.h@
 -}
-oBJECTLIKE4 :: Raw Text
+oBJECTLIKE4 :: Raw String
 {-| __C declaration:__ @macro OBJECTLIKE4@
 
     __defined at:__ @macros\/macros.h 4:9@
@@ -61,7 +61,7 @@ oBJECTLIKE4 = objectLike "OBJECTLIKE4" ["(", "4", "+", "4", ")"]
 
     __exported by:__ @macros\/macros.h@
 -}
-mEANING_OF_LIFE1 :: Raw Text
+mEANING_OF_LIFE1 :: Raw String
 {-| __C declaration:__ @macro MEANING_OF_LIFE1@
 
     __defined at:__ @macros\/macros.h 6:9@
@@ -75,7 +75,7 @@ mEANING_OF_LIFE1 = objectLike "MEANING_OF_LIFE1" ["42"]
 
     __exported by:__ @macros\/macros.h@
 -}
-mEANING_OF_LIFE2 :: Raw Text
+mEANING_OF_LIFE2 :: Raw String
 {-| __C declaration:__ @macro MEANING_OF_LIFE2@
 
     __defined at:__ @macros\/macros.h 7:9@
@@ -89,7 +89,7 @@ mEANING_OF_LIFE2 = objectLike "MEANING_OF_LIFE2" ["052"]
 
     __exported by:__ @macros\/macros.h@
 -}
-mEANING_OF_LIFE3 :: Raw Text
+mEANING_OF_LIFE3 :: Raw String
 {-| __C declaration:__ @macro MEANING_OF_LIFE3@
 
     __defined at:__ @macros\/macros.h 8:9@
@@ -103,7 +103,7 @@ mEANING_OF_LIFE3 = objectLike "MEANING_OF_LIFE3" ["0x2a"]
 
     __exported by:__ @macros\/macros.h@
 -}
-mEANING_OF_LIFE4 :: Raw Text
+mEANING_OF_LIFE4 :: Raw String
 {-| __C declaration:__ @macro MEANING_OF_LIFE4@
 
     __defined at:__ @macros\/macros.h 9:9@
@@ -117,7 +117,7 @@ mEANING_OF_LIFE4 = objectLike "MEANING_OF_LIFE4" ["0X2A"]
 
     __exported by:__ @macros\/macros.h@
 -}
-mEANING_OF_LIFE5 :: Raw Text
+mEANING_OF_LIFE5 :: Raw String
 {-| __C declaration:__ @macro MEANING_OF_LIFE5@
 
     __defined at:__ @macros\/macros.h 10:9@
@@ -131,7 +131,7 @@ mEANING_OF_LIFE5 = objectLike "MEANING_OF_LIFE5" ["0b101010"]
 
     __exported by:__ @macros\/macros.h@
 -}
-lONG_INT_TOKEN1 :: Raw Text
+lONG_INT_TOKEN1 :: Raw String
 {-| __C declaration:__ @macro LONG_INT_TOKEN1@
 
     __defined at:__ @macros\/macros.h 12:9@
@@ -145,7 +145,7 @@ lONG_INT_TOKEN1 = objectLike "LONG_INT_TOKEN1" ["18446744073709550592ull"]
 
     __exported by:__ @macros\/macros.h@
 -}
-lONG_INT_TOKEN2 :: Raw Text
+lONG_INT_TOKEN2 :: Raw String
 {-| __C declaration:__ @macro LONG_INT_TOKEN2@
 
     __defined at:__ @macros\/macros.h 13:9@
@@ -159,7 +159,7 @@ lONG_INT_TOKEN2 = objectLike "LONG_INT_TOKEN2" ["18'446'744'073'709'550'592llu"]
 
     __exported by:__ @macros\/macros.h@
 -}
-lONG_INT_TOKEN3 :: Raw Text
+lONG_INT_TOKEN3 :: Raw String
 {-| __C declaration:__ @macro LONG_INT_TOKEN3@
 
     __defined at:__ @macros\/macros.h 14:9@
@@ -173,7 +173,7 @@ lONG_INT_TOKEN3 = objectLike "LONG_INT_TOKEN3" ["1844'6744'0737'0955'0592uLL"]
 
     __exported by:__ @macros\/macros.h@
 -}
-lONG_INT_TOKEN4 :: Raw Text
+lONG_INT_TOKEN4 :: Raw String
 {-| __C declaration:__ @macro LONG_INT_TOKEN4@
 
     __defined at:__ @macros\/macros.h 15:9@
@@ -187,7 +187,7 @@ lONG_INT_TOKEN4 = objectLike "LONG_INT_TOKEN4" ["184467'440737'0'95505'92LLU"]
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE1 :: Raw Text
+tUPLE1 :: Raw String
 {-| __C declaration:__ @macro TUPLE1@
 
     __defined at:__ @macros\/macros.h 17:9@
@@ -201,7 +201,7 @@ tUPLE1 = objectLike "TUPLE1" ["(", "1", ",", "2", ")"]
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE2 :: Raw Text
+tUPLE2 :: Raw String
 {-| __C declaration:__ @macro TUPLE2@
 
     __defined at:__ @macros\/macros.h 18:9@
@@ -215,7 +215,7 @@ tUPLE2 = objectLike "TUPLE2" ["3", ",", "4"]
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE3 :: Raw Text
+tUPLE3 :: Raw String
 {-| __C declaration:__ @macro TUPLE3@
 
     __defined at:__ @macros\/macros.h 19:9@
@@ -229,7 +229,7 @@ tUPLE3 = objectLike "TUPLE3" ["5", ",", "6"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT1_1 :: Raw Text
+fLT1_1 :: Raw String
 {-| __C declaration:__ @macro FLT1_1@
 
     __defined at:__ @macros\/macros.h 24:9@
@@ -243,7 +243,7 @@ fLT1_1 = objectLike "FLT1_1" ["11e4"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT1_2 :: Raw Text
+fLT1_2 :: Raw String
 {-| __C declaration:__ @macro FLT1_2@
 
     __defined at:__ @macros\/macros.h 25:9@
@@ -257,7 +257,7 @@ fLT1_2 = objectLike "FLT1_2" ["12E-3"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT1_3 :: Raw Text
+fLT1_3 :: Raw String
 {-| __C declaration:__ @macro FLT1_3@
 
     __defined at:__ @macros\/macros.h 26:9@
@@ -271,7 +271,7 @@ fLT1_3 = objectLike "FLT1_3" ["13e-03f"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT2_1 :: Raw Text
+fLT2_1 :: Raw String
 {-| __C declaration:__ @macro FLT2_1@
 
     __defined at:__ @macros\/macros.h 28:9@
@@ -285,7 +285,7 @@ fLT2_1 = objectLike "FLT2_1" ["21."]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT2_2 :: Raw Text
+fLT2_2 :: Raw String
 {-| __C declaration:__ @macro FLT2_2@
 
     __defined at:__ @macros\/macros.h 29:9@
@@ -299,7 +299,7 @@ fLT2_2 = objectLike "FLT2_2" ["22.e2"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT2_3 :: Raw Text
+fLT2_3 :: Raw String
 {-| __C declaration:__ @macro FLT2_3@
 
     __defined at:__ @macros\/macros.h 30:9@
@@ -313,7 +313,7 @@ fLT2_3 = objectLike "FLT2_3" ["23.f"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT3_1 :: Raw Text
+fLT3_1 :: Raw String
 {-| __C declaration:__ @macro FLT3_1@
 
     __defined at:__ @macros\/macros.h 32:9@
@@ -327,7 +327,7 @@ fLT3_1 = objectLike "FLT3_1" ["31.0"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT3_2 :: Raw Text
+fLT3_2 :: Raw String
 {-| __C declaration:__ @macro FLT3_2@
 
     __defined at:__ @macros\/macros.h 33:9@
@@ -341,7 +341,7 @@ fLT3_2 = objectLike "FLT3_2" [".32"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT3_3 :: Raw Text
+fLT3_3 :: Raw String
 {-| __C declaration:__ @macro FLT3_3@
 
     __defined at:__ @macros\/macros.h 34:9@
@@ -355,7 +355,7 @@ fLT3_3 = objectLike "FLT3_3" [".33e2"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT3_4 :: Raw Text
+fLT3_4 :: Raw String
 {-| __C declaration:__ @macro FLT3_4@
 
     __defined at:__ @macros\/macros.h 35:9@
@@ -369,7 +369,7 @@ fLT3_4 = objectLike "FLT3_4" [".34e-2f"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT4_1 :: Raw Text
+fLT4_1 :: Raw String
 {-| __C declaration:__ @macro FLT4_1@
 
     __defined at:__ @macros\/macros.h 37:9@
@@ -383,7 +383,7 @@ fLT4_1 = objectLike "FLT4_1" ["0x41p4"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT4_2 :: Raw Text
+fLT4_2 :: Raw String
 {-| __C declaration:__ @macro FLT4_2@
 
     __defined at:__ @macros\/macros.h 38:9@
@@ -397,7 +397,7 @@ fLT4_2 = objectLike "FLT4_2" ["0x42P-3"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT4_3 :: Raw Text
+fLT4_3 :: Raw String
 {-| __C declaration:__ @macro FLT4_3@
 
     __defined at:__ @macros\/macros.h 39:9@
@@ -411,7 +411,7 @@ fLT4_3 = objectLike "FLT4_3" ["0x43p-03f"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT5_1 :: Raw Text
+fLT5_1 :: Raw String
 {-| __C declaration:__ @macro FLT5_1@
 
     __defined at:__ @macros\/macros.h 41:9@
@@ -425,7 +425,7 @@ fLT5_1 = objectLike "FLT5_1" ["0x51.p0"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT5_2 :: Raw Text
+fLT5_2 :: Raw String
 {-| __C declaration:__ @macro FLT5_2@
 
     __defined at:__ @macros\/macros.h 42:9@
@@ -439,7 +439,7 @@ fLT5_2 = objectLike "FLT5_2" ["0x52.P0f"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT6_1 :: Raw Text
+fLT6_1 :: Raw String
 {-| __C declaration:__ @macro FLT6_1@
 
     __defined at:__ @macros\/macros.h 44:9@
@@ -453,7 +453,7 @@ fLT6_1 = objectLike "FLT6_1" ["0x61.0P2"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT6_2 :: Raw Text
+fLT6_2 :: Raw String
 {-| __C declaration:__ @macro FLT6_2@
 
     __defined at:__ @macros\/macros.h 45:9@
@@ -467,7 +467,7 @@ fLT6_2 = objectLike "FLT6_2" ["0x.62p2"]
 
     __exported by:__ @macros\/macros.h@
 -}
-fLT6_3 :: Raw Text
+fLT6_3 :: Raw String
 {-| __C declaration:__ @macro FLT6_3@
 
     __defined at:__ @macros\/macros.h 46:9@
@@ -481,7 +481,7 @@ fLT6_3 = objectLike "FLT6_3" ["0x.63p-2f"]
 
     __exported by:__ @macros\/macros.h@
 -}
-bAD1 :: Raw Text
+bAD1 :: Raw String
 {-| __C declaration:__ @macro BAD1@
 
     __defined at:__ @macros\/macros.h 49:9@
@@ -495,7 +495,7 @@ bAD1 = objectLike "BAD1" ["0.1", "+", "1"]
 
     __exported by:__ @macros\/macros.h@
 -}
-bAD2 :: Raw Text
+bAD2 :: Raw String
 {-| __C declaration:__ @macro BAD2@
 
     __defined at:__ @macros\/macros.h 50:9@

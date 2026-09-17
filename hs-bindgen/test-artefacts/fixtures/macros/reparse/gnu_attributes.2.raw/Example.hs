@@ -5,7 +5,6 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
-import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro BOOL@
 
@@ -13,7 +12,7 @@ import qualified HsBindgen.Runtime.Support as BG
 
     __exported by:__ @macros\/reparse\/gnu_attributes.h@
 -}
-bOOL :: Macro.Raw BG.Text
+bOOL :: Macro.Raw String
 bOOL = Macro.objectLike "BOOL" ["int"]
 
 {-| __C declaration:__ @macro EXPORT@
@@ -22,6 +21,6 @@ bOOL = Macro.objectLike "BOOL" ["int"]
 
     __exported by:__ @macros\/reparse\/gnu_attributes.h@
 -}
-eXPORT :: Macro.Raw BG.Text
+eXPORT :: Macro.Raw String
 eXPORT =
   Macro.objectLike "EXPORT" ["__attribute__", "(", "(", "visibility", "(", "\"default\"", ")", ")", ")"]

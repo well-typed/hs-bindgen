@@ -88,7 +88,7 @@ import qualified HsBindgen.Runtime.Union as Union
 
     __exported by:__ @macros\/reparse.h@
 -}
-a :: Macro.Raw BG.Text
+a :: Macro.Raw String
 a = Macro.objectLike "A" ["int"]
 
 {-| __C declaration:__ @struct some_struct@
@@ -2734,7 +2734,7 @@ instance HasCField.HasCField Const_funptr7 "unwrapConst_funptr7" where
 
     __exported by:__ @macros\/reparse.h@
 -}
-bOOL :: Macro.Raw BG.Text
+bOOL :: Macro.Raw String
 bOOL = Macro.objectLike "BOOL" ["_Bool"]
 
 {-| __C declaration:__ @macro INT@
@@ -2743,7 +2743,7 @@ bOOL = Macro.objectLike "BOOL" ["_Bool"]
 
     __exported by:__ @macros\/reparse.h@
 -}
-iNT :: Macro.Raw BG.Text
+iNT :: Macro.Raw String
 iNT = Macro.objectLike "INT" ["int"]
 
 {-| __C declaration:__ @macro INTP@
@@ -2752,7 +2752,7 @@ iNT = Macro.objectLike "INT" ["int"]
 
     __exported by:__ @macros\/reparse.h@
 -}
-iNTP :: Macro.Raw BG.Text
+iNTP :: Macro.Raw String
 iNTP = Macro.objectLike "INTP" ["int", "*"]
 
 {-| __C declaration:__ @macro INTCP@
@@ -2761,6 +2761,6 @@ iNTP = Macro.objectLike "INTP" ["int", "*"]
 
     __exported by:__ @macros\/reparse.h@
 -}
-iNTCP :: Macro.Raw BG.Text
+iNTCP :: Macro.Raw String
 iNTCP =
   Macro.objectLike "INTCP" ["const", "int", "*", "const"]

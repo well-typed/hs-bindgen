@@ -5,7 +5,7 @@
 
     __exported by:__ @macros\/macro_resolution_log_level.h@
 -}
-uNRESOLVED_MACRO :: Raw Text
+uNRESOLVED_MACRO :: Raw String
 {-| __C declaration:__ @macro UNRESOLVED_MACRO@
 
     __defined at:__ @macros\/macro_resolution_log_level.h 7:9@

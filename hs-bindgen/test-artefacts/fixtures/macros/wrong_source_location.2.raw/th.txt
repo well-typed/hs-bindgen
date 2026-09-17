@@ -5,7 +5,7 @@
 
     __exported by:__ @macros\/wrong_source_location.h@
 -}
-nestedUnnamed :: Raw Text
+nestedUnnamed :: Raw String
 {-| __C declaration:__ @macro NestedUnnamed@
 
     __defined at:__ @macros\/wrong_source_location.h 12:9@
@@ -170,7 +170,7 @@ instance HasCField UU2 "uU2_fieldY"
 
     __exported by:__ @macros\/wrong_source_location.h@
 -}
-twoUntaggedStructs :: Raw Text
+twoUntaggedStructs :: Raw String
 {-| __C declaration:__ @macro TwoUntaggedStructs@
 
     __defined at:__ @macros\/wrong_source_location.h 23:9@

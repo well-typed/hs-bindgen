@@ -38,7 +38,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/macro_types.h@
 -}
-ptrInt :: Macro.Raw BG.Text
+ptrInt :: Macro.Raw String
 ptrInt = Macro.objectLike "PtrInt" ["int", "*"]
 
 {-| __C declaration:__ @macro ShortInt@
@@ -47,7 +47,7 @@ ptrInt = Macro.objectLike "PtrInt" ["int", "*"]
 
     __exported by:__ @macros\/macro_types.h@
 -}
-shortInt :: Macro.Raw BG.Text
+shortInt :: Macro.Raw String
 shortInt =
   Macro.objectLike "ShortInt" ["short", "int"]
 
@@ -57,7 +57,7 @@ shortInt =
 
     __exported by:__ @macros\/macro_types.h@
 -}
-signedShortInt :: Macro.Raw BG.Text
+signedShortInt :: Macro.Raw String
 signedShortInt =
   Macro.objectLike "SignedShortInt" ["signed", "short", "int"]
 
@@ -67,7 +67,7 @@ signedShortInt =
 
     __exported by:__ @macros\/macro_types.h@
 -}
-unsignedShortInt :: Macro.Raw BG.Text
+unsignedShortInt :: Macro.Raw String
 unsignedShortInt =
   Macro.objectLike "UnsignedShortInt" ["unsigned", "short", "int"]
 
@@ -77,7 +77,7 @@ unsignedShortInt =
 
     __exported by:__ @macros\/macro_types.h@
 -}
-ptrPtrChar :: Macro.Raw BG.Text
+ptrPtrChar :: Macro.Raw String
 ptrPtrChar =
   Macro.objectLike "PtrPtrChar" ["char", "*", "*"]
 
@@ -87,7 +87,7 @@ ptrPtrChar =
 
     __exported by:__ @macros\/macro_types.h@
 -}
-mTy :: Macro.Raw BG.Text
+mTy :: Macro.Raw String
 mTy = Macro.objectLike "MTy" ["float"]
 
 {-| __C declaration:__ @tty@
@@ -140,7 +140,7 @@ instance HasCField.HasCField Tty "unwrapTty" where
 
     __exported by:__ @macros\/macro_types.h@
 -}
-uINT8_T :: Macro.Raw BG.Text
+uINT8_T :: Macro.Raw String
 uINT8_T =
   Macro.objectLike "UINT8_T" ["unsigned", "char"]
 
@@ -150,7 +150,7 @@ uINT8_T =
 
     __exported by:__ @macros\/macro_types.h@
 -}
-bOOLEAN_T :: Macro.Raw BG.Text
+bOOLEAN_T :: Macro.Raw String
 bOOLEAN_T = Macro.objectLike "BOOLEAN_T" ["UINT8_T"]
 
 {-| __C declaration:__ @boolean_T@

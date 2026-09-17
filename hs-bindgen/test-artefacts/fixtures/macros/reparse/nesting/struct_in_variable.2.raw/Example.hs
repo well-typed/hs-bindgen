@@ -33,7 +33,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/reparse\/nesting\/struct_in_variable.h@
 -}
-myInt :: Macro.Raw BG.Text
+myInt :: Macro.Raw String
 myInt = Macro.objectLike "MyInt" ["int"]
 
 {-| __C declaration:__ @struct \@G1@

@@ -54,7 +54,7 @@ translateRaw name parsedMacro mDoc = Binding{
     rawMacroT =
         SHs.TApp
           (SHs.TGlobal $ bindgenGlobalType Macro_Raw_type)
-          (SHs.TGlobal $ bindgenGlobalType Text_type)
+          (SHs.TGlobal $ bindgenGlobalType String_type)
 
     rawMacroE :: SHs.ClosedExpr
     rawMacroE = case macro.params of

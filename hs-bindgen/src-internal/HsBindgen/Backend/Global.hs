@@ -176,9 +176,6 @@ data BindgenGlobalType =
     -- ByteString
   | ByteString_type
 
-    -- Text
-  | Text_type
-
     -- String
   | String_type
 
@@ -394,9 +391,6 @@ bindgenGlobalType = globalType . \case
 
     -- ByteString
     ByteString_type -> (IRuntime Runtime.Support, ''BG.ByteString)
-
-    -- Text
-    Text_type       -> (IRuntime Runtime.Support, ''BG.Text)
 
     -- String
     String_type     -> (IHaskellPrelude, ''String)

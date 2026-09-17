@@ -6,7 +6,7 @@
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
-iNNER_A :: Raw Text
+iNNER_A :: Raw String
 {-| __C declaration:__ @macro INNER_A@
 
     __defined at:__ @elaborate_inner.h 1:9@
@@ -20,7 +20,7 @@ iNNER_A = objectLike "INNER_A" ["OUTER_A"]
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
-iNNER_B :: Raw Text
+iNNER_B :: Raw String
 {-| __C declaration:__ @macro INNER_B@
 
     __defined at:__ @elaborate_inner.h 2:9@
@@ -34,7 +34,7 @@ iNNER_B = objectLike "INNER_B" ["2"]
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
-oUTER_A :: Raw Text
+oUTER_A :: Raw String
 {-| __C declaration:__ @macro OUTER_A@
 
     __defined at:__ @macros\/parse\/elaborate.h 7:9@
@@ -115,7 +115,7 @@ instance HasCField Inner_int "unwrapInner_int"
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
-oUTER_B :: Raw Text
+oUTER_B :: Raw String
 {-| __C declaration:__ @macro OUTER_B@
 
     __defined at:__ @macros\/parse\/elaborate.h 12:9@
@@ -129,7 +129,7 @@ oUTER_B = objectLike "OUTER_B" ["INNER_A"]
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
-oUTER_C :: Raw Text
+oUTER_C :: Raw String
 {-| __C declaration:__ @macro OUTER_C@
 
     __defined at:__ @macros\/parse\/elaborate.h 13:9@

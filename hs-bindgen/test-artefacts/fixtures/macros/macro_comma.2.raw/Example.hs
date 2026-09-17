@@ -8,7 +8,6 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
-import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro OBJ@
 
@@ -16,7 +15,7 @@ import qualified HsBindgen.Runtime.Support as BG
 
     __exported by:__ @macros\/macro_comma.h@
 -}
-oBJ :: Macro.Raw BG.Text
+oBJ :: Macro.Raw String
 oBJ =
   Macro.objectLike "OBJ" ["(", "1", ",", "2", ")"]
 
@@ -26,7 +25,7 @@ oBJ =
 
     __exported by:__ @macros\/macro_comma.h@
 -}
-oBJ_NO_PARENS :: Macro.Raw BG.Text
+oBJ_NO_PARENS :: Macro.Raw String
 oBJ_NO_PARENS =
   Macro.objectLike "OBJ_NO_PARENS" ["1", ",", "2"]
 
@@ -36,7 +35,7 @@ oBJ_NO_PARENS =
 
     __exported by:__ @macros\/macro_comma.h@
 -}
-fUN :: Macro.Raw BG.Text
+fUN :: Macro.Raw String
 fUN =
   Macro.functionLike "FUN" ["x", "y"] ["(", "x", ",", "y", ")"]
 
@@ -46,7 +45,7 @@ fUN =
 
     __exported by:__ @macros\/macro_comma.h@
 -}
-fUN_THREE :: Macro.Raw BG.Text
+fUN_THREE :: Macro.Raw String
 fUN_THREE =
   Macro.functionLike "FUN_THREE" ["x", "y", "z"] ["(", "(", "x", ")", ",", "(", "y", ")", ",", "(", "z", ")", ")"]
 
@@ -56,6 +55,6 @@ fUN_THREE =
 
     __exported by:__ @macros\/macro_comma.h@
 -}
-aRITH :: Macro.Raw BG.Text
+aRITH :: Macro.Raw String
 aRITH =
   Macro.objectLike "ARITH" ["(", "(", "1", ",", "2", ")", "+", "3", ")"]

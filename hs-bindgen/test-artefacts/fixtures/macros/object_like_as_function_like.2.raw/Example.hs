@@ -5,7 +5,6 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
-import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro F@
 
@@ -13,7 +12,7 @@ import qualified HsBindgen.Runtime.Support as BG
 
     __exported by:__ @macros\/object_like_as_function_like.h@
 -}
-f :: Macro.Raw BG.Text
+f :: Macro.Raw String
 f = Macro.functionLike "F" ["x", "y"] ["x", "+", "y"]
 
 {-| __C declaration:__ @macro G@
@@ -22,6 +21,6 @@ f = Macro.functionLike "F" ["x", "y"] ["x", "+", "y"]
 
     __exported by:__ @macros\/object_like_as_function_like.h@
 -}
-g :: Macro.Raw BG.Text
+g :: Macro.Raw String
 g =
   Macro.objectLike "G" ["(", "x", ",", "y", ")", "x", "+", "y"]

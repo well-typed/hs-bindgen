@@ -317,7 +317,7 @@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-i :: Raw Text
+i :: Raw String
 {-| __C declaration:__ @macro I@
 
     __defined at:__ @macros\/macro_in_fundecl.h 5:9@
@@ -331,7 +331,7 @@ i = objectLike "I" ["int"]
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-c :: Raw Text
+c :: Raw String
 {-| __C declaration:__ @macro C@
 
     __defined at:__ @macros\/macro_in_fundecl.h 6:9@
@@ -345,7 +345,7 @@ c = objectLike "C" ["char"]
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-f :: Raw Text
+f :: Raw String
 {-| __C declaration:__ @macro F@
 
     __defined at:__ @macros\/macro_in_fundecl.h 7:9@
@@ -359,7 +359,7 @@ f = objectLike "F" ["float"]
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-l :: Raw Text
+l :: Raw String
 {-| __C declaration:__ @macro L@
 
     __defined at:__ @macros\/macro_in_fundecl.h 8:9@
@@ -373,7 +373,7 @@ l = objectLike "L" ["long"]
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-s :: Raw Text
+s :: Raw String
 {-| __C declaration:__ @macro S@
 
     __defined at:__ @macros\/macro_in_fundecl.h 9:9@

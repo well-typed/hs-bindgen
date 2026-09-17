@@ -41,7 +41,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/wrong_source_location.h@
 -}
-nestedUnnamed :: Macro.Raw BG.Text
+nestedUnnamed :: Macro.Raw String
 nestedUnnamed =
   Macro.functionLike "NestedUnnamed" ["t1", "n1", "t2"] [ "typedef"
                                                         , "t1"
@@ -343,7 +343,7 @@ instance HasCField.HasCField UU2 "uU2_fieldY" where
 
     __exported by:__ @macros\/wrong_source_location.h@
 -}
-twoUntaggedStructs :: Macro.Raw BG.Text
+twoUntaggedStructs :: Macro.Raw String
 twoUntaggedStructs =
   Macro.functionLike "TwoUntaggedStructs" ["name"] [ "struct"
                                                    , "name"

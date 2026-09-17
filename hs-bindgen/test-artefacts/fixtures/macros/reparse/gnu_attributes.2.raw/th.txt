@@ -106,7 +106,7 @@
 
     __exported by:__ @macros\/reparse\/gnu_attributes.h@
 -}
-bOOL :: Raw Text
+bOOL :: Raw String
 {-| __C declaration:__ @macro BOOL@
 
     __defined at:__ @macros\/reparse\/gnu_attributes.h 2:9@
@@ -120,7 +120,7 @@ bOOL = objectLike "BOOL" ["int"]
 
     __exported by:__ @macros\/reparse\/gnu_attributes.h@
 -}
-eXPORT :: Raw Text
+eXPORT :: Raw String
 {-| __C declaration:__ @macro EXPORT@
 
     __defined at:__ @macros\/reparse\/gnu_attributes.h 10:9@

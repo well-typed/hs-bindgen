@@ -5,7 +5,7 @@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c1 :: Raw Text
+c1 :: Raw String
 {-| __C declaration:__ @macro C1@
 
     __defined at:__ @macros\/macro_strings.h 4:9@
@@ -19,7 +19,7 @@ c1 = objectLike "C1" ["'a'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c2 :: Raw Text
+c2 :: Raw String
 {-| __C declaration:__ @macro C2@
 
     __defined at:__ @macros\/macro_strings.h 5:9@
@@ -33,7 +33,7 @@ c2 = objectLike "C2" ["'\"'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c3 :: Raw Text
+c3 :: Raw String
 {-| __C declaration:__ @macro C3@
 
     __defined at:__ @macros\/macro_strings.h 6:9@
@@ -47,7 +47,7 @@ c3 = objectLike "C3" ["'\\t'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c4 :: Raw Text
+c4 :: Raw String
 {-| __C declaration:__ @macro C4@
 
     __defined at:__ @macros\/macro_strings.h 7:9@
@@ -61,7 +61,7 @@ c4 = objectLike "C4" ["'\\0'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c5 :: Raw Text
+c5 :: Raw String
 {-| __C declaration:__ @macro C5@
 
     __defined at:__ @macros\/macro_strings.h 8:9@
@@ -75,7 +75,7 @@ c5 = objectLike "C5" ["'\\''"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c6 :: Raw Text
+c6 :: Raw String
 {-| __C declaration:__ @macro C6@
 
     __defined at:__ @macros\/macro_strings.h 9:9@
@@ -89,7 +89,7 @@ c6 = objectLike "C6" ["'\\?'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c7 :: Raw Text
+c7 :: Raw String
 {-| __C declaration:__ @macro C7@
 
     __defined at:__ @macros\/macro_strings.h 10:9@
@@ -103,7 +103,7 @@ c7 = objectLike "C7" ["'\\123'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c8 :: Raw Text
+c8 :: Raw String
 {-| __C declaration:__ @macro C8@
 
     __defined at:__ @macros\/macro_strings.h 11:9@
@@ -117,7 +117,7 @@ c8 = objectLike "C8" ["'\\x53'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-d :: Raw Text
+d :: Raw String
 {-| __C declaration:__ @macro D@
 
     __defined at:__ @macros\/macro_strings.h 13:9@
@@ -131,7 +131,7 @@ d = objectLike "D" ["'\\777'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-j1 :: Raw Text
+j1 :: Raw String
 {-| __C declaration:__ @macro J1@
 
     __defined at:__ @macros\/macro_strings.h 15:9@
@@ -145,7 +145,7 @@ j1 = objectLike "J1" ["'\12354'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-j2 :: Raw Text
+j2 :: Raw String
 {-| __C declaration:__ @macro J2@
 
     __defined at:__ @macros\/macro_strings.h 16:9@
@@ -159,7 +159,7 @@ j2 = objectLike "J2" ["'\\u3042'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-j3 :: Raw Text
+j3 :: Raw String
 {-| __C declaration:__ @macro J3@
 
     __defined at:__ @macros\/macro_strings.h 17:9@
@@ -173,7 +173,7 @@ j3 = objectLike "J3" ["'\\xE3\\x81\\x82'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s1 :: Raw Text
+s1 :: Raw String
 {-| __C declaration:__ @macro S1@
 
     __defined at:__ @macros\/macro_strings.h 20:9@
@@ -187,7 +187,7 @@ s1 = objectLike "S1" ["\"a\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s2 :: Raw Text
+s2 :: Raw String
 {-| __C declaration:__ @macro S2@
 
     __defined at:__ @macros\/macro_strings.h 21:9@
@@ -201,7 +201,7 @@ s2 = objectLike "S2" ["\"'\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s3 :: Raw Text
+s3 :: Raw String
 {-| __C declaration:__ @macro S3@
 
     __defined at:__ @macros\/macro_strings.h 22:9@
@@ -215,7 +215,7 @@ s3 = objectLike "S3" ["\"\\t\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s4 :: Raw Text
+s4 :: Raw String
 {-| __C declaration:__ @macro S4@
 
     __defined at:__ @macros\/macro_strings.h 23:9@
@@ -229,7 +229,7 @@ s4 = objectLike "S4" ["\"\\0\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s5 :: Raw Text
+s5 :: Raw String
 {-| __C declaration:__ @macro S5@
 
     __defined at:__ @macros\/macro_strings.h 24:9@
@@ -243,7 +243,7 @@ s5 = objectLike "S5" ["\"\\'\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s6 :: Raw Text
+s6 :: Raw String
 {-| __C declaration:__ @macro S6@
 
     __defined at:__ @macros\/macro_strings.h 25:9@
@@ -257,7 +257,7 @@ s6 = objectLike "S6" ["\"\\?\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s7 :: Raw Text
+s7 :: Raw String
 {-| __C declaration:__ @macro S7@
 
     __defined at:__ @macros\/macro_strings.h 26:9@
@@ -271,7 +271,7 @@ s7 = objectLike "S7" ["\"\\123\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s8 :: Raw Text
+s8 :: Raw String
 {-| __C declaration:__ @macro S8@
 
     __defined at:__ @macros\/macro_strings.h 27:9@
@@ -285,7 +285,7 @@ s8 = objectLike "S8" ["\"\\x53\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t1 :: Raw Text
+t1 :: Raw String
 {-| __C declaration:__ @macro T1@
 
     __defined at:__ @macros\/macro_strings.h 29:9@
@@ -299,7 +299,7 @@ t1 = objectLike "T1" ["\"\12354\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t2 :: Raw Text
+t2 :: Raw String
 {-| __C declaration:__ @macro T2@
 
     __defined at:__ @macros\/macro_strings.h 30:9@
@@ -313,7 +313,7 @@ t2 = objectLike "T2" ["\"\\u3042\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t3 :: Raw Text
+t3 :: Raw String
 {-| __C declaration:__ @macro T3@
 
     __defined at:__ @macros\/macro_strings.h 31:9@
@@ -327,7 +327,7 @@ t3 = objectLike "T3" ["\"\\xE3\\x81\\x82\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-u :: Raw Text
+u :: Raw String
 {-| __C declaration:__ @macro U@
 
     __defined at:__ @macros\/macro_strings.h 33:9@
@@ -341,7 +341,7 @@ u = objectLike "U" ["\"\\777\\777\\777\\777\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-v :: Raw Text
+v :: Raw String
 {-| __C declaration:__ @macro V@
 
     __defined at:__ @macros\/macro_strings.h 34:9@
@@ -355,7 +355,7 @@ v = objectLike "V" ["\"\\1\\2\\3\\4\\5\\6\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-w1 :: Raw Text
+w1 :: Raw String
 {-| __C declaration:__ @macro W1@
 
     __defined at:__ @macros\/macro_strings.h 36:9@
@@ -369,7 +369,7 @@ w1 = objectLike "W1" ["\"hij\\0\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-w2 :: Raw Text
+w2 :: Raw String
 {-| __C declaration:__ @macro W2@
 
     __defined at:__ @macros\/macro_strings.h 37:9@

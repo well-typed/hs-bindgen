@@ -2,7 +2,6 @@
 
 module Test.HsBindgen.Runtime.Macro (tests) where
 
-import Data.Text (Text)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, testCase, (@=?))
 
@@ -49,5 +48,5 @@ tests = testGroup "HsBindgen.Runtime.Macro" [
         ]
     ]
 
-rendersAs :: Text -> Macro.Raw Text -> Assertion
+rendersAs :: String -> Macro.Raw String -> Assertion
 rendersAs expected raw = expected @=? Macro.render raw

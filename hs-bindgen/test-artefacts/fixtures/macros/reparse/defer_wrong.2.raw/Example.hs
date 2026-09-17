@@ -98,7 +98,7 @@ instance HasCField.HasCField S "s_x" where
 
     __exported by:__ @macros\/reparse\/defer_wrong.h@
 -}
-t :: Macro.Raw BG.Text
+t :: Macro.Raw String
 t = Macro.objectLike "T" ["struct", "S"]
 
 {-| __C declaration:__ @foo@

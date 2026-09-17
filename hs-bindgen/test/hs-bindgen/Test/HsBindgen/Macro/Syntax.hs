@@ -6,7 +6,7 @@
 -- is returned verbatim.
 module Test.HsBindgen.Macro.Syntax (tests) where
 
-import Data.Text (Text)
+import Data.Text qualified as Text
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, assertFailure, testCase, (@=?))
 
@@ -145,7 +145,7 @@ tests = testGroup "Test.HsBindgen.Macro.Syntax" [
 -- | Assert that the pieces split into the given macro
 --
 -- Only the spellings are compared; the splitter does not change them.
-splitsTo :: RawMacro.Raw Text -> [Piece] -> Assertion
+splitsTo :: RawMacro.Raw String -> [Piece] -> Assertion
 splitsTo expected pieces = Right expected @=? split pieces
 
 -- | Assert that the pieces do not split
@@ -156,8 +156,8 @@ failsToSplit pieces =
       Right raw -> assertFailure $
         "expected a parse failure, but got " ++ show (RawMacro.render raw)
 
-split :: [Piece] -> Either String (RawMacro.Raw Text)
+split :: [Piece] -> Either String (RawMacro.Raw String)
 split pieces =
     case splitMacro (layout pieces) of
       Left  err -> Left err.macroParseError
-      Right raw -> Right $ spelling <$> raw
+      Right raw -> Right $ Text.unpack . spelling <$> raw

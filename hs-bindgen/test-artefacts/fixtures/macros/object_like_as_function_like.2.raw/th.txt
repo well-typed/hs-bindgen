@@ -12,7 +12,7 @@
 
     __exported by:__ @macros\/object_like_as_function_like.h@
 -}
-f :: Raw Text
+f :: Raw String
 {-| __C declaration:__ @macro F@
 
     __defined at:__ @macros\/object_like_as_function_like.h 10:9@
@@ -26,7 +26,7 @@ f = functionLike "F" ["x", "y"] ["x", "+", "y"]
 
     __exported by:__ @macros\/object_like_as_function_like.h@
 -}
-g :: Raw Text
+g :: Raw String
 {-| __C declaration:__ @macro G@
 
     __defined at:__ @macros\/object_like_as_function_like.h 11:9@

@@ -5,7 +5,7 @@
 
     __exported by:__ @macros\/macro_types.h@
 -}
-ptrInt :: Raw Text
+ptrInt :: Raw String
 {-| __C declaration:__ @macro PtrInt@
 
     __defined at:__ @macros\/macro_types.h 2:9@
@@ -19,7 +19,7 @@ ptrInt = objectLike "PtrInt" ["int", "*"]
 
     __exported by:__ @macros\/macro_types.h@
 -}
-shortInt :: Raw Text
+shortInt :: Raw String
 {-| __C declaration:__ @macro ShortInt@
 
     __defined at:__ @macros\/macro_types.h 3:9@
@@ -33,7 +33,7 @@ shortInt = objectLike "ShortInt" ["short", "int"]
 
     __exported by:__ @macros\/macro_types.h@
 -}
-signedShortInt :: Raw Text
+signedShortInt :: Raw String
 {-| __C declaration:__ @macro SignedShortInt@
 
     __defined at:__ @macros\/macro_types.h 4:9@
@@ -49,7 +49,7 @@ signedShortInt = objectLike "SignedShortInt" ["signed",
 
     __exported by:__ @macros\/macro_types.h@
 -}
-unsignedShortInt :: Raw Text
+unsignedShortInt :: Raw String
 {-| __C declaration:__ @macro UnsignedShortInt@
 
     __defined at:__ @macros\/macro_types.h 5:9@
@@ -65,7 +65,7 @@ unsignedShortInt = objectLike "UnsignedShortInt" ["unsigned",
 
     __exported by:__ @macros\/macro_types.h@
 -}
-ptrPtrChar :: Raw Text
+ptrPtrChar :: Raw String
 {-| __C declaration:__ @macro PtrPtrChar@
 
     __defined at:__ @macros\/macro_types.h 8:9@
@@ -79,7 +79,7 @@ ptrPtrChar = objectLike "PtrPtrChar" ["char", "*", "*"]
 
     __exported by:__ @macros\/macro_types.h@
 -}
-mTy :: Raw Text
+mTy :: Raw String
 {-| __C declaration:__ @macro MTy@
 
     __defined at:__ @macros\/macro_types.h 11:9@
@@ -123,7 +123,7 @@ instance HasCField Tty "unwrapTty"
 
     __exported by:__ @macros\/macro_types.h@
 -}
-uINT8_T :: Raw Text
+uINT8_T :: Raw String
 {-| __C declaration:__ @macro UINT8_T@
 
     __defined at:__ @macros\/macro_types.h 14:9@
@@ -137,7 +137,7 @@ uINT8_T = objectLike "UINT8_T" ["unsigned", "char"]
 
     __exported by:__ @macros\/macro_types.h@
 -}
-bOOLEAN_T :: Raw Text
+bOOLEAN_T :: Raw String
 {-| __C declaration:__ @macro BOOLEAN_T@
 
     __defined at:__ @macros\/macro_types.h 15:9@

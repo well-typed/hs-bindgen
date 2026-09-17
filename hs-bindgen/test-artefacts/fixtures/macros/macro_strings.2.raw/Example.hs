@@ -30,7 +30,6 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
-import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro C1@
 
@@ -38,7 +37,7 @@ import qualified HsBindgen.Runtime.Support as BG
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c1 :: Macro.Raw BG.Text
+c1 :: Macro.Raw String
 c1 = Macro.objectLike "C1" ["'a'"]
 
 {-| __C declaration:__ @macro C2@
@@ -47,7 +46,7 @@ c1 = Macro.objectLike "C1" ["'a'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c2 :: Macro.Raw BG.Text
+c2 :: Macro.Raw String
 c2 = Macro.objectLike "C2" ["'\"'"]
 
 {-| __C declaration:__ @macro C3@
@@ -56,7 +55,7 @@ c2 = Macro.objectLike "C2" ["'\"'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c3 :: Macro.Raw BG.Text
+c3 :: Macro.Raw String
 c3 = Macro.objectLike "C3" ["'\\t'"]
 
 {-| __C declaration:__ @macro C4@
@@ -65,7 +64,7 @@ c3 = Macro.objectLike "C3" ["'\\t'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c4 :: Macro.Raw BG.Text
+c4 :: Macro.Raw String
 c4 = Macro.objectLike "C4" ["'\\0'"]
 
 {-| __C declaration:__ @macro C5@
@@ -74,7 +73,7 @@ c4 = Macro.objectLike "C4" ["'\\0'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c5 :: Macro.Raw BG.Text
+c5 :: Macro.Raw String
 c5 = Macro.objectLike "C5" ["'\\''"]
 
 {-| __C declaration:__ @macro C6@
@@ -83,7 +82,7 @@ c5 = Macro.objectLike "C5" ["'\\''"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c6 :: Macro.Raw BG.Text
+c6 :: Macro.Raw String
 c6 = Macro.objectLike "C6" ["'\\?'"]
 
 {-| __C declaration:__ @macro C7@
@@ -92,7 +91,7 @@ c6 = Macro.objectLike "C6" ["'\\?'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c7 :: Macro.Raw BG.Text
+c7 :: Macro.Raw String
 c7 = Macro.objectLike "C7" ["'\\123'"]
 
 {-| __C declaration:__ @macro C8@
@@ -101,7 +100,7 @@ c7 = Macro.objectLike "C7" ["'\\123'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-c8 :: Macro.Raw BG.Text
+c8 :: Macro.Raw String
 c8 = Macro.objectLike "C8" ["'\\x53'"]
 
 {-| __C declaration:__ @macro D@
@@ -110,7 +109,7 @@ c8 = Macro.objectLike "C8" ["'\\x53'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-d :: Macro.Raw BG.Text
+d :: Macro.Raw String
 d = Macro.objectLike "D" ["'\\777'"]
 
 {-| __C declaration:__ @macro J1@
@@ -119,7 +118,7 @@ d = Macro.objectLike "D" ["'\\777'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-j1 :: Macro.Raw BG.Text
+j1 :: Macro.Raw String
 j1 = Macro.objectLike "J1" ["'\12354'"]
 
 {-| __C declaration:__ @macro J2@
@@ -128,7 +127,7 @@ j1 = Macro.objectLike "J1" ["'\12354'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-j2 :: Macro.Raw BG.Text
+j2 :: Macro.Raw String
 j2 = Macro.objectLike "J2" ["'\\u3042'"]
 
 {-| __C declaration:__ @macro J3@
@@ -137,7 +136,7 @@ j2 = Macro.objectLike "J2" ["'\\u3042'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-j3 :: Macro.Raw BG.Text
+j3 :: Macro.Raw String
 j3 = Macro.objectLike "J3" ["'\\xE3\\x81\\x82'"]
 
 {-| __C declaration:__ @macro S1@
@@ -146,7 +145,7 @@ j3 = Macro.objectLike "J3" ["'\\xE3\\x81\\x82'"]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s1 :: Macro.Raw BG.Text
+s1 :: Macro.Raw String
 s1 = Macro.objectLike "S1" ["\"a\""]
 
 {-| __C declaration:__ @macro S2@
@@ -155,7 +154,7 @@ s1 = Macro.objectLike "S1" ["\"a\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s2 :: Macro.Raw BG.Text
+s2 :: Macro.Raw String
 s2 = Macro.objectLike "S2" ["\"'\""]
 
 {-| __C declaration:__ @macro S3@
@@ -164,7 +163,7 @@ s2 = Macro.objectLike "S2" ["\"'\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s3 :: Macro.Raw BG.Text
+s3 :: Macro.Raw String
 s3 = Macro.objectLike "S3" ["\"\\t\""]
 
 {-| __C declaration:__ @macro S4@
@@ -173,7 +172,7 @@ s3 = Macro.objectLike "S3" ["\"\\t\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s4 :: Macro.Raw BG.Text
+s4 :: Macro.Raw String
 s4 = Macro.objectLike "S4" ["\"\\0\""]
 
 {-| __C declaration:__ @macro S5@
@@ -182,7 +181,7 @@ s4 = Macro.objectLike "S4" ["\"\\0\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s5 :: Macro.Raw BG.Text
+s5 :: Macro.Raw String
 s5 = Macro.objectLike "S5" ["\"\\'\""]
 
 {-| __C declaration:__ @macro S6@
@@ -191,7 +190,7 @@ s5 = Macro.objectLike "S5" ["\"\\'\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s6 :: Macro.Raw BG.Text
+s6 :: Macro.Raw String
 s6 = Macro.objectLike "S6" ["\"\\?\""]
 
 {-| __C declaration:__ @macro S7@
@@ -200,7 +199,7 @@ s6 = Macro.objectLike "S6" ["\"\\?\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s7 :: Macro.Raw BG.Text
+s7 :: Macro.Raw String
 s7 = Macro.objectLike "S7" ["\"\\123\""]
 
 {-| __C declaration:__ @macro S8@
@@ -209,7 +208,7 @@ s7 = Macro.objectLike "S7" ["\"\\123\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s8 :: Macro.Raw BG.Text
+s8 :: Macro.Raw String
 s8 = Macro.objectLike "S8" ["\"\\x53\""]
 
 {-| __C declaration:__ @macro T1@
@@ -218,7 +217,7 @@ s8 = Macro.objectLike "S8" ["\"\\x53\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t1 :: Macro.Raw BG.Text
+t1 :: Macro.Raw String
 t1 = Macro.objectLike "T1" ["\"\12354\""]
 
 {-| __C declaration:__ @macro T2@
@@ -227,7 +226,7 @@ t1 = Macro.objectLike "T1" ["\"\12354\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t2 :: Macro.Raw BG.Text
+t2 :: Macro.Raw String
 t2 = Macro.objectLike "T2" ["\"\\u3042\""]
 
 {-| __C declaration:__ @macro T3@
@@ -236,7 +235,7 @@ t2 = Macro.objectLike "T2" ["\"\\u3042\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t3 :: Macro.Raw BG.Text
+t3 :: Macro.Raw String
 t3 = Macro.objectLike "T3" ["\"\\xE3\\x81\\x82\""]
 
 {-| __C declaration:__ @macro U@
@@ -245,7 +244,7 @@ t3 = Macro.objectLike "T3" ["\"\\xE3\\x81\\x82\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-u :: Macro.Raw BG.Text
+u :: Macro.Raw String
 u = Macro.objectLike "U" ["\"\\777\\777\\777\\777\""]
 
 {-| __C declaration:__ @macro V@
@@ -254,7 +253,7 @@ u = Macro.objectLike "U" ["\"\\777\\777\\777\\777\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-v :: Macro.Raw BG.Text
+v :: Macro.Raw String
 v = Macro.objectLike "V" ["\"\\1\\2\\3\\4\\5\\6\""]
 
 {-| __C declaration:__ @macro W1@
@@ -263,7 +262,7 @@ v = Macro.objectLike "V" ["\"\\1\\2\\3\\4\\5\\6\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-w1 :: Macro.Raw BG.Text
+w1 :: Macro.Raw String
 w1 = Macro.objectLike "W1" ["\"hij\\0\""]
 
 {-| __C declaration:__ @macro W2@
@@ -272,5 +271,5 @@ w1 = Macro.objectLike "W1" ["\"hij\\0\""]
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-w2 :: Macro.Raw BG.Text
+w2 :: Macro.Raw String
 w2 = Macro.objectLike "W2" ["\"abc\\0def\\0g\""]

@@ -6,7 +6,7 @@
 
     __exported by:__ @macros\/parse\/simple.h@
 -}
-iNNER_A :: Raw Text
+iNNER_A :: Raw String
 {-| __C declaration:__ @macro INNER_A@
 
     __defined at:__ @simple_inner.h 1:9@
@@ -20,7 +20,7 @@ iNNER_A = objectLike "INNER_A" ["OUTER_A"]
 
     __exported by:__ @macros\/parse\/simple.h@
 -}
-oUTER_A :: Raw Text
+oUTER_A :: Raw String
 {-| __C declaration:__ @macro OUTER_A@
 
     __defined at:__ @macros\/parse\/simple.h 7:9@

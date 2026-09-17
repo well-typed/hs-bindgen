@@ -26,7 +26,7 @@
 
     __exported by:__ @macros\/macro_ext_binding_dep.h@
 -}
-b :: Raw Text
+b :: Raw String
 {-| __C declaration:__ @macro B@
 
     __defined at:__ @macros\/macro_ext_binding_dep.h 6:9@

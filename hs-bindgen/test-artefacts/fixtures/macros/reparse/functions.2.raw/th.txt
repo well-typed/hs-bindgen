@@ -66,7 +66,7 @@
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
-iD :: Raw Text
+iD :: Raw String
 {-| __C declaration:__ @macro ID@
 
     __defined at:__ @macros\/reparse\/functions.h 1:9@
@@ -80,7 +80,7 @@ iD = functionLike "ID" ["X"] ["(", "X", ")"]
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
-mY_INT :: Raw Text
+mY_INT :: Raw String
 {-| __C declaration:__ @macro MY_INT@
 
     __defined at:__ @macros\/reparse\/functions.h 2:9@

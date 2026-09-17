@@ -5,7 +5,7 @@
 
     __exported by:__ @macros\/issue_890.h@
 -}
-a :: Raw Text
+a :: Raw String
 {-| __C declaration:__ @macro A@
 
     __defined at:__ @macros\/issue_890.h 1:9@
@@ -19,7 +19,7 @@ a = objectLike "A" ["0"]
 
     __exported by:__ @macros\/issue_890.h@
 -}
-b :: Raw Text
+b :: Raw String
 {-| __C declaration:__ @macro B@
 
     __defined at:__ @macros\/issue_890.h 2:9@
@@ -33,7 +33,7 @@ b = functionLike "B" ["x"] ["(", "x", "+", "1", ")"]
 
     __exported by:__ @macros\/issue_890.h@
 -}
-c :: Raw Text
+c :: Raw String
 {-| __C declaration:__ @macro C@
 
     __defined at:__ @macros\/issue_890.h 3:9@
@@ -47,7 +47,7 @@ c = objectLike "C" ["B", "(", "0", ")"]
 
     __exported by:__ @macros\/issue_890.h@
 -}
-d :: Raw Text
+d :: Raw String
 {-| __C declaration:__ @macro D@
 
     __defined at:__ @macros\/issue_890.h 4:9@
@@ -61,7 +61,7 @@ d = objectLike "D" ["B", "(", "A", ")"]
 
     __exported by:__ @macros\/issue_890.h@
 -}
-e :: Raw Text
+e :: Raw String
 {-| __C declaration:__ @macro E@
 
     __defined at:__ @macros\/issue_890.h 5:9@

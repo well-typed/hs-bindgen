@@ -31,7 +31,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
-iD :: Macro.Raw BG.Text
+iD :: Macro.Raw String
 iD = Macro.functionLike "ID" ["X"] ["(", "X", ")"]
 
 {-| __C declaration:__ @macro MY_INT@
@@ -40,7 +40,7 @@ iD = Macro.functionLike "ID" ["X"] ["(", "X", ")"]
 
     __exported by:__ @macros\/reparse\/functions.h@
 -}
-mY_INT :: Macro.Raw BG.Text
+mY_INT :: Macro.Raw String
 mY_INT = Macro.objectLike "MY_INT" ["int"]
 
 {-| __C declaration:__ @my_int_t@

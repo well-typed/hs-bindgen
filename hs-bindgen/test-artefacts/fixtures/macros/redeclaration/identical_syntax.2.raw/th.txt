@@ -46,7 +46,7 @@
 
     __exported by:__ @macros\/redeclaration\/identical_syntax.h@
 -}
-t :: Raw Text
+t :: Raw String
 {-| __C declaration:__ @macro T@
 
     __defined at:__ @macros\/redeclaration\/identical_syntax.h 5:9@

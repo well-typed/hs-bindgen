@@ -5,7 +5,7 @@
 
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
-ptrToVoid :: Raw Text
+ptrToVoid :: Raw String
 {-| __C declaration:__ @macro PtrToVoid@
 
     __defined at:__ @macros\/macro_type_ptr_qualifiers.h 2:9@
@@ -19,7 +19,7 @@ ptrToVoid = objectLike "PtrToVoid" ["void", "*"]
 
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
-ptrToConstVoidL :: Raw Text
+ptrToConstVoidL :: Raw String
 {-| __C declaration:__ @macro PtrToConstVoidL@
 
     __defined at:__ @macros\/macro_type_ptr_qualifiers.h 5:9@
@@ -35,7 +35,7 @@ ptrToConstVoidL = objectLike "PtrToConstVoidL" ["const",
 
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
-ptrToConstVoidR :: Raw Text
+ptrToConstVoidR :: Raw String
 {-| __C declaration:__ @macro PtrToConstVoidR@
 
     __defined at:__ @macros\/macro_type_ptr_qualifiers.h 8:9@
@@ -51,7 +51,7 @@ ptrToConstVoidR = objectLike "PtrToConstVoidR" ["void",
 
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
-ptrToConstIntL :: Raw Text
+ptrToConstIntL :: Raw String
 {-| __C declaration:__ @macro PtrToConstIntL@
 
     __defined at:__ @macros\/macro_type_ptr_qualifiers.h 11:9@
@@ -65,7 +65,7 @@ ptrToConstIntL = objectLike "PtrToConstIntL" ["const", "int", "*"]
 
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
-ptrToConstIntR :: Raw Text
+ptrToConstIntR :: Raw String
 {-| __C declaration:__ @macro PtrToConstIntR@
 
     __defined at:__ @macros\/macro_type_ptr_qualifiers.h 14:9@
@@ -79,7 +79,7 @@ ptrToConstIntR = objectLike "PtrToConstIntR" ["int", "const", "*"]
 
     __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
 -}
-constPtrToInt :: Raw Text
+constPtrToInt :: Raw String
 {-| __C declaration:__ @macro ConstPtrToInt@
 
     __defined at:__ @macros\/macro_type_ptr_qualifiers.h 17:9@

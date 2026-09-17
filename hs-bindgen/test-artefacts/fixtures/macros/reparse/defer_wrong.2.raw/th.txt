@@ -38,7 +38,7 @@ instance HasCField S "s_x"
 
     __exported by:__ @macros\/reparse\/defer_wrong.h@
 -}
-t :: Raw Text
+t :: Raw String
 {-| __C declaration:__ @macro T@
 
     __defined at:__ @macros\/reparse\/defer_wrong.h 13:9@

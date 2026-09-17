@@ -7,7 +7,6 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
-import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro ValueB@
 
@@ -15,7 +14,7 @@ import qualified HsBindgen.Runtime.Support as BG
 
     __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
 -}
-valueB :: Macro.Raw BG.Text
+valueB :: Macro.Raw String
 valueB = Macro.objectLike "ValueB" ["ValueA"]
 
 {-| __C declaration:__ @macro ValueA@
@@ -24,7 +23,7 @@ valueB = Macro.objectLike "ValueB" ["ValueA"]
 
     __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
 -}
-valueA :: Macro.Raw BG.Text
+valueA :: Macro.Raw String
 valueA = Macro.objectLike "ValueA" ["1"]
 
 {-| __C declaration:__ @macro TypeB@
@@ -33,7 +32,7 @@ valueA = Macro.objectLike "ValueA" ["1"]
 
     __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
 -}
-typeB :: Macro.Raw BG.Text
+typeB :: Macro.Raw String
 typeB = Macro.objectLike "TypeB" ["TypeA"]
 
 {-| __C declaration:__ @macro TypeA@
@@ -42,5 +41,5 @@ typeB = Macro.objectLike "TypeB" ["TypeA"]
 
     __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
 -}
-typeA :: Macro.Raw BG.Text
+typeA :: Macro.Raw String
 typeA = Macro.objectLike "TypeA" ["int"]

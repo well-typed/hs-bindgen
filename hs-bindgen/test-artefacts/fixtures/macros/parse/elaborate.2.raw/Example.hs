@@ -35,7 +35,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
-iNNER_A :: Macro.Raw BG.Text
+iNNER_A :: Macro.Raw String
 iNNER_A = Macro.objectLike "INNER_A" ["OUTER_A"]
 
 {-| __C declaration:__ @macro INNER_B@
@@ -44,7 +44,7 @@ iNNER_A = Macro.objectLike "INNER_A" ["OUTER_A"]
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
-iNNER_B :: Macro.Raw BG.Text
+iNNER_B :: Macro.Raw String
 iNNER_B = Macro.objectLike "INNER_B" ["2"]
 
 {-| __C declaration:__ @macro OUTER_A@
@@ -53,7 +53,7 @@ iNNER_B = Macro.objectLike "INNER_B" ["2"]
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
-oUTER_A :: Macro.Raw BG.Text
+oUTER_A :: Macro.Raw String
 oUTER_A = Macro.objectLike "OUTER_A" ["1"]
 
 {-| __C declaration:__ @outer_int@
@@ -159,7 +159,7 @@ instance HasCField.HasCField Inner_int "unwrapInner_int" where
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
-oUTER_B :: Macro.Raw BG.Text
+oUTER_B :: Macro.Raw String
 oUTER_B = Macro.objectLike "OUTER_B" ["INNER_A"]
 
 {-| __C declaration:__ @macro OUTER_C@
@@ -168,5 +168,5 @@ oUTER_B = Macro.objectLike "OUTER_B" ["INNER_A"]
 
     __exported by:__ @macros\/parse\/elaborate.h@
 -}
-oUTER_C :: Macro.Raw BG.Text
+oUTER_C :: Macro.Raw String
 oUTER_C = Macro.objectLike "OUTER_C" ["INNER_B"]

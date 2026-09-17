@@ -4,7 +4,6 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
-import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro MyVoid@
 
@@ -12,5 +11,5 @@ import qualified HsBindgen.Runtime.Support as BG
 
     __exported by:__ @macros\/macro_type_void.h@
 -}
-myVoid :: Macro.Raw BG.Text
+myVoid :: Macro.Raw String
 myVoid = Macro.objectLike "MyVoid" ["void"]

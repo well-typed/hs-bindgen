@@ -99,9 +99,6 @@ module HsBindgen.Runtime.Support (
   , BS.ByteString
   , BS.pack
 
-    -- Text
-  , Text.Text
-
     -- Complex numbers
   , Complex
 
@@ -127,7 +124,6 @@ import Data.Ix (Ix)
 import Data.List.NonEmpty (NonEmpty ((:|)), singleton)
 import Data.Primitive.Types (Prim (alignment#, indexByteArray#, indexOffAddr#, readByteArray#, readOffAddr#, sizeOf#, writeByteArray#, writeOffAddr#))
 import Data.Proxy (Proxy (Proxy))
-import Data.Text qualified as Text (Text)
 import Data.Void (Void)
 import Data.Word (Word16, Word32, Word64, Word8)
 import Foreign (Storable (alignment, peek, peekByteOff, poke, pokeByteOff, sizeOf),

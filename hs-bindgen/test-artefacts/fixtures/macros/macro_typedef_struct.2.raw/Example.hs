@@ -31,7 +31,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/macro_typedef_struct.h@
 -}
-mY_TYPE :: Macro.Raw BG.Text
+mY_TYPE :: Macro.Raw String
 mY_TYPE = Macro.objectLike "MY_TYPE" ["int"]
 
 {-| __C declaration:__ @struct bar@

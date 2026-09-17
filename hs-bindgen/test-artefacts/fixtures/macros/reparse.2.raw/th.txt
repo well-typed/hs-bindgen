@@ -2515,7 +2515,7 @@
 
     __exported by:__ @macros\/reparse.h@
 -}
-a :: Raw Text
+a :: Raw String
 {-| __C declaration:__ @macro A@
 
     __defined at:__ @macros\/reparse.h 3:9@
@@ -4197,7 +4197,7 @@ instance HasCField Const_funptr7 "unwrapConst_funptr7"
 
     __exported by:__ @macros\/reparse.h@
 -}
-bOOL :: Raw Text
+bOOL :: Raw String
 {-| Macro-defined types
 
     __C declaration:__ @macro BOOL@
@@ -4213,7 +4213,7 @@ bOOL = objectLike "BOOL" ["_Bool"]
 
     __exported by:__ @macros\/reparse.h@
 -}
-iNT :: Raw Text
+iNT :: Raw String
 {-| __C declaration:__ @macro INT@
 
     __defined at:__ @macros\/reparse.h 279:9@
@@ -4227,7 +4227,7 @@ iNT = objectLike "INT" ["int"]
 
     __exported by:__ @macros\/reparse.h@
 -}
-iNTP :: Raw Text
+iNTP :: Raw String
 {-| __C declaration:__ @macro INTP@
 
     __defined at:__ @macros\/reparse.h 280:9@
@@ -4241,7 +4241,7 @@ iNTP = objectLike "INTP" ["int", "*"]
 
     __exported by:__ @macros\/reparse.h@
 -}
-iNTCP :: Raw Text
+iNTCP :: Raw String
 {-| __C declaration:__ @macro INTCP@
 
     __defined at:__ @macros\/reparse.h 281:9@

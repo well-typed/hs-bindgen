@@ -8,7 +8,6 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
-import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro A@
 
@@ -16,7 +15,7 @@ import qualified HsBindgen.Runtime.Support as BG
 
     __exported by:__ @macros\/issue_890.h@
 -}
-a :: Macro.Raw BG.Text
+a :: Macro.Raw String
 a = Macro.objectLike "A" ["0"]
 
 {-| __C declaration:__ @macro B@
@@ -25,7 +24,7 @@ a = Macro.objectLike "A" ["0"]
 
     __exported by:__ @macros\/issue_890.h@
 -}
-b :: Macro.Raw BG.Text
+b :: Macro.Raw String
 b =
   Macro.functionLike "B" ["x"] ["(", "x", "+", "1", ")"]
 
@@ -35,7 +34,7 @@ b =
 
     __exported by:__ @macros\/issue_890.h@
 -}
-c :: Macro.Raw BG.Text
+c :: Macro.Raw String
 c = Macro.objectLike "C" ["B", "(", "0", ")"]
 
 {-| __C declaration:__ @macro D@
@@ -44,7 +43,7 @@ c = Macro.objectLike "C" ["B", "(", "0", ")"]
 
     __exported by:__ @macros\/issue_890.h@
 -}
-d :: Macro.Raw BG.Text
+d :: Macro.Raw String
 d = Macro.objectLike "D" ["B", "(", "A", ")"]
 
 {-| __C declaration:__ @macro E@
@@ -53,5 +52,5 @@ d = Macro.objectLike "D" ["B", "(", "A", ")"]
 
     __exported by:__ @macros\/issue_890.h@
 -}
-e :: Macro.Raw BG.Text
+e :: Macro.Raw String
 e = Macro.objectLike "E" ["B", "(", "1", ")"]

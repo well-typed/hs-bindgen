@@ -5,7 +5,7 @@
 
     __exported by:__ @macros\/gnu_variadic.h@
 -}
-c99_VARIADIC :: Raw Text
+c99_VARIADIC :: Raw String
 {-| __C declaration:__ @macro C99_VARIADIC@
 
     __defined at:__ @macros\/gnu_variadic.h 9:9@
@@ -19,7 +19,7 @@ c99_VARIADIC = variadic "C99_VARIADIC" ["fmt"] ["fmt"]
 
     __exported by:__ @macros\/gnu_variadic.h@
 -}
-gNU_VARIADIC :: Raw Text
+gNU_VARIADIC :: Raw String
 {-| __C declaration:__ @macro GNU_VARIADIC@
 
     __defined at:__ @macros\/gnu_variadic.h 11:9@
@@ -33,7 +33,7 @@ gNU_VARIADIC = variadicNamed "GNU_VARIADIC" ["fmt"] "args" ["args"]
 
     __exported by:__ @macros\/gnu_variadic.h@
 -}
-gNU_VARIADIC_ONLY :: Raw Text
+gNU_VARIADIC_ONLY :: Raw String
 {-| __C declaration:__ @macro GNU_VARIADIC_ONLY@
 
     __defined at:__ @macros\/gnu_variadic.h 13:9@

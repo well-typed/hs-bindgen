@@ -31,7 +31,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/redeclaration\/variadic.h@
 -}
-a :: Macro.Raw BG.Text
+a :: Macro.Raw String
 a = Macro.objectLike "A" ["int"]
 
 {-| __C declaration:__ @macro ID@
@@ -40,7 +40,7 @@ a = Macro.objectLike "A" ["int"]
 
     __exported by:__ @macros\/redeclaration\/variadic.h@
 -}
-iD :: Macro.Raw BG.Text
+iD :: Macro.Raw String
 iD = Macro.variadic "ID" ["A"] ["A", "__VA_ARGS__"]
 
 {-| __C declaration:__ @T@

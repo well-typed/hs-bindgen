@@ -5,7 +5,7 @@
 
     __exported by:__ @macros\/parse\/macro_typedef_scope.h@
 -}
-m1 :: Raw Text
+m1 :: Raw String
 {-| __C declaration:__ @macro M1@
 
     __defined at:__ @macros\/parse\/macro_typedef_scope.h 4:9@
@@ -51,7 +51,7 @@ instance HasCField T2 "unwrapT2"
 
     __exported by:__ @macros\/parse\/macro_typedef_scope.h@
 -}
-m3 :: Raw Text
+m3 :: Raw String
 {-| __C declaration:__ @macro M3@
 
     __defined at:__ @macros\/parse\/macro_typedef_scope.h 6:9@

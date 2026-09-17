@@ -17,7 +17,6 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
-import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro INCR@
 
@@ -25,7 +24,7 @@ import qualified HsBindgen.Runtime.Support as BG
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-iNCR :: Macro.Raw BG.Text
+iNCR :: Macro.Raw String
 iNCR =
   Macro.functionLike "INCR" ["x"] ["x", "+", "1"]
 
@@ -35,7 +34,7 @@ iNCR =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-aDD :: Macro.Raw BG.Text
+aDD :: Macro.Raw String
 aDD =
   Macro.functionLike "ADD" ["x", "y"] ["x", "+", "y"]
 
@@ -45,7 +44,7 @@ aDD =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-iD :: Macro.Raw BG.Text
+iD :: Macro.Raw String
 iD = Macro.functionLike "ID" ["X"] ["X"]
 
 {-| __C declaration:__ @macro CONST@
@@ -54,7 +53,7 @@ iD = Macro.functionLike "ID" ["X"] ["X"]
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-cONST :: Macro.Raw BG.Text
+cONST :: Macro.Raw String
 cONST = Macro.functionLike "CONST" ["X", "Y"] ["X"]
 
 {-| __C declaration:__ @macro CONST_3@
@@ -63,7 +62,7 @@ cONST = Macro.functionLike "CONST" ["X", "Y"] ["X"]
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-cONST_3 :: Macro.Raw BG.Text
+cONST_3 :: Macro.Raw String
 cONST_3 =
   Macro.functionLike "CONST_3" ["X", "Y", "Z"] ["X"]
 
@@ -73,7 +72,7 @@ cONST_3 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-cMP :: Macro.Raw BG.Text
+cMP :: Macro.Raw String
 cMP =
   Macro.functionLike "CMP" ["X", "Y"] ["X", "<", "Y"]
 
@@ -83,7 +82,7 @@ cMP =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-fUN1 :: Macro.Raw BG.Text
+fUN1 :: Macro.Raw String
 fUN1 =
   Macro.functionLike "FUN1" ["X", "Y"] ["X", "+", "12ull", "*", "Y"]
 
@@ -93,7 +92,7 @@ fUN1 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-fUN2 :: Macro.Raw BG.Text
+fUN2 :: Macro.Raw String
 fUN2 =
   Macro.functionLike "FUN2" ["X", "Y"] ["X", "<<", "(", "3ull", "*", "Y", ")"]
 
@@ -103,7 +102,7 @@ fUN2 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-g :: Macro.Raw BG.Text
+g :: Macro.Raw String
 g =
   Macro.functionLike "G" ["X", "Y"] ["CONST", "(", "INCR", "(", "Y", ")", ",", "ID", "(", "X", ")", ")"]
 
@@ -113,7 +112,7 @@ g =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-g_3 :: Macro.Raw BG.Text
+g_3 :: Macro.Raw String
 g_3 =
   Macro.functionLike "G_3" ["X", "Y", "Z"] [ "CONST_3"
                                            , "("
@@ -140,7 +139,7 @@ g_3 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-dIV1 :: Macro.Raw BG.Text
+dIV1 :: Macro.Raw String
 dIV1 =
   Macro.functionLike "DIV1" ["X", "Y"] ["X", "/", "(", "Y", "+", "12u", ")"]
 
@@ -150,7 +149,7 @@ dIV1 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-dIV2 :: Macro.Raw BG.Text
+dIV2 :: Macro.Raw String
 dIV2 =
   Macro.functionLike "DIV2" ["X", "Y"] ["10.0f", "*", "X", "/", "Y"]
 
@@ -160,7 +159,7 @@ dIV2 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-sWAP32 :: Macro.Raw BG.Text
+sWAP32 :: Macro.Raw String
 sWAP32 =
   Macro.functionLike "SWAP32" ["w"] [ "("
                                     , "("
@@ -193,7 +192,7 @@ sWAP32 =
 
     __exported by:__ @macros\/macro_functions.h@
 -}
-aV_VERSION_INT :: Macro.Raw BG.Text
+aV_VERSION_INT :: Macro.Raw String
 aV_VERSION_INT =
   Macro.functionLike "AV_VERSION_INT" ["a", "b", "c"] [ "("
                                                       , "("

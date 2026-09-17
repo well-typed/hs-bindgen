@@ -6,7 +6,6 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
-import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro C99_VARIADIC@
 
@@ -14,7 +13,7 @@ import qualified HsBindgen.Runtime.Support as BG
 
     __exported by:__ @macros\/gnu_variadic.h@
 -}
-c99_VARIADIC :: Macro.Raw BG.Text
+c99_VARIADIC :: Macro.Raw String
 c99_VARIADIC =
   Macro.variadic "C99_VARIADIC" ["fmt"] ["fmt"]
 
@@ -24,7 +23,7 @@ c99_VARIADIC =
 
     __exported by:__ @macros\/gnu_variadic.h@
 -}
-gNU_VARIADIC :: Macro.Raw BG.Text
+gNU_VARIADIC :: Macro.Raw String
 gNU_VARIADIC =
   Macro.variadicNamed "GNU_VARIADIC" ["fmt"] "args" ["args"]
 
@@ -34,6 +33,6 @@ gNU_VARIADIC =
 
     __exported by:__ @macros\/gnu_variadic.h@
 -}
-gNU_VARIADIC_ONLY :: Macro.Raw BG.Text
+gNU_VARIADIC_ONLY :: Macro.Raw String
 gNU_VARIADIC_ONLY =
   Macro.variadicNamed "GNU_VARIADIC_ONLY" [] "args" ["args"]

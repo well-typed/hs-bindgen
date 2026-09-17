@@ -25,8 +25,7 @@ module HsBindgen.Runtime.Macro (
   , render
   ) where
 
-import Data.Text (Text)
-import Data.Text qualified as Text
+import Data.List qualified as List
 
 {-------------------------------------------------------------------------------
   Type
@@ -88,21 +87,21 @@ data Variadic a =
 -------------------------------------------------------------------------------}
 
 -- | Construct an object-like macro from its name and body token spellings.
-objectLike :: String -> [String] -> Raw Text
+objectLike :: String -> [String] -> Raw String
 objectLike name body = Raw {
-      name   = Text.pack name
+      name   = name
     , params = NoParams
-    , body   = map Text.pack body
+    , body   = body
     }
 
 -- | Construct a function-like macro from its name, parameter names, and body
 -- token spellings.
-functionLike :: String -> [String] -> [String] -> Raw Text
+functionLike :: String -> [String] -> [String] -> Raw String
 functionLike name params body =
     mkFunctionLike name params NotVariadic body
 
 -- | Like 'functionLike', but for a macro whose parameter list ends in @...@.
-variadic :: String -> [String] -> [String] -> Raw Text
+variadic :: String -> [String] -> [String] -> Raw String
 variadic name params body =
     mkFunctionLike name params Ellipsis body
 
@@ -113,15 +112,15 @@ variadic name params body =
 --
 -- > variadicNamed "LOG" ["fmt"] "args"
 -- >   ["printf", "(", "fmt", ",", "args", ")"]
-variadicNamed :: String -> [String] -> String -> [String] -> Raw Text
+variadicNamed :: String -> [String] -> String -> [String] -> Raw String
 variadicNamed name params ellipsisName body =
-    mkFunctionLike name params (NamedEllipsis (Text.pack ellipsisName)) body
+    mkFunctionLike name params (NamedEllipsis ellipsisName) body
 
-mkFunctionLike :: String -> [String] -> Variadic Text -> [String] -> Raw Text
+mkFunctionLike :: String -> [String] -> Variadic String -> [String] -> Raw String
 mkFunctionLike name params variadicity body = Raw {
-      name   = Text.pack name
-    , params = Params (map Text.pack params) variadicity
-    , body   = map Text.pack body
+      name   = name
+    , params = Params params variadicity
+    , body   = body
     }
 
 {-------------------------------------------------------------------------------
@@ -136,18 +135,18 @@ mkFunctionLike name params variadicity body = Raw {
 -- Whitespace is not stored, so the result is canonical: tokens are separated by
 -- a single space, parameters by a comma and a space. @#define ADD(x,y) x+y@
 -- renders as above.
-render :: Raw Text -> Text
+render :: Raw String -> String
 render raw =
     "#define " <> raw.name <> renderParams raw.params <> renderBody raw.body
 
-renderParams :: Params Text -> Text
+renderParams :: Params String -> String
 renderParams NoParams = ""
 renderParams (Params names variadicity) =
-    "(" <> Text.intercalate ", " (names ++ renderVariadic variadicity) <> ")"
+    "(" <> List.intercalate ", " (names ++ renderVariadic variadicity) <> ")"
 
 -- | Render the end of a parameter list, as the names that follow the named
 -- parameters.
-renderVariadic :: Variadic Text -> [Text]
+renderVariadic :: Variadic String -> [String]
 renderVariadic = \case
     NotVariadic      -> []
     Ellipsis         -> ["..."]
@@ -157,6 +156,6 @@ renderVariadic = \case
 --
 -- An empty body renders as the empty text, so that @#define FOO@ does not gain
 -- a trailing space.
-renderBody :: [Text] -> Text
+renderBody :: [String] -> String
 renderBody [] = ""
-renderBody ts = " " <> Text.unwords ts
+renderBody ts = " " <> unwords ts

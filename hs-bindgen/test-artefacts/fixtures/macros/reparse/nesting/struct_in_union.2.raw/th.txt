@@ -24,7 +24,7 @@
 
     __exported by:__ @macros\/reparse\/nesting\/struct_in_union.h@
 -}
-myInt :: Raw Text
+myInt :: Raw String
 {-| __C declaration:__ @macro MyInt@
 
     __defined at:__ @macros\/reparse\/nesting\/struct_in_union.h 1:9@

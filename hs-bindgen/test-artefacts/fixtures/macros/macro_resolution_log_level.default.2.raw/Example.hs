@@ -4,7 +4,6 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
-import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro UNRESOLVED_MACRO@
 
@@ -12,6 +11,6 @@ import qualified HsBindgen.Runtime.Support as BG
 
     __exported by:__ @macros\/macro_resolution_log_level.h@
 -}
-uNRESOLVED_MACRO :: Macro.Raw BG.Text
+uNRESOLVED_MACRO :: Macro.Raw String
 uNRESOLVED_MACRO =
   Macro.objectLike "UNRESOLVED_MACRO" ["struct", "DoesNotExist"]

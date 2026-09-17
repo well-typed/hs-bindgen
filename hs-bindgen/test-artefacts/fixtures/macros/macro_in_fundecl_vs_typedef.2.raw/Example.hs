@@ -38,7 +38,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
-mC :: Macro.Raw BG.Text
+mC :: Macro.Raw String
 mC = Macro.objectLike "MC" ["char"]
 
 {-| __C declaration:__ @TC@

@@ -5,7 +5,7 @@
 
     __exported by:__ @macros\/macro_comma.h@
 -}
-oBJ :: Raw Text
+oBJ :: Raw String
 {-| __C declaration:__ @macro OBJ@
 
     __defined at:__ @macros\/macro_comma.h 8:9@
@@ -19,7 +19,7 @@ oBJ = objectLike "OBJ" ["(", "1", ",", "2", ")"]
 
     __exported by:__ @macros\/macro_comma.h@
 -}
-oBJ_NO_PARENS :: Raw Text
+oBJ_NO_PARENS :: Raw String
 {-| __C declaration:__ @macro OBJ_NO_PARENS@
 
     __defined at:__ @macros\/macro_comma.h 9:9@
@@ -33,7 +33,7 @@ oBJ_NO_PARENS = objectLike "OBJ_NO_PARENS" ["1", ",", "2"]
 
     __exported by:__ @macros\/macro_comma.h@
 -}
-fUN :: Raw Text
+fUN :: Raw String
 {-| __C declaration:__ @macro FUN@
 
     __defined at:__ @macros\/macro_comma.h 10:9@
@@ -47,7 +47,7 @@ fUN = functionLike "FUN" ["x", "y"] ["(", "x", ",", "y", ")"]
 
     __exported by:__ @macros\/macro_comma.h@
 -}
-fUN_THREE :: Raw Text
+fUN_THREE :: Raw String
 {-| __C declaration:__ @macro FUN_THREE@
 
     __defined at:__ @macros\/macro_comma.h 11:9@
@@ -73,7 +73,7 @@ fUN_THREE = functionLike "FUN_THREE" ["x", "y", "z"] ["(",
 
     __exported by:__ @macros\/macro_comma.h@
 -}
-aRITH :: Raw Text
+aRITH :: Raw String
 {-| __C declaration:__ @macro ARITH@
 
     __defined at:__ @macros\/macro_comma.h 15:9@

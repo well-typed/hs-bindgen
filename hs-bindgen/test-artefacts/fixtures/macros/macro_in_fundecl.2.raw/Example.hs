@@ -8,7 +8,6 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
-import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro I@
 
@@ -16,7 +15,7 @@ import qualified HsBindgen.Runtime.Support as BG
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-i :: Macro.Raw BG.Text
+i :: Macro.Raw String
 i = Macro.objectLike "I" ["int"]
 
 {-| __C declaration:__ @macro C@
@@ -25,7 +24,7 @@ i = Macro.objectLike "I" ["int"]
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-c :: Macro.Raw BG.Text
+c :: Macro.Raw String
 c = Macro.objectLike "C" ["char"]
 
 {-| __C declaration:__ @macro F@
@@ -34,7 +33,7 @@ c = Macro.objectLike "C" ["char"]
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-f :: Macro.Raw BG.Text
+f :: Macro.Raw String
 f = Macro.objectLike "F" ["float"]
 
 {-| __C declaration:__ @macro L@
@@ -43,7 +42,7 @@ f = Macro.objectLike "F" ["float"]
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-l :: Macro.Raw BG.Text
+l :: Macro.Raw String
 l = Macro.objectLike "L" ["long"]
 
 {-| __C declaration:__ @macro S@
@@ -52,5 +51,5 @@ l = Macro.objectLike "L" ["long"]
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-s :: Macro.Raw BG.Text
+s :: Macro.Raw String
 s = Macro.objectLike "S" ["short"]

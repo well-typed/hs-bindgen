@@ -5,7 +5,7 @@
 
     __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
 -}
-valueB :: Raw Text
+valueB :: Raw String
 {-| __C declaration:__ @macro ValueB@
 
     __defined at:__ @macros\/parse\/first_parse_then_typecheck.h 6:9@
@@ -19,7 +19,7 @@ valueB = objectLike "ValueB" ["ValueA"]
 
     __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
 -}
-valueA :: Raw Text
+valueA :: Raw String
 {-| __C declaration:__ @macro ValueA@
 
     __defined at:__ @macros\/parse\/first_parse_then_typecheck.h 7:9@
@@ -33,7 +33,7 @@ valueA = objectLike "ValueA" ["1"]
 
     __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
 -}
-typeB :: Raw Text
+typeB :: Raw String
 {-| __C declaration:__ @macro TypeB@
 
     __defined at:__ @macros\/parse\/first_parse_then_typecheck.h 9:9@
@@ -47,7 +47,7 @@ typeB = objectLike "TypeB" ["TypeA"]
 
     __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
 -}
-typeA :: Raw Text
+typeA :: Raw String
 {-| __C declaration:__ @macro TypeA@
 
     __defined at:__ @macros\/parse\/first_parse_then_typecheck.h 10:9@

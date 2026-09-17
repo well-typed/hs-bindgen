@@ -32,7 +32,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
     __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
 -}
-a :: Macro.Raw BG.Text
+a :: Macro.Raw String
 a = Macro.objectLike "A" ["S"]
 
 {-| __C declaration:__ @macro B@
@@ -41,7 +41,7 @@ a = Macro.objectLike "A" ["S"]
 
     __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
 -}
-b :: Macro.Raw BG.Text
+b :: Macro.Raw String
 b = Macro.objectLike "B" ["int"]
 
 {-| __C declaration:__ @struct S@

@@ -236,7 +236,7 @@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
-mC :: Raw Text
+mC :: Raw String
 {-| __C declaration:__ @macro MC@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 4:9@

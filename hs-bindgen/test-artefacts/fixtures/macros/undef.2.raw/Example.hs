@@ -4,7 +4,6 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
-import qualified HsBindgen.Runtime.Support as BG
 
 {-| __C declaration:__ @macro T@
 
@@ -12,5 +11,5 @@ import qualified HsBindgen.Runtime.Support as BG
 
     __exported by:__ @macros\/undef.h@
 -}
-t :: Macro.Raw BG.Text
+t :: Macro.Raw String
 t = Macro.objectLike "T" ["int"]

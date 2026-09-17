@@ -36,7 +36,7 @@ import qualified HsBindgen.Runtime.Union as Union
 
     __exported by:__ @macros\/reparse\/nesting\/union_in_typedef.h@
 -}
-myInt :: Macro.Raw BG.Text
+myInt :: Macro.Raw String
 myInt = Macro.objectLike "MyInt" ["int"]
 
 {-| __C declaration:__ @union T1@
