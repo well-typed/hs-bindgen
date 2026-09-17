@@ -28,6 +28,7 @@ endif
 
 default: \
 	libmanual${TARGET_EXT} \
+	libffi-types${TARGET_EXT} \
 	libvector${TARGET_EXT} \
 	libgame${TARGET_EXT} \
 
@@ -92,6 +93,11 @@ hsb_complex_test.o: hsb_complex_test.c hsb_complex_test.h
 callbacks.o: callbacks.c callbacks.h
 	clang ${EXTRAFLAGS} -Wall -o callbacks.o -c -fPIC callbacks.c
 
+## FFI types
+
+ffi_types.o: ffi_types.c ffi_types.h
+	clang ${EXTRAFLAGS} -Wall -o ffi_types.o -c -fPIC ffi_types.c
+
 ## Generated names
 
 generated_names.o: generated_names.c generated_names.h
@@ -126,7 +132,21 @@ unions.o: unions.c unions.h
 unions/nesting.o: unions/nesting.c unions/nesting.h
 	clang ${EXTRAFLAGS} -Wall -Wno-missing-declarations -o unions/nesting.o -c -fPIC unions/nesting.c
 
+# Manual: FFI types
 
+libffi-types${TARGET_EXT}: \
+		ffi-types/int.o \
+		ffi-types/size_t.o
+
+	clang ${EXTRAFLAGS} -Wall -shared -o libffi-types${TARGET_EXT} \
+		ffi-types/int.o \
+		ffi-types/size_t.o
+
+ffi-types/int.o: ffi-types/int.c ffi-types/int.h
+	clang ${EXTRAFLAGS} -Wall -o ffi-types/int.o -c -fPIC ffi-types/int.c
+
+ffi-types/size_t.o: ffi-types/size_t.c ffi-types/size_t.h
+	clang ${EXTRAFLAGS} -Wall -o ffi-types/size_t.o -c -fPIC ffi-types/size_t.c
 
 # External bindings: vector example
 
