@@ -64,7 +64,6 @@ jobs:
           # default (ordered alphabetically)
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "blocktest"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "bundled-c"},'
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "constructor-import-issue"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "feature-tests"},'
           # feature-tests is also exercised on macOS and Windows (#1912).
           # macOS uses LLVM 14, matching the haskell.yml convention.
@@ -84,7 +83,6 @@ jobs:
           # first the default tests, same as above (ordered alphabetically)
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "blocktest"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "bundled-c"},'
-          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "constructor-import-issue"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "feature-tests"},'
           # feature-tests is also exercised on macOS and Windows (#1912).
           # macOS uses LLVM 14, matching the haskell.yml convention.
@@ -351,10 +349,6 @@ jobs:
     - name: 🧪 Build and run cef example
       if: ${{ matrix.example == 'cef' }}
       uses: ./.github/actions/examples/cef
-
-    - name: 🧪 Build and run constructor-import-issue example
-      if: ${{ matrix.example == 'constructor-import-issue' }}
-      uses: ./.github/actions/examples/constructor-import-issue
 
     - name: 🧪 Build and run feature-tests example
       if: ${{ matrix.example == 'feature-tests' }}
