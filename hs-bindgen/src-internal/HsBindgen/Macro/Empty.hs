@@ -30,9 +30,8 @@ instance Macro.HasTypes Empty where
 
 empty :: Macro.Lang Empty
 empty = Macro.Lang
-  { parse          = \tokens -> Left MacroParseError {
-                       macroParseError       = "Empty does not parse any macros"
-                     , macroParseErrorTokens = tokens
+  { parse          = \_ -> Left MacroParseError {
+                       macroParseError = "Empty does not parse any macros"
                      }
   , resolve        = \_ -> absurdMacro . (.unwrap)
   , typecheck      = \case

@@ -61,24 +61,24 @@ tests = testGroup "Test.HsBindgen.Macro.Syntax" [
             ]
         , testGroup "variadic" [
               testCase "#define LOG(fmt, ...) fmt" $
-                splitsTo (RawMacro.variadicFunctionLike "LOG" ["fmt"] ["fmt"]) [
+                splitsTo (RawMacro.variadic "LOG" ["fmt"] ["fmt"]) [
                     ident "LOG", punc "(", ident "fmt", punc ",", spc, punc "..."
                   , punc ")", spc, ident "fmt"
                   ]
             , testCase "#define WARN(...) __VA_ARGS__" $
-                splitsTo (RawMacro.variadicFunctionLike "WARN" [] ["__VA_ARGS__"]) [
+                splitsTo (RawMacro.variadic "WARN" [] ["__VA_ARGS__"]) [
                     ident "WARN", punc "(", punc "...", punc ")"
                   , spc, ident "__VA_ARGS__"
                   ]
               -- The GNU named variadic form: the name before the @...@ stands
               -- for the trailing arguments, so it is not a named parameter.
             , testCase "#define GNU(args...) args" $
-                splitsTo (RawMacro.namedVariadicFunctionLike "GNU" [] "args" ["args"]) [
+                splitsTo (RawMacro.variadicNamed "GNU" [] "args" ["args"]) [
                     ident "GNU", punc "(", ident "args", punc "...", punc ")"
                   , spc, ident "args"
                   ]
             , testCase "#define GNU(fmt, args...) fmt" $
-                splitsTo (RawMacro.namedVariadicFunctionLike "GNU" ["fmt"] "args" ["fmt"]) [
+                splitsTo (RawMacro.variadicNamed "GNU" ["fmt"] "args" ["fmt"]) [
                     ident "GNU", punc "(", ident "fmt", punc ",", spc, ident "args"
                   , punc "...", punc ")", spc, ident "fmt"
                   ]

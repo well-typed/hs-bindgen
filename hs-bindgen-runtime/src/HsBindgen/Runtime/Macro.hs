@@ -19,8 +19,8 @@ module HsBindgen.Runtime.Macro (
     -- * Construction
   , objectLike
   , functionLike
-  , variadicFunctionLike
-  , namedVariadicFunctionLike
+  , variadic
+  , variadicNamed
     -- * Rendering
   , render
   ) where
@@ -102,25 +102,25 @@ functionLike name params body =
     mkFunctionLike name params NotVariadic body
 
 -- | Like 'functionLike', but for a macro whose parameter list ends in @...@.
-variadicFunctionLike :: String -> [String] -> [String] -> Raw Text
-variadicFunctionLike name params body =
+variadic :: String -> [String] -> [String] -> Raw Text
+variadic name params body =
     mkFunctionLike name params Ellipsis body
 
--- | Like 'variadicFunctionLike', but for the GNU named-variadic form: the
--- third argument is the name that stands for the trailing arguments.
+-- | Like 'variadic', but for the GNU named-variadic form: the third argument
+-- is the name that stands for the trailing arguments.
 --
 -- @#define LOG(fmt, args...) printf(fmt, args)@ is
 --
--- > namedVariadicFunctionLike "LOG" ["fmt"] "args"
+-- > variadicNamed "LOG" ["fmt"] "args"
 -- >   ["printf", "(", "fmt", ",", "args", ")"]
-namedVariadicFunctionLike :: String -> [String] -> String -> [String] -> Raw Text
-namedVariadicFunctionLike name params ellipsisName body =
+variadicNamed :: String -> [String] -> String -> [String] -> Raw Text
+variadicNamed name params ellipsisName body =
     mkFunctionLike name params (NamedEllipsis (Text.pack ellipsisName)) body
 
 mkFunctionLike :: String -> [String] -> Variadic Text -> [String] -> Raw Text
-mkFunctionLike name params variadic body = Raw {
+mkFunctionLike name params variadicity body = Raw {
       name   = Text.pack name
-    , params = Params (map Text.pack params) variadic
+    , params = Params (map Text.pack params) variadicity
     , body   = map Text.pack body
     }
 
@@ -142,8 +142,8 @@ render raw =
 
 renderParams :: Params Text -> Text
 renderParams NoParams = ""
-renderParams (Params names variadic) =
-    "(" <> Text.intercalate ", " (names ++ renderVariadic variadic) <> ")"
+renderParams (Params names variadicity) =
+    "(" <> Text.intercalate ", " (names ++ renderVariadic variadicity) <> ")"
 
 -- | Render the end of a parameter list, as the names that follow the named
 -- parameters.

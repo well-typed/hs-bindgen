@@ -59,8 +59,7 @@ splitMacro ::
   => [Token TokenSpelling]
   -> Either MacroParseError (RawMacro.Raw (Token TokenSpelling))
 splitMacro []     = Left MacroParseError {
-      macroParseError       = "macro definition without a name"
-    , macroParseErrorTokens = []
+      macroParseError = "macro definition without a name"
     }
 splitMacro tokens = runParser (macroDefinition <* Parsec.eof) tokens
 

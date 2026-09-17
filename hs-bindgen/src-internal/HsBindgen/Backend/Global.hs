@@ -573,5 +573,5 @@ bindgenGlobalTerm = globalExpr . \case
     -- Raw macros
     Macro_objectLike                -> (IRuntime Runtime.Macro, GVar, 'RawMacro.objectLike)
     Macro_functionLike              -> (IRuntime Runtime.Macro, GVar, 'RawMacro.functionLike)
-    Macro_variadicFunctionLike      -> (IRuntime Runtime.Macro, GVar, 'RawMacro.variadicFunctionLike)
-    Macro_namedVariadicFunctionLike -> (IRuntime Runtime.Macro, GVar, 'RawMacro.namedVariadicFunctionLike)
+    Macro_variadicFunctionLike      -> (IRuntime Runtime.Macro, GVar, 'RawMacro.variadic)
+    Macro_namedVariadicFunctionLike -> (IRuntime Runtime.Macro, GVar, 'RawMacro.variadicNamed)

@@ -26,7 +26,7 @@ iD :: Raw Text
 
     __exported by:__ @macros\/redeclaration\/variadic.h@
 -}
-iD = variadicFunctionLike "ID" ["A"] ["A", "__VA_ARGS__"]
+iD = variadic "ID" ["A"] ["A", "__VA_ARGS__"]
 {-| __C declaration:__ @T@
 
     __defined at:__ @macros\/redeclaration\/variadic.h 4:24@

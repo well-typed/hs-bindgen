@@ -41,8 +41,7 @@ a = Macro.objectLike "A" ["int"]
     __exported by:__ @macros\/redeclaration\/variadic.h@
 -}
 iD :: Macro.Raw BG.Text
-iD =
-  Macro.variadicFunctionLike "ID" ["A"] ["A", "__VA_ARGS__"]
+iD = Macro.variadic "ID" ["A"] ["A", "__VA_ARGS__"]
 
 {-| __C declaration:__ @T@
 

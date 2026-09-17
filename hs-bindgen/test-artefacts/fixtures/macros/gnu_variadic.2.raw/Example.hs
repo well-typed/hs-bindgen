@@ -16,7 +16,7 @@ import qualified HsBindgen.Runtime.Support as BG
 -}
 c99_VARIADIC :: Macro.Raw BG.Text
 c99_VARIADIC =
-  Macro.variadicFunctionLike "C99_VARIADIC" ["fmt"] ["fmt"]
+  Macro.variadic "C99_VARIADIC" ["fmt"] ["fmt"]
 
 {-| __C declaration:__ @macro GNU_VARIADIC@
 
@@ -26,7 +26,7 @@ c99_VARIADIC =
 -}
 gNU_VARIADIC :: Macro.Raw BG.Text
 gNU_VARIADIC =
-  Macro.namedVariadicFunctionLike "GNU_VARIADIC" ["fmt"] "args" ["args"]
+  Macro.variadicNamed "GNU_VARIADIC" ["fmt"] "args" ["args"]
 
 {-| __C declaration:__ @macro GNU_VARIADIC_ONLY@
 
@@ -36,4 +36,4 @@ gNU_VARIADIC =
 -}
 gNU_VARIADIC_ONLY :: Macro.Raw BG.Text
 gNU_VARIADIC_ONLY =
-  Macro.namedVariadicFunctionLike "GNU_VARIADIC_ONLY" [] "args" ["args"]
+  Macro.variadicNamed "GNU_VARIADIC_ONLY" [] "args" ["args"]

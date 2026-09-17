@@ -7,19 +7,12 @@ module HsBindgen.Macro.Error (
 import GHC.Generics
 import Text.SimplePrettyPrint qualified as PP
 
-import Clang.HighLevel.Types (Token, TokenSpelling)
-
 import HsBindgen.Util.Tracer
 
 -- | A macro parse error.
 data MacroParseError = MacroParseError {
       -- | Human-readable description of the failure.
       macroParseError       :: String
-      -- | The tokens the parser was given.
-      --
-      -- Kept for diagnostics: no trace message shows them yet, but "could not
-      -- parse macro" is hard to act on without the tokens at hand.
-    , macroParseErrorTokens :: [Token TokenSpelling]
     }
   deriving stock (Eq, Show, Generic)
 

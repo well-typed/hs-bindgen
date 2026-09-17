@@ -62,8 +62,7 @@ runParser p tokens =
 
     unrecognized :: ParseError -> MacroParseError
     unrecognized err = MacroParseError{
-          macroParseError       = show err
-        , macroParseErrorTokens = tokens
+          macroParseError = show err
         }
 
 {-------------------------------------------------------------------------------

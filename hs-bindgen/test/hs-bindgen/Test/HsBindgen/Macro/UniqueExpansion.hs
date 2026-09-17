@@ -59,7 +59,7 @@ example1 :: Property
 example1 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "A" []
-    defs = [
+    defs = map Definition [
         Raw "A" NoParams []
       ]
 
@@ -68,7 +68,7 @@ example2 :: Property
 example2 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "B" []
-    defs = [
+    defs = map Definition [
         Raw "A" NoParams []
       , Raw "B" NoParams ["A"]
       ]
@@ -79,7 +79,7 @@ example3 :: Property
 example3 = once $ propIsExpansionUnique False defs inv
   where
     inv = Invocation "A" []
-    defs = [
+    defs = map Definition [
         Raw "A" NoParams []
       , Raw "A" NoParams []
       ]
@@ -90,7 +90,7 @@ example4 :: Property
 example4 = once $ propIsExpansionUnique False defs inv
   where
     inv = Invocation "B" []
-    defs = [
+    defs = map Definition [
         Raw "A" NoParams []
       , Raw "A" NoParams []
       , Raw "B" NoParams ["A"]
@@ -102,7 +102,7 @@ example5 :: Property
 example5 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "F" ["B"]
-    defs = [
+    defs = map Definition [
         Raw "A" NoParams []
       , Raw "A" NoParams []
       , Raw "B" NoParams []
@@ -115,7 +115,7 @@ example6 :: Property
 example6 = once $ propIsExpansionUnique False defs inv
   where
     inv = Invocation "F" ["A"]
-    defs = [
+    defs = map Definition [
         Raw "A" NoParams []
       , Raw "A" NoParams []
       , Raw "B" NoParams []
@@ -133,7 +133,7 @@ example7 :: Property
 example7 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "F" ["B"]
-    defs = [
+    defs = map Definition [
         Raw "A" NoParams []
       , Raw "A" NoParams []
       , Raw "B" NoParams []
@@ -147,7 +147,7 @@ example8 :: Property
 example8 = once $ propIsExpansionUnique False defs inv
   where
     inv = Invocation "F" ["A"]
-    defs = [
+    defs = map Definition [
         Raw "A" NoParams []
       , Raw "A" NoParams []
       , Raw "B" NoParams []
@@ -171,7 +171,7 @@ example10 :: Property
 example10 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "B" []
-    defs = [
+    defs = map Definition [
         Raw "B" NoParams ["A"]
       ]
 
@@ -180,7 +180,7 @@ example11 :: Property
 example11 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "F" ["A"]
-    defs = [
+    defs = map Definition [
         Raw "A" NoParams []
       ]
 
@@ -190,7 +190,7 @@ example12 :: Property
 example12 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "F" ["C"]
-    defs = [
+    defs = map Definition [
         Raw "C" NoParams []
       , Raw "F" (Params ["A"] NotVariadic) ["B"]
       ]
@@ -200,7 +200,7 @@ example13 :: Property
 example13 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "F" ["B"]
-    defs = [
+    defs = map Definition [
         Raw "F" (Params ["A"] NotVariadic) ["A"]
       ]
 
@@ -213,7 +213,7 @@ example14 :: Property
 example14 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "F" ["A", "B"]
-    defs = [
+    defs = map Definition [
         Raw "F" (Params [] Ellipsis) []
       ]
 
@@ -223,7 +223,7 @@ example15 :: Property
 example15 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "F" ["A", "B"]
-    defs = [
+    defs = map Definition [
         Raw "F" (Params [] Ellipsis) ["__VA_ARGS__"]
       ]
 
@@ -234,7 +234,7 @@ example16 :: Property
 example16 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "F" ["B"]
-    defs = [
+    defs = map Definition [
         Raw "A" NoParams []
       , Raw "A" NoParams []
       , Raw "B" NoParams []

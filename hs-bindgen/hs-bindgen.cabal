@@ -285,6 +285,8 @@ library internal
     HsBindgen.Macro.Interface
     HsBindgen.Macro.Parse
     HsBindgen.Macro.Raw
+    HsBindgen.Macro.Raw.Lang
+    HsBindgen.Macro.Raw.Parse
     HsBindgen.Macro.Syntax
     HsBindgen.Macro.Type
     HsBindgen.Macro.UniqueExpansion

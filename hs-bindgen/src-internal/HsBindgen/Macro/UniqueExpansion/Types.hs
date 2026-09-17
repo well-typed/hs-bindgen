@@ -2,7 +2,7 @@
 --
 -- Intended for unqualified import.
 module HsBindgen.Macro.UniqueExpansion.Types (
-    Definition
+    Definition (..)
   , Invocation (..)
   , Name (..)
   ) where
@@ -17,7 +17,7 @@ import HsBindgen.Runtime.Macro qualified as RawMacro
 -- The body is the list of identifiers occurring in it; the ambiguity analysis
 -- is not interested in anything else. Whether a name in the body refers to
 -- another macro or to a parameter of this one follows from 'RawMacro.params'.
-type Definition = RawMacro.Raw Name
+data Definition = Definition { raw :: RawMacro.Raw Name }
 
 data Invocation = Invocation {
       name   :: Name

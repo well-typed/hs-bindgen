@@ -32,20 +32,20 @@ tests = testGroup "HsBindgen.Runtime.Macro" [
               Macro.functionLike "IGNORE" ["x"] []
         , testCase "variadic" $
             rendersAs "#define LOG(fmt, ...) printf ( fmt , __VA_ARGS__ )" $
-              Macro.variadicFunctionLike "LOG" ["fmt"]
+              Macro.variadic "LOG" ["fmt"]
                 ["printf", "(", "fmt", ",", "__VA_ARGS__", ")"]
         , testCase "variadic, no named parameters" $
             rendersAs "#define WARN(...) __VA_ARGS__" $
-              Macro.variadicFunctionLike "WARN" [] ["__VA_ARGS__"]
+              Macro.variadic "WARN" [] ["__VA_ARGS__"]
           -- The GNU form keeps its own spelling: rendering it as
           -- @#define LOG(fmt, ...)@ would pass only @fmt@ on to @printf@.
         , testCase "GNU named variadic" $
             rendersAs "#define LOG(fmt, args...) printf ( fmt , args )" $
-              Macro.namedVariadicFunctionLike "LOG" ["fmt"] "args"
+              Macro.variadicNamed "LOG" ["fmt"] "args"
                 ["printf", "(", "fmt", ",", "args", ")"]
         , testCase "GNU named variadic, no named parameters" $
             rendersAs "#define WARN(args...) args" $
-              Macro.namedVariadicFunctionLike "WARN" [] "args" ["args"]
+              Macro.variadicNamed "WARN" [] "args" ["args"]
         ]
     ]
 

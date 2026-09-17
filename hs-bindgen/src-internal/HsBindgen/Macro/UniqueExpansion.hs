@@ -53,7 +53,7 @@ isFailure pres =
     either (const (Just pres.macroName.unwrap)) (const Nothing) pres.result
 
 liftDefinition :: Definition -> ParseResult Definition
-liftDefinition def = ParseResult def.name (Right def)
+liftDefinition def = ParseResult def.raw.name (Right def)
 
 liftInvocation :: Invocation -> ParseResult Invocation
 liftInvocation inv = ParseResult inv.name (Right inv)
@@ -76,10 +76,10 @@ parseDefinition def =
     case def.macro of
       Left e -> throwError $ ParseError e
       Right m
-        | def.name == def'.name.unwrap
+        | def.name == def'.raw.name.unwrap
         -> pure def'
         | otherwise
-        -> throwError $ NameMismatch def.name def'.name.unwrap
+        -> throwError $ NameMismatch def.name def'.raw.name.unwrap
         where
           def' = definitionNames m
 
@@ -87,10 +87,12 @@ parseDefinition def =
 --
 -- Everything in the body that is not an identifier is dropped.
 definitionNames :: RawMacro.Raw (Token TokenSpelling) -> Definition
-definitionNames m = RawMacro.Raw {
-      RawMacro.name   = toName m.name
-    , RawMacro.params = toName <$> m.params
-    , RawMacro.body   = [toName t | t <- m.body, isIdentifier t]
+definitionNames m = Definition{
+    raw = RawMacro.Raw {
+        RawMacro.name   = toName m.name
+      , RawMacro.params = toName <$> m.params
+      , RawMacro.body   = [toName t | t <- m.body, isIdentifier t]
+      }
     }
   where
     toName :: Token TokenSpelling -> Name
@@ -219,15 +221,15 @@ ambiguityAnalysis defs =
     go :: Seen -> Ambig -> [Definition] -> Set Name
     go _seen ambig [] = ambig.unwrap
     go seen ambig (d:ds)
-      | d.name `Set.member` seen.unwrap
-      = let current = Set.singleton d.name
+      | d.raw.name `Set.member` seen.unwrap
+      = let current = Set.singleton d.raw.name
             dependents = Digraph.reaches current graph
             ambig' = Ambig (current <> dependents <> ambig.unwrap)
         in  go seen' ambig' ds
       | otherwise
       = go seen' ambig ds
       where
-        seen' = Seen (Set.insert d.name seen.unwrap)
+        seen' = Seen (Set.insert d.raw.name seen.unwrap)
 
 newtype Seen = Seen { unwrap :: Set Name }
 newtype Ambig = Ambig { unwrap :: Set Name }
@@ -266,7 +268,7 @@ addDefinition g0 d = Foldable.foldl' f g0 deps
     deps = getDependencies d
 
     f :: DependentsGraph -> Name -> DependentsGraph
-    f g dep = Digraph.insertEdge dep () d.name g
+    f g dep = Digraph.insertEdge dep () d.raw.name g
 
 -- | The names the body refers to, other than the macro's own parameters
 --
@@ -275,10 +277,10 @@ addDefinition g0 d = Foldable.foldl' f g0 deps
 -- expansion relies on the parameters. In the GNU named-variadic form the name
 -- that stands for the trailing arguments is a parameter like any other.
 getDependencies :: Definition -> [Name]
-getDependencies def = filter (not . isParam) def.body
+getDependencies def = filter (not . isParam) def.raw.body
   where
     isParam :: Name -> Bool
-    isParam n = case def.params of
+    isParam n = case def.raw.params of
         RawMacro.NoParams              -> False
         RawMacro.Params names variadic ->
           n `elem` names || isVariadicParam n variadic
