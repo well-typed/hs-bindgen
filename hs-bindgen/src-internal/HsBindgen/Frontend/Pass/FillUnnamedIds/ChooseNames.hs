@@ -98,13 +98,13 @@ chooseNames (UnnamedIdUsageAnalysis usageAnalysis) =
             }
         }
 
-    -- | Use the name of the global variable for the untagged struct
+    -- | Use the name of the global variable as the tag for the untagged struct
     --
     -- For example, given:
     --
     -- > struct { int x; int y; } a;
     --
-    -- the struct is named "a".
+    -- the struct is given the tag "a".
     --
     -- Unlike 'nameForTypedefDirect' (where @typedef struct { .. } foo;@ creates
     -- a real C type name @foo@), @struct { .. } bar;@ does /not/ create

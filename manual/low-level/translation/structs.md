@@ -5,7 +5,7 @@ In this section we will consider the details of translating
 [C header file `structs.h`][header:struct.h].
 
 In the [Introduction][manual:introduction], we have seen bindings created for a
-named C `struct` (structure) storing a triple of integers:
+tagged C `struct` (structure) storing a triple of integers:
 
 ```c
 struct triple {
@@ -28,8 +28,8 @@ instance F.Storable Triple where ...
 
 ## Structures with and without `typedef`
 
-Adding a `typedef` matching the name of the structure, or using a `typedef` in
-place of a structure name, does not change the generated bindings. For more
+Adding a `typedef` matching the tag of the structure, or using a `typedef` in
+place of a structure tag, does not change the generated bindings. For more
 details, see the [section on name generation][manual:generated-names].
 
 ```c

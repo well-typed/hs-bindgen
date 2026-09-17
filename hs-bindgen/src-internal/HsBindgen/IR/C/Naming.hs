@@ -313,7 +313,7 @@ prelimDeclIdAtCursor curr kind = do
            --
            -- > typedef struct { .. } foo;
            --
-           -- newer versions of clang will assign the name @foo@ to the typedef.
+           -- newer versions of clang will assign the tag @foo@ to the struct.
            -- This means that in this case we will misclassify the struct as
            -- tagged (and this will then also depend on the clang
            -- version: for older versions we /will/ classify it as untagged).
