@@ -18,6 +18,7 @@ import HsBindgen.Runtime.Macro qualified as RawMacro
 -- is not interested in anything else. Whether a name in the body refers to
 -- another macro or to a parameter of this one follows from 'RawMacro.params'.
 data Definition = Definition { raw :: RawMacro.Raw Name }
+  deriving (Show, Eq)
 
 data Invocation = Invocation {
       name   :: Name

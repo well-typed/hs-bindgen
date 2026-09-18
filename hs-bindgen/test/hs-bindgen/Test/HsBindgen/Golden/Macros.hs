@@ -23,6 +23,7 @@ testCases :: [TestCase]
 testCases = [
       -- Default tests
       defaultTest "macros/issue_890"
+    , defaultTest "macros/keyword_params"
     , defaultTest "macros/macro_functions"
     , defaultTest "macros/macro_strings"
     , defaultTest "macros/macro_type_ptr_qualifiers"
@@ -34,6 +35,7 @@ testCases = [
     , defaultTest "macros/parse/macro_typedef_scope"
     , defaultTest "macros/undef"
       -- Bespoke tests
+    , test_empty_body
     , test_gnu_variadic
     , test_macro_comma
     , test_macro_ext_binding_dep
@@ -55,6 +57,29 @@ testCases = [
 {-------------------------------------------------------------------------------
   Individual test definitions
 -------------------------------------------------------------------------------}
+
+-- | An empty macro body is legal C; translating it is the language's decision.
+--
+-- See <https://github.com/well-typed/hs-bindgen/issues/2246>. The @CExpr@
+-- language has no expression to translate and ignores all four macros; the
+-- @.2.raw@ variant reproduces them. A language declining an empty body is
+-- reported as 'ParseMacroEmpty' rather than as a parse failure, so that include
+-- guards do not count towards the dropped-macro summary.
+test_empty_body :: TestCase
+test_empty_body =
+    testTraceMulti "macros/empty_body" declsWithMsgs $ \case
+      MatchUnusable name (UnusableParseFailure ParseMacroEmpty{}) ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = [
+        "macro EMPTY_OBJECT"
+      , "macro EMPTY_FUNCTION"
+      , "macro EMPTY_FUNCTION_PARAMS"
+      , "macro EMPTY_FUNCTION_VARIADIC"
+      ]
 
 -- | The C99 and the GNU named-variadic parameter lists are different macros.
 --

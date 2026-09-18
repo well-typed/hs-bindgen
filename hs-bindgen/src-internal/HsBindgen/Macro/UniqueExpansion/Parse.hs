@@ -9,8 +9,8 @@ import Text.Parsec (anyToken, choice, manyTill, try)
 
 import Clang.HighLevel.Types (Token, TokenSpelling)
 
-import HsBindgen.Macro.Parse (Parser, identifier, identifierOrKeyword,
-                              punctuation, spelling)
+import HsBindgen.Macro.Parse (Parser, identifierOrKeyword, punctuation,
+                              spelling)
 import HsBindgen.Macro.UniqueExpansion.Types (Invocation (..), Name (Name))
 
 {-------------------------------------------------------------------------------
@@ -35,13 +35,14 @@ parseInvocation = do
   Arguments
 -------------------------------------------------------------------------------}
 
+-- | Collect the names an argument list mentions
 parseArgs :: Parser [Name]
 parseArgs = fmap concat $ do
     punctuation "("
     manyTill
       (choice [
-          -- try to parse a name
-          try ((:[]) . toName <$> try identifier)
+          -- try to parse a name; a keyword counts as a name
+          try ((:[]) . toName <$> try identifierOrKeyword)
           -- try to parse recursively inside nested matching parentheses
         , try parseArgs
           -- otherwise skip the next token

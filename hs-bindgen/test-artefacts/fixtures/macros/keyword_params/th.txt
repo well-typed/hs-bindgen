@@ -1,0 +1,44 @@
+-- addDependentFile test-artefacts/headers/golden/macros/keyword_params.h
+{-| __C declaration:__ @macro ID_INT@
+
+    __defined at:__ @macros\/keyword_params.h 9:9@
+
+    __exported by:__ @macros\/keyword_params.h@
+-}
+iD_INT :: forall a_0 . a_0 -> a_0
+{-| __C declaration:__ @macro ID_INT@
+
+    __defined at:__ @macros\/keyword_params.h 9:9@
+
+    __exported by:__ @macros\/keyword_params.h@
+-}
+iD_INT = \int_0 -> int_0
+{-| __C declaration:__ @macro ADD_SIZEOF@
+
+    __defined at:__ @macros\/keyword_params.h 10:9@
+
+    __exported by:__ @macros\/keyword_params.h@
+-}
+aDD_SIZEOF :: forall a_0 b_1 . Add a_0 b_1 =>
+              a_0 -> b_1 -> AddRes a_0 b_1
+{-| __C declaration:__ @macro ADD_SIZEOF@
+
+    __defined at:__ @macros\/keyword_params.h 10:9@
+
+    __exported by:__ @macros\/keyword_params.h@
+-}
+aDD_SIZEOF = \sizeof_0 -> \x_1 -> (+) sizeof_0 x_1
+{-| __C declaration:__ @macro FST_CONST@
+
+    __defined at:__ @macros\/keyword_params.h 11:9@
+
+    __exported by:__ @macros\/keyword_params.h@
+-}
+fST_CONST :: forall a_0 b_1 . a_0 -> b_1 -> a_0
+{-| __C declaration:__ @macro FST_CONST@
+
+    __defined at:__ @macros\/keyword_params.h 11:9@
+
+    __exported by:__ @macros\/keyword_params.h@
+-}
+fST_CONST = \const_0 -> \volatile_1 -> const_0

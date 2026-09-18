@@ -7,9 +7,8 @@ module HsBindgen.Macro.Parse (
   , runParser
     -- * Dealing with individual tokens
   , token
-  , identifier
   , identifierOrKeyword
-  , isIdentifier
+  , isIdentifierOrKeyword
   , spelling
     -- * Punctuation
   , punctuation
@@ -34,7 +33,7 @@ import Clang.HighLevel.Types (MultiLoc (multiLocExpansion), Range (rangeStart),
 import Clang.LowLevel.Core (CXTokenKind (CXToken_Identifier, CXToken_Keyword, CXToken_Punctuation))
 import Clang.Paths (getSourcePath)
 
-import HsBindgen.Errors (panicPure)
+import HsBindgen.Errors
 import HsBindgen.Macro.Error (MacroParseError (..))
 
 {-------------------------------------------------------------------------------
@@ -43,6 +42,10 @@ import HsBindgen.Macro.Error (MacroParseError (..))
 
 type Parser = Parsec [Token TokenSpelling] ()
 
+-- | Run a parser on a stream of tokens
+--
+-- The token stream may be empty: a macro body can be empty (@#define FOO@), and
+-- the source path is only used to label parse errors.
 runParser ::
      HasCallStack
   => Parser a
@@ -102,30 +105,26 @@ tokenOfKind' kind cmp = tokenOfKind kind (\actual -> guard $ cmp actual)
 isOfKind :: CXTokenKind -> Token TokenSpelling -> Bool
 isOfKind kind t = fromSimpleEnum (tokenKind t) == Right kind
 
--- | Is this token an identifier?
-isIdentifier :: Token TokenSpelling -> Bool
-isIdentifier = isOfKind CXToken_Identifier
+-- | Is this token a name?
+--
+-- See 'identifierOrKeyword' for why the two kinds are not told apart.
+isIdentifierOrKeyword :: Token TokenSpelling -> Bool
+isIdentifierOrKeyword t =
+    isOfKind CXToken_Identifier t || isOfKind CXToken_Keyword t
 
 -- | The spelling of a token
 spelling :: Token TokenSpelling -> Text
 spelling = getTokenSpelling . tokenSpelling
 
--- | Parse an identifier
---
--- Does not accept C keywords; use 'identifierOrKeyword' where a keyword is
--- valid.
-identifier :: Parser (Token TokenSpelling)
-identifier = token $ \t -> t <$ guard (isIdentifier t)
-
 -- | Parse an identifier or a keyword
 --
--- In later LLVMs (not in 14, surely in 16), @bool@ is classified as a keyword
--- rather than an identifier. We accept keywords so that macros such as
--- @#define bool int@ can be parsed. Even in C23 the meaning of @bool@ can be
--- overwritten (the macro takes precedence).
+-- Wherever the preprocessor expects an identifier, a keyword will do: it sees
+-- pp-tokens, and those know no keywords. Which spellings @libclang@ reports as
+-- keywords is decided by the translation unit's language options, so @bool@ is
+-- a keyword under C23 and an identifier under C17; that distinction must not
+-- reach the macro grammar.
 identifierOrKeyword :: Parser (Token TokenSpelling)
-identifierOrKeyword = token $ \t ->
-    t <$ guard (isIdentifier t || isOfKind CXToken_Keyword t)
+identifierOrKeyword = token $ \t -> t <$ guard (isIdentifierOrKeyword t)
 
 {-------------------------------------------------------------------------------
   Punctuation

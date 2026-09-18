@@ -47,3 +47,9 @@ source-repository-package
    location: https://github.com/well-typed/libclang-bindings
    tag:      c1340ddbd9b26cd59f143f7625beb48187a863bf
    subdir:   libclang-bindings
+
+source-repository-package
+   type:     git
+   location: https://github.com/well-typed/c-expr
+   tag:      3a14842b502fcc3553bf4073b433cad4df63a628
+   subdir:   c-expr-dsl
