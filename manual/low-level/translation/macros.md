@@ -8,6 +8,7 @@ are defined in the [terminology][manual:terminology] chapter, and the examples
 come from [`macro.h`][header:macro.h].
 
 ## Macros in C
+[t:macros-in-c]: #macros-in-c
 
 A [macro definition][manual:terminology-macro-definition] is a `#define`
 preprocessing directive. The [C standard][c-standard] gives its syntax as
@@ -337,12 +338,43 @@ the `null`.
 
 ## The path of a macro through `hs-bindgen`
 
+### Splitting macro definitions
+[t:splitting-macro-definitions]: #splitting-macro-definitions
+
+`libclang` reports a [macro definition][manual:terminology-macro-definition] as
+a flat sequence of tokens. Before any [macro
+language][manual:terminology-macro-language] sees it, `hs-bindgen` splits that
+sequence into the [macro name][manual:terminology-macro-name], the
+[parameters][manual:terminology-macro-parameter] if the macro is
+[function-like][manual:terminology-function-like-macro], and the [replacement
+list][manual:terminology-replacement-list]. For
+
+```c
+#define ADD(x, y) x + y
+```
+
+the name is `ADD`, the parameters are `x` and `y`, and the replacement list is
+`x + y`.
+
+The split follows the grammar given in [macros in C][t:macros-in-c], and is
+language-independent: it happens once, while parsing the header. Whether a
+macro is [object-like][manual:terminology-object-like-macro] or function-like
+is decided by the rule that the `(` must not be preceded by white space. Hence
+`#define ADD (x, y)` is object-like, with the replacement list `(x, y)`.
+
+`clang` has already accepted the definition by the time we split it, so the
+split rarely fails. When it does, `hs-bindgen` does not generate a binding, and
+emits a trace message; see [tracing][manual:tracing].
+
 ### Macro languages
 
-The way how `hs-bindgen` parses, typechecks and translates [macro
-definitions][manual:terminology-macro-definition] is not fixed. Instead, a
-pluggable [macro language][manual:terminology-macro-language] is used. At the
-moment, `hs-bindgen` comes with the following macro languages:
+How `hs-bindgen` interprets the replacement list is not fixed. Instead, a
+pluggable [macro language][manual:terminology-macro-language] is used: it
+parses, resolves, typechecks and translates the replacement list, mirroring the
+stages of a compiler. Splitting of the macro definition into macro name, macro
+parameters, and replacement list, happens before `hs-bindgen` consults the
+macro language. At the moment, `hs-bindgen` comes with the following macro
+languages:
 
 * `CExpr` is the default. `CExpr` understands C expressions and C type
   expressions sorting them into [macro values][manual:terminology-macro-value]
@@ -353,14 +385,22 @@ moment, `hs-bindgen` comes with the following macro languages:
 * `Empty` recognises no macro at all, so the generated bindings directly use the
   macro [expansions][manual:terminology-macro-expansion] from `libclang`. No
   bindings to macros are generated.
-* `Raw` treats every macro as a macro value, translated to a
-  `HsBindgen.Runtime.Macro.Raw` value holding the token spellings of its name,
-  its parameters and its replacement list.
+* `Raw` treats every macro as a macro value, translating it to the result of the split
+  itself. This is a `HsBindgen.Runtime.Macro.Raw` value holding the token spellings of its name,
+  its parameters and its replacement list; `Raw` does not interpret the macro
+  (e.g., it does not infer a type for a type-like macro).
 
-`hs-bindgen-cli` always uses `CExpr`. The other two are reachable from the
-Template Haskell backend, by using `withHsBindgenMacroLang` in place of
-`withHsBindgen`; they exist mainly for testing and for diagnosing macro
-handling.
+A macro with an empty replacement list, as in `#define FOO`, reaches the macro
+language like any other macro. Whether it yields a binding is then the
+language's decision: `Raw` translates it, `CExpr` has no expression to
+translate and declines. Include guards usually involve macros with empty
+replacements lists, and so, declining an empty macro is not reported as a
+warning.
+
+At the moment, `hs-bindgen-cli` always uses `CExpr`. The other two macro
+languages are reachable from the Template Haskell backend, by using
+`withHsBindgenMacroLang` in place of `withHsBindgen`; they exist mainly for
+testing and for diagnosing macro handling.
 
 ### Reparsing declarations with macro expansions
 [t:reparsing-declarations-with-macro-expansions]: #reparsing-declarations-with-macro-expansions
