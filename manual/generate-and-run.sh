@@ -30,16 +30,18 @@ fi
 
 mkdir -p "$SPECS_DIR"
 
+./scripts/generate/ffi-types.sh
+
+echo "# "
+echo "# Manual"
+echo "# "
+
 GENERATED_DIR=hs/manual/generated
 if [ -d "$GENERATED_DIR" ]; then
   rm -r "$GENERATED_DIR"
 fi
 
 mkdir -p "$GENERATED_DIR"
-
-echo "# "
-echo "# Manual"
-echo "# "
 
 cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     preprocess \
@@ -381,4 +383,5 @@ echo "# "
     cd "$SCRIPT_DIR/hs"
     cabal build all
     cabal run manual
+    cabal run ffi-types
 )

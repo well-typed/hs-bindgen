@@ -1,0 +1,72 @@
+cabal-version:      3.0
+name:               ffi-types
+version:            0.1.0
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Well-Typed LLP
+maintainer:         info@well-typed.com
+build-type:         Simple
+extra-source-files: src-external-types/**/*.yaml
+
+common lang
+  ghc-options:
+    -Wall -Widentities -Wredundant-constraints -Wunused-packages
+    -Wno-unticked-promoted-constructors
+
+  default-language:   GHC2021
+  build-depends:      base >=4.16 && <5
+  default-extensions:
+    DerivingVia
+    LambdaCase
+    TypeFamilies
+
+executable ffi-types
+  import:         lang
+  main-is:        Main.hs
+  hs-source-dirs: app
+
+  -- Internal
+  build-depends:
+    , ffi-types:external-types
+    , ffi-types:generated
+
+library generated
+  import:          lang
+  visibility:      private
+  hs-source-dirs:  src-generated
+  extra-libraries: ffi-types
+
+  -- Inherited
+  build-depends:   hs-bindgen-runtime
+
+  -- Internal
+  build-depends:   ffi-types:external-types
+  exposed-modules:
+    Example1
+    Example1.FunPtr
+    Example1.Safe
+    Example1.Unsafe
+    Example2.A
+    Example2.B
+    Example2.C.FunPtr
+    Example2.C.Safe
+    Example2.C.Unsafe
+    Example3.B
+    Example3.C.FunPtr
+    Example3.C.Safe
+    Example3.C.Unsafe
+    Example4.B
+    Example4.C.FunPtr
+    Example4.C.Safe
+    Example4.C.Unsafe
+
+library external-types
+  import:          lang
+  visibility:      private
+  hs-source-dirs:  src-external-types
+
+  -- External
+  build-depends:   hs-bindgen-runtime
+  exposed-modules:
+    Example3.A
+    Example4.A

@@ -6,5 +6,6 @@
 binding-specs/
 ## Haskell files
 hs/manual/generated/**/*.hs
+hs/ffi-types/src-generated/**/*.hs
 hs/hs-game/generated/**/*.hs
 hs/hs-vector/generated/**/*.hs
