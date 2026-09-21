@@ -123,7 +123,7 @@ instance HasCField My_int_t "unwrapMy_int_t"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_afd9c4a8467f5418" hs_bindgen_afd9c4a8467f5418_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Safe_foo@
 hs_bindgen_afd9c4a8467f5418 :: CInt -> IO ()
@@ -145,8 +145,8 @@ foo_safe :: CInt -> IO ()
 foo_safe = hs_bindgen_afd9c4a8467f5418
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_368818873d354fc5" hs_bindgen_368818873d354fc5_base ::
-    Int32
- -> IO Int32
+    CInt
+ -> IO CInt
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Safe_bar@
 hs_bindgen_368818873d354fc5 :: CInt -> IO CInt
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Safe_bar@
@@ -167,8 +167,8 @@ bar_safe :: CInt -> IO CInt
 bar_safe = hs_bindgen_368818873d354fc5
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Safe_baz@
 foreign import ccall safe "hs_bindgen_61f10d22d53c81ac" hs_bindgen_61f10d22d53c81ac_base ::
-    Int32
- -> IO Int32
+    CInt
+ -> IO CInt
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Safe_baz@
 hs_bindgen_61f10d22d53c81ac :: CInt -> IO CInt
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Safe_baz@
@@ -189,7 +189,7 @@ baz_safe :: CInt -> IO CInt
 baz_safe = hs_bindgen_61f10d22d53c81ac
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_63386173f0facb31" hs_bindgen_63386173f0facb31_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Unsafe_foo@
 hs_bindgen_63386173f0facb31 :: CInt -> IO ()
@@ -211,8 +211,8 @@ foo_unsafe :: CInt -> IO ()
 foo_unsafe = hs_bindgen_63386173f0facb31
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_2ffb271b09dfbbf9" hs_bindgen_2ffb271b09dfbbf9_base ::
-    Int32
- -> IO Int32
+    CInt
+ -> IO CInt
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Unsafe_bar@
 hs_bindgen_2ffb271b09dfbbf9 :: CInt -> IO CInt
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Unsafe_bar@
@@ -233,8 +233,8 @@ bar_unsafe :: CInt -> IO CInt
 bar_unsafe = hs_bindgen_2ffb271b09dfbbf9
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Unsafe_baz@
 foreign import ccall unsafe "hs_bindgen_3cf87e230ba213f9" hs_bindgen_3cf87e230ba213f9_base ::
-    Int32
- -> IO Int32
+    CInt
+ -> IO CInt
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Unsafe_baz@
 hs_bindgen_3cf87e230ba213f9 :: CInt -> IO CInt
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Unsafe_baz@

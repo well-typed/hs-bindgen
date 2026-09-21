@@ -22,6 +22,9 @@ hstypes:
       constructor: Blk
       fields:
       - unwrapBlk
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Generic
   - HasCField
@@ -54,6 +57,9 @@ hstypes:
       constructor: Blkarg
       fields:
       - unwrapBlkarg
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Generic
   - HasCField

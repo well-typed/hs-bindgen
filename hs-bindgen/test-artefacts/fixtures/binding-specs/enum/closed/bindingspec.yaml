@@ -18,6 +18,9 @@ hstypes:
       constructor: ElementaryParticleType
       fields:
       - unwrapElementaryParticleType
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -42,6 +45,9 @@ hstypes:
       constructor: Foo
       fields:
       - unwrapFoo
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq

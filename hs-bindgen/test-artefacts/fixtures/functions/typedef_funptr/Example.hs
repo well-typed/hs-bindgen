@@ -42,8 +42,8 @@ newtype RunDriver_Aux = RunDriver_Aux
 
 -- __unique:__ @toRunDriver_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_d86ecf261d7044c6_base ::
-     (BG.Ptr BG.Void -> IO BG.Int32)
-  -> IO (BG.FunPtr (BG.Ptr BG.Void -> IO BG.Int32))
+     (BG.Ptr BG.Void -> IO BG.CInt)
+  -> IO (BG.FunPtr (BG.Ptr BG.Void -> IO BG.CInt))
 
 -- __unique:__ @toRunDriver_Aux@
 hs_bindgen_d86ecf261d7044c6 ::
@@ -56,8 +56,8 @@ hs_bindgen_d86ecf261d7044c6 =
 
 -- __unique:__ @fromRunDriver_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_6520ae39b50ffb4e_base ::
-     BG.FunPtr (BG.Ptr BG.Void -> IO BG.Int32)
-  -> BG.Ptr BG.Void -> IO BG.Int32
+     BG.FunPtr (BG.Ptr BG.Void -> IO BG.CInt)
+  -> BG.Ptr BG.Void -> IO BG.CInt
 
 -- __unique:__ @fromRunDriver_Aux@
 hs_bindgen_6520ae39b50ffb4e ::

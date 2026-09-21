@@ -258,7 +258,7 @@ foo1 = hs_bindgen_2743241662e587e2
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo2@
 foreign import ccall safe "hs_bindgen_ca1ea7ed39cf6882" hs_bindgen_ca1ea7ed39cf6882_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo2@
@@ -282,8 +282,8 @@ foo2 = hs_bindgen_ca1ea7ed39cf6882
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo3@
 foreign import ccall safe "hs_bindgen_f0e8a93d6c4bd770" hs_bindgen_f0e8a93d6c4bd770_base ::
-     BG.Int32
-  -> BG.Int32
+     BG.CInt
+  -> BG.CInt
   -> IO ()
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo3@
@@ -310,7 +310,7 @@ foo3 = hs_bindgen_f0e8a93d6c4bd770
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo4@
 foreign import ccall safe "hs_bindgen_fce3101db708d25c" hs_bindgen_fce3101db708d25c_base ::
-     IO BG.Int32
+     IO BG.CInt
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo4@
 hs_bindgen_fce3101db708d25c :: IO BG.CInt
@@ -328,8 +328,8 @@ foo4 = hs_bindgen_fce3101db708d25c
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo5@
 foreign import ccall safe "hs_bindgen_65f052a80aab9141" hs_bindgen_65f052a80aab9141_base ::
-     BG.Int32
-  -> IO BG.Int8
+     BG.CInt
+  -> IO BG.CChar
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo5@
 hs_bindgen_65f052a80aab9141 ::
@@ -352,8 +352,8 @@ foo5 = hs_bindgen_65f052a80aab9141
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo6@
 foreign import ccall safe "hs_bindgen_558967a64195919a" hs_bindgen_558967a64195919a_base ::
-     BG.Int32
-  -> BG.Int32
+     BG.CInt
+  -> BG.CInt
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo6@
@@ -603,7 +603,7 @@ foo15 = hs_bindgen_2422a51b7a32f594
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo16@
 foreign import ccall safe "hs_bindgen_cd49431b0bacd0ce" hs_bindgen_cd49431b0bacd0ce_base ::
-     BG.Int32
+     BG.CInt
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo16@
@@ -628,7 +628,7 @@ foo16 = hs_bindgen_cd49431b0bacd0ce
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo17@
 foreign import ccall safe "hs_bindgen_fe100bb790f40421" hs_bindgen_fe100bb790f40421_base ::
      BG.Ptr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo17@
 hs_bindgen_fe100bb790f40421 ::
@@ -651,8 +651,8 @@ foo17 = hs_bindgen_fe100bb790f40421
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo18@
 foreign import ccall safe "hs_bindgen_be2fdd261963c129" hs_bindgen_be2fdd261963c129_base ::
-     BG.Word32
-  -> IO BG.Int32
+     BG.CUInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo18@
 hs_bindgen_be2fdd261963c129 ::
@@ -675,8 +675,8 @@ foo18 = hs_bindgen_be2fdd261963c129
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo19@
 foreign import ccall safe "hs_bindgen_f13f4f1384741d66" hs_bindgen_f13f4f1384741d66_base ::
-     BG.Word32
-  -> IO BG.Int32
+     BG.CUInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo19@
 hs_bindgen_f13f4f1384741d66 ::
@@ -699,8 +699,8 @@ foo19 = hs_bindgen_f13f4f1384741d66
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo20@
 foreign import ccall safe "hs_bindgen_df4b5257915de35d" hs_bindgen_df4b5257915de35d_base ::
-     BG.Word32
-  -> IO BG.Int32
+     BG.CUInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo20@
 hs_bindgen_df4b5257915de35d ::
@@ -724,7 +724,7 @@ foo20 = hs_bindgen_df4b5257915de35d
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo21@
 foreign import ccall safe "hs_bindgen_d938ee9ccc99950c" hs_bindgen_d938ee9ccc99950c_base ::
      BG.FunPtr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo21@
 hs_bindgen_d938ee9ccc99950c ::
@@ -748,7 +748,7 @@ foo21 = hs_bindgen_d938ee9ccc99950c
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo22@
 foreign import ccall safe "hs_bindgen_aad643346a33f55d" hs_bindgen_aad643346a33f55d_base ::
      BG.FunPtr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo22@
 hs_bindgen_aad643346a33f55d ::
@@ -772,7 +772,7 @@ foo22 = hs_bindgen_aad643346a33f55d
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo23@
 foreign import ccall safe "hs_bindgen_1d8acd1d1684de0c" hs_bindgen_1d8acd1d1684de0c_base ::
      BG.FunPtr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo23@
 hs_bindgen_1d8acd1d1684de0c ::
@@ -796,7 +796,7 @@ foo23 = hs_bindgen_1d8acd1d1684de0c
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo24@
 foreign import ccall safe "hs_bindgen_f754dbb729a16951" hs_bindgen_f754dbb729a16951_base ::
      BG.FunPtr BG.Void
-  -> IO BG.Int32
+  -> IO BG.CInt
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo24@
 hs_bindgen_f754dbb729a16951 ::
@@ -819,7 +819,7 @@ foo24 = hs_bindgen_f754dbb729a16951
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo25@
 foreign import ccall safe "hs_bindgen_bc943db5b2865d6c" hs_bindgen_bc943db5b2865d6c_base ::
-     BG.Int32
+     BG.CInt
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo25@
@@ -843,7 +843,7 @@ foo25 = hs_bindgen_bc943db5b2865d6c
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo26@
 foreign import ccall safe "hs_bindgen_51dc51cb7017f47c" hs_bindgen_51dc51cb7017f47c_base ::
-     BG.Int32
+     BG.CInt
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo26@
@@ -867,7 +867,7 @@ foo26 = hs_bindgen_51dc51cb7017f47c
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo27@
 foreign import ccall safe "hs_bindgen_f53824a6d084bf14" hs_bindgen_f53824a6d084bf14_base ::
-     BG.Int32
+     BG.CInt
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo27@
@@ -891,7 +891,7 @@ foo27 = hs_bindgen_f53824a6d084bf14
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo28@
 foreign import ccall safe "hs_bindgen_bbc45bfae582ebaa" hs_bindgen_bbc45bfae582ebaa_base ::
-     BG.Word64
+     BG.CULong
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo28@
@@ -915,14 +915,14 @@ foo28 = hs_bindgen_bbc45bfae582ebaa
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_inline_foo@
 foreign import ccall safe "hs_bindgen_258ded5549e4ed29" hs_bindgen_258ded5549e4ed29_base ::
-     BG.Int32
+     BG.CInt
   -> BG.Ptr BG.Void
-  -> BG.Int32
+  -> BG.CInt
   -> BG.Ptr BG.Void
   -> BG.Ptr BG.Void
   -> BG.Ptr BG.Void
-  -> BG.Word64
-  -> IO BG.Int32
+  -> BG.CULong
+  -> IO BG.CInt
 
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_inline_foo@
 hs_bindgen_258ded5549e4ed29 ::

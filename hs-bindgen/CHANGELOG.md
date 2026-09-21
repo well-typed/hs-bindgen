@@ -124,6 +124,11 @@
   identical redefinitions of the same macro now collapse into one declaration
   instead of clashing, because the translated value no longer carries source
   locations. See [issue #2242][is-2242] and [issue #2243][is-2243].
+* Overhaul FFI types. See [PR #2267][pr-2267].
+  * `HasFFIType` instances are now only generated for types that could be used
+    in `foreign import` argument and result positions.
+  * FFI types are now generally more portable and customizable.
+  * FFI types are now represented in external binding specifications.
 
 ### New features
 
@@ -453,6 +458,7 @@
 [pr-2150]: https://github.com/well-typed/hs-bindgen/pull/2150
 [pr-2153]: https://github.com/well-typed/hs-bindgen/pull/2153
 [pr-2164]: https://github.com/well-typed/hs-bindgen/pull/2164
+[pr-2267]: https://github.com/well-typed/hs-bindgen/pull/2267
 
 ## 0.1.0-alpha2 -- 2026-03-27
 

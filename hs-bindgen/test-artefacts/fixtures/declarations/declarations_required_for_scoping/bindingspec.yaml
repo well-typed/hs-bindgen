@@ -13,6 +13,9 @@ hstypes:
       constructor: A
       fields:
       - unwrapA
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: CSize
   instances:
   - Bitfield
   - Bits

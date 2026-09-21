@@ -22,7 +22,6 @@ import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -41,12 +40,10 @@ import HsBindgen.Language.Haskell qualified as Hs
 --
 -- These instances are placed in the main module to avoid orphan instances.
 forFunction ::
-     C.Sizeofs
-  -> ([C.TypeFunArg Final], C.Type Final)
+     ([C.TypeFunArg Final], C.Type Final)
   -> [Hs.Decl l]
-forFunction sizeofs (args, res) =
+forFunction (args, res) =
     instancesFor
-      sizeofs
       nameTo
       nameFrom
       funC
@@ -72,13 +69,11 @@ forFunction sizeofs (args, res) =
 
 -- | Generate instances for newtype around functions
 forNewtype ::
-     C.Sizeofs
-  -> Hs.Newtype
+     Hs.Newtype
   -> ([C.TypeFunArg Final], C.Type Final)
   -> [Hs.Decl l]
-forNewtype sizeofs newtyp (args, res) =
+forNewtype newtyp (args, res) =
     instancesFor
-      sizeofs
       nameTo
       nameFrom
       funC
@@ -107,17 +102,15 @@ forNewtype sizeofs newtyp (args, res) =
 -------------------------------------------------------------------------------}
 
 instancesFor ::
-     C.Sizeofs
-  -> UniqueSymbol -- ^ Name of the @toFunPtr@ fun
+     UniqueSymbol -- ^ Name of the @toFunPtr@ fun
   -> UniqueSymbol -- ^ Name of the @fromFunPtr@ fun
   -> C.Type Final -- ^ Type of the C function
   -> Hs.Type      -- ^ Corresponding Haskell type
   -> ImportFor
   -> [Hs.Decl l]
-instancesFor sizeofs nameTo nameFrom funC funHs importFor = concat [
+instancesFor nameTo nameFrom funC funHs importFor = concat [
       -- import for @ToFunPtr@ instance
       HsFI.foreignImportWrapperDec
-        sizeofs
         (Hs.ForeignImport.FunName nameTo)
         funHs
         importFor
@@ -125,7 +118,6 @@ instancesFor sizeofs nameTo nameFrom funC funHs importFor = concat [
 
       -- import for @FromFunPtr@ instance
     , HsFI.foreignImportDynamicDec
-        sizeofs
         (Hs.ForeignImport.FunName nameFrom)
         funHs
         importFor

@@ -11,9 +11,11 @@ import Data.Map.Strict qualified as Map
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
+import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Monad (HsM)
 import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.Hs qualified as Hs
@@ -39,6 +41,7 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
     aux transState = Hs.Newtype {
             name      = name
           , constr    = constr
+          , ffiType   = ffiType
           , field     = field
           , origin    = orig
           , instances = insts
@@ -55,6 +58,9 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
 
         insts :: Set Inst.TypeClass
         insts = knownInsts <> resolvedInsts
+
+        ffiType :: Maybe BindingSpec.HsFFIType
+        ffiType = BindingSpec.HsFFIType . Hs.ffiExtRef <$> Hs.toFFIType field.typ
 
 hasFFITypeDecs ::
      Hs.Newtype

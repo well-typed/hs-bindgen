@@ -58,6 +58,9 @@ hstypes:
       constructor: EnumA
       fields:
       - unwrapEnumA
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -82,6 +85,9 @@ hstypes:
       constructor: EnumB
       fields:
       - unwrapEnumB
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -106,6 +112,9 @@ hstypes:
       constructor: EnumC
       fields:
       - unwrapEnumC
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -130,6 +139,9 @@ hstypes:
       constructor: EnumD_t
       fields:
       - unwrapEnumD_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -154,6 +166,9 @@ hstypes:
       constructor: First
       fields:
       - unwrapFirst
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -178,6 +193,9 @@ hstypes:
       constructor: Nonseq
       fields:
       - unwrapNonseq
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -201,6 +219,9 @@ hstypes:
       constructor: Packed
       fields:
       - unwrapPacked
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUChar
   instances:
   - CEnum
   - Eq
@@ -225,6 +246,9 @@ hstypes:
       constructor: Same
       fields:
       - unwrapSame
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -249,6 +273,9 @@ hstypes:
       constructor: Second
       fields:
       - unwrapSecond
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - CEnum
   - Eq

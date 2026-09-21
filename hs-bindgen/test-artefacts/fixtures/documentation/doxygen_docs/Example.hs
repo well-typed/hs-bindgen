@@ -308,8 +308,8 @@ newtype Event_callback_t_Aux = Event_callback_t_Aux
 
 -- __unique:__ @toEvent_callback_t_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_111918b0aee2a7fb_base ::
-     (BG.Int32 -> BG.Ptr BG.Void -> IO BG.Int32)
-  -> IO (BG.FunPtr (BG.Int32 -> BG.Ptr BG.Void -> IO BG.Int32))
+     (BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt)
+  -> IO (BG.FunPtr (BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt))
 
 -- __unique:__ @toEvent_callback_t_Aux@
 hs_bindgen_111918b0aee2a7fb ::
@@ -323,8 +323,8 @@ hs_bindgen_111918b0aee2a7fb =
 
 -- __unique:__ @fromEvent_callback_t_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_9e9d478c2d75628c_base ::
-     BG.FunPtr (BG.Int32 -> BG.Ptr BG.Void -> IO BG.Int32)
-  -> BG.Int32 -> BG.Ptr BG.Void -> IO BG.Int32
+     BG.FunPtr (BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt)
+  -> BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt
 
 -- __unique:__ @fromEvent_callback_t_Aux@
 hs_bindgen_9e9d478c2d75628c ::
@@ -1420,8 +1420,8 @@ newtype Processor_fn_t_Aux = Processor_fn_t_Aux
 
 -- __unique:__ @toProcessor_fn_t_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_d4e16471c82d5df0_base ::
-     (BG.Int32 -> BG.Ptr BG.Void -> IO BG.Int32)
-  -> IO (BG.FunPtr (BG.Int32 -> BG.Ptr BG.Void -> IO BG.Int32))
+     (BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt)
+  -> IO (BG.FunPtr (BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt))
 
 -- __unique:__ @toProcessor_fn_t_Aux@
 hs_bindgen_d4e16471c82d5df0 ::
@@ -1435,8 +1435,8 @@ hs_bindgen_d4e16471c82d5df0 =
 
 -- __unique:__ @fromProcessor_fn_t_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_0d4b3d0461629423_base ::
-     BG.FunPtr (BG.Int32 -> BG.Ptr BG.Void -> IO BG.Int32)
-  -> BG.Int32 -> BG.Ptr BG.Void -> IO BG.Int32
+     BG.FunPtr (BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt)
+  -> BG.CInt -> BG.Ptr BG.Void -> IO BG.CInt
 
 -- __unique:__ @fromProcessor_fn_t_Aux@
 hs_bindgen_0d4b3d0461629423 ::

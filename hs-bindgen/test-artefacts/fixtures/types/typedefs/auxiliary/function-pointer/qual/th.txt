@@ -12,16 +12,16 @@ newtype T_Aux
     deriving stock Generic
 -- __unique:__ @toT_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_5927fedc3abfa99c_base ::
-    Int32 -> IO ()
- -> IO (FunPtr (Int32 -> IO ()))
+    CInt -> IO ()
+ -> IO (FunPtr (CInt -> IO ()))
 -- __unique:__ @toT_Aux@
 hs_bindgen_5927fedc3abfa99c :: T_Aux -> IO (FunPtr T_Aux)
 -- __unique:__ @toT_Aux@
 hs_bindgen_5927fedc3abfa99c = \fun_0 -> fmap castFunPtr (hs_bindgen_5927fedc3abfa99c_base (\x_1 -> getField @"unwrapT_Aux" fun_0 (fromFFIType x_1)))
 -- __unique:__ @fromT_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_281617c90fa9307a_base ::
-    FunPtr (Int32 -> IO ())
- -> Int32
+    FunPtr (CInt -> IO ())
+ -> CInt
  -> IO ()
 -- __unique:__ @fromT_Aux@
 hs_bindgen_281617c90fa9307a :: FunPtr T_Aux -> T_Aux

@@ -138,7 +138,7 @@ eXPORT = objectLike "EXPORT" ["__attribute__",
                               ")"]
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_5e910042f66236ac" hs_bindgen_5e910042f66236ac_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_foo@
 hs_bindgen_5e910042f66236ac :: CInt -> IO ()
@@ -160,7 +160,7 @@ foo_safe :: CInt -> IO ()
 foo_safe = hs_bindgen_5e910042f66236ac
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_912eee72881dada9" hs_bindgen_912eee72881dada9_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_bar@
 hs_bindgen_912eee72881dada9 :: CInt -> IO ()
@@ -182,7 +182,7 @@ bar_safe :: CInt -> IO ()
 bar_safe = hs_bindgen_912eee72881dada9
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_dash@
 foreign import ccall safe "hs_bindgen_90648744cbb16108" hs_bindgen_90648744cbb16108_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_dash@
 hs_bindgen_90648744cbb16108 :: CInt -> IO ()
@@ -204,7 +204,7 @@ dash_safe :: CInt -> IO ()
 dash_safe = hs_bindgen_90648744cbb16108
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_quux@
 foreign import ccall safe "hs_bindgen_3bf2453c79c79342" hs_bindgen_3bf2453c79c79342_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_quux@
 hs_bindgen_3bf2453c79c79342 :: CInt -> IO ()
@@ -226,7 +226,7 @@ quux_safe :: CInt -> IO ()
 quux_safe = hs_bindgen_3bf2453c79c79342
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_heq@
 foreign import ccall safe "hs_bindgen_89e85ad8f7343241" hs_bindgen_89e85ad8f7343241_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Safe_heq@
 hs_bindgen_89e85ad8f7343241 :: CInt -> IO ()
@@ -248,7 +248,7 @@ heq_safe :: CInt -> IO ()
 heq_safe = hs_bindgen_89e85ad8f7343241
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_2794b70af4ccd43b" hs_bindgen_2794b70af4ccd43b_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_foo@
 hs_bindgen_2794b70af4ccd43b :: CInt -> IO ()
@@ -270,7 +270,7 @@ foo_unsafe :: CInt -> IO ()
 foo_unsafe = hs_bindgen_2794b70af4ccd43b
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_01135a4a8f379826" hs_bindgen_01135a4a8f379826_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_bar@
 hs_bindgen_01135a4a8f379826 :: CInt -> IO ()
@@ -292,7 +292,7 @@ bar_unsafe :: CInt -> IO ()
 bar_unsafe = hs_bindgen_01135a4a8f379826
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_dash@
 foreign import ccall unsafe "hs_bindgen_0d59701db0fc10c2" hs_bindgen_0d59701db0fc10c2_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_dash@
 hs_bindgen_0d59701db0fc10c2 :: CInt -> IO ()
@@ -314,7 +314,7 @@ dash_unsafe :: CInt -> IO ()
 dash_unsafe = hs_bindgen_0d59701db0fc10c2
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_quux@
 foreign import ccall unsafe "hs_bindgen_fc3ab959400ab9c8" hs_bindgen_fc3ab959400ab9c8_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_quux@
 hs_bindgen_fc3ab959400ab9c8 :: CInt -> IO ()
@@ -336,7 +336,7 @@ quux_unsafe :: CInt -> IO ()
 quux_unsafe = hs_bindgen_fc3ab959400ab9c8
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_heq@
 foreign import ccall unsafe "hs_bindgen_fa747bfe2b529e61" hs_bindgen_fa747bfe2b529e61_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosreparsegnu_attributes__Example_Unsafe_heq@
 hs_bindgen_fa747bfe2b529e61 :: CInt -> IO ()

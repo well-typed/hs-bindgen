@@ -36,7 +36,7 @@ prettyType env prec ty = case ty of
       TFree var -> pretty var
       TLit n -> PP.show n
       TStrLit s -> PP.string (show s)
-      TExt i _cTypeSpec _hsTypeSpec -> pretty i
+      TExt i -> pretty i
       TFun a b -> PP.parensWhen (prec > funPrec) $
         prettyType env funPrec1 a <+> "->" <+> prettyType env funPrec b
       TBound x -> lookupEnv x env

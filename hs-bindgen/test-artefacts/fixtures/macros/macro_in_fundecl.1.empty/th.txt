@@ -313,9 +313,9 @@
 -- }
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_quux@
 foreign import ccall safe "hs_bindgen_0d589d05ef4464f1" hs_bindgen_0d589d05ef4464f1_base ::
-    Float
- -> Int8
- -> IO Int8
+    CFloat
+ -> CChar
+ -> IO CChar
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_quux@
 hs_bindgen_0d589d05ef4464f1 :: CFloat -> CChar -> IO CChar
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_quux@
@@ -336,7 +336,7 @@ quux_safe :: CFloat -> CChar -> IO CChar
 quux_safe = hs_bindgen_0d589d05ef4464f1
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_wam@
 foreign import ccall safe "hs_bindgen_5e34a9a021a16ef2" hs_bindgen_5e34a9a021a16ef2_base ::
-    Float
+    CFloat
  -> Ptr Void
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_wam@
@@ -360,7 +360,7 @@ wam_safe :: CFloat -> Ptr CChar -> IO (Ptr CChar)
 wam_safe = hs_bindgen_5e34a9a021a16ef2
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_foo1@
 foreign import ccall safe "hs_bindgen_a653f9965418fe35" hs_bindgen_a653f9965418fe35_base ::
-    Float
+    CFloat
  -> FunPtr Void
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_foo1@
@@ -384,7 +384,7 @@ foo1_safe :: CFloat -> FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
 foo1_safe = hs_bindgen_a653f9965418fe35
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_foo2@
 foreign import ccall safe "hs_bindgen_27d5c3bf56ffe127" hs_bindgen_27d5c3bf56ffe127_base ::
-    Float
+    CFloat
  -> FunPtr Void
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_foo2@
@@ -408,7 +408,7 @@ foo2_safe :: CFloat -> FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
 foo2_safe = hs_bindgen_27d5c3bf56ffe127
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_foo3@
 foreign import ccall safe "hs_bindgen_28f84ffb010a241f" hs_bindgen_28f84ffb010a241f_base ::
-    Float
+    CFloat
  -> FunPtr Void
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_foo3@
@@ -432,7 +432,7 @@ foo3_safe :: CFloat -> FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
 foo3_safe = hs_bindgen_28f84ffb010a241f
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar1@
 foreign import ccall safe "hs_bindgen_bd2ce04af55e7267" hs_bindgen_bd2ce04af55e7267_base ::
-    Int64
+    CLong
  -> IO (FunPtr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar1@
 hs_bindgen_bd2ce04af55e7267 :: CLong ->
@@ -455,7 +455,7 @@ bar1_safe :: CLong -> IO (FunPtr (CShort -> IO CInt))
 bar1_safe = hs_bindgen_bd2ce04af55e7267
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar2@
 foreign import ccall safe "hs_bindgen_71466c42e4144c66" hs_bindgen_71466c42e4144c66_base ::
-    Int64
+    CLong
  -> IO (FunPtr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar2@
 hs_bindgen_71466c42e4144c66 :: CLong ->
@@ -478,7 +478,7 @@ bar2_safe :: CLong -> IO (FunPtr (CShort -> IO CInt))
 bar2_safe = hs_bindgen_71466c42e4144c66
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar3@
 foreign import ccall safe "hs_bindgen_158e79501bca5645" hs_bindgen_158e79501bca5645_base ::
-    Int64
+    CLong
  -> IO (FunPtr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar3@
 hs_bindgen_158e79501bca5645 :: CLong ->
@@ -501,7 +501,7 @@ bar3_safe :: CLong -> IO (FunPtr (CShort -> IO CInt))
 bar3_safe = hs_bindgen_158e79501bca5645
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar4@
 foreign import ccall safe "hs_bindgen_114a38b3ab9e70ba" hs_bindgen_114a38b3ab9e70ba_base ::
-    Int64
+    CLong
  -> IO (FunPtr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_bar4@
 hs_bindgen_114a38b3ab9e70ba :: CLong ->
@@ -524,7 +524,7 @@ bar4_safe :: CLong -> IO (FunPtr (CShort -> IO CInt))
 bar4_safe = hs_bindgen_114a38b3ab9e70ba
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_baz1@
 foreign import ccall safe "hs_bindgen_3bbe244ce8f2af84" hs_bindgen_3bbe244ce8f2af84_base ::
-    Int32
+    CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_baz1@
 hs_bindgen_3bbe244ce8f2af84 :: CInt ->
@@ -548,7 +548,7 @@ baz1_safe :: CInt ->
 baz1_safe = hs_bindgen_3bbe244ce8f2af84
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_baz2@
 foreign import ccall safe "hs_bindgen_1d115779ef74db4e" hs_bindgen_1d115779ef74db4e_base ::
-    Int32
+    CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_baz2@
 hs_bindgen_1d115779ef74db4e :: CInt ->
@@ -572,7 +572,7 @@ baz2_safe :: CInt ->
 baz2_safe = hs_bindgen_1d115779ef74db4e
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_baz3@
 foreign import ccall safe "hs_bindgen_3609a59984f4f6c6" hs_bindgen_3609a59984f4f6c6_base ::
-    Int32
+    CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_baz3@
 hs_bindgen_3609a59984f4f6c6 :: CInt ->
@@ -596,7 +596,7 @@ baz3_safe :: CInt ->
 baz3_safe = hs_bindgen_3609a59984f4f6c6
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_no_args_no_void@
 foreign import ccall safe "hs_bindgen_0d9adddf37d97870" hs_bindgen_0d9adddf37d97870_base ::
-    IO Int32
+    IO CInt
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_no_args_no_void@
 hs_bindgen_0d9adddf37d97870 :: IO CInt
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Safe_no_args_no_void@
@@ -617,9 +617,9 @@ no_args_no_void_safe :: IO CInt
 no_args_no_void_safe = hs_bindgen_0d9adddf37d97870
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_quux@
 foreign import ccall unsafe "hs_bindgen_8742f64b88435032" hs_bindgen_8742f64b88435032_base ::
-    Float
- -> Int8
- -> IO Int8
+    CFloat
+ -> CChar
+ -> IO CChar
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_quux@
 hs_bindgen_8742f64b88435032 :: CFloat -> CChar -> IO CChar
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_quux@
@@ -640,7 +640,7 @@ quux_unsafe :: CFloat -> CChar -> IO CChar
 quux_unsafe = hs_bindgen_8742f64b88435032
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_wam@
 foreign import ccall unsafe "hs_bindgen_2a7521a4578b9021" hs_bindgen_2a7521a4578b9021_base ::
-    Float
+    CFloat
  -> Ptr Void
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_wam@
@@ -664,7 +664,7 @@ wam_unsafe :: CFloat -> Ptr CChar -> IO (Ptr CChar)
 wam_unsafe = hs_bindgen_2a7521a4578b9021
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_foo1@
 foreign import ccall unsafe "hs_bindgen_4997a9f97e766872" hs_bindgen_4997a9f97e766872_base ::
-    Float
+    CFloat
  -> FunPtr Void
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_foo1@
@@ -688,7 +688,7 @@ foo1_unsafe :: CFloat -> FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
 foo1_unsafe = hs_bindgen_4997a9f97e766872
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_foo2@
 foreign import ccall unsafe "hs_bindgen_8f7161a0cc6544ab" hs_bindgen_8f7161a0cc6544ab_base ::
-    Float
+    CFloat
  -> FunPtr Void
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_foo2@
@@ -712,7 +712,7 @@ foo2_unsafe :: CFloat -> FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
 foo2_unsafe = hs_bindgen_8f7161a0cc6544ab
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_foo3@
 foreign import ccall unsafe "hs_bindgen_964a5990350e54ca" hs_bindgen_964a5990350e54ca_base ::
-    Float
+    CFloat
  -> FunPtr Void
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_foo3@
@@ -736,7 +736,7 @@ foo3_unsafe :: CFloat -> FunPtr (CInt -> IO CInt) -> IO (Ptr CChar)
 foo3_unsafe = hs_bindgen_964a5990350e54ca
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar1@
 foreign import ccall unsafe "hs_bindgen_1845a22f2691bd3f" hs_bindgen_1845a22f2691bd3f_base ::
-    Int64
+    CLong
  -> IO (FunPtr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar1@
 hs_bindgen_1845a22f2691bd3f :: CLong ->
@@ -759,7 +759,7 @@ bar1_unsafe :: CLong -> IO (FunPtr (CShort -> IO CInt))
 bar1_unsafe = hs_bindgen_1845a22f2691bd3f
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar2@
 foreign import ccall unsafe "hs_bindgen_2ab30ac8925b7281" hs_bindgen_2ab30ac8925b7281_base ::
-    Int64
+    CLong
  -> IO (FunPtr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar2@
 hs_bindgen_2ab30ac8925b7281 :: CLong ->
@@ -782,7 +782,7 @@ bar2_unsafe :: CLong -> IO (FunPtr (CShort -> IO CInt))
 bar2_unsafe = hs_bindgen_2ab30ac8925b7281
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar3@
 foreign import ccall unsafe "hs_bindgen_7a3bc5222b2ae81a" hs_bindgen_7a3bc5222b2ae81a_base ::
-    Int64
+    CLong
  -> IO (FunPtr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar3@
 hs_bindgen_7a3bc5222b2ae81a :: CLong ->
@@ -805,7 +805,7 @@ bar3_unsafe :: CLong -> IO (FunPtr (CShort -> IO CInt))
 bar3_unsafe = hs_bindgen_7a3bc5222b2ae81a
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar4@
 foreign import ccall unsafe "hs_bindgen_87b07373f703a039" hs_bindgen_87b07373f703a039_base ::
-    Int64
+    CLong
  -> IO (FunPtr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_bar4@
 hs_bindgen_87b07373f703a039 :: CLong ->
@@ -828,7 +828,7 @@ bar4_unsafe :: CLong -> IO (FunPtr (CShort -> IO CInt))
 bar4_unsafe = hs_bindgen_87b07373f703a039
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_baz1@
 foreign import ccall unsafe "hs_bindgen_4e9b527f6825fd5f" hs_bindgen_4e9b527f6825fd5f_base ::
-    Int32
+    CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_baz1@
 hs_bindgen_4e9b527f6825fd5f :: CInt ->
@@ -852,7 +852,7 @@ baz1_unsafe :: CInt ->
 baz1_unsafe = hs_bindgen_4e9b527f6825fd5f
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_baz2@
 foreign import ccall unsafe "hs_bindgen_615bc960b75a0bef" hs_bindgen_615bc960b75a0bef_base ::
-    Int32
+    CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_baz2@
 hs_bindgen_615bc960b75a0bef :: CInt ->
@@ -876,7 +876,7 @@ baz2_unsafe :: CInt ->
 baz2_unsafe = hs_bindgen_615bc960b75a0bef
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_baz3@
 foreign import ccall unsafe "hs_bindgen_414bbfce612b733a" hs_bindgen_414bbfce612b733a_base ::
-    Int32
+    CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_baz3@
 hs_bindgen_414bbfce612b733a :: CInt ->
@@ -900,7 +900,7 @@ baz3_unsafe :: CInt ->
 baz3_unsafe = hs_bindgen_414bbfce612b733a
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_no_args_no_void@
 foreign import ccall unsafe "hs_bindgen_56bb882786815655" hs_bindgen_56bb882786815655_base ::
-    IO Int32
+    IO CInt
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_no_args_no_void@
 hs_bindgen_56bb882786815655 :: IO CInt
 -- __unique:__ @test_macrosmacro_in_fundecl_1_empt_Example_Unsafe_no_args_no_void@

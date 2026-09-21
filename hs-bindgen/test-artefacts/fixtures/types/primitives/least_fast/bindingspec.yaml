@@ -58,6 +58,9 @@ hstypes:
       constructor: Int_fast16_t
       fields:
       - unwrapInt_fast16_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Int32
   instances:
   - Bitfield
   - Bits
@@ -89,6 +92,9 @@ hstypes:
       constructor: Int_fast32_t
       fields:
       - unwrapInt_fast32_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Int32
   instances:
   - Bitfield
   - Bits
@@ -120,6 +126,9 @@ hstypes:
       constructor: Int_fast64_t
       fields:
       - unwrapInt_fast64_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Int64
   instances:
   - Bitfield
   - Bits
@@ -151,6 +160,9 @@ hstypes:
       constructor: Int_fast8_t
       fields:
       - unwrapInt_fast8_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Int8
   instances:
   - Bitfield
   - Bits
@@ -182,6 +194,9 @@ hstypes:
       constructor: Int_least16_t
       fields:
       - unwrapInt_least16_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Int16
   instances:
   - Bitfield
   - Bits
@@ -213,6 +228,9 @@ hstypes:
       constructor: Int_least32_t
       fields:
       - unwrapInt_least32_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Int32
   instances:
   - Bitfield
   - Bits
@@ -244,6 +262,9 @@ hstypes:
       constructor: Int_least64_t
       fields:
       - unwrapInt_least64_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Int64
   instances:
   - Bitfield
   - Bits
@@ -275,6 +296,9 @@ hstypes:
       constructor: Int_least8_t
       fields:
       - unwrapInt_least8_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Int8
   instances:
   - Bitfield
   - Bits
@@ -306,6 +330,9 @@ hstypes:
       constructor: Uint_fast16_t
       fields:
       - unwrapUint_fast16_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Word32
   instances:
   - Bitfield
   - Bits
@@ -337,6 +364,9 @@ hstypes:
       constructor: Uint_fast32_t
       fields:
       - unwrapUint_fast32_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Word32
   instances:
   - Bitfield
   - Bits
@@ -368,6 +398,9 @@ hstypes:
       constructor: Uint_fast64_t
       fields:
       - unwrapUint_fast64_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Word64
   instances:
   - Bitfield
   - Bits
@@ -399,6 +432,9 @@ hstypes:
       constructor: Uint_fast8_t
       fields:
       - unwrapUint_fast8_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Word8
   instances:
   - Bitfield
   - Bits
@@ -430,6 +466,9 @@ hstypes:
       constructor: Uint_least16_t
       fields:
       - unwrapUint_least16_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Word16
   instances:
   - Bitfield
   - Bits
@@ -461,6 +500,9 @@ hstypes:
       constructor: Uint_least32_t
       fields:
       - unwrapUint_least32_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Word32
   instances:
   - Bitfield
   - Bits
@@ -492,6 +534,9 @@ hstypes:
       constructor: Uint_least64_t
       fields:
       - unwrapUint_least64_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Word64
   instances:
   - Bitfield
   - Bits
@@ -523,6 +568,9 @@ hstypes:
       constructor: Uint_least8_t
       fields:
       - unwrapUint_least8_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Word8
   instances:
   - Bitfield
   - Bits

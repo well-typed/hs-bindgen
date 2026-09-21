@@ -101,7 +101,6 @@ data BindgenGlobalType =
     -- Foreign function interface
     Foreign_Ptr_type
   | Foreign_FunPtr_type
-  | Foreign_StablePtr_type
   | IO_type
 
       -- Arrays
@@ -143,20 +142,8 @@ data BindgenGlobalType =
 
     -- C types
   | Void_type
-  | Char_type
   | Int_type
-  | Double_type
-  | Float_type
   | Bool_type
-  | Int8_type
-  | Int16_type
-  | Int32_type
-  | Int64_type
-  | Word_type
-  | Word8_type
-  | Word16_type
-  | Word32_type
-  | Word64_type
   | CChar_type
   | CSChar_type
   | CUChar_type
@@ -317,7 +304,6 @@ bindgenGlobalType = globalType . \case
     -- Foreign function interface
     Foreign_Ptr_type       -> (IRuntime Runtime.Support, ''BG.Ptr)
     Foreign_FunPtr_type    -> (IRuntime Runtime.Support, ''BG.FunPtr)
-    Foreign_StablePtr_type -> (IRuntime Runtime.Support, ''BG.StablePtr)
     IO_type                -> (IHaskellPrelude,          ''IO)
 
       -- Arrays
@@ -359,20 +345,8 @@ bindgenGlobalType = globalType . \case
 
     -- C types
     Void_type       -> (IRuntime Runtime.Support, ''BG.Void)
-    Char_type       -> (IHaskellPrelude,          ''Char)
     Int_type        -> (IHaskellPrelude,          ''Int)
-    Double_type     -> (IHaskellPrelude,          ''Double)
-    Float_type      -> (IHaskellPrelude,          ''Float)
     Bool_type       -> (IHaskellPrelude,          ''Bool)
-    Int8_type       -> (IRuntime Runtime.Support, ''BG.Int8)
-    Int16_type      -> (IRuntime Runtime.Support, ''BG.Int16)
-    Int32_type      -> (IRuntime Runtime.Support, ''BG.Int32)
-    Int64_type      -> (IRuntime Runtime.Support, ''BG.Int64)
-    Word_type       -> (IHaskellPrelude,          ''Word)
-    Word8_type      -> (IRuntime Runtime.Support, ''BG.Word8)
-    Word16_type     -> (IRuntime Runtime.Support, ''BG.Word16)
-    Word32_type     -> (IRuntime Runtime.Support, ''BG.Word32)
-    Word64_type     -> (IRuntime Runtime.Support, ''BG.Word64)
     CChar_type      -> (IRuntime Runtime.Support, ''BG.CChar)
     CSChar_type     -> (IRuntime Runtime.Support, ''BG.CSChar)
     CUChar_type     -> (IRuntime Runtime.Support, ''BG.CUChar)

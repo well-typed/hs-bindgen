@@ -89,8 +89,8 @@
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_Safe_list_example@
 foreign import ccall safe "hs_bindgen_32187cc02676ee72" hs_bindgen_32187cc02676ee72_base ::
     Ptr Void
- -> Word64
- -> IO Word8
+ -> HsBindgen.Runtime.LibC.CSize
+ -> IO CBool
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_Safe_list_example@
 hs_bindgen_32187cc02676ee72 :: Ptr (PtrConst CChar) ->
                                HsBindgen.Runtime.LibC.CSize -> IO CBool
@@ -114,8 +114,8 @@ list_example_safe = hs_bindgen_32187cc02676ee72
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_Unsafe_list_example@
 foreign import ccall unsafe "hs_bindgen_360934a08f19eaab" hs_bindgen_360934a08f19eaab_base ::
     Ptr Void
- -> Word64
- -> IO Word8
+ -> HsBindgen.Runtime.LibC.CSize
+ -> IO CBool
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_Unsafe_list_example@
 hs_bindgen_360934a08f19eaab :: Ptr (PtrConst CChar) ->
                                HsBindgen.Runtime.LibC.CSize -> IO CBool

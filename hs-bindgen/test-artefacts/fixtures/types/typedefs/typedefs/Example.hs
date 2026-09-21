@@ -134,8 +134,8 @@ newtype Int2int = Int2int
 
 -- __unique:__ @toInt2int@
 foreign import ccall safe "wrapper" hs_bindgen_a6c7dd49f5b9d470_base ::
-     (BG.Int32 -> IO BG.Int32)
-  -> IO (BG.FunPtr (BG.Int32 -> IO BG.Int32))
+     (BG.CInt -> IO BG.CInt)
+  -> IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 
 -- __unique:__ @toInt2int@
 hs_bindgen_a6c7dd49f5b9d470 ::
@@ -148,8 +148,8 @@ hs_bindgen_a6c7dd49f5b9d470 =
 
 -- __unique:__ @fromInt2int@
 foreign import ccall safe "dynamic" hs_bindgen_65378a8a3cf640ad_base ::
-     BG.FunPtr (BG.Int32 -> IO BG.Int32)
-  -> BG.Int32 -> IO BG.Int32
+     BG.FunPtr (BG.CInt -> IO BG.CInt)
+  -> BG.CInt -> IO BG.CInt
 
 -- __unique:__ @fromInt2int@
 hs_bindgen_65378a8a3cf640ad ::
@@ -313,8 +313,8 @@ newtype NonFunctionPointer_Function = NonFunctionPointer_Function
 
 -- __unique:__ @toNonFunctionPointer_Function@
 foreign import ccall safe "wrapper" hs_bindgen_766ae751d60365e9_base ::
-     (BG.Int32 -> IO BG.Int32)
-  -> IO (BG.FunPtr (BG.Int32 -> IO BG.Int32))
+     (BG.CInt -> IO BG.CInt)
+  -> IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 
 -- __unique:__ @toNonFunctionPointer_Function@
 hs_bindgen_766ae751d60365e9 ::
@@ -327,8 +327,8 @@ hs_bindgen_766ae751d60365e9 =
 
 -- __unique:__ @fromNonFunctionPointer_Function@
 foreign import ccall safe "dynamic" hs_bindgen_36c7108d046bcbc3_base ::
-     BG.FunPtr (BG.Int32 -> IO BG.Int32)
-  -> BG.Int32 -> IO BG.Int32
+     BG.FunPtr (BG.CInt -> IO BG.CInt)
+  -> BG.CInt -> IO BG.CInt
 
 -- __unique:__ @fromNonFunctionPointer_Function@
 hs_bindgen_36c7108d046bcbc3 ::

@@ -22,13 +22,11 @@ import HsBindgen.Clang.CompareVersions (CompareVersionsMsg,
 import HsBindgen.Clang.Discover
 import HsBindgen.Clang.ExtraClangArgs
 import HsBindgen.Clang.Macos
-import HsBindgen.Clang.Sizeof (getSizeofs)
 import HsBindgen.Config.ClangArgs (ClangArgsConfig)
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
-import HsBindgen.Language.C (Sizeofs)
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Util.Tracer
 
@@ -90,10 +88,6 @@ runBoot tracer mkMacroLang config uncheckedRootDirectives = do
       withTrace BootStatusPrescriptiveBindingSpec $
         fmap snd $ getBindingSpecs
 
-    sizeofs <- cache "sizeofs" $ do
-      clangArgs <- getClangArgs
-      liftIO $ getSizeofs (contramap BootSizeofs tracer) clangArgs
-
     pure BootArtefact {
           baseModule              = config.boot.baseModule
         , cStandard               = getCStandard
@@ -103,7 +97,6 @@ runBoot tracer mkMacroLang config uncheckedRootDirectives = do
         , rootDirectives          = getRootDirectives
         , externalBindingSpecs    = getExternalBindingSpecs
         , prescriptiveBindingSpec = getPrescriptiveBindingSpec
-        , sizeofs                 = sizeofs
         }
   where
     tracerBootStatus :: Tracer BootStatusMsg
@@ -193,7 +186,6 @@ data BootArtefact l = BootArtefact {
     , rootDirectives          :: Cached [C.RootDirective C.HashIncludeArg]
     , externalBindingSpecs    :: Cached MergedBindingSpecs
     , prescriptiveBindingSpec :: Cached PrescriptiveBindingSpec
-    , sizeofs                 :: Cached Sizeofs
     }
 
 {-------------------------------------------------------------------------------
@@ -262,6 +254,5 @@ data BootMsg =
   | BootCompareClangVersions CompareVersionsMsg
   | BootStatus               BootStatusMsg
   | BootCache                (SafeTrace CacheMsg)
-  | BootSizeofs              ClangMsg
   deriving stock (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)

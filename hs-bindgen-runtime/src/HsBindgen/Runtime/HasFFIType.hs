@@ -1,14 +1,13 @@
-{-# OPTIONS_HADDOCK hide #-}
-
 {-# LANGUAGE CPP #-}
 
--- NOTE: For now, this module is classified "Support"; however, it may become
--- public in the future. See also
--- https://github.com/well-typed/hs-bindgen/issues/1565.
-
-module HsBindgen.Runtime.Support.HasFFIType (
+module HsBindgen.Runtime.HasFFIType (
     -- * Class
     HasFFIType (FFIType, toFFIType, fromFFIType)
+    -- * Shorthand types
+  , PtrVoid
+  , FunPtrVoid
+    -- * Deriving-via
+  , ViaIdentity (..)
   ) where
 
 import Prelude as Types (Bool, Char, Double, Float, Int, Word)
@@ -40,64 +39,42 @@ import HsBindgen.Runtime.PtrConst as Types (PtrConst, unsafeFromPtr,
   Class
 -------------------------------------------------------------------------------}
 
--- | The 'HasFFIType' class broadly captures Haskell types that can be
--- converted to and from an /FFI type/.
+-- | The 'HasFFIType' class captures Haskell types that can be converted to and
+-- from its /FFI type/.
 --
--- An FFI type is similar to a /foreign type/, but with all newtypes removed.
--- Foreign types are the kinds of types that are allowed in @foreign import@
--- declarations.
+-- A 'HasFFIType' instance declaration for a type @T@, mapping @FFIType T@ to
+-- @M.T'@, is valid if @T'@ is legal to appear as an argument or result in
+-- @foreign import@ declarations in a context where @M@ is in scope.
 --
--- Some laws apply to this class:
+-- @foreign import@ declarations only compile if their type is a valid /foreign
+-- type/. This depends on the context of which modules are in scope. A @foreign
+-- import@ that uses FFI types exclusively will always compile.
 --
--- * If @x :: a@ is a foreign type, then @toFFIType x :: FFIType
---   a@ is also a valid foreign type and contains no newtypes.
--- * If @x :: FFIType a@ is a foreign type, then @fromFFIType x
---   :: a@ is also a valid foreign type.
---
--- Note in particular that this does /not/ guarantee that:
---
--- * Every type @a@ that is an instance of 'HasFFIType' is a valid
--- foreign type
--- * Every type @'FFIType' a@ is a valid foreign type.
---
--- Informally, 'toFFIType' and 'fromFFIType' preserve
--- /valid-foreign-type-ness/.
---
--- === User-supplied instances
---
--- Generally as a rule of thumb, if @a@ is a valid foreign type, then there
--- should be a sensible 'HasFFIType' instance. Instances are provided in this
--- module for most basic type constructors, like 'Prelude.(->)', 'IO',
--- 'Prelude.()', and all eligible types from the "Foreign" module hierarchy.
--- However, we can't magically generate instance for user-defined newtypes, nor
--- do we try to generate instances for all newtypes from the @base@ package or
--- other core packages. Instead, the user should newtype-derive those instances
--- or write them by hand. The @UndecidableInstances@ language extension should
--- probably also be enabled.
---
--- === Foreign types
---
--- Foreign types and its sub-kinds are described by the the "Haskell 2010 Language"
--- report. Kinds of foreign types include:
---
--- * top-level /foreign types/
--- * /basic foreign types/
--- * /marshallable foreign result types/
--- * /marshallable foreign types/
---
--- See the "8.4.2 Foreign Types" section of the report for more information:
+-- Foreign types and its sub-kinds are described by the the "Haskell 2010
+-- Language" report. See the "8.4.2 Foreign Types" section of the report for
+-- more information:
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1560008.4.2>
 --
 class HasFFIType a where
   type FFIType a :: Type
-  -- | Convert a foreign type to its FFI type.
+  -- | Convert a type to its FFI type
   --
   -- See the 'HasFFIType' class for more information
   toFFIType :: a -> FFIType a
-  -- | Convert an FFI type a foreign type.
+  -- | Inverse of 'toFFIType'
   --
   -- See the 'HasFFIType' class for more information
   fromFFIType :: FFIType a -> a
+
+{-------------------------------------------------------------------------------
+  Shorthand types
+-------------------------------------------------------------------------------}
+
+-- | 'Ptr' 'Void'
+type PtrVoid = Ptr Void
+
+-- | 'FunPtr' 'Void'
+type FunPtrVoid = FunPtr Void
 
 {-------------------------------------------------------------------------------
   Deriving-via
@@ -119,8 +96,6 @@ instance HasFFIType (ViaIdentity a) where
 
 -- === Prelude ===
 
--- == Basic foreign types ==
-
 deriving via ViaIdentity Char   instance HasFFIType Char
 deriving via ViaIdentity Int    instance HasFFIType Int
 deriving via ViaIdentity Double instance HasFFIType Double
@@ -129,16 +104,12 @@ deriving via ViaIdentity Bool   instance HasFFIType Bool
 
 -- === Data.Int ===
 
--- == Basic foreign types ==
-
 deriving via ViaIdentity Int8  instance HasFFIType Int8
 deriving via ViaIdentity Int16 instance HasFFIType Int16
 deriving via ViaIdentity Int32 instance HasFFIType Int32
 deriving via ViaIdentity Int64 instance HasFFIType Int64
 
 -- === Data.Word ===
-
--- == Basic foreign types ==
 
 deriving via ViaIdentity Word   instance HasFFIType Word
 deriving via ViaIdentity Word8  instance HasFFIType Word8
@@ -148,30 +119,24 @@ deriving via ViaIdentity Word64 instance HasFFIType Word64
 
 -- === Foreign.Ptr ===
 
--- == Basic foreign types ==
-
 instance HasFFIType (Ptr a) where
-  type FFIType (Ptr a) = Ptr Void
+  type FFIType (Ptr a) = PtrVoid
   {-# INLINE toFFIType #-}
   toFFIType = castPtr
   {-# INLINE fromFFIType #-}
   fromFFIType = castPtr
 
 instance HasFFIType (FunPtr a) where
-  type FFIType (FunPtr a) = FunPtr Void
+  type FFIType (FunPtr a) = FunPtrVoid
   {-# INLINE toFFIType #-}
   toFFIType = castFunPtr
   {-# INLINE fromFFIType #-}
   fromFFIType = castFunPtr
 
--- == Newtypes around basic foreign types ==
-
-deriving newtype instance HasFFIType IntPtr
-deriving newtype instance HasFFIType WordPtr
+deriving via ViaIdentity IntPtr  instance HasFFIType IntPtr
+deriving via ViaIdentity WordPtr instance HasFFIType WordPtr
 
 -- === Foreign.StablePtr ===
-
--- == Basic foreign types ==
 
 instance HasFFIType (StablePtr a) where
   type FFIType (StablePtr a) = StablePtr Void
@@ -186,8 +151,6 @@ castStablePtr = castPtrToStablePtr . castStablePtrToPtr
 
 -- === Foreign.C.ConstPtr ===
 
--- == Newtypes around basic foreign types ==
-
 instance HasFFIType (PtrConst a) where
   type FFIType (PtrConst a) = Ptr Void
   {-# INLINE toFFIType #-}
@@ -197,48 +160,39 @@ instance HasFFIType (PtrConst a) where
 
 -- === Foreign.C.Error ===
 
--- == Newtypes around basic foreign types ==
-
-deriving newtype instance HasFFIType Errno
+deriving via ViaIdentity Errno instance HasFFIType Errno
 
 -- === Foreign.C.Types ===
 
--- == Newtypes around basic foreign types ==
-
-deriving newtype instance HasFFIType CChar
-deriving newtype instance HasFFIType CSChar
-deriving newtype instance HasFFIType CUChar
-deriving newtype instance HasFFIType CShort
-deriving newtype instance HasFFIType CUShort
-deriving newtype instance HasFFIType CInt
-deriving newtype instance HasFFIType CUInt
-deriving newtype instance HasFFIType CLong
-deriving newtype instance HasFFIType CULong
-deriving newtype instance HasFFIType CPtrdiff
-deriving newtype instance HasFFIType CSize
-deriving newtype instance HasFFIType CWchar
-deriving newtype instance HasFFIType CSigAtomic
-deriving newtype instance HasFFIType CLLong
-deriving newtype instance HasFFIType CULLong
-deriving newtype instance HasFFIType CBool
-deriving newtype instance HasFFIType CIntPtr
-deriving newtype instance HasFFIType CUIntPtr
-deriving newtype instance HasFFIType CIntMax
-deriving newtype instance HasFFIType CUIntMax
+deriving via ViaIdentity CChar      instance HasFFIType CChar
+deriving via ViaIdentity CSChar     instance HasFFIType CSChar
+deriving via ViaIdentity CUChar     instance HasFFIType CUChar
+deriving via ViaIdentity CShort     instance HasFFIType CShort
+deriving via ViaIdentity CUShort    instance HasFFIType CUShort
+deriving via ViaIdentity CInt       instance HasFFIType CInt
+deriving via ViaIdentity CUInt      instance HasFFIType CUInt
+deriving via ViaIdentity CLong      instance HasFFIType CLong
+deriving via ViaIdentity CULong     instance HasFFIType CULong
+deriving via ViaIdentity CPtrdiff   instance HasFFIType CPtrdiff
+deriving via ViaIdentity CSize      instance HasFFIType CSize
+deriving via ViaIdentity CWchar     instance HasFFIType CWchar
+deriving via ViaIdentity CSigAtomic instance HasFFIType CSigAtomic
+deriving via ViaIdentity CLLong     instance HasFFIType CLLong
+deriving via ViaIdentity CULLong    instance HasFFIType CULLong
+deriving via ViaIdentity CBool      instance HasFFIType CBool
+deriving via ViaIdentity CIntPtr    instance HasFFIType CIntPtr
+deriving via ViaIdentity CUIntPtr   instance HasFFIType CUIntPtr
+deriving via ViaIdentity CIntMax    instance HasFFIType CIntMax
+deriving via ViaIdentity CUIntMax   instance HasFFIType CUIntMax
 
 -- === Foreign.C.Types : Numeric types ===
 
--- == Newtypes around basic foreign types ==
-
-deriving newtype instance HasFFIType CClock
-deriving newtype instance HasFFIType CTime
-deriving newtype instance HasFFIType CUSeconds
-deriving newtype instance HasFFIType CSUSeconds
+deriving via ViaIdentity CClock     instance HasFFIType CClock
+deriving via ViaIdentity CTime      instance HasFFIType CTime
+deriving via ViaIdentity CUSeconds  instance HasFFIType CUSeconds
+deriving via ViaIdentity CSUSeconds instance HasFFIType CSUSeconds
 
 -- === Foreign.C.Types : Floating types ===
 
--- == Newtypes around basic foreign types ==
-
-deriving newtype instance HasFFIType CFloat
-deriving newtype instance HasFFIType CDouble
-
+deriving via ViaIdentity CFloat  instance HasFFIType CFloat
+deriving via ViaIdentity CDouble instance HasFFIType CDouble

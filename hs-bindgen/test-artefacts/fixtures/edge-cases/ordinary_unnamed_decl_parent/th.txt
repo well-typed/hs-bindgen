@@ -23,8 +23,8 @@
 -- }
 -- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Safe__acos@
 foreign import ccall safe "hs_bindgen_dfefd17e87559d1a" hs_bindgen_dfefd17e87559d1a_base ::
-    Double
- -> IO Double
+    CDouble
+ -> IO CDouble
 -- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Safe__acos@
 hs_bindgen_dfefd17e87559d1a :: CDouble -> IO CDouble
 -- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Safe__acos@
@@ -45,8 +45,8 @@ _acos_safe :: CDouble -> IO CDouble
 _acos_safe = hs_bindgen_dfefd17e87559d1a
 -- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Unsafe__acos@
 foreign import ccall unsafe "hs_bindgen_751dc472004ee482" hs_bindgen_751dc472004ee482_base ::
-    Double
- -> IO Double
+    CDouble
+ -> IO CDouble
 -- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Unsafe__acos@
 hs_bindgen_751dc472004ee482 :: CDouble -> IO CDouble
 -- __unique:__ @test_edgecasesordinary_unnamed_de_Example_Unsafe__acos@

@@ -52,7 +52,6 @@ import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Macro.Type qualified as Macro
@@ -71,10 +70,9 @@ generateDeclarations ::
   -> HaddockConfig
   -> BaseModuleName
   -> DeclIndex l
-  -> C.Sizeofs
   -> [C.Decl l Final]
   -> ByCategory_ [Hs.Decl l]
-generateDeclarations macroLang uniqueId config name declIndex sizeofs =
+generateDeclarations macroLang uniqueId config name declIndex =
     fmap reverse .
       foldl' partitionBindingCategories mempty .
       generateDeclarations' macroLang env declIndex
@@ -88,7 +86,7 @@ generateDeclarations macroLang uniqueId config name declIndex sizeofs =
     supInsts = def
 
     env :: HsM.Env
-    env = HsM.initEnv uniqueId name config sizeofs supInsts
+    env = HsM.initEnv uniqueId name config supInsts
 
 -- | Internal. Top-level declaration with foreign import category.
 data WithCategory a = WithCategory {
@@ -113,7 +111,7 @@ generateDeclarations' macroLang env declIndex decs =
                    | (args, res) <- Set.toList scannedFunctionTypes
                    , not (any C.hasUnsupportedType (res: fmap (.typ) args))
                    , any (isDefinedInCurrentModule declIndex) (res: fmap (.typ) args)
-                   , d <- ToFromFunPtr.forFunction env.sizeofs (args, res)
+                   , d <- ToFromFunPtr.forFunction (args, res)
                    ]
       hsDeclsAction <- mapM (generateDecs macroLang) decs
       hsDecls <- HsM.runAction $ fmap concat $ sequence hsDeclsAction
@@ -602,7 +600,7 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
       -- handled correctly.
       --
         newtypeWrapper :: [Hs.Decl l]
-        newtypeWrapper  = maybe [] (ToFromFunPtr.forNewtype env.sizeofs nt) isFunType
+        newtypeWrapper  = maybe [] (ToFromFunPtr.forNewtype nt) isFunType
 
 -- | Typedef around function type indirection
 --
@@ -1024,7 +1022,6 @@ addressStubDecs info ty runnerNameSpec _spec = do
         foreignImport :: [Hs.Decl l]
         foreignImport =
             Hs.ForeignImport.foreignImportDec
-              env.sizeofs
               (Hs.ForeignImport.FunName stubSymbol)
               []
               (Hs.ForeignImport.FunRes stubImportType)

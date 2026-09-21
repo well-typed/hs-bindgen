@@ -13,6 +13,9 @@ hstypes:
       constructor: ParsedAndSelected1
       fields:
       - unwrapParsedAndSelected1
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits

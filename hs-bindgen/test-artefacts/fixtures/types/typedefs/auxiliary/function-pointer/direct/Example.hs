@@ -32,8 +32,8 @@ newtype T = T
 
 -- __unique:__ @toT@
 foreign import ccall safe "wrapper" hs_bindgen_b8534912f6256492_base ::
-     (BG.Int32 -> IO ())
-  -> IO (BG.FunPtr (BG.Int32 -> IO ()))
+     (BG.CInt -> IO ())
+  -> IO (BG.FunPtr (BG.CInt -> IO ()))
 
 -- __unique:__ @toT@
 hs_bindgen_b8534912f6256492 ::
@@ -46,8 +46,8 @@ hs_bindgen_b8534912f6256492 =
 
 -- __unique:__ @fromT@
 foreign import ccall safe "dynamic" hs_bindgen_8f830eadb43a6fe4_base ::
-     BG.FunPtr (BG.Int32 -> IO ())
-  -> BG.Int32 -> IO ()
+     BG.FunPtr (BG.CInt -> IO ())
+  -> BG.CInt -> IO ()
 
 -- __unique:__ @fromT@
 hs_bindgen_8f830eadb43a6fe4 ::

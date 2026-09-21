@@ -13,6 +13,9 @@ hstypes:
       constructor: Stdlib_CBool
       fields:
       - unwrapStdlib_CBool
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CBool
   instances:
   - Bitfield
   - Bits

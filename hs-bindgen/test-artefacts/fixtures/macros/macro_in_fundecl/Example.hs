@@ -246,8 +246,8 @@ instance HasCField.HasCField S "unwrapS" where
 
 -- __unique:__ @instance ToFunPtr (BG.CShort -> IO I)@
 foreign import ccall safe "wrapper" hs_bindgen_03e9923d8d301cca_base ::
-     (BG.Int16 -> IO BG.Int32)
-  -> IO (BG.FunPtr (BG.Int16 -> IO BG.Int32))
+     (BG.CShort -> IO BG.CInt)
+  -> IO (BG.FunPtr (BG.CShort -> IO BG.CInt))
 
 -- __unique:__ @instance ToFunPtr (BG.CShort -> IO I)@
 hs_bindgen_03e9923d8d301cca ::
@@ -260,8 +260,8 @@ hs_bindgen_03e9923d8d301cca =
 
 -- __unique:__ @instance FromFunPtr (BG.CShort -> IO I)@
 foreign import ccall safe "dynamic" hs_bindgen_ee10a61bcb1a5d39_base ::
-     BG.FunPtr (BG.Int16 -> IO BG.Int32)
-  -> BG.Int16 -> IO BG.Int32
+     BG.FunPtr (BG.CShort -> IO BG.CInt)
+  -> BG.CShort -> IO BG.CInt
 
 -- __unique:__ @instance FromFunPtr (BG.CShort -> IO I)@
 hs_bindgen_ee10a61bcb1a5d39 ::
@@ -282,8 +282,8 @@ instance BG.FromFunPtr (BG.CShort -> IO I) where
 
 -- __unique:__ @instance ToFunPtr (S -> IO BG.CInt)@
 foreign import ccall safe "wrapper" hs_bindgen_140ec1313a27c405_base ::
-     (BG.Int16 -> IO BG.Int32)
-  -> IO (BG.FunPtr (BG.Int16 -> IO BG.Int32))
+     (BG.CShort -> IO BG.CInt)
+  -> IO (BG.FunPtr (BG.CShort -> IO BG.CInt))
 
 -- __unique:__ @instance ToFunPtr (S -> IO BG.CInt)@
 hs_bindgen_140ec1313a27c405 ::
@@ -296,8 +296,8 @@ hs_bindgen_140ec1313a27c405 =
 
 -- __unique:__ @instance FromFunPtr (S -> IO BG.CInt)@
 foreign import ccall safe "dynamic" hs_bindgen_e86a5fa3f995e6fb_base ::
-     BG.FunPtr (BG.Int16 -> IO BG.Int32)
-  -> BG.Int16 -> IO BG.Int32
+     BG.FunPtr (BG.CShort -> IO BG.CInt)
+  -> BG.CShort -> IO BG.CInt
 
 -- __unique:__ @instance FromFunPtr (S -> IO BG.CInt)@
 hs_bindgen_e86a5fa3f995e6fb ::

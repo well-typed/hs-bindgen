@@ -74,6 +74,9 @@ hstypes:
       constructor: MyFunctionPointer
       fields:
       - unwrapMyFunctionPointer
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic

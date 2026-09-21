@@ -36,6 +36,9 @@ hstypes:
       constructor: FunPtr
       fields:
       - unwrapFunPtr
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic

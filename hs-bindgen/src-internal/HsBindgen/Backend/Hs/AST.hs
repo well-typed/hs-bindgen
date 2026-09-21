@@ -102,6 +102,7 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
+import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
@@ -150,6 +151,7 @@ data EmptyData = EmptyData{
 data Newtype = Newtype{
       name      :: Hs.Name Hs.NsTypeConstr
     , constr    :: Hs.Name Hs.NsConstr
+    , ffiType   :: Maybe BindingSpec.HsFFIType
     , field     :: Field
     , origin    :: Origin.Decl Origin.Newtype
     , instances :: Set Inst.TypeClass
@@ -159,8 +161,8 @@ data Newtype = Newtype{
 
 data ForeignImportDecl = ForeignImportDecl{
       name       :: Hs.TermName
-    , parameters :: [FunctionParameter]
-    , result     :: Hs.Type
+    , parameters :: [FunctionParameter Hs.FFIType]
+    , result     :: Hs.FFIResType
     , origName   :: C.DeclName
     , callConv   :: CallConv
     , origin     :: Origin.ForeignImport
@@ -169,15 +171,15 @@ data ForeignImportDecl = ForeignImportDecl{
     }
   deriving stock (Generic, Show)
 
-data FunctionParameter = FunctionParameter{
-      typ     :: Hs.Type
+data FunctionParameter t = FunctionParameter{
+      typ     :: t
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 
 data FunctionDecl = FunctionDecl{
       name       :: Hs.TermName
-    , parameters :: [FunctionParameter]
+    , parameters :: [FunctionParameter Hs.Type]
     , result     :: Hs.Type
     , body       :: SHs.ClosedExpr
     , origin     :: Origin.ForeignImport
@@ -362,7 +364,7 @@ data ToFunPtrInstance = ToFunPtrInstance{
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1620008.5.1>
 data ForeignImportWrapper = ForeignImportWrapper {
       name    :: UniqueSymbol
-    , funType :: Hs.Type
+    , funType :: Hs.FFIFunType
     , origin  :: Origin.ForeignImport
     , comment :: Maybe HsDoc.Comment
     }
@@ -388,7 +390,7 @@ data FromFunPtrInstance = FromFunPtrInstance{
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1620008.5.1>
 data ForeignImportDynamic = ForeignImportDynamic {
       name    :: UniqueSymbol
-    , funType :: Hs.Type
+    , funType :: Hs.FFIFunType
     , origin  :: Origin.ForeignImport
     , comment :: Maybe HsDoc.Comment
     }

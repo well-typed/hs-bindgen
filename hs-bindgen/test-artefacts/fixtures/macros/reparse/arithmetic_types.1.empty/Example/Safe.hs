@@ -210,8 +210,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f1@
 foreign import ccall safe "hs_bindgen_7e7e01d691b1fb2a" hs_bindgen_7e7e01d691b1fb2a_base ::
-     BG.Int8
-  -> IO BG.Int32
+     BG.CChar
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f1@
 hs_bindgen_7e7e01d691b1fb2a ::
@@ -235,8 +235,8 @@ f1 = hs_bindgen_7e7e01d691b1fb2a
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f2@
 foreign import ccall safe "hs_bindgen_91658d4948bcfe06" hs_bindgen_91658d4948bcfe06_base ::
-     BG.Int8
-  -> IO BG.Int32
+     BG.CSChar
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f2@
 hs_bindgen_91658d4948bcfe06 ::
@@ -260,8 +260,8 @@ f2 = hs_bindgen_91658d4948bcfe06
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f3@
 foreign import ccall safe "hs_bindgen_40fb57deec0c99d6" hs_bindgen_40fb57deec0c99d6_base ::
-     BG.Word8
-  -> IO BG.Int32
+     BG.CUChar
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f3@
 hs_bindgen_40fb57deec0c99d6 ::
@@ -285,8 +285,8 @@ f3 = hs_bindgen_40fb57deec0c99d6
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f4@
 foreign import ccall safe "hs_bindgen_d454dc277e0cb86b" hs_bindgen_d454dc277e0cb86b_base ::
-     BG.Int16
-  -> IO BG.Int32
+     BG.CShort
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f4@
 hs_bindgen_d454dc277e0cb86b ::
@@ -310,8 +310,8 @@ f4 = hs_bindgen_d454dc277e0cb86b
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f5@
 foreign import ccall safe "hs_bindgen_446e834618998df2" hs_bindgen_446e834618998df2_base ::
-     BG.Int16
-  -> IO BG.Int32
+     BG.CShort
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f5@
 hs_bindgen_446e834618998df2 ::
@@ -335,8 +335,8 @@ f5 = hs_bindgen_446e834618998df2
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f6@
 foreign import ccall safe "hs_bindgen_267cc7905b42c66c" hs_bindgen_267cc7905b42c66c_base ::
-     BG.Int16
-  -> IO BG.Int32
+     BG.CShort
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f6@
 hs_bindgen_267cc7905b42c66c ::
@@ -360,8 +360,8 @@ f6 = hs_bindgen_267cc7905b42c66c
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f7@
 foreign import ccall safe "hs_bindgen_e9eef0af846987d5" hs_bindgen_e9eef0af846987d5_base ::
-     BG.Int16
-  -> IO BG.Int32
+     BG.CShort
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f7@
 hs_bindgen_e9eef0af846987d5 ::
@@ -385,8 +385,8 @@ f7 = hs_bindgen_e9eef0af846987d5
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f8@
 foreign import ccall safe "hs_bindgen_926fbc7f9888d375" hs_bindgen_926fbc7f9888d375_base ::
-     BG.Word16
-  -> IO BG.Int32
+     BG.CUShort
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f8@
 hs_bindgen_926fbc7f9888d375 ::
@@ -410,8 +410,8 @@ f8 = hs_bindgen_926fbc7f9888d375
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f9@
 foreign import ccall safe "hs_bindgen_ec8aef57bd8d53bc" hs_bindgen_ec8aef57bd8d53bc_base ::
-     BG.Word16
-  -> IO BG.Int32
+     BG.CUShort
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f9@
 hs_bindgen_ec8aef57bd8d53bc ::
@@ -435,8 +435,8 @@ f9 = hs_bindgen_ec8aef57bd8d53bc
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f10@
 foreign import ccall safe "hs_bindgen_d0045e58c2a6f1c4" hs_bindgen_d0045e58c2a6f1c4_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f10@
 hs_bindgen_d0045e58c2a6f1c4 ::
@@ -460,8 +460,8 @@ f10 = hs_bindgen_d0045e58c2a6f1c4
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f11@
 foreign import ccall safe "hs_bindgen_928bc5a3801d9fba" hs_bindgen_928bc5a3801d9fba_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f11@
 hs_bindgen_928bc5a3801d9fba ::
@@ -485,8 +485,8 @@ f11 = hs_bindgen_928bc5a3801d9fba
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f12@
 foreign import ccall safe "hs_bindgen_0efc218270b00ee6" hs_bindgen_0efc218270b00ee6_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f12@
 hs_bindgen_0efc218270b00ee6 ::
@@ -510,8 +510,8 @@ f12 = hs_bindgen_0efc218270b00ee6
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f13@
 foreign import ccall safe "hs_bindgen_403a8a02a230ce24" hs_bindgen_403a8a02a230ce24_base ::
-     BG.Word32
-  -> IO BG.Int32
+     BG.CUInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f13@
 hs_bindgen_403a8a02a230ce24 ::
@@ -535,8 +535,8 @@ f13 = hs_bindgen_403a8a02a230ce24
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f14@
 foreign import ccall safe "hs_bindgen_9371cd597ae3022d" hs_bindgen_9371cd597ae3022d_base ::
-     BG.Word32
-  -> IO BG.Int32
+     BG.CUInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f14@
 hs_bindgen_9371cd597ae3022d ::
@@ -560,8 +560,8 @@ f14 = hs_bindgen_9371cd597ae3022d
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f15@
 foreign import ccall safe "hs_bindgen_f07c6429182c10c0" hs_bindgen_f07c6429182c10c0_base ::
-     BG.Int64
-  -> IO BG.Int32
+     BG.CLong
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f15@
 hs_bindgen_f07c6429182c10c0 ::
@@ -585,8 +585,8 @@ f15 = hs_bindgen_f07c6429182c10c0
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f16@
 foreign import ccall safe "hs_bindgen_6af229e466926ec5" hs_bindgen_6af229e466926ec5_base ::
-     BG.Int64
-  -> IO BG.Int32
+     BG.CLong
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f16@
 hs_bindgen_6af229e466926ec5 ::
@@ -610,8 +610,8 @@ f16 = hs_bindgen_6af229e466926ec5
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f17@
 foreign import ccall safe "hs_bindgen_0bc846cbecfd41ba" hs_bindgen_0bc846cbecfd41ba_base ::
-     BG.Int64
-  -> IO BG.Int32
+     BG.CLong
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f17@
 hs_bindgen_0bc846cbecfd41ba ::
@@ -635,8 +635,8 @@ f17 = hs_bindgen_0bc846cbecfd41ba
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f18@
 foreign import ccall safe "hs_bindgen_0985403200f5a9de" hs_bindgen_0985403200f5a9de_base ::
-     BG.Int64
-  -> IO BG.Int32
+     BG.CLong
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f18@
 hs_bindgen_0985403200f5a9de ::
@@ -660,8 +660,8 @@ f18 = hs_bindgen_0985403200f5a9de
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f19@
 foreign import ccall safe "hs_bindgen_91ef2c8f3da40e3c" hs_bindgen_91ef2c8f3da40e3c_base ::
-     BG.Word64
-  -> IO BG.Int32
+     BG.CULong
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f19@
 hs_bindgen_91ef2c8f3da40e3c ::
@@ -685,8 +685,8 @@ f19 = hs_bindgen_91ef2c8f3da40e3c
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f20@
 foreign import ccall safe "hs_bindgen_39b524909ca528b5" hs_bindgen_39b524909ca528b5_base ::
-     BG.Word64
-  -> IO BG.Int32
+     BG.CULong
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f20@
 hs_bindgen_39b524909ca528b5 ::
@@ -710,8 +710,8 @@ f20 = hs_bindgen_39b524909ca528b5
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f21@
 foreign import ccall safe "hs_bindgen_efa4b421b2928f1e" hs_bindgen_efa4b421b2928f1e_base ::
-     BG.Int64
-  -> IO BG.Int32
+     BG.CLLong
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f21@
 hs_bindgen_efa4b421b2928f1e ::
@@ -735,8 +735,8 @@ f21 = hs_bindgen_efa4b421b2928f1e
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f22@
 foreign import ccall safe "hs_bindgen_881c4734d1b436b5" hs_bindgen_881c4734d1b436b5_base ::
-     BG.Int64
-  -> IO BG.Int32
+     BG.CLLong
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f22@
 hs_bindgen_881c4734d1b436b5 ::
@@ -760,8 +760,8 @@ f22 = hs_bindgen_881c4734d1b436b5
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f23@
 foreign import ccall safe "hs_bindgen_0ed2a5cf6068b35a" hs_bindgen_0ed2a5cf6068b35a_base ::
-     BG.Int64
-  -> IO BG.Int32
+     BG.CLLong
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f23@
 hs_bindgen_0ed2a5cf6068b35a ::
@@ -785,8 +785,8 @@ f23 = hs_bindgen_0ed2a5cf6068b35a
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f24@
 foreign import ccall safe "hs_bindgen_157ff76d8f7857e2" hs_bindgen_157ff76d8f7857e2_base ::
-     BG.Int64
-  -> IO BG.Int32
+     BG.CLLong
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f24@
 hs_bindgen_157ff76d8f7857e2 ::
@@ -810,8 +810,8 @@ f24 = hs_bindgen_157ff76d8f7857e2
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f25@
 foreign import ccall safe "hs_bindgen_6046e1b60a2bdbda" hs_bindgen_6046e1b60a2bdbda_base ::
-     BG.Word64
-  -> IO BG.Int32
+     BG.CULLong
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f25@
 hs_bindgen_6046e1b60a2bdbda ::
@@ -835,8 +835,8 @@ f25 = hs_bindgen_6046e1b60a2bdbda
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f26@
 foreign import ccall safe "hs_bindgen_3f072797069fc217" hs_bindgen_3f072797069fc217_base ::
-     BG.Word64
-  -> IO BG.Int32
+     BG.CULLong
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f26@
 hs_bindgen_3f072797069fc217 ::
@@ -860,8 +860,8 @@ f26 = hs_bindgen_3f072797069fc217
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f27@
 foreign import ccall safe "hs_bindgen_4da0472b80930fbf" hs_bindgen_4da0472b80930fbf_base ::
-     Float
-  -> IO BG.Int32
+     BG.CFloat
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f27@
 hs_bindgen_4da0472b80930fbf ::
@@ -885,8 +885,8 @@ f27 = hs_bindgen_4da0472b80930fbf
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f28@
 foreign import ccall safe "hs_bindgen_98b4d9dc27aecea0" hs_bindgen_98b4d9dc27aecea0_base ::
-     Double
-  -> IO BG.Int32
+     BG.CDouble
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsearithmetic_type_Example_Safe_f28@
 hs_bindgen_98b4d9dc27aecea0 ::

@@ -58,7 +58,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_0e6b98e93cad73ef" hs_bindgen_0e6b98e93cad73ef_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
@@ -83,7 +83,7 @@ foo = hs_bindgen_0e6b98e93cad73ef
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_1c6de1b89014dc52" hs_bindgen_1c6de1b89014dc52_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
@@ -108,7 +108,7 @@ fooA = hs_bindgen_1c6de1b89014dc52
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_a8e579f3b5035c03" hs_bindgen_a8e579f3b5035c03_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
@@ -133,7 +133,7 @@ fooB = hs_bindgen_a8e579f3b5035c03
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooC@
 foreign import ccall unsafe "hs_bindgen_00ad8122da6609fc" hs_bindgen_00ad8122da6609fc_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooC@
@@ -158,7 +158,7 @@ fooC = hs_bindgen_00ad8122da6609fc
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooD@
 foreign import ccall unsafe "hs_bindgen_2be41098f80a9019" hs_bindgen_2be41098f80a9019_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooD@
@@ -183,7 +183,7 @@ fooD = hs_bindgen_2be41098f80a9019
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooE@
 foreign import ccall unsafe "hs_bindgen_07241b4b6cbf2991" hs_bindgen_07241b4b6cbf2991_base ::
-     BG.Word32
+     BG.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooE@

@@ -54,7 +54,7 @@ instance HasCField T "unwrapT"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_macrosundef_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_2a245181e5fb1e1c" hs_bindgen_2a245181e5fb1e1c_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosundef_Example_Safe_foo@
 hs_bindgen_2a245181e5fb1e1c :: T -> IO ()
@@ -76,7 +76,7 @@ foo_safe :: T -> IO ()
 foo_safe = hs_bindgen_2a245181e5fb1e1c
 -- __unique:__ @test_macrosundef_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_d73ff9e79242e63c" hs_bindgen_d73ff9e79242e63c_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosundef_Example_Unsafe_foo@
 hs_bindgen_d73ff9e79242e63c :: T -> IO ()

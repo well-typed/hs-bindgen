@@ -800,8 +800,10 @@ newtype Callback_t_Aux
     deriving stock Generic
 -- __unique:__ @toCallback_t_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658_base ::
-    Ptr Void -> Word32 -> IO Word32
- -> IO (FunPtr (Ptr Void -> Word32 -> IO Word32))
+    Ptr Void ->
+    HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32
+ -> IO (FunPtr (Ptr Void ->
+                HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32))
 -- __unique:__ @toCallback_t_Aux@
 hs_bindgen_b6b6922e35047658 :: Callback_t_Aux ->
                                IO (FunPtr Callback_t_Aux)
@@ -809,10 +811,11 @@ hs_bindgen_b6b6922e35047658 :: Callback_t_Aux ->
 hs_bindgen_b6b6922e35047658 = \fun_0 -> fmap castFunPtr (hs_bindgen_b6b6922e35047658_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapCallback_t_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
 -- __unique:__ @fromCallback_t_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_d6debb4b8d5bb869_base ::
-    FunPtr (Ptr Void -> Word32 -> IO Word32)
+    FunPtr (Ptr Void ->
+            HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32)
  -> Ptr Void
- -> Word32
- -> IO Word32
+ -> HsBindgen.Runtime.LibC.Word32
+ -> IO HsBindgen.Runtime.LibC.Word32
 -- __unique:__ @fromCallback_t_Aux@
 hs_bindgen_d6debb4b8d5bb869 :: FunPtr Callback_t_Aux ->
                                Callback_t_Aux
@@ -869,9 +872,9 @@ instance HasCField Callback_t "unwrapCallback_t"
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
 foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" hs_bindgen_57cb99ed92c001ad_base ::
     Ptr Void
- -> Word32
+ -> HsBindgen.Runtime.LibC.Word32
  -> Ptr Void
- -> IO Int32
+ -> IO HsBindgen.Runtime.LibC.Int32
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
 hs_bindgen_57cb99ed92c001ad :: Ptr A_type_t ->
                                HsBindgen.Runtime.LibC.Word32 ->
@@ -899,9 +902,9 @@ some_fun_safe = hs_bindgen_57cb99ed92c001ad
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
 foreign import ccall unsafe "hs_bindgen_2a91c367a9380a63" hs_bindgen_2a91c367a9380a63_base ::
     Ptr Void
- -> Word32
+ -> HsBindgen.Runtime.LibC.Word32
  -> Ptr Void
- -> IO Int32
+ -> IO HsBindgen.Runtime.LibC.Int32
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
 hs_bindgen_2a91c367a9380a63 :: Ptr A_type_t ->
                                HsBindgen.Runtime.LibC.Word32 ->

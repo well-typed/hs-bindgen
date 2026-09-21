@@ -21,8 +21,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_documentationjavadoc_banner_Example_Safe_banner_double@
 foreign import ccall safe "hs_bindgen_7d3fd818d0780e11" hs_bindgen_7d3fd818d0780e11_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_documentationjavadoc_banner_Example_Safe_banner_double@
 hs_bindgen_7d3fd818d0780e11 ::

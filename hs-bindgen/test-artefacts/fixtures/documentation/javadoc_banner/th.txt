@@ -81,8 +81,8 @@ instance HasCField Banner_point "banner_point_y"
           offset# = \_ -> \_ -> 4
 -- __unique:__ @test_documentationjavadoc_banner_Example_Safe_banner_double@
 foreign import ccall safe "hs_bindgen_7d3fd818d0780e11" hs_bindgen_7d3fd818d0780e11_base ::
-    Int32
- -> IO Int32
+    CInt
+ -> IO CInt
 -- __unique:__ @test_documentationjavadoc_banner_Example_Safe_banner_double@
 hs_bindgen_7d3fd818d0780e11 :: CInt -> IO CInt
 -- __unique:__ @test_documentationjavadoc_banner_Example_Safe_banner_double@
@@ -119,8 +119,8 @@ banner_double_safe :: CInt -> IO CInt
 banner_double_safe = hs_bindgen_7d3fd818d0780e11
 -- __unique:__ @test_documentationjavadoc_banner_Example_Unsafe_banner_double@
 foreign import ccall unsafe "hs_bindgen_3d6508e65f7dad3c" hs_bindgen_3d6508e65f7dad3c_base ::
-    Int32
- -> IO Int32
+    CInt
+ -> IO CInt
 -- __unique:__ @test_documentationjavadoc_banner_Example_Unsafe_banner_double@
 hs_bindgen_3d6508e65f7dad3c :: CInt -> IO CInt
 -- __unique:__ @test_documentationjavadoc_banner_Example_Unsafe_banner_double@

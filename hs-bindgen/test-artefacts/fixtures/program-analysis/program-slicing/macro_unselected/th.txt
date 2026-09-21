@@ -55,7 +55,7 @@ instance HasCField U "unwrapU"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_ef8f97cf27661c20" hs_bindgen_ef8f97cf27661c20_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_bar@
 hs_bindgen_ef8f97cf27661c20 :: U -> IO ()
@@ -77,7 +77,7 @@ bar_safe :: U -> IO ()
 bar_safe = hs_bindgen_ef8f97cf27661c20
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_401f15168ffec8ae" hs_bindgen_401f15168ffec8ae_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
 hs_bindgen_401f15168ffec8ae :: U -> IO ()

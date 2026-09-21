@@ -89,8 +89,8 @@ instance HasCField Bool' "unwrapBool'"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_typesprimitivesbool_typedef__Example_Safe_f@
 foreign import ccall safe "hs_bindgen_ea0e9b7fd1e9560c" hs_bindgen_ea0e9b7fd1e9560c_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
  -> IO ()
 -- __unique:__ @test_typesprimitivesbool_typedef__Example_Safe_f@
 hs_bindgen_ea0e9b7fd1e9560c :: A -> Bool' -> IO ()
@@ -112,8 +112,8 @@ f_safe :: A -> Bool' -> IO ()
 f_safe = hs_bindgen_ea0e9b7fd1e9560c
 -- __unique:__ @test_typesprimitivesbool_typedef__Example_Unsafe_f@
 foreign import ccall unsafe "hs_bindgen_1ab53e827ec0c8e2" hs_bindgen_1ab53e827ec0c8e2_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
  -> IO ()
 -- __unique:__ @test_typesprimitivesbool_typedef__Example_Unsafe_f@
 hs_bindgen_1ab53e827ec0c8e2 :: A -> Bool' -> IO ()

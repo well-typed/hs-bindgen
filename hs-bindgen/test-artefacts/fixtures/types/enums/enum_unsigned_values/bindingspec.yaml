@@ -17,6 +17,9 @@ hstypes:
       constructor: Uint8_enum
       fields:
       - unwrapUint8_enum
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Word8
   instances:
   - CEnum
   - Eq

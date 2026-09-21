@@ -29,8 +29,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Safe_hash_defines_feature@
 foreign import ccall safe "hs_bindgen_6aab0c8e3c921393" hs_bindgen_6aab0c8e3c921393_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Safe_hash_defines_feature@
 hs_bindgen_6aab0c8e3c921393 ::
@@ -54,7 +54,7 @@ hash_defines_feature = hs_bindgen_6aab0c8e3c921393
 
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Safe_hash_defines_empty@
 foreign import ccall safe "hs_bindgen_af6bf91e93f5ed0c" hs_bindgen_af6bf91e93f5ed0c_base ::
-     IO BG.Int32
+     IO BG.CInt
 
 -- __unique:__ @test_functionshash_defines_1_selec_Example_Safe_hash_defines_empty@
 hs_bindgen_af6bf91e93f5ed0c :: IO BG.CInt

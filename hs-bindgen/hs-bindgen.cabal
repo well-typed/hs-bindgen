@@ -151,7 +151,6 @@ library internal
     HsBindgen.Clang.Discover
     HsBindgen.Clang.ExtraClangArgs
     HsBindgen.Clang.Macos
-    HsBindgen.Clang.Sizeof
     HsBindgen.Clang.Tokens
     HsBindgen.Config.ClangArgs
     HsBindgen.Config.Internal

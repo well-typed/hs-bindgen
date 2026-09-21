@@ -71,6 +71,9 @@ hstypes:
       constructor: Boolean_T
       fields:
       - unwrapBoolean_T
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUChar
   instances:
   - Bitfield
   - Bits
@@ -102,6 +105,9 @@ hstypes:
       constructor: MTy
       fields:
       - unwrapMTy
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CFloat
   instances:
   - Enum
   - Eq
@@ -131,6 +137,9 @@ hstypes:
       constructor: PtrInt
       fields:
       - unwrapPtrInt
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -151,6 +160,9 @@ hstypes:
       constructor: PtrPtrChar
       fields:
       - unwrapPtrPtrChar
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -171,6 +183,9 @@ hstypes:
       constructor: ShortInt
       fields:
       - unwrapShortInt
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CShort
   instances:
   - Bitfield
   - Bits
@@ -202,6 +217,9 @@ hstypes:
       constructor: SignedShortInt
       fields:
       - unwrapSignedShortInt
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CShort
   instances:
   - Bitfield
   - Bits
@@ -233,6 +251,9 @@ hstypes:
       constructor: Tty
       fields:
       - unwrapTty
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CFloat
   instances:
   - Enum
   - Eq
@@ -262,6 +283,9 @@ hstypes:
       constructor: UINT8_T
       fields:
       - unwrapUINT8_T
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUChar
   instances:
   - Bitfield
   - Bits
@@ -293,6 +317,9 @@ hstypes:
       constructor: UnsignedShortInt
       fields:
       - unwrapUnsignedShortInt
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUShort
   instances:
   - Bitfield
   - Bits

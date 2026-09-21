@@ -49,8 +49,8 @@ newtype F1_Aux = F1_Aux
 
 -- __unique:__ @toF1_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_00d16e666202ed6c_base ::
-     (BG.Int32 -> BG.Int32 -> IO ())
-  -> IO (BG.FunPtr (BG.Int32 -> BG.Int32 -> IO ()))
+     (BG.CInt -> BG.CInt -> IO ())
+  -> IO (BG.FunPtr (BG.CInt -> BG.CInt -> IO ()))
 
 -- __unique:__ @toF1_Aux@
 hs_bindgen_00d16e666202ed6c ::
@@ -64,8 +64,8 @@ hs_bindgen_00d16e666202ed6c =
 
 -- __unique:__ @fromF1_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_ddeb5206e8192425_base ::
-     BG.FunPtr (BG.Int32 -> BG.Int32 -> IO ())
-  -> BG.Int32 -> BG.Int32 -> IO ()
+     BG.FunPtr (BG.CInt -> BG.CInt -> IO ())
+  -> BG.CInt -> BG.CInt -> IO ()
 
 -- __unique:__ @fromF1_Aux@
 hs_bindgen_ddeb5206e8192425 ::
@@ -158,8 +158,8 @@ newtype F2_Aux = F2_Aux
 
 -- __unique:__ @toF2_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_c39d7524b75b54e8_base ::
-     (BG.Int32 -> BG.Int32 -> IO ())
-  -> IO (BG.FunPtr (BG.Int32 -> BG.Int32 -> IO ()))
+     (BG.CInt -> BG.CInt -> IO ())
+  -> IO (BG.FunPtr (BG.CInt -> BG.CInt -> IO ()))
 
 -- __unique:__ @toF2_Aux@
 hs_bindgen_c39d7524b75b54e8 ::
@@ -173,8 +173,8 @@ hs_bindgen_c39d7524b75b54e8 =
 
 -- __unique:__ @fromF2_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_e15bcd26f1ed1df7_base ::
-     BG.FunPtr (BG.Int32 -> BG.Int32 -> IO ())
-  -> BG.Int32 -> BG.Int32 -> IO ()
+     BG.FunPtr (BG.CInt -> BG.CInt -> IO ())
+  -> BG.CInt -> BG.CInt -> IO ()
 
 -- __unique:__ @fromF2_Aux@
 hs_bindgen_e15bcd26f1ed1df7 ::
@@ -268,8 +268,8 @@ newtype F3_Aux = F3_Aux
 
 -- __unique:__ @toF3_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_4a960721e7d1dcef_base ::
-     (BG.Int32 -> BG.Int32 -> IO ())
-  -> IO (BG.FunPtr (BG.Int32 -> BG.Int32 -> IO ()))
+     (BG.CInt -> BG.CInt -> IO ())
+  -> IO (BG.FunPtr (BG.CInt -> BG.CInt -> IO ()))
 
 -- __unique:__ @toF3_Aux@
 hs_bindgen_4a960721e7d1dcef ::
@@ -283,8 +283,8 @@ hs_bindgen_4a960721e7d1dcef =
 
 -- __unique:__ @fromF3_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_66460422a7197535_base ::
-     BG.FunPtr (BG.Int32 -> BG.Int32 -> IO ())
-  -> BG.Int32 -> BG.Int32 -> IO ()
+     BG.FunPtr (BG.CInt -> BG.CInt -> IO ())
+  -> BG.CInt -> BG.CInt -> IO ()
 
 -- __unique:__ @fromF3_Aux@
 hs_bindgen_66460422a7197535 ::
@@ -378,8 +378,8 @@ newtype F4_Aux = F4_Aux
 
 -- __unique:__ @toF4_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_83bcff023b3bc648_base ::
-     IO BG.Int32
-  -> IO (BG.FunPtr (IO BG.Int32))
+     IO BG.CInt
+  -> IO (BG.FunPtr (IO BG.CInt))
 
 -- __unique:__ @toF4_Aux@
 hs_bindgen_83bcff023b3bc648 ::
@@ -391,8 +391,8 @@ hs_bindgen_83bcff023b3bc648 =
 
 -- __unique:__ @fromF4_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_40f9a8d432b9eb97_base ::
-     BG.FunPtr (IO BG.Int32)
-  -> IO BG.Int32
+     BG.FunPtr (IO BG.CInt)
+  -> IO BG.CInt
 
 -- __unique:__ @fromF4_Aux@
 hs_bindgen_40f9a8d432b9eb97 ::
@@ -636,8 +636,8 @@ newtype F6_Aux = F6_Aux
 
 -- __unique:__ @toF6_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_c1baf73f98614f45_base ::
-     (BG.Int32 -> IO ())
-  -> IO (BG.FunPtr (BG.Int32 -> IO ()))
+     (BG.CInt -> IO ())
+  -> IO (BG.FunPtr (BG.CInt -> IO ()))
 
 -- __unique:__ @toF6_Aux@
 hs_bindgen_c1baf73f98614f45 ::
@@ -650,8 +650,8 @@ hs_bindgen_c1baf73f98614f45 =
 
 -- __unique:__ @fromF6_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_a887947b26e58f0c_base ::
-     BG.FunPtr (BG.Int32 -> IO ())
-  -> BG.Int32 -> IO ()
+     BG.FunPtr (BG.CInt -> IO ())
+  -> BG.CInt -> IO ()
 
 -- __unique:__ @fromF6_Aux@
 hs_bindgen_a887947b26e58f0c ::

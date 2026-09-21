@@ -36,7 +36,7 @@ b :: Raw String
 b = objectLike "B" ["A"]
 -- __unique:__ @test_macrosmacro_ext_binding_dep_2_Example_Safe_use_b@
 foreign import ccall safe "hs_bindgen_92afe64d8d8fc053" hs_bindgen_92afe64d8d8fc053_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosmacro_ext_binding_dep_2_Example_Safe_use_b@
 hs_bindgen_92afe64d8d8fc053 :: M.A -> IO ()
@@ -58,7 +58,7 @@ use_b_safe :: M.A -> IO ()
 use_b_safe = hs_bindgen_92afe64d8d8fc053
 -- __unique:__ @test_macrosmacro_ext_binding_dep_2_Example_Unsafe_use_b@
 foreign import ccall unsafe "hs_bindgen_f1dab51ba21acc43" hs_bindgen_f1dab51ba21acc43_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosmacro_ext_binding_dep_2_Example_Unsafe_use_b@
 hs_bindgen_f1dab51ba21acc43 :: M.A -> IO ()

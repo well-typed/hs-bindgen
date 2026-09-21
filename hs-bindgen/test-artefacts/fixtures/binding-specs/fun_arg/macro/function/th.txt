@@ -257,17 +257,17 @@ newtype MyFunction
     deriving stock Generic
 -- __unique:__ @toMyFunction@
 foreign import ccall safe "wrapper" hs_bindgen_4e8a459829b269e0_base ::
-    Int32 -> IO Int32
- -> IO (FunPtr (Int32 -> IO Int32))
+    CInt -> IO CInt
+ -> IO (FunPtr (CInt -> IO CInt))
 -- __unique:__ @toMyFunction@
 hs_bindgen_4e8a459829b269e0 :: MyFunction -> IO (FunPtr MyFunction)
 -- __unique:__ @toMyFunction@
 hs_bindgen_4e8a459829b269e0 = \fun_0 -> fmap castFunPtr (hs_bindgen_4e8a459829b269e0_base (\x_1 -> fmap toFFIType (getField @"unwrapMyFunction" fun_0 (fromFFIType x_1))))
 -- __unique:__ @fromMyFunction@
 foreign import ccall safe "dynamic" hs_bindgen_bb71f7e730356103_base ::
-    FunPtr (Int32 -> IO Int32)
- -> Int32
- -> IO Int32
+    FunPtr (CInt -> IO CInt)
+ -> CInt
+ -> IO CInt
 -- __unique:__ @fromMyFunction@
 hs_bindgen_bb71f7e730356103 :: FunPtr MyFunction -> MyFunction
 -- __unique:__ @fromMyFunction@

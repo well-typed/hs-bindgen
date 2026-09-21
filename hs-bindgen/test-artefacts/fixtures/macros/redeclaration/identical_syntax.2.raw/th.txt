@@ -56,7 +56,7 @@ t :: Raw String
 t = objectLike "T" ["A"]
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_3a672aa51059499f" hs_bindgen_3a672aa51059499f_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_foo@
 hs_bindgen_3a672aa51059499f :: CInt -> IO ()
@@ -78,7 +78,7 @@ foo_safe :: CInt -> IO ()
 foo_safe = hs_bindgen_3a672aa51059499f
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_f6ce0c67437e90e7" hs_bindgen_f6ce0c67437e90e7_base ::
-    Int8
+    CChar
  -> IO ()
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_bar@
 hs_bindgen_f6ce0c67437e90e7 :: CChar -> IO ()
@@ -100,7 +100,7 @@ bar_safe :: CChar -> IO ()
 bar_safe = hs_bindgen_f6ce0c67437e90e7
 -- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_1f6a4a088740d7bc" hs_bindgen_1f6a4a088740d7bc_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_foo@
 hs_bindgen_1f6a4a088740d7bc :: CInt -> IO ()
@@ -122,7 +122,7 @@ foo_unsafe :: CInt -> IO ()
 foo_unsafe = hs_bindgen_1f6a4a088740d7bc
 -- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_69080a62615bc0d8" hs_bindgen_69080a62615bc0d8_base ::
-    Int8
+    CChar
  -> IO ()
 -- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_bar@
 hs_bindgen_69080a62615bc0d8 :: CChar -> IO ()

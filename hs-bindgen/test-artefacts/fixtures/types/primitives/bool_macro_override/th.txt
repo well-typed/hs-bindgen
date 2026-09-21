@@ -112,8 +112,8 @@ instance HasCField Bool' "unwrapBool'"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_f@
 foreign import ccall safe "hs_bindgen_fc2c0275afbb3c2e" hs_bindgen_fc2c0275afbb3c2e_base ::
-    Int32
- -> Word8
+    CInt
+ -> CBool
  -> IO ()
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_f@
 hs_bindgen_fc2c0275afbb3c2e :: A -> CBool -> IO ()
@@ -135,8 +135,8 @@ f_safe :: A -> CBool -> IO ()
 f_safe = hs_bindgen_fc2c0275afbb3c2e
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_g@
 foreign import ccall safe "hs_bindgen_d07d93e6b7330d03" hs_bindgen_d07d93e6b7330d03_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
  -> IO ()
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_g@
 hs_bindgen_d07d93e6b7330d03 :: A -> Bool' -> IO ()
@@ -158,8 +158,8 @@ g_safe :: A -> Bool' -> IO ()
 g_safe = hs_bindgen_d07d93e6b7330d03
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_f@
 foreign import ccall unsafe "hs_bindgen_c170f90cc5412c59" hs_bindgen_c170f90cc5412c59_base ::
-    Int32
- -> Word8
+    CInt
+ -> CBool
  -> IO ()
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_f@
 hs_bindgen_c170f90cc5412c59 :: A -> CBool -> IO ()
@@ -181,8 +181,8 @@ f_unsafe :: A -> CBool -> IO ()
 f_unsafe = hs_bindgen_c170f90cc5412c59
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_g@
 foreign import ccall unsafe "hs_bindgen_18fbcf94c0b76854" hs_bindgen_18fbcf94c0b76854_base ::
-    Int32
- -> Int32
+    CInt
+ -> CInt
  -> IO ()
 -- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_g@
 hs_bindgen_18fbcf94c0b76854 :: A -> Bool' -> IO ()
