@@ -68,10 +68,20 @@ instance IsTrace Level ZipError where
   getDefaultLogLevel = \case
       -- If zipping fails, then there might be a bug in the reparser
       --
-      -- TODO <https://github.com/well-typed/hs-bindgen/issues/2122>: the log
-      -- level for these two messages should be changed to @Bug@.
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/2122>
+      -- However, 'ZipSubTreesNotZipped' is emitted by the test suite. The
+      -- reason is that some Clang builtins arrive with erased @typedef@ nodes.
+      -- For example:
+      --
+      --     fread(void *restrict, size_t, size_t, FILE *restrict)
+      --
+      -- arrives as
+      --
+      --     * cursor type: "unsigned long (void *, unsigned long, unsigned long, FILE *)"
       ZipSubTreesNotZipped{} -> Info
-      ZipSubTreesNotEqual{}  -> Info
+      -- 'ZipSubTreesNotEqual' is not emitted by the test suite and already a
+      -- 'Bug' message.
+      ZipSubTreesNotEqual{}  -> Bug
       -- Sub-trees are useful for debugging
       ZipSubTreeLHS{}        -> Debug
       ZipSubTreeRHS{}        -> Debug
