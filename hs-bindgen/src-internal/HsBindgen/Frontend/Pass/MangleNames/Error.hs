@@ -102,7 +102,12 @@ instance PrettyForTrace MangleNamesCollisionError where
               , prettyForTrace x
               , ":"
               ]
-        in  PP.hang intro 2 $ PP.vcat $ map prettyForTrace xs
+        in PP.vcat [
+               PP.hang intro 2 $ PP.vcat $ map prettyForTrace xs
+            , "If a field name is colliding, try using"
+            , "- the option `--omit-field-prefixes` with hs-bindgen-cli;"
+            , "- the `FieldNamingStrategy` `OmitFieldPrefixes` in TH mode."
+            ]
       DetectClashesDuplicateFieldName x locs ->
         let intro = PP.hcat [
                 "Duplicate record field name "
