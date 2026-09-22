@@ -10,6 +10,7 @@
 
 cabal.project.local
 dist-newstyle/
+dist-newstyle-fast/
 .ghc.environment.*
 unversioned
 
