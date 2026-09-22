@@ -1,7 +1,25 @@
-{ mkDerivation, base, bytestring, c-expr-runtime, containers
-, debruijn, fetchgit, filepath, fin, indexed-traversable, lib
-, libclang-bindings, mtl, parsec, scientific, some, tasty
-, tasty-golden, tasty-hunit, text, vec
+{
+  mkDerivation,
+  base,
+  bytestring,
+  c-expr-runtime,
+  containers,
+  debruijn,
+  fetchgit,
+  filepath,
+  fin,
+  indexed-traversable,
+  lib,
+  libclang-bindings,
+  mtl,
+  parsec,
+  scientific,
+  some,
+  tasty,
+  tasty-golden,
+  tasty-hunit,
+  text,
+  vec,
 }:
 mkDerivation {
   pname = "c-expr-dsl";
@@ -15,13 +33,36 @@ mkDerivation {
   postUnpack = "sourceRoot+=/c-expr-dsl; echo source root reset to $sourceRoot";
   enableSeparateDataOutput = true;
   libraryHaskellDepends = [
-    base bytestring c-expr-runtime containers debruijn fin
-    indexed-traversable libclang-bindings mtl parsec scientific some
-    text vec
+    base
+    bytestring
+    c-expr-runtime
+    containers
+    debruijn
+    fin
+    indexed-traversable
+    libclang-bindings
+    mtl
+    parsec
+    scientific
+    some
+    text
+    vec
   ];
   testHaskellDepends = [
-    base bytestring c-expr-runtime containers debruijn filepath fin
-    libclang-bindings parsec tasty tasty-golden tasty-hunit text vec
+    base
+    bytestring
+    c-expr-runtime
+    containers
+    debruijn
+    filepath
+    fin
+    libclang-bindings
+    parsec
+    tasty
+    tasty-golden
+    tasty-hunit
+    text
+    vec
   ];
   description = "DSL for the language support by c-expr-runtime";
   license = lib.meta.getLicenseFromSpdxId "BSD-3-Clause";

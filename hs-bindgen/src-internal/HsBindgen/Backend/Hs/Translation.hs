@@ -233,15 +233,13 @@ opaqueDecs ::
   -> HsM [Hs.Decl l]
 opaqueDecs info spec mSize = do
     State.modify' $ #instanceMap %~ Map.insert name insts
-    env <- Reader.ask
-    let decl = mkDecl env
-    return $ decl : staticSizeDecls
+    return $ mkDecl : staticSizeDecls
   where
     name :: Hs.Name Hs.NsTypeConstr
     name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
 
-    mkDecl :: HsM.Env -> Hs.Decl l
-    mkDecl env = Hs.DeclEmpty Hs.EmptyData {
+    mkDecl :: Hs.Decl l
+    mkDecl = Hs.DeclEmpty Hs.EmptyData {
           name      = name
         , origin    = Origin.Decl{
               info = info
@@ -1138,7 +1136,6 @@ macroVarDecs ::
   -> TypecheckedMacroValue l Final
   -> HsM [Hs.Decl l]
 macroVarDecs info macroValue = do
-    env <- Reader.ask
     pure [
         Hs.DeclMacroValue $
           Hs.MacroValue
@@ -1161,11 +1158,10 @@ untaggedEnumConstantDecs ::
   -> C.UntaggedEnumConstant Final
   -> HsM [Hs.Decl l]
 untaggedEnumConstantDecs info enumConstant = do
-    env <- Reader.ask
-    pure $ aux env
+    pure aux
   where
-    aux :: HsM.Env -> [Hs.Decl l]
-    aux env =
+    aux :: [Hs.Decl l]
+    aux =
         let
           patSynName :: Hs.Name Hs.NsConstr
           patSynName =
