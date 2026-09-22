@@ -11,12 +11,11 @@ import Data.Text (Text)
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Runtime.Macro qualified as RawMacro
+import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Macro.Error
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Macro.Parse
-import HsBindgen.Macro.Syntax
 import HsBindgen.Macro.Type qualified as Macro
 
 data Raw
@@ -29,11 +28,10 @@ absurdVoidMacro m = case m of {}
 
 -- | A macro definition, untyped
 --
--- 'Macro.Parsed' is indexed by the /annotation/, whereas 'RawMacro.Raw' is
--- indexed by the /token representation/; this wrapper bridges the two. The
+-- 'Macro.Parsed' is indexed by the /annotation/. For 'Runtime.Macro.Raw', the
 -- annotation is a phantom: there is nothing in a raw macro to resolve.
 newtype ParsedMacro ann = ParsedMacro {
-      unwrap :: RawMacro.Raw Text
+      unwrap :: Runtime.Macro.Raw Text
     }
   deriving stock (Functor, Foldable, Traversable, Show, Eq)
 
@@ -46,8 +44,6 @@ instance Macro.HasTypes Raw where
   type TypecheckedValue Raw = ParsedMacro
 
 parseRaw ::
-     [Token TokenSpelling]
+     Runtime.Macro.Raw (Token TokenSpelling)
   -> Either MacroParseError (Macro.Unresolved Raw)
-parseRaw =
-      fmap (Macro.Unresolved . ParsedMacro . fmap spelling)
-    . splitMacro
+parseRaw = Right . Macro.Unresolved . ParsedMacro . fmap spelling

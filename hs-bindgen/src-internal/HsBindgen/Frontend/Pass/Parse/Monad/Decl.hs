@@ -12,6 +12,7 @@ module HsBindgen.Frontend.Pass.Parse.Monad.Decl (
     -- * Functionality
     -- ** "Reader"
   , getTranslationUnit
+  , getEmptyMacros
   , evalGetMainHeadersAndInclude
     -- ** "State"
   , recordMacroDefinitionAt
@@ -33,7 +34,7 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 
-import HsBindgen.Runtime.Macro qualified as RawMacro
+import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Eff
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
@@ -87,11 +88,15 @@ run env f = do
 data Env = Env {
       unit                     :: CXTranslationUnit
     , getMainHeadersAndInclude :: GetMainHeadersAndInclude
+    , emptyMacros              :: EmptyMacros
     , tracer                   :: Tracer (Msg Parse)
     }
 
 getTranslationUnit :: ParseDecl CXTranslationUnit
 getTranslationUnit = wrapEff $ \support -> return support.env.unit
+
+getEmptyMacros :: ParseDecl EmptyMacros
+getEmptyMacros = wrapEff $ \support -> return support.env.emptyMacros
 
 evalGetMainHeadersAndInclude ::
      SourcePath
@@ -135,16 +140,16 @@ modifyParseState f = wrapEff $ \support -> modifyIORef support.state f
 recordMacroDefinitionAt ::
      Text
   -> Range MultiLoc
-  -> Either MacroParseError (RawMacro.Raw (Token TokenSpelling))
+  -> Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
   -> ParseDecl ()
 recordMacroDefinitionAt macroName locRange macro =
     modifyParseState $ #macroDefinitions %~ (macroDefinition:)
   where
     macroDefinition :: MacroDefinition
     macroDefinition = MacroDefinition {
-          name = macroName
+          name     = macroName
         , locRange = locRange
-        , macro = macro
+        , macro    = macro
         }
 
 getMacroDefinitions :: ParseDecl [MacroDefinition]

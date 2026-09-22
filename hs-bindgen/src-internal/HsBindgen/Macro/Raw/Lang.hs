@@ -5,7 +5,7 @@ module HsBindgen.Macro.Raw.Lang (
 import Data.Map qualified as Map
 import Data.Text qualified as Text
 
-import HsBindgen.Runtime.Macro qualified as RawMacro
+import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
@@ -46,7 +46,7 @@ translateRaw name parsedMacro mDoc = Binding{
     , comment    = mDoc
     }
   where
-    macro :: RawMacro.Raw Text
+    macro :: Runtime.Macro.Raw Text
     macro = parsedMacro.unwrap
 
     -- @Macro.Raw Text@
@@ -58,13 +58,13 @@ translateRaw name parsedMacro mDoc = Binding{
 
     rawMacroE :: SHs.ClosedExpr
     rawMacroE = case macro.params of
-        RawMacro.NoParams ->
+        Runtime.Macro.NoParams ->
           applyTo Macro_objectLike [nameE, bodyE]
-        RawMacro.Params names RawMacro.NotVariadic ->
+        Runtime.Macro.Params names Runtime.Macro.NotVariadic ->
           applyTo Macro_functionLike [nameE, stringsE names, bodyE]
-        RawMacro.Params names RawMacro.Ellipsis ->
+        Runtime.Macro.Params names Runtime.Macro.Ellipsis ->
           applyTo Macro_variadicFunctionLike [nameE, stringsE names, bodyE]
-        RawMacro.Params names (RawMacro.NamedEllipsis ellipsisName) ->
+        Runtime.Macro.Params names (Runtime.Macro.NamedEllipsis ellipsisName) ->
           applyTo Macro_namedVariadicFunctionLike
             [nameE, stringsE names, stringE ellipsisName, bodyE]
 

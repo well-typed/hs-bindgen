@@ -281,6 +281,7 @@ runFrontend tracer config boot = do
             parseEnv = ParseDecl.Env{
                 unit                     = unit
               , getMainHeadersAndInclude = getMainHeadersAndInclude
+              , emptyMacros              = config.emptyMacros
               , tracer                   = contramap FrontendParse tracer
               }
         (parseResults, macroDefinitions) <- parseDecls macroLang parseEnv

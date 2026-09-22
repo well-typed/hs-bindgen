@@ -10,7 +10,7 @@ import Data.Text qualified as Text
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, assertFailure, testCase, (@=?))
 
-import HsBindgen.Runtime.Macro qualified as RawMacro
+import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Macro.Error (MacroParseError (..))
 import HsBindgen.Macro.Parse (spelling)
@@ -27,58 +27,66 @@ tests = testGroup "Test.HsBindgen.Macro.Syntax" [
       testGroup "splitMacro" [
           testGroup "object-like" [
               testCase "#define FOO 1" $
-                splitsTo (RawMacro.objectLike "FOO" ["1"]) [
+                splitsTo (Runtime.Macro.objectLike "FOO" ["1"]) [
                     ident "FOO", spc, lit "1"
                   ]
             , testCase "#define FOO" $
-                splitsTo (RawMacro.objectLike "FOO" []) [
+                splitsTo (Runtime.Macro.objectLike "FOO" []) [
                     ident "FOO"
                   ]
               -- White space before the @(@ makes this object-like, with the
               -- parentheses part of the body; see #1903.
             , testCase "#define FOO (1)" $
-                splitsTo (RawMacro.objectLike "FOO" ["(", "1", ")"]) [
+                splitsTo (Runtime.Macro.objectLike "FOO" ["(", "1", ")"]) [
                     ident "FOO", spc, punc "(", lit "1", punc ")"
                   ]
             ]
         , testGroup "function-like" [
               testCase "#define ADD(x, y) x + y" $
-                splitsTo (RawMacro.functionLike "ADD" ["x", "y"] ["x", "+", "y"]) [
+                splitsTo (Runtime.Macro.functionLike "ADD" ["x", "y"] ["x", "+", "y"]) [
                     ident "ADD", punc "(", ident "x", punc ",", spc, ident "y", punc ")"
                   , spc, ident "x", spc, punc "+", spc, ident "y"
                   ]
               -- Distinct from the object-like @#define NOW 0@: the empty
-              -- parameter list is 'RawMacro.Params' @[] False@, not
-              -- 'RawMacro.NoParams'.
+              -- parameter list is 'Runtime.Macro.Params' @[] False@, not
+              -- 'Runtime.Macro.NoParams'.
             , testCase "#define NOW() 0" $
-                splitsTo (RawMacro.functionLike "NOW" [] ["0"]) [
+                splitsTo (Runtime.Macro.functionLike "NOW" [] ["0"]) [
                     ident "NOW", punc "(", punc ")", spc, lit "0"
                   ]
             , testCase "#define IGNORE(x)" $
-                splitsTo (RawMacro.functionLike "IGNORE" ["x"] []) [
+                splitsTo (Runtime.Macro.functionLike "IGNORE" ["x"] []) [
                     ident "IGNORE", punc "(", ident "x", punc ")"
+                  ]
+              -- C23 6.10.1p6 forbids repeating a parameter name and @clang@
+              -- rejects the definition, so this never reaches us through the
+              -- pipeline. The splitter splits; it does not validate C.
+            , testCase "#define F(x, x) x" $
+                splitsTo (Runtime.Macro.functionLike "F" ["x", "x"] ["x"]) [
+                    ident "F", punc "(", ident "x", punc ",", spc, ident "x"
+                  , punc ")", spc, ident "x"
                   ]
             ]
         , testGroup "variadic" [
               testCase "#define LOG(fmt, ...) fmt" $
-                splitsTo (RawMacro.variadic "LOG" ["fmt"] ["fmt"]) [
+                splitsTo (Runtime.Macro.variadic "LOG" ["fmt"] ["fmt"]) [
                     ident "LOG", punc "(", ident "fmt", punc ",", spc, punc "..."
                   , punc ")", spc, ident "fmt"
                   ]
             , testCase "#define WARN(...) __VA_ARGS__" $
-                splitsTo (RawMacro.variadic "WARN" [] ["__VA_ARGS__"]) [
+                splitsTo (Runtime.Macro.variadic "WARN" [] ["__VA_ARGS__"]) [
                     ident "WARN", punc "(", punc "...", punc ")"
                   , spc, ident "__VA_ARGS__"
                   ]
               -- The GNU named variadic form: the name before the @...@ stands
               -- for the trailing arguments, so it is not a named parameter.
             , testCase "#define GNU(args...) args" $
-                splitsTo (RawMacro.variadicNamed "GNU" [] "args" ["args"]) [
+                splitsTo (Runtime.Macro.variadicNamed "GNU" [] "args" ["args"]) [
                     ident "GNU", punc "(", ident "args", punc "...", punc ")"
                   , spc, ident "args"
                   ]
             , testCase "#define GNU(fmt, args...) fmt" $
-                splitsTo (RawMacro.variadicNamed "GNU" ["fmt"] "args" ["fmt"]) [
+                splitsTo (Runtime.Macro.variadicNamed "GNU" ["fmt"] "args" ["fmt"]) [
                     ident "GNU", punc "(", ident "fmt", punc ",", spc, ident "args"
                   , punc "...", punc ")", spc, ident "fmt"
                   ]
@@ -87,15 +95,15 @@ tests = testGroup "Test.HsBindgen.Macro.Syntax" [
               -- A macro definition may give a new meaning to a keyword, so the
               -- name accepts one.
               testCase "#define bool int" $
-                splitsTo (RawMacro.objectLike "bool" ["int"]) [
+                splitsTo (Runtime.Macro.objectLike "bool" ["int"]) [
                     kw "bool", spc, kw "int"
                   ]
-              -- A parameter may not be a keyword. Under LLVM 14, and for C17
-              -- and earlier, @bool@ is an identifier and this does split; the
-              -- classification is an input here, so the test pins the keyword
-              -- case only.
+              -- A parameter may be a keyword too. Whether @libclang@ calls
+              -- @bool@ a keyword depends on the C standard, and the splitter
+              -- must not care; see 'Test.HsBindgen.Macro.Syntax.Clang', which
+              -- runs this definition under both.
             , testCase "#define F(bool) bool" $
-                failsToSplit [
+                splitsTo (Runtime.Macro.functionLike "F" ["bool"] ["bool"]) [
                     ident "F", punc "(", kw "bool", punc ")", spc, kw "bool"
                   ]
             ]
@@ -125,14 +133,41 @@ tests = testGroup "Test.HsBindgen.Macro.Syntax" [
                 failsToSplit [
                     ident "F", punc "(", ident "x", spc, ident "x"
                   ]
+            , testCase "#define F(" $
+                failsToSplit [
+                    ident "F", punc "("
+                  ]
+            , testCase "#define F(x" $
+                failsToSplit [
+                    ident "F", punc "(", ident "x"
+                  ]
+              -- The name must be an identifier or a keyword; a literal is
+              -- neither.
+            , testCase "#define 1 2" $
+                failsToSplit [
+                    lit "1", spc, lit "2"
+                  ]
+            ]
+          -- A comment is a token, not white space: it separates the name from
+          -- the @(@, and it stays in the body.
+        , testGroup "comments" [
+              testCase "#define FOO/*c*/(1)" $
+                splitsTo (Runtime.Macro.objectLike "FOO" ["/*c*/", "(", "1", ")"]) [
+                    ident "FOO", comment "/*c*/", punc "(", lit "1", punc ")"
+                  ]
             ]
           -- A line continuation splices the lines before the macro is parsed,
-          -- so the @(@ is still adjacent to the name. @libclang@ reports the
-          -- continuation as part of the punctuation token.
+          -- so the tokens around it are still adjacent. @libclang@ reports the
+          -- continuation as part of the punctuation token that follows it.
         , testGroup "line continuations" [
               testCase "between the name and the parameter list" $
-                splitsTo (RawMacro.functionLike "F" ["x"] ["x"]) [
+                splitsTo (Runtime.Macro.functionLike "F" ["x"] ["x"]) [
                     ident "F", punc "\\\n(", ident "x", punc ")", spc, ident "x"
+                  ]
+            , testCase "inside the parameter list" $
+                splitsTo (Runtime.Macro.functionLike "F" ["x", "y"] ["x"]) [
+                    ident "F", punc "(", ident "x", punc "\\\n,", spc, ident "y"
+                  , punc ")", spc, ident "x"
                   ]
             ]
         ]
@@ -145,7 +180,7 @@ tests = testGroup "Test.HsBindgen.Macro.Syntax" [
 -- | Assert that the pieces split into the given macro
 --
 -- Only the spellings are compared; the splitter does not change them.
-splitsTo :: RawMacro.Raw String -> [Piece] -> Assertion
+splitsTo :: Runtime.Macro.Raw String -> [Piece] -> Assertion
 splitsTo expected pieces = Right expected @=? split pieces
 
 -- | Assert that the pieces do not split
@@ -154,9 +189,9 @@ failsToSplit pieces =
     case split pieces of
       Left _    -> return ()
       Right raw -> assertFailure $
-        "expected a parse failure, but got " ++ show (RawMacro.render raw)
+        "expected a parse failure, but got " ++ show (Runtime.Macro.render raw)
 
-split :: [Piece] -> Either String (RawMacro.Raw String)
+split :: [Piece] -> Either String (Runtime.Macro.Raw String)
 split pieces =
     case splitMacro (layout pieces) of
       Left  err -> Left err.macroParseError

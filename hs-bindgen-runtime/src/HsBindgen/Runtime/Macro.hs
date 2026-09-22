@@ -7,10 +7,6 @@
 -- This module is intended to be imported qualified.
 --
 -- > import HsBindgen.Runtime.Macro qualified as Macro
---
--- Generated code uses the qualifier @Macro@. Inside @hs-bindgen@ itself that
--- qualifier is taken by the macro-language interface, so this module is
--- qualified as @RawMacro@ there.
 module HsBindgen.Runtime.Macro (
     -- * Type
     Raw (..)
@@ -38,7 +34,7 @@ import Data.List qualified as List
 --
 -- @a@ is the representation of a single token.
 --
--- Generated code uses @'Raw' 'Text'@.
+-- Generated code uses @'Raw' 'String'@.
 data Raw a = Raw {
       name   :: a
     , params :: Params a

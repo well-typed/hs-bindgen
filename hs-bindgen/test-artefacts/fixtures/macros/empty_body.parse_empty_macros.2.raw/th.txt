@@ -1,0 +1,58 @@
+-- addDependentFile test-artefacts/headers/golden/macros/empty_body.h
+{-| __C declaration:__ @macro EMPTY_OBJECT@
+
+    __defined at:__ @macros\/empty_body.h 9:9@
+
+    __exported by:__ @macros\/empty_body.h@
+-}
+eMPTY_OBJECT :: Raw String
+{-| __C declaration:__ @macro EMPTY_OBJECT@
+
+    __defined at:__ @macros\/empty_body.h 9:9@
+
+    __exported by:__ @macros\/empty_body.h@
+-}
+eMPTY_OBJECT = objectLike "EMPTY_OBJECT" []
+{-| __C declaration:__ @macro EMPTY_FUNCTION@
+
+    __defined at:__ @macros\/empty_body.h 10:9@
+
+    __exported by:__ @macros\/empty_body.h@
+-}
+eMPTY_FUNCTION :: Raw String
+{-| __C declaration:__ @macro EMPTY_FUNCTION@
+
+    __defined at:__ @macros\/empty_body.h 10:9@
+
+    __exported by:__ @macros\/empty_body.h@
+-}
+eMPTY_FUNCTION = functionLike "EMPTY_FUNCTION" [] []
+{-| __C declaration:__ @macro EMPTY_FUNCTION_PARAMS@
+
+    __defined at:__ @macros\/empty_body.h 11:9@
+
+    __exported by:__ @macros\/empty_body.h@
+-}
+eMPTY_FUNCTION_PARAMS :: Raw String
+{-| __C declaration:__ @macro EMPTY_FUNCTION_PARAMS@
+
+    __defined at:__ @macros\/empty_body.h 11:9@
+
+    __exported by:__ @macros\/empty_body.h@
+-}
+eMPTY_FUNCTION_PARAMS = functionLike "EMPTY_FUNCTION_PARAMS" ["x",
+                                                              "y"] []
+{-| __C declaration:__ @macro EMPTY_FUNCTION_VARIADIC@
+
+    __defined at:__ @macros\/empty_body.h 12:9@
+
+    __exported by:__ @macros\/empty_body.h@
+-}
+eMPTY_FUNCTION_VARIADIC :: Raw String
+{-| __C declaration:__ @macro EMPTY_FUNCTION_VARIADIC@
+
+    __defined at:__ @macros\/empty_body.h 12:9@
+
+    __exported by:__ @macros\/empty_body.h@
+-}
+eMPTY_FUNCTION_VARIADIC = variadic "EMPTY_FUNCTION_VARIADIC" ["x"] []

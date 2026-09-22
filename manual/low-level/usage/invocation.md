@@ -86,6 +86,15 @@ deselected.
 See [Selecting, and program slicing][manual:selecting-and-program-slicing] for
 details.
 
+#### Macros
+
+- `--parse-empty-macros` - Parse macros with an empty replacement list
+
+By default, a macro such as `#define FOO` is not parsed, since include guards
+have this shape. With `--parse-empty-macros`, such macros are passed to the
+macro language, and the ones it declines are reported like any other macro that
+failed to translate. See [Macros][manual:macros] for details.
+
 ### Example
 
 The following example is adapted from `examples/libpcap/generate.sh`:
@@ -517,4 +526,5 @@ In file included from /tmp/ghc2319546_0/ghc_1.c:1:0: error:
 [manual:clang-options]: clang-options.md
 [manual:installation]: ../../installation.md
 [manual:installation-clang-vs-gcc]: ../../installation.md#clang-vs-gcc
+[manual:macros]: ../translation/macros.md
 [manual:selecting-and-program-slicing]: selecting-and-program-slicing.md

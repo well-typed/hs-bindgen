@@ -129,6 +129,14 @@
     in `foreign import` argument and result positions.
   * FFI types are now generally more portable and customizable.
   * FFI types are now represented in external binding specifications.
+* New flag `--parse-empty-macros` (`hs-bindgen-cli`, see
+  `ParseEmptyMacros`/`DoNotParseEmptyMacros` in TH mode). It passes macros with
+  an empty replacement list on to the pluggable macro language: the macro
+  language `Raw` can translate such macros, while the default macro language
+  `CExpr` has no expression to translate and declines them, which is then
+  reported like any other macro that failed to translate. By default, empty
+  macros are not parsed at all, since include guards have this shape. See
+  [issue #2246][is-2246].
 
 ### New features
 
@@ -310,6 +318,17 @@
   `(`, such as `#define A+1`, is now object-like rather than unparsable. It no
   longer counts as ambiguous, so declarations using it can be pre-expanded
   before reparsing. See [issue #2242][is-2242].
+* A function-like macro whose parameter is spelled like a C keyword, such as
+  `#define F(bool) bool`, is no longer dropped. The preprocessor works on
+  pp-tokens, which know no keywords, so `clang` accepts such a definition; we
+  rejected it whenever the C standard in force made `libclang` report the
+  spelling as a keyword rather than an identifier. Such a parameter now also
+  shadows the keyword in the replacement list: the body of
+  `#define F(bool) bool` is the parameter, not the type.
+* A macro reference spelled like a C keyword is no longer invisible to the
+  uniqueness analysis. Both a macro body and the argument list of an invocation
+  now contribute keyword-spelled names, so that an invocation depending on an
+  ambiguous macro named `bool` is no longer pre-expanded before reparsing.
 * Declarations using `_Float16`, `__fp16`, `__bf16`, or `__ibm128` are now
   skipped with an unsupported-feature warning, instead of being reported as a
   bug in `hs-bindgen`. See
@@ -439,6 +458,7 @@
 [is-2242]: https://github.com/well-typed/hs-bindgen/issues/2242
 [is-2243]: https://github.com/well-typed/hs-bindgen/issues/2243
 [is-2245]: https://github.com/well-typed/hs-bindgen/issues/2245
+[is-2246]: https://github.com/well-typed/hs-bindgen/issues/2246
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917

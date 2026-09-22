@@ -10,6 +10,7 @@
 module Test.HsBindgen.Macro.Infra (
     -- * Pieces of a macro definition
     Piece
+  , comment
   , ident
   , kw
   , lit
@@ -17,8 +18,11 @@ module Test.HsBindgen.Macro.Infra (
   , spc
     -- * Laying out tokens
   , layout
+  , extentOf
   ) where
 
+import Data.List.NonEmpty (NonEmpty ((:|)))
+import Data.List.NonEmpty qualified as NE
 import Data.Text (Text)
 import Data.Text qualified as Text
 
@@ -26,7 +30,7 @@ import Clang.Enum.Simple (simpleEnum)
 import Clang.HighLevel.Types (MultiLoc (..), Range (..), SingleLoc (..),
                               Token (..), TokenSpelling (..))
 import Clang.LowLevel.Core (CXCursorKind (CXCursor_UnexposedDecl),
-                            CXTokenKind (CXToken_Identifier, CXToken_Keyword, CXToken_Literal, CXToken_Punctuation))
+                            CXTokenKind (CXToken_Comment, CXToken_Identifier, CXToken_Keyword, CXToken_Literal, CXToken_Punctuation))
 
 {-------------------------------------------------------------------------------
   Pieces of a macro definition
@@ -36,6 +40,13 @@ import Clang.LowLevel.Core (CXCursorKind (CXCursor_UnexposedDecl),
 data Piece =
     PieceToken CXTokenKind Text
   | PieceSpace
+
+-- | A comment
+--
+-- @libclang@ reports comments as tokens, so a comment between two tokens is not
+-- white space: it makes them non-adjacent /and/ it ends up in the body.
+comment :: Text -> Piece
+comment = PieceToken CXToken_Comment
 
 -- | An identifier
 ident :: Text -> Piece
@@ -83,6 +94,22 @@ layout = go SourceLoc{line = 1, column = 1, offset = 0}
       where
         end = advance loc s
 
+-- | The extent spanned by laid-out tokens
+--
+-- 'HsBindgen.Macro.Syntax.MacroDefinition' and
+-- 'HsBindgen.Macro.Syntax.MacroInvocation' carry the range of the whole
+-- construct. No parser reads it, so any faithful range will do; an empty token
+-- list gets the start of the synthetic source.
+extentOf :: [Token TokenSpelling] -> Range MultiLoc
+extentOf = \case
+    []     -> Range start start
+    t : ts -> Range
+                (rangeStart (tokenExtent t))
+                (rangeEnd   (tokenExtent (NE.last (t :| ts))))
+  where
+    start :: MultiLoc
+    start = multiLoc SourceLoc{line = 1, column = 1, offset = 0}
+
 -- | A location in the synthetic source text
 data SourceLoc = SourceLoc {
       line   :: Int
@@ -107,16 +134,16 @@ mkToken kind spelling start end = Token {
     , tokenExtent     = Range (multiLoc start) (multiLoc end)
     , tokenCursorKind = simpleEnum CXCursor_UnexposedDecl
     }
-  where
-    multiLoc :: SourceLoc -> MultiLoc
-    multiLoc loc = MultiLoc {
-        multiLocExpansion = SingleLoc {
-            singleLocPath   = "<test>"
-          , singleLocLine   = loc.line
-          , singleLocColumn = loc.column
-          , singleLocOffset = loc.offset
-          }
-      , multiLocPresumed  = Nothing
-      , multiLocSpelling  = Nothing
-      , multiLocFile      = Nothing
-      }
+
+multiLoc :: SourceLoc -> MultiLoc
+multiLoc loc = MultiLoc {
+      multiLocExpansion = SingleLoc {
+          singleLocPath   = "<test>"
+        , singleLocLine   = loc.line
+        , singleLocColumn = loc.column
+        , singleLocOffset = loc.offset
+        }
+    , multiLocPresumed  = Nothing
+    , multiLocSpelling  = Nothing
+    , multiLocFile      = Nothing
+    }

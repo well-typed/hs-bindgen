@@ -129,3 +129,20 @@ cabal build all
 ```
 
 If successful, your environment is properly configured
+
+## Faster Development Builds
+
+`cabal.project.fast` disables optimisations, which makes rebuilds considerably
+faster. Give it a build directory of its own:
+
+```bash
+cabal build all --project-file cabal.project.fast --builddir dist-newstyle-fast
+```
+
+The build directory must differ from the one used with `cabal.project`. Local
+packages are registered in `<builddir>/packagedb` under their package name
+alone, so a shared build directory holds a single registration for both project
+files: whichever project file built last wins, and builds using the other one
+then link against a library built with the other optimisation setting, without
+any warning. `builddir` is ignored inside project files, so it has to be passed
+on the command line.
