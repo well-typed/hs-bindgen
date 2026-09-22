@@ -38,7 +38,7 @@ import Data.List qualified as List
 --
 -- @a@ is the representation of a single token.
 --
--- Generated code uses @'Raw' 'Text'@.
+-- Generated code uses @'Raw' 'String'@.
 data Raw a = Raw {
       name   :: a
     , params :: Params a

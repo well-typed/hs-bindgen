@@ -408,10 +408,13 @@ per [regular field][t:regular-field] of a struct; [unnamed][t:unnamed-field]
 #### Macro language
 [t:macro-language]: #macro-language
 
-The pluggable `hs-bindgen` component that parses, typechecks and translates
-[macro definitions][t:macro-definition]: the [macro name][t:macro-name], the
-[parameters][t:macro-parameter], and the [replacement list][t:replacement-list].
-See [macro languages][manual:translation/macros-macro-languages].
+The pluggable `hs-bindgen` component that parses, typechecks and translates the
+[replacement list][t:replacement-list] of a [macro
+definition][t:macro-definition]. A macro definition is split into [macro
+name][t:macro-name], [parameters][t:macro-parameter] and replacement list
+before the macro language sees it. That
+[split][manual:translation/macros-splitting] is independent of the macro
+language. See [macro languages][manual:translation/macros-macro-languages].
 
 #### Macro type
 [t:macro-type]: #macro-type
@@ -431,11 +434,9 @@ example, `#define EPSILON 0.1`. See [macro values][manual:translation/macros-mac
 #### Parsable macro
 [t:parsable-macro]: #parsable-macro
 
-A [macro definition][t:macro-definition] that the active [macro
-language][t:macro-language] can parse: the [macro name][t:macro-name], the
-[parameters][t:macro-parameter] if the macro is
-[function-like][t:function-like-macro], and the [replacement
-list][t:replacement-list].
+A [macro definition][t:macro-definition] whose [replacement
+list][t:replacement-list] the active [macro language][t:macro-language] can
+parse.
 
 #### Reparsing
 [t:reparsing]: #reparsing
@@ -538,5 +539,6 @@ also apply to the compilation of the generated C source. See
 [manual:translation/macros-macro-types]: low-level/translation/macros.md#macro-types
 [manual:translation/macros-macro-values]: low-level/translation/macros.md#macro-values
 [manual:translation/macros-reparsing]: low-level/translation/macros.md#reparsing-declarations-with-macro-expansions
+[manual:translation/macros-splitting]: low-level/translation/macros.md#splitting-macro-definitions
 [manual:unions/nesting-example-e]: low-level/translation/unions/nesting.md#example-e
 [manual:unions/nesting-indirect-fields]: low-level/translation/unions/nesting.md#indirect-fields
