@@ -1,5 +1,7 @@
 module HsBindgen.Frontend.Pass.Parse.IsPass (
     Parse
+    -- * Configuration
+  , EmptyMacros(..)
     -- * Macros
   , ReparseInfo(..)
   , invokedMacros
@@ -64,6 +66,34 @@ instance PassAnn Parse where
 
 instance PassMsg Parse where
   type Msg Parse = C.WithLocationInfo ImmediateParseMsg
+
+{-------------------------------------------------------------------------------
+  Configuration
+-------------------------------------------------------------------------------}
+
+-- | Parse macros with an empty replacement list?
+--
+-- Whether @hs-bindgen@ parses and translates empty macros such as
+--
+-- @#define FOO@.
+--
+-- Some macro languages such as 'HsBindgen.Macro.Raw' can handle empty macros,
+-- the default macro language 'HsBindgen.Macro.CExpr' has no expression to
+-- translate and declines empty macros.
+--
+-- Include guards are empty macros, so by default @hs-bindgen@ does not attempt
+-- to parse an empty macro at all.
+data EmptyMacros =
+    -- | Pass empty macros to the macro language
+    ParseEmptyMacros
+
+    -- | Do not attempt to parse empty macros
+  | DoNotParseEmptyMacros
+  deriving stock (Show, Eq)
+
+instance Default EmptyMacros where
+  def :: EmptyMacros
+  def = DoNotParseEmptyMacros
 
 {-------------------------------------------------------------------------------
   Macros

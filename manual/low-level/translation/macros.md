@@ -390,12 +390,14 @@ languages:
   its parameters and its replacement list; `Raw` does not interpret the macro
   (e.g., it does not infer a type for a type-like macro).
 
-A macro with an empty replacement list, as in `#define FOO`, reaches the macro
-language like any other macro. Whether it yields a binding is then the
-language's decision: `Raw` translates it, `CExpr` has no expression to
-translate and declines. Include guards usually involve macros with empty
-replacements lists, and so, declining an empty macro is not reported as a
-warning.
+A macro with an empty replacement list, as in `#define FOO`, does not reach the
+macro language by default: include guards have this shape, and reporting every
+one of them would drown the macros that actually failed to translate. Use
+`--parse-empty-macros` (`ParseEmptyMacros` in Template Haskell mode) to parse
+them, too. Whether such a macro then yields a binding is the language's
+decision: `Raw` translates it, `CExpr` has no expression to translate and
+declines it. A declined macro is reported like any other macro that failed to
+translate.
 
 At the moment, `hs-bindgen-cli` always uses `CExpr`. The other two macro
 languages are reachable from the Template Haskell backend, by using

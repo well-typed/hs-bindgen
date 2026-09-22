@@ -10,7 +10,7 @@ import qualified HsBindgen.Runtime.Macro as Macro
 
 {-| __C declaration:__ @macro EMPTY_OBJECT@
 
-    __defined at:__ @macros\/empty_body.h 8:9@
+    __defined at:__ @macros\/empty_body.h 9:9@
 
     __exported by:__ @macros\/empty_body.h@
 -}
@@ -19,7 +19,7 @@ eMPTY_OBJECT = Macro.objectLike "EMPTY_OBJECT" []
 
 {-| __C declaration:__ @macro EMPTY_FUNCTION@
 
-    __defined at:__ @macros\/empty_body.h 9:9@
+    __defined at:__ @macros\/empty_body.h 10:9@
 
     __exported by:__ @macros\/empty_body.h@
 -}
@@ -29,7 +29,7 @@ eMPTY_FUNCTION =
 
 {-| __C declaration:__ @macro EMPTY_FUNCTION_PARAMS@
 
-    __defined at:__ @macros\/empty_body.h 10:9@
+    __defined at:__ @macros\/empty_body.h 11:9@
 
     __exported by:__ @macros\/empty_body.h@
 -}
@@ -39,7 +39,7 @@ eMPTY_FUNCTION_PARAMS =
 
 {-| __C declaration:__ @macro EMPTY_FUNCTION_VARIADIC@
 
-    __defined at:__ @macros\/empty_body.h 11:9@
+    __defined at:__ @macros\/empty_body.h 12:9@
 
     __exported by:__ @macros\/empty_body.h@
 -}

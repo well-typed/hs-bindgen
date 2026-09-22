@@ -12,6 +12,7 @@ module HsBindgen.Frontend.Pass.Parse.Monad.Decl (
     -- * Functionality
     -- ** "Reader"
   , getTranslationUnit
+  , getEmptyMacros
   , evalGetMainHeadersAndInclude
     -- ** "State"
   , recordMacroDefinitionAt
@@ -87,11 +88,15 @@ run env f = do
 data Env = Env {
       unit                     :: CXTranslationUnit
     , getMainHeadersAndInclude :: GetMainHeadersAndInclude
+    , emptyMacros              :: EmptyMacros
     , tracer                   :: Tracer (Msg Parse)
     }
 
 getTranslationUnit :: ParseDecl CXTranslationUnit
 getTranslationUnit = wrapEff $ \support -> return support.env.unit
+
+getEmptyMacros :: ParseDecl EmptyMacros
+getEmptyMacros = wrapEff $ \support -> return support.env.emptyMacros
 
 evalGetMainHeadersAndInclude ::
      SourcePath

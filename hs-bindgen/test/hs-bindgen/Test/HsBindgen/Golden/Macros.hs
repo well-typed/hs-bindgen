@@ -3,6 +3,7 @@ module Test.HsBindgen.Golden.Macros (testCases) where
 
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex (UnusableReason (..))
+import HsBindgen.Frontend.Pass.Parse.IsPass (EmptyMacros (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -36,6 +37,7 @@ testCases = [
     , defaultTest "macros/undef"
       -- Bespoke tests
     , test_empty_body
+    , test_empty_body_parse
     , test_gnu_variadic
     , test_macro_comma
     , test_macro_ext_binding_dep
@@ -58,28 +60,64 @@ testCases = [
   Individual test definitions
 -------------------------------------------------------------------------------}
 
--- | An empty macro body is legal C; translating it is the language's decision.
+-- | An empty macro body is legal C, but by default we do not parse it.
 --
--- See <https://github.com/well-typed/hs-bindgen/issues/2246>. The @CExpr@
--- language has no expression to translate and ignores all four macros; the
--- @.2.raw@ variant reproduces them. A language declining an empty body is
--- reported as 'ParseMacroEmpty' rather than as a parse failure, so that include
--- guards do not count towards the dropped-macro summary.
+-- See <https://github.com/well-typed/hs-bindgen/issues/2246>. Include guards
+-- have this shape, so 'DoNotParseEmptyMacros' keeps all four macros from
+-- reaching the macro language: they are reported as 'ParseMacroEmpty', and none
+-- of them counts towards the dropped-macro summary.
 test_empty_body :: TestCase
 test_empty_body =
-    testTraceMulti "macros/empty_body" declsWithMsgs $ \case
+    testTraceMulti "macros/empty_body" (map NotParsed emptyMacroNames) $ \case
       MatchUnusable name (UnusableParseFailure ParseMacroEmpty{}) ->
-        Just $ Expected name
+        Just $ Expected (NotParsed name)
+      MatchMacrosDropped{} ->
+        Just Unexpected
       _otherwise ->
         Nothing
+
+-- | 'ParseEmptyMacros' passes empty macros on to the macro language.
+--
+-- Companion to 'test_empty_body': @CExpr@ has no expression to translate, so
+-- all four macros now fail like any other macro, and the summary counts them.
+-- The @.2.raw@ variant of this test generates bindings for them instead.
+test_empty_body_parse :: TestCase
+test_empty_body_parse =
+    testVariant "macros/empty_body" Nothing "parse_empty_macros"
+      & #onFrontend     .~ ( #emptyMacros .~ ParseEmptyMacros )
+      & #tracePredicate .~ multiTracePredicate expected (\case
+            MatchUnusable name (UnusableParseFailure ParseMacroErrorParse{}) ->
+              Just $ Expected (Declined name)
+            MatchMacrosDropped n ->
+              Just $ Expected (Dropped n)
+            _otherwise ->
+              Nothing
+          )
   where
-    declsWithMsgs :: [C.DeclName]
-    declsWithMsgs = [
-        "macro EMPTY_OBJECT"
-      , "macro EMPTY_FUNCTION"
-      , "macro EMPTY_FUNCTION_PARAMS"
-      , "macro EMPTY_FUNCTION_VARIADIC"
-      ]
+    expected :: [EmptyBodyTrace]
+    expected = Dropped (length emptyMacroNames) : map Declined emptyMacroNames
+
+-- | The macros of the @macros/empty_body@ header
+emptyMacroNames :: [C.DeclName]
+emptyMacroNames = [
+      "macro EMPTY_OBJECT"
+    , "macro EMPTY_FUNCTION"
+    , "macro EMPTY_FUNCTION_PARAMS"
+    , "macro EMPTY_FUNCTION_VARIADIC"
+    ]
+
+-- | What we expect to be traced for a macro with an empty replacement list
+data EmptyBodyTrace =
+    -- | We did not attempt to parse the macro
+    NotParsed C.DeclName
+    -- | The macro language was given the macro, and declined it
+  | Declined C.DeclName
+    -- | Summary of the macros that failed to translate
+  | Dropped Int
+  deriving stock (Eq, Ord, Show)
+
+instance RenderLabel EmptyBodyTrace where
+  renderLabel = renderLabel . show
 
 -- | The C99 and the GNU named-variadic parameter lists are different macros.
 --

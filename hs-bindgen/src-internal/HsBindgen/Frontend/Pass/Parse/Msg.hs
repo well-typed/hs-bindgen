@@ -125,11 +125,12 @@ data DelayedParseMsg =
     -- it was unsuccessful
   | ParseImplicitFieldFailed ParseImplicitFieldsMsg
 
-    -- | The macro language declined a macro with an empty body (@#define FOO@)
+    -- | We did not attempt to parse a macro with an empty replacement list
+    -- (@#define FOO@)
     --
     -- Reported separately from 'ParseMacroErrorParse' because every include
-    -- guard has an empty body, and a language that does not translate one is
-    -- not failing.
+    -- guard has this shape, and not attempting to parse one is not a failure.
+    -- See 'HsBindgen.Frontend.Pass.Parse.IsPass.EmptyMacros'.
   | ParseMacroEmpty C.PrelimDeclId [Token TokenSpelling]
 
     -- | We could not parse the macro (macro def sites)
@@ -389,8 +390,9 @@ instance PrettyForTrace DelayedParseMsg where
         , prettyForTrace reason
         ]
       ParseMacroEmpty name tokens -> PP.hsep [
-          "Ignoring empty macro"
-        , prettyForTrace name >< ":"
+          "Not parsing macro with empty replacement list"
+        , prettyForTrace name >< ";"
+        , "use --parse-empty-macros to parse it:"
         , PP.show tokens
         ]
       ParseMacroErrorParse err -> PP.vcat [

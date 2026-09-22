@@ -129,12 +129,14 @@
     in `foreign import` argument and result positions.
   * FFI types are now generally more portable and customizable.
   * FFI types are now represented in external binding specifications.
-* New flag `--include-empty-macros` (`hs-bindgen-cli`) and `IncludeEmptyMacros`
-  (TH mode) that also parses empty macros and passes them on to the pluggable
-  macro language. By default, empty macros are not parsed (i.e., skipped). The
-  macro language `Raw` can translate such empty macros. The default macro
-  language `CExpr` has no expression to translate and rejects them. See [issue
-  #2246][is-2246].
+* New flag `--parse-empty-macros` (`hs-bindgen-cli`, see
+  `ParseEmptyMacros`/`DoNotParseEmptyMacros` in TH mode). It passes macros with
+  an empty replacement list on to the pluggable macro language: the macro
+  language `Raw` can translate such macros, while the default macro language
+  `CExpr` has no expression to translate and declines them, which is then
+  reported like any other macro that failed to translate. By default, empty
+  macros are not parsed at all, since include guards have this shape. See
+  [issue #2246][is-2246].
 
 ### New features
 

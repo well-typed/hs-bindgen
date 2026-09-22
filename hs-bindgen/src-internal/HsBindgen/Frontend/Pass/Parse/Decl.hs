@@ -236,13 +236,15 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
       Just macroName -> do
         let split = splitMacro tokens
         recordMacroDefinitionAt macroName range split
-        foldContinueWith [mkResult split]
+        emptyMacros <- getEmptyMacros
+        foldContinueWith [mkResult emptyMacros split]
   where
     mkResult ::
-         Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
+         EmptyMacros
+      -> Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
       -> ParseResult l Parse
-    mkResult split =
-        case (macroLang.parse =<< split) of
+    mkResult emptyMacros split =
+        case parseMacro emptyMacros split of
           Right parsed -> parseSucceed C.Decl{
               info = info
             , kind = C.DeclMacro parsed
@@ -251,20 +253,22 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
           Left msg -> ParseResult{
               id             = info.id
             , loc            = info.loc
-            , classification = ParseResultFailure $ macroParseMsg split msg
+            , classification = ParseResultFailure msg
             }
 
-    -- Empty macro bodies (e.g., @#define FOO@) parse in some macro language
-    -- and not in others: 'Raw' translates it, @CExpr@ has no expression to
-    -- translate. Declined empty macro bodies are not a failure worth
-    -- reporting, since they are ubiquitously used by include guards.
-    macroParseMsg ::
-         Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
-      -> MacroParseError
-      -> DelayedParseMsg
-    macroParseMsg (Right macro) _
-      | null macro.body = ParseMacroEmpty info.id (toList macro)
-    macroParseMsg _ err = ParseMacroErrorParse err
+    -- A macro with an empty replacement list (e.g., @#define FOO@) only reaches
+    -- the macro language when the user asks for it.
+    parseMacro ::
+         EmptyMacros
+      -> Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
+      -> Either DelayedParseMsg (Macro.Unresolved l)
+    parseMacro emptyMacros split = do
+        macro <- first ParseMacroErrorParse split
+        case emptyMacros of
+          DoNotParseEmptyMacros | null macro.body ->
+            Left $ ParseMacroEmpty info.id (toList macro)
+          _otherwise ->
+            first ParseMacroErrorParse $ macroLang.parse macro
 
     getMacroTokens ::
          CXCursor

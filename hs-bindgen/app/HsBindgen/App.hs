@@ -48,6 +48,7 @@ import HsBindgen.BindingSpec
 import HsBindgen.Config
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
+import HsBindgen.Frontend.Pass.Parse.IsPass (EmptyMacros (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
@@ -240,6 +241,7 @@ parseConfig = Config
     <*> parseSelectionPredicate
     <*> parseProgramSlicing
     <*> parseFieldNamingStrategy
+    <*> parseEmptyMacros
     <*> parsePathStyle
 
 {-------------------------------------------------------------------------------
@@ -431,6 +433,20 @@ parseProgramSlicing =
           , " and also select their transitive dependencies;"
           , " program slicing can cause declarations to be included"
           , " even if they are explicitly deselected by a selection predicate"
+          ]
+      ]
+
+{-------------------------------------------------------------------------------
+  Macros
+-------------------------------------------------------------------------------}
+
+parseEmptyMacros :: Parser EmptyMacros
+parseEmptyMacros =
+    flag DoNotParseEmptyMacros ParseEmptyMacros $ mconcat [
+        long "parse-empty-macros"
+      , help $ concat [
+            "Parse macros with an empty replacement list (e.g. '#define FOO');"
+          , " by default, empty macros are not parsed"
           ]
       ]
 
