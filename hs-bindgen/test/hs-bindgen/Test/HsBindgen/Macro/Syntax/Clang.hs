@@ -22,7 +22,7 @@ import Test.Tasty.QuickCheck (Arbitrary (arbitrary), Gen, Property, chooseInt,
                               shuffle, testProperty, (===))
 
 import Clang.Args (ClangArgs (ClangArgs))
-import Clang.HighLevel.Types (Token, TokenSpelling, SourcePath)
+import Clang.HighLevel.Types (SourcePath, Token, TokenSpelling)
 import Clang.Version (ClangVersion (ClangVersion), runtimeClangVersion)
 
 import HsBindgen.Runtime.Macro qualified as Runtime.Macro
