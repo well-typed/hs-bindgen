@@ -209,6 +209,9 @@ hstypes:
       constructor: E10
       fields:
       - unwrapE10
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -233,6 +236,9 @@ hstypes:
       constructor: E11
       fields:
       - unwrapE11
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -257,6 +263,9 @@ hstypes:
       constructor: E12
       fields:
       - unwrapE12
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -281,6 +290,9 @@ hstypes:
       constructor: E13
       fields:
       - unwrapE13
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -305,6 +317,9 @@ hstypes:
       constructor: E14
       fields:
       - unwrapE14
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -329,6 +344,9 @@ hstypes:
       constructor: E15
       fields:
       - unwrapE15
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -353,6 +371,9 @@ hstypes:
       constructor: E16
       fields:
       - unwrapE16
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -377,6 +398,9 @@ hstypes:
       constructor: E17
       fields:
       - unwrapE17
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -401,6 +425,9 @@ hstypes:
       constructor: E18
       fields:
       - unwrapE18
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -425,6 +452,9 @@ hstypes:
       constructor: E19
       fields:
       - unwrapE19
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -455,6 +485,9 @@ hstypes:
       constructor: E5
       fields:
       - unwrapE5
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -479,6 +512,9 @@ hstypes:
       constructor: E6
       fields:
       - unwrapE6
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -503,6 +539,9 @@ hstypes:
       constructor: E7
       fields:
       - unwrapE7
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -527,6 +566,9 @@ hstypes:
       constructor: E8
       fields:
       - unwrapE8
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -551,6 +593,9 @@ hstypes:
       constructor: E9
       fields:
       - unwrapE9
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq

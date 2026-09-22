@@ -22,7 +22,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_bindingspecstrans_depmacro__Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_83453c8683cd3ff7" hs_bindgen_83453c8683cd3ff7_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecstrans_depmacro__Example_Unsafe_foo@
@@ -30,7 +30,8 @@ hs_bindgen_83453c8683cd3ff7 ::
      M.B
   -> IO ()
 hs_bindgen_83453c8683cd3ff7 =
-  BG.fromFFIType hs_bindgen_83453c8683cd3ff7_base
+  \x0 ->
+    hs_bindgen_83453c8683cd3ff7_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @foo@
 

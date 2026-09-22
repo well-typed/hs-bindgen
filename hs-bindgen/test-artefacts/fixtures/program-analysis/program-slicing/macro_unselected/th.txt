@@ -55,12 +55,12 @@ instance HasCField U "unwrapU"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_ef8f97cf27661c20" hs_bindgen_ef8f97cf27661c20_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_bar@
 hs_bindgen_ef8f97cf27661c20 :: U -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_bar@
-hs_bindgen_ef8f97cf27661c20 = fromFFIType hs_bindgen_ef8f97cf27661c20_base
+hs_bindgen_ef8f97cf27661c20 = \x_0 -> hs_bindgen_ef8f97cf27661c20_base (toFFIType x_0)
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program-slicing\/macro_unselected.h 12:6@
@@ -77,12 +77,12 @@ bar_safe :: U -> IO ()
 bar_safe = hs_bindgen_ef8f97cf27661c20
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_401f15168ffec8ae" hs_bindgen_401f15168ffec8ae_base ::
-    Int32
+    CInt
  -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
 hs_bindgen_401f15168ffec8ae :: U -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
-hs_bindgen_401f15168ffec8ae = fromFFIType hs_bindgen_401f15168ffec8ae_base
+hs_bindgen_401f15168ffec8ae = \x_0 -> hs_bindgen_401f15168ffec8ae_base (toFFIType x_0)
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program-slicing\/macro_unselected.h 12:6@
@@ -103,7 +103,7 @@ foreign import ccall unsafe "hs_bindgen_e57577b970e09cca" hs_bindgen_e57577b970e
 -- __unique:__ @test_programanalysisprogramslici_Example_get_bar@
 hs_bindgen_e57577b970e09cca :: IO (FunPtr (U -> IO ()))
 -- __unique:__ @test_programanalysisprogramslici_Example_get_bar@
-hs_bindgen_e57577b970e09cca = fromFFIType hs_bindgen_e57577b970e09cca_base
+hs_bindgen_e57577b970e09cca = fmap fromFFIType hs_bindgen_e57577b970e09cca_base
 {-# NOINLINE bar_funptr #-}
 {-| __C declaration:__ @bar@
 

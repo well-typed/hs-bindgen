@@ -1182,12 +1182,11 @@ newtype Callback_t_Aux = Callback_t_Aux
   { unwrapCallback_t_Aux :: BG.Ptr BG.Void -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toCallback_t_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658_base ::
-     (BG.Ptr BG.Void -> BG.Word32 -> IO BG.Word32)
-  -> IO (BG.FunPtr (BG.Ptr BG.Void -> BG.Word32 -> IO BG.Word32))
+     (BG.Ptr BG.Void -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32)
+  -> IO (BG.FunPtr (BG.Ptr BG.Void -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32))
 
 -- __unique:__ @toCallback_t_Aux@
 hs_bindgen_b6b6922e35047658 ::
@@ -1195,12 +1194,14 @@ hs_bindgen_b6b6922e35047658 ::
   -> IO (BG.FunPtr Callback_t_Aux)
 hs_bindgen_b6b6922e35047658 =
   \fun0 ->
-    fmap BG.castFunPtrFromFFIType (hs_bindgen_b6b6922e35047658_base (BG.toFFIType fun0))
+    fmap BG.castFunPtr (hs_bindgen_b6b6922e35047658_base (\x1 ->
+                                                            \x2 ->
+                                                              fmap BG.toFFIType (BG.getField @"unwrapCallback_t_Aux" fun0 (BG.fromFFIType x1) (BG.fromFFIType x2))))
 
 -- __unique:__ @fromCallback_t_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_d6debb4b8d5bb869_base ::
-     BG.FunPtr (BG.Ptr BG.Void -> BG.Word32 -> IO BG.Word32)
-  -> BG.Ptr BG.Void -> BG.Word32 -> IO BG.Word32
+     BG.FunPtr (BG.Ptr BG.Void -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32)
+  -> BG.Ptr BG.Void -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32
 
 -- __unique:__ @fromCallback_t_Aux@
 hs_bindgen_d6debb4b8d5bb869 ::
@@ -1208,7 +1209,9 @@ hs_bindgen_d6debb4b8d5bb869 ::
   -> Callback_t_Aux
 hs_bindgen_d6debb4b8d5bb869 =
   \funPtr0 ->
-    BG.fromFFIType (hs_bindgen_d6debb4b8d5bb869_base (BG.castFunPtrToFFIType funPtr0))
+    Callback_t_Aux (\x1 ->
+                      \x2 ->
+                        fmap BG.fromFFIType (hs_bindgen_d6debb4b8d5bb869_base (BG.castFunPtr funPtr0) (BG.toFFIType x1) (BG.toFFIType x2)))
 
 instance BG.ToFunPtr Callback_t_Aux where
 

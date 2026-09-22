@@ -36,7 +36,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_alloc@
 foreign import ccall safe "hs_bindgen_231473be98482b20" hs_bindgen_231473be98482b20_base ::
-     BG.Int32
+     BG.CInt
   -> IO (BG.Ptr BG.Void)
 
 -- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_alloc@
@@ -44,7 +44,8 @@ hs_bindgen_231473be98482b20 ::
      BG.CInt
   -> IO (BG.Ptr Vector)
 hs_bindgen_231473be98482b20 =
-  BG.fromFFIType hs_bindgen_231473be98482b20_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_231473be98482b20_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @vector_alloc@
 
@@ -68,7 +69,8 @@ hs_bindgen_d3aecc79bd3c1993 ::
      BG.Ptr Vector
   -> IO ()
 hs_bindgen_d3aecc79bd3c1993 =
-  BG.fromFFIType hs_bindgen_d3aecc79bd3c1993_base
+  \x0 ->
+    hs_bindgen_d3aecc79bd3c1993_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @vector_free@
 
@@ -92,7 +94,8 @@ hs_bindgen_bfc48cbf5e4cc2ca ::
      BG.Ptr Vector
   -> IO ()
 hs_bindgen_bfc48cbf5e4cc2ca =
-  BG.fromFFIType hs_bindgen_bfc48cbf5e4cc2ca_base
+  \x0 ->
+    hs_bindgen_bfc48cbf5e4cc2ca_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @vector_reverse@
 

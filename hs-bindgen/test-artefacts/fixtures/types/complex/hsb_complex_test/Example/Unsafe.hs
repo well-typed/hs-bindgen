@@ -44,7 +44,10 @@ hs_bindgen_e5e3172c2163672b ::
   -> BG.Ptr (BG.Complex BG.CFloat)
   -> IO ()
 hs_bindgen_e5e3172c2163672b =
-  BG.fromFFIType hs_bindgen_e5e3172c2163672b_base
+  \x0 ->
+    \x1 ->
+      \x2 ->
+        hs_bindgen_e5e3172c2163672b_base (BG.toFFIType x0) (BG.toFFIType x1) (BG.toFFIType x2)
 
 {-| __C declaration:__ @multiply_complex_f@
 
@@ -80,7 +83,10 @@ hs_bindgen_28f2705e917973ab ::
   -> BG.Ptr (BG.Complex BG.CDouble)
   -> IO ()
 hs_bindgen_28f2705e917973ab =
-  BG.fromFFIType hs_bindgen_28f2705e917973ab_base
+  \x0 ->
+    \x1 ->
+      \x2 ->
+        hs_bindgen_28f2705e917973ab_base (BG.toFFIType x0) (BG.toFFIType x1) (BG.toFFIType x2)
 
 {-| __C declaration:__ @add_complex@
 

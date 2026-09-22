@@ -407,7 +407,7 @@ resolveTypeImports = \case
     TFree _ -> mempty
     TLit _n -> mempty
     TStrLit _s -> mempty
-    TExt ref _cTypeSpec _hsTypeSpec -> resolveExtHsRefImports ref
+    TExt ref -> resolveExtHsRefImports ref
     TApp c x -> resolveTypeImports c <> resolveTypeImports x
     TFun a b -> resolveTypeImports a <> resolveTypeImports b
     TBound{} -> mempty

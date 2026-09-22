@@ -25,6 +25,9 @@ hstypes:
       constructor: T1
       fields:
       - unwrapT1
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -56,6 +59,9 @@ hstypes:
       constructor: T2
       fields:
       - unwrapT2
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CFloat
   instances:
   - Enum
   - Eq
@@ -85,6 +91,9 @@ hstypes:
       constructor: T3
       fields:
       - unwrapT3
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -116,6 +125,9 @@ hstypes:
       constructor: T4
       fields:
       - unwrapT4
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CDouble
   instances:
   - Enum
   - Eq
@@ -145,6 +157,9 @@ hstypes:
       constructor: T5
       fields:
       - unwrapT5
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits

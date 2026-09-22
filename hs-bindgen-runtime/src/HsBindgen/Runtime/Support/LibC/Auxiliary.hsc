@@ -37,7 +37,7 @@ import GHC.Records (HasField (..))
 import HsBindgen.Runtime.HasCField (HasCField (..))
 import HsBindgen.Runtime.HasCField qualified as HasCField
 import HsBindgen.Runtime.Support.Bitfield (Bitfield)
-import HsBindgen.Runtime.Support.HasFFIType (HasFFIType)
+import HsBindgen.Runtime.HasFFIType (HasFFIType, ViaIdentity(..))
 import HsBindgen.Runtime.Marshal
 
 #include <inttypes.h>
@@ -111,7 +111,6 @@ newtype CWintT = CWintT C.CUInt
     , Enum
     , Eq
     , FiniteBits
-    , HasFFIType
     , Integral
     , Ix
     , Num
@@ -125,6 +124,8 @@ newtype CWintT = CWintT C.CUInt
     , Storable
     , WriteRaw
     )
+
+deriving via ViaIdentity CWintT instance HasFFIType CWintT
 
 --------------------------------------------------------------------------------
 
@@ -148,7 +149,6 @@ data CMbstateT
 newtype CWctransT = CWctransT (Ptr C.CInt)
   deriving newtype (
       Eq
-    , HasFFIType
     , Prim
     , ReadRaw
     , Show
@@ -156,6 +156,8 @@ newtype CWctransT = CWctransT (Ptr C.CInt)
     , Storable
     , WriteRaw
     )
+
+deriving via ViaIdentity CWctransT instance HasFFIType CWctransT
 
 --------------------------------------------------------------------------------
 
@@ -167,7 +169,6 @@ newtype CWctransT = CWctransT (Ptr C.CInt)
 newtype CWctypeT = CWctypeT C.CULong
   deriving newtype (
       Eq
-    , HasFFIType
     , Prim
     , ReadRaw
     , Show
@@ -175,6 +176,8 @@ newtype CWctypeT = CWctypeT C.CULong
     , Storable
     , WriteRaw
     )
+
+deriving via ViaIdentity CWctypeT instance HasFFIType CWctypeT
 
 --------------------------------------------------------------------------------
 
@@ -190,7 +193,6 @@ newtype CChar16T = CChar16T Word16
     , Enum
     , Eq
     , FiniteBits
-    , HasFFIType
     , Integral
     , Ix
     , Num
@@ -204,6 +206,8 @@ newtype CChar16T = CChar16T Word16
     , Storable
     , WriteRaw
     )
+
+deriving via ViaIdentity CChar16T instance HasFFIType CChar16T
 
 --------------------------------------------------------------------------------
 
@@ -219,7 +223,6 @@ newtype CChar32T = CChar32T Word32
     , Enum
     , Eq
     , FiniteBits
-    , HasFFIType
     , Integral
     , Ix
     , Num
@@ -233,6 +236,8 @@ newtype CChar32T = CChar32T Word32
     , Storable
     , WriteRaw
     )
+
+deriving via ViaIdentity CChar32T instance HasFFIType CChar32T
 
 {-------------------------------------------------------------------------------
   Localization Types

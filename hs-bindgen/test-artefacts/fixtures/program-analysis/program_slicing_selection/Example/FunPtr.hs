@@ -32,7 +32,7 @@ foreign import ccall unsafe "hs_bindgen_6e12e70d71890a10" hs_bindgen_6e12e70d718
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk@
 hs_bindgen_6e12e70d71890a10 :: IO (BG.FunPtr (BG.Ptr HsBindgen.Runtime.LibC.CFile -> BG.Ptr BG.Void -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus))
 hs_bindgen_6e12e70d71890a10 =
-  BG.fromFFIType hs_bindgen_6e12e70d71890a10_base
+  fmap BG.fromFFIType hs_bindgen_6e12e70d71890a10_base
 
 {-# NOINLINE read_file_chunk #-}
 {-| __C declaration:__ @read_file_chunk@

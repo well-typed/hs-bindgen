@@ -75,6 +75,9 @@ hstypes:
       constructor: M1
       fields:
       - unwrapM1
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -106,6 +109,9 @@ hstypes:
       constructor: M2
       fields:
       - unwrapM2
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CChar
   instances:
   - Bitfield
   - Bits
@@ -137,6 +143,9 @@ hstypes:
       constructor: M3
       fields:
       - unwrapM3
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -157,6 +166,9 @@ hstypes:
       constructor: T1
       fields:
       - unwrapT1
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -188,6 +200,9 @@ hstypes:
       constructor: T2
       fields:
       - unwrapT2
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CChar
   instances:
   - Bitfield
   - Bits
@@ -219,6 +234,9 @@ hstypes:
       constructor: Uint64_t
       fields:
       - unwrapUint64_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits

@@ -112,7 +112,8 @@ hs_bindgen_7eb8358d30ebb28b ::
      PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray BG.CInt))
   -> IO ()
 hs_bindgen_7eb8358d30ebb28b =
-  BG.fromFFIType hs_bindgen_7eb8358d30ebb28b_base
+  \x0 ->
+    hs_bindgen_7eb8358d30ebb28b_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @foo@
 
@@ -136,7 +137,8 @@ hs_bindgen_2fc1970fe11a3461 ::
      PtrConst.PtrConst (IsA.Elem S)
   -> IO ()
 hs_bindgen_2fc1970fe11a3461 =
-  BG.fromFFIType hs_bindgen_2fc1970fe11a3461_base
+  \x0 ->
+    hs_bindgen_2fc1970fe11a3461_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooA@
 
@@ -160,7 +162,8 @@ hs_bindgen_58689a7e4b1d44f6 ::
      PtrConst.PtrConst (IsA.Elem S)
   -> IO ()
 hs_bindgen_58689a7e4b1d44f6 =
-  BG.fromFFIType hs_bindgen_58689a7e4b1d44f6_base
+  \x0 ->
+    hs_bindgen_58689a7e4b1d44f6_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooB@
 
@@ -184,7 +187,8 @@ hs_bindgen_f88b417ee6e28c0c ::
      PtrConst.PtrConst (IsA.Elem T)
   -> IO ()
 hs_bindgen_f88b417ee6e28c0c =
-  BG.fromFFIType hs_bindgen_f88b417ee6e28c0c_base
+  \x0 ->
+    hs_bindgen_f88b417ee6e28c0c_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooC@
 
@@ -208,7 +212,8 @@ hs_bindgen_78493aa01e9cc5da ::
      PtrConst.PtrConst (IsA.Elem (CA.ConstantArray 3 BG.CInt))
   -> IO ()
 hs_bindgen_78493aa01e9cc5da =
-  BG.fromFFIType hs_bindgen_78493aa01e9cc5da_base
+  \x0 ->
+    hs_bindgen_78493aa01e9cc5da_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @bar@
 
@@ -232,7 +237,8 @@ hs_bindgen_bee2c20f290d25d6 ::
      PtrConst.PtrConst (IsA.Elem U)
   -> IO ()
 hs_bindgen_bee2c20f290d25d6 =
-  BG.fromFFIType hs_bindgen_bee2c20f290d25d6_base
+  \x0 ->
+    hs_bindgen_bee2c20f290d25d6_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @barA@
 
@@ -256,7 +262,8 @@ hs_bindgen_71f805899a96d9f1 ::
      PtrConst.PtrConst (IsA.Elem U)
   -> IO ()
 hs_bindgen_71f805899a96d9f1 =
-  BG.fromFFIType hs_bindgen_71f805899a96d9f1_base
+  \x0 ->
+    hs_bindgen_71f805899a96d9f1_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @barB@
 
@@ -280,7 +287,8 @@ hs_bindgen_89af56a24c359834 ::
      PtrConst.PtrConst (IsA.Elem V)
   -> IO ()
 hs_bindgen_89af56a24c359834 =
-  BG.fromFFIType hs_bindgen_89af56a24c359834_base
+  \x0 ->
+    hs_bindgen_89af56a24c359834_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @barC@
 
@@ -304,7 +312,8 @@ hs_bindgen_71d7d347923cf6e5 ::
      PtrConst.PtrConst (CA.ConstantArray 3 BG.CInt)
   -> IO ()
 hs_bindgen_71d7d347923cf6e5 =
-  BG.fromFFIType hs_bindgen_71d7d347923cf6e5_base
+  \x0 ->
+    hs_bindgen_71d7d347923cf6e5_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @baz@
 
@@ -328,7 +337,8 @@ hs_bindgen_25cc50be574bcc6c ::
      PtrConst.PtrConst W
   -> IO ()
 hs_bindgen_25cc50be574bcc6c =
-  BG.fromFFIType hs_bindgen_25cc50be574bcc6c_base
+  \x0 ->
+    hs_bindgen_25cc50be574bcc6c_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @bazA@
 
@@ -352,7 +362,8 @@ hs_bindgen_3fd3913cc13f61be ::
      PtrConst.PtrConst W
   -> IO ()
 hs_bindgen_3fd3913cc13f61be =
-  BG.fromFFIType hs_bindgen_3fd3913cc13f61be_base
+  \x0 ->
+    hs_bindgen_3fd3913cc13f61be_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @bazB@
 
@@ -376,7 +387,8 @@ hs_bindgen_a91ac27216749da9 ::
      PtrConst.PtrConst X
   -> IO ()
 hs_bindgen_a91ac27216749da9 =
-  BG.fromFFIType hs_bindgen_a91ac27216749da9_base
+  \x0 ->
+    hs_bindgen_a91ac27216749da9_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @bazC@
 

@@ -12,7 +12,7 @@ foreign import ccall unsafe "hs_bindgen_06ace787c069879f" hs_bindgen_06ace787c06
 -- __unique:__ @test_macrosobject_like_as_function_Example_get_a@
 hs_bindgen_06ace787c069879f :: IO (Ptr CInt)
 -- __unique:__ @test_macrosobject_like_as_function_Example_get_a@
-hs_bindgen_06ace787c069879f = fromFFIType hs_bindgen_06ace787c069879f_base
+hs_bindgen_06ace787c069879f = fmap fromFFIType hs_bindgen_06ace787c069879f_base
 {-# NOINLINE a #-}
 {-| __C declaration:__ @a@
 

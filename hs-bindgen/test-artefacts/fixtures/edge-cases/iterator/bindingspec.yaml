@@ -19,6 +19,9 @@ hstypes:
       constructor: Counter
       fields:
       - unwrapCounter
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Generic
   - HasCField
@@ -32,6 +35,9 @@ hstypes:
       constructor: Toggle
       fields:
       - unwrapToggle
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Generic
   - HasCField
@@ -45,6 +51,9 @@ hstypes:
       constructor: VarCounter
       fields:
       - unwrapVarCounter
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Generic
   - HasCField

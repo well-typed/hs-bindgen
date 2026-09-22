@@ -95,7 +95,6 @@ getInstances instanceMap name = aux
           Hs.PtrConstArrayElem{} -> aux (acc /\ ptrInsts) hsTypes
           Hs.Ptr{} -> aux (acc /\ ptrInsts) hsTypes
           Hs.FunPtr{} -> aux (acc /\ ptrInsts) hsTypes
-          Hs.StablePtr{} -> aux (acc /\ ptrInsts) hsTypes
           Hs.PtrConst{} -> aux (acc /\ ptrInsts) hsTypes
           Hs.IO t  -> aux (acc /\ ioInsts) (t : hsTypes)
           Hs.Fun arg res -> aux (acc /\ funInsts) (arg : res : hsTypes)
@@ -122,10 +121,10 @@ getInstances instanceMap name = aux
     (/\) = Set.intersection
 
     ioInsts :: Set Inst.TypeClass
-    ioInsts = Set.singleton Inst.HasFFIType
+    ioInsts = Set.empty
 
     funInsts :: Set Inst.TypeClass
-    funInsts = Set.singleton Inst.HasFFIType
+    funInsts = Set.empty
 
     blockInsts :: Set Inst.TypeClass
     blockInsts = Set.singleton Inst.HasFFIType
@@ -168,20 +167,7 @@ getHsPrimTypeInsts :: Hs.PrimType -> Set Inst.TypeClass
 getHsPrimTypeInsts = \case
     Hs.PrimVoid    -> voidInsts
     Hs.PrimUnit    -> unitInsts
-    Hs.PrimChar    -> charInsts
     Hs.PrimInt     -> integralInsts
-    Hs.PrimDouble  -> floatingInsts
-    Hs.PrimFloat   -> floatingInsts
-    Hs.PrimBool    -> boolInsts
-    Hs.PrimInt8    -> integralInsts
-    Hs.PrimInt16   -> integralInsts
-    Hs.PrimInt32   -> integralInsts
-    Hs.PrimInt64   -> integralInsts
-    Hs.PrimWord    -> integralInsts
-    Hs.PrimWord8   -> integralInsts
-    Hs.PrimWord16  -> integralInsts
-    Hs.PrimWord32  -> integralInsts
-    Hs.PrimWord64  -> integralInsts
     Hs.PrimCChar   -> integralInsts
     Hs.PrimCSChar  -> integralInsts
     Hs.PrimCUChar  -> integralInsts
@@ -197,42 +183,6 @@ getHsPrimTypeInsts = \case
     Hs.PrimCFloat  -> floatingInsts
     Hs.PrimCDouble -> floatingInsts
   where
-    boolInsts :: Set Inst.TypeClass
-    boolInsts = Set.fromList [
-        Inst.Bits
-      , Inst.Bounded
-      , Inst.Enum
-      , Inst.Eq
-      , Inst.FiniteBits
-      , Inst.Generic
-      , Inst.HasFFIType
-      , Inst.Ix
-      , Inst.Ord
-      , Inst.Read
-      , Inst.ReadRaw
-      , Inst.Show
-      , Inst.StaticSize
-      , Inst.Storable
-      , Inst.WriteRaw
-      ]
-
-    charInsts :: Set Inst.TypeClass
-    charInsts = Set.fromList [
-        Inst.Bounded
-      , Inst.Enum
-      , Inst.Eq
-      , Inst.HasFFIType
-      , Inst.Ix
-      , Inst.Ord
-      , Inst.Prim
-      , Inst.Read
-      , Inst.ReadRaw
-      , Inst.Show
-      , Inst.StaticSize
-      , Inst.Storable
-      , Inst.WriteRaw
-      ]
-
     floatingInsts :: Set Inst.TypeClass
     floatingInsts = Set.fromList [
         Inst.Enum

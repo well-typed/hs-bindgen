@@ -34,7 +34,7 @@ foreign import ccall unsafe "hs_bindgen_aa137b95cfa81f42" hs_bindgen_aa137b95cfa
 -- __unique:__ @test_edgecasesadios_Example_get_ϒϒ@
 hs_bindgen_aa137b95cfa81f42 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_aa137b95cfa81f42 =
-  BG.fromFFIType hs_bindgen_aa137b95cfa81f42_base
+  fmap BG.fromFFIType hs_bindgen_aa137b95cfa81f42_base
 
 {-# NOINLINE cϒϒ #-}
 {-| __C declaration:__ @ϒϒ@
@@ -53,7 +53,7 @@ foreign import ccall unsafe "hs_bindgen_7e61df7271c4ff58" hs_bindgen_7e61df7271c
 -- __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ@
 hs_bindgen_7e61df7271c4ff58 :: IO (PtrConst.PtrConst BG.CInt)
 hs_bindgen_7e61df7271c4ff58 =
-  BG.fromFFIType hs_bindgen_7e61df7271c4ff58_base
+  fmap BG.fromFFIType hs_bindgen_7e61df7271c4ff58_base
 
 {-# NOINLINE hs_bindgen_7af49c80665b9a25 #-}
 {-| __C declaration:__ @ϒϒϒ@

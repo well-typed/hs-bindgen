@@ -26,7 +26,7 @@ foreign import ccall unsafe "hs_bindgen_e637e98af1313f88" hs_bindgen_e637e98af13
 -- __unique:__ @test_attributesasm_Example_get_asm_labeled_variable@
 hs_bindgen_e637e98af1313f88 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_e637e98af1313f88 =
-  BG.fromFFIType hs_bindgen_e637e98af1313f88_base
+  fmap BG.fromFFIType hs_bindgen_e637e98af1313f88_base
 
 {-# NOINLINE asm_labeled_variable #-}
 {-| __C declaration:__ @asm_labeled_variable@

@@ -35,7 +35,7 @@ foreign import ccall unsafe "hs_bindgen_f9dede86496f59c9" hs_bindgen_f9dede86496
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_global_counter@
 hs_bindgen_f9dede86496f59c9 :: IO (BG.Ptr BG.CInt)
 hs_bindgen_f9dede86496f59c9 =
-  BG.fromFFIType hs_bindgen_f9dede86496f59c9_base
+  fmap BG.fromFFIType hs_bindgen_f9dede86496f59c9_base
 
 {-# NOINLINE global_counter #-}
 {-| Global counter variable.
@@ -59,7 +59,7 @@ foreign import ccall unsafe "hs_bindgen_a294be08386c9257" hs_bindgen_a294be08386
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_version_string@
 hs_bindgen_a294be08386c9257 :: IO (BG.Ptr (PtrConst.PtrConst BG.CChar))
 hs_bindgen_a294be08386c9257 =
-  BG.fromFFIType hs_bindgen_a294be08386c9257_base
+  fmap BG.fromFFIType hs_bindgen_a294be08386c9257_base
 
 {-# NOINLINE version_string #-}
 {-| Version string constant.

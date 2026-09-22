@@ -587,24 +587,23 @@ instance HasCField MyCoolStruct "listOfNames"
 newtype Foo_Aux
     = Foo_Aux {unwrap :: (CInt -> IO CInt)}
     deriving stock Generic
-    deriving newtype HasFFIType
 -- __unique:__ @toFoo_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_b5a7b5e83ffee6b4_base ::
-    Int32 -> IO Int32
- -> IO (FunPtr (Int32 -> IO Int32))
+    CInt -> IO CInt
+ -> IO (FunPtr (CInt -> IO CInt))
 -- __unique:__ @toFoo_Aux@
 hs_bindgen_b5a7b5e83ffee6b4 :: Foo_Aux -> IO (FunPtr Foo_Aux)
 -- __unique:__ @toFoo_Aux@
-hs_bindgen_b5a7b5e83ffee6b4 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_b5a7b5e83ffee6b4_base (toFFIType fun_0))
+hs_bindgen_b5a7b5e83ffee6b4 = \fun_0 -> fmap castFunPtr (hs_bindgen_b5a7b5e83ffee6b4_base (\x_1 -> fmap toFFIType (getField @"unwrap" fun_0 (fromFFIType x_1))))
 -- __unique:__ @fromFoo_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_223d08172bb37c01_base ::
-    FunPtr (Int32 -> IO Int32)
- -> Int32
- -> IO Int32
+    FunPtr (CInt -> IO CInt)
+ -> CInt
+ -> IO CInt
 -- __unique:__ @fromFoo_Aux@
 hs_bindgen_223d08172bb37c01 :: FunPtr Foo_Aux -> Foo_Aux
 -- __unique:__ @fromFoo_Aux@
-hs_bindgen_223d08172bb37c01 = \funPtr_0 -> fromFFIType (hs_bindgen_223d08172bb37c01_base (castFunPtrToFFIType funPtr_0))
+hs_bindgen_223d08172bb37c01 = \funPtr_0 -> Foo_Aux (\x_1 -> fmap fromFFIType (hs_bindgen_223d08172bb37c01_base (castFunPtr funPtr_0) (toFFIType x_1)))
 instance ToFunPtr Foo_Aux
     where toFunPtr = hs_bindgen_b5a7b5e83ffee6b4
 instance FromFunPtr Foo_Aux
@@ -4171,7 +4170,7 @@ foreign import ccall safe "hs_bindgen_3fd2a5c6e681c44b" hs_bindgen_3fd2a5c6e681c
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_function@
 hs_bindgen_3fd2a5c6e681c44b :: FunPtr (CInt -> IO CInt) -> IO ()
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_function@
-hs_bindgen_3fd2a5c6e681c44b = fromFFIType hs_bindgen_3fd2a5c6e681c44b_base
+hs_bindgen_3fd2a5c6e681c44b = \x_0 -> hs_bindgen_3fd2a5c6e681c44b_base (toFFIType x_0)
 {-| __C declaration:__ @foo_function@
 
     __defined at:__ @comprehensive\/c2hsc.h 38:6@
@@ -4188,12 +4187,12 @@ foo_function_safe :: FunPtr (CInt -> IO CInt) -> IO ()
 foo_function_safe = hs_bindgen_3fd2a5c6e681c44b
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_1@
 foreign import ccall safe "hs_bindgen_7978c370c45d3898" hs_bindgen_7978c370c45d3898_base ::
-    Word32
- -> IO Word32
+    CUInt
+ -> IO CUInt
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_1@
 hs_bindgen_7978c370c45d3898 :: CUInt -> IO CUInt
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_1@
-hs_bindgen_7978c370c45d3898 = fromFFIType hs_bindgen_7978c370c45d3898_base
+hs_bindgen_7978c370c45d3898 = \x_0 -> fmap fromFFIType (hs_bindgen_7978c370c45d3898_base (toFFIType x_0))
 {-| __C declaration:__ @foo_33_1@
 
     __defined at:__ @comprehensive\/c2hsc.h 73:10@
@@ -4210,12 +4209,12 @@ foo_33_1_safe :: CUInt -> IO CUInt
 foo_33_1_safe = hs_bindgen_7978c370c45d3898
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_2@
 foreign import ccall safe "hs_bindgen_44aef5175928343d" hs_bindgen_44aef5175928343d_base ::
-    Word32
- -> IO Word32
+    CUInt
+ -> IO CUInt
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_2@
 hs_bindgen_44aef5175928343d :: CUInt -> IO CUInt
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_2@
-hs_bindgen_44aef5175928343d = fromFFIType hs_bindgen_44aef5175928343d_base
+hs_bindgen_44aef5175928343d = \x_0 -> fmap fromFFIType (hs_bindgen_44aef5175928343d_base (toFFIType x_0))
 {-| __C declaration:__ @foo_33_2@
 
     __defined at:__ @comprehensive\/c2hsc.h 74:51@
@@ -4232,12 +4231,12 @@ foo_33_2_safe :: CUInt -> IO CUInt
 foo_33_2_safe = hs_bindgen_44aef5175928343d
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_3@
 foreign import ccall safe "hs_bindgen_9f0b65c4b469b3d8" hs_bindgen_9f0b65c4b469b3d8_base ::
-    Int64
- -> IO Int64
+    CLLong
+ -> IO CLLong
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_3@
 hs_bindgen_9f0b65c4b469b3d8 :: CLLong -> IO CLLong
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_3@
-hs_bindgen_9f0b65c4b469b3d8 = fromFFIType hs_bindgen_9f0b65c4b469b3d8_base
+hs_bindgen_9f0b65c4b469b3d8 = \x_0 -> fmap fromFFIType (hs_bindgen_9f0b65c4b469b3d8_base (toFFIType x_0))
 {-| __C declaration:__ @foo_33_3@
 
     __defined at:__ @comprehensive\/c2hsc.h 75:52@
@@ -4259,7 +4258,7 @@ foreign import ccall unsafe "hs_bindgen_bf542a744554a894" hs_bindgen_bf542a74455
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_function@
 hs_bindgen_bf542a744554a894 :: FunPtr (CInt -> IO CInt) -> IO ()
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_function@
-hs_bindgen_bf542a744554a894 = fromFFIType hs_bindgen_bf542a744554a894_base
+hs_bindgen_bf542a744554a894 = \x_0 -> hs_bindgen_bf542a744554a894_base (toFFIType x_0)
 {-| __C declaration:__ @foo_function@
 
     __defined at:__ @comprehensive\/c2hsc.h 38:6@
@@ -4276,12 +4275,12 @@ foo_function_unsafe :: FunPtr (CInt -> IO CInt) -> IO ()
 foo_function_unsafe = hs_bindgen_bf542a744554a894
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_1@
 foreign import ccall unsafe "hs_bindgen_11ca53f1ea9c8230" hs_bindgen_11ca53f1ea9c8230_base ::
-    Word32
- -> IO Word32
+    CUInt
+ -> IO CUInt
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_1@
 hs_bindgen_11ca53f1ea9c8230 :: CUInt -> IO CUInt
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_1@
-hs_bindgen_11ca53f1ea9c8230 = fromFFIType hs_bindgen_11ca53f1ea9c8230_base
+hs_bindgen_11ca53f1ea9c8230 = \x_0 -> fmap fromFFIType (hs_bindgen_11ca53f1ea9c8230_base (toFFIType x_0))
 {-| __C declaration:__ @foo_33_1@
 
     __defined at:__ @comprehensive\/c2hsc.h 73:10@
@@ -4298,12 +4297,12 @@ foo_33_1_unsafe :: CUInt -> IO CUInt
 foo_33_1_unsafe = hs_bindgen_11ca53f1ea9c8230
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_2@
 foreign import ccall unsafe "hs_bindgen_2685a75b0196568e" hs_bindgen_2685a75b0196568e_base ::
-    Word32
- -> IO Word32
+    CUInt
+ -> IO CUInt
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_2@
 hs_bindgen_2685a75b0196568e :: CUInt -> IO CUInt
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_2@
-hs_bindgen_2685a75b0196568e = fromFFIType hs_bindgen_2685a75b0196568e_base
+hs_bindgen_2685a75b0196568e = \x_0 -> fmap fromFFIType (hs_bindgen_2685a75b0196568e_base (toFFIType x_0))
 {-| __C declaration:__ @foo_33_2@
 
     __defined at:__ @comprehensive\/c2hsc.h 74:51@
@@ -4320,12 +4319,12 @@ foo_33_2_unsafe :: CUInt -> IO CUInt
 foo_33_2_unsafe = hs_bindgen_2685a75b0196568e
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_3@
 foreign import ccall unsafe "hs_bindgen_bc94ff083e65f7e0" hs_bindgen_bc94ff083e65f7e0_base ::
-    Int64
- -> IO Int64
+    CLLong
+ -> IO CLLong
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_3@
 hs_bindgen_bc94ff083e65f7e0 :: CLLong -> IO CLLong
 -- __unique:__ @test_comprehensivec2hsc_Example_Unsafe_foo_33_3@
-hs_bindgen_bc94ff083e65f7e0 = fromFFIType hs_bindgen_bc94ff083e65f7e0_base
+hs_bindgen_bc94ff083e65f7e0 = \x_0 -> fmap fromFFIType (hs_bindgen_bc94ff083e65f7e0_base (toFFIType x_0))
 {-| __C declaration:__ @foo_33_3@
 
     __defined at:__ @comprehensive\/c2hsc.h 75:52@
@@ -4348,7 +4347,7 @@ hs_bindgen_37f32218c55b498b :: IO (FunPtr (FunPtr (CInt ->
                                                    IO CInt) ->
                                            IO ()))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_foo_function@
-hs_bindgen_37f32218c55b498b = fromFFIType hs_bindgen_37f32218c55b498b_base
+hs_bindgen_37f32218c55b498b = fmap fromFFIType hs_bindgen_37f32218c55b498b_base
 {-# NOINLINE foo_function_funptr #-}
 {-| __C declaration:__ @foo_function@
 
@@ -4370,7 +4369,7 @@ foreign import ccall unsafe "hs_bindgen_482f80da2191c5d6" hs_bindgen_482f80da219
 -- __unique:__ @test_comprehensivec2hsc_Example_get_foo_33_1@
 hs_bindgen_482f80da2191c5d6 :: IO (FunPtr (CUInt -> IO CUInt))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_foo_33_1@
-hs_bindgen_482f80da2191c5d6 = fromFFIType hs_bindgen_482f80da2191c5d6_base
+hs_bindgen_482f80da2191c5d6 = fmap fromFFIType hs_bindgen_482f80da2191c5d6_base
 {-# NOINLINE foo_33_1_funptr #-}
 {-| __C declaration:__ @foo_33_1@
 
@@ -4392,7 +4391,7 @@ foreign import ccall unsafe "hs_bindgen_c50591bcbfea3260" hs_bindgen_c50591bcbfe
 -- __unique:__ @test_comprehensivec2hsc_Example_get_foo_33_2@
 hs_bindgen_c50591bcbfea3260 :: IO (FunPtr (CUInt -> IO CUInt))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_foo_33_2@
-hs_bindgen_c50591bcbfea3260 = fromFFIType hs_bindgen_c50591bcbfea3260_base
+hs_bindgen_c50591bcbfea3260 = fmap fromFFIType hs_bindgen_c50591bcbfea3260_base
 {-# NOINLINE foo_33_2_funptr #-}
 {-| __C declaration:__ @foo_33_2@
 
@@ -4414,7 +4413,7 @@ foreign import ccall unsafe "hs_bindgen_26b60496f499680a" hs_bindgen_26b60496f49
 -- __unique:__ @test_comprehensivec2hsc_Example_get_foo_33_3@
 hs_bindgen_26b60496f499680a :: IO (FunPtr (CLLong -> IO CLLong))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_foo_33_3@
-hs_bindgen_26b60496f499680a = fromFFIType hs_bindgen_26b60496f499680a_base
+hs_bindgen_26b60496f499680a = fmap fromFFIType hs_bindgen_26b60496f499680a_base
 {-# NOINLINE foo_33_3_funptr #-}
 {-| __C declaration:__ @foo_33_3@
 
@@ -4437,7 +4436,7 @@ foreign import ccall unsafe "hs_bindgen_b2862a117942ba8c" hs_bindgen_b2862a11794
 hs_bindgen_b2862a117942ba8c :: IO (Ptr (IncompleteArray (FunPtr (CInt ->
                                                                  IO CInt))))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_my_array@
-hs_bindgen_b2862a117942ba8c = fromFFIType hs_bindgen_b2862a117942ba8c_base
+hs_bindgen_b2862a117942ba8c = fmap fromFFIType hs_bindgen_b2862a117942ba8c_base
 {-# NOINLINE my_array #-}
 {-| __C declaration:__ @my_array@
 
@@ -4459,7 +4458,7 @@ foreign import ccall unsafe "hs_bindgen_fbe24203b7174cce" hs_bindgen_fbe24203b71
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_float@
 hs_bindgen_fbe24203b7174cce :: IO (Ptr CFloat)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_float@
-hs_bindgen_fbe24203b7174cce = fromFFIType hs_bindgen_fbe24203b7174cce_base
+hs_bindgen_fbe24203b7174cce = fmap fromFFIType hs_bindgen_fbe24203b7174cce_base
 {-# NOINLINE ordinary_float #-}
 {-| Primitive types
 
@@ -4489,7 +4488,7 @@ foreign import ccall unsafe "hs_bindgen_c996ca409147b439" hs_bindgen_c996ca40914
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_double@
 hs_bindgen_c996ca409147b439 :: IO (Ptr CDouble)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_double@
-hs_bindgen_c996ca409147b439 = fromFFIType hs_bindgen_c996ca409147b439_base
+hs_bindgen_c996ca409147b439 = fmap fromFFIType hs_bindgen_c996ca409147b439_base
 {-# NOINLINE ordinary_double #-}
 {-| __C declaration:__ @ordinary_double@
 
@@ -4511,7 +4510,7 @@ foreign import ccall unsafe "hs_bindgen_b5c47cbce17ba18f" hs_bindgen_b5c47cbce17
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_char@
 hs_bindgen_b5c47cbce17ba18f :: IO (Ptr CChar)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_char@
-hs_bindgen_b5c47cbce17ba18f = fromFFIType hs_bindgen_b5c47cbce17ba18f_base
+hs_bindgen_b5c47cbce17ba18f = fmap fromFFIType hs_bindgen_b5c47cbce17ba18f_base
 {-# NOINLINE ordinary_char #-}
 {-| __C declaration:__ @ordinary_char@
 
@@ -4533,7 +4532,7 @@ foreign import ccall unsafe "hs_bindgen_74214b0c0c8011ef" hs_bindgen_74214b0c0c8
 -- __unique:__ @test_comprehensivec2hsc_Example_get_signed_char@
 hs_bindgen_74214b0c0c8011ef :: IO (Ptr CSChar)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_signed_char@
-hs_bindgen_74214b0c0c8011ef = fromFFIType hs_bindgen_74214b0c0c8011ef_base
+hs_bindgen_74214b0c0c8011ef = fmap fromFFIType hs_bindgen_74214b0c0c8011ef_base
 {-# NOINLINE signed_char #-}
 {-| __C declaration:__ @signed_char@
 
@@ -4555,7 +4554,7 @@ foreign import ccall unsafe "hs_bindgen_074079404a90186b" hs_bindgen_074079404a9
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_char@
 hs_bindgen_074079404a90186b :: IO (Ptr CUChar)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_char@
-hs_bindgen_074079404a90186b = fromFFIType hs_bindgen_074079404a90186b_base
+hs_bindgen_074079404a90186b = fmap fromFFIType hs_bindgen_074079404a90186b_base
 {-# NOINLINE unsigned_char #-}
 {-| __C declaration:__ @unsigned_char@
 
@@ -4577,7 +4576,7 @@ foreign import ccall unsafe "hs_bindgen_e432ab522350f84b" hs_bindgen_e432ab52235
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_short@
 hs_bindgen_e432ab522350f84b :: IO (Ptr CShort)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_short@
-hs_bindgen_e432ab522350f84b = fromFFIType hs_bindgen_e432ab522350f84b_base
+hs_bindgen_e432ab522350f84b = fmap fromFFIType hs_bindgen_e432ab522350f84b_base
 {-# NOINLINE ordinary_signed_short #-}
 {-| __C declaration:__ @ordinary_signed_short@
 
@@ -4599,7 +4598,7 @@ foreign import ccall unsafe "hs_bindgen_17fa3df7c6690161" hs_bindgen_17fa3df7c66
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_short@
 hs_bindgen_17fa3df7c6690161 :: IO (Ptr CShort)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_short@
-hs_bindgen_17fa3df7c6690161 = fromFFIType hs_bindgen_17fa3df7c6690161_base
+hs_bindgen_17fa3df7c6690161 = fmap fromFFIType hs_bindgen_17fa3df7c6690161_base
 {-# NOINLINE explicit_signed_short #-}
 {-| __C declaration:__ @explicit_signed_short@
 
@@ -4621,7 +4620,7 @@ foreign import ccall unsafe "hs_bindgen_20f280e98d58aacc" hs_bindgen_20f280e98d5
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_short@
 hs_bindgen_20f280e98d58aacc :: IO (Ptr CUShort)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_short@
-hs_bindgen_20f280e98d58aacc = fromFFIType hs_bindgen_20f280e98d58aacc_base
+hs_bindgen_20f280e98d58aacc = fmap fromFFIType hs_bindgen_20f280e98d58aacc_base
 {-# NOINLINE unsigned_short #-}
 {-| __C declaration:__ @unsigned_short@
 
@@ -4643,7 +4642,7 @@ foreign import ccall unsafe "hs_bindgen_78b4f07c60ef3ef7" hs_bindgen_78b4f07c60e
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_int@
 hs_bindgen_78b4f07c60ef3ef7 :: IO (Ptr CInt)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_int@
-hs_bindgen_78b4f07c60ef3ef7 = fromFFIType hs_bindgen_78b4f07c60ef3ef7_base
+hs_bindgen_78b4f07c60ef3ef7 = fmap fromFFIType hs_bindgen_78b4f07c60ef3ef7_base
 {-# NOINLINE ordinary_signed_int #-}
 {-| __C declaration:__ @ordinary_signed_int@
 
@@ -4665,7 +4664,7 @@ foreign import ccall unsafe "hs_bindgen_41643d3737e9213c" hs_bindgen_41643d3737e
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_int@
 hs_bindgen_41643d3737e9213c :: IO (Ptr CInt)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_int@
-hs_bindgen_41643d3737e9213c = fromFFIType hs_bindgen_41643d3737e9213c_base
+hs_bindgen_41643d3737e9213c = fmap fromFFIType hs_bindgen_41643d3737e9213c_base
 {-# NOINLINE explicit_signed_int #-}
 {-| __C declaration:__ @explicit_signed_int@
 
@@ -4687,7 +4686,7 @@ foreign import ccall unsafe "hs_bindgen_6e686e175c956cb8" hs_bindgen_6e686e175c9
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_int@
 hs_bindgen_6e686e175c956cb8 :: IO (Ptr CUInt)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_int@
-hs_bindgen_6e686e175c956cb8 = fromFFIType hs_bindgen_6e686e175c956cb8_base
+hs_bindgen_6e686e175c956cb8 = fmap fromFFIType hs_bindgen_6e686e175c956cb8_base
 {-# NOINLINE unsigned_int #-}
 {-| __C declaration:__ @unsigned_int@
 
@@ -4709,7 +4708,7 @@ foreign import ccall unsafe "hs_bindgen_6a41c38f7fbb41d9" hs_bindgen_6a41c38f7fb
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_long@
 hs_bindgen_6a41c38f7fbb41d9 :: IO (Ptr CLong)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_long@
-hs_bindgen_6a41c38f7fbb41d9 = fromFFIType hs_bindgen_6a41c38f7fbb41d9_base
+hs_bindgen_6a41c38f7fbb41d9 = fmap fromFFIType hs_bindgen_6a41c38f7fbb41d9_base
 {-# NOINLINE ordinary_signed_long #-}
 {-| __C declaration:__ @ordinary_signed_long@
 
@@ -4731,7 +4730,7 @@ foreign import ccall unsafe "hs_bindgen_a3b5191325da8230" hs_bindgen_a3b5191325d
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_long@
 hs_bindgen_a3b5191325da8230 :: IO (Ptr CLong)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_long@
-hs_bindgen_a3b5191325da8230 = fromFFIType hs_bindgen_a3b5191325da8230_base
+hs_bindgen_a3b5191325da8230 = fmap fromFFIType hs_bindgen_a3b5191325da8230_base
 {-# NOINLINE explicit_signed_long #-}
 {-| __C declaration:__ @explicit_signed_long@
 
@@ -4753,7 +4752,7 @@ foreign import ccall unsafe "hs_bindgen_df563b6d35ec4e8f" hs_bindgen_df563b6d35e
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_long@
 hs_bindgen_df563b6d35ec4e8f :: IO (Ptr CULong)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_long@
-hs_bindgen_df563b6d35ec4e8f = fromFFIType hs_bindgen_df563b6d35ec4e8f_base
+hs_bindgen_df563b6d35ec4e8f = fmap fromFFIType hs_bindgen_df563b6d35ec4e8f_base
 {-# NOINLINE unsigned_long #-}
 {-| __C declaration:__ @unsigned_long@
 
@@ -4775,7 +4774,7 @@ foreign import ccall unsafe "hs_bindgen_59c6159f8798505a" hs_bindgen_59c6159f879
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_long_long@
 hs_bindgen_59c6159f8798505a :: IO (Ptr CLLong)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_long_long@
-hs_bindgen_59c6159f8798505a = fromFFIType hs_bindgen_59c6159f8798505a_base
+hs_bindgen_59c6159f8798505a = fmap fromFFIType hs_bindgen_59c6159f8798505a_base
 {-# NOINLINE ordinary_signed_long_long #-}
 {-| __C declaration:__ @ordinary_signed_long_long@
 
@@ -4797,7 +4796,7 @@ foreign import ccall unsafe "hs_bindgen_bfd63280c68460d2" hs_bindgen_bfd63280c68
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_long_long@
 hs_bindgen_bfd63280c68460d2 :: IO (Ptr CLLong)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_long_long@
-hs_bindgen_bfd63280c68460d2 = fromFFIType hs_bindgen_bfd63280c68460d2_base
+hs_bindgen_bfd63280c68460d2 = fmap fromFFIType hs_bindgen_bfd63280c68460d2_base
 {-# NOINLINE explicit_signed_long_long #-}
 {-| __C declaration:__ @explicit_signed_long_long@
 
@@ -4819,7 +4818,7 @@ foreign import ccall unsafe "hs_bindgen_8654be9a041c2116" hs_bindgen_8654be9a041
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_long_long@
 hs_bindgen_8654be9a041c2116 :: IO (Ptr CULLong)
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_long_long@
-hs_bindgen_8654be9a041c2116 = fromFFIType hs_bindgen_8654be9a041c2116_base
+hs_bindgen_8654be9a041c2116 = fmap fromFFIType hs_bindgen_8654be9a041c2116_base
 {-# NOINLINE unsigned_long_long #-}
 {-| __C declaration:__ @unsigned_long_long@
 
@@ -4841,7 +4840,7 @@ foreign import ccall unsafe "hs_bindgen_d6cafaa0834895a2" hs_bindgen_d6cafaa0834
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_void_pointer@
 hs_bindgen_d6cafaa0834895a2 :: IO (Ptr (Ptr Void))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_void_pointer@
-hs_bindgen_d6cafaa0834895a2 = fromFFIType hs_bindgen_d6cafaa0834895a2_base
+hs_bindgen_d6cafaa0834895a2 = fmap fromFFIType hs_bindgen_d6cafaa0834895a2_base
 {-# NOINLINE ordinary_void_pointer #-}
 {-| Pointers: primitive types which cannot be signed
 
@@ -4867,7 +4866,7 @@ foreign import ccall unsafe "hs_bindgen_35ef3ffa1a5167f7" hs_bindgen_35ef3ffa1a5
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_float_pointer@
 hs_bindgen_35ef3ffa1a5167f7 :: IO (Ptr (Ptr CFloat))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_float_pointer@
-hs_bindgen_35ef3ffa1a5167f7 = fromFFIType hs_bindgen_35ef3ffa1a5167f7_base
+hs_bindgen_35ef3ffa1a5167f7 = fmap fromFFIType hs_bindgen_35ef3ffa1a5167f7_base
 {-# NOINLINE ordinary_float_pointer #-}
 {-| __C declaration:__ @ordinary_float_pointer@
 
@@ -4889,7 +4888,7 @@ foreign import ccall unsafe "hs_bindgen_5e831159f7556399" hs_bindgen_5e831159f75
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_double_pointer@
 hs_bindgen_5e831159f7556399 :: IO (Ptr (Ptr CDouble))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_double_pointer@
-hs_bindgen_5e831159f7556399 = fromFFIType hs_bindgen_5e831159f7556399_base
+hs_bindgen_5e831159f7556399 = fmap fromFFIType hs_bindgen_5e831159f7556399_base
 {-# NOINLINE ordinary_double_pointer #-}
 {-| __C declaration:__ @ordinary_double_pointer@
 
@@ -4911,7 +4910,7 @@ foreign import ccall unsafe "hs_bindgen_08236e44cabe67f4" hs_bindgen_08236e44cab
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_char_pointer@
 hs_bindgen_08236e44cabe67f4 :: IO (Ptr (Ptr CChar))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_char_pointer@
-hs_bindgen_08236e44cabe67f4 = fromFFIType hs_bindgen_08236e44cabe67f4_base
+hs_bindgen_08236e44cabe67f4 = fmap fromFFIType hs_bindgen_08236e44cabe67f4_base
 {-# NOINLINE ordinary_char_pointer #-}
 {-| __C declaration:__ @ordinary_char_pointer@
 
@@ -4933,7 +4932,7 @@ foreign import ccall unsafe "hs_bindgen_66d08eddc2fecb35" hs_bindgen_66d08eddc2f
 -- __unique:__ @test_comprehensivec2hsc_Example_get_signed_char_pointer@
 hs_bindgen_66d08eddc2fecb35 :: IO (Ptr (Ptr CSChar))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_signed_char_pointer@
-hs_bindgen_66d08eddc2fecb35 = fromFFIType hs_bindgen_66d08eddc2fecb35_base
+hs_bindgen_66d08eddc2fecb35 = fmap fromFFIType hs_bindgen_66d08eddc2fecb35_base
 {-# NOINLINE signed_char_pointer #-}
 {-| __C declaration:__ @signed_char_pointer@
 
@@ -4955,7 +4954,7 @@ foreign import ccall unsafe "hs_bindgen_5c76c506cb4fd78e" hs_bindgen_5c76c506cb4
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_char_pointer@
 hs_bindgen_5c76c506cb4fd78e :: IO (Ptr (Ptr CUChar))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_char_pointer@
-hs_bindgen_5c76c506cb4fd78e = fromFFIType hs_bindgen_5c76c506cb4fd78e_base
+hs_bindgen_5c76c506cb4fd78e = fmap fromFFIType hs_bindgen_5c76c506cb4fd78e_base
 {-# NOINLINE unsigned_char_pointer #-}
 {-| __C declaration:__ @unsigned_char_pointer@
 
@@ -4977,7 +4976,7 @@ foreign import ccall unsafe "hs_bindgen_cd114d033253fe37" hs_bindgen_cd114d03325
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_short_pointer@
 hs_bindgen_cd114d033253fe37 :: IO (Ptr (Ptr CShort))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_short_pointer@
-hs_bindgen_cd114d033253fe37 = fromFFIType hs_bindgen_cd114d033253fe37_base
+hs_bindgen_cd114d033253fe37 = fmap fromFFIType hs_bindgen_cd114d033253fe37_base
 {-# NOINLINE ordinary_signed_short_pointer #-}
 {-| __C declaration:__ @ordinary_signed_short_pointer@
 
@@ -4999,7 +4998,7 @@ foreign import ccall unsafe "hs_bindgen_49ffa4c56ce34e2f" hs_bindgen_49ffa4c56ce
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_short_pointer@
 hs_bindgen_49ffa4c56ce34e2f :: IO (Ptr (Ptr CShort))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_short_pointer@
-hs_bindgen_49ffa4c56ce34e2f = fromFFIType hs_bindgen_49ffa4c56ce34e2f_base
+hs_bindgen_49ffa4c56ce34e2f = fmap fromFFIType hs_bindgen_49ffa4c56ce34e2f_base
 {-# NOINLINE explicit_signed_short_pointer #-}
 {-| __C declaration:__ @explicit_signed_short_pointer@
 
@@ -5021,7 +5020,7 @@ foreign import ccall unsafe "hs_bindgen_fb80ad6945c7151d" hs_bindgen_fb80ad6945c
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_short_pointer@
 hs_bindgen_fb80ad6945c7151d :: IO (Ptr (Ptr CUShort))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_short_pointer@
-hs_bindgen_fb80ad6945c7151d = fromFFIType hs_bindgen_fb80ad6945c7151d_base
+hs_bindgen_fb80ad6945c7151d = fmap fromFFIType hs_bindgen_fb80ad6945c7151d_base
 {-# NOINLINE unsigned_short_pointer #-}
 {-| __C declaration:__ @unsigned_short_pointer@
 
@@ -5043,7 +5042,7 @@ foreign import ccall unsafe "hs_bindgen_dfef04ad64871bf8" hs_bindgen_dfef04ad648
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_int_pointer@
 hs_bindgen_dfef04ad64871bf8 :: IO (Ptr (Ptr CInt))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_int_pointer@
-hs_bindgen_dfef04ad64871bf8 = fromFFIType hs_bindgen_dfef04ad64871bf8_base
+hs_bindgen_dfef04ad64871bf8 = fmap fromFFIType hs_bindgen_dfef04ad64871bf8_base
 {-# NOINLINE ordinary_signed_int_pointer #-}
 {-| __C declaration:__ @ordinary_signed_int_pointer@
 
@@ -5065,7 +5064,7 @@ foreign import ccall unsafe "hs_bindgen_515d5232453c4285" hs_bindgen_515d5232453
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_int_pointer@
 hs_bindgen_515d5232453c4285 :: IO (Ptr (Ptr CInt))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_int_pointer@
-hs_bindgen_515d5232453c4285 = fromFFIType hs_bindgen_515d5232453c4285_base
+hs_bindgen_515d5232453c4285 = fmap fromFFIType hs_bindgen_515d5232453c4285_base
 {-# NOINLINE explicit_signed_int_pointer #-}
 {-| __C declaration:__ @explicit_signed_int_pointer@
 
@@ -5087,7 +5086,7 @@ foreign import ccall unsafe "hs_bindgen_9f2724dae8d3b3fa" hs_bindgen_9f2724dae8d
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_int_pointer@
 hs_bindgen_9f2724dae8d3b3fa :: IO (Ptr (Ptr CUInt))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_int_pointer@
-hs_bindgen_9f2724dae8d3b3fa = fromFFIType hs_bindgen_9f2724dae8d3b3fa_base
+hs_bindgen_9f2724dae8d3b3fa = fmap fromFFIType hs_bindgen_9f2724dae8d3b3fa_base
 {-# NOINLINE unsigned_int_pointer #-}
 {-| __C declaration:__ @unsigned_int_pointer@
 
@@ -5109,7 +5108,7 @@ foreign import ccall unsafe "hs_bindgen_a6b4a786a6644424" hs_bindgen_a6b4a786a66
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_long_pointer@
 hs_bindgen_a6b4a786a6644424 :: IO (Ptr (Ptr CLong))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_long_pointer@
-hs_bindgen_a6b4a786a6644424 = fromFFIType hs_bindgen_a6b4a786a6644424_base
+hs_bindgen_a6b4a786a6644424 = fmap fromFFIType hs_bindgen_a6b4a786a6644424_base
 {-# NOINLINE ordinary_signed_long_pointer #-}
 {-| __C declaration:__ @ordinary_signed_long_pointer@
 
@@ -5131,7 +5130,7 @@ foreign import ccall unsafe "hs_bindgen_4df40729ac557753" hs_bindgen_4df40729ac5
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_long_pointer@
 hs_bindgen_4df40729ac557753 :: IO (Ptr (Ptr CLong))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_long_pointer@
-hs_bindgen_4df40729ac557753 = fromFFIType hs_bindgen_4df40729ac557753_base
+hs_bindgen_4df40729ac557753 = fmap fromFFIType hs_bindgen_4df40729ac557753_base
 {-# NOINLINE explicit_signed_long_pointer #-}
 {-| __C declaration:__ @explicit_signed_long_pointer@
 
@@ -5153,7 +5152,7 @@ foreign import ccall unsafe "hs_bindgen_30379268a6bf43b0" hs_bindgen_30379268a6b
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_long_pointer@
 hs_bindgen_30379268a6bf43b0 :: IO (Ptr (Ptr CULong))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_long_pointer@
-hs_bindgen_30379268a6bf43b0 = fromFFIType hs_bindgen_30379268a6bf43b0_base
+hs_bindgen_30379268a6bf43b0 = fmap fromFFIType hs_bindgen_30379268a6bf43b0_base
 {-# NOINLINE unsigned_long_pointer #-}
 {-| __C declaration:__ @unsigned_long_pointer@
 
@@ -5175,7 +5174,7 @@ foreign import ccall unsafe "hs_bindgen_63dedd7015d9ed47" hs_bindgen_63dedd7015d
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_long_long_pointer@
 hs_bindgen_63dedd7015d9ed47 :: IO (Ptr (Ptr CLLong))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_long_long_pointer@
-hs_bindgen_63dedd7015d9ed47 = fromFFIType hs_bindgen_63dedd7015d9ed47_base
+hs_bindgen_63dedd7015d9ed47 = fmap fromFFIType hs_bindgen_63dedd7015d9ed47_base
 {-# NOINLINE ordinary_signed_long_long_pointer #-}
 {-| __C declaration:__ @ordinary_signed_long_long_pointer@
 
@@ -5197,7 +5196,7 @@ foreign import ccall unsafe "hs_bindgen_9f47ed329f79e647" hs_bindgen_9f47ed329f7
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_long_long_pointer@
 hs_bindgen_9f47ed329f79e647 :: IO (Ptr (Ptr CLLong))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_long_long_pointer@
-hs_bindgen_9f47ed329f79e647 = fromFFIType hs_bindgen_9f47ed329f79e647_base
+hs_bindgen_9f47ed329f79e647 = fmap fromFFIType hs_bindgen_9f47ed329f79e647_base
 {-# NOINLINE explicit_signed_long_long_pointer #-}
 {-| __C declaration:__ @explicit_signed_long_long_pointer@
 
@@ -5219,7 +5218,7 @@ foreign import ccall unsafe "hs_bindgen_7d2dd0a78dde4b41" hs_bindgen_7d2dd0a78dd
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_long_long_pointer@
 hs_bindgen_7d2dd0a78dde4b41 :: IO (Ptr (Ptr CULLong))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_long_long_pointer@
-hs_bindgen_7d2dd0a78dde4b41 = fromFFIType hs_bindgen_7d2dd0a78dde4b41_base
+hs_bindgen_7d2dd0a78dde4b41 = fmap fromFFIType hs_bindgen_7d2dd0a78dde4b41_base
 {-# NOINLINE unsigned_long_long_pointer #-}
 {-| __C declaration:__ @unsigned_long_long_pointer@
 
@@ -5241,7 +5240,7 @@ foreign import ccall unsafe "hs_bindgen_dbf314f660deda12" hs_bindgen_dbf314f660d
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_float_array@
 hs_bindgen_dbf314f660deda12 :: IO (Ptr (ConstantArray 10 CFloat))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_float_array@
-hs_bindgen_dbf314f660deda12 = fromFFIType hs_bindgen_dbf314f660deda12_base
+hs_bindgen_dbf314f660deda12 = fmap fromFFIType hs_bindgen_dbf314f660deda12_base
 {-# NOINLINE ordinary_float_array #-}
 {-| Arrays: primitive types which cannot be signed
 
@@ -5267,7 +5266,7 @@ foreign import ccall unsafe "hs_bindgen_d554c83416b4ffaa" hs_bindgen_d554c83416b
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_double_array@
 hs_bindgen_d554c83416b4ffaa :: IO (Ptr (ConstantArray 10 CDouble))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_double_array@
-hs_bindgen_d554c83416b4ffaa = fromFFIType hs_bindgen_d554c83416b4ffaa_base
+hs_bindgen_d554c83416b4ffaa = fmap fromFFIType hs_bindgen_d554c83416b4ffaa_base
 {-# NOINLINE ordinary_double_array #-}
 {-| __C declaration:__ @ordinary_double_array@
 
@@ -5289,7 +5288,7 @@ foreign import ccall unsafe "hs_bindgen_9a57c94ff3fad985" hs_bindgen_9a57c94ff3f
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_char_array@
 hs_bindgen_9a57c94ff3fad985 :: IO (Ptr (ConstantArray 10 CChar))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_char_array@
-hs_bindgen_9a57c94ff3fad985 = fromFFIType hs_bindgen_9a57c94ff3fad985_base
+hs_bindgen_9a57c94ff3fad985 = fmap fromFFIType hs_bindgen_9a57c94ff3fad985_base
 {-# NOINLINE ordinary_signed_char_array #-}
 {-| __C declaration:__ @ordinary_signed_char_array@
 
@@ -5311,7 +5310,7 @@ foreign import ccall unsafe "hs_bindgen_335217e9e2c8fe6a" hs_bindgen_335217e9e2c
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_char_array@
 hs_bindgen_335217e9e2c8fe6a :: IO (Ptr (ConstantArray 10 CSChar))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_char_array@
-hs_bindgen_335217e9e2c8fe6a = fromFFIType hs_bindgen_335217e9e2c8fe6a_base
+hs_bindgen_335217e9e2c8fe6a = fmap fromFFIType hs_bindgen_335217e9e2c8fe6a_base
 {-# NOINLINE explicit_signed_char_array #-}
 {-| __C declaration:__ @explicit_signed_char_array@
 
@@ -5333,7 +5332,7 @@ foreign import ccall unsafe "hs_bindgen_1e72daddbfe2b7ac" hs_bindgen_1e72daddbfe
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_char_array@
 hs_bindgen_1e72daddbfe2b7ac :: IO (Ptr (ConstantArray 10 CUChar))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_char_array@
-hs_bindgen_1e72daddbfe2b7ac = fromFFIType hs_bindgen_1e72daddbfe2b7ac_base
+hs_bindgen_1e72daddbfe2b7ac = fmap fromFFIType hs_bindgen_1e72daddbfe2b7ac_base
 {-# NOINLINE unsigned_char_array #-}
 {-| __C declaration:__ @unsigned_char_array@
 
@@ -5355,7 +5354,7 @@ foreign import ccall unsafe "hs_bindgen_109462175baa2bdf" hs_bindgen_109462175ba
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_short_array@
 hs_bindgen_109462175baa2bdf :: IO (Ptr (ConstantArray 10 CShort))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_short_array@
-hs_bindgen_109462175baa2bdf = fromFFIType hs_bindgen_109462175baa2bdf_base
+hs_bindgen_109462175baa2bdf = fmap fromFFIType hs_bindgen_109462175baa2bdf_base
 {-# NOINLINE ordinary_signed_short_array #-}
 {-| __C declaration:__ @ordinary_signed_short_array@
 
@@ -5377,7 +5376,7 @@ foreign import ccall unsafe "hs_bindgen_50f788c18928793d" hs_bindgen_50f788c1892
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_short_array@
 hs_bindgen_50f788c18928793d :: IO (Ptr (ConstantArray 10 CShort))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_short_array@
-hs_bindgen_50f788c18928793d = fromFFIType hs_bindgen_50f788c18928793d_base
+hs_bindgen_50f788c18928793d = fmap fromFFIType hs_bindgen_50f788c18928793d_base
 {-# NOINLINE explicit_signed_short_array #-}
 {-| __C declaration:__ @explicit_signed_short_array@
 
@@ -5399,7 +5398,7 @@ foreign import ccall unsafe "hs_bindgen_d5ccc3314ab2eb42" hs_bindgen_d5ccc3314ab
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_short_array@
 hs_bindgen_d5ccc3314ab2eb42 :: IO (Ptr (ConstantArray 10 CUShort))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_short_array@
-hs_bindgen_d5ccc3314ab2eb42 = fromFFIType hs_bindgen_d5ccc3314ab2eb42_base
+hs_bindgen_d5ccc3314ab2eb42 = fmap fromFFIType hs_bindgen_d5ccc3314ab2eb42_base
 {-# NOINLINE unsigned_short_array #-}
 {-| __C declaration:__ @unsigned_short_array@
 
@@ -5421,7 +5420,7 @@ foreign import ccall unsafe "hs_bindgen_f7824c4ee10b0b90" hs_bindgen_f7824c4ee10
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_int_array@
 hs_bindgen_f7824c4ee10b0b90 :: IO (Ptr (ConstantArray 10 CInt))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_int_array@
-hs_bindgen_f7824c4ee10b0b90 = fromFFIType hs_bindgen_f7824c4ee10b0b90_base
+hs_bindgen_f7824c4ee10b0b90 = fmap fromFFIType hs_bindgen_f7824c4ee10b0b90_base
 {-# NOINLINE ordinary_signed_int_array #-}
 {-| __C declaration:__ @ordinary_signed_int_array@
 
@@ -5443,7 +5442,7 @@ foreign import ccall unsafe "hs_bindgen_448c7a47209c8b7a" hs_bindgen_448c7a47209
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_int_array@
 hs_bindgen_448c7a47209c8b7a :: IO (Ptr (ConstantArray 10 CInt))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_int_array@
-hs_bindgen_448c7a47209c8b7a = fromFFIType hs_bindgen_448c7a47209c8b7a_base
+hs_bindgen_448c7a47209c8b7a = fmap fromFFIType hs_bindgen_448c7a47209c8b7a_base
 {-# NOINLINE explicit_signed_int_array #-}
 {-| __C declaration:__ @explicit_signed_int_array@
 
@@ -5465,7 +5464,7 @@ foreign import ccall unsafe "hs_bindgen_66499a8ae9382b9e" hs_bindgen_66499a8ae93
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_int_array@
 hs_bindgen_66499a8ae9382b9e :: IO (Ptr (ConstantArray 10 CUInt))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_int_array@
-hs_bindgen_66499a8ae9382b9e = fromFFIType hs_bindgen_66499a8ae9382b9e_base
+hs_bindgen_66499a8ae9382b9e = fmap fromFFIType hs_bindgen_66499a8ae9382b9e_base
 {-# NOINLINE unsigned_int_array #-}
 {-| __C declaration:__ @unsigned_int_array@
 
@@ -5487,7 +5486,7 @@ foreign import ccall unsafe "hs_bindgen_896d3ba25d886356" hs_bindgen_896d3ba25d8
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_long_array@
 hs_bindgen_896d3ba25d886356 :: IO (Ptr (ConstantArray 10 CLong))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_long_array@
-hs_bindgen_896d3ba25d886356 = fromFFIType hs_bindgen_896d3ba25d886356_base
+hs_bindgen_896d3ba25d886356 = fmap fromFFIType hs_bindgen_896d3ba25d886356_base
 {-# NOINLINE ordinary_signed_long_array #-}
 {-| __C declaration:__ @ordinary_signed_long_array@
 
@@ -5509,7 +5508,7 @@ foreign import ccall unsafe "hs_bindgen_c4ec5e2d6cf5b5ed" hs_bindgen_c4ec5e2d6cf
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_long_array@
 hs_bindgen_c4ec5e2d6cf5b5ed :: IO (Ptr (ConstantArray 10 CLong))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_long_array@
-hs_bindgen_c4ec5e2d6cf5b5ed = fromFFIType hs_bindgen_c4ec5e2d6cf5b5ed_base
+hs_bindgen_c4ec5e2d6cf5b5ed = fmap fromFFIType hs_bindgen_c4ec5e2d6cf5b5ed_base
 {-# NOINLINE explicit_signed_long_array #-}
 {-| __C declaration:__ @explicit_signed_long_array@
 
@@ -5531,7 +5530,7 @@ foreign import ccall unsafe "hs_bindgen_e3fb79df55414b09" hs_bindgen_e3fb79df554
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_long_array@
 hs_bindgen_e3fb79df55414b09 :: IO (Ptr (ConstantArray 10 CULong))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_long_array@
-hs_bindgen_e3fb79df55414b09 = fromFFIType hs_bindgen_e3fb79df55414b09_base
+hs_bindgen_e3fb79df55414b09 = fmap fromFFIType hs_bindgen_e3fb79df55414b09_base
 {-# NOINLINE unsigned_long_array #-}
 {-| __C declaration:__ @unsigned_long_array@
 
@@ -5553,7 +5552,7 @@ foreign import ccall unsafe "hs_bindgen_02c15bdcdfc54945" hs_bindgen_02c15bdcdfc
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_long_long_array@
 hs_bindgen_02c15bdcdfc54945 :: IO (Ptr (ConstantArray 10 CLLong))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_long_long_array@
-hs_bindgen_02c15bdcdfc54945 = fromFFIType hs_bindgen_02c15bdcdfc54945_base
+hs_bindgen_02c15bdcdfc54945 = fmap fromFFIType hs_bindgen_02c15bdcdfc54945_base
 {-# NOINLINE ordinary_signed_long_long_array #-}
 {-| __C declaration:__ @ordinary_signed_long_long_array@
 
@@ -5575,7 +5574,7 @@ foreign import ccall unsafe "hs_bindgen_4c934e5832898551" hs_bindgen_4c934e58328
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_long_long_array@
 hs_bindgen_4c934e5832898551 :: IO (Ptr (ConstantArray 10 CLLong))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_long_long_array@
-hs_bindgen_4c934e5832898551 = fromFFIType hs_bindgen_4c934e5832898551_base
+hs_bindgen_4c934e5832898551 = fmap fromFFIType hs_bindgen_4c934e5832898551_base
 {-# NOINLINE explicit_signed_long_long_array #-}
 {-| __C declaration:__ @explicit_signed_long_long_array@
 
@@ -5597,7 +5596,7 @@ foreign import ccall unsafe "hs_bindgen_af47cf5cc0016405" hs_bindgen_af47cf5cc00
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_long_long_array@
 hs_bindgen_af47cf5cc0016405 :: IO (Ptr (ConstantArray 10 CULLong))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_long_long_array@
-hs_bindgen_af47cf5cc0016405 = fromFFIType hs_bindgen_af47cf5cc0016405_base
+hs_bindgen_af47cf5cc0016405 = fmap fromFFIType hs_bindgen_af47cf5cc0016405_base
 {-# NOINLINE unsigned_long_long_array #-}
 {-| __C declaration:__ @unsigned_long_long_array@
 
@@ -5620,7 +5619,7 @@ foreign import ccall unsafe "hs_bindgen_b0da135021f97e27" hs_bindgen_b0da135021f
 hs_bindgen_b0da135021f97e27 :: IO (Ptr (ConstantArray 10
                                                       (Ptr Void)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_void_pointer_array@
-hs_bindgen_b0da135021f97e27 = fromFFIType hs_bindgen_b0da135021f97e27_base
+hs_bindgen_b0da135021f97e27 = fmap fromFFIType hs_bindgen_b0da135021f97e27_base
 {-# NOINLINE ordinary_void_pointer_array #-}
 {-| Arrays of pointers
 
@@ -5647,7 +5646,7 @@ foreign import ccall unsafe "hs_bindgen_41ce3a49f177f5a8" hs_bindgen_41ce3a49f17
 hs_bindgen_41ce3a49f177f5a8 :: IO (Ptr (ConstantArray 10
                                                       (Ptr CFloat)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_float_pointer_array@
-hs_bindgen_41ce3a49f177f5a8 = fromFFIType hs_bindgen_41ce3a49f177f5a8_base
+hs_bindgen_41ce3a49f177f5a8 = fmap fromFFIType hs_bindgen_41ce3a49f177f5a8_base
 {-# NOINLINE ordinary_float_pointer_array #-}
 {-| __C declaration:__ @ordinary_float_pointer_array@
 
@@ -5670,7 +5669,7 @@ foreign import ccall unsafe "hs_bindgen_cfe3890477df51c8" hs_bindgen_cfe3890477d
 hs_bindgen_cfe3890477df51c8 :: IO (Ptr (ConstantArray 10
                                                       (Ptr CDouble)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_double_pointer_array@
-hs_bindgen_cfe3890477df51c8 = fromFFIType hs_bindgen_cfe3890477df51c8_base
+hs_bindgen_cfe3890477df51c8 = fmap fromFFIType hs_bindgen_cfe3890477df51c8_base
 {-# NOINLINE ordinary_double_pointer_array #-}
 {-| __C declaration:__ @ordinary_double_pointer_array@
 
@@ -5694,7 +5693,7 @@ foreign import ccall unsafe "hs_bindgen_e92be5e29785f22b" hs_bindgen_e92be5e2978
 hs_bindgen_e92be5e29785f22b :: IO (Ptr (ConstantArray 10
                                                       (Ptr CChar)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_char_pointer_array@
-hs_bindgen_e92be5e29785f22b = fromFFIType hs_bindgen_e92be5e29785f22b_base
+hs_bindgen_e92be5e29785f22b = fmap fromFFIType hs_bindgen_e92be5e29785f22b_base
 {-# NOINLINE ordinary_signed_char_pointer_array #-}
 {-| __C declaration:__ @ordinary_signed_char_pointer_array@
 
@@ -5718,7 +5717,7 @@ foreign import ccall unsafe "hs_bindgen_c8caf99249e8ad58" hs_bindgen_c8caf99249e
 hs_bindgen_c8caf99249e8ad58 :: IO (Ptr (ConstantArray 10
                                                       (Ptr CSChar)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_char_pointer_array@
-hs_bindgen_c8caf99249e8ad58 = fromFFIType hs_bindgen_c8caf99249e8ad58_base
+hs_bindgen_c8caf99249e8ad58 = fmap fromFFIType hs_bindgen_c8caf99249e8ad58_base
 {-# NOINLINE explicit_signed_char_pointer_array #-}
 {-| __C declaration:__ @explicit_signed_char_pointer_array@
 
@@ -5742,7 +5741,7 @@ foreign import ccall unsafe "hs_bindgen_7028963176c7a21d" hs_bindgen_7028963176c
 hs_bindgen_7028963176c7a21d :: IO (Ptr (ConstantArray 10
                                                       (Ptr CUChar)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_char_pointer_array@
-hs_bindgen_7028963176c7a21d = fromFFIType hs_bindgen_7028963176c7a21d_base
+hs_bindgen_7028963176c7a21d = fmap fromFFIType hs_bindgen_7028963176c7a21d_base
 {-# NOINLINE unsigned_char_pointer_array #-}
 {-| __C declaration:__ @unsigned_char_pointer_array@
 
@@ -5765,7 +5764,7 @@ foreign import ccall unsafe "hs_bindgen_1866849231d566a0" hs_bindgen_1866849231d
 hs_bindgen_1866849231d566a0 :: IO (Ptr (ConstantArray 10
                                                       (Ptr CShort)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_short_pointer_array@
-hs_bindgen_1866849231d566a0 = fromFFIType hs_bindgen_1866849231d566a0_base
+hs_bindgen_1866849231d566a0 = fmap fromFFIType hs_bindgen_1866849231d566a0_base
 {-# NOINLINE ordinary_signed_short_pointer_array #-}
 {-| __C declaration:__ @ordinary_signed_short_pointer_array@
 
@@ -5789,7 +5788,7 @@ foreign import ccall unsafe "hs_bindgen_68ed6d444e1b6011" hs_bindgen_68ed6d444e1
 hs_bindgen_68ed6d444e1b6011 :: IO (Ptr (ConstantArray 10
                                                       (Ptr CShort)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_short_pointer_array@
-hs_bindgen_68ed6d444e1b6011 = fromFFIType hs_bindgen_68ed6d444e1b6011_base
+hs_bindgen_68ed6d444e1b6011 = fmap fromFFIType hs_bindgen_68ed6d444e1b6011_base
 {-# NOINLINE explicit_signed_short_pointer_array #-}
 {-| __C declaration:__ @explicit_signed_short_pointer_array@
 
@@ -5813,7 +5812,7 @@ foreign import ccall unsafe "hs_bindgen_7c0ca48c3269649a" hs_bindgen_7c0ca48c326
 hs_bindgen_7c0ca48c3269649a :: IO (Ptr (ConstantArray 10
                                                       (Ptr CUShort)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_short_pointer_array@
-hs_bindgen_7c0ca48c3269649a = fromFFIType hs_bindgen_7c0ca48c3269649a_base
+hs_bindgen_7c0ca48c3269649a = fmap fromFFIType hs_bindgen_7c0ca48c3269649a_base
 {-# NOINLINE unsigned_short_pointer_array #-}
 {-| __C declaration:__ @unsigned_short_pointer_array@
 
@@ -5837,7 +5836,7 @@ foreign import ccall unsafe "hs_bindgen_58e6503e8ccbeb70" hs_bindgen_58e6503e8cc
 hs_bindgen_58e6503e8ccbeb70 :: IO (Ptr (ConstantArray 10
                                                       (Ptr CInt)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_int_pointer_array@
-hs_bindgen_58e6503e8ccbeb70 = fromFFIType hs_bindgen_58e6503e8ccbeb70_base
+hs_bindgen_58e6503e8ccbeb70 = fmap fromFFIType hs_bindgen_58e6503e8ccbeb70_base
 {-# NOINLINE ordinary_signed_int_pointer_array #-}
 {-| __C declaration:__ @ordinary_signed_int_pointer_array@
 
@@ -5861,7 +5860,7 @@ foreign import ccall unsafe "hs_bindgen_21b8395de873bc0a" hs_bindgen_21b8395de87
 hs_bindgen_21b8395de873bc0a :: IO (Ptr (ConstantArray 10
                                                       (Ptr CInt)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_int_pointer_array@
-hs_bindgen_21b8395de873bc0a = fromFFIType hs_bindgen_21b8395de873bc0a_base
+hs_bindgen_21b8395de873bc0a = fmap fromFFIType hs_bindgen_21b8395de873bc0a_base
 {-# NOINLINE explicit_signed_int_pointer_array #-}
 {-| __C declaration:__ @explicit_signed_int_pointer_array@
 
@@ -5885,7 +5884,7 @@ foreign import ccall unsafe "hs_bindgen_667d31d5b7b5106e" hs_bindgen_667d31d5b7b
 hs_bindgen_667d31d5b7b5106e :: IO (Ptr (ConstantArray 10
                                                       (Ptr CUInt)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_int_pointer_array@
-hs_bindgen_667d31d5b7b5106e = fromFFIType hs_bindgen_667d31d5b7b5106e_base
+hs_bindgen_667d31d5b7b5106e = fmap fromFFIType hs_bindgen_667d31d5b7b5106e_base
 {-# NOINLINE unsigned_int_pointer_array #-}
 {-| __C declaration:__ @unsigned_int_pointer_array@
 
@@ -5908,7 +5907,7 @@ foreign import ccall unsafe "hs_bindgen_eb34bb7d213dcd3d" hs_bindgen_eb34bb7d213
 hs_bindgen_eb34bb7d213dcd3d :: IO (Ptr (ConstantArray 10
                                                       (Ptr CLong)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_long_pointer_array@
-hs_bindgen_eb34bb7d213dcd3d = fromFFIType hs_bindgen_eb34bb7d213dcd3d_base
+hs_bindgen_eb34bb7d213dcd3d = fmap fromFFIType hs_bindgen_eb34bb7d213dcd3d_base
 {-# NOINLINE ordinary_signed_long_pointer_array #-}
 {-| __C declaration:__ @ordinary_signed_long_pointer_array@
 
@@ -5932,7 +5931,7 @@ foreign import ccall unsafe "hs_bindgen_3386ff9d0e54545d" hs_bindgen_3386ff9d0e5
 hs_bindgen_3386ff9d0e54545d :: IO (Ptr (ConstantArray 10
                                                       (Ptr CLong)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_long_pointer_array@
-hs_bindgen_3386ff9d0e54545d = fromFFIType hs_bindgen_3386ff9d0e54545d_base
+hs_bindgen_3386ff9d0e54545d = fmap fromFFIType hs_bindgen_3386ff9d0e54545d_base
 {-# NOINLINE explicit_signed_long_pointer_array #-}
 {-| __C declaration:__ @explicit_signed_long_pointer_array@
 
@@ -5956,7 +5955,7 @@ foreign import ccall unsafe "hs_bindgen_510be86496a28c91" hs_bindgen_510be86496a
 hs_bindgen_510be86496a28c91 :: IO (Ptr (ConstantArray 10
                                                       (Ptr CULong)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_long_pointer_array@
-hs_bindgen_510be86496a28c91 = fromFFIType hs_bindgen_510be86496a28c91_base
+hs_bindgen_510be86496a28c91 = fmap fromFFIType hs_bindgen_510be86496a28c91_base
 {-# NOINLINE unsigned_long_pointer_array #-}
 {-| __C declaration:__ @unsigned_long_pointer_array@
 
@@ -5979,7 +5978,7 @@ foreign import ccall unsafe "hs_bindgen_25f60aa140d341a7" hs_bindgen_25f60aa140d
 hs_bindgen_25f60aa140d341a7 :: IO (Ptr (ConstantArray 10
                                                       (Ptr CLLong)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_ordinary_signed_long_long_pointer_array@
-hs_bindgen_25f60aa140d341a7 = fromFFIType hs_bindgen_25f60aa140d341a7_base
+hs_bindgen_25f60aa140d341a7 = fmap fromFFIType hs_bindgen_25f60aa140d341a7_base
 {-# NOINLINE ordinary_signed_long_long_pointer_array #-}
 {-| __C declaration:__ @ordinary_signed_long_long_pointer_array@
 
@@ -6003,7 +6002,7 @@ foreign import ccall unsafe "hs_bindgen_aced8afe33f53905" hs_bindgen_aced8afe33f
 hs_bindgen_aced8afe33f53905 :: IO (Ptr (ConstantArray 10
                                                       (Ptr CLLong)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_explicit_signed_long_long_pointer_array@
-hs_bindgen_aced8afe33f53905 = fromFFIType hs_bindgen_aced8afe33f53905_base
+hs_bindgen_aced8afe33f53905 = fmap fromFFIType hs_bindgen_aced8afe33f53905_base
 {-# NOINLINE explicit_signed_long_long_pointer_array #-}
 {-| __C declaration:__ @explicit_signed_long_long_pointer_array@
 
@@ -6027,7 +6026,7 @@ foreign import ccall unsafe "hs_bindgen_9534a7c84390edc4" hs_bindgen_9534a7c8439
 hs_bindgen_9534a7c84390edc4 :: IO (Ptr (ConstantArray 10
                                                       (Ptr CULLong)))
 -- __unique:__ @test_comprehensivec2hsc_Example_get_unsigned_long_long_pointer_array@
-hs_bindgen_9534a7c84390edc4 = fromFFIType hs_bindgen_9534a7c84390edc4_base
+hs_bindgen_9534a7c84390edc4 = fmap fromFFIType hs_bindgen_9534a7c84390edc4_base
 {-# NOINLINE unsigned_long_long_pointer_array #-}
 {-| __C declaration:__ @unsigned_long_long_pointer_array@
 

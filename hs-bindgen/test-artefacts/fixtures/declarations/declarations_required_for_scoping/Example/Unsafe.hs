@@ -6,6 +6,7 @@ module Example.Unsafe
     )
   where
 
+import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CAPI
 import Example
@@ -22,7 +23,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
 foreign import ccall unsafe "hs_bindgen_93ed1628a0edf6b0" hs_bindgen_93ed1628a0edf6b0_base ::
-     BG.Word64
+     HsBindgen.Runtime.LibC.CSize
   -> IO ()
 
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
@@ -30,7 +31,8 @@ hs_bindgen_93ed1628a0edf6b0 ::
      A
   -> IO ()
 hs_bindgen_93ed1628a0edf6b0 =
-  BG.fromFFIType hs_bindgen_93ed1628a0edf6b0_base
+  \x0 ->
+    hs_bindgen_93ed1628a0edf6b0_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @f@
 

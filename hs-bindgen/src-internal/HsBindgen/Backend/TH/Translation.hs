@@ -181,8 +181,7 @@ mkRolledType env ty = case ty of
     TFun a b   -> TH.arrowT `TH.appT` mkType env a `TH.appT` mkType env b
     TLit n     -> TH.litT (TH.numTyLit (toInteger n))
     TStrLit s  -> TH.litT (TH.strTyLit s)
-    TExt extRef _cTypeSpec _hsTypeSpec ->
-        lookupExtType extRef
+    TExt extRef -> lookupExtType extRef
     TBound x   -> TH.varT (lookupEnv x env)
     TFree n    -> TH.varT $ mkHsName n
     TApp f t   -> TH.appT (mkType env f) (mkType env t)

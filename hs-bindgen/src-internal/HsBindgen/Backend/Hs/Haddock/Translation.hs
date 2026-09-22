@@ -19,6 +19,7 @@ import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -66,8 +67,8 @@ mkHaddocksFieldInfo config declInfo fieldInfo =
 mkHaddocksDecorateParams ::
      HaddockConfig
   -> C.DeclInfo Final
-  -> [(Maybe Text, Hs.FunctionParameter)]
-  -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
+  -> [(Maybe Text, Hs.FunctionParameter Hs.Type)]
+  -> (Maybe HsDoc.Comment, [Hs.FunctionParameter Hs.Type])
 mkHaddocksDecorateParams config info params =
     let (mbc, xs) = mkHaddocksWithArgs config info Args{
         isField = False
@@ -89,13 +90,17 @@ data Args = Args{
     , cName   :: Text
     , hsName  :: Hs.SomeName
     , comment :: Maybe (C.Comment Final)
-    , params  :: [(Maybe Text, Hs.FunctionParameter)]
+    , params  :: [(Maybe Text, Hs.FunctionParameter Hs.Type)]
     }
 
 -- | Convert a Doxygen comment to a Haddock comment, updating function
 -- parameters with their documentation.
 --
-mkHaddocksWithArgs :: HaddockConfig -> C.DeclInfo Final -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
+mkHaddocksWithArgs ::
+     HaddockConfig
+  -> C.DeclInfo Final
+  -> Args
+  -> (Maybe HsDoc.Comment, [Hs.FunctionParameter Hs.Type])
 mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Nothing, ..} =
       ( Just $
           mempty
@@ -155,8 +160,8 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment Doxy.Co
     extractMatchedParams (_ : rest) = extractMatchedParams rest
 
     processParamDocs :: [Doxy.Param (C.CommentRef Final)]
-                     -> [(Maybe Text, Hs.FunctionParameter)]
-                     -> [(Maybe Text, Hs.FunctionParameter)]
+                     -> [(Maybe Text, Hs.FunctionParameter ty)]
+                     -> [(Maybe Text, Hs.FunctionParameter ty)]
     processParamDocs [] currentParams = currentParams
     processParamDocs (dp : rest) currentParams =
         processParamDocs rest $ map (updateParam dp) currentParams
@@ -170,7 +175,7 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment Doxy.Co
             in  (mbName, fp & #comment .~ Just paramComment)
           | otherwise = (mbName, fp)
 
-addFunctionParameterComment :: Maybe Text -> Hs.FunctionParameter -> Hs.FunctionParameter
+addFunctionParameterComment :: Maybe Text -> Hs.FunctionParameter ty -> Hs.FunctionParameter ty
 addFunctionParameterComment mbName fp =
   case mbName of
     Nothing -> fp

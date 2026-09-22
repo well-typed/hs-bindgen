@@ -35,7 +35,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_63386173f0facb31" hs_bindgen_63386173f0facb31_base ::
-     BG.Int32
+     BG.CInt
   -> IO ()
 
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Unsafe_foo@
@@ -43,7 +43,8 @@ hs_bindgen_63386173f0facb31 ::
      BG.CInt
   -> IO ()
 hs_bindgen_63386173f0facb31 =
-  BG.fromFFIType hs_bindgen_63386173f0facb31_base
+  \x0 ->
+    hs_bindgen_63386173f0facb31_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @foo@
 
@@ -59,15 +60,16 @@ foo = hs_bindgen_63386173f0facb31
 
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_2ffb271b09dfbbf9" hs_bindgen_2ffb271b09dfbbf9_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Unsafe_bar@
 hs_bindgen_2ffb271b09dfbbf9 ::
      BG.CInt
   -> IO BG.CInt
 hs_bindgen_2ffb271b09dfbbf9 =
-  BG.fromFFIType hs_bindgen_2ffb271b09dfbbf9_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_2ffb271b09dfbbf9_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @bar@
 
@@ -83,15 +85,16 @@ bar = hs_bindgen_2ffb271b09dfbbf9
 
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Unsafe_baz@
 foreign import ccall unsafe "hs_bindgen_3cf87e230ba213f9" hs_bindgen_3cf87e230ba213f9_base ::
-     BG.Int32
-  -> IO BG.Int32
+     BG.CInt
+  -> IO BG.CInt
 
 -- __unique:__ @test_macrosreparsefunctions_2_raw_Example_Unsafe_baz@
 hs_bindgen_3cf87e230ba213f9 ::
      BG.CInt
   -> IO BG.CInt
 hs_bindgen_3cf87e230ba213f9 =
-  BG.fromFFIType hs_bindgen_3cf87e230ba213f9_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_3cf87e230ba213f9_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @baz@
 

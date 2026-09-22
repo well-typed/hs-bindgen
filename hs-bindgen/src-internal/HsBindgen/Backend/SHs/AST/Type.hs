@@ -18,7 +18,6 @@ import DeBruijn (Add, Ctx, EmptyCtx, Idx)
 
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Level
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
@@ -42,7 +41,7 @@ data SType ctx =
   | TFun (SType ctx) (SType ctx)
   | TLit Natural
   | TStrLit String
-  | TExt Hs.ExtRef BindingSpec.CTypeSpec BindingSpec.HsTypeSpec
+  | TExt Hs.ExtRef
   | TBound (Idx ctx)
   | TFree (Hs.Name Hs.NsVar)
   | TApp (SType ctx) (SType ctx)

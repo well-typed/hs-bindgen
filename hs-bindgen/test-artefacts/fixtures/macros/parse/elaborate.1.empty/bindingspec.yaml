@@ -16,6 +16,9 @@ hstypes:
       constructor: Inner_int
       fields:
       - unwrapInner_int
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -47,6 +50,9 @@ hstypes:
       constructor: Outer_int
       fields:
       - unwrapOuter_int
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits

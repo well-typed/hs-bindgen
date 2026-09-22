@@ -103,7 +103,7 @@ foreign import ccall unsafe "hs_bindgen_ccdad25a057f8efd" hs_bindgen_ccdad25a057
 -- __unique:__ @test_edgecasesiterator_Example_get_makeToggle@
 hs_bindgen_ccdad25a057f8efd :: IO (BG.FunPtr (BG.CBool -> IO Toggle))
 hs_bindgen_ccdad25a057f8efd =
-  BG.fromFFIType hs_bindgen_ccdad25a057f8efd_base
+  fmap BG.fromFFIType hs_bindgen_ccdad25a057f8efd_base
 
 {-# NOINLINE makeToggle #-}
 {-| __C declaration:__ @makeToggle@
@@ -123,7 +123,7 @@ foreign import ccall unsafe "hs_bindgen_fd8e19ba2d78baa9" hs_bindgen_fd8e19ba2d7
 -- __unique:__ @test_edgecasesiterator_Example_get_toggleNext@
 hs_bindgen_fd8e19ba2d78baa9 :: IO (BG.FunPtr (Toggle -> IO BG.CBool))
 hs_bindgen_fd8e19ba2d78baa9 =
-  BG.fromFFIType hs_bindgen_fd8e19ba2d78baa9_base
+  fmap BG.fromFFIType hs_bindgen_fd8e19ba2d78baa9_base
 
 {-# NOINLINE toggleNext #-}
 {-| __C declaration:__ @toggleNext@
@@ -143,7 +143,7 @@ foreign import ccall unsafe "hs_bindgen_780e490698de9df1" hs_bindgen_780e490698d
 -- __unique:__ @test_edgecasesiterator_Example_get_releaseToggle@
 hs_bindgen_780e490698de9df1 :: IO (BG.FunPtr (Toggle -> IO ()))
 hs_bindgen_780e490698de9df1 =
-  BG.fromFFIType hs_bindgen_780e490698de9df1_base
+  fmap BG.fromFFIType hs_bindgen_780e490698de9df1_base
 
 {-# NOINLINE releaseToggle #-}
 {-| __C declaration:__ @releaseToggle@
@@ -163,7 +163,7 @@ foreign import ccall unsafe "hs_bindgen_517dd14dbdb5e3ba" hs_bindgen_517dd14dbdb
 -- __unique:__ @test_edgecasesiterator_Example_get_makeCounter@
 hs_bindgen_517dd14dbdb5e3ba :: IO (BG.FunPtr (BG.CInt -> BG.CInt -> IO Counter))
 hs_bindgen_517dd14dbdb5e3ba =
-  BG.fromFFIType hs_bindgen_517dd14dbdb5e3ba_base
+  fmap BG.fromFFIType hs_bindgen_517dd14dbdb5e3ba_base
 
 {-# NOINLINE makeCounter #-}
 {-| __C declaration:__ @makeCounter@
@@ -183,7 +183,7 @@ foreign import ccall unsafe "hs_bindgen_28d81dd8ce6aca30" hs_bindgen_28d81dd8ce6
 -- __unique:__ @test_edgecasesiterator_Example_get_counterNext@
 hs_bindgen_28d81dd8ce6aca30 :: IO (BG.FunPtr (Counter -> IO BG.CInt))
 hs_bindgen_28d81dd8ce6aca30 =
-  BG.fromFFIType hs_bindgen_28d81dd8ce6aca30_base
+  fmap BG.fromFFIType hs_bindgen_28d81dd8ce6aca30_base
 
 {-# NOINLINE counterNext #-}
 {-| __C declaration:__ @counterNext@
@@ -203,7 +203,7 @@ foreign import ccall unsafe "hs_bindgen_849de94baad0430a" hs_bindgen_849de94baad
 -- __unique:__ @test_edgecasesiterator_Example_get_releaseCounter@
 hs_bindgen_849de94baad0430a :: IO (BG.FunPtr (Counter -> IO ()))
 hs_bindgen_849de94baad0430a =
-  BG.fromFFIType hs_bindgen_849de94baad0430a_base
+  fmap BG.fromFFIType hs_bindgen_849de94baad0430a_base
 
 {-# NOINLINE releaseCounter #-}
 {-| __C declaration:__ @releaseCounter@
@@ -223,7 +223,7 @@ foreign import ccall unsafe "hs_bindgen_8eea20d99febeef3" hs_bindgen_8eea20d99fe
 -- __unique:__ @test_edgecasesiterator_Example_get_makeVarCounter@
 hs_bindgen_8eea20d99febeef3 :: IO (BG.FunPtr (BG.CInt -> IO VarCounter))
 hs_bindgen_8eea20d99febeef3 =
-  BG.fromFFIType hs_bindgen_8eea20d99febeef3_base
+  fmap BG.fromFFIType hs_bindgen_8eea20d99febeef3_base
 
 {-# NOINLINE makeVarCounter #-}
 {-| __C declaration:__ @makeVarCounter@
@@ -243,7 +243,7 @@ foreign import ccall unsafe "hs_bindgen_3ae982266c863a3d" hs_bindgen_3ae982266c8
 -- __unique:__ @test_edgecasesiterator_Example_get_varCounterNext@
 hs_bindgen_3ae982266c863a3d :: IO (BG.FunPtr (VarCounter -> BG.CInt -> IO BG.CInt))
 hs_bindgen_3ae982266c863a3d =
-  BG.fromFFIType hs_bindgen_3ae982266c863a3d_base
+  fmap BG.fromFFIType hs_bindgen_3ae982266c863a3d_base
 
 {-# NOINLINE varCounterNext #-}
 {-| __C declaration:__ @varCounterNext@
@@ -263,7 +263,7 @@ foreign import ccall unsafe "hs_bindgen_802a723805cb041f" hs_bindgen_802a723805c
 -- __unique:__ @test_edgecasesiterator_Example_get_releaseVarCounter@
 hs_bindgen_802a723805cb041f :: IO (BG.FunPtr (VarCounter -> IO ()))
 hs_bindgen_802a723805cb041f =
-  BG.fromFFIType hs_bindgen_802a723805cb041f_base
+  fmap BG.fromFFIType hs_bindgen_802a723805cb041f_base
 
 {-# NOINLINE releaseVarCounter #-}
 {-| __C declaration:__ @releaseVarCounter@

@@ -37,6 +37,9 @@ hstypes:
       constructor: FileOperationStatus
       fields:
       - unwrapFileOperationStatus
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - CEnum
   - Eq

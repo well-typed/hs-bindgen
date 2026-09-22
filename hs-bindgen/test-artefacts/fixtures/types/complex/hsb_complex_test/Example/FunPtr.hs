@@ -39,7 +39,7 @@ foreign import ccall unsafe "hs_bindgen_29b4fea741132943" hs_bindgen_29b4fea7411
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_multiply_complex_f@
 hs_bindgen_29b4fea741132943 :: IO (BG.FunPtr (BG.Complex BG.CFloat -> BG.Complex BG.CFloat -> IO (BG.Complex BG.CFloat)))
 hs_bindgen_29b4fea741132943 =
-  BG.fromFFIType hs_bindgen_29b4fea741132943_base
+  fmap BG.fromFFIType hs_bindgen_29b4fea741132943_base
 
 {-# NOINLINE multiply_complex_f #-}
 {-| __C declaration:__ @multiply_complex_f@
@@ -59,7 +59,7 @@ foreign import ccall unsafe "hs_bindgen_b53577d6ad8dd36c" hs_bindgen_b53577d6ad8
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_add_complex@
 hs_bindgen_b53577d6ad8dd36c :: IO (BG.FunPtr (BG.Complex BG.CDouble -> BG.Complex BG.CDouble -> IO (BG.Complex BG.CDouble)))
 hs_bindgen_b53577d6ad8dd36c =
-  BG.fromFFIType hs_bindgen_b53577d6ad8dd36c_base
+  fmap BG.fromFFIType hs_bindgen_b53577d6ad8dd36c_base
 
 {-# NOINLINE add_complex #-}
 {-| __C declaration:__ @add_complex@

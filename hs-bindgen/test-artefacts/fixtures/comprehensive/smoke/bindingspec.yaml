@@ -116,6 +116,9 @@ hstypes:
       constructor: Baz2_t
       fields:
       - unwrap
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -140,6 +143,9 @@ hstypes:
       constructor: Baz3_t
       fields:
       - unwrap
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -164,6 +170,9 @@ hstypes:
       constructor: Baz4_t
       fields:
       - unwrap
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -188,6 +197,9 @@ hstypes:
       constructor: Size_t
       fields:
       - unwrap
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CULong
   instances:
   - Bitfield
   - Bits
@@ -219,6 +231,9 @@ hstypes:
       constructor: Uint
       fields:
       - unwrap
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - Bitfield
   - Bits

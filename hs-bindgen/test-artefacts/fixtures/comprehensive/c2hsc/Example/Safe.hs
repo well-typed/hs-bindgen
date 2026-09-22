@@ -53,7 +53,8 @@ hs_bindgen_3fd2a5c6e681c44b ::
      BG.FunPtr (BG.CInt -> IO BG.CInt)
   -> IO ()
 hs_bindgen_3fd2a5c6e681c44b =
-  BG.fromFFIType hs_bindgen_3fd2a5c6e681c44b_base
+  \x0 ->
+    hs_bindgen_3fd2a5c6e681c44b_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @foo_function@
 
@@ -69,15 +70,16 @@ foo_function = hs_bindgen_3fd2a5c6e681c44b
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_1@
 foreign import ccall safe "hs_bindgen_7978c370c45d3898" hs_bindgen_7978c370c45d3898_base ::
-     BG.Word32
-  -> IO BG.Word32
+     BG.CUInt
+  -> IO BG.CUInt
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_1@
 hs_bindgen_7978c370c45d3898 ::
      BG.CUInt
   -> IO BG.CUInt
 hs_bindgen_7978c370c45d3898 =
-  BG.fromFFIType hs_bindgen_7978c370c45d3898_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_7978c370c45d3898_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @foo_33_1@
 
@@ -92,15 +94,16 @@ foo_33_1 = hs_bindgen_7978c370c45d3898
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_2@
 foreign import ccall safe "hs_bindgen_44aef5175928343d" hs_bindgen_44aef5175928343d_base ::
-     BG.Word32
-  -> IO BG.Word32
+     BG.CUInt
+  -> IO BG.CUInt
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_2@
 hs_bindgen_44aef5175928343d ::
      BG.CUInt
   -> IO BG.CUInt
 hs_bindgen_44aef5175928343d =
-  BG.fromFFIType hs_bindgen_44aef5175928343d_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_44aef5175928343d_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @foo_33_2@
 
@@ -115,15 +118,16 @@ foo_33_2 = hs_bindgen_44aef5175928343d
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_3@
 foreign import ccall safe "hs_bindgen_9f0b65c4b469b3d8" hs_bindgen_9f0b65c4b469b3d8_base ::
-     BG.Int64
-  -> IO BG.Int64
+     BG.CLLong
+  -> IO BG.CLLong
 
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_33_3@
 hs_bindgen_9f0b65c4b469b3d8 ::
      BG.CLLong
   -> IO BG.CLLong
 hs_bindgen_9f0b65c4b469b3d8 =
-  BG.fromFFIType hs_bindgen_9f0b65c4b469b3d8_base
+  \x0 ->
+    fmap BG.fromFFIType (hs_bindgen_9f0b65c4b469b3d8_base (BG.toFFIType x0))
 
 {-| __C declaration:__ @foo_33_3@
 

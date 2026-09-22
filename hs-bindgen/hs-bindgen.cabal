@@ -135,6 +135,7 @@ library internal
     HsBindgen.Backend.SHs.Simplify
     HsBindgen.Backend.SHs.Translation
     HsBindgen.Backend.SHs.Translation.Common
+    HsBindgen.Backend.SHs.Translation.MapFunction
     HsBindgen.Backend.TH.Translation
     HsBindgen.Backend.UniqueSymbol
     HsBindgen.BindingSpec
@@ -150,7 +151,6 @@ library internal
     HsBindgen.Clang.Discover
     HsBindgen.Clang.ExtraClangArgs
     HsBindgen.Clang.Macos
-    HsBindgen.Clang.Sizeof
     HsBindgen.Clang.Tokens
     HsBindgen.Config.ClangArgs
     HsBindgen.Config.Internal

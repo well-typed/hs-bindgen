@@ -111,6 +111,9 @@ hstypes:
       constructor: Api_version_t
       fields:
       - unwrapApi_version_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -164,6 +167,9 @@ hstypes:
       constructor: Color_enum
       fields:
       - unwrapColor_enum
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -328,6 +334,9 @@ hstypes:
       constructor: Event_callback_t
       fields:
       - unwrapEvent_callback_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -493,6 +502,9 @@ hstypes:
       constructor: Processor_fn_t
       fields:
       - unwrapProcessor_fn_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -513,6 +525,9 @@ hstypes:
       constructor: Size_type
       fields:
       - unwrapSize_type
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: CSize
   instances:
   - Bitfield
   - Bits
@@ -544,6 +559,9 @@ hstypes:
       constructor: Status_code_t
       fields:
       - unwrapStatus_code_t
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - CEnum
   - Eq

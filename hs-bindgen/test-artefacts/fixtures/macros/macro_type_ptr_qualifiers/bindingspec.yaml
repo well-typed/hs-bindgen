@@ -28,6 +28,9 @@ hstypes:
       constructor: ConstPtrToInt
       fields:
       - unwrapConstPtrToInt
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -48,6 +51,9 @@ hstypes:
       constructor: PtrToConstIntL
       fields:
       - unwrapPtrToConstIntL
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -68,6 +74,9 @@ hstypes:
       constructor: PtrToConstIntR
       fields:
       - unwrapPtrToConstIntR
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -88,6 +97,9 @@ hstypes:
       constructor: PtrToConstVoidL
       fields:
       - unwrapPtrToConstVoidL
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -108,6 +120,9 @@ hstypes:
       constructor: PtrToConstVoidR
       fields:
       - unwrapPtrToConstVoidR
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -128,6 +143,9 @@ hstypes:
       constructor: PtrToVoid
       fields:
       - unwrapPtrToVoid
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic

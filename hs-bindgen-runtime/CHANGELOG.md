@@ -9,6 +9,25 @@
 * `setUnionPayload` would previously generate a zeroed out byte array and write
   a `Storable` value to it. It now takes a byte array argument that the
   `Storable` value is written to. See [issue #2183][is-2183].
+* Overhaul the `HasFFIType` class. See [PR #2267][pr-2267].
+  * Where instances for `HasFFIType` could only be `newtype`-derived previously,
+    the class is now completely open.
+  * The class is now also only intended for `foreign import` argument and result
+    types, instead of full foreign types.
+    * This means that default instances for function types and `IO` are now also
+      removed.
+  * Change most `HasFFIType` instances to map types to themselves as their FFI
+    types.
+  * Remove the `HsBindgen.Runtime.Support.FFIType` module.
+  * Remove `castFunPtrToFFIType` and `castFunPtrFromFFIType`.
+  * Remove `ViaNewtype` and `ViaCoercible`.
+  * Move `HsBindgen.Runtime.Support.HasFFIType` to
+    `HsBindgen.Runtime.HasFFIType`.
+  * Add `PtrVoid` and `FunPtrVoid` to `HsBindgen.Runtime.HasFFIType`.
+  * Add `ViaIdentity` to `HsBindgen.Runtime.HasFFIType`.
+  * Re-export `castFunPtr` from `HsBindgen.Runtime.Support`.
+  * Re-export `Foreign.C.Types` constructors from `HsBindgen.Runtime.Support`.
+  * Re-export `Foreign.C.Types` constructors from `HsBindgen.Runtime.LibC`.
 
 ### New features
 
@@ -57,6 +76,7 @@
 [pr-2164]: https://github.com/well-typed/hs-bindgen/pull/2164
 [pr-2168]: https://github.com/well-typed/hs-bindgen/pull/2168
 [pr-2169]: https://github.com/well-typed/hs-bindgen/pull/2169
+[pr-2267]: https://github.com/well-typed/hs-bindgen/pull/2267
 
 ## 0.1.0-alpha2 -- 2026-03-27
 

@@ -37,6 +37,9 @@ hstypes:
       constructor: MC
       fields:
       - unwrapMC
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CChar
   instances:
   - Bitfield
   - Bits
@@ -162,6 +165,9 @@ hstypes:
       constructor: TC
       fields:
       - unwrapTC
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CChar
   instances:
   - Bitfield
   - Bits

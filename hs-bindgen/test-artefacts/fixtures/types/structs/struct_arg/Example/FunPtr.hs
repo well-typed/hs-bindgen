@@ -60,7 +60,7 @@ foreign import ccall unsafe "hs_bindgen_17a14e7ffaa1e2e5" hs_bindgen_17a14e7ffaa
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_1@
 hs_bindgen_17a14e7ffaa1e2e5 :: IO (BG.FunPtr (Thing -> IO BG.CInt))
 hs_bindgen_17a14e7ffaa1e2e5 =
-  BG.fromFFIType hs_bindgen_17a14e7ffaa1e2e5_base
+  fmap BG.fromFFIType hs_bindgen_17a14e7ffaa1e2e5_base
 
 {-# NOINLINE thing_fun_1 #-}
 {-| __C declaration:__ @thing_fun_1@
@@ -80,7 +80,7 @@ foreign import ccall unsafe "hs_bindgen_91748ffd57eae163" hs_bindgen_91748ffd57e
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_2@
 hs_bindgen_91748ffd57eae163 :: IO (BG.FunPtr (BG.CInt -> IO Thing))
 hs_bindgen_91748ffd57eae163 =
-  BG.fromFFIType hs_bindgen_91748ffd57eae163_base
+  fmap BG.fromFFIType hs_bindgen_91748ffd57eae163_base
 
 {-# NOINLINE thing_fun_2 #-}
 {-| __C declaration:__ @thing_fun_2@
@@ -100,7 +100,7 @@ foreign import ccall unsafe "hs_bindgen_84d98a03314ff518" hs_bindgen_84d98a03314
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3a@
 hs_bindgen_84d98a03314ff518 :: IO (BG.FunPtr (BG.CInt -> Thing -> BG.CDouble -> IO Thing))
 hs_bindgen_84d98a03314ff518 =
-  BG.fromFFIType hs_bindgen_84d98a03314ff518_base
+  fmap BG.fromFFIType hs_bindgen_84d98a03314ff518_base
 
 {-# NOINLINE thing_fun_3a #-}
 {-| __C declaration:__ @thing_fun_3a@
@@ -120,7 +120,7 @@ foreign import ccall unsafe "hs_bindgen_855ae9088b15005e" hs_bindgen_855ae9088b1
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3b@
 hs_bindgen_855ae9088b15005e :: IO (BG.FunPtr (BG.CInt -> Thing -> BG.CDouble -> IO BG.CChar))
 hs_bindgen_855ae9088b15005e =
-  BG.fromFFIType hs_bindgen_855ae9088b15005e_base
+  fmap BG.fromFFIType hs_bindgen_855ae9088b15005e_base
 
 {-# NOINLINE thing_fun_3b #-}
 {-| __C declaration:__ @thing_fun_3b@

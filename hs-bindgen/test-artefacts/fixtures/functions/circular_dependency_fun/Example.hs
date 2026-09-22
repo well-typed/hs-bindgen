@@ -38,7 +38,6 @@ newtype Fun_ptr_Aux = Fun_ptr_Aux
   { unwrapFun_ptr_Aux :: BG.Ptr Forward_declaration -> IO ()
   }
   deriving stock (BG.Generic)
-  deriving newtype (BG.HasFFIType)
 
 -- __unique:__ @toFun_ptr_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_5964bbadb359ee4a_base ::
@@ -51,7 +50,8 @@ hs_bindgen_5964bbadb359ee4a ::
   -> IO (BG.FunPtr Fun_ptr_Aux)
 hs_bindgen_5964bbadb359ee4a =
   \fun0 ->
-    fmap BG.castFunPtrFromFFIType (hs_bindgen_5964bbadb359ee4a_base (BG.toFFIType fun0))
+    fmap BG.castFunPtr (hs_bindgen_5964bbadb359ee4a_base (\x1 ->
+                                                            BG.getField @"unwrapFun_ptr_Aux" fun0 (BG.fromFFIType x1)))
 
 -- __unique:__ @fromFun_ptr_Aux@
 foreign import ccall safe "dynamic" hs_bindgen_f8391e85af67fcb6_base ::
@@ -64,7 +64,8 @@ hs_bindgen_f8391e85af67fcb6 ::
   -> Fun_ptr_Aux
 hs_bindgen_f8391e85af67fcb6 =
   \funPtr0 ->
-    BG.fromFFIType (hs_bindgen_f8391e85af67fcb6_base (BG.castFunPtrToFFIType funPtr0))
+    Fun_ptr_Aux (\x1 ->
+                   hs_bindgen_f8391e85af67fcb6_base (BG.castFunPtr funPtr0) (BG.toFFIType x1))
 
 instance BG.ToFunPtr Fun_ptr_Aux where
 

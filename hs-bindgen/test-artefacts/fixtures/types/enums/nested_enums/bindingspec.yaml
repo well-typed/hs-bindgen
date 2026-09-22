@@ -24,6 +24,9 @@ hstypes:
       constructor: EnumA
       fields:
       - unwrapEnumA
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
@@ -86,6 +89,9 @@ hstypes:
       constructor: ExB_fieldB1
       fields:
       - unwrapExB_fieldB1
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq

@@ -45,6 +45,9 @@ hstypes:
       constructor: T2
       fields:
       - unwrapT2
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic
@@ -82,6 +85,9 @@ hstypes:
       constructor: T3
       fields:
       - unwrapT3
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
   instances:
   - Eq
   - Generic

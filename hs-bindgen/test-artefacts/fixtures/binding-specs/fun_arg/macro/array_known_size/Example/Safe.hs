@@ -67,7 +67,8 @@ hs_bindgen_2a6ef3a515232132 ::
      BG.Ptr (IsA.Elem MyArray)
   -> IO ()
 hs_bindgen_2a6ef3a515232132 =
-  BG.fromFFIType hs_bindgen_2a6ef3a515232132_base
+  \x0 ->
+    hs_bindgen_2a6ef3a515232132_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @foo@
 
@@ -91,7 +92,8 @@ hs_bindgen_4449a68917cbc499 ::
      BG.Ptr (IsA.Elem A)
   -> IO ()
 hs_bindgen_4449a68917cbc499 =
-  BG.fromFFIType hs_bindgen_4449a68917cbc499_base
+  \x0 ->
+    hs_bindgen_4449a68917cbc499_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooA@
 
@@ -115,7 +117,8 @@ hs_bindgen_05766199d1b077bb ::
      BG.Ptr (IsA.Elem B)
   -> IO ()
 hs_bindgen_05766199d1b077bb =
-  BG.fromFFIType hs_bindgen_05766199d1b077bb_base
+  \x0 ->
+    hs_bindgen_05766199d1b077bb_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooB@
 
@@ -139,7 +142,8 @@ hs_bindgen_adeb3a183d6676ee ::
      BG.Ptr (IsA.Elem M.C)
   -> IO ()
 hs_bindgen_adeb3a183d6676ee =
-  BG.fromFFIType hs_bindgen_adeb3a183d6676ee_base
+  \x0 ->
+    hs_bindgen_adeb3a183d6676ee_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooC@
 
@@ -163,7 +167,8 @@ hs_bindgen_e9321a5f27f4381e ::
      BG.Ptr (IsA.Elem M.D)
   -> IO ()
 hs_bindgen_e9321a5f27f4381e =
-  BG.fromFFIType hs_bindgen_e9321a5f27f4381e_base
+  \x0 ->
+    hs_bindgen_e9321a5f27f4381e_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooD@
 
@@ -187,7 +192,8 @@ hs_bindgen_257d56ad8cb31970 ::
      BG.Ptr (IsA.Elem E)
   -> IO ()
 hs_bindgen_257d56ad8cb31970 =
-  BG.fromFFIType hs_bindgen_257d56ad8cb31970_base
+  \x0 ->
+    hs_bindgen_257d56ad8cb31970_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @fooE@
 

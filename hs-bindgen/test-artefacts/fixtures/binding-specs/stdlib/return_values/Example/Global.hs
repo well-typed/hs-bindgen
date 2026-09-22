@@ -27,7 +27,7 @@ foreign import ccall unsafe "hs_bindgen_68c2b692efbc4734" hs_bindgen_68c2b692efb
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_jmp_buf_val@
 hs_bindgen_68c2b692efbc4734 :: IO (BG.Ptr HsBindgen.Runtime.LibC.CJmpBuf)
 hs_bindgen_68c2b692efbc4734 =
-  BG.fromFFIType hs_bindgen_68c2b692efbc4734_base
+  fmap BG.fromFFIType hs_bindgen_68c2b692efbc4734_base
 
 {-# NOINLINE jmp_buf_val #-}
 {-| __C declaration:__ @jmp_buf_val@

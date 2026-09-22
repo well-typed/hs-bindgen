@@ -23,8 +23,8 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_typesprimitivesbool_typedef__Example_Unsafe_f@
 foreign import ccall unsafe "hs_bindgen_1ab53e827ec0c8e2" hs_bindgen_1ab53e827ec0c8e2_base ::
-     BG.Int32
-  -> BG.Int32
+     BG.CInt
+  -> BG.CInt
   -> IO ()
 
 -- __unique:__ @test_typesprimitivesbool_typedef__Example_Unsafe_f@
@@ -33,7 +33,9 @@ hs_bindgen_1ab53e827ec0c8e2 ::
   -> Bool'
   -> IO ()
 hs_bindgen_1ab53e827ec0c8e2 =
-  BG.fromFFIType hs_bindgen_1ab53e827ec0c8e2_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_1ab53e827ec0c8e2_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @f@
 

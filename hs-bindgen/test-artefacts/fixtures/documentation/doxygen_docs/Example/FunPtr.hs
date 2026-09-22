@@ -260,7 +260,7 @@ foreign import ccall unsafe "hs_bindgen_4a5cd66a4f26f8d5" hs_bindgen_4a5cd66a4f2
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_data@
 hs_bindgen_4a5cd66a4f26f8d5 :: IO (BG.FunPtr (PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8 -> BG.Ptr HsBindgen.Runtime.LibC.Word8 -> BG.Ptr HsBindgen.Runtime.LibC.CSize -> IO BG.CInt))
 hs_bindgen_4a5cd66a4f26f8d5 =
-  BG.fromFFIType hs_bindgen_4a5cd66a4f26f8d5_base
+  fmap BG.fromFFIType hs_bindgen_4a5cd66a4f26f8d5_base
 
 {-# NOINLINE process_data #-}
 {-| Function with detailed parameter documentation.
@@ -292,7 +292,7 @@ foreign import ccall unsafe "hs_bindgen_c8a059c65f18fea9" hs_bindgen_c8a059c65f1
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_file@
 hs_bindgen_c8a059c65f18fea9 :: IO (BG.FunPtr (PtrConst.PtrConst BG.CChar -> IO BG.CBool))
 hs_bindgen_c8a059c65f18fea9 =
-  BG.fromFFIType hs_bindgen_c8a059c65f18fea9_base
+  fmap BG.fromFFIType hs_bindgen_c8a059c65f18fea9_base
 
 {-# NOINLINE process_file #-}
 {-| Function with inline commands and formatting.
@@ -320,7 +320,7 @@ foreign import ccall unsafe "hs_bindgen_5ab7e06724867ab3" hs_bindgen_5ab7e067248
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_calculate_value@
 hs_bindgen_5ab7e06724867ab3 :: IO (BG.FunPtr (BG.CInt -> BG.CInt -> IO BG.CInt))
 hs_bindgen_5ab7e06724867ab3 =
-  BG.fromFFIType hs_bindgen_5ab7e06724867ab3_base
+  fmap BG.fromFFIType hs_bindgen_5ab7e06724867ab3_base
 
 {-# NOINLINE calculate_value #-}
 {-| Function with verbatim code blocks.
@@ -355,7 +355,7 @@ foreign import ccall unsafe "hs_bindgen_3f74fb834b0cd46b" hs_bindgen_3f74fb834b0
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_html_example@
 hs_bindgen_3f74fb834b0cd46b :: IO (BG.FunPtr (BG.CInt -> IO BG.CBool))
 hs_bindgen_3f74fb834b0cd46b =
-  BG.fromFFIType hs_bindgen_3f74fb834b0cd46b_base
+  fmap BG.fromFFIType hs_bindgen_3f74fb834b0cd46b_base
 
 {-# NOINLINE html_example #-}
 {-| Function with HTML formatting.
@@ -395,7 +395,7 @@ foreign import ccall unsafe "hs_bindgen_2175b3c627db39cf" hs_bindgen_2175b3c627d
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_list_example@
 hs_bindgen_2175b3c627db39cf :: IO (BG.FunPtr (BG.Ptr (PtrConst.PtrConst BG.CChar) -> HsBindgen.Runtime.LibC.CSize -> IO BG.CBool))
 hs_bindgen_2175b3c627db39cf =
-  BG.fromFFIType hs_bindgen_2175b3c627db39cf_base
+  fmap BG.fromFFIType hs_bindgen_2175b3c627db39cf_base
 
 {-# NOINLINE list_example #-}
 {-| Function with lists and special formatting.
@@ -449,7 +449,7 @@ foreign import ccall unsafe "hs_bindgen_b7a4debd18827a19" hs_bindgen_b7a4debd188
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_dangerous_function@
 hs_bindgen_b7a4debd18827a19 :: IO (BG.FunPtr (BG.Ptr BG.Void -> IO (BG.Ptr BG.Void)))
 hs_bindgen_b7a4debd18827a19 =
-  BG.fromFFIType hs_bindgen_b7a4debd18827a19_base
+  fmap BG.fromFFIType hs_bindgen_b7a4debd18827a19_base
 
 {-# NOINLINE dangerous_function #-}
 {-| Function with warnings and notes.
@@ -481,7 +481,7 @@ foreign import ccall unsafe "hs_bindgen_9700b22f82eedafe" hs_bindgen_9700b22f82e
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_detailed_return_codes@
 hs_bindgen_9700b22f82eedafe :: IO (BG.FunPtr (PtrConst.PtrConst BG.CChar -> IO BG.CInt))
 hs_bindgen_9700b22f82eedafe =
-  BG.fromFFIType hs_bindgen_9700b22f82eedafe_base
+  fmap BG.fromFFIType hs_bindgen_9700b22f82eedafe_base
 
 {-# NOINLINE detailed_return_codes #-}
 {-| Function with return value details.
@@ -513,7 +513,7 @@ foreign import ccall unsafe "hs_bindgen_49e0d34a627c6c19" hs_bindgen_49e0d34a627
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_old_function@
 hs_bindgen_49e0d34a627c6c19 :: IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 hs_bindgen_49e0d34a627c6c19 =
-  BG.fromFFIType hs_bindgen_49e0d34a627c6c19_base
+  fmap BG.fromFFIType hs_bindgen_49e0d34a627c6c19_base
 
 {-# NOINLINE old_function #-}
 {-| Function with deprecated annotation.
@@ -541,7 +541,7 @@ foreign import ccall unsafe "hs_bindgen_180cd7537e40ce99" hs_bindgen_180cd7537e4
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_versioned_function@
 hs_bindgen_180cd7537e40ce99 :: IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 hs_bindgen_180cd7537e40ce99 =
-  BG.fromFFIType hs_bindgen_180cd7537e40ce99_base
+  fmap BG.fromFFIType hs_bindgen_180cd7537e40ce99_base
 
 {-# NOINLINE versioned_function #-}
 {-| Function with version information.
@@ -571,7 +571,7 @@ foreign import ccall unsafe "hs_bindgen_f4ccc6d90e8d3ebd" hs_bindgen_f4ccc6d90e8
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer@
 hs_bindgen_f4ccc6d90e8d3ebd :: IO (BG.FunPtr (BG.Ptr (IsA.Elem (CA.ConstantArray 64 BG.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO BG.CInt))
 hs_bindgen_f4ccc6d90e8d3ebd =
-  BG.fromFFIType hs_bindgen_f4ccc6d90e8d3ebd_base
+  fmap BG.fromFFIType hs_bindgen_f4ccc6d90e8d3ebd_base
 
 {-# NOINLINE process_buffer #-}
 {-| Static array parameter.
@@ -599,7 +599,7 @@ foreign import ccall unsafe "hs_bindgen_6a74d376c901b531" hs_bindgen_6a74d376c90
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_my_memcpy@
 hs_bindgen_6a74d376c901b531 :: IO (BG.FunPtr (BG.Ptr BG.Void -> PtrConst.PtrConst BG.Void -> HsBindgen.Runtime.LibC.CSize -> IO (BG.Ptr BG.Void)))
 hs_bindgen_6a74d376c901b531 =
-  BG.fromFFIType hs_bindgen_6a74d376c901b531_base
+  fmap BG.fromFFIType hs_bindgen_6a74d376c901b531_base
 
 {-# NOINLINE my_memcpy #-}
 {-| Function with restrict pointers.
@@ -629,7 +629,7 @@ foreign import ccall unsafe "hs_bindgen_156a92f3c5176105" hs_bindgen_156a92f3c51
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_double_value@
 hs_bindgen_156a92f3c5176105 :: IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 hs_bindgen_156a92f3c5176105 =
-  BG.fromFFIType hs_bindgen_156a92f3c5176105_base
+  fmap BG.fromFFIType hs_bindgen_156a92f3c5176105_base
 
 {-# NOINLINE double_value #-}
 {-| Inline function.
@@ -655,7 +655,7 @@ foreign import ccall unsafe "hs_bindgen_373de63fa8345f66" hs_bindgen_373de63fa83
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_read_chunk@
 hs_bindgen_373de63fa8345f66 :: IO (BG.FunPtr (BG.CInt -> BG.Ptr BG.Void -> HsBindgen.Runtime.LibC.CSize -> IO BG.CInt))
 hs_bindgen_373de63fa8345f66 =
-  BG.fromFFIType hs_bindgen_373de63fa8345f66_base
+  fmap BG.fromFFIType hs_bindgen_373de63fa8345f66_base
 
 {-# NOINLINE read_chunk #-}
 {-| Read a chunk of bytes into the provided buffer.
@@ -687,7 +687,7 @@ foreign import ccall unsafe "hs_bindgen_78a029fc9807a27f" hs_bindgen_78a029fc980
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_write_chunk@
 hs_bindgen_78a029fc9807a27f :: IO (BG.FunPtr (BG.CInt -> PtrConst.PtrConst BG.Void -> HsBindgen.Runtime.LibC.CSize -> IO BG.CInt))
 hs_bindgen_78a029fc9807a27f =
-  BG.fromFFIType hs_bindgen_78a029fc9807a27f_base
+  fmap BG.fromFFIType hs_bindgen_78a029fc9807a27f_base
 
 {-# NOINLINE write_chunk #-}
 {-| Write a chunk of bytes from the provided buffer.
@@ -717,7 +717,7 @@ foreign import ccall unsafe "hs_bindgen_dfa39b6be50cb2ca" hs_bindgen_dfa39b6be50
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_complex_function@
 hs_bindgen_dfa39b6be50cb2ca :: IO (BG.FunPtr (BG.Ptr Config_t -> PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8 -> HsBindgen.Runtime.LibC.CSize -> IO Status_code_t))
 hs_bindgen_dfa39b6be50cb2ca =
-  BG.fromFFIType hs_bindgen_dfa39b6be50cb2ca_base
+  fmap BG.fromFFIType hs_bindgen_dfa39b6be50cb2ca_base
 
 {-# NOINLINE complex_function #-}
 {-| Function with complex documentation.
@@ -800,7 +800,7 @@ foreign import ccall unsafe "hs_bindgen_8ad88b79fd71f9d4" hs_bindgen_8ad88b79fd7
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_hash@
 hs_bindgen_8ad88b79fd71f9d4 :: IO (BG.FunPtr (BG.Ptr BG.CChar -> IO BG.CInt))
 hs_bindgen_8ad88b79fd71f9d4 =
-  BG.fromFFIType hs_bindgen_8ad88b79fd71f9d4_base
+  fmap BG.fromFFIType hs_bindgen_8ad88b79fd71f9d4_base
 
 {-# NOINLINE hash #-}
 {-| __C declaration:__ @hash@
@@ -819,7 +819,7 @@ foreign import ccall unsafe "hs_bindgen_7ede0f7ec1b30650" hs_bindgen_7ede0f7ec1b
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_square@
 hs_bindgen_7ede0f7ec1b30650 :: IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 hs_bindgen_7ede0f7ec1b30650 =
-  BG.fromFFIType hs_bindgen_7ede0f7ec1b30650_base
+  fmap BG.fromFFIType hs_bindgen_7ede0f7ec1b30650_base
 
 {-# NOINLINE square #-}
 {-| __C declaration:__ @square@
@@ -839,7 +839,7 @@ foreign import ccall unsafe "hs_bindgen_11a28326d5a28a43" hs_bindgen_11a28326d5a
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_auto_brief_func@
 hs_bindgen_11a28326d5a28a43 :: IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 hs_bindgen_11a28326d5a28a43 =
-  BG.fromFFIType hs_bindgen_11a28326d5a28a43_base
+  fmap BG.fromFFIType hs_bindgen_11a28326d5a28a43_base
 
 {-# NOINLINE auto_brief_func #-}
 {-| Auto-brief function without explicit @brief tag.
@@ -867,7 +867,7 @@ foreign import ccall unsafe "hs_bindgen_05c7a7832fb84e2e" hs_bindgen_05c7a7832fb
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_multi_paragraph_details@
 hs_bindgen_05c7a7832fb84e2e :: IO (BG.FunPtr (BG.Ptr BG.CChar -> HsBindgen.Runtime.LibC.CSize -> IO ()))
 hs_bindgen_05c7a7832fb84e2e =
-  BG.fromFFIType hs_bindgen_05c7a7832fb84e2e_base
+  fmap BG.fromFFIType hs_bindgen_05c7a7832fb84e2e_base
 
 {-# NOINLINE multi_paragraph_details #-}
 {-| Multi-paragraph details.
@@ -899,7 +899,7 @@ foreign import ccall unsafe "hs_bindgen_092b9697f2154ac5" hs_bindgen_092b9697f21
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_todo_remark_attention@
 hs_bindgen_092b9697f2154ac5 :: IO (BG.FunPtr (BG.CInt -> IO (BG.Ptr BG.CInt)))
 hs_bindgen_092b9697f2154ac5 =
-  BG.fromFFIType hs_bindgen_092b9697f2154ac5_base
+  fmap BG.fromFFIType hs_bindgen_092b9697f2154ac5_base
 
 {-# NOINLINE todo_remark_attention #-}
 {-| Function with @todo and @remark.
@@ -933,7 +933,7 @@ foreign import ccall unsafe "hs_bindgen_2e8b5e895e58fc3d" hs_bindgen_2e8b5e895e5
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_html_entities_func@
 hs_bindgen_2e8b5e895e58fc3d :: IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 hs_bindgen_2e8b5e895e58fc3d =
-  BG.fromFFIType hs_bindgen_2e8b5e895e58fc3d_base
+  fmap BG.fromFFIType hs_bindgen_2e8b5e895e58fc3d_base
 
 {-# NOINLINE html_entities_func #-}
 {-| HTML entities: & means AND, <tag> is a tag.
@@ -961,7 +961,7 @@ foreign import ccall unsafe "hs_bindgen_db292926f05c7b36" hs_bindgen_db292926f05
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_nested_inline_format@
 hs_bindgen_db292926f05c7b36 :: IO (BG.FunPtr (BG.CInt -> IO ()))
 hs_bindgen_db292926f05c7b36 =
-  BG.fromFFIType hs_bindgen_db292926f05c7b36_base
+  fmap BG.fromFFIType hs_bindgen_db292926f05c7b36_base
 
 {-# NOINLINE nested_inline_format #-}
 {-| Nested inline: __bold__ , @code@ , __@bold_code@ ,__ /__emph_bold__ ./
@@ -985,7 +985,7 @@ foreign import ccall unsafe "hs_bindgen_492a4fd860afb02a" hs_bindgen_492a4fd860a
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_tagged_code_example@
 hs_bindgen_492a4fd860afb02a :: IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
 hs_bindgen_492a4fd860afb02a =
-  BG.fromFFIType hs_bindgen_492a4fd860afb02a_base
+  fmap BG.fromFFIType hs_bindgen_492a4fd860afb02a_base
 
 {-# NOINLINE tagged_code_example #-}
 {-| Language-tagged code block.
@@ -1018,7 +1018,7 @@ foreign import ccall unsafe "hs_bindgen_9ef09ad63fac68e2" hs_bindgen_9ef09ad63fa
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_backslash_syntax@
 hs_bindgen_9ef09ad63fac68e2 :: IO (BG.FunPtr (PtrConst.PtrConst BG.CChar -> BG.Ptr BG.CChar -> IO BG.CInt))
 hs_bindgen_9ef09ad63fac68e2 =
-  BG.fromFFIType hs_bindgen_9ef09ad63fac68e2_base
+  fmap BG.fromFFIType hs_bindgen_9ef09ad63fac68e2_base
 
 {-# NOINLINE backslash_syntax #-}
 {-| Function documented with backslash syntax.

@@ -31,7 +31,7 @@ foreign import ccall unsafe "hs_bindgen_f3036965ea57b87f" hs_bindgen_f3036965ea5
 -- __unique:__ @test_functionsdecls_in_signature_Example_get_normal@
 hs_bindgen_f3036965ea57b87f :: IO (BG.FunPtr (BG.Ptr Opaque -> BG.Ptr Outside -> Outside -> IO ()))
 hs_bindgen_f3036965ea57b87f =
-  BG.fromFFIType hs_bindgen_f3036965ea57b87f_base
+  fmap BG.fromFFIType hs_bindgen_f3036965ea57b87f_base
 
 {-# NOINLINE normal #-}
 {-| __C declaration:__ @normal@

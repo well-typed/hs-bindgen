@@ -40,6 +40,9 @@ hstypes:
       constructor: More_aligned_int
       fields:
       - unwrapMore_aligned_int
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -150,6 +153,9 @@ hstypes:
       constructor: Short_a
       fields:
       - unwrapShort_a
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CShort
   instances:
   - Bitfield
   - Bits
@@ -181,6 +187,9 @@ hstypes:
       constructor: T1
       fields:
       - unwrapT1
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits

@@ -36,7 +36,10 @@ hs_bindgen_247ee31a29b7e5a8 ::
   -> BG.Ptr Outside
   -> IO ()
 hs_bindgen_247ee31a29b7e5a8 =
-  BG.fromFFIType hs_bindgen_247ee31a29b7e5a8_base
+  \x0 ->
+    \x1 ->
+      \x2 ->
+        hs_bindgen_247ee31a29b7e5a8_base (BG.toFFIType x0) (BG.toFFIType x1) (BG.toFFIType x2)
 
 {-| __C declaration:__ @normal@
 

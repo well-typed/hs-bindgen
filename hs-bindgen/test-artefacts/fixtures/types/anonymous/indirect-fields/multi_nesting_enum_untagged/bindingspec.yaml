@@ -80,6 +80,9 @@ hstypes:
       constructor: S_anon'anon'x_anon'x_x
       fields:
       - unwrapS_anon'anon'x_anon'x_x
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq

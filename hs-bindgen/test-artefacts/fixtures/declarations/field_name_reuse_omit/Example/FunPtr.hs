@@ -27,7 +27,7 @@ foreign import ccall unsafe "hs_bindgen_2b628f8ea7c448cd" hs_bindgen_2b628f8ea7c
 -- __unique:__ @test_declarationsfield_name_reuse__Example_get_bar@
 hs_bindgen_2b628f8ea7c448cd :: IO (BG.FunPtr (IO ()))
 hs_bindgen_2b628f8ea7c448cd =
-  BG.fromFFIType hs_bindgen_2b628f8ea7c448cd_base
+  fmap BG.fromFFIType hs_bindgen_2b628f8ea7c448cd_base
 
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@

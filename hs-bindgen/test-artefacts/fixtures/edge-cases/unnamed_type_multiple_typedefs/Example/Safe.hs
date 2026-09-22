@@ -33,7 +33,9 @@ hs_bindgen_f01f9e6bbeae9e46 ::
   -> Point2b
   -> IO ()
 hs_bindgen_f01f9e6bbeae9e46 =
-  BG.fromFFIType hs_bindgen_f01f9e6bbeae9e46_base
+  \x0 ->
+    \x1 ->
+      hs_bindgen_f01f9e6bbeae9e46_base (BG.toFFIType x0) (BG.toFFIType x1)
 
 {-| __C declaration:__ @test@
 

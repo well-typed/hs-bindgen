@@ -79,6 +79,9 @@ hstypes:
       constructor: MyEnum
       fields:
       - unwrapMyEnum
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - CEnum
   - Eq
