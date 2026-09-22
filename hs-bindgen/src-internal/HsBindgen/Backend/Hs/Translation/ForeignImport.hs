@@ -250,6 +250,14 @@ foreignImportDynamicDec name hsType importFor origin =
   ImportFor
 -------------------------------------------------------------------------------}
 
+-- | The function type that we are generating a @foreign import@ for
+--
+-- When generating a @foreign import@ declaration, we do that for either a
+-- straight function type or a @newtype@ around a function type. We track this
+-- information so that we can pass it to @mapToFFI@ or @mapFromFFI@.
+--
+-- Note: for function @newtype@s we only generate dynamic wrappers and dynamic
+-- imports, not regular @foreign import@ declarations.
 data ImportFor =
     ImportForFunction {
         args :: [Hs.Type]
@@ -261,6 +269,20 @@ data ImportFor =
       , newtyp :: Hs.Newtype
       }
 
+-- | Map a function expression that uses arbitrary Haskell types to a function
+-- expression that uses FFI types
+--
+-- The mapping is type-directed, and the type of the non-FFI-type function is
+-- tracked in the 'ImportFor' argument.
+--
+-- === Example
+--
+-- Let's say @fun@ is the name of the function we are converting. Then the
+-- result of @mapToFFI@ may look something like:
+--
+-- >  \x0 -> \x1 -> \x2 ->
+-- >    fmap toFFIType (fun (fromFFIType x0) (fromFFIType x1) (fromFFIType x2))
+--
 mapToFFI :: ImportFor -> Size ctx -> SHs.SExpr ctx -> SHs.SExpr ctx
 mapToFFI dynFor size funExpr = case dynFor of
     ImportForFunction args res -> forFunction args res
@@ -291,6 +313,21 @@ mapToFFI dynFor size funExpr = case dynFor of
       where
         fieldLit = SHs.translateType $ Hs.StrLit $ Hs.nameToStr nt.field.name
 
+
+-- | Map a function expression that uses FFI types to a function expression that
+-- uses arbitrary Haskell types types
+--
+-- The mapping is type-directed, and the type of the non-FFI-type function is
+-- tracked in the 'ImportFor' argument.
+--
+-- === Example
+--
+-- Let's say @fun@ is the name of the function we are converting. Then the
+-- result of @mapFromFFI@ may look something like:
+--
+-- >  \x0 -> \x1 -> \x2 ->
+-- >    fmap fromFFIType (fun (toFFIType x0) (toFFIType x1) (toFFIType x2))
+--
 mapFromFFI :: ImportFor -> Size ctx -> SHs.SExpr ctx -> SHs.SExpr ctx
 mapFromFFI dynFor size funExpr = case dynFor of
     ImportForFunction args res -> forFunction args res
@@ -320,9 +357,16 @@ mapFromFFI dynFor size funExpr = case dynFor of
           , size    = size
           })
 
+-- | Create a convertion expression that is applied to function arguments.
+--
+-- This is used to convert function arguments to\/from FFI types.
 mkConvArg :: BindgenGlobalTerm -> ConvArg
-mkConvArg g =  ConvArg $ \_typ idx -> SHs.eBindgenGlobal g  `EApp` SHs.EBound idx
+mkConvArg g =  ConvArg $ \_typ idx ->
+    SHs.eBindgenGlobal g  `EApp` SHs.EBound idx
 
+-- | Create a convertion expression that is applied to a function result.
+--
+-- This is used to convert a function result to\/from an FFI type.
 mkConvRes :: BindgenGlobalTerm -> ConvRes
 mkConvRes g = ConvRes $ \typ e -> case typ of
     Hs.IO (Hs.PrimType Hs.PrimUnit) -> e
@@ -333,6 +377,9 @@ mkConvRes g = ConvRes $ \typ e -> case typ of
 {-------------------------------------------------------------------------------
   FFI types
 -------------------------------------------------------------------------------}
+
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>: once #1599 is
+-- resolved all the panics in this section should go away.
 
 unsafeToFFIFunType :: Hs.Type -> Hs.FFIFunType
 unsafeToFFIFunType ty = case toFFIFunType ty of
@@ -373,9 +420,9 @@ unsafeToFFI ty = case toFFIType ty of
     Just ty' ->
       ty'
 
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>
--- After issue #1599 is resolved, we should reconsider whether we want to
--- use @Hs.Type@ as an input here, or @C.Type Final@, or something else.
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>: After issue
+-- #1599 is resolved, we should reconsider whether we want to use @Hs.Type@ as
+-- an input here, or @C.Type Final@, or something else.
 toFFIType :: Hs.Type -> Maybe Hs.FFIType
 toFFIType = go
   where
@@ -397,7 +444,9 @@ toFFIType = go
       Hs.Fun{}                -> no
       Hs.ExtBinding _ref _cSpec hsSpec t' ->
         case BindingSpec.hsSpecFFIType hsSpec of
-          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>: Ideally we'd warn if a type does not have an FFI type
+          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>: We
+          -- should warn if a type does not have an FFI type, rather than
+          -- silently continuing.
           Nothing -> go t'
           Just hsFFIType -> pure $ extFFIType hsFFIType
       Hs.ByteArray            -> no

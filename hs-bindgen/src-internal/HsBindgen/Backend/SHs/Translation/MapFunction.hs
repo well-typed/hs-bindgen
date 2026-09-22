@@ -1,4 +1,4 @@
--- | Map a function 'SHs.SExpr' from one type another by converting its
+-- | Map a function 'SHs.SExpr' from one type to another by converting its
 -- arguments and result
 --
 -- Intended for unqualified import.
@@ -53,7 +53,7 @@ type ArgType = Hs.Type
 type ResType = Hs.Type
 type FunExpr ctx = SHs.SExpr ctx
 
--- | Map a function 'SHs.SExpr' from one type another by converting its
+-- | Map a function 'SHs.SExpr' from one type to another by converting its
 -- arguments and result
 --
 -- For example, let's say:
@@ -66,6 +66,10 @@ type FunExpr ctx = SHs.SExpr ctx
 --
 -- >  \x0 -> \x1 -> \x2 -> \x3 ->
 -- >    convRes (fun (convArg x0) (convArg x1) (convArg x2) (convArg x3))
+--
+-- NOTE: Currently 'mapFunctionExpr' is only used by
+-- 'HsBindgen.Backend.Hs.Translation.ForeignImport.mapToFFI' and
+-- 'HsBindgen.Backend.Hs.Translation.ForeignImport.mapFromFFI'
 --
 mapFunctionExpr ::  MapFunctionParams ctx -> SHs.SExpr ctx
 mapFunctionExpr params =

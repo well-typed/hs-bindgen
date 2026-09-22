@@ -83,6 +83,7 @@ data Type =
   FFI types
 -------------------------------------------------------------------------------}
 
+-- | A function type using FFI types in argument and result positions
 data FFIFunType = FFIFunType {
     args :: [FFIType]
   , res  :: FFIResType
@@ -94,6 +95,7 @@ unconsArg ty = case ty.args of
     [] -> Right ty.res
     (arg:args) -> Left (arg, FFIFunType { args = args, res = ty.res })
 
+-- | A function result type using FFI types
 data FFIResType =
     FFIResUnit
   | FFIResIOUnit
@@ -125,6 +127,11 @@ data FFIType =
   | FFIPrimCDouble
   deriving stock (Generic, Show, Eq)
 
+-- | Convert an 'FFIType' to an external reference.
+--
+-- NOTE: this is very similar logic to
+-- 'HsBindgen.Backend.SHs.Translation.translateFFIType'. We could try to unify
+-- this in the future.
 ffiExtRef :: FFIType -> Hs.ExtRef
 ffiExtRef = \case
     FFIExternal r  -> r

@@ -95,9 +95,19 @@ asNaryTApp = go []
   Shift
 --------------------------------------------------------------------------------}
 
+-- | Shift an expression
+--
+-- Typically an expression needs to be shifted to accomodate newly bound
+-- variables. For example, this happens when an expression is moved under a
+-- lambda.
 shiftExpr :: SExpr ctx -> SExpr (S ctx)
 shiftExpr = shiftNExpr (AS AZ)
 
+-- | Shift an expression @n@ times
+--
+-- Typically an expression needs to be shifted to accomodate newly bound
+-- variables. For example, this happens when an expression is moved under a
+-- lambda.
 shiftNExpr :: Add n ctx ctx' -> SExpr ctx -> SExpr ctx'
 shiftNExpr add = \case
     EGlobal g -> EGlobal g
@@ -136,16 +146,22 @@ shiftIdxN add idx = case add of
     AZ -> idx
     AS add' -> IS (shiftIdxN add' idx)
 
+shiftNFBind :: Add n ctx ctx' -> FBind ctx -> FBind ctx'
+shiftNFBind add fb = FBind {
+      label = fb.label
+    , expr  = shiftNExpr add fb.expr
+    }
+
 shiftNAlt :: forall n ctx ctx'. Add n ctx ctx' -> SAlt ctx -> SAlt ctx'
 shiftNAlt add = \case
     SAlt @m @_ @ctx'' n (a :: Add m ctx ctx'') nhs (e :: SExpr ctx'') ->
-        case proof1 add of
-          Refl ->
+        case eqSymmetry add of
+          Refl -> -- ctx' :~: Plus n ctx
             let
               a' :: Add m (Plus n ctx) (Plus n ctx'')
               a' = shiftNAdd add a
               add' :: Add n ctx'' (Plus n ctx'')
-              add' = proof2 (addToSize add)
+              add' = eqReflexivity (addToSize add)
               e' :: SExpr (Plus n ctx'')
               e' = shiftNExpr add' e
             in
@@ -153,31 +169,37 @@ shiftNAlt add = \case
     SAltNoConstr ns e ->
       SAltNoConstr ns (shiftNExpr (shiftAdd add) e)
     SAltUnboxedTuple a ns e ->
-      case proof1 add of
+      -- NOTE: same proof as the 'SAlt' case
+      case eqSymmetry add of
           Refl ->
             let
               a' = shiftNAdd add a
-              add' = proof2 (addToSize add)
+              add' = eqReflexivity (addToSize add)
               e' = shiftNExpr add' e
             in
               SAltUnboxedTuple a' ns e'
 
-proof1 :: Add n ctx ctx' -> ctx' :~: Plus n ctx
-proof1 = \case
+-- | Symmetry of equality (roughly)
+--
+-- \[
+--  forall n m p. n + m = p \implies p = n + m
+-- \]
+--
+eqSymmetry :: Add n m p -> p :~: Plus n m
+eqSymmetry = \case
   AZ -> Refl
-  AS x -> case proof1 x of
+  AS x -> case eqSymmetry x of
     Refl -> Refl
 
-proof2 :: Size n -> Add n ctx'' (Plus n ctx'')
-proof2 = \case
+-- | Reflexivity of equality (roughly)
+--
+-- \[
+--  forall n m. n + m = n + m
+-- \]
+eqReflexivity :: Size n -> Add n m (Plus n m)
+eqReflexivity = \case
   SZ -> AZ
-  SS x -> lsuccAdd $ proof2 x
-
-shiftNFBind :: Add n ctx ctx' -> FBind ctx -> FBind ctx'
-shiftNFBind add fb = FBind {
-      label = fb.label
-    , expr  = shiftNExpr add fb.expr
-    }
+  SS x -> lsuccAdd $ eqReflexivity x
 
 {-------------------------------------------------------------------------------
   DeBruijn utilities
@@ -189,8 +211,8 @@ reverseEnv = \env -> go (lzeroAdd (sizeEnv env)) EmptyEnv env
   where
     go ::
          forall ctx1 ctx2 ctx3.
-         -- | Proof that the output environment 's size is the same as the the
-         -- sum of the two input environment's sizes
+         -- | Proof that the output environment's size is the same as the sum of
+         -- the two input environment's sizes
          Add ctx1 ctx2 ctx3
          -- | Accumulator
       -> Env ctx1 a
