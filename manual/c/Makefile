@@ -28,6 +28,7 @@ endif
 
 default: \
 	libmanual${TARGET_EXT} \
+	libffi-types${TARGET_EXT} \
 	libvector${TARGET_EXT} \
 	libgame${TARGET_EXT} \
 
@@ -126,7 +127,16 @@ unions.o: unions.c unions.h
 unions/nesting.o: unions/nesting.c unions/nesting.h
 	clang ${EXTRAFLAGS} -Wall -Wno-missing-declarations -o unions/nesting.o -c -fPIC unions/nesting.c
 
+# Manual: FFI types
 
+libffi-types${TARGET_EXT}: \
+		ffi-types/int.o
+
+	clang ${EXTRAFLAGS} -Wall -shared -o libffi-types${TARGET_EXT} \
+		ffi-types/int.o
+
+ffi-types/int.o: ffi-types/int.c ffi-types/int.h
+	clang ${EXTRAFLAGS} -Wall -o ffi-types/int.o -c -fPIC ffi-types/int.c
 
 # External bindings: vector example
 
