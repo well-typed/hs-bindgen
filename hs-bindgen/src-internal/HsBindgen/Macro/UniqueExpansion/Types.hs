@@ -7,20 +7,20 @@ module HsBindgen.Macro.UniqueExpansion.Types (
   , Name (..)
   ) where
 
+import Data.Set (Set)
 import Data.String (IsString)
 import Data.Text (Text)
 
-import HsBindgen.Runtime.Macro qualified as Runtime.Macro
-
--- | A macro definition, reduced to the names it mentions
+-- | A macro definition, reduced to the names it depends on
 --
--- The body is the list of identifiers occurring in it; the ambiguity analysis
--- is not interested in anything else. Whether a name in the body refers to
--- another macro or to a parameter of this one follows from 'Runtime.Macro.params'.
-data Definition = Definition { raw :: Runtime.Macro.Raw Name }
-  deriving (Show, Eq)
-
--- TODO-R: Change the definition (do not use Raw, but a list of dependencies).
+-- The ambiguity analysis is not interested in anything else the body contains.
+-- The macro's own parameters are not dependencies, and have already been
+-- removed here.
+data Definition = Definition {
+      name :: Name
+    , deps :: Set Name
+    }
+  deriving stock (Show, Eq)
 
 data Invocation = Invocation {
       name   :: Name

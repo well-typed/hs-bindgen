@@ -54,7 +54,7 @@ isFailure pres =
     either (const (Just pres.macroName.unwrap)) (const Nothing) pres.result
 
 liftDefinition :: Definition -> ParseResult Definition
-liftDefinition def = ParseResult def.raw.name (Right def)
+liftDefinition def = ParseResult def.name (Right def)
 
 liftInvocation :: Invocation -> ParseResult Invocation
 liftInvocation inv = ParseResult inv.name (Right inv)
@@ -64,7 +64,7 @@ data Error =
   | NameMismatch Text Text
   deriving stock (Eq, Show)
 
--- | Project the split macro definition onto the names it mentions
+-- | Project the split macro definition onto the names it depends on
 --
 -- The split itself already happened during parsing; see
 -- 'HsBindgen.Macro.Syntax.splitMacro'.
@@ -77,32 +77,52 @@ parseDefinition def =
     case def.macro of
       Left e -> throwError $ ParseError e
       Right m
-        | def.name == def'.raw.name.unwrap
+        | def.name == def'.name.unwrap
         -> pure def'
         | otherwise
-        -> throwError $ NameMismatch def.name def'.raw.name.unwrap
+        -> throwError $ NameMismatch def.name def'.name.unwrap
         where
-          def' = definitionNames m
+          def' = definitionDeps m
 
--- | Reduce a macro definition to the names it mentions
+-- | Reduce a macro definition to the names it depends on
 --
--- Everything in the body that is not a name is dropped. A keyword is a name:
--- @#define B bool@ refers to @bool@ whether or not the C standard in force
--- makes @bool@ a keyword, and a reference we fail to harvest is an ambiguity we
--- fail to see.
-definitionNames :: Runtime.Macro.Raw (Token TokenSpelling) -> Definition
-definitionNames m = Definition{
-      raw = Runtime.Macro.Raw {
-          Runtime.Macro.name   = toName m.name
-        , Runtime.Macro.params = toName <$> m.params
-        , Runtime.Macro.body   = [toName t | t <- m.body, isIdentifierOrKeyword t]
-        }
+-- Everything in the body that is not a name is dropped, as is every name that
+-- is a parameter of this macro. A keyword that is not a local parameter is a
+-- normal name: @#define B bool@ refers to @bool@ whether or not the C standard
+-- in force makes @bool@ a keyword, and a reference we fail to harvest is an
+-- ambiguity we fail to see.
+--
+-- @__VA_ARGS__@ and @__VA_OPT__@ are reserved identifiers only in variadic
+-- macro definitions. We treat them as parameters there, to emphasise that their
+-- expansion relies on the parameters. In the GNU named-variadic form the name
+-- that stands for the trailing arguments is a parameter like any other.
+definitionDeps :: Runtime.Macro.Raw (Token TokenSpelling) -> Definition
+definitionDeps m = Definition{
+      name = toName m.name
+    , deps = Set.fromList
+        [ n
+        | t <- m.body
+        , isIdentifierOrKeyword t
+        , let n = toName t
+        , not (isParam n)
+        ]
     }
   where
     toName :: Token TokenSpelling -> Name
     toName = Name . spelling
 
--- TODO-R: Check how this is even works. We should filter out local parameters.
+    isParam :: Name -> Bool
+    isParam n = case m.params of
+        Runtime.Macro.NoParams              -> False
+        Runtime.Macro.Params names variadic ->
+          n `elem` map toName names || isVariadicParam n variadic
+
+    isVariadicParam :: Name -> Runtime.Macro.Variadic (Token TokenSpelling) -> Bool
+    isVariadicParam n = \case
+        Runtime.Macro.NotVariadic                -> False
+        Runtime.Macro.NamedEllipsis ellipsisName -> n == toName ellipsisName
+        Runtime.Macro.Ellipsis                   ->
+          n `elem` ["__VA_ARGS__", "__VA_OPT__"]
 
 parseInvocation :: MacroInvocation -> ParseResult Invocation
 parseInvocation inv =
@@ -227,15 +247,15 @@ ambiguityAnalysis defs =
     go :: Seen -> Ambig -> [Definition] -> Set Name
     go _seen ambig [] = ambig.unwrap
     go seen ambig (d:ds)
-      | d.raw.name `Set.member` seen.unwrap
-      = let current = Set.singleton d.raw.name
+      | d.name `Set.member` seen.unwrap
+      = let current = Set.singleton d.name
             dependents = Digraph.reaches current graph
             ambig' = Ambig (current <> dependents <> ambig.unwrap)
         in  go seen' ambig' ds
       | otherwise
       = go seen' ambig ds
       where
-        seen' = Seen (Set.insert d.raw.name seen.unwrap)
+        seen' = Seen (Set.insert d.name seen.unwrap)
 
 newtype Seen = Seen { unwrap :: Set Name }
 newtype Ambig = Ambig { unwrap :: Set Name }
@@ -246,8 +266,8 @@ newtype Ambig = Ambig { unwrap :: Set Name }
 
 -- | Partial map of macro names to names of /dependent/ macros
 --
--- Each macro name @A@ is mapped to a set of names of macros that reference @A@
--- in their definition. Parameters do not count as dependencies.
+-- Each macro name @A@ is mapped to a set of names of macros that depend on @A@;
+-- see 'definitionDeps'.
 --
 -- For example, for these macro definitions:
 --
@@ -269,31 +289,7 @@ mkDependentsGraph :: [Definition] -> DependentsGraph
 mkDependentsGraph defs = Foldable.foldl' addDefinition Digraph.empty defs
 
 addDefinition :: DependentsGraph -> Definition -> DependentsGraph
-addDefinition g0 d = Foldable.foldl' f g0 deps
+addDefinition g0 d = Foldable.foldl' f g0 d.deps
   where
-    deps = getDependencies d
-
     f :: DependentsGraph -> Name -> DependentsGraph
-    f g dep = Digraph.insertEdge dep () d.raw.name g
-
--- | The names the body refers to, other than the macro's own parameters
---
--- @__VA_ARGS__@ and @__VA_OPT__@ are reserved identifiers only in variadic
--- macro definitions. We treat them as parameters there, to emphasise that their
--- expansion relies on the parameters. In the GNU named-variadic form the name
--- that stands for the trailing arguments is a parameter like any other.
-getDependencies :: Definition -> [Name]
-getDependencies def = filter (not . isParam) def.raw.body
-  where
-    isParam :: Name -> Bool
-    isParam n = case def.raw.params of
-        Runtime.Macro.NoParams              -> False
-        Runtime.Macro.Params names variadic ->
-          n `elem` names || isVariadicParam n variadic
-
-    isVariadicParam :: Name -> Runtime.Macro.Variadic Name -> Bool
-    isVariadicParam n = \case
-        Runtime.Macro.NotVariadic                -> False
-        Runtime.Macro.NamedEllipsis ellipsisName -> n == ellipsisName
-        Runtime.Macro.Ellipsis                   ->
-          n `elem` ["__VA_ARGS__", "__VA_OPT__"]
+    f g dep = Digraph.insertEdge dep () d.name g
