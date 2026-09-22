@@ -23,7 +23,8 @@ import Test.Tasty.QuickCheck (Arbitrary (arbitrary), Property, conjoin,
                               counterexample, elements, ioProperty, once, oneof,
                               tabulate, testProperty, (===))
 
-import Clang.HighLevel.Types (MultiLoc, Range (rangeStart), Token (tokenExtent), SourcePath)
+import Clang.HighLevel.Types (MultiLoc, Range (rangeStart), SourcePath,
+                              Token (tokenExtent))
 
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.LanguageC qualified as LanC
