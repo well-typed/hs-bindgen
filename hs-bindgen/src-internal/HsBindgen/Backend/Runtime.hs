@@ -35,7 +35,7 @@ import HsBindgen.Runtime.HasCBitfield qualified as HasCBitfield
 import HsBindgen.Runtime.HasCField qualified as HasCField
 import HsBindgen.Runtime.IncompleteArray qualified as IA
 import HsBindgen.Runtime.IsArray qualified as IsA
-import HsBindgen.Runtime.Macro qualified as RawMacro
+import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 import HsBindgen.Runtime.Marshal qualified as Marshal
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 import HsBindgen.Runtime.Struct qualified as Struct
@@ -93,7 +93,7 @@ moduleName = \case
     Union           -> derived ''Union.IsUnion
     Struct          -> derived ''Struct.IsStruct
     CAPI            -> derived 'CAPI.addCSource
-    Macro           -> derived ''RawMacro.Raw
+    Macro           -> derived ''Runtime.Macro.Raw
     -- Re-export-only modules; no self-defined name to derive from.
     Support         -> "HsBindgen.Runtime.Support"
     CompatHasField  -> "HsBindgen.Runtime.Support.CompatHasField"

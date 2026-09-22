@@ -33,7 +33,7 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 
-import HsBindgen.Runtime.Macro qualified as RawMacro
+import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Eff
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
@@ -135,7 +135,7 @@ modifyParseState f = wrapEff $ \support -> modifyIORef support.state f
 recordMacroDefinitionAt ::
      Text
   -> Range MultiLoc
-  -> Either MacroParseError (RawMacro.Raw (Token TokenSpelling))
+  -> Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
   -> ParseDecl ()
 recordMacroDefinitionAt macroName locRange macro =
     modifyParseState $ #macroDefinitions %~ (macroDefinition:)

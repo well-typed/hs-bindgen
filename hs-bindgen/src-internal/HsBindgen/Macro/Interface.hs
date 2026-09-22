@@ -23,7 +23,7 @@ module HsBindgen.Macro.Interface (
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Runtime.Macro qualified as RawMacro
+import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
@@ -51,9 +51,7 @@ import HsBindgen.Macro.Type
 data Lang (l :: Star) = Lang {
     -- | Parse a single macro.
     parse ::
-         RawMacro.Raw (Token TokenSpelling)
-         -- ^ The macro definition has already been split into its name, formal
-         -- parameters and body.
+         Runtime.Macro.Raw (Token TokenSpelling)
       -> Either MacroParseError (Unresolved l)
 
   , resolve ::

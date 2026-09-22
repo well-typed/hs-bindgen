@@ -16,7 +16,7 @@ import Clang.HighLevel.Types (MultiLoc (multiLocExpansion),
                               SingleLoc (singleLocColumn, singleLocLine, singleLocPath),
                               Token (tokenExtent), TokenSpelling)
 
-import HsBindgen.Runtime.Macro qualified as RawMacro
+import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Macro.Error (MacroParseError)
 import HsBindgen.Macro.Parse
@@ -28,7 +28,7 @@ data MacroDefinition = MacroDefinition {
     --
     -- The split is language-independent and happens once, while parsing; see
     -- 'splitMacro'.
-  , macro    :: Either MacroParseError (RawMacro.Raw (Token TokenSpelling))
+  , macro    :: Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
   }
 
 data MacroInvocation = MacroInvocation {
@@ -57,19 +57,19 @@ data MacroInvocation = MacroInvocation {
 splitMacro ::
      HasCallStack
   => [Token TokenSpelling]
-  -> Either MacroParseError (RawMacro.Raw (Token TokenSpelling))
+  -> Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
 splitMacro = runParser (macroDefinition <* Parsec.eof)
 
-macroDefinition :: Parser (RawMacro.Raw (Token TokenSpelling))
+macroDefinition :: Parser (Runtime.Macro.Raw (Token TokenSpelling))
 macroDefinition = do
     name       <- identifierOrKeyword
     isFunction <- isFunctionLike (tokenExtent name)
-    params     <- if isFunction then formalParams else pure RawMacro.NoParams
+    params     <- if isFunction then formalParams else pure Runtime.Macro.NoParams
     body       <- Parsec.many Parsec.anyToken
-    pure RawMacro.Raw {
-        RawMacro.name   = name
-      , RawMacro.params = params
-      , RawMacro.body   = body
+    pure Runtime.Macro.Raw {
+        Runtime.Macro.name   = name
+      , Runtime.Macro.params = params
+      , Runtime.Macro.body   = body
       }
 
 -- | Is the macro definition function-like?
@@ -111,16 +111,16 @@ isFunctionLike nameRange =
 -- 'identifierOrKeyword'). The preprocessor sees pp-tokens, which know no
 -- keywords, so @clang@ accepts @#define F(bool) bool@ even in C23, where
 -- @bool@ is one.
-formalParams :: Parser (RawMacro.Params (Token TokenSpelling))
+formalParams :: Parser (Runtime.Macro.Params (Token TokenSpelling))
 formalParams = parens $ do
     names <- Parsec.option [] namedParams
     Parsec.choice [
         -- A comma that is not followed by @...@ is a trailing comma; it
         -- consumes input and so fails the whole parameter list rather than
         -- backtracking into the alternatives below.
-        RawMacro.Params names RawMacro.Ellipsis <$ (comma *> ellipsis)
+        Runtime.Macro.Params names Runtime.Macro.Ellipsis <$ (comma *> ellipsis)
       , namedEllipsis names <$ ellipsis
-      , pure $ RawMacro.Params names RawMacro.NotVariadic
+      , pure $ Runtime.Macro.Params names Runtime.Macro.NotVariadic
       ]
   where
     -- One or more comma-separated names. The separator is wrapped in 'try' so
@@ -134,10 +134,10 @@ formalParams = parens $ do
     -- @F(...)@ has no name for the ellipsis to bind to.
     namedEllipsis ::
          [Token TokenSpelling]
-      -> RawMacro.Params (Token TokenSpelling)
+      -> Runtime.Macro.Params (Token TokenSpelling)
     namedEllipsis names = case reverse names of
-        []   -> RawMacro.Params [] RawMacro.Ellipsis
-        n:ns -> RawMacro.Params (reverse ns) (RawMacro.NamedEllipsis n)
+        []   -> Runtime.Macro.Params [] Runtime.Macro.Ellipsis
+        n:ns -> Runtime.Macro.Params (reverse ns) (Runtime.Macro.NamedEllipsis n)
 
     ellipsis :: Parser ()
     ellipsis = punctuation "..."

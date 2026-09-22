@@ -129,17 +129,12 @@
     in `foreign import` argument and result positions.
   * FFI types are now generally more portable and customizable.
   * FFI types are now represented in external binding specifications.
-* The `parse` field of `Macro.Lang` (in the internal library) now takes a
-  `HsBindgen.Runtime.Macro.Raw (Token TokenSpelling)` rather than a token list:
-  every macro definition is split into name, formal parameters and body by
-  `hs-bindgen` itself. A macro language only interprets the body. Macro
-  languages that parsed definitions must be adapted.
-* A macro with an empty body (`#define FOO`) is no longer rejected before the
-  macro language sees it; it is passed to the language like any other macro.
-  `Raw` now translates such macros. The default macro language `CExpr` has no
-  expression to translate and ignores them (quietly: include guards take this
-  path in every header, so they do not count towards the dropped-macro
-  summary). See [issue #2246][is-2246].
+* New flag `--include-empty-macros` (`hs-bindgen-cli`) and `IncludeEmptyMacros`
+  (TH mode) that also parses empty macros and passes them on to the pluggable
+  macro language. By default, empty macros are not parsed (i.e., skipped). The
+  macro language `Raw` can translate such empty macros. The default macro
+  language `CExpr` has no expression to translate and rejects them. See [issue
+  #2246][is-2246].
 
 ### New features
 

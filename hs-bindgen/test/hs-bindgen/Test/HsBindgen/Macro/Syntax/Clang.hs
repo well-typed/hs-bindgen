@@ -4,7 +4,7 @@
 -- laid out by "Test.HsBindgen.Macro.Infra". That layout is a /model/ of how
 -- @libclang@ assigns extents, and the model is load-bearing: the
 -- object-like\/function-like decision is an extent comparison. These tests
--- validate the model by asserting the same 'RawMacro.Raw' values against real
+-- validate the model by asserting the same 'Runtime.Macro.Raw' values against real
 -- tokens.
 --
 -- Malformed definitions are not repeated here. @clang@ rejects them outright
@@ -25,7 +25,7 @@ import Clang.Args (ClangArgs (ClangArgs))
 import Clang.HighLevel.Types (Token, TokenSpelling)
 import Clang.Version (ClangVersion (ClangVersion), runtimeClangVersion)
 
-import HsBindgen.Runtime.Macro qualified as RawMacro
+import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Macro.Error (MacroParseError (..))
 import HsBindgen.Macro.Parse (spelling)
@@ -98,7 +98,7 @@ data Case = Case {
       name     :: Text
       -- | Everything following the macro name, including any white space
     , rest     :: String
-    , expected :: RawMacro.Raw String
+    , expected :: Runtime.Macro.Raw String
     }
 
 source :: Case -> String
@@ -116,62 +116,62 @@ cases :: [Case]
 cases = [
       -- Object-like
       Case "FOO" " 1" $
-        RawMacro.objectLike "FOO" ["1"]
+        Runtime.Macro.objectLike "FOO" ["1"]
     , Case "EMPTY" "" $
-        RawMacro.objectLike "EMPTY" []
+        Runtime.Macro.objectLike "EMPTY" []
       -- White space before the @(@ makes this object-like, with the parentheses
       -- part of the body; see #1903.
     , Case "PARENS" " (1)" $
-        RawMacro.objectLike "PARENS" ["(", "1", ")"]
+        Runtime.Macro.objectLike "PARENS" ["(", "1", ")"]
 
       -- Function-like
     , Case "ADD" "(x, y) x + y" $
-        RawMacro.functionLike "ADD" ["x", "y"] ["x", "+", "y"]
+        Runtime.Macro.functionLike "ADD" ["x", "y"] ["x", "+", "y"]
       -- Distinct from an object-like macro: the empty parameter list is
-      -- 'RawMacro.Params' @[] False@, not 'RawMacro.NoParams'.
+      -- 'Runtime.Macro.Params' @[] False@, not 'Runtime.Macro.NoParams'.
     , Case "NOW" "() 0" $
-        RawMacro.functionLike "NOW" [] ["0"]
+        Runtime.Macro.functionLike "NOW" [] ["0"]
     , Case "IGNORE" "(x)" $
-        RawMacro.functionLike "IGNORE" ["x"] []
+        Runtime.Macro.functionLike "IGNORE" ["x"] []
 
       -- Variadic
     , Case "LOG" "(fmt, ...) fmt" $
-        RawMacro.variadic "LOG" ["fmt"] ["fmt"]
+        Runtime.Macro.variadic "LOG" ["fmt"] ["fmt"]
     , Case "WARN" "(...) __VA_ARGS__" $
-        RawMacro.variadic "WARN" [] ["__VA_ARGS__"]
+        Runtime.Macro.variadic "WARN" [] ["__VA_ARGS__"]
       -- The GNU named variadic form: the name before the @...@ is not a
       -- parameter of its own.
     , Case "GNU" "(args...) args" $
-        RawMacro.variadicNamed "GNU" [] "args" ["args"]
+        Runtime.Macro.variadicNamed "GNU" [] "args" ["args"]
     , Case "GNULOG" "(fmt, args...) fmt" $
-        RawMacro.variadicNamed "GNULOG" ["fmt"] "args" ["fmt"]
+        Runtime.Macro.variadicNamed "GNULOG" ["fmt"] "args" ["fmt"]
 
       -- A macro definition may give a new meaning to a keyword, so the name
       -- accepts one; so does a parameter, which the preprocessor sees as a
       -- pp-token either way.
     , Case "bool" " int" $
-        RawMacro.objectLike "bool" ["int"]
+        Runtime.Macro.objectLike "bool" ["int"]
     , Case "KWPARAM" "(bool) bool" $
-        RawMacro.functionLike "KWPARAM" ["bool"] ["bool"]
+        Runtime.Macro.functionLike "KWPARAM" ["bool"] ["bool"]
 
       -- The body is returned verbatim, whatever it contains
     , Case "PASTE" "(a, b) a ## b" $
-        RawMacro.functionLike "PASTE" ["a", "b"] ["a", "##", "b"]
+        Runtime.Macro.functionLike "PASTE" ["a", "b"] ["a", "##", "b"]
     , Case "STR" "(x) #x" $
-        RawMacro.functionLike "STR" ["x"] ["#", "x"]
+        Runtime.Macro.functionLike "STR" ["x"] ["#", "x"]
     , Case "CALL" "(f) FOO(f)" $
-        RawMacro.functionLike "CALL" ["f"] ["FOO", "(", "f", ")"]
+        Runtime.Macro.functionLike "CALL" ["f"] ["FOO", "(", "f", ")"]
 
       -- A comment separates the name from the @(@, so the macro is object-like
       -- and the comment is part of the body.
     , Case "COMMENT" "/*c*/(1)" $
-        RawMacro.objectLike "COMMENT" ["/*c*/", "(", "1", ")"]
+        Runtime.Macro.objectLike "COMMENT" ["/*c*/", "(", "1", ")"]
 
       -- A line continuation splices the lines before the macro is parsed, so
       -- the @(@ is still adjacent to the name.
     , continuation
     , Case "CONTP" "(x, \\\n      y) x" $
-        RawMacro.functionLike "CONTP" ["x", "y"] ["x"]
+        Runtime.Macro.functionLike "CONTP" ["x", "y"] ["x"]
     , continuationInParams
     ]
 
@@ -180,14 +180,14 @@ cases = [
 -- Singled out because 'continuationSpellings' asserts its token spellings.
 continuation :: Case
 continuation = Case "CONT" "\\\n(x) x" $
-    RawMacro.functionLike "CONT" ["x"] ["x"]
+    Runtime.Macro.functionLike "CONT" ["x"] ["x"]
 
 -- | A line continuation inside the parameter list
 --
 -- Singled out for the same reason as 'continuation'.
 continuationInParams :: Case
 continuationInParams = Case "CONTC" "(x\\\n, y) x" $
-    RawMacro.functionLike "CONTC" ["x", "y"] ["x"]
+    Runtime.Macro.functionLike "CONTC" ["x", "y"] ["x"]
 
 {-------------------------------------------------------------------------------
   Assertions
@@ -227,7 +227,7 @@ tokensOf getMacros c = do
         "libclang reported no definition of " ++ Text.unpack c.name
 
 -- | Split, keeping only the spellings; the splitter does not change them
-split :: [Token TokenSpelling] -> Either String (RawMacro.Raw Text)
+split :: [Token TokenSpelling] -> Either String (Runtime.Macro.Raw Text)
 split tokens =
     case splitMacro tokens of
       Left  err -> Left err.macroParseError
@@ -237,13 +237,13 @@ split tokens =
   Round trip
 -------------------------------------------------------------------------------}
 
--- | 'RawMacro.render' and 'splitMacro' are inverse
+-- | 'Runtime.Macro.render' and 'splitMacro' are inverse
 --
 -- \[
 --   \text{splitMacro} ~ (\text{tokenize} ~ (\text{render} ~ r)) = r
 -- \]
 --
--- Only in this direction: 'RawMacro.render' is canonical, not faithful, so
+-- Only in this direction: 'Runtime.Macro.render' is canonical, not faithful, so
 -- @#define ADD(x,y) x+y@ does not survive a round trip the other way round.
 -- 'Definitions' generates canonical values only.
 prop_renderRoundtrips :: Definitions -> Property
@@ -256,51 +256,51 @@ prop_renderRoundtrips defs = ioProperty $ do
 --
 -- The names are made distinct, because @clang@ rejects a redefinition with a
 -- different body and this property is not about redefinition.
-newtype Definitions = Definitions { unwrap :: [RawMacro.Raw String] }
+newtype Definitions = Definitions { unwrap :: [Runtime.Macro.Raw String] }
 
 instance Show Definitions where
   show = renderAll
 
 renderAll :: Definitions -> String
-renderAll defs = unlines $ map RawMacro.render defs.unwrap
+renderAll defs = unlines $ map Runtime.Macro.render defs.unwrap
 
 instance Arbitrary Definitions where
   arbitrary = Definitions . zipWith rename [0 :: Int ..] <$> listOf genMacro
     where
-      rename :: Int -> RawMacro.Raw String -> RawMacro.Raw String
-      rename i raw = raw{RawMacro.name = raw.name <> "_" <> show i}
+      rename :: Int -> Runtime.Macro.Raw String -> Runtime.Macro.Raw String
+      rename i raw = raw{Runtime.Macro.name = raw.name <> "_" <> show i}
 
 -- | A macro whose rendering @libclang@ tokenizes back to the same tokens
 --
 -- The body alphabet avoids everything that would not survive: no @#@ or @##@
 -- (@clang@ rejects both outside their proper context), no unterminated literal
 -- and no stray backslash. Adjacent tokens cannot merge, because
--- 'RawMacro.render' separates them with a space.
-genMacro :: Gen (RawMacro.Raw String)
+-- 'Runtime.Macro.render' separates them with a space.
+genMacro :: Gen (Runtime.Macro.Raw String)
 genMacro = do
     theName   <- elements ["A", "B", "FOO", "M", "x1"]
     theParams <- genParams
     theBody   <- resize 5 . listOf . elements $
                    paramNames theParams ++ bodyAlphabet
-    pure RawMacro.Raw{
-        RawMacro.name   = theName
-      , RawMacro.params = theParams
-      , RawMacro.body   = theBody
+    pure Runtime.Macro.Raw{
+        Runtime.Macro.name   = theName
+      , Runtime.Macro.params = theParams
+      , Runtime.Macro.body   = theBody
       }
   where
-    genParams :: Gen (RawMacro.Params String)
+    genParams :: Gen (Runtime.Macro.Params String)
     genParams = frequency [
-          (1, pure RawMacro.NoParams)
-        , (3, RawMacro.Params <$> genParamNames <*> genVariadic)
+          (1, pure Runtime.Macro.NoParams)
+        , (3, Runtime.Macro.Params <$> genParamNames <*> genVariadic)
         ]
 
     -- @args@ is not in 'genParamNames', so the GNU name never repeats a
     -- parameter.
-    genVariadic :: Gen (RawMacro.Variadic String)
+    genVariadic :: Gen (Runtime.Macro.Variadic String)
     genVariadic = frequency [
-          (3, pure RawMacro.NotVariadic)
-        , (1, pure RawMacro.Ellipsis)
-        , (1, pure $ RawMacro.NamedEllipsis "args")
+          (3, pure Runtime.Macro.NotVariadic)
+        , (1, pure Runtime.Macro.Ellipsis)
+        , (1, pure $ Runtime.Macro.NamedEllipsis "args")
         ]
 
     -- Distinct, because @clang@ rejects a repeated parameter name.
@@ -310,9 +310,9 @@ genMacro = do
       take n <$> shuffle ["a", "b", "c", "x"]
 
     -- Includes the GNU name, which is a parameter like any other.
-    paramNames :: RawMacro.Params String -> [String]
-    paramNames RawMacro.NoParams             = []
-    paramNames (RawMacro.Params ps variadic) = ps ++ toList variadic
+    paramNames :: Runtime.Macro.Params String -> [String]
+    paramNames Runtime.Macro.NoParams             = []
+    paramNames (Runtime.Macro.Params ps variadic) = ps ++ toList variadic
 
     bodyAlphabet :: [String]
     bodyAlphabet = [

@@ -11,7 +11,7 @@ import Clang.CStandard
 import Clang.HighLevel.Types
 import Clang.Paths
 
-import HsBindgen.Runtime.Macro qualified as RawMacro
+import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Internal.Macro.CExpr.Type
 import HsBindgen.Macro.Error
@@ -24,14 +24,14 @@ import HsBindgen.Macro.Interface qualified as Macro
 -- split and the parsed body.
 parseMacro ::
      ClangCStandard
-  -> RawMacro.Raw (Token TokenSpelling)
+  -> Runtime.Macro.Raw (Token TokenSpelling)
   -> Either MacroParseError (Macro.Unresolved CExpr)
 parseMacro cStd macro =
     case macro.params of
-      RawMacro.NoParams                               -> parseBody []
-      RawMacro.Params params RawMacro.NotVariadic     -> parseBody params
-      RawMacro.Params _      RawMacro.Ellipsis        -> Left unsupportedVariadic
-      RawMacro.Params _      RawMacro.NamedEllipsis{} -> Left unsupportedVariadic
+      Runtime.Macro.NoParams                               -> parseBody []
+      Runtime.Macro.Params params Runtime.Macro.NotVariadic     -> parseBody params
+      Runtime.Macro.Params _      Runtime.Macro.Ellipsis        -> Left unsupportedVariadic
+      Runtime.Macro.Params _      Runtime.Macro.NamedEllipsis{} -> Left unsupportedVariadic
   where
     sourcePath :: FilePath
     sourcePath =

@@ -27,7 +27,7 @@ import HsBindgen.Runtime.HasCBitfield qualified as HasCBitfield
 import HsBindgen.Runtime.HasCField qualified as HasCField
 import HsBindgen.Runtime.IncompleteArray qualified as IA
 import HsBindgen.Runtime.IsArray qualified as IsA
-import HsBindgen.Runtime.Macro qualified as RawMacro
+import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 import HsBindgen.Runtime.Marshal qualified as Marshal
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 import HsBindgen.Runtime.Struct qualified as Struct
@@ -370,7 +370,7 @@ bindgenGlobalType = globalType . \case
     String_type     -> (IHaskellPrelude, ''String)
 
     -- Raw macros
-    Macro_Raw_type  -> (IRuntime Runtime.Macro, ''RawMacro.Raw)
+    Macro_Raw_type  -> (IRuntime Runtime.Macro, ''Runtime.Macro.Raw)
 
 
 typeClassGlobal :: Inst.TypeClass -> Global LvlType
@@ -538,7 +538,7 @@ bindgenGlobalTerm = globalExpr . \case
     ByteString_pack -> (IRuntime Runtime.Support, GVar, 'BS.pack)
 
     -- Raw macros
-    Macro_objectLike                -> (IRuntime Runtime.Macro, GVar, 'RawMacro.objectLike)
-    Macro_functionLike              -> (IRuntime Runtime.Macro, GVar, 'RawMacro.functionLike)
-    Macro_variadicFunctionLike      -> (IRuntime Runtime.Macro, GVar, 'RawMacro.variadic)
-    Macro_namedVariadicFunctionLike -> (IRuntime Runtime.Macro, GVar, 'RawMacro.variadicNamed)
+    Macro_objectLike                -> (IRuntime Runtime.Macro, GVar, 'Runtime.Macro.objectLike)
+    Macro_functionLike              -> (IRuntime Runtime.Macro, GVar, 'Runtime.Macro.functionLike)
+    Macro_variadicFunctionLike      -> (IRuntime Runtime.Macro, GVar, 'Runtime.Macro.variadic)
+    Macro_namedVariadicFunctionLike -> (IRuntime Runtime.Macro, GVar, 'Runtime.Macro.variadicNamed)

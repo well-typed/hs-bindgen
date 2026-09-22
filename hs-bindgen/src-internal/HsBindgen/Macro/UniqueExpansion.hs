@@ -31,7 +31,7 @@ import Text.Parsec (eof)
 
 import Clang.HighLevel.Types (Token, TokenSpelling)
 
-import HsBindgen.Runtime.Macro qualified as RawMacro
+import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Macro.Error (MacroParseError)
 import HsBindgen.Macro.Parse (isIdentifierOrKeyword, runParser, spelling)
@@ -90,17 +90,19 @@ parseDefinition def =
 -- @#define B bool@ refers to @bool@ whether or not the C standard in force
 -- makes @bool@ a keyword, and a reference we fail to harvest is an ambiguity we
 -- fail to see.
-definitionNames :: RawMacro.Raw (Token TokenSpelling) -> Definition
+definitionNames :: Runtime.Macro.Raw (Token TokenSpelling) -> Definition
 definitionNames m = Definition{
-      raw = RawMacro.Raw {
-          RawMacro.name   = toName m.name
-        , RawMacro.params = toName <$> m.params
-        , RawMacro.body   = [toName t | t <- m.body, isIdentifierOrKeyword t]
+      raw = Runtime.Macro.Raw {
+          Runtime.Macro.name   = toName m.name
+        , Runtime.Macro.params = toName <$> m.params
+        , Runtime.Macro.body   = [toName t | t <- m.body, isIdentifierOrKeyword t]
         }
     }
   where
     toName :: Token TokenSpelling -> Name
     toName = Name . spelling
+
+-- TODO-R: Check how this is even works. We should filter out local parameters.
 
 parseInvocation :: MacroInvocation -> ParseResult Invocation
 parseInvocation inv =
@@ -285,13 +287,13 @@ getDependencies def = filter (not . isParam) def.raw.body
   where
     isParam :: Name -> Bool
     isParam n = case def.raw.params of
-        RawMacro.NoParams              -> False
-        RawMacro.Params names variadic ->
+        Runtime.Macro.NoParams              -> False
+        Runtime.Macro.Params names variadic ->
           n `elem` names || isVariadicParam n variadic
 
-    isVariadicParam :: Name -> RawMacro.Variadic Name -> Bool
+    isVariadicParam :: Name -> Runtime.Macro.Variadic Name -> Bool
     isVariadicParam n = \case
-        RawMacro.NotVariadic                -> False
-        RawMacro.NamedEllipsis ellipsisName -> n == ellipsisName
-        RawMacro.Ellipsis                   ->
+        Runtime.Macro.NotVariadic                -> False
+        Runtime.Macro.NamedEllipsis ellipsisName -> n == ellipsisName
+        Runtime.Macro.Ellipsis                   ->
           n `elem` ["__VA_ARGS__", "__VA_OPT__"]

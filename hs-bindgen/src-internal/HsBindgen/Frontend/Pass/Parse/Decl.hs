@@ -13,7 +13,7 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
-import HsBindgen.Runtime.Macro qualified as RawMacro
+import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
@@ -239,7 +239,7 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
         foldContinueWith [mkResult split]
   where
     mkResult ::
-         Either MacroParseError (RawMacro.Raw (Token TokenSpelling))
+         Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
       -> ParseResult l Parse
     mkResult split =
         case (macroLang.parse =<< split) of
@@ -259,7 +259,7 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
     -- translate. Declined empty macro bodies are not a failure worth
     -- reporting, since they are ubiquitously used by include guards.
     macroParseMsg ::
-         Either MacroParseError (RawMacro.Raw (Token TokenSpelling))
+         Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
       -> MacroParseError
       -> DelayedParseMsg
     macroParseMsg (Right macro) _
