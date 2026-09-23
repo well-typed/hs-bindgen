@@ -48,7 +48,7 @@ foreign import ccall safe "hs_bindgen_13e66cb2f49fb393" hs_bindgen_13e66cb2f49fb
 -- __unique:__ @test_bindingspecsrelative_include_Example_Safe_use_widget@
 hs_bindgen_13e66cb2f49fb393 :: Ptr Widget_legacy_t -> IO ()
 -- __unique:__ @test_bindingspecsrelative_include_Example_Safe_use_widget@
-hs_bindgen_13e66cb2f49fb393 = fromFFIType hs_bindgen_13e66cb2f49fb393_base
+hs_bindgen_13e66cb2f49fb393 = \x_0 -> hs_bindgen_13e66cb2f49fb393_base (toFFIType x_0)
 {-| __C declaration:__ @use_widget@
 
     __defined at:__ @binding-specs\/relative_include\/sub\/consumer.h 21:6@
@@ -70,7 +70,7 @@ foreign import ccall unsafe "hs_bindgen_206a5cae524a3fcb" hs_bindgen_206a5cae524
 -- __unique:__ @test_bindingspecsrelative_include_Example_Unsafe_use_widget@
 hs_bindgen_206a5cae524a3fcb :: Ptr Widget_legacy_t -> IO ()
 -- __unique:__ @test_bindingspecsrelative_include_Example_Unsafe_use_widget@
-hs_bindgen_206a5cae524a3fcb = fromFFIType hs_bindgen_206a5cae524a3fcb_base
+hs_bindgen_206a5cae524a3fcb = \x_0 -> hs_bindgen_206a5cae524a3fcb_base (toFFIType x_0)
 {-| __C declaration:__ @use_widget@
 
     __defined at:__ @binding-specs\/relative_include\/sub\/consumer.h 21:6@
@@ -92,7 +92,7 @@ foreign import ccall unsafe "hs_bindgen_33ccb2801b32fc12" hs_bindgen_33ccb2801b3
 hs_bindgen_33ccb2801b32fc12 :: IO (FunPtr (Ptr Widget_legacy_t ->
                                            IO ()))
 -- __unique:__ @test_bindingspecsrelative_include_Example_get_use_widget@
-hs_bindgen_33ccb2801b32fc12 = fromFFIType hs_bindgen_33ccb2801b32fc12_base
+hs_bindgen_33ccb2801b32fc12 = fmap fromFFIType hs_bindgen_33ccb2801b32fc12_base
 {-# NOINLINE use_widget_funptr #-}
 {-| __C declaration:__ @use_widget@
 

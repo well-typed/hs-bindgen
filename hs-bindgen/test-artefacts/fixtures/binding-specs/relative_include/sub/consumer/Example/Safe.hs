@@ -30,7 +30,8 @@ hs_bindgen_13e66cb2f49fb393 ::
      BG.Ptr Widget_legacy_t
   -> IO ()
 hs_bindgen_13e66cb2f49fb393 =
-  BG.fromFFIType hs_bindgen_13e66cb2f49fb393_base
+  \x0 ->
+    hs_bindgen_13e66cb2f49fb393_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @use_widget@
 

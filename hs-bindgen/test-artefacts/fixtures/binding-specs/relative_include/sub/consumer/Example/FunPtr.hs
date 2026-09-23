@@ -29,7 +29,7 @@ foreign import ccall unsafe "hs_bindgen_33ccb2801b32fc12" hs_bindgen_33ccb2801b3
 -- __unique:__ @test_bindingspecsrelative_include_Example_get_use_widget@
 hs_bindgen_33ccb2801b32fc12 :: IO (BG.FunPtr (BG.Ptr Widget_legacy_t -> IO ()))
 hs_bindgen_33ccb2801b32fc12 =
-  BG.fromFFIType hs_bindgen_33ccb2801b32fc12_base
+  fmap BG.fromFFIType hs_bindgen_33ccb2801b32fc12_base
 
 {-# NOINLINE use_widget #-}
 {-| __C declaration:__ @use_widget@
