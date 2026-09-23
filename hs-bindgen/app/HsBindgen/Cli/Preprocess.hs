@@ -15,14 +15,17 @@ module HsBindgen.Cli.Preprocess (
   ) where
 
 import Options.Applicative hiding (info)
+import System.Exit (exitFailure)
 
 import HsBindgen
 import HsBindgen.App
 import HsBindgen.App.Output (OutputMode (..), OutputOptions (..),
                              buildCategoryChoice, parseOutputOptions)
 import HsBindgen.ArtefactM
+import HsBindgen.Cli.PreprocessLibrary qualified as PreprocessLibrary
 import HsBindgen.Config
-import HsBindgen.Config.Internal
+import HsBindgen.Config.Internal (BindgenConfig)
+import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
@@ -32,15 +35,20 @@ import HsBindgen.Macro
 -------------------------------------------------------------------------------}
 
 info :: InfoMod a
-info = progDesc "Generate Haskell module from C headers"
+info = progDesc $ concat [
+    "Generate Haskell module from C headers. "
+  , "Use --library to generate one module per sub-header "
+  , "for a multi-header C library."
+  ]
 
 {-------------------------------------------------------------------------------
   Options
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config              :: Config
-    , configCLI           :: ConfigCLI
+      config        :: Config
+    , configCLI     :: ConfigCLI
+    , configLibrary :: PreprocessLibrary.Opts
     }
   deriving (Generic)
 
@@ -49,6 +57,7 @@ parseOpts =
     Opts
       <$> parseConfig
       <*> parseConfigCLI
+      <*> PreprocessLibrary.parseOpts
 
 -- | CLI options; the TH equivalent of ConfigCLI' is 'HsBindgen.Config.ConfigTH'.
 data ConfigCLI = ConfigCLI {
@@ -83,7 +92,19 @@ parseConfigCLI =
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec global opts = do
+exec global opts
+    | not (null opts.configLibrary.libraryRoots) = execLibrary global opts
+    | otherwise                                  = execSingleHeader global opts
+
+execSingleHeader :: GlobalOpts -> Opts -> IO ()
+execSingleHeader global opts = do
+    when opts.configLibrary.dryRun $ do
+      putStrLn "Error: --dry-run requires --library"
+      exitFailure
+    when opts.configLibrary.listModules $ do
+      putStrLn "Error: --list-modules requires --library"
+      exitFailure
+
     hsBindgen
       global.unsafe
       global.safe
@@ -125,3 +146,42 @@ exec global opts = do
           opts.configCLI.filePolicy
           opts.configCLI.dirPolicy
           path
+
+execLibrary :: GlobalOpts -> Opts -> IO ()
+execLibrary global opts = do
+    when (isJust opts.configCLI.outputBindingSpec) $ do
+      putStrLn "Error: --gen-binding-spec cannot be used with --library"
+      exitFailure
+
+    PreprocessLibrary.exec global
+      (libraryDefaults opts.config)
+      opts.configCLI.uniqueId
+      opts.configCLI.baseModuleName
+      opts.configCLI.qualifiedStyle
+      opts.configCLI.outputOptions
+      opts.configCLI.hsOutputDir
+      opts.configCLI.dirPolicy
+      opts.configCLI.filePolicy
+      opts.configCLI.inputs
+      opts.configLibrary
+
+-- | Adjust the selection predicate default for library mode.
+--
+-- 'parseConfig' defaults to @FromMainHeaders@ (select declarations from the
+-- root header only). In library mode each step ANDs the user predicate with
+-- a per-header filter, so @FromMainHeaders@ would intersect with a sub-header
+-- filter and produce nothing. We replace it with @BTrue@ so the per-header
+-- filter does the actual selection. Explicit @--select-*@ flags are not
+-- affected since they do not contain @FromMainHeaders@.
+libraryDefaults :: Config -> Config
+libraryDefaults config = config {
+      selectionPredicate = go config.selectionPredicate
+    }
+  where
+    go :: Boolean SelectionPredicate -> Boolean SelectionPredicate
+    go = \case
+      BIf (SelectHeader FromMainHeaders) -> BTrue
+      BAnd a b -> BAnd (go a) (go b)
+      BOr  a b -> BOr  (go a) (go b)
+      BNot a   -> BNot (go a)
+      other    -> other
