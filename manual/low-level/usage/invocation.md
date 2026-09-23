@@ -135,6 +135,127 @@ Besides `preprocess`, `hs-bindgen-cli` provides:
 
 Run `hs-bindgen-cli --help` for details.
 
+## Library mode
+[t:library-mode]: #library-mode
+
+When `--library DIR` is passed, `preprocess` switches to library mode: it
+walks the include graph of the root header(s), assigns each discovered
+sub-header its own Haskell module, and runs the binding generator once per
+module in dependency order. Each step receives the binding specifications from
+all previous steps as external binding specifications, so cross-module type
+references resolve correctly.
+
+This automates the multi-module workflow described in the [binding
+specifications][manual:binding-specifications-multi] section.
+
+### Basic usage
+
+```
+hs-bindgen-cli preprocess \
+    -I /usr/include \
+    --library /usr/include/rpm \
+    --hs-output-dir gen \
+    --create-output-dirs \
+    --overwrite-files \
+    --module RPM \
+    rpm/rpmlib.h
+```
+
+This command:
+
+1. Parses `rpm/rpmlib.h` (resolved via `-I /usr/include`), which transitively
+   includes all RPM public headers.
+2. Walks the include graph to discover every header reachable from the root.
+3. Filters headers to those under `--library /usr/include/rpm`.
+4. Topologically sorts the filtered headers.
+5. For each header, derives a Haskell module name, constructs a selection
+   predicate targeting that header's declarations, enables program slicing, and
+   runs the binding generator.
+6. Chains binding specifications: each step receives the binding specifications
+   from all previous steps as external binding specifications, so cross-module
+   type references resolve.
+
+### Module-generation scope
+
+`--library DIR` defines which headers get their own Haskell module. A header
+in the include graph gets a module if and only if its normalised path falls
+under a library directory.
+
+`--except-library PCRE` excludes headers whose normalised path matches the
+pattern, even when they are under a library directory. Types from excluded
+headers remain available to other modules through program slicing and binding
+spec chaining.
+
+```
+hs-bindgen-cli preprocess \
+    --library /usr/include/rpm \
+    --except-library 'internal' \
+    ...
+```
+
+This skips any header whose path contains "internal" (e.g.
+`rpm/internal.h`).
+
+Note: `-I` is the clang search path only; it tells clang where to find headers
+during parsing and has no effect on which headers get modules.
+
+### Selection predicates in library mode
+
+Selection predicates (`--select-by-header-path`, `--select-by-decl-name`,
+`--select-except-deprecated`, etc.) control which *declarations* get bindings
+within each generated module.  They are independent of `--library` and
+`--except-library`, which control which *headers* get modules.
+
+In library mode the selection predicate defaults to all declarations,
+rather than only the main headers as in single-header, preprocess mode.
+
+### Module naming
+
+Module names are derived from each header's normalised path relative to the
+`--library` directories (which are normalised before matching, so symlinks and
+`..` segments are resolved).
+
+| `--library` | Header path | Module name |
+|---|---|---|
+| `/usr/include/rpm` | `/usr/include/rpm/rpmlib.h` | `RPM.Rpmlib` |
+| `/usr/include/rpm` | `/usr/include/rpm/rpmtypes.h` | `RPM.Rpmtypes` |
+| `/usr/include` | `/usr/include/rpm/argv.h` | `RPM.Rpm.Argv` |
+
+### Dry run and module listing
+
+`--dry-run` prints the processing plan (which headers produce which modules)
+and exits without generating any files. Useful for verifying the `--library`
+and `--except-library` filters before running the full generation.
+
+`--list-modules` prints module names one per line (suitable for pasting into a
+`.cabal` file) and exits.
+
+### Module name collisions
+
+The naming scheme can produce collisions. Library mode detects them before
+generating any files and exits with an error. Known cases:
+
+- Two headers that differ only in the capitalisation of the first character
+  collide: `foo.h` and `Foo.h` both produce component `Foo`.
+
+- Only the last file extension is stripped, so a header like `Widget.Core.h`
+  retains a dot in the stem (`Widget.Core`). That dot becomes a module
+  separator in the derived name, producing the same module as `widget/core.h`
+  would from two separate path components. Any dot that survives extension
+  stripping is indistinguishable from a directory separator.
+
+- Each base module `M` can expand to category submodules `M.Safe`, `M.Unsafe`,
+  `M.FunPtr`, and `M.Global`. So, for example, `foo.h` (module `M.Foo`) and
+  `foo/safe.h` (module `M.Foo.Safe`) collide at `M/Foo/Safe.hs`.
+
+To resolve a collision, use `--except-library` to exclude one side, or
+adjust the `--library` directories to change the derived relative paths.
+
+For now the `--library` mode does not allow to overwrite the name of each
+individually generated header module.
+
+[manual:binding-specifications-multi]: binding-specifications.md#generating-multiple-modules
+
 ### Exit codes
 
 `hs-bindgen` uses the following exit codes:
@@ -218,7 +339,7 @@ arguments:
 This list contains the same arguments you would pass to `hs-bindgen-cli
 preprocess`, in standard Haskell list syntax.
 
-The `.lhs` file can contain arbitrary content—it is simply passed to the
+The `.lhs` file can contain arbitrary content; it is simply passed to the
 preprocessor.  The preprocessor is responsible for parsing the file and
 generating Haskell code.
 

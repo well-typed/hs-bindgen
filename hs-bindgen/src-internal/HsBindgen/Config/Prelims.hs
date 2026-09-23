@@ -3,6 +3,7 @@ module HsBindgen.Config.Prelims (
     BaseModuleName(..)
   , baseModuleNameToString
   , fromBaseModuleName
+  , termCategorySuffix
 
     -- * Field naming strategy
   , FieldNamingStrategy(..)
@@ -51,16 +52,18 @@ fromBaseModuleName (BaseModuleName base) Nothing =
 fromBaseModuleName (BaseModuleName base) (Just CType) =
     Hs.ModuleName base
 fromBaseModuleName (BaseModuleName base) (Just (CTerm cat)) =
-    Hs.ModuleName (base <> "." <> submodule cat)
-  where
-    -- NOTE: It is important that types are stored in a module without any
-    -- suffix; we depend on this assumption for binding specifications (which
-    -- only refer to types, never to functions or globals).
-    submodule :: TermCategory -> Text
-    submodule CSafe   = "Safe"
-    submodule CUnsafe = "Unsafe"
-    submodule CFunPtr = "FunPtr"
-    submodule CGlobal = "Global"
+    Hs.ModuleName (base <> "." <> termCategorySuffix cat)
+
+-- | The module name suffix for a 'TermCategory'.
+--
+-- Types are stored in a module without any suffix; we depend on this
+-- assumption for binding specifications (which only refer to types,
+-- never to functions or globals).
+termCategorySuffix :: TermCategory -> Text
+termCategorySuffix CSafe   = "Safe"
+termCategorySuffix CUnsafe = "Unsafe"
+termCategorySuffix CFunPtr = "FunPtr"
+termCategorySuffix CGlobal = "Global"
 
 {-------------------------------------------------------------------------------
   Field naming strategy

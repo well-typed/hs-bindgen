@@ -14,6 +14,7 @@ module HsBindgen.TraceMsg (
   , ImmediateFillUnnamedIdsMsg (..)
   , ImmediateParseMsg(..)
   , DelayedParseMsg(..)
+  , PreprocessLibraryMsg(..)
   , UnsupportedFloatType(..)
   , ResolveBindingSpecsMsg(..)
   , ResolveHeaderMsg(..)
@@ -24,8 +25,10 @@ module HsBindgen.TraceMsg (
   ) where
 
 import Data.List qualified as List
+import Text.SimplePrettyPrint (hsep, string)
 
 import Clang.HighLevel.Types (Diagnostic (..))
+import Clang.Paths
 
 import HsBindgen.BindingSpec (BindingSpecMsg (..))
 import HsBindgen.Boot
@@ -54,11 +57,44 @@ import HsBindgen.Util.Tracer
 -- Does not include backend messages because, unlike 'TraceMsg', backend
 -- messages cannot include 'Error's, or 'Warning's.
 data TraceMsg =
-    TraceBoot          BootMsg
-  | TraceFrontend      FrontendMsg
-  | TraceResolveHeader ResolveHeaderMsg
+    TraceBoot              BootMsg
+  | TraceFrontend          FrontendMsg
+  | TracePreprocessLibrary PreprocessLibraryMsg
+  | TraceResolveHeader     ResolveHeaderMsg
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
+
+{-------------------------------------------------------------------------------
+  Preprocess-library messages
+-------------------------------------------------------------------------------}
+
+data PreprocessLibraryMsg =
+    PreprocessLibraryProcessing RealPath String
+    -- | @--gen-binding-spec@ was passed in library mode, where it has no
+    -- effect: per-module binding specs live in a temporary directory.
+  | PreprocessLibraryGenBindingSpecIgnored
+  deriving stock (Show)
+
+instance PrettyForTrace PreprocessLibraryMsg where
+  prettyForTrace = \case
+    PreprocessLibraryProcessing header modName -> hsep [
+        string "Processing:"
+      , string $ getRealPath header
+      , string "->"
+      , string modName
+      ]
+    PreprocessLibraryGenBindingSpecIgnored -> string $ concat [
+        "--gen-binding-spec is ignored in library mode; "
+      , "per-module binding specs are only used between steps "
+      , "and are not written out"
+      ]
+
+instance IsTrace Level PreprocessLibraryMsg where
+  getDefaultLogLevel = \case
+    PreprocessLibraryProcessing{}          -> Notice
+    PreprocessLibraryGenBindingSpecIgnored -> Notice
+  getSource = const HsBindgen
+  getTraceId = const "preprocess-library"
 
 {-------------------------------------------------------------------------------
   Log level customization
