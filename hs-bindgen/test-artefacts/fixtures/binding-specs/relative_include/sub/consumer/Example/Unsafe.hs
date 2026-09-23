@@ -1,3 +1,4 @@
+{-# LANGUAGE ForeignFunctionInterface #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
@@ -30,7 +31,8 @@ hs_bindgen_206a5cae524a3fcb ::
      BG.Ptr Widget_legacy_t
   -> IO ()
 hs_bindgen_206a5cae524a3fcb =
-  BG.fromFFIType hs_bindgen_206a5cae524a3fcb_base
+  \x0 ->
+    hs_bindgen_206a5cae524a3fcb_base (BG.toFFIType x0)
 
 {-| __C declaration:__ @use_widget@
 
