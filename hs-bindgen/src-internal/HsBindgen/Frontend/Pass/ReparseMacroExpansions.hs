@@ -385,7 +385,7 @@ processFunction info function = do
     mkFunctionArg :: Maybe Text -> C.Type LanC -> C.FunctionArg LanC
     mkFunctionArg mname typ = C.FunctionArg{
           name = C.ScopedName <$> mname
-        , typ  = typ
+        , typ  = C.TypeFunArgF typ NoAnn
         , ann  = NoAnn
         }
 

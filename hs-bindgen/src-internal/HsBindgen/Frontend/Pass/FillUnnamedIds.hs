@@ -350,7 +350,7 @@ instance UpdateUseSites C.FunctionArg where
         <$> updateUseSites functionArg.typ
     where
       reconstruct ::
-           C.Type FillUnnamedIds
+           C.TypeFunArg FillUnnamedIds
         -> C.FunctionArg FillUnnamedIds
       reconstruct typ' = C.FunctionArg {
             name = functionArg.name

@@ -697,8 +697,8 @@ functionDecl macroLang enclosing ctx info =
 
               return C.FunctionArg{
                   name = mbArgName
-                , typ  = argCType.typ
-                , ann  = argCType.ann
+                , typ  = argCType
+                , ann  = NoAnn
                 }
             let res' = C.FunctionRes res NoAnn
             pure $ Right (args', res')

@@ -171,18 +171,14 @@ processFunction fun = do
       , ann   = fun.ann
       }
 
-processFunctionArg :: C.FunctionArg AdjustTypes -> M DeclEnv (C.FunctionArg TranslateTypes)
-processFunctionArg arg =
+processFunctionArg ::
+     C.FunctionArg AdjustTypes
+  -> M DeclEnv (C.FunctionArg TranslateTypes)
+processFunctionArg arg = do
     pure C.FunctionArg{
         name = arg.name
-      , typ  = TranslatedTypes{
-            c  = coercePass arg.typ
-          , hs = Translation.inContext Translation.FunArg arg
-          }
-      , ann  =
-          coercePassAnn
-            (Proxy @'("TypeFunArg", AdjustTypes, TranslateTypes))
-            arg.ann
+      , typ  = processTypeFunArg Translation.FunArg arg.typ
+      , ann  = arg.ann
       }
 
 processFunctionRes :: C.FunctionRes AdjustTypes -> M DeclEnv (C.FunctionRes TranslateTypes)
@@ -210,6 +206,15 @@ processType ::
   -> C.Type AdjustTypes
   -> TranslatedTypes TranslateTypes
 processType ctx typ = TranslatedTypes{
+      c  = coercePass typ
+    , hs = Translation.inContext ctx typ
+    }
+
+processTypeFunArg ::
+     Translation.TypeContext
+  -> C.TypeFunArg AdjustTypes
+  -> TranslatedTypeFunArg TranslateTypes
+processTypeFunArg ctx typ = TranslatedTypeFunArg{
       c  = coercePass typ
     , hs = Translation.inContext ctx typ
     }

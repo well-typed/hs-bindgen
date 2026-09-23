@@ -11,6 +11,7 @@ module HsBindgen.IR.Translation (
   , ScopedNamePair(..)
     -- * Types
   , TranslatedTypes(..)
+  , TranslatedTypeFunArg(..)
   , TranslatedAnonRef(..)
   , translatedAnonRefType
   , translateCPrimType
@@ -71,6 +72,21 @@ instance (
       CoercePass C.Type p p'
     ) => CoercePass TranslatedTypes p p' where
   coercePass translatedTypes = TranslatedTypes{
+      c  = coercePass translatedTypes.c
+    , hs = translatedTypes.hs
+    }
+
+-- | A t'C.TypeFunArg' associated with possible Haskell type translations
+data TranslatedTypeFunArg (p :: Pass) = TranslatedTypeFunArg {
+      c  :: C.TypeFunArg p
+    , hs :: Hs.Type
+    }
+  deriving stock (Eq, Generic, Show)
+
+instance (
+      CoercePass C.TypeFunArg p p'
+    ) => CoercePass TranslatedTypeFunArg p p' where
+  coercePass translatedTypes = TranslatedTypeFunArg{
       c  = coercePass translatedTypes.c
     , hs = translatedTypes.hs
     }

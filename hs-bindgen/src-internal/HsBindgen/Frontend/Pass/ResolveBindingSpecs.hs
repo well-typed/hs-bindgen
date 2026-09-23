@@ -622,7 +622,7 @@ instance Resolve C.FunctionArg l where
       <$> resolve ctx functionArg.typ
     where
       reconstruct ::
-           C.Type ResolveBindingSpecs
+           C.TypeFunArg ResolveBindingSpecs
         -> C.FunctionArg ResolveBindingSpecs
       reconstruct typ' = C.FunctionArg{
             name = functionArg.name

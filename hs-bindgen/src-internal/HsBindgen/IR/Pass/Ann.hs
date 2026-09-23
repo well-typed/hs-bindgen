@@ -27,18 +27,19 @@ class (
       Eq   (Ann "Enum"                 p)
     , Eq   (Ann "Flam"                 p)
     , Eq   (Ann "Function"             p)
+    , Eq   (Ann "FunctionArg"          p)
     , Eq   (Ann "FunctionRes"          p)
     , Eq   (Ann "Global"               p)
     , Eq   (Ann "ImplicitField"        p)
     , Eq   (Ann "IndirectField"        p)
     , Eq   (Ann "RegularField"         p)
     , Eq   (Ann "Struct"               p)
+    , Eq   (Ann "TypeFunArg"           p)
     , Eq   (Ann "TypecheckedMacroType" p)
     , Eq   (Ann "Typedef"              p)
     , Eq   (Ann "Union"                p)
 
       -- For de-duplicating types
-    , Eq   (Ann "TypeFunArg"           p)
     , Ord  (Ann "TypeFunArg"           p)
 
       -- For debugging
@@ -46,6 +47,7 @@ class (
     , Show (Ann "Enum"                 p)
     , Show (Ann "Flam"                 p)
     , Show (Ann "Function"             p)
+    , Show (Ann "FunctionArg"          p)
     , Show (Ann "FunctionRes"          p)
     , Show (Ann "Global"               p)
     , Show (Ann "ImplicitField"        p)
