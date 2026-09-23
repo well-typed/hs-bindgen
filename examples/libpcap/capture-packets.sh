@@ -2,7 +2,7 @@
 
 echo "# "
 echo "This script should only be used locally (never on CI). It showcases"
-echo "$(hs-bindgen) by capturing live packets, which requires elevated privileges."
+echo "'hs-bindgen' by capturing live packets, which requires elevated privileges."
 echo "# "
 
 echo
