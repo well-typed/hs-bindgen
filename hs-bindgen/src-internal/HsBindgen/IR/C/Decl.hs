@@ -31,6 +31,7 @@ module HsBindgen.IR.C.Decl (
   , UntaggedEnumConstant(..)
   , Function(..)
   , FunctionArg(..)
+  , FunctionRes(..)
   , typeOfFunction
   , typeOfFunctionArg
   , FunctionAttributes(..)
@@ -303,7 +304,7 @@ data UntaggedEnumConstant (p :: Pass) = UntaggedEnumConstant {
 
 data Function (p :: Pass) = Function {
       args  :: [FunctionArg p]
-    , res   :: Types p
+    , res   :: FunctionRes p
     , attrs :: FunctionAttributes
     , ann   :: Ann "Function" p
     }
@@ -325,12 +326,19 @@ data FunctionArg (p :: Pass) = FunctionArg {
     , typ  :: Types p
     , ann  :: Ann "TypeFunArg" p
     }
-    deriving stock (Generic)
+  deriving stock (Generic)
+
+-- | Function result
+data FunctionRes (p :: Pass) = FunctionRes {
+      typ  :: Types p
+    , ann  :: Ann "FunctionRes" p
+    }
+  deriving stock (Generic)
 
 -- | Get the type of a function declaration
 typeOfFunction :: forall p. PassTypes p => Function p -> C.Type p
 typeOfFunction fun =
-    C.TypeFun (map typeOfFunctionArg fun.args) (cType (Proxy @p) fun.res)
+    C.TypeFun (map typeOfFunctionArg fun.args) (typeOfFunctionRes fun.res)
 
 -- | Get the type of a function argument
 typeOfFunctionArg :: forall p. PassTypes p => FunctionArg p -> C.TypeFunArg p
@@ -339,6 +347,10 @@ typeOfFunctionArg functionArg =
         typ = cType (Proxy @p) functionArg.typ
       , ann = functionArg.ann
       }
+
+-- | Get the type of a function result
+typeOfFunctionRes :: forall p. PassTypes p => FunctionRes p -> C.Type p
+typeOfFunctionRes res = cType (Proxy @p) res.typ
 
 -- | Function attributes specify properties for C functions
 --
@@ -574,6 +586,7 @@ deriving stock instance IsPass p => Eq (FieldInfo            p)
 deriving stock instance IsPass p => Eq (Flam                 p)
 deriving stock instance IsPass p => Eq (Function             p)
 deriving stock instance IsPass p => Eq (FunctionArg          p)
+deriving stock instance IsPass p => Eq (FunctionRes          p)
 deriving stock instance IsPass p => Eq (Global               p)
 deriving stock instance IsPass p => Eq (ImplicitField        p)
 deriving stock instance IsPass p => Eq (IndirectField        p)
@@ -593,6 +606,7 @@ deriving stock instance IsPass p => Show (FieldInfo            p)
 deriving stock instance IsPass p => Show (Flam                 p)
 deriving stock instance IsPass p => Show (Function             p)
 deriving stock instance IsPass p => Show (FunctionArg          p)
+deriving stock instance IsPass p => Show (FunctionRes          p)
 deriving stock instance IsPass p => Show (Global               p)
 deriving stock instance IsPass p => Show (ImplicitField        p)
 deriving stock instance IsPass p => Show (IndirectField        p)
@@ -798,13 +812,14 @@ instance (
 
 instance (
       CoercePassTypes p p'
+    , CoercePassAnn "FunctionRes" p p'
     , CoercePassAnn "TypeFunArg" p p'
     , ScopedName p ~ ScopedName p'
     , Ann "Function" p ~ Ann "Function" p'
     ) => CoercePass Function p p' where
   coercePass function = Function{
         args  = map coercePass function.args
-      , res   = coercePassTypes (Proxy @'(p, p')) function.res
+      , res   = coercePass function.res
       , attrs = function.attrs
       , ann   = function.ann
       }
@@ -818,6 +833,16 @@ instance (
         name = functionArg.name
       , typ  = coercePassTypes (Proxy @'(p, p')) functionArg.typ
       , ann  = coercePassAnn (Proxy @'("TypeFunArg", p, p')) functionArg.ann
+      }
+
+instance (
+      CoercePassTypes p p'
+    , CoercePassAnn "FunctionRes" p p'
+    , ScopedName p ~ ScopedName p'
+    ) => CoercePass FunctionRes p p' where
+  coercePass functionArg = FunctionRes{
+        typ = coercePassTypes (Proxy @'(p, p')) functionArg.typ
+      , ann = coercePassAnn (Proxy @'("FunctionRes", p, p')) functionArg.ann
       }
 
 instance (

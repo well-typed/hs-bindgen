@@ -377,7 +377,7 @@ processFunction info function = do
       -> M (C.Function LanC)
     withReparse ((tys, ty), _name) = pure C.Function{
           args  = map (uncurry mkFunctionArg) tys
-        , res   = ty
+        , res   = mkFunctionRes ty
         , attrs = function.attrs
         , ann   = NoAnn
         }
@@ -387,6 +387,12 @@ processFunction info function = do
           name = C.ScopedName <$> mname
         , typ  = typ
         , ann  = NoAnn
+        }
+
+    mkFunctionRes :: C.Type LanC -> C.FunctionRes LanC
+    mkFunctionRes typ = C.FunctionRes{
+          typ = typ
+        , ann = NoAnn
         }
 
 -- | Globals (externs or constants)

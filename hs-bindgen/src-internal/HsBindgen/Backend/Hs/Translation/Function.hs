@@ -33,6 +33,7 @@ import HsBindgen.Frontend.PrettyC qualified as PC
 import HsBindgen.Imports hiding (def)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
+import HsBindgen.IR.Pass (NoAnn (NoAnn))
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint (NameHint (..))
@@ -110,7 +111,7 @@ functionDecs safety info origCFun _spec = do
                 ]
 
         primResult :: PassResBy
-        primResult = classifyResPassingMethod origCFun.res.c
+        primResult = classifyResPassingMethod origCFun.res
 
         primParams :: [PassArgBy]
         primParams = map classifyArgPassingMethod origCFun.args
@@ -175,10 +176,19 @@ functionDecs safety info origCFun _spec = do
         foreignImportResult = case primResult of
             -- A type that is not supported by the Haskell FFI as a function result.
             -- We pass it as a function parameter instead.
-            PassByAddress {} -> mkFunRes (PassByValue C.TypeVoid)
+            PassByAddress {} -> mkFunRes (PassByValue voidRes)
             -- A "normal" result type that is supported by the Haskell FFI.
             PassByValue {} -> mkFunRes primResult
           where
+            voidRes :: C.FunctionRes Final
+            voidRes = C.FunctionRes {
+                  typ = TranslatedTypes {
+                      c = C.TypeVoid
+                    , hs = Hs.PrimType Hs.PrimUnit
+                    }
+                , ann = NoAnn
+                }
+
             mkFunRes :: PassResBy -> Hs.ForeignImport.FunRes
             mkFunRes passBy = Hs.ForeignImport.FunRes {
                   hsType   = mbHsIO $ toPrimitiveType Translation.FunRes passBy
@@ -295,7 +305,7 @@ type PassArgBy = PassBy (C.FunctionArg Final) (C.Type Final)
 
 -- | Classification of the type of a function result: it is either passed by
 -- value or by address.
-type PassResBy = PassBy (C.Type Final) (C.Type Final)
+type PassResBy = PassBy (C.FunctionRes Final) (C.Type Final)
 
 -- | Classification of the type of a function argument\/result: it is either
 -- passed by value or by address.
@@ -318,18 +328,18 @@ isPassByAddress = \case
     PassByAddress {} -> True
 
 -- | Classify how a function result is passed from C to Haskell
-classifyResPassingMethod :: HasCallStack => C.Type Final -> PassResBy
+classifyResPassingMethod :: HasCallStack => C.FunctionRes Final -> PassResBy
 classifyResPassingMethod res
   -- Heap types
-  | C.isCanonicalTypeStruct res ||
-    C.isCanonicalTypeUnion res ||
-    C.isCanonicalTypeComplex res
-  = PassByAddress res
+  | C.isCanonicalTypeStruct res.typ.c ||
+    C.isCanonicalTypeUnion res.typ.c ||
+    C.isCanonicalTypeComplex res.typ.c
+  = PassByAddress res.typ.c
 
-  | C.isCanonicalTypeArray res
+  | C.isCanonicalTypeArray res.typ.c
   = panicPure "classifyResPassingMethod: an array can not be the result type of a function"
 
-  | C.isCanonicalTypeFunction res
+  | C.isCanonicalTypeFunction res.typ.c
   = panicPure "classifyResPassingMethod: a function can not be the result type of a function"
 
   -- Other types
@@ -372,12 +382,12 @@ class ToWrapperType a where
 
 instance ToWrapperType PassArgBy where
   toWrapperType = \case
-      PassByValue argTy -> argTy.typ.c
+      PassByValue arg -> arg.typ.c
       PassByAddress ty -> C.TypePointers 1 ty
 
 instance ToWrapperType PassResBy where
   toWrapperType = \case
-    PassByValue ty -> ty
+    PassByValue res -> res.typ.c
     PassByAddress ty -> C.TypePointers 1 ty
 
 class ToPrimitiveType a where
@@ -386,12 +396,12 @@ class ToPrimitiveType a where
 
 instance ToPrimitiveType PassArgBy where
   toPrimitiveType ctx = \case
-      PassByValue argTy -> Translation.inContext ctx argTy
+      PassByValue arg -> Translation.inContext ctx arg
       PassByAddress ty -> Translation.inContext ctx $ C.TypePointers 1 ty
 
 instance ToPrimitiveType PassResBy where
   toPrimitiveType ctx = \case
-      PassByValue ty -> Translation.inContext ctx ty
+      PassByValue res -> Translation.inContext ctx res
       PassByAddress ty -> Translation.inContext ctx $ C.TypePointers 1 ty
 
 class ToOrigType a where
@@ -400,12 +410,12 @@ class ToOrigType a where
 
 instance ToOrigType PassArgBy where
   toOrigType ctx = \case
-      PassByValue argTy -> Translation.inContext ctx argTy
+      PassByValue arg -> Translation.inContext ctx arg
       PassByAddress ty -> Translation.inContext ctx ty
 
 instance ToOrigType PassResBy where
   toOrigType ctx = \case
-      PassByValue ty -> Translation.inContext ctx ty
+      PassByValue res -> Translation.inContext ctx res
       PassByAddress ty -> Translation.inContext ctx ty
 
 -- | Check whether a type needs to be restored

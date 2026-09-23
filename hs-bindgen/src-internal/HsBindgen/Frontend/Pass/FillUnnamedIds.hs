@@ -335,7 +335,7 @@ instance UpdateUseSites C.Function where
     where
       reconstruct ::
            [C.FunctionArg FillUnnamedIds]
-        -> C.Type FillUnnamedIds
+        -> C.FunctionRes FillUnnamedIds
         -> C.Function FillUnnamedIds
       reconstruct functionArgs' functionRes' = C.Function {
             args  = functionArgs'
@@ -356,6 +356,19 @@ instance UpdateUseSites C.FunctionArg where
             name = functionArg.name
           , typ  = typ'
           , ann  = functionArg.ann
+          }
+
+instance UpdateUseSites C.FunctionRes where
+  updateUseSites res =
+      reconstruct
+        <$> updateUseSites res.typ
+    where
+      reconstruct ::
+           C.Type FillUnnamedIds
+        -> C.FunctionRes FillUnnamedIds
+      reconstruct typ' = C.FunctionRes {
+            typ  = typ'
+          , ann  = res.ann
           }
 
 instance UpdateUseSites C.Type where

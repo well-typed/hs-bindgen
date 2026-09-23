@@ -60,6 +60,7 @@ instance CoercePassMacroId            EnrichComments ConstructTranslationUnit
 instance CoercePassMacroUnderlying    EnrichComments ConstructTranslationUnit
 
 instance CoercePassAnn "Function"      EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "FunctionRes"   EnrichComments ConstructTranslationUnit
 instance CoercePassAnn "Global"        EnrichComments ConstructTranslationUnit
 instance CoercePassAnn "IndirectField" EnrichComments ConstructTranslationUnit
 instance CoercePassAnn "RegularField"  EnrichComments ConstructTranslationUnit

@@ -89,6 +89,7 @@ instance CoercePassMacroId          TypecheckMacros ApplyMacroFallback
 instance CoercePassMacroUnderlying  TypecheckMacros ApplyMacroFallback
 
 instance CoercePassAnn "Function"      TypecheckMacros ApplyMacroFallback
+instance CoercePassAnn "FunctionRes"   TypecheckMacros ApplyMacroFallback
 instance CoercePassAnn "Global"        TypecheckMacros ApplyMacroFallback
 instance CoercePassAnn "IndirectField" TypecheckMacros ApplyMacroFallback
 instance CoercePassAnn "RegularField"  TypecheckMacros ApplyMacroFallback

@@ -164,9 +164,10 @@ processMacro mac = pure $ case mac of
 processFunction :: C.Function AdjustTypes -> M DeclEnv (C.Function TranslateTypes)
 processFunction fun = do
     args' <- mapM processFunctionArg fun.args
+    res' <- processFunctionRes fun.res
     pure C.Function{
         args  = args'
-      , res   = processType Translation.FunRes fun.res
+      , res   = res'
       , attrs = fun.attrs
       , ann   = fun.ann
       }
@@ -183,6 +184,16 @@ processFunctionArg arg =
           coercePassAnn
             (Proxy @'("TypeFunArg", AdjustTypes, TranslateTypes))
             arg.ann
+      }
+
+processFunctionRes :: C.FunctionRes AdjustTypes -> M DeclEnv (C.FunctionRes TranslateTypes)
+processFunctionRes res =
+    pure C.FunctionRes{
+        typ = TranslatedTypes{
+            c  = coercePass res.typ
+          , hs = Translation.inContext Translation.FunRes res
+          }
+      , ann = NoAnn
       }
 
 processGlobal :: C.Global AdjustTypes -> M DeclEnv (C.Global TranslateTypes)

@@ -70,6 +70,7 @@ instance CoercePassMacroBody           Parse SimplifyAST
 instance CoercePassMacroId             Parse SimplifyAST
 instance CoercePassMacroUnderlying     Parse SimplifyAST
 instance CoercePassTypes               Parse SimplifyAST
+instance CoercePassAnn "FunctionRes"   Parse SimplifyAST
 instance CoercePassAnn "Global"        Parse SimplifyAST
 instance CoercePassAnn "IndirectField" Parse SimplifyAST
 instance CoercePassAnn "TypeFunArg"    Parse SimplifyAST
