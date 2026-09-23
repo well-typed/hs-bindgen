@@ -62,11 +62,12 @@ wraps a type `T`, then `U` adopts the FFI type `F` from `T`. Since `U` is a
 `newtype` it is also straightforward to "lift" (e.g., `coerce`) the conversions
 between `T` and `F` to conversions between `U` and `F`.
 
-There are a number of "base" types in `HsBindgen.Runtime.Support` that map to
-themselves as "base" FFI types[^2], such as `CInt` and `PtrVoid`. Without
-external binding specifications[^3], any `newtype` that `hs-bindgen` generates
-(transitively) wraps such a base type, and is therefore also assigned a base FFI
-type, with straightforward conversion functions.
+There are a number of primitive types in `HsBindgen.Runtime.Support` that map to
+themselves as primitive FFI types.[^2] For example, if `int` is used in a
+header, then we use `CInt` in the bindings, and its FFI type is also `CInt`.
+Without external binding specifications[^3], any `newtype` that `hs-bindgen`
+generates (transitively) wraps such a primitive type, and is therefore also
+assigned a primitive FFI type, with straightforward conversion functions.
 
 Alternatively, external binding specifications can be used to instruct
 `hs-bindgen` to use external Haskell types instead of generating new bindings.
@@ -99,7 +100,7 @@ Again, any `newtype` `U` that `hs-bindgen` generates that wraps such an external
 type `T` will adopt `T`'s FFI type.
 
 If the field is omitted from an external binding specification, then
-`hs-bindgen` will default to assigning a "base" FFI type again based on `T`'s
+`hs-bindgen` will default to assigning a primitive FFI type again based on `T`'s
 *underlying C type*: the C type corresponding to `T` as reported by `libclang`.
 
 > [!NOTE]
@@ -119,11 +120,11 @@ class HasFFIType a where
   fromFFIType :: FFIType a -> a
 ```
 
-The class comes with default instances for "base" types that map to themselves
-as "base" FFI types. `hs-bindgen` generates instances for `HasFFIType` whenever
-applicable using `newtype`-deriving, which matches the `newtype`-deriving
-strategy of assigning FFI types. The `toFFIType` and `fromFFIType` functions are
-used in the generated bindings.
+The class comes with default instances for primitive types that map to
+themselves as primitive FFI types. `hs-bindgen` generates instances for
+`HasFFIType` whenever applicable using `newtype`-deriving, which matches the
+`newtype`-deriving strategy of assigning FFI types. The `toFFIType` and
+`fromFFIType` functions are used in the generated bindings.
 
 > [!WARNING]
 >
@@ -517,7 +518,7 @@ look the same save for the fact that `B`'s FFI type is now also
 ## Standard library
 
 The built-in external binding specification for the C standard library[^4]
-assigns a lot of custom (i.e., *non-base*) FFI types. The rules of adopting FFI
+assigns a lot of custom, non-primitive FFI types. The rules of adopting FFI
 types apply the same way here as if it were any other external binding
 specification. For example, if we have `typedef X` like so:
 
@@ -529,8 +530,8 @@ typedef size_t X;
 And `size_t` translates to `CSize` in the Haskell bindings which maps to itself
 as its FFI type, then `X` will also map to `CSize` as its FFI type. Naturally,
 if the built-in external binding specification were disabled, then we would
-generate a new binding for `size_t` and map it to a base FFI type that `X` would
-adopt.
+generate a new binding for `size_t` and map it to a primitive FFI type that `X`
+would adopt.
 
 <!-- footnotes -->
 
