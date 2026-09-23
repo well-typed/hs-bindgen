@@ -209,9 +209,9 @@ instance ZipReparsed C.Function where
         -> C.FunctionArg Out
         -> ZipResult (C.FunctionArg ReparseMacroExpansions)
       zipFunctionArg arg1 arg2 = do
-            name' <- checkEq arg1.name arg2.name
-            typ'  <- zipType arg1.typ  arg2.typ
-            ann'  <- checkEq arg1.ann  arg2.ann
+            name' <- checkEq       arg1.name arg2.name
+            typ'  <- zipTypeFunArg arg1.typ  arg2.typ
+            ann'  <- checkEq       arg1.ann  arg2.ann
             success C.FunctionArg {
                 name = name'
               , typ  = typ'

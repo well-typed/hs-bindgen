@@ -46,9 +46,11 @@ instance PassScopedName TranslateTypes where
 
 instance PassTypes TranslateTypes where
   type Types TranslateTypes = TranslatedTypes TranslateTypes
+  type TypeFunArg TranslateTypes = TranslatedTypeFunArg TranslateTypes
   type AnonRef TranslateTypes = TranslatedAnonRef TranslateTypes
 
   cType _ translatedTypes = translatedTypes.c
+  cTypeFunArg _ translatedTypeFunArg = translatedTypeFunArg.c
   anonRefTypes _ = translatedAnonRefType
 
 instance PassMacro TranslateTypes where

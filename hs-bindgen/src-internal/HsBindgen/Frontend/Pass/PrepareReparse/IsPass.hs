@@ -80,6 +80,8 @@ data FlatTokens = FlatTokens {
 instance CoercePassId                  ApplyMacroFallback PrepareReparse
 instance CoercePassMacroId             ApplyMacroFallback PrepareReparse
 instance CoercePassTypes               ApplyMacroFallback PrepareReparse
+instance CoercePassTypeFunArg          ApplyMacroFallback PrepareReparse
+instance CoercePassAnn "FunctionArg"   ApplyMacroFallback PrepareReparse
 instance CoercePassAnn "FunctionRes"   ApplyMacroFallback PrepareReparse
 instance CoercePassAnn "TypeFunArg"    ApplyMacroFallback PrepareReparse
 

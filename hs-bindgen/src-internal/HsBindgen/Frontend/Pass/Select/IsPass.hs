@@ -33,7 +33,6 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.IR.Pass.Types (CoercePassAnonRef (coercePassAnonRef))
 import HsBindgen.IR.Translation
 import HsBindgen.Macro.Error (MacroLangFailure)
 import HsBindgen.Util.Tracer
@@ -71,9 +70,11 @@ instance PassScopedName Select where
 
 instance PassTypes Select where
   type Types Select   = TranslatedTypes Select
+  type TypeFunArg Select = TranslatedTypeFunArg Select
   type AnonRef Select = TranslatedAnonRef Select
 
   cType _ translatedTypes = translatedTypes.c
+  cTypeFunArg _ translatedTypeFunArg = translatedTypeFunArg.c
   anonRefTypes _ = translatedAnonRefType
 
 instance PassMacro Select where
@@ -338,6 +339,9 @@ instance CoercePassId      TranslateTypes Select
 instance CoercePassTypes TranslateTypes Select where
   coercePassTypes _ = coercePass
 
+instance CoercePassTypeFunArg TranslateTypes Select where
+  coercePassTypeFunArg _ = coercePass
+
 instance CoercePassMacroId TranslateTypes Select
 
 instance CoercePassMacroUnderlying TranslateTypes Select where
@@ -346,6 +350,8 @@ instance CoercePassMacroUnderlying TranslateTypes Select where
 instance CoercePassMacroBody TranslateTypes Select where
   coercePassMacroBody _ = coercePassParam
 
+instance CoercePassAnn "FunctionArg" TranslateTypes Select
+
 instance CoercePassAnn "FunctionRes" TranslateTypes Select
 
 instance CoercePassAnn "IndirectField" TranslateTypes Select where
@@ -353,10 +359,7 @@ instance CoercePassAnn "IndirectField" TranslateTypes Select where
       IndirectFieldNames name -> IndirectFieldNames name
 
 instance CoercePassAnn "TypeFunArg" TranslateTypes Select where
-  coercePassAnn _ = \case
-      AdjustedFromArray ty    -> AdjustedFromArray (coercePass ty)
-      AdjustedFromFunction ty -> AdjustedFromFunction (coercePass ty)
-      NotAdjusted             -> NotAdjusted
+  coercePassAnn _ = coercePass
 
 instance CoercePassCommentDecl TranslateTypes Select where
   coercePassCommentDecl _ = fmap coercePass

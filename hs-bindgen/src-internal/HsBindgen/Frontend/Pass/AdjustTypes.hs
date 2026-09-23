@@ -194,11 +194,9 @@ processFunctionArg :: C.FunctionArg MangleNames -> C.FunctionArg AdjustTypes
 processFunctionArg functionArg =
     C.FunctionArg{
         name = functionArg.name
-      , typ  = typ'
-      , ann  = ann'
+      , typ  = processTypeFunArg functionArg.typ
+      , ann  = NoAnn
       }
-  where
-    (typ', ann') = adjustFunArg $ processType functionArg.typ
 
 processFunctionRes :: C.FunctionRes MangleNames -> C.FunctionRes AdjustTypes
 processFunctionRes res =

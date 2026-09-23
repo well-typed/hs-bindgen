@@ -11,7 +11,6 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.IR.Pass.Types (CoercePassAnonRef)
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Util.Tracer
 
@@ -70,6 +69,8 @@ instance CoercePassMacroBody           Parse SimplifyAST
 instance CoercePassMacroId             Parse SimplifyAST
 instance CoercePassMacroUnderlying     Parse SimplifyAST
 instance CoercePassTypes               Parse SimplifyAST
+instance CoercePassTypeFunArg          Parse SimplifyAST
+instance CoercePassAnn "FunctionArg"   Parse SimplifyAST
 instance CoercePassAnn "FunctionRes"   Parse SimplifyAST
 instance CoercePassAnn "Global"        Parse SimplifyAST
 instance CoercePassAnn "IndirectField" Parse SimplifyAST
