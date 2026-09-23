@@ -329,6 +329,8 @@ instance CoercePassMacroUnderlying TranslateTypes Select where
 instance CoercePassMacroBody TranslateTypes Select where
   coercePassMacroBody _ = coercePassParam
 
+instance CoercePassAnn "FunctionRes" TranslateTypes Select
+
 instance CoercePassAnn "IndirectField" TranslateTypes Select where
   coercePassAnn _ = \case
       IndirectFieldNames name -> IndirectFieldNames name

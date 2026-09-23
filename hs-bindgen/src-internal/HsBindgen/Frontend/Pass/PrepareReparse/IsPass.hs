@@ -79,6 +79,7 @@ data FlatTokens = FlatTokens {
 instance CoercePassId                  TypecheckMacros PrepareReparse
 instance CoercePassMacroId             TypecheckMacros PrepareReparse
 instance CoercePassTypes               TypecheckMacros PrepareReparse
+instance CoercePassAnn "FunctionRes"   TypecheckMacros PrepareReparse
 instance CoercePassAnn "TypeFunArg"    TypecheckMacros PrepareReparse
 
 instance CoercePassCommentDecl TypecheckMacros PrepareReparse where

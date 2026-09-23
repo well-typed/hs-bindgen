@@ -150,6 +150,7 @@ instance CoercePassMacroId          ConstructTranslationUnit TypecheckMacros whe
 instance CoercePassMacroUnderlying  ConstructTranslationUnit TypecheckMacros
 
 instance CoercePassAnn "Function"      ConstructTranslationUnit TypecheckMacros
+instance CoercePassAnn "FunctionRes"   ConstructTranslationUnit TypecheckMacros
 instance CoercePassAnn "Global"        ConstructTranslationUnit TypecheckMacros
 instance CoercePassAnn "IndirectField" ConstructTranslationUnit TypecheckMacros
 instance CoercePassAnn "RegularField"  ConstructTranslationUnit TypecheckMacros
