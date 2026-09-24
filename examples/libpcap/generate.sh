@@ -28,6 +28,9 @@ module_flags=(
     # Base module name. Submodules will have name `Generated.Pcap.Safe`, for
     # example.
     --module Generated.Pcap
+    # Name record fields after their C fields (`name` rather than
+    # `pcap_if_t_name`); requires `DuplicateRecordFields`.
+    --omit-field-prefixes
 )
 
 # Command line flags affecting `libclang`.

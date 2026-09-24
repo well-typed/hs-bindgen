@@ -1,11 +1,10 @@
 module Main where
 
-import Control.Exception (AsyncException (UserInterrupt), IOException, catch,
-                          finally, throwIO, try)
+import Control.Exception (AsyncException (UserInterrupt), IOException, bracket,
+                          catch, finally, throwIO, try)
 import Control.Monad (unless, when)
 import Data.List (intercalate)
-import Data.Word (Word8)
-import Foreign qualified
+import Foreign
 import Foreign.C qualified as C
 import Network.Socket (Family (AF_INET), Socket, SocketType (Raw), close,
                        socket)
@@ -49,32 +48,31 @@ canCapturePackets = do
       pure True
 
 findAllDevNames :: IO [String]
-findAllDevNames = Foreign.alloca $ \pcapIfTPtrPtr -> do
-    Foreign.allocaBytes (fromIntegral Pcap.pCAP_ERRBUF_SIZE) $ \errBuf -> do
-      success <- Pcap.pcap_findalldevs pcapIfTPtrPtr errBuf
-      unless (success == 0) $ fail "find all devices failed"
-    pcapIfTPtr <- Foreign.peek pcapIfTPtrPtr
-    devNames <- aux [] pcapIfTPtr
-    Pcap.pcap_freealldevs pcapIfTPtr
-    return devNames
+findAllDevNames = bracket findAll Pcap.pcap_freealldevs (go [])
   where
-    aux :: [String] -> Foreign.Ptr Pcap.Pcap_if_t -> IO [String]
-    aux acc ptr
-      | ptr == Foreign.nullPtr = return $ reverse acc
+    findAll :: IO (Ptr Pcap.Pcap_if_t)
+    findAll = alloca $ \pcapIfTPtrPtr ->
+      allocaBytes (fromIntegral Pcap.pCAP_ERRBUF_SIZE) $ \errBuf -> do
+        success <- Pcap.pcap_findalldevs pcapIfTPtrPtr errBuf
+        unless (success == 0) $ fail =<< C.peekCString errBuf
+        peek pcapIfTPtrPtr
+
+    go :: [String] -> Ptr Pcap.Pcap_if_t -> IO [String]
+    go acc ptr
+      | ptr == nullPtr = pure (reverse acc)
       | otherwise = do
-          pcapIfT <- Foreign.peek ptr
-          devName <- C.peekCString $ Pcap.pcap_if_t_name pcapIfT
-          aux (devName : acc) (Pcap.pcap_if_t_next pcapIfT)
+          devName <- C.peekCString =<< peek ptr.name
+          go (devName : acc) =<< peek ptr.next
 
 -- | Open a device for live capture and print a human-readable summary of
 -- every packet until interrupted with Ctrl-C.
 capturePackets :: String -> IO ()
 capturePackets devName =
-  Foreign.allocaBytes (fromIntegral Pcap.pCAP_ERRBUF_SIZE) $ \errBuf -> do
+  allocaBytes (fromIntegral Pcap.pCAP_ERRBUF_SIZE) $ \errBuf -> do
     pcapPtr <-
       C.withCString devName $ \devNameCStr ->
         Pcap.pcap_create (PtrConst.unsafeFromPtr devNameCStr) errBuf
-    when (pcapPtr == Foreign.nullPtr) $
+    when (pcapPtr == nullPtr) $
       fail . ("pcap_create failed: " ++) =<< C.peekCString errBuf
     (`finally` Pcap.pcap_close pcapPtr) $ do
       _ <- Pcap.pcap_set_snaplen pcapPtr 65535
@@ -100,18 +98,18 @@ capturePackets devName =
 
       printStats pcapPtr
 
-getPcapErr :: Foreign.Ptr Pcap.Pcap_t -> IO String
+getPcapErr :: Ptr Pcap.Pcap_t -> IO String
 getPcapErr pcapPtr = C.peekCString =<< Pcap.pcap_geterr pcapPtr
 
-captureLoop :: Foreign.Ptr Pcap.Pcap_t -> C.CInt -> Int -> IO ()
+captureLoop :: Ptr Pcap.Pcap_t -> C.CInt -> Int -> IO ()
 captureLoop pcapPtr datalink count =
-  Foreign.alloca $ \headerPtrPtr ->
-  Foreign.alloca $ \dataPtrPtr -> do
+  alloca $ \headerPtrPtr ->
+  alloca $ \dataPtrPtr -> do
     result <- Pcap.pcap_next_ex pcapPtr headerPtrPtr dataPtrPtr
     case result of
       1 -> do
-        header  <- Foreign.peek =<< Foreign.peek headerPtrPtr
-        dataPtr <- Foreign.peek dataPtrPtr
+        header  <- peek =<< peek headerPtrPtr
+        dataPtr <- peek dataPtrPtr
         printPacket (count + 1) datalink header dataPtr
         captureLoop pcapPtr datalink (count + 1)
       0 -> captureLoop pcapPtr datalink count -- read timeout, no packet
@@ -137,22 +135,22 @@ printPacket ::
   -> PtrConst.PtrConst Pcap.U_char
   -> IO ()
 printPacket packetNo datalink header dataPtr = do
-  let caplen = fromIntegral (Pcap.pcap_pkthdr_caplen header) :: Int
-      len    = fromIntegral (Pcap.pcap_pkthdr_len header) :: Int
+  let caplen = fromIntegral header.caplen :: Int
+      len    = fromIntegral header.len    :: Int
   bytes <-
-    Foreign.peekArray caplen
-      (Foreign.castPtr (PtrConst.unsafeToPtr dataPtr) :: Foreign.Ptr Word8)
+    peekArray caplen
+      (castPtr (PtrConst.unsafeToPtr dataPtr) :: Ptr Word8)
   printf "#%-4d %s  %5d bytes  %s\n"
     packetNo
-    (formatTimestamp (Pcap.pcap_pkthdr_ts header))
+    (formatTimestamp header.ts)
     len
     (describePacket datalink bytes)
 
 formatTimestamp :: Pcap.Timeval -> String
 formatTimestamp ts =
   printf "%d.%06d"
-    (fromIntegral (Pcap.timeval_tv_sec ts)  :: Integer)
-    (fromIntegral (Pcap.timeval_tv_usec ts) :: Integer)
+    (fromIntegral ts.tv_sec  :: Integer)
+    (fromIntegral ts.tv_usec :: Integer)
 
 -- | A short, human-readable description of a packet. For Ethernet frames
 -- this decodes the source/destination MAC addresses and the ethertype; for
@@ -183,12 +181,12 @@ hexPreview bytes =
   intercalate " " (map (printf "%02x") (take 16 bytes))
     ++ (if length bytes > 16 then " ..." else "")
 
-printStats :: Foreign.Ptr Pcap.Pcap_t -> IO ()
+printStats :: Ptr Pcap.Pcap_t -> IO ()
 printStats pcapPtr =
-  Foreign.alloca $ \statPtr -> do
+  alloca $ \statPtr -> do
     result <- Pcap.pcap_stats pcapPtr statPtr
     when (result == 0) $ do
-      stat <- Foreign.peek statPtr
+      stat <- peek statPtr
       printf "\n%d packets captured, %d dropped by the kernel\n"
-        (fromIntegral (Pcap.pcap_stat_ps_recv stat) :: Integer)
-        (fromIntegral (Pcap.pcap_stat_ps_drop stat) :: Integer)
+        (fromIntegral stat.ps_recv :: Integer)
+        (fromIntegral stat.ps_drop :: Integer)
