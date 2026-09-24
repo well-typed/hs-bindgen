@@ -17,7 +17,7 @@ different times. Knowing which is which explains why some options belong on the
 
 The stages must agree on what the headers declare. When they do not, the
 bindings describe one view of the header and the object code implements another;
-see [Non-portability][manual:non-portability].
+see [Portability][manual:portability].
 
 ## Root directives
 
@@ -183,6 +183,6 @@ option is to make the macro a root directive and generate a *single* module
 [header:header_only.h]: ../../c/header_only.h
 [manual:clang-options]: clang-options.md
 [manual:includes]: includes.md
-[manual:non-portability]: non-portability.md
+[manual:portability]: portability.md
 [source:Manual/HeaderOnly.hs]: ../../hs/manual/app/Manual/HeaderOnly.hs
 [source:header_only.c]: ../../hs/manual/cbits/header_only.c
