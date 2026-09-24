@@ -37,13 +37,14 @@ library
     , hs-bindgen-runtime
 
 executable libpcap-bin
-  import:          common
-  main-is:         Pcap.hs
-  hs-source-dirs:  app
+  import:             common
+  main-is:            Pcap.hs
+  hs-source-dirs:     app
+  default-extensions: OverloadedRecordDot
   other-modules:
   autogen-modules:
   ghc-options:
-  extra-libraries: pcap
+  extra-libraries:    pcap
   build-depends:
     , base                >=4.7 && <5
     , hs-bindgen-runtime
