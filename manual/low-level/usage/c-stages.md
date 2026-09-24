@@ -18,7 +18,7 @@ separate these stages clearly, which is important to understand the different
 
 The stages must agree on what the headers declare. When they do not, the
 bindings describe one view of the header and the object code implements another;
-see [Non-portability][manual:non-portability].
+see [Portability][manual:portability].
 
 ## Root directives
 
@@ -206,6 +206,6 @@ option is to make the macro a root directive and generate a *single* module
 [issue:2284]: https://github.com/well-typed/hs-bindgen/issues/2284
 [manual:clang-options]: clang-options.md
 [manual:includes]: includes.md
-[manual:non-portability]: non-portability.md
+[manual:portability]: portability.md
 [source:Manual/HeaderOnly.hs]: ../../hs/manual/app/Manual/HeaderOnly.hs
 [source:header_only.c]: ../../hs/manual/cbits/header_only.c
