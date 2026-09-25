@@ -56,7 +56,8 @@ requiredExtensions fieldNaming = \case
       , typeExtensions deriv.typ
       ]
     DForeignImport foreignImport -> mconcat [
-        callConvExtensions foreignImport.callConv
+        ext TH.ForeignFunctionInterface
+      , callConvExtensions foreignImport.callConv
       , foldMap (typeExtensions . (.typ)) foreignImport.parameters
       , typeExtensions foreignImport.result.typ
       ]
