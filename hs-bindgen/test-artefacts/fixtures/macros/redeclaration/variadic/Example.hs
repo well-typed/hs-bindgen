@@ -24,7 +24,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @T@
 
-    __defined at:__ @macros\/redeclaration\/variadic.h 4:24@
+    __defined at:__ @macros\/redeclaration\/variadic.h 7:24@
 
     __exported by:__ @macros\/redeclaration\/variadic.h@
 -}

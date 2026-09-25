@@ -28,6 +28,7 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
   , lookupEntry
   , toList
   , lookupLoc
+  , lookupAmbiguity
   , unusableToLoc
   , keysSet
   , getOmitted
@@ -79,6 +80,8 @@ import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Error
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Macro.Type qualified as Macro
+import HsBindgen.Macro.UniqueExpansion qualified as UniqueExpansion
+import HsBindgen.Macro.UniqueExpansion.Types qualified as UniqueExpansion
 import HsBindgen.Util.Tracer
 
 type In  = EnrichComments
@@ -132,7 +135,13 @@ type Out = ConstructTranslationUnit
 -- The edge from D3 to D2 was removed, since D3 now depends on a Haskell type
 -- R3, which is not part of the use-decl graph.
 data DeclIndex l = DeclIndex {
-      map :: Map C.DeclId (Entry l)
+      map             :: Map C.DeclId (Entry l)
+      -- | Macros whose expansion depends on where they are invoked
+      --
+      -- See "HsBindgen.Macro.UniqueExpansion". Ambiguity is independent of the
+      -- entries: a macro may be ambiguous whether or not it is usable, and
+      -- replacing or removing its entry does not change the verdict.
+    , ambiguousMacros :: Set C.DeclId
     }
   deriving stock (Show, Generic)
 
@@ -268,25 +277,28 @@ entryToAvailability = \case
   Construction
 -------------------------------------------------------------------------------}
 
-empty :: DeclIndex l
-empty = DeclIndex Map.empty
-
 -- | Construct the declaration index, resolving macro names.
 --
 -- Macro resolution needs the set of all declaration IDs, which is only known
--- once the whole index has been built. We therefore build the index in two
--- stages: first 'buildIndex' constructs the index at 'EnrichComments' (so that
--- conflict detection can compare macro bodies, and so that we detect conflicts
--- even with macros that we cannot resolve), then 'resolveMacros' resolves each
--- successful declaration into the final index fixed to the
--- 'ConstructTranslationUnit' pass.
+-- once all parse results are in. We therefore first resolve the macros in each
+-- successful declaration ('resolveMacros'), and then build the index from the
+-- resolved results ('buildIndex'), detecting conflicts even with macros that we
+-- cannot resolve.
+--
+-- The analysis of the macro definitions decides whether a macro redefinition
+-- is a conflict, and is recorded in the index as the set of ambiguous macros.
 fromParseResults ::
      forall l. Macro.HasTypes l
   => Macro.Lang l
+  -> UniqueExpansion.Analysis
   -> [ParseResult l In]
   -> DeclIndex l
-fromParseResults macroLang parseResults =
-    buildIndex $ resolveMacros macroLang declIds parseResults
+fromParseResults macroLang macroAnalysis parseResults = DeclIndex{
+      map             = buildIndex macroAnalysis $
+                          resolveMacros macroLang declIds parseResults
+    , ambiguousMacros = Set.map macroDeclId $
+                          UniqueExpansion.ambiguous macroAnalysis
+    }
   where
     declIds :: Set C.DeclId
     declIds = getDeclIds parseResults
@@ -383,19 +395,23 @@ resolveMacros macroLang allDeclIds = map resolveParseResult
 -- namespaces. This is done here because we need to detect conflicts even with
 -- macros that we cannot typecheck, which are thrown out in the
 -- @TypecheckMacros@ pass.
-buildIndex :: forall l. Macro.HasTypes l => [ResolvedResult l] -> DeclIndex l
-buildIndex results = flip execState empty $ mapM_ aux results
+buildIndex ::
+     forall l. Macro.HasTypes l
+  => UniqueExpansion.Analysis
+  -> [ResolvedResult l]
+  -> Map C.DeclId (Entry l)
+buildIndex macroAnalysis results = flip execState Map.empty $ mapM_ aux results
   where
-    aux :: ResolvedResult l -> State (DeclIndex l) ()
-    aux new = modify' $ \index -> DeclIndex $
+    aux :: ResolvedResult l -> State (Map C.DeclId (Entry l)) ()
+    aux new = modify' $ \index ->
       let declId :: C.DeclId
           declId = resolvedResultId new
 
           mConflict :: Maybe (IsConflict l)
           mConflict = Foldable.asum [
               do
-                old <- Map.lookup declId index.map
-                pure $ checkIsConflict new (declId, old)
+                old <- Map.lookup declId index
+                pure $ checkIsConflict macroAnalysis new (declId, old)
             , case declId.name.kind of
                 C.NameKindOrdinary -> do
                   let altDeclId = C.DeclId{
@@ -405,8 +421,8 @@ buildIndex results = flip execState empty $ mapM_ aux results
                             }
                         , isUnnamed = False
                         }
-                  old <- Map.lookup altDeclId index.map
-                  pure $ checkIsConflict new (altDeclId, old)
+                  old <- Map.lookup altDeclId index
+                  pure $ checkIsConflict macroAnalysis new (altDeclId, old)
                 C.NameKindMacro    -> do
                   let altDeclId = C.DeclId{
                           name   = C.DeclName{
@@ -415,15 +431,15 @@ buildIndex results = flip execState empty $ mapM_ aux results
                             }
                         , isUnnamed = False
                         }
-                  old <- Map.lookup altDeclId index.map
-                  pure $ checkIsConflict new (altDeclId, old)
+                  old <- Map.lookup altDeclId index
+                  pure $ checkIsConflict macroAnalysis new (altDeclId, old)
                 C.NameKindTagged{} -> Nothing
             ]
       in  case mConflict of
             Nothing ->
-              Map.insert declId (resolvedResultToEntry new) index.map
-            Just (Redefinition success) ->
-              Map.insert declId (UsableEntry $ UsableSuccess success) index.map
+              Map.insert declId (resolvedResultToEntry new) index
+            Just (Redefinition entry) ->
+              Map.insert declId entry index
             Just (SingleConflict ids conflict) ->
               Map.union
                 ( Map.fromList
@@ -431,43 +447,62 @@ buildIndex results = flip execState empty $ mapM_ aux results
                     | x <- Set.toList ids
                     ]
                 )
-                index.map
+                index
 
 {-------------------------------------------------------------------------------
   Conflicts
 -------------------------------------------------------------------------------}
 
 data IsConflict l =
-    Redefinition (Success l ConstructTranslationUnit)
+    Redefinition (Entry l)
   | SingleConflict (Set C.DeclId) C.Conflict
 
+-- | Check whether a new declaration conflicts with an existing entry
+--
+-- A macro that is defined more than once is not a conflict if the analysis of
+-- the macro definitions deems the redefinition benign, no matter how the macro
+-- language fared with the definitions. Two ordinary declarations are not a
+-- conflict if they are successfully parsed to the same declaration.
 checkIsConflict ::
      Macro.HasTypes l
-  => ResolvedResult l
+  => UniqueExpansion.Analysis
+  -> ResolvedResult l
   -> (C.DeclId, Entry l)
   -> IsConflict l
-checkIsConflict new (oldId, old) = case new of
-    Resolved new' -> case (new'.classification, old) of
-      (ParseResultSuccess newSuccess, UsableEntry (UsableSuccess oldSuccess))
-        | newSuccess.decl.kind == oldSuccess.decl.kind ->
-          -- TODO <https://github.com/well-typed/hs-bindgen/issues/2099?
-          --
-          -- We should make sure that we do not report delayed messages multiple
-          -- times (e.g., use 'Data.List.nub').
-          let delayedParseMsgs =
-                newSuccess.delayedParseMsgs ++ oldSuccess.delayedParseMsgs
-              delayedPrepareReparseMsgs =
-                if not (null oldSuccess.delayedPrepareReparseMsgs) then
-                  panicPure "expected empty prepare reparse messages"
-                else
-                  []
-          in Redefinition $ oldSuccess{
-                 delayedParseMsgs          = delayedParseMsgs
-               , delayedPrepareReparseMsgs = delayedPrepareReparseMsgs
-               }
-      _otherwise -> singleConflict
-    _otherwise -> singleConflict
+checkIsConflict macroAnalysis new (oldId, old)
+    | C.NameKindMacro <- newId.name.kind
+    , C.NameKindMacro <- oldId.name.kind
+    = case (redefinition, old) of
+        -- E.g., the macro conflicts with an ordinary declaration
+        (_, UnusableEntry UnusableConflict{}) -> singleConflict
+        (UniqueExpansion.Benign, _)           -> Redefinition macroRedefinition
+        (UniqueExpansion.NotBenign, _)        -> singleConflict
+    | Resolved new' <- new
+    , ParseResultSuccess newSuccess <- new'.classification
+    , UsableEntry (UsableSuccess oldSuccess) <- old
+    , newSuccess.decl.kind == oldSuccess.decl.kind
+    = Redefinition $ UsableEntry $ UsableSuccess $
+        mergeRedefinition newSuccess oldSuccess
+    | otherwise
+    = singleConflict
   where
+    newId :: C.DeclId
+    newId = resolvedResultId new
+
+    redefinition :: UniqueExpansion.Redefinition
+    redefinition =
+      UniqueExpansion.redefinition macroAnalysis $
+        UniqueExpansion.Name newId.name.text
+
+    -- The definitions are identical, so the macro language fared the same with
+    -- both; we keep the old entry.
+    macroRedefinition = case (new, old) of
+      (Resolved new', UsableEntry (UsableSuccess oldSuccess))
+        | ParseResultSuccess newSuccess <- new'.classification ->
+          UsableEntry $ UsableSuccess $ mergeRedefinition newSuccess oldSuccess
+      _otherwise ->
+        old
+
     singleConflict =
       let newLoc = resolvedResultLoc new
           conflict :: C.Conflict
@@ -477,7 +512,35 @@ checkIsConflict new (oldId, old) = case new of
             _otherwise ->
               C.conflictFromList $
                 newLoc : C.declLocsToList (entryToLoc old)
-      in SingleConflict (Set.fromList [resolvedResultId new, oldId]) conflict
+      in SingleConflict (Set.fromList [newId, oldId]) conflict
+
+mergeRedefinition :: ParseSuccess l Out -> Success l Out -> Success l Out
+mergeRedefinition newSuccess oldSuccess =
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/2099?
+    --
+    -- We should make sure that we do not report delayed messages multiple
+    -- times (e.g., use 'Data.List.nub').
+    let delayedParseMsgs =
+          newSuccess.delayedParseMsgs ++ oldSuccess.delayedParseMsgs
+        delayedPrepareReparseMsgs =
+          if not (null oldSuccess.delayedPrepareReparseMsgs) then
+            panicPure "expected empty prepare reparse messages"
+          else
+            []
+    in oldSuccess{
+           delayedParseMsgs          = delayedParseMsgs
+         , delayedPrepareReparseMsgs = delayedPrepareReparseMsgs
+         }
+
+-- | The identifier of a macro
+macroDeclId :: UniqueExpansion.Name -> C.DeclId
+macroDeclId name = C.DeclId{
+      name      = C.DeclName{
+          text = name.unwrap
+        , kind = C.NameKindMacro
+        }
+    , isUnnamed = False
+    }
 
 {-------------------------------------------------------------------------------
   Filter
@@ -487,13 +550,13 @@ filter ::
      (C.DeclId -> Entry l -> Bool)
   -> DeclIndex l
   -> DeclIndex l
-filter p (DeclIndex entries) = DeclIndex (Map.filterWithKey p entries)
+filter p = #map %~ Map.filterWithKey p
 
 restrictKeys :: DeclIndex l -> Set C.DeclId -> DeclIndex l
-restrictKeys index xs = DeclIndex $ Map.restrictKeys index.map xs
+restrictKeys index xs = index & #map %~ (`Map.restrictKeys` xs)
 
 withoutKeys :: DeclIndex l -> Set C.DeclId -> DeclIndex l
-withoutKeys index xs = DeclIndex $ Map.withoutKeys index.map xs
+withoutKeys index xs = index & #map %~ (`Map.withoutKeys` xs)
 
 {-------------------------------------------------------------------------------
   Query parse successes
@@ -501,7 +564,7 @@ withoutKeys index xs = DeclIndex $ Map.withoutKeys index.map xs
 
 -- | Lookup parse success.
 lookup :: C.DeclId -> DeclIndex l -> Maybe (C.Decl l Out)
-lookup declId (DeclIndex i) = case Map.lookup declId i of
+lookup declId index = case Map.lookup declId index.map of
   Nothing                          -> Nothing
   Just (UsableEntry (UsableSuccess x)) -> Just $ x.decl
   _                                -> Nothing
@@ -531,6 +594,16 @@ toList index = Map.toList index.map
 -- 'Nothing' indicates the declaration was /not found/.
 lookupLoc :: C.DeclId -> DeclIndex l -> Maybe C.DeclLocs
 lookupLoc d i = entryToLoc <$> lookupEntry d i
+
+-- | Does the expansion of a macro depend on where it is invoked?
+--
+-- A name that is not a macro is 'UniqueExpansion.Unambiguous'.
+lookupAmbiguity :: UniqueExpansion.Name -> DeclIndex l -> UniqueExpansion.Ambiguity
+lookupAmbiguity name index
+    | macroDeclId name `Set.member` index.ambiguousMacros =
+        UniqueExpansion.Ambiguous
+    | otherwise =
+        UniqueExpansion.Unambiguous
 
 -- | Get the identifiers of all declarations in the index.
 keysSet :: DeclIndex l -> Set C.DeclId
@@ -593,8 +666,8 @@ registerDelayedParseMsg ::
      (C.DeclId, DelayedParseMsg)
   -> DeclIndex l
   -> DeclIndex l
-registerDelayedParseMsg (declId, msg) (DeclIndex i) = DeclIndex $
-    Map.adjust addMsg declId i
+registerDelayedParseMsg (declId, msg) =
+    #map %~ Map.adjust addMsg declId
   where
     addMsg :: Entry l -> Entry l
     addMsg (UsableEntry (UsableSuccess ps)) =
@@ -612,9 +685,9 @@ registerMacroTypecheckFailure ::
      DeclIndex l
   -> (C.DeclInfo TypecheckMacros, MacroTypecheckError)
   -> DeclIndex l
-registerMacroTypecheckFailure (DeclIndex i) (info, err)  = DeclIndex $
-    Map.insert info.id (UnusableEntry $ UnusableReason info.loc $
-      UnusableMacroTypecheckFailure err) i
+registerMacroTypecheckFailure index (info, err) = index
+    & #map %~ Map.insert info.id (UnusableEntry $ UnusableReason info.loc $
+        UnusableMacroTypecheckFailure err)
 
 {-------------------------------------------------------------------------------
   Support for @PrepareReparse@ pass
@@ -628,8 +701,8 @@ registerDelayedPrepareReparseMsg ::
      (C.DeclId, DelayedPrepareReparseMsg)
   -> DeclIndex l
   -> DeclIndex l
-registerDelayedPrepareReparseMsg (declId, msg) (DeclIndex i) = DeclIndex $
-    Map.adjust addMsg declId i
+registerDelayedPrepareReparseMsg (declId, msg) =
+    #map %~ Map.adjust addMsg declId
   where
     addMsg :: Entry l -> Entry l
     addMsg (UsableEntry (UsableSuccess ps)) =
@@ -651,8 +724,8 @@ registerDelayedReparseMacroExpansionsMsg ::
      (C.DeclId, DelayedReparseMacroExpansionsMsg)
   -> DeclIndex l
   -> DeclIndex l
-registerDelayedReparseMacroExpansionsMsg (declId, msg) (DeclIndex i) = DeclIndex $
-    Map.adjust addMsg declId i
+registerDelayedReparseMacroExpansionsMsg (declId, msg) =
+    #map %~ Map.adjust addMsg declId
   where
     addMsg :: Entry l -> Entry l
     addMsg (UsableEntry (UsableSuccess ps)) =
@@ -669,8 +742,8 @@ registerOmittedDeclarations ::
      Map C.DeclId SingleLoc
   -> DeclIndex l
   -> DeclIndex l
-registerOmittedDeclarations xs index = DeclIndex $
-    Map.union (toOmitted <$> xs) index.map
+registerOmittedDeclarations xs =
+    #map %~ Map.union (toOmitted <$> xs)
   where
     toOmitted loc = UnusableEntry $ UnusableReason loc UnusableOmitted
 
@@ -681,8 +754,8 @@ registerExternalDeclarations ::
 registerExternalDeclarations xs index = Foldable.foldl' insert index xs
   where
     insert :: DeclIndex l -> (C.DeclId, C.DeclLocs) -> DeclIndex l
-    insert (DeclIndex i) (declId, locs) =
-      DeclIndex $ Map.insert declId (UsableEntry $ UsableExternal locs) i
+    insert index' (declId, locs) =
+      index' & #map %~ Map.insert declId (UsableEntry $ UsableExternal locs)
 
 {-------------------------------------------------------------------------------
   Support for mangle names
@@ -692,15 +765,15 @@ registerSquashedDeclarations ::
      Map C.DeclId Squashed
   -> DeclIndex l
   -> DeclIndex l
-registerSquashedDeclarations xs index = DeclIndex $
-    Map.union (UsableEntry . UsableSquashed <$> xs) index.map
+registerSquashedDeclarations xs =
+    #map %~ Map.union (UsableEntry . UsableSquashed <$> xs)
 
 registerMangleNamesFailure ::
      Map C.DeclId (SingleLoc, MangleNamesError)
   -> DeclIndex l
   -> DeclIndex l
-registerMangleNamesFailure xs index = DeclIndex $
-    Map.union (toEntry <$> xs) index.map
+registerMangleNamesFailure xs =
+    #map %~ Map.union (toEntry <$> xs)
   where
     toEntry (loc, err) =
       UnusableEntry $ UnusableReason loc $ UnusableMangleNamesFailure err
@@ -717,8 +790,8 @@ registerDelayedTranslateTypesMsg ::
      (C.DeclId, DelayedTranslateTypesMsg)
   -> DeclIndex l
   -> DeclIndex l
-registerDelayedTranslateTypesMsg (declId, msg) (DeclIndex i) = DeclIndex $
-    Map.adjust addMsg declId i
+registerDelayedTranslateTypesMsg (declId, msg) =
+    #map %~ Map.adjust addMsg declId
   where
     addMsg :: Entry l -> Entry l
     addMsg (UsableEntry (UsableSuccess ps)) =

@@ -62,6 +62,13 @@ data ImmediateParseMsg =
     -- Clang >= 20.1.
   | ParseSourceOrderUnavailable
 
+    -- | We failed to analyse these macro definitions for ambiguity
+    --
+    -- Either the definition could not be split, or the name of the split
+    -- definition disagrees with the name @libclang@ reported for the cursor.
+    -- The macros are treated as ambiguous.
+  | ParseMacroDefinitionAnalysisFailed (NonEmpty Text)
+
   deriving stock (Show, Eq, Ord, Generic)
 
 instance PrettyForTrace ImmediateParseMsg where
@@ -86,6 +93,10 @@ instance PrettyForTrace ImmediateParseMsg where
           "Source order of declarations unavailable:"
         , "clang_isBeforeInTranslationUnit requires Clang >= 20.1"
         ]
+      ParseMacroDefinitionAnalysisFailed names -> PP.hsep [
+          "Failed to analyse these macro definitions for ambiguity:"
+        , PP.string (show names)
+        ]
 
 instance IsTrace Level ImmediateParseMsg where
   getDefaultLogLevel = \case
@@ -94,10 +105,12 @@ instance IsTrace Level ImmediateParseMsg where
       ParseOfDeclarationRequiredForScopingFailed{} -> Info
       ParseSourceOrderPopulated{}                  -> Info
       ParseSourceOrderUnavailable{}                -> Info
+      ParseMacroDefinitionAnalysisFailed{}         -> Bug
   getSource  = const HsBindgen
   getTraceId = \case
-    ParseMacroExpansionNoMacroName -> "parse-immediate-macro"
-    _otherwise                     -> "parse-immediate"
+    ParseMacroExpansionNoMacroName       -> "parse-immediate-macro"
+    ParseMacroDefinitionAnalysisFailed{} -> "parse-immediate-macro"
+    _otherwise                           -> "parse-immediate"
 
 {-------------------------------------------------------------------------------
   Delayed parse messages

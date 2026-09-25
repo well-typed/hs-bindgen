@@ -25,7 +25,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 15:8@
+    __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 16:8@
 
     __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
 -}
@@ -33,7 +33,7 @@ data S = S
   { s_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 15:13@
+         __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 16:13@
 
          __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
     -}
@@ -68,7 +68,7 @@ deriving via Struct.IsStructViaReadRaw S instance Struct.IsStruct S
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 15:13@
+    __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 16:13@
 
     __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
 -}

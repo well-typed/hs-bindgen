@@ -6,6 +6,8 @@ import Control.Applicative
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg (PrepareReparseExpansionNotUnique))
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
+import HsBindgen.Config.Internal
+import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
@@ -24,8 +26,11 @@ testCases :: [TestCaseTree]
 testCases = [
       TestCaseLeaf test_def_undef_def
     , TestCaseLeaf test_different
+    , TestCaseLeaf test_different_value
     , TestCaseLeaf test_identical_semantics
     , TestCaseLeaf test_identical_syntax
+    , TestCaseLeaf test_identical_value
+    , TestCaseLeaf test_noguard
     , TestCaseLeaf test_same_line_tag_field
     , TestCaseLeaf test_variadic
     ]
@@ -98,35 +103,30 @@ test_different =
       _otherwise ->
         Nothing
 
-test_identical_semantics :: TestCase
-test_identical_semantics =
-    defaultTest_custom "macros/redeclaration/identical_semantics"
+test_different_value :: TestCase
+test_different_value =
+    defaultTest_custom "macros/redeclaration/different_value"
       & #tracePredicate .~ multiTracePredicate_custom expected trace
   where
     expected :: [C.DeclName]
-    expected = ["macro T", "foo", "foo", "foo", "bar", "bar", "bar"]
+    expected = ["macro A"]
 
-    -- NOTE: though messages related to reparsing are most often info-level or
-    -- below, this predicate matches on all reparse-related trace messages so
-    -- that we can precisely assert that the messages make sense
     trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
-      MatchSelect name@"macro T" SelectConflict{} ->
+      MatchSelect name@"macro A" SelectConflict{} ->
         Just $ Expected name
-      MatchDelayedPrepareReparse name@"foo" PrepareReparseExpansionNotUnique{} ->
-        Just $ Expected name
-      MatchDelayedReparseMacroExpansions name@"foo" (ReparseMacroExpansionUnknownType "T") ->
-        Just $ Expected name
-      MatchDelayedReparseMacroExpansions name@"foo" ReparseMacroExpansionsLanC{} ->
-        Just $ Expected name
-      MatchDelayedPrepareReparse name@"bar" PrepareReparseExpansionNotUnique{} ->
-        Just $ Expected name
-      MatchDelayedReparseMacroExpansions name@"bar" (ReparseMacroExpansionUnknownType "T") ->
-        Just $ Expected name
-      MatchDelayedReparseMacroExpansions name@"bar" ReparseMacroExpansionsLanC{} ->
-        Just $ Expected name
+      (matchDiagnosticSpelling "macro redefined" -> Just _diag) ->
+        Just $ Tolerated
+      MatchNoDeclarations ->
+        Just $ Tolerated
       _otherwise ->
         Nothing
+
+-- | The two definitions of @T@ are identical: @T@ is defined once, and its
+-- expansion is unique.
+test_identical_semantics :: TestCase
+test_identical_semantics =
+    defaultTest_custom "macros/redeclaration/identical_semantics"
 
 test_identical_syntax :: TestCase
 test_identical_syntax =
@@ -141,9 +141,12 @@ test_identical_syntax =
     -- that we can precisely assert that the messages make sense
     trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
+      -- The definitions of @T@ are identical, so @T@ does not conflict; but it
+      -- inherits the ambiguity of @A@, so its expansion is not unique, and it
+      -- depends on @A@, so it is not selected.
       MatchSelect name@"macro A" SelectConflict{} ->
         Just $ Expected name
-      MatchSelect name@"macro T" SelectConflict{} ->
+      MatchSelect name@"macro T" (MatchTransMissing [MatchTransUnusable _unusable]) ->
         Just $ Expected name
       MatchDelayedPrepareReparse name@"foo" PrepareReparseExpansionNotUnique{} ->
         Just $ Expected name
@@ -160,13 +163,25 @@ test_identical_syntax =
       _otherwise ->
         Nothing
 
+test_identical_value :: TestCase
+test_identical_value =
+    defaultTest_custom "macros/redeclaration/identical_value"
+
+-- | A header without include guard, included twice
+test_noguard :: TestCase
+test_noguard =
+    defaultTest_custom "macros/redeclaration/noguard"
+      & #onFrontend .~ (\cfg -> cfg
+          & #selectionPredicate .~ BTrue
+          )
+
 -- | A tag macro expansion must not leak into a same-line field.
 --
--- @A@ (redefined, hence conflicting) expands to the struct tag; @B@ expands to
--- the field type. Only @B@ belongs to the field's reparse info, so no
--- reparse-related messages should be emitted for the struct. The default
--- predicate flags any such message as unexpected, so a regression of the
--- same-line mis-attribution fails this test.
+-- @A@ (redefined differently, hence ambiguous and conflicting) expands to the
+-- struct tag; @B@ expands to the field type. Only @B@ belongs to the field's
+-- reparse info, so no reparse-related messages should be emitted for the
+-- struct. The default predicate flags any such message as unexpected, so a
+-- regression of the same-line mis-attribution fails this test.
 test_same_line_tag_field :: TestCase
 test_same_line_tag_field =
     defaultTest_custom "macros/redeclaration/same_line_tag_field"

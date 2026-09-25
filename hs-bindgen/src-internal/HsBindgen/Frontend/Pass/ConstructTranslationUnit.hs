@@ -16,6 +16,7 @@ import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Macro.Type qualified as Macro
+import HsBindgen.Macro.UniqueExpansion qualified as UniqueExpansion
 
 {-------------------------------------------------------------------------------
   Construction
@@ -26,10 +27,11 @@ type PreviousPass = EnrichComments
 constructTranslationUnit ::
      forall l. Macro.HasTypes l
   => Macro.Lang l
+  -> UniqueExpansion.Analysis
   -> [ParseResult l PreviousPass]
   -> IncludeGraph
   -> C.TranslationUnit l ConstructTranslationUnit
-constructTranslationUnit macroLang parseResults includeGraph = C.TranslationUnit{
+constructTranslationUnit macroLang macroAnalysis parseResults includeGraph = C.TranslationUnit{
       decls        = DeclUseGraph.toDecls
                        declMeta.declIndex
                        declMeta.declUseGraph
@@ -38,18 +40,19 @@ constructTranslationUnit macroLang parseResults includeGraph = C.TranslationUnit
     }
   where
     declMeta :: DeclMeta l
-    declMeta = mkDeclMeta macroLang parseResults includeGraph
+    declMeta = mkDeclMeta macroLang macroAnalysis parseResults includeGraph
 
 mkDeclMeta ::
      forall l. Macro.HasTypes l
   => Macro.Lang l
+  -> UniqueExpansion.Analysis
   -> [ParseResult l PreviousPass]
   -> IncludeGraph
   -> DeclMeta l
-mkDeclMeta macroLang parseResults includeGraph = declMeta
+mkDeclMeta macroLang macroAnalysis parseResults includeGraph = declMeta
   where
     declIndex :: DeclIndex l
-    declIndex = DeclIndex.fromParseResults macroLang parseResults
+    declIndex = DeclIndex.fromParseResults macroLang macroAnalysis parseResults
 
     declUseGraph :: DeclUseGraph
     declUseGraph = DeclUseGraph.construct includeGraph declIndex

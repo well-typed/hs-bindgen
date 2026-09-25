@@ -39,29 +39,24 @@ import HsBindgen.Imports (Map, mapMaybe)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Macro.Flip
-import HsBindgen.Macro.Syntax (MacroDefinition, MacroInvocation)
+import HsBindgen.Macro.Syntax (MacroInvocation)
 import HsBindgen.Macro.UniqueExpansion
-import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
+import HsBindgen.Macro.UniqueExpansion.Types (Ambiguity, Name)
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
-data UpdateMode a =
+data UpdateMode =
     UpdateOnlyFlatten
-  | UpdatePreprocessAndFlatten (Map Tag Decl) a
+  | UpdatePreprocessAndFlatten (Map Tag Decl)
 
 update ::
      forall l.
-     UpdateMode [MacroDefinition]
+     UpdateMode
   -> C.TranslationUnit l TypecheckMacros
-  -> ( C.TranslationUnit l PrepareReparse
-     , [AnnMsg PrepareReparse]
-     )
-update mode unit =
-    ( unit'
-    , msgs
-    )
+  -> C.TranslationUnit l PrepareReparse
+update mode unit = unit'
   where
     (unitUpdated, delayedMsgs) = runM env $ updateIt () unit
 
@@ -81,27 +76,10 @@ update mode unit =
         delayedMsgs
 
     env :: Env
-    msgs :: [WithCallStack PrepareReparseMsg]
-    (env, msgs) = mkEnv mode
-
-mkCache :: [MacroDefinition] -> (Cache, [WithCallStack PrepareReparseMsg])
-mkCache macroDefs = (cache, msgs)
-  where
-    parseResults = map parseDefinition macroDefs
-    cache = precomputeIsExpansionUnique parseResults
-    msgs = case NE.nonEmpty $ mapMaybe isFailure parseResults of
-        Nothing -> []
-        Just failures -> [withCallStack (PrepareReparseMacroDefinitionParseFailures failures)]
-
-mkEnv :: UpdateMode [MacroDefinition] -> (Env, [WithCallStack PrepareReparseMsg])
-mkEnv = \case
-    UpdateOnlyFlatten ->
-      (Env UpdateOnlyFlatten, [])
-    UpdatePreprocessAndFlatten preprocessedMap macroDefs ->
-      let (cache, msgs) = mkCache macroDefs
-      in  ( Env (UpdatePreprocessAndFlatten preprocessedMap cache)
-          , msgs
-          )
+    env = Env{
+        updateMode  = mode
+      , ambiguityOf = (`DeclIndex.lookupAmbiguity` unit.meta.declIndex)
+      }
 
 {-------------------------------------------------------------------------------
   Update: class
@@ -125,8 +103,9 @@ newtype M a = M (ReaderT Env (State St) a)
 deriving newtype instance MonadReader Env M
 deriving newtype instance MonadState St M
 
-newtype Env = Env {
-    updateMode :: UpdateMode Cache
+data Env = Env {
+    updateMode  :: UpdateMode
+  , ambiguityOf :: Name -> Ambiguity
   }
 
 newtype St = St {
@@ -285,10 +264,10 @@ updateReparseInfo info tag@(Tag typ _) reparseInfo = do
         env <- ask
         case env.updateMode of
           UpdateOnlyFlatten -> pure fallback
-          UpdatePreprocessAndFlatten preprocessedMap cache -> do
+          UpdatePreprocessAndFlatten preprocessedMap -> do
             forM_ failuresMay $ \failures ->
               addMessage info.id (PrepareReparseMacroInvocationParseFailures failures)
-            if isExpUniq cache then do
+            if all (isExpansionUnique env.ambiguityOf) parseResults then do
               case Map.lookup tag preprocessedMap of
                 Nothing -> do
                   addMessage info.id PrepareReparseNoPreprocessorOutput
@@ -319,7 +298,6 @@ updateReparseInfo info tag@(Tag typ _) reparseInfo = do
 
         parseResults = fmap parseInvocation macroInvs
         failuresMay = NE.nonEmpty $ mapMaybe isFailure $ NE.toList parseResults
-        isExpUniq cache = all (cachedIsExpansionUnique cache) parseResults
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

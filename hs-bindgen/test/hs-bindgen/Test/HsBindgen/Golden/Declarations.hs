@@ -4,7 +4,6 @@ module Test.HsBindgen.Golden.Declarations (testCases) where
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex (UnusableReason (..))
 import HsBindgen.Frontend.Pass.MangleNames.Error
-import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -34,8 +33,6 @@ testCases = [
     , test_name_collision
     , test_name_collision_aux
     , test_redeclaration
-    , test_redeclaration_different
-    , test_redeclaration_identical
     , test_select_scoping
     , test_tentative_definitions
     ]
@@ -153,34 +150,6 @@ test_redeclaration =
     trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
     trace = \case
       MatchDelayed name ParsePotentialDuplicateSymbol{} ->
-        Just $ Expected name
-      _otherwise ->
-        Nothing
-
-test_redeclaration_different :: TestCase
-test_redeclaration_different =
-    testTraceSimple "declarations/redeclaration_different" $ \case
-      MatchSelect _name SelectConflict{} ->
-        Just $ Expected ()
-      (matchDiagnosticSpelling "macro redefined" -> Just _diag) ->
-        Just $ Tolerated
-      MatchNoDeclarations ->
-        Just $ Tolerated
-      _otherwise ->
-        Nothing
-
-test_redeclaration_identical :: TestCase
-test_redeclaration_identical =
-    defaultTest "declarations/redeclaration_identical"
-      & #cStandard      .~ c11
-      & #tracePredicate .~ multiTracePredicate expected trace
-  where
-    expected :: [C.DeclName]
-    expected = ["macro A"]
-
-    trace :: TraceMsg -> Maybe (TraceExpectation C.DeclName)
-    trace = \case
-      MatchSelect name@"macro A" SelectConflict{} ->
         Just $ Expected name
       _otherwise ->
         Nothing

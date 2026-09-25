@@ -9,13 +9,14 @@ module Example.FunPtr
 
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CAPI
+import Example
 
 $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <macros/redeclaration/identical_semantics.h>"
   , "/* test_macrosredeclarationidentical_Example_get_foo */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_a17f85783f80f294 (void)) ("
-  , "  signed int arg1"
+  , "  T arg1"
   , ")"
   , "{"
   , "  return &foo;"
@@ -23,7 +24,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
   , "/* test_macrosredeclarationidentical_Example_get_bar */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_fbbde3e7da8ad667 (void)) ("
-  , "  signed int arg1"
+  , "  T arg1"
   , ")"
   , "{"
   , "  return &bar;"
@@ -35,7 +36,7 @@ foreign import ccall unsafe "hs_bindgen_a17f85783f80f294" hs_bindgen_a17f85783f8
      IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosredeclarationidentical_Example_get_foo@
-hs_bindgen_a17f85783f80f294 :: IO (BG.FunPtr (BG.CInt -> IO ()))
+hs_bindgen_a17f85783f80f294 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_a17f85783f80f294 =
   fmap BG.fromFFIType hs_bindgen_a17f85783f80f294_base
 
@@ -46,7 +47,7 @@ hs_bindgen_a17f85783f80f294 =
 
     __exported by:__ @macros\/redeclaration\/identical_semantics.h@
 -}
-foo :: BG.FunPtr (BG.CInt -> IO ())
+foo :: BG.FunPtr (T -> IO ())
 foo = BG.unsafePerformIO hs_bindgen_a17f85783f80f294
 
 -- __unique:__ @test_macrosredeclarationidentical_Example_get_bar@
@@ -54,7 +55,7 @@ foreign import ccall unsafe "hs_bindgen_fbbde3e7da8ad667" hs_bindgen_fbbde3e7da8
      IO (BG.FunPtr BG.Void)
 
 -- __unique:__ @test_macrosredeclarationidentical_Example_get_bar@
-hs_bindgen_fbbde3e7da8ad667 :: IO (BG.FunPtr (BG.CInt -> IO ()))
+hs_bindgen_fbbde3e7da8ad667 :: IO (BG.FunPtr (T -> IO ()))
 hs_bindgen_fbbde3e7da8ad667 =
   fmap BG.fromFFIType hs_bindgen_fbbde3e7da8ad667_base
 
@@ -65,5 +66,5 @@ hs_bindgen_fbbde3e7da8ad667 =
 
     __exported by:__ @macros\/redeclaration\/identical_semantics.h@
 -}
-bar :: BG.FunPtr (BG.CInt -> IO ())
+bar :: BG.FunPtr (T -> IO ())
 bar = BG.unsafePerformIO hs_bindgen_fbbde3e7da8ad667

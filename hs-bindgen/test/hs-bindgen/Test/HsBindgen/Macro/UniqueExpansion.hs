@@ -10,6 +10,8 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, assertFailure, testCase, (@=?))
 import Test.Tasty.QuickCheck
 
+import HsBindgen.Runtime.Macro qualified as Runtime.Macro
+
 import HsBindgen.Macro.Syntax (MacroDefinition (..), MacroInvocation (..),
                                splitMacro)
 import HsBindgen.Macro.UniqueExpansion
@@ -38,6 +40,36 @@ tests = testGroup "Test.HsBindgen.Macro.UniqueExpansion" [
         , testProperty "example11" example11
           -- Variadic macros
         , testProperty "example12" example12
+          -- Redefinitions
+        , testProperty "example13" example13
+        , testProperty "example14" example14
+        , testProperty "example15" example15
+        ]
+    , testGroup "redefinition" [
+          testCase "identical" $
+            Benign @=? redefinitionOf "A" [
+                mkDefinition "A" [] `withBody` ["1"]
+              , mkDefinition "A" [] `withBody` ["1"]
+              ]
+        , testCase "different" $
+            NotBenign @=? redefinitionOf "A" [
+                mkDefinition "A" [] `withBody` ["1"]
+              , mkDefinition "A" [] `withBody` ["2"]
+              ]
+          -- Ambiguity of a dependency does not make a redefinition a
+          -- conflict: the definitions of @B@ are interchangeable.
+        , testCase "identical, depending on an ambiguous macro" $
+            Benign @=? redefinitionOf "B" [
+                mkDefinition "A" [] `withBody` ["1"]
+              , mkDefinition "B" ["A"]
+              , mkDefinition "A" [] `withBody` ["2"]
+              , mkDefinition "B" ["A"]
+              ]
+        , testCase "unsplittable" $
+            NotBenign @=? redefinitionOfResults "A" [
+                liftDefinition $ mkDefinition "A" []
+              , unsplittable "A"
+              ]
         ]
     , testGroup "parseDefinition" [
           testCase "#define F(x) x + G" $
@@ -82,6 +114,12 @@ tests = testGroup "Test.HsBindgen.Macro.UniqueExpansion" [
                 ident "F", punc "(", ident "args", punc "...", punc ")"
               , spc, ident "g", punc "(", ident "args", punc ")"
               ]
+        , testCase "spelling of #define F(x) x + G" $
+            Right (Runtime.Macro.Raw "F" (Runtime.Macro.Params ["x"] Runtime.Macro.NotVariadic) ["x", "+", "G"])
+              @=? (.spelled) <$> (parseDefinition (mkMacroDefinition "F" [
+                      ident "F", punc "(", ident "x", punc ")"
+                    , spc, ident "x", spc, punc "+", spc, ident "G"
+                    ])).result
           -- @libclang@ gives the name twice: as the cursor spelling and as the
           -- first token. The split does not compare them, so this does.
         , testCase "cursor spelling disagrees with the tokens" $
@@ -139,13 +177,32 @@ tests = testGroup "Test.HsBindgen.Macro.UniqueExpansion" [
   tokenized from source; see "Test.HsBindgen.Macro.Infra".
 -------------------------------------------------------------------------------}
 
--- | A definition as 'parseDefinition' reduces it: a name and its dependencies
+-- | A definition as 'parseDefinition' reduces it
+--
+-- The definition is object-like, and its body spells its dependencies.
 mkDefinition :: Name -> [Name] -> Definition
-mkDefinition name deps = Definition name (Set.fromList deps)
+mkDefinition name deps = Definition{
+      name    = name
+    , deps    = Set.fromList deps
+    , spelled = Runtime.Macro.Raw {
+          name   = name.unwrap
+        , params = Runtime.Macro.NoParams
+        , body   = map (.unwrap) deps
+        }
+    }
 
+-- | Replace the spelled body, keeping the dependencies
+withBody :: Definition -> [Text] -> Definition
+withBody def body = def{spelled = def.spelled{Runtime.Macro.body = body}}
+
+-- | Compares the name and the dependencies; see "spelling of ..." for the rest
 definitionParsesTo :: Definition -> Text -> [Piece] -> Assertion
 definitionParsesTo expected name pieces =
-    Right expected @=? (parseDefinition (mkMacroDefinition name pieces)).result
+        Right (projection expected)
+    @=? projection <$> (parseDefinition (mkMacroDefinition name pieces)).result
+  where
+    projection :: Definition -> (Name, Set.Set Name)
+    projection def = (def.name, def.deps)
 
 definitionFailsWith :: Error -> Text -> [Piece] -> Assertion
 definitionFailsWith expected name pieces =
@@ -180,12 +237,9 @@ assertParseError = \case
 -- tokens; the tokens are split by 'splitMacro', exactly as in the pass.
 mkMacroDefinition :: Text -> [Piece] -> MacroDefinition
 mkMacroDefinition name pieces = MacroDefinition {
-      name     = name
-    , locRange = extentOf tokens
-    , macro    = splitMacro tokens
+      name  = name
+    , macro = splitMacro (layout pieces)
     }
-  where
-    tokens = layout pieces
 
 mkMacroInvocation :: Text -> [Piece] -> MacroInvocation
 mkMacroInvocation name pieces = MacroInvocation {
@@ -201,8 +255,30 @@ mkMacroInvocation name pieces = MacroInvocation {
 -------------------------------------------------------------------------------}
 
 propIsExpansionUnique :: Bool -> [Definition] -> Invocation -> Property
-propIsExpansionUnique expected defs inv =
-    expected === isExpansionUnique (fmap liftDefinition defs) (liftInvocation inv)
+propIsExpansionUnique expected defs =
+    propIsExpansionUniqueResults expected (fmap liftDefinition defs)
+
+propIsExpansionUniqueResults ::
+     Bool
+  -> [ParseResult Definition]
+  -> Invocation
+  -> Property
+propIsExpansionUniqueResults expected defs inv =
+        expected
+    === isExpansionUnique
+          (ambiguity (analyseMacroDefinitions defs))
+          (liftInvocation inv)
+
+redefinitionOf :: Name -> [Definition] -> Redefinition
+redefinitionOf name defs = redefinitionOfResults name (fmap liftDefinition defs)
+
+redefinitionOfResults :: Name -> [ParseResult Definition] -> Redefinition
+redefinitionOfResults name defs =
+    redefinition (analyseMacroDefinitions defs) name
+
+-- | A definition that could not be analysed
+unsplittable :: Name -> ParseResult Definition
+unsplittable name = ParseResult name (Left (NameMismatch name.unwrap "X"))
 
 {-------------------------------------------------------------------------------
   Unit tests
@@ -230,15 +306,15 @@ example2 = once $ propIsExpansionUnique True defs inv
       , mkDefinition "B" ["A"]
       ]
 
--- | Invoked object-like macro has no dependencies. Invoked macro has two definitions.
--- Expansion is not unique.
+-- | Invoked object-like macro has no dependencies. Invoked macro has two
+-- different definitions. Expansion is not unique.
 example3 :: Property
 example3 = once $ propIsExpansionUnique False defs inv
   where
     inv = Invocation "A" []
     defs = [
-        mkDefinition "A" []
-      , mkDefinition "A" []
+        mkDefinition "A" [] `withBody` ["1"]
+      , mkDefinition "A" [] `withBody` ["2"]
       ]
 
 -- | Invoked macro has dependencies. Dependencies do not have unique expansions.
@@ -248,8 +324,8 @@ example4 = once $ propIsExpansionUnique False defs inv
   where
     inv = Invocation "B" []
     defs = [
-        mkDefinition "A" []
-      , mkDefinition "A" []
+        mkDefinition "A" [] `withBody` ["1"]
+      , mkDefinition "A" [] `withBody` ["2"]
       , mkDefinition "B" ["A"]
       ]
 
@@ -260,8 +336,8 @@ example5 = once $ propIsExpansionUnique True defs inv
   where
     inv = Invocation "F" ["B"]
     defs = [
-        mkDefinition "A" []
-      , mkDefinition "A" []
+        mkDefinition "A" [] `withBody` ["1"]
+      , mkDefinition "A" [] `withBody` ["2"]
       , mkDefinition "B" []
       , mkDefinition "F" []
       ]
@@ -273,8 +349,8 @@ example6 = once $ propIsExpansionUnique False defs inv
   where
     inv = Invocation "F" ["A"]
     defs = [
-        mkDefinition "A" []
-      , mkDefinition "A" []
+        mkDefinition "A" [] `withBody` ["1"]
+      , mkDefinition "A" [] `withBody` ["2"]
       , mkDefinition "B" []
       , mkDefinition "F" []
       ]
@@ -343,4 +419,42 @@ example12 = once $ propIsExpansionUnique True defs inv
         mkDefinition "A" []
       , mkDefinition "B" []
       , mkDefinition "F" []
+      ]
+
+--
+-- Redefinitions
+--
+
+-- | Invoked macro has two identical definitions. Expansion is unique.
+example13 :: Property
+example13 = once $ propIsExpansionUnique True defs inv
+  where
+    inv = Invocation "A" []
+    defs = [
+        mkDefinition "A" [] `withBody` ["1"]
+      , mkDefinition "A" [] `withBody` ["1"]
+      ]
+
+-- | Invoked macro has two identical definitions, but depends on a macro with
+-- two different definitions. Expansion is not unique.
+example14 :: Property
+example14 = once $ propIsExpansionUnique False defs inv
+  where
+    inv = Invocation "B" []
+    defs = [
+        mkDefinition "A" [] `withBody` ["Foo"]
+      , mkDefinition "B" ["A"]
+      , mkDefinition "A" [] `withBody` ["Bar"]
+      , mkDefinition "B" ["A"]
+      ]
+
+-- | Invoked macro depends on a macro that could not be analysed. Expansion is
+-- not unique.
+example15 :: Property
+example15 = once $ propIsExpansionUniqueResults False defs inv
+  where
+    inv = Invocation "B" []
+    defs = [
+        unsplittable "A"
+      , liftDefinition $ mkDefinition "B" ["A"]
       ]

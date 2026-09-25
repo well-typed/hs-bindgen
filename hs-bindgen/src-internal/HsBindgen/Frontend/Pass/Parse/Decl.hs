@@ -228,14 +228,14 @@ macroDefinition ::
   -> ParseCtx
   -> C.DeclInfo Parse -> Parser l
 macroDefinition macroLang _enclosing ctx info = \curr -> do
-    (range, tokens) <- getMacroTokens curr
+    (_range, tokens) <- getMacroTokens curr
     case getMacroName info.id of
       Nothing -> do
         failures <- parseFail ctx info.id info.loc ParseMacroDefinitionNoMacroName
         foldContinueWith failures
       Just macroName -> do
         let split = splitMacro tokens
-        recordMacroDefinitionAt macroName range split
+        recordMacroDefinition macroName split
         emptyMacros <- getEmptyMacros
         foldContinueWith [mkResult emptyMacros split]
   where

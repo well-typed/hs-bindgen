@@ -1,0 +1,16 @@
+-- addDependentFile test-artefacts/headers/golden/macros/redeclaration/noguard_inner.h
+-- addDependentFile test-artefacts/headers/golden/macros/redeclaration/noguard.h
+{-| __C declaration:__ @macro G@
+
+    __defined at:__ @noguard_inner.h 2:9@
+
+    __exported by:__ @macros\/redeclaration\/noguard.h@
+-}
+g :: Raw String
+{-| __C declaration:__ @macro G@
+
+    __defined at:__ @noguard_inner.h 2:9@
+
+    __exported by:__ @macros\/redeclaration\/noguard.h@
+-}
+g = objectLike "G" ["9"]

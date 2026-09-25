@@ -5,6 +5,7 @@ module HsBindgen.Frontend.Pass.Parse (
     parseDecls
   ) where
 
+import Data.List.NonEmpty qualified as NE
 import Data.Map.Strict qualified as Map
 
 import Clang.HighLevel qualified as HighLevel
@@ -20,7 +21,8 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Macro.Interface qualified as Macro
-import HsBindgen.Macro.Syntax (MacroDefinition)
+import HsBindgen.Macro.UniqueExpansion (Analysis, analyseMacroDefinitions,
+                                        isFailure, parseDefinition)
 
 {-------------------------------------------------------------------------------
   Construction
@@ -30,14 +32,14 @@ parseDecls ::
      forall l.
      Macro.Lang l
   -> ParseDecl.Env
-  -> IO ([ParseResult l Parse], [MacroDefinition])
+  -> IO ([ParseResult l Parse], Analysis)
 parseDecls macroLang parseEnv = do
     root <- clang_getTranslationUnitCursor parseEnv.unit
     ParseDecl.run parseEnv $ do
       resultsWithLocs <- HighLevel.clang_visitChildren root (topLevelDecl macroLang)
       let resultsOriginalOrder :: [ParseResult l Parse]
           resultsOriginalOrder = concatMap snd resultsWithLocs
-      macroDefinitions <- ParseDecl.getMacroDefinitions
+      macroAnalysis <- analyseMacros
       -- 'resultsOriginalOrder' is in sequence order (the order in which
       -- libclang visits the declarations). We additionally record the source
       -- order of each declaration in its 'sourceOrderIndex', obtained by
@@ -47,7 +49,7 @@ parseDecls macroLang parseEnv = do
       -- 'clang_isBeforeInTranslationUnit', available only with Clang >= 20.1.
       -- On older versions we leave 'sourceOrderIndex' as 'Nothing' and return
       -- the declarations in sequence order, unchanged.
-      (,macroDefinitions) <$> case clang_isBeforeInTranslationUnit of
+      (,macroAnalysis) <$> case clang_isBeforeInTranslationUnit of
         Just isBeforeInUnit -> do
           let isBefore (a, _) (b, _) = isBeforeInUnit a b
           resultsSourceOrder :: [ParseResult l Parse] <-
@@ -67,6 +69,14 @@ parseDecls macroLang parseEnv = do
         Nothing -> do
           ParseDecl.traceImmediateGlobal ParseSourceOrderUnavailable
           pure resultsOriginalOrder
+
+-- | Analyse all macro definitions for ambiguity
+analyseMacros :: ParseDecl.ParseDecl Analysis
+analyseMacros = do
+    definitions <- map parseDefinition <$> ParseDecl.getMacroDefinitions
+    forM_ (NE.nonEmpty $ mapMaybe isFailure definitions) $
+      ParseDecl.traceImmediateGlobal . ParseMacroDefinitionAnalysisFailed
+    pure $ analyseMacroDefinitions definitions
 
 {-------------------------------------------------------------------------------
   Orderings

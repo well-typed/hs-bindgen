@@ -76,8 +76,6 @@ data PrepareReparseMsg =
     --
     -- This is likely a bug in @hs-bindgen@.
   | PrepareReparseParsePreprocessorOutputFailed Parsec.ParseError
-    -- | Failed to parse the structure of some macro definitions
-  | PrepareReparseMacroDefinitionParseFailures (NonEmpty Text)
   deriving stock Show
 
 instance PrettyForTrace PrepareReparseMsg where
@@ -138,10 +136,6 @@ instance PrettyForTrace PrepareReparseMsg where
           "We failed to parse the preprocessor output:"
         , PP.string (show e)
         ]
-      PrepareReparseMacroDefinitionParseFailures failures -> PP.hsep [
-          "Failed to parse the structure of these macro definitions: "
-        , PP.string (show failures)
-        ]
 
 instance IsTrace Level PrepareReparseMsg where
   getDefaultLogLevel = \case
@@ -158,7 +152,6 @@ instance IsTrace Level PrepareReparseMsg where
       PrepareReparsePreprocessorFailed{} -> Bug
       PrepareReparseInterpretPreprocessorOutputFailed{} -> Bug
       PrepareReparseParsePreprocessorOutputFailed{} -> Bug
-      PrepareReparseMacroDefinitionParseFailures{} -> Bug
   getSource          = const HsBindgen
   getTraceId         = const "prepare-reparse"
 
