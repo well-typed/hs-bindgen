@@ -12,9 +12,9 @@ import GHC.Stack (HasCallStack)
 import Text.Parsec qualified as Parsec
 
 import Clang.HighLevel.Types (MultiLoc (multiLocExpansion),
-                              Range (rangeEnd, rangeStart),
+                              Range (rangeEnd, rangeStart), RealPath,
                               SingleLoc (singleLocColumn, singleLocLine, singleLocPath),
-                              Token (tokenExtent), TokenSpelling)
+                              SourcePath, Token (tokenExtent), TokenSpelling)
 
 import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
@@ -23,18 +23,18 @@ import HsBindgen.Macro.Parse
 
 data MacroDefinition = MacroDefinition {
     name     :: Text
-  , locRange :: Range MultiLoc
+  , locRange :: Range (MultiLoc RealPath)
     -- | The definition, split into name, parameters and body
     --
     -- The split is language-independent and happens once, while parsing; see
     -- 'splitMacro'.
-  , macro    :: Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
+  , macro    :: Either MacroParseError (Runtime.Macro.Raw (Token SourcePath TokenSpelling))
   }
 
 data MacroInvocation = MacroInvocation {
     name     :: Text
-  , locRange :: Range MultiLoc
-  , tokens   :: [Token TokenSpelling]
+  , locRange :: Range (MultiLoc RealPath)
+  , tokens   :: [Token SourcePath TokenSpelling]
   }
   deriving stock (Show, Eq, Ord)
 
@@ -56,11 +56,11 @@ data MacroInvocation = MacroInvocation {
 -- the result is @Raw "ADD" (Params ["x", "y"] False) ["x", "+", "y"]@.
 splitMacro ::
      HasCallStack
-  => [Token TokenSpelling]
-  -> Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
+  => [Token SourcePath TokenSpelling]
+  -> Either MacroParseError (Runtime.Macro.Raw (Token SourcePath TokenSpelling))
 splitMacro = runParser (macroDefinition <* Parsec.eof)
 
-macroDefinition :: Parser (Runtime.Macro.Raw (Token TokenSpelling))
+macroDefinition :: Parser (Runtime.Macro.Raw (Token SourcePath TokenSpelling))
 macroDefinition = do
     name       <- identifierOrKeyword
     isFunction <- isFunctionLike (tokenExtent name)
@@ -81,7 +81,7 @@ macroDefinition = do
 -- @isFunctionLike@ does not consume input.
 isFunctionLike ::
      -- | Source location of the macro definition's name
-     Range MultiLoc
+     Range (MultiLoc SourcePath)
   -> Parser Bool
 isFunctionLike nameRange =
     Parsec.lookAhead $
@@ -111,7 +111,7 @@ isFunctionLike nameRange =
 -- 'identifierOrKeyword'). The preprocessor sees pp-tokens, which know no
 -- keywords, so @clang@ accepts @#define F(bool) bool@ even in C23, where
 -- @bool@ is one.
-formalParams :: Parser (Runtime.Macro.Params (Token TokenSpelling))
+formalParams :: Parser (Runtime.Macro.Params (Token SourcePath TokenSpelling))
 formalParams = parens $ do
     names <- Parsec.option [] namedParams
     Parsec.choice [
@@ -125,7 +125,7 @@ formalParams = parens $ do
   where
     -- One or more comma-separated names. The separator is wrapped in 'try' so
     -- that the comma of @F(x, ...)@ is left for the variadic suffix.
-    namedParams :: Parser [Token TokenSpelling]
+    namedParams :: Parser [Token SourcePath TokenSpelling]
     namedParams =
             (:)
         <$> identifierOrKeyword
@@ -133,8 +133,8 @@ formalParams = parens $ do
 
     -- @F(...)@ has no name for the ellipsis to bind to.
     namedEllipsis ::
-         [Token TokenSpelling]
-      -> Runtime.Macro.Params (Token TokenSpelling)
+         [Token SourcePath TokenSpelling]
+      -> Runtime.Macro.Params (Token SourcePath TokenSpelling)
     namedEllipsis names = case reverse names of
         []   -> Runtime.Macro.Params [] Runtime.Macro.Ellipsis
         n:ns -> Runtime.Macro.Params (reverse ns) (Runtime.Macro.NamedEllipsis n)
@@ -151,7 +151,7 @@ formalParams = parens $ do
 --
 -- We used to not check whitespace, which was the source of a bug. See issue
 -- #1903: <https://github.com/well-typed/hs-bindgen/issues/1903>
-lparen :: Range MultiLoc -> Parser ()
+lparen :: Range (MultiLoc SourcePath) -> Parser ()
 lparen prevRange = do
     tok <- Parsec.lookAhead Parsec.anyToken
     punctuation "("
@@ -159,12 +159,12 @@ lparen prevRange = do
       Parsec.unexpected "whitespace before lparen"
 
 -- | Does the token start exactly where the given range ends?
-adjacentTo :: Range MultiLoc -> Token TokenSpelling -> Bool
+adjacentTo :: Range (MultiLoc SourcePath) -> Token SourcePath TokenSpelling -> Bool
 adjacentTo prevRange tok =
        prev.singleLocPath   == current.singleLocPath
     && prev.singleLocLine   == current.singleLocLine
     && prev.singleLocColumn == current.singleLocColumn
   where
-    prev, current :: SingleLoc
+    prev, current :: SingleLoc SourcePath
     prev    = prevRange.rangeEnd.multiLocExpansion
     current = tok.tokenExtent.rangeStart.multiLocExpansion

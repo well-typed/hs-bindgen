@@ -21,8 +21,9 @@ import Clang.Enum.Bitfield (BitfieldEnum, bitfieldEnum)
 import Clang.Enum.Simple (SimpleEnum, fromSimpleEnum)
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types (Diagnostic, Fold, MultiLoc (multiLocExpansion),
-                              Token, TokenSpelling, diagnosticIsError,
-                              foldContinue, foldContinueWith, simpleFold)
+                              SourcePath, Token, TokenSpelling,
+                              diagnosticIsError, foldContinue, foldContinueWith,
+                              simpleFold, toRangeSourcePath)
 import Clang.LowLevel.Core (CXCursorKind (CXCursor_MacroDefinition),
                             CXErrorCode, CXIndex, CXTranslationUnit,
                             CXTranslationUnit_Flags (CXTranslationUnit_DetailedPreprocessingRecord),
@@ -31,7 +32,8 @@ import Clang.LowLevel.Core (CXCursorKind (CXCursor_MacroDefinition),
                             clang_Location_isFromMainFile, clang_getCursorKind,
                             clang_getCursorLocation, clang_getCursorSpelling,
                             clang_getTranslationUnitCursor)
-import Clang.Paths (SourcePath (SourcePath))
+import Clang.LowLevel.Core qualified as Core
+import Clang.Paths (SourcePath (SourcePath), getSourcePathText)
 
 {-------------------------------------------------------------------------------
   Calling clang
@@ -104,11 +106,15 @@ withClang' args contents k =
 --
 -- To tokenize individual declarations instead, visit the children of the
 -- translation unit cursor; 'collectMacroTokens' does that for macros.
-tokenize :: ClangArgs -> String -> IO [Token TokenSpelling]
+--
+-- We use 'toRangeSourcePath' (not 'HighLevel.clang_getCursorExtent') because
+-- the test input is an in-memory virtual file ('ClangInputMemory'), which has
+-- no real path on disk.
+tokenize :: ClangArgs -> String -> IO [Token SourcePath TokenSpelling]
 tokenize args contents = withClang args contents $ \unit -> do
     root  <- clang_getTranslationUnitCursor unit
-    range <- HighLevel.clang_getCursorExtent root
-    HighLevel.clang_tokenize unit (multiLocExpansion <$> range)
+    range <- toRangeSourcePath =<< Core.clang_getCursorExtent root
+    HighLevel.clang_tokenize unit getSourcePathText (multiLocExpansion <$> range)
 
 -- | The name and tokens of every @#define@ in the header, in source order
 --
@@ -118,14 +124,14 @@ tokenize args contents = withClang args contents $ \unit -> do
 collectMacroTokens ::
      ClangArgs
   -> String
-  -> IO [(Text, [Token TokenSpelling])]
+  -> IO [(Text, [Token SourcePath TokenSpelling])]
 collectMacroTokens args contents = withClang args contents $ \unit -> do
     root <- clang_getTranslationUnitCursor unit
     HighLevel.clang_visitChildren root (macroFold unit)
 
 macroFold ::
      CXTranslationUnit
-  -> Fold IO (Text, [Token TokenSpelling])
+  -> Fold IO (Text, [Token SourcePath TokenSpelling])
 macroFold unit = simpleFold $ \cursor -> do
     loc    <- clang_getCursorLocation cursor
     inMain <- clang_Location_isFromMainFile loc
@@ -133,8 +139,8 @@ macroFold unit = simpleFold $ \cursor -> do
     case kind of
       Right CXCursor_MacroDefinition | inMain -> do
         name   <- clang_getCursorSpelling cursor
-        range  <- HighLevel.clang_getCursorExtent cursor
-        tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> range)
+        range  <- toRangeSourcePath =<< Core.clang_getCursorExtent cursor
+        tokens <- HighLevel.clang_tokenize unit getSourcePathText (multiLocExpansion <$> range)
         foldContinueWith (name, tokens)
       _otherwise ->
         foldContinue

@@ -329,6 +329,12 @@
   uniqueness analysis. Both a macro body and the argument list of an invocation
   now contribute keyword-spelled names, so that an invocation depending on an
   ambiguous macro named `bool` is no longer pre-expanded before reparsing.
+* External binding specs now match correctly when the same header is reached by
+  different `#include` spellings (e.g. `../core.h` vs `core.h`). Identity
+  comparisons use canonical paths from `clang_File_tryGetRealPathName` instead of
+  the clang-reported filename, which depends on include order. The
+  `--select-by-header-path` regex now matches against canonical absolute paths.
+  See [#2236](https://github.com/well-typed/hs-bindgen/issues/2236).
 * Declarations using `_Float16`, `__fp16`, `__bf16`, or `__ibm128` are now
   skipped with an unsupported-feature warning, instead of being reported as a
   bug in `hs-bindgen`. See

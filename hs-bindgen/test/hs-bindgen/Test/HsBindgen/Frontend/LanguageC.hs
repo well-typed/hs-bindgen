@@ -23,7 +23,8 @@ import Test.Tasty.QuickCheck (Arbitrary (arbitrary), Property, conjoin,
                               counterexample, elements, ioProperty, once, oneof,
                               tabulate, testProperty, (===))
 
-import Clang.HighLevel.Types (MultiLoc, Range (rangeStart), Token (tokenExtent))
+import Clang.HighLevel.Types (MultiLoc, Range (rangeStart), SourcePath,
+                              Token (tokenExtent))
 
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.LanguageC qualified as LanC
@@ -289,7 +290,7 @@ prop_reparseGlobal input expectedOutput =
         LanC.UpdateUnsupported str  -> UpdateUnsupported str
         LanC.UpdateSkipped str      -> UpdateSkipped str
 
-    getLocation :: [Token a] -> MultiLoc
+    getLocation :: [Token SourcePath a] -> MultiLoc SourcePath
     getLocation []    = panicPure "Unexpected empty list of tokens"
     getLocation (t:_) = t.tokenExtent.rangeStart
 

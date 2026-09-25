@@ -139,7 +139,7 @@ instance Pretty CommentKind where
                      , PP.string commentEnd
                      ]
 
-prettyHashIncludeArgLoc :: C.HeaderInfo -> SingleLoc -> CtxDoc
+prettyHashIncludeArgLoc :: C.HeaderInfo -> SingleLoc RealPath -> CtxDoc
 prettyHashIncludeArgLoc info loc =
     -- Text like @:1:2@ is mangled by the GHC literate preprocessor, so we
     -- cannot format source locations like that.

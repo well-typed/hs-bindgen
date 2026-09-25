@@ -13,7 +13,6 @@ import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
-import Clang.Paths
 
 import HsBindgen.BindingSpec (MergedBindingSpecs, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -149,8 +148,8 @@ deriving stock instance Macro.HasTypes l => Show (MEnv l)
 data MState = MState {
       traces    :: [AnnMsg ResolveBindingSpecs] -- ^ reverse order
     , extTypes  :: Map C.DeclId (ExtBinding ResolveBindingSpecs)
-    , noPTypes  :: Map C.DeclId [Set SourcePath]
-    , omitTypes :: Map C.DeclId SingleLoc
+    , noPTypes  :: Map C.DeclId [Set RealPath]
+    , omitTypes :: Map C.DeclId (SingleLoc RealPath)
     , opqTypes  :: Set C.DeclId -- ^ opaqued types
     }
   deriving (Show, Generic)
@@ -173,10 +172,10 @@ insertExtType cDeclId typ = #extTypes %~ Map.insert cDeclId typ
 insertOpaquedType :: C.DeclId -> MState -> MState
 insertOpaquedType cDeclId = #opqTypes %~ Set.insert cDeclId
 
-deleteNoPType :: C.DeclId -> SourcePath -> MState -> MState
+deleteNoPType :: C.DeclId -> RealPath -> MState -> MState
 deleteNoPType cDeclId path = #noPTypes %~ Map.update (aux []) cDeclId
   where
-    aux :: [Set SourcePath] -> [Set SourcePath] -> Maybe [Set SourcePath]
+    aux :: [Set RealPath] -> [Set RealPath] -> Maybe [Set RealPath]
     aux acc = \case
       s : ss
         | Set.member path s ->
@@ -186,7 +185,7 @@ deleteNoPType cDeclId path = #noPTypes %~ Map.update (aux []) cDeclId
         | otherwise -> aux (s : acc) ss
       [] -> Just acc
 
-insertOmittedType :: C.DeclId -> SingleLoc -> MState -> MState
+insertOmittedType :: C.DeclId -> SingleLoc RealPath -> MState -> MState
 insertOmittedType cDeclId sloc = #omitTypes %~ Map.insert cDeclId sloc
 
 {-------------------------------------------------------------------------------
@@ -220,8 +219,8 @@ resolveTop ::
            )
        )
 resolveTop decl = Reader.ask >>= \env -> do
-    let sourcePath = singleLocPath decl.info.loc
-        declPaths  = IncludeGraph.reaches env.includeGraph sourcePath
+    let realPath   = singleLocPath decl.info.loc
+        declPaths  = IncludeGraph.reaches env.includeGraph realPath
         mMsg       = Just $ withCallStack $ ResolveBindingSpecsOmittedType decl.info.id
     isExt <- isJust <$>
       resolveExtBinding
@@ -236,7 +235,7 @@ resolveTop decl = Reader.ask >>= \env -> do
         Just (_hsModuleName, BindingSpec.Require cTypeSpec) -> do
           State.modify' $
               insertTrace (withCallStack $ ResolveBindingSpecsPreRequire decl.info.id)
-            . deleteNoPType decl.info.id sourcePath
+            . deleteNoPType decl.info.id realPath
           let mHsTypeSpec = do
                 hsIdentifier <- cTypeSpec.hsName
                 BindingSpec.lookupHsTypeSpec hsIdentifier env.pSpec
@@ -244,7 +243,7 @@ resolveTop decl = Reader.ask >>= \env -> do
         Just (_hsModuleName, BindingSpec.Omit) -> do
           State.modify' $
               insertTrace (withCallStack $ ResolveBindingSpecsPreOmit decl.info.id)
-            . deleteNoPType decl.info.id sourcePath
+            . deleteNoPType decl.info.id realPath
             . insertOmittedType decl.info.id decl.info.loc
           return Nothing
         Nothing -> return $ Just (decl, (Nothing, Nothing))
@@ -752,7 +751,7 @@ resolveExtBinding ::
      HasCallStack
   => C.DeclId
   -> C.DeclLocs
-  -> Set SourcePath
+  -> Set RealPath
      -- | Message to emit for omitted types.
   -> Maybe (AnnMsg ResolveBindingSpecs)
   -> M l (Maybe BindingSpec.ResolvedExtBinding)

@@ -45,7 +45,7 @@ data Comment = Comment {
   , literal :: Maybe Text
 
     -- | The source location of the original C name reference
-  , location :: Maybe SingleLoc
+  , location :: Maybe (SingleLoc RealPath)
 
     -- | Header information
   , headerInfo :: Maybe C.HeaderInfo

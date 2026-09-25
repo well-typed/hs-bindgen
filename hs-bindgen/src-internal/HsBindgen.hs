@@ -76,7 +76,6 @@ import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
-import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -190,11 +189,10 @@ writeIncludeGraph ::
   -> Artefact l ()
 writeIncludeGraph regex labelStyle format filePolicy dirPolicy mPath = do
     includeGraph <- getIncludeGraph
-    let predicateUser, predicateRoot :: SourcePath -> Bool
-        predicateUser (SourcePath p) = eval (\r -> matchTest r p) regex
-        predicateRoot                = (/= RootHeader.name)
+    let predicateUser :: RealPath -> Bool
+        predicateUser rp = eval (\r -> matchTest r (getRealPathText rp)) regex
         opts = IncludeGraph.VisOpts{
-            predicate  = \p -> predicateUser p && predicateRoot p
+            predicate  = predicateUser
           , labelStyle = labelStyle
           }
         rendered = case format of
@@ -384,7 +382,7 @@ getUseDeclGraph = (.meta.useDeclGraph) <$> FrontendPassA FinalPass
 getDeclUseGraph :: Artefact l DeclUseGraph
 getDeclUseGraph = (.meta.declUseGraph) <$> FrontendPassA FinalPass
 
-getOmittedTypes :: Artefact l [(C.DeclId, SourcePath)]
+getOmittedTypes :: Artefact l [(C.DeclId, RealPath)]
 getOmittedTypes =
     Map.toList . DeclIndex.getOmitted <$> getDeclIndex
 
@@ -393,14 +391,14 @@ getReifiedC = (.decls) <$> FrontendPassA FinalPass
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1549>
 -- When we properly record aliases, we may not need this anymore.
-getSquashedTypes :: Artefact l [(C.DeclId, (SourcePath, Hs.Name Hs.NsTypeConstr))]
+getSquashedTypes :: Artefact l [(C.DeclId, (RealPath, Hs.Name Hs.NsTypeConstr))]
 getSquashedTypes = do
   decls <- getReifiedC
   let translatedDeclIds = Set.fromList $ map (.info.id.cName) decls
   declIndex <- getDeclIndex
   pure $ Map.toList $ DeclIndex.getSquashed declIndex translatedDeclIds
 
-getDependencies :: Artefact l [SourcePath]
+getDependencies :: Artefact l [RealPath]
 getDependencies = IncludeGraph.toSortedList <$> getIncludeGraph
 
 {-------------------------------------------------------------------------------

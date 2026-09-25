@@ -12,6 +12,7 @@ import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
+import Clang.Paths (getRealPathText)
 
 import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
@@ -87,7 +88,7 @@ parseDeclTopLevel macroLang curr = do
     -- next to all parse results and use it to retrieve the single location
     -- stored in the 'DeclInfo'.
     loc     <- clang_getCursorLocation curr
-    declLoc <- HighLevel.clang_getCursorLocation' curr
+    declLoc <- multiLocExpansion <$> toMultiSourcePath loc
     -- The root header is a synthetic in-memory file, so a @#define@ root
     -- directive in it has no main header and 'withHeaderInfo' would fail the
     -- parse (and it shouldn't have one). We consider root directives
@@ -241,7 +242,7 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
   where
     mkResult ::
          EmptyMacros
-      -> Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
+      -> Either MacroParseError (Runtime.Macro.Raw (Token SourcePath TokenSpelling))
       -> ParseResult l Parse
     mkResult emptyMacros split =
         case parseMacro emptyMacros split of
@@ -260,7 +261,7 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
     -- the macro language when the user asks for it.
     parseMacro ::
          EmptyMacros
-      -> Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
+      -> Either MacroParseError (Runtime.Macro.Raw (Token SourcePath TokenSpelling))
       -> Either DelayedParseMsg (Macro.Unresolved l)
     parseMacro emptyMacros split = do
         macro <- first ParseMacroErrorParse split
@@ -272,11 +273,11 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
 
     getMacroTokens ::
          CXCursor
-      -> ParseDecl (Range MultiLoc, [Token TokenSpelling])
+      -> ParseDecl (Range (MultiLoc RealPath), [Token SourcePath TokenSpelling])
     getMacroTokens curr' = do
         unit'  <- getTranslationUnit
         range  <- HighLevel.clang_getCursorExtent curr'
-        (range,) <$> HighLevel.clang_tokenize unit' (multiLocExpansion <$> range)
+        (range,) <$> HighLevel.clang_tokenize unit' getRealPathText (multiLocExpansion <$> range)
 
     getMacroName :: C.PrelimDeclId -> Maybe Text
     getMacroName = \case
@@ -494,13 +495,13 @@ macroExpansion = \curr -> do
   where
     getTokens ::
          CXCursor
-      -> ParseDecl (Range MultiLoc, [Token TokenSpelling])
+      -> ParseDecl (Range (MultiLoc RealPath), [Token SourcePath TokenSpelling])
     getTokens curr' = do
         unit'  <- getTranslationUnit
         range  <- HighLevel.clang_getCursorExtent curr'
-        (range,) <$> HighLevel.clang_tokenize unit' (multiLocExpansion <$> range)
+        (range,) <$> HighLevel.clang_tokenize unit' getRealPathText (multiLocExpansion <$> range)
 
-    getMacroName :: [Token TokenSpelling] -> Maybe Text
+    getMacroName :: [Token SourcePath TokenSpelling] -> Maybe Text
     getMacroName []    = Nothing
     -- The spelling of function macros includes the function parameters. For
     -- example, when expanding
@@ -984,7 +985,7 @@ withDeclInfo enclosing ctx k = \curr -> do
 withAvailability ::
      ParseCtx
   -> C.PrelimDeclId
-  -> SingleLoc
+  -> SingleLoc RealPath
   -> (C.Availability -> Parser l)
   -> Parser l
 withAvailability ctx declId declLoc k = \curr -> do
@@ -1015,7 +1016,7 @@ withAvailability ctx declId declLoc k = \curr -> do
 withHeaderInfo ::
      ParseCtx
   -> C.PrelimDeclId
-  -> SingleLoc
+  -> SingleLoc RealPath
   -> (C.HeaderInfo -> Parser l)
   -> Parser l
 withHeaderInfo ctx declId declLoc k = \curr -> do

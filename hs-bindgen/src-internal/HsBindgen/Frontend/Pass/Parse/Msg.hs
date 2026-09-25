@@ -39,7 +39,7 @@ import HsBindgen.Util.Tracer
 data ImmediateParseMsg =
     -- | We do not support getting macro expansions for declarations spanning
     --   multiple files.
-    ParseGetMacroExpansionsMultipleFiles (Range SingleLoc)
+    ParseGetMacroExpansionsMultipleFiles (Range (SingleLoc RealPath))
 
     -- | At a macro expansion site, we failed to get the name of the expanded
     --   macro.
@@ -131,7 +131,7 @@ data DelayedParseMsg =
     -- Reported separately from 'ParseMacroErrorParse' because every include
     -- guard has this shape, and not attempting to parse one is not a failure.
     -- See 'HsBindgen.Frontend.Pass.Parse.IsPass.EmptyMacros'.
-  | ParseMacroEmpty C.PrelimDeclId [Token TokenSpelling]
+  | ParseMacroEmpty C.PrelimDeclId [Token SourcePath TokenSpelling]
 
     -- | We could not parse the macro (macro def sites)
   | ParseMacroErrorParse MacroParseError
@@ -333,7 +333,7 @@ data DelayedParseMsg =
 
   | ParseUnexpectedVisibility (Either CInt CXLinkageKind)
 
-  | ParseNoMainHeadersException String SourcePath
+  | ParseNoMainHeadersException String RealPath
   deriving stock (Show, Generic)
 
 -- | Floating-point types we do not support
@@ -491,7 +491,7 @@ instance PrettyForTrace DelayedParseMsg where
           "Could not determine main headers:"
         , PP.string why
         , "at"
-        , PP.string $ getSourcePath whr
+        , PP.string $ getRealPath whr
         ]
     where
       unexpected :: PP.CtxDoc -> PP.CtxDoc

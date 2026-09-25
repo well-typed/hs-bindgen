@@ -4,7 +4,7 @@ module HsBindgen.Frontend.ProcessIncludes (
   , GetMainHeaders
   , toGetMainHeaders
     -- * Auxiliary
-  , getIncludeTo
+  , getIncludeTarget
   ) where
 
 import Control.Applicative (asum)
@@ -13,6 +13,7 @@ import Data.List qualified as List
 import Data.List.Compat (unsnoc)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 import Data.Text qualified as Text
 import System.FilePath.Posix qualified as Posix
 
@@ -23,7 +24,7 @@ import Clang.LowLevel.Core
 import Clang.Paths
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.Analysis.IncludeGraph (Include, IncludeGraph)
+import HsBindgen.Frontend.Analysis.IncludeGraph (Include (..), IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -92,19 +93,20 @@ import HsBindgen.IR.C qualified as C
   portable (although @hs-bindgen@ is in general not intended to produce portable
   code anyway).
 
-  When we see the @#include@ in the root header, @clang@ again only gives us
-  a 'SourcePath' for the file-to-be-included. We ignore this, and instead use
-  its /location/ as an index into the root header.
+  When we see an @#include@ in the root header, we obtain a 'RealPath' for
+  the included file (its canonical on-disk path, via 'getIncludeTarget'). To
+  determine which 'C.HashIncludeArg' the directive corresponds to, we use the
+  directive's /location/ as an index into the root header rather than matching
+  on the resolved path.
 
-  (Note that we cannot really build a map from 'SourcePath' to
-  'C.HashIncludeArg': multiple 'C.HashIncludeArg's in the root header could
-  in principle resolve to the /same/ 'SourcePath.')
+  (Multiple 'C.HashIncludeArg's in the root header could in principle resolve
+  to the /same/ path, so a reverse map would be ambiguous.)
 -------------------------------------------------------------------------------}
 
 -- | Function to get the main headers that (transitively) include a source path,
 -- as well as the @#include@ argument used to include the source path
 type GetMainHeadersAndInclude =
-   SourcePath -> Either String (NonEmpty C.HashIncludeArg, Include)
+   RealPath -> Either String (NonEmpty C.HashIncludeArg, Include)
 
 -- | Process includes
 --
@@ -116,10 +118,8 @@ processIncludes ::
         , IsMainHeader
         , IsInMainHeaderDir
         , GetMainHeadersAndInclude
-        , [SourcePath]
-          -- ^ Resolved paths of the main headers (from the root header).
-          -- These are the actual filesystem paths that clang resolved from
-          -- the user's @#include@ arguments.
+        , [RealPath]
+          -- ^ Canonical paths of the main headers (from the root header).
         )
 processIncludes unit = do
     root     <- clang_getTranslationUnitCursor unit
@@ -132,22 +132,33 @@ processIncludes unit = do
                     _otherwise ->
                       foldContinue
 
-    let includeGraph :: IncludeGraph
-        includeGraph = IncludeGraph.fromList $
-          map (\incDir -> (incDir.from, incDir.include, incDir.to)) includes
-
-        mainPathPairs :: [(SourcePath, C.HashIncludeArg)]
-        mainPathPairs = [
-            (incDir.to, IncludeGraph.getIncludeArg incDir.include)
+    let includeGraphEdges :: IncludeGraph
+        includeGraphEdges = IncludeGraph.fromList
+          [ (fromRP, incDir.include, incDir.to)
           | incDir <- includes
-          , incDir.inRoot
+          , Just fromRP <- [incDir.fromRealPath]
           ]
 
-        mainPathMap :: Map SourcePath C.HashIncludeArg
+        mainPathPairs :: [(RealPath, C.HashIncludeArg)]
+        mainPathPairs = [
+            ( incDir.to
+            , IncludeGraph.getIncludeArg incDir.include
+            )
+          | incDir <- includes
+          , Nothing <- [incDir.fromRealPath]
+          ]
+
+        mainPathMap :: Map RealPath C.HashIncludeArg
         mainPathMap = Map.fromList mainPathPairs
 
-        mainPaths :: Set SourcePath
+        mainPaths :: Set RealPath
         mainPaths = Map.keysSet mainPathMap
+
+        includeGraph :: IncludeGraph
+        includeGraph = foldl'
+          (flip IncludeGraph.insertVertex)
+          includeGraphEdges
+          (Set.toList mainPaths)
 
         isMainHeader :: IsMainHeader
         isMainHeader = mkIsMainHeader mainPaths
@@ -156,17 +167,35 @@ processIncludes unit = do
         isInMainHeaderDir = mkIsInMainHeaderDir mainPaths
 
         getMainHeadersAndInclude :: GetMainHeadersAndInclude
-        getMainHeadersAndInclude path =
-          let error' msg = Left $
-                "getMainHeadersAndInclude failed for " ++ show path ++ ": "
-                  ++ msg
-          in  case IncludeGraph.getIncludes includeGraph path of
-                Digraph.FindEdgesFound startIncludes termIncludes -> Right $
-                  ( IncludeGraph.getIncludeArg <$> termIncludes
-                  , NonEmpty.head startIncludes
-                  )
-                Digraph.FindEdgesNone    -> error' "none"
-                Digraph.FindEdgesInvalid -> error' "invalid"
+        getMainHeadersAndInclude path
+          | path `Set.member` mainPaths =
+              case Map.lookup path mainPathMap of
+                Just arg -> Right (arg NonEmpty.:| [], startInclude)
+                Nothing  -> error' "main header not in map"
+          | otherwise =
+              case reachableMainHeaders of
+                []     -> error' "none"
+                (x:xs) -> Right (x NonEmpty.:| xs, startInclude)
+          where
+            error' msg = Left $
+              "getMainHeadersAndInclude failed for " ++ show path ++ ": "
+                ++ msg
+
+            reachableMainHeaders :: [C.HashIncludeArg]
+            reachableMainHeaders =
+              mapMaybe (`Map.lookup` mainPathMap)
+                . Set.toList
+                $ IncludeGraph.reaches includeGraph path
+
+            startInclude :: Include
+            startInclude =
+              case IncludeGraph.getIncludes includeGraph path of
+                Digraph.FindEdgesFound startIncludes _ ->
+                  NonEmpty.head startIncludes
+                _ -> case Map.lookup path mainPathMap of
+                  Just arg -> BracketInclude arg
+                  Nothing  -> BracketInclude
+                    C.HashIncludeArg{ path = getRealPath path }
 
     return (
         includeGraph
@@ -176,8 +205,8 @@ processIncludes unit = do
       , map fst mainPathPairs
       )
 
--- | Function to get the main headers that (transitively) include a source path
-type GetMainHeaders = SourcePath -> Either String (NonEmpty C.HashIncludeArg)
+-- | Function to get the main headers that (transitively) include a path
+type GetMainHeaders = RealPath -> Either String (NonEmpty C.HashIncludeArg)
 
 toGetMainHeaders :: GetMainHeadersAndInclude -> GetMainHeaders
 toGetMainHeaders f = fmap fst . f
@@ -194,52 +223,63 @@ toGetMainHeaders f = fmap fst . f
 --
 -- Then
 --
--- * 'from'    will be @/full/path/to/a.h@
--- * 'include' will be @#include "b.h"@ (exact path as in source)
--- * 'to'      will be @/full/path/to/b.h@
--- * 'inRoot'  will be 'True' if the include is in the root header
+-- * 'fromRealPath' will be @Just /full/path/to/a.h@ for on-disk files, or
+--   'Nothing' for directives in the root header (a virtual in-memory file
+--   with no canonical path)
+-- * 'include' will be @#include "b.h"@ (the path exactly as written in source)
+-- * 'to'      will be @/full/path/to/b.h@ (a 'RealPath' type, the canonical
+--   on-disk path, since @#include@ targets are always real files). Using the
+--   canonical path also prevents the include graph from having redundant
+--   vertices when the same physical file is reached via different paths.
 --
--- The full 'HsBindgen.Clang.HighLevel.Types.SourcePath's are constructed by @libclang@, and depend on factors
--- such as @-I@ command line arguments, environment variables such as
+-- Both paths depend on how @libclang@ resolves headers, which is affected by
+-- @-I@ command line arguments, environment variables such as
 -- @C_INCLUDE_PATH@, etc.
 data IncDir = IncDir {
-      from    :: SourcePath
-    , include :: Include
-    , to      :: SourcePath
-    , inRoot  :: Bool
+      -- | 'Nothing' for @#include@ directives in the root header, which is a
+      -- virtual in-memory file with no canonical path on disk.
+      fromRealPath :: Maybe RealPath
+    , include      :: Include
+    , to           :: RealPath
     }
 
 processInclude :: CXTranslationUnit -> CXCursor -> IO IncDir
 processInclude unit curr = do
-    incDirFromLoc <- HighLevel.clang_getCursorLocation' curr
-    incDirTo      <- getIncludeTo curr
-    incDirInclude <- getInclude unit curr incDirTo
-    incDirInRoot  <-
-      clang_Location_isFromMainFile =<< clang_getCursorLocation curr
+    -- We use the low-level API to get the CXFile directly and try to obtain
+    -- its RealPath.  Root-header directives have no real path (the root header
+    -- is virtual), so 'clang_tryGetRealPath' returns 'Nothing' for those.
+    -- Callers distinguish root-header directives from real-file directives by
+    -- checking whether 'fromRealPath' is 'Nothing'.
+    (file, _line, _col, _off) <-
+      clang_getExpansionLocation =<< clang_getCursorLocation curr
+    incDirFromRealPath <- HighLevel.clang_tryGetRealPath file
+    incDirTo           <- getIncludeTarget curr
+    incDirInclude      <- getInclude unit curr (realPathToSourcePath incDirTo)
     return IncDir{
-        from    = singleLocPath incDirFromLoc
-      , include = incDirInclude
-      , to      = incDirTo
-      , inRoot  = incDirInRoot
+        fromRealPath = incDirFromRealPath
+      , include      = incDirInclude
+      , to           = incDirTo
       }
 
 {-------------------------------------------------------------------------------
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
-getIncludeTo :: MonadIO m => CXCursor -> m SourcePath
-getIncludeTo curr = do
-    file <- clang_getIncludedFile curr
-    SourcePath <$> clang_getFileName file
+getIncludeTarget :: (MonadIO m, HasCallStack) => CXCursor -> m RealPath
+getIncludeTarget curr =
+    HighLevel.clang_getRealPath =<< clang_getIncludedFile curr
 
 getInclude :: CXTranslationUnit -> CXCursor -> SourcePath -> IO Include
 getInclude unit curr path = do
-    tokens <- HighLevel.clang_tokenize unit . fmap multiLocExpansion
-      =<< HighLevel.clang_getCursorExtent curr
+    range  <- toRangeSourcePath =<< clang_getCursorExtent curr
+    tokens <- map (\t -> (t.tokenKind, t.tokenSpelling)) <$>
+                 HighLevel.clang_tokenize unit getSourcePathText (fmap multiLocExpansion range)
     let err = "Unable to parse #include: " ++ show tokens
     maybe (panicIO err) return $ parseInclude path tokens
 
-parseInclude :: SourcePath -> [Token TokenSpelling] -> Maybe Include
+type SimpleToken = (SimpleEnum CXTokenKind, TokenSpelling)
+
+parseInclude :: SourcePath -> [SimpleToken] -> Maybe Include
 parseInclude path = \case
     t0 : t1 : ts2 -> do
       guard $ isPunctuation t0 && t0 `hasSpelling` "#"
@@ -253,20 +293,20 @@ parseInclude path = \case
         ]
     _otherwise -> Nothing
   where
-    isIdentifier, isLiteral, isPunctuation :: Token a -> Bool
-    isIdentifier  = (== Right CXToken_Identifier)  . fromSimpleEnum . tokenKind
-    isLiteral     = (== Right CXToken_Literal)     . fromSimpleEnum . tokenKind
-    isPunctuation = (== Right CXToken_Punctuation) . fromSimpleEnum . tokenKind
+    isIdentifier, isLiteral, isPunctuation :: SimpleToken -> Bool
+    isIdentifier  = (== Right CXToken_Identifier)  . fromSimpleEnum . fst
+    isLiteral     = (== Right CXToken_Literal)     . fromSimpleEnum . fst
+    isPunctuation = (== Right CXToken_Punctuation) . fromSimpleEnum . fst
 
-    hasSpelling :: Token TokenSpelling -> Text -> Bool
-    hasSpelling = (==) . (getTokenSpelling . tokenSpelling)
+    hasSpelling :: SimpleToken -> Text -> Bool
+    hasSpelling = (==) . getTokenSpelling . snd
 
-    parseQuoteIncludeArg :: Bool -> [Token TokenSpelling] -> Maybe Include
+    parseQuoteIncludeArg :: Bool -> [SimpleToken] -> Maybe Include
     parseQuoteIncludeArg isIncludeNext = \case
       -- Quote include arguments are parsed as literals
       [t] -> do
         guard $ isLiteral t
-        let s = Text.unpack $ getTokenSpelling (tokenSpelling t)
+        let s = Text.unpack $ getTokenSpelling (snd t)
         (cL, s1) <- List.uncons s
         guard $ cL == '"'
         (s', cR) <- unsnoc s1
@@ -278,7 +318,7 @@ parseInclude path = \case
             else IncludeGraph.QuoteInclude     arg
       _otheriwse -> Nothing
 
-    parseBracketIncludeArg :: Bool -> [Token TokenSpelling] -> Maybe Include
+    parseBracketIncludeArg :: Bool -> [SimpleToken] -> Maybe Include
     parseBracketIncludeArg isIncludeNext = \case
       -- Bracket include arguments are parsed using punctuation
       t2 : ts3 -> do
@@ -287,21 +327,21 @@ parseInclude path = \case
         guard $ isPunctuation tR && tR `hasSpelling` ">"
         -- ts may contain many token kinds, not just identifier/punctuation
         let (_, arg) = C.hashIncludeArg $
-              concatMap (Text.unpack . getTokenSpelling . tokenSpelling) ts
+              concatMap (Text.unpack . getTokenSpelling . snd) ts
         return $
           if isIncludeNext
             then IncludeGraph.BracketIncludeNext arg
             else IncludeGraph.BracketInclude     arg
       [] -> Nothing
 
-    parseMacroIncludeArg :: Bool -> [Token TokenSpelling] -> Maybe Include
+    parseMacroIncludeArg :: Bool -> [SimpleToken] -> Maybe Include
     parseMacroIncludeArg isIncludeNext = \case
       -- Macro include should have at least one argument
       [] -> Nothing
       ts -> do
         let (_, arg) = C.hashIncludeArg $
               Posix.takeFileName (getSourcePath path)
-            macroArg = mconcat $ map (getTokenSpelling . tokenSpelling) ts
+            macroArg = mconcat $ map (getTokenSpelling . snd) ts
         return $
           if isIncludeNext
             then IncludeGraph.MacroIncludeNext arg macroArg

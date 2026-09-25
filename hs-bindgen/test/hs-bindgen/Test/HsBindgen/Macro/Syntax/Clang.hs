@@ -22,7 +22,7 @@ import Test.Tasty.QuickCheck (Arbitrary (arbitrary), Gen, Property, chooseInt,
                               shuffle, testProperty, (===))
 
 import Clang.Args (ClangArgs (ClangArgs))
-import Clang.HighLevel.Types (Token, TokenSpelling)
+import Clang.HighLevel.Types (SourcePath, Token, TokenSpelling)
 import Clang.Version (ClangVersion (ClangVersion), runtimeClangVersion)
 
 import HsBindgen.Runtime.Macro qualified as Runtime.Macro
@@ -193,7 +193,7 @@ continuationInParams = Case "CONTC" "(x\\\n, y) x" $
   Assertions
 -------------------------------------------------------------------------------}
 
-type Macros = [(Text, [Token TokenSpelling])]
+type Macros = [(Text, [Token SourcePath TokenSpelling])]
 
 -- | @libclang@ reported a definition for every case, in source order
 allFound :: IO Macros -> Assertion
@@ -218,7 +218,7 @@ continuationSpellings getMacros = do
     inParams <- tokensOf getMacros continuationInParams
     ["CONTC", "(", "x", "\\\n,", "y", ")", "x"] @=? map spelling inParams
 
-tokensOf :: IO Macros -> Case -> IO [Token TokenSpelling]
+tokensOf :: IO Macros -> Case -> IO [Token SourcePath TokenSpelling]
 tokensOf getMacros c = do
     macros <- getMacros
     case lookup c.name macros of
@@ -227,7 +227,7 @@ tokensOf getMacros c = do
         "libclang reported no definition of " ++ Text.unpack c.name
 
 -- | Split, keeping only the spellings; the splitter does not change them
-split :: [Token TokenSpelling] -> Either String (Runtime.Macro.Raw Text)
+split :: [Token SourcePath TokenSpelling] -> Either String (Runtime.Macro.Raw Text)
 split tokens =
     case splitMacro tokens of
       Left  err -> Left err.macroParseError
