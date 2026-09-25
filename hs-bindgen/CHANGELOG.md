@@ -263,6 +263,11 @@
 * Generate `HsBindgen.Runtime.Structs.IsStruct` instances for structs. See
   [issue #2121][is-2121] and [PR #2164][pr-2164].
 * Support bit-fields in unions. See [issue #1253][is-1253].
+* Library mode for `preprocess` (`--library`): walks a library's include
+  graph (topologically sorted) and generates one Haskell module per header under
+  the `--library` directories, with per-header selection predicates and
+  program slicing enabled. `--dry-run` shows the plan; `--list-modules` prints
+  module names for `.cabal` files. See [PR #2255][pr-2255].
 
 ### Minor changes
 
@@ -484,6 +489,7 @@
 [pr-2150]: https://github.com/well-typed/hs-bindgen/pull/2150
 [pr-2153]: https://github.com/well-typed/hs-bindgen/pull/2153
 [pr-2164]: https://github.com/well-typed/hs-bindgen/pull/2164
+[pr-2255]: https://github.com/well-typed/hs-bindgen/pull/2255
 [pr-2267]: https://github.com/well-typed/hs-bindgen/pull/2267
 
 ## 0.1.0-alpha2 -- 2026-03-27
