@@ -32,12 +32,12 @@ jobs:
       if: ${{ github.event_name == 'pull_request' }}
       run: |
         { echo 'MATRIX_COMBINATIONS<<EOF'
-          # Default CI: oldest (14) and newest (22) LLVM on Linux, plus macOS on
+          # Default CI: oldest (14) and newest (23) LLVM on Linux, plus macOS on
           # the oldest. All versions are covered by comprehensive-ci.
           echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "14"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "22"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "23"},'
           echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "14"},'
-          echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "22"},'
+          echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "23"},'
           echo EOF
         } >> "$GITHUB_ENV"
 
@@ -45,12 +45,12 @@ jobs:
       if: ${{ github.event_name != 'pull_request' }}
       run: |
         { echo 'MATRIX_COMBINATIONS<<EOF'
-          # Default CI: oldest (14) and newest (22) LLVM on Linux, plus macOS on
+          # Default CI: oldest (14) and newest (23) LLVM on Linux, plus macOS on
           # the oldest. The middle versions are covered by comprehensive-ci.
           echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "14"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "22"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "23"},'
           echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "14"},'
-          echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "22"},'
+          echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "23"},'
           # Vary GHC version from 9.2 to 9.14.
           echo '{"runner": "ubuntu-latest" , "ghc": "9.2", "llvm": "14"},'
           echo '{"runner": "ubuntu-latest" , "ghc": "9.6", "llvm": "14"},'

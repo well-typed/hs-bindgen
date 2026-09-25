@@ -24,6 +24,7 @@ let
     llvm20 = "20";
     llvm21 = "21";
     llvm22 = "22";
+    llvm23 = "23";
   };
   pkgsDefault = pkgs;
   pkgsOverlayWith =

@@ -58,6 +58,7 @@ runs:
         18) url="$base/llvmorg-18.1.8/clang+llvm-18.1.8-arm64-apple-macos11.tar.xz" ;;
         20) url="$base/llvmorg-20.1.8/LLVM-20.1.8-macOS-ARM64.tar.xz" ;;
         22) url="$base/llvmorg-22.1.8/LLVM-22.1.8-macOS-ARM64.tar.xz" ;;
+        23) url="$base/llvmorg-23.1.2/LLVM-23.1.2-macOS-ARM64.tar.xz" ;;
         *)  echo "::error::No pinned macOS LLVM tarball for version $version; add its URL" ; exit 1 ;;
       esac
       dest="$RUNNER_TEMP/llvm"
