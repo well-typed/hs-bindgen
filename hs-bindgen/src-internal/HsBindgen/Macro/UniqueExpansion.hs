@@ -2,28 +2,31 @@
 --
 -- Intended for unqualified import.
 module HsBindgen.Macro.UniqueExpansion (
-    isExpansionUnique
     -- * Parse
-  , ParseResult (..)
+    ParseResult (..)
   , Error (..)
   , isFailure
   , liftDefinition
   , liftInvocation
   , parseDefinition
   , parseInvocation
-    -- * Cached
-  , Cache
-  , precomputeIsExpansionUnique
-  , cachedIsExpansionUnique
+    -- * Analysis
+  , Analysis
+  , analyseMacroDefinitions
+  , redefinition
+  , ambiguity
+  , ambiguous
+    -- * Unique expansion
+  , isExpansionUnique
   ) where
 
-
 import Control.Monad.Except (MonadError (throwError))
-import Data.Bifunctor (Bifunctor (first))
 import Data.Digraph (Digraph)
 import Data.Digraph qualified as Digraph
-import Data.Either (partitionEithers)
+import Data.Either (partitionEithers, rights)
 import Data.Foldable qualified as Foldable
+import Data.Map.Strict (Map)
+import Data.Map.Strict qualified as Map
 import Data.Set (Set)
 import Data.Set qualified as Set
 import Data.Text (Text)
@@ -64,7 +67,8 @@ data Error =
   | NameMismatch Text Text
   deriving stock (Eq, Show)
 
--- | Project the split macro definition onto the names it depends on
+-- | Project the split macro definition onto its spelling and the names it
+-- depends on
 --
 -- The split itself already happened during parsing; see
 -- 'HsBindgen.Macro.Syntax.splitMacro'.
@@ -82,9 +86,12 @@ parseDefinition def =
         | otherwise
         -> throwError $ NameMismatch def.name def'.name.unwrap
         where
-          def' = definitionDeps m
+          def' = definition m
 
--- | Reduce a macro definition to the names it depends on
+-- | Reduce a macro definition to its spelling and the names it depends on
+--
+-- The dependencies cannot be recovered from the spelling: which tokens are
+-- names depends on each token's kind.
 --
 -- Everything in the body that is not a name is dropped, as is every name that
 -- is a parameter of this macro. A keyword that is not a local parameter is a
@@ -96,16 +103,17 @@ parseDefinition def =
 -- macro definitions. We treat them as parameters there, to emphasise that their
 -- expansion relies on the parameters. In the GNU named-variadic form the name
 -- that stands for the trailing arguments is a parameter like any other.
-definitionDeps :: Runtime.Macro.Raw (Token TokenSpelling) -> Definition
-definitionDeps m = Definition{
-      name = toName m.name
-    , deps = Set.fromList
+definition :: Runtime.Macro.Raw (Token TokenSpelling) -> Definition
+definition m = Definition{
+      name    = toName m.name
+    , deps    = Set.fromList
         [ n
         | t <- m.body
         , isIdentifierOrKeyword t
         , let n = toName t
         , not (isParam n)
         ]
+    , spelled = fmap spelling m
     }
   where
     toName :: Token TokenSpelling -> Name
@@ -136,6 +144,104 @@ parseInvocation inv =
         -> throwError $ NameMismatch inv.name inv'.name.unwrap
 
 {-------------------------------------------------------------------------------
+  Analysis
+-------------------------------------------------------------------------------}
+
+-- | Result of the ambiguity analysis of all macro definitions
+--
+-- A macro is /ambiguous/ iff its expansion depends on where it is invoked. The
+-- analysis starts from the /seed/: the macros that are ambiguous on their own,
+-- because their definitions are not all identical (see 'Redefinition'), or
+-- because one of them could not be split (which should never happen and is a
+-- bug, reported to the user), so that we cannot see what it depends on. Every
+-- macro that (transitively) depends on a macro in the seed is ambiguous too,
+-- since the tokens of a replacement list are rescanned at the invocation site.
+-- For example,
+--
+-- @
+-- #define A Foo
+-- #define B A
+-- #define A Bar
+-- #define B A
+-- @
+--
+-- The two definitions of @B@ are identical, but an invocation of @B@ expands to
+-- @Foo@ above line 3 and to @Bar@ below it. @A@ is in the seed; @B@ is not, but
+-- inherits @A@'s ambiguity. @B@ is ambiguous even without its second
+-- definition.
+--
+-- Ambiguity decides whether an invocation may be pre-expanded (see
+-- 'isExpansionUnique') and whether a macro that is defined more than once is a
+-- conflict (see 'redefinition'). In the example, both @A@ and @B@ conflict: the
+-- definitions of @B@ are identical, but no single binding for @B@ is right for
+-- all its invocations.
+--
+-- The exact check would expand both definitions recursively and compare the
+-- results. We cannot drive the Clang preprocessor for that, so we approximate:
+-- a macro is unambiguous only if none of its dependencies is ambiguous.
+--
+-- The approximation also ignores where definitions are: a macro whose only
+-- definition follows an invocation, or that is @#undef@ined after it, counts as
+-- unambiguous, although the invocation expands differently at the end of the
+-- translation unit. The resulting mismatches are caught later: the reparsed
+-- declaration is checked against Clang's AST (see
+-- "HsBindgen.Frontend.Pass.ReparseMacroExpansions.Zip"), and a name that is
+-- both a macro and another declaration is a conflict.
+--
+-- A replacement list consisting of literals only needs no special treatment:
+-- it depends on nothing, so it is ambiguous only if it is in the seed.
+newtype Analysis = Analysis {
+      ambiguous :: Set Name
+    }
+
+analyseMacroDefinitions :: [ParseResult Definition] -> Analysis
+analyseMacroDefinitions defs = Analysis{
+      ambiguous = seed <> Digraph.reaches seed graph
+    }
+  where
+    byName :: Map Name [Either Error Definition]
+    byName = Map.fromListWith (++) [ (d.macroName, [d.result]) | d <- defs ]
+
+    seed :: Set Name
+    seed = Map.keysSet $ Map.filter (not . identical) byName
+
+    graph :: DependentsGraph
+    graph = mkDependentsGraph $ rights $ map (.result) defs
+
+-- | Are all definitions of a macro identical?
+--
+-- We compare the split definitions: name, parameter list and replacement list,
+-- token by token by spelling. The split matters: @#define F(x) x@ and
+-- @#define F (x) x@ have the same token spellings, but only the first is
+-- function-like.
+--
+-- We ignore white space within the replacement list, which C does not (C23
+-- 6.10.5p1): @1-1@ and @1 - 1@ differ, and stringification can observe the
+-- difference. Clang only warns about such a redefinition; we treat it as
+-- benign.
+identical :: [Either Error Definition] -> Bool
+identical results = case partitionEithers results of
+    ([], d : ds) -> all (\d' -> d'.spelled == d.spelled) ds
+    _otherwise   -> False
+
+-- | Is the redefinition of a macro benign?
+--
+-- Only meaningful for macros that are defined more than once.
+redefinition :: Analysis -> Name -> Redefinition
+redefinition analysis name = case ambiguity analysis name of
+    Ambiguous   -> NotBenign
+    Unambiguous -> Benign
+
+ambiguity :: Analysis -> Name -> Ambiguity
+ambiguity analysis name
+    | name `Set.member` analysis.ambiguous = Ambiguous
+    | otherwise                            = Unambiguous
+
+-- | The names of all ambiguous macros
+ambiguous :: Analysis -> Set Name
+ambiguous analysis = analysis.ambiguous
+
+{-------------------------------------------------------------------------------
   Unique expansion
 -------------------------------------------------------------------------------}
 
@@ -143,122 +249,14 @@ parseInvocation inv =
 --
 -- A macro invocation has a /unique/ expansion if it can be moved to any
 -- location further down the source file without changing the expansion result.
---
--- Note the scope of this analysis: it decides whether an /invocation/ may be
--- pre-expanded before reparsing. Whether a macro /definition/ results in a
--- binding is decided elsewhere, by the conflict check in
--- "HsBindgen.Frontend.Analysis.DeclIndex" and by the @Select@ pass.
---
--- In particular, /a macro can be ambiguous even when it is defined only once/.
--- For example,
---
--- @
--- #define A Foo
--- #define B A
--- #define A Bar
--- B x;
--- @
---
--- The invocation of @B@ expands to @Bar@; the same invocation placed above line
--- 3 would expand to @Foo@. @B@ is defined once, but it refers to @A@, which is
--- defined twice, so @B@ inherits @A@'s ambiguity through the dependents graph.
---
--- A macro expansion has a unique expansion iff a macro (transitively)
--- referenced by an invocation is not captured by a new macro definition. Such
--- capturing would cause the expansion of the macro invocation to change. A
--- macro invocation has a unique expansion if all these conditions are met:
---
--- * The invoked macro only has a single definition in the translation unit
--- * The body of the invoked macro only invokes macros that have a unique
---   expansion
--- * If the invoked macro is function-like, then any parameters to the
---   invocation should also only invoke macros that have a unique expansion
---
--- These conditions give rise to a recursive algorithm: to check whether a macro
--- invocation has a unique expansion, we recursively check whether macro
--- invocations in the body have unique expansions, and we check the same for
--- parameters to the invocation.
-isExpansionUnique ::
-     [ParseResult Definition]
-  -> ParseResult Invocation
-  -> Bool
-isExpansionUnique defs inv =
-    cachedIsExpansionUnique (precomputeIsExpansionUnique defs) inv
-
-{-------------------------------------------------------------------------------
-  Cached
--------------------------------------------------------------------------------}
-
-newtype Cache = Cache {
-    -- | Names of ambiguous macros
-    --
-    -- Ambiguous macros are macros that are either defined more than once, or
-    -- macros that (transitively) refer to ambiguous macros in their definition
-    ambiguous :: Set Name
-  }
-
--- | Precompute the majority of 'isExpansionUnique' as a cache, which can then
--- be passed to 'cachedIsExpansionUnique'.
-precomputeIsExpansionUnique :: [ParseResult Definition] -> Cache
-precomputeIsExpansionUnique defs = Cache {
-      ambiguous = ambiguityAnalysis defs
-    }
-
--- | Use a precomputed cache to run 'isExpansionUnique'.
-cachedIsExpansionUnique :: Cache -> ParseResult Invocation -> Bool
-cachedIsExpansionUnique cache pInv =
+-- We deem an expansion unique iff the invoked macro and all names in the
+-- arguments are unambiguous; see 'Analysis' for how that approximates the
+-- definition. Names that are not macros are unambiguous.
+isExpansionUnique :: (Name -> Ambiguity) -> ParseResult Invocation -> Bool
+isExpansionUnique ambiguityOf pInv =
     case pInv.result of
-      Left _ -> False
-      Right inv ->
-        not $
-        or
-          [ inv.name `Set.member` cache.ambiguous
-          , any (`Set.member` cache.ambiguous) inv.args
-          ]
-
-{-------------------------------------------------------------------------------
-  Ambiguity analysis
--------------------------------------------------------------------------------}
-
--- | Collect the names of all macros that are defined more than once, and all
--- macros that (transitively) depend on macros that are defined more than once.
---
--- We seed on the /number/ of definitions, without comparing their bodies. That
--- is a deliberate over-approximation: @\#define B 5@ twice is reported as
--- ambiguous, although the expansion is stable. Comparing bodies would be more
--- precise, but it is not obviously the cheaper or the safer choice — two
--- token-identical definitions can still expand differently, since the tokens in
--- a replacement list are resolved at the invocation site.
---
-ambiguityAnalysis :: [ParseResult Definition] -> Set Name
-ambiguityAnalysis defs =
-    go (Seen Set.empty) (Ambig $ Set.fromList parseFailures) parseSuccesses
-  where
-    fromParseResult :: forall a. ParseResult a -> Either Name a
-    fromParseResult pres = first (const pres.macroName) pres.result
-
-    parseFailures :: [Name]
-    parseSuccesses :: [Definition]
-    (parseFailures, parseSuccesses) = partitionEithers $ fmap fromParseResult defs
-
-    graph :: DependentsGraph
-    graph = mkDependentsGraph parseSuccesses
-
-    go :: Seen -> Ambig -> [Definition] -> Set Name
-    go _seen ambig [] = ambig.unwrap
-    go seen ambig (d:ds)
-      | d.name `Set.member` seen.unwrap
-      = let current = Set.singleton d.name
-            dependents = Digraph.reaches current graph
-            ambig' = Ambig (current <> dependents <> ambig.unwrap)
-        in  go seen' ambig' ds
-      | otherwise
-      = go seen' ambig ds
-      where
-        seen' = Seen (Set.insert d.name seen.unwrap)
-
-newtype Seen = Seen { unwrap :: Set Name }
-newtype Ambig = Ambig { unwrap :: Set Name }
+      Left _    -> False
+      Right inv -> all ((== Unambiguous) . ambiguityOf) (inv.name : inv.args)
 
 {-------------------------------------------------------------------------------
   Dependents graph
@@ -267,7 +265,7 @@ newtype Ambig = Ambig { unwrap :: Set Name }
 -- | Partial map of macro names to names of /dependent/ macros
 --
 -- Each macro name @A@ is mapped to a set of names of macros that depend on @A@;
--- see 'definitionDeps'.
+-- see 'definition'.
 --
 -- For example, for these macro definitions:
 --

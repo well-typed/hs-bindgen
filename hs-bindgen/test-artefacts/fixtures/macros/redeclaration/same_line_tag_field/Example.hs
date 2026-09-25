@@ -28,7 +28,7 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
 {-| __C declaration:__ @macro B@
 
-    __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 14:9@
+    __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 15:9@
 
     __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
 -}
@@ -72,7 +72,7 @@ instance HasCField.HasCField B "unwrapB" where
 
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 15:8@
+    __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 16:8@
 
     __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
 -}
@@ -80,7 +80,7 @@ data S = S
   { s_x :: B
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 15:13@
+         __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 16:13@
 
          __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
     -}
@@ -115,7 +115,7 @@ deriving via Struct.IsStructViaReadRaw S instance Struct.IsStruct S
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 15:13@
+    __defined at:__ @macros\/redeclaration\/same_line_tag_field.h 16:13@
 
     __exported by:__ @macros\/redeclaration\/same_line_tag_field.h@
 -}

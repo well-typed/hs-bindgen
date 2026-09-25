@@ -13,8 +13,7 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
-    ( Example.a
-    , Example.iD
+    ( Example.iD
     , Example.T(..)
     )
   where
@@ -25,18 +24,9 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 
-{-| __C declaration:__ @macro A@
-
-    __defined at:__ @macros\/redeclaration\/variadic.h 1:9@
-
-    __exported by:__ @macros\/redeclaration\/variadic.h@
--}
-a :: Macro.Raw String
-a = Macro.objectLike "A" ["int"]
-
 {-| __C declaration:__ @macro ID@
 
-    __defined at:__ @macros\/redeclaration\/variadic.h 3:9@
+    __defined at:__ @macros\/redeclaration\/variadic.h 6:9@
 
     __exported by:__ @macros\/redeclaration\/variadic.h@
 -}
@@ -45,7 +35,7 @@ iD = Macro.variadic "ID" ["A"] ["A", "__VA_ARGS__"]
 
 {-| __C declaration:__ @T@
 
-    __defined at:__ @macros\/redeclaration\/variadic.h 4:24@
+    __defined at:__ @macros\/redeclaration\/variadic.h 7:24@
 
     __exported by:__ @macros\/redeclaration\/variadic.h@
 -}

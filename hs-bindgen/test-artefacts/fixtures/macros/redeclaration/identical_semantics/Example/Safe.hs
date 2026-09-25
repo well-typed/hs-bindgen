@@ -10,17 +10,18 @@ module Example.Safe
 
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CAPI
+import Example
 
 $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unlines
   [ "#include <macros/redeclaration/identical_semantics.h>"
   , "void hs_bindgen_3a672aa51059499f ("
-  , "  signed int arg1"
+  , "  T arg1"
   , ")"
   , "{"
   , "  (foo)(arg1);"
   , "}"
   , "void hs_bindgen_f6ce0c67437e90e7 ("
-  , "  signed int arg1"
+  , "  T arg1"
   , ")"
   , "{"
   , "  (bar)(arg1);"
@@ -34,7 +35,7 @@ foreign import ccall safe "hs_bindgen_3a672aa51059499f" hs_bindgen_3a672aa510594
 
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_foo@
 hs_bindgen_3a672aa51059499f ::
-     BG.CInt
+     T
   -> IO ()
 hs_bindgen_3a672aa51059499f =
   \x0 ->
@@ -47,7 +48,7 @@ hs_bindgen_3a672aa51059499f =
     __exported by:__ @macros\/redeclaration\/identical_semantics.h@
 -}
 foo ::
-     BG.CInt
+     T
      -- ^ __C declaration:__ @x@
   -> IO ()
 foo = hs_bindgen_3a672aa51059499f
@@ -59,7 +60,7 @@ foreign import ccall safe "hs_bindgen_f6ce0c67437e90e7" hs_bindgen_f6ce0c67437e9
 
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_bar@
 hs_bindgen_f6ce0c67437e90e7 ::
-     BG.CInt
+     T
   -> IO ()
 hs_bindgen_f6ce0c67437e90e7 =
   \x0 ->
@@ -72,7 +73,7 @@ hs_bindgen_f6ce0c67437e90e7 =
     __exported by:__ @macros\/redeclaration\/identical_semantics.h@
 -}
 bar ::
-     BG.CInt
+     T
      -- ^ __C declaration:__ @x@
   -> IO ()
 bar = hs_bindgen_f6ce0c67437e90e7

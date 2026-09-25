@@ -62,8 +62,8 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Macro.Syntax
 import HsBindgen.Macro.Type qualified as Macro
+import HsBindgen.Macro.UniqueExpansion qualified as UniqueExpansion
 import HsBindgen.Util.Tracer
 
 import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
@@ -284,7 +284,7 @@ runFrontend tracer config boot = do
               , emptyMacros              = config.emptyMacros
               , tracer                   = contramap FrontendParse tracer
               }
-        (parseResults, macroDefinitions) <- parseDecls macroLang parseEnv
+        (parseResults, macroAnalysis) <- parseDecls macroLang parseEnv
 
         let decls :: [C.Decl l Parse]
             decls = mapMaybe getParseResultMaybeDecl parseResults
@@ -298,7 +298,7 @@ runFrontend tracer config boot = do
           , isInMainHeaderDir = isInMainHeaderDir
           , getMainHeaders    = toGetMainHeaders getMainHeadersAndInclude
           , usageAnalysis     = usageAnalysis
-          , macroDefinitions  = macroDefinitions
+          , macroAnalysis     = macroAnalysis
           }
 
     parseMeta <- cache "parseMeta" $ do
@@ -335,6 +335,8 @@ runFrontend tracer config boot = do
       let afterConstructTranslationUnit =
             constructTranslationUnit
               macroLang
+              afterParse.macroAnalysis
+              afterParse.isMainHeader
               afterEnrichComments
               afterParse.includeGraph
       pure afterConstructTranslationUnit
@@ -345,7 +347,6 @@ runFrontend tracer config boot = do
       pure $ typecheckMacros macroLang afterConstructTranslationUnit
 
     prepareReparsePass <- cache "prepareReparse" $ do
-      afterParse <- parsePass
       (afterTypecheckMacros, _, _) <- typecheckMacrosPass
       clangExe <- boot.clangExe
       rootHeader <- rootHeaderC
@@ -355,7 +356,6 @@ runFrontend tracer config boot = do
                   clangExe
                   setup
                   rootHeader
-                  afterParse.macroDefinitions
                   afterTypecheckMacros
 
     reparseMacroExpansionsPass <- cache "reparseMacroExpansions" $ do
@@ -522,5 +522,5 @@ data ParsePassResult l = ParsePassResult {
     , isInMainHeaderDir :: IsInMainHeaderDir
     , getMainHeaders    :: GetMainHeaders
     , usageAnalysis     :: UnnamedIdUsageAnalysis
-    , macroDefinitions  :: [MacroDefinition]
+    , macroAnalysis     :: UniqueExpansion.Analysis
     }

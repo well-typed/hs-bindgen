@@ -15,7 +15,7 @@ module HsBindgen.Frontend.Pass.Parse.Monad.Decl (
   , getEmptyMacros
   , evalGetMainHeadersAndInclude
     -- ** "State"
-  , recordMacroDefinitionAt
+  , recordMacroDefinition
   , getMacroDefinitions
   , recordMacroExpansionAt
   , getMacroExpansions
@@ -115,8 +115,8 @@ evalGetMainHeadersAndInclude path = wrapEff $ \support ->
 data ParseState = ParseState {
       -- | Macro definitions
       --
-      -- Macro definitions need to be analysed for ambiguity in the
-      -- @PrepareReparse@ pass.
+      -- Once parsing is done, macro definitions are analysed for ambiguity; see
+      -- "HsBindgen.Macro.UniqueExpansion".
       macroDefinitions :: [MacroDefinition]
       -- | Where did Clang expand macros, and what are their names?
       --
@@ -137,19 +137,17 @@ getParseState = wrapEff $ \support -> readIORef support.state
 modifyParseState :: (ParseState -> ParseState) -> ParseDecl ()
 modifyParseState f = wrapEff $ \support -> modifyIORef support.state f
 
-recordMacroDefinitionAt ::
+recordMacroDefinition ::
      Text
-  -> Range MultiLoc
   -> Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
   -> ParseDecl ()
-recordMacroDefinitionAt macroName locRange macro =
+recordMacroDefinition macroName macro =
     modifyParseState $ #macroDefinitions %~ (macroDefinition:)
   where
     macroDefinition :: MacroDefinition
     macroDefinition = MacroDefinition {
-          name     = macroName
-        , locRange = locRange
-        , macro    = macro
+          name  = macroName
+        , macro = macro
         }
 
 getMacroDefinitions :: ParseDecl [MacroDefinition]

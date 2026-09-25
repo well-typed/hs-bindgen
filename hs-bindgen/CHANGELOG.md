@@ -120,10 +120,8 @@
   `HsBindgen.Runtime.Macro.Raw Text` value rather than to the `[String]` of its
   tokens. `Raw` keeps the macro name, parameter list and body apart, so the
   parameter list is no longer spliced into the body, and the whitespace rule
-  that tells `#define F(x) ...` from `#define G (x) ...` applies here too. Two
-  identical redefinitions of the same macro now collapse into one declaration
-  instead of clashing, because the translated value no longer carries source
-  locations. See [issue #2242][is-2242] and [issue #2243][is-2243].
+  that tells `#define F(x) ...` from `#define G (x) ...` applies here too. See
+  [issue #2242][is-2242] and [issue #2243][is-2243].
 * Overhaul FFI types. See [PR #2267][pr-2267].
   * `HasFFIType` instances are now only generated for types that could be used
     in `foreign import` argument and result positions.
@@ -210,8 +208,17 @@
   Haddock `*`-depth derived from tree depth. Doxygen-specific export
   resolution lives in the new internal module
   `HsBindgen.Backend.HsModule.Translation.Doxygen`.
-* Redefinitions of macros are now considered conflicting even if they are
-  syntactically equal. See [PR #1983][pr-1983].
+* A macro redefinition is benign iff all definitions have the same name,
+  parameter list and replacement list (white space within the replacement list
+  is ignored), and none of the macros they depend on, directly or indirectly, is
+  itself redefined differently. Benign redefinitions collapse into one
+  declaration, and no longer make the expansion of the macro ambiguous on their
+  own; all other redefinitions conflict. The check no longer depends on the
+  macro language. Of the definitions of a benign redefinition, we keep the one
+  in a main header, and if none is in a main header, the first. This is true for
+  macros as well as other declarations: a declaration first defined in an
+  included header and repeated in a main header is now selected by the default
+  selection predicate. See [issue #2264][is-2264] and [PR #2281][pr-2281].
 * Support mixed uses of macro types and non-type macros. Previously, we would
   only support type macros in bindings that do not also use non-type macros. Now
   we support mixed uses as long as there are no macros that are defined more
@@ -459,12 +466,12 @@
 [is-2243]: https://github.com/well-typed/hs-bindgen/issues/2243
 [is-2245]: https://github.com/well-typed/hs-bindgen/issues/2245
 [is-2246]: https://github.com/well-typed/hs-bindgen/issues/2246
+[is-2264]: https://github.com/well-typed/hs-bindgen/issues/2264
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917
 [pr-1921]: https://github.com/well-typed/hs-bindgen/pull/1921
 [pr-1955]: https://github.com/well-typed/hs-bindgen/pull/1955
-[pr-1983]: https://github.com/well-typed/hs-bindgen/pull/1983
 [pr-2017]: https://github.com/well-typed/hs-bindgen/pull/2017
 [pr-2021]: https://github.com/well-typed/hs-bindgen/pull/2021
 [pr-2034]: https://github.com/well-typed/hs-bindgen/pull/2034
@@ -479,6 +486,7 @@
 [pr-2153]: https://github.com/well-typed/hs-bindgen/pull/2153
 [pr-2164]: https://github.com/well-typed/hs-bindgen/pull/2164
 [pr-2267]: https://github.com/well-typed/hs-bindgen/pull/2267
+[pr-2281]: https://github.com/well-typed/hs-bindgen/pull/2281
 
 ## 0.1.0-alpha2 -- 2026-03-27
 

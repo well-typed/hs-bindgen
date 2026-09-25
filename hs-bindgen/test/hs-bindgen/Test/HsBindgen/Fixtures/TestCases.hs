@@ -139,7 +139,6 @@ commonKnownEmpty :: [String]
 commonKnownEmpty = [
     "declarations/declaration_unselected_b"
   , "declarations/name_collision"
-  , "declarations/redeclaration_different"
   , "edge-cases/clang_generated_collision"
   , "edge-cases/duplicate"
   , "edge-cases/headers"
@@ -148,6 +147,7 @@ commonKnownEmpty = [
   , "edge-cases/unsupported_builtin"
   , "functions/not_visible_decl"
   , "macros/macro_type_void"
+  , "macros/redeclaration/different_value"
   , "program-analysis/delay_traces"
   , "program-analysis/selection_foo"
   , "program-analysis/selection_merge_traces"

@@ -228,14 +228,14 @@ macroDefinition ::
   -> ParseCtx
   -> C.DeclInfo Parse -> Parser l
 macroDefinition macroLang _enclosing ctx info = \curr -> do
-    (range, tokens) <- getMacroTokens curr
+    tokens <- getMacroTokens curr
     case getMacroName info.id of
       Nothing -> do
         failures <- parseFail ctx info.id info.loc ParseMacroDefinitionNoMacroName
         foldContinueWith failures
       Just macroName -> do
         let split = splitMacro tokens
-        recordMacroDefinitionAt macroName range split
+        recordMacroDefinition macroName split
         emptyMacros <- getEmptyMacros
         foldContinueWith [mkResult emptyMacros split]
   where
@@ -270,13 +270,11 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
           _otherwise ->
             first ParseMacroErrorParse $ macroLang.parse macro
 
-    getMacroTokens ::
-         CXCursor
-      -> ParseDecl (Range MultiLoc, [Token TokenSpelling])
+    getMacroTokens :: CXCursor -> ParseDecl [Token TokenSpelling]
     getMacroTokens curr' = do
         unit'  <- getTranslationUnit
         range  <- HighLevel.clang_getCursorExtent curr'
-        (range,) <$> HighLevel.clang_tokenize unit' (multiLocExpansion <$> range)
+        HighLevel.clang_tokenize unit' (multiLocExpansion <$> range)
 
     getMacroName :: C.PrelimDeclId -> Maybe Text
     getMacroName = \case

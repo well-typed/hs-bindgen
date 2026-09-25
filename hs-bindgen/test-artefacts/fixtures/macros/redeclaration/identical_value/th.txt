@@ -1,0 +1,15 @@
+-- addDependentFile test-artefacts/headers/golden/macros/redeclaration/identical_value.h
+{-| __C declaration:__ @macro A@
+
+    __defined at:__ @macros\/redeclaration\/identical_value.h 3:9@
+
+    __exported by:__ @macros\/redeclaration\/identical_value.h@
+-}
+a :: CInt
+{-| __C declaration:__ @macro A@
+
+    __defined at:__ @macros\/redeclaration\/identical_value.h 3:9@
+
+    __exported by:__ @macros\/redeclaration\/identical_value.h@
+-}
+a = 5 :: CInt

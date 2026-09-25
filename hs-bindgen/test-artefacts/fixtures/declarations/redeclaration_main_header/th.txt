@@ -1,0 +1,89 @@
+-- addDependentFile test-artefacts/headers/golden/declarations/redeclaration_main_header_inner.h
+-- addDependentFile test-artefacts/headers/golden/declarations/redeclaration_main_header.h
+-- #include <declarations/redeclaration_main_header.h>
+-- signed int hs_bindgen_8fd6b7730e61d30c (
+--   signed int arg1
+-- )
+-- {
+--   return (f)(arg1);
+-- }
+-- signed int hs_bindgen_78fcd91e79ff5b5f (
+--   signed int arg1
+-- )
+-- {
+--   return (f)(arg1);
+-- }
+-- /* test_declarationsredeclaration_mai_Example_get_f */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_ee8e2a043c1d908e (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &f;
+-- }
+-- __unique:__ @test_declarationsredeclaration_mai_Example_Safe_f@
+foreign import ccall safe "hs_bindgen_8fd6b7730e61d30c" hs_bindgen_8fd6b7730e61d30c_base ::
+    CInt
+ -> IO CInt
+-- __unique:__ @test_declarationsredeclaration_mai_Example_Safe_f@
+hs_bindgen_8fd6b7730e61d30c :: CInt -> IO CInt
+-- __unique:__ @test_declarationsredeclaration_mai_Example_Safe_f@
+hs_bindgen_8fd6b7730e61d30c = \x_0 -> fmap fromFFIType (hs_bindgen_8fd6b7730e61d30c_base (toFFIType x_0))
+{-| __C declaration:__ @f@
+
+    __defined at:__ @declarations\/redeclaration_main_header.h 5:5@
+
+    __exported by:__ @declarations\/redeclaration_main_header.h@
+-}
+f_safe :: CInt -> IO CInt
+{-| __C declaration:__ @f@
+
+    __defined at:__ @declarations\/redeclaration_main_header.h 5:5@
+
+    __exported by:__ @declarations\/redeclaration_main_header.h@
+-}
+f_safe = hs_bindgen_8fd6b7730e61d30c
+-- __unique:__ @test_declarationsredeclaration_mai_Example_Unsafe_f@
+foreign import ccall unsafe "hs_bindgen_78fcd91e79ff5b5f" hs_bindgen_78fcd91e79ff5b5f_base ::
+    CInt
+ -> IO CInt
+-- __unique:__ @test_declarationsredeclaration_mai_Example_Unsafe_f@
+hs_bindgen_78fcd91e79ff5b5f :: CInt -> IO CInt
+-- __unique:__ @test_declarationsredeclaration_mai_Example_Unsafe_f@
+hs_bindgen_78fcd91e79ff5b5f = \x_0 -> fmap fromFFIType (hs_bindgen_78fcd91e79ff5b5f_base (toFFIType x_0))
+{-| __C declaration:__ @f@
+
+    __defined at:__ @declarations\/redeclaration_main_header.h 5:5@
+
+    __exported by:__ @declarations\/redeclaration_main_header.h@
+-}
+f_unsafe :: CInt -> IO CInt
+{-| __C declaration:__ @f@
+
+    __defined at:__ @declarations\/redeclaration_main_header.h 5:5@
+
+    __exported by:__ @declarations\/redeclaration_main_header.h@
+-}
+f_unsafe = hs_bindgen_78fcd91e79ff5b5f
+-- __unique:__ @test_declarationsredeclaration_mai_Example_get_f@
+foreign import ccall unsafe "hs_bindgen_ee8e2a043c1d908e" hs_bindgen_ee8e2a043c1d908e_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_declarationsredeclaration_mai_Example_get_f@
+hs_bindgen_ee8e2a043c1d908e :: IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @test_declarationsredeclaration_mai_Example_get_f@
+hs_bindgen_ee8e2a043c1d908e = fmap fromFFIType hs_bindgen_ee8e2a043c1d908e_base
+{-# NOINLINE f_funptr #-}
+{-| __C declaration:__ @f@
+
+    __defined at:__ @declarations\/redeclaration_main_header.h 5:5@
+
+    __exported by:__ @declarations\/redeclaration_main_header.h@
+-}
+f_funptr :: FunPtr (CInt -> IO CInt)
+{-| __C declaration:__ @f@
+
+    __defined at:__ @declarations\/redeclaration_main_header.h 5:5@
+
+    __exported by:__ @declarations\/redeclaration_main_header.h@
+-}
+f_funptr = unsafePerformIO hs_bindgen_ee8e2a043c1d908e

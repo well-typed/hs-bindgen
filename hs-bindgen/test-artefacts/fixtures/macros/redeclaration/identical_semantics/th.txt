@@ -1,25 +1,25 @@
 -- addDependentFile test-artefacts/headers/golden/macros/redeclaration/identical_semantics.h
 -- #include <macros/redeclaration/identical_semantics.h>
 -- void hs_bindgen_3a672aa51059499f (
---   signed int arg1
+--   T arg1
 -- )
 -- {
 --   (foo)(arg1);
 -- }
 -- void hs_bindgen_f6ce0c67437e90e7 (
---   signed int arg1
+--   T arg1
 -- )
 -- {
 --   (bar)(arg1);
 -- }
 -- void hs_bindgen_1f6a4a088740d7bc (
---   signed int arg1
+--   T arg1
 -- )
 -- {
 --   (foo)(arg1);
 -- }
 -- void hs_bindgen_69080a62615bc0d8 (
---   signed int arg1
+--   T arg1
 -- )
 -- {
 --   (bar)(arg1);
@@ -27,7 +27,7 @@
 -- /* test_macrosredeclarationidentical_Example_get_foo */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_a17f85783f80f294 (void)) (
---   signed int arg1
+--   T arg1
 -- )
 -- {
 --   return &foo;
@@ -35,17 +35,49 @@
 -- /* test_macrosredeclarationidentical_Example_get_bar */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_fbbde3e7da8ad667 (void)) (
---   signed int arg1
+--   T arg1
 -- )
 -- {
 --   return &bar;
 -- }
+{-| __C declaration:__ @macro T@
+
+    __defined at:__ @macros\/redeclaration\/identical_semantics.h 2:9@
+
+    __exported by:__ @macros\/redeclaration\/identical_semantics.h@
+-}
+newtype T
+    = T {unwrapT :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
+instance (~) ty CInt => HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = CInt
+          offset# = \_ -> \_ -> 0
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_3a672aa51059499f" hs_bindgen_3a672aa51059499f_base ::
     CInt
  -> IO ()
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_foo@
-hs_bindgen_3a672aa51059499f :: CInt -> IO ()
+hs_bindgen_3a672aa51059499f :: T -> IO ()
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_foo@
 hs_bindgen_3a672aa51059499f = \x_0 -> hs_bindgen_3a672aa51059499f_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
@@ -54,7 +86,7 @@ hs_bindgen_3a672aa51059499f = \x_0 -> hs_bindgen_3a672aa51059499f_base (toFFITyp
 
     __exported by:__ @macros\/redeclaration\/identical_semantics.h@
 -}
-foo_safe :: CInt -> IO ()
+foo_safe :: T -> IO ()
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/redeclaration\/identical_semantics.h 3:6@
@@ -67,7 +99,7 @@ foreign import ccall safe "hs_bindgen_f6ce0c67437e90e7" hs_bindgen_f6ce0c67437e9
     CInt
  -> IO ()
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_bar@
-hs_bindgen_f6ce0c67437e90e7 :: CInt -> IO ()
+hs_bindgen_f6ce0c67437e90e7 :: T -> IO ()
 -- __unique:__ @test_macrosredeclarationidentical_Example_Safe_bar@
 hs_bindgen_f6ce0c67437e90e7 = \x_0 -> hs_bindgen_f6ce0c67437e90e7_base (toFFIType x_0)
 {-| __C declaration:__ @bar@
@@ -76,7 +108,7 @@ hs_bindgen_f6ce0c67437e90e7 = \x_0 -> hs_bindgen_f6ce0c67437e90e7_base (toFFITyp
 
     __exported by:__ @macros\/redeclaration\/identical_semantics.h@
 -}
-bar_safe :: CInt -> IO ()
+bar_safe :: T -> IO ()
 {-| __C declaration:__ @bar@
 
     __defined at:__ @macros\/redeclaration\/identical_semantics.h 5:6@
@@ -89,7 +121,7 @@ foreign import ccall unsafe "hs_bindgen_1f6a4a088740d7bc" hs_bindgen_1f6a4a08874
     CInt
  -> IO ()
 -- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_foo@
-hs_bindgen_1f6a4a088740d7bc :: CInt -> IO ()
+hs_bindgen_1f6a4a088740d7bc :: T -> IO ()
 -- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_foo@
 hs_bindgen_1f6a4a088740d7bc = \x_0 -> hs_bindgen_1f6a4a088740d7bc_base (toFFIType x_0)
 {-| __C declaration:__ @foo@
@@ -98,7 +130,7 @@ hs_bindgen_1f6a4a088740d7bc = \x_0 -> hs_bindgen_1f6a4a088740d7bc_base (toFFITyp
 
     __exported by:__ @macros\/redeclaration\/identical_semantics.h@
 -}
-foo_unsafe :: CInt -> IO ()
+foo_unsafe :: T -> IO ()
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/redeclaration\/identical_semantics.h 3:6@
@@ -111,7 +143,7 @@ foreign import ccall unsafe "hs_bindgen_69080a62615bc0d8" hs_bindgen_69080a62615
     CInt
  -> IO ()
 -- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_bar@
-hs_bindgen_69080a62615bc0d8 :: CInt -> IO ()
+hs_bindgen_69080a62615bc0d8 :: T -> IO ()
 -- __unique:__ @test_macrosredeclarationidentical_Example_Unsafe_bar@
 hs_bindgen_69080a62615bc0d8 = \x_0 -> hs_bindgen_69080a62615bc0d8_base (toFFIType x_0)
 {-| __C declaration:__ @bar@
@@ -120,7 +152,7 @@ hs_bindgen_69080a62615bc0d8 = \x_0 -> hs_bindgen_69080a62615bc0d8_base (toFFITyp
 
     __exported by:__ @macros\/redeclaration\/identical_semantics.h@
 -}
-bar_unsafe :: CInt -> IO ()
+bar_unsafe :: T -> IO ()
 {-| __C declaration:__ @bar@
 
     __defined at:__ @macros\/redeclaration\/identical_semantics.h 5:6@
@@ -132,7 +164,7 @@ bar_unsafe = hs_bindgen_69080a62615bc0d8
 foreign import ccall unsafe "hs_bindgen_a17f85783f80f294" hs_bindgen_a17f85783f80f294_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_macrosredeclarationidentical_Example_get_foo@
-hs_bindgen_a17f85783f80f294 :: IO (FunPtr (CInt -> IO ()))
+hs_bindgen_a17f85783f80f294 :: IO (FunPtr (T -> IO ()))
 -- __unique:__ @test_macrosredeclarationidentical_Example_get_foo@
 hs_bindgen_a17f85783f80f294 = fmap fromFFIType hs_bindgen_a17f85783f80f294_base
 {-# NOINLINE foo_funptr #-}
@@ -142,7 +174,7 @@ hs_bindgen_a17f85783f80f294 = fmap fromFFIType hs_bindgen_a17f85783f80f294_base
 
     __exported by:__ @macros\/redeclaration\/identical_semantics.h@
 -}
-foo_funptr :: FunPtr (CInt -> IO ())
+foo_funptr :: FunPtr (T -> IO ())
 {-| __C declaration:__ @foo@
 
     __defined at:__ @macros\/redeclaration\/identical_semantics.h 3:6@
@@ -154,7 +186,7 @@ foo_funptr = unsafePerformIO hs_bindgen_a17f85783f80f294
 foreign import ccall unsafe "hs_bindgen_fbbde3e7da8ad667" hs_bindgen_fbbde3e7da8ad667_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_macrosredeclarationidentical_Example_get_bar@
-hs_bindgen_fbbde3e7da8ad667 :: IO (FunPtr (CInt -> IO ()))
+hs_bindgen_fbbde3e7da8ad667 :: IO (FunPtr (T -> IO ()))
 -- __unique:__ @test_macrosredeclarationidentical_Example_get_bar@
 hs_bindgen_fbbde3e7da8ad667 = fmap fromFFIType hs_bindgen_fbbde3e7da8ad667_base
 {-# NOINLINE bar_funptr #-}
@@ -164,7 +196,7 @@ hs_bindgen_fbbde3e7da8ad667 = fmap fromFFIType hs_bindgen_fbbde3e7da8ad667_base
 
     __exported by:__ @macros\/redeclaration\/identical_semantics.h@
 -}
-bar_funptr :: FunPtr (CInt -> IO ())
+bar_funptr :: FunPtr (T -> IO ())
 {-| __C declaration:__ @bar@
 
     __defined at:__ @macros\/redeclaration\/identical_semantics.h 5:6@
