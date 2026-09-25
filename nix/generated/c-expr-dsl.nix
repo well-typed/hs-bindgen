@@ -8,8 +8,8 @@ mkDerivation {
   version = "0.1.0.1";
   src = fetchgit {
     url = "https://github.com/well-typed/c-expr";
-    sha256 = "0s1fzpgy24nmd12jjkhvy3fgbchxpvlpzp8l6n0gwkxjpp2w7rg9";
-    rev = "3a14842b502fcc3553bf4073b433cad4df63a628";
+    sha256 = "1m089b4rv3cmzgfxwv8yg36fb4ra1iy60g8j0gh2mxpcj3cd3daf";
+    rev = "c557239af747ac324c84d7022f08931edb890b9e";
     fetchSubmodules = true;
   };
   postUnpack = "sourceRoot+=/c-expr-dsl; echo source root reset to $sourceRoot";
