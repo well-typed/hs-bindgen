@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE ForeignFunctionInterface #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
