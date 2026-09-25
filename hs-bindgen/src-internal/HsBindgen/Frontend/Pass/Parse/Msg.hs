@@ -218,10 +218,13 @@ data DelayedParseMsg =
 
     -- | Unexposed type
     --
-    -- In some cases, @libclang@ does not expose information about a type.  For
-    -- example, this happens with the standard library declaration of @malloc@
-    -- and other memory allocation functions, as LLVM/Clang handles them
-    -- specially in order to optimize memory allocation.
+    -- In some cases, @libclang@ does not expose information about a type. For
+    -- example, LLVM/Clang 22 gives the @size_t@ arguments and results of
+    -- library builtins such as @malloc@ and @strlen@ the predefined sugar type
+    -- @__size_t@, which its @libclang@ does not classify (see
+    -- <https://github.com/llvm/llvm-project/issues/192268>). LLVM/Clang 23
+    -- fixes this, by reporting these as 'CXType_PredefinedSugar' instead, which
+    -- we handle.
   | ParseUnexposedType
 
     -- | Unsupported unnamed declaration inside @extern@

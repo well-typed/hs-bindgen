@@ -286,6 +286,8 @@
   chain rather than a single `Maybe (Id p)`)
 * Skip over declarations with unexposed types (such as `malloc`), primarily in
   support of LLVM/Clang 22.
+* Support LLVM/Clang 23. See
+  [#2235](https://github.com/well-typed/hs-bindgen/issues/2235).
 * Extract Haddock documentation from C headers using doxygen. When the `doxygen`
   binary is available on `PATH`, `hs-bindgen` invokes it to parse structured
   documentation comments (Javadoc/Doxygen-style `/** ... */`) and translates

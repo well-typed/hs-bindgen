@@ -39,6 +39,7 @@ testCases = [
     , test_fun_attributes_conflict
     , test_hash_defines
     , test_hash_defines_select_all
+    , test_libc_builtins
     , test_not_visible_decl
     , test_simple_func
     , test_simple_func_rename
@@ -130,6 +131,12 @@ hashDefines = [
     , C.HashDefine "MY_SIZE"    "8"
     , C.HashDefine "MY_EMPTY"   ""
     ]
+
+test_libc_builtins :: TestCase
+test_libc_builtins =
+    defaultTest "functions/libc_builtins"
+      -- LLVM/Clang 22 reports __size_t as unexposed, so we skip these functions
+      & #clangVersion .~ Just (\(major, _minor, _patch) -> major /= 22)
 
 test_not_visible_decl :: TestCase
 test_not_visible_decl =

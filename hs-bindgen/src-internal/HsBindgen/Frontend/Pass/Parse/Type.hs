@@ -74,6 +74,7 @@ cxtype ty = do
       CXType_FunctionProto   -> function True
       CXType_IncompleteArray -> incompleteArray
       CXType_Pointer         -> pointer
+      CXType_PredefinedSugar -> predefinedSugar
       CXType_Record          -> fromDecl
       CXType_Typedef         -> fromDecl
       CXType_Void            -> const (pure C.TypeVoid)
@@ -115,6 +116,12 @@ complex ty = do
 
 elaborated :: CXType -> ParseType (C.Type Parse)
 elaborated = clang_Type_getNamedType >=> cxtype
+
+-- LLVM/Clang 23 and later use this for the @size_t@ arguments and results of
+-- library builtins such as @malloc@. We parse the underlying integer type
+-- (the canonical type) instead, as LLVM/Clang 21 and earlier report.
+predefinedSugar :: CXType -> ParseType (C.Type Parse)
+predefinedSugar = clang_getCanonicalType >=> cxtype
 
 pointer :: CXType -> ParseType (C.Type Parse)
 pointer = clang_getPointeeType >=> fmap (C.TypePointers 1) . cxtype
