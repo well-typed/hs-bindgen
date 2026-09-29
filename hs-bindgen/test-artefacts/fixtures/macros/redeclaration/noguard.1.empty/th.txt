@@ -1,0 +1,2 @@
+-- addDependentFile test-artefacts/headers/golden/macros/redeclaration/noguard_inner.h
+-- addDependentFile test-artefacts/headers/golden/macros/redeclaration/noguard.h

@@ -22,13 +22,12 @@ import HsBindgen.Macro.Error (MacroParseError)
 import HsBindgen.Macro.Parse
 
 data MacroDefinition = MacroDefinition {
-    name     :: Text
-  , locRange :: Range MultiLoc
+    name  :: Text
     -- | The definition, split into name, parameters and body
     --
     -- The split is language-independent and happens once, while parsing; see
     -- 'splitMacro'.
-  , macro    :: Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
+  , macro :: Either MacroParseError (Runtime.Macro.Raw (Token TokenSpelling))
   }
 
 data MacroInvocation = MacroInvocation {

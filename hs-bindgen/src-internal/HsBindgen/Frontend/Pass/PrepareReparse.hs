@@ -4,7 +4,6 @@ module HsBindgen.Frontend.Pass.PrepareReparse (
 
 import Prelude hiding (lex, print)
 
-import Control.Monad (forM_)
 import Crypto.Hash.SHA256 (hash)
 import Data.ByteString.Base16 qualified as B16
 import Data.ByteString.Char8 qualified as B
@@ -29,15 +28,13 @@ import HsBindgen.Frontend.Pass.PrepareReparse.Parser (parse)
 import HsBindgen.Frontend.Pass.PrepareReparse.Preprocessor (preprocess)
 import HsBindgen.Frontend.Pass.PrepareReparse.Printer (print)
 import HsBindgen.Frontend.Pass.PrepareReparse.Simplifier (simplify)
-import HsBindgen.Frontend.Pass.PrepareReparse.Tracer (traceBelated,
-                                                      traceImmediate)
+import HsBindgen.Frontend.Pass.PrepareReparse.Tracer (traceImmediate)
 import HsBindgen.Frontend.Pass.PrepareReparse.Update (UpdateMode (..), update)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckMacros)
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Syntax (MacroDefinition)
 import HsBindgen.Util.Tracer (Tracer)
 
 {-------------------------------------------------------------------------------
@@ -50,10 +47,9 @@ prepareReparse ::
   -> Maybe ClangExe
   -> ClangSetup
   -> RootHeader
-  -> [MacroDefinition]
   -> C.TranslationUnit l TypecheckMacros
   -> IO (C.TranslationUnit l PrepareReparse)
-prepareReparse tr clangExeMay setup root macroDefs unit = do
+prepareReparse tr clangExeMay setup root unit = do
     case clangExeMay of
       -- When we can't find the @clang@ executable, return the fallback value.
       Nothing -> do
@@ -98,18 +94,12 @@ prepareReparse tr clangExeMay setup root macroDefs unit = do
                     Left e -> do
                       traceImmediate tr $ PrepareReparseParsePreprocessorOutputFailed e
                       returnFallback
-                    Right postHeader -> do
-                      let (unit', msgs) = runUpdater macroDefs postHeader unit
-                      forM_ msgs $ traceBelated tr
-                      pure unit'
+                    Right postHeader ->
+                      pure $ runUpdater postHeader unit
   where
     -- | Default to flattening tokens without expanding macro invocations.
     returnFallback :: IO (C.TranslationUnit l PrepareReparse)
-    returnFallback = do
-        forM_ msgs $ traceBelated tr
-        pure unit'
-      where
-        (unit', msgs) = update UpdateOnlyFlatten unit
+    returnFallback = pure $ update UpdateOnlyFlatten unit
 
 {-------------------------------------------------------------------------------
   Cut
@@ -144,15 +134,12 @@ runParser :: [Token] -> Either ParseError PostHeader
 runParser = parse
 
 runUpdater ::
-    [MacroDefinition]
-  -> PostHeader
+     PostHeader
   -> C.TranslationUnit l TypecheckMacros
-  -> ( C.TranslationUnit l PrepareReparse
-     , [AnnMsg PrepareReparse]
-     )
-runUpdater macroDefs header unit = update mode unit
+  -> C.TranslationUnit l PrepareReparse
+runUpdater header unit = update mode unit
   where
-    mode = UpdatePreprocessAndFlatten preprocessedMap macroDefs
+    mode = UpdatePreprocessAndFlatten preprocessedMap
     preprocessedMap :: Map Tag Decl
     preprocessedMap = Map.fromList [
           (tag, decl)

@@ -1,0 +1,16 @@
+-- addDependentFile test-artefacts/headers/golden/macros/redeclaration/main_header_inner.h
+-- addDependentFile test-artefacts/headers/golden/macros/redeclaration/main_header.h
+{-| __C declaration:__ @macro V@
+
+    __defined at:__ @macros\/redeclaration\/main_header.h 5:9@
+
+    __exported by:__ @macros\/redeclaration\/main_header.h@
+-}
+v :: CInt
+{-| __C declaration:__ @macro V@
+
+    __defined at:__ @macros\/redeclaration\/main_header.h 5:9@
+
+    __exported by:__ @macros\/redeclaration\/main_header.h@
+-}
+v = 3 :: CInt
