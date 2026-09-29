@@ -21,6 +21,7 @@ tests getTestResources = testGroup "Integration.PreprocessLibrary" [
       testBasicRun getTestResources
     , testExceptLibrary getTestResources
     , testDryRun getTestResources
+    , testGenBindingSpecDir getTestResources
     , testSelectByHeaderPath getTestResources
     , if caseInsensitiveFS
       then testCase "collision detection (skipped: case-insensitive FS)" $
@@ -117,6 +118,22 @@ testDryRun getTestResources =
           ("modules to generate" `isInfixOf` stdout)
         assertFilesAbsent "dry-run should not generate files"
           [ tmpDir </> "MyLib" </> "Mylib" </> "Types.hs"
+          ]
+
+testGenBindingSpecDir :: IO TestResources -> TestTree
+testGenBindingSpecDir getTestResources =
+    testCase "--gen-binding-spec-dir keeps one binding spec per module" $
+      withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
+        root <- getTestResources
+        let specDir = tmpDir </> "specs"
+        (exitCode, _stdout, stderr) <- runLibraryMode root tmpDir
+          ["--gen-binding-spec-dir", specDir]
+        exitCode @?= ExitSuccess
+        assertFilesExist stderr
+          [ specDir </> "MyLib" </> "Mylib.yaml"
+          , specDir </> "MyLib" </> "Mylib" </> "Types.yaml"
+          , specDir </> "MyLib" </> "Mylib" </> "Ops.yaml"
+          , specDir </> "MyLib" </> "Mylib" </> "Internal.yaml"
           ]
 
 testSelectByHeaderPath :: IO TestResources -> TestTree

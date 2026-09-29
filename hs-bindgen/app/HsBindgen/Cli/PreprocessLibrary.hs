@@ -21,7 +21,8 @@ module HsBindgen.Cli.PreprocessLibrary (
 import Control.Monad (foldM_)
 import Data.Text qualified as Text
 import Options.Applicative
-import System.Directory (canonicalizePath, createDirectoryIfMissing)
+import System.Directory (canonicalizePath, createDirectoryIfMissing,
+                         doesDirectoryExist)
 import System.Exit (ExitCode (..), exitSuccess, exitWith)
 import System.FilePath (takeDirectory, (<.>), (</>))
 import System.IO.Temp (withSystemTempDirectory)
@@ -56,6 +57,7 @@ data Opts = Opts {
     , exceptLibraryRoot :: [Regex]
     , dryRun            :: Bool
     , listModules       :: Bool
+    , genBindingSpecDir :: Maybe FilePath
     }
   deriving (Generic)
 
@@ -66,6 +68,7 @@ parseOpts =
       <*> many parseExceptLibrary
       <*> parseDryRun
       <*> parseListModules
+      <*> optional parseGenBindingSpecDir
 
 parseLibraryRoot :: Parser FilePath
 parseLibraryRoot = strOption $ mconcat [
@@ -104,6 +107,17 @@ parseListModules :: Parser Bool
 parseListModules = switch $ mconcat [
       long "list-modules"
     , help "Print generated module names one per line (library mode)"
+    ]
+
+parseGenBindingSpecDir :: Parser FilePath
+parseGenBindingSpecDir = strOption $ mconcat [
+      long "gen-binding-spec-dir"
+    , metavar "DIR"
+    , help $ concat [
+          "Directory to write per-module binding specifications to "
+        , "(library mode). Without it they go to a temporary directory "
+        , "that is removed after the run."
+        ]
     ]
 
 {-------------------------------------------------------------------------------
@@ -175,11 +189,20 @@ exec global config uniqueId baseModuleName qualifiedStyle outputOptions
       printPlan filtered modules
       exitSuccess
 
+    -- Same rule as for --hs-output-dir: the directory itself needs
+    -- --create-output-dirs, module subdirectories are created as needed.
+    forM_ opts.genBindingSpecDir $ \dir -> do
+      exists <- doesDirectoryExist dir
+      unless (exists || dirPolicy == CreateOutputDirs) $ do
+        putStrLn $ "Error: binding spec directory does not exist: " ++ dir
+        exitWith (ExitFailure 4)
+
     let step = StepArgs {..}
 
     eErr <- withTracer global.unsafe $ \tracer -> do
       let ppTracer = contramap TracePreprocessLibrary tracer
-      executePlan global step ppTracer roots (map fst modules)
+      executePlan global step ppTracer roots opts.genBindingSpecDir
+        (map fst modules)
 
     case eErr of
       Right () -> pure ()
@@ -221,16 +244,25 @@ data StepArgs = StepArgs {
 -- predicate and program slicing enabled, chaining binding specs from earlier
 -- steps as external specs so cross-module type references resolve.
 --
+-- The specs are written to the @--gen-binding-spec-dir@ directory when one is
+-- given; otherwise they live in a temporary directory removed after the run.
+--
 executePlan ::
      GlobalOpts
   -> StepArgs
   -> Tracer PreprocessLibraryMsg
   -> [FilePath]
+  -> Maybe FilePath
   -> [RealPath]
   -> IO ()
-executePlan global step tracer roots headers =
-    withSystemTempDirectory "hs-bindgen-library" $ \tempDir ->
-      foldM_ (executeStep global step tracer roots tempDir) [] headers
+executePlan global step tracer roots mSpecDir headers =
+    case mSpecDir of
+      Just specDir -> run specDir
+      Nothing      -> withSystemTempDirectory "hs-bindgen-library" run
+  where
+    run :: FilePath -> IO ()
+    run specDir =
+      foldM_ (executeStep global step tracer roots specDir) [] headers
 
 executeStep ::
      GlobalOpts
@@ -241,9 +273,9 @@ executeStep ::
   -> [FilePath]
   -> RealPath
   -> IO [FilePath]
-executeStep global step tracer roots tempDir accSpecs hdr = do
+executeStep global step tracer roots specDir accSpecs hdr = do
     let modName = deriveModuleName roots step.baseModuleName hdr
-        bsPath  = tempDir </> moduleToPath modName <.> "yaml"
+        bsPath  = specDir </> moduleToPath modName <.> "yaml"
 
         -- Narrow to declarations from this header, pull transitive
         -- dependencies via program slicing and feed in the accumulated specs.

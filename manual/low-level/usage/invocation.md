@@ -230,6 +230,31 @@ and `--except-library` filters before running the full generation.
 `--list-modules` prints module names one per line (suitable for pasting into a
 `.cabal` file) and exits.
 
+### Binding specifications
+
+Library mode writes one binding specification per module and passes each to
+the later steps as an external binding specification. By default these files
+live in a temporary directory that is removed when the run ends. To keep them,
+pass `--gen-binding-spec-dir DIR`:
+
+```
+hs-bindgen-cli preprocess \
+    --library /usr/include/rpm \
+    --gen-binding-spec-dir binding-specs \
+    ...
+```
+
+Each specification goes to a path derived from its module name, so
+`RPM.Rpmtypes` ends up in `binding-specs/RPM/Rpmtypes.yaml`. Pass these files
+to later `hs-bindgen` runs with `--external-binding-spec` so they reuse the
+generated types instead of generating their own.
+
+As with `--hs-output-dir`, `DIR` must exist unless `--create-output-dirs` is
+given, and existing files are only replaced with `--overwrite-files`.
+
+`--gen-binding-spec` names a single file, so library mode ignores it and
+emits a notice pointing at `--gen-binding-spec-dir`.
+
 ### Module name collisions
 
 The naming scheme can produce collisions. Library mode detects them before

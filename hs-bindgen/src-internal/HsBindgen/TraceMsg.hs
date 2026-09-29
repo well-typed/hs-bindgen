@@ -71,7 +71,8 @@ data TraceMsg =
 data PreprocessLibraryMsg =
     PreprocessLibraryProcessing RealPath String
     -- | @--gen-binding-spec@ was passed in library mode, where it has no
-    -- effect: per-module binding specs live in a temporary directory.
+    -- effect: library mode writes one spec per module, and only
+    -- @--gen-binding-spec-dir@ says where.
   | PreprocessLibraryGenBindingSpecIgnored
   deriving stock (Show)
 
@@ -85,8 +86,7 @@ instance PrettyForTrace PreprocessLibraryMsg where
       ]
     PreprocessLibraryGenBindingSpecIgnored -> string $ concat [
         "--gen-binding-spec is ignored in library mode; "
-      , "per-module binding specs are only used between steps "
-      , "and are not written out"
+      , "use --gen-binding-spec-dir to keep the per-module binding specs"
       ]
 
 instance IsTrace Level PreprocessLibraryMsg where

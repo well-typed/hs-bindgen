@@ -106,6 +106,9 @@ execSingleHeader global opts = do
     when opts.configLibrary.listModules $ do
       putStrLn "Error: --list-modules requires --library"
       exitFailure
+    when (isJust opts.configLibrary.genBindingSpecDir) $ do
+      putStrLn "Error: --gen-binding-spec-dir requires --library"
+      exitFailure
 
     hsBindgen
       global.unsafe
