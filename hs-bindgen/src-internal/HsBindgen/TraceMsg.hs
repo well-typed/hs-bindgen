@@ -69,7 +69,9 @@ data TraceMsg =
 -------------------------------------------------------------------------------}
 
 data PreprocessLibraryMsg =
-    PreprocessLibraryProcessing RealPath String
+    -- | Generating one module from these headers (more than one when they
+    -- include each other)
+    PreprocessLibraryProcessing (NonEmpty RealPath) String
     -- | @--gen-binding-spec@ was passed in library mode, where it has no
     -- effect: library mode writes one spec per module, and only
     -- @--gen-binding-spec-dir@ says where.
@@ -78,9 +80,9 @@ data PreprocessLibraryMsg =
 
 instance PrettyForTrace PreprocessLibraryMsg where
   prettyForTrace = \case
-    PreprocessLibraryProcessing header modName -> hsep [
+    PreprocessLibraryProcessing headers modName -> hsep [
         string "Processing:"
-      , string $ getRealPath header
+      , string $ List.intercalate ", " (map getRealPath (toList headers))
       , string "->"
       , string modName
       ]

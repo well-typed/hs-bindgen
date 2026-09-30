@@ -18,6 +18,7 @@ module HsBindgen.Frontend.Analysis.IncludeGraph (
     -- * Query
   , reaches
   , toSortedList
+  , toSortedComponents
   , getIncludes
     -- * Include order
   , IncludeOrder -- opaque
@@ -36,6 +37,7 @@ module HsBindgen.Frontend.Analysis.IncludeGraph (
 import Data.Digraph (Digraph)
 import Data.Digraph qualified as Digraph
 import Data.List qualified as List
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
@@ -159,6 +161,16 @@ reaches includeGraph path =
 
 toSortedList :: IncludeGraph -> [RealPath]
 toSortedList = mapMaybe headerPath . Digraph.sort . (.graph)
+
+-- | Headers grouped by include cycle, in the order of 'toSortedList'
+--
+-- Headers that include each other, directly or through other headers, form one
+-- group. Every other header is a group of its own.
+toSortedComponents :: IncludeGraph -> [NonEmpty RealPath]
+toSortedComponents =
+      mapMaybe (NonEmpty.nonEmpty . mapMaybe headerPath . NonEmpty.toList)
+    . Digraph.sortComponents
+    . (.graph)
 
 getIncludes ::
      IncludeGraph

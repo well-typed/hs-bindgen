@@ -1,5 +1,6 @@
 module Test.HsBindgen.Integration.PreprocessLibrary (tests) where
 
+import Control.Exception (evaluate)
 import Data.List (isInfixOf)
 import System.Directory (doesFileExist)
 import System.Exit (ExitCode (..))
@@ -23,6 +24,7 @@ tests getTestResources = testGroup "Integration.PreprocessLibrary" [
     , testDryRun getTestResources
     , testGenBindingSpecDir getTestResources
     , testSelectByHeaderPath getTestResources
+    , testIncludeCycle getTestResources
     , if caseInsensitiveFS
       then testCase "collision detection (skipped: case-insensitive FS)" $
              pure ()
@@ -63,11 +65,39 @@ runLibraryMode root tmpDir extraArgs = do
        ] ++ extraArgs)
       ""
 
+-- | Library mode over one directory of headers, with base module @M@
+runLibraryModeIn ::
+     FilePath  -- ^ Header directory, also the @--library@ directory
+  -> FilePath  -- ^ Root header, relative to that directory
+  -> FilePath  -- ^ Output directory
+  -> [String]
+  -> IO (ExitCode, String, String)
+runLibraryModeIn dir header tmpDir extraArgs =
+    readProcessWithExitCode "hs-bindgen-cli"
+      ([ "preprocess"
+       , "-I", dir
+       , "--library", dir
+       , "--module", "M"
+       , "--hs-output-dir", tmpDir
+       , "--unique-id", "test-pl"
+       , "--create-output-dirs"
+       , "--overwrite-files"
+       , dir </> header
+       ] ++ extraArgs)
+      ""
+
 assertFilesExist :: String -> [FilePath] -> IO ()
 assertFilesExist label paths =
     mapM_ (\f -> do
       exists <- doesFileExist f
       assertBool (label ++ ": expected " ++ f) exists) paths
+
+-- | Read a whole file, so no handle is left open when the directory is removed
+readFileStrict :: FilePath -> IO String
+readFileStrict path = do
+    contents <- readFile path
+    _ <- evaluate (length contents)
+    pure contents
 
 assertFilesAbsent :: String -> [FilePath] -> IO ()
 assertFilesAbsent label paths =
@@ -151,6 +181,28 @@ testSelectByHeaderPath getTestResources =
           [ tmpDir </> "MyLib" </> "Mylib" </> "Ops" </> "Safe.hs"
           , tmpDir </> "MyLib" </> "Mylib" </> "Internal.hs"
           ]
+
+testIncludeCycle :: IO TestResources -> TestTree
+testIncludeCycle getTestResources =
+    testCase "headers that include each other share one module" $
+      withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
+        root <- getTestResources
+        (exitCode, _stdout, stderr) <- runLibraryModeIn
+          (headerDir root </> "golden" </> "program-analysis")
+          "circular_includes.h" tmpDir []
+        exitCode @?= ExitSuccess
+        let unitModule =
+              tmpDir </> "M" </> "Circular_includes_Circular_includes_inner.hs"
+        assertFilesExist stderr [unitModule]
+        assertFilesAbsent stderr
+          [ tmpDir </> "M" </> "Circular_includes.hs"
+          , tmpDir </> "M" </> "Circular_includes_inner.hs"
+          ]
+        contents <- readFileStrict unitModule
+        assertBool "expected declarations from circular_includes.h" $
+          "OUTER_BEFORE_CIRCULAR_INCLUDE" `isInfixOf` contents
+        assertBool "expected declarations from circular_includes_inner.h" $
+          "INNER_BEFORE_CIRCULAR_INCLUDE" `isInfixOf` contents
 
 testCollisionDetected :: IO TestResources -> TestTree
 testCollisionDetected getTestResources =

@@ -272,10 +272,12 @@
 * Support bit-fields in unions. See [issue #1253][is-1253].
 * Library mode for `preprocess` (`--library`): walks a library's include
   graph (topologically sorted) and generates one Haskell module per header under
-  the `--library` directories, with per-header selection predicates and
-  program slicing enabled. `--dry-run` shows the plan; `--list-modules` prints
-  module names for `.cabal` files; `--gen-binding-spec-dir` keeps the
-  per-module binding specifications. See [PR #2255][pr-2255].
+  the `--library` directories, with per-module selection predicates and
+  program slicing enabled. Headers that include each other share one module,
+  named after all of them (`a.h` and `b.h` give `Lib.A_B`). `--dry-run` shows
+  the plan; `--list-modules` prints module names for `.cabal` files;
+  `--gen-binding-spec-dir` keeps the per-module binding specifications. See
+  [PR #2255][pr-2255].
 
 ### Minor changes
 

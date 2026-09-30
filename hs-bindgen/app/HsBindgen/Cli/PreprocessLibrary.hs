@@ -2,8 +2,9 @@
 
 -- | Library-mode execution for @hs-bindgen preprocess --library@.
 --
--- Walks the include graph, assigns each sub-header its own Haskell module,
--- and runs the binding generator once per module in dependency order.
+-- Walks the include graph, assigns each sub-header its own Haskell module
+-- (headers that include each other share one), and runs the binding generator
+-- once per module in dependency order.
 -- Binding specs are chained between steps so cross-module type references
 -- resolve.
 --
@@ -19,6 +20,7 @@ module HsBindgen.Cli.PreprocessLibrary (
   ) where
 
 import Control.Monad (foldM_)
+import Data.List qualified as List
 import Data.Text qualified as Text
 import Options.Applicative
 import System.Directory (canonicalizePath, createDirectoryIfMissing,
@@ -44,9 +46,9 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
 import HsBindgen.PreprocessLibrary.Naming (LibraryHeaderResult (..),
-                                           deriveModuleName, detectCollisions,
+                                           LibraryUnit (..), detectCollisions,
                                            filterByLibraryRoot, formatCollision,
-                                           moduleToPath)
+                                           mkLibraryUnit, moduleToPath)
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -78,7 +80,8 @@ parseLibraryRoot = strOption $ mconcat [
           "Activates library mode. "
         , "Directory containing library headers (module-generation scope). "
         , "Only headers whose normalised path is under a library directory "
-        , "get their own Haskell module. Also determines the base path "
+        , "get a Haskell module; headers that include each other share one. "
+        , "Also determines the base path "
         , "for deriving module names. "
         , "Repeatable. "
         , "This is NOT the clang search path (-I)."
@@ -126,7 +129,8 @@ parseGenBindingSpecDir = strOption $ mconcat [
 
 -- | Run the library-mode pipeline: discover headers via the include graph,
 -- filter by library directories, check for collisions, then generate one module
--- per header in dependency order.
+-- per unit (a header, or the headers of one include cycle) in dependency
+-- order.
 exec ::
      GlobalOpts
   -> Config
@@ -159,18 +163,17 @@ exec global config uniqueId baseModuleName qualifiedStyle outputOptions
 
     roots <- mapM canonicalizePath opts.libraryRoots
 
-    -- Filter headers to those under a library directory, derive module names.
-    let allHeaders = IncludeGraph.toSortedList includeGraph
-        filtered   = filterByLibraryRoot roots opts.exceptLibraryRoot allHeaders
-        modules    = [ (h, deriveModuleName roots baseModuleName h)
-                     | h <- filtered.included
-                     ]
+    -- Filter headers to those under a library directory, then name one module
+    -- per include-cycle group.
+    let components = IncludeGraph.toSortedComponents includeGraph
+        filtered   = filterByLibraryRoot roots opts.exceptLibraryRoot components
+        units      = map (mkLibraryUnit roots baseModuleName) filtered.included
 
     let checkCategories = case outputOptions.mode of
           FilePerModule -> True
           SingleFile{}  -> False
 
-    case detectCollisions checkCategories modules of
+    case detectCollisions checkCategories units of
       collisions@(_ : _) -> do
         putStrLn "Error: module name collisions detected"
         putStrLn ""
@@ -182,11 +185,11 @@ exec global config uniqueId baseModuleName qualifiedStyle outputOptions
     -- Generating the @.cabal@ file itself is tracked in
     -- <https://github.com/well-typed/hs-bindgen/issues/2103>.
     when opts.listModules $ do
-      mapM_ (\(_, m) -> putStrLn (Text.unpack m.text)) modules
+      mapM_ (\unit -> putStrLn (Text.unpack unit.moduleName.text)) units
       exitSuccess
 
     when opts.dryRun $ do
-      printPlan filtered modules
+      printPlan filtered units
       exitSuccess
 
     -- Same rule as for --hs-output-dir: the directory itself needs
@@ -201,8 +204,7 @@ exec global config uniqueId baseModuleName qualifiedStyle outputOptions
 
     eErr <- withTracer global.unsafe $ \tracer -> do
       let ppTracer = contramap TracePreprocessLibrary tracer
-      executePlan global step ppTracer roots opts.genBindingSpecDir
-        (map fst modules)
+      executePlan global step ppTracer opts.genBindingSpecDir units
 
     case eErr of
       Right () -> pure ()
@@ -210,25 +212,43 @@ exec global config uniqueId baseModuleName qualifiedStyle outputOptions
         print $ prettyForTrace err
         exitWith (ExitFailure 3)
 
-printPlan :: LibraryHeaderResult -> [(RealPath, BaseModuleName)] -> IO ()
-printPlan filtered modules = do
+-- | Print one line per header; the headers of an include cycle share a module.
+printPlan :: LibraryHeaderResult -> [LibraryUnit] -> IO ()
+printPlan filtered units = do
     putStrLn $ concat [
-        show (length modules), " modules to generate"
-      , case length filtered.excluded of
-          0 -> ""
-          n -> " (" ++ show n ++ " excluded by --except-library)"
+        show (length units), " modules to generate"
+      , case notes of
+          [] -> ""
+          _  -> " (" ++ List.intercalate "; " notes ++ ")"
       ]
     putStrLn ""
-    mapM_ (\(hdr, m) ->
-      putStrLn $ "  " ++ getRealPath hdr ++ " -> " ++ Text.unpack m.text
-      ) modules
+    forM_ units $ \unit -> forM_ unit.headers $ \hdr ->
+      putStrLn $ concat [
+          "  ", getRealPath hdr, " -> ", Text.unpack unit.moduleName.text
+        ]
+  where
+    cycles :: Int
+    cycles = length [ () | unit <- units, length unit.headers > 1 ]
+
+    notes :: [String]
+    notes = concat [
+        [ concat [
+              show (sum [ length unit.headers | unit <- units ]), " headers, "
+            , show cycles, " include cycle", if cycles == 1 then "" else "s"
+            ]
+        | cycles > 0
+        ]
+      , [ show n ++ " excluded by --except-library"
+        | let n = length filtered.excluded
+        , n > 0
+        ]
+      ]
 
 -- | Values that are constant across all steps; bundled to avoid threading
--- nine arguments through foldM_.
+-- eight arguments through foldM_.
 data StepArgs = StepArgs {
       config         :: Config
     , uniqueId       :: UniqueId
-    , baseModuleName :: BaseModuleName
     , qualifiedStyle :: QualifiedStyle
     , outputOptions  :: OutputOptions
     , hsOutputDir    :: FilePath
@@ -251,37 +271,35 @@ executePlan ::
      GlobalOpts
   -> StepArgs
   -> Tracer PreprocessLibraryMsg
-  -> [FilePath]
   -> Maybe FilePath
-  -> [RealPath]
+  -> [LibraryUnit]
   -> IO ()
-executePlan global step tracer roots mSpecDir headers =
+executePlan global step tracer mSpecDir units =
     case mSpecDir of
       Just specDir -> run specDir
       Nothing      -> withSystemTempDirectory "hs-bindgen-library" run
   where
     run :: FilePath -> IO ()
     run specDir =
-      foldM_ (executeStep global step tracer roots specDir) [] headers
+      foldM_ (executeStep global step tracer specDir) [] units
 
 executeStep ::
      GlobalOpts
   -> StepArgs
   -> Tracer PreprocessLibraryMsg
-  -> [FilePath]
   -> FilePath
   -> [FilePath]
-  -> RealPath
+  -> LibraryUnit
   -> IO [FilePath]
-executeStep global step tracer roots specDir accSpecs hdr = do
-    let modName = deriveModuleName roots step.baseModuleName hdr
+executeStep global step tracer specDir accSpecs unit = do
+    let modName = unit.moduleName
         bsPath  = specDir </> moduleToPath modName <.> "yaml"
 
-        -- Narrow to declarations from this header, pull transitive
+        -- Narrow to declarations from this unit's headers, pull transitive
         -- dependencies via program slicing and feed in the accumulated specs.
         stepConfig = step.config {
             selectionPredicate =
-              BAnd (selectionFor hdr) step.config.selectionPredicate
+              BAnd (unitSelection unit) step.config.selectionPredicate
           , programSlicing     = EnableProgramSlicing
           , bindingSpec        = step.config.bindingSpec {
                 extBindingSpecs =
@@ -312,7 +330,7 @@ executeStep global step tracer roots specDir accSpecs hdr = do
           writeBindingSpec step.filePolicy step.dirPolicy bsPath
 
     traceWith tracer $ withCallStack $
-      PreprocessLibraryProcessing hdr (Text.unpack modName.text)
+      PreprocessLibraryProcessing unit.headers (Text.unpack modName.text)
 
     createDirectoryIfMissing True (takeDirectory bsPath)
     hsBindgen global.unsafe global.safe bindgenConfig step.inputs artefact
@@ -322,9 +340,12 @@ executeStep global step tracer roots specDir accSpecs hdr = do
 -- | Selection predicates
 --
 -- For each step, we build a predicate matching only declarations from the
--- target header, using PCRE \Q..\E quoting so special characters in paths
+-- unit's headers, using PCRE \Q..\E quoting so special characters in paths
 -- need no escaping.
 --
+unitSelection :: LibraryUnit -> Boolean SelectionPredicate
+unitSelection unit = foldr1 BOr (fmap selectionFor unit.headers)
+
 selectionFor :: RealPath -> Boolean SelectionPredicate
 selectionFor path =
     BIf (SelectHeader (HeaderPathMatches (exactMatch path)))

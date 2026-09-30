@@ -140,8 +140,9 @@ Run `hs-bindgen-cli --help` for details.
 
 When `--library DIR` is passed, `preprocess` switches to library mode: it
 walks the include graph of the root header(s), assigns each discovered
-sub-header its own Haskell module, and runs the binding generator once per
-module in dependency order. Each step receives the binding specifications from
+sub-header its own Haskell module (headers that include each other share one,
+see [include cycles][t:include-cycles]), and runs the binding generator once
+per module in dependency order. Each step receives the binding specifications from
 all previous steps as external binding specifications, so cross-module type
 references resolve correctly.
 
@@ -167,9 +168,10 @@ This command:
    includes all RPM public headers.
 2. Walks the include graph to discover every header reachable from the root.
 3. Filters headers to those under `--library /usr/include/rpm`.
-4. Topologically sorts the filtered headers.
-5. For each header, derives a Haskell module name, constructs a selection
-   predicate targeting that header's declarations, enables program slicing, and
+4. Groups headers that include each other, directly or through other headers,
+   and topologically sorts the groups. Most groups hold a single header.
+5. For each group, derives a Haskell module name, constructs a selection
+   predicate targeting the group's declarations, enables program slicing, and
    runs the binding generator.
 6. Chains binding specifications: each step receives the binding specifications
    from all previous steps as external binding specifications, so cross-module
@@ -221,14 +223,39 @@ Module names are derived from each header's normalised path relative to the
 | `/usr/include/rpm` | `/usr/include/rpm/rpmtypes.h` | `RPM.Rpmtypes` |
 | `/usr/include` | `/usr/include/rpm/argv.h` | `RPM.Rpm.Argv` |
 
+### Include cycles
+[t:include-cycles]: #include-cycles
+
+Include guards and `#pragma once` let headers include each other, directly or
+through other headers. No processing order puts each of those headers after
+the ones it depends on, so library mode generates a single module for the
+whole group. That module is named after all of its headers: they are sorted by
+path, the directories they share appear once, and the rest of each header's
+path is joined with `_`. With `--module Lib`, and paths relative to the
+`--library` directory:
+
+| Headers that include each other | Module name |
+|---|---|
+| `a.h`, `b.h` | `Lib.A_B` |
+| `widget/core.h`, `widget/util.h` | `Lib.Widget.Core_Util` |
+| `widget/core.h`, `util/log.h` | `Lib.UtilLog_WidgetCore` |
+
+A cycle that passes through a header outside the `--library` directories, or
+through one excluded by `--except-library`, still puts the library headers on
+it into one module. The other header gets no module and does not appear in the
+name.
+
 ### Dry run and module listing
 
 `--dry-run` prints the processing plan (which headers produce which modules)
 and exits without generating any files. Useful for verifying the `--library`
-and `--except-library` filters before running the full generation.
+and `--except-library` filters before running the full generation. Headers
+that include each other are listed with the same module name, and the summary
+line counts the include cycles.
 
 `--list-modules` prints module names one per line (suitable for pasting into a
-`.cabal` file) and exits.
+`.cabal` file) and exits. Each module is listed once, including those shared
+by an include cycle.
 
 ### Binding specifications
 

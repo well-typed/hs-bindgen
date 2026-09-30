@@ -4,8 +4,11 @@
 --
 -- > import HsBindgen.PreprocessLibrary.Naming qualified as Naming
 module HsBindgen.PreprocessLibrary.Naming (
+    -- * Library units
+    LibraryUnit(..)
+  , mkLibraryUnit
     -- * Module naming
-    deriveModuleName
+  , deriveModuleName
   , moduleToPath
   , isUnderDir
     -- * Library-root filtering
@@ -18,8 +21,12 @@ module HsBindgen.PreprocessLibrary.Naming (
   ) where
 
 import Data.Char qualified as Char
+import Data.Foldable (toList)
 import Data.List qualified as List
+import Data.List.NonEmpty (NonEmpty (..))
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
+import Data.Maybe (mapMaybe)
 import Data.Text (Text)
 import Data.Text qualified as Text
 import System.FilePath (dropExtension, isRelative, joinPath, makeRelative,
@@ -29,6 +36,68 @@ import Clang.Paths
 
 import HsBindgen.Config.Prelims (BaseModuleName (..), termCategorySuffix)
 import HsBindgen.Frontend.Predicate (Regex, matchTest)
+
+{-------------------------------------------------------------------------------
+  Library units
+-------------------------------------------------------------------------------}
+
+-- | Headers that share one Haskell module
+--
+-- A unit is usually a single header. Headers that include each other,
+-- directly or through other headers, form one unit: no processing order puts
+-- each of them after every header it depends on, so they are processed in a
+-- single step.
+data LibraryUnit = LibraryUnit {
+      -- | Sorted by path
+      headers    :: NonEmpty RealPath
+    , moduleName :: BaseModuleName
+    }
+  deriving stock (Show, Eq)
+
+-- | Build the unit for a group of headers from the include graph.
+--
+-- A single header gets its 'deriveModuleName' name. A group is named after
+-- all of its headers, sorted by path so the name does not depend on include
+-- order: the directories they share appear once, then each header's
+-- remaining path components, concatenated, joined with @_@.
+--
+-- @
+-- [a.h, b.h]                   -> Base.A_B
+-- [widget\/core.h, widget\/util.h] -> Base.Widget.Core_Util
+-- [widget\/core.h, util\/log.h]    -> Base.UtilLog_WidgetCore
+-- @
+mkLibraryUnit :: [FilePath]        -- ^ Library directories (@--library@)
+              -> BaseModuleName
+              -> NonEmpty RealPath -- ^ Headers in one include cycle
+              -> LibraryUnit
+mkLibraryUnit roots base component = LibraryUnit {
+      headers    = sorted
+    , moduleName = case sorted of
+        hdr :| [] -> deriveModuleName roots base hdr
+        _         -> joinModuleName base (dirs ++ [cycleName])
+    }
+  where
+    sorted = NonEmpty.sort component
+
+    perHeader :: NonEmpty [Text]
+    perHeader = fmap (moduleComponents roots) sorted
+
+    -- Directories shared by every header; never includes a file name
+    dirs :: [Text]
+    dirs = case fmap dropLast perHeader of
+      c :| cs -> List.foldl' commonPrefix c cs
+
+    cycleName :: Text
+    cycleName = Text.intercalate "_"
+      [ Text.concat (drop (length dirs) c)
+      | c <- toList perHeader
+      ]
+
+    dropLast :: [a] -> [a]
+    dropLast xs = take (length xs - 1) xs
+
+    commonPrefix :: Eq a => [a] -> [a] -> [a]
+    commonPrefix xs ys = map fst . takeWhile (uncurry (==)) $ zip xs ys
 
 -- | Derive a Haskell module name from a header's normalised path.
 --
@@ -44,8 +113,12 @@ deriveModuleName :: [FilePath]      -- ^ Library directories (@--library@)
                  -> BaseModuleName
                  -> RealPath
                  -> BaseModuleName
-deriveModuleName roots (BaseModuleName base) rp =
-    BaseModuleName $ base <> "." <> Text.intercalate "." components
+deriveModuleName roots base rp =
+    joinModuleName base (moduleComponents roots rp)
+
+-- | Module name components of a header, relative to the library directories
+moduleComponents :: [FilePath] -> RealPath -> [Text]
+moduleComponents roots rp = components
   where
     path = getRealPath rp
 
@@ -63,6 +136,10 @@ deriveModuleName roots (BaseModuleName base) rp =
 
     capitalize [] = []
     capitalize (c : cs) = Char.toUpper c : cs
+
+joinModuleName :: BaseModuleName -> [Text] -> BaseModuleName
+joinModuleName (BaseModuleName base) components =
+    BaseModuleName $ base <> "." <> Text.intercalate "." components
 
 -- | Convert a dotted module name to a file path (e.g. @"A.B.C"@ to @"A\/B\/C"@).
 moduleToPath :: BaseModuleName -> FilePath
@@ -84,36 +161,42 @@ isUnderDir path dir = isRelative (makeRelative dir path)
 
 -- | Result of filtering the include graph by library directories and exclusions.
 data LibraryHeaderResult = LibraryHeaderResult {
-      included     :: [RealPath]
+      -- | Headers that get a module, grouped by include cycle
+      included     :: [NonEmpty RealPath]
     , outsideRoots :: [RealPath]
     , excluded     :: [RealPath]
     }
 
 -- | Filter headers to those under a library directory and not excluded.
 --
--- A header gets its own Haskell module when its normalised path falls under
--- at least one library directory AND does not match any exclusion pattern.
+-- A header gets a Haskell module when its normalised path falls under at least
+-- one library directory AND does not match any exclusion pattern. Filtering
+-- keeps the include-cycle groups; a group left with no headers is dropped.
 --
 filterByLibraryRoot ::
      [FilePath]
      -- ^ Normalised library directories (@--library@)
   -> [Regex]
      -- ^ Exclusion patterns (@--except-library@)
-  -> [RealPath]
-     -- ^ All headers from the include graph (topologically sorted)
+  -> [NonEmpty RealPath]
+     -- ^ All headers from the include graph, grouped by include cycle
+     -- (topologically sorted)
   -> LibraryHeaderResult
-filterByLibraryRoot roots excludePatterns sorted =
+filterByLibraryRoot roots excludePatterns components =
     LibraryHeaderResult {
-        included     = includedHdrs
+        included     = mapMaybe (NonEmpty.nonEmpty . filter isIncluded . toList)
+                         components
       , outsideRoots = outsideHdrs
       , excluded     = excludedHdrs
       }
   where
     isUnderRoot rp = any (getRealPath rp `isUnderDir`) roots
     isExcluded  rp = any (\re -> matchTest re (getRealPathText rp)) excludePatterns
+    isIncluded  rp = isUnderRoot rp && not (isExcluded rp)
 
-    (underRoots  , outsideHdrs)  = List.partition isUnderRoot sorted
-    (excludedHdrs, includedHdrs) = List.partition isExcluded underRoots
+    (underRoots, outsideHdrs) =
+      List.partition isUnderRoot (concatMap toList components)
+    excludedHdrs = filter isExcluded underRoots
 
 {-------------------------------------------------------------------------------
   Collision detection
@@ -136,14 +219,16 @@ filterByLibraryRoot roots excludePatterns sorted =
      file both resolve to M/Foo/Safe.hs.
 
   Classes 1 and 2 are caught by the direct collision check (same
-  BaseModuleName from different headers). Class 3 requires expanding
-  each base name with the category suffixes Safe, Unsafe, FunPtr, and
-  Global (matching HsBindgen.Config.Prelims.fromBaseModuleName).
+  BaseModuleName from different units; the headers of one include cycle
+  share a unit, so they never collide with each other). Class 3 requires
+  expanding each base name with the category suffixes Safe, Unsafe,
+  FunPtr, and Global (matching HsBindgen.Config.Prelims.fromBaseModuleName).
 -------------------------------------------------------------------------------}
 
+-- | Colliding units are given by their headers
 data Collision
-  = DirectCollision Text [RealPath]
-  | CategoryOverlap Text RealPath Text RealPath Text
+  = DirectCollision Text [NonEmpty RealPath]
+  | CategoryOverlap Text (NonEmpty RealPath) Text (NonEmpty RealPath) Text
   deriving stock (Show, Eq)
 
 -- | Detect module name collisions that would cause output files to
@@ -157,21 +242,24 @@ data Collision
 detectCollisions ::
      Bool
      -- ^ Check category overlaps (True for FilePerModule)
-  -> [(RealPath, BaseModuleName)]
+  -> [LibraryUnit]
   -> [Collision]
-detectCollisions checkCategories modules =
+detectCollisions checkCategories units =
     directCollisions ++ categoryOverlaps
   where
-    byBase :: Map.Map Text [RealPath]
+    modules :: [(NonEmpty RealPath, BaseModuleName)]
+    modules = [ (unit.headers, unit.moduleName) | unit <- units ]
+
+    byBase :: Map.Map Text [NonEmpty RealPath]
     byBase = Map.fromListWith (++)
-      [ (base, [hdr])
-      | (hdr, BaseModuleName base) <- modules
+      [ (base, [hdrs])
+      | (hdrs, BaseModuleName base) <- modules
       ]
 
     directCollisions =
-      [ DirectCollision m hdrs
-      | (m, hdrs) <- Map.toList byBase
-      , length hdrs > 1
+      [ DirectCollision m hdrss
+      | (m, hdrss) <- Map.toList byBase
+      , length hdrss > 1
       ]
 
     categorySuffixes :: [Text]
@@ -189,17 +277,20 @@ detectCollisions checkCategories modules =
           ]
 
 formatCollision :: Collision -> String
-formatCollision (DirectCollision m hdrs) = unlines $
+formatCollision (DirectCollision m hdrss) = unlines $
     [ "  Module name collision: " ++ Text.unpack m
     , "  Headers mapping to the same module:"
     ] ++
-    [ "    " ++ Text.unpack (getRealPathText h)
-    | h <- hdrs
+    [ "    " ++ formatUnitHeaders hdrs
+    | hdrs <- hdrss
     ]
 formatCollision (CategoryOverlap m h1 r1 h2 r2) = unlines
     [ "  Category overlap on: " ++ Text.unpack m
-    , "    " ++ Text.unpack (getRealPathText h1)
-         ++ " (" ++ Text.unpack r1 ++ ")"
-    , "    " ++ Text.unpack (getRealPathText h2)
-         ++ " (" ++ Text.unpack r2 ++ ")"
+    , "    " ++ formatUnitHeaders h1 ++ " (" ++ Text.unpack r1 ++ ")"
+    , "    " ++ formatUnitHeaders h2 ++ " (" ++ Text.unpack r2 ++ ")"
     ]
+
+-- | The headers of one unit, comma-separated
+formatUnitHeaders :: NonEmpty RealPath -> String
+formatUnitHeaders =
+    List.intercalate ", " . map (Text.unpack . getRealPathText) . toList
