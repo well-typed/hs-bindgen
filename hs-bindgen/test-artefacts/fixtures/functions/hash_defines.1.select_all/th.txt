@@ -37,6 +37,26 @@
 -- {
 --   return &hash_defines_empty;
 -- }
+{-| __C declaration:__ @macro MY_FEATURE@
+
+    __defined at:__ @root directive@
+-}
+mY_FEATURE :: CInt
+{-| __C declaration:__ @macro MY_FEATURE@
+
+    __defined at:__ @root directive@
+-}
+mY_FEATURE = 1 :: CInt
+{-| __C declaration:__ @macro MY_SIZE@
+
+    __defined at:__ @root directive@
+-}
+mY_SIZE :: CInt
+{-| __C declaration:__ @macro MY_SIZE@
+
+    __defined at:__ @root directive@
+-}
+mY_SIZE = 8 :: CInt
 {-| __C declaration:__ @struct hash_defines_buffer@
 
     __defined at:__ @functions\/hash_defines.h 14:8@

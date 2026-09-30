@@ -276,7 +276,7 @@ test_fun_arg_typedef path =
 -- | Selection predicate for 'test_fun_arg_typedef' tests
 test_fun_arg_typedef_selectionPredicate :: Boolean SelectionPredicate
 test_fun_arg_typedef_selectionPredicate =
-    BOr (BIf $ SelectDecl (DeclNameMatches "A|B|C|D|E|(My.*)"))
+    BOr (BIf $ SelectDecl (DeclNameMatches "\\b(A|B|C|D|E)$|My"))
         (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
 
 {-------------------------------------------------------------------------------
@@ -361,7 +361,7 @@ test_fun_arg_macro path =
 -- | Selection predicate for 'test_fun_arg_macro' tests
 test_fun_arg_macro_selectionPredicate :: Boolean SelectionPredicate
 test_fun_arg_macro_selectionPredicate =
-    BOr (BIf $ SelectDecl (DeclNameMatches "A|B|C|D|E|(My.*)"))
+    BOr (BIf $ SelectDecl (DeclNameMatches "\\b(A|B|C|D|E)$|My"))
         (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
 
 {-------------------------------------------------------------------------------

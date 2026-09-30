@@ -149,7 +149,7 @@ data MState = MState {
       traces    :: [AnnMsg ResolveBindingSpecs] -- ^ reverse order
     , extTypes  :: Map C.DeclId (ExtBinding ResolveBindingSpecs)
     , noPTypes  :: Map C.DeclId [Set RealPath]
-    , omitTypes :: Map C.DeclId (SingleLoc RealPath)
+    , omitTypes :: Map C.DeclId (SingleLoc C.DeclPath)
     , opqTypes  :: Set C.DeclId -- ^ opaqued types
     }
   deriving (Show, Generic)
@@ -185,7 +185,7 @@ deleteNoPType cDeclId path = #noPTypes %~ Map.update (aux []) cDeclId
         | otherwise -> aux (s : acc) ss
       [] -> Just acc
 
-insertOmittedType :: C.DeclId -> SingleLoc RealPath -> MState -> MState
+insertOmittedType :: C.DeclId -> SingleLoc C.DeclPath -> MState -> MState
 insertOmittedType cDeclId sloc = #omitTypes %~ Map.insert cDeclId sloc
 
 {-------------------------------------------------------------------------------
@@ -218,9 +218,24 @@ resolveTop ::
            , (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
            )
        )
-resolveTop decl = Reader.ask >>= \env -> do
-    let realPath   = singleLocPath decl.info.loc
-        declPaths  = IncludeGraph.reaches env.includeGraph realPath
+resolveTop decl = case singleLocPath decl.info.loc of
+    C.InHeader realPath -> resolveTopInHeader realPath decl
+    -- Not in any header, so no binding specification refers to it
+    C.InRootHeader      -> return $ Just (decl, (Nothing, Nothing))
+    C.OnCommandLine     -> return $ Just (decl, (Nothing, Nothing))
+
+resolveTopInHeader ::
+     HasCallStack
+  => RealPath
+  -> C.Decl l PreviousPass
+  -> M l
+       ( Maybe
+           ( C.Decl l PreviousPass
+           , (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
+           )
+       )
+resolveTopInHeader realPath decl = Reader.ask >>= \env -> do
+    let declPaths  = IncludeGraph.reaches env.includeGraph realPath
         mMsg       = Just $ withCallStack $ ResolveBindingSpecsOmittedType decl.info.id
     isExt <- isJust <$>
       resolveExtBinding
@@ -728,8 +743,9 @@ resolveUseSite ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
                   locs = DeclIndex.unusableToLoc x
                   declPaths =
                     foldMap
-                      (IncludeGraph.reaches env.includeGraph . singleLocPath)
-                      (C.declLocsToList locs)
+                      (IncludeGraph.reaches env.includeGraph)
+                      (mapMaybe (C.declPathRealPath . singleLocPath) $
+                        C.declLocsToList locs)
               mTy <- resolveExtBinding cDeclId locs declPaths Nothing
               case mTy of
                 Just ty -> do

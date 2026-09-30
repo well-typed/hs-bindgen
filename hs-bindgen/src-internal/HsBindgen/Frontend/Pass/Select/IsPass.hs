@@ -144,7 +144,7 @@ data TransitiveDependencyMissing =
     -- | Transitive dependency is 'UnusableEntry'.
     TransitiveDependencyUnusable C.DeclId UnusableEntry
     -- | Transitive dependency is not selected.
-  | TransitiveDependencyNotSelected C.DeclId [SingleLoc RealPath]
+  | TransitiveDependencyNotSelected C.DeclId [SingleLoc C.DeclPath]
   deriving stock (Show)
 
 instance PrettyForTrace TransitiveDependencyMissing where

@@ -382,6 +382,13 @@ parseSelectionPredicate = fmap aux . many . asum $ [
           long "select-from-main-header-dirs"
         , help "Select declarations in main header directories"
         ]
+    , flag' (Right (BIf (SelectHeader FromAllHeaders))) $ mconcat [
+          long "select-from-all-headers"
+        , help $ concat [
+              "Select declarations in any header"
+            , " (unlike --select-all, not root directives or -D options)"
+            ]
+        ]
     , fmap (Right . BIf . SelectHeader . HeaderPathMatches) $ strOption $ mconcat [
           long "select-by-header-path"
         , metavar "PCRE"

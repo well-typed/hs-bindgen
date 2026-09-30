@@ -45,11 +45,11 @@ if impl(ghc >= 9.14)
 source-repository-package
    type:     git
    location: https://github.com/well-typed/libclang-bindings
-   tag:      bbe36f72bad01dbd5af25562e1759e4952391051
+   tag:      d67fb98d54301f1ef1bce08c643808d704fec813
    subdir:   libclang-bindings
 
 source-repository-package
    type:     git
    location: https://github.com/well-typed/c-expr
-   tag:      0a53616d231686e97b20b3fe631956cf2678f996
+   tag:      58858ac3c30a87f3a00d5b89371ee469e759cdd6
    subdir:   c-expr-dsl

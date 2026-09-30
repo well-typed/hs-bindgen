@@ -34,7 +34,7 @@ import HsBindgen.Util.Tracer
 type ParseResult :: Star -> Pass -> Star
 data ParseResult l p = ParseResult{
       id             :: Id p
-    , loc            :: SingleLoc RealPath
+    , loc            :: SingleLoc C.DeclPath
     , classification :: ParseClassification l p
     }
     deriving (Generic)

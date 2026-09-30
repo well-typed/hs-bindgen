@@ -1,6 +1,7 @@
 -- | Golden tests: macros
 module Test.HsBindgen.Golden.Macros (testCases) where
 
+import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex (UnusableReason (..))
 import HsBindgen.Frontend.Pass.Parse.IsPass (EmptyMacros (..))
@@ -36,6 +37,10 @@ testCases = [
     , defaultTest "macros/parse/macro_typedef_scope"
     , defaultTest "macros/undef"
       -- Bespoke tests
+    , test_command_line_uses
+    , test_command_line_uses_no_slicing
+    , test_command_line_redefined
+    , test_command_line_redefined_hash_define
     , test_empty_body
     , test_empty_body_parse
     , test_gnu_variadic
@@ -59,6 +64,62 @@ testCases = [
 {-------------------------------------------------------------------------------
   Individual test definitions
 -------------------------------------------------------------------------------}
+
+-- | Macros defined by @-D@ options are declarations
+--
+-- Program slicing selects the ones the header uses.
+test_command_line_uses :: TestCase
+test_command_line_uses =
+    defaultTest "macros/command_line/uses"
+      & #onBoot     .~ ( #clangArgs % #argsAfter .~ commandLineUsesArgs )
+      & #onFrontend .~ ( #programSlicing .~ EnableProgramSlicing )
+
+-- | Without program slicing, the default predicate does not select macros
+-- defined by @-D@ options, and so neither the declarations that use them
+test_command_line_uses_no_slicing :: TestCase
+test_command_line_uses_no_slicing =
+    testVariant "macros/command_line/uses" Nothing "no_slicing"
+      & #onBoot         .~ ( #clangArgs % #argsAfter .~ commandLineUsesArgs )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name (MatchTransMissing _) ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["struct S", "macro W"]
+
+commandLineUsesArgs :: [String]
+commandLineUsesArgs = ["-DT=int", "-DV=1", "-DF(x)=((x)+1)"]
+
+-- | A header redefines a macro defined by a @-D@ option: a conflict
+test_command_line_redefined :: TestCase
+test_command_line_redefined =
+    defaultTest "macros/command_line/redefined"
+      & #onBoot         .~ ( #clangArgs % #argsAfter .~ ["-DT=int"] )
+      & #tracePredicate .~ commandLineRedefinedTracePredicate
+
+-- | A header redefines a macro defined by a @#define@ root directive: a
+-- conflict
+test_command_line_redefined_hash_define :: TestCase
+test_command_line_redefined_hash_define =
+    testVariant "macros/command_line/redefined" Nothing "hash_define"
+      & #hashDefines    .~ [C.HashDefine "T" "int"]
+      & #tracePredicate .~ commandLineRedefinedTracePredicate
+
+commandLineRedefinedTracePredicate :: TracePredicate Level TraceMsg
+commandLineRedefinedTracePredicate =
+    multiTracePredicate declsWithMsgs $ \case
+      MatchDiagnosticCategory "Lexical or Preprocessor Issue" ->
+        Just $ Expected "redefinition"
+      MatchSelect _name SelectConflict{} ->
+        Just $ Expected "conflict"
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [String]
+    declsWithMsgs = ["redefinition", "conflict"]
 
 -- | An empty macro body is legal C, but by default we do not parse it.
 --
@@ -283,28 +344,28 @@ test_parse_simple :: TestCase
 test_parse_simple =
     defaultTest "macros/parse/simple"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectionPredicate .~ BTrue
+          & #selectionPredicate .~ BIf (SelectHeader FromAllHeaders)
           )
 
 test_parse_elaborate :: TestCase
 test_parse_elaborate =
     defaultTest "macros/parse/elaborate"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectionPredicate .~ BTrue
+          & #selectionPredicate .~ BIf (SelectHeader FromAllHeaders)
           )
 
 test_parse_intermittent_include :: TestCase
 test_parse_intermittent_include =
     defaultTest "macros/parse/intermittent_include"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectionPredicate .~ BTrue
+          & #selectionPredicate .~ BIf (SelectHeader FromAllHeaders)
           )
 
 test_parse_intermittent_include_conditional :: TestCase
 test_parse_intermittent_include_conditional =
     defaultTest "macros/parse/intermittent_include_conditional"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectionPredicate .~ BTrue
+          & #selectionPredicate .~ BIf (SelectHeader FromAllHeaders)
           )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchDiagnosticCategory "Lexical or Preprocessor Issue" ->
@@ -325,7 +386,7 @@ test_parse_macro_typedef_scope_multiple :: TestCase
 test_parse_macro_typedef_scope_multiple =
     defaultTest "macros/parse/macro_typedef_scope_multiple"
       & #onFrontend .~ (\cfg -> cfg
-          & #selectionPredicate .~ BTrue
+          & #selectionPredicate .~ BIf (SelectHeader FromAllHeaders)
           )
 
 test_wrong_source_location :: TestCase

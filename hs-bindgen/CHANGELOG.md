@@ -135,6 +135,19 @@
   reported like any other macro that failed to translate. By default, empty
   macros are not parsed at all, since include guards have this shape. See
   [issue #2246][is-2246].
+* Macros defined by `-D` Clang options or by `#define` root directives
+  (`--hash-define`) are now declarations. They are not in any header, so the
+  default selection predicate does not select them; program slicing selects the
+  ones a selected declaration uses. A declaration using one, such as `struct S
+  { T x; };` with `-DT=int`, is therefore deselected without program slicing
+  (previously, `x` was a `CInt`), just as if `T` were defined in a header that
+  is not a main header; with program slicing, `x` has the macro type `T`.
+  `--select-all` selects all of these macros, including the `-D` options the
+  Clang driver adds itself, such as `-D__GCC_HAVE_DWARF2_CFI_ASM=1`, and so
+  does `--select-by-decl-name` when its pattern matches their names. Generated
+  binding specifications omit these macros as well. See also the new selection
+  predicate `--select-from-all-headers` ("New features"), which selects all
+  declaration that are in headers. See [issue #2280][is-2280].
 
 ### New features
 
@@ -271,6 +284,11 @@
   [issue #2121][is-2121] and [PR #2164][pr-2164].
 * Support bit-fields in unions. See [issue #1253][is-1253].
 
+* A new CLI option `--select-from-all-headers` (`SelectHeader FromAllHeaders`
+  in TH mode) selects every declaration in a header. Unlike `--select-all`, it
+  does not select macros defined by `-D` Clang options or by root directives.
+  See [issue #2280][is-2280].
+
 ### Minor changes
 
 * The `c-expr-dsl` and `c-expr-runtime` libraries have been extracted into their
@@ -319,8 +337,16 @@
   AST.
 * Correct usage of the term "anonymous". See [issue #1893][is-1893].
 
+* `hs-bindgen-cli info builtin-macros` no longer lists macros defined by `-D`
+  Clang options, including the ones the Clang driver adds itself. See [issue
+  #2280][is-2280].
+
 ### Bug fixes
 
+* A header that uses a macro defined by a `-D` Clang option or by a `#define`
+  root directive (`--hash-define`), and then redefines it, no longer makes
+  `hs-bindgen` panic. The redefinition is now a conflict, like two differing
+  definitions in a header. See [issue #2280][is-2280].
 * A macro definition whose name is followed immediately by a token other than
   `(`, such as `#define A+1`, is now object-like rather than unparsable. It no
   longer counts as ambiguous, so declarations using it can be pre-expanded
@@ -451,6 +477,7 @@
 [is-1884]: https://github.com/well-typed/hs-bindgen/issues/1884
 [is-1891]: https://github.com/well-typed/hs-bindgen/issues/1891
 [is-1893]: https://github.com/well-typed/hs-bindgen/issues/1893
+[is-1956]: https://github.com/well-typed/hs-bindgen/issues/1956
 [is-2012]: https://github.com/well-typed/hs-bindgen/issues/2012
 [is-2049]: https://github.com/well-typed/hs-bindgen/issues/2049
 [is-2059]: https://github.com/well-typed/hs-bindgen/issues/2059
@@ -473,6 +500,7 @@
 [is-2245]: https://github.com/well-typed/hs-bindgen/issues/2245
 [is-2246]: https://github.com/well-typed/hs-bindgen/issues/2246
 [is-2264]: https://github.com/well-typed/hs-bindgen/issues/2264
+[is-2280]: https://github.com/well-typed/hs-bindgen/issues/2280
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1917]: https://github.com/well-typed/hs-bindgen/pull/1917

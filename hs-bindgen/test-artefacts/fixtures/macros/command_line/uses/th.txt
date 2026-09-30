@@ -1,0 +1,98 @@
+-- addDependentFile test-artefacts/headers/golden/macros/command_line/uses.h
+{-| __C declaration:__ @macro T@
+
+    __defined at:__ @command line@
+-}
+newtype T
+    = T {unwrapT :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
+instance (~) ty CInt => HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro V@
+
+    __defined at:__ @command line@
+-}
+v :: CInt
+{-| __C declaration:__ @macro V@
+
+    __defined at:__ @command line@
+-}
+v = 1 :: CInt
+{-| __C declaration:__ @macro F@
+
+    __defined at:__ @command line@
+-}
+f :: forall a_0 . Add a_0 CInt => a_0 -> AddRes a_0 CInt
+{-| __C declaration:__ @macro F@
+
+    __defined at:__ @command line@
+-}
+f = \x_0 -> (+) x_0 (1 :: CInt)
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @macros\/command_line\/uses.h 7:8@
+
+    __exported by:__ @macros\/command_line\/uses.h@
+-}
+data S
+    = S {s_x :: T
+         {- ^ __C declaration:__ @x@
+
+              __defined at:__ @macros\/command_line\/uses.h 7:14@
+
+              __exported by:__ @macros\/command_line\/uses.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_x") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_x_2 -> writeRaw (Proxy @"s_x") ptr_0 s_x_2
+deriving via (EquivStorable S) instance Storable S
+deriving via (IsStructViaReadRaw S) instance IsStruct S
+instance (~) ty T => HasField "s_x" S ty
+    where hasField = \x_0 -> (\y_1 -> S{s_x = y_1},
+                              getField @"s_x" x_0)
+instance (~) ty T => HasField "s_x" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_x")
+instance HasCField S "s_x"
+    where type CFieldType S "s_x" = T
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro W@
+
+    __defined at:__ @macros\/command_line\/uses.h 9:9@
+
+    __exported by:__ @macros\/command_line\/uses.h@
+-}
+w :: CInt
+{-| __C declaration:__ @macro W@
+
+    __defined at:__ @macros\/command_line\/uses.h 9:9@
+
+    __exported by:__ @macros\/command_line\/uses.h@
+-}
+w = f v

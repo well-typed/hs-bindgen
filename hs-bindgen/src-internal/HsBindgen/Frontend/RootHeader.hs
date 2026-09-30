@@ -55,7 +55,7 @@ fromRootDirectives directives = (msgs, RootHeader directives)
 
 -- | Root header @UnsavedFile@ name
 name :: SourcePath
-name = SourcePath "hs-bindgen-root.h"
+name = C.rootHeaderName
 
 -- | Root header content
 --

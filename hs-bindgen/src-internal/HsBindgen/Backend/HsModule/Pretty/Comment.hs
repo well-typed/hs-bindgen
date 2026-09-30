@@ -79,14 +79,23 @@ instance Pretty CommentKind where
           , (\lit -> "__C literal:__ @"
                 >< PP.text (escapeMidLine lit)
                 >< "@") <$> comment.literal
-          , (\p -> "__defined at:__ @"
-                >< uncurry prettyHashIncludeArgLoc p
+          , (\d -> "__defined at:__ @"
+                >< d
                 >< "@"
-            ) <$> (liftA2 (,) comment.headerInfo comment.location)
+            ) <$> (prettyDeclOrigin =<< comment.declOrigin)
           , (\hinfo -> "__exported by:__ @"
                     >< prettyMainHeaders hinfo
-                    >< "@") <$> comment.headerInfo
+                    >< "@") <$> (headerInfo =<< comment.declOrigin)
           ]
+        prettyDeclOrigin :: C.DeclOrigin -> Maybe CtxDoc
+        prettyDeclOrigin = \case
+          C.FromHeader hinfo  -> prettyHashIncludeArgLoc hinfo <$> comment.location
+          C.FromRootDirective -> Just "root directive"
+          C.FromCommandLine   -> Just "command line"
+        headerInfo :: C.DeclOrigin -> Maybe C.HeaderInfo
+        headerInfo = \case
+          C.FromHeader hinfo -> Just hinfo
+          _otherwise         -> Nothing
         internalMetadata = catMaybes [
             (\u -> "__unique:__ @"
                >< PP.string u.source
@@ -139,7 +148,7 @@ instance Pretty CommentKind where
                      , PP.string commentEnd
                      ]
 
-prettyHashIncludeArgLoc :: C.HeaderInfo -> SingleLoc RealPath -> CtxDoc
+prettyHashIncludeArgLoc :: C.HeaderInfo -> SingleLoc C.DeclPath -> CtxDoc
 prettyHashIncludeArgLoc info loc =
     -- Text like @:1:2@ is mangled by the GHC literate preprocessor, so we
     -- cannot format source locations like that.

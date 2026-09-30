@@ -12,7 +12,6 @@ import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-import Clang.Paths (getRealPathText)
 
 import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
@@ -28,7 +27,6 @@ import HsBindgen.Frontend.Pass.Parse.Monad.Decl
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Parse.Type
-import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
@@ -87,20 +85,14 @@ parseDeclTopLevel macroLang curr = do
     -- potentially get the location twice. We could store the 'CXSourceLocation'
     -- next to all parse results and use it to retrieve the single location
     -- stored in the 'DeclInfo'.
-    loc     <- clang_getCursorLocation curr
-    declLoc <- multiLocExpansion <$> toMultiSourcePath loc
-    -- The root header is a synthetic in-memory file, so a @#define@ root
-    -- directive in it has no main header and 'withHeaderInfo' would fail the
-    -- parse (and it shouldn't have one). We consider root directives
-    -- configuration, not API. Do not attempt to parse it.
-    if RootHeader.isRootHeaderPath (singleLocPath declLoc) then foldContinue else do
-      nextDecls <- parseDecl' macroLang [] Nothing curr
-      -- Note the subtle difference between `foldContinue` and
-      -- `foldContinueWith []`: the 'Functor' instance of 'Next' drops values on
-      -- `Continue Nothing`, so a parser using `foldContinue` contributes no
-      -- entry to the result list here, whereas `foldContinueWith []`
-      -- contributes an empty entry (with location attached).
-      pure $ (loc,) <$> nextDecls
+    loc       <- clang_getCursorLocation curr
+    nextDecls <- parseDecl' macroLang [] Nothing curr
+    -- Note the subtle difference between `foldContinue` and
+    -- `foldContinueWith []`: the 'Functor' instance of 'Next' drops values on
+    -- `Continue Nothing`, so a parser using `foldContinue` contributes no entry
+    -- to the result list here, whereas `foldContinueWith []` contributes an
+    -- empty entry (with location attached).
+    pure $ (loc,) <$> nextDecls
 
 -- | Auxiliary function; use 'parseDeclNested' or 'parseDeclTopLevel'
 parseDecl' ::
@@ -196,10 +188,9 @@ parseDecl' macroLang enclosing mCtx = withCursorKindNoCtx $ \case
 
 -- | Parse declaration
 --
--- NOTE: We currently skip all built-ins. The only built-ins that can even
--- /have/ an associated declaration at all are macros. However, since we cannot
--- get the list of tokens for built-in macros, we would anyway need to
--- special-case them. For now we skip /all/ builtins.
+-- NOTE: We skip all built-ins. The only built-ins that can even /have/ an
+-- associated declaration at all are macros, and those configure the compiler
+-- rather than belong to the API.
 parseDeclWith ::
      forall l.
      [C.EnclosingRef Parse]
@@ -207,10 +198,10 @@ parseDeclWith ::
   -> ([C.EnclosingRef Parse] -> ParseCtx -> C.DeclInfo Parse -> Parser l)
   -> Parser l
 parseDeclWith enclosing ctx parser curr = do
-    mBuiltin <- checkIsBuiltin curr
-    case mBuiltin of
-      Just _name -> foldContinue
-      Nothing    -> withDeclInfo enclosing ctx parseExplicitDecl curr
+    source <- getCursorSource curr
+    case source of
+      SourceBuiltin      -> foldContinue
+      SourceDecl declLoc -> withDeclInfo enclosing ctx declLoc parseExplicitDecl curr
   where
     parseExplicitDecl :: C.DeclInfo Parse -> Parser l
     parseExplicitDecl info = \_curr ->
@@ -273,9 +264,8 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
 
     getMacroTokens :: CXCursor -> ParseDecl [Token SourcePath TokenSpelling]
     getMacroTokens curr' = do
-        unit'  <- getTranslationUnit
-        range  <- HighLevel.clang_getCursorExtent curr'
-        HighLevel.clang_tokenize unit' getRealPathText (multiLocExpansion <$> range)
+        unit' <- getTranslationUnit
+        HighLevel.clang_tokenize unit' =<< clang_getCursorExtent curr'
 
     getMacroName :: C.PrelimDeclId -> Maybe Text
     getMacroName = \case
@@ -497,7 +487,8 @@ macroExpansion = \curr -> do
     getTokens curr' = do
         unit'  <- getTranslationUnit
         range  <- HighLevel.clang_getCursorExtent curr'
-        (range,) <$> HighLevel.clang_tokenize unit' getRealPathText (multiLocExpansion <$> range)
+        tokens <- HighLevel.clang_tokenize unit' =<< clang_getCursorExtent curr'
+        pure (range, tokens)
 
     getMacroName :: [Token SourcePath TokenSpelling] -> Maybe Text
     getMacroName []    = Nothing
@@ -950,17 +941,15 @@ withCursorKind ctx k = \curr -> do
 -- | Parse with declaration info
 --
 -- The continuation is only called when the declaration info can be determined.
---
--- Must not be called on built-ins.
 withDeclInfo ::
      [C.EnclosingRef Parse]
   -> ParseCtx
+  -> SingleLoc C.DeclPath
   -> (C.DeclInfo Parse -> Parser l)
   -> Parser l
-withDeclInfo enclosing ctx k = \curr -> do
-    declId          <- C.prelimDeclIdAtCursor curr ctx.inner.kind
-    declLoc         <- HighLevel.clang_getCursorLocation' curr
-    (withHeaderInfo ctx declId declLoc $ \headerInfo ->
+withDeclInfo enclosing ctx declLoc k = \curr -> do
+    declId <- C.prelimDeclIdAtCursor curr ctx.inner.kind
+    (withOrigin ctx declId declLoc $ \origin ->
       withAvailability ctx declId declLoc $ \availability curr' -> do
         let info :: C.DeclInfo Parse
             info = C.DeclInfo{
@@ -970,7 +959,7 @@ withDeclInfo enclosing ctx k = \curr -> do
                   -- populate it when consolidating macros with non-macros in
                   -- "HsBindgen.Frontend.Pass.Parse".
                 , sourceOrderIndex = Nothing
-                , headerInfo       = headerInfo
+                , origin           = origin
                 , availability     = availability
                 , comment          = ()
                 , enclosing        = enclosing
@@ -983,7 +972,7 @@ withDeclInfo enclosing ctx k = \curr -> do
 withAvailability ::
      ParseCtx
   -> C.PrelimDeclId
-  -> SingleLoc RealPath
+  -> SingleLoc C.DeclPath
   -> (C.Availability -> Parser l)
   -> Parser l
 withAvailability ctx declId declLoc k = \curr -> do
@@ -1008,17 +997,33 @@ withAvailability ctx declId declLoc k = \curr -> do
       CXAvailability_NotAvailable  -> C.Unavailable
       CXAvailability_NotAccessible -> C.Unavailable
 
+-- | Continue with the origin of a declaration
+--
+-- The continuation is only called when the origin can be determined.
+withOrigin ::
+     ParseCtx
+  -> C.PrelimDeclId
+  -> SingleLoc C.DeclPath
+  -> (C.DeclOrigin -> Parser l)
+  -> Parser l
+withOrigin ctx declId declLoc k = case declLoc.singleLocPath of
+    C.OnCommandLine     -> k C.FromCommandLine
+    C.InRootHeader      -> k C.FromRootDirective
+    C.InHeader realPath ->
+      withHeaderInfo ctx declId declLoc realPath (k . C.FromHeader)
+
 -- | Continue with header information
 --
 -- The continuation is only called when the header information can be determined.
 withHeaderInfo ::
      ParseCtx
   -> C.PrelimDeclId
-  -> SingleLoc RealPath
+  -> SingleLoc C.DeclPath
+  -> RealPath
   -> (C.HeaderInfo -> Parser l)
   -> Parser l
-withHeaderInfo ctx declId declLoc k = \curr -> do
-  eRes <- evalGetMainHeadersAndInclude (singleLocPath declLoc)
+withHeaderInfo ctx declId declLoc realPath k = \curr -> do
+  eRes <- evalGetMainHeadersAndInclude realPath
   case eRes of
     Left err -> do
       failures <- parseFail ctx declId declLoc err

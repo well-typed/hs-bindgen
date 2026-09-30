@@ -49,7 +49,13 @@ testParseSourceOrder getTestResources =
         ["test-artefacts" </> "headers" </> "golden" </> "macros" </> "parse"]
         "elaborate.h"
         getParseResults
-    declNamesWithSourceOrderIndex <- forM results $ \result ->
+    -- The Clang driver may add @-D@ options of its own, such as
+    -- @-D__GCC_HAVE_DWARF2_CFI_ASM=1@.
+    let notFromCommandLine :: ParseResult CExpr Parse -> Bool
+        notFromCommandLine result = case getParseResultMaybeDecl result of
+          Just decl | C.FromCommandLine <- decl.info.origin -> False
+          _otherwise                                        -> True
+    declNamesWithSourceOrderIndex <- forM (filter notFromCommandLine results) $ \result ->
       case getParseResultMaybeDecl result of
         Nothing   -> assertFailure $ "parse failed: " ++ show result
         Just decl -> do
