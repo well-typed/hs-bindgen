@@ -203,13 +203,19 @@ during parsing and has no effect on which headers get modules.
 
 ### Selection predicates in library mode
 
-Selection predicates (`--select-by-header-path`, `--select-by-decl-name`,
-`--select-except-deprecated`, etc.) control which *declarations* get bindings
-within each generated module.  They are independent of `--library` and
-`--except-library`, which control which *headers* get modules.
+`--library` and `--except-library` control which *headers* get modules.
+Declaration predicates (`--select-by-decl-name`,
+`--select-except-by-decl-name`, `--select-except-deprecated`) control which
+*declarations* get bindings within each generated module. Without a positive
+predicate, every declaration in a module's headers is selected, rather than
+only the main headers as in single-header mode.
 
-In library mode the selection predicate defaults to all declarations,
-rather than only the main headers as in single-header, preprocess mode.
+Header predicates (`--select-from-main-headers`,
+`--select-from-main-header-dirs`, `--select-by-header-path` and
+`--select-except-by-header-path`) cannot be used with `--library`, and passing
+one is a usage error (exit code 2). Each module already selects the
+declarations of its own headers, so a header predicate could only leave modules
+from the plan empty. Use `--except-library` to leave a header out.
 
 ### Module naming
 

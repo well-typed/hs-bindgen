@@ -12,6 +12,7 @@ module HsBindgen.App (
     -- ** Bindgen configuration
   , Config
   , parseConfig
+  , parseConfigWithDefault
     -- ** Clang arguments
   , parseClangArgsConfig
     -- ** Translation option
@@ -234,13 +235,20 @@ parseShowCallStack = flag DisableCallStack EnableCallStack $ mconcat [
 type Config = Config_ FilePath
 
 parseConfig :: Parser Config
-parseConfig = Config
-    <$> parseClangArgsConfig
-    <*> parseBindingSpec
-    <*> parseSelectionPredicate
-    <*> parseProgramSlicing
-    <*> parseFieldNamingStrategy
-    <*> parseEmptyMacros
+parseConfig = ($ [def]) <$> parseConfigWithDefault
+
+-- | Like 'parseConfig', but the caller supplies the default positive selection
+-- predicates, used when no positive @--select-*@ flag is given.
+parseConfigWithDefault :: Parser ([Boolean SelectionPredicate] -> Config)
+parseConfigWithDefault = do
+    clang       <- parseClangArgsConfig
+    bindingSpec <- parseBindingSpec
+    selection   <- parseSelectionPredicate
+    slicing     <- parseProgramSlicing
+    naming      <- parseFieldNamingStrategy
+    macros      <- parseEmptyMacros
+    pure $ \defaultPositives ->
+      Config clang bindingSpec (selection defaultPositives) slicing naming macros
 
 {-------------------------------------------------------------------------------
   Binding specifications
@@ -368,16 +376,11 @@ parseClangOptionAfter = strOption $ mconcat [
   Predicates and slicing
 -------------------------------------------------------------------------------}
 
--- | Parse selection predicates, defaulting to @FromMainHeaders@.
-parseSelectionPredicate :: Parser (Boolean SelectionPredicate)
-parseSelectionPredicate = parseSelectionPredicateWith [def]
-
--- | Parse selection predicates with a caller-chosen default for when no
--- positive @--select-*@ flags are given.
-parseSelectionPredicateWith ::
-     [Boolean SelectionPredicate]
-  -> Parser (Boolean SelectionPredicate)
-parseSelectionPredicateWith defaultPositives = fmap aux . many . asum $ [
+-- | Parse selection predicates; the caller supplies the default positive
+-- predicates, used when no positive @--select-*@ flag is given.
+parseSelectionPredicate ::
+  Parser ([Boolean SelectionPredicate] -> Boolean SelectionPredicate)
+parseSelectionPredicate = fmap aux . many . asum $ [
       flag' (Right BTrue) $ mconcat [
           long "select-all"
         , help "Select all declarations"
@@ -421,13 +424,15 @@ parseSelectionPredicateWith defaultPositives = fmap aux . many . asum $ [
   where
     aux ::
          [Either (Boolean SelectionPredicate) (Boolean SelectionPredicate)]
-      -> (Boolean SelectionPredicate)
-    aux = uncurry mergeBooleans . fmap applyDefault . partitionEithers
-
-    applyDefault :: [Boolean SelectionPredicate] -> [Boolean SelectionPredicate]
-    applyDefault = \case
-      [] -> defaultPositives
-      ps -> ps
+      -> [Boolean SelectionPredicate]
+      -> Boolean SelectionPredicate
+    aux flags defaultPositives =
+        uncurry mergeBooleans . fmap applyDefault $ partitionEithers flags
+      where
+        applyDefault :: [Boolean SelectionPredicate] -> [Boolean SelectionPredicate]
+        applyDefault = \case
+          [] -> defaultPositives
+          ps -> ps
 
 parseProgramSlicing :: Parser ProgramSlicing
 parseProgramSlicing =

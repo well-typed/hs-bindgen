@@ -274,8 +274,9 @@
   graph (topologically sorted) and generates one Haskell module per header under
   the `--library` directories, with per-module selection predicates and
   program slicing enabled. Headers that include each other share one module,
-  named after all of them (`a.h` and `b.h` give `Lib.A_B`). `--dry-run` shows
-  the plan; `--list-modules` prints module names for `.cabal` files;
+  named after all of them (`a.h` and `b.h` give `Lib.A_B`). Header selection
+  predicates are rejected in this mode. `--dry-run` shows the plan;
+  `--list-modules` prints module names for `.cabal` files;
   `--gen-binding-spec-dir` keeps the per-module binding specifications. See
   [PR #2255][pr-2255].
 

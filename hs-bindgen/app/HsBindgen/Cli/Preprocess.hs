@@ -15,7 +15,7 @@ module HsBindgen.Cli.Preprocess (
   ) where
 
 import Options.Applicative hiding (info)
-import System.Exit (exitFailure)
+import System.Exit (ExitCode (..), exitFailure, exitWith)
 
 import HsBindgen
 import HsBindgen.App
@@ -56,10 +56,19 @@ data Opts = Opts {
 
 parseOpts :: Parser Opts
 parseOpts =
-    Opts
-      <$> parseConfig
+    mk
+      <$> parseConfigWithDefault
       <*> parseConfigCLI
       <*> PreprocessLibrary.parseOpts
+  where
+    -- In library mode each step already narrows the selection to the headers
+    -- of one module, so by default it selects every declaration in them.
+    mk config configCLI configLibrary =
+        Opts (config defaultPositives) configCLI configLibrary
+      where
+        defaultPositives
+          | null configLibrary.libraryRoots = [def]
+          | otherwise                       = [BTrue]
 
 -- | CLI options; the TH equivalent of ConfigCLI' is 'HsBindgen.Config.ConfigTH'.
 data ConfigCLI = ConfigCLI {
@@ -154,13 +163,24 @@ execSingleHeader global opts = do
 
 execLibrary :: GlobalOpts -> Opts -> IO ()
 execLibrary global opts = do
+    -- The library-mode default has no header predicate, so any header
+    -- predicate here was passed on the command line.
+    when (any isHeaderPredicate opts.config.selectionPredicate) $ do
+      putStrLn $ concat [
+          "Error: header selection predicates (--select-from-main-headers, "
+        , "--select-from-main-header-dirs, --select-by-header-path, "
+        , "--select-except-by-header-path) cannot be used with --library; "
+        , "use --except-library to leave headers out"
+        ]
+      exitWith (ExitFailure 2)
+
     when (isJust opts.configCLI.outputBindingSpec) $
       void $ withTracer global.unsafe $ \tracer ->
         traceWith tracer $ withCallStack $
           TracePreprocessLibrary PreprocessLibraryGenBindingSpecIgnored
 
     PreprocessLibrary.exec global
-      (libraryDefaults opts.config)
+      opts.config
       opts.configCLI.uniqueId
       opts.configCLI.baseModuleName
       opts.configCLI.qualifiedStyle
@@ -171,23 +191,7 @@ execLibrary global opts = do
       opts.configCLI.inputs
       opts.configLibrary
 
--- | Adjust the selection predicate default for library mode.
---
--- 'parseConfig' defaults to @FromMainHeaders@ (select declarations from the
--- root header only). In library mode each step ANDs the user predicate with
--- a per-header filter, so @FromMainHeaders@ would intersect with a sub-header
--- filter and produce nothing. We replace it with @BTrue@ so the per-header
--- filter does the actual selection. Explicit @--select-*@ flags are not
--- affected since they do not contain @FromMainHeaders@.
-libraryDefaults :: Config -> Config
-libraryDefaults config = config {
-      selectionPredicate = go config.selectionPredicate
-    }
-  where
-    go :: Boolean SelectionPredicate -> Boolean SelectionPredicate
-    go = \case
-      BIf (SelectHeader FromMainHeaders) -> BTrue
-      BAnd a b -> BAnd (go a) (go b)
-      BOr  a b -> BOr  (go a) (go b)
-      BNot a   -> BNot (go a)
-      other    -> other
+isHeaderPredicate :: SelectionPredicate -> Bool
+isHeaderPredicate = \case
+    SelectHeader{} -> True
+    SelectDecl{}   -> False

@@ -23,7 +23,7 @@ tests getTestResources = testGroup "Integration.PreprocessLibrary" [
     , testExceptLibrary getTestResources
     , testDryRun getTestResources
     , testGenBindingSpecDir getTestResources
-    , testSelectByHeaderPath getTestResources
+    , testHeaderSelectionRejected getTestResources
     , testIncludeCycle getTestResources
     , if caseInsensitiveFS
       then testCase "collision detection (skipped: case-insensitive FS)" $
@@ -166,21 +166,16 @@ testGenBindingSpecDir getTestResources =
           , specDir </> "MyLib" </> "Mylib" </> "Internal.yaml"
           ]
 
-testSelectByHeaderPath :: IO TestResources -> TestTree
-testSelectByHeaderPath getTestResources =
-    testCase "--select-by-header-path restricts declarations in library mode" $
+testHeaderSelectionRejected :: IO TestResources -> TestTree
+testHeaderSelectionRejected getTestResources =
+    testCase "header selection predicates are rejected in library mode" $
       withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
         root <- getTestResources
-        (exitCode, _stdout, stderr) <- runLibraryMode root tmpDir
-          ["--select-by-header-path", "types\\.h"]
-        exitCode @?= ExitSuccess
-        assertFilesExist stderr
-          [ tmpDir </> "MyLib" </> "Mylib" </> "Types.hs"
-          ]
-        assertFilesAbsent stderr
-          [ tmpDir </> "MyLib" </> "Mylib" </> "Ops" </> "Safe.hs"
-          , tmpDir </> "MyLib" </> "Mylib" </> "Internal.hs"
-          ]
+        (exitCode, stdout, _stderr) <- runLibraryMode root tmpDir
+          ["--select-from-main-headers"]
+        exitCode @?= ExitFailure 2
+        assertBool ("expected an error, got: " ++ stdout) $
+          "header selection predicates" `isInfixOf` stdout
 
 testIncludeCycle :: IO TestResources -> TestTree
 testIncludeCycle getTestResources =
