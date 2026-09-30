@@ -13,6 +13,7 @@ module HsBindgen.PreprocessLibrary.Naming (
   , isUnderDir
     -- * Library-root filtering
   , LibraryHeaderResult(..)
+  , declaringHeaders
   , filterByLibraryRoot
     -- * Collision detection
   , Collision(..)
@@ -27,14 +28,21 @@ import Data.List.NonEmpty (NonEmpty (..))
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Maybe (mapMaybe)
+import Data.Set (Set)
+import Data.Set qualified as Set
 import Data.Text (Text)
 import Data.Text qualified as Text
 import System.FilePath (dropExtension, isRelative, joinPath, makeRelative,
                         splitDirectories)
 
+import Clang.HighLevel.Types (singleLocPath)
 import Clang.Paths
 
 import HsBindgen.Config.Prelims (BaseModuleName (..), termCategorySuffix)
+import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
+import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (..))
+import HsBindgen.Frontend.Pass.Parse.Result (ParseClassification (..),
+                                             ParseResult (..))
 import HsBindgen.Frontend.Predicate (Regex, matchTest)
 
 {-------------------------------------------------------------------------------
@@ -165,38 +173,64 @@ data LibraryHeaderResult = LibraryHeaderResult {
       included     :: [NonEmpty RealPath]
     , outsideRoots :: [RealPath]
     , excluded     :: [RealPath]
+      -- | Headers under a library directory, not excluded, that declare
+      -- nothing
+    , withoutDecls :: [RealPath]
     }
 
--- | Filter headers to those under a library directory and not excluded.
+-- | Headers that declare something
+--
+-- A header counts when the parse pass produced a result located in it other
+-- than an empty macro. Include guards such as @#define FOO_H@ show up as empty
+-- macros (unless @--parse-empty-macros@ is given), so an umbrella header that
+-- only includes other headers declares nothing.
+declaringHeaders :: [ParseResult l Parse] -> Set RealPath
+declaringHeaders results = Set.fromList [
+      singleLocPath result.loc
+    | result <- results
+    , not (isEmptyMacro result.classification)
+    ]
+  where
+    isEmptyMacro :: ParseClassification l Parse -> Bool
+    isEmptyMacro = \case
+      ParseResultFailure ParseMacroEmpty{} -> True
+      _otherwise                           -> False
+
+-- | Filter headers to those under a library directory, not excluded, and
+-- declaring something.
 --
 -- A header gets a Haskell module when its normalised path falls under at least
--- one library directory AND does not match any exclusion pattern. Filtering
--- keeps the include-cycle groups; a group left with no headers is dropped.
+-- one library directory AND does not match any exclusion pattern AND it
+-- declares something. Filtering keeps the include-cycle groups; a group left
+-- with no headers is dropped.
 --
 filterByLibraryRoot ::
      [FilePath]
      -- ^ Normalised library directories (@--library@)
   -> [Regex]
      -- ^ Exclusion patterns (@--except-library@)
+  -> (RealPath -> Bool)
+     -- ^ Does the header declare something? (see 'declaringHeaders')
   -> [NonEmpty RealPath]
      -- ^ All headers from the include graph, grouped by include cycle
      -- (topologically sorted)
   -> LibraryHeaderResult
-filterByLibraryRoot roots excludePatterns components =
+filterByLibraryRoot roots excludePatterns declares components =
     LibraryHeaderResult {
         included     = mapMaybe (NonEmpty.nonEmpty . filter isIncluded . toList)
                          components
       , outsideRoots = outsideHdrs
       , excluded     = excludedHdrs
+      , withoutDecls = filter (not . declares) keptHdrs
       }
   where
     isUnderRoot rp = any (getRealPath rp `isUnderDir`) roots
     isExcluded  rp = any (\re -> matchTest re (getRealPathText rp)) excludePatterns
-    isIncluded  rp = isUnderRoot rp && not (isExcluded rp)
+    isIncluded  rp = isUnderRoot rp && not (isExcluded rp) && declares rp
 
     (underRoots, outsideHdrs) =
       List.partition isUnderRoot (concatMap toList components)
-    excludedHdrs = filter isExcluded underRoots
+    (excludedHdrs, keptHdrs) = List.partition isExcluded underRoots
 
 {-------------------------------------------------------------------------------
   Collision detection

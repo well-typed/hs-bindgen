@@ -25,6 +25,7 @@ tests getTestResources = testGroup "Integration.PreprocessLibrary" [
     , testGenBindingSpecDir getTestResources
     , testHeaderSelectionRejected getTestResources
     , testIncludeCycle getTestResources
+    , testNoDeclarations getTestResources
     , if caseInsensitiveFS
       then testCase "collision detection (skipped: case-insensitive FS)" $
              pure ()
@@ -198,6 +199,20 @@ testIncludeCycle getTestResources =
           "OUTER_BEFORE_CIRCULAR_INCLUDE" `isInfixOf` contents
         assertBool "expected declarations from circular_includes_inner.h" $
           "INNER_BEFORE_CIRCULAR_INCLUDE" `isInfixOf` contents
+
+testNoDeclarations :: IO TestResources -> TestTree
+testNoDeclarations getTestResources =
+    testCase "headers that declare nothing get no module" $
+      withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
+        root <- getTestResources
+        (exitCode, stdout, _stderr) <- runLibraryModeIn
+          (headerDir root </> "golden" </> "macros" </> "parse")
+          "macro_typedef_scope_multiple.h" tmpDir ["--list-modules"]
+        exitCode @?= ExitSuccess
+        lines stdout @?=
+          [ "M.Macro_typedef_scope_multiple_inner1"
+          , "M.Macro_typedef_scope_multiple_inner2"
+          ]
 
 testCollisionDetected :: IO TestResources -> TestTree
 testCollisionDetected getTestResources =

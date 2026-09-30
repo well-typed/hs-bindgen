@@ -21,6 +21,7 @@ module HsBindgen.Cli.PreprocessLibrary (
 
 import Control.Monad (foldM_)
 import Data.List qualified as List
+import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Options.Applicative
 import System.Directory (canonicalizePath, createDirectoryIfMissing,
@@ -35,6 +36,7 @@ import HsBindgen
 import HsBindgen.App
 import HsBindgen.App.Output (OutputMode (..), OutputOptions (..),
                              buildCategoryChoice)
+import HsBindgen.Artefact (FrontendPass (..))
 import HsBindgen.ArtefactM
 import HsBindgen.Backend.Category
 import HsBindgen.BindingSpec (BindingSpecConfig (..))
@@ -46,7 +48,8 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
 import HsBindgen.PreprocessLibrary.Naming (LibraryHeaderResult (..),
-                                           LibraryUnit (..), detectCollisions,
+                                           LibraryUnit (..), declaringHeaders,
+                                           detectCollisions,
                                            filterByLibraryRoot, formatCollision,
                                            mkLibraryUnit, moduleToPath)
 import HsBindgen.TraceMsg
@@ -147,26 +150,29 @@ exec ::
 exec global config uniqueId baseModuleName qualifiedStyle outputOptions
     hsOutputDir dirPolicy filePolicy inputs opts = do
 
-    -- Run hsBindgen once with a dummy config to obtain the include graph.
+    -- Run hsBindgen once with a dummy config to obtain the include graph and
+    -- the headers that declare something. Both come from the parse pass.
     let graphConfig = toBindgenConfig
           config
           (UniqueId "preprocess-library-graph")
           (BaseModuleName "unused")
           (def :: ByCategory Choice)
 
-    includeGraph <- hsBindgen
+    (includeGraph, declaring) <- hsBindgen
       global.unsafe
       global.safe
       graphConfig
       inputs
-      getIncludeGraph
+      ((,) <$> getIncludeGraph
+           <*> (declaringHeaders <$> FrontendPassA ParsePass))
 
     roots <- mapM canonicalizePath opts.libraryRoots
 
-    -- Filter headers to those under a library directory, then name one module
-    -- per include-cycle group.
+    -- Keep the headers under a library directory that declare something, then
+    -- name one module per include-cycle group.
     let components = IncludeGraph.toSortedComponents includeGraph
-        filtered   = filterByLibraryRoot roots opts.exceptLibraryRoot components
+        filtered   = filterByLibraryRoot roots opts.exceptLibraryRoot
+                       (`Set.member` declaring) components
         units      = map (mkLibraryUnit roots baseModuleName) filtered.included
 
     let checkCategories = case outputOptions.mode of
@@ -240,6 +246,11 @@ printPlan filtered units = do
         ]
       , [ show n ++ " excluded by --except-library"
         | let n = length filtered.excluded
+        , n > 0
+        ]
+      , [ show n ++ (if n == 1 then " header declares" else " headers declare")
+            ++ " nothing"
+        | let n = length filtered.withoutDecls
         , n > 0
         ]
       ]

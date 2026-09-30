@@ -181,7 +181,9 @@ This command:
 
 `--library DIR` defines which headers get their own Haskell module. A header
 in the include graph gets a module if and only if its normalised path falls
-under a library directory.
+under a library directory and it declares something. An umbrella header that
+only includes other headers, with or without an include guard, declares
+nothing and gets no module.
 
 `--except-library PCRE` excludes headers whose normalised path matches the
 pattern, even when they are under a library directory. Types from excluded
@@ -257,7 +259,7 @@ name.
 and exits without generating any files. Useful for verifying the `--library`
 and `--except-library` filters before running the full generation. Headers
 that include each other are listed with the same module name, and the summary
-line counts the include cycles.
+line counts the include cycles and the headers that declare nothing.
 
 `--list-modules` prints module names one per line (suitable for pasting into a
 `.cabal` file) and exits. Each module is listed once, including those shared
