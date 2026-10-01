@@ -28,6 +28,7 @@ module Data.Digraph (
   , neighbors
   , reaches
   , sort
+  , sortComponents
   , sortBy
   , dfs
   , dff
@@ -58,7 +59,7 @@ import Data.IntMap.Strict qualified as IntMap
 import Data.IntSet (IntSet)
 import Data.IntSet qualified as IntSet
 import Data.List qualified as List
-import Data.List.NonEmpty (NonEmpty)
+import Data.List.NonEmpty (NonEmpty ((:|)))
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
@@ -68,7 +69,6 @@ import Data.Set qualified as Set
 import Data.Tree (Tree)
 import Data.Tree qualified as Tree
 import GHC.Generics (Generic)
-import GHC.Stack (HasCallStack)
 
 {-------------------------------------------------------------------------------
   Type
@@ -439,8 +439,15 @@ reaches fromVs graph =
 
 -- | Sort the vertices of a graph using a topological sort of groups of strongly
 -- connected components
-sort :: forall e v. Digraph e v -> [v]
-sort graph = vs
+sort :: Digraph e v -> [v]
+sort = concatMap NonEmpty.toList . sortComponents
+
+-- | Topologically sorted groups of strongly connected components
+--
+-- Each group lists its vertices in index order, so concatenating the groups
+-- gives 'sort'.
+sortComponents :: forall e v. Digraph e v -> [NonEmpty v]
+sortComponents graph = components
   where
     -- Get the strongly connected components for the graph.
     sccs :: [Tree Idx]
@@ -453,16 +460,17 @@ sort graph = vs
     -- index to an /ordered/ list of strongly connected components in that
     -- group.
     sccToMap   :: IntMap Idx
-    sccFromMap :: IntMap [Idx]
+    sccFromMap :: IntMap (NonEmpty Idx)
     (sccToMap, sccFromMap) = foldr aux (IntMap.empty, IntMap.empty) sccs
       where
         aux ::
              Tree Idx
-          -> (IntMap Idx, IntMap [Idx])
-          -> (IntMap Idx, IntMap [Idx])
+          -> (IntMap Idx, IntMap (NonEmpty Idx))
+          -> (IntMap Idx, IntMap (NonEmpty Idx))
         aux tree (toMap, fromMap) =
-          let idxs = List.sort (Tree.flatten tree)
-              idx' = unsafeHead idxs  -- safe because Tree is non-empty
+          let idxs = NonEmpty.sort $
+                tree.rootLabel :| concatMap Tree.flatten tree.subForest
+              idx' = NonEmpty.head idxs
           in  ( foldr (flip IntMap.insert idx') toMap idxs
               , IntMap.insert idx' idxs fromMap
               )
@@ -540,14 +548,14 @@ sort graph = vs
             in  auxR startIdxs' rEdgeMap' fromIdx toIdxs
           [] -> (startIdxs, rEdgeMap)
 
-    -- Transform the topological sort of the internal graph to a list of
+    -- Transform the topological sort of the internal graph to groups of
     -- vertices in the actual graph.  Each representative index is expanded to
     -- the (already sorted) list of graph indices, and the actual vertices are
     -- queried.
-    vs :: [v]
-    vs = flip Foldable.concatMap idxs' $ \idx' -> [
-        graph.idxMap IntMap.! idx
-      | idx <- sccFromMap IntMap.! idx'
+    components :: [NonEmpty v]
+    components = [
+        fmap (graph.idxMap IntMap.!) (sccFromMap IntMap.! idx')
+      | idx' <- idxs'
       ]
 
 -- | Sort the vertices of a graph using a topological sort of groups of strongly
@@ -811,14 +819,6 @@ renderMermaid opts graph = unlines $ header : nodes ++ links
 {-------------------------------------------------------------------------------
   Auxiliary functions
 -------------------------------------------------------------------------------}
-
--- GHC warns when using some partial functions, but there are still cases when
--- such functions are correct.  In this module, 'Tree' must have at least one
--- member, but 'Tree.flatten' returns a list.  This is an implementation of
--- 'head' that uses a partial function that GHC does not warn about (yet).
-unsafeHead :: HasCallStack => [a] -> a
-unsafeHead = Maybe.fromJust . Maybe.listToMaybe
-{-# INLINE unsafeHead #-}
 
 maybeEmpty :: (a -> Bool) -> a -> Maybe a
 maybeEmpty p x

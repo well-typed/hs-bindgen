@@ -14,6 +14,7 @@ module HsBindgen.TraceMsg (
   , ImmediateFillUnnamedIdsMsg (..)
   , ImmediateParseMsg(..)
   , DelayedParseMsg(..)
+  , PreprocessLibraryMsg(..)
   , UnsupportedFloatType(..)
   , ResolveBindingSpecsMsg(..)
   , ResolveHeaderMsg(..)
@@ -24,8 +25,10 @@ module HsBindgen.TraceMsg (
   ) where
 
 import Data.List qualified as List
+import Text.SimplePrettyPrint (hsep, string)
 
 import Clang.HighLevel.Types (Diagnostic (..))
+import Clang.Paths
 
 import HsBindgen.BindingSpec (BindingSpecMsg (..))
 import HsBindgen.Boot
@@ -54,11 +57,46 @@ import HsBindgen.Util.Tracer
 -- Does not include backend messages because, unlike 'TraceMsg', backend
 -- messages cannot include 'Error's, or 'Warning's.
 data TraceMsg =
-    TraceBoot          BootMsg
-  | TraceFrontend      FrontendMsg
-  | TraceResolveHeader ResolveHeaderMsg
+    TraceBoot              BootMsg
+  | TraceFrontend          FrontendMsg
+  | TracePreprocessLibrary PreprocessLibraryMsg
+  | TraceResolveHeader     ResolveHeaderMsg
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
+
+{-------------------------------------------------------------------------------
+  Preprocess-library messages
+-------------------------------------------------------------------------------}
+
+data PreprocessLibraryMsg =
+    -- | Generating one module from these headers (more than one when they
+    -- include each other)
+    PreprocessLibraryProcessing (NonEmpty RealPath) String
+    -- | @--gen-binding-spec@ was passed in library mode, where it has no
+    -- effect: library mode writes one spec per module, and only
+    -- @--gen-binding-spec-dir@ says where.
+  | PreprocessLibraryGenBindingSpecIgnored
+  deriving stock (Show)
+
+instance PrettyForTrace PreprocessLibraryMsg where
+  prettyForTrace = \case
+    PreprocessLibraryProcessing headers modName -> hsep [
+        string "Processing:"
+      , string $ List.intercalate ", " (map getRealPath (toList headers))
+      , string "->"
+      , string modName
+      ]
+    PreprocessLibraryGenBindingSpecIgnored -> string $ concat [
+        "--gen-binding-spec is ignored in library mode; "
+      , "use --gen-binding-spec-dir to keep the per-module binding specs"
+      ]
+
+instance IsTrace Level PreprocessLibraryMsg where
+  getDefaultLogLevel = \case
+    PreprocessLibraryProcessing{}          -> Notice
+    PreprocessLibraryGenBindingSpecIgnored -> Notice
+  getSource = const HsBindgen
+  getTraceId = const "preprocess-library"
 
 {-------------------------------------------------------------------------------
   Log level customization

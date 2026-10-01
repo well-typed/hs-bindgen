@@ -270,6 +270,17 @@
 * Generate `HsBindgen.Runtime.Structs.IsStruct` instances for structs. See
   [issue #2121][is-2121] and [PR #2164][pr-2164].
 * Support bit-fields in unions. See [issue #1253][is-1253].
+* Library mode for `preprocess` (`--library`): walks a library's include
+  graph (topologically sorted) and generates one Haskell module per header under
+  the `--library` directories, with per-module selection predicates and
+  program slicing enabled. Headers that include each other share one module,
+  named after all of them (`foo_bar.h` and `foo_baz.h` give
+  `Lib.FooBar_FooBaz`). Headers that declare nothing, such as umbrella headers,
+  get no module. Header selection predicates are rejected in this mode.
+  `--dry-run` shows the plan;
+  `--list-base-module-names` prints the base module names;
+  `--gen-binding-spec-dir` keeps the per-module binding specifications. See
+  [PR #2255][pr-2255].
 
 ### Minor changes
 
@@ -491,6 +502,7 @@
 [pr-2150]: https://github.com/well-typed/hs-bindgen/pull/2150
 [pr-2153]: https://github.com/well-typed/hs-bindgen/pull/2153
 [pr-2164]: https://github.com/well-typed/hs-bindgen/pull/2164
+[pr-2255]: https://github.com/well-typed/hs-bindgen/pull/2255
 [pr-2267]: https://github.com/well-typed/hs-bindgen/pull/2267
 [pr-2281]: https://github.com/well-typed/hs-bindgen/pull/2281
 
