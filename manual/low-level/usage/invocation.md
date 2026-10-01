@@ -261,9 +261,11 @@ and `--except-library` filters before running the full generation. Headers
 that include each other are listed with the same module name, and the summary
 line counts the include cycles and the headers that declare nothing.
 
-`--list-modules` prints module names one per line (suitable for pasting into a
-`.cabal` file) and exits. Each module is listed once, including those shared
-by an include cycle.
+`--list-base-module-names` prints the base module names one per line and exits.
+Each module is listed once, including those shared by an include cycle. A base
+module whose headers declare no types is not written itself, only its `Safe`,
+`Unsafe` and `FunPtr` submodules, so the list is not a complete
+`exposed-modules` list.
 
 ### Binding specifications
 

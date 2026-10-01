@@ -207,7 +207,7 @@ testNoDeclarations getTestResources =
         root <- getTestResources
         (exitCode, stdout, _stderr) <- runLibraryModeIn
           (headerDir root </> "golden" </> "macros" </> "parse")
-          "macro_typedef_scope_multiple.h" tmpDir ["--list-modules"]
+          "macro_typedef_scope_multiple.h" tmpDir ["--list-base-module-names"]
         exitCode @?= ExitSuccess
         lines stdout @?=
           [ "M.Macro_typedef_scope_multiple_inner1"

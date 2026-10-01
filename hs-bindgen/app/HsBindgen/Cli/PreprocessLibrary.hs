@@ -58,11 +58,11 @@ import HsBindgen.Util.Tracer
 -- | Library-mode options
 --
 data Opts = Opts {
-      libraryRoots      :: [FilePath]
-    , exceptLibraryRoot :: [Regex]
-    , dryRun            :: Bool
-    , listModules       :: Bool
-    , genBindingSpecDir :: Maybe FilePath
+      libraryRoots        :: [FilePath]
+    , exceptLibraryRoot   :: [Regex]
+    , dryRun              :: Bool
+    , listBaseModuleNames :: Bool
+    , genBindingSpecDir   :: Maybe FilePath
     }
   deriving (Generic)
 
@@ -72,7 +72,7 @@ parseOpts =
       <$> many parseLibraryRoot
       <*> many parseExceptLibrary
       <*> parseDryRun
-      <*> parseListModules
+      <*> parseListBaseModuleNames
       <*> optional parseGenBindingSpecDir
 
 parseLibraryRoot :: Parser FilePath
@@ -109,10 +109,14 @@ parseDryRun = switch $ mconcat [
     , help "Show the processing plan without generating any files (library mode)"
     ]
 
-parseListModules :: Parser Bool
-parseListModules = switch $ mconcat [
-      long "list-modules"
-    , help "Print generated module names one per line (library mode)"
+parseListBaseModuleNames :: Parser Bool
+parseListBaseModuleNames = switch $ mconcat [
+      long "list-base-module-names"
+    , help $ concat [
+          "Print the base module names one per line (library mode). "
+        , "A base module without types is not generated itself, "
+        , "only its category submodules (Safe, Unsafe, FunPtr)."
+        ]
     ]
 
 parseGenBindingSpecDir :: Parser FilePath
@@ -187,10 +191,10 @@ exec global config uniqueId baseModuleName qualifiedStyle outputOptions
         exitWith (ExitFailure 4)
       [] -> pure ()
 
-    -- The module list is meant for a @.cabal@ file's @exposed-modules@.
-    -- Generating the @.cabal@ file itself is tracked in
-    -- <https://github.com/well-typed/hs-bindgen/issues/2103>.
-    when opts.listModules $ do
+    -- Base module names only: which category submodules exist depends on the
+    -- declarations. Generating the @.cabal@ file, with its @exposed-modules@,
+    -- is tracked in <https://github.com/well-typed/hs-bindgen/issues/2103>.
+    when opts.listBaseModuleNames $ do
       mapM_ (\unit -> putStrLn (Text.unpack unit.moduleName.text)) units
       exitSuccess
 
