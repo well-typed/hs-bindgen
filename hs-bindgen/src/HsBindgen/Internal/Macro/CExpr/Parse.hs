@@ -24,7 +24,7 @@ import HsBindgen.Macro.Interface qualified as Macro
 -- split and the parsed body.
 parseMacro ::
      ClangCStandard
-  -> Runtime.Macro.Raw (Token TokenSpelling)
+  -> Runtime.Macro.Raw (Token SourcePath TokenSpelling)
   -> Either MacroParseError (Macro.Unresolved CExpr)
 parseMacro cStd macro =
     case macro.params of
@@ -37,11 +37,11 @@ parseMacro cStd macro =
     sourcePath =
           getSourcePath $ singleLocPath start
             where
-              start :: SingleLoc
+              start :: SingleLoc SourcePath
               start = rangeStart $ multiLocExpansion <$> tokenExtent macro.name
 
     parseBody ::
-         [Token TokenSpelling]
+         [Token SourcePath TokenSpelling]
       -> Either MacroParseError (Macro.Unresolved CExpr)
     parseBody params =
         Vec.reifyList (map identifier params) $ \macroParams ->
@@ -54,7 +54,7 @@ parseMacro cStd macro =
               }
             Left err -> Left $ MacroParseError err.parseError
 
-    identifier :: Token TokenSpelling -> CExpr.Identifier
+    identifier :: Token SourcePath TokenSpelling -> CExpr.Identifier
     identifier = CExpr.Identifier . getTokenSpelling . tokenSpelling
 
     -- 'CExpr.Macro' does not support a variadic parameter list; without this

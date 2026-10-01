@@ -13,7 +13,6 @@ import Data.Vec.Lazy qualified as Vec
 import DeBruijn (EmptyCtx, Idx (..), Weaken (..), pattern I1)
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Origin qualified as Origin
@@ -58,7 +57,7 @@ getDeclsRegular spec info struct = do
       getInstances supInsts name struct.fields <$> State.gets (.instanceMap)
     let insts' = Set.insert Inst.Generic insts
         (hsStruct, decls) =
-          getDecls supInsts env spec name info struct insts'
+          getDecls supInsts spec name info struct insts'
     State.modify' $ #instanceMap %~ Map.insert name hsStruct.instances
     pure $ Hs.DeclData hsStruct : decls
   where
@@ -80,9 +79,9 @@ getDeclsFlam flam auxName spec info struct = do
       getInstances supInsts auxName struct.fields <$> State.gets (.instanceMap)
     let insts' = insts <> Set.fromList [Inst.Flam_Offset, Inst.Generic]
         (hsStruct, decls) =
-          getDecls supInsts env spec auxName info struct insts'
+          getDecls supInsts spec auxName info struct insts'
     State.modify' $ #instanceMap %~ Map.insert auxName hsStruct.instances
-    pure $ Hs.DeclData hsStruct : decls ++ [getHasFlamInstanceDecl hsStruct, flamDecl env.haddockConfig]
+    pure $ Hs.DeclData hsStruct : decls ++ [getHasFlamInstanceDecl hsStruct, flamDecl]
   where
     name :: Hs.Name Hs.NsTypeConstr
     name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
@@ -99,8 +98,8 @@ getDeclsFlam flam auxName spec info struct = do
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1760>
     -- We generate pointer manipulation bindings for the FLAM field.
-    flamDecl :: HaddockConfig -> Hs.Decl l
-    flamDecl hCfg =
+    flamDecl :: Hs.Decl l
+    flamDecl =
       Hs.DeclTypSyn
         Hs.TypSyn{
             name
@@ -111,7 +110,7 @@ getDeclsFlam flam auxName spec info struct = do
             , kind = Origin.Opaque info.id.cName.name.kind
             , spec = spec
             }
-          , comment = mkHaddocks hCfg info
+          , comment = mkHaddocks info
           }
 
 getInstances ::
@@ -131,14 +130,13 @@ getInstances supInsts structName fields instanceMap =
 
 getDecls ::
      Map Inst.TypeClass Inst.SupportedStrategies
-  -> HsM.Env
   -> PrescriptiveDeclSpec
   -> Hs.Name Hs.NsTypeConstr
   -> C.DeclInfo Final
   -> C.Struct Final
   -> Set Inst.TypeClass
   -> (Hs.Struct, [Hs.Decl l])
-getDecls supInsts env spec structName info struct insts =
+getDecls supInsts spec structName info struct insts =
     ( hsStruct
     , marshalDecls ++ optDecls ++ isStructDecl ++ fieldDecls
     )
@@ -152,7 +150,7 @@ getDecls supInsts env spec structName info struct insts =
             name    = fieldName field
           , typ     = field.typ.hs
           , origin  = Origin.StructField field
-          , comment = mkHaddocksFieldInfo env.haddockConfig info field.info
+          , comment = mkHaddocksFieldInfo info field.info
           }
 
     fieldHint :: C.Field Final -> NameHint
@@ -176,7 +174,7 @@ getDecls supInsts env spec structName info struct insts =
         , constr    = struct.names.constr
         , fields    = map getHsField struct.fields
         , instances = insts <> knownInsts
-        , comment   = mkHaddocks env.haddockConfig info
+        , comment   = mkHaddocks info
         , origin    = Just Origin.Decl{
               info
             , kind = Origin.Struct struct
@@ -256,8 +254,8 @@ getDecls supInsts env spec structName info struct insts =
 
     fieldDecls :: [Hs.Decl l]
     fieldDecls = flip concatMap (flattenFields struct.fields) $ \field -> concat [
-          hasFieldDecs env info hsStruct field
-        , hasFieldCompatDecs env info hsStruct field
+          hasFieldDecs info hsStruct field
+        , hasFieldCompatDecs info hsStruct field
         , hasFieldPtrDecs hsStruct field
         , hasCFieldDecs hsStruct field
         , hasCBitfieldDecs hsStruct field
@@ -304,12 +302,11 @@ getDecls supInsts env spec structName info struct insts =
 
 -- | Class instances for 'GHC.Records.HasField'
 hasFieldDecs ::
-     HsM.Env
-  -> C.DeclInfo Final
+     C.DeclInfo Final
   -> Hs.Struct
   -> Field
   -> [Hs.Decl l]
-hasFieldDecs env info struct field = case field of
+hasFieldDecs info struct field = case field of
     -- Regular and implicit fields are translated to Haskell record datatype
     -- fields, so they get @HasField@ instances
     RegularField  _ -> []
@@ -320,7 +317,7 @@ hasFieldDecs env info struct field = case field of
     IndirectField impField indField -> auxIndirectField impField indField
   where
     fieldComment :: Maybe HsDoc.Comment
-    fieldComment = mkHaddocksFieldInfo env.haddockConfig info (getFieldInfo field)
+    fieldComment = mkHaddocksFieldInfo info (getFieldInfo field)
 
     parentType :: Hs.Type
     parentType = Hs.TypRef struct.name Nothing
@@ -357,12 +354,11 @@ hasFieldDecs env info struct field = case field of
 
 -- | Class instances for 'GHC.Records.Compat.HasField'
 hasFieldCompatDecs ::
-     HsM.Env
-  -> C.DeclInfo Final
+     C.DeclInfo Final
   -> Hs.Struct
   -> Field
   -> [Hs.Decl l]
-hasFieldCompatDecs env info struct field = [
+hasFieldCompatDecs info struct field = [
       Hs.DeclDefineInstance $
         Hs.DefineInstance {
             comment      = fieldComment
@@ -372,7 +368,7 @@ hasFieldCompatDecs env info struct field = [
     ]
   where
     fieldComment :: Maybe HsDoc.Comment
-    fieldComment = mkHaddocksFieldInfo env.haddockConfig info (getFieldInfo field)
+    fieldComment = mkHaddocksFieldInfo info (getFieldInfo field)
 
     parentType :: Hs.Type
     parentType = Hs.TypRef struct.name Nothing

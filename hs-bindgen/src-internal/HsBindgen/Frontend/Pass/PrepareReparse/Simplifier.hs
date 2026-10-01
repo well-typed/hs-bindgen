@@ -158,10 +158,10 @@ singleUndef u = [Left u]
   Decls
 -------------------------------------------------------------------------------}
 
-defaultDecl :: [Token TokenSpelling] -> Decl
+defaultDecl :: [Token SourcePath TokenSpelling] -> Decl
 defaultDecl tokens = Decl $ flattenDefault tokens
 
-functionDecl :: [Token TokenSpelling] -> Decl
+functionDecl :: [Token SourcePath TokenSpelling] -> Decl
 functionDecl tokens = Decl $ flattenFunction tokens
 
 {-------------------------------------------------------------------------------

@@ -2,7 +2,6 @@ module HsBindgen.Backend.Hs.Translation.Union (
     unionDecs
   ) where
 
-import Control.Monad.Reader qualified as Reader
 import Control.Monad.State qualified as State hiding (MonadState)
 import Data.Set qualified as Set
 
@@ -33,12 +32,11 @@ unionDecs ::
   -> HsM [Hs.Decl l]
 unionDecs info union spec = do
     st <- State.get
-    env <- Reader.ask
-    nt <- newtypeDec env
-    pure $ aux st env nt
+    nt <- newtypeDec
+    pure $ aux st nt
   where
-    newtypeDec :: HsM.Env -> HsM Hs.Newtype
-    newtypeDec env = do
+    newtypeDec :: HsM Hs.Newtype
+    newtypeDec = do
         Hs.newtypeDec newtypeName newtypeConstr newtypeField
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
@@ -64,7 +62,7 @@ unionDecs info union spec = do
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = mkHaddocks env.haddockConfig info
+        newtypeComment = mkHaddocks info
 
         candidateInsts :: Set Inst.TypeClass
         candidateInsts = Set.empty
@@ -95,8 +93,8 @@ unionDecs info union spec = do
           ]
 
     -- everything in aux is state-dependent
-    aux :: HsM.St -> HsM.Env -> Hs.Newtype -> [Hs.Decl l]
-    aux st env nt =
+    aux :: HsM.St -> Hs.Newtype -> [Hs.Decl l]
+    aux st nt =
         Hs.DeclNewtype nt : marshalDecls ++ isUnionDecl ++
         fieldDecls
       where
@@ -142,8 +140,8 @@ unionDecs info union spec = do
 
         fieldDecls :: [Hs.Decl l]
         fieldDecls = flip concatMap (flattenFields union.fields) $ \field -> concat [
-            hasFieldDecs st env info nt field
-          , hasFieldCompatDecs st env info nt field
+            hasFieldDecs st info nt field
+          , hasFieldCompatDecs st info nt field
           , hasFieldPtrDecs nt field
           , hasCFieldDecs nt field
           , hasCBitfieldDecs nt field
@@ -167,12 +165,11 @@ unionDecs info union spec = do
 -- | Class instances for 'GHC.Records.HasField'
 hasFieldDecs ::
      HsM.St
-  -> HsM.Env
   -> C.DeclInfo Final
   -> Hs.Newtype
   -> Field
   -> [Hs.Decl l]
-hasFieldDecs st env info union field =
+hasFieldDecs st info union field =
     [ Hs.DeclDefineInstance $
         Hs.DefineInstance {
             comment = fieldComment
@@ -190,7 +187,7 @@ hasFieldDecs st env info union field =
                     [fieldType]
 
     fieldComment :: Maybe HsDoc.Comment
-    fieldComment = mkHaddocksFieldInfo env.haddockConfig info (getFieldInfo field)
+    fieldComment = mkHaddocksFieldInfo info (getFieldInfo field)
 
     parentType :: Hs.Type
     parentType = Hs.TypRef union.name Nothing
@@ -240,12 +237,11 @@ hasFieldDecs st env info union field =
 -- | Class instances for 'GHC.Records.Compat.HasField'
 hasFieldCompatDecs ::
      HsM.St
-  -> HsM.Env
   -> C.DeclInfo Final
   -> Hs.Newtype
   -> Field
   -> [Hs.Decl l]
-hasFieldCompatDecs st env info union field =
+hasFieldCompatDecs st info union field =
    [ Hs.DeclDefineInstance $
         Hs.DefineInstance {
             comment = fieldComment
@@ -263,7 +259,7 @@ hasFieldCompatDecs st env info union field =
                     [fieldType]
 
     fieldComment :: Maybe HsDoc.Comment
-    fieldComment = mkHaddocksFieldInfo env.haddockConfig info (getFieldInfo field)
+    fieldComment = mkHaddocksFieldInfo info (getFieldInfo field)
 
     parentType :: Hs.Type
     parentType = Hs.TypRef union.name Nothing

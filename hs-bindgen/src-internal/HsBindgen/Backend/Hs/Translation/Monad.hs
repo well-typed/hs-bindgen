@@ -26,7 +26,6 @@ import Control.Monad.Reader
 import Control.Monad.State.Lazy
 import Data.Map.Strict qualified as Map
 
-import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Translation.Instances
 import HsBindgen.Config.Prelims
 import HsBindgen.Imports
@@ -55,21 +54,18 @@ initSt = St Map.empty
 data Env = Env {
     uniqueId           :: UniqueId
   , baseModuleName     :: BaseModuleName
-  , haddockConfig      :: HaddockConfig
   , supportedInstances :: Inst.SupportedInstances
   }
 
 initEnv ::
      UniqueId
   -> BaseModuleName
-  -> HaddockConfig
   -> Inst.SupportedInstances
   -> Env
-initEnv uniqueId baseModuleName haddockConfig supportedInstances =
+initEnv uniqueId baseModuleName supportedInstances =
     Env {
         uniqueId = uniqueId
       , baseModuleName = baseModuleName
-      , haddockConfig = haddockConfig
       , supportedInstances = supportedInstances
       }
 

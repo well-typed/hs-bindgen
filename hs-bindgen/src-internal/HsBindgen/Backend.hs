@@ -49,7 +49,6 @@ runBackend tracer config boot frontend = do
       pure $ Hs.generateDeclarations
         macroLang
         config.backend.uniqueId
-        config.backend.haddock
         boot.baseModule
         declIndex
         cDecls

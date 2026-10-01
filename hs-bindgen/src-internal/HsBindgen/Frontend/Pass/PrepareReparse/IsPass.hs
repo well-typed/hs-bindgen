@@ -10,7 +10,7 @@ module HsBindgen.Frontend.Pass.PrepareReparse.IsPass (
   , FlatTokens (..)
   ) where
 
-import Clang.HighLevel.Types (MultiLoc)
+import Clang.HighLevel.Types (MultiLoc, SourcePath)
 
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (PrepareReparseMsg)
@@ -66,7 +66,7 @@ instance PassMsg PrepareReparse where
 -- | @libclang@ tokens flattened into a single string
 data FlatTokens = FlatTokens {
       -- | Location of the first token before flattening
-      locStart :: MultiLoc
+      locStart :: MultiLoc SourcePath
       -- | Tokens flattened into a single string
     , flatten  :: String
     }

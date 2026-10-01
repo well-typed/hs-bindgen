@@ -10,6 +10,9 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, assertFailure, testCase, (@=?))
 import Test.Tasty.QuickCheck
 
+import Clang.HighLevel.Types (MultiLoc, Range, SourcePath)
+import Clang.Paths (RealPath (..), getSourcePathText)
+
 import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Macro.Syntax (MacroDefinition (..), MacroInvocation (..),
@@ -244,11 +247,18 @@ mkMacroDefinition name pieces = MacroDefinition {
 mkMacroInvocation :: Text -> [Piece] -> MacroInvocation
 mkMacroInvocation name pieces = MacroInvocation {
       name     = name
-    , locRange = extentOf tokens
+    , locRange = toRealPathRange (extentOf tokens)
     , tokens   = tokens
     }
   where
     tokens = layout pieces
+
+-- | Coerce the dummy @\<test\>@ SourcePath extent to RealPath.
+--
+-- Safe because the path is a test-only dummy that never hits disk or
+-- identity comparisons.
+toRealPathRange :: Range (MultiLoc SourcePath) -> Range (MultiLoc RealPath)
+toRealPathRange = fmap (fmap (RealPath . getSourcePathText))
 
 {-------------------------------------------------------------------------------
   Properties
