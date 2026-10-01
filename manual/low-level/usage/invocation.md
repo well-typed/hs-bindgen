@@ -239,14 +239,15 @@ through other headers. No processing order puts each of those headers after
 the ones it depends on, so library mode generates a single module for the
 whole group. That module is named after all of its headers: they are sorted by
 path, the directories they share appear once, and the rest of each header's
-path is joined with `_`. With `--module Lib`, and paths relative to the
-`--library` directory:
+path is written in CamelCase, with `_` only between headers. With `--module
+Lib`, and paths relative to the `--library` directory:
 
 | Headers that include each other | Module name |
 |---|---|
 | `a.h`, `b.h` | `Lib.A_B` |
 | `widget/core.h`, `widget/util.h` | `Lib.Widget.Core_Util` |
 | `widget/core.h`, `util/log.h` | `Lib.UtilLog_WidgetCore` |
+| `foo_bar.h`, `foo_baz.h` | `Lib.FooBar_FooBaz` |
 
 A cycle that passes through a header outside the `--library` directories, or
 through one excluded by `--except-library`, still puts the library headers on

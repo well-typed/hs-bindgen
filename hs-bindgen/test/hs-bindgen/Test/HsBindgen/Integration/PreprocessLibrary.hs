@@ -188,7 +188,7 @@ testIncludeCycle getTestResources =
           "circular_includes.h" tmpDir []
         exitCode @?= ExitSuccess
         let unitModule =
-              tmpDir </> "M" </> "Circular_includes_Circular_includes_inner.hs"
+              tmpDir </> "M" </> "CircularIncludes_CircularIncludesInner.hs"
         assertFilesExist stderr [unitModule]
         assertFilesAbsent stderr
           [ tmpDir </> "M" </> "Circular_includes.hs"

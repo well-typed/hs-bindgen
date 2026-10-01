@@ -274,9 +274,10 @@
   graph (topologically sorted) and generates one Haskell module per header under
   the `--library` directories, with per-module selection predicates and
   program slicing enabled. Headers that include each other share one module,
-  named after all of them (`a.h` and `b.h` give `Lib.A_B`). Headers that
-  declare nothing, such as umbrella headers, get no module. Header selection
-  predicates are rejected in this mode. `--dry-run` shows the plan;
+  named after all of them (`foo_bar.h` and `foo_baz.h` give
+  `Lib.FooBar_FooBaz`). Headers that declare nothing, such as umbrella headers,
+  get no module. Header selection predicates are rejected in this mode.
+  `--dry-run` shows the plan;
   `--list-base-module-names` prints the base module names;
   `--gen-binding-spec-dir` keeps the per-module binding specifications. See
   [PR #2255][pr-2255].

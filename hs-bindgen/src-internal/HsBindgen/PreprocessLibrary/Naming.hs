@@ -67,12 +67,14 @@ data LibraryUnit = LibraryUnit {
 -- A single header gets its 'deriveModuleName' name. A group is named after
 -- all of its headers, sorted by path so the name does not depend on include
 -- order: the directories they share appear once, then each header's
--- remaining path components, concatenated, joined with @_@.
+-- remaining path in CamelCase (underscores dropped, the next letter
+-- capitalised), with @_@ only between headers.
 --
 -- @
 -- [a.h, b.h]                   -> Base.A_B
 -- [widget\/core.h, widget\/util.h] -> Base.Widget.Core_Util
 -- [widget\/core.h, util\/log.h]    -> Base.UtilLog_WidgetCore
+-- [foo_bar.h, foo_baz.h]       -> Base.FooBar_FooBaz
 -- @
 mkLibraryUnit :: [FilePath]        -- ^ Library directories (@--library@)
               -> BaseModuleName
@@ -97,9 +99,19 @@ mkLibraryUnit roots base component = LibraryUnit {
 
     cycleName :: Text
     cycleName = Text.intercalate "_"
-      [ Text.concat (drop (length dirs) c)
+      [ Text.concat (map camelCase (drop (length dirs) c))
       | c <- toList perHeader
       ]
+
+    -- @foo_bar@ becomes @FooBar@, so that @_@ only separates headers
+    camelCase :: Text -> Text
+    camelCase = Text.concat . map capitalise . filter (not . Text.null)
+              . Text.splitOn "_"
+
+    capitalise :: Text -> Text
+    capitalise t = case Text.uncons t of
+      Just (c, cs) -> Text.cons (Char.toUpper c) cs
+      Nothing      -> t
 
     dropLast :: [a] -> [a]
     dropLast xs = take (length xs - 1) xs
