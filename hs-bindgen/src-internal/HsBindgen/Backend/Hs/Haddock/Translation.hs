@@ -80,7 +80,7 @@ mkHaddocksDecorateParams info params =
 
 data Args = Args{
       isField :: Bool
-    , loc     :: C.SingleLoc C.RealPath
+    , loc     :: C.SingleLoc C.DeclPath
     , cName   :: Text
     , hsName  :: Hs.SomeName
     , comment :: Maybe (C.Comment Final)
@@ -96,7 +96,7 @@ mkHaddocksWithArgs info Args{comment = Nothing, ..} =
           mempty
             & #origin     .~ Just cName
             & #location   .~ Just loc
-            & #headerInfo .~ Just info.headerInfo
+            & #declOrigin .~ Just info.origin
       , map (uncurry addFunctionParameterComment) params
       )
 mkHaddocksWithArgs info Args{comment = Just (C.Comment Doxy.Comment{..}), ..} =
@@ -134,7 +134,7 @@ mkHaddocksWithArgs info Args{comment = Just (C.Comment Doxy.Comment{..}), ..} =
             & #title      .~ finalTitle
             & #origin     .~ Just commentCName
             & #location   .~ Just commentLocation
-            & #headerInfo .~ Just info.headerInfo
+            & #declOrigin .~ Just info.origin
             & #children   .~ finalChildren
       , updatedParams
       )

@@ -256,6 +256,7 @@ library internal
     HsBindgen.IR.C
     HsBindgen.IR.C.Conflict
     HsBindgen.IR.C.Decl
+    HsBindgen.IR.C.DeclPath
     HsBindgen.IR.C.HashDefine
     HsBindgen.IR.C.HashIncludeArg
     HsBindgen.IR.C.LocationInfo

@@ -45,10 +45,10 @@ data Comment = Comment {
   , literal :: Maybe Text
 
     -- | The source location of the original C name reference
-  , location :: Maybe (SingleLoc RealPath)
+  , location :: Maybe (SingleLoc C.DeclPath)
 
-    -- | Header information
-  , headerInfo :: Maybe C.HeaderInfo
+    -- | Origin of the C declaration
+  , declOrigin :: Maybe C.DeclOrigin
 
     -- | Unique symbol used to generate this binding
   , unique :: Maybe UniqueSymbol
@@ -64,7 +64,7 @@ instance Semigroup Comment where
       , origin     = combine (.origin)     getFirst
       , literal    = combine (.literal)    getFirst
       , location   = combine (.location)   getFirst
-      , headerInfo = combine (.headerInfo) getFirst
+      , declOrigin = combine (.declOrigin) getFirst
       , unique     = combine (.unique)     getFirst
       , children   = combine (.children)   (<>)
       }
@@ -83,7 +83,7 @@ instance Monoid Comment where
       , origin     = Nothing
       , literal    = Nothing
       , location   = Nothing
-      , headerInfo = Nothing
+      , declOrigin = Nothing
       , unique     = Nothing
       , children   = []
       }

@@ -45,7 +45,7 @@ getFieldWidth = \curr -> do
 -- Comments are filled in later by the 'EnrichComments' pass.
 getFieldInfo :: MonadIO m => CXCursor -> m (C.FieldInfo Parse)
 getFieldInfo = \curr -> do
-    fieldLoc  <- HighLevel.clang_getCursorLocation' curr
+    fieldLoc  <- fmap C.InHeader <$> HighLevel.clang_getCursorLocation' curr
     fieldName <- C.ScopedName <$> clang_getCursorDisplayName curr
     return C.FieldInfo {
         loc     = fieldLoc

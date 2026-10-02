@@ -2,6 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE ExplicitForAll #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MagicHash #-}
@@ -13,7 +14,9 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
-    ( Example.Hash_defines_buffer(..)
+    ( Example.mY_FEATURE
+    , Example.mY_SIZE
+    , Example.Hash_defines_buffer(..)
     )
   where
 
@@ -23,6 +26,20 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
+
+{-| __C declaration:__ @macro MY_FEATURE@
+
+    __defined at:__ @root directive@
+-}
+mY_FEATURE :: BG.CInt
+mY_FEATURE = (1 :: BG.CInt)
+
+{-| __C declaration:__ @macro MY_SIZE@
+
+    __defined at:__ @root directive@
+-}
+mY_SIZE :: BG.CInt
+mY_SIZE = (8 :: BG.CInt)
 
 {-| __C declaration:__ @struct hash_defines_buffer@
 

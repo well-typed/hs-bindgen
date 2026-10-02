@@ -53,6 +53,9 @@ to specify selection predicates are (excerpt of `hs-bindgen-cli preprocess
                          Select declarations in main headers (default)
 --select-from-main-header-dirs
                          Select declarations in main header directories
+--select-from-all-headers
+                         Select declarations in any header (unlike
+                         --select-all, not root directives or -D options)
 --select-by-header-path PCRE
                          Select declarations in headers with paths that match
                          PCRE
@@ -82,6 +85,12 @@ to specify selection predicates are (excerpt of `hs-bindgen-cli preprocess
 > [!NOTE]
 > Path separators (forward slash on POSIX platforms and backslash on Windows)
 > can be tricky when used in regular expressions.
+
+> [!NOTE]
+> Macros defined by root directives (`--hash-define`) or by `-D` Clang options
+> are not in any header, so predicates on header paths never match them. To
+> select every declaration except those, use `--select-from-all-headers` rather
+> than `--select-all`. See [C stages][manual:c-stages].
 
 ## Program slicing
 [t:program-slicing]: #program-slicing
@@ -131,5 +140,6 @@ standard headers).
 <!-- sources and references -->
 
 [manual:binding-specifications]: binding-specifications.md
+[manual:c-stages]: c-stages.md
 [manual:generated-names]: ../translation/generated-names.md
 [manual:includes]: includes.md

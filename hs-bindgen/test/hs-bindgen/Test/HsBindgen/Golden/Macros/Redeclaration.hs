@@ -179,7 +179,7 @@ test_noguard =
       -- @G@ is defined in @noguard_inner.h@, which is not a main header, so the
       -- default selection predicate would deselect it.
       & #onFrontend .~ (\cfg -> cfg
-          & #selectionPredicate .~ BTrue
+          & #selectionPredicate .~ BIf (SelectHeader FromAllHeaders)
           )
 
 -- | A tag macro expansion must not leak into a same-line field.

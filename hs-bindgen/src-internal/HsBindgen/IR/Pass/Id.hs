@@ -16,6 +16,7 @@ module HsBindgen.IR.Pass.Id (
 import Clang.HighLevel.Types
 
 import HsBindgen.Imports
+import HsBindgen.IR.C.DeclPath qualified as C
 import HsBindgen.IR.C.LocationInfo qualified as C
 import HsBindgen.IR.C.Naming qualified as C
 import HsBindgen.IR.Pass.Definition
@@ -54,10 +55,10 @@ class (
   idSourceName _ = C.declIdSourceName
 
   -- | Location information
-  idLocationInfo :: Proxy p -> Id p -> [SingleLoc RealPath] -> C.LocationInfo
+  idLocationInfo :: Proxy p -> Id p -> [SingleLoc C.DeclPath] -> C.LocationInfo
   default idLocationInfo ::
        Id p ~ C.DeclId
-    => Proxy p -> Id p -> [SingleLoc RealPath] -> C.LocationInfo
+    => Proxy p -> Id p -> [SingleLoc C.DeclPath] -> C.LocationInfo
   idLocationInfo _ = C.declIdLocationInfo
 
 {-------------------------------------------------------------------------------

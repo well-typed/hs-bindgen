@@ -25,8 +25,10 @@ tests = testGroup "Test.HsBindgen.Prop.Selection" [
         , testProperty "and"                   prop_selectAnd
         , testProperty "or"                    prop_selectOr
         , testProperty "not"                   prop_selectNot
+        , testProperty "no-header"             prop_selectNoHeader
         , testProperty "from-main-headers"     prop_selectFromMainHeaders
         , testProperty "from-main-header-dirs" prop_selectFromMainHeaderDirs
+        , testProperty "from-all-headers"      prop_selectFromAllHeaders
         , testProperty "header-path/all"       prop_selectHeaderPathMatchesAll
         , testProperty "header-path/needle"    prop_selectHeaderPathMatchesNeedle
         , testProperty "decl-name/all"         prop_selectDeclNameMatchesAll
@@ -48,62 +50,77 @@ tests = testGroup "Test.HsBindgen.Prop.Selection" [
   Select pass selection properties
 -------------------------------------------------------------------------------}
 
-prop_selectTrue :: RealPath -> C.DeclName -> C.Availability -> Bool
-prop_selectTrue rp name availability =
-  matchSelect (const True) (const True) rp name availability BTrue
+prop_selectTrue :: C.DeclPath -> C.DeclName -> C.Availability -> Bool
+prop_selectTrue path name availability =
+  matchSelect (const True) (const True) path name availability BTrue
 
-prop_selectFalse :: RealPath -> C.DeclName -> C.Availability -> Bool
-prop_selectFalse rp name availability =
-    not $ matchSelect (const True) (const True) rp name availability BFalse
+prop_selectFalse :: C.DeclPath -> C.DeclName -> C.Availability -> Bool
+prop_selectFalse path name availability =
+    not $ matchSelect (const True) (const True) path name availability BFalse
 
 prop_selectAnd
   :: Fun RealPath Bool -> Fun RealPath Bool
-  -> RealPath -> C.DeclName -> C.Availability
+  -> C.DeclPath -> C.DeclName -> C.Availability
   -> Boolean SelectionPredicate -> Boolean SelectionPredicate -> Bool
-prop_selectAnd (Fn isMainHeader) (Fn isInMainHeaderDir) realPath name availability p1 p2 =
-    let p1Res = matchSelect isMainHeader isInMainHeaderDir realPath name availability p1
-        p2Res = matchSelect isMainHeader isInMainHeaderDir realPath name availability p2
+prop_selectAnd (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p1 p2 =
+    let p1Res = matchSelect isMainHeader isInMainHeaderDir path name availability p1
+        p2Res = matchSelect isMainHeader isInMainHeaderDir path name availability p2
         p1AndP2Res =
-          matchSelect isMainHeader isInMainHeaderDir realPath name availability (BAnd p1 p2)
+          matchSelect isMainHeader isInMainHeaderDir path name availability (BAnd p1 p2)
      in (p1Res && p2Res) == p1AndP2Res
 
 prop_selectOr
   :: Fun RealPath Bool -> Fun RealPath Bool
-  -> RealPath -> C.DeclName -> C.Availability
+  -> C.DeclPath -> C.DeclName -> C.Availability
   -> Boolean SelectionPredicate -> Boolean SelectionPredicate -> Bool
-prop_selectOr (Fn isMainHeader) (Fn isInMainHeaderDir) realPath name availability p1 p2 =
-    let p1Res = matchSelect isMainHeader isInMainHeaderDir realPath name availability p1
-        p2Res = matchSelect isMainHeader isInMainHeaderDir realPath name availability p2
+prop_selectOr (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p1 p2 =
+    let p1Res = matchSelect isMainHeader isInMainHeaderDir path name availability p1
+        p2Res = matchSelect isMainHeader isInMainHeaderDir path name availability p2
         p1OrP2Res =
-          matchSelect isMainHeader isInMainHeaderDir realPath name availability (BOr p1 p2)
+          matchSelect isMainHeader isInMainHeaderDir path name availability (BOr p1 p2)
      in (p1Res || p2Res) == p1OrP2Res
 
 prop_selectNot
   :: Fun RealPath Bool -> Fun RealPath Bool
-  -> RealPath -> C.DeclName -> C.Availability
+  -> C.DeclPath -> C.DeclName -> C.Availability
   -> Boolean SelectionPredicate -> Property
-prop_selectNot (Fn isMainHeader) (Fn isInMainHeaderDir) realPath name availability p =
-      matchSelect isMainHeader isInMainHeaderDir realPath name availability p
-  =/= matchSelect isMainHeader isInMainHeaderDir realPath name availability (BNot p)
+prop_selectNot (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p =
+      matchSelect isMainHeader isInMainHeaderDir path name availability p
+  =/= matchSelect isMainHeader isInMainHeaderDir path name availability (BNot p)
+
+-- | Outside a header, no header predicate matches
+prop_selectNoHeader ::
+     Fun RealPath Bool -> Fun RealPath Bool
+  -> C.DeclName -> C.Availability -> HeaderPathPredicate -> Bool
+prop_selectNoHeader (Fn isMainHeader) (Fn isInMainHeaderDir) name availability p =
+    not $ any
+      (\path -> matchSelect isMainHeader isInMainHeaderDir path name availability $
+        BIf (SelectHeader p))
+      [C.InRootHeader, C.OnCommandLine]
 
 prop_selectFromMainHeaders
   :: Fun RealPath Bool -> RealPath -> C.DeclName -> C.Availability -> Bool
 prop_selectFromMainHeaders (Fn isMainHeader) rp name availability =
   let p = BIf $ SelectHeader FromMainHeaders
-   in matchSelect isMainHeader unused rp name availability p == isMainHeader rp
+   in matchSelect isMainHeader unused (C.InHeader rp) name availability p == isMainHeader rp
 
 prop_selectFromMainHeaderDirs
   :: Fun RealPath Bool -> RealPath -> C.DeclName -> C.Availability -> Bool
 prop_selectFromMainHeaderDirs (Fn isInMainHeaderDir) rp name availability =
   let p = BIf $ SelectHeader FromMainHeaderDirs
-   in matchSelect unused isInMainHeaderDir rp name availability p
+   in matchSelect unused isInMainHeaderDir (C.InHeader rp) name availability p
         == isInMainHeaderDir rp
+
+prop_selectFromAllHeaders :: RealPath -> C.DeclName -> C.Availability -> Bool
+prop_selectFromAllHeaders rp name availability =
+  let p = BIf $ SelectHeader FromAllHeaders
+   in matchSelect unused unused (C.InHeader rp) name availability p
 
 prop_selectHeaderPathMatchesAll ::
   RealPath -> C.DeclName -> C.Availability -> Bool
 prop_selectHeaderPathMatchesAll rp name availability =
   let p = BIf $ SelectHeader (HeaderPathMatches ".*")
-   in matchSelect unused unused rp name availability p
+   in matchSelect unused unused (C.InHeader rp) name availability p
 
 prop_selectHeaderPathMatchesNeedle ::
   RealPath -> C.DeclName -> C.Availability -> Bool
@@ -111,27 +128,27 @@ prop_selectHeaderPathMatchesNeedle rp name availability =
   let pathT = getRealPathText rp
       rp' = RealPath $ pathT <> "NEEDLE" <> pathT
       p = BIf $ SelectHeader (HeaderPathMatches "NEEDLE")
-   in matchSelect unused unused rp' name availability p
+   in matchSelect unused unused (C.InHeader rp') name availability p
 
 prop_selectDeclNameMatchesAll ::
-  RealPath -> C.DeclName -> C.Availability -> Bool
-prop_selectDeclNameMatchesAll rp name availability =
+  C.DeclPath -> C.DeclName -> C.Availability -> Bool
+prop_selectDeclNameMatchesAll path name availability =
   let p = BIf $ SelectDecl (DeclNameMatches ".*")
-   in matchSelect unused unused rp name availability p
+   in matchSelect unused unused path name availability p
 
 prop_selectDeclNameMatchesNeedle ::
-  RealPath -> C.DeclName -> C.Availability -> Bool
-prop_selectDeclNameMatchesNeedle rp declName availability =
+  C.DeclPath -> C.DeclName -> C.Availability -> Bool
+prop_selectDeclNameMatchesNeedle path declName availability =
   let name  = declName.text
       name' = C.DeclName (name <> "NEEDLE" <> name) declName.kind
       p     = BIf $ SelectDecl (DeclNameMatches "NEEDLE")
-   in matchSelect unused unused rp name' availability p
+   in matchSelect unused unused path name' availability p
 
 prop_selectDeclMatchDeprecated ::
-  RealPath -> C.DeclName -> C.Availability -> Bool
-prop_selectDeclMatchDeprecated rp name availability =
+  C.DeclPath -> C.DeclName -> C.Availability -> Bool
+prop_selectDeclMatchDeprecated path name availability =
   let p = BIf $ SelectDecl DeclDeprecated
-   in matchSelect unused unused rp name availability p
+   in matchSelect unused unused path name availability p
         == (availability == C.Deprecated)
 
 {-------------------------------------------------------------------------------
@@ -186,6 +203,13 @@ instance Function RealPath where
 instance CoArbitrary RealPath where
   coarbitrary = coarbitraryShow
 
+instance Arbitrary C.DeclPath where
+  arbitrary = oneof [
+      pure C.OnCommandLine
+    , pure C.InRootHeader
+    , C.InHeader <$> arbitrary
+    ]
+
 instance Arbitrary C.NameKind where
   arbitrary = elements [minBound .. maxBound]
 
@@ -207,11 +231,17 @@ instance Arbitrary a => Arbitrary (Boolean a) where
 
 instance Arbitrary SelectionPredicate where
   arbitrary = oneof [
-      pure (SelectHeader FromMainHeaders)
-    , pure (SelectHeader FromMainHeaderDirs)
-    , SelectHeader . HeaderPathMatches <$> elements regexPatterns
-    , SelectDecl . DeclNameMatches     <$> elements regexPatterns
+      SelectHeader <$> arbitrary
+    , SelectDecl . DeclNameMatches <$> elements regexPatterns
     , pure (SelectDecl DeclDeprecated)
+    ]
+
+instance Arbitrary HeaderPathPredicate where
+  arbitrary = oneof [
+      pure FromMainHeaders
+    , pure FromMainHeaderDirs
+    , pure FromAllHeaders
+    , HeaderPathMatches <$> elements regexPatterns
     ]
 
 regexPatterns :: [Regex]

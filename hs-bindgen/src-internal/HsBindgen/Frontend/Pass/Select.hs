@@ -569,7 +569,7 @@ isDroppedMacro = \case
 --
 -- Only conflicting declarations carry more than one location; we sort by the
 -- first.
-msgLoc :: AnnMsg Select -> Maybe (SingleLoc RealPath)
+msgLoc :: AnnMsg Select -> Maybe (SingleLoc C.DeclPath)
 msgLoc msg = listToMaybe $ C.locationInfoLocs msg.traceMsg.loc
 
 -- | Sort key of a trace message
@@ -616,10 +616,11 @@ sortSelectMsgs includeGraph msgs =
 
     unknownPaths :: Set RealPath
     unknownPaths = Set.fromList [
-        singleLocPath loc
+        path
       | msg <- msgs
       , Just loc <- [msgLoc msg]
-      , IncludeGraph.lookupIncludeOrder order (singleLocPath loc)
+      , C.InHeader path <- [singleLocPath loc]
+      , IncludeGraph.lookupIncludeOrder order (C.InHeader path)
           == IncludeGraph.NotInIncludeGraph
       ]
 
@@ -628,7 +629,7 @@ sortSelectMsgs includeGraph msgs =
 -------------------------------------------------------------------------------}
 
 -- Match function to find selection roots.
-type Match = C.DeclName -> SingleLoc RealPath -> C.Availability -> Bool
+type Match = C.DeclName -> SingleLoc C.DeclPath -> C.Availability -> Bool
 
 -- | Limit the declaration index to those entries that match the select
 --   predicate. Do not include anything external nor omitted.

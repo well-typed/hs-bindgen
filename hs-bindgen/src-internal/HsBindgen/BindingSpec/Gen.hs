@@ -155,6 +155,10 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
       Hs.DeclMacroValue{}           -> id
       Hs.DeclVar{}                  -> id
 
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/2284>
+    --
+    -- Bindings specifications for macros defined on the command line or the
+    -- root header.
     insertType ::
          ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
          , (Hs.Name Hs.NsTypeConstr, BindingSpec.HsTypeSpec)
@@ -162,13 +166,18 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
       -> UnresolvedBindingSpec
       -> UnresolvedBindingSpec
     insertType ((declInfo, cTypeSpec), (hsName, hsTypeSpec)) spec =
-      spec
-        & #cTypes %~
-            Map.insertWith (++)
-              declInfo.id.cName
-              [(getHeaders declInfo, Require cTypeSpec)]
-        & #hsTypes %~
-            Map.insert hsName hsTypeSpec
+      case singleLocPath declInfo.loc of
+        C.InHeader path ->
+          spec
+            & #cTypes %~
+                Map.insertWith (++)
+                  declInfo.id.cName
+                  [(getMainHeaders' path, Require cTypeSpec)]
+            & #hsTypes %~
+                Map.insert hsName hsTypeSpec
+        -- Not in any header, so no binding specification can refer to it
+        C.InRootHeader  -> spec
+        C.OnCommandLine -> spec
 
     auxTypSyn ::
          Hs.TypSyn
@@ -272,9 +281,6 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
       in  ( (originDecl.info, cTypeSpec)
           , (hsNewtype.name, hsTypeSpec)
           )
-
-    getHeaders :: C.DeclInfo Final -> Set C.HashIncludeArg
-    getHeaders info = getMainHeaders' $ singleLocPath info.loc
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1766>
 -- We should allow users to specify strategies for instance deriving.

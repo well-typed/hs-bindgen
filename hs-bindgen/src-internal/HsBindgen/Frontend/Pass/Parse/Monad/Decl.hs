@@ -29,14 +29,15 @@ module HsBindgen.Frontend.Pass.Parse.Monad.Decl (
 
 import Data.IORef
 
-import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
 import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Eff
+import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
+import HsBindgen.Frontend.Pass.Parse.Builtin
 import HsBindgen.Frontend.Pass.Parse.Context
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad.SourceRangeMap (LookupResult (..),
@@ -192,7 +193,7 @@ getMacroExpansions range = do
 traceImmediate ::
      HasCallStack
   => C.PrelimDeclId
-  -> SingleLoc RealPath
+  -> SingleLoc C.DeclPath
   -> ImmediateParseMsg
   -> ParseDecl ()
 traceImmediate declId declLoc msg = wrapEff $ \support ->
@@ -223,7 +224,7 @@ traceImmediateGlobal msg = wrapEff $ \support ->
 parseFail ::
      ParseCtx
   -> C.PrelimDeclId
-  -> SingleLoc RealPath
+  -> SingleLoc C.DeclPath
   -> DelayedParseMsg
   -> ParseDecl [ParseResult l Parse]
 parseFail ctx declId declLoc msg = do
@@ -251,18 +252,21 @@ parseFailNoInfo ctx msg curr = do
     -- The declaration ID and the location are not always available while
     -- parsing, and so are not part of the declaration context. We have to
     -- obtain them again here.
-    getDeclInfoForTrace :: ParseDecl (C.PrelimDeclId, SingleLoc RealPath)
+    getDeclInfoForTrace :: ParseDecl (C.PrelimDeclId, SingleLoc C.DeclPath)
     getDeclInfoForTrace = do
       declId  <- C.prelimDeclIdAtCursor curr ctx.outer.kind
-      declLoc <- HighLevel.clang_getCursorLocation' curr
-      pure (declId, declLoc)
+      source  <- getCursorSource curr
+      case source of
+        SourceDecl declLoc -> pure (declId, declLoc)
+        -- We skip built-ins before parsing them
+        SourceBuiltin      -> panicIO "parse failure in a built-in"
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1820>
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1249>
 -- Ideally we'd only emit the trace when we /use/ the declaration that
 -- we fail to parse.
 maybeEmitScopingMsg ::
-  RequiredForScoping -> C.PrelimDeclId -> SingleLoc RealPath -> ParseDecl ()
+  RequiredForScoping -> C.PrelimDeclId -> SingleLoc C.DeclPath -> ParseDecl ()
 maybeEmitScopingMsg scoping declId declLoc = case scoping of
     RequiredForScoping ->
       traceImmediate declId declLoc $

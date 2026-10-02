@@ -65,11 +65,9 @@ so `a.h` is parsed with `A` defined and `B` undefined. This is why
 `--hash-define` is position-sensitive (unlike the C compiler command line option
 `-D`), and why `hashDefine` must precede the `hashInclude` calls it applies to.
 
-### `#define` syntax, not `-D` syntax
+### Differences between `--hash-define` syntax and `-D` syntax
 
-Users arriving with `-D` arguments in hand should note that the translation is
-not the identity: `-DFOO` defines `FOO` as `1`, and the `=` of `-DFOO=BAR` is
-not part of `#define` syntax.
+`--hash-define` and `-D` arguments translate differently.
 
 | C compiler `-D` argument | Command line               | Template Haskell          | Emitted directive  |
 |--------------------------|----------------------------|---------------------------|--------------------|
@@ -92,27 +90,52 @@ The command-line option takes *two* arguments, which has two consequences:
 * Omitting the value silently consumes the next header argument:
   `--hash-define FOO a.h` defines `FOO` as `a.h` and leaves no header to
   translate.
-* A value starting with `-` is rejected as an unknown option.  Write
+* A value starting with `-` is rejected as an unknown option. Write
   `--hash-define MIN '(-1)'`, which is better C anyway since the replacement
-  list is substituted literally, or place `--` before it.  Everything after `--`
+  list is substituted literally, or place `--` before it. Everything after `--`
   is positional, so no further `--hash-define` may follow.
 
-### Root-header `#define`s do not become bindings
+### Root-header `#define`s are declarations
 
-The root header of `hs-bindgen` is synthetic (i.e., in-memory), and declarations
-located in it are skipped. A `#define` stated as a root directive never produces
-a binding, under any selection predicate, `--select-all` included. It only
-changes how the headers are preprocessed. Define the macro in a header if you
-want a binding for it.
+A `#define` stated as a root directive defines a macro just like a `#define` in
+a header, and `hs-bindgen` treats it as a declaration. The same holds for a
+`-D` Clang option. Neither is in a header, and the default selection predicate
+does not select them. If you want to select declarations defined via `-D` or
+`--hash-define`, use `--select-all` or `--select-by-decl-name`, or use program
+slicing when a selected declaration uses the macro. For example, given the
+header
 
-### What cannot be a root directive
+```c
+struct S { T x; };
+```
 
-Include directories. There is no C syntax for "add a directory to the include
-search path", so `-I` cannot be a root directive: it configures the generation
-stage only. The compilation stage takes its include directories from the
-`.cabal` file (`include-dirs`) and the `cabal.project` files
-(`extra-include-dirs`), and you must keep those in agreement. See
-[Includes][manual:includes].
+and `--hash-define T int`, `hs-bindgen` deselects `S`, because it depends on
+`T`. With `--enable-program-slicing`, it generates a newtype `T` for the macro,
+and binds the field `x` to it.
+
+A header that redefines such a macro differently conflicts with it, just as two
+differing definitions in one header do.
+
+`--select-all` also selects the `-D` options the Clang driver adds by itself,
+such as `-D__GCC_HAVE_DWARF2_CFI_ASM=1` on ELF and Mach-O targets, and so does
+`--select-by-decl-name` when its pattern matches their names. Use
+`--select-from-all-headers` to select every declaration in a header, but none of
+these macros.
+
+Also generated binding specifications omit `-D` and `--hash-define` macros,
+because they are not in any header. The binding specification generated for the
+example above thus records `S`, but not `T`. A package that uses this binding
+specification, and the macro `T` as well, binds its own newtype `T`, distinct
+from the type of the field `x`. Binding specifications for these macros are
+tracked in [issue #2284][issue:2284].
+
+### Include directories and other Clang options cannot be root directives
+
+There is no C syntax for "add a directory to the include search path", so `-I`
+cannot be a root directive: it configures the generation stage only. The
+compilation stage takes its include directories from the `.cabal` file
+(`include-dirs`) and the `cabal.project` files (`extra-include-dirs`), and you
+must keep those in agreement. See [Includes][manual:includes].
 
 The same holds for Clang options generally. `--clang-option`,
 `--clang-option-before`, `--clang-option-after` and `BINDGEN_EXTRA_CLANG_ARGS`
@@ -181,6 +204,7 @@ option is to make the macro a root directive and generate a *single* module
 <!-- sources and references -->
 
 [header:header_only.h]: ../../c/header_only.h
+[issue:2284]: https://github.com/well-typed/hs-bindgen/issues/2284
 [manual:clang-options]: clang-options.md
 [manual:includes]: includes.md
 [manual:non-portability]: non-portability.md

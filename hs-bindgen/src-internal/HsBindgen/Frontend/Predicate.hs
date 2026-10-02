@@ -68,6 +68,12 @@ data HeaderPathPredicate =
     -- including subdirectories
   | FromMainHeaderDirs
 
+    -- | Include declarations in any header
+    --
+    -- Unlike 'BTrue', this excludes declarations without a header, such as
+    -- macros defined by root directives or @-D@ options.
+  | FromAllHeaders
+
     -- | Match header path against regex
   | HeaderPathMatches Regex
   deriving stock (Show, Eq, Generic)
@@ -133,16 +139,22 @@ mkIsInMainHeaderDir paths path =
       Set.map (FilePath.takeDirectory . getRealPath) paths
 
 -- | Match 'SelectionPredicate' predicates
+--
+-- A declaration without a header (a root directive or a @-D@ option) matches
+-- no 'HeaderPathPredicate'.
 matchSelect ::
      IsMainHeader
   -> IsInMainHeaderDir
-  -> RealPath
+  -> C.DeclPath
   -> C.DeclName
   -> C.Availability
   -> Boolean SelectionPredicate
   -> Bool
-matchSelect isMainHeader isInMainHeaderDir realPath cDeclName availability = eval $ \case
-    SelectHeader p -> matchHeaderPath isMainHeader isInMainHeaderDir realPath p
+matchSelect isMainHeader isInMainHeaderDir path cDeclName availability = eval $ \case
+    SelectHeader p -> case path of
+      C.InHeader realPath -> matchHeaderPath isMainHeader isInMainHeaderDir realPath p
+      C.InRootHeader      -> False
+      C.OnCommandLine     -> False
     SelectDecl   p -> matchDecl cDeclName availability p
 
 {-------------------------------------------------------------------------------
@@ -218,6 +230,7 @@ matchHeaderPath ::
 matchHeaderPath isMainHeader isInMainHeaderDir realPath = \case
     FromMainHeaders      -> isMainHeader realPath
     FromMainHeaderDirs   -> isInMainHeaderDir realPath
+    FromAllHeaders       -> True
     HeaderPathMatches re -> matchTest re (getRealPathText realPath)
 
 -- | Match 'DeclPredicate' predicates

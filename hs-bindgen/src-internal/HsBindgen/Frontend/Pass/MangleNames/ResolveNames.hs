@@ -93,7 +93,7 @@ resolveDeclInfo nsProxy info = do
           , hsName = Hs.demoteNs hsName
           }
       , sourceOrderIndex = info.sourceOrderIndex
-      , headerInfo       = info.headerInfo
+      , origin           = info.origin
       , availability     = info.availability
       , comment          = comment'
       , enclosing        = enclosing'

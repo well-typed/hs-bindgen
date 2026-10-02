@@ -13,6 +13,7 @@ module HsBindgen.IR.C.Decl (
   , Availability(..)
   , EnclosingRef(..)
   , DeclInfo(..)
+  , DeclOrigin(..)
   , HeaderInfo(..)
   , FieldInfo(..)
   , DeclKind(..)
@@ -57,6 +58,7 @@ import GHC.Records (HasField (getField))
 import Clang.HighLevel.Types
 
 import HsBindgen.Imports
+import HsBindgen.IR.C.DeclPath qualified as C
 import HsBindgen.IR.C.HashIncludeArg qualified as C
 import HsBindgen.IR.C.Naming qualified as C
 import HsBindgen.IR.C.Type qualified as C
@@ -103,7 +105,7 @@ deriving stock instance (Ord  (Id p)) => Ord  (EnclosingRef p)
 deriving stock instance (Show (Id p)) => Show (EnclosingRef p)
 
 data DeclInfo (p :: Pass) = DeclInfo{
-      loc           :: SingleLoc RealPath
+      loc           :: SingleLoc C.DeclPath
     , id            :: Id p
     -- | Source order index
     --
@@ -113,7 +115,7 @@ data DeclInfo (p :: Pass) = DeclInfo{
     -- lower index come before those with a higher index. Populated only with
     -- Clang version 20.1 or newer; 'Nothing' otherwise.
     , sourceOrderIndex :: Maybe Natural
-    , headerInfo    :: HeaderInfo
+    , origin        :: DeclOrigin
     , availability  :: Availability
     , comment       :: CommentDecl p
       -- ^ Doxygen comment for this declaration
@@ -134,6 +136,18 @@ data DeclInfo (p :: Pass) = DeclInfo{
     }
   deriving stock (Generic)
 
+-- | Where a declaration comes from
+data DeclOrigin =
+    -- | A header, possibly included transitively by a main header
+    FromHeader HeaderInfo
+
+    -- | A @#define@ root directive (see "HsBindgen.Frontend.RootHeader")
+  | FromRootDirective
+
+    -- | A @-D@ Clang option
+  | FromCommandLine
+  deriving stock (Show, Eq, Generic)
+
 data HeaderInfo = HeaderInfo{
       -- | User-specified headers that provide the declaration
       --
@@ -153,7 +167,7 @@ data HeaderInfo = HeaderInfo{
   deriving stock (Show, Eq, Generic)
 
 data FieldInfo (p :: Pass) = FieldInfo {
-      loc     :: SingleLoc RealPath
+      loc     :: SingleLoc C.DeclPath
     , name    :: ScopedName p
     , comment :: CommentDecl p
     }
@@ -623,7 +637,7 @@ instance (
         loc              = info.loc
       , id               = coercePassId (Proxy @'(p, p')) info.id
       , sourceOrderIndex = info.sourceOrderIndex
-      , headerInfo       = info.headerInfo
+      , origin           = info.origin
       , availability     = info.availability
       , comment          = coercePassCommentDecl (Proxy @'(p, p')) info.comment
       , enclosing        = map coercePass info.enclosing

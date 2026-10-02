@@ -173,15 +173,23 @@ getIncludes includeGraph path =
 
 -- | Position of a source in the include order
 --
--- The constructor order /is/ the specification: an unknown path sorts last.
--- Do not reorder.
---
--- The root header has no position: 'toSortedList' leaves it out, since it has
--- no 'RealPath' to look up. We do not parse declarations located in it (see
--- @parseDeclTopLevel@).
+-- The constructor order /is/ the specification: the command line and then the
+-- root header precede every real source, and an unknown path sorts last. Do not
+-- reorder.
 data IncludeOrderIx =
+    -- | The command line
+    --
+    -- Clang processes @-D@ options before the root header.
+    InCommandLine
+    -- | The root header
+    --
+    -- The root header is synthetic and not a source file, so it is not part of
+    -- the include order proper. Anything located in it comes from a root
+    -- directive, i.e. directly from the user, and hence precedes every real
+    -- source.
+  | InRootHeader
     -- | Position in the topologically sorted include graph
-    InIncludeGraph Int
+  | InIncludeGraph Int
     -- | Path unknown to the include graph
     --
     -- Reaching this is a bug; see
@@ -195,9 +203,12 @@ newtype IncludeOrder = IncludeOrder (Map RealPath Int)
 toIncludeOrder :: IncludeGraph -> IncludeOrder
 toIncludeOrder graph = IncludeOrder $ Map.fromList (zip (toSortedList graph) [0..])
 
-lookupIncludeOrder :: IncludeOrder -> RealPath -> IncludeOrderIx
-lookupIncludeOrder (IncludeOrder order) path =
-    maybe NotInIncludeGraph InIncludeGraph (Map.lookup path order)
+lookupIncludeOrder :: IncludeOrder -> C.DeclPath -> IncludeOrderIx
+lookupIncludeOrder (IncludeOrder order) = \case
+    C.OnCommandLine -> InCommandLine
+    C.InRootHeader  -> InRootHeader
+    C.InHeader path ->
+      maybe NotInIncludeGraph InIncludeGraph (Map.lookup path order)
 
 {-------------------------------------------------------------------------------
   Visualization
