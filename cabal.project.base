@@ -51,5 +51,5 @@ source-repository-package
 source-repository-package
    type:     git
    location: https://github.com/well-typed/c-expr
-   tag:      0a53616d231686e97b20b3fe631956cf2678f996
+   tag:      6a18018ac1b91c62d6d3114c01a6ffa6c2ae7da5
    subdir:   c-expr-dsl
