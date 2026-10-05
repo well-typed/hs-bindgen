@@ -23,6 +23,7 @@ testCases = [
     , TestCaseLeaf test_arithmetic_types
     , TestCaseLeaf test_cref_attributes
     , TestCaseLeaf test_defer_wrong
+    , TestCaseLeaf test_end_in_macro_arg
     , TestCaseLeaf test_functions
     , TestCaseLeaf test_gnu_attributes
     , TestCases "nesting" [
@@ -71,6 +72,10 @@ test_cref_attributes =
 test_defer_wrong :: TestCase
 test_defer_wrong =
     defaultTest "macros/reparse/defer_wrong"
+
+test_end_in_macro_arg :: TestCase
+test_end_in_macro_arg =
+    defaultTest "macros/reparse/end_in_macro_arg"
 
 test_functions :: TestCase
 test_functions =
