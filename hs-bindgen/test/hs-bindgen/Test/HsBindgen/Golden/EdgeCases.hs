@@ -121,7 +121,7 @@ test_headers =
 test_include_macro :: TestCase
 test_include_macro =
     defaultTest "edge-cases/include_macro_parent"
-      & #onFrontend .~ ( #selectionPredicate .~ BTrue )
+      & #onFrontend .~ ( #selectionPredicate .~ BIf (SelectHeader FromAllHeaders) )
 
 test_iterator :: TestCase
 test_iterator =
@@ -133,7 +133,7 @@ test_iterator =
 test_ordinary_unnamed_decl :: TestCase
 test_ordinary_unnamed_decl =
     defaultTest "edge-cases/ordinary_unnamed_decl_parent"
-      & #onFrontend .~ ( #selectionPredicate .~ BTrue )
+      & #onFrontend .~ ( #selectionPredicate .~ BIf (SelectHeader FromAllHeaders) )
 
 test_select_no_match :: TestCase
 test_select_no_match =

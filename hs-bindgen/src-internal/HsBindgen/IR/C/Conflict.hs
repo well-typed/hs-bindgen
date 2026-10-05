@@ -25,6 +25,7 @@ import Text.SimplePrettyPrint qualified as PP
 import Clang.HighLevel.Types
 
 import HsBindgen.Imports
+import HsBindgen.IR.C.DeclPath qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -54,7 +55,7 @@ import HsBindgen.Util.Tracer
 --
 -- Invariant: the 'Set' must have cardinality of 2 or larger.
 data Conflict = Conflict {
-      locs :: Set (SingleLoc RealPath)
+      locs :: Set (SingleLoc C.DeclPath)
     }
   deriving stock (Eq, Ord, Show)
 
@@ -62,23 +63,23 @@ data Conflict = Conflict {
   Construction
 -------------------------------------------------------------------------------}
 
-conflictBetween :: SingleLoc RealPath -> SingleLoc RealPath -> Conflict
+conflictBetween :: SingleLoc C.DeclPath -> SingleLoc C.DeclPath -> Conflict
 conflictBetween l1 l2 = Conflict $ Set.fromList [l1, l2]
 
-conflictInsert :: Conflict -> SingleLoc RealPath -> Conflict
+conflictInsert :: Conflict -> SingleLoc C.DeclPath -> Conflict
 conflictInsert (Conflict xs) x = Conflict $ Set.insert x xs
 
 -- | Precondition: The length of the list must be 2 or longer.
 --
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1577>
-conflictFromList :: [SingleLoc RealPath] -> Conflict
+conflictFromList :: [SingleLoc C.DeclPath] -> Conflict
 conflictFromList ls = Conflict $ Set.fromList ls
 
 {-------------------------------------------------------------------------------
   Query
 -------------------------------------------------------------------------------}
 
-conflictToList :: Conflict -> NonEmpty (SingleLoc RealPath)
+conflictToList :: Conflict -> NonEmpty (SingleLoc C.DeclPath)
  -- 'NonEmpty.fromList' safe due to invariant.
 conflictToList conflict = NonEmpty.fromList $ Set.toList conflict.locs
 
@@ -86,7 +87,7 @@ conflictToList conflict = NonEmpty.fromList $ Set.toList conflict.locs
 --
 -- This is only meaningful if the locations share the same source path.
 -- Comparisons across source paths happen in lexicographical order.
-conflictGetMinimumLoc :: Conflict -> SingleLoc RealPath
+conflictGetMinimumLoc :: Conflict -> SingleLoc C.DeclPath
  -- 'minimum' safe due to invariant.
 conflictGetMinimumLoc conflict = minimum conflict.locs
 

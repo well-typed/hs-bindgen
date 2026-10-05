@@ -2,6 +2,7 @@
 module Test.HsBindgen.Golden.Functions (testCases) where
 
 import HsBindgen.Backend.Category
+import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex (UnusableReason (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
@@ -113,15 +114,18 @@ test_hash_defines =
     defaultTest "functions/hash_defines"
       & #hashDefines .~ hashDefines
 
--- | Root-header @#define@s produce no bindings, not even under @--select-all@
+-- | @--select-all@ selects root-header @#define@s
 --
--- They live in the synthetic root header, which is not a main header of
--- anything, so they are not attempted at all — no macro bindings, and no
--- traces.
+-- Without unwind tables, the Clang driver does not add
+-- @-D__GCC_HAVE_DWARF2_CFI_ASM=1@, which @--select-all@ would select too.
 test_hash_defines_select_all :: TestCase
 test_hash_defines_select_all =
     testVariant "functions/hash_defines" (Just 1) "select_all"
       & #hashDefines .~ hashDefines
+      & #onBoot      .~ ( #clangArgs % #argsAfter .~ [
+                              "-fno-asynchronous-unwind-tables"
+                            , "-fno-unwind-tables"
+                            ] )
       & #onFrontend  .~ ( #selectionPredicate .~ BTrue)
 
 hashDefines :: [C.HashDefine]

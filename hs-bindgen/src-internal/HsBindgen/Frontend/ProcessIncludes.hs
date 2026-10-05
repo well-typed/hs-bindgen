@@ -239,9 +239,7 @@ getIncludeTo curr = do
 
 getInclude :: CXTranslationUnit -> CXCursor -> RealPath -> IO Include
 getInclude unit curr path = do
-    range  <- toRangeSourcePath =<< clang_getCursorExtent curr
-    tokens <- HighLevel.clang_tokenize unit getSourcePathText $
-                fmap multiLocExpansion range
+    tokens <- HighLevel.clang_tokenize unit =<< clang_getCursorExtent curr
     let err = "Unable to parse #include: " ++ show tokens
     maybe (panicIO err) return $ parseInclude path tokens
 

@@ -9,6 +9,7 @@ module HsBindgen.Frontend.Pass.Parse.Monad.SourceRangeMap (
   , recordAt
   , LookupResult (..)
   , lookupRange
+  , lookupAt
   ) where
 
 import Data.List.NonEmpty (NonEmpty)
@@ -39,6 +40,9 @@ instance Ord Pos where
        left.line   `compare` right.line
     <> left.column `compare` right.column
 
+toPos :: SingleLoc RealPath -> Pos
+toPos loc = Pos loc.singleLocLine loc.singleLocColumn
+
 -- | Mapping of source location ranges in C code to @a@ values
 newtype SourceRangeMap a = SRM {
     -- | We use a stacked map so we can lookup values in source location ranges
@@ -55,7 +59,7 @@ recordAt :: forall a. SingleLoc RealPath -> a -> SourceRangeMap a -> SourceRange
 recordAt loc new srm = SRM (addMacro srm.unwrap)
   where
     pos :: Pos
-    pos = Pos loc.singleLocLine loc.singleLocColumn
+    pos = toPos loc
 
     addMacro ::
          Map RealPath (Map Pos (NonEmpty a))
@@ -82,7 +86,10 @@ data LookupResult a =
   | LookupNotFound
   | LookupFound a
 
--- | Lookup values in the given source location range
+-- | Lookup values in the given half-open source location range
+--
+-- The end of a range is exclusive: Clang reports the end of an extent as the
+-- position just after its last token, where the next token may start.
 lookupRange :: forall a. Range (SingleLoc RealPath) -> SourceRangeMap a -> LookupResult (NonEmpty a)
 lookupRange range srm
   | range.rangeStart.singleLocPath /= range.rangeEnd.singleLocPath
@@ -90,23 +97,14 @@ lookupRange range srm
   | otherwise
   = maybe LookupNotFound LookupFound aux
   where
-    realPath :: RealPath
-    realPath = range.rangeStart.singleLocPath
-
-    topLeft, bottomRight :: Pos
-    topLeft = Pos{
-        line   = range.rangeStart.singleLocLine
-      , column = range.rangeStart.singleLocColumn
-      }
-    bottomRight = Pos{
-        line   = range.rangeEnd.singleLocLine
-      , column = range.rangeEnd.singleLocColumn
-      }
-
     aux :: Maybe (NonEmpty a)
     aux = do
-        let fileMap = srm.unwrap
-        posMap <- Map.lookup realPath fileMap
+        posMap <- Map.lookup range.rangeStart.singleLocPath srm.unwrap
         fmap sconcat $ NE.nonEmpty $ Map.elems $
-          Map.takeWhileAntitone (bottomRight >=) $
-            Map.dropWhileAntitone (topLeft >) posMap
+          Map.takeWhileAntitone (toPos range.rangeEnd >) $
+            Map.dropWhileAntitone (toPos range.rangeStart >) posMap
+
+-- | Lookup values recorded at the given source location
+lookupAt :: SingleLoc RealPath -> SourceRangeMap a -> Maybe (NonEmpty a)
+lookupAt loc srm =
+    Map.lookup (toPos loc) =<< Map.lookup loc.singleLocPath srm.unwrap

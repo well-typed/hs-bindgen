@@ -195,7 +195,7 @@ usableToLoc = \case
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
 data UnusableEntry =
-    UnusableReason (SingleLoc RealPath) UnusableReason
+    UnusableReason (SingleLoc C.DeclPath) UnusableReason
   | UnusableConflict C.Conflict
   deriving stock (Show, Generic)
 
@@ -248,7 +248,7 @@ deriving stock instance ( IsPass p
 
 data Squashed = Squashed {
     -- | The location of the squashed typedef (i.e., _not_ the target)
-    typedefLoc   :: SingleLoc RealPath
+    typedefLoc   :: SingleLoc C.DeclPath
   , targetNameC  :: C.DeclId
   , targetNameHs :: Hs.Name Hs.NsTypeConstr
   }
@@ -316,14 +316,14 @@ data ResolvedResult l =
     -- macro, or was not a parse success to begin with).
     Resolved (ParseResult l Out)
     -- | Macro names could not be resolved.
-  | Unresolved C.DeclId (SingleLoc RealPath) MacroResolutionError
+  | Unresolved C.DeclId (SingleLoc C.DeclPath) MacroResolutionError
 
 resolvedResultId :: ResolvedResult l -> C.DeclId
 resolvedResultId = \case
     Resolved result       -> result.id
     Unresolved declId _ _ -> declId
 
-resolvedResultLoc :: ResolvedResult l -> SingleLoc RealPath
+resolvedResultLoc :: ResolvedResult l -> SingleLoc C.DeclPath
 resolvedResultLoc = \case
     Resolved result    -> result.loc
     Unresolved _ loc _ -> loc
@@ -492,7 +492,7 @@ checkIsConflict macroAnalysis isMainHeader new (oldId, old)
     newId :: C.DeclId
     newId = resolvedResultId new
 
-    newLoc :: SingleLoc RealPath
+    newLoc :: SingleLoc C.DeclPath
     newLoc = resolvedResultLoc new
 
     redefinition :: UniqueExpansion.Redefinition
@@ -538,7 +538,7 @@ data Keep = KeepNew | KeepOld
 --
 -- The location of the kept definition decides whether the default selection
 -- predicate selects it, and its header determines the generated @#include@.
-keepRedefinition :: IsMainHeader -> SingleLoc RealPath -> Entry l -> Keep
+keepRedefinition :: IsMainHeader -> SingleLoc C.DeclPath -> Entry l -> Keep
 keepRedefinition isMainHeader newLoc old
     | inMainHeader newLoc
     , not $ any inMainHeader $ C.declLocsToList (entryToLoc old)
@@ -546,8 +546,8 @@ keepRedefinition isMainHeader newLoc old
     | otherwise
     = KeepOld
   where
-    inMainHeader :: SingleLoc RealPath -> Bool
-    inMainHeader = isMainHeader . singleLocPath
+    inMainHeader :: SingleLoc C.DeclPath -> Bool
+    inMainHeader = maybe False isMainHeader . C.declPathRealPath . singleLocPath
 
 -- | Merge two definitions, keeping the delayed parse messages of both
 mergeRedefinition :: Keep -> Success l Out -> Success l Out -> Success l Out
@@ -650,7 +650,7 @@ getOmitted index = Map.mapMaybe toOmitted index.map
       UsableEntry{} ->
         Nothing
       UnusableEntry (UnusableReason loc UnusableOmitted) ->
-        Just (singleLocPath loc)
+        C.declPathRealPath (singleLocPath loc)
       UnusableEntry{} ->
         Nothing
 
@@ -670,7 +670,7 @@ getSquashed index targets = Map.mapMaybe onlySquashedTargetingSet index.map
     onlySquashedTargetingSet = \case
       UsableEntry (UsableSquashed e) ->
         if Set.member e.targetNameC targets then
-          Just (singleLocPath e.typedefLoc, e.targetNameHs)
+          (, e.targetNameHs) <$> C.declPathRealPath (singleLocPath e.typedefLoc)
         else
           Nothing
       _otherwise  -> Nothing
@@ -769,7 +769,7 @@ registerDelayedReparseMacroExpansionsMsg (declId, msg) =
 -------------------------------------------------------------------------------}
 
 registerOmittedDeclarations ::
-     Map C.DeclId (SingleLoc RealPath)
+     Map C.DeclId (SingleLoc C.DeclPath)
   -> DeclIndex l
   -> DeclIndex l
 registerOmittedDeclarations xs =
@@ -799,7 +799,7 @@ registerSquashedDeclarations xs =
     #map %~ Map.union (UsableEntry . UsableSquashed <$> xs)
 
 registerMangleNamesFailure ::
-     Map C.DeclId (SingleLoc RealPath, MangleNamesError)
+     Map C.DeclId (SingleLoc C.DeclPath, MangleNamesError)
   -> DeclIndex l
   -> DeclIndex l
 registerMangleNamesFailure xs =

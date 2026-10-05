@@ -24,7 +24,8 @@ import Test.Tasty.QuickCheck (Arbitrary (arbitrary), Property, conjoin,
                               tabulate, testProperty, (===))
 
 import Clang.HighLevel.Types (MultiLoc, Range (rangeStart), SourcePath,
-                              Token (tokenExtent))
+                              Token (tokenExtent, tokenSpelling),
+                              TokenSpelling (getTokenSpelling))
 
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.LanguageC qualified as LanC
@@ -271,7 +272,9 @@ prop_reparseGlobal ::
   -> Property
 prop_reparseGlobal input expectedOutput =
     ioProperty $ do
-      tokens <- tokenize def contents
+      -- The extent of a declaration, which the reparser receives, ends before
+      -- the @;@ terminating it.
+      tokens <- dropSemicolon <$> tokenize def contents
       let flatTokens = FlatTokens {
               flatten = flattenDefault tokens
             , locStart = getLocation tokens
@@ -289,6 +292,11 @@ prop_reparseGlobal input expectedOutput =
         LanC.UpdateUnexpected _ str -> UpdateUnexpected str
         LanC.UpdateUnsupported str  -> UpdateUnsupported str
         LanC.UpdateSkipped str      -> UpdateSkipped str
+
+    dropSemicolon :: [Token SourcePath TokenSpelling] -> [Token SourcePath TokenSpelling]
+    dropSemicolon tokens = case reverse tokens of
+      t : ts | t.tokenSpelling.getTokenSpelling == ";" -> reverse ts
+      _otherwise -> panicPure "Expected a declaration terminated by ';'"
 
     getLocation :: [Token SourcePath a] -> MultiLoc SourcePath
     getLocation []    = panicPure "Unexpected empty list of tokens"

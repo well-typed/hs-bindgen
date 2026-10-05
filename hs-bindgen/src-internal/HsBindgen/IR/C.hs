@@ -10,6 +10,7 @@
 module HsBindgen.IR.C (
     module HsBindgen.IR.C.Conflict
   , module HsBindgen.IR.C.Decl
+  , module HsBindgen.IR.C.DeclPath
   , module HsBindgen.IR.C.HashDefine
   , module HsBindgen.IR.C.HashIncludeArg
   , module HsBindgen.IR.C.LocationInfo
@@ -21,6 +22,7 @@ module HsBindgen.IR.C (
 
 import HsBindgen.IR.C.Conflict
 import HsBindgen.IR.C.Decl
+import HsBindgen.IR.C.DeclPath
 import HsBindgen.IR.C.HashDefine
 import HsBindgen.IR.C.HashIncludeArg
 import HsBindgen.IR.C.LocationInfo

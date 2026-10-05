@@ -18,6 +18,7 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
 import HsBindgen.Macro qualified as Macro
+import HsBindgen.Macro.Syntax (MacroInvocation (..))
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -32,6 +33,7 @@ tests :: IO TestResources -> TestTree
 tests getTestResources = testGroup "Test.HsBindgen.Unit.Frontend" [
       testGroup "Parse" [
           testParseSourceOrder getTestResources
+        , testParseReparseInvocations getTestResources
         ]
     ]
 
@@ -49,7 +51,13 @@ testParseSourceOrder getTestResources =
         ["test-artefacts" </> "headers" </> "golden" </> "macros" </> "parse"]
         "elaborate.h"
         getParseResults
-    declNamesWithSourceOrderIndex <- forM results $ \result ->
+    -- The Clang driver may add @-D@ options of its own, such as
+    -- @-D__GCC_HAVE_DWARF2_CFI_ASM=1@.
+    let notFromCommandLine :: ParseResult CExpr Parse -> Bool
+        notFromCommandLine result = case getParseResultMaybeDecl result of
+          Just decl | C.FromCommandLine <- decl.info.origin -> False
+          _otherwise                                        -> True
+    declNamesWithSourceOrderIndex <- forM (filter notFromCommandLine results) $ \result ->
       case getParseResultMaybeDecl result of
         Nothing   -> assertFailure $ "parse failed: " ++ show result
         Just decl -> do
@@ -93,6 +101,45 @@ testParseSourceOrder getTestResources =
     assertEqual "source order"
       declNamesSourceOrderExpected
       declNamesSourceOrderActual
+
+-- | The macro invocations recorded for reparsing a declaration are exactly
+-- those written in its source range
+testParseReparseInvocations :: IO TestResources -> TestTree
+testParseReparseInvocations getTestResources =
+  testCase "ParseReparseInvocations" $ do
+    results <-
+      execFrontend
+        getTestResources
+        c89
+        ["test-artefacts" </> "headers" </> "golden" </> "macros" </> "reparse"]
+        "end_in_macro_arg.h"
+        getParseResults
+    let invocationsActual :: [(String, [Text])]
+        invocationsActual = [
+            (show $ prettyForTrace decl.info.id, sort names)
+          | Just decl  <- map getParseResultMaybeDecl results
+          , Just names <- [reparseInvocations decl.kind]
+          ]
+        invocationsExpected :: [(String, [Text])]
+        invocationsExpected = [
+            ("'f'"  , ["PARAMS", "T", "T"])
+          , ("'g'"  , ["PARAMS", "U"])
+            -- @ID(;)@ starts right after the declaration
+          , ("'arr'", ["T"])
+          ]
+    forM_ invocationsExpected $ \(declName, expected) ->
+      assertEqual declName (Just expected) (lookup declName invocationsActual)
+  where
+    reparseInvocations :: C.DeclKind CExpr Parse -> Maybe [Text]
+    reparseInvocations = \case
+      C.DeclFunction function -> Just $ reparseInfoNames function.ann
+      C.DeclGlobal   global   -> Just $ reparseInfoNames global.ann
+      _otherwise              -> Nothing
+
+    reparseInfoNames :: ReparseInfo tokens -> [Text]
+    reparseInfoNames = \case
+      ReparseNeeded _ invocations -> map (.name) (toList invocations)
+      ReparseNotNeeded            -> []
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
