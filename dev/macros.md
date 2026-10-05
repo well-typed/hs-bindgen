@@ -5,9 +5,12 @@ macros. For the user-facing behaviour, see the [manual](../manual).
 
 ## Reparsing: the source range of a declaration
 
-A declaration that uses macros is reparsed from its tokens as written in the
-header (macros unexpanded), so that macro names can become Haskell types. The
-parse pass collects the original tokens in the header file in `getReparseInfo`
+Clang only sees the header files after the C preprocessor has run, that is,
+with all macros expanded. `hs-bindgen` must detect these macro expansions
+because it replaces type-like macro names with their Haskell types. It does so
+by reparsing declarations with macro expansions from its tokens as written in
+the original header with macros unexpanded. To this end, the parse pass
+collects the original tokens in the header file in `getReparseInfo`
 (`HsBindgen.Frontend.Pass.Parse.Decl.Macro`). Finding the start and end
 positions of a specific declaration is hard. For example,
 
@@ -31,9 +34,9 @@ and the position just after its last token. Clang parses the expanded tokens,
 so the first and last token of an extent may be copies made by expanding a
 macro; for example, a token of the macro body, or of one of the macro arguments
 for function-like macros. These copies exist only in the expanded tokens, not
-in the file. We only use their locations to find the declaration in the file.
-For macro tokens, `libclang` knows three locations; the table shows them for
-two tokens of line 7:
+in the file. We only use their locations to find the declaration in the
+original file. For macro tokens, `libclang` knows three locations; the table
+shows them for two tokens of line 7:
 
 | Location | `int`, the first token of `f` (from `T`) | `)`, the last token of `f` after expansion |
 |---|---|---|
@@ -59,8 +62,9 @@ The _expansion location_ of either token is the start of the outermost
 invocation: a single point; `libclang` has no API for the end of an invocation.
 
 The range we want for `f` runs from 7:1 to 7:18, just after the final `)`. The
-expansion location of the start is right, 7:1; that of the end is wrong, 7:5.
-In general, an end of an extent lies in one of three places:
+expansion location of the start is right, 7:1; but the expansion location of
+the end is wrong, 7:5. In general, an end of an extent lies in one of three
+places:
 
 | End lies… | Example | Expansion location of the end | Correct? |
 |---|---|---|---|
@@ -71,9 +75,7 @@ In general, an end of an extent lies in one of three places:
 The middle row works because `libclang` moves an extent end in a macro body to
 the end of the invocation before handing it out. An extent end in a macro
 argument stays inside the argument, just after the `)` at 7:16, and its
-expansion location is the start of the invocation. A start needs no such help:
-wherever it lies, the start of the outermost invocation is where the written
-declaration begins.
+expansion location is the start of the invocation.
 
 So the last row is the only edge case. We take the end of the invocation from
 the macro invocations recorded while parsing: each carries the extent of the

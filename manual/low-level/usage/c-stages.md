@@ -1,8 +1,9 @@
 # C stages
 
-Generating bindings and building them are two different C toolchains, running at
-different times. Knowing which is which explains why some options belong on the
-`hs-bindgen` command line, some in the `.cabal` file, and some in both.
+Generation of bindings and building the generated bindings may involve two
+different C toolchains, running at different times. This documents seeks to
+separate these stages clearly, which is important to understand the different
+`hs-bindgen` flags.
 
 ## The stages
 
@@ -67,7 +68,7 @@ so `a.h` is parsed with `A` defined and `B` undefined. This is why
 
 ### Differences between `--hash-define` syntax and `-D` syntax
 
-`--hash-define` and `-D` arguments translate differently.
+`--hash-define` syntax follows `#define` syntax, and translates differently than `-D` arguments.
 
 | C compiler `-D` argument | Command line               | Template Haskell          | Emitted directive  |
 |--------------------------|----------------------------|---------------------------|--------------------|
@@ -76,10 +77,10 @@ so `a.h` is parsed with `A` defined and `B` undefined. This is why
 | `-D FOO=`                | `--hash-define FOO ''`     | `hashDefine "FOO" ""`     | `#define FOO`      |
 | `-D 'FOO(x)=x'`          | `--hash-define 'FOO(x)' x` | `hashDefine "FOO(x)" "x"` | `#define FOO(x) x` |
 
-`-DFOO` and `-DFOO=` define *different* macros: the replacement list is `1` for
-the former and empty for the latter. Both are `#ifdef`-true, which is why the
-difference is easy to miss, but `#if FOO` is true for the first and an error for
-the second.
+In particular, `-DFOO` and `-DFOO=` define *different* macros: the replacement
+list is `1` for the former and empty for the latter. Both are `#ifdef`-true,
+which is why the difference is easy to miss, but `#if FOO` is true for the
+first and an error for the second.
 
 `hs-bindgen` validates neither the name nor the replacement list. A malformed
 definition is reported by Clang as a diagnostic in the root header. Unresolvable
@@ -87,9 +88,8 @@ definition is reported by Clang as a diagnostic in the root header. Unresolvable
 
 The command-line option takes *two* arguments, which has two consequences:
 
-* Omitting the value silently consumes the next header argument:
-  `--hash-define FOO a.h` defines `FOO` as `a.h` and leaves no header to
-  translate.
+* Omitting the value silently consumes the next header argument: `--hash-define
+  FOO a.h` defines `FOO` as `a.h` and leaves no header to translate.
 * A value starting with `-` is rejected as an unknown option. Write
   `--hash-define MIN '(-1)'`, which is better C anyway since the replacement
   list is substituted literally, or place `--` before it. Everything after `--`
@@ -99,11 +99,11 @@ The command-line option takes *two* arguments, which has two consequences:
 
 A `#define` stated as a root directive defines a macro just like a `#define` in
 a header, and `hs-bindgen` treats it as a declaration. The same holds for a
-`-D` Clang option. Neither is in a header, and the default selection predicate
-does not select them. If you want to select declarations defined via `-D` or
-`--hash-define`, use `--select-all` or `--select-by-decl-name`, or use program
-slicing when a selected declaration uses the macro. For example, given the
-header
+`-D` Clang option. Neither is in a header on the file system, and the default
+selection predicate does not select them. If you want to select declarations
+defined via `-D` or `--hash-define`, use `--select-all` or
+`--select-by-decl-name`, or use program slicing when a selected declaration
+uses the macro. For example, given the header
 
 ```c
 struct S { T x; };
@@ -117,10 +117,9 @@ A header that redefines such a macro differently conflicts with it, just as two
 differing definitions in one header do.
 
 `--select-all` also selects the `-D` options the Clang driver adds by itself,
-such as `-D__GCC_HAVE_DWARF2_CFI_ASM=1` on ELF and Mach-O targets, and so does
-`--select-by-decl-name` when its pattern matches their names. Use
-`--select-from-all-headers` to select every declaration in a header, but none of
-these macros.
+such as `-D__GCC_HAVE_DWARF2_CFI_ASM=1`, and so does `--select-by-decl-name`
+when its pattern matches their names. Use `--select-from-all-headers` to select
+every declaration in a header, but none of these macros.
 
 Also generated binding specifications omit `-D` and `--hash-define` macros,
 because they are not in any header. The binding specification generated for the
@@ -161,10 +160,10 @@ wrapper source of every generated module, and each of those translation units
 would define the function, giving duplicate symbols at link time.
 
 Instead, the macro should only be defined when building a C object out of the
-library header. If the library was shipped with a built C (shared) object, then all
-is good. However, if the C object is intended to be built by you, the user, then
-it is up to you to ensure that the macro is defined when compiling the header
-into a C object.
+library header. If the library was shipped with a built C (shared) object, then
+all is good. However, if the C object is intended to be built by you, then it
+is up to you to ensure that the macro is defined when compiling the header into
+a C object.
 
 One way to ensure that the C object is built with the macro defined is to bundle
 the C header with your own Cabal package. Define the macro and include the
@@ -192,7 +191,7 @@ hs-bindgen-cli preprocess \
 ```
 
 The generated wrappers see the declarations only, and the symbols come from the
-`cbits` object at link time. This manual does exactly that:
+`cbits` object at link time. In this manual, we does exactly that:
 [`header_only.h`][header:header_only.h],
 [`cbits/header_only.c`][source:header_only.c] and
 [`Manual/HeaderOnly.hs`][source:Manual/HeaderOnly.hs].
