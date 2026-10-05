@@ -4,6 +4,7 @@
 
 module Example.FunPtr
     ( Example.FunPtr.f
+    , Example.FunPtr.g
     )
   where
 
@@ -21,6 +22,14 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
   , "{"
   , "  return &f;"
   , "}"
+  , "/* test_macrosreparseend_in_macro_ar_Example_get_g */"
+  , "__attribute__ ((const))"
+  , "signed int (*hs_bindgen_cd7b12aa8c3ceb75 (void)) ("
+  , "  U arg1"
+  , ")"
+  , "{"
+  , "  return &g;"
+  , "}"
   ]))
 
 -- __unique:__ @test_macrosreparseend_in_macro_ar_Example_get_f@
@@ -35,9 +44,28 @@ hs_bindgen_96f030fb3ea3d43d =
 {-# NOINLINE f #-}
 {-| __C declaration:__ @f@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 12:3@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 13:3@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
 f :: BG.FunPtr (T -> IO T)
 f = BG.unsafePerformIO hs_bindgen_96f030fb3ea3d43d
+
+-- __unique:__ @test_macrosreparseend_in_macro_ar_Example_get_g@
+foreign import ccall unsafe "hs_bindgen_cd7b12aa8c3ceb75" hs_bindgen_cd7b12aa8c3ceb75_base ::
+     IO (BG.FunPtr BG.Void)
+
+-- __unique:__ @test_macrosreparseend_in_macro_ar_Example_get_g@
+hs_bindgen_cd7b12aa8c3ceb75 :: IO (BG.FunPtr (U -> IO BG.CInt))
+hs_bindgen_cd7b12aa8c3ceb75 =
+  fmap BG.fromFFIType hs_bindgen_cd7b12aa8c3ceb75_base
+
+{-# NOINLINE g #-}
+{-| __C declaration:__ @g@
+
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 20:5@
+
+    __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
+-}
+g :: BG.FunPtr (U -> IO BG.CInt)
+g = BG.unsafePerformIO hs_bindgen_cd7b12aa8c3ceb75

@@ -17,6 +17,7 @@
 
 module Example
     ( Example.T(..)
+    , Example.U(..)
     , Example.pARAMS
     , Example.iD
     , Example.A(..)
@@ -76,9 +77,53 @@ instance HasCField.HasCField T "unwrapT" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @macro PARAMS@
+{-| __C declaration:__ @macro U@
 
     __defined at:__ @macros\/reparse\/end_in_macro_arg.h 9:9@
+
+    __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
+-}
+newtype U = U
+  { unwrapU :: BG.CInt
+  }
+  deriving stock (Eq, BG.Generic, Ord, Read, Show)
+  deriving newtype
+    ( BG.Bitfield
+    , BG.Bits
+    , Bounded
+    , Enum
+    , BG.FiniteBits
+    , BG.HasFFIType
+    , Integral
+    , BG.Ix
+    , Num
+    , BG.Prim
+    , Marshal.ReadRaw
+    , Real
+    , Marshal.StaticSize
+    , BG.Storable
+    , Marshal.WriteRaw
+    )
+
+instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "unwrapU" U ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> U {unwrapU = y1}, BG.getField @"unwrapU" x0)
+
+instance (ty ~ BG.CInt) => BG.HasField "unwrapU" (BG.Ptr U) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapU")
+
+instance HasCField.HasCField U "unwrapU" where
+
+  type CFieldType U "unwrapU" = BG.CInt
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @macro PARAMS@
+
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 10:9@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
@@ -87,7 +132,7 @@ pARAMS = \args0 -> args0
 
 {-| __C declaration:__ @macro ID@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 10:9@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 11:9@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
@@ -96,7 +141,7 @@ iD = \x0 -> x0
 
 {-| __C declaration:__ @A@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 14:11@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 15:11@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
@@ -132,7 +177,7 @@ instance HasCField.HasCField A "unwrapA" where
 
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 16:8@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 17:8@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
@@ -140,7 +185,7 @@ data S = S
   { s_x :: CA.ConstantArray 3 T
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @macros\/reparse\/end_in_macro_arg.h 16:14@
+         __defined at:__ @macros\/reparse\/end_in_macro_arg.h 17:14@
 
          __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
     -}
@@ -175,7 +220,7 @@ deriving via Struct.IsStructViaReadRaw S instance Struct.IsStruct S
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 16:14@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 17:14@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}

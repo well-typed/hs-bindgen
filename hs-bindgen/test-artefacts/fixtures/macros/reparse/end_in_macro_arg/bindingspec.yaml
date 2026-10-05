@@ -7,6 +7,9 @@ ctypes:
   cname: macro T
   hsname: T
 - headers: macros/reparse/end_in_macro_arg.h
+  cname: macro U
+  hsname: U
+- headers: macros/reparse/end_in_macro_arg.h
   cname: A
   hsname: A
 - headers: macros/reparse/end_in_macro_arg.h
@@ -57,6 +60,40 @@ hstypes:
       constructor: T
       fields:
       - unwrapT
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U
+  representation:
+    newtype:
+      constructor: U
+      fields:
+      - unwrapU
       ffitype:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CInt

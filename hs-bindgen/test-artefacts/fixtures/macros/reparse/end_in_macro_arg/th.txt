@@ -6,11 +6,23 @@
 -- {
 --   return (f)(arg1);
 -- }
+-- signed int hs_bindgen_7b14389d4be48230 (
+--   U arg1
+-- )
+-- {
+--   return (g)(arg1);
+-- }
 -- T hs_bindgen_5f3d395b37b2aea3 (
 --   T arg1
 -- )
 -- {
 --   return (f)(arg1);
+-- }
+-- signed int hs_bindgen_4bdcd42db8457bfb (
+--   U arg1
+-- )
+-- {
+--   return (g)(arg1);
 -- }
 -- /* test_macrosreparseend_in_macro_ar_Example_get_f */
 -- __attribute__ ((const))
@@ -19,6 +31,20 @@
 -- )
 -- {
 --   return &f;
+-- }
+-- /* test_macrosreparseend_in_macro_ar_Example_get_g */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_cd7b12aa8c3ceb75 (void)) (
+--   U arg1
+-- )
+-- {
+--   return &g;
+-- }
+-- /* test_macrosreparseend_in_macro_ar_Example_get_arr */
+-- __attribute__ ((const))
+-- T (*hs_bindgen_fa8758c7fbcb4eb0 (void))[3]
+-- {
+--   return &arr;
 -- }
 {-| __C declaration:__ @macro T@
 
@@ -52,37 +78,69 @@ instance (~) ty CInt => HasField "unwrapT" (Ptr T) (Ptr ty)
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = CInt
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @macro PARAMS@
+{-| __C declaration:__ @macro U@
 
     __defined at:__ @macros\/reparse\/end_in_macro_arg.h 9:9@
+
+    __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
+-}
+newtype U
+    = U {unwrapU :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapU" U ty
+    where hasField = \x_0 -> (\y_1 -> U{unwrapU = y_1},
+                              getField @"unwrapU" x_0)
+instance (~) ty CInt => HasField "unwrapU" (Ptr U) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapU")
+instance HasCField U "unwrapU"
+    where type CFieldType U "unwrapU" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro PARAMS@
+
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 10:9@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
 pARAMS :: forall a_0 . a_0 -> a_0
 {-| __C declaration:__ @macro PARAMS@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 9:9@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 10:9@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
 pARAMS = \args_0 -> args_0
 {-| __C declaration:__ @macro ID@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 10:9@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 11:9@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
 iD :: forall a_0 . a_0 -> a_0
 {-| __C declaration:__ @macro ID@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 10:9@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 11:9@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
 iD = \x_0 -> x_0
 {-| __C declaration:__ @A@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 14:11@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 15:11@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
@@ -101,7 +159,7 @@ instance HasCField A "unwrapA"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 16:8@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 17:8@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
@@ -109,7 +167,7 @@ data S
     = S {s_x :: (ConstantArray 3 T)
          {- ^ __C declaration:__ @x@
 
-              __defined at:__ @macros\/reparse\/end_in_macro_arg.h 16:14@
+              __defined at:__ @macros\/reparse\/end_in_macro_arg.h 17:14@
 
               __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
          -}}
@@ -143,18 +201,40 @@ hs_bindgen_32975406bf2752f4 :: T -> IO T
 hs_bindgen_32975406bf2752f4 = \x_0 -> fmap fromFFIType (hs_bindgen_32975406bf2752f4_base (toFFIType x_0))
 {-| __C declaration:__ @f@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 12:3@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 13:3@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
 f_safe :: T -> IO T
 {-| __C declaration:__ @f@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 12:3@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 13:3@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
 f_safe = hs_bindgen_32975406bf2752f4
+-- __unique:__ @test_macrosreparseend_in_macro_ar_Example_Safe_g@
+foreign import ccall safe "hs_bindgen_7b14389d4be48230" hs_bindgen_7b14389d4be48230_base ::
+    CInt
+ -> IO CInt
+-- __unique:__ @test_macrosreparseend_in_macro_ar_Example_Safe_g@
+hs_bindgen_7b14389d4be48230 :: U -> IO CInt
+-- __unique:__ @test_macrosreparseend_in_macro_ar_Example_Safe_g@
+hs_bindgen_7b14389d4be48230 = \x_0 -> fmap fromFFIType (hs_bindgen_7b14389d4be48230_base (toFFIType x_0))
+{-| __C declaration:__ @g@
+
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 20:5@
+
+    __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
+-}
+g_safe :: U -> IO CInt
+{-| __C declaration:__ @g@
+
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 20:5@
+
+    __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
+-}
+g_safe = hs_bindgen_7b14389d4be48230
 -- __unique:__ @test_macrosreparseend_in_macro_ar_Example_Unsafe_f@
 foreign import ccall unsafe "hs_bindgen_5f3d395b37b2aea3" hs_bindgen_5f3d395b37b2aea3_base ::
     CInt
@@ -165,18 +245,40 @@ hs_bindgen_5f3d395b37b2aea3 :: T -> IO T
 hs_bindgen_5f3d395b37b2aea3 = \x_0 -> fmap fromFFIType (hs_bindgen_5f3d395b37b2aea3_base (toFFIType x_0))
 {-| __C declaration:__ @f@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 12:3@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 13:3@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
 f_unsafe :: T -> IO T
 {-| __C declaration:__ @f@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 12:3@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 13:3@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
 f_unsafe = hs_bindgen_5f3d395b37b2aea3
+-- __unique:__ @test_macrosreparseend_in_macro_ar_Example_Unsafe_g@
+foreign import ccall unsafe "hs_bindgen_4bdcd42db8457bfb" hs_bindgen_4bdcd42db8457bfb_base ::
+    CInt
+ -> IO CInt
+-- __unique:__ @test_macrosreparseend_in_macro_ar_Example_Unsafe_g@
+hs_bindgen_4bdcd42db8457bfb :: U -> IO CInt
+-- __unique:__ @test_macrosreparseend_in_macro_ar_Example_Unsafe_g@
+hs_bindgen_4bdcd42db8457bfb = \x_0 -> fmap fromFFIType (hs_bindgen_4bdcd42db8457bfb_base (toFFIType x_0))
+{-| __C declaration:__ @g@
+
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 20:5@
+
+    __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
+-}
+g_unsafe :: U -> IO CInt
+{-| __C declaration:__ @g@
+
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 20:5@
+
+    __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
+-}
+g_unsafe = hs_bindgen_4bdcd42db8457bfb
 -- __unique:__ @test_macrosreparseend_in_macro_ar_Example_get_f@
 foreign import ccall unsafe "hs_bindgen_96f030fb3ea3d43d" hs_bindgen_96f030fb3ea3d43d_base ::
     IO (FunPtr Void)
@@ -187,15 +289,59 @@ hs_bindgen_96f030fb3ea3d43d = fmap fromFFIType hs_bindgen_96f030fb3ea3d43d_base
 {-# NOINLINE f_funptr #-}
 {-| __C declaration:__ @f@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 12:3@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 13:3@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
 f_funptr :: FunPtr (T -> IO T)
 {-| __C declaration:__ @f@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 12:3@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 13:3@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
 f_funptr = unsafePerformIO hs_bindgen_96f030fb3ea3d43d
+-- __unique:__ @test_macrosreparseend_in_macro_ar_Example_get_g@
+foreign import ccall unsafe "hs_bindgen_cd7b12aa8c3ceb75" hs_bindgen_cd7b12aa8c3ceb75_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosreparseend_in_macro_ar_Example_get_g@
+hs_bindgen_cd7b12aa8c3ceb75 :: IO (FunPtr (U -> IO CInt))
+-- __unique:__ @test_macrosreparseend_in_macro_ar_Example_get_g@
+hs_bindgen_cd7b12aa8c3ceb75 = fmap fromFFIType hs_bindgen_cd7b12aa8c3ceb75_base
+{-# NOINLINE g_funptr #-}
+{-| __C declaration:__ @g@
+
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 20:5@
+
+    __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
+-}
+g_funptr :: FunPtr (U -> IO CInt)
+{-| __C declaration:__ @g@
+
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 20:5@
+
+    __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
+-}
+g_funptr = unsafePerformIO hs_bindgen_cd7b12aa8c3ceb75
+-- __unique:__ @test_macrosreparseend_in_macro_ar_Example_get_arr@
+foreign import ccall unsafe "hs_bindgen_fa8758c7fbcb4eb0" hs_bindgen_fa8758c7fbcb4eb0_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_macrosreparseend_in_macro_ar_Example_get_arr@
+hs_bindgen_fa8758c7fbcb4eb0 :: IO (Ptr (ConstantArray 3 T))
+-- __unique:__ @test_macrosreparseend_in_macro_ar_Example_get_arr@
+hs_bindgen_fa8758c7fbcb4eb0 = fmap fromFFIType hs_bindgen_fa8758c7fbcb4eb0_base
+{-# NOINLINE arr #-}
+{-| __C declaration:__ @arr@
+
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 23:3@
+
+    __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
+-}
+arr :: Ptr (ConstantArray 3 T)
+{-| __C declaration:__ @arr@
+
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 23:3@
+
+    __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
+-}
+arr = unsafePerformIO hs_bindgen_fa8758c7fbcb4eb0

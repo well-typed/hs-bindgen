@@ -19,6 +19,7 @@ module HsBindgen.Frontend.Pass.Parse.Monad.Decl (
   , getMacroDefinitions
   , recordMacroExpansionAt
   , getMacroExpansions
+  , getMacroExpansionsAt
     -- ** Logging
   , traceImmediate
   , traceImmediateGlobal
@@ -43,6 +44,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad.SourceRangeMap (LookupResult (..),
                                                            SourceRangeMap,
                                                            initSourceRangeMap,
+                                                           lookupAt,
                                                            lookupRange,
                                                            recordAt)
 import HsBindgen.Frontend.Pass.Parse.Msg
@@ -171,6 +173,7 @@ recordMacroExpansionAt macroName locRange tokens =
     loc :: SingleLoc RealPath
     loc = locRange.rangeStart.multiLocExpansion
 
+-- | The macro invocations starting in the given half-open range
 getMacroExpansions :: Range (SingleLoc RealPath) -> ParseDecl (Maybe (NonEmpty MacroInvocation))
 getMacroExpansions range = do
     macroExpansions <- (.macroExpansions) <$> getParseState
@@ -184,6 +187,10 @@ getMacroExpansions range = do
         pure Nothing
       LookupFound macroInvocations ->
         pure $ Just macroInvocations
+
+-- | The macro invocations starting at the given location
+getMacroExpansionsAt :: SingleLoc RealPath -> ParseDecl (Maybe (NonEmpty MacroInvocation))
+getMacroExpansionsAt loc = lookupAt loc . (.macroExpansions) <$> getParseState
 
 {-------------------------------------------------------------------------------
   Logging

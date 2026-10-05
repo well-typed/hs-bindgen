@@ -24,6 +24,8 @@ please refer to the [main documentation](../manual).
   the repository layout.
 - [Tests](testing.md): Guide to running tests, test structure, and
   testing best practices for the project.
+- [Macros](macros.md): How macros are handled internally, such as finding the
+  source range of a declaration for reparsing.
 - [Internal Commands](internal-commands.md): Documentation for the
   `hs-bindgen-cli internal` commands used during development.
 - [Troubleshooting](troubleshooting.md): Collection of troubleshooting

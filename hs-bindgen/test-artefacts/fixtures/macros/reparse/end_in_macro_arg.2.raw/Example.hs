@@ -15,6 +15,7 @@
 
 module Example
     ( Example.t
+    , Example.u
     , Example.pARAMS
     , Example.iD
     , Example.A(..)
@@ -40,9 +41,18 @@ import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 t :: Macro.Raw String
 t = Macro.objectLike "T" ["int"]
 
-{-| __C declaration:__ @macro PARAMS@
+{-| __C declaration:__ @macro U@
 
     __defined at:__ @macros\/reparse\/end_in_macro_arg.h 9:9@
+
+    __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
+-}
+u :: Macro.Raw String
+u = Macro.objectLike "U" ["int"]
+
+{-| __C declaration:__ @macro PARAMS@
+
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 10:9@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
@@ -52,7 +62,7 @@ pARAMS =
 
 {-| __C declaration:__ @macro ID@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 10:9@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 11:9@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
@@ -61,7 +71,7 @@ iD = Macro.functionLike "ID" ["x"] ["x"]
 
 {-| __C declaration:__ @A@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 14:11@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 15:11@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
@@ -98,7 +108,7 @@ instance HasCField.HasCField A "unwrapA" where
 
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 16:8@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 17:8@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
@@ -106,7 +116,7 @@ data S = S
   { s_x :: CA.ConstantArray 3 BG.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @macros\/reparse\/end_in_macro_arg.h 16:14@
+         __defined at:__ @macros\/reparse\/end_in_macro_arg.h 17:14@
 
          __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
     -}
@@ -141,7 +151,7 @@ deriving via Struct.IsStructViaReadRaw S instance Struct.IsStruct S
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 16:14@
+    __defined at:__ @macros\/reparse\/end_in_macro_arg.h 17:14@
 
     __exported by:__ @macros\/reparse\/end_in_macro_arg.h@
 -}
