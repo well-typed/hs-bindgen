@@ -26,8 +26,8 @@ mkDerivation {
   version = "0.1.0.1";
   src = fetchgit {
     url = "https://github.com/well-typed/c-expr";
-    sha256 = "12afrxsv9kgxaiy2x8ap7k6vvpgcxina81jpkj985nrha22380vh";
-    rev = "58858ac3c30a87f3a00d5b89371ee469e759cdd6";
+    sha256 = "19dbw858gz8hfvz677r78f9ly2h03sq0lc479wqjdydfk6i4v2wn";
+    rev = "6a18018ac1b91c62d6d3114c01a6ffa6c2ae7da5";
     fetchSubmodules = true;
   };
   postUnpack = "sourceRoot+=/c-expr-dsl; echo source root reset to $sourceRoot";
