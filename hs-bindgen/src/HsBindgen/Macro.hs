@@ -1,7 +1,7 @@
 -- | The macro instance of @hs-bindgen@ is based on @c-expr-dsl@.
 --
--- The macro language is not yet stable, and so all definitions are exported as
--- opaque.
+-- The macro language is not yet stable, and so all macro language definitions
+-- are exported as opaque.
 --
 -- Intended for qualified import.
 --
