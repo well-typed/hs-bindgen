@@ -19,6 +19,7 @@ import Test.HsBindgen.THFixtures qualified as THFixtures
 import Test.HsBindgen.Unit.ClangArgs qualified as Unit.ClangArgs
 import Test.HsBindgen.Unit.Digraph qualified as Unit.Digraph
 import Test.HsBindgen.Unit.Frontend qualified as Unit.Frontend
+import Test.HsBindgen.Unit.LibraryMode qualified as Unit.LibraryMode
 import Test.HsBindgen.Unit.Pretty qualified as Unit.Pretty
 import Test.HsBindgen.Unit.RootDirective qualified as Unit.RootDirective
 import Test.HsBindgen.Unit.Runtime qualified as Unit.Runtime
@@ -43,6 +44,7 @@ main = defaultMain $
           , Unit.Digraph.tests
           , Unit.Frontend.tests testResources
           , Unit.Tracer.tests
+          , Unit.LibraryMode.tests
           , Unit.Pretty.tests
           , Unit.RootDirective.tests
           , Unit.Runtime.tests
