@@ -22,9 +22,10 @@ module HsBindgen.Cli.Preprocess.Library (
   ) where
 
 import Control.Monad (foldM_)
+import Data.List qualified as List
 import Options.Applicative
 import System.Directory (canonicalizePath, createDirectoryIfMissing)
-import System.Exit (ExitCode (..), exitWith)
+import System.Exit (ExitCode (..), exitSuccess, exitWith)
 import System.FilePath (addTrailingPathSeparator, isPathSeparator,
                         pathSeparators, replaceExtension, takeDirectory, (</>))
 import System.IO.Temp (withSystemTempDirectory)
@@ -40,7 +41,7 @@ import HsBindgen.Backend.Category
 import HsBindgen.BindingSpec (BindingSpecConfig (..))
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
-import HsBindgen.Config.Prelims (fromBaseModuleName)
+import HsBindgen.Config.Prelims (baseModuleNameToString, fromBaseModuleName)
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing (..))
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -58,7 +59,9 @@ import HsBindgen.Util.Tracer
 
 -- | Library-mode options
 data Opts = Opts {
-      libraryRoots :: [FilePath]
+      libraryRoots        :: [FilePath]
+    , dryRun              :: Bool
+    , listBaseModuleNames :: Bool
     }
   deriving (Generic)
 
@@ -66,6 +69,8 @@ parseOpts :: Parser Opts
 parseOpts =
     Opts
       <$> many parseLibraryRoot
+      <*> parseDryRun
+      <*> parseListBaseModuleNames
 
 parseLibraryRoot :: Parser FilePath
 parseLibraryRoot = strOption $ mconcat [
@@ -81,6 +86,22 @@ parseLibraryRoot = strOption $ mconcat [
         , "Also determines the base path for deriving module names. "
         , "Repeatable. "
         , "This is not the clang search path (-I)."
+        ]
+    ]
+
+parseDryRun :: Parser Bool
+parseDryRun = switch $ mconcat [
+      long "dry-run"
+    , help "Show the processing plan without generating any files (library mode)"
+    ]
+
+parseListBaseModuleNames :: Parser Bool
+parseListBaseModuleNames = switch $ mconcat [
+      long "list-base-module-names"
+    , help $ concat [
+          "Print the base module names one per line (library mode). "
+        , "A base module without types is not generated itself, "
+        , "only its category submodules (Safe, Unsafe, FunPtr, Global)."
         ]
     ]
 
@@ -133,6 +154,19 @@ exec global runOpts opts = do
     let plan = planLibrary roots runOpts.baseModuleName
                  includeGraph useDeclGraph decls
 
+    -- Report only
+    --
+    -- Base module names only: which category submodules exist depends on the
+    -- declarations. Generating the @.cabal@ file, with its @exposed-modules@,
+    -- is tracked in <https://github.com/well-typed/hs-bindgen/issues/2103>.
+    when opts.listBaseModuleNames $ do
+      mapM_ (putStrLn . baseModuleNameToString . (.moduleName)) plan.units
+      exitSuccess
+
+    when opts.dryRun $ do
+      printPlan plan
+      exitSuccess
+
     -- Generate: one run per unit, in order
     eErr <- withTracer global.unsafe $ \tracer -> do
       let stepTracer = contramap TraceLibraryMode tracer
@@ -150,6 +184,55 @@ exec global runOpts opts = do
 -- binding specification is for
 typeModule :: BaseModuleName -> Hs.ModuleName
 typeModule name = fromBaseModuleName name (Just CType)
+
+{-------------------------------------------------------------------------------
+  Reporting
+-------------------------------------------------------------------------------}
+
+-- | Print one line per header; the headers of a declaration loop share a
+-- module.
+printPlan :: LibraryPlan -> IO ()
+printPlan plan = do
+    putStrLn $ concat [
+        counted (length plan.units) "module"
+      , " to generate"
+      , case notes of
+          [] -> ""
+          _  -> " (" ++ List.intercalate "; " notes ++ ")"
+      ]
+    putStrLn ""
+    forM_ plan.units $ \unit -> forM_ unit.headers $ \path ->
+      putStrLn $ concat [
+          "  ", getRealPath path
+        , " -> ", baseModuleNameToString unit.moduleName
+        ]
+  where
+    notes :: [String]
+    notes = concat [
+        [ counted (headerCount plan) "header" ++ ", "
+            ++ counted loops "declaration loop"
+        | let loops = loopCount plan
+        , loops > 0
+        ]
+      , [ show n ++ (if n == 1 then " header generates" else " headers generate")
+            ++ " nothing"
+        | let n = length plan.withoutBindings
+        , n > 0
+        ]
+      ]
+
+-- | The headers that get a module
+headerCount :: LibraryPlan -> Int
+headerCount plan = sum [ length unit.headers | unit <- plan.units ]
+
+-- | The units with more than one header
+loopCount :: LibraryPlan -> Int
+loopCount plan = length [ () | unit <- plan.units, length unit.headers > 1 ]
+
+-- | A number and its noun, in the plural unless the number is one
+counted :: Int -> String -> String
+counted 1 noun = "1 " ++ noun
+counted n noun = show n ++ " " ++ noun ++ "s"
 
 {-------------------------------------------------------------------------------
   Generation

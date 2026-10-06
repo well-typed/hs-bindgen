@@ -45,7 +45,9 @@ import HsBindgen.Language.Haskell qualified as Hs
 data LibraryPlan = LibraryPlan {
       -- | One per module, in processing order: each unit comes after the units
       -- whose declarations it uses
-      units :: [LibraryUnit]
+      units           :: [LibraryUnit]
+      -- | Headers under a library directory in which nothing is generated
+    , withoutBindings :: [RealPath]
     }
   deriving stock (Show, Eq)
 
@@ -79,7 +81,8 @@ planLibrary ::
   -> LibraryPlan
 planLibrary roots base includeGraph useDeclGraph decls =
     LibraryPlan {
-        units = map (mkLibraryUnit roots base includeGraph) components
+        units           = map (mkLibraryUnit roots base includeGraph) components
+      , withoutBindings = emptyHeaders
       }
   where
     located :: Map C.DeclId RealPath
@@ -96,10 +99,10 @@ planLibrary roots base includeGraph useDeclGraph decls =
 
     -- The headers stay in include order, which breaks ties in
     -- 'sortByDeclarationUse'
-    includedHeaders :: [RealPath]
-    includedHeaders =
-      filter (\header -> isUnderRoot header && header `Set.member` generating) $
-        IncludeGraph.toSortedList includeGraph
+    includedHeaders, emptyHeaders :: [RealPath]
+    (includedHeaders, emptyHeaders) =
+      List.partition (`Set.member` generating) $
+        filter isUnderRoot (IncludeGraph.toSortedList includeGraph)
 
 {-------------------------------------------------------------------------------
   Declaration order

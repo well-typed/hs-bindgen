@@ -21,6 +21,8 @@ tests :: IO TestResources -> TestTree
 tests getTestResources = testGroup "Integration.LibraryMode" [
       testRun getTestResources
     , testCrossModuleReference getTestResources
+    , testPlan getTestResources
+    , testPlanGrouping getTestResources
     , testUsageErrors getTestResources
     ]
 
@@ -126,6 +128,60 @@ testCrossModuleReference getTestResources =
           "M.B.Shape" `isInfixOf` contents
 
 {-------------------------------------------------------------------------------
+  The plan
+-------------------------------------------------------------------------------}
+
+-- | The same two headers: the module of b.h has to come first
+testPlan :: IO TestResources -> TestTree
+testPlan getTestResources =
+    testCase "the plan is in processing order, and showing it writes nothing" $
+      withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
+        root <- getTestResources
+        let run = runLibraryModeIn (headerDir root </> "forward_decl") "b.h" tmpDir
+        (listed, names, _stderr) <- run ["--list-base-module-names"]
+        listed @?= ExitSuccess
+        lines names @?= ["M.B", "M.A"]
+        (dryRun, plan, _stderr) <- run ["--dry-run"]
+        dryRun @?= ExitSuccess
+        assertBool ("expected the plan, got: " ++ plan) $
+          "2 modules to generate" `isInfixOf` plan
+        assertFilesAbsent "showing the plan should not generate files"
+          [ tmpDir </> "M" </> "B.hs"
+          ]
+
+-- | Which headers get a module, seen through the names of the modules
+testPlanGrouping :: IO TestResources -> TestTree
+testPlanGrouping getTestResources =
+    testCase "headers are grouped and left out as their declarations require" $
+      withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
+        root <- getTestResources
+        forM_ (cases (headerDir root)) $ \(label, dir, header, args, expected) -> do
+          (exitCode, stdout, stderr) <- runLibraryModeIn dir header tmpDir
+            ("--list-base-module-names" : args)
+          assertEqual (label ++ ": " ++ stderr) ExitSuccess exitCode
+          assertEqual label expected (lines stdout)
+  where
+    cases :: FilePath -> [(String, FilePath, FilePath, [String], [String])]
+    cases hDir = [
+        ( "headers whose declarations use each other share one module"
+        , hDir </> "golden" </> "macros" </> "parse", "elaborate.h", []
+        , ["M.Elaborate"]
+        )
+        -- Including each other is not enough: these only declare int typedefs
+      , ( "headers that only include each other get a module each"
+        , hDir </> "golden" </> "program-analysis", "circular_includes.h", []
+        , ["M.Circular_includes", "M.Circular_includes_inner"]
+        )
+      , ( "headers that generate nothing get no module"
+        , hDir </> "golden" </> "macros" </> "parse"
+        , "macro_typedef_scope_multiple.h", []
+        , [ "M.Macro_typedef_scope_multiple_inner1"
+          , "M.Macro_typedef_scope_multiple_inner2"
+          ]
+        )
+      ]
+
+{-------------------------------------------------------------------------------
   Errors
 -------------------------------------------------------------------------------}
 
@@ -149,9 +205,12 @@ testUsageErrors getTestResources =
   where
     cases :: FilePath -> [([String], String)]
     cases tmpDir = [
+        ( ["--dry-run"]
+        , "--dry-run requires --library"
+        )
         -- No header is under a directory that does not exist, so a mistyped
         -- directory would give a run that generates nothing and succeeds
-        ( ["--library", tmpDir </> "no-such-directory"]
+      , ( ["--library", tmpDir </> "no-such-directory"]
         , "--library is not a directory"
         )
       ]

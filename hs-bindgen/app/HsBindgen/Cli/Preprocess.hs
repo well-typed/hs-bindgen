@@ -118,6 +118,11 @@ exec global opts
 
 execSingleModule :: GlobalOpts -> Opts -> IO ()
 execSingleModule global opts = do
+    when opts.configLibrary.dryRun $
+      usageError "--dry-run requires --library"
+    when opts.configLibrary.listBaseModuleNames $
+      usageError "--list-base-module-names requires --library"
+
     hsBindgen
       global.unsafe
       global.safe
