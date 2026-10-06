@@ -351,6 +351,12 @@ before it. This is convenient for scripting binding generation header by header,
 without post-processing the Mermaid diagram. It respects the same
 `--include`/`--exclude` and `--show-paths` options.
 
+The list follows `#include` lines only. A header can use a type that a later
+header in the list defines, so this is not always the order in which to
+generate one module per header (see [processing
+order][manual:processing-order]). [Library mode][manual:library-mode] works
+the order out from the declarations.
+
 ```console
 hs-bindgen-cli info include-graph --toposort stdint.h
 ```
@@ -372,4 +378,6 @@ hs-bindgen-cli info libclang --clang-option=-v
 [manual:binding-specifications]: binding-specifications.md
 [manual:c-stages]: c-stages.md
 [manual:clang-options]: clang-options.md
+[manual:library-mode]: invocation.md#library-mode
+[manual:processing-order]: invocation.md#processing-order
 [mermaid]: https://mermaid.js.org/
