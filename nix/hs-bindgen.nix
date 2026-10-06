@@ -11,7 +11,6 @@
 
 let
   ghcs = {
-    ghc94 = "ghc94";
     ghc96 = "ghc96";
     ghc98 = "ghc98";
     ghc910 = "ghc910";

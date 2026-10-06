@@ -13,7 +13,7 @@ common lang
     -Wno-unticked-promoted-constructors
 
   build-depends:
-    , base                >=4.16 && <5
+    , base                >=4.17 && <5
     , hs-bindgen-runtime
 
   default-language: GHC2021

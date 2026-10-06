@@ -32,7 +32,7 @@ This part of the manual also includes information about
 
 `hs-bindgen` requires the following:
 
-* [GHC][] 9.2 through 9.14
+* [GHC][] 9.4 through 9.14
 * [Cabal][] 3.0 or later
 * [LLVM/Clang][] 16 or later, current tested through LLVM/Clang 22
 

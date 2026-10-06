@@ -51,8 +51,7 @@ jobs:
           echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "22"},'
           echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "14"},'
           echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "22"},'
-          # Vary GHC version from 9.2 to 9.14.
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.2", "llvm": "14"},'
+          # Vary GHC version from 9.4 to 9.14.
           echo '{"runner": "ubuntu-latest" , "ghc": "9.6", "llvm": "14"},'
           echo '{"runner": "ubuntu-latest" , "ghc": "9.8", "llvm": "14"},'
           echo '{"runner": "ubuntu-latest" , "ghc": "9.10", "llvm": "14"},'

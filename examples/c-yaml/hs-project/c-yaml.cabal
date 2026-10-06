@@ -11,7 +11,7 @@ synopsis:      Test `hs-bindgen` client on the `yaml` library
 
 common common
   ghc-options:      -Wall -Wunused-packages
-  build-depends:    base >=4.16 && <4.22
+  build-depends:    base >=4.17 && <4.22
   default-language: GHC2021
 
 library

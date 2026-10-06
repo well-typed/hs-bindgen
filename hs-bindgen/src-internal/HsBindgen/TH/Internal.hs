@@ -18,6 +18,7 @@ import Data.Foldable qualified as Foldable
 import Data.List qualified as List
 import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
+import Language.Haskell.TH.Syntax (getPackageRoot)
 import System.FilePath (isAbsolute, (</>))
 
 import Clang.CStandard
@@ -39,7 +40,6 @@ import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.TraceMsg
-import HsBindgen.Util.TH
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------

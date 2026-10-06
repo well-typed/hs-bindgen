@@ -10,8 +10,7 @@ category:        Development
 build-type:      Simple
 extra-doc-files: CHANGELOG.md
 tested-with:
-  GHC ==9.2.8
-   || ==9.4.8
+  GHC ==9.4.8
    || ==9.6.7
    || ==9.8.4
    || ==9.10.3
@@ -41,7 +40,7 @@ common lang
     -Wprepositive-qualified-module
 
   ghc-options:        -Werror=missing-deriving-strategies
-  build-depends:      base >=4.16 && <4.23
+  build-depends:      base >=4.17 && <4.23
   default-language:   GHC2021
   default-extensions:
     DataKinds
@@ -114,11 +113,8 @@ library
     , containers        >=0.6  && <0.9
     , primitive         >=0.9  && <0.10
     , record-hasfield   >=1.0  && <2.0
-    , template-haskell  >=2.18 && <2.25
+    , template-haskell  >=2.19 && <2.25
     , vector            >=0.13 && <0.14
-
-  if impl(ghc <9.4)
-    build-depends: data-array-byte >=0.1.0.1 && <0.2
 
   build-tool-depends: hsc2hs:hsc2hs
 
