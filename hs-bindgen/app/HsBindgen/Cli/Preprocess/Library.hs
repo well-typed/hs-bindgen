@@ -60,6 +60,7 @@ import HsBindgen.Util.Tracer
 -- | Library-mode options
 data Opts = Opts {
       libraryRoots        :: [FilePath]
+    , exceptPatterns      :: [Regex]
     , dryRun              :: Bool
     , listBaseModuleNames :: Bool
     }
@@ -69,6 +70,7 @@ parseOpts :: Parser Opts
 parseOpts =
     Opts
       <$> many parseLibraryRoot
+      <*> many parseExceptLibrary
       <*> parseDryRun
       <*> parseListBaseModuleNames
 
@@ -86,6 +88,20 @@ parseLibraryRoot = strOption $ mconcat [
         , "Also determines the base path for deriving module names. "
         , "Repeatable. "
         , "This is not the clang search path (-I)."
+        ]
+    ]
+
+parseExceptLibrary :: Parser Regex
+parseExceptLibrary = strOption $ mconcat [
+      long "except-library"
+    , metavar "PCRE"
+    , help $ concat [
+          "Leave the headers whose absolute path matches PCRE out of module "
+        , "generation, even if they are under a --library directory. "
+        , "The pattern matches when any part of the path does. "
+        , "This is a module-generation scope filter, not a selection "
+        , "predicate: types from these headers remain available via program "
+        , "slicing. Repeatable."
         ]
     ]
 
@@ -137,7 +153,7 @@ exec global runOpts opts = do
     -- This tells us which declarations are generated, where they are, and
     -- which of them use which. No bindings are written.
     let planConfig = toBindgenConfig
-          (narrowTo (libraryScope roots) runOpts.config)
+          (narrowTo (libraryScope roots opts.exceptPatterns) runOpts.config)
           (UniqueId "library-mode-plan")
           (BaseModuleName "unused")
           (def :: ByCategory Choice)
@@ -151,7 +167,7 @@ exec global runOpts opts = do
 
     -- Plan: one unit per module, each after the units whose declarations it
     -- uses
-    let plan = planLibrary roots runOpts.baseModuleName
+    let plan = planLibrary roots opts.exceptPatterns runOpts.baseModuleName
                  includeGraph useDeclGraph decls
 
     -- Report only
@@ -216,6 +232,10 @@ printPlan plan = do
             ++ counted loops "declaration loop"
         | let loops = loopCount plan
         , loops > 0
+        ]
+      , [ show n ++ " left out by --except-library"
+        | let n = length plan.excluded
+        , n > 0
         ]
       , [ show n ++ (if n == 1 then " header generates" else " headers generate")
             ++ " nothing"
@@ -344,11 +364,12 @@ selectionFor path =
 
 -- | Declarations from headers that may get a module
 --
--- The scope of 'planLibrary' as a predicate: under a library directory. The
--- planning run selects this together with the user's predicate, which is what
--- the steps select between them.
-libraryScope :: [FilePath] -> Boolean SelectionPredicate
-libraryScope roots = mergeBooleans [] (map underRoot roots)
+-- The scope of 'planLibrary' as a predicate: under a library directory and
+-- not excluded. The planning run selects this together with the user's
+-- predicate, which is what the steps select between them.
+libraryScope :: [FilePath] -> [Regex] -> Boolean SelectionPredicate
+libraryScope roots exceptPatterns =
+    mergeBooleans (map headerMatches exceptPatterns) (map underRoot roots)
   where
     underRoot :: FilePath -> Boolean SelectionPredicate
     underRoot root = headerMatches $

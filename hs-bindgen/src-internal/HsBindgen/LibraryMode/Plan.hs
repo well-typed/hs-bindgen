@@ -32,6 +32,7 @@ import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.Pass.Final (Final)
+import HsBindgen.Frontend.Predicate (Regex, matchTest)
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Translation (DeclIdPair (..))
@@ -46,7 +47,10 @@ data LibraryPlan = LibraryPlan {
       -- | One per module, in processing order: each unit comes after the units
       -- whose declarations it uses
       units           :: [LibraryUnit]
-      -- | Headers under a library directory in which nothing is generated
+      -- | Headers under a library directory that @--except-library@ leaves out
+    , excluded        :: [RealPath]
+      -- | Headers under a library directory, not excluded, in which nothing
+      -- is generated
     , withoutBindings :: [RealPath]
     }
   deriving stock (Show, Eq)
@@ -67,21 +71,25 @@ data LibraryUnit = LibraryUnit {
 -- | Plan the modules of a library
 --
 -- A header gets a module when its normalised path is under a library
--- directory and something in it is generated. These headers are grouped and
--- ordered by how their declarations use each other (see
--- 'sortByDeclarationUse'), and each group is named (see 'mkLibraryUnit').
+-- directory, it matches no exclusion pattern, and something in it is
+-- generated. These headers are grouped and ordered by how their declarations
+-- use each other (see 'sortByDeclarationUse'), and each group is named (see
+-- 'mkLibraryUnit').
 planLibrary ::
      [FilePath]
      -- ^ Normalised library directories (@--library@)
+  -> [Regex]
+     -- ^ Exclusion patterns (@--except-library@)
   -> BaseModuleName
   -> IncludeGraph
   -> UseDeclGraph
   -> [C.Decl l Final]
      -- ^ The declarations the frontend hands to the backend
   -> LibraryPlan
-planLibrary roots base includeGraph useDeclGraph decls =
+planLibrary roots exceptPatterns base includeGraph useDeclGraph decls =
     LibraryPlan {
         units           = map (mkLibraryUnit roots base includeGraph) components
+      , excluded        = excludedHeaders
       , withoutBindings = emptyHeaders
       }
   where
@@ -94,15 +102,19 @@ planLibrary roots base includeGraph useDeclGraph decls =
     generating :: Set RealPath
     generating = Set.fromList (Map.elems located)
 
-    isUnderRoot :: RealPath -> Bool
+    isUnderRoot, isExcluded :: RealPath -> Bool
     isUnderRoot header = any (getRealPath header `isUnderDir`) roots
+    isExcluded  header =
+      any (`matchTest` getRealPathText header) exceptPatterns
 
     -- The headers stay in include order, which breaks ties in
     -- 'sortByDeclarationUse'
-    includedHeaders, emptyHeaders :: [RealPath]
-    (includedHeaders, emptyHeaders) =
-      List.partition (`Set.member` generating) $
+    excludedHeaders, keptHeaders, includedHeaders, emptyHeaders :: [RealPath]
+    (excludedHeaders, keptHeaders)  =
+      List.partition isExcluded $
         filter isUnderRoot (IncludeGraph.toSortedList includeGraph)
+    (includedHeaders, emptyHeaders) =
+      List.partition (`Set.member` generating) keptHeaders
 
 {-------------------------------------------------------------------------------
   Declaration order

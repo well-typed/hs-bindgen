@@ -182,6 +182,10 @@ testPlanGrouping getTestResources =
           , "M.Macro_typedef_scope_multiple_inner2"
           ]
         )
+      , ( "--except-library leaves a header out"
+        , hDir, "mylib.h", ["--except-library", "internal"]
+        , ["M.Mylib.Types", "M.Mylib.Ops", "M.Mylib"]
+        )
       ]
 
 {-------------------------------------------------------------------------------

@@ -122,6 +122,8 @@ execSingleModule global opts = do
       usageError "--dry-run requires --library"
     when opts.configLibrary.listBaseModuleNames $
       usageError "--list-base-module-names requires --library"
+    unless (null opts.configLibrary.exceptPatterns) $
+      usageError "--except-library requires --library"
 
     hsBindgen
       global.unsafe
