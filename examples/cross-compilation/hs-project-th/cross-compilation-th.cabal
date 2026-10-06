@@ -32,7 +32,7 @@ executable cross-compilation-aarch64-th
   -- help — the wrappers are referenced from the same compilation unit).
   extra-libraries:    arch_types
   build-depends:
-    , base                >=4.16 && <5
+    , base                >=4.17 && <5
     , hs-bindgen
     , hs-bindgen-runtime
     , optics

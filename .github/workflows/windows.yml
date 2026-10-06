@@ -4,7 +4,6 @@ name: "Windows tests"
 #
 # * On Windows, we only test supported versions of GHC using the LLVM/Clang that
 #   is installed with that version of GHC.
-# * GHC 9.2 still uses GCC, not LLVM/Clang, so we do not test it.
 # * Windows dynamically loads libraries (DLLs) by searching for them in the
 #   `PATH`.  Make sure that `PATH` is configured correctly when executing
 #   programs.

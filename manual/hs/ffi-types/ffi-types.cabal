@@ -14,7 +14,7 @@ common lang
     -Wno-unticked-promoted-constructors
 
   default-language:   GHC2021
-  build-depends:      base >=4.16 && <5
+  build-depends:      base >=4.17 && <5
   default-extensions:
     DerivingVia
     LambdaCase
