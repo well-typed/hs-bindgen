@@ -387,7 +387,10 @@ parseSelectionPredicate = fmap aux . many . asum $ [
         ]
     , flag' (Right (BIf (SelectHeader FromMainHeaders))) $ mconcat [
           long "select-from-main-headers"
-        , help "Select declarations in main headers (default)"
+        , help $ concat [
+              "Select declarations in main headers "
+            , "(default, except with --library)"
+            ]
         ]
     , flag' (Right (BIf (SelectHeader FromMainHeaderDirs))) $ mconcat [
           long "select-from-main-header-dirs"

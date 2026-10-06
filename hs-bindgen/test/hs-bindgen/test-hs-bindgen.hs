@@ -7,6 +7,7 @@ import Test.HsBindgen.Frontend.LanguageC qualified as Frontend.LanguageC
 import Test.HsBindgen.Frontend.Pass.PrepareReparse qualified as Frontend.Pass.PrepareReparse
 import Test.HsBindgen.Golden qualified as Golden
 import Test.HsBindgen.Integration.ExitCode qualified as Integration.ExitCode
+import Test.HsBindgen.Integration.LibraryMode qualified as Integration.LibraryMode
 import Test.HsBindgen.Integration.OverwritePolicy qualified as Integration.OverwritePolicy
 import Test.HsBindgen.Macro.CExpr qualified as Macro.CExpr
 import Test.HsBindgen.Macro.Syntax qualified as Macro.Syntax
@@ -52,6 +53,7 @@ main = defaultMain $
       , testGroup "integration tests" [
             Integration.ExitCode.tests testResources
           , Integration.OverwritePolicy.tests testResources
+          , Integration.LibraryMode.tests testResources
           ]
       , testGroup "property tests" [
             Prop.Selection.tests

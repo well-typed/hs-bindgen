@@ -1,5 +1,6 @@
 module Test.HsBindgen.Unit.LibraryMode (tests) where
 
+import Data.String (fromString)
 import Data.Text qualified as Text
 import System.FilePath ((</>))
 import System.Info (os)
@@ -9,6 +10,7 @@ import Test.Tasty.HUnit
 import Clang.Paths (RealPath (..))
 
 import HsBindgen.Config.Prelims (BaseModuleName (..))
+import HsBindgen.Frontend.Predicate (matchTest, quoteRegex)
 import HsBindgen.LibraryMode.Plan (deriveModuleName)
 
 {-------------------------------------------------------------------------------
@@ -18,6 +20,7 @@ import HsBindgen.LibraryMode.Plan (deriveModuleName)
 tests :: TestTree
 tests = testGroup "Test.HsBindgen.Unit.LibraryMode" [
       testDeriveModuleName
+    , testQuoteRegex
     ]
 
 {-------------------------------------------------------------------------------
@@ -52,3 +55,22 @@ testDeriveModuleName = testCase "every header name gives a valid module name" $ 
     name :: [FilePath] -> FilePath -> BaseModuleName
     name roots hdr =
       deriveModuleName roots (BaseModuleName "M") (rp ("inc" </> hdr))
+
+{-------------------------------------------------------------------------------
+  quoteRegex
+-------------------------------------------------------------------------------}
+
+-- | Library mode matches header paths through 'quoteRegex'. On Windows a path
+-- has @\\E@ in it wherever a directory name starts with @E@.
+testQuoteRegex :: TestTree
+testQuoteRegex = testCase "quoteRegex matches a path and nothing else" $ do
+    assertBool "expected the path to match itself" $
+      all (\path -> path `matches` path) paths
+    assertBool "expected the dot to match only a dot" $
+      not ("lib/a.h" `matches` "lib/axh")
+  where
+    paths :: [String]
+    paths = ["lib/a.h", "C:\\Users\\Eric\\lib\\a.h", "C:\\End\\"]
+
+    matches :: String -> String -> Bool
+    matches path = matchTest (fromString ("^" ++ quoteRegex path ++ "$")) . Text.pack
