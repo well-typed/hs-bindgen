@@ -225,6 +225,9 @@ testUsageErrors getTestResources =
       , ( ["--library", hDir, "--gen-binding-spec", tmpDir </> "spec.yaml"]
         , "--gen-binding-spec cannot be used with --library"
         )
+      , ( ["--library", hDir, "--select-from-main-headers"]
+        , "header selection predicates"
+        )
         -- No header is under a directory that does not exist, so a mistyped
         -- directory would give a run that generates nothing and succeeds
       , ( ["--library", tmpDir </> "no-such-directory"]

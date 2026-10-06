@@ -56,7 +56,7 @@ data Boolean a =
 
     -- | Concrete predicates
   | BIf a
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Generic, Foldable)
 
 instance Default a => Default (Boolean a) where
   def = BIf def

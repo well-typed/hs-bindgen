@@ -180,6 +180,17 @@ execLibrary global opts = do
         , "specifications"
         ]
 
+    -- The library-mode default has no header predicate, so any header
+    -- predicate here was passed on the command line.
+    when (any isHeaderPredicate opts.config.selectionPredicate) $
+      usageError $ concat [
+          "header selection predicates (--select-from-main-headers, "
+        , "--select-from-main-header-dirs, --select-from-all-headers, "
+        , "--select-by-header-path, --select-except-by-header-path) "
+        , "cannot be used with --library; "
+        , "use --except-library to leave headers out"
+        ]
+
     Library.exec global runOpts opts.configLibrary
   where
     runOpts :: Library.RunOpts
@@ -194,6 +205,11 @@ execLibrary global opts = do
         , filePolicy     = opts.configCLI.filePolicy
         , inputs         = opts.configCLI.inputs
         }
+
+isHeaderPredicate :: SelectionPredicate -> Bool
+isHeaderPredicate = \case
+    SelectHeader{} -> True
+    SelectDecl{}   -> False
 
 -- | Report flags that cannot be used together, and exit with the code for
 -- usage errors
