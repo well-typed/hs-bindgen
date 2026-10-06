@@ -102,8 +102,11 @@ testRun getTestResources =
     testCase "generates one module per sub-header" $
       withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
         root <- getTestResources
-        (exitCode, _stdout, stderr) <- runLibraryMode root tmpDir []
+        (exitCode, stdout, stderr) <- runLibraryMode root tmpDir []
         assertEqual stderr ExitSuccess exitCode
+        assertBool ("expected a summary, got: " ++ stdout) $
+          ("Generated 4 modules from 4 headers in " ++ tmpDir)
+            `isInfixOf` stdout
         assertFilesExist stderr
           [ tmpDir </> "MyLib" </> "Mylib" </> "Types.hs"
           , tmpDir </> "MyLib" </> "Mylib" </> "Internal.hs"

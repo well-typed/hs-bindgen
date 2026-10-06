@@ -180,6 +180,9 @@ exec global runOpts opts = do
         -- got to its end, but an error has occurred.
         exitWith (ExitFailure 4)
 
+    -- Summary
+    putStrLn $ summary plan runOpts.hsOutputDir
+
 -- | The module a unit keeps its types in, which is also the module its
 -- binding specification is for
 typeModule :: BaseModuleName -> Hs.ModuleName
@@ -220,6 +223,17 @@ printPlan plan = do
         , n > 0
         ]
       ]
+
+-- | One line saying what a run generated
+summary :: LibraryPlan -> FilePath -> String
+summary plan hsOutputDir = concat [
+      "Generated ", counted (length plan.units) "module"
+    , " from ", counted (headerCount plan) "header"
+    , case loopCount plan of
+        0     -> ""
+        loops -> " (" ++ counted loops "declaration loop" ++ ")"
+    , " in ", hsOutputDir
+    ]
 
 -- | The headers that get a module
 headerCount :: LibraryPlan -> Int
