@@ -63,17 +63,18 @@ cd examples/cef
 The script will:
 
 1. Download the CEF binary distribution (if not already present)
-2. Generate Haskell bindings for all 79 C API headers (in dependency order)
-3. Update `cabal.project.local` with include/library paths
+2. Generate Haskell bindings for the C API headers with one library-mode call
+   (78 of the 79 headers, see issue 1 below)
+3. Write `hs-project/cabal.project.paths` with the include and library paths
 4. Build and run a minimal Haskell program that loads the bindings
 
-The dependency order was determined using:
-
-```bash
-cabal run hs-bindgen-cli -- info include-graph -I "$CEF_ROOT" "include/capi/cef_app_capi.h"
-```
-
-combined with a topological sort of the resulting graph.
+Library mode orders the headers by how their declarations use each other. The
+vtable structs of 28 headers, among them `cef_browser_capi.h`,
+`cef_frame_capi.h` and the handler headers, point at each other, so those
+headers share one module, `CEF.Cef_client_capi`, named after
+`cef_client_capi.h` because it includes most of the others. Add `--dry-run` to
+the library-mode call in the script to see which module each header ends up
+in.
 
 ## CEF version
 
@@ -83,7 +84,7 @@ The example pins CEF version `145.0.28+g51162e8+chromium-145.0.7632.160`
 ## Results
 
 * **78 out of 79** C API headers generate bindings successfully
-* **193 Haskell modules** are produced (main + FunPtr/Safe/Unsafe variants)
+* **150 Haskell modules** are produced (main + FunPtr/Safe/Unsafe variants)
 * All generated code compiles and links against `libcef.so`
 * The test executable initializes CEF, creates objects via the C API, and
   exercises vtable dispatch (function pointer calls through generated structs)
@@ -110,8 +111,8 @@ This section documents issues encountered while developing the bindings.
 declares `cef_launch_process(struct _cef_command_line_t* command_line)` but only
 includes `cef_base_capi.h`, missing the required `#include` for
 `cef_command_line_capi.h`. Because the struct tag first appears inside a function
-prototype, it has function prototype scope (C11 6.2.1p4) — making it a different
-type from the file-scope `struct _cef_command_line_t` defined in
+prototype, it has function prototype scope (C11 6.2.1p4), which makes it a
+different type from the file-scope `struct _cef_command_line_t` defined in
 `cef_command_line_capi.h`. GCC/Clang compile this with a warning, but
 `hs-bindgen` panics:
 
@@ -121,9 +122,9 @@ A Haskell identifier is not available: The C name of the declaration was not
 mangled because it only appears in an underlying type.
 ```
 
-The script skips this header automatically. This is a bug in CEF's C API
-translator — the other 78 auto-generated headers all include the correct
-dependencies.
+The script leaves this header out of the library-mode call, because all
+headers there are parsed together. This is a bug in CEF's C API translator:
+the other 78 auto-generated headers all include the correct dependencies.
 
 ### 2. API version must be configured via `cef_api_hash`
 
