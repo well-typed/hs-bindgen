@@ -99,10 +99,12 @@ assertFilesAbsent label paths =
 
 testRun :: IO TestResources -> TestTree
 testRun getTestResources =
-    testCase "generates one module per sub-header" $
+    testCase "generates one module and one binding spec per sub-header" $
       withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
         root <- getTestResources
-        (exitCode, stdout, stderr) <- runLibraryMode root tmpDir []
+        let specDir = tmpDir </> "specs"
+        (exitCode, stdout, stderr) <- runLibraryMode root tmpDir
+          ["--gen-binding-spec-dir", specDir]
         assertEqual stderr ExitSuccess exitCode
         assertBool ("expected a summary, got: " ++ stdout) $
           ("Generated 4 modules from 4 headers in " ++ tmpDir)
@@ -111,6 +113,10 @@ testRun getTestResources =
           [ tmpDir </> "MyLib" </> "Mylib" </> "Types.hs"
           , tmpDir </> "MyLib" </> "Mylib" </> "Internal.hs"
           , tmpDir </> "MyLib" </> "Mylib" </> "Ops" </> "Safe.hs"
+          , specDir </> "MyLib" </> "Mylib.yaml"
+          , specDir </> "MyLib" </> "Mylib" </> "Types.yaml"
+          , specDir </> "MyLib" </> "Mylib" </> "Ops.yaml"
+          , specDir </> "MyLib" </> "Mylib" </> "Internal.yaml"
           ]
 
 -- | b.h includes a.h, but a.h uses the struct that b.h defines
@@ -198,7 +204,7 @@ testUsageErrors getTestResources =
       withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
         root <- getTestResources
         let hDir = headerDir root
-        forM_ (cases tmpDir) $ \(args, message) -> do
+        forM_ (cases hDir tmpDir) $ \(args, message) -> do
           (exitCode, stdout, _stderr) <- readProcessWithExitCode "hs-bindgen-cli"
             ([ "preprocess"
              , "-I", hDir
@@ -210,10 +216,13 @@ testUsageErrors getTestResources =
           assertBool ("expected " ++ show message ++ ", got: " ++ stdout) $
             message `isInfixOf` stdout
   where
-    cases :: FilePath -> [([String], String)]
-    cases tmpDir = [
+    cases :: FilePath -> FilePath -> [([String], String)]
+    cases hDir tmpDir = [
         ( ["--dry-run"]
         , "--dry-run requires --library"
+        )
+      , ( ["--library", hDir, "--gen-binding-spec", tmpDir </> "spec.yaml"]
+        , "--gen-binding-spec cannot be used with --library"
         )
         -- No header is under a directory that does not exist, so a mistyped
         -- directory would give a run that generates nothing and succeeds

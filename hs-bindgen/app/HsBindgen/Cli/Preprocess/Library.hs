@@ -24,7 +24,8 @@ module HsBindgen.Cli.Preprocess.Library (
 import Control.Monad (foldM_)
 import Data.List qualified as List
 import Options.Applicative
-import System.Directory (canonicalizePath, createDirectoryIfMissing)
+import System.Directory (canonicalizePath, createDirectoryIfMissing,
+                         doesDirectoryExist)
 import System.Exit (ExitCode (..), exitSuccess, exitWith)
 import System.FilePath (addTrailingPathSeparator, isPathSeparator,
                         pathSeparators, replaceExtension, takeDirectory, (</>))
@@ -63,6 +64,7 @@ data Opts = Opts {
     , exceptPatterns      :: [Regex]
     , dryRun              :: Bool
     , listBaseModuleNames :: Bool
+    , genBindingSpecDir   :: Maybe FilePath
     }
   deriving (Generic)
 
@@ -73,6 +75,7 @@ parseOpts =
       <*> many parseExceptLibrary
       <*> parseDryRun
       <*> parseListBaseModuleNames
+      <*> optional parseGenBindingSpecDir
 
 parseLibraryRoot :: Parser FilePath
 parseLibraryRoot = strOption $ mconcat [
@@ -118,6 +121,17 @@ parseListBaseModuleNames = switch $ mconcat [
           "Print the base module names one per line (library mode). "
         , "A base module without types is not generated itself, "
         , "only its category submodules (Safe, Unsafe, FunPtr, Global)."
+        ]
+    ]
+
+parseGenBindingSpecDir :: Parser FilePath
+parseGenBindingSpecDir = strOption $ mconcat [
+      long "gen-binding-spec-dir"
+    , metavar "DIR"
+    , help $ concat [
+          "Directory to write per-module binding specifications to "
+        , "(library mode). Without it they go to a temporary directory "
+        , "that is removed after the run."
         ]
     ]
 
@@ -170,6 +184,19 @@ exec global runOpts opts = do
     let plan = planLibrary roots opts.exceptPatterns runOpts.baseModuleName
                  includeGraph useDeclGraph decls
 
+    -- Checks
+    --
+    -- These come before the reports, so that --dry-run and
+    -- --list-base-module-names accept exactly what a real run accepts.
+
+    -- Same rule as for --hs-output-dir: the directory itself needs
+    -- --create-output-dirs, module subdirectories are created as needed.
+    forM_ opts.genBindingSpecDir $ \dir -> do
+      exists <- doesDirectoryExist dir
+      unless (exists || runOpts.dirPolicy == CreateOutputDirs) $ do
+        putStrLn $ "Error: binding spec directory does not exist: " ++ dir
+        exitWith (ExitFailure 4)
+
     -- Report only
     --
     -- Base module names only: which category submodules exist depends on the
@@ -186,7 +213,7 @@ exec global runOpts opts = do
     -- Generate: one run per unit, in order
     eErr <- withTracer global.unsafe $ \tracer -> do
       let stepTracer = contramap TraceLibraryMode tracer
-      executePlan global runOpts stepTracer plan.units
+      executePlan global runOpts stepTracer opts.genBindingSpecDir plan.units
 
     case eErr of
       Right () -> pure ()
@@ -278,15 +305,22 @@ counted n noun = show n ++ " " ++ noun ++ "s"
 -- predicate and program slicing enabled, chaining binding specs from earlier
 -- steps as external specs so cross-module type references resolve.
 --
--- The specs live in a temporary directory that is removed after the run.
+-- The specs are written to the @--gen-binding-spec-dir@ directory when one is
+-- given; otherwise they live in a temporary directory removed after the run.
 executePlan ::
      GlobalOpts
   -> RunOpts
   -> Tracer LibraryModeMsg
+  -> Maybe FilePath
   -> [LibraryUnit]
   -> IO ()
-executePlan global runOpts tracer units =
-    withSystemTempDirectory "hs-bindgen-library" $ \specDir ->
+executePlan global runOpts tracer mSpecDir units =
+    case mSpecDir of
+      Just specDir -> run specDir
+      Nothing      -> withSystemTempDirectory "hs-bindgen-library" run
+  where
+    run :: FilePath -> IO ()
+    run specDir =
       foldM_ (executeStep global runOpts tracer specDir) [] units
 
 -- | Generate the module of one unit and its binding specification

@@ -124,6 +124,8 @@ execSingleModule global opts = do
       usageError "--list-base-module-names requires --library"
     unless (null opts.configLibrary.exceptPatterns) $
       usageError "--except-library requires --library"
+    when (isJust opts.configLibrary.genBindingSpecDir) $
+      usageError "--gen-binding-spec-dir requires --library"
 
     hsBindgen
       global.unsafe
@@ -168,6 +170,15 @@ execLibrary global opts = do
       exists <- doesDirectoryExist dir
       unless exists $
         usageError $ "--library is not a directory: " ++ dir
+
+    -- Library mode writes one binding specification per module, so a single
+    -- file cannot hold them.
+    when (isJust opts.configCLI.outputBindingSpec) $
+      usageError $ concat [
+          "--gen-binding-spec cannot be used with --library; "
+        , "use --gen-binding-spec-dir to keep the per-module binding "
+        , "specifications"
+        ]
 
     Library.exec global runOpts opts.configLibrary
   where
