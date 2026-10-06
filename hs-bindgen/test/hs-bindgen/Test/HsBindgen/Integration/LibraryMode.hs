@@ -3,7 +3,7 @@ module Test.HsBindgen.Integration.LibraryMode (tests) where
 import Control.Exception (evaluate)
 import Control.Monad (forM_)
 import Data.List (isInfixOf)
-import System.Directory (doesFileExist)
+import System.Directory (createDirectoryIfMissing, doesFileExist)
 import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import System.IO.Temp (withSystemTempDirectory)
@@ -24,6 +24,7 @@ tests getTestResources = testGroup "Integration.LibraryMode" [
     , testPlan getTestResources
     , testPlanGrouping getTestResources
     , testUsageErrors getTestResources
+    , testCollisions
     ]
 
 {-------------------------------------------------------------------------------
@@ -230,3 +231,45 @@ testUsageErrors getTestResources =
         , "--library is not a directory"
         )
       ]
+
+-- | The collision detection itself is covered by the unit tests
+testCollisions :: TestTree
+testCollisions =
+    testCase "module name collisions stop the run" $
+      withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
+        -- A dash is not allowed in a module name and becomes an underscore,
+        -- so both headers give M.Foo_bar
+        let names = tmpDir </> "names"
+        createDirectoryIfMissing True names
+        writeFile (names </> "foo-bar.h") "typedef int foo_dash;\n"
+        writeFile (names </> "foo_bar.h") "typedef int foo_underscore;\n"
+        writeFile (names </> "all.h") $ unlines [
+            "#include \"foo-bar.h\""
+          , "#include \"foo_bar.h\""
+          ]
+        (sameName, report, _stderr) <-
+          runLibraryModeIn names "all.h" (tmpDir </> "gen") []
+        sameName @?= ExitFailure 4
+        assertBool ("expected collision message, got: " ++ report) $
+          "Module name collision: M.Foo_bar" `isInfixOf` report
+
+        -- The safe foreign import of foo.h goes to M/Foo/Safe.hs, which is
+        -- also where the types of foo/safe.h go. Without a function, foo.h
+        -- only writes M/Foo.hs.
+        let overlap fooFunctions = do
+              let dir = tmpDir </> "lib"
+              createDirectoryIfMissing True (dir </> "foo")
+              writeFile (dir </> "foo.h") $ unlines $
+                "struct foo { int v; };" : fooFunctions
+              writeFile (dir </> "foo" </> "safe.h") "struct fsafe { int v; };\n"
+              writeFile (dir </> "all.h") $ unlines [
+                  "#include \"foo.h\""
+                , "#include \"foo/safe.h\""
+                ]
+              runLibraryModeIn dir "all.h" (tmpDir </> "gen") []
+        (typesOnly, _stdout, stderr) <- overlap []
+        assertEqual stderr ExitSuccess typesOnly
+        (withFunction, stdout, _stderr) <- overlap ["int foo_get(struct foo *f);"]
+        withFunction @?= ExitFailure 4
+        assertBool ("expected an overlap, got: " ++ stdout) $
+          "Category overlap on: M.Foo.Safe" `isInfixOf` stdout

@@ -7,6 +7,11 @@ module HsBindgen.LibraryMode.Plan (
   , planLibrary
     -- * Module naming
   , deriveModuleName
+    -- * Collision detection
+  , Collision(..)
+  , directCollisions
+  , categoryOverlaps
+  , formatCollision
   ) where
 
 import Data.Digraph (Digraph)
@@ -23,9 +28,12 @@ import System.FilePath (dropExtension, isRelative, makeRelative,
 import Clang.HighLevel.Types (singleLocPath)
 import Clang.Paths
 
+import HsBindgen.Backend.Category (Category (..), TermCategory)
+import HsBindgen.Backend.Hs.Translation (declCategories)
 import HsBindgen.Config.MangleCandidate (MangleCandidate (..), mangleCandidate,
                                          mangleCandidateDefault)
-import HsBindgen.Config.Prelims (BaseModuleName (..))
+import HsBindgen.Config.Prelims (BaseModuleName (..), baseModuleNameToString,
+                                 fromBaseModuleName, termCategorySuffix)
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
@@ -37,6 +45,7 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Translation (DeclIdPair (..))
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
   Plan
@@ -65,6 +74,12 @@ data LibraryUnit = LibraryUnit {
       -- | Sorted by path
       headers    :: NonEmpty RealPath
     , moduleName :: BaseModuleName
+      -- | The modules the unit writes: the base module for its types, and
+      -- one submodule per term category (see 'unitCategories')
+      --
+      -- Strict, so that the plan does not hold on to the declarations it was
+      -- computed from.
+    , categories :: !(Set Category)
     }
   deriving stock (Show, Eq)
 
@@ -76,7 +91,8 @@ data LibraryUnit = LibraryUnit {
 -- use each other (see 'sortByDeclarationUse'), and each group is named (see
 -- 'mkLibraryUnit').
 planLibrary ::
-     [FilePath]
+     Macro.HasTypes l
+  => [FilePath]
      -- ^ Normalised library directories (@--library@)
   -> [Regex]
      -- ^ Exclusion patterns (@--except-library@)
@@ -88,7 +104,7 @@ planLibrary ::
   -> LibraryPlan
 planLibrary roots exceptPatterns base includeGraph useDeclGraph decls =
     LibraryPlan {
-        units           = map (mkLibraryUnit roots base includeGraph) components
+        units           = map mkUnit components
       , excluded        = excludedHeaders
       , withoutBindings = emptyHeaders
       }
@@ -99,8 +115,21 @@ planLibrary roots exceptPatterns base includeGraph useDeclGraph decls =
     components :: [NonEmpty RealPath]
     components = sortByDeclarationUse useDeclGraph located includedHeaders
 
-    generating :: Set RealPath
+    mkUnit :: NonEmpty RealPath -> LibraryUnit
+    mkUnit component =
+      mkLibraryUnit roots base includeGraph
+        (unitCategories useDeclGraph located categoryOf withModule component)
+        component
+
+    generating, withModule :: Set RealPath
     generating = Set.fromList (Map.elems located)
+    withModule = Set.fromList includedHeaders
+
+    categoryOf :: Map C.DeclId (Set Category)
+    categoryOf = Map.fromList [
+          (decl.info.id.cName, declCategories decl.kind)
+        | decl <- decls
+        ]
 
     isUnderRoot, isExcluded :: RealPath -> Bool
     isUnderRoot header = any (getRealPath header `isUnderDir`) roots
@@ -131,8 +160,51 @@ declLocations :: [C.Decl l Final] -> Map C.DeclId RealPath
 declLocations decls = Map.fromList [
       (decl.info.id.cName, header)
     | decl <- decls
-    , Just header <- [C.declPathRealPath (singleLocPath decl.info.loc)]
+    , Just header <- [declHeader decl]
     ]
+
+declHeader :: C.Decl l Final -> Maybe RealPath
+declHeader decl = C.declPathRealPath (singleLocPath decl.info.loc)
+
+-- | The modules a unit writes
+--
+-- A module keeps its types in the base module and its terms in one submodule
+-- per category, and only writes the ones it has something for.
+--
+-- What a unit has is the declarations in its headers. It can also end up with
+-- a declaration from a header that gets no module, since the first unit that
+-- needs such a declaration generates it. Which unit comes first is not decided
+-- here, so every unit that reaches the declaration counts as writing it. That
+-- errs towards reporting a collision.
+unitCategories ::
+     UseDeclGraph
+  -> Map C.DeclId RealPath
+     -- ^ Generated declarations and their headers
+  -> Map C.DeclId (Set Category)
+     -- ^ The categories of each generated declaration
+  -> Set RealPath
+     -- ^ The headers that get a module
+  -> NonEmpty RealPath
+     -- ^ The headers of one unit
+  -> Set Category
+unitCategories useDeclGraph located categoryOf moduleHeaders component =
+    foldMap categoriesOf (Set.union own hosted)
+  where
+    headers :: Set RealPath
+    headers = Set.fromList (toList component)
+
+    own, hosted :: Set C.DeclId
+    own    = Map.keysSet $ Map.filter (`Set.member` headers) located
+    hosted = Set.filter inNoModule $
+               UseDeclGraph.getStrictTransitiveDeps useDeclGraph own
+
+    inNoModule :: C.DeclId -> Bool
+    inNoModule declId = case Map.lookup declId located of
+        Just header -> header `Set.notMember` moduleHeaders
+        Nothing     -> False
+
+    categoriesOf :: C.DeclId -> Set Category
+    categoriesOf declId = Map.findWithDefault Set.empty declId categoryOf
 
 -- | Group headers whose declarations use each other, dependencies first
 --
@@ -205,13 +277,16 @@ mkLibraryUnit ::
      -- ^ Library directories (@--library@)
   -> BaseModuleName
   -> IncludeGraph
+  -> Set Category
+     -- ^ See 'unitCategories'
   -> NonEmpty RealPath
      -- ^ Headers in one declaration loop
   -> LibraryUnit
-mkLibraryUnit roots base includeGraph component =
+mkLibraryUnit roots base includeGraph categories component =
     LibraryUnit {
         headers    = sorted
       , moduleName = deriveModuleName roots base outermost
+      , categories = categories
       }
   where
     sorted :: NonEmpty RealPath
@@ -303,3 +378,98 @@ moduleNameComponent =
 -- | Check whether a file path is contained under a directory.
 isUnderDir :: FilePath -> FilePath -> Bool
 isUnderDir path dir = isRelative (makeRelative dir path)
+
+{-------------------------------------------------------------------------------
+  Collision detection
+-------------------------------------------------------------------------------}
+
+-- | Units whose output files would overwrite each other
+--
+-- A unit is given by its headers.
+data Collision =
+    -- | Several units get the same module name
+    DirectCollision
+      BaseModuleName
+      [NonEmpty RealPath]  -- ^ Two or more units
+    -- | A category submodule of one unit is the base module of another
+  | CategoryOverlap
+      Hs.ModuleName        -- ^ The module both write
+      (NonEmpty RealPath)  -- ^ The unit that keeps terms in it
+      TermCategory         -- ^ The category of those terms
+      (NonEmpty RealPath)  -- ^ The unit that keeps its types in it
+  deriving stock (Show, Eq)
+
+-- | Units that get the same module name
+--
+-- Different header names can give the same module name:
+--
+-- * the first character is uppercased, so @foo.h@ and @Foo.h@ both give
+--   @Foo@;
+-- * a character that a module name cannot contain becomes an underscore, so
+--   @foo-bar.h@, @foo.bar.h@ and @foo_bar.h@ all give @Foo_bar@;
+-- * a name that does not start with a letter gets a @C@ in front, so @3d.h@
+--   and @C3D.h@ both give @C3D@.
+--
+-- The headers of one declaration loop share a unit, so they do not collide
+-- with each other.
+directCollisions :: [LibraryUnit] -> [Collision]
+directCollisions units = [
+      DirectCollision (BaseModuleName name) colliding
+    | (name, colliding@(_ : _ : _)) <- Map.toList byName
+    ]
+  where
+    byName :: Map Text [NonEmpty RealPath]
+    byName = Map.fromListWith (flip (++)) [
+          (unit.moduleName.text, [unit.headers])
+        | unit <- units
+        ]
+
+-- | Category submodules of one unit that are the base module of another
+--
+-- A module keeps its terms in category submodules, so @foo.h@ (module
+-- @M.Foo@) and @foo\/safe.h@ (module @M.Foo.Safe@) can both write
+-- @M\/Foo\/Safe.hs@: the first its safe foreign imports, the second its types.
+-- A unit only writes the modules it has something for (see 'unitCategories'),
+-- so this needs @foo.h@ to have a function and @foo\/safe.h@ to have a type.
+--
+-- This only applies when every category goes to a file of its own.
+categoryOverlaps :: [LibraryUnit] -> [Collision]
+categoryOverlaps units = [
+      CategoryOverlap submodule unit.headers category other.headers
+    | unit           <- units
+    , CTerm category <- Set.toList unit.categories
+    , let submodule =
+            fromBaseModuleName unit.moduleName (Just (CTerm category))
+    , other          <- Map.findWithDefault [] submodule.text withTypes
+    ]
+  where
+    -- The units that write their base module, by its name
+    withTypes :: Map Text [LibraryUnit]
+    withTypes = Map.fromListWith (flip (++)) [
+          (unit.moduleName.text, [unit])
+        | unit <- units
+        , CType `Set.member` unit.categories
+        ]
+
+formatCollision :: Collision -> String
+formatCollision = \case
+    DirectCollision name units -> unlines $ [
+        "  Module name collision: " ++ baseModuleNameToString name
+      , "  Headers mapping to the same module:"
+      ] ++ [
+        "    " ++ formatUnitHeaders headers
+      | headers <- units
+      ]
+    CategoryOverlap submodule termHeaders category typeHeaders -> unlines [
+        "  Category overlap on: " ++ Hs.moduleNameToString submodule
+      , concat [
+            "    ", formatUnitHeaders termHeaders
+          , " (", Text.unpack (termCategorySuffix category), ")"
+          ]
+      , "    " ++ formatUnitHeaders typeHeaders ++ " (Types)"
+      ]
+
+-- | The headers of one unit, comma-separated
+formatUnitHeaders :: NonEmpty RealPath -> String
+formatUnitHeaders =
+    List.intercalate ", " . map (Text.unpack . getRealPathText) . toList

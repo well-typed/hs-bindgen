@@ -35,8 +35,8 @@ import Clang.Paths
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.App.Output (OutputOptions (..), buildCategoryChoice,
-                             writeBindingsWith)
+import HsBindgen.App.Output (OutputMode (..), OutputOptions (..),
+                             buildCategoryChoice, writeBindingsWith)
 import HsBindgen.ArtefactM
 import HsBindgen.Backend.Category
 import HsBindgen.BindingSpec (BindingSpecConfig (..))
@@ -49,7 +49,8 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.LibraryMode.Plan (LibraryPlan (..), LibraryUnit (..),
-                                   planLibrary)
+                                   categoryOverlaps, directCollisions,
+                                   formatCollision, planLibrary)
 import HsBindgen.Macro
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
@@ -188,6 +189,16 @@ exec global runOpts opts = do
     --
     -- These come before the reports, so that --dry-run and
     -- --list-base-module-names accept exactly what a real run accepts.
+    let collisions = directCollisions plan.units ++
+          case runOpts.outputOptions.mode of
+            FilePerModule -> categoryOverlaps plan.units
+            SingleFile{}  -> []
+
+    unless (null collisions) $ do
+      putStrLn "Error: module name collisions detected"
+      putStrLn ""
+      mapM_ (putStrLn . formatCollision) collisions
+      exitWith (ExitFailure 4)
 
     -- Same rule as for --hs-output-dir: the directory itself needs
     -- --create-output-dirs, module subdirectories are created as needed.

@@ -1,5 +1,8 @@
 module Test.HsBindgen.Unit.LibraryMode (tests) where
 
+import Data.Foldable (toList)
+import Data.List.NonEmpty (NonEmpty (..))
+import Data.Set qualified as Set
 import Data.String (fromString)
 import Data.Text qualified as Text
 import System.FilePath ((</>))
@@ -9,9 +12,14 @@ import Test.Tasty.HUnit
 
 import Clang.Paths (RealPath (..))
 
+import HsBindgen.Backend.Category (Category (..), TermCategory (..),
+                                   allCategories)
 import HsBindgen.Config.Prelims (BaseModuleName (..))
 import HsBindgen.Frontend.Predicate (matchTest, quoteRegex)
-import HsBindgen.LibraryMode.Plan (deriveModuleName)
+import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.LibraryMode.Plan (Collision (..), LibraryUnit (..),
+                                   categoryOverlaps, deriveModuleName,
+                                   directCollisions)
 
 {-------------------------------------------------------------------------------
   Tests
@@ -19,7 +27,14 @@ import HsBindgen.LibraryMode.Plan (deriveModuleName)
 
 tests :: TestTree
 tests = testGroup "Test.HsBindgen.Unit.LibraryMode" [
-      testDeriveModuleName
+      testGroup "collisions" [
+          testNoCollisions
+        , testDirectCollision
+        , testCategoryOverlap
+        , testCategoryOverlapPerCategory
+        , testCategoryOverlapNeedsTypes
+        ]
+    , testDeriveModuleName
     , testQuoteRegex
     ]
 
@@ -34,6 +49,84 @@ absRoot
 
 rp :: FilePath -> RealPath
 rp = RealPath . Text.pack . (absRoot </>)
+
+-- | A unit of one header that writes its base module and every category
+-- submodule
+single :: FilePath -> BaseModuleName -> LibraryUnit
+single hdr m = LibraryUnit {
+      headers    = rp hdr :| []
+    , moduleName = m
+    , categories = Set.fromList (toList allCategories)
+    }
+
+-- | The same unit when its header has nothing but declarations of the given
+-- categories
+only :: [Category] -> LibraryUnit -> LibraryUnit
+only cs unit = unit { categories = Set.fromList cs }
+
+{-------------------------------------------------------------------------------
+  Collisions
+-------------------------------------------------------------------------------}
+
+testNoCollisions :: TestTree
+testNoCollisions = testCase "distinct modules" $
+    directCollisions units ++ categoryOverlaps units @?= []
+  where
+    units :: [LibraryUnit]
+    units = [
+        single "inc/foo.h"     (BaseModuleName "M.Foo")
+      , single "inc/bar.h"     (BaseModuleName "M.Bar")
+      , single "inc/baz/qux.h" (BaseModuleName "M.Baz.Qux")
+      ]
+
+testDirectCollision :: TestTree
+testDirectCollision = testCase "same module name from different headers" $
+    directCollisions [
+        single "inc/foo.h" (BaseModuleName "M.Foo")
+      , single "inc/Foo.h" (BaseModuleName "M.Foo")
+      ]
+    @?= [
+        DirectCollision (BaseModuleName "M.Foo") [
+            rp "inc/foo.h" :| []
+          , rp "inc/Foo.h" :| []
+          ]
+      ]
+
+testCategoryOverlap :: TestTree
+testCategoryOverlap = testCase "base module vs category submodule" $
+    categoryOverlaps [
+        single "inc/foo.h"      (BaseModuleName "M.Foo")
+      , single "inc/foo/safe.h" (BaseModuleName "M.Foo.Safe")
+      ]
+    @?= [
+        CategoryOverlap (Hs.ModuleName "M.Foo.Safe")
+          (rp "inc/foo.h" :| []) CSafe (rp "inc/foo/safe.h" :| [])
+      ]
+
+testCategoryOverlapPerCategory :: TestTree
+testCategoryOverlapPerCategory =
+    testCase "only the category submodules a unit writes can overlap" $
+      categoryOverlaps [
+          only [CTerm CGlobal] $ single "inc/foo.h" (BaseModuleName "M.Foo")
+        , single "inc/foo/safe.h"   (BaseModuleName "M.Foo.Safe")
+        , single "inc/foo/global.h" (BaseModuleName "M.Foo.Global")
+        ]
+      @?= [
+          CategoryOverlap (Hs.ModuleName "M.Foo.Global")
+            (rp "inc/foo.h" :| []) CGlobal (rp "inc/foo/global.h" :| [])
+        ]
+
+-- | A header with nothing but functions writes no base module, so its name
+-- can be the category submodule of another unit
+testCategoryOverlapNeedsTypes :: TestTree
+testCategoryOverlapNeedsTypes =
+    testCase "no overlap with a unit that writes no base module" $
+      categoryOverlaps [
+          single "inc/foo.h" (BaseModuleName "M.Foo")
+        , only [CTerm CSafe, CTerm CUnsafe, CTerm CFunPtr] $
+            single "inc/foo/safe.h" (BaseModuleName "M.Foo.Safe")
+        ]
+      @?= []
 
 {-------------------------------------------------------------------------------
   deriveModuleName
