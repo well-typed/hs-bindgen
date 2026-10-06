@@ -18,6 +18,7 @@ import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv (CWrapper)
 import HsBindgen.Backend.SHs.AST qualified as SHs
+import HsBindgen.BindingSpec (PrescriptiveBindingSpec)
 import HsBindgen.Boot
 import HsBindgen.Config
 import HsBindgen.Config.Internal
@@ -85,6 +86,7 @@ data Artefact l (a :: Star) where
   -- * Boot
   RootDirectives  :: Artefact l [C.RootDirective C.HashIncludeArg]
   ModuleBaseName  :: Artefact l BaseModuleName
+  PrescriptiveBindingSpecA :: Artefact l PrescriptiveBindingSpec
   -- * Frontend
   ParseInfoA      :: Artefact l ParseInfo
   DoxygenA        :: Artefact l Doxygen
@@ -136,6 +138,7 @@ runArtefacts tracer config boot frontend backend artefact =
         --Boot.
         RootDirectives  -> runCached boot.rootDirectives
         ModuleBaseName  -> pure boot.baseModule
+        PrescriptiveBindingSpecA -> runCached boot.prescriptiveBindingSpec
         -- Frontend.
         ParseInfoA      -> runCached frontend.parseMeta
         DoxygenA        -> runCached frontend.doxygen

@@ -27,6 +27,7 @@ module HsBindgen (
   , getSquashedTypes
   , getDependencies
   , getGetMainHeaders
+  , getPrescriptiveBindingSpec
 
     -- * Errors
   , BindgenError(..)
@@ -369,6 +370,13 @@ getConfig = Lift askConfig
 
 getGetMainHeaders :: Artefact l ProcessIncludes.GetMainHeaders
 getGetMainHeaders = (.getMainHeaders) <$> ParseInfoA
+
+-- | The prescriptive binding specification as loaded
+--
+-- Its module is the one it was written for, or, when it leaves out
+-- @hsmodule@, the module of this run.
+getPrescriptiveBindingSpec :: Artefact l BindingSpec.PrescriptiveBindingSpec
+getPrescriptiveBindingSpec = PrescriptiveBindingSpecA
 
 getIncludeGraph :: Artefact l IncludeGraph
 getIncludeGraph = (.includeGraph) <$> ParseInfoA

@@ -39,7 +39,8 @@ import HsBindgen.App.Output (OutputMode (..), OutputOptions (..),
                              buildCategoryChoice, writeBindingsWith)
 import HsBindgen.ArtefactM
 import HsBindgen.Backend.Category
-import HsBindgen.BindingSpec (BindingSpecConfig (..))
+import HsBindgen.BindingSpec (BindingSpecConfig (..), BindingSpecReadMsg (..))
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.Config.Prelims (baseModuleNameToString, fromBaseModuleName)
@@ -167,18 +168,33 @@ exec global runOpts opts = do
     -- them: the library headers, the user's predicate, and program slicing.
     -- This tells us which declarations are generated, where they are, and
     -- which of them use which. No bindings are written.
-    let planConfig = toBindgenConfig
+    --
+    -- The planning run writes no module, but every run needs a module name,
+    -- so it gets a placeholder. A prescriptive binding specification that
+    -- names its module with @hsmodule@ can never match the placeholder, and
+    -- the warning about that would mention a module the user never asked
+    -- for. The planning run therefore keeps quiet about it; each step still
+    -- warns when the specification is for another module.
+    let planModule = BaseModuleName "unused"
+        planConfig = toBindgenConfig
           (narrowTo (libraryScope roots opts.exceptPatterns) runOpts.config)
           (UniqueId "library-mode-plan")
-          (BaseModuleName "unused")
+          planModule
           (def :: ByCategory Choice)
 
-    (includeGraph, decls, useDeclGraph) <- hsBindgen
-      global.unsafe
+    (includeGraph, decls, useDeclGraph, pSpec) <- hsBindgen
+      (demoteToDebug isModuleMismatch global.unsafe)
       global.safe
       planConfig
       runOpts.inputs
-      ((,,) <$> getIncludeGraph <*> getReifiedC <*> getUseDeclGraph)
+      ((,,,) <$> getIncludeGraph <*> getReifiedC <*> getUseDeclGraph
+             <*> getPrescriptiveBindingSpec)
+
+    -- A prescriptive binding specification without an @hsmodule@ takes on
+    -- the module of each run, so the planning run applies it and reports its
+    -- unused entries; one with an @hsmodule@ only applies in that step.
+    let pSpecModule    = BindingSpec.moduleName pSpec
+        unusedReported = pSpecModule == typeModule planModule
 
     -- Plan: one unit per module, each after the units whose declarations it
     -- uses
@@ -198,6 +214,21 @@ exec global runOpts opts = do
       putStrLn "Error: module name collisions detected"
       putStrLn ""
       mapM_ (putStrLn . formatCollision) collisions
+      exitWith (ExitFailure 4)
+
+    -- A prescriptive binding specification with an @hsmodule@ only applies in
+    -- the run for that module, so some run has to generate it. None does
+    -- when, for example, its header shares a module with other headers.
+    let generated = map (typeModule . (.moduleName)) plan.units
+    unless (unusedReported || pSpecModule `elem` generated) $ do
+      putStrLn $ concat [
+          "Error: the prescriptive binding specification is for module "
+        , Hs.moduleNameToString pSpecModule
+        , ", which is not generated. Headers whose declarations use each "
+        , "other share a module: --dry-run without the specification shows "
+        , "the module of each header. Name that module in hsmodule, or leave "
+        , "hsmodule out."
+        ]
       exitWith (ExitFailure 4)
 
     -- Same rule as for --hs-output-dir: the directory itself needs
@@ -222,9 +253,25 @@ exec global runOpts opts = do
       exitSuccess
 
     -- Generate: one run per unit, in order
+    --
+    -- When the planning run has reported the entries of the prescriptive
+    -- binding specification that match no declaration, over the whole
+    -- library, the steps do not report them again. A step would report each
+    -- unused entry once more, and also the entries for types that earlier
+    -- steps generated: the chained specs bind those types here, and an
+    -- external binding takes precedence over the prescriptive entry.
+    let stepGlobal :: GlobalOpts
+        stepGlobal
+          | unusedReported = GlobalOpts {
+                unsafe = demoteToDebug isTypeNotUsed global.unsafe
+              , safe   = global.safe
+              }
+          | otherwise      = global
+
     eErr <- withTracer global.unsafe $ \tracer -> do
       let stepTracer = contramap TraceLibraryMode tracer
-      executePlan global runOpts stepTracer opts.genBindingSpecDir plan.units
+      executePlan
+        stepGlobal runOpts stepTracer opts.genBindingSpecDir plan.units
 
     case eErr of
       Right () -> pure ()
@@ -449,3 +496,36 @@ narrowTo predicate config = config {
 
 headerMatches :: Regex -> Boolean SelectionPredicate
 headerMatches = BIf . SelectHeader . HeaderPathMatches
+
+{-------------------------------------------------------------------------------
+  Traces
+-------------------------------------------------------------------------------}
+
+-- | Report the matching traces at debug level only
+demoteToDebug ::
+     (TraceMsg -> Bool)
+  -> TracerConfig Level TraceMsg
+  -> TracerConfig Level TraceMsg
+demoteToDebug matches tracerConfig = tracerConfig{
+      customLogLevel = demote <> tracerConfig.customLogLevel
+    }
+  where
+    demote :: CustomLogLevel Level TraceMsg
+    demote = CustomLogLevel $ \trc -> if matches trc then const Debug else id
+
+-- | A prescriptive binding specification for another module
+isModuleMismatch :: TraceMsg -> Bool
+isModuleMismatch = \case
+    TraceBoot (BootBindingSpec (BindingSpecReadMsg msg))
+      | BindingSpecReadModuleMismatch{} <- msg -> True
+    TraceFrontend (FrontendResolveBindingSpecs msg)
+      | ResolveBindingSpecsModuleMismatch{} <- msg -> True
+    _otherTrace -> False
+
+-- | An entry of a prescriptive binding specification that matches no
+-- declaration
+isTypeNotUsed :: TraceMsg -> Bool
+isTypeNotUsed = \case
+    TraceFrontend (FrontendResolveBindingSpecs msg)
+      | ResolveBindingSpecsTypeNotUsed{} <- msg -> True
+    _otherTrace -> False

@@ -25,6 +25,8 @@ tests getTestResources = testGroup "Integration.LibraryMode" [
     , testPlanGrouping getTestResources
     , testUsageErrors getTestResources
     , testCollisions
+    , testPrescriptiveBindingSpec getTestResources
+    , testPrescriptiveBindingSpecForModule getTestResources
     ]
 
 {-------------------------------------------------------------------------------
@@ -276,3 +278,92 @@ testCollisions =
         withFunction @?= ExitFailure 4
         assertBool ("expected an overlap, got: " ++ stdout) $
           "Category overlap on: M.Foo.Safe" `isInfixOf` stdout
+
+{-------------------------------------------------------------------------------
+  Prescriptive binding specifications
+-------------------------------------------------------------------------------}
+
+-- | Later steps find the renamed type bound by an earlier step's spec, which
+-- must not count as an unused entry
+testPrescriptiveBindingSpec :: IO TestResources -> TestTree
+testPrescriptiveBindingSpec getTestResources =
+    testCase "a prescriptive binding spec applies to every module" $
+      withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
+        root <- getTestResources
+        let spec = tmpDir </> "rename.yaml"
+        writeFile spec $ unlines [
+            "version:"
+          , "  hs_bindgen: 1.0.0.0"
+          , "  binding_specification: '1.0'"
+          , "ctypes:"
+          , "  - headers: mylib/types.h"
+          , "    cname: struct point_t"
+          , "    hsname: Point"
+          , "  - headers: mylib/types.h"
+          , "    cname: point_t"
+          , "    hsname: Point"
+          ]
+        (exitCode, _stdout, stderr) <- runLibraryMode root tmpDir
+          ["--prescriptive-binding-spec", spec, "--log-as-error-warnings"]
+        assertEqual stderr ExitSuccess exitCode
+        contents <- readFileStrict (tmpDir </> "MyLib" </> "Mylib" </> "Types.hs")
+        assertBool "expected point_t renamed to Point" $
+          "data Point " `isInfixOf` contents
+
+-- | Only the step for that module applies the spec, so that step reports its
+-- unused entries. The other steps warn that the spec is for another module,
+-- naming their own; the planning run, which generates no module, does not.
+--
+-- The module has to be one that is generated. elaborate_inner.h shares the
+-- module of elaborate.h, so no module is called @M.Elaborate_inner@ and a spec
+-- for it would never apply.
+testPrescriptiveBindingSpecForModule :: IO TestResources -> TestTree
+testPrescriptiveBindingSpecForModule getTestResources =
+    testCase "a prescriptive binding spec with hsmodule applies to that module" $
+      withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
+        root <- getTestResources
+        let spec = tmpDir </> "types.yaml"
+        writeFile spec $ unlines [
+            "version:"
+          , "  hs_bindgen: 1.0.0.0"
+          , "  binding_specification: '1.0'"
+          , "hsmodule: MyLib.Mylib.Types"
+          , "ctypes:"
+          , "  - headers: mylib/types.h"
+          , "    cname: struct point_t"
+          , "    hsname: Point"
+          , "  - headers: mylib/types.h"
+          , "    cname: struct nosuch_t"
+          , "    hsname: NoSuch"
+          ]
+        (exitCode, _stdout, stderr) <- runLibraryMode root tmpDir
+          ["--prescriptive-binding-spec", spec]
+        assertEqual stderr ExitSuccess exitCode
+        contents <- readFileStrict (tmpDir </> "MyLib" </> "Mylib" </> "Types.hs")
+        assertBool "expected struct point_t renamed to Point" $
+          "data Point " `isInfixOf` contents
+        assertBool ("expected the unused entry reported, got: " ++ stderr) $
+          "not used: 'struct nosuch_t'" `isInfixOf` stderr
+        assertBool ("expected a warning from another module, got: " ++ stderr) $
+          "cannot be used to generate MyLib.Mylib.Ops" `isInfixOf` stderr
+        assertBool ("expected no warning from the planning run, got: " ++ stderr) $
+          not (any (`isInfixOf` stderr) ["module: unused", "generate unused"])
+
+        let absent = tmpDir </> "inner.yaml"
+            outDir = tmpDir </> "absent"
+        writeFile absent $ unlines [
+            "version:"
+          , "  hs_bindgen: 1.0.0.0"
+          , "  binding_specification: '1.0'"
+          , "hsmodule: M.Elaborate_inner"
+          ]
+        (exitAbsent, stdout, _stderr) <- runLibraryModeIn
+          (headerDir root </> "golden" </> "macros" </> "parse")
+          "elaborate.h" outDir ["--prescriptive-binding-spec", absent]
+        exitAbsent @?= ExitFailure 4
+        assertBool ("expected an error, got: " ++ stdout) $
+          "is for module M.Elaborate_inner, which is not generated"
+            `isInfixOf` stdout
+        assertFilesAbsent "nothing should be generated"
+          [ outDir </> "M" </> "Elaborate.hs"
+          ]
