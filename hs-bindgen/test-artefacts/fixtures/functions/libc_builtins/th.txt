@@ -1,0 +1,269 @@
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/stddef.h
+-- addDependentFile test-artefacts/headers/golden/functions/libc_builtins.h
+-- #include <functions/libc_builtins.h>
+-- void *hs_bindgen_eb5883c88daf674e (
+--   unsigned long arg1
+-- )
+-- {
+--   return (malloc)(arg1);
+-- }
+-- unsigned long hs_bindgen_be2c0f129cd05083 (
+--   char const *arg1
+-- )
+-- {
+--   return (strlen)(arg1);
+-- }
+-- size_t hs_bindgen_988f2c37e046701b (
+--   char const *arg1
+-- )
+-- {
+--   return (my_strlen)(arg1);
+-- }
+-- void *hs_bindgen_89545f6dff974fe2 (
+--   unsigned long arg1
+-- )
+-- {
+--   return (malloc)(arg1);
+-- }
+-- unsigned long hs_bindgen_246dfd0630c4cbb6 (
+--   char const *arg1
+-- )
+-- {
+--   return (strlen)(arg1);
+-- }
+-- size_t hs_bindgen_9674282b2423839e (
+--   char const *arg1
+-- )
+-- {
+--   return (my_strlen)(arg1);
+-- }
+-- /* test_functionslibc_builtins_Example_get_malloc */
+-- __attribute__ ((const))
+-- void *(*hs_bindgen_d52eebfcdc653f31 (void)) (
+--   unsigned long arg1
+-- )
+-- {
+--   return &malloc;
+-- }
+-- /* test_functionslibc_builtins_Example_get_strlen */
+-- __attribute__ ((const))
+-- unsigned long (*hs_bindgen_7c713081d7e72a10 (void)) (
+--   char const *arg1
+-- )
+-- {
+--   return &strlen;
+-- }
+-- /* test_functionslibc_builtins_Example_get_my_strlen */
+-- __attribute__ ((const))
+-- size_t (*hs_bindgen_a92eb31aeb03f8c0 (void)) (
+--   char const *arg1
+-- )
+-- {
+--   return &my_strlen;
+-- }
+-- __unique:__ @test_functionslibc_builtins_Example_Safe_malloc@
+foreign import ccall safe "hs_bindgen_eb5883c88daf674e" hs_bindgen_eb5883c88daf674e_base ::
+    CULong
+ -> IO (Ptr Void)
+-- __unique:__ @test_functionslibc_builtins_Example_Safe_malloc@
+hs_bindgen_eb5883c88daf674e :: CULong -> IO (Ptr Void)
+-- __unique:__ @test_functionslibc_builtins_Example_Safe_malloc@
+hs_bindgen_eb5883c88daf674e = \x_0 -> fmap fromFFIType (hs_bindgen_eb5883c88daf674e_base (toFFIType x_0))
+{-| __C declaration:__ @malloc@
+
+    __defined at:__ @functions\/libc_builtins.h 7:7@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+malloc_safe :: CULong -> IO (Ptr Void)
+{-| __C declaration:__ @malloc@
+
+    __defined at:__ @functions\/libc_builtins.h 7:7@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+malloc_safe = hs_bindgen_eb5883c88daf674e
+-- __unique:__ @test_functionslibc_builtins_Example_Safe_strlen@
+foreign import ccall safe "hs_bindgen_be2c0f129cd05083" hs_bindgen_be2c0f129cd05083_base ::
+    Ptr Void
+ -> IO CULong
+-- __unique:__ @test_functionslibc_builtins_Example_Safe_strlen@
+hs_bindgen_be2c0f129cd05083 :: PtrConst CChar -> IO CULong
+-- __unique:__ @test_functionslibc_builtins_Example_Safe_strlen@
+hs_bindgen_be2c0f129cd05083 = \x_0 -> fmap fromFFIType (hs_bindgen_be2c0f129cd05083_base (toFFIType x_0))
+{-| __C declaration:__ @strlen@
+
+    __defined at:__ @functions\/libc_builtins.h 8:8@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+strlen_safe :: PtrConst CChar -> IO CULong
+{-| __C declaration:__ @strlen@
+
+    __defined at:__ @functions\/libc_builtins.h 8:8@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+strlen_safe = hs_bindgen_be2c0f129cd05083
+-- __unique:__ @test_functionslibc_builtins_Example_Safe_my_strlen@
+foreign import ccall safe "hs_bindgen_988f2c37e046701b" hs_bindgen_988f2c37e046701b_base ::
+    Ptr Void
+ -> IO HsBindgen.Runtime.LibC.CSize
+-- __unique:__ @test_functionslibc_builtins_Example_Safe_my_strlen@
+hs_bindgen_988f2c37e046701b :: PtrConst CChar ->
+                               IO HsBindgen.Runtime.LibC.CSize
+-- __unique:__ @test_functionslibc_builtins_Example_Safe_my_strlen@
+hs_bindgen_988f2c37e046701b = \x_0 -> fmap fromFFIType (hs_bindgen_988f2c37e046701b_base (toFFIType x_0))
+{-| __C declaration:__ @my_strlen@
+
+    __defined at:__ @functions\/libc_builtins.h 11:8@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+my_strlen_safe :: PtrConst CChar -> IO HsBindgen.Runtime.LibC.CSize
+{-| __C declaration:__ @my_strlen@
+
+    __defined at:__ @functions\/libc_builtins.h 11:8@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+my_strlen_safe = hs_bindgen_988f2c37e046701b
+-- __unique:__ @test_functionslibc_builtins_Example_Unsafe_malloc@
+foreign import ccall unsafe "hs_bindgen_89545f6dff974fe2" hs_bindgen_89545f6dff974fe2_base ::
+    CULong
+ -> IO (Ptr Void)
+-- __unique:__ @test_functionslibc_builtins_Example_Unsafe_malloc@
+hs_bindgen_89545f6dff974fe2 :: CULong -> IO (Ptr Void)
+-- __unique:__ @test_functionslibc_builtins_Example_Unsafe_malloc@
+hs_bindgen_89545f6dff974fe2 = \x_0 -> fmap fromFFIType (hs_bindgen_89545f6dff974fe2_base (toFFIType x_0))
+{-| __C declaration:__ @malloc@
+
+    __defined at:__ @functions\/libc_builtins.h 7:7@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+malloc_unsafe :: CULong -> IO (Ptr Void)
+{-| __C declaration:__ @malloc@
+
+    __defined at:__ @functions\/libc_builtins.h 7:7@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+malloc_unsafe = hs_bindgen_89545f6dff974fe2
+-- __unique:__ @test_functionslibc_builtins_Example_Unsafe_strlen@
+foreign import ccall unsafe "hs_bindgen_246dfd0630c4cbb6" hs_bindgen_246dfd0630c4cbb6_base ::
+    Ptr Void
+ -> IO CULong
+-- __unique:__ @test_functionslibc_builtins_Example_Unsafe_strlen@
+hs_bindgen_246dfd0630c4cbb6 :: PtrConst CChar -> IO CULong
+-- __unique:__ @test_functionslibc_builtins_Example_Unsafe_strlen@
+hs_bindgen_246dfd0630c4cbb6 = \x_0 -> fmap fromFFIType (hs_bindgen_246dfd0630c4cbb6_base (toFFIType x_0))
+{-| __C declaration:__ @strlen@
+
+    __defined at:__ @functions\/libc_builtins.h 8:8@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+strlen_unsafe :: PtrConst CChar -> IO CULong
+{-| __C declaration:__ @strlen@
+
+    __defined at:__ @functions\/libc_builtins.h 8:8@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+strlen_unsafe = hs_bindgen_246dfd0630c4cbb6
+-- __unique:__ @test_functionslibc_builtins_Example_Unsafe_my_strlen@
+foreign import ccall unsafe "hs_bindgen_9674282b2423839e" hs_bindgen_9674282b2423839e_base ::
+    Ptr Void
+ -> IO HsBindgen.Runtime.LibC.CSize
+-- __unique:__ @test_functionslibc_builtins_Example_Unsafe_my_strlen@
+hs_bindgen_9674282b2423839e :: PtrConst CChar ->
+                               IO HsBindgen.Runtime.LibC.CSize
+-- __unique:__ @test_functionslibc_builtins_Example_Unsafe_my_strlen@
+hs_bindgen_9674282b2423839e = \x_0 -> fmap fromFFIType (hs_bindgen_9674282b2423839e_base (toFFIType x_0))
+{-| __C declaration:__ @my_strlen@
+
+    __defined at:__ @functions\/libc_builtins.h 11:8@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+my_strlen_unsafe :: PtrConst CChar ->
+                    IO HsBindgen.Runtime.LibC.CSize
+{-| __C declaration:__ @my_strlen@
+
+    __defined at:__ @functions\/libc_builtins.h 11:8@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+my_strlen_unsafe = hs_bindgen_9674282b2423839e
+-- __unique:__ @test_functionslibc_builtins_Example_get_malloc@
+foreign import ccall unsafe "hs_bindgen_d52eebfcdc653f31" hs_bindgen_d52eebfcdc653f31_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_functionslibc_builtins_Example_get_malloc@
+hs_bindgen_d52eebfcdc653f31 :: IO (FunPtr (CULong ->
+                                           IO (Ptr Void)))
+-- __unique:__ @test_functionslibc_builtins_Example_get_malloc@
+hs_bindgen_d52eebfcdc653f31 = fmap fromFFIType hs_bindgen_d52eebfcdc653f31_base
+{-# NOINLINE malloc_funptr #-}
+{-| __C declaration:__ @malloc@
+
+    __defined at:__ @functions\/libc_builtins.h 7:7@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+malloc_funptr :: FunPtr (CULong -> IO (Ptr Void))
+{-| __C declaration:__ @malloc@
+
+    __defined at:__ @functions\/libc_builtins.h 7:7@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+malloc_funptr = unsafePerformIO hs_bindgen_d52eebfcdc653f31
+-- __unique:__ @test_functionslibc_builtins_Example_get_strlen@
+foreign import ccall unsafe "hs_bindgen_7c713081d7e72a10" hs_bindgen_7c713081d7e72a10_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_functionslibc_builtins_Example_get_strlen@
+hs_bindgen_7c713081d7e72a10 :: IO (FunPtr (PtrConst CChar ->
+                                           IO CULong))
+-- __unique:__ @test_functionslibc_builtins_Example_get_strlen@
+hs_bindgen_7c713081d7e72a10 = fmap fromFFIType hs_bindgen_7c713081d7e72a10_base
+{-# NOINLINE strlen_funptr #-}
+{-| __C declaration:__ @strlen@
+
+    __defined at:__ @functions\/libc_builtins.h 8:8@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+strlen_funptr :: FunPtr (PtrConst CChar -> IO CULong)
+{-| __C declaration:__ @strlen@
+
+    __defined at:__ @functions\/libc_builtins.h 8:8@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+strlen_funptr = unsafePerformIO hs_bindgen_7c713081d7e72a10
+-- __unique:__ @test_functionslibc_builtins_Example_get_my_strlen@
+foreign import ccall unsafe "hs_bindgen_a92eb31aeb03f8c0" hs_bindgen_a92eb31aeb03f8c0_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_functionslibc_builtins_Example_get_my_strlen@
+hs_bindgen_a92eb31aeb03f8c0 :: IO (FunPtr (PtrConst CChar ->
+                                           IO HsBindgen.Runtime.LibC.CSize))
+-- __unique:__ @test_functionslibc_builtins_Example_get_my_strlen@
+hs_bindgen_a92eb31aeb03f8c0 = fmap fromFFIType hs_bindgen_a92eb31aeb03f8c0_base
+{-# NOINLINE my_strlen_funptr #-}
+{-| __C declaration:__ @my_strlen@
+
+    __defined at:__ @functions\/libc_builtins.h 11:8@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+my_strlen_funptr :: FunPtr (PtrConst CChar ->
+                            IO HsBindgen.Runtime.LibC.CSize)
+{-| __C declaration:__ @my_strlen@
+
+    __defined at:__ @functions\/libc_builtins.h 11:8@
+
+    __exported by:__ @functions\/libc_builtins.h@
+-}
+my_strlen_funptr = unsafePerformIO hs_bindgen_a92eb31aeb03f8c0

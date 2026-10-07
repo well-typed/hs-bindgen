@@ -24,7 +24,7 @@ jobs:
       matrix:
         runner: [ubuntu-latest, macos-latest]
         ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
-        llvm: ['14', '16', '18', '20', '21', '22']
+        llvm: ['14', '16', '18', '20', '21', '22', '23']
         exclude:
           # LLVM 21 not available on macOS ARM64
           - runner: macos-latest
@@ -237,7 +237,7 @@ jobs:
       matrix:
         runner: [ubuntu-latest, macos-latest]
         ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
-        llvm: ['14', '16', '18', '20', '21', '22']
+        llvm: ['14', '16', '18', '20', '21', '22', '23']
         exclude:
           # LLVM 21 not available on macOS ARM64
           - runner: macos-latest
@@ -387,7 +387,7 @@ jobs:
       matrix:
         runner: [ubuntu-latest, macos-latest]
         ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
-        llvm: ['14', '16', '18', '20', '21', '22']
+        llvm: ['14', '16', '18', '20', '21', '22', '23']
         exclude:
           # LLVM 21 not available on macOS ARM64
           - runner: macos-latest
