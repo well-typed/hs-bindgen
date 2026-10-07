@@ -9,7 +9,7 @@ All platforms require (last updated October 9, 2025):
 
 - GHC 9.4.8 or greater (or compatible version)
 - Cabal (latest version)
-- LLVM/Clang (version 14 - 22)
+- LLVM/Clang (version 14 - 23)
 
 ## Linux (Ubuntu)
 

@@ -256,6 +256,7 @@
   that outputs the headers as a topologically sorted list (one per line, each
   header after the ones it `#include`s) instead of a Mermaid graph. Respects
   `--include`/`--exclude` and `--show-paths`. See [issue #2080][is-2080].
+* Support LLVM/Clang 23. See [issue #2235][is-2235].
 
 ### Minor changes
 
@@ -380,6 +381,7 @@
 [is-2216]: https://github.com/well-typed/hs-bindgen/issues/2216
 [is-2217]: https://github.com/well-typed/hs-bindgen/issues/2217
 [is-2230]: https://github.com/well-typed/hs-bindgen/issues/2230
+[is-2235]: https://github.com/well-typed/hs-bindgen/issues/2235
 [is-2236]: https://github.com/well-typed/hs-bindgen/issues/2236
 [is-2242]: https://github.com/well-typed/hs-bindgen/issues/2242
 [is-2243]: https://github.com/well-typed/hs-bindgen/issues/2243
