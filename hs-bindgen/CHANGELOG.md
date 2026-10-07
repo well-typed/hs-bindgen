@@ -10,6 +10,12 @@
 
 ### Bug fixes
 
+* A prescriptive binding specification that omits a C type can now be used
+  when generating several modules. The binding specification generated for
+  each module records the omission, and a module that used two of them as
+  external binding specifications failed with a conflict. An external binding
+  specification that only omits a type no longer conflicts with another, and
+  one that binds the type takes precedence over it.
 
 ## 1.0.0.0 -- 2026-10-08
 

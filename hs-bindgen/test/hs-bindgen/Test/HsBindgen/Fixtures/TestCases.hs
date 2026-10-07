@@ -83,11 +83,12 @@ commonFixtureStatus tc
     || "macros/macro_ext_binding_dep" `isPrefixOf` tc.name
     || "types/anonymous/edge-cases/drop_indirect_fields" `isPrefixOf` tc.name
       = Just $ FixtureSkip "External binding specs not yet supported (issue #1495)"
-  -- Trans-dep and relative-include fixtures deliberately reference a
+  -- Trans-dep, relative-include and merge fixtures deliberately reference a
   -- missing module to exercise external binding spec resolution; they
   -- are not meant to compile.
   | "binding-specs/trans_dep/" `isPrefixOf` tc.name
     || "binding-specs/relative_include/" `isPrefixOf` tc.name
+    || "binding-specs/merge/" `isPrefixOf` tc.name
       = Just $ FixtureSkip "Generated bindings reference intentionally-missing module"
   -- Apple block extension requires clang
   | tc.name == "edge-cases/iterator"

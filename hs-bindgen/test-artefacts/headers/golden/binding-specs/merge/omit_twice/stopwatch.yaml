@@ -1,0 +1,46 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Lib.Stopwatch
+ctypes:
+- headers: binding-specs/merge/omit_twice/report.h
+  cname: stopwatch_time
+  hsname: Stopwatch_time
+- omit:
+    headers: binding-specs/merge/omit_twice/report.h
+    cname: struct stopwatch
+hstypes:
+- hsname: Stopwatch_time
+  representation:
+    newtype:
+      constructor: Stopwatch_time
+      fields:
+      - unwrapStopwatch_time
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CULong
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

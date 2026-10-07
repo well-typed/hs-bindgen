@@ -1,0 +1,82 @@
+-- addDependentFile test-artefacts/headers/golden/binding-specs/merge/omit_and_bind/stopwatch.h
+-- addDependentFile test-artefacts/headers/golden/binding-specs/merge/omit_and_bind/operation.h
+-- addDependentFile test-artefacts/headers/golden/binding-specs/merge/omit_and_bind/stats.h
+{-| __C declaration:__ @struct stats@
+
+    __defined at:__ @binding-specs\/merge\/omit_and_bind\/stats.h 13:8@
+
+    __exported by:__ @binding-specs\/merge\/omit_and_bind\/stats.h@
+-}
+data Stats
+    = Stats {stats_started :: Lib.Operation.Stopwatch
+             {- ^ __C declaration:__ @started@
+
+                  __defined at:__ @binding-specs\/merge\/omit_and_bind\/stats.h 14:20@
+
+                  __exported by:__ @binding-specs\/merge\/omit_and_bind\/stats.h@
+             -},
+             stats_reads :: Lib.Operation.Operation
+             {- ^ __C declaration:__ @reads@
+
+                  __defined at:__ @binding-specs\/merge\/omit_and_bind\/stats.h 15:20@
+
+                  __exported by:__ @binding-specs\/merge\/omit_and_bind\/stats.h@
+             -},
+             stats_writes :: Lib.Operation.Operation
+             {- ^ __C declaration:__ @writes@
+
+                  __defined at:__ @binding-specs\/merge\/omit_and_bind\/stats.h 16:20@
+
+                  __exported by:__ @binding-specs\/merge\/omit_and_bind\/stats.h@
+             -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Stats
+    where staticSizeOf = \_ -> 56 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Stats
+    where readRaw = \ptr_0 -> ((pure Stats <*> readRaw (Proxy @"stats_started") ptr_0) <*> readRaw (Proxy @"stats_reads") ptr_0) <*> readRaw (Proxy @"stats_writes") ptr_0
+instance WriteRaw Stats
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Stats stats_started_2
+                                             stats_reads_3
+                                             stats_writes_4 -> writeRaw (Proxy @"stats_started") ptr_0 stats_started_2 >> (writeRaw (Proxy @"stats_reads") ptr_0 stats_reads_3 >> writeRaw (Proxy @"stats_writes") ptr_0 stats_writes_4)
+deriving via (EquivStorable Stats) instance Storable Stats
+deriving via (IsStructViaReadRaw Stats) instance IsStruct Stats
+instance (~) ty Lib.Operation.Stopwatch =>
+         HasField "stats_started" Stats ty
+    where hasField = \x_0 -> (\y_1 -> Stats{stats_started = y_1,
+                                            stats_reads = getField @"stats_reads" x_0,
+                                            stats_writes = getField @"stats_writes" x_0},
+                              getField @"stats_started" x_0)
+instance (~) ty Lib.Operation.Stopwatch =>
+         HasField "stats_started" (Ptr Stats) (Ptr ty)
+    where getField = fromPtr (Proxy @"stats_started")
+instance HasCField Stats "stats_started"
+    where type CFieldType Stats
+                          "stats_started" = Lib.Operation.Stopwatch
+          offset# = \_ -> \_ -> 0
+instance (~) ty Lib.Operation.Operation =>
+         HasField "stats_reads" Stats ty
+    where hasField = \x_0 -> (\y_1 -> Stats{stats_reads = y_1,
+                                            stats_started = getField @"stats_started" x_0,
+                                            stats_writes = getField @"stats_writes" x_0},
+                              getField @"stats_reads" x_0)
+instance (~) ty Lib.Operation.Operation =>
+         HasField "stats_reads" (Ptr Stats) (Ptr ty)
+    where getField = fromPtr (Proxy @"stats_reads")
+instance HasCField Stats "stats_reads"
+    where type CFieldType Stats "stats_reads" = Lib.Operation.Operation
+          offset# = \_ -> \_ -> 8
+instance (~) ty Lib.Operation.Operation =>
+         HasField "stats_writes" Stats ty
+    where hasField = \x_0 -> (\y_1 -> Stats{stats_writes = y_1,
+                                            stats_started = getField @"stats_started" x_0,
+                                            stats_reads = getField @"stats_reads" x_0},
+                              getField @"stats_writes" x_0)
+instance (~) ty Lib.Operation.Operation =>
+         HasField "stats_writes" (Ptr Stats) (Ptr ty)
+    where getField = fromPtr (Proxy @"stats_writes")
+instance HasCField Stats "stats_writes"
+    where type CFieldType Stats
+                          "stats_writes" = Lib.Operation.Operation
+          offset# = \_ -> \_ -> 32
