@@ -1,6 +1,7 @@
 -- | Low-level translation of the C header to a Haskell module
 module HsBindgen.Backend.Hs.Translation (
     generateDeclarations
+  , declCategories
   ) where
 
 import Control.Monad.Reader qualified as Reader
@@ -168,58 +169,95 @@ isDefinedInCurrentModule declIndex =
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1758>
 -- Take the 'PrescriptiveDeclSpec' into account.
-generateDecs ::
+generateDecs :: forall l.
      Macro.HasTypes l
   => Macro.Lang l
   -> C.Decl l Final
   -> HsM (HsM.Action [WithCategory (Hs.Decl l)])
 generateDecs macroLang (C.Decl info kind spec) =
-    case kind of
-      C.DeclStruct struct -> withCategoryM CType $
-        HsM.immediateM $ structDecs info struct spec
-      C.DeclUnion union -> withCategoryM CType $
-        HsM.immediateM $ unionDecs info union spec
-      C.DeclEnum enum -> withCategoryM CType $
-        HsM.immediateM $ enumDecs info enum spec
-      C.DeclUntaggedEnumConstant enumConst -> withCategoryM CType $ do
-        HsM.immediateM $ untaggedEnumConstantDecs info enumConst
-      C.DeclTypedef typedef -> withCategoryM CType $
-        case C.getFirstFunTypeIndirection typedef.typ.c of
-          Just (args, res, reconstruct) ->
-            typedefFunTypeIndirectionDecs info (args, res, reconstruct) typedef.names spec
-          Nothing ->
-            HsM.immediateM $ typedefDecs info Origin.Typedef typedef spec
-      C.DeclOpaque mSize -> withCategoryM CType $
-        HsM.immediateM $ opaqueDecs info spec mSize
-      C.DeclFunction function -> do
-        let funDeclsWith safety =
-              functionDecs safety info function spec
-            funType = C.typeOfFunction function
-            -- Declare a function pointer. We can pass this 'FunPtr' to C
-            -- functions that take a function pointer of the appropriate type.
-            funPtrDecls = fst <$>
-                addressStubDecs info funType HaskellId spec
-        safes   <- withCategoryM (CTerm CSafe)   (HsM.immediateM $ funDeclsWith SHs.Safe)
-        unsafes <- withCategoryM (CTerm CUnsafe) (HsM.immediateM $ funDeclsWith SHs.Unsafe)
-        funPtrs <- withCategoryM (CTerm CFunPtr) (HsM.immediateM $ funPtrDecls)
-        pure $ HsM.concatSequence [safes, unsafes, funPtrs]
-      C.DeclMacro macro -> withCategoryM CType $
-        HsM.immediateM $ macroDecs macroLang info macro spec
-      C.DeclGlobal g -> withCategoryM (CTerm CGlobal) $
-        HsM.immediateM $ global info g spec
+    HsM.concatSequence <$> mapM generate (declGenerators kind)
   where
-    withCategory ::
-         Category
-      -> HsM.Action [a]
-      -> HsM.Action [WithCategory a]
-    withCategory c = fmap (map (WithCategory c))
+    generate ::
+         (Category, Generator l)
+      -> HsM (HsM.Action [WithCategory (Hs.Decl l)])
+    generate (category, generator) =
+      fmap (map (WithCategory category)) <$> generator macroLang info spec
 
-    withCategoryM ::
-         Functor m
-      => Category
-      -> m (HsM.Action [a])
-      -> m (HsM.Action [WithCategory a])
-    withCategoryM c = fmap (withCategory c)
+-- | How the Haskell declarations of one C declaration are generated
+type Generator l =
+     Macro.Lang l
+  -> C.DeclInfo Final
+  -> PrescriptiveDeclSpec
+  -> HsM (HsM.Action [Hs.Decl l])
+
+-- | What a C declaration of each kind turns into: the categories its Haskell
+-- declarations go to, and the generator for each
+--
+-- The categories only depend on the kind, so they can be read off without
+-- generating anything (see 'declCategories').
+declGenerators ::
+     Macro.HasTypes l
+  => C.DeclKind l Final
+  -> [(Category, Generator l)]
+declGenerators = \case
+    C.DeclStruct struct -> [
+        (CType, \_ info spec ->
+          HsM.immediateM $ structDecs info struct spec)
+      ]
+    C.DeclUnion union -> [
+        (CType, \_ info spec ->
+          HsM.immediateM $ unionDecs info union spec)
+      ]
+    C.DeclEnum enum -> [
+        (CType, \_ info spec ->
+          HsM.immediateM $ enumDecs info enum spec)
+      ]
+    C.DeclUntaggedEnumConstant enumConst -> [
+        (CType, \_ info _spec ->
+          HsM.immediateM $ untaggedEnumConstantDecs info enumConst)
+      ]
+    C.DeclTypedef typedef -> [
+        (CType, \_ info spec ->
+          case C.getFirstFunTypeIndirection typedef.typ.c of
+            Just (args, res, reconstruct) ->
+              typedefFunTypeIndirectionDecs
+                info (args, res, reconstruct) typedef.names spec
+            Nothing ->
+              HsM.immediateM $ typedefDecs info Origin.Typedef typedef spec)
+      ]
+    C.DeclOpaque mSize -> [
+        (CType, \_ info spec ->
+          HsM.immediateM $ opaqueDecs info spec mSize)
+      ]
+    C.DeclFunction function -> [
+        (CTerm CSafe, \_ info spec ->
+          HsM.immediateM $ functionDecs SHs.Safe info function spec)
+      , (CTerm CUnsafe, \_ info spec ->
+          HsM.immediateM $ functionDecs SHs.Unsafe info function spec)
+        -- Declare a function pointer. We can pass this 'FunPtr' to C
+        -- functions that take a function pointer of the appropriate type.
+      , (CTerm CFunPtr, \_ info spec ->
+          HsM.immediateM $ fst <$>
+            addressStubDecs info (C.typeOfFunction function) HaskellId spec)
+      ]
+    C.DeclMacro macro -> [
+        (CType, \macroLang info spec ->
+          HsM.immediateM $ macroDecs macroLang info macro spec)
+      ]
+    C.DeclGlobal g -> [
+        (CTerm CGlobal, \_ info spec ->
+          HsM.immediateM $ global info g spec)
+      ]
+
+-- | The categories that the declarations of a kind go to
+--
+-- For code that has to know which category modules a declaration fills
+-- without running the backend.
+declCategories ::
+     Macro.HasTypes l
+  => C.DeclKind l Final
+  -> Set Category
+declCategories = Set.fromList . map fst . declGenerators
 
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum
