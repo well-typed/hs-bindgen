@@ -1,9 +1,12 @@
+{-# LANGUAGE NoImplicitPrelude #-}
+
 module Example
     ( Example.g
     )
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
+import Prelude (String)
 
 {-| __C declaration:__ @macro G@
 

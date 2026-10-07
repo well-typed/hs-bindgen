@@ -1313,4 +1313,4 @@ parseHsName _ hsNameCandidate =
         -- be valid Haskell identifiers. We therefore do not check reserved
         -- names: the user is trusted to avoid them, and checking would reject
         -- names like @type@ that are legitimately used in external packages.
-        & #reservedNames .~ Set.empty
+        & #reservedNames .~ mempty

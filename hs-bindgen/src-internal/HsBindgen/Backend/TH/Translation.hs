@@ -191,7 +191,7 @@ mkRolledType env ty = case ty of
       panicWith
         "Unexpected unsaturated tuple after unrolling type application"
         ty
-    TEq -> TH.conT ''(~)
+    TEq -> TH.conT (bindgenGlobalType TypeEquality_type).name
     TForall hints add ctxt body -> do
         let bndr tv = TH.PlainTV tv TH.SpecifiedSpec
         (xs, env') <- newNames env add hints

@@ -1,20 +1,22 @@
 module HsBindgen.Config.MangleCandidate.ReservedNames (
     -- $ReservedNames
-    allReservedNames
-  , reservedVarNames
-  , reservedTypeNames
+    ReservedNames(..)
+  , reservedNamesIn
+  , allReservedNames
   , haskellKeywords
   , ghcExtensionKeywords
   , ghcNonReservedKeywords
-  , hsBindgenReservedTypeNames
-  , hsBindgenReservedVarNames
-  , sanityReservedTypeNames
-  , sanityReservedVarNames
+  , hsBindgenReservedNames
+  , sanityReservedNames
   ) where
 
 import Data.Set qualified as Set
+import GHC.Generics (Generically (..))
+import Optics.Core (Lens')
 
+import HsBindgen.Backend.Global (preludeNames)
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Reserved Names
@@ -35,23 +37,35 @@ work with the implementation of their name manglers.
 
 -}
 
-allReservedNames :: Set Text
-allReservedNames = Set.unions [
-      reservedVarNames
-    , reservedTypeNames
+-- | Reserved names, per namespace
+data ReservedNames = ReservedNames {
+      typeConstr :: Set Text
+    , constr     :: Set Text
+    , var        :: Set Text
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving (Semigroup, Monoid) via Generically ReservedNames
+
+inNamespace :: Hs.Namespace -> Lens' ReservedNames (Set Text)
+inNamespace = \case
+    Hs.NsTypeConstr -> #typeConstr
+    Hs.NsConstr     -> #constr
+    Hs.NsVar        -> #var
+
+reservedNamesIn :: Hs.Namespace -> ReservedNames -> Set Text
+reservedNamesIn ns = view (inNamespace ns)
+
+reserve :: Hs.Namespace -> [Text] -> ReservedNames
+reserve ns names = mempty & inNamespace ns .~ Set.fromList names
+
+allReservedNames :: ReservedNames
+allReservedNames = mconcat [
+      reserve Hs.NsVar haskellKeywords
+    , reserve Hs.NsVar ghcExtensionKeywords
+    , hsBindgenReservedNames
+    , reserve Hs.NsTypeConstr sanityReservedNames
+    , reserve Hs.NsConstr     sanityReservedNames
     ]
-
-reservedVarNames :: Set Text
-reservedVarNames = Set.fromList $
-       haskellKeywords
-    ++ ghcExtensionKeywords
-    ++ hsBindgenReservedVarNames
-    ++ sanityReservedVarNames
-
-reservedTypeNames :: Set Text
-reservedTypeNames = Set.fromList $
-       hsBindgenReservedTypeNames
-    ++ sanityReservedTypeNames
 
 -- | Haskell keywords
 --
@@ -133,50 +147,21 @@ ghcNonReservedKeywords = [
     , "via"
     ]
 
--- | Names in the type namespace that @hs-bindgen@ may use unqualified
+-- | Names that @hs-bindgen@ uses unqualified, each in its namespace
 --
--- The following names are used but are /not/ reserved because they are not
--- valid C identifiers:
---
--- * @~@
--- * @<*>@
--- * @>>@
-hsBindgenReservedTypeNames :: [Text]
-hsBindgenReservedTypeNames =
-    [ "Bool"
-    , "Bounded"
-    , "Enum"
-    , "Eq"
-    , "FiniteBits"
-    , "Floating"
-    , "Fractional"
-    , "IO"
-    , "Int"
-    , "Integral"
-    , "Num"
-    , "Ord"
-    , "Read"
-    , "Real"
-    , "RealFloat"
-    , "RealFrac"
-    , "Show"
-    , "Void"
-    ]
+-- These are the names generated modules import from the "Prelude"; see
+-- 'preludeNames'. Operators such as @~@ are included, though they are not
+-- valid C identifiers.
+hsBindgenReservedNames :: ReservedNames
+hsBindgenReservedNames =
+    foldMap (\name -> reserve name.ns [name.text]) preludeNames
 
--- | Names in the variable namespace that @hs-bindgen@ may use unqualified
-hsBindgenReservedVarNames :: [Text]
-hsBindgenReservedVarNames =
-    [ "pure"
-    , "return"
-    , "showsPrec"
-    ]
-
--- | Names in the type namespace that are reserved because using them could
--- cause confusion
+-- | Names of types and their constructors that are reserved because using them
+-- could cause confusion
 --
 -- * "Foreign.C.Types"
-sanityReservedTypeNames :: [Text]
-sanityReservedTypeNames =
+sanityReservedNames :: [Text]
+sanityReservedNames =
     [ "CBool"
     , "CChar"
     , "CClock"
@@ -207,13 +192,3 @@ sanityReservedTypeNames =
     , "CUShort"
     , "CWchar"
     ]
-
--- | Names in the variable namespace that are reserved because using them could
--- cause confusion
---
--- * (None)
-sanityReservedVarNames :: [Text]
-sanityReservedVarNames =
-    [
-    ]
-

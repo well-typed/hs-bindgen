@@ -59,14 +59,17 @@ prettyType env prec ty = case ty of
       -- we print the operator with prefix notation. Sections are not supported
       -- for type operators.
       TApps TEq [l, r] ->
-        prettyType env eqPrec1 l <+> PP.string "~" <+> prettyType env eqPrec1 r
-      TEq -> PP.string "(~)"
+        prettyType env eqPrec1 l <+> prettyResolvedNamePlain typeEquality <+> prettyType env eqPrec1 r
+      TEq -> pretty typeEquality
 
       -- This case should be last, so that TApps cases and their alternatives
       -- are matched on first
       TApp c x -> PP.parensWhen (prec > appPrec) $
         prettyType env appPrec c <+> prettyType env appPrec1 x
       TList x -> PP.brackets (prettyType env 0 x)
+
+typeEquality :: ResolvedName
+typeEquality = resolveGlobal $ bindgenGlobalType TypeEquality_type
 
 {-------------------------------------------------------------------------------
   Precedences

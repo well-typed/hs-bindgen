@@ -8,6 +8,7 @@
 {-# LANGUAGE ImportQualifiedPost #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -33,6 +34,7 @@ import HsBindgen.Runtime.Marshal qualified as Marshal
 import HsBindgen.Runtime.Struct qualified as Struct
 import HsBindgen.Runtime.Support qualified as BG
 import HsBindgen.Runtime.Support.CompatHasField qualified as BG.CompatHasField
+import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure, type (~))
 
 {-| __C declaration:__ @struct S1@
 

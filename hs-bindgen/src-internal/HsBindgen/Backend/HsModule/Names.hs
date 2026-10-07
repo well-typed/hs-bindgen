@@ -50,12 +50,13 @@ nameType nm
   Resolved name
 -------------------------------------------------------------------------------}
 
--- | A base name attached with information about the 'NameType' and the Haskell
---   import statement.
+-- | A base name attached with information about the 'NameType', the Haskell
+--   import statement, and the namespace.
 data ResolvedName = ResolvedName {
       string   :: String
     , typ      :: NameType
     , hsImport :: Hs.Import
+    , ns       :: Hs.Namespace
     }
   deriving (Eq, Ord, Show)
 
@@ -64,6 +65,7 @@ resolveGlobal g = ResolvedName{
       string   = baseName
     , typ      = nameType baseName
     , hsImport = g.imprt
+    , ns       = globalCatNamespace g.cat
     }
   where
     baseName :: String

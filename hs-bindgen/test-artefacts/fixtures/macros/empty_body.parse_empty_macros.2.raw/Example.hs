@@ -1,3 +1,5 @@
+{-# LANGUAGE NoImplicitPrelude #-}
+
 module Example
     ( Example.eMPTY_OBJECT
     , Example.eMPTY_FUNCTION
@@ -7,6 +9,7 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
+import Prelude (String)
 
 {-| __C declaration:__ @macro EMPTY_OBJECT@
 

@@ -32,7 +32,9 @@ import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.Config.MangleCandidate.ReservedNames (allReservedNames)
+import HsBindgen.Config.MangleCandidate.ReservedNames (ReservedNames,
+                                                       allReservedNames,
+                                                       reservedNamesIn)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
@@ -62,7 +64,7 @@ data MangleCandidate m = MangleCandidate {
     , apply :: ApplyRuleset m
 
       -- | Reserved names
-    , reservedNames :: Set Text
+    , reservedNames :: ReservedNames
 
       -- | How to modify reserved names
       --
@@ -137,10 +139,13 @@ mangleCandidate mc =
 
     handleReservedNames :: Hs.Name ns -> Hs.Name ns
     handleReservedNames name
-      | name.text `Set.member` mc.reservedNames
+      | name.text `Set.member` reservedNamesIn namespace mc.reservedNames
       = Hs.UnsafeName $ mc.onReservedName name.text
       | otherwise
       = name
+
+    namespace :: Hs.Namespace
+    namespace = Hs.namespaceOf (Hs.singNamespace @ns)
 
 -- | Mangle a candidate
 --

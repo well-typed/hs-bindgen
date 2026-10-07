@@ -72,15 +72,8 @@ instance PrettyForTrace ModuleName where
 
 -- | A qualified or unqualified import of a module
 data Import =
-    -- | The symbol has been imported implicitly from the Haskell "Prelude"
-    --
-    -- We require an implicit prelude (1) for TH use and (2) the type equality
-    -- operator @(~)@ depends on it.
-    --
-    -- In detail: type equality @(~)@ is a type operator that has to be
-    -- imported from @Prelude@ or some other module from the @base@ package.
-    ImplicitPrelude
-  | UnqualifiedImport ModuleName
+    -- | Unqualified import, listing the names in use
+    UnqualifiedImport ModuleName
     -- | Qualified import possibly with an alias
   | QualifiedImport   ModuleName (Maybe String)
   deriving (Eq, Ord, Show)

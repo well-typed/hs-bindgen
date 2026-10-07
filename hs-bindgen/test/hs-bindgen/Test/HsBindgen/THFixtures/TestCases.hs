@@ -41,6 +41,11 @@ determineTHStatus tc
   -- multi-module fixtures natively via @--category@ flags.
   | tc.name `elem` complexConfig
       = FixtureSkip "Complex configuration (program slicing, disabled stdlib)"
+  -- Generated names clash with the names the TH module itself imports, such
+  -- as its implicit "Prelude"; these are the user's responsibility, see
+  -- "Ambiguous ocurrence `reverse`" (#1571)
+  | tc.name `elem` userImportClashes
+      = FixtureSkip "Generated names clash with the imports of the TH module"
   -- Windows-specific failures
   | tc.name `elem` windowsSpecificFailures
       = FixtureSkip "Windows-specific failure"
@@ -59,6 +64,11 @@ determineTHStatus tc
 #else
     windowsSpecificFailures = []
 #endif
+
+    userImportClashes :: [String]
+    userImportClashes = [
+        "edge-cases/prelude_names"
+      ]
 
     complexConfig :: [String]
     complexConfig = [

@@ -169,12 +169,17 @@ translateModule' fns mrc dirs mcat moduleBaseName resolveExports (cWrappers, dec
 resolvePragmas :: FieldNamingStrategy -> QualifiedStyle -> [CWrapper] -> [SDecl] -> [GhcPragma]
 resolvePragmas fieldNaming qualStyle wrappers ds =
     Set.toAscList . mconcat $
-      omitFieldPrefixesPragmas
+      noImplicitPreludePragma
+        : omitFieldPrefixesPragmas
         : haddockPrunePragmas
         : userlandCapiPragmas
         : qualifiedPostPragma
         : map (resolveDeclPragmas fieldNaming) ds
   where
+    -- Generated modules import every name they use; see 'resolveImports'.
+    noImplicitPreludePragma :: Set GhcPragma
+    noImplicitPreludePragma = Set.singleton "LANGUAGE NoImplicitPrelude"
+
     -- 'NoFieldSelectors' is the negation of the default-on 'FieldSelectors' and
     -- so cannot be carried in the positive 'TH.Extension' set (see
     -- 'HsBindgen.Backend.Extensions.omitFieldPrefixesExtensions'); we emit it as
@@ -332,11 +337,6 @@ resolveTypeClassImports = resolveGlobalImports . typeClassGlobal
 resolveGlobalImports :: Global c -> ImportAcc
 resolveGlobalImports global =
     case resolved.hsImport of
-      Hs.ImplicitPrelude -> ImportAcc{
-          requireTypes = False
-        , qualified    = mempty
-        , unqualified  = mempty
-        }
       Hs.QualifiedImport m as -> ImportAcc{
           requireTypes = False
         , qualified    = Set.singleton (m, as)
@@ -413,7 +413,7 @@ resolveTypeImports = \case
     TBound{} -> mempty
     TUnit -> mempty
     TBoxedTup{} -> mempty
-    TEq{} -> mempty
+    TEq -> resolveGlobalImports (bindgenGlobalType TypeEquality_type)
     TForall _hints _qtvs ctxt body ->
       foldMap resolveTypeImports (body:ctxt)
     TList t -> resolveTypeImports t

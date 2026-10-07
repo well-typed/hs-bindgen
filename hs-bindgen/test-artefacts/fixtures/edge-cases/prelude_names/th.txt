@@ -1,0 +1,779 @@
+-- addDependentFile test-artefacts/headers/golden/edge-cases/prelude_names.h
+-- #include <edge-cases/prelude_names.h>
+-- signed int hs_bindgen_06a0882e0fd9fc01 (
+--   signed int arg1
+-- )
+-- {
+--   return (fmap)(arg1);
+-- }
+-- signed int hs_bindgen_cb71068e35beb37d (
+--   signed int arg1
+-- )
+-- {
+--   return (reverse)(arg1);
+-- }
+-- void *hs_bindgen_0de5f98d74dd3b0b (
+--   void *arg1
+-- )
+-- {
+--   return (identity)(arg1);
+-- }
+-- signed int hs_bindgen_b6805fb9ba57fb59 (
+--   signed int arg1
+-- )
+-- {
+--   return (fmap)(arg1);
+-- }
+-- signed int hs_bindgen_e4643018a1638d28 (
+--   signed int arg1
+-- )
+-- {
+--   return (reverse)(arg1);
+-- }
+-- void *hs_bindgen_3cdf92558d7dc09d (
+--   void *arg1
+-- )
+-- {
+--   return (identity)(arg1);
+-- }
+-- /* test_edgecasesprelude_names_Example_get_fmap */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_8ec725a8c9df6bc9 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &fmap;
+-- }
+-- /* test_edgecasesprelude_names_Example_get_reverse */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_a7d70ec0c8acc7e7 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &reverse;
+-- }
+-- /* test_edgecasesprelude_names_Example_get_identity */
+-- __attribute__ ((const))
+-- void *(*hs_bindgen_535374ba193530ae (void)) (
+--   void *arg1
+-- )
+-- {
+--   return &identity;
+-- }
+-- /* test_edgecasesprelude_names_Example_get_length */
+-- __attribute__ ((const))
+-- signed int *hs_bindgen_d73ae441829395d0 (void)
+-- {
+--   return &length;
+-- }
+{-| __C declaration:__ @struct string@
+
+    __defined at:__ @edge-cases\/prelude_names.h 3:8@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+data String'
+    = String' {string'_x :: CInt
+               {- ^ __C declaration:__ @x@
+
+                    __defined at:__ @edge-cases\/prelude_names.h 3:21@
+
+                    __exported by:__ @edge-cases\/prelude_names.h@
+               -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize String'
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw String'
+    where readRaw = \ptr_0 -> pure String' <*> readRaw (Proxy @"string'_x") ptr_0
+instance WriteRaw String'
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       String' string'_x_2 -> writeRaw (Proxy @"string'_x") ptr_0 string'_x_2
+deriving via (EquivStorable String') instance Storable String'
+deriving via (IsStructViaReadRaw String') instance IsStruct String'
+instance (~) ty CInt => HasField "string'_x" String' ty
+    where hasField = \x_0 -> (\y_1 -> String'{string'_x = y_1},
+                              getField @"string'_x" x_0)
+instance (~) ty CInt => HasField "string'_x" (Ptr String') (Ptr ty)
+    where getField = fromPtr (Proxy @"string'_x")
+instance HasCField String' "string'_x"
+    where type CFieldType String' "string'_x" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @Show@
+
+    __defined at:__ @edge-cases\/prelude_names.h 4:13@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+newtype Show'
+    = Show' {unwrapShow' :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapShow'" Show' ty
+    where hasField = \x_0 -> (\y_1 -> Show'{unwrapShow' = y_1},
+                              getField @"unwrapShow'" x_0)
+instance (~) ty CInt => HasField "unwrapShow'" (Ptr Show') (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapShow'")
+instance HasCField Show' "unwrapShow'"
+    where type CFieldType Show' "unwrapShow'" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct CChar@
+
+    __defined at:__ @edge-cases\/prelude_names.h 9:8@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+data CChar'
+    = CChar' {cChar'_x :: CInt
+              {- ^ __C declaration:__ @x@
+
+                   __defined at:__ @edge-cases\/prelude_names.h 9:20@
+
+                   __exported by:__ @edge-cases\/prelude_names.h@
+              -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize CChar'
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw CChar'
+    where readRaw = \ptr_0 -> pure CChar' <*> readRaw (Proxy @"cChar'_x") ptr_0
+instance WriteRaw CChar'
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       CChar' cChar'_x_2 -> writeRaw (Proxy @"cChar'_x") ptr_0 cChar'_x_2
+deriving via (EquivStorable CChar') instance Storable CChar'
+deriving via (IsStructViaReadRaw CChar') instance IsStruct CChar'
+instance (~) ty CInt => HasField "cChar'_x" CChar' ty
+    where hasField = \x_0 -> (\y_1 -> CChar'{cChar'_x = y_1},
+                              getField @"cChar'_x" x_0)
+instance (~) ty CInt => HasField "cChar'_x" (Ptr CChar') (Ptr ty)
+    where getField = fromPtr (Proxy @"cChar'_x")
+instance HasCField CChar' "cChar'_x"
+    where type CFieldType CChar' "cChar'_x" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @enum c_types@
+
+    __defined at:__ @edge-cases\/prelude_names.h 10:6@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+newtype C_types
+    = C_types {unwrapC_types :: CUInt}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize C_types
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw C_types
+    where readRaw = \ptr_0 -> pure C_types <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw C_types
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       C_types unwrapC_types_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapC_types_2
+deriving via (EquivStorable C_types) instance Storable C_types
+deriving via CUInt instance Prim C_types
+instance CEnum C_types
+    where type CEnumZ C_types = CUInt
+          toCEnum = C_types
+          fromCEnum = getField @"unwrapC_types"
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "CInt'")]
+          showsUndeclared = showsWrappedUndeclared "C_types"
+          readPrecUndeclared = readPrecWrappedUndeclared "C_types"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum C_types
+    where minDeclaredValue = CInt'
+          maxDeclaredValue = CInt'
+instance Show C_types
+    where {-| __C declaration:__ @macro showsPrec@
+
+              __defined at:__ @edge-cases\/prelude_names.h 27:9@
+
+              __exported by:__ @edge-cases\/prelude_names.h@
+          -}
+          showsPrec = shows
+instance Read C_types
+    where readPrec = readPrec
+          {-| __C declaration:__ @macro readList@
+
+              __defined at:__ @edge-cases\/prelude_names.h 26:9@
+
+              __exported by:__ @edge-cases\/prelude_names.h@
+          -}
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapC_types" C_types ty
+    where hasField = \x_0 -> (\y_1 -> C_types{unwrapC_types = y_1},
+                              getField @"unwrapC_types" x_0)
+instance (~) ty CUInt =>
+         HasField "unwrapC_types" (Ptr C_types) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapC_types")
+instance HasCField C_types "unwrapC_types"
+    where type CFieldType C_types "unwrapC_types" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @CInt@
+
+    __defined at:__ @edge-cases\/prelude_names.h 10:16@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+pattern CInt' :: C_types
+pattern CInt' = C_types 0
+{-| __C declaration:__ @enum constants@
+
+    __defined at:__ @edge-cases\/prelude_names.h 14:6@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+newtype Constants
+    = Constants {unwrapConstants :: CUInt}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize Constants
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Constants
+    where readRaw = \ptr_0 -> pure Constants <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Constants
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Constants unwrapConstants_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapConstants_2
+deriving via (EquivStorable Constants) instance Storable Constants
+deriving via CUInt instance Prim Constants
+instance CEnum Constants
+    where type CEnumZ Constants = CUInt
+          toCEnum = Constants
+          fromCEnum = getField @"unwrapConstants"
+          declaredValues = \_ -> declaredValuesFromList [(0, singleton "Eq"),
+                                                         (1, singleton "Int"),
+                                                         (2, singleton "True")]
+          showsUndeclared = showsWrappedUndeclared "Constants"
+          readPrecUndeclared = readPrecWrappedUndeclared "Constants"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum Constants
+    where minDeclaredValue = Eq
+          maxDeclaredValue = True
+instance Show Constants
+    where {-| __C declaration:__ @macro showsPrec@
+
+              __defined at:__ @edge-cases\/prelude_names.h 27:9@
+
+              __exported by:__ @edge-cases\/prelude_names.h@
+          -}
+          showsPrec = shows
+instance Read Constants
+    where readPrec = readPrec
+          {-| __C declaration:__ @macro readList@
+
+              __defined at:__ @edge-cases\/prelude_names.h 26:9@
+
+              __exported by:__ @edge-cases\/prelude_names.h@
+          -}
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapConstants" Constants ty
+    where hasField = \x_0 -> (\y_1 -> Constants{unwrapConstants = y_1},
+                              getField @"unwrapConstants" x_0)
+instance (~) ty CUInt =>
+         HasField "unwrapConstants" (Ptr Constants) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapConstants")
+instance HasCField Constants "unwrapConstants"
+    where type CFieldType Constants "unwrapConstants" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @Eq@
+
+    __defined at:__ @edge-cases\/prelude_names.h 14:18@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+pattern Eq :: Constants
+pattern Eq = Constants 0
+{-| __C declaration:__ @Int@
+
+    __defined at:__ @edge-cases\/prelude_names.h 14:22@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+pattern Int :: Constants
+pattern Int = Constants 1
+{-| __C declaration:__ @True@
+
+    __defined at:__ @edge-cases\/prelude_names.h 14:27@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+pattern True :: Constants
+pattern True = Constants 2
+{-| __C declaration:__ @enum ordering@
+
+    __defined at:__ @edge-cases\/prelude_names.h 15:6@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+newtype Ordering
+    = Ordering {unwrapOrdering :: CUInt}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize Ordering
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Ordering
+    where readRaw = \ptr_0 -> pure Ordering <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Ordering
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Ordering unwrapOrdering_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapOrdering_2
+deriving via (EquivStorable Ordering) instance Storable Ordering
+deriving via CUInt instance Prim Ordering
+instance CEnum Ordering
+    where type CEnumZ Ordering = CUInt
+          toCEnum = Ordering
+          fromCEnum = getField @"unwrapOrdering"
+          declaredValues = \_ -> declaredValuesFromList [(0, singleton "LT"),
+                                                         (1, singleton "EQ"),
+                                                         (2, singleton "GT")]
+          showsUndeclared = showsWrappedUndeclared "Ordering"
+          readPrecUndeclared = readPrecWrappedUndeclared "Ordering"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum Ordering
+    where minDeclaredValue = LT
+          maxDeclaredValue = GT
+instance Show Ordering
+    where {-| __C declaration:__ @macro showsPrec@
+
+              __defined at:__ @edge-cases\/prelude_names.h 27:9@
+
+              __exported by:__ @edge-cases\/prelude_names.h@
+          -}
+          showsPrec = shows
+instance Read Ordering
+    where readPrec = readPrec
+          {-| __C declaration:__ @macro readList@
+
+              __defined at:__ @edge-cases\/prelude_names.h 26:9@
+
+              __exported by:__ @edge-cases\/prelude_names.h@
+          -}
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapOrdering" Ordering ty
+    where hasField = \x_0 -> (\y_1 -> Ordering{unwrapOrdering = y_1},
+                              getField @"unwrapOrdering" x_0)
+instance (~) ty CUInt =>
+         HasField "unwrapOrdering" (Ptr Ordering) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapOrdering")
+instance HasCField Ordering "unwrapOrdering"
+    where type CFieldType Ordering "unwrapOrdering" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @LT@
+
+    __defined at:__ @edge-cases\/prelude_names.h 15:17@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+pattern LT :: Ordering
+pattern LT = Ordering 0
+{-| __C declaration:__ @EQ@
+
+    __defined at:__ @edge-cases\/prelude_names.h 15:21@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+pattern EQ :: Ordering
+pattern EQ = Ordering 1
+{-| __C declaration:__ @GT@
+
+    __defined at:__ @edge-cases\/prelude_names.h 15:25@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+pattern GT :: Ordering
+pattern GT = Ordering 2
+{-| __C declaration:__ @Maybe@
+
+    __defined at:__ @edge-cases\/prelude_names.h 16:13@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+newtype Maybe
+    = Maybe {unwrapMaybe :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapMaybe" Maybe ty
+    where hasField = \x_0 -> (\y_1 -> Maybe{unwrapMaybe = y_1},
+                              getField @"unwrapMaybe" x_0)
+instance (~) ty CInt => HasField "unwrapMaybe" (Ptr Maybe) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMaybe")
+instance HasCField Maybe "unwrapMaybe"
+    where type CFieldType Maybe "unwrapMaybe" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct Word@
+
+    __defined at:__ @edge-cases\/prelude_names.h 17:8@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+data Word
+    = Word {word_x :: CInt
+            {- ^ __C declaration:__ @x@
+
+                 __defined at:__ @edge-cases\/prelude_names.h 17:19@
+
+                 __exported by:__ @edge-cases\/prelude_names.h@
+            -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Word
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Word
+    where readRaw = \ptr_0 -> pure Word <*> readRaw (Proxy @"word_x") ptr_0
+instance WriteRaw Word
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Word word_x_2 -> writeRaw (Proxy @"word_x") ptr_0 word_x_2
+deriving via (EquivStorable Word) instance Storable Word
+deriving via (IsStructViaReadRaw Word) instance IsStruct Word
+instance (~) ty CInt => HasField "word_x" Word ty
+    where hasField = \x_0 -> (\y_1 -> Word{word_x = y_1},
+                              getField @"word_x" x_0)
+instance (~) ty CInt => HasField "word_x" (Ptr Word) (Ptr ty)
+    where getField = fromPtr (Proxy @"word_x")
+instance HasCField Word "word_x"
+    where type CFieldType Word "word_x" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro maximum@
+
+    __defined at:__ @edge-cases\/prelude_names.h 21:9@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+maximum :: CInt
+{-| __C declaration:__ @macro maximum@
+
+    __defined at:__ @edge-cases\/prelude_names.h 21:9@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+maximum = 3 :: CInt
+{-| __C declaration:__ @macro twice_maximum@
+
+    __defined at:__ @edge-cases\/prelude_names.h 22:9@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+twice_maximum :: CInt
+{-| __C declaration:__ @macro twice_maximum@
+
+    __defined at:__ @edge-cases\/prelude_names.h 22:9@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+twice_maximum = (*) (2 :: CInt) maximum
+{-| __C declaration:__ @macro readList@
+
+    __defined at:__ @edge-cases\/prelude_names.h 26:9@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+readList :: CInt
+{-| __C declaration:__ @macro readList@
+
+    __defined at:__ @edge-cases\/prelude_names.h 26:9@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+readList = 1 :: CInt
+{-| __C declaration:__ @macro showsPrec@
+
+    __defined at:__ @edge-cases\/prelude_names.h 27:9@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+showsPrec :: CInt
+{-| __C declaration:__ @macro showsPrec@
+
+    __defined at:__ @edge-cases\/prelude_names.h 27:9@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+showsPrec = (*) (2 :: CInt) readList
+{-| __C declaration:__ @struct Void@
+
+    __defined at:__ @edge-cases\/prelude_names.h 30:8@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+data Void
+    = Void {void_x :: CInt
+            {- ^ __C declaration:__ @x@
+
+                 __defined at:__ @edge-cases\/prelude_names.h 30:19@
+
+                 __exported by:__ @edge-cases\/prelude_names.h@
+            -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Void
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Void
+    where readRaw = \ptr_0 -> pure Void <*> readRaw (Proxy @"void_x") ptr_0
+instance WriteRaw Void
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Void void_x_2 -> writeRaw (Proxy @"void_x") ptr_0 void_x_2
+deriving via (EquivStorable Void) instance Storable Void
+deriving via (IsStructViaReadRaw Void) instance IsStruct Void
+instance (~) ty CInt => HasField "void_x" Void ty
+    where hasField = \x_0 -> (\y_1 -> Void{void_x = y_1},
+                              getField @"void_x" x_0)
+instance (~) ty CInt => HasField "void_x" (Ptr Void) (Ptr ty)
+    where getField = fromPtr (Proxy @"void_x")
+instance HasCField Void "void_x"
+    where type CFieldType Void "void_x" = CInt
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_edgecasesprelude_names_Example_Safe_fmap@
+foreign import ccall safe "hs_bindgen_06a0882e0fd9fc01" hs_bindgen_06a0882e0fd9fc01_base ::
+    CInt
+ -> IO CInt
+-- __unique:__ @test_edgecasesprelude_names_Example_Safe_fmap@
+hs_bindgen_06a0882e0fd9fc01 :: CInt -> IO CInt
+-- __unique:__ @test_edgecasesprelude_names_Example_Safe_fmap@
+hs_bindgen_06a0882e0fd9fc01 = \x_0 -> fmap fromFFIType (hs_bindgen_06a0882e0fd9fc01_base (toFFIType x_0))
+{-| __C declaration:__ @fmap@
+
+    __defined at:__ @edge-cases\/prelude_names.h 5:5@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+fmap'_safe :: CInt -> IO CInt
+{-| __C declaration:__ @fmap@
+
+    __defined at:__ @edge-cases\/prelude_names.h 5:5@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+fmap'_safe = hs_bindgen_06a0882e0fd9fc01
+-- __unique:__ @test_edgecasesprelude_names_Example_Safe_reverse@
+foreign import ccall safe "hs_bindgen_cb71068e35beb37d" hs_bindgen_cb71068e35beb37d_base ::
+    CInt
+ -> IO CInt
+-- __unique:__ @test_edgecasesprelude_names_Example_Safe_reverse@
+hs_bindgen_cb71068e35beb37d :: CInt -> IO CInt
+-- __unique:__ @test_edgecasesprelude_names_Example_Safe_reverse@
+hs_bindgen_cb71068e35beb37d = \x_0 -> fmap fromFFIType (hs_bindgen_cb71068e35beb37d_base (toFFIType x_0))
+{-| __C declaration:__ @reverse@
+
+    __defined at:__ @edge-cases\/prelude_names.h 18:5@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+reverse_safe :: CInt -> IO CInt
+{-| __C declaration:__ @reverse@
+
+    __defined at:__ @edge-cases\/prelude_names.h 18:5@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+reverse_safe = hs_bindgen_cb71068e35beb37d
+-- __unique:__ @test_edgecasesprelude_names_Example_Safe_identity@
+foreign import ccall safe "hs_bindgen_0de5f98d74dd3b0b" hs_bindgen_0de5f98d74dd3b0b_base ::
+    Ptr Void
+ -> IO (Ptr Void)
+-- __unique:__ @test_edgecasesprelude_names_Example_Safe_identity@
+hs_bindgen_0de5f98d74dd3b0b :: Ptr Void -> IO (Ptr Void)
+-- __unique:__ @test_edgecasesprelude_names_Example_Safe_identity@
+hs_bindgen_0de5f98d74dd3b0b = \x_0 -> fmap fromFFIType (hs_bindgen_0de5f98d74dd3b0b_base (toFFIType x_0))
+{-| __C declaration:__ @identity@
+
+    __defined at:__ @edge-cases\/prelude_names.h 31:7@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+identity_safe :: Ptr Void -> IO (Ptr Void)
+{-| __C declaration:__ @identity@
+
+    __defined at:__ @edge-cases\/prelude_names.h 31:7@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+identity_safe = hs_bindgen_0de5f98d74dd3b0b
+-- __unique:__ @test_edgecasesprelude_names_Example_Unsafe_fmap@
+foreign import ccall unsafe "hs_bindgen_b6805fb9ba57fb59" hs_bindgen_b6805fb9ba57fb59_base ::
+    CInt
+ -> IO CInt
+-- __unique:__ @test_edgecasesprelude_names_Example_Unsafe_fmap@
+hs_bindgen_b6805fb9ba57fb59 :: CInt -> IO CInt
+-- __unique:__ @test_edgecasesprelude_names_Example_Unsafe_fmap@
+hs_bindgen_b6805fb9ba57fb59 = \x_0 -> fmap fromFFIType (hs_bindgen_b6805fb9ba57fb59_base (toFFIType x_0))
+{-| __C declaration:__ @fmap@
+
+    __defined at:__ @edge-cases\/prelude_names.h 5:5@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+fmap'_unsafe :: CInt -> IO CInt
+{-| __C declaration:__ @fmap@
+
+    __defined at:__ @edge-cases\/prelude_names.h 5:5@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+fmap'_unsafe = hs_bindgen_b6805fb9ba57fb59
+-- __unique:__ @test_edgecasesprelude_names_Example_Unsafe_reverse@
+foreign import ccall unsafe "hs_bindgen_e4643018a1638d28" hs_bindgen_e4643018a1638d28_base ::
+    CInt
+ -> IO CInt
+-- __unique:__ @test_edgecasesprelude_names_Example_Unsafe_reverse@
+hs_bindgen_e4643018a1638d28 :: CInt -> IO CInt
+-- __unique:__ @test_edgecasesprelude_names_Example_Unsafe_reverse@
+hs_bindgen_e4643018a1638d28 = \x_0 -> fmap fromFFIType (hs_bindgen_e4643018a1638d28_base (toFFIType x_0))
+{-| __C declaration:__ @reverse@
+
+    __defined at:__ @edge-cases\/prelude_names.h 18:5@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+reverse_unsafe :: CInt -> IO CInt
+{-| __C declaration:__ @reverse@
+
+    __defined at:__ @edge-cases\/prelude_names.h 18:5@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+reverse_unsafe = hs_bindgen_e4643018a1638d28
+-- __unique:__ @test_edgecasesprelude_names_Example_Unsafe_identity@
+foreign import ccall unsafe "hs_bindgen_3cdf92558d7dc09d" hs_bindgen_3cdf92558d7dc09d_base ::
+    Ptr Void
+ -> IO (Ptr Void)
+-- __unique:__ @test_edgecasesprelude_names_Example_Unsafe_identity@
+hs_bindgen_3cdf92558d7dc09d :: Ptr Void -> IO (Ptr Void)
+-- __unique:__ @test_edgecasesprelude_names_Example_Unsafe_identity@
+hs_bindgen_3cdf92558d7dc09d = \x_0 -> fmap fromFFIType (hs_bindgen_3cdf92558d7dc09d_base (toFFIType x_0))
+{-| __C declaration:__ @identity@
+
+    __defined at:__ @edge-cases\/prelude_names.h 31:7@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+identity_unsafe :: Ptr Void -> IO (Ptr Void)
+{-| __C declaration:__ @identity@
+
+    __defined at:__ @edge-cases\/prelude_names.h 31:7@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+identity_unsafe = hs_bindgen_3cdf92558d7dc09d
+-- __unique:__ @test_edgecasesprelude_names_Example_get_fmap@
+foreign import ccall unsafe "hs_bindgen_8ec725a8c9df6bc9" hs_bindgen_8ec725a8c9df6bc9_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesprelude_names_Example_get_fmap@
+hs_bindgen_8ec725a8c9df6bc9 :: IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @test_edgecasesprelude_names_Example_get_fmap@
+hs_bindgen_8ec725a8c9df6bc9 = fmap fromFFIType hs_bindgen_8ec725a8c9df6bc9_base
+{-# NOINLINE fmap'_funptr #-}
+{-| __C declaration:__ @fmap@
+
+    __defined at:__ @edge-cases\/prelude_names.h 5:5@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+fmap'_funptr :: FunPtr (CInt -> IO CInt)
+{-| __C declaration:__ @fmap@
+
+    __defined at:__ @edge-cases\/prelude_names.h 5:5@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+fmap'_funptr = unsafePerformIO hs_bindgen_8ec725a8c9df6bc9
+-- __unique:__ @test_edgecasesprelude_names_Example_get_reverse@
+foreign import ccall unsafe "hs_bindgen_a7d70ec0c8acc7e7" hs_bindgen_a7d70ec0c8acc7e7_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesprelude_names_Example_get_reverse@
+hs_bindgen_a7d70ec0c8acc7e7 :: IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @test_edgecasesprelude_names_Example_get_reverse@
+hs_bindgen_a7d70ec0c8acc7e7 = fmap fromFFIType hs_bindgen_a7d70ec0c8acc7e7_base
+{-# NOINLINE reverse_funptr #-}
+{-| __C declaration:__ @reverse@
+
+    __defined at:__ @edge-cases\/prelude_names.h 18:5@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+reverse_funptr :: FunPtr (CInt -> IO CInt)
+{-| __C declaration:__ @reverse@
+
+    __defined at:__ @edge-cases\/prelude_names.h 18:5@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+reverse_funptr = unsafePerformIO hs_bindgen_a7d70ec0c8acc7e7
+-- __unique:__ @test_edgecasesprelude_names_Example_get_identity@
+foreign import ccall unsafe "hs_bindgen_535374ba193530ae" hs_bindgen_535374ba193530ae_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesprelude_names_Example_get_identity@
+hs_bindgen_535374ba193530ae :: IO (FunPtr (Ptr Void ->
+                                           IO (Ptr Void)))
+-- __unique:__ @test_edgecasesprelude_names_Example_get_identity@
+hs_bindgen_535374ba193530ae = fmap fromFFIType hs_bindgen_535374ba193530ae_base
+{-# NOINLINE identity_funptr #-}
+{-| __C declaration:__ @identity@
+
+    __defined at:__ @edge-cases\/prelude_names.h 31:7@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+identity_funptr :: FunPtr (Ptr Void -> IO (Ptr Void))
+{-| __C declaration:__ @identity@
+
+    __defined at:__ @edge-cases\/prelude_names.h 31:7@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+identity_funptr = unsafePerformIO hs_bindgen_535374ba193530ae
+-- __unique:__ @test_edgecasesprelude_names_Example_get_length@
+foreign import ccall unsafe "hs_bindgen_d73ae441829395d0" hs_bindgen_d73ae441829395d0_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_edgecasesprelude_names_Example_get_length@
+hs_bindgen_d73ae441829395d0 :: IO (Ptr CInt)
+-- __unique:__ @test_edgecasesprelude_names_Example_get_length@
+hs_bindgen_d73ae441829395d0 = fmap fromFFIType hs_bindgen_d73ae441829395d0_base
+{-# NOINLINE length #-}
+{-| __C declaration:__ @length@
+
+    __defined at:__ @edge-cases\/prelude_names.h 19:12@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+length :: Ptr CInt
+{-| __C declaration:__ @length@
+
+    __defined at:__ @edge-cases\/prelude_names.h 19:12@
+
+    __exported by:__ @edge-cases\/prelude_names.h@
+-}
+length = unsafePerformIO hs_bindgen_d73ae441829395d0

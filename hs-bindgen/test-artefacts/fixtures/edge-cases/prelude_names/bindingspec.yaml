@@ -1,0 +1,261 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: edge-cases/prelude_names.h
+  cname: struct string
+  hsname: String'
+- headers: edge-cases/prelude_names.h
+  cname: Show
+  hsname: Show'
+- headers: edge-cases/prelude_names.h
+  cname: struct CChar
+  hsname: CChar'
+- headers: edge-cases/prelude_names.h
+  cname: enum c_types
+  hsname: C_types
+  enum: open
+- headers: edge-cases/prelude_names.h
+  cname: enum constants
+  hsname: Constants
+  enum: open
+- headers: edge-cases/prelude_names.h
+  cname: enum ordering
+  hsname: Ordering
+  enum: open
+- headers: edge-cases/prelude_names.h
+  cname: Maybe
+  hsname: Maybe
+- headers: edge-cases/prelude_names.h
+  cname: struct Word
+  hsname: Word
+- headers: edge-cases/prelude_names.h
+  cname: struct Void
+  hsname: Void
+hstypes:
+- hsname: CChar'
+  representation:
+    record:
+      constructor: CChar'
+      fields:
+      - cChar'_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: C_types
+  representation:
+    newtype:
+      constructor: C_types
+      fields:
+      - unwrapC_types
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Constants
+  representation:
+    newtype:
+      constructor: Constants
+      fields:
+      - unwrapConstants
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Maybe
+  representation:
+    newtype:
+      constructor: Maybe
+      fields:
+      - unwrapMaybe
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordering
+  representation:
+    newtype:
+      constructor: Ordering
+      fields:
+      - unwrapOrdering
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Show'
+  representation:
+    newtype:
+      constructor: Show'
+      fields:
+      - unwrapShow'
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: String'
+  representation:
+    record:
+      constructor: String'
+      fields:
+      - string'_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Void
+  representation:
+    record:
+      constructor: Void
+      fields:
+      - void_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Word
+  representation:
+    record:
+      constructor: Word
+      fields:
+      - word_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

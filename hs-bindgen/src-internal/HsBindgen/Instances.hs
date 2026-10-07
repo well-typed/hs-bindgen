@@ -83,7 +83,7 @@ data TypeClass =
   | Storable
   | ToFunPtr
   | WriteRaw
-  deriving stock (Eq, Generic, Read, Show)
+  deriving stock (Bounded, Enum, Eq, Generic, Read, Show)
 
 -- Order lexicographically, even if somebody adds a constructor out of place
 instance Ord TypeClass where

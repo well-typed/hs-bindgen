@@ -119,6 +119,16 @@
   datatypes. Specifications that use `HasField` for the `HasField` instances of
   the pointer manipulation API must rename it to `HasFieldPtr`. See [PR
   #2094][pr-2094].
+* The name mangler reserves the names that generated modules import
+  unqualified from the `Prelude`, each in its namespace. See [issue
+  #2287][is-2287].
+  * `String` and `fmap` are now reserved: a C type `string` becomes `String'`,
+    a C function `fmap` becomes `fmap'`.
+  * `Void`, `FiniteBits` and `showsPrec` are no longer reserved: a C type
+    `Void` becomes `Void`, not `Void'`.
+  * Reserved names apply only in their own namespace: a C enumeration constant
+    `Eq` becomes the pattern `Eq`, not `Eq'`. The names of `Foreign.C.Types`,
+    such as `CInt`, remain reserved for types and constructors alike.
 
 ### New features
 
@@ -276,6 +286,9 @@
 
 ### Bug fixes
 
+* Generated modules no longer clash with `Prelude` names. Previously, C
+  declarations such as `typedef int Maybe` or `enum { LT, EQ, GT }` resulted in
+  ambiguous names. See [issue #2287][is-2287].
 * Object-like macros whose replacement list starts with `(`, such as
   `#define G (x, y) x + y`, are no longer parsed as function-like macros. A
   macro is function-like only if there is no white space between its name and
@@ -389,6 +402,7 @@
 [is-2264]: https://github.com/well-typed/hs-bindgen/issues/2264
 [is-2266]: https://github.com/well-typed/hs-bindgen/issues/2266
 [is-2280]: https://github.com/well-typed/hs-bindgen/issues/2280
+[is-2287]: https://github.com/well-typed/hs-bindgen/issues/2287
 [pr-1862]: https://github.com/well-typed/hs-bindgen/pull/1862
 [pr-1892]: https://github.com/well-typed/hs-bindgen/pull/1892
 [pr-1895]: https://github.com/well-typed/hs-bindgen/pull/1895
