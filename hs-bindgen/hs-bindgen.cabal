@@ -436,21 +436,17 @@ executable hs-bindgen-cli
     , hs-bindgen:internal
 
   -- Inherited dependencies
-  --
-  -- `cabal check` warns that `bytestring` misses an upper bound because it only
-  -- accepts bounds from the main library, but `bytestring` is bounded in
-  -- `internal`.
   build-depends:
-    , bytestring
     , containers
     , data-default
     , libclang-bindings
 
   -- External dependencies
   build-depends:
-    , optparse-applicative  >=0.18  && <0.20
-    , prettyprinter         >=1.7.1 && <1.8
-    , text                  >=1.2   && <2.2
+    , bytestring            >=0.11.4.0 && <0.13
+    , optparse-applicative  >=0.18     && <0.20
+    , prettyprinter         >=1.7.1    && <1.8
+    , text                  >=1.2      && <2.2
 
 executable clang-ast-dump
   import:         lang
