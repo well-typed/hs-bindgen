@@ -88,7 +88,13 @@ We release `hs-bindgen` and `hs-bindgen-runtime` to Hackage.
 * [ ] Release `hs-bindgen-runtime` to Hackage, then `hs-bindgen`
 
 * [ ] Manually create documentation with `cabal-install` HEAD (which contains a
-      fix required for Haddocks of re-exports) and upload it
+      fix required for Haddocks of re-exports,
+      [haskell/cabal#12226](https://github.com/haskell/cabal/pull/12226), not
+      present in 3.18.2.0 or earlier) and upload it.
+
+* [ ] If you published via a package candidate: documentation uploaded to the
+      candidate is not carried over when publishing. Upload it again with
+      `cabal upload -d --publish`.
 
 ## Preparation for next release
 

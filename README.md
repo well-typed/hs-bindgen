@@ -5,23 +5,12 @@
 [![Nightly CI: Examples](https://img.shields.io/github/actions/workflow/status/well-typed/hs-bindgen/examples.yml?event=schedule&label=Nightly%20CI%3A%20Examples)](https://github.com/well-typed/hs-bindgen/actions/workflows/examples.yml?query=event%3Aschedule)
 [![Nightly CI: Check links](https://img.shields.io/github/actions/workflow/status/well-typed/hs-bindgen/check-links.yml?event=schedule&label=Nightly%20CI%3A%20Check%20Links)](https://github.com/well-typed/hs-bindgen/actions/workflows/check-links.yml?query=event%3Aschedule)
 
-`hs-bindgen` is a [Haskell][] library that *automatically* generates Haskell FFI
-bindings from C header files.
+`hs-bindgen` is a Haskell library that *automatically* generates Haskell FFI
+bindings from C header files. It is available on [Hackage][hackage]; please
+report any problems you find on the [issue tracker][issues].
 
-> [!WARNING]
-> This project has not had an official release yet.  There is a wide variety of
-> C (and C preprocessor) code in the world, so we are currently soliciting
-> feedback prior to the first official release.  Please try it out!  If
-> something breaks, please check the [issues][] to see if the problem is already
-> known, and open an issue if not.
-
-Check the [releases][] ([RSS][]) for release information.  A Hackage package
-will be made available from the first official release.
-
-[Haskell]: https://www.haskell.org/
 [issues]: https://github.com/well-typed/hs-bindgen/issues
-[releases]: https://github.com/well-typed/hs-bindgen/releases
-[RSS]: https://github.com/well-typed/hs-bindgen/releases.atom
+[hackage]: https://hackage.haskell.org/package/hs-bindgen
 
 ## Documentation
 
