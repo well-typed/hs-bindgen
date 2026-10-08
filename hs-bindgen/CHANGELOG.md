@@ -1,5 +1,16 @@
 # Revision history for hs-bindgen
 
+## ?.?.?.? -- YYYY-mm-dd
+
+### Breaking changes
+
+### New features
+
+### Minor changes
+
+### Bug fixes
+
+
 ## 1.0.0.0 -- 2026-10-08
 
 ### Breaking changes
