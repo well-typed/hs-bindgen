@@ -28,7 +28,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
-import Prelude ((<*>), (>>), Eq, Int, Show, pure, return, type (~))
+import Prelude ((<*>), (>>), Eq, Int, Show, pure, type (~))
 
 {-| __C declaration:__ @struct foo@
 
@@ -168,7 +168,7 @@ instance Marshal.WriteRaw Baz where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Baz -> return ()
+          Baz -> pure ()
 
 deriving via Marshal.EquivStorable Baz instance BG.Storable Baz
 

@@ -118,7 +118,7 @@ instance ReadRaw S
     where readRaw = \ptr_0 -> pure S
 instance WriteRaw S
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       S -> return ()
+                                       S -> pure ()
 deriving via (EquivStorable S) instance Storable S
 deriving via (IsStructViaReadRaw S) instance IsStruct S
 {-| __C declaration:__ @union U@

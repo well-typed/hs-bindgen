@@ -71,7 +71,7 @@ instance ReadRaw Baz
     where readRaw = \ptr_0 -> pure Baz
 instance WriteRaw Baz
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Baz -> return ()
+                                       Baz -> pure ()
 deriving via (EquivStorable Baz) instance Storable Baz
 deriving via (IsStructViaReadRaw Baz) instance IsStruct Baz
 {-| __C declaration:__ @enum quu@

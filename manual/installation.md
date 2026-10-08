@@ -56,20 +56,21 @@ installing LLVM/Clang.
 ### Get `hs-bindgen`
 [t:get-hs-bindgen]: #get-hs-bindgen
 
-A Hackage package will be made available from the first official release.  Until
-then, it is necessary to clone the repository.
+`hs-bindgen` is available on [Hackage][hackage:hs-bindgen]. Install the
+`hs-bindgen-cli` executable as follows.
+
+```bash
+$ cabal install hs-bindgen
+```
+
+To use the Template Haskell API, add `hs-bindgen` to the `build-depends` of your
+package.
+
+To use unreleased changes, clone the `hs-bindgen` repository:
 
 ```bash
 $ git clone https://github.com/well-typed/hs-bindgen.git
 $ cd hs-bindgen
-```
-
-`hs-bindgen` uses trunk-based development on the `main` branch.  Use the `HEAD`
-of the `main` branch to use the latest commits, or checkout a tag to use a
-well-tested snapshot of the project.  Example:
-
-```bash
-$ git checkout -b release-0.1-alpha2 release-0.1-alpha2
 ```
 
 ### Configure `libclang-bindings`
@@ -114,8 +115,8 @@ attempts to run this command and automatically set it to the default.
 ### Build and test
 [t:build-and-test]: #build-and-test
 
-Build the `hs-bindgen` library, the `hs-bindgen-cli` executable, and all tests
-as follows.
+In a clone of the repository, build the `hs-bindgen` library, the
+`hs-bindgen-cli` executable, and all tests as follows.
 
 ```bash
 $ cabal build all
@@ -302,7 +303,7 @@ inconsistencies on the command line.  Example:
 
 ```bash
 $ hs-bindgen-cli --version
-hs-bindgen 0.1.0
+hs-bindgen 1.0.0.0
 binding specification 1.0
 clang compile time version: clang version 21.1.8
 clang runtime version:      clang version 21.1.8
@@ -400,6 +401,7 @@ such limitations.
 [cabal:docs:project/extra-lib-dirs]: https://cabal.readthedocs.io/en/stable/cabal-project-description-file.html#cfg-field-extra-lib-dirs
 [GHC]: https://www.haskell.org/ghc/
 [ghc:guide:phases-programs]: https://downloads.haskell.org/ghc/latest/docs/users_guide/phases.html#replacing-the-program-for-one-or-more-phases
+[hackage:hs-bindgen]: https://hackage.haskell.org/package/hs-bindgen
 [hs-bindgen-tutorial-nix]: https://github.com/well-typed/hs-bindgen-tutorial-nix
 [libclang-bindings]: https://github.com/well-typed/libclang-bindings
 [libclang-bindings:manual]: https://github.com/well-typed/libclang-bindings/blob/main/manual/README.md

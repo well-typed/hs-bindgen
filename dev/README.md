@@ -32,6 +32,8 @@ please refer to the [main documentation](../manual).
   `hs-bindgen-cli internal` commands used during development.
 - [Troubleshooting](troubleshooting.md): Collection of troubleshooting
   recipes.
+- [Release Process](release-process.md): Checklist for releasing
+  `hs-bindgen` and `hs-bindgen-runtime` to Hackage.
 
 ## Quick Start
 

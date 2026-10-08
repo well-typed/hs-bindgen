@@ -70,7 +70,7 @@ lambda f (Hs.Lambda hint t) = ELam hint (f t)
 
 -- | Monad sequencing
 doAll :: (t ctx -> SExpr ctx) -> Hs.Seq t ctx -> SExpr ctx
-doAll _ (Hs.Seq []) = eBindgenGlobal Monad_return `EApp` EUnit
+doAll _ (Hs.Seq []) = eBindgenGlobal Applicative_pure `EApp` EUnit
 doAll f (Hs.Seq ss) = foldr1 (EInfix InfixMonad_seq) (map f ss)
 
 -- Recognize n-ary function applications

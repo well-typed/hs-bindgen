@@ -33,7 +33,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure, return, type (~))
+import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure, type (~))
 
 {-| __C declaration:__ @int16_T@
 
@@ -313,7 +313,7 @@ instance Marshal.WriteRaw B where
     \ptr0 ->
       \s1 ->
         case s1 of
-          B -> return ()
+          B -> pure ()
 
 deriving via Marshal.EquivStorable B instance BG.Storable B
 

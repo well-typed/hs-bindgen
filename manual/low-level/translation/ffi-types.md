@@ -80,7 +80,7 @@ FFI type is recorded roughly as follows:
 
 ```yaml
 version:
-  hs_bindgen: 0.1.0
+  hs_bindgen: 1.0.0.0
   binding_specification: '1.0'
 hsmodule: Example
 ctypes:
@@ -235,7 +235,7 @@ this module:
 
 ```yaml
 version:
-  hs_bindgen: 0.1.0
+  hs_bindgen: 1.0.0.0
   binding_specification: '1.0'
 hsmodule: Example2.A
 ctypes:
@@ -276,7 +276,7 @@ generate an external binding specification for this module:
 
 ```yaml
 version:
-  hs_bindgen: 0.1.0
+  hs_bindgen: 1.0.0.0
   binding_specification: '1.0'
 hsmodule: Example2.B
 ctypes:
@@ -358,7 +358,7 @@ We also write an external binding specification by hand:
 
 ```yaml
 version:
-  hs_bindgen: 0.1.0
+  hs_bindgen: 1.0.0.0
   binding_specification: '1.0'
 hsmodule: Example3.A
 ctypes:
@@ -399,7 +399,7 @@ generate an external binding specification for this module:
 
 ```yaml
 version:
-  hs_bindgen: 0.1.0
+  hs_bindgen: 1.0.0.0
   binding_specification: '1.0'
 hsmodule: Example3.B
 ctypes:
@@ -484,7 +484,7 @@ The external binding specification we implement looks like so:
 
 ```yaml
 version:
-  hs_bindgen: 0.1.0
+  hs_bindgen: 1.0.0.0
   binding_specification: '1.0'
 hsmodule: Example4.A
 ctypes:

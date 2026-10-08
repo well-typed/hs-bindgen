@@ -27,7 +27,7 @@ module Example
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
-import Prelude (Eq, Int, Show, pure, return)
+import Prelude (Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct a@
 
@@ -55,7 +55,7 @@ instance Marshal.WriteRaw A where
     \ptr0 ->
       \s1 ->
         case s1 of
-          A -> return ()
+          A -> pure ()
 
 deriving via Marshal.EquivStorable A instance BG.Storable A
 
@@ -87,7 +87,7 @@ instance Marshal.WriteRaw Struct1 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct1 -> return ()
+          Struct1 -> pure ()
 
 deriving via Marshal.EquivStorable Struct1 instance BG.Storable Struct1
 
@@ -119,7 +119,7 @@ instance Marshal.WriteRaw B_s where
     \ptr0 ->
       \s1 ->
         case s1 of
-          B_s -> return ()
+          B_s -> pure ()
 
 deriving via Marshal.EquivStorable B_s instance BG.Storable B_s
 
@@ -151,7 +151,7 @@ instance Marshal.WriteRaw Struct2_s where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct2_s -> return ()
+          Struct2_s -> pure ()
 
 deriving via Marshal.EquivStorable Struct2_s instance BG.Storable Struct2_s
 
@@ -183,7 +183,7 @@ instance Marshal.WriteRaw C where
     \ptr0 ->
       \s1 ->
         case s1 of
-          C -> return ()
+          C -> pure ()
 
 deriving via Marshal.EquivStorable C instance BG.Storable C
 
@@ -215,7 +215,7 @@ instance Marshal.WriteRaw Struct3 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct3 -> return ()
+          Struct3 -> pure ()
 
 deriving via Marshal.EquivStorable Struct3 instance BG.Storable Struct3
 
@@ -247,7 +247,7 @@ instance Marshal.WriteRaw D where
     \ptr0 ->
       \s1 ->
         case s1 of
-          D -> return ()
+          D -> pure ()
 
 deriving via Marshal.EquivStorable D instance BG.Storable D
 
@@ -279,7 +279,7 @@ instance Marshal.WriteRaw Struct4 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct4 -> return ()
+          Struct4 -> pure ()
 
 deriving via Marshal.EquivStorable Struct4 instance BG.Storable Struct4
 
@@ -311,7 +311,7 @@ instance Marshal.WriteRaw E_s where
     \ptr0 ->
       \s1 ->
         case s1 of
-          E_s -> return ()
+          E_s -> pure ()
 
 deriving via Marshal.EquivStorable E_s instance BG.Storable E_s
 
@@ -343,7 +343,7 @@ instance Marshal.WriteRaw Struct5_s where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct5_s -> return ()
+          Struct5_s -> pure ()
 
 deriving via Marshal.EquivStorable Struct5_s instance BG.Storable Struct5_s
 
@@ -375,7 +375,7 @@ instance Marshal.WriteRaw F where
     \ptr0 ->
       \s1 ->
         case s1 of
-          F -> return ()
+          F -> pure ()
 
 deriving via Marshal.EquivStorable F instance BG.Storable F
 
@@ -407,7 +407,7 @@ instance Marshal.WriteRaw Typedef1 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Typedef1 -> return ()
+          Typedef1 -> pure ()
 
 deriving via Marshal.EquivStorable Typedef1 instance BG.Storable Typedef1
 
@@ -439,7 +439,7 @@ instance Marshal.WriteRaw G where
     \ptr0 ->
       \s1 ->
         case s1 of
-          G -> return ()
+          G -> pure ()
 
 deriving via Marshal.EquivStorable G instance BG.Storable G
 
@@ -471,7 +471,7 @@ instance Marshal.WriteRaw Typedef2 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Typedef2 -> return ()
+          Typedef2 -> pure ()
 
 deriving via Marshal.EquivStorable Typedef2 instance BG.Storable Typedef2
 
@@ -503,7 +503,7 @@ instance Marshal.WriteRaw H where
     \ptr0 ->
       \s1 ->
         case s1 of
-          H -> return ()
+          H -> pure ()
 
 deriving via Marshal.EquivStorable H instance BG.Storable H
 
@@ -535,7 +535,7 @@ instance Marshal.WriteRaw Typedef3 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Typedef3 -> return ()
+          Typedef3 -> pure ()
 
 deriving via Marshal.EquivStorable Typedef3 instance BG.Storable Typedef3
 

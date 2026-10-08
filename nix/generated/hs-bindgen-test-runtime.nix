@@ -3,7 +3,7 @@
 }:
 mkDerivation {
   pname = "hs-bindgen-test-runtime";
-  version = "0.1.0";
+  version = "1.0.0.0";
   src = ../../hs-bindgen-test-runtime;
   libraryHaskellDepends = [
     base QuickCheck tasty-hunit tasty-quickcheck

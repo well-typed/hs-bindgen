@@ -11,7 +11,7 @@
 }:
 mkDerivation {
   pname = "hs-bindgen";
-  version = "0.1.0";
+  version = "1.0.0.0";
   src = ../../hs-bindgen;
   isLibrary = true;
   isExecutable = true;

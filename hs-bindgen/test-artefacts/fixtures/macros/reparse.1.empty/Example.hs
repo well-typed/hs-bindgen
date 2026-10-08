@@ -77,7 +77,7 @@ import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, fmap, pure, return, type (~))
+import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, fmap, pure, type (~))
 
 {-| __C declaration:__ @struct some_struct@
 
@@ -105,7 +105,7 @@ instance Marshal.WriteRaw Some_struct where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Some_struct -> return ()
+          Some_struct -> pure ()
 
 deriving via Marshal.EquivStorable Some_struct instance BG.Storable Some_struct
 

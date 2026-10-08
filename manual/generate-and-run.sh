@@ -300,7 +300,7 @@ cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
 
 cat << EOF > binding-specs/vector-types.yaml
 version:
-  hs_bindgen: 0.1.0
+  hs_bindgen: 1.0.0.0
   binding_specification: '1.0'
 
 hsmodule: Vector.Types
