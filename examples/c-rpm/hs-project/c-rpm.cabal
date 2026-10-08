@@ -14,51 +14,47 @@ common warnings
 library
   import:             warnings
   exposed-modules:
-    RPM.Argv
-    RPM.Argv.FunPtr
-    RPM.Argv.Safe
-    RPM.Argv.Unsafe
-    RPM.Ds
-    RPM.Ds.FunPtr
-    RPM.Ds.Safe
-    RPM.Ds.Unsafe
     RPM.Header
     RPM.Header.FunPtr
+    RPM.Header.Global
     RPM.Header.Safe
     RPM.Header.Unsafe
-    RPM.IO
-    RPM.IO.FunPtr
-    RPM.IO.Safe
-    RPM.IO.Unsafe
-    RPM.Lib
-    RPM.Lib.FunPtr
-    RPM.Lib.Safe
-    RPM.Lib.Unsafe
-    RPM.Prob
-    RPM.Prob.FunPtr
-    RPM.Prob.Safe
-    RPM.Prob.Unsafe
-    RPM.Ps
-    RPM.Ps.FunPtr
-    RPM.Ps.Safe
-    RPM.Ps.Unsafe
-    RPM.Sw
-    RPM.Sw.FunPtr
-    RPM.Sw.Safe
-    RPM.Sw.Unsafe
-    RPM.Tag
-    RPM.Tag.FunPtr
-    RPM.Tag.Safe
-    RPM.Tag.Unsafe
-    RPM.Td
-    RPM.Td.FunPtr
-    RPM.Td.Safe
-    RPM.Td.Unsafe
-    RPM.Types
-    RPM.Util
-    RPM.Util.FunPtr
-    RPM.Util.Safe
-    RPM.Util.Unsafe
+    RPM.Rpmds
+    RPM.Rpmds.FunPtr
+    RPM.Rpmds.Safe
+    RPM.Rpmds.Unsafe
+    RPM.Rpmio
+    RPM.Rpmio.FunPtr
+    RPM.Rpmio.Safe
+    RPM.Rpmio.Unsafe
+    RPM.Rpmlib
+    RPM.Rpmlib.FunPtr
+    RPM.Rpmlib.Global
+    RPM.Rpmlib.Safe
+    RPM.Rpmlib.Unsafe
+    RPM.Rpmprob
+    RPM.Rpmprob.FunPtr
+    RPM.Rpmprob.Safe
+    RPM.Rpmprob.Unsafe
+    RPM.Rpmps
+    RPM.Rpmps.FunPtr
+    RPM.Rpmps.Safe
+    RPM.Rpmps.Unsafe
+    RPM.Rpmsw
+    RPM.Rpmsw.FunPtr
+    RPM.Rpmsw.Safe
+    RPM.Rpmsw.Unsafe
+    RPM.Rpmtd
+    RPM.Rpmtd.FunPtr
+    RPM.Rpmtd.Safe
+    RPM.Rpmtd.Unsafe
+    RPM.Rpmutil
+    RPM.Rpmutil.FunPtr
+    RPM.Rpmutil.Safe
+    RPM.Rpmutil.Unsafe
+    RPM.Rpmver.FunPtr
+    RPM.Rpmver.Safe
+    RPM.Rpmver.Unsafe
 
   build-depends:
     , base
@@ -67,6 +63,7 @@ library
   hs-source-dirs:     src
   default-language:   Haskell2010
   extra-libraries:
+    rpm
     rpmbuild
     rpmio
 

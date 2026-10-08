@@ -1,0 +1,7 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+ctypes:
+- omit:
+    headers: binding-specs/merge/omit_twice/stopwatch.h
+    cname: struct stopwatch

@@ -1,0 +1,58 @@
+-- addDependentFile test-artefacts/headers/golden/binding-specs/merge/omit_twice/stopwatch.h
+-- addDependentFile test-artefacts/headers/golden/binding-specs/merge/omit_twice/counter.h
+-- addDependentFile test-artefacts/headers/golden/binding-specs/merge/omit_twice/report.h
+{-| __C declaration:__ @struct report@
+
+    __defined at:__ @binding-specs\/merge\/omit_twice\/report.h 11:8@
+
+    __exported by:__ @binding-specs\/merge\/omit_twice\/report.h@
+-}
+data Report
+    = Report {report_reads :: Lib.Counter.Counter
+              {- ^ __C declaration:__ @reads@
+
+                   __defined at:__ @binding-specs\/merge\/omit_twice\/report.h 12:18@
+
+                   __exported by:__ @binding-specs\/merge\/omit_twice\/report.h@
+              -},
+              report_writes :: Lib.Counter.Counter
+              {- ^ __C declaration:__ @writes@
+
+                   __defined at:__ @binding-specs\/merge\/omit_twice\/report.h 13:18@
+
+                   __exported by:__ @binding-specs\/merge\/omit_twice\/report.h@
+              -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Report
+    where staticSizeOf = \_ -> 32 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Report
+    where readRaw = \ptr_0 -> (pure Report <*> readRaw (Proxy @"report_reads") ptr_0) <*> readRaw (Proxy @"report_writes") ptr_0
+instance WriteRaw Report
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Report report_reads_2
+                                              report_writes_3 -> writeRaw (Proxy @"report_reads") ptr_0 report_reads_2 >> writeRaw (Proxy @"report_writes") ptr_0 report_writes_3
+deriving via (EquivStorable Report) instance Storable Report
+deriving via (IsStructViaReadRaw Report) instance IsStruct Report
+instance (~) ty Lib.Counter.Counter =>
+         HasField "report_reads" Report ty
+    where hasField = \x_0 -> (\y_1 -> Report{report_reads = y_1,
+                                             report_writes = getField @"report_writes" x_0},
+                              getField @"report_reads" x_0)
+instance (~) ty Lib.Counter.Counter =>
+         HasField "report_reads" (Ptr Report) (Ptr ty)
+    where getField = fromPtr (Proxy @"report_reads")
+instance HasCField Report "report_reads"
+    where type CFieldType Report "report_reads" = Lib.Counter.Counter
+          offset# = \_ -> \_ -> 0
+instance (~) ty Lib.Counter.Counter =>
+         HasField "report_writes" Report ty
+    where hasField = \x_0 -> (\y_1 -> Report{report_writes = y_1,
+                                             report_reads = getField @"report_reads" x_0},
+                              getField @"report_writes" x_0)
+instance (~) ty Lib.Counter.Counter =>
+         HasField "report_writes" (Ptr Report) (Ptr ty)
+    where getField = fromPtr (Proxy @"report_writes")
+instance HasCField Report "report_writes"
+    where type CFieldType Report "report_writes" = Lib.Counter.Counter
+          offset# = \_ -> \_ -> 16

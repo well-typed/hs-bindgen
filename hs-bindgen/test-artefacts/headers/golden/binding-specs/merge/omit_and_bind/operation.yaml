@@ -1,0 +1,52 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Lib.Operation
+ctypes:
+- headers: binding-specs/merge/omit_and_bind/stats.h
+  cname: struct stopwatch
+  hsname: Stopwatch
+- headers: binding-specs/merge/omit_and_bind/stats.h
+  cname: struct operation
+  hsname: Operation
+hstypes:
+- hsname: Operation
+  representation:
+    record:
+      constructor: Operation
+      fields:
+      - operation_begin
+      - operation_count
+      - operation_total
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stopwatch
+  representation:
+    record:
+      constructor: Stopwatch
+      fields:
+      - stopwatch_ticks
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

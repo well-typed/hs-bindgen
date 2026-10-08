@@ -8,8 +8,8 @@ import Foreign.Storable (peek)
 
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
-import RPM.Argv (ARGV_const_t (..), ARGV_t (..))
-import RPM.Argv.Safe qualified as RPM
+import RPM.Rpmtd (ARGV_const_t (..), ARGV_t (..))
+import RPM.Rpmtd.Safe qualified as RPM
 
 main :: IO ()
 main = do

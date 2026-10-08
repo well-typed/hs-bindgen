@@ -7,6 +7,7 @@ import Test.HsBindgen.Frontend.LanguageC qualified as Frontend.LanguageC
 import Test.HsBindgen.Frontend.Pass.PrepareReparse qualified as Frontend.Pass.PrepareReparse
 import Test.HsBindgen.Golden qualified as Golden
 import Test.HsBindgen.Integration.ExitCode qualified as Integration.ExitCode
+import Test.HsBindgen.Integration.LibraryMode qualified as Integration.LibraryMode
 import Test.HsBindgen.Integration.OverwritePolicy qualified as Integration.OverwritePolicy
 import Test.HsBindgen.Macro.CExpr qualified as Macro.CExpr
 import Test.HsBindgen.Macro.Syntax qualified as Macro.Syntax
@@ -19,6 +20,7 @@ import Test.HsBindgen.THFixtures qualified as THFixtures
 import Test.HsBindgen.Unit.ClangArgs qualified as Unit.ClangArgs
 import Test.HsBindgen.Unit.Digraph qualified as Unit.Digraph
 import Test.HsBindgen.Unit.Frontend qualified as Unit.Frontend
+import Test.HsBindgen.Unit.LibraryMode qualified as Unit.LibraryMode
 import Test.HsBindgen.Unit.Pretty qualified as Unit.Pretty
 import Test.HsBindgen.Unit.RootDirective qualified as Unit.RootDirective
 import Test.HsBindgen.Unit.Runtime qualified as Unit.Runtime
@@ -43,6 +45,7 @@ main = defaultMain $
           , Unit.Digraph.tests
           , Unit.Frontend.tests testResources
           , Unit.Tracer.tests
+          , Unit.LibraryMode.tests
           , Unit.Pretty.tests
           , Unit.RootDirective.tests
           , Unit.Runtime.tests
@@ -50,6 +53,7 @@ main = defaultMain $
       , testGroup "integration tests" [
             Integration.ExitCode.tests testResources
           , Integration.OverwritePolicy.tests testResources
+          , Integration.LibraryMode.tests testResources
           ]
       , testGroup "property tests" [
             Prop.Selection.tests

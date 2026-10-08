@@ -491,13 +491,45 @@ newtype MergedBindingSpecs = MergedBindingSpecs {
   deriving stock (Show)
 
 -- | Merge (external) binding specifications
+--
+-- A specification says one of two things about a C type: which Haskell type
+-- binds it, or that its module omits it and has no binding for it. When two
+-- specifications mention the same C type of the same header:
+--
+-- * if both bind it, that is a conflict;
+-- * if both omit it, they agree, and the type stays unbound;
+-- * if one binds it and the other omits it, the binding is used.
+--
+-- The last two come up in library mode, where a module reads the
+-- specifications of every module generated before it. The golden tests
+-- @binding-specs\/merge\/omit_twice@ and @binding-specs\/merge\/omit_and_bind@
+-- show one each.
 merge ::
      [ResolvedBindingSpec]
   -> ([BindingSpecMergeMsg], MergedBindingSpecs)
-merge =
-      bimap mkTypeErrs (MergedBindingSpecs . snd)
-    . foldl' mergeSpec (Set.empty, (Map.empty, Map.empty))
+merge specs =
+    ( mkTypeErrs conflicts
+    , MergedBindingSpecs $ Map.unionWith (++) bindings omissions
+    )
   where
+    conflicts :: Set C.DeclId
+    bindings  :: Map C.DeclId [(Set RealPath, ResolvedBindingSpec)]
+    (conflicts, (_seen, bindings)) =
+      foldl' mergeSpec (Set.empty, (Map.empty, Map.empty)) specs
+
+    -- Lookup takes the first specification that matches, so these go after
+    -- the bindings
+    omissions :: Map C.DeclId [(Set RealPath, ResolvedBindingSpec)]
+    omissions = Map.fromListWith (++) [
+          (cDeclId, [(Set.unions $ map (Set.map snd . fst) entries, spec)])
+        | spec <- specs
+        , (cDeclId, entries) <- Map.toList spec.cTypes
+        , onlyOmits entries
+        ]
+
+    onlyOmits :: [(a, Omittable CTypeSpec)] -> Bool
+    onlyOmits = all ((== Omit) . snd)
+
     mkTypeErrs :: Set C.DeclId -> [BindingSpecMergeMsg]
     mkTypeErrs = fmap BindingSpecMergeConflict . Set.toList
 
@@ -516,6 +548,7 @@ merge =
     mergeSpec ctx spec =
         foldl' (mergeType spec) ctx
       . map (fmap (map fst))
+      . filter (not . onlyOmits . snd)
       $ Map.toList spec.cTypes
 
     mergeType ::

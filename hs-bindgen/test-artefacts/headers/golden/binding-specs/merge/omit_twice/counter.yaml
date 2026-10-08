@@ -1,0 +1,32 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Lib.Counter
+ctypes:
+- omit:
+    headers: binding-specs/merge/omit_twice/report.h
+    cname: struct stopwatch
+- headers: binding-specs/merge/omit_twice/report.h
+  cname: struct counter
+  hsname: Counter
+hstypes:
+- hsname: Counter
+  representation:
+    record:
+      constructor: Counter
+      fields:
+      - counter_count
+      - counter_total
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

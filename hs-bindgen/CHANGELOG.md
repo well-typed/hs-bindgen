@@ -6,10 +6,36 @@
 
 ### New features
 
+* Library mode for `preprocess` (`--library`): generates one Haskell module per
+  header under the `--library` directories, with per-module selection
+  predicates and program slicing enabled. Headers are processed in the order
+  of the declaration usage graph rather than the include graph, so a type lands
+  in the module of the header that defines it, even when another header
+  declares it forward. Headers whose declarations use each other share one
+  module, named after the one that includes the others (`argv.h`, `rpmtag.h`,
+  `rpmtd.h` and `rpmtypes.h` give `RPM.Rpmtd`); headers that only include each
+  other do not. Headers in which nothing is generated, such as umbrella
+  headers, get no module. Header selection predicates are rejected in this
+  mode. A run ends with one line saying what it generated.
+  `--except-library` leaves headers out;
+  `--dry-run` shows the plan;
+  `--list-base-module-names` prints the base module names;
+  `--gen-binding-spec-dir` keeps the per-module binding specifications. See
+  [issue #742][is-742] and [PR #2255][pr-2255].
+
 ### Minor changes
 
 ### Bug fixes
 
+* A prescriptive binding specification that omits a C type can now be used
+  when generating several modules. The binding specification generated for
+  each module records the omission, and a module that used two of them as
+  external binding specifications failed with a conflict. An external binding
+  specification that only omits a type no longer conflicts with another, and
+  one that binds the type takes precedence over it.
+
+[is-742]: https://github.com/well-typed/hs-bindgen/issues/742
+[pr-2255]: https://github.com/well-typed/hs-bindgen/pull/2255
 
 ## 1.0.0.0 -- 2026-10-08
 

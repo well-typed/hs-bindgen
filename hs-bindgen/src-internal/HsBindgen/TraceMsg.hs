@@ -14,6 +14,7 @@ module HsBindgen.TraceMsg (
   , ImmediateFillUnnamedIdsMsg (..)
   , ImmediateParseMsg(..)
   , DelayedParseMsg(..)
+  , LibraryModeMsg(..)
   , UnsupportedFloatType(..)
   , ResolveBindingSpecsMsg(..)
   , ResolveHeaderMsg(..)
@@ -40,6 +41,7 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecsMs
 import HsBindgen.Frontend.Pass.Select.IsPass (SelectMsg (..))
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.LibraryMode.Msg (LibraryModeMsg (..))
 import HsBindgen.Resolve (ResolveHeaderMsg (..))
 import HsBindgen.Util.Tracer
 
@@ -56,6 +58,7 @@ import HsBindgen.Util.Tracer
 data TraceMsg =
     TraceBoot          BootMsg
   | TraceFrontend      FrontendMsg
+  | TraceLibraryMode   LibraryModeMsg
   | TraceResolveHeader ResolveHeaderMsg
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)

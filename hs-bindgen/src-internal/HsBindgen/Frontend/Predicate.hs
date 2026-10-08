@@ -10,6 +10,7 @@ module HsBindgen.Frontend.Predicate (
   , SelectionPredicate (..)
   , Regex -- opaque
   , matchTest
+  , quoteRegex
     -- * Execution (internal API)
   , IsMainHeader
   , mkIsMainHeader
@@ -21,6 +22,7 @@ module HsBindgen.Frontend.Predicate (
 import Data.Function
 import Data.List qualified as List
 import Data.Set qualified as Set
+import Data.Text qualified as Text
 import System.FilePath qualified as FilePath
 import Text.Regex.PCRE qualified as PCRE
 import Text.Regex.PCRE.Text ()
@@ -54,7 +56,7 @@ data Boolean a =
 
     -- | Concrete predicates
   | BIf a
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Generic, Foldable)
 
 instance Default a => Default (Boolean a) where
   def = BIf def
@@ -268,3 +270,39 @@ instance IsString Regex where
 
 matchTest :: Regex -> Text -> Bool
 matchTest regex = PCRE.matchTest regex.compiled
+
+-- | A regular expression that matches the given string and nothing else
+--
+-- Library mode knows the path of a header and has to select the declarations
+-- of exactly that header. Header predicates take a regular expression, and a
+-- path cannot be used as one: in @lib\/a.h@ the dot matches any character,
+-- so the expression also matches @lib\/axh@, and @c++\/a.h@ is not a valid
+-- expression at all.
+--
+-- PCRE can be told to take text as it stands: everything between @\\Q@ and
+-- @\\E@ matches itself.
+--
+-- > lib/a.h    becomes    \Qlib/a.h\E
+-- > c++/a.h    becomes    \Qc++/a.h\E
+--
+-- The one thing that cannot stand between them is @\\E@, because that ends
+-- the quote. A path can contain it. On Windows directories are separated by
+-- backslashes, so every directory whose name starts with @E@ gives one, as in
+-- @C:\\Eric\\a.h@. For such a string the quote is ended before the @\\E@, the
+-- backslash and the @E@ are matched as two ordinary characters, and a new
+-- quote is started after them:
+--
+-- > C:\Eric\a.h    becomes    \QC:\E  \\E  \Qric\a.h\E
+-- >                           matches:
+-- >                           C:      \E   ric\a.h
+--
+-- (The spaces only separate the three parts.)
+--
+-- The result has no anchors. Put @^@ and @$@ around it to match a whole
+-- string, or @^@ in front to match a prefix.
+quoteRegex :: String -> String
+quoteRegex s = concat [
+      "\\Q"
+    , Text.unpack $ Text.replace "\\E" "\\E\\\\E\\Q" (Text.pack s)
+    , "\\E"
+    ]

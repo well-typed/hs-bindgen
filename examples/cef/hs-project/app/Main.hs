@@ -6,7 +6,7 @@ import Foreign.C.String (newCString)
 import Foreign.Marshal.Alloc (alloca, allocaBytes)
 import Foreign.Marshal.Array (withArray0)
 import Foreign.Marshal.Utils (fillBytes)
-import Foreign.Ptr (Ptr, nullPtr)
+import Foreign.Ptr (Ptr, castPtr, nullPtr)
 import Foreign.Storable (peek, poke, sizeOf)
 import System.Environment (getArgs, getProgName)
 import System.Exit (ExitCode (..), exitSuccess, exitWith)
@@ -14,11 +14,12 @@ import System.Exit (ExitCode (..), exitSuccess, exitWith)
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 import HsBindgen.Runtime.Support.FunPtr qualified as FunPtr
 
-import CEF.ApiHash.Safe (cef_api_hash, cef_api_version)
-import CEF.App (C_Cef_settings_t, Cef_main_args_t (..))
-import CEF.App.Safe (cef_execute_process, cef_initialize, cef_shutdown)
-import CEF.CommandLine (Cef_command_line_t (..))
-import CEF.CommandLine.Safe (cef_command_line_create)
+import CEF.Cef_api_hash.Safe (cef_api_hash, cef_api_version)
+import CEF.Cef_app_capi (C_Cef_settings_t, Cef_main_args_t (..))
+import CEF.Cef_app_capi.Safe (cef_execute_process, cef_initialize, cef_shutdown)
+import CEF.Cef_command_line_capi (C_Cef_command_line_t (..),
+                                  Cef_command_line_t (..))
+import CEF.Cef_command_line_capi.Safe (cef_command_line_create)
 
 -- | Initialize CEF in headless mode, create a command line object, and exercise
 -- its vtable methods. This validates that the generated bindings work
@@ -79,17 +80,22 @@ main = do
                             cmdLine <- cef_command_line_create
                             assertNonNull "cef_command_line_create" cmdLine
 
-                            -- Peek the struct to access the vtable
+                            -- Peek the struct to access the vtable. Other
+                            -- headers use struct _cef_command_line_t too, so
+                            -- the typedef is a newtype around the struct, and
+                            -- the vtable methods take the struct pointer.
                             obj <- peek cmdLine
+                            let vtable = obj.unwrap
+                                self   = castPtr cmdLine :: Ptr C_Cef_command_line_t
 
                             -- Call is_valid via vtable function pointer dispatch
-                            let isValid = FunPtr.fromFunPtr obj.is_valid
-                            valid <- isValid cmdLine
+                            let isValid = FunPtr.fromFunPtr vtable.is_valid
+                            valid <- isValid self
                             putStrLn $ "  is_valid: " ++ show valid
 
                             -- Call has_switches via vtable dispatch
-                            let hasSwitches = FunPtr.fromFunPtr obj.has_switches
-                            switches <- hasSwitches cmdLine
+                            let hasSwitches = FunPtr.fromFunPtr vtable.has_switches
+                            switches <- hasSwitches self
                             putStrLn $ "  has_switches (empty): " ++ show switches
 
                             putStrLn "All CEF binding calls succeeded."

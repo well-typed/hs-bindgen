@@ -145,6 +145,475 @@ Run `hs-bindgen-cli --help` for details.
 - 3: Invocation of `libclang` has failed
 - 4: An `hs-bindgen`-specific error has happened
 
+## Library mode
+[t:library-mode]: #library-mode
+
+When `--library DIR` is passed, `preprocess` switches to library mode. It
+first runs the frontend over the root header(s), to learn which declarations
+get bindings and which of them use which, and assigns each library header its
+own Haskell module (headers whose declarations use each other share one, see
+[processing order][t:processing-order]). It then runs the binding generator
+once per module, after the modules it uses. Each of these steps is a complete
+run that parses the root header(s) again, so a run takes longer the more
+modules there are. Each step receives the binding specifications from all
+previous steps as external binding specifications, so cross-module type
+references resolve correctly.
+
+This automates the multi-module workflow described in the [binding
+specifications][manual:binding-specifications-multi] section.
+
+### Basic usage
+
+```
+hs-bindgen-cli preprocess \
+    -I /usr/include \
+    --library /usr/include/rpm \
+    --hs-output-dir gen \
+    --create-output-dirs \
+    --overwrite-files \
+    --module RPM \
+    rpm/rpmlib.h
+```
+
+This command:
+
+1. Parses `rpm/rpmlib.h` (resolved via `-I /usr/include`) with every header
+   it includes, directly or through other headers, and runs the frontend over
+   them with program slicing, selecting the declarations of every header under
+   `--library`.
+2. Keeps the headers under `--library /usr/include/rpm` in which something is
+   generated. `rpmlib.h` does not include every header in that directory, and
+   the ones it does not reach get no module (see [module-generation
+   scope][t:library-scope]).
+3. Orders those headers so that each comes after the headers whose
+   declarations it uses. Headers whose declarations use each other form one
+   group; most groups hold a single header.
+4. For each group, derives a Haskell module name, constructs a selection
+   predicate targeting the group's declarations, enables program slicing, and
+   runs the binding generator.
+5. Chains binding specifications: each step receives the binding specifications
+   from all previous steps as external binding specifications, so cross-module
+   type references resolve.
+6. Prints one line saying what it generated:
+   `Generated 10 modules from 13 headers (1 declaration loop) in gen`.
+
+A step that fails stops the run with a non-zero exit code, and the modules
+written before it stay in place. The other flags in this section only make
+sense with `--library`: passing one without it is a usage error (exit code 2).
+
+### Module-generation scope
+[t:library-scope]: #module-generation-scope
+
+`--library DIR` defines which headers get their own Haskell module. A header
+in the include graph gets a module if and only if its normalised path falls
+under a library directory and something in it is generated. An umbrella header
+that only includes other headers, with or without an include guard, gets no
+module, and neither does a header whose declarations all fail to parse or are
+bound by an external binding specification. `DIR` has to be an existing
+directory; anything else is a usage error (exit code 2).
+
+Library mode does not scan `DIR`. The include graph holds the headers named on
+the command line and the headers they include, directly or through other
+headers. A header in `DIR` that none of them includes gets no module, and
+nothing reports it: `--dry-run` only lists the headers that do get one. To
+cover more of the library, name more headers:
+
+```
+hs-bindgen-cli preprocess \
+    --library /usr/include/rpm \
+    ... \
+    rpm/rpmlib.h rpm/rpmlog.h rpm/rpmurl.h
+```
+
+This generates 12 modules where `rpm/rpmlib.h` alone gives 10. All the headers
+are parsed together, as if one header included them in that order.
+A header named on the command line is treated like any other: when it is not
+under a library directory it gets no module, and its declarations are only
+generated where a library declaration needs them.
+
+`--except-library PCRE` leaves out headers whose normalised path matches the
+pattern, even when they are under a library directory. Types from such
+headers remain available to other modules through program slicing and binding
+spec chaining: each is generated in the first module that needs it.
+
+The pattern is matched against the absolute path, and it matches when any part
+of the path does. A bare word such as `'internal'` leaves out
+`rpm/internal.h`, but also every header of a library that was unpacked below
+`/home/me/internal-tools/`, and then the run generates nothing. Say where in
+the path the match has to be:
+
+```
+hs-bindgen-cli preprocess \
+    --library /usr/include/rpm \
+    --except-library '/internal\.h$' \
+    --except-library '/rpm/private/' \
+    ...
+```
+
+The first pattern leaves out `internal.h` in any directory, the second every
+header below a directory `rpm/private`.
+
+Note: `-I` is the clang search path only; it tells clang where to find headers
+during parsing and has no effect on which headers get modules.
+
+### Selection predicates in library mode
+[t:library-mode-predicates]: #selection-predicates-in-library-mode
+
+`--library` and `--except-library` control which *headers* get modules.
+Declaration predicates (`--select-by-decl-name`,
+`--select-except-by-decl-name`, `--select-except-deprecated`) control which
+*declarations* get bindings within each generated module. Without a positive
+predicate, every declaration in a module's headers is selected, rather than
+only the main headers as in single-header mode. A declaration the predicate
+leaves out is still generated when a selected declaration needs it, by program
+slicing, in the first module with a declaration that needs it; later modules
+import it from there. If its own header has nothing else, the plan lists a
+module for that header that is not written, and the summary line still counts
+it.
+
+Header predicates (`--select-from-main-headers`,
+`--select-from-main-header-dirs`, `--select-from-all-headers`,
+`--select-by-header-path` and `--select-except-by-header-path`) cannot be used
+with `--library`, and passing
+one is a usage error (exit code 2). Each module already selects the
+declarations of its own headers, so a header predicate could only leave modules
+from the plan empty. Use `--except-library` to leave a header out.
+
+### Module naming
+[t:module-naming]: #module-naming
+
+The module name of a header follows its path below the `--library` directory
+(both are normalised first, so symlinks and `..` segments are resolved):
+
+1. Take the path relative to the library directory, without the file
+   extension: `rpm/rpmio.h` gives `rpm/rpmio`.
+2. Split it at the directories: `rpm` and `rpmio`.
+3. Turn each part into a module name component: `Rpm` and `Rpmio`.
+4. Join the components with dots, after the base module name:
+   `RPM.Rpm.Rpmio`.
+
+| `--library` | Header path | Module name |
+|---|---|---|
+| `/usr/include/rpm` | `/usr/include/rpm/rpmlib.h` | `RPM.Rpmlib` |
+| `/usr/include/rpm` | `/usr/include/rpm/rpmio.h` | `RPM.Rpmio` |
+| `/usr/include` | `/usr/include/rpm/rpmio.h` | `RPM.Rpm.Rpmio` |
+
+`--library` can be given several times. When a header is under more than one
+of the directories, its name follows the path below the shortest of them,
+whatever the order of the flags: with both `--library /usr/include` and
+`--library /usr/include/rpm`, `rpmio.h` is `RPM.Rpm.Rpmio`.
+
+Step 3 uses the rules that turn C names into Haskell type names, since a
+module name component has to follow the same rules as a type name. A name that
+those rules allow only gets its first letter uppercased. For the others:
+
+- a character that is not a letter, a digit, an underscore or a single quote
+  becomes an underscore;
+- a name that does not start with a letter gets a `C` in front, and its first
+  letter is uppercased.
+
+| Directory or file name | Component |
+|---|---|
+| `rpmio` | `Rpmio` |
+| `glib-object` | `Glib_object` |
+| `foo.bar` (from `foo.bar.h`) | `Foo_bar` |
+| `3d` | `C3D` |
+
+Some headers have to share a module (see [processing
+order][t:processing-order]). Such a module is named after its outermost
+header: the one that includes, directly or through other headers, the most of
+the other headers in the module, which is usually the header a C program
+includes to use them. If several headers include equally many, the first by
+path wins. In RPM, `argv.h`, `rpmtag.h`, `rpmtd.h` and `rpmtypes.h`
+share `RPM.Rpmtd`, because `rpmtd.h` includes the other three. `--dry-run`
+shows which module each header ends up in.
+
+### Processing order
+[t:processing-order]: #processing-order
+
+Contrary to what one might expect, the right order in which to process the
+headers is not the topological order of the include graph. Library mode
+follows the declaration usage graph instead, lifted to headers: a header comes
+after every header whose declarations its own declarations use, directly or
+through declarations in other headers. This ensures that:
+
+* a type lands in the module of the header that defines it, even when another
+  header declares it forward and uses it first;
+* when a module is generated, every library type it uses already has a binding
+  specification from an earlier module, so program slicing does not pull the
+  types of another library header into it;
+* a planned module has something to hold, so `--dry-run` and
+  `--list-base-module-names` show the modules a real run writes;
+* headers share a module only when they need each other: each has a
+  declaration that uses a declaration of the other, directly or through other
+  headers. The plan and the summary call such a group a declaration loop.
+
+The plan is made from the declarations that get bindings, and these points
+hold for what it knows. [Limits of the plan][t:plan-limits] lists the cases in
+which a step generates something the plan did not expect.
+
+Take a header that declares a struct forward and uses it, and a header that
+includes it and defines the struct:
+
+```c
+// a.h
+struct S;
+void f(struct S *s);
+
+// b.h
+#include "a.h"
+struct S { int x; };
+```
+
+Processing in include order puts `a.h` first, because `b.h` includes it. The
+step for `a.h` selects `f`, program slicing pulls in `struct S`, and so `S`
+ends up in `Lib.A`. The step for `b.h` then finds `S` already generated and
+writes nothing, although the plan listed `Lib.B`. In declaration order `f`
+uses `S`, so `b.h` comes first: `S` lands in `Lib.B`, and the bindings for `f`
+import it from there.
+
+A typedef for a struct that another header defines is a forward declaration
+too:
+
+```c
+// types.h
+typedef struct foo foo;
+typedef int status;
+
+// foo.h
+#include "types.h"
+struct foo { status last; };
+```
+
+`hs-bindgen` generates a single Haskell type for the struct and its typedef,
+and library mode puts it where the struct is defined: `Foo` lands in
+`Lib.Foo`, after `Lib.Types`, whose step leaves the typedef alone. A typedef
+for a struct from a header that gets no module is different, because no later
+step would generate the struct. There the type lands in the module of the
+header with the typedef.
+
+The declaration order also decides how library mode deals with cycles, of
+which there are two kinds. Headers that include each other do not need to
+share a module:
+
+```c
+// a.h
+#pragma once
+#include "b.h"
+typedef int a_t;
+
+// b.h
+#pragma once
+#include "a.h"
+typedef int b_t;
+```
+
+No include order puts each of these headers after the other, so a plan based on
+the include graph has to generate one module for both. Their declarations do
+not use each other, so library mode generates `Lib.A` and `Lib.B`.
+
+Declarations can also use each other across headers whose includes form no
+cycle at all. This is a reduced form of RPM's `rpmtypes.h` and `rpmtd.h`:
+
+```c
+// types.h
+typedef unsigned int tag_t;
+typedef struct td_s *td;
+
+// td.h
+#include "types.h"
+struct td_s { tag_t tag; void *data; };
+```
+
+The include graph puts `types.h` first, and its step pulls `struct td_s` into
+`Lib.Types` because `td` points to it. Yet no order of the two headers is
+right: `td` needs `struct td_s` from `td.h`, which needs `tag_t` from
+`types.h`, so one module per header would mean two modules that import each
+other. Library mode generates both headers into a single module, `Lib.Td`,
+named as described under [module naming][t:module-naming].
+
+Two headers also share a module when no declaration is on a loop, as long as
+each header needs the other:
+
+```c
+// window.h
+struct widget;
+struct window { int width; int height; };
+void window_add(struct window *w, struct widget *child);
+
+// widget.h
+struct window;
+struct widget { int id; };
+struct window *widget_parent(struct widget *w);
+```
+
+Neither struct uses the other, but `window_add` needs `struct widget` and
+`widget_parent` needs `struct window`. A step generates the types and the
+functions of a header together, and it needs the binding specifications of
+every header it uses, so neither header can come first. Both go into
+`Lib.Widget`, and the plan reports them as a declaration loop.
+
+A loop that passes through declarations in a header outside the `--library`
+directories, or in one left out by `--except-library`, still puts the library
+headers on it into one module. The other header gets no module.
+
+Binding specifications you pass take part in this. A type bound by an external
+binding specification is not generated, so using it does not count, and
+neither do the fields of a struct that a prescriptive binding specification
+makes `emptydata`. Either can break a loop: binding `tag_t` externally, or
+making `struct td_s` opaque, gives `types.h` and `td.h` a module each again.
+
+### Limits of the plan
+[t:plan-limits]: #limits-of-the-plan
+
+Binding specifications describe types only, and the plan only knows the
+declarations that get bindings. Three things follow.
+
+Values are generated wherever they are needed. A macro that uses a macro from
+another header brings a copy of it along:
+
+```c
+// limits.h
+#define LIM_MAX 64
+
+// buf.h
+#include "limits.h"
+#define BUF_SIZE (LIM_MAX * 2)
+```
+
+`lIM_MAX` is generated in `Lib.Limits` and again in `Lib.Buf`, next to
+`bUF_SIZE`. Constants of an anonymous `enum` are copied in the same way. Code
+that imports both modules has to qualify such a name, or hide one of the two.
+
+A declaration that gets no bindings still pulls in what it uses:
+
+```c
+// api.h
+struct session;
+typedef int api_status;
+struct api_scale { long double factor; };
+api_status api_apply(struct session *s, struct api_scale *by);
+
+// session.h
+#include "api.h"
+struct session { int id; api_status last; };
+```
+
+`long double` is not supported, so neither `struct api_scale` nor `api_apply`
+gets bindings, and the plan sees nothing in `api.h` that uses `session.h`. It
+puts `api.h` first. The step for `api.h` still follows `api_apply` to `struct
+session` and generates it in `Lib.Api`. The step for `session.h` then has
+nothing left: it warns that no declarations matched the selection predicate,
+`Lib.Session` is not written, and the summary line still counts it.
+
+A selection predicate that leaves declarations out moves types in the same
+way, see [selection predicates in library mode][t:library-mode-predicates].
+
+### Dry run and module listing
+
+`--dry-run` prints the processing plan (which headers produce which modules)
+and exits without generating any files. Useful for verifying the `--library`
+and `--except-library` filters before running the full generation. Headers
+whose declarations use each other are listed with the same module name, and
+the first line counts the declaration loops and the headers in which nothing
+is generated.
+
+`--list-base-module-names` prints the base module names one per line and exits.
+Each module is listed once, including those shared by a declaration loop. A base
+module whose headers declare no types is not written itself, only those of its
+`Safe`, `Unsafe`, `FunPtr` and `Global` submodules that it has something for,
+so the list is not a complete `exposed-modules` list.
+
+Both flags run the checks of a real run before they print anything. A module
+name collision, a prescriptive binding specification for a module that is not
+generated, or a `--gen-binding-spec-dir` directory that does not exist stops
+them with the same error and exit code.
+
+### Binding specifications
+
+Library mode writes one binding specification per module and passes each to
+the later steps as an external binding specification. By default these files
+live in a temporary directory that is removed when the run ends. To keep them,
+pass `--gen-binding-spec-dir DIR`:
+
+```
+hs-bindgen-cli preprocess \
+    --library /usr/include/rpm \
+    --gen-binding-spec-dir binding-specs \
+    ...
+```
+
+Each specification goes to a path derived from its module name, so
+`RPM.Rpmio` ends up in `binding-specs/RPM/Rpmio.yaml`. Pass these files
+to later `hs-bindgen` runs with `--external-binding-spec` so they reuse the
+generated types instead of generating their own.
+
+An entry in these files does not name the header that declares its type. It
+names the headers given on the command line that reach it, which is
+`rpm/rpmlib.h` for every entry of the run above. A later run finds the entry
+only when its own header includes one of them. A run on a header that
+includes `rpm/rpmio.h` and not `rpm/rpmlib.h` finds none: it drops the
+declarations that use the type or, with program slicing, generates the type a
+second time, and says nothing about the specification. If later runs are to
+include any header of the library, name every library header on the command
+line of the library run.
+
+As with `--hs-output-dir`, `DIR` must exist unless `--create-output-dirs` is
+given, and existing files are only replaced with `--overwrite-files`.
+
+`--gen-binding-spec` names a single file, which cannot hold one specification
+per module, so passing it together with `--library` is a usage error (exit
+code 2).
+
+External binding specifications passed with `--external-binding-spec` apply
+to every step. So does a prescriptive binding specification passed with
+`--prescriptive-binding-spec`, as long as it leaves out `hsmodule`: each entry
+then takes effect in whichever module its type ends up in, which also makes it
+the way to rename one of two types whose Haskell names would collide. An entry
+that matches no declaration in the library is reported once, before any module
+is generated. With an `hsmodule`, the specification only applies to the module
+of that name, so it plays no part in the [processing
+order][t:processing-order]: that module's step reports the entries that match
+nothing, and every other step warns that the specification cannot be used.
+An `omit` entry in such a file keeps the type out of that module only, so a
+later module that uses the type generates it. To omit a type from the whole
+library, leave `hsmodule` out.
+The name has to be that of a module library mode generates. A header that
+shares a module with others has no module of its own, so a specification
+naming it would never apply: the run stops with an error before generating
+anything. `--dry-run` without the specification shows the module of each
+header.
+
+### Module name collisions
+
+The naming scheme can produce collisions. Library mode detects them before
+generating any files and exits with an error. Known cases:
+
+- Two headers that differ only in the capitalisation of the first character
+  collide: `foo.h` and `Foo.h` both produce component `Foo`.
+
+- Characters that a module name cannot contain all become underscores, so
+  `foo-bar.h`, `foo.bar.h` and `foo_bar.h` all produce component `Foo_bar`.
+  Likewise, a name that does not start with a letter gets a `C` in front, so
+  `3d.h` and `C3D.h` both produce component `C3D`.
+
+- Each base module `M` can expand to category submodules `M.Safe`, `M.Unsafe`,
+  `M.FunPtr`, and `M.Global`. So, for example, `foo.h` (module `M.Foo`) and
+  `foo/safe.h` (module `M.Foo.Safe`) can collide at `M/Foo/Safe.hs`. A module
+  only writes the files it has something for: types go to the base module, a
+  function to `Safe`, `Unsafe` and `FunPtr`, a global variable to `Global`.
+  The two headers collide when `foo.h` has a function and `foo/safe.h` has a
+  type, its own or one it generates for a header without a module. A `foo.h`
+  with only types collides with nothing, and neither does a `foo/safe.h` with
+  only functions, which writes `M/Foo/Safe/Safe.hs` and its siblings. With
+  `--single-file` every module is one file, and this case does not arise.
+
+To resolve a collision, use `--except-library` to leave out one side, or
+adjust the `--library` directories to change the derived relative paths.
+
+For now, library mode has no option to override the module name of an
+individual header.
+
 ## Cabal preprocessor integration
 
 `hs-bindgen` can integrate with Cabal's build system using the literate
@@ -218,7 +687,7 @@ arguments:
 This list contains the same arguments you would pass to `hs-bindgen-cli
 preprocess`, in standard Haskell list syntax.
 
-The `.lhs` file can contain arbitrary content—it is simply passed to the
+The `.lhs` file can contain arbitrary content; it is simply passed to the
 preprocessor.  The preprocessor is responsible for parsing the file and
 generating Haskell code.
 
@@ -522,6 +991,7 @@ In file included from /tmp/ghc2319546_0/ghc_1.c:1:0: error:
 
 [example:bundled-c]: ../../../examples/bundled-c
 [example:literate-example]: ../../../examples/literate-example
+[manual:binding-specifications-multi]: binding-specifications.md#generating-multiple-modules
 [manual:c-stages]: c-stages.md
 [manual:clang-options]: clang-options.md
 [manual:installation]: ../../installation.md

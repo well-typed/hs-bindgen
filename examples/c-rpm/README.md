@@ -74,10 +74,10 @@ multiple libraries, and both are needed for the bindings to work correctly.
 
 ### Generating the Include Graph
 
-This script will already generate the bindings by their right order, i.e. the
-header include dependency order. If for any reason the `rpm` library updated,
-then it might be necessary to change the `generate-and-run` script so that it
-follows the right order.
+The script generates the bindings in library mode, which orders the headers by
+how their declarations use each other, so the order needs no maintenance when
+the `rpm` library changes. The module list in `hs-project/c-rpm.cabal` still
+has to follow the generated modules.
 
 
 To visualize the header dependencies, you can generate an include graph using
