@@ -157,7 +157,7 @@ following content.
 
 ```yaml
 version:
-  hs_bindgen: 0.1.0
+  hs_bindgen: 1.0.0.0
   binding_specification: '1.0'
 
 hsmodule: Vector
@@ -259,7 +259,7 @@ needed because no defaults need to be changed.
 
 ```yaml
 version:
-  hs_bindgen: 0.1.0
+  hs_bindgen: 1.0.0.0
   binding_specification: '1.0'
 
 ctypes:
@@ -323,7 +323,7 @@ The resulting binding specification is as follows.
 
 ```yaml
 version:
-  hs_bindgen: 0.1.0
+  hs_bindgen: 1.0.0.0
   binding_specification: '1.0'
 
 hsmodule: Vector
@@ -413,7 +413,7 @@ specification.
 
 ```yaml
 version:
-  hs_bindgen: 0.1.0
+  hs_bindgen: 1.0.0.0
   binding_specification: '1.0'
 
 hsmodule: Vector.Types

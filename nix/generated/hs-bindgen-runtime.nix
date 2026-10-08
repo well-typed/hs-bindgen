@@ -5,7 +5,7 @@
 }:
 mkDerivation {
   pname = "hs-bindgen-runtime";
-  version = "0.1.0";
+  version = "1.0.0.0";
   src = ../../hs-bindgen-runtime;
   libraryHaskellDepends = [
     base bytestring containers primitive record-hasfield

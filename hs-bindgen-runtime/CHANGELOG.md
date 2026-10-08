@@ -1,6 +1,6 @@
 # Revision history for hs-bindgen-runtime
 
-## ?.?.? -- YYYY-mm-dd
+## 1.0.0.0 -- 2026-10-08
 
 ### Breaking changes
 

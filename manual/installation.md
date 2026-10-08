@@ -303,7 +303,7 @@ inconsistencies on the command line.  Example:
 
 ```bash
 $ hs-bindgen-cli --version
-hs-bindgen 0.1.0
+hs-bindgen 1.0.0.0
 binding specification 1.0
 clang compile time version: clang version 21.1.8
 clang runtime version:      clang version 21.1.8

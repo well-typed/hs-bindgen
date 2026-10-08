@@ -1,6 +1,6 @@
 cabal-version:      3.0
 name:               hs-bindgen
-version:            0.1.0
+version:            1.0.0.0
 license:            BSD-3-Clause
 license-file:       LICENSE
 author:             Well-Typed LLP
@@ -32,6 +32,17 @@ extra-doc-files:
   CHANGELOG.md
   known-issues.md
   README.md
+
+source-repository head
+  type:     git
+  location: https://github.com/well-typed/hs-bindgen
+  subdir:   hs-bindgen
+
+source-repository this
+  type:     git
+  location: https://github.com/well-typed/hs-bindgen
+  subdir:   hs-bindgen
+  tag:      release-1.0.0.0
 
 flag dev
   description: Build debugging utilities for developing hs-bindgen itself
@@ -312,7 +323,7 @@ library internal
   other-extensions: TemplateHaskellQuotes
 
   -- Internal dependencies
-  build-depends:    hs-bindgen-runtime >=0.1.0 && <0.2
+  build-depends:    hs-bindgen-runtime >=1.0.0.0 && <1.1
 
   -- External dependencies
   build-depends:
