@@ -5,7 +5,7 @@ import Control.Monad (forM_)
 import Data.List (isInfixOf)
 import System.Directory (createDirectoryIfMissing, doesFileExist)
 import System.Exit (ExitCode (..))
-import System.FilePath ((</>))
+import System.FilePath (pathSeparator, (<.>), (</>))
 import System.IO.Temp (withSystemTempDirectory)
 import System.Process (readProcessWithExitCode)
 import Test.Tasty
@@ -21,6 +21,7 @@ tests :: IO TestResources -> TestTree
 tests getTestResources = testGroup "Integration.LibraryMode" [
       testRun getTestResources
     , testCrossModuleReference getTestResources
+    , testForwardTypedef getTestResources
     , testPlan getTestResources
     , testPlanGrouping getTestResources
     , testUsageErrors getTestResources
@@ -96,6 +97,19 @@ assertFilesAbsent label paths =
       exists <- doesFileExist f
       assertBool (label ++ ": unexpected " ++ f) (not exists)) paths
 
+-- | Is the base module written or, for a module without types, one of its
+-- category submodules?
+moduleWritten :: FilePath -> String -> IO Bool
+moduleWritten outDir name =
+    or <$> mapM doesFileExist [
+        base <.> "hs"
+      , base </> "Safe.hs"
+      , base </> "Global.hs"
+      ]
+  where
+    base :: FilePath
+    base = outDir </> map (\c -> if c == '.' then pathSeparator else c) name
+
 {-------------------------------------------------------------------------------
   Generating
 -------------------------------------------------------------------------------}
@@ -138,6 +152,48 @@ testCrossModuleReference getTestResources =
         contents <- readFileStrict safeModule
         assertBool "expected shape_draw to use the struct from M.B" $
           "M.B.Shape" `isInfixOf` contents
+
+-- | types.h declares the structs of foo.h and bar.h forward, through
+-- typedefs, and alias.h has a typedef for a struct from outside the library
+testForwardTypedef :: IO TestResources -> TestTree
+testForwardTypedef getTestResources =
+    testCase "a forward typedef leaves the struct in the module of its header" $
+      withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
+        root <- getTestResources
+        let dir = headerDir root </> "forward_typedef"
+
+            run :: [String] -> IO (ExitCode, String, String)
+            run extraArgs = readProcessWithExitCode "hs-bindgen-cli"
+              ([ "preprocess"
+               , "-I", dir
+               , "--library", dir </> "lib"
+               , "--module", "M"
+               , "--hs-output-dir", tmpDir
+               , "--unique-id", "test-pl"
+               , "--create-output-dirs"
+               , "--overwrite-files"
+               , dir </> "root.h"
+               ] ++ extraArgs)
+              ""
+        (listed, names, _stderr) <- run ["--list-base-module-names"]
+        listed @?= ExitSuccess
+        (exitCode, _stdout, stderr) <- run []
+        assertEqual stderr ExitSuccess exitCode
+        forM_ (lines names) $ \name -> do
+          written <- moduleWritten tmpDir name
+          assertBool ("the plan lists " ++ name ++ ", which is not written") written
+        forM_ definitions $ \(hsModule, definition) -> do
+          contents <- readFileStrict (tmpDir </> "M" </> hsModule <.> "hs")
+          assertBool ("expected " ++ definition ++ "in M." ++ hsModule) $
+            definition `isInfixOf` contents
+  where
+    definitions :: [(String, String)]
+    definitions = [
+        ("Foo"  , "data Foo ")
+      , ("Bar"  , "data Bar ")
+      , ("Types", "newtype Lib_status ")
+      , ("Alias", "data Window_t ")
+      ]
 
 {-------------------------------------------------------------------------------
   The plan

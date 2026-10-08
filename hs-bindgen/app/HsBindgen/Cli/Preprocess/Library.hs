@@ -23,6 +23,8 @@ module HsBindgen.Cli.Preprocess.Library (
 
 import Control.Monad (foldM_)
 import Data.List qualified as List
+import Data.Set qualified as Set
+import Data.Text qualified as Text
 import Options.Applicative
 import System.Directory (canonicalizePath, createDirectoryIfMissing,
                          doesDirectoryExist)
@@ -182,13 +184,13 @@ exec global runOpts opts = do
           planModule
           (def :: ByCategory Choice)
 
-    (includeGraph, decls, useDeclGraph, pSpec) <- hsBindgen
+    (includeGraph, decls, useDeclGraph, declIndex, pSpec) <- hsBindgen
       (demoteToDebug isModuleMismatch global.unsafe)
       global.safe
       planConfig
       runOpts.inputs
-      ((,,,) <$> getIncludeGraph <*> getReifiedC <*> getUseDeclGraph
-             <*> getPrescriptiveBindingSpec)
+      ((,,,,) <$> getIncludeGraph <*> getReifiedC <*> getUseDeclGraph
+              <*> getDeclIndex <*> getPrescriptiveBindingSpec)
 
     -- A prescriptive binding specification without an @hsmodule@ takes on
     -- the module of each run, so the planning run applies it and reports its
@@ -199,7 +201,7 @@ exec global runOpts opts = do
     -- Plan: one unit per module, each after the units whose declarations it
     -- uses
     let plan = planLibrary roots opts.exceptPatterns runOpts.baseModuleName
-                 includeGraph useDeclGraph decls
+                 includeGraph useDeclGraph declIndex decls
 
     -- Checks
     --
@@ -444,11 +446,26 @@ executeStep global runOpts tracer specDir accSpecs unit = do
   Selection
 -------------------------------------------------------------------------------}
 
--- | The declarations of one unit's headers
+-- | The declarations of one unit's headers, without the typedefs whose type
+-- another unit generates (see 'forwardTypedefs')
 --
--- The paths are matched literally (see 'quoteRegex').
+-- The paths and the names are matched literally (see 'quoteRegex').
 unitSelection :: LibraryUnit -> Boolean SelectionPredicate
-unitSelection unit = foldr1 BOr (fmap selectionFor unit.headers)
+unitSelection unit =
+    case map (C.renderDeclName . (.name)) (Set.toList unit.forwardTypedefs) of
+      []    -> inHeaders
+      names -> BAnd (BNot (declNamedOneOf names)) inHeaders
+  where
+    inHeaders :: Boolean SelectionPredicate
+    inHeaders = foldr1 BOr (fmap selectionFor unit.headers)
+
+declNamedOneOf :: [Text] -> Boolean SelectionPredicate
+declNamedOneOf names =
+    BIf . SelectDecl . DeclNameMatches . fromString $ concat [
+        "^(?:"
+      , List.intercalate "|" (map (quoteRegex . Text.unpack) names)
+      , ")$"
+      ]
 
 selectionFor :: RealPath -> Boolean SelectionPredicate
 selectionFor path =

@@ -54,9 +54,10 @@ rp = RealPath . Text.pack . (absRoot </>)
 -- submodule
 single :: FilePath -> BaseModuleName -> LibraryUnit
 single hdr m = LibraryUnit {
-      headers    = rp hdr :| []
-    , moduleName = m
-    , categories = Set.fromList (toList allCategories)
+      headers         = rp hdr :| []
+    , moduleName      = m
+    , categories      = Set.fromList (toList allCategories)
+    , forwardTypedefs = Set.empty
     }
 
 -- | The same unit when its header has nothing but declarations of the given
