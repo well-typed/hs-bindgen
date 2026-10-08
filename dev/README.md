@@ -22,6 +22,8 @@ please refer to the [main documentation](../manual).
 - [Project-structure.md](project-structure.md): Overview of the project
   structure and codebase organization to help new developers understand
   the repository layout.
+- [Generated Code](generated-code.md): Rules the generated Haskell code
+  follows, such as which modules it imports and how.
 - [Tests](testing.md): Guide to running tests, test structure, and
   testing best practices for the project.
 - [Macros](macros.md): How macros are handled internally, such as finding the

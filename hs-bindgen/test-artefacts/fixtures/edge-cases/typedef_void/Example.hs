@@ -1,4 +1,5 @@
 {-# LANGUAGE EmptyDataDecls #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 module Example
     ( Example.Foo

@@ -1,3 +1,5 @@
+{-# LANGUAGE NoImplicitPrelude #-}
+
 module Example
     ( Example.oBJ
     , Example.oBJ_NO_PARENS
@@ -8,6 +10,7 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
+import Prelude (String)
 
 {-| __C declaration:__ @macro OBJ@
 

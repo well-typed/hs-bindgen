@@ -10,6 +10,7 @@ import Data.List qualified as List
 import Text.SimplePrettyPrint (CtxDoc, Pretty (..), ($$), (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
+import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.HsModule.Pretty.CAPI
 import HsBindgen.Backend.HsModule.Pretty.Comment ()
 import HsBindgen.Backend.HsModule.Pretty.Decl ()
@@ -34,8 +35,7 @@ instance Pretty HsModule where
 -- When the export list is empty, we render @module M where@ (no export list).
 -- When there are exports, we render them in the standard style with leading
 -- commas. Export items are qualified with the module name to avoid ambiguity
--- with names from the implicit Prelude (e.g. @Example.reverse@ instead of
--- @reverse@).
+-- with imported names.
 --
 prettyModuleHeader :: Hs.ModuleName -> [ExportEntry] -> CtxDoc
 prettyModuleHeader name [] =
@@ -114,6 +114,16 @@ instance Pretty GhcPragma where
   Import pretty-printing
 -------------------------------------------------------------------------------}
 
+-- | Pretty-print an item of an import list
+--
+-- Type operators need the @type@ keyword, e.g. @type (~)@.
+prettyImportItem :: ResolvedName -> CtxDoc
+prettyImportItem resolved
+  | resolved.typ == OperatorName && resolved.ns == Hs.NsTypeConstr
+  = "type" <+> pretty resolved
+  | otherwise
+  = pretty resolved
+
 -- | Pretty-print an import statement, respecting 'QualifiedStyle'
 prettyImport :: QualifiedStyle -> ImportListItem -> CtxDoc
 prettyImport qualStyle = \case
@@ -124,7 +134,7 @@ prettyImport qualStyle = \case
     UnqualifiedImportListItem name (Just ns) -> PP.hsep
       [ "import"
       , PP.string (Hs.moduleNameToString name)
-      , PP.parens . PP.hcat . List.intersperse ", " $ map pretty ns
+      , PP.parens . PP.hcat . List.intersperse ", " $ map prettyImportItem ns
       ]
     QualifiedImportListItem name alias -> case qualStyle of
       PreQualified ->

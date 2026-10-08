@@ -1,3 +1,5 @@
+{-# LANGUAGE NoImplicitPrelude #-}
+
 module Example
     ( Example.pTR_UNPARSABLE
     , Example.pTR_DOES_NOT_EXIST
@@ -6,6 +8,7 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
+import Prelude (String)
 
 {-| __C declaration:__ @macro PTR_UNPARSABLE@
 

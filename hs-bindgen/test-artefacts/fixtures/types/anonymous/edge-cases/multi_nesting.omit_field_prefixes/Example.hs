@@ -8,6 +8,7 @@
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoFieldSelectors #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -48,6 +49,7 @@ import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
 import qualified HsBindgen.Runtime.Union as Union
+import Prelude ((<*>), Eq, Int, Show, pure, type (~))
 
 {-| __C declaration:__ @struct \@SSS_anon\'anon\'x_anon\'x@
 

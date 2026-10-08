@@ -111,9 +111,9 @@ qualifiedImport rm = Hs.QualifiedImport (moduleName rm) (qualifier rm)
     -- The alias a qualified import of the runtime module uses (@Nothing@ =
     -- import qualified with no alias, i.e. use of the fully qualified name).
     --
-    -- Only meaningful for modules imported /qualified/ by generated code. 'LibC' is
-    -- imported unqualified (with an explicit import list) and does not go through
-    -- 'runtimeImport'; its qualifier is unused.
+    -- Generated code reaches 'LibC' only through the standard library binding
+    -- specification, like any external module, and not through
+    -- 'qualifiedImport'; its qualifier is unused.
     qualifier :: RuntimeModule -> Maybe String
     qualifier = \case
         ConstantArray   -> Just "CA"

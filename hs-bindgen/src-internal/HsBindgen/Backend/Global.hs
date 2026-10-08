@@ -7,15 +7,19 @@ module HsBindgen.Backend.Global (
     Global(..)
   , GlobalCat(..)
 
+  , globalCatNamespace
+
     -- ** Specific to @hs-bindgen@
   , BindgenGlobalType(..)
   , bindgenGlobalType
   , typeClassGlobal
   , BindgenGlobalTerm(..)
   , bindgenGlobalTerm
+  , preludeNames
   ) where
 
 import Data.ByteString qualified as BS
+import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Runtime.BitfieldPtr qualified as BitfieldPtr
@@ -56,6 +60,12 @@ deriving stock instance Eq   (GlobalCat lvl)
 deriving stock instance Ord  (GlobalCat lvl)
 deriving stock instance Show (GlobalCat lvl)
 
+globalCatNamespace :: GlobalCat lvl -> Hs.Namespace
+globalCatNamespace = \case
+    GVar -> Hs.NsVar
+    GCon -> Hs.NsConstr
+    GTyp -> Hs.NsTypeConstr
+
 -- | Global symbol
 --
 -- We use the 'Level' to distinguish between globals on the type and the term
@@ -79,7 +89,7 @@ data Global (lvl :: Level) = CustomGlobal {
 --
 -- Internal!
 data BindgenImport =
-    -- | Implicit import from "Prelude".
+    -- | Unqualified import from "Prelude"; see 'preludeNames'.
     IHaskellPrelude
     -- | Qualified import from a module in @hs-bindgen-runtime@; the module path
     --   and alias come from 'RN.RuntimeModule'.
@@ -88,7 +98,7 @@ data BindgenImport =
 
 bindgenToHsImport :: BindgenImport -> Hs.Import
 bindgenToHsImport = \case
-    IHaskellPrelude -> Hs.ImplicitPrelude
+    IHaskellPrelude -> Hs.UnqualifiedImport "Prelude"
     IRuntime rm     -> Runtime.qualifiedImport rm
 
 globalExpr :: (BindgenImport, GlobalCat LvlTerm, TH.Name) -> Global LvlTerm
@@ -102,6 +112,9 @@ data BindgenGlobalType =
     Foreign_Ptr_type
   | Foreign_FunPtr_type
   | IO_type
+
+    -- Type equality
+  | TypeEquality_type
 
       -- Arrays
   | ConstantArray_type
@@ -168,7 +181,7 @@ data BindgenGlobalType =
 
     -- Raw macros
   | Macro_Raw_type
-  deriving stock (Eq, Ord, Show)
+  deriving stock (Bounded, Enum, Eq, Ord, Show)
 
 data BindgenGlobalTerm =
     Applicative_pure
@@ -297,7 +310,7 @@ data BindgenGlobalTerm =
   | Macro_functionLike
   | Macro_variadicFunctionLike
   | Macro_namedVariadicFunctionLike
-  deriving stock (Eq, Ord, Show)
+  deriving stock (Bounded, Enum, Eq, Ord, Show)
 
 bindgenGlobalType :: BindgenGlobalType -> Global LvlType
 bindgenGlobalType = globalType . \case
@@ -305,6 +318,9 @@ bindgenGlobalType = globalType . \case
     Foreign_Ptr_type       -> (IRuntime Runtime.Support, ''BG.Ptr)
     Foreign_FunPtr_type    -> (IRuntime Runtime.Support, ''BG.FunPtr)
     IO_type                -> (IHaskellPrelude,          ''IO)
+
+    -- Type equality
+    TypeEquality_type -> (IHaskellPrelude, ''(~))
 
       -- Arrays
     ConstantArray_type     -> (IRuntime Runtime.ConstantArray,   ''CA.ConstantArray)
@@ -415,8 +431,6 @@ typeClassGlobal = globalType . \case
 
 bindgenGlobalTerm :: BindgenGlobalTerm -> Global LvlTerm
 bindgenGlobalTerm = globalExpr . \case
-    -- When adding a new global that resolves to a non-qualified identifier, be
-    -- sure to reserve the name in "HsBindgen.Backend.Hs.AST.Name".
     Applicative_pure    -> (IHaskellPrelude, GVar, 'pure)
     Applicative_seq     -> (IHaskellPrelude, GVar, '(<*>))
     Monad_return        -> (IHaskellPrelude, GVar, 'return)
@@ -500,11 +514,11 @@ bindgenGlobalTerm = globalExpr . \case
 
     -- Other type classes
     Read_readPrec            -> (IRuntime Runtime.Support, GVar, 'BG.readPrec)
-    Read_readList            -> (IHaskellPrelude,                 GVar, 'readList)
+    Read_readList            -> (IRuntime Runtime.Support, GVar, 'BG.readList)
     Read_readListPrec        -> (IRuntime Runtime.Support, GVar, 'BG.readListPrec)
     Read_readListDefault     -> (IRuntime Runtime.Support, GVar, 'BG.readListDefault)
     Read_readListPrecDefault -> (IRuntime Runtime.Support, GVar, 'BG.readListPrecDefault)
-    Show_showsPrec           -> (IHaskellPrelude,                 GVar, 'showsPrec)
+    Show_showsPrec           -> (IRuntime Runtime.Support, GVar, 'BG.showsPrec)
 
     -- Floating point numbers
     CFloat_constructor           -> (IRuntime Runtime.Support, GCon, ''BG.CFloat)
@@ -542,3 +556,28 @@ bindgenGlobalTerm = globalExpr . \case
     Macro_functionLike              -> (IRuntime Runtime.Macro, GVar, 'Runtime.Macro.functionLike)
     Macro_variadicFunctionLike      -> (IRuntime Runtime.Macro, GVar, 'Runtime.Macro.variadic)
     Macro_namedVariadicFunctionLike -> (IRuntime Runtime.Macro, GVar, 'Runtime.Macro.variadicNamed)
+
+{-------------------------------------------------------------------------------
+  Names imported from the "Prelude"
+-------------------------------------------------------------------------------}
+
+-- | Names of the globals imported unqualified from the "Prelude"
+--
+-- Generated modules import these names unqualified, so the name mangler must
+-- reserve them.
+preludeNames :: [Hs.SomeName]
+preludeNames = concat [
+      fromGlobals $ map bindgenGlobalType [minBound .. maxBound]
+    , fromGlobals $ map typeClassGlobal   [minBound .. maxBound]
+    , fromGlobals $ map bindgenGlobalTerm [minBound .. maxBound]
+    ]
+  where
+    fromGlobals :: [Global lvl] -> [Hs.SomeName]
+    fromGlobals globals = [
+        Hs.UnsafeSomeName {
+            ns   = globalCatNamespace g.cat
+          , text = Text.pack $ TH.nameBase g.name
+          }
+      | g <- globals
+      , g.imprt == bindgenToHsImport IHaskellPrelude
+      ]

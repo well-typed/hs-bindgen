@@ -1,4 +1,5 @@
 {-# LANGUAGE EmptyDataDecls #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 module Example
     ( Example.Point2d
@@ -14,6 +15,7 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Marshal as Marshal
+import Prelude (Int)
 
 {-| __C declaration:__ @struct point2d@
 

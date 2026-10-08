@@ -30,6 +30,7 @@ testCases = [
     , defaultTest "edge-cases/flam"
     , defaultTest "edge-cases/mangle_fun_param_names"
     , defaultTest "edge-cases/names"
+    , defaultTest "edge-cases/prelude_names"
     , defaultTest "edge-cases/spec_examples"
     , defaultTest "edge-cases/typedef_bitfield"
     , defaultTest "edge-cases/typedef_void"

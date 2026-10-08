@@ -1,30 +1,19 @@
 {-# OPTIONS_HADDOCK hide #-}
 {-# LANGUAGE MagicHash #-}
 
--- | Definitions required by generated bindings.
+-- | Support prelude of generated bindings
 --
--- This module ensures compatibility across GHC versions and @base@ library
--- versions. It re-exports most Haskell definitions that are used by the
--- generated bindings. In particular, the order of exports matches the order of
--- constructors of 'HsBindgen.Backend.SHs.Global.BindgenGlobal'.
+-- Re-exports the definitions that generated code needs from modules meant for
+-- unqualified import, be they in @base@, in other libraries, or in
+-- @hs-bindgen-runtime@. Generated code imports modules meant for qualified
+-- import, such as "HsBindgen.Runtime.Marshal", directly instead, and imports a
+-- curated set of "Prelude" names unqualified; see @dev\/generated-code.md@.
 --
--- See https://github.com/well-typed/hs-bindgen/issues/1627.
+-- This module also bridges differences between GHC and @base@ versions.
 --
--- We maintain minimal lists of explicit imports and exports.
---
--- The "HsBindgen.Runtime.Support" module should only re-export definitions
--- intended for unqualified import defined in @hs-bindgen-runtime@ or from other
--- libraries such as @base@ or @containers@.
---
--- For definitions in @hs-bindgen-runtime@ which are intended for qualified
--- import, the generated code will directly import those modules in a qualified
--- way, as intended.
---
--- So far, we have not come across definitions intended for unqualified import
--- defined in other libraries.
---
--- For the full rule on what generated code may import, see the "Imports in
--- generated code" section of @dev\/code-structure.md@.
+-- We maintain minimal lists of explicit imports and exports. Exports are
+-- grouped like the constructors of @BindgenGlobalType@ and
+-- @BindgenGlobalTerm@ in @HsBindgen.Backend.Global@ (package @hs-bindgen@).
 --
 -- Intended for qualified import.
 --
@@ -78,9 +67,11 @@ module HsBindgen.Runtime.Support (
   , FiniteBits
   , Ix
   , readPrec
+  , readList
   , readListPrec
   , readListDefault
   , readListPrecDefault
+  , showsPrec
 
     -- Floating point numbers
   , castWord32ToFloat

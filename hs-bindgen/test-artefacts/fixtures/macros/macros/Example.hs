@@ -1,4 +1,5 @@
 {-# LANGUAGE ExplicitForAll #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 module Example
     ( Example.oBJECTLIKE1

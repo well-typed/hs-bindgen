@@ -1,3 +1,5 @@
+{-# LANGUAGE NoImplicitPrelude #-}
+
 module Example
     ( Example.oBJECTLIKE1
     , Example.oBJECTLIKE2
@@ -39,6 +41,7 @@ module Example
   where
 
 import qualified HsBindgen.Runtime.Macro as Macro
+import Prelude (String)
 
 {-| __C declaration:__ @macro OBJECTLIKE1@
 
