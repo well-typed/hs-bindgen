@@ -135,9 +135,10 @@ exitCodeFooter :: Help.Doc
 exitCodeFooter = Help.vcat [
       "Exit codes:"
     , "  0: Success"
-    , "  1: Other errors (panics)"
-    , "  2: Invocation of `libclang` has failed"
-    , "  3: An `hs-bindgen`-specific error has happened"
+    , "  1: Unexpected errors (panics)"
+    , "  2: CLI usage errors"
+    , "  3: Invocation of `libclang` has failed"
+    , "  4: An `hs-bindgen`-specific error has happened"
     ]
 
 li :: Text -> Help.Doc
