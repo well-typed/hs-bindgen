@@ -1,18 +1,12 @@
 { mkDerivation, base, bytestring, containers, data-default
-, directory, exceptions, fetchgit, filepath, lib, mtl, process
-, QuickCheck, tasty, tasty-hunit, tasty-quickcheck
-, template-haskell, text, transformers, unliftio-core
+, directory, exceptions, filepath, lib, mtl, process, QuickCheck
+, tasty, tasty-hunit, tasty-quickcheck, template-haskell, text
+, transformers, unliftio-core
 }:
 mkDerivation {
   pname = "libclang-bindings";
-  version = "0.1.0.0";
-  src = fetchgit {
-    url = "https://github.com/well-typed/libclang-bindings";
-    sha256 = "0x8fkaxdcnq4b5fhblsnm41bh1rhhjvypp6z6ws1a4wisal2bpar";
-    rev = "d67fb98d54301f1ef1bce08c643808d704fec813";
-    fetchSubmodules = true;
-  };
-  postUnpack = "sourceRoot+=/libclang-bindings; echo source root reset to $sourceRoot";
+  version = "0.2.0.0";
+  sha256 = "d93a2c16fc545f09af43b26ae6ac26294462b81b8808d749fa4d4288c0648521";
   libraryHaskellDepends = [
     base bytestring data-default directory exceptions filepath process
     template-haskell text transformers unliftio-core

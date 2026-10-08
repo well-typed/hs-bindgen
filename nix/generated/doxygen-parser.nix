@@ -4,8 +4,8 @@
 }:
 mkDerivation {
   pname = "doxygen-parser";
-  version = "0.1.1";
-  sha256 = "ed03f98e3d655427a298df7b8cbedb7d3e1342a9467b8c75d1bd9f57d17a833c";
+  version = "0.1.2";
+  sha256 = "f734d40aacf73ea25b151ba62e68b09549b71a934f506160a5014b770422e6f2";
   libraryHaskellDepends = [
     base containers directory filepath process temporary text
     xml-conduit

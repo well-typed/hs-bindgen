@@ -34,9 +34,9 @@ project=cabal.project.base
 # `cabal://pkg` resolves to whatever is newest on Hackage, which is unrelated to
 # the `index-state` in $project. Revisit them when bumping `index-state`.
 HACKAGE_PACKAGES=(
-  libclang-bindings=0.1.0.0
-  doxygen-parser=0.1.1
-  c-expr-dsl=0.1.0.1
+  libclang-bindings=0.2.0.0
+  doxygen-parser=0.1.2
+  c-expr-dsl=0.2.0.0
   c-expr-runtime=0.1.0.0
   # libclang-bindings requires tasty <1.5.4, but Nixpkgs has 1.5.4; also
   # overridden (scoped to libclang-bindings only) in

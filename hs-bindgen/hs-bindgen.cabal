@@ -334,7 +334,7 @@ library internal
     , filepath            >=1.4        && <1.6
     , fin                 >=0.3.2      && <0.4
     , language-c          >=0.9        && <0.11
-    , libclang-bindings   >=0.1        && <0.2
+    , libclang-bindings   >=0.2        && <0.3
     , mtl                 >=2.2        && <2.4
     , optics-core         >=0.4        && <0.5
     , parsec              >=3.1        && <3.2
