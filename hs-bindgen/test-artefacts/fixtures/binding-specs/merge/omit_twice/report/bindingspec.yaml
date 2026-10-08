@@ -1,0 +1,32 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- omit:
+    headers: binding-specs/merge/omit_twice/report.h
+    cname: struct stopwatch
+- headers: binding-specs/merge/omit_twice/report.h
+  cname: struct report
+  hsname: Report
+hstypes:
+- hsname: Report
+  representation:
+    record:
+      constructor: Report
+      fields:
+      - report_reads
+      - report_writes
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

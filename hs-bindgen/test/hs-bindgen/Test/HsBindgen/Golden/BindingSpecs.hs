@@ -21,6 +21,9 @@ import Test.HsBindgen.Resources
 testCases :: [TestCase]
 testCases = [
       test_omit_type
+      -- * Merging external binding specifications
+    , test_merge_omit_twice
+    , test_merge_omit_and_bind
       -- * Bugs / regression tests
     , test_relative_include
     , test_trans_dep_macro_trans_dep_missing
@@ -68,6 +71,57 @@ test_omit_type =
     defaultTest "binding-specs/omit_type"
       & #specPrescriptive .~
           Just "test-artefacts/headers/golden/binding-specs/omit_type_p.yaml"
+
+{-------------------------------------------------------------------------------
+  Merging external binding specifications
+
+  Both cases are rare when a single module is generated. They are routine in
+  library mode (@preprocess --library@), where every module is generated with
+  the same prescriptive binding specification and reads the binding
+  specifications of the modules generated before it.
+
+  Each case is a library of three headers, and tests the module of the third.
+  The external binding specifications are the ones library mode wrote for the
+  modules of the first two headers:
+
+  > hs-bindgen-cli preprocess -I test-artefacts/headers/golden \
+  >   --library test-artefacts/headers/golden/binding-specs/merge/omit_twice \
+  >   --module Lib --gen-binding-spec-dir .. --prescriptive-binding-spec .. \
+  >   binding-specs/merge/omit_twice/report.h
+-------------------------------------------------------------------------------}
+
+-- | Two external binding specifications that omit the same type do not
+-- conflict
+--
+-- The prescriptive binding specification omits @struct stopwatch@. Every
+-- module records the omission in the binding specification generated for it,
+-- so the module of the third header reads two that both omit the type.
+test_merge_omit_twice :: TestCase
+test_merge_omit_twice =
+    defaultTest "binding-specs/merge/omit_twice/report"
+      & #specPrescriptive .~
+          Just "test-artefacts/headers/golden/binding-specs/merge/omit_twice/report_p.yaml"
+      & #specExternal .~
+          [ "test-artefacts/headers/golden/binding-specs/merge/omit_twice/stopwatch.yaml"
+          , "test-artefacts/headers/golden/binding-specs/merge/omit_twice/counter.yaml"
+          ]
+
+-- | An external binding specification that binds a type takes precedence over
+-- one that omits it
+--
+-- A prescriptive binding specification for the module of @stopwatch.h@ alone
+-- (@stopwatch_p.yaml@, which has an @hsmodule@) omits @struct stopwatch@, and
+-- that module records the omission. The specification does not apply to the
+-- module of @operation.h@, which needs the struct, so that module generates
+-- it and records the binding. The module of the third header reads both, and
+-- uses the binding.
+test_merge_omit_and_bind :: TestCase
+test_merge_omit_and_bind =
+    defaultTest "binding-specs/merge/omit_and_bind/stats"
+      & #specExternal .~
+          [ "test-artefacts/headers/golden/binding-specs/merge/omit_and_bind/stopwatch.yaml"
+          , "test-artefacts/headers/golden/binding-specs/merge/omit_and_bind/operation.yaml"
+          ]
 
 {-------------------------------------------------------------------------------
   Bugs / regression tests

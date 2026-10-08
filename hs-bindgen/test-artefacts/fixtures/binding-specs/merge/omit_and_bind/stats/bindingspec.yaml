@@ -1,0 +1,30 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: binding-specs/merge/omit_and_bind/stats.h
+  cname: struct stats
+  hsname: Stats
+hstypes:
+- hsname: Stats
+  representation:
+    record:
+      constructor: Stats
+      fields:
+      - stats_started
+      - stats_reads
+      - stats_writes
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
