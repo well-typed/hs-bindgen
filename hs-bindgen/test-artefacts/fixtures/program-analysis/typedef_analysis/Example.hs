@@ -58,7 +58,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
-import Prelude ((<*>), (>>), Eq, IO, Int, Ord, Show, pure, return, type (~))
+import Prelude ((<*>), (>>), Eq, IO, Int, Ord, Show, pure, type (~))
 
 {-| __C declaration:__ @struct struct1@
 
@@ -86,7 +86,7 @@ instance Marshal.WriteRaw Struct1_t where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct1_t -> return ()
+          Struct1_t -> pure ()
 
 deriving via Marshal.EquivStorable Struct1_t instance BG.Storable Struct1_t
 
@@ -118,7 +118,7 @@ instance Marshal.WriteRaw Struct2_t where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct2_t -> return ()
+          Struct2_t -> pure ()
 
 deriving via Marshal.EquivStorable Struct2_t instance BG.Storable Struct2_t
 
@@ -166,7 +166,7 @@ instance Marshal.WriteRaw Struct5 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct5 -> return ()
+          Struct5 -> pure ()
 
 deriving via Marshal.EquivStorable Struct5 instance BG.Storable Struct5
 
@@ -237,7 +237,7 @@ instance Marshal.WriteRaw Struct6a_struct where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct6a_struct -> return ()
+          Struct6a_struct -> pure ()
 
 deriving via Marshal.EquivStorable Struct6a_struct instance BG.Storable Struct6a_struct
 
@@ -308,7 +308,7 @@ instance Marshal.WriteRaw Struct6b_struct where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct6b_struct -> return ()
+          Struct6b_struct -> pure ()
 
 deriving via Marshal.EquivStorable Struct6b_struct instance BG.Storable Struct6b_struct
 
@@ -379,7 +379,7 @@ instance Marshal.WriteRaw Struct7 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct7 -> return ()
+          Struct7 -> pure ()
 
 deriving via Marshal.EquivStorable Struct7 instance BG.Storable Struct7
 
@@ -485,7 +485,7 @@ instance Marshal.WriteRaw Struct8 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct8 -> return ()
+          Struct8 -> pure ()
 
 deriving via Marshal.EquivStorable Struct8 instance BG.Storable Struct8
 
@@ -554,7 +554,7 @@ instance Marshal.WriteRaw Struct9 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct9 -> return ()
+          Struct9 -> pure ()
 
 deriving via Marshal.EquivStorable Struct9 instance BG.Storable Struct9
 
@@ -623,7 +623,7 @@ instance Marshal.WriteRaw Struct10_t where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct10_t -> return ()
+          Struct10_t -> pure ()
 
 deriving via Marshal.EquivStorable Struct10_t instance BG.Storable Struct10_t
 
@@ -2484,7 +2484,7 @@ instance Marshal.WriteRaw Struct15 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct15 -> return ()
+          Struct15 -> pure ()
 
 deriving via Marshal.EquivStorable Struct15 instance BG.Storable Struct15
 
@@ -2516,7 +2516,7 @@ instance Marshal.WriteRaw Struct16_struct where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct16_struct -> return ()
+          Struct16_struct -> pure ()
 
 deriving via Marshal.EquivStorable Struct16_struct instance BG.Storable Struct16_struct
 

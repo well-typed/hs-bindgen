@@ -186,7 +186,6 @@ data BindgenGlobalType =
 data BindgenGlobalTerm =
     Applicative_pure
   | Applicative_seq
-  | Monad_return
   | Monad_seq
 
     -- Function pointers
@@ -433,7 +432,6 @@ bindgenGlobalTerm :: BindgenGlobalTerm -> Global LvlTerm
 bindgenGlobalTerm = globalExpr . \case
     Applicative_pure    -> (IHaskellPrelude, GVar, 'pure)
     Applicative_seq     -> (IHaskellPrelude, GVar, '(<*>))
-    Monad_return        -> (IHaskellPrelude, GVar, 'return)
     Monad_seq           -> (IHaskellPrelude, GVar, '(>>))
 
     -- Function pointers

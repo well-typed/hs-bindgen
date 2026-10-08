@@ -13,7 +13,7 @@ instance ReadRaw Struct1_t
     where readRaw = \ptr_0 -> pure Struct1_t
 instance WriteRaw Struct1_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Struct1_t -> return ()
+                                       Struct1_t -> pure ()
 deriving via (EquivStorable Struct1_t) instance Storable Struct1_t
 deriving via (IsStructViaReadRaw Struct1_t) instance IsStruct Struct1_t
 {-| __C declaration:__ @struct struct2@
@@ -30,7 +30,7 @@ instance ReadRaw Struct2_t
     where readRaw = \ptr_0 -> pure Struct2_t
 instance WriteRaw Struct2_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Struct2_t -> return ()
+                                       Struct2_t -> pure ()
 deriving via (EquivStorable Struct2_t) instance Storable Struct2_t
 deriving via (IsStructViaReadRaw Struct2_t) instance IsStruct Struct2_t
 {-| __C declaration:__ @struct struct3@
@@ -61,7 +61,7 @@ instance ReadRaw Struct5
     where readRaw = \ptr_0 -> pure Struct5
 instance WriteRaw Struct5
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Struct5 -> return ()
+                                       Struct5 -> pure ()
 deriving via (EquivStorable Struct5) instance Storable Struct5
 deriving via (IsStructViaReadRaw Struct5) instance IsStruct Struct5
 {-| __C declaration:__ @struct5_t@
@@ -104,7 +104,7 @@ instance ReadRaw Struct6a_struct
     where readRaw = \ptr_0 -> pure Struct6a_struct
 instance WriteRaw Struct6a_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Struct6a_struct -> return ()
+                                       Struct6a_struct -> pure ()
 deriving via (EquivStorable Struct6a_struct) instance Storable Struct6a_struct
 deriving via (IsStructViaReadRaw Struct6a_struct) instance IsStruct Struct6a_struct
 {-| __C declaration:__ @struct6a@
@@ -148,7 +148,7 @@ instance ReadRaw Struct6b_struct
     where readRaw = \ptr_0 -> pure Struct6b_struct
 instance WriteRaw Struct6b_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Struct6b_struct -> return ()
+                                       Struct6b_struct -> pure ()
 deriving via (EquivStorable Struct6b_struct) instance Storable Struct6b_struct
 deriving via (IsStructViaReadRaw Struct6b_struct) instance IsStruct Struct6b_struct
 {-| __C declaration:__ @struct6b@
@@ -186,7 +186,7 @@ instance ReadRaw Struct7
     where readRaw = \ptr_0 -> pure Struct7
 instance WriteRaw Struct7
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Struct7 -> return ()
+                                       Struct7 -> pure ()
 deriving via (EquivStorable Struct7) instance Storable Struct7
 deriving via (IsStructViaReadRaw Struct7) instance IsStruct Struct7
 {-| __C declaration:__ @struct7a@
@@ -241,7 +241,7 @@ instance ReadRaw Struct8
     where readRaw = \ptr_0 -> pure Struct8
 instance WriteRaw Struct8
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Struct8 -> return ()
+                                       Struct8 -> pure ()
 deriving via (EquivStorable Struct8) instance Storable Struct8
 deriving via (IsStructViaReadRaw Struct8) instance IsStruct Struct8
 {-| __C declaration:__ @struct8b@
@@ -277,7 +277,7 @@ instance ReadRaw Struct9
     where readRaw = \ptr_0 -> pure Struct9
 instance WriteRaw Struct9
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Struct9 -> return ()
+                                       Struct9 -> pure ()
 deriving via (EquivStorable Struct9) instance Storable Struct9
 deriving via (IsStructViaReadRaw Struct9) instance IsStruct Struct9
 {-| __C declaration:__ @struct9_t@
@@ -313,7 +313,7 @@ instance ReadRaw Struct10_t
     where readRaw = \ptr_0 -> pure Struct10_t
 instance WriteRaw Struct10_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Struct10_t -> return ()
+                                       Struct10_t -> pure ()
 deriving via (EquivStorable Struct10_t) instance Storable Struct10_t
 deriving via (IsStructViaReadRaw Struct10_t) instance IsStruct Struct10_t
 {-| __C declaration:__ @struct10_t_t@
@@ -1433,7 +1433,7 @@ instance ReadRaw Struct15
     where readRaw = \ptr_0 -> pure Struct15
 instance WriteRaw Struct15
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Struct15 -> return ()
+                                       Struct15 -> pure ()
 deriving via (EquivStorable Struct15) instance Storable Struct15
 deriving via (IsStructViaReadRaw Struct15) instance IsStruct Struct15
 {-| __C declaration:__ @struct struct16@
@@ -1452,7 +1452,7 @@ instance ReadRaw Struct16_struct
     where readRaw = \ptr_0 -> pure Struct16_struct
 instance WriteRaw Struct16_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Struct16_struct -> return ()
+                                       Struct16_struct -> pure ()
 deriving via (EquivStorable Struct16_struct) instance Storable Struct16_struct
 deriving via (IsStructViaReadRaw Struct16_struct) instance IsStruct Struct16_struct
 {-| __C declaration:__ @struct16@

@@ -26,7 +26,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
-import Prelude (Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure, return, type (~))
+import Prelude (Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure, type (~))
 
 {-| __C declaration:__ @struct FILE@
 
@@ -54,7 +54,7 @@ instance Marshal.WriteRaw FILE where
     \ptr0 ->
       \s1 ->
         case s1 of
-          FILE -> return ()
+          FILE -> pure ()
 
 deriving via Marshal.EquivStorable FILE instance BG.Storable FILE
 

@@ -2525,7 +2525,7 @@ instance ReadRaw Some_struct
     where readRaw = \ptr_0 -> pure Some_struct
 instance WriteRaw Some_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       Some_struct -> return ()
+                                       Some_struct -> pure ()
 deriving via (EquivStorable Some_struct) instance Storable Some_struct
 deriving via (IsStructViaReadRaw Some_struct) instance IsStruct Some_struct
 {-| __C declaration:__ @union some_union@
