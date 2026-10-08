@@ -14,6 +14,8 @@ module HsBindgen.App.Output (
   , parseOutputOptions
     -- * Builder
   , buildCategoryChoice
+    -- * Artefact
+  , writeBindingsWith
   ) where
 
 import Data.Default (Default (..))
@@ -23,9 +25,13 @@ import GHC.Generics (Generic)
 import Options.Applicative
 import Options.Applicative.NonEmpty (some1)
 
+import HsBindgen (Artefact, writeBindingsMultiple, writeBindingsSingle)
+import HsBindgen.ArtefactM (DirPolicy, FilePolicy)
 import HsBindgen.Backend.Category (ByCategory (..), Choice (..),
                                    RenameTerm (..))
 import HsBindgen.Backend.Level (Level (..))
+import HsBindgen.Config (ModuleRenderConfig)
+import HsBindgen.Macro (CExpr)
 
 {-------------------------------------------------------------------------------
   Output mode
@@ -158,3 +164,21 @@ buildCategoryChoice opts = case opts.mode of
     rename :: Text -> RenameTerm
     rename "" = def  -- Empty suffix = no renaming
     rename s  = RenameTerm (<> s)
+
+{-------------------------------------------------------------------------------
+  Artefact
+-------------------------------------------------------------------------------}
+
+-- | Write the bindings of one module: in a single file, or in one file per
+-- binding category
+writeBindingsWith ::
+     OutputOptions
+  -> ModuleRenderConfig
+  -> FilePolicy
+  -> DirPolicy
+  -> FilePath
+     -- ^ Output directory
+  -> Artefact CExpr ()
+writeBindingsWith opts mrc filePolicy dirPolicy hsOutputDir = case opts.mode of
+    SingleFile{}  -> writeBindingsSingle   mrc filePolicy dirPolicy hsOutputDir
+    FilePerModule -> writeBindingsMultiple mrc filePolicy dirPolicy hsOutputDir

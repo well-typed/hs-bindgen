@@ -18,8 +18,9 @@ import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.App.Output (OutputMode (..), OutputOptions (..),
-                             buildCategoryChoice, parseOutputOptions)
+import HsBindgen.App.Output (OutputMode (..), OutputOptions,
+                             buildCategoryChoice, parseOutputOptions,
+                             writeBindingsWith)
 import HsBindgen.ArtefactM
 import HsBindgen.Config
 import HsBindgen.Config.Internal
@@ -106,19 +107,12 @@ exec global opts = do
 
     artefact :: Artefact CExpr ()
     artefact = do
-      case opts.configCLI.outputOptions of
-        OutputOptions (SingleFile _) ->
-          writeBindingsSingle
-            mrc
-            opts.configCLI.filePolicy
-            opts.configCLI.dirPolicy
-            opts.configCLI.hsOutputDir
-        _ ->
-          writeBindingsMultiple
-            mrc
-            opts.configCLI.filePolicy
-            opts.configCLI.dirPolicy
-            opts.configCLI.hsOutputDir
+      writeBindingsWith
+        opts.configCLI.outputOptions
+        mrc
+        opts.configCLI.filePolicy
+        opts.configCLI.dirPolicy
+        opts.configCLI.hsOutputDir
 
       forM_ opts.configCLI.outputBindingSpec $ \path ->
         writeBindingSpec
