@@ -9,7 +9,6 @@ category:           Development
 build-type:         Simple
 synopsis:           Generate Haskell bindings from C headers
 description:        Automatically generate Haskell bindings from C headers
-extra-doc-files:    CHANGELOG.md
 tested-with:
   GHC ==9.4.8
    || ==9.6.7
@@ -313,7 +312,7 @@ library internal
   other-extensions: TemplateHaskellQuotes
 
   -- Internal dependencies
-  build-depends:    hs-bindgen-runtime
+  build-depends:    hs-bindgen-runtime >=0.1.0 && <0.2
 
   -- External dependencies
   build-depends:
@@ -372,10 +371,13 @@ library
 
   -- Internal dependencies
   build-depends:
-    , c-expr-dsl
-    , c-expr-runtime
     , hs-bindgen-runtime
     , hs-bindgen:internal
+
+  -- External dependencies
+  build-depends:
+    , c-expr-dsl      >=0.2 && <0.3
+    , c-expr-runtime  >=0.1 && <0.2
 
   -- Inherited dependencies
   build-depends:
@@ -423,6 +425,10 @@ executable hs-bindgen-cli
     , hs-bindgen:internal
 
   -- Inherited dependencies
+  --
+  -- `cabal check` warns that `bytestring` misses an upper bound because it only
+  -- accepts bounds from the main library, but `bytestring` is bounded in
+  -- `internal`.
   build-depends:
     , bytestring
     , containers
@@ -482,7 +488,6 @@ library test-common
     , directory
     , filepath
     , mtl
-    , primitive
     , text
     , transformers
 
@@ -491,6 +496,7 @@ library test-common
     , deepseq        >=1.4     && <1.6
     , Diff           >=1.0     && <1.1
     , edit-distance  >=0.2.2.1 && <0.3
+    , primitive      >=0.9     && <0.10
     , tasty          >=1.5     && <1.6
     , tasty-hunit    >=0.10.2  && <0.11
     , utf8-string    >=1.0.2   && <1.1
