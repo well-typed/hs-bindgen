@@ -77,11 +77,12 @@ source as well. See [C stages][manual:c-stages].
 Options configuring `libclang`:
 
 - `-I DIR` - Add include directory
-- `--gnu` - Enable GNU extensions
-- `--c-standard STANDARD` - Specify C standard (c89, c99, c11, c17)
 - `--clang-option OPT` - Pass arbitrary option to Clang
 - `--clang-option-before OPT` - Pass option before managed options
 - `--clang-option-after OPT` - Pass option after managed options
+
+The C standard and GNU extensions are chosen with a Clang option, as in
+`--clang-option=-std=gnu17`.
 
 See [Clang options][manual:clang-options] for details about the order in which
 options are passed to Clang.
@@ -125,7 +126,7 @@ hs-bindgen-cli preprocess \
     --hs-output-dir hs-project/src \
     --create-output-dirs \
     --module Generated.Pcap \
-    --gnu \
+    --clang-option '-std=gnu17' \
     --select-by-header-path pcap.h \
     --enable-program-slicing \
     --select-except-deprecated \
@@ -228,7 +229,7 @@ arguments:
 [ "-I", "./c-lib"
 , "--module=MyBindings"
 , "--unique-id", "org.example.mybindings"
-, "--gnu"
+, "--clang-option=-std=gnu17"
 , "--enable-program-slicing"
 , "mylib.h"
 ]
@@ -261,7 +262,7 @@ When `cabal build` is invoked:
       -I ./c-lib \
       --module=MyBindings \
       --unique-id org.example.mybindings \
-      --gnu \
+      --clang-option=-std=gnu17 \
       --enable-program-slicing \
       mylib.h
     ```
