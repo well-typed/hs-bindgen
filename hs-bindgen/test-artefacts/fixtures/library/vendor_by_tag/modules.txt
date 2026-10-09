@@ -1,0 +1,6 @@
+M.Alias: alias.h
+  M/Alias.hs
+M.User: user.h
+  M/User/Safe.hs
+  M/User/Unsafe.hs
+  M/User/FunPtr.hs

@@ -1,0 +1,12 @@
+M.Types: types.h
+  M/Types.hs
+M.Bar: bar.h
+  M/Bar.hs
+M.Alias: alias.h
+  M/Alias.hs
+M.Foo: foo.h
+  M/Foo.hs
+M.Api: api.h
+  M/Api/Safe.hs
+  M/Api/Unsafe.hs
+  M/Api/FunPtr.hs

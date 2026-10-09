@@ -19,6 +19,7 @@ import Test.Tasty.HUnit (assertFailure)
 
 import HsBindgen
 import HsBindgen.Backend.Category
+import HsBindgen.Config.ClangArgs (ClangArgsConfig (..))
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -50,6 +51,10 @@ data LibraryCase = LibraryCase {
       -- | The library directories, below @test-artefacts\/headers@
     , library :: NonEmpty FilePath
 
+      -- | More directories for the include path, below
+      -- @test-artefacts\/headers@
+    , includes :: [FilePath]
+
       -- | The base module
     , baseModule :: BaseModuleName
 
@@ -68,6 +73,7 @@ cases = [
           name       = "forward_decl"
         , root       = "forward_decl/b.h"
         , library    = "forward_decl" :| []
+        , includes   = []
         , baseModule = "M"
         , generated  = ["M.B", "M.A"]
         }
@@ -76,6 +82,7 @@ cases = [
           name       = "mylib"
         , root       = "mylib.h"
         , library    = "." :| []
+        , includes   = []
         , baseModule = "MyLib"
         , generated  = [
               "MyLib.Mylib.Types"
@@ -83,6 +90,26 @@ cases = [
             , "MyLib.Mylib.Ops"
             , "MyLib.Mylib"
             ]
+        }
+      -- types.h has the typedefs for the structs that foo.h and bar.h define,
+      -- and alias.h a typedef for a struct from outside the library
+    , LibraryCase{
+          name       = "forward_typedef"
+        , root       = "forward_typedef/root.h"
+        , library    = "forward_typedef/lib" :| []
+        , includes   = ["forward_typedef"]
+        , baseModule = "M"
+        , generated  = ["M.Types", "M.Bar", "M.Alias", "M.Foo", "M.Api"]
+        }
+      -- user.h uses a struct from outside the library by its tag, and comes
+      -- before alias.h, which has the typedef for it
+    , LibraryCase{
+          name       = "vendor_by_tag"
+        , root       = "vendor_by_tag/root.h"
+        , library    = "vendor_by_tag/lib" :| []
+        , includes   = ["vendor_by_tag"]
+        , baseModule = "M"
+        , generated  = ["M.Alias", "M.User"]
         }
     ]
 
@@ -194,8 +221,21 @@ toTestCase libraryCase =
       & #inputHeader .~ libraryCase.root
       & #inputDir    .~ headersDir
       & #outputDir   .~ fixtureDirOf libraryCase
-      & #onBoot      .~ ( #baseModule .~ libraryCase.baseModule )
+      & #onBoot      .~ (\boot -> boot
+          & #baseModule .~ libraryCase.baseModule
+          & #clangArgs % #extraIncludeDirs %~ (++ includeDirsOf libraryCase)
+          )
 
--- | The fixture directories, for @pp-fixtures@ to compile
-fixtureCases :: [TestCase]
-fixtureCases = map toTestCase cases
+-- | The directories that the case adds to the include path
+--
+-- They are relative to the package, which is where the tests run.
+includeDirsOf :: LibraryCase -> [FilePath]
+includeDirsOf libraryCase = map (headersDir </>) libraryCase.includes
+
+-- | The fixtures for @pp-fixtures@ to compile, each with the directories that
+-- it needs on the include path
+fixtureCases :: [(TestCase, [FilePath])]
+fixtureCases = [
+      (toTestCase libraryCase, includeDirsOf libraryCase)
+    | libraryCase <- cases
+    ]

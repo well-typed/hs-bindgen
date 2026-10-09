@@ -30,17 +30,17 @@ setupPPBatchCompile
      -- ^ Repo root (parent of hs-bindgen/)
   -> Maybe FilePath
      -- ^ Haddock output directory, or 'Nothing' for compile-only
-  -> [(String, FilePath, Bool)]
-     -- ^ (test name, absolute fixture dir, include @-optc-Werror@?)
+  -> [(String, FilePath, [String])]
+     -- ^ (test name, absolute fixture dir, GHC options for this fixture)
   -> IO (Map String (Either String ()))
 setupPPBatchCompile repoRoot mHaddockDir cases =
     withSystemTempDirectory "hs-bindgen-pp-fixtures" $ \tmpDir -> do
       (includeDirs, envFile) <- setupFixtureEnv repoRoot
 
       -- Detect modules in each fixture directory
-      casesWithModules <- forM cases $ \(name, fixtureDir, optcWerror) -> do
+      casesWithModules <- forM cases $ \(name, fixtureDir, extraArgs) -> do
         mods <- detectModules fixtureDir
-        return (name, fixtureDir, mods, optcWerror)
+        return (name, fixtureDir, mods, extraArgs)
 
       let ghcOpts = sharedGhcOptions ++ ["-Werror"]
           -- One compile job per fixture (ghc --make handles inter-module deps)
@@ -48,9 +48,9 @@ setupPPBatchCompile repoRoot mHaddockDir cases =
             [ ( "fixture-" ++ sanitizeLibName name
               , fixtureDir
               , mods
-              , if optcWerror then ["-optc-Werror"] else []
+              , extraArgs
               )
-            | (name, fixtureDir, mods, optcWerror) <- casesWithModules
+            | (name, fixtureDir, mods, extraArgs) <- casesWithModules
             , not (null mods)
             ]
 

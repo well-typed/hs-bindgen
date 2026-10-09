@@ -40,6 +40,7 @@ module HsBindgen.Library (
   , modules
   ) where
 
+import Control.Applicative ((<|>))
 import Control.Monad (filterM)
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
@@ -59,6 +60,8 @@ import Clang.Paths
 import HsBindgen.Config.MangleCandidate (MangleCandidate (..), mangleCandidate,
                                          mangleCandidateDefault)
 import HsBindgen.Config.Prelims (BaseModuleName (..))
+import HsBindgen.Frontend.Analysis.DeclIndex (Entry (..), Squashed (..),
+                                              UsableEntry (..))
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
@@ -201,27 +204,38 @@ moduleName base (LibraryPath components) = do
 -- predicate is matched as that pass matches it too.  What it says about
 -- headers is about the header that a declaration is located in, and about the
 -- main headers, which are given for that.
+--
+-- A typedef that is squashed into a struct is one declaration with that
+-- struct, and one type in Haskell.  The two have the same owner: the header
+-- that the struct is located in or, if that is not a library header, the
+-- header that the typedef is located in.  In
+--
+-- > // types.h                      // point.h
+-- > typedef struct point point;     #include "types.h"
+-- > typedef int status;             struct point { int x; int y; };
+--
+-- point.h owns the type and types.h owns @status@.  If each owned what is
+-- located in it, the typedef would make types.h use point.h, and a struct of
+-- point.h that used @status@ would tie the two headers into one module.
+--
+-- The two are still selected one by one, each where it is located.  A
+-- predicate that leaves out the declarations of point.h still selects the
+-- typedef, so point.h still owns the type and still gets a module.
 owners :: forall l.
      (RealPath -> Bool)          -- ^ Is this a library header?
   -> Set RealPath                -- ^ The main headers
   -> Boolean SelectionPredicate
   -> DeclMeta l
   -> Map C.DeclId RealPath
-owners isLibraryHeader mainHeaders predicate meta = Map.fromList [
-      (declId, header)
-    | (declId, entry) <- DeclIndex.toList selected
-    , header : _ <- [
-          mapMaybe libraryHeader $
-            C.declLocsToList (DeclIndex.entryToLoc entry)
-        ]
-    ]
+owners isLibraryHeader mainHeaders predicate meta =
+    Map.restrictKeys home (DeclIndex.keysSet selected)
   where
     selected :: DeclIndex.DeclIndex l
     selected = selectDeclIndex meta.declUseGraph match meta.declIndex
 
     match :: Match
     match name loc availability =
-           isJust (libraryHeader loc)
+           C.DeclId{name = name, isUnnamed = False} `Map.member` home
         && matchSelect
              (mkIsMainHeader mainHeaders)
              (mkIsInMainHeaderDir mainHeaders)
@@ -229,6 +243,33 @@ owners isLibraryHeader mainHeaders predicate meta = Map.fromList [
              name
              availability
              predicate
+
+    -- The header that would own each declaration
+    home :: Map C.DeclId RealPath
+    home = Map.union together located
+
+    -- Each declaration on its own: the library header that it is located in
+    located :: Map C.DeclId RealPath
+    located = Map.fromList [
+          (declId, header)
+        | (declId, entry) <- DeclIndex.toList meta.declIndex
+        , header : _ <- [
+              mapMaybe libraryHeader $
+                C.declLocsToList (DeclIndex.entryToLoc entry)
+            ]
+        ]
+
+    -- A squashed typedef together with its struct
+    together :: Map C.DeclId RealPath
+    together = Map.fromList $ concat [
+          [(typedef, header), (struct, header)]
+        | (typedef, UsableEntry (UsableSquashed squashed))
+            <- DeclIndex.toList meta.declIndex
+        , let struct = squashed.targetNameC
+        , Just header <- [
+              Map.lookup struct located <|> Map.lookup typedef located
+            ]
+        ]
 
     libraryHeader :: SingleLoc C.DeclPath -> Maybe RealPath
     libraryHeader loc = case singleLocPath loc of

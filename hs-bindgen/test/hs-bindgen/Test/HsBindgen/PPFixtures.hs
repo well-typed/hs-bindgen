@@ -43,13 +43,16 @@ tests pathPrefix getTestResources =
           \getResults ->
             testGroup "pp-fixtures" $
               map (mkFixtureTest "fixture-" "PP compilation"
-                    determinePPStatus getResults)
+                    determinePPStatus getResults . fst)
                   fixtures
   where
     -- A library generated as one module per header is a fixture as well: its
     -- modules are in one directory, and are compiled together.
-    fixtures :: [TestCase]
-    fixtures = allTestCases ++ Library.fixtureCases
+    --
+    -- Each fixture comes with the directories that it needs on the include
+    -- path beyond those of every fixture, relative to the package.
+    fixtures :: [(TestCase, [FilePath])]
+    fixtures = map (, []) allTestCases ++ Library.fixtureCases
 
     setup testPattern haddockMode = do
         testResources <- getTestResources
@@ -58,17 +61,24 @@ tests pathPrefix getTestResources =
             haddockDir = haddockOutputDir haddockMode buildDir
             -- Single pass: partition test cases into compiled and skipped
             (compiled, skippedCount) = foldr classify ([], 0 :: Int) fixtures
-            classify tc (cs, n)
+            classify (tc, includeDirs) (cs, n)
               | not (isCompile status)  = (cs, n + 1)
               | not (matchesPattern tc) = (cs, n)
-              | otherwise               = (entry tc : cs, n)
+              | otherwise               = (entry tc includeDirs : cs, n)
               where status = determinePPStatus tc
             matchesPattern tc = testPatternMatches testPattern
               (pathPrefix <> Seq.fromList ["pp-fixtures", tc.name])
-            entry tc =
+            entry tc includeDirs =
               ( tc.name
               , testResources.packageRoot </> tc.outputDir
-              , determinePPStatus tc /= FixtureCompileNoOptcWerror
+              , concat [
+                    [ "-optc-Werror"
+                    | determinePPStatus tc /= FixtureCompileNoOptcWerror
+                    ]
+                  , [ "-I" ++ (testResources.packageRoot </> dir)
+                    | dir <- includeDirs
+                    ]
+                  ]
               )
 
         results <- setupPPBatchCompile repoRoot haddockDir compiled
