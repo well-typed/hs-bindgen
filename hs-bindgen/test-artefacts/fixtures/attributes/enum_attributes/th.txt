@@ -1,0 +1,385 @@
+-- addDependentFile test-artefacts/headers/golden/attributes/enum_attributes.h
+{-| __C declaration:__ @enum E0@
+
+    __defined at:__ @attributes\/enum_attributes.h 13:38@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+newtype E0
+    = E0 {unwrapE0 :: CUInt}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize E0
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw E0
+    where readRaw = \ptr_0 -> pure E0 <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw E0
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       E0 unwrapE0_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapE0_2
+deriving via (EquivStorable E0) instance Storable E0
+deriving via CUInt instance Prim E0
+instance CEnum E0
+    where type CEnumZ E0 = CUInt
+          toCEnum = E0
+          fromCEnum = getField @"unwrapE0"
+          declaredValues = \_ -> declaredValuesFromList [(1,
+                                                          singleton "E0_A"),
+                                                         (2, singleton "E0_B")]
+          showsUndeclared = showsWrappedUndeclared "E0"
+          readPrecUndeclared = readPrecWrappedUndeclared "E0"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum E0
+    where minDeclaredValue = E0_A
+          maxDeclaredValue = E0_B
+instance Show E0
+    where showsPrec = shows
+instance Read E0
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE0" E0 ty
+    where hasField = \x_0 -> (\y_1 -> E0{unwrapE0 = y_1},
+                              getField @"unwrapE0" x_0)
+instance (~) ty CUInt => HasField "unwrapE0" (Ptr E0) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapE0")
+instance HasCField E0 "unwrapE0"
+    where type CFieldType E0 "unwrapE0" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @E0_A@
+
+    __defined at:__ @attributes\/enum_attributes.h 13:43@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+pattern E0_A :: E0
+pattern E0_A = E0 1
+{-| __C declaration:__ @E0_B@
+
+    __defined at:__ @attributes\/enum_attributes.h 13:53@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+pattern E0_B :: E0
+pattern E0_B = E0 2
+{-| __C declaration:__ @enum E1@
+
+    __defined at:__ @attributes\/enum_attributes.h 14:38@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+newtype E1
+    = E1 {unwrapE1 :: CUInt}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize E1
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw E1
+    where readRaw = \ptr_0 -> pure E1 <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw E1
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       E1 unwrapE1_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapE1_2
+deriving via (EquivStorable E1) instance Storable E1
+deriving via CUInt instance Prim E1
+instance CEnum E1
+    where type CEnumZ E1 = CUInt
+          toCEnum = E1
+          fromCEnum = getField @"unwrapE1"
+          declaredValues = \_ -> declaredValuesFromList [(1,
+                                                          singleton "E1_A"),
+                                                         (2, singleton "E1_B")]
+          showsUndeclared = showsWrappedUndeclared "E1"
+          readPrecUndeclared = readPrecWrappedUndeclared "E1"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum E1
+    where minDeclaredValue = E1_A
+          maxDeclaredValue = E1_B
+instance Show E1
+    where showsPrec = shows
+instance Read E1
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE1" E1 ty
+    where hasField = \x_0 -> (\y_1 -> E1{unwrapE1 = y_1},
+                              getField @"unwrapE1" x_0)
+instance (~) ty CUInt => HasField "unwrapE1" (Ptr E1) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapE1")
+instance HasCField E1 "unwrapE1"
+    where type CFieldType E1 "unwrapE1" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @E1_A@
+
+    __defined at:__ @attributes\/enum_attributes.h 14:43@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+pattern E1_A :: E1
+pattern E1_A = E1 1
+{-| __C declaration:__ @E1_B@
+
+    __defined at:__ @attributes\/enum_attributes.h 14:53@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+pattern E1_B :: E1
+pattern E1_B = E1 2
+{-| __C declaration:__ @enum E2@
+
+    __defined at:__ @attributes\/enum_attributes.h 17:52@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+newtype E2
+    = E2 {unwrapE2 :: CUInt}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize E2
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw E2
+    where readRaw = \ptr_0 -> pure E2 <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw E2
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       E2 unwrapE2_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapE2_2
+deriving via (EquivStorable E2) instance Storable E2
+deriving via CUInt instance Prim E2
+instance CEnum E2
+    where type CEnumZ E2 = CUInt
+          toCEnum = E2
+          fromCEnum = getField @"unwrapE2"
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "E2_A"),
+                                                         (1, singleton "E2_B")]
+          showsUndeclared = showsWrappedUndeclared "E2"
+          readPrecUndeclared = readPrecWrappedUndeclared "E2"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum E2
+    where minDeclaredValue = E2_A
+          maxDeclaredValue = E2_B
+instance Show E2
+    where showsPrec = shows
+instance Read E2
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE2" E2 ty
+    where hasField = \x_0 -> (\y_1 -> E2{unwrapE2 = y_1},
+                              getField @"unwrapE2" x_0)
+instance (~) ty CUInt => HasField "unwrapE2" (Ptr E2) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapE2")
+instance HasCField E2 "unwrapE2"
+    where type CFieldType E2 "unwrapE2" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @E2_A@
+
+    __defined at:__ @attributes\/enum_attributes.h 17:57@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+pattern E2_A :: E2
+pattern E2_A = E2 0
+{-| __C declaration:__ @E2_B@
+
+    __defined at:__ @attributes\/enum_attributes.h 17:63@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+pattern E2_B :: E2
+pattern E2_B = E2 1
+{-| __C declaration:__ @enum E3@
+
+    __defined at:__ @attributes\/enum_attributes.h 18:52@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+newtype E3
+    = E3 {unwrapE3 :: CUInt}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize E3
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw E3
+    where readRaw = \ptr_0 -> pure E3 <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw E3
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       E3 unwrapE3_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapE3_2
+deriving via (EquivStorable E3) instance Storable E3
+deriving via CUInt instance Prim E3
+instance CEnum E3
+    where type CEnumZ E3 = CUInt
+          toCEnum = E3
+          fromCEnum = getField @"unwrapE3"
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "E3_A"),
+                                                         (1, singleton "E3_B")]
+          showsUndeclared = showsWrappedUndeclared "E3"
+          readPrecUndeclared = readPrecWrappedUndeclared "E3"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum E3
+    where minDeclaredValue = E3_A
+          maxDeclaredValue = E3_B
+instance Show E3
+    where showsPrec = shows
+instance Read E3
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE3" E3 ty
+    where hasField = \x_0 -> (\y_1 -> E3{unwrapE3 = y_1},
+                              getField @"unwrapE3" x_0)
+instance (~) ty CUInt => HasField "unwrapE3" (Ptr E3) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapE3")
+instance HasCField E3 "unwrapE3"
+    where type CFieldType E3 "unwrapE3" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @E3_A@
+
+    __defined at:__ @attributes\/enum_attributes.h 18:57@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+pattern E3_A :: E3
+pattern E3_A = E3 0
+{-| __C declaration:__ @E3_B@
+
+    __defined at:__ @attributes\/enum_attributes.h 18:63@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+pattern E3_B :: E3
+pattern E3_B = E3 1
+{-| __C declaration:__ @enum E4@
+
+    __defined at:__ @attributes\/enum_attributes.h 21:63@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+newtype E4
+    = E4 {unwrapE4 :: CUInt}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize E4
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw E4
+    where readRaw = \ptr_0 -> pure E4 <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw E4
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       E4 unwrapE4_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapE4_2
+deriving via (EquivStorable E4) instance Storable E4
+deriving via CUInt instance Prim E4
+instance CEnum E4
+    where type CEnumZ E4 = CUInt
+          toCEnum = E4
+          fromCEnum = getField @"unwrapE4"
+          declaredValues = \_ -> declaredValuesFromList [(1,
+                                                          singleton "E4_A"),
+                                                         (2, singleton "E4_B")]
+          showsUndeclared = showsWrappedUndeclared "E4"
+          readPrecUndeclared = readPrecWrappedUndeclared "E4"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum E4
+    where minDeclaredValue = E4_A
+          maxDeclaredValue = E4_B
+instance Show E4
+    where showsPrec = shows
+instance Read E4
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE4" E4 ty
+    where hasField = \x_0 -> (\y_1 -> E4{unwrapE4 = y_1},
+                              getField @"unwrapE4" x_0)
+instance (~) ty CUInt => HasField "unwrapE4" (Ptr E4) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapE4")
+instance HasCField E4 "unwrapE4"
+    where type CFieldType E4 "unwrapE4" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @E4_A@
+
+    __defined at:__ @attributes\/enum_attributes.h 21:68@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+pattern E4_A :: E4
+pattern E4_A = E4 1
+{-| __C declaration:__ @E4_B@
+
+    __defined at:__ @attributes\/enum_attributes.h 21:78@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+pattern E4_B :: E4
+pattern E4_B = E4 2
+{-| __C declaration:__ @enum E5@
+
+    __defined at:__ @attributes\/enum_attributes.h 22:63@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+newtype E5
+    = E5 {unwrapE5 :: CUInt}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize E5
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw E5
+    where readRaw = \ptr_0 -> pure E5 <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw E5
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       E5 unwrapE5_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapE5_2
+deriving via (EquivStorable E5) instance Storable E5
+deriving via CUInt instance Prim E5
+instance CEnum E5
+    where type CEnumZ E5 = CUInt
+          toCEnum = E5
+          fromCEnum = getField @"unwrapE5"
+          declaredValues = \_ -> declaredValuesFromList [(1,
+                                                          singleton "E5_A"),
+                                                         (2, singleton "E5_B")]
+          showsUndeclared = showsWrappedUndeclared "E5"
+          readPrecUndeclared = readPrecWrappedUndeclared "E5"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum E5
+    where minDeclaredValue = E5_A
+          maxDeclaredValue = E5_B
+instance Show E5
+    where showsPrec = shows
+instance Read E5
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE5" E5 ty
+    where hasField = \x_0 -> (\y_1 -> E5{unwrapE5 = y_1},
+                              getField @"unwrapE5" x_0)
+instance (~) ty CUInt => HasField "unwrapE5" (Ptr E5) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapE5")
+instance HasCField E5 "unwrapE5"
+    where type CFieldType E5 "unwrapE5" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @E5_A@
+
+    __defined at:__ @attributes\/enum_attributes.h 22:68@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+pattern E5_A :: E5
+pattern E5_A = E5 1
+{-| __C declaration:__ @E5_B@
+
+    __defined at:__ @attributes\/enum_attributes.h 22:78@
+
+    __exported by:__ @attributes\/enum_attributes.h@
+-}
+pattern E5_B :: E5
+pattern E5_B = E5 2
