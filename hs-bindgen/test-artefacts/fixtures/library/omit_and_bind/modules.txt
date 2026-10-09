@@ -1,0 +1,6 @@
+Lib.Stopwatch: stopwatch.h
+  Lib/Stopwatch.hs
+Lib.Operation: operation.h
+  Lib/Operation.hs
+Lib.Stats: stats.h
+  Lib/Stats.hs

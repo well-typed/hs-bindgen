@@ -371,6 +371,28 @@ cases = [
             ]
         , onTest     = #specPrescriptive .~ Just (omitTwice </> "report_p.yaml")
         }
+      -- A prescriptive binding specification for the module of stopwatch.h
+      -- alone omits the struct of that header.  The module of operation.h
+      -- needs the struct and has no such specification, so it generates the
+      -- struct.  No module warns about a specification that is for another
+      -- one.  The binding specifications of the first two modules are the
+      -- ones that the golden test for merging an omission and a binding
+      -- reads.
+    , LibraryCase{
+          name       = "omit_and_bind"
+        , root       = "binding-specs/merge/omit_and_bind/stats.h"
+        , library    = "golden/binding-specs/merge/omit_and_bind" :| []
+        , includes   = ["golden"]
+        , predicate  = BTrue
+        , baseModule = "Lib"
+        , generated  = ["Lib.Stopwatch", "Lib.Operation", "Lib.Stats"]
+        , specs      = [
+              ("Lib.Stopwatch", omitAndBind </> "stopwatch.yaml")
+            , ("Lib.Operation", omitAndBind </> "operation.yaml")
+            ]
+        , onTest     =
+            #specPrescriptive .~ Just (omitAndBind </> "stopwatch_p.yaml")
+        }
       -- register.h has a function that takes a callback over the struct of
       -- foo.h.  Instances for the type of the callback are generated with a
       -- type that it mentions, and here that type is in another module: no
@@ -388,8 +410,9 @@ cases = [
         }
     ]
   where
-    omitTwice :: FilePath
-    omitTwice = headersDir </> "golden/binding-specs/merge/omit_twice"
+    omitTwice, omitAndBind :: FilePath
+    omitTwice   = headersDir </> "golden/binding-specs/merge/omit_twice"
+    omitAndBind = headersDir </> "golden/binding-specs/merge/omit_and_bind"
 
 -- | Expect these modules to report an entry of the prescriptive binding
 -- specification as unused

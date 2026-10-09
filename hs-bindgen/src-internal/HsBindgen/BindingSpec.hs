@@ -358,11 +358,14 @@ moduleName spec = spec.unresolved.moduleName
 -- One translation unit can be generated as several modules, and there is one
 -- prescriptive binding specification for all of them.  A file that names no
 -- module configures every module, so each one gets the specification as its
--- own.  A file that names a module is passed on as it is.
+-- own.  A file that names a module configures that module, and the others get
+-- a specification that says nothing.
 prescriptiveFor :: Hs.ModuleName -> Prescriptive -> PrescriptiveBindingSpec
 prescriptiveFor hsModuleName prescriptive = case prescriptive.declared of
-    Just _declared -> prescriptive.spec
-    Nothing        -> BindingSpec{
+    Just declared
+      | declared == hsModuleName -> prescriptive.spec
+      | otherwise                -> empty hsModuleName
+    Nothing -> BindingSpec{
         unresolved =
           prescriptive.spec.unresolved{BindingSpec.moduleName = hsModuleName}
       , resolved   =

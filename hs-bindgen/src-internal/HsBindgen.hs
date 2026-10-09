@@ -522,7 +522,7 @@ forEachModule :: forall l a.
 forEachModule library predicate perModule = do
     base         <- ModuleBaseName
     includeGraph <- getIncludeGraph
-    unit         <- FrontendPassA MangleNamesPass
+    unit         <- WithModule (planning base) $ FrontendPassA MangleNamesPass
     paths        <- Lift $ runCached $ Cached $
                       Library.libraryPaths library $
                         IncludeGraph.toSortedList includeGraph
@@ -530,6 +530,18 @@ forEachModule library predicate perModule = do
       Left err   -> pure $ Left err
       Right mods -> Right <$> generate [] mods
   where
+    -- The modules are planned in a scope of their own, which has the name of
+    -- the base module and generates nothing.  No module of the library has
+    -- that name.  So the plan is made with the binding specifications that
+    -- are for every module, and not with a prescriptive one that names a
+    -- module of the library.
+    planning :: BaseModuleName -> ModuleScope
+    planning base = ModuleScope{
+          baseModule = base
+        , imported   = []
+        , roots      = Set.empty
+        }
+
     -- The first argument has the specifications of the modules so far
     generate ::
          [BindingSpec.ExternalBindingSpec]
