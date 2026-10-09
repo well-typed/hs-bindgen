@@ -562,7 +562,19 @@ enumDecl _enclosing ctx info = \curr -> do
                   Right CXCursor_VisibilityAttr -> foldContinue
                   -- Attributes without a dedicated @libclang@ cursor kind,
                   -- such as @availability@ and @enum_extensibility@.
+                  --
+                  -- NOTE: @enum_extensibility(closed)@ states that the enum
+                  -- only takes declared values, which is what @enum: closed@
+                  -- in a binding specification expresses. We cannot act on it,
+                  -- because @libclang@ exposes neither the attribute nor its
+                  -- argument. Should that change, the pattern synonyms of such
+                  -- an enum could be declared @COMPLETE@ without a binding
+                  -- specification, unless the enum is also a @flag_enum@.
                   Right CXCursor_UnexposedAttr -> foldContinue
+                  -- @flag_enum@ attributes mark an enum as a set of bit flags:
+                  -- combinations of the declared values are valid too. Enums
+                  -- are translated as open by default, which allows for this.
+                  Right CXCursor_FlagEnum -> foldContinue
                   -- Windows @__declspec(dllimport)@ / @__declspec(dllexport)@.
                   -- These don't affect the generated Haskell bindings.
                   Right CXCursor_DLLImport -> foldContinue
