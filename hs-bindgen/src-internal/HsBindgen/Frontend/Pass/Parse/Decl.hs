@@ -557,6 +557,9 @@ enumDecl _enclosing ctx info = \curr -> do
                   -- @visibility@ attributes. The visibility itself the value can be
                   -- obtained using 'getCursorVisibility'.
                   Right CXCursor_VisibilityAttr -> foldContinue
+                  -- Attributes without a dedicated @libclang@ cursor kind,
+                  -- such as @availability@ and @enum_extensibility@.
+                  Right CXCursor_UnexposedAttr -> foldContinue
                   -- Windows @__declspec(dllimport)@ / @__declspec(dllexport)@.
                   -- These don't affect the generated Haskell bindings.
                   Right CXCursor_DLLImport -> foldContinue
@@ -882,6 +885,10 @@ varDecl macroLang enclosing ctx info = do
           -- @visibility@ attributes, where the value is obtained using
           -- @clang_getCursorVisibility@.
           CXCursor_VisibilityAttr -> skip
+
+          -- Attributes for which @libclang@ has no dedicated cursor kind, such
+          -- as @availability@ and @swift_private@.
+          CXCursor_UnexposedAttr -> skip
 
           -- Windows @__declspec(dllimport)@ / @__declspec(dllexport)@
           -- attributes. These do not affect the generated Haskell bindings.
