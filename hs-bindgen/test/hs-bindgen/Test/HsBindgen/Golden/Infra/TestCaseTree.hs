@@ -65,9 +65,10 @@ testTreeFor getTestResources = goTree
       = case test.outcome of
           Success ->
             withTestOutputDir test.outputDir $ testGroup test.name [
-                TH.check          getTestResources test
-              , PP.check          getTestResources test
-              , BindingSpec.check getTestResources test
+                TH.check               getTestResources test
+              , PP.check               getTestResources test
+              , BindingSpec.check      getTestResources test
+              , BindingSpec.checkValue getTestResources test
               ]
           FailureBindgen ->
             FailureBindgen.check getTestResources test

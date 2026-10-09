@@ -33,6 +33,8 @@ module HsBindgen.BindingSpec (
     -- * Internal API
   , BindingSpec.currentBindingSpecVersion
   , empty
+  , fromGenerated
+  , encodeBy
   , moduleName
     -- ** Types
   , Common.Omittable(..)
@@ -55,6 +57,7 @@ module HsBindgen.BindingSpec (
   ) where
 
 import Data.ByteString (ByteString)
+import Data.Map.Strict qualified as Map
 import Data.Ord qualified as Ord
 
 import Clang.Args (ClangArgs)
@@ -64,6 +67,7 @@ import HsBindgen.BindingSpec.Private.Common qualified as Common
 import HsBindgen.BindingSpec.Private.Stdlib qualified as Stdlib
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.BindingSpec.Private.Version qualified as Version
+import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -298,11 +302,10 @@ loadBindingSpecs tracer args hsModuleName config =
 -------------------------------------------------------------------------------}
 
 -- | Encode a binding specification
+--
+-- The C types are in the order of their names.
 encode :: Common.Format -> BindingSpec -> ByteString
-encode format spec = BindingSpec.encode defCompareCDeclId format spec.unresolved
-  where
-    defCompareCDeclId :: C.DeclId -> C.DeclId -> Ordering
-    defCompareCDeclId = Ord.comparing C.renderDeclId
+encode = encodeBy (Ord.comparing C.renderDeclId)
 
 {-------------------------------------------------------------------------------
   Internal API
@@ -314,6 +317,35 @@ empty hsModuleName = BindingSpec{
       unresolved = BindingSpec.empty hsModuleName
     , resolved   = BindingSpec.empty hsModuleName
     }
+
+-- | The binding specification that @hs-bindgen@ generated for a module
+--
+-- A specification that is loaded from a file asks @libclang@ where its headers
+-- are.  A generated one names main headers only, and where those are is known
+-- from the translation unit that it was generated from.
+fromGenerated ::
+     HasCallStack
+  => Map C.HashIncludeArg RealPath -- ^ Where each main header is
+  -> BindingSpec.UnresolvedBindingSpec
+  -> BindingSpec
+fromGenerated mainHeaders uSpec =
+    case BindingSpec.resolveWith (`Map.lookup` mainHeaders) uSpec of
+      ([], rSpec) -> BindingSpec{
+          unresolved = uSpec
+        , resolved   = rSpec
+        }
+      (cDeclIds, _rSpec) -> panicPure $
+           "Generated binding specification names no main header for: "
+        ++ show cDeclIds
+
+-- | Encode a binding specification, the C types in the given order
+encodeBy ::
+     (C.DeclId -> C.DeclId -> Ordering)
+  -> Common.Format
+  -> BindingSpec
+  -> ByteString
+encodeBy compareCDeclId format spec =
+    BindingSpec.encode compareCDeclId format spec.unresolved
 
 -- | Get the module name for a binding specification
 moduleName :: BindingSpec -> Hs.ModuleName

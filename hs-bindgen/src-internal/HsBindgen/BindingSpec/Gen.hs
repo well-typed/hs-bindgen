@@ -6,6 +6,7 @@
 module HsBindgen.BindingSpec.Gen (
     -- * Public API
     genBindingSpec
+  , encodeBindingSpec
   ) where
 
 import Data.ByteString (ByteString)
@@ -18,6 +19,7 @@ import Clang.HighLevel.Types
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
+import HsBindgen.BindingSpec (BindingSpec, encodeBy, fromGenerated)
 import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.V1 (CTypeSpec (..), UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
@@ -40,26 +42,37 @@ import HsBindgen.Language.Haskell qualified as Hs
 -------------------------------------------------------------------------------}
 
 -- | Generate binding specification
+--
+-- The headers of the specification are main headers.  The include graph says
+-- where those are, so the specification is resolved as it is generated.
 genBindingSpec ::
-     Format
-  -> Hs.ModuleName
+     Hs.ModuleName
   -> IncludeGraph
-  -> DeclIndex l
   -> GetMainHeaders
   -> [(C.DeclId, RealPath)]
   -> [(C.DeclId, (RealPath, Hs.Name Hs.NsTypeConstr))]
   -> [Hs.Decl l]
-  -> ByteString
+  -> BindingSpec
 genBindingSpec
-  format
   hsModuleName
   includeGraph
-  declIndex
   getMainHeaders
   omitTypes
   squashedTypes =
-      BindingSpec.encode compareCDeclId format
+      fromGenerated (IncludeGraph.mainHeaders includeGraph)
     . genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes
+
+-- | Encode a generated binding specification
+--
+-- The C types are in the order in which the translation unit declares them.
+encodeBindingSpec ::
+     Format
+  -> IncludeGraph
+  -> DeclIndex l
+  -> BindingSpec
+  -> ByteString
+encodeBindingSpec format includeGraph declIndex =
+    encodeBy compareCDeclId format
   where
     compareCDeclId :: C.DeclId -> C.DeclId -> Ordering
     compareCDeclId cDeclIdL cDeclIdR = Ord.comparing aux cDeclIdL cDeclIdR

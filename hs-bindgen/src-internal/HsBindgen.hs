@@ -13,6 +13,7 @@ module HsBindgen (
   , writeBindings
   , writeBindingsSingle
   , writeBindingsMultiple
+  , generatedBindingSpec
   , writeBindingSpec
   , writeTests
 
@@ -312,6 +313,29 @@ writeBindingsMultiple mrc filePolicy dirPolicy hsOutputDir = do
       moduleBaseName
       bindingsByCategory
 
+-- | The binding specification of the generated module
+--
+-- 'writeBindingSpec' writes this value.  It can also be used as it is, as an
+-- external binding specification for another module of the same translation
+-- unit, without a file in between.
+generatedBindingSpec :: Artefact l BindingSpec.BindingSpec
+generatedBindingSpec = do
+    moduleBaseName <- ModuleBaseName
+    includeGraph   <- getIncludeGraph
+    getMainHeaders <- getGetMainHeaders
+    omittedTypes   <- getOmittedTypes
+    squashedTypes  <- getSquashedTypes
+    hsDecls        <- HsDecls
+    -- Binding specifications only specify types.
+    pure $
+      genBindingSpec
+        (fromBaseModuleName moduleBaseName (Just CType))
+        includeGraph
+        getMainHeaders
+        omittedTypes
+        squashedTypes
+        (view (lensForCategory CType) hsDecls)
+
 -- | Write binding specifications to file.
 writeBindingSpec ::
      FilePolicy
@@ -319,24 +343,15 @@ writeBindingSpec ::
   -> FilePath
   -> Artefact l ()
 writeBindingSpec filePolicy dirPolicy path = do
-    moduleBaseName <- ModuleBaseName
-    includeGraph   <- getIncludeGraph
-    declIndex      <- getDeclIndex
-    getMainHeaders <- getGetMainHeaders
-    omittedTypes   <- getOmittedTypes
-    squashedTypes  <- getSquashedTypes
-    hsDecls        <- HsDecls
-    -- Binding specifications only specify types.
+    includeGraph <- getIncludeGraph
+    declIndex    <- getDeclIndex
+    spec         <- generatedBindingSpec
     let bs =
-          genBindingSpec
+          encodeBindingSpec
             (BindingSpec.getFormat path)
-            (fromBaseModuleName moduleBaseName (Just CType))
             includeGraph
             declIndex
-            getMainHeaders
-            omittedTypes
-            squashedTypes
-            (view (lensForCategory CType) hsDecls)
+            spec
         fileDescription = FileDescription {
               description = "Binding specifications"
             , location    = UserSpecified path

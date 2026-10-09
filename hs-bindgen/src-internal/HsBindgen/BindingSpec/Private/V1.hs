@@ -42,6 +42,7 @@ module HsBindgen.BindingSpec.Private.V1 (
   , encode
     -- ** Header resolution
   , resolve
+  , resolveWith
     -- ** Merging
   , MergedBindingSpecs
   , merge
@@ -83,7 +84,6 @@ import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Orphans ()
 import HsBindgen.Resolve
-import HsBindgen.Util.Monad
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -437,51 +437,71 @@ resolve ::
 resolve tracer injResolveHeader args uSpec = do
     headerMap <-
       resolveHeaders (contramap injResolveHeader tracer) args allHeaders
-
-    let lookup' :: C.HashIncludeArg -> Maybe (C.HashIncludeArg, RealPath)
-        lookup' uHeader = (uHeader,) <$> Map.lookup uHeader headerMap
-
-        resolveSet ::
-             Set C.HashIncludeArg
-          -> Maybe (Set (C.HashIncludeArg, RealPath))
-        resolveSet uHeaders =
-          case mapMaybe lookup' (Set.toList uHeaders) of
-            []       -> Nothing
-            rHeaders -> Just (Set.fromList rHeaders)
-
-        resolveType ::
-             C.DeclId
-          -> (Set C.HashIncludeArg, a)
-          -> IO (Maybe (Set (C.HashIncludeArg, RealPath), a))
-        resolveType cDeclId (uHeaders, x) = case resolveSet uHeaders of
-          Just rHeaders -> return $ Just (rHeaders, x)
-          Nothing       -> do
-            traceWith tracer $ withCallStack $ BindingSpecResolveTypeDropped cDeclId
-            return Nothing
-
-        resolveTypes ::
-             C.DeclId
-          -> [(Set C.HashIncludeArg, a)]
-          -> IO
-               ( Maybe
-                   (C.DeclId, [(Set (C.HashIncludeArg, RealPath), a)])
-               )
-        resolveTypes cDeclId uKVs =
-          mapMaybeM (resolveType cDeclId) uKVs >>= \case
-            rKVs
-              | null rKVs -> return Nothing
-              | otherwise -> return $ Just (cDeclId, rKVs)
-
-    cTypes <- Map.fromList <$>
-      mapMaybeM (uncurry resolveTypes) (Map.toList uSpec.cTypes)
-    return BindingSpec{
-        moduleName = uSpec.moduleName
-      , cTypes     = cTypes
-      , hsTypes    = uSpec.hsTypes
-      }
+    let (dropped, rSpec) = resolveWith (`Map.lookup` headerMap) uSpec
+    forM_ dropped $ \cDeclId ->
+      traceWith tracer $ withCallStack $ BindingSpecResolveTypeDropped cDeclId
+    return rSpec
   where
     allHeaders :: Set C.HashIncludeArg
     allHeaders = mconcat $ fst <$> concat (Map.elems uSpec.cTypes)
+
+-- | Resolve headers in a binding specification, given where each header is
+--
+-- An entry none of whose headers is found is dropped.  The result lists the C
+-- type of each dropped entry.
+resolveWith ::
+     (C.HashIncludeArg -> Maybe RealPath)
+  -> UnresolvedBindingSpec
+  -> ([C.DeclId], ResolvedBindingSpec)
+resolveWith lookupHeader uSpec = (
+      concatMap fst resolved
+    , BindingSpec{
+          moduleName = uSpec.moduleName
+        , cTypes     = Map.fromList $ mapMaybe snd resolved
+        , hsTypes    = uSpec.hsTypes
+        }
+    )
+  where
+    resolved ::
+      [ ( [C.DeclId]
+        , Maybe
+            ( C.DeclId
+            , [(Set (C.HashIncludeArg, RealPath), Omittable CTypeSpec)]
+            )
+        )
+      ]
+    resolved = map (uncurry resolveTypes) (Map.toList uSpec.cTypes)
+
+    resolveTypes ::
+         C.DeclId
+      -> [(Set C.HashIncludeArg, a)]
+      -> ( [C.DeclId]
+         , Maybe (C.DeclId, [(Set (C.HashIncludeArg, RealPath), a)])
+         )
+    resolveTypes cDeclId uKVs =
+        ( [cDeclId | Nothing <- rKVs]
+        , case catMaybes rKVs of
+            []    -> Nothing
+            found -> Just (cDeclId, found)
+        )
+      where
+        rKVs = map resolveType uKVs
+
+    resolveType ::
+         (Set C.HashIncludeArg, a)
+      -> Maybe (Set (C.HashIncludeArg, RealPath), a)
+    resolveType (uHeaders, x) = (, x) <$> resolveSet uHeaders
+
+    resolveSet ::
+         Set C.HashIncludeArg
+      -> Maybe (Set (C.HashIncludeArg, RealPath))
+    resolveSet uHeaders =
+      case mapMaybe lookup' (Set.toList uHeaders) of
+        []       -> Nothing
+        rHeaders -> Just (Set.fromList rHeaders)
+
+    lookup' :: C.HashIncludeArg -> Maybe (C.HashIncludeArg, RealPath)
+    lookup' uHeader = (uHeader,) <$> lookupHeader uHeader
 
 {-------------------------------------------------------------------------------
   API: Merging
