@@ -380,6 +380,89 @@ tests getTestResources = testGroup "Integration.Library" [
           exitCode @?= ExitSuccess
           written <- listFiles outDir
           written @?= ["M" </> "Foo_bar.hs"]
+    , testGroup "the modules, as they are reported" [
+          testCase "a dry run prints each module with its header" $
+            inOutputDir $ \outDir -> do
+              headers <- headersDir getTestResources
+              (exitCode, out, _) <-
+                run headers [headers] outDir ["--dry-run"] "mylib.h"
+              exitCode @?= ExitSuccess
+              lines out @?= [
+                  "M.Mylib.Types: mylib/types.h"
+                , "M.Mylib.Internal: mylib/internal.h"
+                , "M.Mylib.Ops: mylib/ops.h"
+                , "M.Mylib: mylib.h"
+                ]
+              written <- listFiles outDir
+              written @?= []
+        , testCase "a dry run prints a shared module with all its headers" $
+            inOutputDir $ \outDir -> do
+              headers <- headersDir getTestResources
+              (exitCode, out, _) <-
+                run headers [headers </> "rpm_pair"] outDir ["--dry-run"]
+                  "rpm_pair/td.h"
+              exitCode @?= ExitSuccess
+              lines out @?= ["M.Td: td.h, types.h"]
+        , testCase "a module that is not written is not printed" $
+            inOutputDir $ \outDir ->
+            withSystemTempDirectory "hs-bindgen-test" $ \headers -> do
+              -- guard.h has a macro and nothing that gets a binding
+              writeFile (headers </> "guard.h") $ unlines [
+                  "#ifndef GUARD_H"
+                , "#define GUARD_H"
+                , "#endif"
+                ]
+              writeFile (headers </> "a.h") $ unlines [
+                  "#include \"guard.h\""
+                , "struct a { int x; };"
+                ]
+              (exitCode, out, _) <-
+                run headers [headers] outDir ["--dry-run"] "a.h"
+              exitCode @?= ExitSuccess
+              lines out @?= ["M.A: a.h"]
+        , testCase "--list-base-module-names prints the names" $
+            inOutputDir $ \outDir -> do
+              headers <- headersDir getTestResources
+              (exitCode, out, _) <-
+                run headers [headers] outDir ["--list-base-module-names"]
+                  "mylib.h"
+              exitCode @?= ExitSuccess
+              lines out @?= [
+                  "M.Mylib.Types"
+                , "M.Mylib.Internal"
+                , "M.Mylib.Ops"
+                , "M.Mylib"
+                ]
+              -- The modules are written as they are without the flag
+              written <- listFiles outDir
+              length written @?= 8
+        , testCase "--list-base-module-names prints only the names in a dry run" $
+            inOutputDir $ \outDir -> do
+              headers <- headersDir getTestResources
+              (exitCode, out, _) <-
+                run headers [headers </> "rpm_pair"] outDir
+                  ["--list-base-module-names", "--dry-run"] "rpm_pair/td.h"
+              exitCode @?= ExitSuccess
+              lines out @?= ["M.Td"]
+              written <- listFiles outDir
+              written @?= []
+        , testCase "nothing is printed without these flags" $
+            inOutputDir $ \outDir -> do
+              headers <- headersDir getTestResources
+              (exitCode, out, _) <- run headers [headers] outDir [] "mylib.h"
+              exitCode @?= ExitSuccess
+              out @?= ""
+        , testCase "--list-base-module-names without --library is a usage error" $
+            inOutputDir $ \outDir -> do
+              (exitCode, _, err) <- preprocess getTestResources outDir
+                (const []) ["--list-base-module-names"]
+              exitCode @?= ExitFailure 2
+              assertBool ("unexpected message: " ++ err) $
+                "--list-base-module-names can only be used with --library"
+                  `isInfixOf` err
+              written <- listFiles outDir
+              written @?= []
+        ]
     , testCase "a library directory that does not exist is a usage error" $
         inOutputDir $ \outDir -> do
           (exitCode, _, _) <- preprocess getTestResources outDir
@@ -432,9 +515,14 @@ preprocess ::
   -> [String]                  -- ^ More options
   -> IO (ExitCode, String, String)
 preprocess getTestResources outDir libraryDirs options = do
-    root <- (.packageRoot) <$> getTestResources
-    let headers = root </> "test-artefacts" </> "headers"
+    headers <- headersDir getTestResources
     run headers (libraryDirs headers) outDir options "forward_decl/b.h"
+
+-- | The directory with the headers of the tests
+headersDir :: IO TestResources -> IO FilePath
+headersDir getTestResources = do
+    root <- (.packageRoot) <$> getTestResources
+    pure $ root </> "test-artefacts" </> "headers"
 
 -- | Run @preprocess --library@ with base module @M@
 run ::

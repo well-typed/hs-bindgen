@@ -20,6 +20,7 @@ module HsBindgen.Frontend.Analysis.IncludeGraph (
   , toSortedList
   , getIncludes
   , mainHeaders
+  , includedAs
     -- * Include order
   , IncludeOrder -- opaque
   , IncludeOrderIx(..)
@@ -179,6 +180,15 @@ mainHeaders includeGraph = Map.fromList [
     includedByRoot :: Map Node (Set Include)
     includedByRoot =
       Digraph.neighbors RootNode (Digraph.transpose includeGraph.graph)
+
+-- | A header, written the way that it is included
+--
+-- This is the shortest of the @#include@ arguments that include it, which is
+-- also its label in 'renderMermaid' and 'renderSortedList' ('ShowIncludeArgs').
+includedAs :: IncludeGraph -> RealPath -> FilePath
+includedAs includeGraph path =
+    getIncludePath path $ Set.unions $ Map.elems $
+      Digraph.neighbors (HeaderNode path) includeGraph.graph
 
 {-------------------------------------------------------------------------------
   Include order

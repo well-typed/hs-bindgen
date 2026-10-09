@@ -35,6 +35,7 @@ module HsBindgen.Library (
   , moduleName
     -- * Ownership
   , owners
+  , owningHeaders
     -- * Modules
   , LibraryError(..)
   , modules
@@ -281,6 +282,36 @@ owners isLibraryHeader mainHeaders predicate meta =
 -- | The main headers: the ones that were given, not the ones that they include
 mainHeadersOf :: IncludeGraph -> Set RealPath
 mainHeadersOf = Set.fromList . Map.elems . IncludeGraph.mainHeaders
+
+-- | The headers that one module for the whole translation unit is generated for
+--
+-- Without a library every header can own what is selected of it ('owners').
+-- The module is generated for the headers that own a declaration that it has
+-- a binding for.  A declaration that is selected and gets no binding, as when
+-- something that it needs is not selected, does not count.  The headers are in
+-- the order in which they are included.
+owningHeaders :: forall l.
+     IncludeGraph
+  -> Boolean SelectionPredicate
+  -> DeclMeta l
+  -> Set C.DeclId  -- ^ The declarations that the module has a binding for
+  -> [RealPath]
+owningHeaders includeGraph predicate meta generated =
+    filter (`Set.member` owning) (IncludeGraph.toSortedList includeGraph)
+  where
+    owning :: Set RealPath
+    owning = Set.fromList [
+          header
+        | (declId, header) <- Map.toList $
+            owners (const True) (mainHeadersOf includeGraph) predicate meta
+        , binding declId `Set.member` generated
+        ]
+
+    -- A squashed typedef has no binding of its own: its struct has it
+    binding :: C.DeclId -> C.DeclId
+    binding declId = case DeclIndex.lookupEntry declId meta.declIndex of
+      Just (UsableEntry (UsableSquashed squashed)) -> squashed.targetNameC
+      _otherwise                                   -> declId
 
 {-------------------------------------------------------------------------------
   Modules

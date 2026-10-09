@@ -32,6 +32,7 @@ module HsBindgen.App (
     -- ** Library
   , parseLibrary
   , parseGenBindingSpecDir
+  , parseListBaseModuleNames
     -- ** Input arguments
   , parseInputs
 
@@ -591,7 +592,8 @@ parseDryRun = switch $ mconcat [
       long "dry-run"
     , help $ concat [
           "Write no files: run as usual, check the output directories and"
-        , " files, and report each file that would be written"
+        , " files, and report each file that would be written; also print"
+        , " each module with the headers that it is generated for"
         ]
     ]
 
@@ -619,6 +621,15 @@ parseGenBindingSpecDir = strOption $ mconcat [
     , help $ concat [
           "With --library: generate a binding specification for each module,"
         , " in DIR, in a file named after the module (as in Lib.Types.yaml)"
+        ]
+    ]
+
+parseListBaseModuleNames :: Parser Bool
+parseListBaseModuleNames = switch $ mconcat [
+      long "list-base-module-names"
+    , help $ concat [
+          "With --library: print the name of each module, one per line, in"
+        , " the order in which the modules are generated"
         ]
     ]
 

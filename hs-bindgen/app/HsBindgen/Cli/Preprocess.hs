@@ -14,6 +14,7 @@ module HsBindgen.Cli.Preprocess (
   , exec
   ) where
 
+import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Options.Applicative hiding (info)
 import System.Exit (ExitCode (..), exitWith)
@@ -78,6 +79,7 @@ data ConfigCLI = ConfigCLI {
     , dirPolicy            :: DirPolicy
     , filePolicy           :: FilePolicy
     , dryRun               :: Bool
+    , listBaseModuleNames  :: Bool
     -- NOTE: Inputs (arguments) must be last, options must go before it.
     , inputs               :: [C.UncheckedRootDirective]
     }
@@ -97,6 +99,7 @@ parseConfigCLI =
       <*> parseDirPolicy
       <*> parseFilePolicy
       <*> parseDryRun
+      <*> parseListBaseModuleNames
       <*> parseInputs
 
 {-------------------------------------------------------------------------------
@@ -111,18 +114,59 @@ exec global opts = case NonEmpty.nonEmpty opts.configCLI.library of
             "--gen-binding-spec-dir can only be used with --library;"
           , " --gen-binding-spec names the file for one module"
           ]
-      run oneModule
+      when opts.configCLI.listBaseModuleNames $
+        usageError $ concat [
+            "--list-base-module-names can only be used with --library;"
+          , " without it there is the one module that --module names"
+          ]
+      headers <- run (oneModule *> moduleHeaders)
+      forM_ headers $
+        putStrLn . moduleLine opts.configCLI.baseModuleName
     Just dirs -> do
       let library = Library{dirs = dirs}
       checkLibraryOptions library
       run (modulePerHeader library) >>= \case
-        Right _written -> pure ()
-        Left err       -> do
+        Right written -> mapM_ putStrLn (report written)
+        Left err      -> do
           print $ prettyForTrace err
           -- The exit code of any other error that is specific to
           -- @hs-bindgen@
           exitWith (ExitFailure 4)
   where
+    -- What is printed about the modules of a library, in the order in which
+    -- they were generated
+    --
+    -- The headers are written as paths in the library directory, with a
+    -- slash, so the lines are the same on every platform.
+    report :: [Written] -> [String]
+    report written
+      | opts.configCLI.listBaseModuleNames = [
+            baseModuleNameToString w.name
+          | w <- written
+          ]
+      | opts.configCLI.dryRun = [
+            moduleLine w.name $
+              map Library.renderLibraryPath (NonEmpty.toList w.headers)
+          | w <- written
+          ]
+      | otherwise = []
+
+    -- What a dry run prints about the one module that the given headers
+    -- become without @--library@: the headers that it is generated for,
+    -- written as they are included.  A module that is not written is not
+    -- printed.
+    moduleHeaders :: Artefact CExpr (Maybe [FilePath])
+    moduleHeaders
+      | opts.configCLI.dryRun = getModuleHeaders
+      | otherwise             = pure Nothing
+
+    -- A module with the headers that it is generated for
+    moduleLine :: BaseModuleName -> [String] -> String
+    moduleLine name headers = concat [
+          baseModuleNameToString name
+        , if null headers then "" else ": " ++ List.intercalate ", " headers
+        ]
+
     run :: Artefact CExpr a -> IO a
     run artefact =
         hsBindgen

@@ -25,6 +25,7 @@ module HsBindgen (
   , forEachModule
   , Written(..)
   , writeLibrary
+  , getModuleHeaders
 
     -- ** Low-level artefacts
   , getConfig
@@ -628,6 +629,28 @@ writeLibrary library predicate filesOfModule =
     size = \case
       StringContent     str -> length str
       ByteStringContent bs  -> BS.length bs
+
+-- | The headers that the module is generated for when there is no library
+--
+-- The given headers are then generated as one module.  Its headers are the
+-- ones that own a declaration that the selection predicate selects and that
+-- the module has a binding for ('Library.owningHeaders'), each written the
+-- way that it is included.  The result is 'Nothing' when the module has no
+-- bindings, and so is not written.
+getModuleHeaders :: Artefact l (Maybe [FilePath])
+getModuleHeaders = do
+    decls <- FinalDecls
+    if all nullDecls decls then pure Nothing else do
+      config       <- getConfig
+      includeGraph <- getIncludeGraph
+      unit         <- FrontendPassA MangleNamesPass
+      generated    <- getReifiedC
+      pure $ Just $ map (IncludeGraph.includedAs includeGraph) $
+        Library.owningHeaders
+          includeGraph
+          config.frontend.selectionPredicate
+          unit.meta
+          (Set.fromList $ map (.info.id.cName) generated)
 
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact l ()
