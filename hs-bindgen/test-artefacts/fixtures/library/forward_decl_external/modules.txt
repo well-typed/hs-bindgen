@@ -1,0 +1,4 @@
+M.A: a.h
+  M/A/Safe.hs
+  M/A/Unsafe.hs
+  M/A/FunPtr.hs

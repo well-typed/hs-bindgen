@@ -1,0 +1,7 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+ctypes:
+- headers: mylib/types.h
+  cname: point_t
+  hsname: Point

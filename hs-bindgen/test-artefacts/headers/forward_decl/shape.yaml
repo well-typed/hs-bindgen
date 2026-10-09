@@ -1,0 +1,28 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Vendor.Shape
+ctypes:
+- headers: forward_decl/b.h
+  cname: struct shape
+  hsname: Shape
+hstypes:
+- hsname: Shape
+  representation:
+    record:
+      constructor: Shape
+      fields:
+      - shape_sides
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

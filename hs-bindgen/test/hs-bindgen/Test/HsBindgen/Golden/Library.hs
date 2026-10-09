@@ -37,8 +37,10 @@ import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Library (Library (..), LibraryError, LibraryPath,
                           renderLibraryPath)
 import HsBindgen.Library.Plan (Module (..))
-import HsBindgen.Util.Tracer (nullTracer, prettyForTrace)
+import HsBindgen.TraceMsg
+import HsBindgen.Util.Tracer (Level, nullTracer, prettyForTrace)
 
+import Test.Common.HsBindgen.Trace.Predicate
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.Infra.TestCase
@@ -83,6 +85,11 @@ data LibraryCase = LibraryCase {
       --
       -- Such a specification is also written to a file and read back.
     , specs :: [(BaseModuleName, FilePath)]
+
+      -- | What the run that reads the header has beyond the above: the
+      -- binding specifications that it is given, and the warnings that it is
+      -- expected to print
+    , onTest :: TestCase -> TestCase
     }
 
 cases :: [LibraryCase]
@@ -97,6 +104,7 @@ cases = [
         , baseModule = "M"
         , generated  = ["M.B", "M.A"]
         , specs      = []
+        , onTest     = id
         }
       -- Headers in a subdirectory, one of them used by nobody
     , LibraryCase{
@@ -123,6 +131,7 @@ cases = [
                 , "MyLib.Mylib"
                 ]
             ]
+        , onTest     = id
         }
       -- types.h has the typedefs for the structs that foo.h and bar.h define,
       -- and alias.h a typedef for a struct from outside the library
@@ -135,6 +144,7 @@ cases = [
         , baseModule = "M"
         , generated  = ["M.Types", "M.Bar", "M.Alias", "M.Foo", "M.Api"]
         , specs      = []
+        , onTest     = id
         }
       -- user.h uses a struct from outside the library by its tag, and comes
       -- before alias.h, which has the typedef for it
@@ -147,6 +157,7 @@ cases = [
         , baseModule = "M"
         , generated  = ["M.Alias", "M.User"]
         , specs      = []
+        , onTest     = id
         }
       -- Each of the two headers uses a declaration of the other, so they
       -- share a module.  elaborate.h includes the other one.
@@ -159,6 +170,7 @@ cases = [
         , baseModule = "M"
         , generated  = ["M.Elaborate", "M.Elaborate_inner"]
         , specs      = []
+        , onTest     = id
         }
       -- The two headers include each other, and no declaration of one uses a
       -- declaration of the other
@@ -171,6 +183,7 @@ cases = [
         , baseModule = "M"
         , generated  = ["M.Circular_includes", "M.Circular_includes_inner"]
         , specs      = []
+        , onTest     = id
         }
       -- The header that is read has no declaration of its own
     , LibraryCase{
@@ -186,6 +199,7 @@ cases = [
             , "M.Macro_typedef_scope_multiple_inner2"
             ]
         , specs      = []
+        , onTest     = id
         }
       -- types.h has a typedef for a pointer to a struct of td.h, which has a
       -- field of a type from types.h.  td.h includes types.h.
@@ -198,6 +212,7 @@ cases = [
         , baseModule = "M"
         , generated  = ["M.Td", "M.Types"]
         , specs      = []
+        , onTest     = id
         }
       -- A function of each header has the struct of the other in its type,
       -- and neither header includes the other
@@ -210,6 +225,7 @@ cases = [
         , baseModule = "M"
         , generated  = ["M.Window", "M.Widget", "M.Root"]
         , specs      = []
+        , onTest     = id
         }
       -- mylib without the header that nobody uses, as with
       -- @--select-except-by-header-path 'internal\.h$'@.  The pattern is
@@ -229,6 +245,7 @@ cases = [
             , "MyLib.Mylib"
             ]
         , specs      = []
+        , onTest     = id
         }
       -- The declarations of detail.h are not selected.  It defines a struct
       -- that the other two headers use, and the struct goes to the module of
@@ -242,6 +259,7 @@ cases = [
         , baseModule = "M"
         , generated  = ["M.Reader", "M.Writer", "M.Detail"]
         , specs      = []
+        , onTest     = id
         }
       -- mylib without the declarations for rectangles, as with
       -- @--select-except-by-decl-name rect_@.  The name that is matched has
@@ -260,6 +278,7 @@ cases = [
             , "MyLib.Mylib"
             ]
         , specs      = []
+        , onTest     = id
         }
       -- mylib with the declarations of the given header only, as with
       -- @--select-from-main-headers@.  The header has a function, and the
@@ -274,8 +293,117 @@ cases = [
         , baseModule = "MyLib"
         , generated  = ["MyLib.Mylib"]
         , specs      = []
+        , onTest     = id
+        }
+      -- forward_decl with an external binding specification for the struct
+      -- of b.h.  Nobody owns a declaration that is bound, so b.h has nothing
+      -- and a.h does not wait for it.
+    , LibraryCase{
+          name       = "forward_decl_external"
+        , root       = "forward_decl/b.h"
+        , library    = "forward_decl" :| []
+        , includes   = []
+        , predicate  = BTrue
+        , baseModule = "M"
+        , generated  = ["M.B", "M.A"]
+        , specs      = []
+        , onTest     = #specExternal .~ [headersDir </> "forward_decl/shape.yaml"]
+        }
+      -- forward_typedef with a prescriptive binding specification that makes
+      -- the struct of foo.h opaque.  Without its fields the struct uses
+      -- nothing, so foo.h does not wait for bar.h and types.h.
+    , LibraryCase{
+          name       = "forward_typedef_emptydata"
+        , root       = "forward_typedef/root.h"
+        , library    = "forward_typedef/lib" :| []
+        , includes   = ["forward_typedef"]
+        , predicate  = BTrue
+        , baseModule = "M"
+        , generated  = ["M.Types", "M.Foo", "M.Bar", "M.Alias", "M.Api"]
+        , specs      = []
+        , onTest     = \test -> test
+            & #specPrescriptive .~
+                Just (headersDir </> "forward_typedef/foo_p.yaml")
+            & #tracePredicate .~ unusedIn ["M.Bar", "M.Alias", "M.Api"]
+        }
+      -- mylib with a prescriptive binding specification that names no
+      -- module, and so is for every module of the library.  It gives the
+      -- struct of types.h another name, which the modules that use the
+      -- struct use too.
+    , LibraryCase{
+          name       = "mylib_rename"
+        , root       = "mylib.h"
+        , library    = "." :| []
+        , includes   = []
+        , predicate  = BTrue
+        , baseModule = "MyLib"
+        , generated  = [
+              "MyLib.Mylib.Types"
+            , "MyLib.Mylib.Internal"
+            , "MyLib.Mylib.Ops"
+            , "MyLib.Mylib"
+            ]
+        , specs      = []
+        , onTest     = \test -> test
+            & #specPrescriptive .~ Just (headersDir </> "mylib_p.yaml")
+            & #tracePredicate .~ unusedIn [
+                "MyLib.Mylib.Internal"
+              , "MyLib.Mylib.Ops"
+              , "MyLib.Mylib"
+              ]
+        }
+      -- A prescriptive binding specification for every module omits the
+      -- struct of stopwatch.h, and every module records the omission.  The
+      -- binding specifications of the first two modules are the ones that
+      -- the golden test for merging two omissions reads
+      -- ("Test.HsBindgen.Golden.BindingSpecs").
+    , LibraryCase{
+          name       = "omit_twice"
+        , root       = "binding-specs/merge/omit_twice/report.h"
+        , library    = "golden/binding-specs/merge/omit_twice" :| []
+        , includes   = ["golden"]
+        , predicate  = BTrue
+        , baseModule = "Lib"
+        , generated  = ["Lib.Stopwatch", "Lib.Counter", "Lib.Report"]
+        , specs      = [
+              ("Lib.Stopwatch", omitTwice </> "stopwatch.yaml")
+            , ("Lib.Counter",   omitTwice </> "counter.yaml")
+            ]
+        , onTest     = #specPrescriptive .~ Just (omitTwice </> "report_p.yaml")
+        }
+      -- register.h has a function that takes a callback over the struct of
+      -- foo.h.  Instances for the type of the callback are generated with a
+      -- type that it mentions, and here that type is in another module: no
+      -- module has the instances.
+    , LibraryCase{
+          name       = "callback"
+        , root       = "callback/register.h"
+        , library    = "callback" :| []
+        , includes   = []
+        , predicate  = BTrue
+        , baseModule = "M"
+        , generated  = ["M.Foo", "M.Register"]
+        , specs      = []
+        , onTest     = id
         }
     ]
+  where
+    omitTwice :: FilePath
+    omitTwice = headersDir </> "golden/binding-specs/merge/omit_twice"
+
+-- | Expect these modules to report an entry of the prescriptive binding
+-- specification as unused
+--
+-- A module after the one that defines a type has a binding for the type, so
+-- an entry for that type has nothing to apply to there.
+unusedIn :: [BaseModuleName] -> TracePredicate Level TraceMsg
+unusedIn names =
+    multiTracePredicate (map baseModuleNameToString names) $ \case
+      TraceModule (InModule name (TraceFrontend (FrontendResolveBindingSpecs
+        ResolveBindingSpecsTypeNotUsed{}))) ->
+          Just $ Expected (baseModuleNameToString name)
+      _otherwise ->
+        Nothing
 
 {-------------------------------------------------------------------------------
   Tests
@@ -458,7 +586,7 @@ fixtureDirOf libraryCase = fixtures </> libraryCase.name
 -- by.
 toTestCase :: LibraryCase -> TestCase
 toTestCase libraryCase =
-    defaultTest libraryCase.name
+    libraryCase.onTest $ defaultTest libraryCase.name
       & #name        .~ "library" </> libraryCase.name
       & #inputHeader .~ libraryCase.root
       & #inputDir    .~ headersDir
@@ -476,8 +604,13 @@ includeDirsOf libraryCase = map (headersDir </>) libraryCase.includes
 
 -- | The fixtures for @pp-fixtures@ to compile, each with the directories that
 -- it needs on the include path
+--
+-- A case with an external binding specification is left out: its modules
+-- import one that is not among the fixtures.
 fixtureCases :: [(TestCase, [FilePath])]
 fixtureCases = [
-      (toTestCase libraryCase, includeDirsOf libraryCase)
+      (test, includeDirsOf libraryCase)
     | libraryCase <- cases
+    , let test = toTestCase libraryCase
+    , null test.specExternal
     ]

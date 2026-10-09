@@ -1,0 +1,6 @@
+M.Foo: foo.h
+  M/Foo.hs
+M.Register: register.h
+  M/Register/Safe.hs
+  M/Register/Unsafe.hs
+  M/Register/FunPtr.hs

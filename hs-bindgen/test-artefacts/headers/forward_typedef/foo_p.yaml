@@ -1,0 +1,10 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+ctypes:
+- headers: forward_typedef/lib/foo.h
+  cname: struct foo
+  hsname: Foo
+hstypes:
+- hsname: Foo
+  representation: emptydata
