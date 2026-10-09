@@ -138,10 +138,11 @@ hs-bindgen-cli preprocess \
 
 The `-v` option controls verbosity:
 
-- `-v1` - Warnings only
-- `-v2` - Info messages
-- `-v3` - Debug messages
-- `-v4` - Trace messages
+- `-v0` - Errors only
+- `-v1` - Warnings
+- `-v2` - Notices (default)
+- `-v3` - Info messages
+- `-v4` - Debug messages
 
 Higher verbosity levels show which declarations are selected or deselected, and which macros succeed or fail to parse.
 
@@ -336,10 +337,11 @@ The `Config` type configures binding generation.  Common fields:
     error, because the package root would be discarded
   - `AbsDir "/path"` - Absolute path; a relative path is resolved against the
     working directory of the compiler invocation and therefore warned about
-- `#clang % #gnu` - GNU extensions (`GnuEnabled` or `GnuDisabled`)
-- `#clang % #cStandard` - C standard (e.g., `C99`, `C11`)
+- `#clang % #argsInner` - Options passed to Clang (e.g., `["-std=gnu11"]` for
+  the C standard and GNU extensions)
 - `#selectionPredicate` - Select a subset of declarations
 - `#programSlicing`     - Use or do not use program slicing
+  (`EnableProgramSlicing` or `DisableProgramSlicing`)
 
 See the `HsBindgen.TH` module documentation for all configuration options.
 
@@ -347,10 +349,9 @@ See the `HsBindgen.TH` module documentation for all configuration options.
 
 The `ConfigTH` type configures Template Haskell behavior:
 
-- `#verbosity` - Log level (`Verbosity Silent`, `Verbosity Warning`,
-  `Verbosity Info`, `Verbosity Debug`)
-- `#customLogLevelSettings` - Fine-grained logging (e.g.,
-  `[EnableMacroWarnings]`)
+- `#verbosity` - Log level (`Verbosity Error`, `Verbosity Warning`,
+  `Verbosity Notice`, `Verbosity Info`, `Verbosity Debug`)
+- `#customLogLevels` - Fine-grained logging (e.g., `[EnableMacroWarnings]`)
 
 ### Complete example
 
@@ -358,6 +359,7 @@ The `ConfigTH` type configures Template Haskell behavior:
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE OverloadedLabels #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module CompleteExample where
 
@@ -370,15 +372,15 @@ let cfg :: Config
                   PkgDir "my-c-library"
                 , AbsDir "/usr/local/include"
                 ]
-            & #clang % #gnu .~ GnuEnabled
-            & #clang % #cStandard .~ C11
-            & #select % #predicate .~ SelectByHeaderPath (Regex "mylib\\.h")
-            & #select % #programSlicing .~ ProgramSlicingEnabled
+            & #clang % #argsInner .~ ["-std=gnu11"]
+            & #selectionPredicate .~
+                BIf (SelectHeader (HeaderPathMatches "mylib\\.h"))
+            & #programSlicing .~ EnableProgramSlicing
 
     cfgTH :: ConfigTH
     cfgTH = def
               & #verbosity .~ Verbosity Info
-              & #customLogLevelSettings .~ [EnableMacroWarnings]
+              & #customLogLevels .~ [EnableMacroWarnings]
  in withHsBindgen cfg cfgTH $
       hashInclude "mylib.h"
 ```
