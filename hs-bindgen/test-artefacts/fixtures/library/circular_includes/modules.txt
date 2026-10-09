@@ -1,0 +1,4 @@
+M.Circular_includes: circular_includes.h
+  M/Circular_includes.hs
+M.Circular_includes_inner: circular_includes_inner.h
+  M/Circular_includes_inner.hs

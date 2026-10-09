@@ -1,0 +1,4 @@
+M.Macro_typedef_scope_multiple_inner1: macro_typedef_scope_multiple_inner1.h
+  M/Macro_typedef_scope_multiple_inner1.hs
+M.Macro_typedef_scope_multiple_inner2: macro_typedef_scope_multiple_inner2.h
+  M/Macro_typedef_scope_multiple_inner2.hs

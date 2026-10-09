@@ -76,7 +76,7 @@ tests getTestResources = testGroup "Integration.Library" [
           exitCode @?= ExitFailure 4
           written <- listFiles outDir
           written @?= []
-    , testCase "headers that use each other are an error" $
+    , testCase "headers that use each other share a module" $
         inOutputDir $ \outDir ->
         withSystemTempDirectory "hs-bindgen-test" $ \headers -> do
           -- Each of the two structs has a pointer to the other
@@ -88,12 +88,14 @@ tests getTestResources = testGroup "Integration.Library" [
               "#include \"a.h\""
             , "struct b { struct a *a; };"
             ]
-          (exitCode, out, err) <- run headers [headers] outDir [] "b.h"
-          exitCode @?= ExitFailure 4
-          assertBool "the error names the two headers" $
-            all (`isInfixOf` (out ++ err)) ["a.h", "b.h"]
+          (exitCode, _, _) <- run headers [headers] outDir [] "b.h"
+          exitCode @?= ExitSuccess
+          -- The module has the name of the header that includes the other
           written <- listFiles outDir
-          written @?= []
+          written @?= ["M" </> "B.hs"]
+          types <- readFile (outDir </> "M" </> "B.hs")
+          assertBool "M.B has both structs" $
+            all (`isInfixOf` types) ["data A = A", "data B = B"]
     ]
   where
     inOutputDir :: (FilePath -> IO a) -> IO a

@@ -291,10 +291,6 @@ data LibraryError =
 
     -- | The header has no name that a module could be named after
   | NoModuleName LibraryPath
-
-    -- | The headers use each other, so that none of their modules can be
-    -- generated first
-  | HeadersUseEachOther (NonEmpty LibraryPath)
   deriving stock (Show, Eq)
 
 instance PrettyForTrace LibraryError where
@@ -308,14 +304,6 @@ instance PrettyForTrace LibraryError where
       ]
     NoModuleName header ->
       "There is no module name for library header" <+> prettyForTrace header
-    HeadersUseEachOther headers -> PP.hangs'
-      ( PP.hsep [
-            "These library headers use each other,"
-          , "so no module can be generated first:"
-          ]
-      )
-      2
-      (map prettyForTrace (NonEmpty.toList headers))
 
 -- | The modules that a library is generated as, in the order of generation
 --
@@ -361,14 +349,17 @@ modules base paths includeGraph predicate meta
     libraryPath :: RealPath -> Maybe LibraryPath
     libraryPath = (`Map.lookup` paths)
 
+    -- A module has the name of its first header.  When headers share a
+    -- module, that is the one that includes most of the others.
     named ::
          Module LibraryPath C.DeclId
       -> Either LibraryError (BaseModuleName, Module LibraryPath C.DeclId)
-    named m = case m.headers of
-      header :| [] -> case moduleName base header of
+    named m = case moduleName base header of
         Just name -> Right (name, m)
         Nothing   -> Left (NoModuleName header)
-      headers      -> Left (HeadersUseEachOther headers)
+      where
+        header :: LibraryPath
+        header = NonEmpty.head m.headers
 
     -- The library headers that a library header includes, directly or
     -- indirectly

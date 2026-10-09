@@ -1,0 +1,5 @@
+M.Window: window.h, widget.h
+  M/Window.hs
+  M/Window/Safe.hs
+  M/Window/Unsafe.hs
+  M/Window/FunPtr.hs

@@ -111,6 +111,59 @@ cases = [
         , baseModule = "M"
         , generated  = ["M.Alias", "M.User"]
         }
+      -- Each of the two headers uses a declaration of the other, so they
+      -- share a module.  elaborate.h includes the other one.
+    , LibraryCase{
+          name       = "elaborate"
+        , root       = "golden/macros/parse/elaborate.h"
+        , library    = "golden/macros/parse" :| []
+        , includes   = []
+        , baseModule = "M"
+        , generated  = ["M.Elaborate", "M.Elaborate_inner"]
+        }
+      -- The two headers include each other, and no declaration of one uses a
+      -- declaration of the other
+    , LibraryCase{
+          name       = "circular_includes"
+        , root       = "golden/program-analysis/circular_includes.h"
+        , library    = "golden/program-analysis" :| []
+        , includes   = []
+        , baseModule = "M"
+        , generated  = ["M.Circular_includes", "M.Circular_includes_inner"]
+        }
+      -- The header that is read has no declaration of its own
+    , LibraryCase{
+          name       = "macro_typedef_scope_multiple"
+        , root       = "golden/macros/parse/macro_typedef_scope_multiple.h"
+        , library    = "golden/macros/parse" :| []
+        , includes   = []
+        , baseModule = "M"
+        , generated  = [
+              "M.Macro_typedef_scope_multiple"
+            , "M.Macro_typedef_scope_multiple_inner1"
+            , "M.Macro_typedef_scope_multiple_inner2"
+            ]
+        }
+      -- types.h has a typedef for a pointer to a struct of td.h, which has a
+      -- field of a type from types.h.  td.h includes types.h.
+    , LibraryCase{
+          name       = "rpm_pair"
+        , root       = "rpm_pair/td.h"
+        , library    = "rpm_pair" :| []
+        , includes   = []
+        , baseModule = "M"
+        , generated  = ["M.Td", "M.Types"]
+        }
+      -- A function of each header has the struct of the other in its type,
+      -- and neither header includes the other
+    , LibraryCase{
+          name       = "window_widget"
+        , root       = "window_widget/root.h"
+        , library    = "window_widget" :| []
+        , includes   = []
+        , baseModule = "M"
+        , generated  = ["M.Window", "M.Widget", "M.Root"]
+        }
     ]
 
 {-------------------------------------------------------------------------------

@@ -1,0 +1,5 @@
+M.Td: td.h, types.h
+  M/Td.hs
+  M/Td/Safe.hs
+  M/Td/Unsafe.hs
+  M/Td/FunPtr.hs

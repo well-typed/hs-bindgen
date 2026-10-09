@@ -1,0 +1,2 @@
+M.Elaborate: elaborate.h, elaborate_inner.h
+  M/Elaborate.hs
