@@ -50,16 +50,192 @@ tests getTestResources = testGroup "Integration.Library" [
     , testGroup "usage errors" [
           testCase flag $
             inOutputDir $ \outDir -> do
-              (exitCode, _, _) <-
+              (exitCode, _, err) <-
                 preprocess getTestResources outDir forwardDecl options
               exitCode @?= ExitFailure 2
+              -- The command line parses, and is refused for what it asks for
+              assertBool ("unexpected message: " ++ err) $
+                "--library cannot be combined with" `isInfixOf` err
               written <- listFiles outDir
               written @?= []
         | (flag, options) <- [
-              ("--select-by-decl-name", ["--select-by-decl-name", "shape"])
-            , ("--select-all", ["--select-all"])
-            , ("--gen-binding-spec", ["--gen-binding-spec", "spec.yaml"])
+              ("--gen-binding-spec", ["--gen-binding-spec", "spec.yaml"])
             ]
+        ]
+    , testGroup "selection by header" [
+          testGroup "every declaration, said or not" [
+              testCase flag $
+                inOutputDir $ \outDir -> do
+                  (exitCode, _, _) <-
+                    preprocess getTestResources outDir forwardDecl [flag]
+                  exitCode @?= ExitSuccess
+                  written <- listFiles outDir
+                  written @?= [
+                      "M" </> "A" </> "FunPtr.hs"
+                    , "M" </> "A" </> "Safe.hs"
+                    , "M" </> "A" </> "Unsafe.hs"
+                    , "M" </> "B.hs"
+                    ]
+              -- a.h is in the directory of b.h, which is the header given
+            | flag <- [
+                  "--select-all"
+                , "--select-from-all-headers"
+                , "--select-from-main-header-dirs"
+                ]
+            ]
+        , testCase "the declarations of the given header only" $
+            inOutputDir $ \outDir -> do
+              -- b.h is given and a.h is not, so the function of a.h is not
+              -- selected and a.h has nothing
+              (exitCode, _, _) <- preprocess getTestResources outDir forwardDecl
+                ["--select-from-main-headers"]
+              exitCode @?= ExitSuccess
+              written <- listFiles outDir
+              written @?= ["M" </> "B.hs"]
+        , testCase "a given header without declarations" $
+            inOutputDir $ \outDir ->
+            withSystemTempDirectory "hs-bindgen-test" $ \headers -> do
+              -- root.h is the only header given and it only includes
+              writeFile (headers </> "a.h") "struct a { int x; };\n"
+              writeFile (headers </> "root.h") "#include \"a.h\"\n"
+              (exitCode, _, _) <- run headers [headers] outDir
+                ["--select-from-main-headers"] "root.h"
+              exitCode @?= ExitSuccess
+              written <- listFiles outDir
+              written @?= []
+        , testCase "a header that is selected by its path" $
+            inOutputDir $ \outDir -> do
+              -- The struct of b.h is not selected, and the function of a.h
+              -- has it in its type.  It is generated where it is needed.
+              (exitCode, _, _) <- preprocess getTestResources outDir forwardDecl
+                ["--select-by-header-path", "a\\.h$"]
+              exitCode @?= ExitSuccess
+              written <- listFiles outDir
+              written @?= [
+                  "M" </> "A.hs"
+                , "M" </> "A" </> "FunPtr.hs"
+                , "M" </> "A" </> "Safe.hs"
+                , "M" </> "A" </> "Unsafe.hs"
+                ]
+              types <- readFile (outDir </> "M" </> "A.hs")
+              assertBool "M.A has the struct" $ "data Shape" `isInfixOf` types
+        , testCase "a header that is excepted by its path" $
+            inOutputDir $ \outDir -> do
+              (exitCode, _, _) <- preprocess getTestResources outDir forwardDecl
+                ["--select-except-by-header-path", "a\\.h$"]
+              exitCode @?= ExitSuccess
+              written <- listFiles outDir
+              written @?= ["M" </> "B.hs"]
+        , testCase "the path that is matched is the whole path" $
+            inOutputDir $ \outDir -> do
+              -- Not the path in the library directory, which is what a module
+              -- is named after
+              (exitCode, _, _) <- preprocess getTestResources outDir forwardDecl
+                ["--select-by-header-path", "^b\\.h$"]
+              exitCode @?= ExitSuccess
+              written <- listFiles outDir
+              written @?= []
+        , testCase "a header and a declaration, each selected" $
+            inOutputDir $ \outDir -> do
+              -- What one flag selects is added to what another one selects
+              (exitCode, _, _) <- preprocess getTestResources outDir forwardDecl
+                [ "--select-by-header-path", "a\\.h$"
+                , "--select-by-decl-name", "^struct shape$"
+                ]
+              exitCode @?= ExitSuccess
+              written <- listFiles outDir
+              written @?= [
+                  "M" </> "A" </> "FunPtr.hs"
+                , "M" </> "A" </> "Safe.hs"
+                , "M" </> "A" </> "Unsafe.hs"
+                , "M" </> "B.hs"
+                ]
+        , testCase "a header selected and its declaration excepted" $
+            inOutputDir $ \outDir -> do
+              (exitCode, _, _) <- preprocess getTestResources outDir forwardDecl
+                [ "--select-by-header-path", "a\\.h$"
+                , "--select-except-by-decl-name", "^shape_draw$"
+                ]
+              exitCode @?= ExitSuccess
+              written <- listFiles outDir
+              written @?= []
+        , testGroup "a typedef in one header and its struct in another" [
+              testCase "the header of the struct, excepted by its path" $
+                inOutputDir $ \outDir -> splitTypedef $ \headers -> do
+                  -- point.h gets a module all the same.  The typedef is
+                  -- selected, and the type that the two are goes to the
+                  -- header of the struct.
+                  (exitCode, _, _) <- run headers [headers] outDir
+                    ["--select-except-by-header-path", "point\\.h$"] "user.h"
+                  exitCode @?= ExitSuccess
+                  written <- listFiles outDir
+                  written @?= ["M" </> "Point.hs", "M" </> "User.hs"]
+            , testCase "the typedef excepted as well, by its name" $
+                inOutputDir $ \outDir -> splitTypedef $ \headers -> do
+                  -- Nothing selects the type now, so point.h gets no module.
+                  -- user.h needs the type and generates it.
+                  (exitCode, _, _) <- run headers [headers] outDir
+                    [ "--select-except-by-header-path", "point\\.h$"
+                    , "--select-except-by-decl-name", "^point$"
+                    ]
+                    "user.h"
+                  exitCode @?= ExitSuccess
+                  written <- listFiles outDir
+                  written @?= ["M" </> "User.hs"]
+                  types <- readFile (outDir </> "M" </> "User.hs")
+                  assertBool "M.User has both structs" $
+                    all (`isInfixOf` types)
+                      ["data Point = Point", "data User = User"]
+            ]
+        ]
+    , testGroup "selection by declaration" [
+          testCase "a declaration that is selected by name" $
+            inOutputDir $ \outDir -> do
+              -- The function of a.h is not selected, so a.h has nothing.  The
+              -- name that is matched has the tag of the struct.
+              (exitCode, _, _) <- preprocess getTestResources outDir forwardDecl
+                ["--select-by-decl-name", "^struct shape$"]
+              exitCode @?= ExitSuccess
+              written <- listFiles outDir
+              written @?= ["M" </> "B.hs"]
+        , testCase "a declaration that is excepted by name" $
+            inOutputDir $ \outDir -> do
+              (exitCode, _, _) <- preprocess getTestResources outDir forwardDecl
+                ["--select-except-by-decl-name", "^shape_draw$"]
+              exitCode @?= ExitSuccess
+              written <- listFiles outDir
+              written @?= ["M" </> "B.hs"]
+        , testCase "a declaration that a selected one needs" $
+            inOutputDir $ \outDir -> do
+              -- The struct of b.h is not selected, and the function of a.h
+              -- has it in its type.  It is generated where it is needed.
+              (exitCode, _, _) <- preprocess getTestResources outDir forwardDecl
+                ["--select-by-decl-name", "^shape_draw$"]
+              exitCode @?= ExitSuccess
+              written <- listFiles outDir
+              written @?= [
+                  "M" </> "A.hs"
+                , "M" </> "A" </> "FunPtr.hs"
+                , "M" </> "A" </> "Safe.hs"
+                , "M" </> "A" </> "Unsafe.hs"
+                ]
+              types <- readFile (outDir </> "M" </> "A.hs")
+              assertBool "M.A has the struct" $ "data Shape" `isInfixOf` types
+        , testCase "a deprecated declaration that is excepted" $
+            inOutputDir $ \outDir ->
+            withSystemTempDirectory "hs-bindgen-test" $ \headers -> do
+              writeFile (headers </> "a.h") $ unlines [
+                  "void old_name(void) __attribute__((deprecated));"
+                , "void new_name(void);"
+                ]
+              (exitCode, _, _) <- run headers [headers] outDir
+                ["--select-except-deprecated"] "a.h"
+              exitCode @?= ExitSuccess
+              safe <- readFile (outDir </> "M" </> "A" </> "Safe.hs")
+              assertBool "M.A.Safe has the function that is not deprecated" $
+                "new_name" `isInfixOf` safe
+              assertBool "M.A.Safe does not have the deprecated function" $
+                not ("old_name" `isInfixOf` safe)
         ]
     , testCase "a library directory that does not exist is a usage error" $
         inOutputDir $ \outDir -> do
@@ -136,6 +312,24 @@ run headers libraryDirs outDir options header =
         , [header]
         ])
       ""
+
+-- | Run an action in a directory with a typedef in @types.h@ for the struct
+-- that @point.h@ defines
+--
+-- @point.h@ includes @types.h@.  @user.h@ includes @point.h@ and has a struct
+-- with a field of the type.
+splitTypedef :: (FilePath -> IO a) -> IO a
+splitTypedef k = withSystemTempDirectory "hs-bindgen-test" $ \headers -> do
+    writeFile (headers </> "types.h") "typedef struct point point;\n"
+    writeFile (headers </> "point.h") $ unlines [
+        "#include \"types.h\""
+      , "struct point { int x; };"
+      ]
+    writeFile (headers </> "user.h") $ unlines [
+        "#include \"point.h\""
+      , "struct user { point p; };"
+      ]
+    k headers
 
 -- | The files below a directory, with their paths below it, sorted
 listFiles :: FilePath -> IO [FilePath]

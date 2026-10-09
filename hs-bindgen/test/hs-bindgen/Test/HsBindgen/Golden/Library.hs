@@ -55,6 +55,10 @@ data LibraryCase = LibraryCase {
       -- @test-artefacts\/headers@
     , includes :: [FilePath]
 
+      -- | The declarations that are selected, among those of the library
+      -- headers
+    , predicate :: Boolean SelectionPredicate
+
       -- | The base module
     , baseModule :: BaseModuleName
 
@@ -74,6 +78,7 @@ cases = [
         , root       = "forward_decl/b.h"
         , library    = "forward_decl" :| []
         , includes   = []
+        , predicate  = BTrue
         , baseModule = "M"
         , generated  = ["M.B", "M.A"]
         }
@@ -83,6 +88,7 @@ cases = [
         , root       = "mylib.h"
         , library    = "." :| []
         , includes   = []
+        , predicate  = BTrue
         , baseModule = "MyLib"
         , generated  = [
               "MyLib.Mylib.Types"
@@ -98,6 +104,7 @@ cases = [
         , root       = "forward_typedef/root.h"
         , library    = "forward_typedef/lib" :| []
         , includes   = ["forward_typedef"]
+        , predicate  = BTrue
         , baseModule = "M"
         , generated  = ["M.Types", "M.Bar", "M.Alias", "M.Foo", "M.Api"]
         }
@@ -108,6 +115,7 @@ cases = [
         , root       = "vendor_by_tag/root.h"
         , library    = "vendor_by_tag/lib" :| []
         , includes   = ["vendor_by_tag"]
+        , predicate  = BTrue
         , baseModule = "M"
         , generated  = ["M.Alias", "M.User"]
         }
@@ -118,6 +126,7 @@ cases = [
         , root       = "golden/macros/parse/elaborate.h"
         , library    = "golden/macros/parse" :| []
         , includes   = []
+        , predicate  = BTrue
         , baseModule = "M"
         , generated  = ["M.Elaborate", "M.Elaborate_inner"]
         }
@@ -128,6 +137,7 @@ cases = [
         , root       = "golden/program-analysis/circular_includes.h"
         , library    = "golden/program-analysis" :| []
         , includes   = []
+        , predicate  = BTrue
         , baseModule = "M"
         , generated  = ["M.Circular_includes", "M.Circular_includes_inner"]
         }
@@ -137,6 +147,7 @@ cases = [
         , root       = "golden/macros/parse/macro_typedef_scope_multiple.h"
         , library    = "golden/macros/parse" :| []
         , includes   = []
+        , predicate  = BTrue
         , baseModule = "M"
         , generated  = [
               "M.Macro_typedef_scope_multiple"
@@ -151,6 +162,7 @@ cases = [
         , root       = "rpm_pair/td.h"
         , library    = "rpm_pair" :| []
         , includes   = []
+        , predicate  = BTrue
         , baseModule = "M"
         , generated  = ["M.Td", "M.Types"]
         }
@@ -161,8 +173,69 @@ cases = [
         , root       = "window_widget/root.h"
         , library    = "window_widget" :| []
         , includes   = []
+        , predicate  = BTrue
         , baseModule = "M"
         , generated  = ["M.Window", "M.Widget", "M.Root"]
+        }
+      -- mylib without the header that nobody uses, as with
+      -- @--select-except-by-header-path 'internal\.h$'@.  The pattern is
+      -- matched against the whole path, which has other separators on
+      -- Windows, so it has none.
+    , LibraryCase{
+          name       = "mylib_except"
+        , root       = "mylib.h"
+        , library    = "." :| []
+        , includes   = []
+        , predicate  = BNot (BIf (SelectHeader (HeaderPathMatches "internal\\.h$")))
+        , baseModule = "MyLib"
+        , generated  = [
+              "MyLib.Mylib.Types"
+            , "MyLib.Mylib.Internal"
+            , "MyLib.Mylib.Ops"
+            , "MyLib.Mylib"
+            ]
+        }
+      -- The declarations of detail.h are not selected.  It defines a struct
+      -- that the other two headers use, and the struct goes to the module of
+      -- the first.
+    , LibraryCase{
+          name       = "excepted_type"
+        , root       = "excepted_type/root.h"
+        , library    = "excepted_type" :| []
+        , includes   = []
+        , predicate  = BNot (BIf (SelectHeader (HeaderPathMatches "detail\\.h$")))
+        , baseModule = "M"
+        , generated  = ["M.Reader", "M.Writer", "M.Detail"]
+        }
+      -- mylib without the declarations for rectangles, as with
+      -- @--select-except-by-decl-name rect_@.  The name that is matched has
+      -- the tag, so the struct is @struct rect_t@.
+    , LibraryCase{
+          name       = "mylib_except_decl"
+        , root       = "mylib.h"
+        , library    = "." :| []
+        , includes   = []
+        , predicate  = BNot (BIf (SelectDecl (DeclNameMatches "rect_")))
+        , baseModule = "MyLib"
+        , generated  = [
+              "MyLib.Mylib.Types"
+            , "MyLib.Mylib.Internal"
+            , "MyLib.Mylib.Ops"
+            , "MyLib.Mylib"
+            ]
+        }
+      -- mylib with the declarations of the given header only, as with
+      -- @--select-from-main-headers@.  The header has a function, and the
+      -- headers that it includes own nothing, so the struct in the type of
+      -- the function is generated with it.
+    , LibraryCase{
+          name       = "mylib_main_headers"
+        , root       = "mylib.h"
+        , library    = "." :| []
+        , includes   = []
+        , predicate  = BIf (SelectHeader FromMainHeaders)
+        , baseModule = "MyLib"
+        , generated  = ["MyLib.Mylib"]
         }
     ]
 
@@ -209,7 +282,7 @@ testCaseFor getTestResources libraryCase =
               }
         createDirectoryIfMissing True fixtureDir
         runTestHsBindgen (const $ pure ()) getTestResources (toTestCase libraryCase) $
-          forEachModule library BTrue $
+          forEachModule library libraryCase.predicate $
             getBindingsMultiple ModuleRenderConfig{qualifiedStyle = def}
 
     successful ::

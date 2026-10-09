@@ -1,0 +1,10 @@
+MyLib.Mylib.Types: mylib/types.h
+  MyLib/Mylib/Types.hs
+MyLib.Mylib.Ops: mylib/ops.h
+  MyLib/Mylib/Ops/Safe.hs
+  MyLib/Mylib/Ops/Unsafe.hs
+  MyLib/Mylib/Ops/FunPtr.hs
+MyLib.Mylib: mylib.h
+  MyLib/Mylib/Safe.hs
+  MyLib/Mylib/Unsafe.hs
+  MyLib/Mylib/FunPtr.hs

@@ -1,0 +1,5 @@
+MyLib.Mylib: mylib.h
+  MyLib/Mylib.hs
+  MyLib/Mylib/Safe.hs
+  MyLib/Mylib/Unsafe.hs
+  MyLib/Mylib/FunPtr.hs

@@ -1,0 +1,9 @@
+M.Reader: reader.h
+  M/Reader.hs
+  M/Reader/Safe.hs
+  M/Reader/Unsafe.hs
+  M/Reader/FunPtr.hs
+M.Writer: writer.h
+  M/Writer/Safe.hs
+  M/Writer/Unsafe.hs
+  M/Writer/FunPtr.hs

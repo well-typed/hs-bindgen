@@ -163,7 +163,7 @@ exec global opts = case NonEmpty.nonEmpty opts.configCLI.library of
     -- One module for each header of the library
     modulePerHeader :: Library -> Artefact CExpr (Either LibraryError [Written])
     modulePerHeader library =
-      writeLibrary library BTrue $
+      writeLibrary library selected $
         case opts.configCLI.outputOptions of
           OutputOptions (SingleFile _) ->
             getBindingsFileSingle
@@ -181,11 +181,6 @@ exec global opts = case NonEmpty.nonEmpty opts.configCLI.library of
     -- What cannot be asked for together with @--library@
     checkLibraryOptions :: Library -> IO ()
     checkLibraryOptions library = do
-      unless (null opts.selectionFlags.selected && null opts.selectionFlags.excepted) $
-        usageError $ concat [
-            "--library cannot be combined with --select-... flags:"
-          , " every library header that is reached gets a module"
-          ]
       when (isJust opts.configCLI.outputBindingSpec) $
         usageError $ concat [
             "--library cannot be combined with --gen-binding-spec:"
@@ -194,3 +189,17 @@ exec global opts = case NonEmpty.nonEmpty opts.configCLI.library of
       missing <- Library.missingDirs library
       forM_ missing $ \dir ->
         usageError $ "--library: directory does not exist: " ++ dir
+
+    -- What the selection flags select in a library
+    --
+    -- The flags mean what they mean without @--library@.  What differs is
+    -- what is selected when no @--select-...@ flag is given: every
+    -- declaration, and so every declaration of a library header, where one
+    -- module gets the declarations of the main headers.
+    --
+    -- A flag that selects by header path matches the whole path of the file,
+    -- not the path in the library directory that the module is named after:
+    -- @'^shape\.h$'@ matches no header, and @'shape\.h$'@ matches
+    -- @c/shape.h@.
+    selected :: Boolean SelectionPredicate
+    selected = mergeSelectionFlags BTrue opts.selectionFlags

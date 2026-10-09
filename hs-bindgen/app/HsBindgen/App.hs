@@ -606,7 +606,8 @@ parseLibrary = many $ strOption $ mconcat [
           "Generate one module for each header in DIR that the given headers"
         , " reach, named after the module name and the path of the header in"
         , " DIR; a type is defined by the module of its header and imported by"
-        , " the others (can be given more than once)"
+        , " the others; without a --select-... flag, every declaration of"
+        , " these headers is selected (can be given more than once)"
         ]
     ]
 
