@@ -45,6 +45,7 @@ module HsBindgen.BindingSpec.Private.V1 (
     -- ** Merging
   , MergedBindingSpecs
   , merge
+  , mergeInto
   , lookupMergedBindingSpecs
     -- ** Aeson representation
   , V1
@@ -491,8 +492,14 @@ resolve tracer injResolveHeader args uSpec = do
 -- While a tt'HsBindgen.BindingSpec.Private.V1.BindingSpec' is specific to a Haskell module, this type supports
 -- binding specifications across multiple Haskell modules.  It is a performance
 -- optimization for resolving external binding specifications.
-newtype MergedBindingSpecs = MergedBindingSpecs {
+data MergedBindingSpecs = MergedBindingSpecs {
+      -- | The specifications with an entry for a C type, last merged first
       map :: Map C.DeclId [(Set RealPath, ResolvedBindingSpec)]
+
+      -- | The headers under which a merged specification binds a C type
+      --
+      -- This is what a specification merged in later can conflict with.
+    , bound :: Map C.DeclId (Set C.HashIncludeArg)
     }
   deriving stock (Show)
 
@@ -504,53 +511,48 @@ newtype MergedBindingSpecs = MergedBindingSpecs {
 merge ::
      [ResolvedBindingSpec]
   -> ([BindingSpecMergeMsg], MergedBindingSpecs)
-merge =
-      bimap mkTypeErrs (MergedBindingSpecs . snd)
-    . foldl' mergeSpec (Set.empty, (Map.empty, Map.empty))
+merge = mergeInto MergedBindingSpecs{map = Map.empty, bound = Map.empty}
+
+-- | Merge more (external) binding specifications into merged ones
+--
+-- The result is the same as merging all of them at once, in the same order.
+-- The messages are the conflicts that the added specifications cause.
+mergeInto ::
+     MergedBindingSpecs
+  -> [ResolvedBindingSpec]
+  -> ([BindingSpecMergeMsg], MergedBindingSpecs)
+mergeInto merged0 =
+    first mkTypeErrs . foldl' mergeSpec (Set.empty, merged0)
   where
     mkTypeErrs :: Set C.DeclId -> [BindingSpecMergeMsg]
     mkTypeErrs = fmap BindingSpecMergeConflict . Set.toList
 
     mergeSpec ::
-         ( Set C.DeclId
-         , ( Map C.DeclId (Set C.HashIncludeArg)
-           , Map C.DeclId [(Set RealPath, ResolvedBindingSpec)]
-           )
-         )
+         (Set C.DeclId, MergedBindingSpecs)
       -> ResolvedBindingSpec
-      -> ( Set C.DeclId
-         , ( Map C.DeclId (Set C.HashIncludeArg)
-           , Map C.DeclId [(Set RealPath, ResolvedBindingSpec)]
-           )
-         )
+      -> (Set C.DeclId, MergedBindingSpecs)
     mergeSpec ctx spec = foldl' (mergeType spec) ctx $ Map.toList spec.cTypes
 
     mergeType ::
          ResolvedBindingSpec
-      -> ( Set C.DeclId
-         , ( Map C.DeclId (Set C.HashIncludeArg)
-           , Map C.DeclId [(Set RealPath, ResolvedBindingSpec)]
-           )
-         )
+      -> (Set C.DeclId, MergedBindingSpecs)
       -> (C.DeclId, [(Set (C.HashIncludeArg, RealPath), Omittable CTypeSpec)])
-      -> ( Set C.DeclId
-         , ( Map C.DeclId (Set C.HashIncludeArg)
-           , Map C.DeclId [(Set RealPath, ResolvedBindingSpec)]
-           )
-         )
-    mergeType spec (dupSet, (seenMap, acc)) (cDeclId, entries) =
+      -> (Set C.DeclId, MergedBindingSpecs)
+    mergeType spec (dupSet, merged) (cDeclId, entries) =
       let -- Headers under which this specification binds the type
           seenS = Set.unions [
               Set.map fst headers
             | (headers, Require{}) <- entries
             ]
           keyS  = Set.unions $ map (Set.map snd . fst) entries
-          acc'  = Map.insertWith (++) cDeclId [(keyS, spec)] acc
-      in  case Map.insertLookupWithKey (const (<>)) cDeclId seenS seenMap of
-            (Nothing, seenMap') -> (dupSet, (seenMap', acc'))
-            (Just eS, seenMap')
-              | Set.disjoint eS seenS -> (dupSet, (seenMap', acc'))
-              | otherwise -> (Set.insert cDeclId dupSet, (seenMap', acc'))
+          map'  = Map.insertWith (++) cDeclId [(keyS, spec)] merged.map
+      in  case Map.insertLookupWithKey (const (<>)) cDeclId seenS merged.bound of
+            (Nothing, bound') -> (dupSet, MergedBindingSpecs map' bound')
+            (Just eS, bound')
+              | Set.disjoint eS seenS ->
+                  (dupSet, MergedBindingSpecs map' bound')
+              | otherwise ->
+                  (Set.insert cDeclId dupSet, MergedBindingSpecs map' bound')
 
 -- | Lookup type specs in t'MergedBindingSpecs'
 --

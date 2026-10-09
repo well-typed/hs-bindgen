@@ -4,6 +4,7 @@
 -- These tests check the pieces on their own.
 module Test.HsBindgen.Unit.BindingSpec (tests) where
 
+import Data.Foldable qualified as Foldable
 import Data.Map.Strict qualified as Map
 import Data.Set (Set)
 import Data.Set qualified as Set
@@ -15,10 +16,11 @@ import Clang.Paths (RealPath (..))
 
 import HsBindgen.BindingSpec.Private.Common (BindingSpecMergeMsg (..),
                                              Omittable (..))
-import HsBindgen.BindingSpec.Private.V1 (CTypeSpec (..), ResolvedBindingSpec)
+import HsBindgen.BindingSpec.Private.V1 (CTypeSpec (..), MergedBindingSpecs,
+                                         ResolvedBindingSpec)
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.BindingSpec.Private.Version (BindingSpecCompatibility (..))
-import HsBindgen.Imports (def)
+import HsBindgen.Imports (def, first)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer (nullTracer)
@@ -89,11 +91,24 @@ data Outcome =
   | OtherMessages [String]
   deriving stock (Eq, Show)
 
+-- | Merge the specifications, all at once and one at a time
 mergesTo :: [ResolvedBindingSpec] -> Outcome -> Assertion
-mergesTo specs expected = outcome @?= expected
+mergesTo specs expected = do
+    outcome (BindingSpec.merge specs) @?= expected
+    outcome oneAtATime                @?= expected
   where
-    outcome :: Outcome
-    outcome = case BindingSpec.merge specs of
+    oneAtATime :: ([BindingSpecMergeMsg], MergedBindingSpecs)
+    oneAtATime = Foldable.foldl' mergeOne (BindingSpec.merge []) specs
+
+    mergeOne ::
+         ([BindingSpecMergeMsg], MergedBindingSpecs)
+      -> ResolvedBindingSpec
+      -> ([BindingSpecMergeMsg], MergedBindingSpecs)
+    mergeOne (msgs, merged) spec =
+        first (msgs ++) $ BindingSpec.mergeInto merged [spec]
+
+    outcome :: ([BindingSpecMergeMsg], MergedBindingSpecs) -> Outcome
+    outcome = \case
       ([], merged) ->
         case BindingSpec.lookupMergedBindingSpecs stopwatch libPaths merged of
           Just (hsModuleName, Require{}, _) -> BoundIn hsModuleName
