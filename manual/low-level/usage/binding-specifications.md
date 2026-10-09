@@ -244,6 +244,11 @@ hs-bindgen-cli preprocess \
 The `Vector.Rotate` and `Vector.Length` modules both use the `Vector` type
 defined in the `Vector` module.  All of these modules can be used together.
 
+> [!NOTE]
+> The `--library` option generates a module for each header of a library in a
+> single invocation.  It passes the binding specifications from module to
+> module itself.  See [One module per header][manual:one-module-per-header].
+
 ### Writing a prescriptive binding specification by hand
 
 By default, `hs-bindgen` translates the C `vector` type to a Haskell type named
@@ -1006,6 +1011,7 @@ types that use the external bindings.
 [issue:1766]: https://github.com/well-typed/hs-bindgen/issues/1766
 [issue:648]: https://github.com/well-typed/hs-bindgen/issues/648
 [manual:c-names]: ../c-names.md
+[manual:one-module-per-header]: one-module-per-header.md
 [manual:portability-platform-dependent-types]: portability.md#inherent-non-portability-platform-dependent-types
 [source:game_internal.h]: ../../c/game_internal.h
 [source:game_player.h]: ../../c/game_player.h

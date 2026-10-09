@@ -334,6 +334,25 @@ cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
     vector_length.h
 
 echo "# "
+echo "# One module per header: vector example"
+echo "# "
+
+# vector.h gets a module too: the given headers include it.
+cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
+    preprocess \
+    -I c \
+    --library c \
+    --create-output-dirs \
+    --overwrite-files \
+    --unique-id com.hs-bindgen.manual.vectorlibrary \
+    --hs-output-dir hs/hs-vector/generated \
+    --module VectorLibrary \
+    --single-file \
+    --unsafe '' \
+    vector_rotate.h \
+    vector_length.h
+
+echo "# "
 echo "# External bindings: game example"
 echo "# "
 

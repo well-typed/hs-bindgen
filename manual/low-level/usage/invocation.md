@@ -40,7 +40,25 @@ Options controlling module generation:
 - `--module NAME` - Base module name (e.g., `Generated.MyLib`)
 - `--unique-id ID` - Unique identifier for C wrapper functions (e.g., `org.example.mylib`)
 - `--create-output-dirs` - Create output directories if they do not exist
-- `--dry-run` - Write no files; report each file that would be written
+- `--dry-run` - Write no files; report each file that would be written, and
+  print each module with the headers that it is generated for
+
+#### One module per header
+
+Options for generating a library as one module per header. See [One module per
+header][manual:one-module-per-header] for details.
+
+- `--library DIR` - Generate a module for each header in `DIR` that the given
+  headers reach (can be given more than once)
+- `--gen-binding-spec-dir DIR` - Write a binding specification for each module
+  to `DIR`
+- `--list-base-module-names` - Print the names of the modules, in the order in
+  which they are generated
+
+With `--library`, the selection options choose among the declarations of the
+library headers.  When none of the `--select-...` options is given, all of
+them are selected.  To leave a header of the directory out, deselect its
+declarations with `--select-except-by-header-path`.
 
 #### Input
 
@@ -528,4 +546,5 @@ In file included from /tmp/ghc2319546_0/ghc_1.c:1:0: error:
 [manual:installation]: ../../installation.md
 [manual:installation-clang-vs-gcc]: ../../installation.md#clang-vs-gcc
 [manual:macros]: ../translation/macros.md
+[manual:one-module-per-header]: one-module-per-header.md
 [manual:selecting-and-program-slicing]: selecting-and-program-slicing.md

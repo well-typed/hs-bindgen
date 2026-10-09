@@ -6,9 +6,23 @@
 
 ### New features
 
+* `hs-bindgen-cli preprocess --library DIR` generates one module for each
+  header of a C library in a single invocation. Every type is defined by the
+  module of its header and imported by the modules that use it. See the [One
+  module per header][manual-one-module-per-header] manual page.
+  * `--gen-binding-spec-dir DIR` writes a binding specification for each
+    module.
+  * `--list-base-module-names` prints the names of the modules in the order in
+    which they are generated.
+  * The selection flags work as they do without `--library`. When no
+    `--select-...` flag is given, every declaration of a library header is
+    selected.
+  * `--gen-binding-spec` is a usage error with `--library`.
 * `hs-bindgen-cli preprocess --dry-run` writes no files. It runs as usual,
   checks the output directories and files against `--create-output-dirs` and
-  `--overwrite-files`, and reports each file that would be written.
+  `--overwrite-files`, and reports each file that would be written. It also
+  prints each module with the headers that it is generated for: one line
+  without `--library`, and one for each module with it.
 
 ### Minor changes
 
@@ -386,6 +400,7 @@
 
 [manual-c-stages]: https://github.com/well-typed/hs-bindgen/blob/main/manual/low-level/usage/c-stages.md
 [manual-ffi-types]: https://github.com/well-typed/hs-bindgen/blob/main/manual/low-level/translation/ffi-types.md
+[manual-one-module-per-header]: https://github.com/well-typed/hs-bindgen/blob/main/manual/low-level/usage/one-module-per-header.md
 [is-831]: https://github.com/well-typed/hs-bindgen/issues/831
 [is-1003]: https://github.com/well-typed/hs-bindgen/issues/1003
 [is-1225]: https://github.com/well-typed/hs-bindgen/issues/1225
