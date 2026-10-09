@@ -38,10 +38,12 @@ module HsBindgen.Library (
     -- * Modules
   , LibraryError(..)
   , modules
+  , distinctNames
   ) where
 
 import Control.Applicative ((<|>))
 import Control.Monad (filterM)
+import Data.Char qualified as Char
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
@@ -59,7 +61,7 @@ import Clang.Paths
 
 import HsBindgen.Config.MangleCandidate (MangleCandidate (..), mangleCandidate,
                                          mangleCandidateDefault)
-import HsBindgen.Config.Prelims (BaseModuleName (..))
+import HsBindgen.Config.Prelims (BaseModuleName (..), baseModuleNameToString)
 import HsBindgen.Frontend.Analysis.DeclIndex (Entry (..), Squashed (..),
                                               UsableEntry (..))
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
@@ -291,6 +293,11 @@ data LibraryError =
 
     -- | The header has no name that a module could be named after
   | NoModuleName LibraryPath
+
+    -- | Modules that are named after these headers have one name
+    --
+    -- The headers are in the order in which their modules were generated.
+  | SameModuleName BaseModuleName (NonEmpty LibraryPath)
   deriving stock (Show, Eq)
 
 instance PrettyForTrace LibraryError where
@@ -304,6 +311,46 @@ instance PrettyForTrace LibraryError where
       ]
     NoModuleName header ->
       "There is no module name for library header" <+> prettyForTrace header
+    SameModuleName name headers -> PP.vcat [
+        PP.hsep [
+            "More than one library header gets the module"
+          , PP.string (baseModuleNameToString name ++ ":")
+          ]
+      , PP.nest 2 $ PP.vcat $ map prettyForTrace (NonEmpty.toList headers)
+      , "A module is named after the path of its header in the library"
+      , "directory. Names that differ only in case count as one, and a"
+      , "character that a module name cannot have becomes '_'."
+      , "Deselect all but one of the headers with"
+      , "--select-except-by-header-path, which matches the whole path of a"
+      , "header. Headers with one path are in different library directories:"
+      , "they get different names when a directory that has both is given as"
+      , "the library."
+      ]
+
+-- | Check that no two modules have one name
+--
+-- Each module is given by its name and the header that it is named after.
+--
+-- Two headers get one name when their paths differ only in characters that a
+-- module name cannot have: @foo-bar.h@ and @foo_bar.h@ are both @Lib.Foo_bar@.
+-- Names that differ only in case, as those of @foo.h@ and @Foo.h@, count as
+-- one name too.  The files of two such modules are one file on the default
+-- file systems of macOS and Windows, and a library is the same library
+-- wherever it is generated.
+distinctNames :: [(BaseModuleName, LibraryPath)] -> Either LibraryError ()
+distinctNames mods =
+    case listToMaybe [ sameName | sameName@(_ :| _ : _) <- byName ] of
+      Nothing       -> Right ()
+      Just sameName -> Left $
+        SameModuleName (fst (NonEmpty.head sameName)) (snd <$> sameName)
+  where
+    -- The modules of each name.  Those of one name are in the order in which
+    -- they were given.
+    byName :: [NonEmpty (BaseModuleName, LibraryPath)]
+    byName = NonEmpty.groupAllWith (key . fst) mods
+
+    key :: BaseModuleName -> String
+    key = map Char.toLower . baseModuleNameToString
 
 -- | The modules that a library is generated as, in the order of generation
 --

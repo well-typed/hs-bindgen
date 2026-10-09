@@ -52,6 +52,7 @@ import Control.Exception (Exception (..), catch)
 import Control.Monad.Except (MonadError (..), withExceptT)
 import Control.Monad.Trans.Except (runExceptT)
 import Data.ByteString qualified as BS
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map qualified as Map
 import Data.Set qualified as Set
 import System.Exit (ExitCode (..), exitWith)
@@ -586,7 +587,9 @@ data Written = Written {
 -- the library ('forEachModule').  A module without files is not written.
 --
 -- No file is registered for writing before every module has been generated.
--- So when a module cannot be generated, nothing is written at all.
+-- So when a module cannot be generated, nothing is written at all.  The same
+-- holds when two of the modules to write have one name
+-- ('Library.distinctNames').
 writeLibrary :: forall l.
      Library
   -> Boolean SelectionPredicate
@@ -597,13 +600,22 @@ writeLibrary library predicate filesOfModule =
       Left err   -> pure $ Left err
       Right mods -> do
         let written = filter (\(_name, _m, files) -> not (null files)) mods
-        forM_ written $ \(_name, _m, files) ->
-          mapM_ (Lift . delay . WriteToFile) files
-        pure $ Right [
-            Written{name = name, headers = m.headers}
-          | (name, m, _files) <- written
-          ]
+        case Library.distinctNames (map named written) of
+          Left err -> pure $ Left err
+          Right () -> do
+            forM_ written $ \(_name, _m, files) ->
+              mapM_ (Lift . delay . WriteToFile) files
+            pure $ Right [
+                Written{name = name, headers = m.headers}
+              | (name, m, _files) <- written
+              ]
   where
+    -- A module with the header that it is named after
+    named ::
+         (BaseModuleName, Module LibraryPath C.DeclId, [FileDescription])
+      -> (BaseModuleName, LibraryPath)
+    named (name, m, _files) = (name, NonEmpty.head m.headers)
+
     -- A file that has not been rendered yet keeps everything alive that it is
     -- rendered from.  So the files of a module are rendered before the next
     -- module is generated.

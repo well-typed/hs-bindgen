@@ -1,7 +1,7 @@
 -- | Library headers and the names of their modules
 module Test.HsBindgen.Unit.Library (tests) where
 
-import Control.Monad (forM_)
+import Control.Monad (forM, forM_)
 import Data.List.NonEmpty (NonEmpty (..))
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as Text
@@ -12,13 +12,13 @@ import System.FilePath.Posix qualified as Posix
 import System.FilePath.Windows qualified as Windows
 import System.IO.Temp (withSystemTempDirectory)
 import Test.Tasty (TestTree, testGroup)
-import Test.Tasty.HUnit (Assertion, testCase, (@?=))
+import Test.Tasty.HUnit (Assertion, assertFailure, testCase, (@?=))
 
 import Clang.Paths (RealPath (..))
 
 import HsBindgen.Config.Prelims (BaseModuleName)
-import HsBindgen.Library (Library (..), LibraryPath (..), libraryPaths,
-                          moduleName, pathBelow)
+import HsBindgen.Library (Library (..), LibraryError (..), LibraryPath (..),
+                          distinctNames, libraryPaths, moduleName, pathBelow)
 
 {-------------------------------------------------------------------------------
   List of tests
@@ -122,6 +122,29 @@ tests = testGroup "Test.HsBindgen.Unit.Library" [
         , testCase "a header with nothing before the extension" $
             [".h"] `isNamed` Nothing
         ]
+    , testGroup "distinctNames" [
+          testCase "no modules" $
+            [] `shareName` Nothing
+        , testCase "different names" $
+            ["foo.h", "bar.h"] `shareName` Nothing
+        , testCase "a character that cannot be in a module name" $
+            ["foo-bar.h", "foo_bar.h"] `shareName`
+              Just ("Lib.Foo_bar", "foo-bar.h" :| ["foo_bar.h"])
+          -- Headers whose names differ only in case cannot be in one
+          -- directory on every platform, so there is no fixture for them.
+        , testCase "headers that differ in the case of the first letter" $
+            ["foo.h", "Foo.h"] `shareName`
+              Just ("Lib.Foo", "foo.h" :| ["Foo.h"])
+        , testCase "module names that differ only in case" $
+            ["foo.h", "FOO.h"] `shareName`
+              Just ("Lib.Foo", "foo.h" :| ["FOO.h"])
+        , testCase "one path in two library directories" $
+            ["foo.h", "foo.h"] `shareName`
+              Just ("Lib.Foo", "foo.h" :| ["foo.h"])
+        , testCase "the modules of one name, in their order" $
+            ["b_c.h", "a.h", "b-c.h", "d.h"] `shareName`
+              Just ("Lib.B_c", "b_c.h" :| ["b-c.h"])
+        ]
     ]
   where
     posix, windows :: [FilePath] -> FilePath -> Maybe LibraryPath
@@ -139,6 +162,24 @@ isNamed :: [String] -> Maybe BaseModuleName -> Assertion
 isNamed components expected = case components of
     []     -> fail "a library path has a component"
     c : cs -> moduleName "Lib" (LibraryPath (c :| cs)) @?= expected
+
+-- | The name that modules named after these headers have in common, with the
+-- headers that get it
+--
+-- The headers are in the library directory, and the modules have the names
+-- that 'moduleName' gives them.
+shareName :: [String] -> Maybe (BaseModuleName, NonEmpty String) -> Assertion
+shareName names expected = do
+    mods <- forM names $ \name ->
+      case moduleName "Lib" (top name) of
+        Just moduleName' -> pure (moduleName', top name)
+        Nothing          -> assertFailure $ "No module name for " ++ name
+    distinctNames mods @?= case expected of
+      Nothing              -> Right ()
+      Just (name, headers) -> Left (SameModuleName name (top <$> headers))
+  where
+    top :: String -> LibraryPath
+    top name = LibraryPath (name :| [])
 
 -- | Run an action in a directory with @lib\/sub\/a.h@ and @other\/b.h@
 inTree :: (FilePath -> IO a) -> IO a

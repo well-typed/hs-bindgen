@@ -7,7 +7,7 @@ module Test.HsBindgen.Integration.Library (tests) where
 
 import Control.Monad (forM)
 import Data.List (isInfixOf, sort)
-import System.Directory (doesDirectoryExist, listDirectory)
+import System.Directory (createDirectory, doesDirectoryExist, listDirectory)
 import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import System.IO.Temp (withSystemTempDirectory)
@@ -308,6 +308,78 @@ tests getTestResources = testGroup "Integration.Library" [
               written <- listFiles outDir
               written @?= []
         ]
+    , testGroup "modules that would be one" $ concat [
+          [ testCase ("two headers with one module name" ++ suffix) $
+              inOutputDir $ \outDir ->
+              withSystemTempDirectory "hs-bindgen-test" $ \headers -> do
+                writeFile (headers </> "foo-bar.h") "struct a { int x; };\n"
+                writeFile (headers </> "foo_bar.h") $ unlines [
+                    "#include \"foo-bar.h\""
+                  , "struct b { struct a *a; };"
+                  ]
+                (exitCode, out, _) <-
+                  run headers [headers] outDir options "foo_bar.h"
+                exitCode @?= ExitFailure 4
+                assertBool ("unexpected message: " ++ out) $
+                  all (`isInfixOf` out) ["M.Foo_bar", "foo-bar.h", "foo_bar.h"]
+                written <- listFiles outDir
+                written @?= []
+          , testCase ("one module name and no file in common" ++ suffix) $
+              inOutputDir $ \outDir ->
+              withSystemTempDirectory "hs-bindgen-test" $ \headers -> do
+                -- One header has a type and the other a function, so the
+                -- two modules have no file in common
+                writeFile (headers </> "foo-bar.h") "struct a { int x; };\n"
+                writeFile (headers </> "foo_bar.h") $ unlines [
+                    "#include \"foo-bar.h\""
+                  , "void use_a(struct a *a);"
+                  ]
+                (exitCode, out, _) <-
+                  run headers [headers] outDir options "foo_bar.h"
+                exitCode @?= ExitFailure 4
+                assertBool ("unexpected message: " ++ out) $
+                  all (`isInfixOf` out) ["M.Foo_bar", "foo-bar.h", "foo_bar.h"]
+                written <- listFiles outDir
+                written @?= []
+          , testCase ("two modules with one file" ++ suffix) $
+              inOutputDir $ \outDir ->
+              withSystemTempDirectory "hs-bindgen-test" $ \headers -> do
+                -- The functions of foo.h and the types of foo/safe.h both
+                -- go to M/Foo/Safe.hs
+                createDirectory (headers </> "foo")
+                writeFile (headers </> "foo.h") "void f(void);\n"
+                writeFile (headers </> "foo" </> "safe.h") $ unlines [
+                    "#include \"../foo.h\""
+                  , "struct s { int x; };"
+                  ]
+                (exitCode, out, _) <-
+                  run headers [headers] outDir options "foo/safe.h"
+                exitCode @?= ExitFailure 4
+                assertBool ("unexpected message: " ++ out) $
+                  ("M" </> "Foo" </> "Safe.hs") `isInfixOf` out
+                written <- listFiles outDir
+                written @?= []
+          ]
+        | (suffix, options) <- [("", []), (", in a dry run", ["--dry-run"])]
+        ]
+    , testCase "a header that generates nothing shares no module name" $
+        inOutputDir $ \outDir ->
+        withSystemTempDirectory "hs-bindgen-test" $ \headers -> do
+          -- foo-bar.h has a macro and nothing that gets a binding, so only
+          -- foo_bar.h is written as M.Foo_bar
+          writeFile (headers </> "foo-bar.h") $ unlines [
+              "#ifndef FOO_BAR_H"
+            , "#define FOO_BAR_H"
+            , "#endif"
+            ]
+          writeFile (headers </> "foo_bar.h") $ unlines [
+              "#include \"foo-bar.h\""
+            , "struct b { int x; };"
+            ]
+          (exitCode, _, _) <- run headers [headers] outDir [] "foo_bar.h"
+          exitCode @?= ExitSuccess
+          written <- listFiles outDir
+          written @?= ["M" </> "Foo_bar.hs"]
     , testCase "a library directory that does not exist is a usage error" $
         inOutputDir $ \outDir -> do
           (exitCode, _, _) <- preprocess getTestResources outDir
