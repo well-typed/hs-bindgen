@@ -29,8 +29,13 @@ module HsBindgen.App (
   , parseGenBindingSpec
   , parseDryRun
   , parseGenTestsOutput
+    -- ** Library
+  , parseLibrary
     -- ** Input arguments
   , parseInputs
+
+    -- * Usage errors
+  , usageError
 
     -- * Auxiliary optparse-applicative functions
   , cmd
@@ -43,7 +48,8 @@ import Data.Either (partitionEithers)
 import Data.Maybe (catMaybes)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
-import System.IO (stderr)
+import System.Exit (ExitCode (..), exitWith)
+import System.IO (hPutStrLn, stderr)
 
 import HsBindgen
 import HsBindgen.ArtefactM (DirPolicy (..), FilePolicy (..))
@@ -587,6 +593,34 @@ parseDryRun = switch $ mconcat [
         , " files, and report each file that would be written"
         ]
     ]
+
+{-------------------------------------------------------------------------------
+  Library
+-------------------------------------------------------------------------------}
+
+parseLibrary :: Parser [FilePath]
+parseLibrary = many $ strOption $ mconcat [
+      long "library"
+    , metavar "DIR"
+    , help $ concat [
+          "Generate one module for each header in DIR that the given headers"
+        , " reach, named after the module name and the path of the header in"
+        , " DIR; a type is defined by the module of its header and imported by"
+        , " the others (can be given more than once)"
+        ]
+    ]
+
+{-------------------------------------------------------------------------------
+  Usage errors
+-------------------------------------------------------------------------------}
+
+-- | Report options that cannot be used the way they were, and exit
+--
+-- The exit code is that of an option that fails to parse.
+usageError :: String -> IO a
+usageError msg = do
+    hPutStrLn stderr msg
+    exitWith (ExitFailure 2)
 
 parseGenTestsOutput :: Parser FilePath
 parseGenTestsOutput = strOption $ mconcat [

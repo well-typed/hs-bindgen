@@ -13,10 +13,17 @@ module HsBindgen (
   , getBindingsMultiple
   , writeBindings
   , writeBindingsSingle
+  , getBindingsFileSingle
   , writeBindingsMultiple
+  , getBindingsFilesMultiple
   , generatedBindingSpec
   , writeBindingSpec
   , writeTests
+
+    -- ** A library as one module per header
+  , forEachModule
+  , Written(..)
+  , writeLibrary
 
     -- ** Low-level artefacts
   , getConfig
@@ -43,6 +50,7 @@ module HsBindgen (
 import Control.Exception (Exception (..), catch)
 import Control.Monad.Except (MonadError (..), withExceptT)
 import Control.Monad.Trans.Except (runExceptT)
+import Data.ByteString qualified as BS
 import Data.Map qualified as Map
 import Data.Set qualified as Set
 import System.Exit (ExitCode (..), exitWith)
@@ -63,7 +71,7 @@ import HsBindgen.Backend.HsModule.Translation.Doxygen (ExportTags,
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
-import HsBindgen.Cache (Cached)
+import HsBindgen.Cache (Cached (..))
 import HsBindgen.Clang
 import HsBindgen.Config.Internal
 import HsBindgen.Errors (throwPure_TODO)
@@ -87,6 +95,9 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Library (Library, LibraryError, LibraryPath)
+import HsBindgen.Library qualified as Library
+import HsBindgen.Library.Plan (Module (..))
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.TraceMsg
@@ -312,17 +323,32 @@ writeBindingsSingle ::
 writeBindingsSingle mrc filePolicy dirPolicy hsOutputDir = do
     moduleBaseName <- ModuleBaseName
     bindings       <- getBindings mrc
-    let localPath :: FilePath
-        localPath = Hs.moduleNamePath $
-            fromBaseModuleName moduleBaseName Nothing
+    write filePolicy dirPolicy "bindings"
+      (moduleLocation hsOutputDir moduleBaseName Nothing)
+      bindings
 
-        location :: FileLocation
-        location = RelativeFileLocation RelativeToOutputDir{
-              outputDir = hsOutputDir
-            , localPath = localPath
-            }
-
-    write filePolicy dirPolicy "bindings" location bindings
+-- | The file that 'writeBindingsSingle' writes, if it writes one
+--
+-- Nothing is registered for writing.
+getBindingsFileSingle ::
+     ModuleRenderConfig
+  -> FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> Artefact l [FileDescription]
+getBindingsFileSingle mrc filePolicy dirPolicy hsOutputDir = do
+    moduleBaseName <- ModuleBaseName
+    bindings       <- getBindings mrc
+    pure [
+        FileDescription{
+            description = "bindings"
+          , location    = moduleLocation hsOutputDir moduleBaseName Nothing
+          , filePolicy  = filePolicy
+          , dirPolicy   = dirPolicy
+          , content     = StringContent bindings
+          }
+      | not (null bindings)
+      ]
 
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: ModuleRenderConfig -> Artefact l (ByCategory_ (Maybe String))
@@ -359,6 +385,32 @@ writeBindingsMultiple mrc filePolicy dirPolicy hsOutputDir = do
       hsOutputDir
       moduleBaseName
       bindingsByCategory
+
+-- | The files that 'writeBindingsMultiple' writes
+--
+-- Nothing is registered for writing.
+getBindingsFilesMultiple ::
+     ModuleRenderConfig
+  -> FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> Artefact l [FileDescription]
+getBindingsFilesMultiple mrc filePolicy dirPolicy hsOutputDir = do
+    moduleBaseName     <- ModuleBaseName
+    bindingsByCategory <- getBindingsMultiple mrc
+    pure $ catMaybes $ toList $
+      mapWithCategory_ (fileOf moduleBaseName) bindingsByCategory
+  where
+    fileOf :: BaseModuleName -> Category -> Maybe String -> Maybe FileDescription
+    fileOf moduleBaseName cat mBindings = do
+        bindings <- mBindings
+        pure FileDescription{
+            description = categoryDescription "Bindings" cat
+          , location    = moduleLocation hsOutputDir moduleBaseName (Just cat)
+          , filePolicy  = filePolicy
+          , dirPolicy   = dirPolicy
+          , content     = StringContent bindings
+          }
 
 -- | The binding specification of the generated module
 --
@@ -407,6 +459,119 @@ writeBindingSpec filePolicy dirPolicy path = do
             , content     = ByteStringContent bs
             }
     Lift $ delay $ WriteToFile fileDescription
+
+{-------------------------------------------------------------------------------
+  A library as one module per header
+-------------------------------------------------------------------------------}
+
+-- | Compute an artefact for each module of a library
+--
+-- A run has two parts.  The headers are parsed once, as one translation unit,
+-- and the modules are planned from what the frontend knows about it: which
+-- library header owns what, which headers share a module, and in which order
+-- the modules go ('Library.modules').  Then the artefact is computed for one
+-- module after the other ('WithModule').  Only the passes that depend on the
+-- module run again for each of them; the parse is shared.
+--
+-- A module is given the binding specifications of all the modules before it,
+-- in memory.  So a type is generated by the first module that has it, and the
+-- modules after it import it from there: the module of @draw.h@ finds
+-- @struct shape@ in the specification of the module of @shape.h@, which comes
+-- first.
+--
+-- The result has the modules in the order in which they were generated.
+forEachModule :: forall l a.
+     Library
+  -> Boolean SelectionPredicate
+     -- ^ The declarations that bindings are generated for
+  -> Artefact l a
+  -> Artefact l
+       (Either LibraryError [(BaseModuleName, Module LibraryPath C.DeclId, a)])
+forEachModule library predicate perModule = do
+    base         <- ModuleBaseName
+    includeGraph <- getIncludeGraph
+    unit         <- FrontendPassA MangleNamesPass
+    paths        <- Lift $ runCached $ Cached $
+                      Library.libraryPaths library $
+                        IncludeGraph.toSortedList includeGraph
+    case Library.modules base paths includeGraph predicate unit.meta of
+      Left err   -> pure $ Left err
+      Right mods -> Right <$> generate [] mods
+  where
+    -- The first argument has the specifications of the modules so far
+    generate ::
+         [BindingSpec.ExternalBindingSpec]
+      -> [(BaseModuleName, Module LibraryPath C.DeclId)]
+      -> Artefact l [(BaseModuleName, Module LibraryPath C.DeclId, a)]
+    generate _     []                 = pure []
+    generate specs ((name, m) : rest) = do
+        (spec, x) <- WithModule (scope name m specs) $
+                       (,) <$> generatedBindingSpec <*> perModule
+        ((name, m, x) :) <$> generate (specs ++ [spec]) rest
+
+    scope ::
+         BaseModuleName
+      -> Module LibraryPath C.DeclId
+      -> [BindingSpec.ExternalBindingSpec]
+      -> ModuleScope
+    scope name m specs = ModuleScope{
+          baseModule = name
+        , imported   = specs
+          -- An unnamed declaration is selected with the declaration that
+          -- uses it, and the name that it was given is not a name to select.
+        , roots      = Set.fromList [
+              declId.name
+            | declId <- Set.toList m.decls
+            , not declId.isUnnamed
+            ]
+        }
+
+-- | A module that was written for a library
+data Written = Written {
+      -- | The name of the module
+      name :: BaseModuleName
+
+      -- | The headers that the module was generated for
+    , headers :: NonEmpty LibraryPath
+    }
+  deriving stock (Show, Eq)
+
+-- | Write a library as one module per header
+--
+-- The artefact gives the files of a module, and is computed for each module of
+-- the library ('forEachModule').  A module without files is not written.
+--
+-- No file is registered for writing before every module has been generated.
+-- So when a module cannot be generated, nothing is written at all.
+writeLibrary :: forall l.
+     Library
+  -> Boolean SelectionPredicate
+  -> Artefact l [FileDescription]
+  -> Artefact l (Either LibraryError [Written])
+writeLibrary library predicate filesOfModule =
+    forEachModule library predicate rendered >>= \case
+      Left err   -> pure $ Left err
+      Right mods -> do
+        let written = filter (\(_name, _m, files) -> not (null files)) mods
+        forM_ written $ \(_name, _m, files) ->
+          mapM_ (Lift . delay . WriteToFile) files
+        pure $ Right [
+            Written{name = name, headers = m.headers}
+          | (name, m, _files) <- written
+          ]
+  where
+    -- A file that has not been rendered yet keeps everything alive that it is
+    -- rendered from.  So the files of a module are rendered before the next
+    -- module is generated.
+    rendered :: Artefact l [FileDescription]
+    rendered = do
+        files <- filesOfModule
+        sum (map (size . (.content)) files) `seq` pure files
+
+    size :: FileContent -> Int
+    size = \case
+      StringContent     str -> length str
+      ByteStringContent bs  -> BS.length bs
 
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact l ()
@@ -489,20 +654,25 @@ writeByCategory filePolicy dirPolicy what dir moduleBaseName =
     writeCategory :: Category -> Maybe String -> Artefact l ()
     writeCategory _    Nothing   = pure ()
     writeCategory cat (Just str) =
-        write filePolicy dirPolicy whatWithCategory location str
-      where
-        localPath :: FilePath
-        localPath = Hs.moduleNamePath $
-            fromBaseModuleName moduleBaseName (Just cat)
+        write filePolicy dirPolicy
+          (categoryDescription what cat)
+          (moduleLocation dir moduleBaseName (Just cat))
+          str
 
-        whatWithCategory :: String
-        whatWithCategory = what ++ " (" ++ show cat ++ ")"
+-- | What the output for a binding category is called
+categoryDescription :: String -> Category -> String
+categoryDescription what cat = what ++ " (" ++ show cat ++ ")"
 
-        location :: FileLocation
-        location = RelativeFileLocation RelativeToOutputDir{
-              outputDir = dir
-            , localPath = localPath
-            }
+-- | Where a module goes below the output directory
+--
+-- Without a category, it is the module that holds every category.
+moduleLocation :: FilePath -> BaseModuleName -> Maybe Category -> FileLocation
+moduleLocation dir moduleBaseName category =
+    RelativeFileLocation RelativeToOutputDir{
+        outputDir = dir
+      , localPath = Hs.moduleNamePath $
+          fromBaseModuleName moduleBaseName category
+      }
 
 nullDecls :: ([a], [b]) -> Bool
 nullDecls (xs, ys) = null xs && null ys

@@ -21,6 +21,7 @@ import Test.HsBindgen.Fixtures.TestCases (FixtureStatus (..), haddockOutputDir,
                                           isCompile, mkFixtureTest)
 import Test.HsBindgen.Golden (allTestCases)
 import Test.HsBindgen.Golden.Infra.TestCase (TestCase (..))
+import Test.HsBindgen.Golden.Library qualified as Library
 import Test.HsBindgen.PPFixtures.Compile (setupPPBatchCompile)
 import Test.HsBindgen.PPFixtures.TestCases (determinePPStatus)
 import Test.HsBindgen.Resources
@@ -43,15 +44,20 @@ tests pathPrefix getTestResources =
             testGroup "pp-fixtures" $
               map (mkFixtureTest "fixture-" "PP compilation"
                     determinePPStatus getResults)
-                  allTestCases
+                  fixtures
   where
+    -- A library generated as one module per header is a fixture as well: its
+    -- modules are in one directory, and are compiled together.
+    fixtures :: [TestCase]
+    fixtures = allTestCases ++ Library.fixtureCases
+
     setup testPattern haddockMode = do
         testResources <- getTestResources
         let repoRoot   = takeDirectory testResources.packageRoot
             buildDir   = repoRoot </> "dist-newstyle" </> "fixtures"
             haddockDir = haddockOutputDir haddockMode buildDir
             -- Single pass: partition test cases into compiled and skipped
-            (compiled, skippedCount) = foldr classify ([], 0 :: Int) allTestCases
+            (compiled, skippedCount) = foldr classify ([], 0 :: Int) fixtures
             classify tc (cs, n)
               | not (isCompile status)  = (cs, n + 1)
               | not (matchesPattern tc) = (cs, n)

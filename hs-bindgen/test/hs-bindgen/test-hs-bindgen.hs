@@ -6,8 +6,10 @@ import Test.Tasty
 import Test.HsBindgen.Frontend.LanguageC qualified as Frontend.LanguageC
 import Test.HsBindgen.Frontend.Pass.PrepareReparse qualified as Frontend.Pass.PrepareReparse
 import Test.HsBindgen.Golden qualified as Golden
+import Test.HsBindgen.Golden.Library qualified as Golden.Library
 import Test.HsBindgen.Integration.DryRun qualified as Integration.DryRun
 import Test.HsBindgen.Integration.ExitCode qualified as Integration.ExitCode
+import Test.HsBindgen.Integration.Library qualified as Integration.Library
 import Test.HsBindgen.Integration.OverwritePolicy qualified as Integration.OverwritePolicy
 import Test.HsBindgen.Macro.CExpr qualified as Macro.CExpr
 import Test.HsBindgen.Macro.Syntax qualified as Macro.Syntax
@@ -21,6 +23,7 @@ import Test.HsBindgen.Unit.BindingSpec qualified as Unit.BindingSpec
 import Test.HsBindgen.Unit.ClangArgs qualified as Unit.ClangArgs
 import Test.HsBindgen.Unit.Digraph qualified as Unit.Digraph
 import Test.HsBindgen.Unit.Frontend qualified as Unit.Frontend
+import Test.HsBindgen.Unit.Library qualified as Unit.Library
 import Test.HsBindgen.Unit.Library.Plan qualified as Unit.Library.Plan
 import Test.HsBindgen.Unit.ModuleScope qualified as Unit.ModuleScope
 import Test.HsBindgen.Unit.Pretty qualified as Unit.Pretty
@@ -47,6 +50,7 @@ main = defaultMain $
           , Unit.ClangArgs.tests testResources
           , Unit.Digraph.tests
           , Unit.Frontend.tests testResources
+          , Unit.Library.tests
           , Unit.Library.Plan.tests
           , Unit.ModuleScope.tests testResources
           , Unit.Tracer.tests
@@ -57,6 +61,7 @@ main = defaultMain $
       , testGroup "integration tests" [
             Integration.DryRun.tests testResources
           , Integration.ExitCode.tests testResources
+          , Integration.Library.tests testResources
           , Integration.OverwritePolicy.tests testResources
           ]
       , testGroup "property tests" [
@@ -64,6 +69,7 @@ main = defaultMain $
           ]
       , testGroup "golden tests" [
             Golden.tests testResources
+          , Golden.Library.tests testResources
           ]
         -- Path from root to here, for @-p@ pattern filtering.
       , THFixtures.tests (Seq.fromList ["test-hs-bindgen"]) testResources

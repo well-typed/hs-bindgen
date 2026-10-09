@@ -289,6 +289,7 @@ library internal
     HsBindgen.IR.Translation
     HsBindgen.Language.C
     HsBindgen.Language.Haskell
+    HsBindgen.Library
     HsBindgen.Library.Plan
     HsBindgen.Macro.Empty
     HsBindgen.Macro.Error
@@ -544,6 +545,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Infra.Check.TH
     Test.HsBindgen.Golden.Infra.TestCase
     Test.HsBindgen.Golden.Infra.TestCaseTree
+    Test.HsBindgen.Golden.Library
     Test.HsBindgen.Golden.Macros
     Test.HsBindgen.Golden.Macros.Lang
     Test.HsBindgen.Golden.Macros.Redeclaration
@@ -552,6 +554,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Types
     Test.HsBindgen.Integration.DryRun
     Test.HsBindgen.Integration.ExitCode
+    Test.HsBindgen.Integration.Library
     Test.HsBindgen.Integration.OverwritePolicy
     Test.HsBindgen.Macro.CExpr
     Test.HsBindgen.Macro.Infra
@@ -571,6 +574,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Unit.ClangArgs
     Test.HsBindgen.Unit.Digraph
     Test.HsBindgen.Unit.Frontend
+    Test.HsBindgen.Unit.Library
     Test.HsBindgen.Unit.Library.Plan
     Test.HsBindgen.Unit.ModuleScope
     Test.HsBindgen.Unit.Pretty

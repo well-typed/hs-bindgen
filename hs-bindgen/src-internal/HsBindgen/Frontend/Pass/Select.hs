@@ -1,5 +1,8 @@
 module HsBindgen.Frontend.Pass.Select (
     selectDecls
+    -- * Matching declarations
+  , Match
+  , selectDeclIndex
   ) where
 
 import Data.Foldable qualified as Foldable
