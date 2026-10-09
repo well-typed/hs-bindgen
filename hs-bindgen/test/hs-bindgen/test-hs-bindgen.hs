@@ -40,7 +40,7 @@ main = defaultMain $
       , Macro.Syntax.Clang.tests
       , Macro.UniqueExpansion.tests
       , testGroup "unit tests" [
-            Unit.BindingSpec.tests
+            Unit.BindingSpec.tests testResources
           , Unit.ClangArgs.tests testResources
           , Unit.Digraph.tests
           , Unit.Frontend.tests testResources

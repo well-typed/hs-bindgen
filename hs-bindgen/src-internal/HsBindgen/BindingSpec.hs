@@ -9,6 +9,7 @@ module HsBindgen.BindingSpec (
     BindingSpec -- opaque
   , ExternalBindingSpec
   , PrescriptiveBindingSpec
+  , Prescriptive(..)
   , ResolvedExtBinding(..)
     -- ** Configuration
   , EnableStdlibBindingSpec(..)
@@ -99,6 +100,23 @@ type ExternalBindingSpec = BindingSpec
 --
 -- This type alias is just used as documentation.
 type PrescriptiveBindingSpec = BindingSpec
+
+-- | Prescriptive binding specification as loaded from a file
+--
+-- A prescriptive binding specification may leave out its module (@hsmodule@).
+-- Whether it did is not visible in a t'BindingSpec', which always has a
+-- module, so it is kept here.
+data Prescriptive = Prescriptive {
+      -- | The module that the file names, if it names one
+      declared :: Maybe Hs.ModuleName
+
+      -- | The specification
+      --
+      -- Its module is the 'declared' one.  When the file names none, it is the
+      -- module that the specification was loaded for.
+    , spec :: PrescriptiveBindingSpec
+    }
+  deriving stock (Show, Eq)
 
 -- | Resolved external binding
 data ResolvedExtBinding = ResolvedExtBinding{
@@ -195,7 +213,7 @@ loadExtBindingSpecs tracer args enableStdlib cmpt paths = do
       EnableStdlibBindingSpec  -> (Stdlib.bindingSpec :)
 
     read' :: FilePath -> IO (Maybe BindingSpec.UnresolvedBindingSpec)
-    read' = BindingSpec.readFile tracerRead cmpt Nothing
+    read' = fmap (fmap snd) . BindingSpec.readFile tracerRead cmpt Nothing
 
     resolve' ::
          BindingSpec.UnresolvedBindingSpec
@@ -222,21 +240,25 @@ loadExtBindingSpecs tracer args enableStdlib cmpt paths = do
 --
 -- * YAML (@.yaml@ extension)
 -- * JSON (@.json@ extension)
+--
+-- A file that does not name a module is loaded as a specification for the
+-- given module.  A file that names another module is loaded as it is; it is up
+-- to the user of the specification to decide what that means.
 loadPrescriptiveBindingSpec ::
      Tracer Common.BindingSpecMsg
   -> ClangArgs
   -> Hs.ModuleName
   -> Version.BindingSpecCompatibility
   -> Maybe FilePath
-  -> IO PrescriptiveBindingSpec
+  -> IO Prescriptive
 loadPrescriptiveBindingSpec tracer args hsModuleName cmpt =
-    fmap (fromMaybe $ empty hsModuleName) . \case
+    fmap (fromMaybe $ Prescriptive Nothing (empty hsModuleName)) . \case
       Nothing   -> return Nothing
       Just path ->
         BindingSpec.readFile tracerRead cmpt (Just hsModuleName) path >>= \case
           Nothing -> return Nothing
-          Just uspec ->
-            Just . BindingSpec uspec <$>
+          Just (declared, uspec) ->
+            Just . Prescriptive declared . BindingSpec uspec <$>
               BindingSpec.resolve
                 tracerResolve
                 Common.BindingSpecResolvePrescriptiveHeader
@@ -255,7 +277,7 @@ loadBindingSpecs ::
   -> ClangArgs
   -> Hs.ModuleName
   -> BindingSpecConfig
-  -> IO (BindingSpec.MergedBindingSpecs, PrescriptiveBindingSpec)
+  -> IO (BindingSpec.MergedBindingSpecs, Prescriptive)
 loadBindingSpecs tracer args hsModuleName config =
     (,)
       <$> loadExtBindingSpecs

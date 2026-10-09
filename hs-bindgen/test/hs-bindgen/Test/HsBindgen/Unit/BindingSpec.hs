@@ -1,12 +1,13 @@
--- | Merging of external binding specifications
+-- | Binding specifications: reading and merging
 --
--- The golden tests under @binding-specs/merge@ check the outcome for a whole
--- module. These tests check the rule itself, in both orders.
+-- The golden tests under @binding-specs@ check the outcome for a whole module.
+-- These tests check the pieces on their own.
 module Test.HsBindgen.Unit.BindingSpec (tests) where
 
 import Data.Map.Strict qualified as Map
 import Data.Set (Set)
 import Data.Set qualified as Set
+import System.FilePath ((</>))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, testCase, (@?=))
 
@@ -16,17 +17,31 @@ import HsBindgen.BindingSpec.Private.Common (BindingSpecMergeMsg (..),
                                              Omittable (..))
 import HsBindgen.BindingSpec.Private.V1 (CTypeSpec (..), ResolvedBindingSpec)
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
+import HsBindgen.BindingSpec.Private.Version (BindingSpecCompatibility (..))
 import HsBindgen.Imports (def)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Util.Tracer (nullTracer)
+
+import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------
   List of tests
 -------------------------------------------------------------------------------}
 
-tests :: TestTree
-tests = testGroup "Test.HsBindgen.Unit.BindingSpec" [
-      testGroup "merge" [
+tests :: IO TestResources -> TestTree
+tests getTestResources = testGroup "Test.HsBindgen.Unit.BindingSpec" [
+      testGroup "readFile" [
+          testCase "file names no module" $
+            readsAs getTestResources
+              "binding-specs/merge/omit_twice/report_p.yaml"
+              (Nothing, "Example")
+        , testCase "file names a module" $
+            readsAs getTestResources
+              "binding-specs/merge/omit_and_bind/stopwatch_p.yaml"
+              (Just "Lib.Stopwatch", "Lib.Stopwatch")
+        ]
+    , testGroup "merge" [
           testCase "omit, omit" $
             [omits "Lib.A" libH, omits "Lib.B" libH] `mergesTo` Omitted
         , testCase "omit, bind" $
@@ -39,6 +54,27 @@ tests = testGroup "Test.HsBindgen.Unit.BindingSpec" [
             [binds "Lib.A" libH, binds "Lib.B" otherH] `mergesTo` BoundIn "Lib.A"
         ]
     ]
+
+{-------------------------------------------------------------------------------
+  Reading a specification that may leave out its module
+-------------------------------------------------------------------------------}
+
+-- | Read a golden header's specification with default module @Example@
+--
+-- The expectation is the module that the file names, and the module of the
+-- specification that was read.
+readsAs ::
+     IO TestResources
+  -> FilePath
+  -> (Maybe Hs.ModuleName, Hs.ModuleName)
+  -> Assertion
+readsAs getTestResources file expected = do
+    testResources <- getTestResources
+    let path = testResources.packageRoot
+           </> "test-artefacts" </> "headers" </> "golden" </> file
+    result <-
+      BindingSpec.readFile nullTracer BindingSpecStrict (Just "Example") path
+    fmap (fmap (.moduleName)) result @?= Just expected
 
 {-------------------------------------------------------------------------------
   Merging two specifications for one C type

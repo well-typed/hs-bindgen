@@ -16,6 +16,7 @@ import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
 import Clang.Paths
 
+import HsBindgen.BindingSpec (Prescriptive (..))
 import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Clang
@@ -367,7 +368,7 @@ runFrontend tracer config boot = do
     resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
       afterReparseMacroExpansions <- reparseMacroExpansionsPass
       extSpecs <- boot.externalBindingSpecs
-      pSpec    <- boot.prescriptiveBindingSpec
+      pSpec    <- (.spec) <$> boot.prescriptiveBindingSpec
       let moduleName = Hs.ModuleName boot.baseModule.text -- do not import Backend
           (afterResolveBindingSpecs, msgsResolveBindingSpecs) =
             resolveBindingSpecs moduleName extSpecs pSpec afterReparseMacroExpansions

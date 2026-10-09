@@ -13,6 +13,9 @@
   another binds, the binding is used. Previously both were reported as
   conflicts when the entries named the same header; otherwise the
   specification given last took precedence.
+* A prescriptive binding specification for another module than the one being
+  generated is reported once. Previously it produced two warnings: one when
+  the file was read and one when the specification was not used.
 
 ### Bug fixes
 

@@ -1,0 +1,29 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: binding-specs/module_mismatch.h
+  cname: struct point
+  hsname: Point
+hstypes:
+- hsname: Point
+  representation:
+    record:
+      constructor: Point
+      fields:
+      - point_x
+      - point_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

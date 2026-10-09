@@ -1,0 +1,10 @@
+# A specification for another module than the one being generated
+
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Other
+ctypes:
+- headers: binding-specs/module_mismatch.h
+  cname: struct point
+  hsname: Pt

@@ -21,6 +21,7 @@ import Test.HsBindgen.Resources
 testCases :: [TestCase]
 testCases = [
       test_omit_type
+    , test_module_mismatch
       -- * Merging external binding specifications
     , test_merge_omit_twice
     , test_merge_omit_and_bind
@@ -71,6 +72,28 @@ test_omit_type =
     defaultTest "binding-specs/omit_type"
       & #specPrescriptive .~
           Just "test-artefacts/headers/golden/binding-specs/omit_type_p.yaml"
+
+{-------------------------------------------------------------------------------
+  Module of a prescriptive binding specification
+-------------------------------------------------------------------------------}
+
+-- | A prescriptive binding specification for another module is not used
+--
+-- The pass that would have applied the specification reports the mismatch.
+-- Nothing else does: a second warning would fail this test.
+test_module_mismatch :: TestCase
+test_module_mismatch =
+    testTraceSimple "binding-specs/module_mismatch" auxTrace
+      & #specPrescriptive .~
+          Just "test-artefacts/headers/golden/binding-specs/module_mismatch_p.yaml"
+  where
+    auxTrace :: TraceMsg -> Maybe (TraceExpectation ())
+    auxTrace = \case
+      TraceFrontend
+        (FrontendResolveBindingSpecs
+          (ResolveBindingSpecsModuleMismatch "Example" "Other")) ->
+            Just $ Expected ()
+      _otherwise -> Nothing
 
 {-------------------------------------------------------------------------------
   Merging external binding specifications

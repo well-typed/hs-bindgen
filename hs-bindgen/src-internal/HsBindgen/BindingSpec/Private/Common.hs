@@ -65,7 +65,6 @@ data BindingSpecReadMsg =
   | BindingSpecReadYamlWarning FilePath String
   | BindingSpecReadParseVersion FilePath AVersion
   | BindingSpecReadIncompatibleVersion FilePath AVersion
-  | BindingSpecReadModuleMismatch FilePath Hs.ModuleName Hs.ModuleName
   | BindingSpecReadModuleNotSpecified FilePath
   | BindingSpecReadInvalidCName FilePath Text
   | BindingSpecReadCTypeConflict FilePath C.DeclId C.HashIncludeArg
@@ -82,7 +81,6 @@ instance IsTrace Level BindingSpecReadMsg where
     BindingSpecReadYamlWarning{}          -> Error
     BindingSpecReadParseVersion{}         -> Debug
     BindingSpecReadIncompatibleVersion{}  -> Error
-    BindingSpecReadModuleMismatch{}       -> Warning
     BindingSpecReadModuleNotSpecified{}   -> Error
     BindingSpecReadInvalidCName{}         -> Error
     BindingSpecReadCTypeConflict{}        -> Error
@@ -128,13 +126,6 @@ instance PrettyForTrace BindingSpecReadMsg where
             prettyForTraceHsBindgenVersion version.bindgen
         , "binding specification version: " ><
             prettyForTrace version.bindingSpec
-        ]
-    BindingSpecReadModuleMismatch path bsModule curModule ->
-      PP.hangs'
-        ("binding specification module mismatch: " >< PP.string path)
-        2
-        [ "binding specification module: " >< prettyForTrace bsModule
-        , "current module: " >< prettyForTrace curModule
         ]
     BindingSpecReadModuleNotSpecified path ->
       "module not specified in external binding specification: " >< PP.string path

@@ -319,12 +319,18 @@ lookupHsTypeSpec hsName spec = Map.lookup hsName spec.hsTypes
 -- | Read a binding specification file
 --
 -- The format is determined by the filename extension.
+--
+-- A file that does not name a module is read as a specification for the given
+-- default module; without a default, that is an error.  The result includes
+-- the module that the file names, if it names one, so that the caller can tell
+-- the two cases apart.  Whether a named module is the right one is for the
+-- caller to judge.
 readFile ::
      Tracer BindingSpecReadMsg
   -> BindingSpecCompatibility
   -> Maybe Hs.ModuleName
   -> FilePath
-  -> IO (Maybe UnresolvedBindingSpec)
+  -> IO (Maybe (Maybe Hs.ModuleName, UnresolvedBindingSpec))
 readFile tracer cmpt mHsModuleName path = readVersion tracer path >>= \case
     Nothing -> return Nothing
     Just (aVersion, value)
@@ -338,7 +344,7 @@ readFile tracer cmpt mHsModuleName path = readVersion tracer path >>= \case
                 case fromABindingSpec mHsModuleName path arep of
                   Right (errs, spec) -> do
                     mapM_ (traceWith tracer . withCallStack) errs
-                    return (Just spec)
+                    return (Just (arep.hsModule, spec))
                   Left err -> do
                     traceWith tracer (withCallStack err)
                     return Nothing
@@ -639,20 +645,16 @@ fromABindingSpec ::
   -> ARep V1 UnresolvedBindingSpec
   -> Either BindingSpecReadMsg ([BindingSpecReadMsg], UnresolvedBindingSpec)
 fromABindingSpec mHsModuleName path arep = do
-    (moduleErrs, hsModuleName) <- case (arep.hsModule, mHsModuleName) of
-      (Just bsModule, Just curModule)
-        | bsModule == curModule -> return ([], bsModule)
-        | otherwise -> return
-            ([BindingSpecReadModuleMismatch path bsModule curModule], bsModule)
-      (Just bsModule, Nothing) -> return ([], bsModule)
-      (Nothing, Just curModule) -> return ([], curModule)
-      (Nothing, Nothing) -> Left $ BindingSpecReadModuleNotSpecified path
+    hsModuleName <- case (arep.hsModule, mHsModuleName) of
+      (Just bsModule, _)        -> return bsModule
+      (Nothing, Just curModule) -> return curModule
+      (Nothing, Nothing)        -> Left $ BindingSpecReadModuleNotSpecified path
     let (cTypeErrs, hsNms, bindingSpecCTypes) =
           fromAOCTypeSpecs path arep.cTypes
         (hsTypeErrs, bindingSpecHsTypes) =
           fromAHsTypeSpecs path hsNms arep.hsTypes
     return
-      ( moduleErrs ++ cTypeErrs ++ hsTypeErrs
+      ( cTypeErrs ++ hsTypeErrs
       , BindingSpec{
             moduleName = hsModuleName
           , cTypes     = bindingSpecCTypes

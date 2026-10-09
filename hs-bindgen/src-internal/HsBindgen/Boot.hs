@@ -185,7 +185,7 @@ data BootArtefact l = BootArtefact {
     , macroLang               :: Cached (Macro.Lang l)
     , rootDirectives          :: Cached [C.RootDirective C.HashIncludeArg]
     , externalBindingSpecs    :: Cached MergedBindingSpecs
-    , prescriptiveBindingSpec :: Cached PrescriptiveBindingSpec
+    , prescriptiveBindingSpec :: Cached Prescriptive
     }
 
 {-------------------------------------------------------------------------------
@@ -199,7 +199,7 @@ data BootStatusMsg =
   | BootStatusClangArgs               ClangArgs
   | BootStatusRootDirectives          [C.RootDirective C.HashIncludeArg]
   | BootStatusExternalBindingSpecs    MergedBindingSpecs
-  | BootStatusPrescriptiveBindingSpec PrescriptiveBindingSpec
+  | BootStatusPrescriptiveBindingSpec Prescriptive
   deriving stock (Show, Generic)
 
 bootStatus :: Show a => String -> a -> CtxDoc
