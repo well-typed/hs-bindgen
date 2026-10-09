@@ -306,6 +306,13 @@ A prescriptive binding specification (`--prescriptive-binding-spec`) without
 module only.  A type that it omits is left out of that module, and a later
 module that needs the type generates it.
 
+A run takes one prescriptive binding specification, because
+`--prescriptive-binding-spec` can be given only once.  With `hsmodule`, that
+is the configuration of a single module.  To configure types of several
+modules, leave `hsmodule` out.  Every module after the one that defines a type
+then reports an entry that renames the type or changes its representation as
+unused: see Limitations.
+
 The name in `hsmodule` has to be the name of a module of the library, as
 `--list-base-module-names` prints it.  The name is not checked, so getting it
 right is up to you.  A specification with any other name is used for no
