@@ -12,6 +12,9 @@ module HsBindgen.App (
     -- ** Bindgen configuration
   , Config
   , parseConfig
+  , parseConfigWithSelection
+  , SelectionFlags(..)
+  , mergeSelectionFlags
     -- ** Clang arguments
   , parseClangArgsConfig
     -- ** Translation option
@@ -235,13 +238,32 @@ parseShowCallStack = flag DisableCallStack EnableCallStack $ mconcat [
 type Config = Config_ FilePath
 
 parseConfig :: Parser Config
-parseConfig = Config
-    <$> parseClangArgsConfig
-    <*> parseBindingSpec
-    <*> parseSelectionPredicate
-    <*> parseProgramSlicing
-    <*> parseFieldNamingStrategy
-    <*> parseEmptyMacros
+parseConfig = fst <$> parseConfigWithSelection
+
+-- | Like 'parseConfig', but also return the selection flags as given
+--
+-- The 'Config' has the selection predicate of a command that generates one
+-- module: when nothing is selected, the declarations of the main headers are.
+-- A command for which that default is wrong starts from the flags.
+parseConfigWithSelection :: Parser (Config, SelectionFlags)
+parseConfigWithSelection = do
+    clang               <- parseClangArgsConfig
+    bindingSpec         <- parseBindingSpec
+    selectionFlags      <- parseSelectionFlags
+    programSlicing      <- parseProgramSlicing
+    fieldNamingStrategy <- parseFieldNamingStrategy
+    emptyMacros         <- parseEmptyMacros
+    pure (
+        Config{
+            clang               = clang
+          , bindingSpec         = bindingSpec
+          , selectionPredicate  = mergeSelectionFlags def selectionFlags
+          , programSlicing      = programSlicing
+          , fieldNamingStrategy = fieldNamingStrategy
+          , emptyMacros         = emptyMacros
+          }
+      , selectionFlags
+      )
 
 {-------------------------------------------------------------------------------
   Binding specifications
@@ -369,8 +391,31 @@ parseClangOptionAfter = strOption $ mconcat [
   Predicates and slicing
 -------------------------------------------------------------------------------}
 
-parseSelectionPredicate :: Parser (Boolean SelectionPredicate)
-parseSelectionPredicate = fmap aux . many . asum $ [
+-- | The selection flags of the command line, each kind in the order given
+--
+-- What is selected when no @--select-...@ flag is given depends on the
+-- command, so that default is not applied here; see 'mergeSelectionFlags'.
+data SelectionFlags = SelectionFlags {
+      -- | @--select-...@
+      selected :: [Boolean SelectionPredicate]
+      -- | @--select-except-...@
+    , excepted :: [Boolean SelectionPredicate]
+    }
+
+-- | Merge the selection flags into one predicate
+--
+-- The first argument is what is selected when no @--select-...@ flag is given.
+mergeSelectionFlags ::
+     Boolean SelectionPredicate
+  -> SelectionFlags
+  -> Boolean SelectionPredicate
+mergeSelectionFlags whenNoneSelected flags =
+    mergeBooleans flags.excepted $ case flags.selected of
+      [] -> [whenNoneSelected]
+      ps -> ps
+
+parseSelectionFlags :: Parser SelectionFlags
+parseSelectionFlags = fmap aux . many . asum $ [
       flag' (Right BTrue) $ mconcat [
           long "select-all"
         , help "Select all declarations"
@@ -421,13 +466,10 @@ parseSelectionPredicate = fmap aux . many . asum $ [
   where
     aux ::
          [Either (Boolean SelectionPredicate) (Boolean SelectionPredicate)]
-      -> (Boolean SelectionPredicate)
-    aux = uncurry mergeBooleans . fmap applyDefault . partitionEithers
-
-    applyDefault :: Default a => [a] -> [a]
-    applyDefault = \case
-      [] -> [def]
-      ps -> ps
+      -> SelectionFlags
+    aux flags = SelectionFlags{selected = selected, excepted = excepted}
+      where
+        (excepted, selected) = partitionEithers flags
 
 parseProgramSlicing :: Parser ProgramSlicing
 parseProgramSlicing =
