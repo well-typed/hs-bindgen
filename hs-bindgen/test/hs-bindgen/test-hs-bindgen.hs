@@ -6,6 +6,7 @@ import Test.Tasty
 import Test.HsBindgen.Frontend.LanguageC qualified as Frontend.LanguageC
 import Test.HsBindgen.Frontend.Pass.PrepareReparse qualified as Frontend.Pass.PrepareReparse
 import Test.HsBindgen.Golden qualified as Golden
+import Test.HsBindgen.Integration.DryRun qualified as Integration.DryRun
 import Test.HsBindgen.Integration.ExitCode qualified as Integration.ExitCode
 import Test.HsBindgen.Integration.OverwritePolicy qualified as Integration.OverwritePolicy
 import Test.HsBindgen.Macro.CExpr qualified as Macro.CExpr
@@ -50,7 +51,8 @@ main = defaultMain $
           , Unit.Runtime.tests
           ]
       , testGroup "integration tests" [
-            Integration.ExitCode.tests testResources
+            Integration.DryRun.tests testResources
+          , Integration.ExitCode.tests testResources
           , Integration.OverwritePolicy.tests testResources
           ]
       , testGroup "property tests" [

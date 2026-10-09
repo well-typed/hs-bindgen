@@ -549,6 +549,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Macros.Reparse
     Test.HsBindgen.Golden.ProgramAnalysis
     Test.HsBindgen.Golden.Types
+    Test.HsBindgen.Integration.DryRun
     Test.HsBindgen.Integration.ExitCode
     Test.HsBindgen.Integration.OverwritePolicy
     Test.HsBindgen.Macro.CExpr

@@ -6,6 +6,10 @@
 
 ### New features
 
+* `hs-bindgen-cli preprocess --dry-run` writes no files. It runs as usual,
+  checks the output directories and files against `--create-output-dirs` and
+  `--overwrite-files`, and reports each file that would be written.
+
 ### Minor changes
 
 * External binding specifications no longer conflict over an omission. Two

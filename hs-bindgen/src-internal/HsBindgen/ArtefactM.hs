@@ -17,6 +17,7 @@ module HsBindgen.ArtefactM (
   , emitTrace
     -- ** Actions
   , delay
+  , dryRun
   , DelayedIO(..)
   , executeDelayedIOActions
     -- * Errors
@@ -77,7 +78,7 @@ checkPolicies as = do
           fds
         | fds@(_ :| _ : _) <- Map.elems $ Map.fromListWith (flip (<>)) [
               (sameFile fd, fd :| [])
-            | WriteToFile fd <- as
+            | Just fd <- map outputFile as
             ]
         ]
 
@@ -85,25 +86,26 @@ checkPolicies as = do
     sameFile fd = map Char.toLower $ normalise $ fileLocationToPath fd.location
 
 checkPolicy :: DelayedIO -> ExceptT DelayedIOError IO ()
-checkPolicy = \case
-  WriteToStdOut{} -> pure ()
-  WriteToFile fd -> case fd.location of
-    UserSpecified path -> do
-      let baseDir = takeDirectory path
-      dirExists  <- liftIO $ Dir.doesDirectoryExist baseDir
-      fileExists <- liftIO $ Dir.doesFileExist path
-      unless (dirExists || fd.dirPolicy == CreateOutputDirs) $
-        throwError $ DirectoryDoesNotExist baseDir
-      when (fileExists && fd.filePolicy == DoNotOverwriteFiles) $
-        throwError $ FileAlreadyExists path
-    RelativeFileLocation relative -> do
-      let path = relative.outputDir </> relative.localPath
-      dirExists  <- liftIO $ Dir.doesDirectoryExist relative.outputDir
-      fileExists <- liftIO $ Dir.doesFileExist path
-      unless (dirExists || fd.dirPolicy == CreateOutputDirs) $
-        throwError $ DirectoryDoesNotExist relative.outputDir
-      when (fileExists && fd.filePolicy == DoNotOverwriteFiles) $
-        throwError $ FileAlreadyExists path
+checkPolicy = mapM_ checkFile . outputFile
+  where
+    checkFile :: FileDescription -> ExceptT DelayedIOError IO ()
+    checkFile fd = case fd.location of
+      UserSpecified path -> do
+        let baseDir = takeDirectory path
+        dirExists  <- liftIO $ Dir.doesDirectoryExist baseDir
+        fileExists <- liftIO $ Dir.doesFileExist path
+        unless (dirExists || fd.dirPolicy == CreateOutputDirs) $
+          throwError $ DirectoryDoesNotExist baseDir
+        when (fileExists && fd.filePolicy == DoNotOverwriteFiles) $
+          throwError $ FileAlreadyExists path
+      RelativeFileLocation relative -> do
+        let path = relative.outputDir </> relative.localPath
+        dirExists  <- liftIO $ Dir.doesDirectoryExist relative.outputDir
+        fileExists <- liftIO $ Dir.doesFileExist path
+        unless (dirExists || fd.dirPolicy == CreateOutputDirs) $
+          throwError $ DirectoryDoesNotExist relative.outputDir
+        when (fileExists && fd.filePolicy == DoNotOverwriteFiles) $
+          throwError $ FileAlreadyExists path
 
 {-------------------------------------------------------------------------------
   File description
@@ -180,10 +182,30 @@ runCached = unsafeIO . getCached
 delay :: DelayedIO -> ArtefactM ()
 delay a = WrapArtefactM $ modify (a :)
 
+-- | Turn the file writes registered so far into a dry run
+--
+-- The files are still checked against the output policies, and each one is
+-- reported in place of being written.  A write registered afterwards is not
+-- affected.
+dryRun :: ArtefactM ()
+dryRun = WrapArtefactM $ modify $ map $ \case
+    a@WriteToStdOut{} -> a
+    WriteToFile fd    -> DryRunFile fd
+    a@DryRunFile{}    -> a
+
 -- | Delayed IO action
 data DelayedIO =
       WriteToStdOut  FileContent
     | WriteToFile    FileDescription
+      -- | A file that is checked like one to be written, and then reported
+    | DryRunFile     FileDescription
+
+-- | The file that an action writes, or would write if it were not a dry run
+outputFile :: DelayedIO -> Maybe FileDescription
+outputFile = \case
+    WriteToStdOut{} -> Nothing
+    WriteToFile fd  -> Just fd
+    DryRunFile fd   -> Just fd
 
 executeDelayedIOActions :: Tracer DelayedIOMsg -> [DelayedIO] -> IO ()
 executeDelayedIOActions tracer as =
@@ -199,6 +221,9 @@ executeDelayedIOActions tracer as =
       case fd.content of
         StringContent     s  -> writeFile path s
         ByteStringContent bs -> BSS.writeFile path bs
+    DryRunFile fd ->
+      traceWith tracer $ withCallStack $
+        DelayedIODryRun (fileLocationToPath fd.location) fd.description
 
 {-------------------------------------------------------------------------------
   Errors
@@ -231,16 +256,21 @@ instance PrettyForTrace DelayedIOError where
 
 data DelayedIOMsg =
       DelayedIOWriteToFile FilePath String
+    | DelayedIODryRun      FilePath String
   deriving stock (Show, Generic)
 
 instance PrettyForTrace DelayedIOMsg where
   prettyForTrace = \case
     DelayedIOWriteToFile path what ->
       "Writing" <+> PP.show what <+> "to file" <+> PP.show path
+    DelayedIODryRun path what ->
+      "Dry run: not writing" <+> PP.show what <+> "to file" <+> PP.show path
 
 instance IsTrace SafeLevel DelayedIOMsg where
   getDefaultLogLevel = \case
     DelayedIOWriteToFile{} -> SafeInfo
+    DelayedIODryRun{}      -> SafeNotice
   getSource = const HsBindgen
   getTraceId = \case
     DelayedIOWriteToFile{} -> "delayedio-write-file"
+    DelayedIODryRun{}      -> "delayedio-dry-run"

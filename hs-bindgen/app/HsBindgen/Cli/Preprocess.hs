@@ -60,6 +60,7 @@ data ConfigCLI = ConfigCLI {
     , outputBindingSpec :: Maybe FilePath
     , dirPolicy         :: DirPolicy
     , filePolicy        :: FilePolicy
+    , dryRun            :: Bool
     -- NOTE: Inputs (arguments) must be last, options must go before it.
     , inputs            :: [C.UncheckedRootDirective]
     }
@@ -76,6 +77,7 @@ parseConfigCLI =
       <*> optional parseGenBindingSpec
       <*> parseDirPolicy
       <*> parseFilePolicy
+      <*> parseDryRun
       <*> parseInputs
 
 {-------------------------------------------------------------------------------
@@ -125,3 +127,5 @@ exec global opts = do
           opts.configCLI.filePolicy
           opts.configCLI.dirPolicy
           path
+
+      when opts.configCLI.dryRun $ Lift dryRun

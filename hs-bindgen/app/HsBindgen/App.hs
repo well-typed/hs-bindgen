@@ -24,6 +24,7 @@ module HsBindgen.App (
   , parseDirPolicy
   , parseFilePolicy
   , parseGenBindingSpec
+  , parseDryRun
   , parseGenTestsOutput
     -- ** Input arguments
   , parseInputs
@@ -534,6 +535,15 @@ parseGenBindingSpec = strOption $ mconcat [
       long "gen-binding-spec"
     , metavar "PATH"
     , help "Binding specification to generate"
+    ]
+
+parseDryRun :: Parser Bool
+parseDryRun = switch $ mconcat [
+      long "dry-run"
+    , help $ concat [
+          "Write no files: run as usual, check the output directories and"
+        , " files, and report each file that would be written"
+        ]
     ]
 
 parseGenTestsOutput :: Parser FilePath

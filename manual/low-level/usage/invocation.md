@@ -40,6 +40,7 @@ Options controlling module generation:
 - `--module NAME` - Base module name (e.g., `Generated.MyLib`)
 - `--unique-id ID` - Unique identifier for C wrapper functions (e.g., `org.example.mylib`)
 - `--create-output-dirs` - Create output directories if they do not exist
+- `--dry-run` - Write no files; report each file that would be written
 
 #### Input
 
