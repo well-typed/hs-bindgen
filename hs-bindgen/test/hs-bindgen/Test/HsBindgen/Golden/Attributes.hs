@@ -19,7 +19,8 @@ import Test.HsBindgen.Resources
 
 testCases :: [TestCase]
 testCases = [
-      defaultTest "attributes/visibility/edge-cases/nested_types"
+      defaultTest "attributes/unexposed_attributes"
+    , defaultTest "attributes/visibility/edge-cases/nested_types"
     , defaultTest "attributes/visibility/types"
     , test_asm
     , test_attributes

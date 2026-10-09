@@ -52,6 +52,12 @@
 * A macro dropped because it fails to typecheck no longer gets a spurious
   warning that its transitive dependencies are missing: it no longer depends
   on the declarations its body refers to.
+* Ignore attributes that `libclang` does not expose, such as `availability`,
+  `swift_private` and `weak`, when parsing global variable declarations.
+  Previously, such a variable was dropped with a `Conflicting declarations`
+  warning. See [issue #2304][is-2304].
+
+[is-2304]: https://github.com/well-typed/hs-bindgen/issues/2304
 
 ## 1.0.0.0 -- 2026-10-08
 
