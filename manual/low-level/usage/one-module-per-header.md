@@ -306,6 +306,17 @@ A prescriptive binding specification (`--prescriptive-binding-spec`) without
 module only.  A type that it omits is left out of that module, and a later
 module that needs the type generates it.
 
+The name in `hsmodule` has to be the name of a module of the library, as
+`--list-base-module-names` prints it.  The name is not checked, so getting it
+right is up to you.  A specification with any other name is used for no
+module, and there is no message.
+
+The base module is not a module of the library, so this holds for its name
+too.  A specification that names the base module is read when the modules are
+planned, and by no module.  What it omits or makes opaque is then neither
+omitted nor opaque in any module, and it can still move a type to another
+module than that of its header.
+
 `--gen-binding-spec-dir DIR` writes the binding specification of each module
 to `DIR`, in a file named after the module, as in `Lib.Types.yaml`.  These are
 the specifications that the modules are given for the modules before them.
@@ -432,8 +443,6 @@ Some messages are less helpful than they are without `--library`.
 * An entry that is filed under a header that includes the header of its type
   takes effect and is still reported as unused, by every module.  The entries
   of a generated binding specification are filed that way.
-* A prescriptive binding specification with an `hsmodule` that no module of
-  the library has is ignored without a message.
 
 The binding specifications that `--gen-binding-spec-dir` writes file their
 entries under the headers that were given on the command line.  A later run of

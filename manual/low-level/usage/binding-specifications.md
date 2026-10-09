@@ -734,6 +734,10 @@ to guide the generation of bindings, specifying the module is optional.  When
 used as an external binding specification, to specify imported types, specifying
 the module is required.
 
+With `--library`, a prescriptive binding specification that specifies a module
+is used for the module of that name only, and the name is not checked.  See
+[One module per header][manual:one-module-per-header].
+
 In this example, the binding specification describes bindings in module
 `Vector`.
 
