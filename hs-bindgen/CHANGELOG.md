@@ -10,6 +10,22 @@
 
 ### Bug fixes
 
+* Ignore attributes that `libclang` does not expose, such as `availability`,
+  `swift_private` and `weak`, when parsing global variable declarations.
+  Previously, such a variable was dropped with a `Conflicting declarations`
+  warning. See [issue #2304][is-2304].
+* Ignore the `objc_boxable` attribute when parsing struct and union
+  declarations. Previously, the declaration was dropped with a `Failed to
+  parse a declaration because some of its nested declarations failed to parse`
+  warning. See [issue #2302][is-2302].
+* Ignore the `flag_enum` attribute, and attributes that `libclang` does not
+  expose such as `enum_extensibility`, when parsing enum declarations.
+  Previously, these triggered a `Bug`-level `Unexpected cursor kind` trace.
+  See [issue #2303][is-2303].
+
+[is-2302]: https://github.com/well-typed/hs-bindgen/issues/2302
+[is-2303]: https://github.com/well-typed/hs-bindgen/issues/2303
+[is-2304]: https://github.com/well-typed/hs-bindgen/issues/2304
 
 ## 1.0.0.0 -- 2026-10-08
 

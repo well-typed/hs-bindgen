@@ -1,0 +1,333 @@
+-- addDependentFile test-artefacts/headers/golden/attributes/unexposed_attributes.h
+-- #include <attributes/unexposed_attributes.h>
+-- /* test_attributesunexposed_attribute_Example_get_i0 */
+-- __attribute__ ((const))
+-- signed int *hs_bindgen_3def60283a7974bb (void)
+-- {
+--   return &i0;
+-- }
+-- /* test_attributesunexposed_attribute_Example_get_i1 */
+-- __attribute__ ((const))
+-- signed int *hs_bindgen_59407b1ef1688834 (void)
+-- {
+--   return &i1;
+-- }
+-- /* test_attributesunexposed_attribute_Example_get_i2 */
+-- __attribute__ ((const))
+-- signed int *hs_bindgen_60ac186adaab0fab (void)
+-- {
+--   return &i2;
+-- }
+-- /* test_attributesunexposed_attribute_Example_get_i3 */
+-- __attribute__ ((const))
+-- signed int *hs_bindgen_1ebd18589bbb3b45 (void)
+-- {
+--   return &i3;
+-- }
+-- /* test_attributesunexposed_attribute_Example_get_i4 */
+-- __attribute__ ((const))
+-- signed int *hs_bindgen_a057c2043ab25421 (void)
+-- {
+--   return &i4;
+-- }
+-- /* test_attributesunexposed_attribute_Example_get_i5 */
+-- __attribute__ ((const))
+-- signed int const *hs_bindgen_0ba9aca4d3be16bb (void)
+-- {
+--   return &i5;
+-- }
+-- /* test_attributesunexposed_attribute_Example_get_i6 */
+-- __attribute__ ((const))
+-- signed int *hs_bindgen_94fe2c6b583b5ad1 (void)
+-- {
+--   return &i6;
+-- }
+{-| __C declaration:__ @enum E0@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 17:50@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+newtype E0
+    = E0 {unwrapE0 :: CUInt}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize E0
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw E0
+    where readRaw = \ptr_0 -> pure E0 <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw E0
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       E0 unwrapE0_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapE0_2
+deriving via (EquivStorable E0) instance Storable E0
+deriving via CUInt instance Prim E0
+instance CEnum E0
+    where type CEnumZ E0 = CUInt
+          toCEnum = E0
+          fromCEnum = getField @"unwrapE0"
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "E0_A"),
+                                                         (1, singleton "E0_B")]
+          showsUndeclared = showsWrappedUndeclared "E0"
+          readPrecUndeclared = readPrecWrappedUndeclared "E0"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum E0
+    where minDeclaredValue = E0_A
+          maxDeclaredValue = E0_B
+instance Show E0
+    where showsPrec = shows
+instance Read E0
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE0" E0 ty
+    where hasField = \x_0 -> (\y_1 -> E0{unwrapE0 = y_1},
+                              getField @"unwrapE0" x_0)
+instance (~) ty CUInt => HasField "unwrapE0" (Ptr E0) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapE0")
+instance HasCField E0 "unwrapE0"
+    where type CFieldType E0 "unwrapE0" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @E0_A@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 17:55@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+pattern E0_A :: E0
+pattern E0_A = E0 0
+{-| __C declaration:__ @E0_B@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 17:61@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+pattern E0_B :: E0
+pattern E0_B = E0 1
+{-| __C declaration:__ @enum E1@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 45:64@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+newtype E1
+    = E1 {unwrapE1 :: CUInt}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize E1
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw E1
+    where readRaw = \ptr_0 -> pure E1 <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw E1
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       E1 unwrapE1_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapE1_2
+deriving via (EquivStorable E1) instance Storable E1
+deriving via CUInt instance Prim E1
+instance CEnum E1
+    where type CEnumZ E1 = CUInt
+          toCEnum = E1
+          fromCEnum = getField @"unwrapE1"
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "E1_A"),
+                                                         (1, singleton "E1_B")]
+          showsUndeclared = showsWrappedUndeclared "E1"
+          readPrecUndeclared = readPrecWrappedUndeclared "E1"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum E1
+    where minDeclaredValue = E1_A
+          maxDeclaredValue = E1_B
+instance Show E1
+    where showsPrec = shows
+instance Read E1
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE1" E1 ty
+    where hasField = \x_0 -> (\y_1 -> E1{unwrapE1 = y_1},
+                              getField @"unwrapE1" x_0)
+instance (~) ty CUInt => HasField "unwrapE1" (Ptr E1) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapE1")
+instance HasCField E1 "unwrapE1"
+    where type CFieldType E1 "unwrapE1" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @E1_A@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 45:69@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+pattern E1_A :: E1
+pattern E1_A = E1 0
+{-| __C declaration:__ @E1_B@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 45:75@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+pattern E1_B :: E1
+pattern E1_B = E1 1
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i0@
+foreign import ccall unsafe "hs_bindgen_3def60283a7974bb" hs_bindgen_3def60283a7974bb_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i0@
+hs_bindgen_3def60283a7974bb :: IO (Ptr CInt)
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i0@
+hs_bindgen_3def60283a7974bb = fmap fromFFIType hs_bindgen_3def60283a7974bb_base
+{-# NOINLINE i0 #-}
+{-| __C declaration:__ @i0@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 12:12@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+i0 :: Ptr CInt
+{-| __C declaration:__ @i0@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 12:12@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+i0 = unsafePerformIO hs_bindgen_3def60283a7974bb
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i1@
+foreign import ccall unsafe "hs_bindgen_59407b1ef1688834" hs_bindgen_59407b1ef1688834_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i1@
+hs_bindgen_59407b1ef1688834 :: IO (Ptr CInt)
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i1@
+hs_bindgen_59407b1ef1688834 = fmap fromFFIType hs_bindgen_59407b1ef1688834_base
+{-# NOINLINE i1 #-}
+{-| __C declaration:__ @i1@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 13:12@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+i1 :: Ptr CInt
+{-| __C declaration:__ @i1@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 13:12@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+i1 = unsafePerformIO hs_bindgen_59407b1ef1688834
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i2@
+foreign import ccall unsafe "hs_bindgen_60ac186adaab0fab" hs_bindgen_60ac186adaab0fab_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i2@
+hs_bindgen_60ac186adaab0fab :: IO (Ptr CInt)
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i2@
+hs_bindgen_60ac186adaab0fab = fmap fromFFIType hs_bindgen_60ac186adaab0fab_base
+{-# NOINLINE i2 #-}
+{-| __C declaration:__ @i2@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 14:12@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+i2 :: Ptr CInt
+{-| __C declaration:__ @i2@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 14:12@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+i2 = unsafePerformIO hs_bindgen_60ac186adaab0fab
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i3@
+foreign import ccall unsafe "hs_bindgen_1ebd18589bbb3b45" hs_bindgen_1ebd18589bbb3b45_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i3@
+hs_bindgen_1ebd18589bbb3b45 :: IO (Ptr CInt)
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i3@
+hs_bindgen_1ebd18589bbb3b45 = fmap fromFFIType hs_bindgen_1ebd18589bbb3b45_base
+{-# NOINLINE i3 #-}
+{-| __C declaration:__ @i3@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 30:12@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+i3 :: Ptr CInt
+{-| __C declaration:__ @i3@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 30:12@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+i3 = unsafePerformIO hs_bindgen_1ebd18589bbb3b45
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i4@
+foreign import ccall unsafe "hs_bindgen_a057c2043ab25421" hs_bindgen_a057c2043ab25421_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i4@
+hs_bindgen_a057c2043ab25421 :: IO (Ptr CInt)
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i4@
+hs_bindgen_a057c2043ab25421 = fmap fromFFIType hs_bindgen_a057c2043ab25421_base
+{-# NOINLINE i4 #-}
+{-| __C declaration:__ @i4@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 33:70@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+i4 :: Ptr CInt
+{-| __C declaration:__ @i4@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 33:70@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+i4 = unsafePerformIO hs_bindgen_a057c2043ab25421
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i5@
+foreign import ccall unsafe "hs_bindgen_0ba9aca4d3be16bb" hs_bindgen_0ba9aca4d3be16bb_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i5@
+hs_bindgen_0ba9aca4d3be16bb :: IO (PtrConst CInt)
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i5@
+hs_bindgen_0ba9aca4d3be16bb = fmap fromFFIType hs_bindgen_0ba9aca4d3be16bb_base
+{-# NOINLINE hs_bindgen_00f85c051e57a979 #-}
+{-| __C declaration:__ @i5@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 36:18@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+
+    __unique:__ @test_attributesunexposed_attribute_Example_i5@
+-}
+hs_bindgen_00f85c051e57a979 :: PtrConst CInt
+{-| __C declaration:__ @i5@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 36:18@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+
+    __unique:__ @test_attributesunexposed_attribute_Example_i5@
+-}
+hs_bindgen_00f85c051e57a979 = unsafePerformIO hs_bindgen_0ba9aca4d3be16bb
+{-# NOINLINE i5 #-}
+i5 :: CInt
+i5 = unsafePerformIO (peek hs_bindgen_00f85c051e57a979)
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i6@
+foreign import ccall unsafe "hs_bindgen_94fe2c6b583b5ad1" hs_bindgen_94fe2c6b583b5ad1_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i6@
+hs_bindgen_94fe2c6b583b5ad1 :: IO (Ptr CInt)
+-- __unique:__ @test_attributesunexposed_attribute_Example_get_i6@
+hs_bindgen_94fe2c6b583b5ad1 = fmap fromFFIType hs_bindgen_94fe2c6b583b5ad1_base
+{-# NOINLINE i6 #-}
+{-| __C declaration:__ @i6@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 42:12@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+i6 :: Ptr CInt
+{-| __C declaration:__ @i6@
+
+    __defined at:__ @attributes\/unexposed_attributes.h 42:12@
+
+    __exported by:__ @attributes\/unexposed_attributes.h@
+-}
+i6 = unsafePerformIO hs_bindgen_94fe2c6b583b5ad1

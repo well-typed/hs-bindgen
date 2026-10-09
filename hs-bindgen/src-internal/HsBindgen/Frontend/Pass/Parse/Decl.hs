@@ -130,6 +130,9 @@ parseDecl' macroLang enclosing mCtx = withCursorKindNoCtx $ \case
       -- are resolved by the linker regardless of the DLL annotation.
       Right CXCursor_DLLImport          -> \_curr -> foldContinue
       Right CXCursor_DLLExport          -> \_curr -> foldContinue
+      -- @objc_boxable@ attributes on structs and unions. They permit the
+      -- Objective-C boxed expression syntax and have no meaning in C.
+      Right CXCursor_ObjCBoxable        -> \_curr -> foldContinue
       -- C11 @_Static_assert@ declarations (e.g. SDL's
       -- @SDL_COMPILE_TIME_ASSERT@): compile-time checks that declare
       -- nothing bindable.
@@ -557,6 +560,21 @@ enumDecl _enclosing ctx info = \curr -> do
                   -- @visibility@ attributes. The visibility itself the value can be
                   -- obtained using 'getCursorVisibility'.
                   Right CXCursor_VisibilityAttr -> foldContinue
+                  -- Attributes without a dedicated @libclang@ cursor kind,
+                  -- such as @availability@ and @enum_extensibility@.
+                  --
+                  -- NOTE: @enum_extensibility(closed)@ states that the enum
+                  -- only takes declared values, which is what @enum: closed@
+                  -- in a binding specification expresses. We cannot act on it,
+                  -- because @libclang@ exposes neither the attribute nor its
+                  -- argument. Should that change, the pattern synonyms of such
+                  -- an enum could be declared @COMPLETE@ without a binding
+                  -- specification, unless the enum is also a @flag_enum@.
+                  Right CXCursor_UnexposedAttr -> foldContinue
+                  -- @flag_enum@ attributes mark an enum as a set of bit flags:
+                  -- combinations of the declared values are valid too. Enums
+                  -- are translated as open by default, which allows for this.
+                  Right CXCursor_FlagEnum -> foldContinue
                   -- Windows @__declspec(dllimport)@ / @__declspec(dllexport)@.
                   -- These don't affect the generated Haskell bindings.
                   Right CXCursor_DLLImport -> foldContinue
@@ -882,6 +900,10 @@ varDecl macroLang enclosing ctx info = do
           -- @visibility@ attributes, where the value is obtained using
           -- @clang_getCursorVisibility@.
           CXCursor_VisibilityAttr -> skip
+
+          -- Attributes for which @libclang@ has no dedicated cursor kind, such
+          -- as @availability@ and @swift_private@.
+          CXCursor_UnexposedAttr -> skip
 
           -- Windows @__declspec(dllimport)@ / @__declspec(dllexport)@
           -- attributes. These do not affect the generated Haskell bindings.
