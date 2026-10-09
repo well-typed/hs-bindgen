@@ -21,6 +21,7 @@ import Test.HsBindgen.Unit.BindingSpec qualified as Unit.BindingSpec
 import Test.HsBindgen.Unit.ClangArgs qualified as Unit.ClangArgs
 import Test.HsBindgen.Unit.Digraph qualified as Unit.Digraph
 import Test.HsBindgen.Unit.Frontend qualified as Unit.Frontend
+import Test.HsBindgen.Unit.Library.Plan qualified as Unit.Library.Plan
 import Test.HsBindgen.Unit.ModuleScope qualified as Unit.ModuleScope
 import Test.HsBindgen.Unit.Pretty qualified as Unit.Pretty
 import Test.HsBindgen.Unit.RootDirective qualified as Unit.RootDirective
@@ -46,6 +47,7 @@ main = defaultMain $
           , Unit.ClangArgs.tests testResources
           , Unit.Digraph.tests
           , Unit.Frontend.tests testResources
+          , Unit.Library.Plan.tests
           , Unit.ModuleScope.tests testResources
           , Unit.Tracer.tests
           , Unit.Pretty.tests
