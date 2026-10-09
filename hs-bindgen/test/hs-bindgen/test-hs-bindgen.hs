@@ -16,6 +16,7 @@ import Test.HsBindgen.PPFixtures qualified as PPFixtures
 import Test.HsBindgen.Prop.Selection qualified as Prop.Selection
 import Test.HsBindgen.Resources
 import Test.HsBindgen.THFixtures qualified as THFixtures
+import Test.HsBindgen.Unit.BindingSpec qualified as Unit.BindingSpec
 import Test.HsBindgen.Unit.ClangArgs qualified as Unit.ClangArgs
 import Test.HsBindgen.Unit.Digraph qualified as Unit.Digraph
 import Test.HsBindgen.Unit.Frontend qualified as Unit.Frontend
@@ -39,7 +40,8 @@ main = defaultMain $
       , Macro.Syntax.Clang.tests
       , Macro.UniqueExpansion.tests
       , testGroup "unit tests" [
-            Unit.ClangArgs.tests testResources
+            Unit.BindingSpec.tests
+          , Unit.ClangArgs.tests testResources
           , Unit.Digraph.tests
           , Unit.Frontend.tests testResources
           , Unit.Tracer.tests

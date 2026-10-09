@@ -565,6 +565,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.THFixtures.Compile
     Test.HsBindgen.THFixtures.Generate
     Test.HsBindgen.THFixtures.TestCases
+    Test.HsBindgen.Unit.BindingSpec
     Test.HsBindgen.Unit.ClangArgs
     Test.HsBindgen.Unit.Digraph
     Test.HsBindgen.Unit.Frontend

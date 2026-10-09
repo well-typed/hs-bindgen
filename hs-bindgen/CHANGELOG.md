@@ -8,6 +8,12 @@
 
 ### Minor changes
 
+* External binding specifications no longer conflict over an omission. Two
+  specifications may omit the same C type, and when one omits a type that
+  another binds, the binding is used. Previously both were reported as
+  conflicts when the entries named the same header; otherwise the
+  specification given last took precedence.
+
 ### Bug fixes
 
 

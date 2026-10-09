@@ -491,6 +491,10 @@ newtype MergedBindingSpecs = MergedBindingSpecs {
   deriving stock (Show)
 
 -- | Merge (external) binding specifications
+--
+-- Two specifications conflict when both bind the same C type under a common
+-- header.  An omission never conflicts: two specifications may omit the same
+-- type, and one may omit a type that another binds.
 merge ::
      [ResolvedBindingSpec]
   -> ([BindingSpecMergeMsg], MergedBindingSpecs)
@@ -513,10 +517,7 @@ merge =
            , Map C.DeclId [(Set RealPath, ResolvedBindingSpec)]
            )
          )
-    mergeSpec ctx spec =
-        foldl' (mergeType spec) ctx
-      . map (fmap (map fst))
-      $ Map.toList spec.cTypes
+    mergeSpec ctx spec = foldl' (mergeType spec) ctx $ Map.toList spec.cTypes
 
     mergeType ::
          ResolvedBindingSpec
@@ -525,15 +526,19 @@ merge =
            , Map C.DeclId [(Set RealPath, ResolvedBindingSpec)]
            )
          )
-      -> (C.DeclId, [Set (C.HashIncludeArg, RealPath)])
+      -> (C.DeclId, [(Set (C.HashIncludeArg, RealPath), Omittable CTypeSpec)])
       -> ( Set C.DeclId
          , ( Map C.DeclId (Set C.HashIncludeArg)
            , Map C.DeclId [(Set RealPath, ResolvedBindingSpec)]
            )
          )
-    mergeType spec (dupSet, (seenMap, acc)) (cDeclId, sourceSets) =
-      let seenS = Set.unions $ map (Set.map fst) sourceSets
-          keyS  = Set.unions $ map (Set.map snd) sourceSets
+    mergeType spec (dupSet, (seenMap, acc)) (cDeclId, entries) =
+      let -- Headers under which this specification binds the type
+          seenS = Set.unions [
+              Set.map fst headers
+            | (headers, Require{}) <- entries
+            ]
+          keyS  = Set.unions $ map (Set.map snd . fst) entries
           acc'  = Map.insertWith (++) cDeclId [(keyS, spec)] acc
       in  case Map.insertLookupWithKey (const (<>)) cDeclId seenS seenMap of
             (Nothing, seenMap') -> (dupSet, (seenMap', acc'))
@@ -542,21 +547,44 @@ merge =
               | otherwise -> (Set.insert cDeclId dupSet, (seenMap', acc'))
 
 -- | Lookup type specs in t'MergedBindingSpecs'
+--
+-- A specification that binds the type is found in preference to one that omits
+-- it, whatever the order in which they were merged.  Among specifications that
+-- bind it, the one merged last is found.
 lookupMergedBindingSpecs ::
      C.DeclId
   -> Set RealPath
   -> MergedBindingSpecs
   -> Maybe (Hs.ModuleName, Omittable CTypeSpec, Maybe HsTypeSpec)
-lookupMergedBindingSpecs cDeclId headers specs = do
-    spec <- lookupBy (not . Set.disjoint headers)
-      =<< Map.lookup cDeclId specs.map
-    (hsModuleName, oCTypeSpec) <- lookupCTypeSpec cDeclId headers spec
-    let mHsTypeSpec = case oCTypeSpec of
-          Require cTypeSpec -> do
-            hsName <- cTypeSpec.hsName
-            lookupHsTypeSpec hsName spec
-          Omit -> Nothing
-    return (hsModuleName, oCTypeSpec, mHsTypeSpec)
+lookupMergedBindingSpecs cDeclId headers specs =
+    case List.partition binds matches of
+      (bound : _, _)    -> Just bound
+      ([], omitted : _) -> Just omitted
+      ([], [])          -> Nothing
+  where
+    matches :: [(Hs.ModuleName, Omittable CTypeSpec, Maybe HsTypeSpec)]
+    matches = [
+        (hsModuleName, oCTypeSpec, lookupHsTypeSpecOf spec oCTypeSpec)
+      | (paths, spec) <- Map.findWithDefault [] cDeclId specs.map
+      , not (Set.disjoint headers paths)
+      , Just (hsModuleName, oCTypeSpec) <-
+          [lookupCTypeSpec cDeclId headers spec]
+      ]
+
+    lookupHsTypeSpecOf ::
+         ResolvedBindingSpec
+      -> Omittable CTypeSpec
+      -> Maybe HsTypeSpec
+    lookupHsTypeSpecOf spec = \case
+      Require cTypeSpec -> do
+        hsName <- cTypeSpec.hsName
+        lookupHsTypeSpec hsName spec
+      Omit -> Nothing
+
+    binds :: (Hs.ModuleName, Omittable CTypeSpec, Maybe HsTypeSpec) -> Bool
+    binds = \case
+      (_, Require{}, _) -> True
+      (_, Omit,      _) -> False
 
 {-------------------------------------------------------------------------------
   Aeson representation
