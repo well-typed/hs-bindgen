@@ -241,6 +241,14 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --   mangler was unable to find a suitable name, etc.), the 'Select' pass can
 --   make sure that the unusable declaration /and all of its dependencies/ will
 --   not be selected.
+--
+-- = Two halves
+--
+-- Passes 1 to 8 describe the C translation unit. They depend on neither the
+-- name of the module that is generated, nor the binding specifications, nor
+-- the selection. Passes 9 to 13 depend on all three. The frontend is built in
+-- these two halves ('runFrontendShared' and 'runFrontendModule'), so that the
+-- second can be built again for another module of the same translation unit.
 runFrontend ::
      forall l. (Macro.HasTypes l, HasCallStack)
   => Tracer FrontendMsg
@@ -248,6 +256,17 @@ runFrontend ::
   -> BootArtefact l
   -> IO (FrontendArtefact l)
 runFrontend tracer config boot = do
+    shared <- runFrontendShared tracer config boot
+    runFrontendModule tracer config boot shared
+
+-- | Passes 1 to 8: what does not depend on the module that is generated
+runFrontendShared ::
+     forall l. (Macro.HasTypes l, HasCallStack)
+  => Tracer FrontendMsg
+  -> FrontendConfig
+  -> BootArtefact l
+  -> IO (SharedFrontend l)
+runFrontendShared tracer config boot = do
     rootHeaderC <- cache "rootHeader" $ do
       (msgs, rootHeader) <- RootHeader.fromRootDirectives <$> boot.rootDirectives
       liftIO $ mapM_ (traceWith tracerRootHeader . withCallStack) msgs
@@ -365,8 +384,53 @@ runFrontend tracer config boot = do
       cStd <- boot.cStandard
       pure $ reparseMacroExpansions cStd (Map.map coercePass knownTypes) knownMacros afterPrepareReparse
 
+    pure SharedFrontend{
+        parsePass                = parsePass
+      , parseMeta                = parseMeta
+      , simplifyAST              = simplifyASTPass
+      , fillUnnamedIds           = fillUnnamedIdsPass
+      , enrichComments           = enrichCommentsPass
+      , constructTranslationUnit = constructTranslationUnitPass
+      , typecheckMacros          = (\(x,_,_) -> x) <$> typecheckMacrosPass
+      , reparseMacroExpansions   = reparseMacroExpansionsPass
+      }
+  where
+    getSetup :: RootHeader -> Cached ClangSetup
+    getSetup rootHeader = do
+      clangArgs <- boot.clangArgs
+      let hContent = RootHeader.content rootHeader
+          setup = defaultClangSetup clangArgs $ ClangInputMemory hFilePath hContent
+      pure $ setup {
+          flags = bitfieldEnum [
+              CXTranslationUnit_DetailedPreprocessingRecord
+            , CXTranslationUnit_IncludeAttributedTypes
+            , CXTranslationUnit_VisitImplicitAttributes
+            ]
+        }
+
+    hFilePath :: FilePath
+    hFilePath = getSourcePath RootHeader.name
+
+    cache :: String -> Cached a -> IO (Cached a)
+    cache = cacheWith (contramap (FrontendCache . SafeTrace) tracer) . Just
+
+    tracerRootHeader :: Tracer RootHeaderMsg
+    tracerRootHeader = contramap FrontendRootHeader tracer
+
+-- | Passes 9 to 13: what depends on the module that is generated
+--
+-- The module and its binding specifications are those of the boot artefact;
+-- the selection is that of the configuration.
+runFrontendModule ::
+     forall l. (Macro.HasTypes l, HasCallStack)
+  => Tracer FrontendMsg
+  -> FrontendConfig
+  -> BootArtefact l
+  -> SharedFrontend l
+  -> IO (FrontendArtefact l)
+runFrontendModule tracer config boot shared = do
     resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
-      afterReparseMacroExpansions <- reparseMacroExpansionsPass
+      afterReparseMacroExpansions <- shared.reparseMacroExpansions
       extSpecs <- boot.externalBindingSpecs
       pSpec    <- (.spec) <$> boot.prescriptiveBindingSpec
       let moduleName = Hs.ModuleName boot.baseModule.text -- do not import Backend
@@ -394,7 +458,7 @@ runFrontend tracer config boot = do
       pure afterTranslateTypes
 
     selectPass <- cache "select" $ do
-      afterParse <- parsePass
+      afterParse <- shared.parsePass
       afterTranslateTypesPass <- translateTypesPass
       let (afterSelect, msgsSelect) =
             selectDecls
@@ -408,15 +472,15 @@ runFrontend tracer config boot = do
     finalPass <- cache "Final" $ selectPass
 
     pure FrontendArtefact{
-        parseMeta                = parseMeta
-      , parse                    = (.results) <$> parsePass
-      , doxygen                  = (.doxygen) <$> parsePass
-      , simplifyAST              = simplifyASTPass
-      , fillUnnamedIds           = fillUnnamedIdsPass
-      , enrichComments           = enrichCommentsPass
-      , constructTranslationUnit = constructTranslationUnitPass
-      , typecheckMacros          = (\(x,_,_) -> x) <$> typecheckMacrosPass
-      , reparseMacroExpansions   = reparseMacroExpansionsPass
+        parseMeta                = shared.parseMeta
+      , parse                    = (.results) <$> shared.parsePass
+      , doxygen                  = (.doxygen) <$> shared.parsePass
+      , simplifyAST              = shared.simplifyAST
+      , fillUnnamedIds           = shared.fillUnnamedIds
+      , enrichComments           = shared.enrichComments
+      , constructTranslationUnit = shared.constructTranslationUnit
+      , typecheckMacros          = shared.typecheckMacros
+      , reparseMacroExpansions   = shared.reparseMacroExpansions
       , resolveBindingSpecs      = resolveBindingSpecsPass
       , mangleNames              = mangleNamesPass
       , adjustTypes              = adjustTypesPass
@@ -425,22 +489,6 @@ runFrontend tracer config boot = do
       , final                    = finalPass
       }
   where
-    getSetup :: RootHeader -> Cached ClangSetup
-    getSetup rootHeader = do
-      clangArgs <- boot.clangArgs
-      let hContent = RootHeader.content rootHeader
-          setup = defaultClangSetup clangArgs $ ClangInputMemory hFilePath hContent
-      pure $ setup {
-          flags = bitfieldEnum [
-              CXTranslationUnit_DetailedPreprocessingRecord
-            , CXTranslationUnit_IncludeAttributedTypes
-            , CXTranslationUnit_VisitImplicitAttributes
-            ]
-        }
-
-    hFilePath :: FilePath
-    hFilePath = getSourcePath RootHeader.name
-
     selectConfig :: SelectConfig
     selectConfig = SelectConfig{
           programSlicing     = config.programSlicing
@@ -450,12 +498,21 @@ runFrontend tracer config boot = do
     cache :: String -> Cached a -> IO (Cached a)
     cache = cacheWith (contramap (FrontendCache . SafeTrace) tracer) . Just
 
-    tracerRootHeader :: Tracer RootHeaderMsg
-    tracerRootHeader = contramap FrontendRootHeader tracer
-
 {-------------------------------------------------------------------------------
   Artefact
 -------------------------------------------------------------------------------}
+
+-- | The cached passes 1 to 8, shared by every module of a translation unit
+data SharedFrontend l = SharedFrontend {
+      parsePass                :: Cached (ParsePassResult l)
+    , parseMeta                :: Cached ParseInfo
+    , simplifyAST              :: Cached [ParseResult       l SimplifyAST]
+    , fillUnnamedIds           :: Cached [ParseResult       l FillUnnamedIds]
+    , enrichComments           :: Cached [ParseResult       l EnrichComments]
+    , constructTranslationUnit :: Cached (C.TranslationUnit l ConstructTranslationUnit)
+    , typecheckMacros          :: Cached (C.TranslationUnit l TypecheckMacros)
+    , reparseMacroExpansions   :: Cached (C.TranslationUnit l ReparseMacroExpansions)
+    }
 
 data FrontendArtefact l = FrontendArtefact {
       parseMeta                :: Cached ParseInfo
