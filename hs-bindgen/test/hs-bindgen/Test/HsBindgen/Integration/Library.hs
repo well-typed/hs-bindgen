@@ -98,9 +98,12 @@ tests getTestResources = testGroup "Integration.Library" [
               -- root.h is the only header given and it only includes
               writeFile (headers </> "a.h") "struct a { int x; };\n"
               writeFile (headers </> "root.h") "#include \"a.h\"\n"
-              (exitCode, _, _) <- run headers [headers] outDir
+              (exitCode, _, err) <- run headers [headers] outDir
                 ["--select-from-main-headers"] "root.h"
               exitCode @?= ExitSuccess
+              assertBool ("unexpected message: " ++ err) $
+                "No declarations matched the selection predicate"
+                  `isInfixOf` err
               written <- listFiles outDir
               written @?= []
         , testCase "a header that is selected by its path" $
@@ -130,9 +133,12 @@ tests getTestResources = testGroup "Integration.Library" [
             inOutputDir $ \outDir -> do
               -- Not the path in the library directory, which is what a module
               -- is named after
-              (exitCode, _, _) <- preprocess getTestResources outDir forwardDecl
+              (exitCode, _, err) <- preprocess getTestResources outDir forwardDecl
                 ["--select-by-header-path", "^b\\.h$"]
               exitCode @?= ExitSuccess
+              assertBool ("unexpected message: " ++ err) $
+                "No declarations matched the selection predicate"
+                  `isInfixOf` err
               written <- listFiles outDir
               written @?= []
         , testCase "a header and a declaration, each selected" $
@@ -152,11 +158,14 @@ tests getTestResources = testGroup "Integration.Library" [
                 ]
         , testCase "a header selected and its declaration excepted" $
             inOutputDir $ \outDir -> do
-              (exitCode, _, _) <- preprocess getTestResources outDir forwardDecl
+              (exitCode, _, err) <- preprocess getTestResources outDir forwardDecl
                 [ "--select-by-header-path", "a\\.h$"
                 , "--select-except-by-decl-name", "^shape_draw$"
                 ]
               exitCode @?= ExitSuccess
+              assertBool ("unexpected message: " ++ err) $
+                "No declarations matched the selection predicate"
+                  `isInfixOf` err
               written <- listFiles outDir
               written @?= []
         , testGroup "a typedef in one header and its struct in another" [
@@ -221,6 +230,30 @@ tests getTestResources = testGroup "Integration.Library" [
                 ]
               types <- readFile (outDir </> "M" </> "A.hs")
               assertBool "M.A has the struct" $ "data Shape" `isInfixOf` types
+        , testCase "a selection that matches nothing is a warning" $
+            inOutputDir $ \outDir -> do
+              (exitCode, out, err) <-
+                preprocess getTestResources outDir forwardDecl
+                  ["--select-by-decl-name", "no_such_declaration"]
+              exitCode @?= ExitSuccess
+              assertBool ("unexpected message: " ++ err) $
+                "[Warning] [HsBindgen] [select] No declarations matched the selection predicate"
+                  `isInfixOf` err
+              out @?= ""
+              written <- listFiles outDir
+              written @?= []
+        , testCase "a selection that matches nothing, with warnings as errors" $
+            inOutputDir $ \outDir -> do
+              -- As without --library, where the selection of the one module
+              -- reports it
+              (exitCode, _, _) <-
+                preprocess getTestResources outDir forwardDecl
+                  [ "--select-by-decl-name", "no_such_declaration"
+                  , "--log-as-error-warnings"
+                  ]
+              exitCode @?= ExitFailure 4
+              written <- listFiles outDir
+              written @?= []
         , testCase "a deprecated declaration that is excepted" $
             inOutputDir $ \outDir ->
             withSystemTempDirectory "hs-bindgen-test" $ \headers -> do

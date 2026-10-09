@@ -185,9 +185,11 @@ hsBindgenEMacroLang
               -> BootArtefact l
               -> IO (Stages l)
             stagesFrom tracer selectConfig boot = do
+              let tracerFrontend :: Tracer FrontendMsg
+                  tracerFrontend = contramap TraceFrontend tracer
               frontend <-
                 runFrontendModule
-                  (contramap TraceFrontend tracer)
+                  tracerFrontend
                   config.frontend.fieldNamingStrategy
                   selectConfig
                   boot
@@ -198,6 +200,7 @@ hsBindgenEMacroLang
                   boot     = boot
                 , frontend = frontend
                 , backend  = backend
+                , tracer   = tracerFrontend
                 }
 
             -- One module of several: its own name, binding specifications
@@ -530,8 +533,19 @@ forEachModule library predicate perModule = do
                         IncludeGraph.toSortedList includeGraph
     case Library.modules base paths includeGraph predicate unit.meta of
       Left err   -> pure $ Left err
-      Right mods -> Right <$> generate [] mods
+      Right mods -> do
+        when (null mods) $ EmitFrontendTrace noDeclarationsMatched
+        Right <$> generate [] mods
   where
+    -- What the selection of a module reports when it matches no declaration
+    -- ('selectDecls').  The selection of a library is made here, and no
+    -- module runs that could report it.
+    noDeclarationsMatched :: FrontendMsg
+    noDeclarationsMatched = FrontendSelect C.WithLocationInfo{
+          loc = C.LocationUnavailable
+        , msg = SelectNoDeclarationsMatched
+        }
+
     -- The modules are planned in a scope of their own, which has the name of
     -- the base module and generates nothing.  No module of the library has
     -- that name.  So the plan is made with the binding specifications that

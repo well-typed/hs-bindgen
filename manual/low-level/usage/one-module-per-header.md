@@ -181,7 +181,9 @@ A flag that selects by header therefore chooses among the library headers.
   the library is merged with.
 
 The name that `--select-by-decl-name` and `--select-except-by-decl-name` match
-has the tag of a struct, union or enum, as in `struct foo`.
+has the tag of a struct, union or enum, as in `struct foo`.  When no
+declaration of a library header is selected, nothing is written and the run
+warns that no declarations matched, as it does without `--library`.
 
 Every module is generated with [program
 slicing][manual:program-slicing].  A declaration that is not selected is
@@ -224,7 +226,8 @@ directory.  Two things follow.
   `'^mylib/internal\.h$'` deselects no header, and no message says so.
 * A pattern can match a directory above the library.  With the library
   checked out below a directory called `vendor`, the pattern `'vendor/'`
-  deselects every declaration, and nothing is written.
+  deselects every declaration, and the run warns that no declarations matched
+  and writes nothing.
 
 So end the pattern with `$`, and start it at a directory of the library.  On
 Windows the path is written with backslashes: see [Selection
@@ -431,8 +434,6 @@ Some messages are less helpful than they are without `--library`.
   of a generated binding specification are filed that way.
 * A prescriptive binding specification with an `hsmodule` that no module of
   the library has is ignored without a message.
-* A selection that matches no declaration of a library header writes nothing
-  and prints no warning.
 
 The binding specifications that `--gen-binding-spec-dir` writes file their
 entries under the headers that were given on the command line.  A later run of

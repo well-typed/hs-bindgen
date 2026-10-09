@@ -96,6 +96,13 @@ data Artefact l (a :: Star) where
   FinalDecls      :: Artefact l (ByCategory_ ([CWrapper], [SHs.SDecl]))
   -- * Control flow
   EmitTrace       :: ArtefactMsg -> Artefact l ()
+  -- | Report what a frontend pass would report
+  --
+  -- This is for an artefact that does the work of a pass outside the
+  -- frontend, as the selection of a library is done.  The message goes where
+  -- the messages of the frontend go, so it can be a warning, and it has the
+  -- name of the module inside 'WithModule'.
+  EmitFrontendTrace :: FrontendMsg -> Artefact l ()
   Lift            :: ArtefactM a -> Artefact l a
   Bind            :: Artefact l b -> (b -> Artefact l c) -> Artefact l c
   -- * One module of several
@@ -130,6 +137,8 @@ data Stages l = Stages {
       boot     :: BootArtefact l
     , frontend :: FrontendArtefact l
     , backend  :: BackendArtefact l
+      -- | Where the frontend of these stages reports
+    , tracer   :: Tracer FrontendMsg
     }
 
 -- | Compute the results of a list of artefacts.
@@ -164,6 +173,7 @@ runArtefacts tracer config stagesOfModule stages0 artefact =
         FinalDecls      -> runCached stages.backend.finalDecls
         -- Control flow
         (EmitTrace x)   -> emitTrace tracer x
+        (EmitFrontendTrace x) -> emitTrace stages.tracer x
         (Lift   f)      -> f
         (Bind x f)      -> runArtefact stages x >>= runArtefact stages . f
         -- One module of several
