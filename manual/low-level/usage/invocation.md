@@ -218,7 +218,7 @@ arguments:
 This list contains the same arguments you would pass to `hs-bindgen-cli
 preprocess`, in standard Haskell list syntax.
 
-The `.lhs` file can contain arbitrary content—it is simply passed to the
+The `.lhs` file can contain arbitrary content: it is simply passed to the
 preprocessor.  The preprocessor is responsible for parsing the file and
 generating Haskell code.
 
