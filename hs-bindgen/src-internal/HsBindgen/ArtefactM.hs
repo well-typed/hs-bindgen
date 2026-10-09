@@ -2,7 +2,7 @@ module HsBindgen.ArtefactM (
     -- * Policies
     FilePolicy(..)
   , DirPolicy(..)
-  , checkPolicy
+  , checkPolicies
     -- * File description
   , FileDescription(..)
   , FileLocation(..)
@@ -30,8 +30,11 @@ import Control.Monad.Reader (MonadReader (..), ReaderT (..))
 import Control.Monad.State (StateT (..), modify)
 import Data.ByteString (ByteString)
 import Data.ByteString qualified as BSS
+import Data.Char qualified as Char
+import Data.List.NonEmpty qualified as NonEmpty
+import Data.Map.Strict qualified as Map
 import System.Directory qualified as Dir
-import System.FilePath (takeDirectory, (</>))
+import System.FilePath (normalise, takeDirectory, (</>))
 import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
 
@@ -53,6 +56,33 @@ data DirPolicy
   = CreateOutputDirs
   | DoNotCreateOutputDirs
   deriving (Show, Eq)
+
+-- | Check that the delayed actions may be executed
+--
+-- No file is written twice, and every write agrees with its policies.
+--
+-- Two paths that differ only in case count as one file, as they are one file
+-- on the default file systems of macOS and Windows.
+checkPolicies :: [DelayedIO] -> ExceptT DelayedIOError IO ()
+checkPolicies as = do
+    forM_ writtenTwice $ \fds ->
+      throwError $
+        FileWrittenTwice
+          (fileLocationToPath (NonEmpty.head fds).location)
+          ((.description) <$> fds)
+    mapM_ checkPolicy as
+  where
+    writtenTwice :: [NonEmpty FileDescription]
+    writtenTwice = [
+          fds
+        | fds@(_ :| _ : _) <- Map.elems $ Map.fromListWith (flip (<>)) [
+              (sameFile fd, fd :| [])
+            | WriteToFile fd <- as
+            ]
+        ]
+
+    sameFile :: FileDescription -> FilePath
+    sameFile fd = map Char.toLower $ normalise $ fileLocationToPath fd.location
 
 checkPolicy :: DelayedIO -> ExceptT DelayedIOError IO ()
 checkPolicy = \case
@@ -177,10 +207,15 @@ executeDelayedIOActions tracer as =
 data DelayedIOError =
       DirectoryDoesNotExist FilePath
     | FileAlreadyExists     FilePath
+      -- | The file, and a description of each output that goes to it
+    | FileWrittenTwice      FilePath (NonEmpty String)
   deriving Show
 
 instance PrettyForTrace DelayedIOError where
   prettyForTrace = \case
+    FileWrittenTwice fp descriptions ->
+      PP.hangs' ("More than one output goes to file:" <+> PP.string fp) 2 $
+        map PP.string (NonEmpty.toList descriptions)
     DirectoryDoesNotExist fp -> PP.vsep [
         "Output directory does not exist:" <+> PP.string fp
       , "Use --create-output-dirs to create it automatically, or create the directory manually."

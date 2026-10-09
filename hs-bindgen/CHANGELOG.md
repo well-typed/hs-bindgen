@@ -19,6 +19,11 @@
 
 ### Bug fixes
 
+* Two outputs with the same path are an error, reported before anything is
+  written. Previously the second replaced the first, for example when
+  `--gen-binding-spec` named a file that the bindings also go to. Paths that
+  differ only in letter case count as the same file.
+
 
 ## 1.0.0.0 -- 2026-10-08
 

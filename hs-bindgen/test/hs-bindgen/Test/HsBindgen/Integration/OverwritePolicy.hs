@@ -1,6 +1,6 @@
 module Test.HsBindgen.Integration.OverwritePolicy (tests) where
 
-import System.Directory (createDirectory, doesFileExist)
+import System.Directory (createDirectory, doesFileExist, listDirectory)
 import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import System.IO.Temp (withSystemTempDirectory)
@@ -17,6 +17,7 @@ tests getTestResources = testGroup "Integration.OverwritePolicy" [
   , testOverwritePolicies         getTestResources
   , testBindingSpecCreateDirs     getTestResources
   , testBindingSpecNoDirByDefault getTestResources
+  , testWrittenTwice              getTestResources
   ]
 
 testDirPolicy :: IO TestResources -> TestTree
@@ -116,3 +117,32 @@ testBindingSpecNoDirByDefault getTestResources = testCase "do not create --gen-b
                                                ]
                                                ""
     exitCode @?= ExitFailure 4
+
+-- | Two outputs with the same path fail the run before anything is written
+--
+-- The binding specification is aimed at the file that the bindings of the safe
+-- functions go to, once with the same spelling and once in another letter case.
+testWrittenTwice :: IO TestResources -> TestTree
+testWrittenTwice getTestResources = testGroup "do not write one file twice" [
+      testCase "same path"             $ aimSpecAt ("Generated" </> "Safe.hs")
+    , testCase "path in another case"  $ aimSpecAt ("generated" </> "safe.hs")
+    ]
+  where
+    aimSpecAt :: FilePath -> Assertion
+    aimSpecAt specPath =
+      withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
+        root <- (.packageRoot) <$> getTestResources
+        let headerPath = root </> "test-artefacts/headers/golden/functions/simple_func.h"
+        (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
+                                                   [ "preprocess"
+                                                   , "--create-output-dirs"
+                                                   , "--hs-output-dir"
+                                                   , tmpDir
+                                                   , "--gen-binding-spec"
+                                                   , tmpDir </> specPath
+                                                   , headerPath
+                                                   ]
+                                                   ""
+        exitCode @?= ExitFailure 4
+        written <- listDirectory tmpDir
+        written @?= []

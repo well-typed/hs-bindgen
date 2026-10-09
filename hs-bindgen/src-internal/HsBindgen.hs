@@ -170,7 +170,7 @@ hsBindgenEMacroLang
         Right (r, as) -> do
           -- Before creating directories or writing output files, we verify
           -- adherence to the provided policies.
-          withExceptT BindgenDelayedIOError $ mapM_ checkPolicy as
+          withExceptT BindgenDelayedIOError $ checkPolicies as
           liftIO $ executeDelayedIOActions tracerSafe as
           pure r
 
