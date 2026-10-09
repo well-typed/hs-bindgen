@@ -130,6 +130,9 @@ parseDecl' macroLang enclosing mCtx = withCursorKindNoCtx $ \case
       -- are resolved by the linker regardless of the DLL annotation.
       Right CXCursor_DLLImport          -> \_curr -> foldContinue
       Right CXCursor_DLLExport          -> \_curr -> foldContinue
+      -- @objc_boxable@ attributes on structs and unions. They permit the
+      -- Objective-C boxed expression syntax and have no meaning in C.
+      Right CXCursor_ObjCBoxable        -> \_curr -> foldContinue
       -- C11 @_Static_assert@ declarations (e.g. SDL's
       -- @SDL_COMPILE_TIME_ASSERT@): compile-time checks that declare
       -- nothing bindable.

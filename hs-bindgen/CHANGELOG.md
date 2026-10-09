@@ -14,7 +14,12 @@
   `swift_private` and `weak`, when parsing global variable declarations.
   Previously, such a variable was dropped with a `Conflicting declarations`
   warning. See [issue #2304][is-2304].
+* Ignore the `objc_boxable` attribute when parsing struct and union
+  declarations. Previously, the declaration was dropped with a `Failed to
+  parse a declaration because some of its nested declarations failed to parse`
+  warning. See [issue #2302][is-2302].
 
+[is-2302]: https://github.com/well-typed/hs-bindgen/issues/2302
 [is-2304]: https://github.com/well-typed/hs-bindgen/issues/2304
 
 ## 1.0.0.0 -- 2026-10-08

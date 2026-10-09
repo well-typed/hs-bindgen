@@ -1,0 +1,75 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: attributes/objc_boxable.h
+  cname: struct S0
+  hsname: S0
+- headers: attributes/objc_boxable.h
+  cname: struct S1
+  hsname: S1
+- headers: attributes/objc_boxable.h
+  cname: S1
+  hsname: S1
+- headers: attributes/objc_boxable.h
+  cname: union U0
+  hsname: U0
+hstypes:
+- hsname: S0
+  representation:
+    record:
+      constructor: S0
+      fields:
+      - s0_x
+      - s0_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S1
+  representation:
+    record:
+      constructor: S1
+      fields:
+      - s1_x
+      - s1_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U0
+  representation:
+    newtype:
+      constructor: U0
+      fields:
+      - unwrapU0
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
