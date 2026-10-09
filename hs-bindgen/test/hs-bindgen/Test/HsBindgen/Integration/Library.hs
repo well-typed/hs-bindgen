@@ -237,6 +237,77 @@ tests getTestResources = testGroup "Integration.Library" [
               assertBool "M.A.Safe does not have the deprecated function" $
                 not ("old_name" `isInfixOf` safe)
         ]
+    , testGroup "binding specifications" [
+          testCase "one file for each module" $
+            inOutputDir $ \outDir -> inOutputDir $ \specDir -> do
+              (exitCode, _, _) <- preprocess getTestResources outDir forwardDecl
+                ["--gen-binding-spec-dir", specDir]
+              exitCode @?= ExitSuccess
+              specs <- listFiles specDir
+              specs @?= ["M.A.yaml", "M.B.yaml"]
+              -- The module of b.h has the struct, the one of a.h a function
+              specB <- readFile (specDir </> "M.B.yaml")
+              assertBool "M.B.yaml is for M.B and has the struct" $
+                all (`isInfixOf` specB) ["hsmodule: M.B\n", "cname: struct shape"]
+              specA <- readFile (specDir </> "M.A.yaml")
+              assertBool "M.A.yaml is for M.A and has no type" $
+                "hsmodule: M.A\n" `isInfixOf` specA
+                  && not ("ctypes" `isInfixOf` specA)
+        , testCase "a module that is not written has no file" $
+            inOutputDir $ \outDir -> inOutputDir $ \specDir ->
+            withSystemTempDirectory "hs-bindgen-test" $ \headers -> do
+              -- guard.h has a macro and nothing that gets a binding
+              writeFile (headers </> "guard.h") $ unlines [
+                  "#ifndef GUARD_H"
+                , "#define GUARD_H"
+                , "#endif"
+                ]
+              writeFile (headers </> "a.h") $ unlines [
+                  "#include \"guard.h\""
+                , "struct a { int x; };"
+                ]
+              (exitCode, _, _) <- run headers [headers] outDir
+                ["--gen-binding-spec-dir", specDir] "a.h"
+              exitCode @?= ExitSuccess
+              written <- listFiles outDir
+              written @?= ["M" </> "A.hs"]
+              specs <- listFiles specDir
+              specs @?= ["M.A.yaml"]
+        , testCase "a dry run writes no file" $
+            inOutputDir $ \outDir -> inOutputDir $ \specDir -> do
+              (exitCode, _, _) <- preprocess getTestResources outDir forwardDecl
+                ["--gen-binding-spec-dir", specDir, "--dry-run"]
+              exitCode @?= ExitSuccess
+              specs <- listFiles specDir
+              specs @?= []
+        , testCase "a directory that does not exist is an error" $
+            inOutputDir $ \outDir -> do
+              -- No module is written either
+              (exitCode, _, _) <- preprocess getTestResources outDir forwardDecl
+                ["--gen-binding-spec-dir", outDir </> "specs"]
+              exitCode @?= ExitFailure 4
+              written <- listFiles outDir
+              written @?= []
+        , testCase "a directory that is created" $
+            inOutputDir $ \outDir -> do
+              (exitCode, _, _) <- preprocess getTestResources outDir forwardDecl
+                [ "--gen-binding-spec-dir", outDir </> "specs"
+                , "--create-output-dirs"
+                ]
+              exitCode @?= ExitSuccess
+              specs <- listFiles (outDir </> "specs")
+              specs @?= ["M.A.yaml", "M.B.yaml"]
+        , testCase "--gen-binding-spec-dir without --library is a usage error" $
+            inOutputDir $ \outDir -> inOutputDir $ \specDir -> do
+              (exitCode, _, err) <- preprocess getTestResources outDir
+                (const []) ["--gen-binding-spec-dir", specDir]
+              exitCode @?= ExitFailure 2
+              assertBool ("unexpected message: " ++ err) $
+                "--gen-binding-spec-dir can only be used with --library"
+                  `isInfixOf` err
+              written <- listFiles outDir
+              written @?= []
+        ]
     , testCase "a library directory that does not exist is a usage error" $
         inOutputDir $ \outDir -> do
           (exitCode, _, _) <- preprocess getTestResources outDir

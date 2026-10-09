@@ -1,0 +1,59 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: MyLib.Mylib.Types
+ctypes:
+- headers: mylib.h
+  cname: struct point_t
+  hsname: Point_t
+- headers: mylib.h
+  cname: point_t
+  hsname: Point_t
+- headers: mylib.h
+  cname: struct rect_t
+  hsname: Rect_t
+- headers: mylib.h
+  cname: rect_t
+  hsname: Rect_t
+hstypes:
+- hsname: Point_t
+  representation:
+    record:
+      constructor: Point_t
+      fields:
+      - point_t_x
+      - point_t_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Rect_t
+  representation:
+    record:
+      constructor: Rect_t
+      fields:
+      - rect_t_origin
+      - rect_t_width
+      - rect_t_height
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

@@ -31,6 +31,7 @@ module HsBindgen.App (
   , parseGenTestsOutput
     -- ** Library
   , parseLibrary
+  , parseGenBindingSpecDir
     -- ** Input arguments
   , parseInputs
 
@@ -608,6 +609,16 @@ parseLibrary = many $ strOption $ mconcat [
         , " DIR; a type is defined by the module of its header and imported by"
         , " the others; without a --select-... flag, every declaration of"
         , " these headers is selected (can be given more than once)"
+        ]
+    ]
+
+parseGenBindingSpecDir :: Parser FilePath
+parseGenBindingSpecDir = strOption $ mconcat [
+      long "gen-binding-spec-dir"
+    , metavar "DIR"
+    , help $ concat [
+          "With --library: generate a binding specification for each module,"
+        , " in DIR, in a file named after the module (as in Lib.Types.yaml)"
         ]
     ]
 

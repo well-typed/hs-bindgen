@@ -1,0 +1,31 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: MyLib.Mylib.Internal
+ctypes:
+- headers: mylib.h
+  cname: struct internal_state_t
+  hsname: Internal_state_t
+- headers: mylib.h
+  cname: internal_state_t
+  hsname: Internal_state_t
+hstypes:
+- hsname: Internal_state_t
+  representation:
+    record:
+      constructor: Internal_state_t
+      fields:
+      - internal_state_t_refcount
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

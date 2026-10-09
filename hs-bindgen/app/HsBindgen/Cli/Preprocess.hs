@@ -67,18 +67,19 @@ parseOpts = mkOpts <$> parseConfigWithSelection <*> parseConfigCLI
 
 -- | CLI options; the TH equivalent of ConfigCLI' is 'HsBindgen.Config.ConfigTH'.
 data ConfigCLI = ConfigCLI {
-      uniqueId          :: UniqueId
-    , baseModuleName    :: BaseModuleName
-    , library           :: [FilePath]
-    , qualifiedStyle    :: QualifiedStyle
-    , outputOptions     :: OutputOptions
-    , hsOutputDir       :: FilePath
-    , outputBindingSpec :: Maybe FilePath
-    , dirPolicy         :: DirPolicy
-    , filePolicy        :: FilePolicy
-    , dryRun            :: Bool
+      uniqueId             :: UniqueId
+    , baseModuleName       :: BaseModuleName
+    , library              :: [FilePath]
+    , qualifiedStyle       :: QualifiedStyle
+    , outputOptions        :: OutputOptions
+    , hsOutputDir          :: FilePath
+    , outputBindingSpec    :: Maybe FilePath
+    , outputBindingSpecDir :: Maybe FilePath
+    , dirPolicy            :: DirPolicy
+    , filePolicy           :: FilePolicy
+    , dryRun               :: Bool
     -- NOTE: Inputs (arguments) must be last, options must go before it.
-    , inputs            :: [C.UncheckedRootDirective]
+    , inputs               :: [C.UncheckedRootDirective]
     }
   deriving (Generic)
 
@@ -92,6 +93,7 @@ parseConfigCLI =
       <*> parseOutputOptions FilePerModule
       <*> parseHsOutputDir
       <*> optional parseGenBindingSpec
+      <*> optional parseGenBindingSpecDir
       <*> parseDirPolicy
       <*> parseFilePolicy
       <*> parseDryRun
@@ -103,7 +105,13 @@ parseConfigCLI =
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec global opts = case NonEmpty.nonEmpty opts.configCLI.library of
-    Nothing   -> run oneModule
+    Nothing   -> do
+      when (isJust opts.configCLI.outputBindingSpecDir) $
+        usageError $ concat [
+            "--gen-binding-spec-dir can only be used with --library;"
+          , " --gen-binding-spec names the file for one module"
+          ]
+      run oneModule
     Just dirs -> do
       let library = Library{dirs = dirs}
       checkLibraryOptions library
@@ -163,8 +171,8 @@ exec global opts = case NonEmpty.nonEmpty opts.configCLI.library of
     -- One module for each header of the library
     modulePerHeader :: Library -> Artefact CExpr (Either LibraryError [Written])
     modulePerHeader library =
-      writeLibrary library selected $
-        case opts.configCLI.outputOptions of
+      writeLibrary library selected $ do
+        bindings <- case opts.configCLI.outputOptions of
           OutputOptions (SingleFile _) ->
             getBindingsFileSingle
               mrc
@@ -177,6 +185,17 @@ exec global opts = case NonEmpty.nonEmpty opts.configCLI.library of
               opts.configCLI.filePolicy
               opts.configCLI.dirPolicy
               opts.configCLI.hsOutputDir
+        -- A module that is not written has no specification either
+        spec <- case opts.configCLI.outputBindingSpecDir of
+          Just dir | not (null bindings) ->
+            (: []) <$>
+              getBindingSpecFileIn
+                opts.configCLI.filePolicy
+                opts.configCLI.dirPolicy
+                dir
+          _otherwise ->
+            pure []
+        pure $ bindings ++ spec
 
     -- What cannot be asked for together with @--library@
     checkLibraryOptions :: Library -> IO ()
@@ -184,7 +203,8 @@ exec global opts = case NonEmpty.nonEmpty opts.configCLI.library of
       when (isJust opts.configCLI.outputBindingSpec) $
         usageError $ concat [
             "--library cannot be combined with --gen-binding-spec:"
-          , " there is more than one module"
+          , " there is more than one module;"
+          , " --gen-binding-spec-dir names a directory for their files"
           ]
       missing <- Library.missingDirs library
       forM_ missing $ \dir ->

@@ -18,6 +18,7 @@ module HsBindgen (
   , getBindingsFilesMultiple
   , generatedBindingSpec
   , writeBindingSpec
+  , getBindingSpecFileIn
   , writeTests
 
     -- ** A library as one module per header
@@ -54,6 +55,7 @@ import Data.ByteString qualified as BS
 import Data.Map qualified as Map
 import Data.Set qualified as Set
 import System.Exit (ExitCode (..), exitWith)
+import System.FilePath ((<.>))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.CStandard
@@ -442,23 +444,53 @@ writeBindingSpec ::
   -> FilePath
   -> Artefact l ()
 writeBindingSpec filePolicy dirPolicy path = do
+    spec <- generatedBindingSpec
+    file <- bindingSpecFile filePolicy dirPolicy (UserSpecified path) spec
+    Lift $ delay $ WriteToFile file
+
+-- | The file for the binding specification of the generated module, in the
+-- given directory
+--
+-- The file has the name of the module, as in @Lib.Types.yaml@.  Nothing is
+-- registered for writing.
+getBindingSpecFileIn ::
+     FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> Artefact l FileDescription
+getBindingSpecFileIn filePolicy dirPolicy dir = do
+    spec <- generatedBindingSpec
+    let location = RelativeFileLocation RelativeToOutputDir{
+            outputDir = dir
+          , localPath =
+              Hs.moduleNameToString (BindingSpec.moduleName spec) <.> "yaml"
+          }
+    bindingSpecFile filePolicy dirPolicy location spec
+
+-- | A binding specification of the generated module as a file
+--
+-- The extension of the file says how the specification is written.
+bindingSpecFile ::
+     FilePolicy
+  -> DirPolicy
+  -> FileLocation
+  -> BindingSpec.BindingSpec
+  -> Artefact l FileDescription
+bindingSpecFile filePolicy dirPolicy location spec = do
     includeGraph <- getIncludeGraph
     declIndex    <- getDeclIndex
-    spec         <- generatedBindingSpec
-    let bs =
+    pure FileDescription {
+        description = "Binding specifications"
+      , location    = location
+      , filePolicy  = filePolicy
+      , dirPolicy   = dirPolicy
+      , content     = ByteStringContent $
           encodeBindingSpec
-            (BindingSpec.getFormat path)
+            (BindingSpec.getFormat (fileLocationToPath location))
             includeGraph
             declIndex
             spec
-        fileDescription = FileDescription {
-              description = "Binding specifications"
-            , location    = UserSpecified path
-            , filePolicy  = filePolicy
-            , dirPolicy   = dirPolicy
-            , content     = ByteStringContent bs
-            }
-    Lift $ delay $ WriteToFile fileDescription
+      }
 
 {-------------------------------------------------------------------------------
   A library as one module per header
