@@ -4,6 +4,9 @@ module HsBindgen.Boot (
   , getClangArtefacts
   , BootArtefact (..)
   , BootMsg (..)
+    -- * One module of several
+  , ModuleScope (..)
+  , bootModule
   ) where
 
 import Control.Exception (displayException)
@@ -27,6 +30,7 @@ import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Util.Tracer
 
@@ -187,6 +191,64 @@ data BootArtefact l = BootArtefact {
     , externalBindingSpecs    :: Cached MergedBindingSpecs
     , prescriptiveBindingSpec :: Cached Prescriptive
     }
+
+{-------------------------------------------------------------------------------
+  One module of several
+-------------------------------------------------------------------------------}
+
+-- | One module of a translation unit that is generated as several modules
+--
+-- The module is the one that a run of its own would generate, given the name
+-- as the module name, the specifications as external binding specifications,
+-- and the declarations as the selection, with program slicing.
+data ModuleScope = ModuleScope {
+      -- | Name of the module
+      baseModule :: BaseModuleName
+
+      -- | Binding specifications of the modules that were generated before
+    , imported :: [ExternalBindingSpec]
+
+      -- | The declarations that the module is generated for
+      --
+      -- What they depend on comes along, unless a binding specification has
+      -- it.
+    , roots :: Set C.DeclName
+    }
+
+-- | The boot artefact for one module of the translation unit
+--
+-- The module has its own name and its own binding specifications.  Everything
+-- else it shares with the given boot artefact.
+bootModule ::
+     Tracer BootMsg
+  -> ModuleScope
+  -> BootArtefact l
+  -> IO (BootArtefact l)
+bootModule tracer scope boot = do
+    getExternalBindingSpecs <- cache "getExternalBindingSpecs" $ do
+      extSpecs <- boot.externalBindingSpecs
+      let (msgs, merged) = mergeInto extSpecs scope.imported
+      mapM_ (traceWith tracerMerge . withCallStack) msgs
+      pure merged
+
+    getPrescriptiveBindingSpec <- cache "getPrescriptiveBindingSpec" $ do
+      prescriptive <- boot.prescriptiveBindingSpec
+      pure prescriptive{spec = prescriptiveFor hsModuleName prescriptive}
+
+    pure boot{
+        baseModule              = scope.baseModule
+      , externalBindingSpecs    = getExternalBindingSpecs
+      , prescriptiveBindingSpec = getPrescriptiveBindingSpec
+      }
+  where
+    hsModuleName :: Hs.ModuleName
+    hsModuleName = fromBaseModuleName scope.baseModule (Just CType)
+
+    tracerMerge :: Tracer BindingSpecMergeMsg
+    tracerMerge = contramap (BootBindingSpec . BindingSpecMergeMsg) tracer
+
+    cache :: String -> Cached a -> IO (Cached a)
+    cache = cacheWith (contramap (BootCache . SafeTrace) tracer) . Just
 
 {-------------------------------------------------------------------------------
   Trace

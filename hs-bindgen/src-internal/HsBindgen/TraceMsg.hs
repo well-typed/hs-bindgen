@@ -3,6 +3,7 @@
 -- Intended for unqualified import.
 module HsBindgen.TraceMsg (
     TraceMsg(..)
+  , InModule(..)
     -- * Messages from individual passes
   , BindingSpecMsg(..)
   , BootMsg(..)
@@ -24,12 +25,15 @@ module HsBindgen.TraceMsg (
   ) where
 
 import Data.List qualified as List
+import Text.SimplePrettyPrint ((<+>), (><))
+import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types (Diagnostic (..))
 
 import HsBindgen.BindingSpec (BindingSpecMsg (..))
 import HsBindgen.Boot
 import HsBindgen.Clang (ClangMsg (..))
+import HsBindgen.Config.Prelims (BaseModuleName, baseModuleNameToString)
 import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass (ImmediateFillUnnamedIdsMsg (..))
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNamesMsg (..))
@@ -57,8 +61,34 @@ data TraceMsg =
     TraceBoot          BootMsg
   | TraceFrontend      FrontendMsg
   | TraceResolveHeader ResolveHeaderMsg
+    -- | A message from generating one module of several
+  | TraceModule        (InModule TraceMsg)
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
+
+-- | A message from generating the named module
+--
+-- When one translation unit is generated as several modules, the passes that
+-- depend on the module run once for each of them, and what they have to say
+-- they say each time.  The name tells those messages apart.  The level, the
+-- source and the trace identifier are those of the message.
+data InModule a = InModule {
+      name :: BaseModuleName
+    , msg  :: a
+    }
+  deriving stock (Show)
+
+instance PrettyForTrace a => PrettyForTrace (InModule a) where
+  prettyForTrace x =
+    PP.hang
+      ("In module" <+> PP.string (baseModuleNameToString x.name) >< ":")
+      2
+      (prettyForTrace x.msg)
+
+instance IsTrace l a => IsTrace l (InModule a) where
+  getDefaultLogLevel = getDefaultLogLevel . (.msg)
+  getSource          = getSource          . (.msg)
+  getTraceId         = getTraceId         . (.msg)
 
 {-------------------------------------------------------------------------------
   Log level customization

@@ -570,6 +570,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Unit.ClangArgs
     Test.HsBindgen.Unit.Digraph
     Test.HsBindgen.Unit.Frontend
+    Test.HsBindgen.Unit.ModuleScope
     Test.HsBindgen.Unit.Pretty
     Test.HsBindgen.Unit.RootDirective
     Test.HsBindgen.Unit.Runtime

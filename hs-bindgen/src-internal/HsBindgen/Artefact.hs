@@ -3,6 +3,7 @@ module HsBindgen.Artefact (
     FrontendPass(..)
     -- * Artefacts
   , Artefact(..)
+  , Stages(..)
   , runArtefacts
   , ArtefactMsg(..)
   )
@@ -19,6 +20,7 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv (CWrapper)
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Boot
+import HsBindgen.Cache (Cached)
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
@@ -96,6 +98,13 @@ data Artefact l (a :: Star) where
   EmitTrace       :: ArtefactMsg -> Artefact l ()
   Lift            :: ArtefactM a -> Artefact l a
   Bind            :: Artefact l b -> (b -> Artefact l c) -> Artefact l c
+  -- * One module of several
+  -- | Compute an artefact for one module of the translation unit
+  --
+  -- Inside, every artefact is that of the module: the name is the module's,
+  -- and so are the frontend passes from @ResolveBindingSpecs@ on and the
+  -- backend.  What comes before those passes is computed once and shared.
+  WithModule      :: ModuleScope -> Artefact l a -> Artefact l a
 
 instance Functor (Artefact l) where
   fmap :: (a -> b) -> Artefact l a -> Artefact l b
@@ -116,40 +125,57 @@ instance Monad (Artefact l) where
   Run artefacts
 -------------------------------------------------------------------------------}
 
+-- | What artefacts are computed from
+data Stages l = Stages {
+      boot     :: BootArtefact l
+    , frontend :: FrontendArtefact l
+    , backend  :: BackendArtefact l
+    }
+
 -- | Compute the results of a list of artefacts.
 --
 -- All top-level artefacts will be cached (this is not true for computed
 -- artefacts, using, for example, the 'Functor' interface, or 'Lift').
+--
+-- A 'WithModule' artefact is computed from stages of its own, which hold the
+-- caches of that module.  Entering the same module twice computes it twice.
 runArtefacts :: forall a l.
      Tracer ArtefactMsg
   -> BindgenConfig
-  -> BootArtefact l
-  -> FrontendArtefact l
-  -> BackendArtefact l
+  -> (ModuleScope -> Cached (Stages l))
+     -- ^ The stages of one module of the translation unit
+  -> Stages l
   -> Artefact l a
   -> IO (a, [DelayedIO])
-runArtefacts tracer config boot frontend backend artefact =
-    second reverse <$> (runArtefactM (runArtefact artefact) config)
+runArtefacts tracer config stagesOfModule stages0 artefact =
+    second reverse <$> (runArtefactM (runArtefact stages0 artefact) config)
   where
-    runArtefact :: forall x. Artefact l x -> ArtefactM x
-    runArtefact = \case
+    runArtefact :: forall x. Stages l -> Artefact l x -> ArtefactM x
+    runArtefact stages = \case
         --Boot.
-        RootDirectives  -> runCached boot.rootDirectives
-        ModuleBaseName  -> pure boot.baseModule
+        RootDirectives  -> runCached stages.boot.rootDirectives
+        ModuleBaseName  -> pure stages.boot.baseModule
         -- Frontend.
-        ParseInfoA      -> runCached frontend.parseMeta
-        DoxygenA        -> runCached frontend.doxygen
-        FrontendPassA p -> runFrontendPass p
+        ParseInfoA      -> runCached stages.frontend.parseMeta
+        DoxygenA        -> runCached stages.frontend.doxygen
+        FrontendPassA p -> runFrontendPass stages.frontend p
         -- Backend.
-        HsDecls         -> runCached backend.hsDecls
-        FinalDecls      -> runCached backend.finalDecls
+        HsDecls         -> runCached stages.backend.hsDecls
+        FinalDecls      -> runCached stages.backend.finalDecls
         -- Control flow
         (EmitTrace x)   -> emitTrace tracer x
         (Lift   f)      -> f
-        (Bind x f)      -> runArtefact x >>= runArtefact . f
+        (Bind x f)      -> runArtefact stages x >>= runArtefact stages . f
+        -- One module of several
+        (WithModule scope x) -> do
+          stagesModule <- runCached (stagesOfModule scope)
+          runArtefact stagesModule x
 
-    runFrontendPass :: FrontendPass l result -> ArtefactM result
-    runFrontendPass = \case
+    runFrontendPass ::
+         FrontendArtefact l
+      -> FrontendPass l result
+      -> ArtefactM result
+    runFrontendPass frontend = \case
         ParsePass                    -> runCached frontend.parse
         SimplifyASTPass              -> runCached frontend.simplifyAST
         FillUnnamedIdsPass           -> runCached frontend.fillUnnamedIds

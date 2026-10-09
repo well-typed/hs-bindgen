@@ -3,6 +3,11 @@ module HsBindgen.Frontend (
   , FrontendArtefact (..)
   , FrontendMsg(..)
   , ParseInfo(..)
+    -- * The two halves
+  , runFrontendShared
+  , SharedFrontend -- opaque
+  , runFrontendModule
+  , configuredSelection
   ) where
 
 
@@ -257,7 +262,19 @@ runFrontend ::
   -> IO (FrontendArtefact l)
 runFrontend tracer config boot = do
     shared <- runFrontendShared tracer config boot
-    runFrontendModule tracer config boot shared
+    runFrontendModule
+      tracer
+      config.fieldNamingStrategy
+      (configuredSelection config)
+      boot
+      shared
+
+-- | The selection that the configuration asks for
+configuredSelection :: FrontendConfig -> SelectConfig
+configuredSelection config = SelectConfig{
+      programSlicing = config.programSlicing
+    , roots          = RootsByPredicate config.selectionPredicate
+    }
 
 -- | Passes 1 to 8: what does not depend on the module that is generated
 runFrontendShared ::
@@ -419,16 +436,16 @@ runFrontendShared tracer config boot = do
 
 -- | Passes 9 to 13: what depends on the module that is generated
 --
--- The module and its binding specifications are those of the boot artefact;
--- the selection is that of the configuration.
+-- The module and its binding specifications are those of the boot artefact.
 runFrontendModule ::
      forall l. (Macro.HasTypes l, HasCallStack)
   => Tracer FrontendMsg
-  -> FrontendConfig
+  -> FieldNamingStrategy
+  -> SelectConfig
   -> BootArtefact l
   -> SharedFrontend l
   -> IO (FrontendArtefact l)
-runFrontendModule tracer config boot shared = do
+runFrontendModule tracer fieldNamingStrategy selectConfig boot shared = do
     resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
       afterReparseMacroExpansions <- shared.reparseMacroExpansions
       extSpecs <- boot.externalBindingSpecs
@@ -442,7 +459,7 @@ runFrontendModule tracer config boot shared = do
     mangleNamesPass <- cache "mangleNames" $ do
       afterResolveBindingSpecs <- resolveBindingSpecsPass
       let (afterMangleNames, msgsMangleNames) =
-            mangleNames config.fieldNamingStrategy afterResolveBindingSpecs
+            mangleNames fieldNamingStrategy afterResolveBindingSpecs
       forM_ msgsMangleNames $ traceWith (contramap FrontendMangleNames tracer)
       pure afterMangleNames
 
@@ -489,12 +506,6 @@ runFrontendModule tracer config boot shared = do
       , final                    = finalPass
       }
   where
-    selectConfig :: SelectConfig
-    selectConfig = SelectConfig{
-          programSlicing = config.programSlicing
-        , roots          = RootsByPredicate config.selectionPredicate
-        }
-
     cache :: String -> Cached a -> IO (Cached a)
     cache = cacheWith (contramap (FrontendCache . SafeTrace) tracer) . Just
 

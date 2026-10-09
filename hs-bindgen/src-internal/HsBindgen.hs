@@ -3,6 +3,7 @@ module HsBindgen (
 
     -- * Artefacts
   , Artefact(..)
+  , ModuleScope(..)
 
     -- ** High-level artefacts
   , writeIncludeGraph
@@ -62,6 +63,7 @@ import HsBindgen.Backend.HsModule.Translation.Doxygen (ExportTags,
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
+import HsBindgen.Cache (Cached)
 import HsBindgen.Clang
 import HsBindgen.Config.Internal
 import HsBindgen.Errors (throwPure_TODO)
@@ -75,6 +77,9 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing (..),
+                                              SelectConfig (..),
+                                              SelectionRoots (..))
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.TranslationUnit qualified as C
@@ -134,34 +139,76 @@ hsBindgenEMacroLang
   config
   uncheckedRootDirectives
   artefacts = do
-    eRes <- withTracer tracerConfigUnsafe $ \tracerUnsafe -> do
-      -- 1. Boot.
-      let tracerBoot :: Tracer BootMsg
-          tracerBoot = contramap TraceBoot tracerUnsafe
-      bootArtefact <-
-        runBoot tracerBoot mkMacroLang config uncheckedRootDirectives
-      -- 2. Frontend.
-      let tracerFrontend :: Tracer FrontendMsg
-          tracerFrontend = contramap TraceFrontend tracerUnsafe
-      frontendArtefact <-
-        runFrontend tracerFrontend config.frontend bootArtefact
-      -- 3. Backend.
-      let tracerConfigBackend :: TracerConfig SafeLevel BackendMsg
-          tracerConfigBackend = contramap SafeBackendMsg tracerConfigSafe
-      backendArtefact <-
-        withTracerSafe tracerConfigBackend  $ \tracerSafe ->
-          runBackend tracerSafe config bootArtefact frontendArtefact
-      -- 4. Artefacts.
-      let tracerConfigArtefact :: TracerConfig SafeLevel ArtefactMsg
-          tracerConfigArtefact = contramap SafeArtefactMsg tracerConfigSafe
-      withTracerSafe tracerConfigArtefact $ \tracerSafe ->
-        runArtefacts
-          tracerSafe
-          config
-          bootArtefact
-          frontendArtefact
-          backendArtefact
-          artefacts
+    let tracerConfigBackend :: TracerConfig SafeLevel BackendMsg
+        tracerConfigBackend = contramap SafeBackendMsg tracerConfigSafe
+
+        tracerConfigArtefact :: TracerConfig SafeLevel ArtefactMsg
+        tracerConfigArtefact = contramap SafeArtefactMsg tracerConfigSafe
+    eRes <- withTracer tracerConfigUnsafe $ \tracerUnsafe ->
+      withTracerSafe tracerConfigBackend  $ \tracerBackend  ->
+      withTracerSafe tracerConfigArtefact $ \tracerArtefact -> do
+        -- 1. Boot.
+        bootArtefact <-
+          runBoot
+            (contramap TraceBoot tracerUnsafe)
+            mkMacroLang
+            config
+            uncheckedRootDirectives
+        -- 2. Frontend.
+        --
+        -- The passes that do not depend on the module are shared by every
+        -- module that is generated from the translation unit.
+        sharedFrontend <-
+          runFrontendShared
+            (contramap TraceFrontend tracerUnsafe)
+            config.frontend
+            bootArtefact
+        let -- The stages after the shared part of the frontend
+            stagesFrom ::
+                 Tracer TraceMsg
+              -> SelectConfig
+              -> BootArtefact l
+              -> IO (Stages l)
+            stagesFrom tracer selectConfig boot = do
+              frontend <-
+                runFrontendModule
+                  (contramap TraceFrontend tracer)
+                  config.frontend.fieldNamingStrategy
+                  selectConfig
+                  boot
+                  sharedFrontend
+              -- 3. Backend.
+              backend <- runBackend tracerBackend config boot frontend
+              pure Stages{
+                  boot     = boot
+                , frontend = frontend
+                , backend  = backend
+                }
+
+            -- One module of several: its own name, binding specifications
+            -- and selection, and every message under its name
+            stagesOfModule :: ModuleScope -> Cached (Stages l)
+            stagesOfModule scope = liftIO $ do
+              let tracer :: Tracer TraceMsg
+                  tracer =
+                    contramap (TraceModule . InModule scope.baseModule)
+                      tracerUnsafe
+              boot <-
+                bootModule (contramap TraceBoot tracer) scope bootArtefact
+              stagesFrom
+                tracer
+                SelectConfig{
+                    programSlicing = EnableProgramSlicing
+                  , roots          = RootsByName scope.roots
+                  }
+                boot
+        stages <-
+          stagesFrom
+            tracerUnsafe
+            (configuredSelection config.frontend)
+            bootArtefact
+        -- 4. Artefacts.
+        runArtefacts tracerArtefact config stagesOfModule stages artefacts
 
     let tracerConfigDelayedIO :: TracerConfig SafeLevel DelayedIOMsg
         tracerConfigDelayedIO = contramap SafeDelayedIOMsg tracerConfigSafe

@@ -36,6 +36,7 @@ module HsBindgen.BindingSpec (
   , fromGenerated
   , encodeBy
   , moduleName
+  , prescriptiveFor
     -- ** Types
   , Common.Omittable(..)
   , BindingSpec.CTypeSpec(..)
@@ -53,6 +54,7 @@ module HsBindgen.BindingSpec (
   , lookupHsTypeSpec
     -- ** Merging
   , BindingSpec.MergedBindingSpecs
+  , mergeInto
   , BindingSpec.lookupMergedBindingSpecs
   ) where
 
@@ -351,6 +353,22 @@ encodeBy compareCDeclId format spec =
 moduleName :: BindingSpec -> Hs.ModuleName
 moduleName spec = spec.unresolved.moduleName
 
+-- | The prescriptive binding specification for one module of several
+--
+-- One translation unit can be generated as several modules, and there is one
+-- prescriptive binding specification for all of them.  A file that names no
+-- module configures every module, so each one gets the specification as its
+-- own.  A file that names a module is passed on as it is.
+prescriptiveFor :: Hs.ModuleName -> Prescriptive -> PrescriptiveBindingSpec
+prescriptiveFor hsModuleName prescriptive = case prescriptive.declared of
+    Just _declared -> prescriptive.spec
+    Nothing        -> BindingSpec{
+        unresolved =
+          prescriptive.spec.unresolved{BindingSpec.moduleName = hsModuleName}
+      , resolved   =
+          prescriptive.spec.resolved{BindingSpec.moduleName = hsModuleName}
+      }
+
 {-------------------------------------------------------------------------------
   Internal API: Query
 -------------------------------------------------------------------------------}
@@ -376,3 +394,14 @@ lookupHsTypeSpec ::
   -> Maybe BindingSpec.HsTypeSpec
 lookupHsTypeSpec hsIdentifier spec =
     BindingSpec.lookupHsTypeSpec hsIdentifier spec.resolved
+
+{-------------------------------------------------------------------------------
+  Internal API: Merging
+-------------------------------------------------------------------------------}
+
+-- | Add external binding specifications to merged ones
+mergeInto ::
+     BindingSpec.MergedBindingSpecs
+  -> [ExternalBindingSpec]
+  -> ([Common.BindingSpecMergeMsg], BindingSpec.MergedBindingSpecs)
+mergeInto merged specs = BindingSpec.mergeInto merged $ map (.resolved) specs
