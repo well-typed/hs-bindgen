@@ -209,6 +209,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
               , msg = SelectNoDeclarationsMatched
               }
           | Set.null rootIds
+          , RootsByPredicate{} <- [config.roots]
           ]
 
         selectionRootMsgs :: [AnnMsg Select]
@@ -250,14 +251,17 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
     useDeclGraph = unit.meta.useDeclGraph
 
     match :: Match
-    match name loc availability =
-      matchSelect
-        isMainHeader
-        isInMainHeaderDir
-        (singleLocPath loc)
-        name
-        availability
-        config.selectionPredicate
+    match name loc availability = case config.roots of
+      RootsByPredicate predicate ->
+        matchSelect
+          isMainHeader
+          isInMainHeaderDir
+          (singleLocPath loc)
+          name
+          availability
+          predicate
+      RootsByName names ->
+        Set.member name names
 
 {-------------------------------------------------------------------------------
   Filter list of declarations

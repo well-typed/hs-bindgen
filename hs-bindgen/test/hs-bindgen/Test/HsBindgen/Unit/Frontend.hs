@@ -1,6 +1,9 @@
 module Test.HsBindgen.Unit.Frontend (tests) where
 
+import Data.Char (isAlphaNum)
 import Data.List
+import Data.Set qualified as Set
+import Data.Text qualified as Text
 import System.FilePath ((</>))
 import Test.Tasty
 import Test.Tasty.HUnit
@@ -12,8 +15,15 @@ import HsBindgen.Cache
 import HsBindgen.Config.Internal
 import HsBindgen.Errors
 import HsBindgen.Frontend
+import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.DeclMeta (DeclMeta (..))
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Result
+import HsBindgen.Frontend.Pass.Select
+import HsBindgen.Frontend.Pass.Select.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass (TranslateTypes)
+import HsBindgen.Frontend.Predicate
+import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
@@ -34,6 +44,16 @@ tests getTestResources = testGroup "Test.HsBindgen.Unit.Frontend" [
       testGroup "Parse" [
           testParseSourceOrder getTestResources
         , testParseReparseInvocations getTestResources
+        ]
+    , testGroup "Select" [
+          -- Squashed typedefs
+          testSelectByName getTestResources "typedef_analysis.h"
+          -- Declarations without bindings, and declarations that need them
+        , testSelectByName getTestResources "selection_fail.h"
+          -- Unnamed declarations
+        , testSelectByName getTestResources "delay_traces.h"
+          -- Dependencies in another header
+        , testSelectByName getTestResources "program_slicing_simple.h"
         ]
     ]
 
@@ -142,6 +162,75 @@ testParseReparseInvocations getTestResources =
       ReparseNotNeeded            -> []
 
 {-------------------------------------------------------------------------------
+  Select pass tests
+-------------------------------------------------------------------------------}
+
+-- | Selecting a declaration by name is selecting it by its anchored name
+--
+-- Checked for every named declaration of the header, with and without program
+-- slicing: the same declarations are selected, and the same is reported.
+testSelectByName :: IO TestResources -> FilePath -> TestTree
+testSelectByName getTestResources header =
+  testCase ("SelectByName " ++ header) $ do
+    unit <-
+      execFrontendWith
+        tolerateAll
+        getTestResources
+        c89
+        ["test-artefacts" </> "headers" </> "golden" </> "program-analysis"]
+        header
+        (getCached . (.translateTypes))
+    let names :: [C.DeclName]
+        names = [
+            declId.name
+          | (declId, _entry) <- DeclIndex.toList unit.meta.declIndex
+          , not declId.isUnnamed
+          ]
+    assertBool "the header declares something" $ not (null names)
+    forM_ names $ \name ->
+      forM_ [EnableProgramSlicing, DisableProgramSlicing] $ \slicing ->
+        assertEqual (show (name, slicing))
+          (selectedBy slicing (RootsByPredicate (anchored name)) unit)
+          (selectedBy slicing (RootsByName (Set.singleton name)) unit)
+  where
+    anchored :: C.DeclName -> Boolean SelectionPredicate
+    anchored name = BIf $ SelectDecl $ DeclNameMatches $ fromString $
+        "^" ++ concatMap escape (Text.unpack (C.renderDeclName name)) ++ "$"
+
+    escape :: Char -> String
+    escape c
+      | isAlphaNum c || c `elem` ("_ " :: String) = [c]
+      | otherwise                                 = ['\\', c]
+
+    -- The selected declarations, and what selecting them reports
+    selectedBy ::
+         ProgramSlicing
+      -> SelectionRoots
+      -> C.TranslationUnit CExpr TranslateTypes
+      -> ([String], [String])
+    selectedBy slicing roots unit =
+        ( map (show . (.info.id)) selected.decls
+        , [ show msg.traceMsg
+          | msg <- msgs
+          , not (warnsOfNoMatch msg.traceMsg.msg)
+          ]
+        )
+      where
+        (selected, msgs) =
+          selectDecls
+            (const False)
+            (const False)
+            SelectConfig{programSlicing = slicing, roots = roots}
+            unit
+
+    -- A predicate that matches nothing is reported; names that match nothing
+    -- are not.
+    warnsOfNoMatch :: SelectMsg -> Bool
+    warnsOfNoMatch = \case
+      SelectNoDeclarationsMatched -> True
+      _otherwise                  -> False
+
+{-------------------------------------------------------------------------------
   Auxiliary functions
 -------------------------------------------------------------------------------}
 
@@ -166,8 +255,18 @@ execFrontend ::
   -> FilePath    -- ^ Header
   -> (FrontendArtefact CExpr -> IO a)
   -> IO a
-execFrontend getTestResources cStdStr incDirs header k =
-    withTracePredicate noReport defaultTracePredicate $ \tracer -> do
+execFrontend = execFrontendWith defaultTracePredicate
+
+execFrontendWith ::
+     TracePredicate Level TraceMsg
+  -> IO TestResources
+  -> CStandard
+  -> [FilePath]  -- ^ Include directories
+  -> FilePath    -- ^ Header
+  -> (FrontendArtefact CExpr -> IO a)
+  -> IO a
+execFrontendWith tracePredicate getTestResources cStdStr incDirs header k =
+    withTracePredicate noReport tracePredicate $ \tracer -> do
       clangArgs <- getTestClangArgsConfig cStdStr incDirs <$> getTestResources
       let bootConfig     = BootConfig clangArgs def def
           frontendConfig = def

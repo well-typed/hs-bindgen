@@ -2,6 +2,7 @@ module HsBindgen.Frontend.Pass.Select.IsPass (
     Select
     -- * Configuration
   , ProgramSlicing(..)
+  , SelectionRoots(..)
   , SelectConfig(..)
     -- * Trace messages
   , SelectReason(..)
@@ -11,6 +12,7 @@ module HsBindgen.Frontend.Pass.Select.IsPass (
   ) where
 
 import Data.Default (Default (def))
+import Data.Set (Set)
 import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
@@ -112,9 +114,23 @@ instance Default ProgramSlicing where
   def :: ProgramSlicing
   def = DisableProgramSlicing
 
+-- | The declarations that selection starts from
+data SelectionRoots =
+    -- | The declarations that the predicate matches
+    --
+    -- The predicate is the user's.  When it matches nothing, they are told.
+    RootsByPredicate (Boolean SelectionPredicate)
+
+    -- | The declarations with these names
+    --
+    -- The names are computed, so matching none of them is not reported: it is
+    -- up to whoever computed them to say what that means.
+  | RootsByName (Set C.DeclName)
+  deriving stock (Show, Eq)
+
 data SelectConfig = SelectConfig {
-      programSlicing     :: ProgramSlicing
-    , selectionPredicate :: Boolean SelectionPredicate
+      programSlicing :: ProgramSlicing
+    , roots          :: SelectionRoots
     }
   deriving stock (Show, Eq)
 

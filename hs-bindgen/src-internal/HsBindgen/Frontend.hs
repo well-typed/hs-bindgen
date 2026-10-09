@@ -491,8 +491,8 @@ runFrontendModule tracer config boot shared = do
   where
     selectConfig :: SelectConfig
     selectConfig = SelectConfig{
-          programSlicing     = config.programSlicing
-        , selectionPredicate = config.selectionPredicate
+          programSlicing = config.programSlicing
+        , roots          = RootsByPredicate config.selectionPredicate
         }
 
     cache :: String -> Cached a -> IO (Cached a)
