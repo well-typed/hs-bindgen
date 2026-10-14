@@ -187,7 +187,10 @@ test_anonymous_edge_cases_empty_anon =
     testTraceMulti "types/anonymous/edge-cases/empty_anon" declsWithMsgs $ \case
       MatchDelayedImplicitField "struct S1" UnsupportedEmptyAnon ->
         Just $ Expected "struct S1"
-      MatchDelayed "struct S2" ParseNestedDeclsFailed ->
+      MatchDelayed "struct S2" (ParseNestedDeclsFailed (
+          NestedUnnamedDeclFailed _
+            (ParseImplicitFieldFailed UnsupportedEmptyAnon) :| []
+        )) ->
         Just $ Expected "struct S2"
       _otherwise ->
         Nothing
@@ -245,7 +248,9 @@ test_primitives_least_fast =
 test_scoping_deep_nesting :: TestCase
 test_scoping_deep_nesting =
     testTraceMulti "types/scoping/deep_nesting" declsWithMsgs $ \case
-      MatchDelayed name@"struct foo" ParseNestedDeclsFailed ->
+      MatchDelayed name@"struct foo" (ParseNestedDeclsFailed (
+          NestedNamedDeclFailed "struct bar" :| []
+        )) ->
         Just $ Expected name
       MatchDelayed name@"struct bar"
         (ParseUnsupportedFloatType UnsupportedLongDouble) ->
@@ -271,7 +276,9 @@ test_scoping_nesting =
 test_scoping_wide_nesting :: TestCase
 test_scoping_wide_nesting =
     testTraceMulti "types/scoping/wide_nesting" declsWithMsgs $ \case
-      MatchDelayed name@"struct foo" ParseNestedDeclsFailed ->
+      MatchDelayed name@"struct foo" (ParseNestedDeclsFailed (
+          NestedNamedDeclFailed "struct bar" :| []
+        )) ->
         Just $ Expected name
       MatchDelayed name@"struct bar"
         (ParseUnsupportedFloatType UnsupportedLongDouble) ->

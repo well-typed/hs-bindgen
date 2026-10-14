@@ -5,6 +5,7 @@ module HsBindgen.Frontend.Pass.Parse.Msg (
 
     -- * Delayed parse messages
   , DelayedParseMsg(..)
+  , NestedDeclFailure(..)
   , UnsupportedFloatType(..)
   , ParseImplicitFieldsMsg(..)
   ) where
@@ -136,6 +137,16 @@ data DelayedParseMsg =
     --   delayed parse message.
     ParseUnderlyingTypeFailed C.PrelimDeclId DelayedParseMsg
 
+    -- | Failed to parse a declaration because some of its nested declarations
+    -- failed to parse
+    --
+    -- For example, to successfully parse a struct (or union), all of its
+    -- nested declarations have to be parsed successfully as well. If any
+    -- nested declaration fails to parse, then we could miss seeing some
+    -- (implicit) fields, and we can't generate Haskell bindings for structs
+    -- (or unions) with an incomplete list of fields.
+  | ParseNestedDeclsFailed (NonEmpty NestedDeclFailure)
+
     -- | We tried to parse an implicit field for a struct or union object, but
     -- it was unsuccessful
   | ParseImplicitFieldFailed ParseImplicitFieldsMsg
@@ -190,16 +201,6 @@ data DelayedParseMsg =
   | ParseInvalidLinkage
 
   | ParseInvalidVisibility
-
-    -- | Failed to parse a declaration because some of its nested declarations
-    -- failed to parse
-    --
-    -- For example, to successfully parse a struct (or union), all of its
-    -- nested declarations have to be parsed successfully as well. If any
-    -- nested declaration fails to parse, then we could miss seeing some
-    -- (implicit) fields, and we can't generate Haskell bindings for structs
-    -- (or unions) with an incomplete list of fields.
-  | ParseNestedDeclsFailed
 
     -- | A function declaration or global variable declaration has a problematic
     -- case of non-public visibility that can lead to linker errors if the
@@ -354,6 +355,34 @@ data DelayedParseMsg =
   | ParseNoMainHeadersException String RealPath
   deriving stock (Show, Generic)
 
+-- | A nested declaration that failed to parse
+data NestedDeclFailure =
+    -- | A named nested declaration reports its own failure, but only if it is
+    -- selected: the failed enclosing declaration does not use it, so selecting
+    -- the enclosing declaration does not select it.
+    NestedNamedDeclFailed C.DeclName
+    -- | An unnamed nested declaration carries its failure: once the enclosing
+    -- declaration has failed, the unnamed declaration has no use site, so it is
+    -- never named and never reported on its own.
+  | NestedUnnamedDeclFailed C.UnnamedId DelayedParseMsg
+  | NestedUnnamedDeclUnavailable C.UnnamedId
+  deriving stock (Show, Generic)
+
+instance PrettyForTrace NestedDeclFailure where
+  prettyForTrace = \case
+      NestedNamedDeclFailed name ->
+        prettyForTrace name
+      NestedUnnamedDeclFailed unnamedId msg ->
+        PP.hang (prettyForTrace unnamedId >< ":") 2 (prettyForTrace msg)
+      NestedUnnamedDeclUnavailable unnamedId ->
+        prettyForTrace unnamedId >< ": unavailable on this platform"
+
+nestedDeclFailureLevel :: NestedDeclFailure -> Level
+nestedDeclFailureLevel = \case
+    NestedNamedDeclFailed{}        -> Warning
+    NestedUnnamedDeclFailed _ msg  -> getDefaultLogLevel msg
+    NestedUnnamedDeclUnavailable{} -> Warning
+
 -- | Floating-point types we do not support
 --
 -- @float@ and @double@ are the only floating-point types we support; all others
@@ -402,6 +431,11 @@ instance PrettyForTrace DelayedParseMsg where
         , ": "
         , prettyForTrace err
         ]
+      ParseNestedDeclsFailed failures -> PP.hang (PP.hsep [
+            "Failed to parse a declaration because some of its nested"
+          , "declarations failed to parse:"
+          ]) 2 $
+          PP.vcat $ map prettyForTrace (toList failures)
       ParseImplicitFieldFailed reason -> PP.hsep [
           "Failed to parse an implicit struct or union field"
         , "referencing an anonymous object. Reason: "
@@ -435,10 +469,6 @@ instance PrettyForTrace DelayedParseMsg where
         "Invalid linkage (CXLinkage_Invalid)"
       ParseInvalidVisibility ->
         "Invalid visibility (CXVisibility_Invalid)"
-      ParseNestedDeclsFailed -> PP.hsep [
-          "Failed to parse a declaration because some of its nested declarations"
-        , "failed to parse"
-        ]
       ParseNonPublicVisibility -> PP.hsep [
           "Bindings may result in linker errors"
         , "because the symbol has non-public visibility"
@@ -522,6 +552,8 @@ instance PrettyForTrace DelayedParseMsg where
 instance IsTrace Level DelayedParseMsg where
   getDefaultLogLevel = \case
       ParseUnderlyingTypeFailed _ x        -> getDefaultLogLevel x
+      ParseNestedDeclsFailed xs            ->
+        maximum $ Warning :| map nestedDeclFailureLevel (toList xs)
       ParseImplicitFieldFailed    x        -> getDefaultLogLevel x
       ParseMacroEmpty{}                    -> Info
       ParseMacroErrorParse{}               -> Info
@@ -530,7 +562,6 @@ instance IsTrace Level DelayedParseMsg where
       ParseFunctionOfTypeTypedef{}         -> Warning
       ParseInvalidLinkage                  -> Warning
       ParseInvalidVisibility               -> Warning
-      ParseNestedDeclsFailed{}             -> Warning
       ParseNonPublicVisibility{}           -> Warning
       ParseUnknownCursorAvailability{}     -> Warning
       ParseUnknownStorageClass{}           -> Warning

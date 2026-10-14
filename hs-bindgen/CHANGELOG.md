@@ -17,6 +17,13 @@
 
 [is-2308]: https://github.com/well-typed/hs-bindgen/issues/2308
 
+* Improve trace messages: If a `struct` or `union` fails to parse because a
+  nested declaration fails to parse; the nested declaration which failed to
+  parse is now reported. In particular, the failure of an unnamed nested
+  declaration (e.g., `struct s { struct { long double x; } m; };`) is no longer
+  lost. See [issue #1851][is-1851].
+
+[is-1851]: https://github.com/well-typed/hs-bindgen/issues/1851
 
 ## 1.0.0.0 -- 2026-10-08
 
