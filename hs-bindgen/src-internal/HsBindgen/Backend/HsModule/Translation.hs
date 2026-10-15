@@ -2,6 +2,7 @@ module HsBindgen.Backend.HsModule.Translation (
     -- * GhcPragma
     GhcPragma (..)
     -- * ImportListItem
+  , ImportSource(..)
   , ImportListItem(..)
     -- * Export list
   , ExportEntry(..)
@@ -48,13 +49,26 @@ newtype GhcPragma = GhcPragma { unGhcPragma :: String }
   ImportListItem
 -------------------------------------------------------------------------------}
 
+-- | Whether an import reads a module or its boot file
+data ImportSource =
+    -- | @import M@
+    NormalImport
+    -- | @import {-# SOURCE #-} M@: the boot file of @M@, which breaks an import
+    -- cycle
+  | SourceImport
+  deriving stock (Eq, Ord)
+
 -- | Import list item
+--
+-- 'resolveImports' sorts imports with this 'Ord' instance. The 'ImportSource'
+-- is the first field, and 'NormalImport' sorts before 'SourceImport', so the
+-- @{-# SOURCE #-}@ imports of each kind come after its normal imports.
 data ImportListItem =
-    QualifiedImportListItem   Hs.ModuleName (Maybe String)
+    QualifiedImportListItem   ImportSource Hs.ModuleName (Maybe String)
     -- An empty import list (@Just []@) means "import instances only", and
     -- differs greatly from having no import list (@Nothing@), which is an open,
     -- unqualified import.
-  | UnqualifiedImportListItem Hs.ModuleName (Maybe [ResolvedName])
+  | UnqualifiedImportListItem ImportSource Hs.ModuleName (Maybe [ResolvedName])
   deriving stock (Eq, Ord)
 
 {-------------------------------------------------------------------------------
@@ -225,11 +239,13 @@ resolveImports baseModule cat wrappers ds =
     let acc = mconcat $ map resolveDeclImports ds
     in  Set.toAscList . mconcat $
             bindingCatImport acc.requireTypes
-          : Set.map (uncurry QualifiedImportListItem) (userlandCapiImport <> acc.qualified)
+          : Set.map (uncurry (QualifiedImportListItem NormalImport))
+              (userlandCapiImport <> acc.qualified)
           : map (Set.singleton . uncurry mkUImportListItem) (Map.toList acc.unqualified)
   where
     mkUImportListItem :: Hs.ModuleName -> Set ResolvedName -> ImportListItem
-    mkUImportListItem m xs = UnqualifiedImportListItem m (Just $ Set.toAscList xs)
+    mkUImportListItem m xs =
+      UnqualifiedImportListItem NormalImport m (Just $ Set.toAscList xs)
 
     bindingCatImport :: Bool -> Set ImportListItem
     bindingCatImport requireTypes = case requireTypes of
@@ -239,7 +255,8 @@ resolveImports baseModule cat wrappers ds =
         Just CType -> mempty
         _otherCat  ->
           let moduleName = fromBaseModuleName baseModule (Just CType)
-          in  Set.singleton $ UnqualifiedImportListItem moduleName Nothing
+          in  Set.singleton $
+                UnqualifiedImportListItem NormalImport moduleName Nothing
 
     userlandCapiImport :: Set (Hs.ModuleName, Maybe String)
     userlandCapiImport = case wrappers of
