@@ -35,6 +35,7 @@ testCases = [
     , defaultTest "types/anonymous/union_in_struct"
     , defaultTest "types/anonymous/union_in_union"
     , defaultTest "types/anonymous/union"
+    , defaultTest "types/boot/ffi_module"
     , defaultTest "types/complex/complex_non_float_test"
     , defaultTest "types/complex/hsb_complex_test"
     , defaultTest "types/complex/vector_test"

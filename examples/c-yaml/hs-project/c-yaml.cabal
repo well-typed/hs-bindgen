@@ -19,6 +19,7 @@ library
   hs-source-dirs:  src
   exposed-modules:
     Generated.Yaml
+    Generated.Yaml.FFI
     Generated.Yaml.FunPtr
     Generated.Yaml.Safe
     Generated.Yaml.Unsafe

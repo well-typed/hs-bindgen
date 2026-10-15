@@ -276,8 +276,9 @@ writeBindingsSingle mrc filePolicy dirPolicy hsOutputDir = do
 
     write filePolicy dirPolicy "bindings" location bindings
 
--- | Get bindings (one module per binding category).
-getBindingsMultiple :: ModuleRenderConfig -> Artefact l (ByCategory_ (Maybe String))
+-- | Get bindings (one module per binding category), each with its boot file, if
+-- it has one.
+getBindingsMultiple :: ModuleRenderConfig -> Artefact l (ByCategory_ (Maybe (String, Maybe String)))
 getBindingsMultiple mrc = do
     name   <- ModuleBaseName
     dirs   <- RootDirectives
@@ -287,7 +288,7 @@ getBindingsMultiple mrc = do
       EmitTrace $ NoBindingsMultipleModules name
     config <- getConfig
     let fns = config.frontend.fieldNamingStrategy
-    pure $ fmap render <$>
+    pure $ fmap (bimap render (fmap renderHsBoot)) <$>
       translateModuleMultiple fns mrc dirs name (resolveExports tags) decls
 
 -- | Write bindings to files in provided output directory.
@@ -419,27 +420,29 @@ writeByCategory ::
   -> String
   -> FilePath
   -> BaseModuleName
-  -> ByCategory_ (Maybe String)
+  -> ByCategory_ (Maybe (String, Maybe String))
   -> Artefact l ()
 writeByCategory filePolicy dirPolicy what dir moduleBaseName =
     sequence_ . mapWithCategory_ writeCategory
   where
-    writeCategory :: Category -> Maybe String -> Artefact l ()
-    writeCategory _    Nothing   = pure ()
-    writeCategory cat (Just str) =
-        write filePolicy dirPolicy whatWithCategory location str
+    writeCategory :: Category -> Maybe (String, Maybe String) -> Artefact l ()
+    writeCategory _    Nothing                 = pure ()
+    writeCategory cat (Just (str, mBootStr)) = do
+        write filePolicy dirPolicy whatWithCategory (location Hs.moduleNamePath) str
+        forM_ mBootStr $
+          write filePolicy dirPolicy whatBootWithCategory (location Hs.moduleNameBootPath)
       where
-        localPath :: FilePath
-        localPath = Hs.moduleNamePath $
-            fromBaseModuleName moduleBaseName (Just cat)
+        moduleName :: Hs.ModuleName
+        moduleName = fromBaseModuleName moduleBaseName (Just cat)
 
-        whatWithCategory :: String
-        whatWithCategory = what ++ " (" ++ show cat ++ ")"
+        whatWithCategory, whatBootWithCategory :: String
+        whatWithCategory     = what ++ " (" ++ show cat ++ ")"
+        whatBootWithCategory = what ++ " boot file (" ++ show cat ++ ")"
 
-        location :: FileLocation
-        location = RelativeFileLocation RelativeToOutputDir{
+        location :: (Hs.ModuleName -> FilePath) -> FileLocation
+        location path = RelativeFileLocation RelativeToOutputDir{
               outputDir = dir
-            , localPath = localPath
+            , localPath = path moduleName
             }
 
 nullDecls :: ([a], [b]) -> Bool

@@ -1,0 +1,194 @@
+-- addDependentFile test-artefacts/headers/golden/types/boot/ffi_module.h
+-- #include <types/boot/ffi_module.h>
+-- void hs_bindgen_50f1717af10f3667 (
+--   on_event arg1
+-- )
+-- {
+--   (register_handler)(arg1);
+-- }
+-- void hs_bindgen_92d50ec97bf2edec (
+--   on_event arg1
+-- )
+-- {
+--   (register_handler)(arg1);
+-- }
+-- /* test_typesbootffi_module_Example_get_register_handler */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_f9c0a75f96e98b0b (void)) (
+--   on_event arg1
+-- )
+-- {
+--   return &register_handler;
+-- }
+{-| Auxiliary type used by 'On_event'
+
+    __C declaration:__ @on_event@
+
+    __defined at:__ @types\/boot\/ffi_module.h 6:15@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+newtype On_event_Aux
+    = On_event_Aux {unwrapOn_event_Aux :: (CInt -> IO CInt)}
+    deriving stock Generic
+instance ToFunPtr On_event_Aux
+    where toFunPtr = hs_bindgen_70c2110bb36ed51a
+instance FromFunPtr On_event_Aux
+    where fromFunPtr = hs_bindgen_a7705d093ccaa37a
+instance (~) ty (CInt -> IO CInt) =>
+         HasField "unwrapOn_event_Aux" On_event_Aux ty
+    where hasField = \x_0 -> (\y_1 -> On_event_Aux{unwrapOn_event_Aux = y_1},
+                              getField @"unwrapOn_event_Aux" x_0)
+instance (~) ty (CInt -> IO CInt) =>
+         HasField "unwrapOn_event_Aux" (Ptr On_event_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapOn_event_Aux")
+instance HasCField On_event_Aux "unwrapOn_event_Aux"
+    where type CFieldType On_event_Aux "unwrapOn_event_Aux" = CInt ->
+                                                              IO CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @on_event@
+
+    __defined at:__ @types\/boot\/ffi_module.h 6:15@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+newtype On_event
+    = On_event {unwrapOn_event :: (FunPtr On_event_Aux)}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (FunPtr On_event_Aux) =>
+         HasField "unwrapOn_event" On_event ty
+    where hasField = \x_0 -> (\y_1 -> On_event{unwrapOn_event = y_1},
+                              getField @"unwrapOn_event" x_0)
+instance (~) ty (FunPtr On_event_Aux) =>
+         HasField "unwrapOn_event" (Ptr On_event) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapOn_event")
+instance HasCField On_event "unwrapOn_event"
+    where type CFieldType On_event
+                          "unwrapOn_event" = FunPtr On_event_Aux
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct buffer@
+
+    __defined at:__ @types\/boot\/ffi_module.h 10:8@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+data Buffer_Aux
+    = Buffer {buffer_len :: CInt
+              {- ^ __C declaration:__ @len@
+
+                   __defined at:__ @types\/boot\/ffi_module.h 11:7@
+
+                   __exported by:__ @types\/boot\/ffi_module.h@
+              -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Buffer_Aux
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Buffer_Aux
+    where readRaw = \ptr_0 -> pure Buffer <*> readRaw (Proxy @"buffer_len") ptr_0
+instance WriteRaw Buffer_Aux
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Buffer buffer_len_2 -> writeRaw (Proxy @"buffer_len") ptr_0 buffer_len_2
+deriving via (EquivStorable Buffer_Aux) instance Storable Buffer_Aux
+deriving via (IsStructViaReadRaw Buffer_Aux) instance IsStruct Buffer_Aux
+instance (~) ty CInt => HasField "buffer_len" Buffer_Aux ty
+    where hasField = \x_0 -> (\y_1 -> Buffer{buffer_len = y_1},
+                              getField @"buffer_len" x_0)
+instance (~) ty CInt =>
+         HasField "buffer_len" (Ptr Buffer_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"buffer_len")
+instance HasCField Buffer_Aux "buffer_len"
+    where type CFieldType Buffer_Aux "buffer_len" = CInt
+          offset# = \_ -> \_ -> 0
+instance Offset CChar Buffer_Aux
+    where offset = \_proxy_0 -> 4
+type Buffer = WithFlam CChar Buffer_Aux
+-- __unique:__ @toOn_event_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_70c2110bb36ed51a_base ::
+    CInt -> IO CInt
+ -> IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @toOn_event_Aux@
+hs_bindgen_70c2110bb36ed51a :: On_event_Aux ->
+                               IO (FunPtr On_event_Aux)
+-- __unique:__ @toOn_event_Aux@
+hs_bindgen_70c2110bb36ed51a = \fun_0 -> fmap castFunPtr (hs_bindgen_70c2110bb36ed51a_base (\x_1 -> fmap toFFIType (getField @"unwrapOn_event_Aux" fun_0 (fromFFIType x_1))))
+-- __unique:__ @fromOn_event_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_a7705d093ccaa37a_base ::
+    FunPtr (CInt -> IO CInt)
+ -> CInt
+ -> IO CInt
+-- __unique:__ @fromOn_event_Aux@
+hs_bindgen_a7705d093ccaa37a :: FunPtr On_event_Aux -> On_event_Aux
+-- __unique:__ @fromOn_event_Aux@
+hs_bindgen_a7705d093ccaa37a = \funPtr_0 -> On_event_Aux (\x_1 -> fmap fromFFIType (hs_bindgen_a7705d093ccaa37a_base (castFunPtr funPtr_0) (toFFIType x_1)))
+-- __unique:__ @test_typesbootffi_module_Example_Safe_register_handler@
+foreign import ccall safe "hs_bindgen_50f1717af10f3667" hs_bindgen_50f1717af10f3667_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_typesbootffi_module_Example_Safe_register_handler@
+hs_bindgen_50f1717af10f3667 :: On_event -> IO ()
+-- __unique:__ @test_typesbootffi_module_Example_Safe_register_handler@
+hs_bindgen_50f1717af10f3667 = \x_0 -> hs_bindgen_50f1717af10f3667_base (toFFIType x_0)
+{-| __C declaration:__ @register_handler@
+
+    __defined at:__ @types\/boot\/ffi_module.h 15:6@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+register_handler_safe :: On_event -> IO ()
+{-| __C declaration:__ @register_handler@
+
+    __defined at:__ @types\/boot\/ffi_module.h 15:6@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+register_handler_safe = hs_bindgen_50f1717af10f3667
+-- __unique:__ @test_typesbootffi_module_Example_Unsafe_register_handler@
+foreign import ccall unsafe "hs_bindgen_92d50ec97bf2edec" hs_bindgen_92d50ec97bf2edec_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_typesbootffi_module_Example_Unsafe_register_handler@
+hs_bindgen_92d50ec97bf2edec :: On_event -> IO ()
+-- __unique:__ @test_typesbootffi_module_Example_Unsafe_register_handler@
+hs_bindgen_92d50ec97bf2edec = \x_0 -> hs_bindgen_92d50ec97bf2edec_base (toFFIType x_0)
+{-| __C declaration:__ @register_handler@
+
+    __defined at:__ @types\/boot\/ffi_module.h 15:6@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+register_handler_unsafe :: On_event -> IO ()
+{-| __C declaration:__ @register_handler@
+
+    __defined at:__ @types\/boot\/ffi_module.h 15:6@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+register_handler_unsafe = hs_bindgen_92d50ec97bf2edec
+-- __unique:__ @test_typesbootffi_module_Example_get_register_handler@
+foreign import ccall unsafe "hs_bindgen_f9c0a75f96e98b0b" hs_bindgen_f9c0a75f96e98b0b_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesbootffi_module_Example_get_register_handler@
+hs_bindgen_f9c0a75f96e98b0b :: IO (FunPtr (On_event -> IO ()))
+-- __unique:__ @test_typesbootffi_module_Example_get_register_handler@
+hs_bindgen_f9c0a75f96e98b0b = fmap fromFFIType hs_bindgen_f9c0a75f96e98b0b_base
+{-# NOINLINE register_handler_funptr #-}
+{-| __C declaration:__ @register_handler@
+
+    __defined at:__ @types\/boot\/ffi_module.h 15:6@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+register_handler_funptr :: FunPtr (On_event -> IO ())
+{-| __C declaration:__ @register_handler@
+
+    __defined at:__ @types\/boot\/ffi_module.h 15:6@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+register_handler_funptr = unsafePerformIO hs_bindgen_f9c0a75f96e98b0b

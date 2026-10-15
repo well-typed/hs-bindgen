@@ -73,6 +73,7 @@ library generated
     Arrays.Global
     Arrays.Safe
     Callbacks
+    Callbacks.FFI
     Callbacks.FunPtr
     Callbacks.Safe
     Callbacks.Unsafe
@@ -82,11 +83,13 @@ library generated
     Example
     Example.Unsafe
     FunctionPointers
+    FunctionPointers.FFI
     FunctionPointers.FunPtr
     FunctionPointers.Global
     FunctionPointers.Safe
     GeneratedNames
     GeneratedNames.UnprefixedFieldNames
+    GeneratedNames.UnprefixedFieldNames.FFI
     GeneratedNames.Unsafe
     Globals
     Globals.Global

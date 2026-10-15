@@ -54,14 +54,17 @@ library generated
     Generated.Bitfields.Unions.Safe
     Generated.Bitfields.Unions.Unsafe
     Generated.Callbacks.Arrays.KnownSize
+    Generated.Callbacks.Arrays.KnownSize.FFI
     Generated.Callbacks.Arrays.KnownSize.FunPtr
     Generated.Callbacks.Arrays.KnownSize.Safe
     Generated.Callbacks.Arrays.KnownSize.Unsafe
     Generated.Callbacks.Arrays.UnknownSize
+    Generated.Callbacks.Arrays.UnknownSize.FFI
     Generated.Callbacks.Arrays.UnknownSize.FunPtr
     Generated.Callbacks.Arrays.UnknownSize.Safe
     Generated.Callbacks.Arrays.UnknownSize.Unsafe
     Generated.Callbacks.Basic
+    Generated.Callbacks.Basic.FFI
     Generated.Callbacks.Basic.FunPtr
     Generated.Callbacks.Basic.Safe
     Generated.Callbacks.Basic.Unsafe
