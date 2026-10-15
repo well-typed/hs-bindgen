@@ -127,6 +127,11 @@ prettyImportItem resolved
 -- | Pretty-print an import statement, respecting 'QualifiedStyle'
 prettyImport :: QualifiedStyle -> ImportListItem -> CtxDoc
 prettyImport qualStyle = \case
+    SourceImportListItem name -> PP.hsep
+      [ "import"
+      , "{-# SOURCE #-}"
+      , PP.string (Hs.moduleNameToString name)
+      ]
     UnqualifiedImportListItem name Nothing -> PP.hsep
       [ "import"
       , PP.string (Hs.moduleNameToString name)

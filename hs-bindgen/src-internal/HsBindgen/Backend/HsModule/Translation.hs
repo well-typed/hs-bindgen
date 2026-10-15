@@ -55,6 +55,9 @@ data ImportListItem =
     -- differs greatly from having no import list (@Nothing@), which is an open,
     -- unqualified import.
   | UnqualifiedImportListItem Hs.ModuleName (Maybe [ResolvedName])
+    -- | @import {-# SOURCE #-} M@: an open, unqualified import of the boot file
+    -- of @M@
+  | SourceImportListItem      Hs.ModuleName
   deriving stock (Eq, Ord)
 
 {-------------------------------------------------------------------------------

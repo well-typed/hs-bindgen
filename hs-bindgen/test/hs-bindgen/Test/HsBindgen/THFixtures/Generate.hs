@@ -93,6 +93,7 @@ letBlock bootConfig directives = [
     , "    thCategoryChoice :: ByCategory Choice"
     , "    thCategoryChoice = ByCategory{"
     , "        cType   = IncludeTypeCategory"
+    , "      , cFFI    = IncludeTermCategory def"
     , "      , cSafe   = IncludeTermCategory $ RenameTerm (<> \"_safe\")"
     , "      , cUnsafe = IncludeTermCategory $ RenameTerm (<> \"_unsafe\")"
     , "      , cFunPtr = IncludeTermCategory $ RenameTerm (<> \"_funptr\")"

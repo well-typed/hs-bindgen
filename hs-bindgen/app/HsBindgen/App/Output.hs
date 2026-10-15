@@ -124,6 +124,7 @@ buildCategoryChoice opts = case opts.mode of
     useAllCategories :: ByCategory Choice
     useAllCategories = ByCategory {
           cType   = IncludeTypeCategory
+        , cFFI    = IncludeTermCategory def
         , cSafe   = IncludeTermCategory def
         , cUnsafe = IncludeTermCategory def
         , cFunPtr = IncludeTermCategory def
@@ -134,6 +135,7 @@ buildCategoryChoice opts = case opts.mode of
     buildSingleFileChoice :: NonEmpty SingleFileCategory -> ByCategory Choice
     buildSingleFileChoice cats = ByCategory {
           cType   = IncludeTypeCategory
+        , cFFI    = IncludeTermCategory def
         , cSafe   = foldMap safeChoice cats
         , cUnsafe = foldMap unsafeChoice cats
         , cFunPtr = foldMap pointerChoice cats

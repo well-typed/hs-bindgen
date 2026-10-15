@@ -148,6 +148,7 @@ applyTestThCategoryChoice cfg = cfg { categoryChoice = testThCategoryChoice }
 testThCategoryChoice :: ByCategory Choice
 testThCategoryChoice = ByCategory {
       cType   = IncludeTypeCategory
+    , cFFI    = IncludeTermCategory def
     , cSafe   = IncludeTermCategory $ RenameTerm (<> "_safe")
     , cUnsafe = IncludeTermCategory $ RenameTerm (<> "_unsafe")
     , cFunPtr = IncludeTermCategory $ RenameTerm (<> "_funptr")

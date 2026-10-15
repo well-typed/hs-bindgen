@@ -27,8 +27,18 @@ import HsBindgen.Backend.Level
 import HsBindgen.Imports hiding (toList)
 
 data TermCategory =
+    -- | The code that convert arguments and results with @toFFIType@ and
+    -- @fromFFIType@ or any code that makes use of type family instances in the
+    -- Types module.
+    --
+    -- These conversions need @FFIType@ type family instance to reduce at the
+    -- argument and result types, which may come from other modules. Types
+    -- modules that use each other import each other through boot files, and a
+    -- boot file can not have any type family instances, so the conversions go
+    -- in a module of their own that imports the types modules normally.
+    CFFI
     -- | Foreign import bindings with a @safe@ foreign import modifier.
-    CSafe
+  | CSafe
     -- | Foreign import bindings with an @unsafe@ foreign import modifier.
   | CUnsafe
     -- | Pointers to functions; generally @unsafe@.
@@ -55,6 +65,7 @@ mapWithCategory ::
   -> ByCategory g
 mapWithCategory f g x = ByCategory {
       cType   = f         x.cType
+    , cFFI    = g CFFI    x.cFFI
     , cSafe   = g CSafe   x.cSafe
     , cUnsafe = g CUnsafe x.cUnsafe
     , cFunPtr = g CFunPtr x.cFunPtr
@@ -65,6 +76,7 @@ mapWithCategory f g x = ByCategory {
 type ByCategory :: (Level -> Star) -> Star
 data ByCategory f = ByCategory {
       cType   :: !(f LvlType)
+    , cFFI    :: !(f LvlTerm)
     , cSafe   :: !(f LvlTerm)
     , cUnsafe :: !(f LvlTerm)
     , cFunPtr :: !(f LvlTerm)
@@ -91,8 +103,9 @@ mapWithCategory_ f (ByCategory_ x) =
   ByCategory_ $ mapWithCategory (applyConst (f CType)) (applyConst . f . CTerm) x
 
 toList :: ByCategory_ a -> [a]
-toList (ByCategory_ (ByCategory t s u f g)) = [
+toList (ByCategory_ (ByCategory t ffi s u f g)) = [
       getConst t
+    , getConst ffi
     , getConst s
     , getConst u
     , getConst f
@@ -106,6 +119,7 @@ instance Semigroup a => Semigroup (ByCategory_ a) where
   (ByCategory_ l) <> (ByCategory_ r) =
     ByCategory_ $ ByCategory {
         cType   = l.cType   <> r.cType
+      , cFFI    = l.cFFI    <> r.cFFI
       , cSafe   = l.cSafe   <> r.cSafe
       , cUnsafe = l.cUnsafe <> r.cUnsafe
       , cFunPtr = l.cFunPtr <> r.cFunPtr
@@ -113,7 +127,7 @@ instance Semigroup a => Semigroup (ByCategory_ a) where
       }
 
 instance Monoid a => Monoid (ByCategory_ a) where
-  mempty = ByCategory_ $ ByCategory mempty mempty mempty mempty mempty
+  mempty = ByCategory_ $ ByCategory mempty mempty mempty mempty mempty mempty
 
 isoByCategory :: Iso' (ByCategory_ a) (ByCategory (Const a))
 isoByCategory = iso getByCategory_ ByCategory_
@@ -128,6 +142,7 @@ lensForCategory = \case
 
 lensForTermCategory :: TermCategory -> Lens' (ByCategory f) (f LvlTerm)
 lensForTermCategory = \case
+  CFFI    -> #cFFI
   CSafe   -> #cSafe
   CUnsafe -> #cUnsafe
   CFunPtr -> #cFunPtr
@@ -175,30 +190,33 @@ instance Default (Choice LvlType) where
 instance Default (Choice LvlTerm) where
   def = IncludeTermCategory def
 
--- | Use 'CType', 'CSafe', and 'CGlobal'; do not rename declarations.
+-- | Use 'CType', 'CFFI', 'CSafe', and 'CGlobal'; do not rename declarations.
 useSafeCategory :: ByCategory Choice
 useSafeCategory = ByCategory {
       cType   = IncludeTypeCategory
+    , cFFI    = IncludeTermCategory def
     , cSafe   = IncludeTermCategory def
     , cUnsafe = ExcludeCategory
     , cFunPtr = ExcludeCategory
     , cGlobal = IncludeTermCategory def
     }
 
--- | Use 'CType', 'CUnsafe', and 'CGlobal'; do not rename declarations.
+-- | Use 'CType', 'CFFI', 'CUnsafe', and 'CGlobal'; do not rename declarations.
 useUnsafeCategory :: ByCategory Choice
 useUnsafeCategory = ByCategory {
       cType   = IncludeTypeCategory
+    , cFFI    = IncludeTermCategory def
     , cSafe   = ExcludeCategory
     , cUnsafe = IncludeTermCategory def
     , cFunPtr = ExcludeCategory
     , cGlobal = IncludeTermCategory def
     }
 
--- | Use 'CType', 'CFunPtr', and 'CGlobal'; do not rename declarations.
+-- | Use 'CType', 'CFFI', 'CFunPtr', and 'CGlobal'; do not rename declarations.
 useFunPtrCategory :: ByCategory Choice
 useFunPtrCategory = ByCategory {
       cType   = IncludeTypeCategory
+    , cFFI    = IncludeTermCategory def
     , cSafe   = ExcludeCategory
     , cUnsafe = ExcludeCategory
     , cFunPtr = IncludeTermCategory def

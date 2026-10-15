@@ -57,6 +57,7 @@ fromBaseModuleName (BaseModuleName base) (Just (CTerm cat)) =
     -- suffix; we depend on this assumption for binding specifications (which
     -- only refer to types, never to functions or globals).
     submodule :: TermCategory -> Text
+    submodule CFFI    = "FFI"
     submodule CSafe   = "Safe"
     submodule CUnsafe = "Unsafe"
     submodule CFunPtr = "FunPtr"
