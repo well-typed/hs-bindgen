@@ -1,0 +1,190 @@
+{-# LANGUAGE NoFieldSelectors #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+
+module Example where
+
+data An_pchar
+
+data MyCoolStruct
+
+data Foo_Aux
+
+data Foo
+
+data Foo_t
+
+data Foo_10
+
+data Bar_10
+
+data St
+
+data E
+
+data U
+
+data MyTypeImpl
+
+data MyType
+
+data MyStructType
+
+data MyStructEmptyType
+
+data Ordinary_float_struct
+
+data Ordinary_double_struct
+
+data Ordinary_signed_char_struct
+
+data Explicit_signed_char_struct
+
+data Unsigned_char_struct
+
+data Ordinary_signed_short_struct
+
+data Explicit_signed_short_struct
+
+data Unsigned_short_struct
+
+data Ordinary_signed_int_struct
+
+data Explicit_signed_int_struct
+
+data Unsigned_int_struct
+
+data Ordinary_signed_long_struct
+
+data Explicit_signed_long_struct
+
+data Unsigned_long_struct
+
+data Ordinary_signed_long_long_struct
+
+data Explicit_signed_long_long_struct
+
+data Unsigned_long_long_struct
+
+data Ordinary_void_pointer_struct
+
+data Ordinary_float_pointer_struct
+
+data Ordinary_double_pointer_struct
+
+data Ordinary_signed_char_pointer_struct
+
+data Explicit_signed_char_pointer_struct
+
+data Unsigned_char_pointer_struct
+
+data Ordinary_signed_short_pointer_struct
+
+data Explicit_signed_short_pointer_struct
+
+data Unsigned_short_pointer_struct
+
+data Ordinary_signed_int_pointer_struct
+
+data Explicit_signed_int_pointer_struct
+
+data Unsigned_int_pointer_struct
+
+data Ordinary_signed_long_pointer_struct
+
+data Explicit_signed_long_pointer_struct
+
+data Unsigned_long_pointer_struct
+
+data Ordinary_signed_long_long_pointer_struct
+
+data Explicit_signed_long_long_pointer_struct
+
+data Unsigned_long_long_pointer_struct
+
+data Ordinary_float_array_struct
+
+data Ordinary_double_array_struct
+
+data Ordinary_signed_char_array_struct
+
+data Explicit_signed_char_array_struct
+
+data Unsigned_char_array_struct
+
+data Ordinary_signed_short_array_struct
+
+data Explicit_signed_short_array_struct
+
+data Unsigned_short_array_struct
+
+data Ordinary_signed_int_array_struct
+
+data Explicit_signed_int_array_struct
+
+data Unsigned_int_array_struct
+
+data Ordinary_signed_long_array_struct
+
+data Explicit_signed_long_array_struct
+
+data Unsigned_long_array_struct
+
+data Ordinary_signed_long_long_array_struct
+
+data Explicit_signed_long_long_array_struct
+
+data Unsigned_long_long_array_struct
+
+data Ordinary_void_pointer_array_struct
+
+data Ordinary_float_pointer_array_struct
+
+data Ordinary_double_pointer_array_struct
+
+data Ordinary_signed_char_pointer_array_struct
+
+data Explicit_signed_char_pointer_array_struct
+
+data Unsigned_char_pointer_array_struct
+
+data Ordinary_signed_short_pointer_array_struct
+
+data Explicit_signed_short_pointer_array_struct
+
+data Unsigned_short_pointer_array_struct
+
+data Ordinary_signed_int_pointer_array_struct
+
+data Explicit_signed_int_pointer_array_struct
+
+data Unsigned_int_pointer_array_struct
+
+data Ordinary_signed_long_pointer_array_struct
+
+data Explicit_signed_long_pointer_array_struct
+
+data Unsigned_long_pointer_array_struct
+
+data Ordinary_signed_long_long_pointer_array_struct
+
+data Explicit_signed_long_long_pointer_array_struct
+
+data Unsigned_long_long_pointer_array_struct
+
+data An_int
+
+data Cal_table_table
+
+data Cal_table
+
+data Elf32_External_Dyn_d_un
+
+data Elf32_External_Dyn
+
+data Bug_24
+
+data Bug_24_2
+
+data MyArray_27
+
+data MyStruct_27

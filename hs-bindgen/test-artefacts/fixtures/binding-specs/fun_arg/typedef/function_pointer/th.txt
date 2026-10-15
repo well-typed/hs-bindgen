@@ -137,23 +137,6 @@
 newtype A_Aux
     = A_Aux {unwrapA_Aux :: (CInt -> IO CInt)}
     deriving stock Generic
--- __unique:__ @toA_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_1cabb32c661d9a0e_base ::
-    CInt -> IO CInt
- -> IO (FunPtr (CInt -> IO CInt))
--- __unique:__ @toA_Aux@
-hs_bindgen_1cabb32c661d9a0e :: A_Aux -> IO (FunPtr A_Aux)
--- __unique:__ @toA_Aux@
-hs_bindgen_1cabb32c661d9a0e = \fun_0 -> fmap castFunPtr (hs_bindgen_1cabb32c661d9a0e_base (\x_1 -> fmap toFFIType (getField @"unwrapA_Aux" fun_0 (fromFFIType x_1))))
--- __unique:__ @fromA_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_cdb12400c6863f15_base ::
-    FunPtr (CInt -> IO CInt)
- -> CInt
- -> IO CInt
--- __unique:__ @fromA_Aux@
-hs_bindgen_cdb12400c6863f15 :: FunPtr A_Aux -> A_Aux
--- __unique:__ @fromA_Aux@
-hs_bindgen_cdb12400c6863f15 = \funPtr_0 -> A_Aux (\x_1 -> fmap fromFFIType (hs_bindgen_cdb12400c6863f15_base (castFunPtr funPtr_0) (toFFIType x_1)))
 instance ToFunPtr A_Aux
     where toFunPtr = hs_bindgen_1cabb32c661d9a0e
 instance FromFunPtr A_Aux
@@ -231,6 +214,23 @@ instance (~) ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = M.C
           offset# = \_ -> \_ -> 0
+-- __unique:__ @toA_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_1cabb32c661d9a0e_base ::
+    CInt -> IO CInt
+ -> IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @toA_Aux@
+hs_bindgen_1cabb32c661d9a0e :: A_Aux -> IO (FunPtr A_Aux)
+-- __unique:__ @toA_Aux@
+hs_bindgen_1cabb32c661d9a0e = \fun_0 -> fmap castFunPtr (hs_bindgen_1cabb32c661d9a0e_base (\x_1 -> fmap toFFIType (getField @"unwrapA_Aux" fun_0 (fromFFIType x_1))))
+-- __unique:__ @fromA_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_cdb12400c6863f15_base ::
+    FunPtr (CInt -> IO CInt)
+ -> CInt
+ -> IO CInt
+-- __unique:__ @fromA_Aux@
+hs_bindgen_cdb12400c6863f15 :: FunPtr A_Aux -> A_Aux
+-- __unique:__ @fromA_Aux@
+hs_bindgen_cdb12400c6863f15 = \funPtr_0 -> A_Aux (\x_1 -> fmap fromFFIType (hs_bindgen_cdb12400c6863f15_base (castFunPtr funPtr_0) (toFFIType x_1)))
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_99bb90e6d7637d2c" hs_bindgen_99bb90e6d7637d2c_base ::
     FunPtr Void

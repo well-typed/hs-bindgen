@@ -11,24 +11,6 @@ newtype Fun_ptr_Aux
     = Fun_ptr_Aux {unwrapFun_ptr_Aux :: (Ptr Forward_declaration ->
                                          IO ())}
     deriving stock Generic
--- __unique:__ @toFun_ptr_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_5964bbadb359ee4a_base ::
-    Ptr Void -> IO ()
- -> IO (FunPtr (Ptr Void -> IO ()))
--- __unique:__ @toFun_ptr_Aux@
-hs_bindgen_5964bbadb359ee4a :: Fun_ptr_Aux ->
-                               IO (FunPtr Fun_ptr_Aux)
--- __unique:__ @toFun_ptr_Aux@
-hs_bindgen_5964bbadb359ee4a = \fun_0 -> fmap castFunPtr (hs_bindgen_5964bbadb359ee4a_base (\x_1 -> getField @"unwrapFun_ptr_Aux" fun_0 (fromFFIType x_1)))
--- __unique:__ @fromFun_ptr_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_f8391e85af67fcb6_base ::
-    FunPtr (Ptr Void -> IO ())
- -> Ptr Void
- -> IO ()
--- __unique:__ @fromFun_ptr_Aux@
-hs_bindgen_f8391e85af67fcb6 :: FunPtr Fun_ptr_Aux -> Fun_ptr_Aux
--- __unique:__ @fromFun_ptr_Aux@
-hs_bindgen_f8391e85af67fcb6 = \funPtr_0 -> Fun_ptr_Aux (\x_1 -> hs_bindgen_f8391e85af67fcb6_base (castFunPtr funPtr_0) (toFFIType x_1))
 instance ToFunPtr Fun_ptr_Aux
     where toFunPtr = hs_bindgen_5964bbadb359ee4a
 instance FromFunPtr Fun_ptr_Aux
@@ -104,3 +86,21 @@ instance HasCField Forward_declaration "forward_declaration_f"
     where type CFieldType Forward_declaration
                           "forward_declaration_f" = Fun_ptr
           offset# = \_ -> \_ -> 0
+-- __unique:__ @toFun_ptr_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_5964bbadb359ee4a_base ::
+    Ptr Void -> IO ()
+ -> IO (FunPtr (Ptr Void -> IO ()))
+-- __unique:__ @toFun_ptr_Aux@
+hs_bindgen_5964bbadb359ee4a :: Fun_ptr_Aux ->
+                               IO (FunPtr Fun_ptr_Aux)
+-- __unique:__ @toFun_ptr_Aux@
+hs_bindgen_5964bbadb359ee4a = \fun_0 -> fmap castFunPtr (hs_bindgen_5964bbadb359ee4a_base (\x_1 -> getField @"unwrapFun_ptr_Aux" fun_0 (fromFFIType x_1)))
+-- __unique:__ @fromFun_ptr_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_f8391e85af67fcb6_base ::
+    FunPtr (Ptr Void -> IO ())
+ -> Ptr Void
+ -> IO ()
+-- __unique:__ @fromFun_ptr_Aux@
+hs_bindgen_f8391e85af67fcb6 :: FunPtr Fun_ptr_Aux -> Fun_ptr_Aux
+-- __unique:__ @fromFun_ptr_Aux@
+hs_bindgen_f8391e85af67fcb6 = \funPtr_0 -> Fun_ptr_Aux (\x_1 -> hs_bindgen_f8391e85af67fcb6_base (castFunPtr funPtr_0) (toFFIType x_1))

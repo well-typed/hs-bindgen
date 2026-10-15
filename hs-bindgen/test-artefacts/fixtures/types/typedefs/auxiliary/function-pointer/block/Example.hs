@@ -3,7 +3,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE ForeignFunctionInterface #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -23,7 +22,8 @@ import qualified HsBindgen.Runtime.Block as Block
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
-import Prelude (IO, fmap, type (~))
+import Prelude (IO, type (~))
+import {-# SOURCE #-} Example.FFI
 
 {-| Auxiliary type used by 'T'
 
@@ -37,34 +37,6 @@ newtype T_Aux = T_Aux
   { unwrapT_Aux :: BG.CInt -> IO ()
   }
   deriving stock (BG.Generic)
-
--- __unique:__ @toT_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_5927fedc3abfa99c_base ::
-     (BG.CInt -> IO ())
-  -> IO (BG.FunPtr (BG.CInt -> IO ()))
-
--- __unique:__ @toT_Aux@
-hs_bindgen_5927fedc3abfa99c ::
-     T_Aux
-  -> IO (BG.FunPtr T_Aux)
-hs_bindgen_5927fedc3abfa99c =
-  \fun0 ->
-    fmap BG.castFunPtr (hs_bindgen_5927fedc3abfa99c_base (\x1 ->
-                                                            BG.getField @"unwrapT_Aux" fun0 (BG.fromFFIType x1)))
-
--- __unique:__ @fromT_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_281617c90fa9307a_base ::
-     BG.FunPtr (BG.CInt -> IO ())
-  -> BG.CInt -> IO ()
-
--- __unique:__ @fromT_Aux@
-hs_bindgen_281617c90fa9307a ::
-     BG.FunPtr T_Aux
-  -> T_Aux
-hs_bindgen_281617c90fa9307a =
-  \funPtr0 ->
-    T_Aux (\x1 ->
-             hs_bindgen_281617c90fa9307a_base (BG.castFunPtr funPtr0) (BG.toFFIType x1))
 
 instance BG.ToFunPtr T_Aux where
 

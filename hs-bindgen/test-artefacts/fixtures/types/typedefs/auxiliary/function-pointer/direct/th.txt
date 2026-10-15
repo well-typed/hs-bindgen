@@ -6,6 +6,19 @@
     __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/direct.h@
 -}
 newtype T = T {unwrapT :: (CInt -> IO ())} deriving stock Generic
+instance ToFunPtr T
+    where toFunPtr = hs_bindgen_b8534912f6256492
+instance FromFunPtr T
+    where fromFunPtr = hs_bindgen_8f830eadb43a6fe4
+instance (~) ty (CInt -> IO ()) => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
+instance (~) ty (CInt -> IO ()) =>
+         HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = CInt -> IO ()
+          offset# = \_ -> \_ -> 0
 -- __unique:__ @toT@
 foreign import ccall safe "wrapper" hs_bindgen_b8534912f6256492_base ::
     CInt -> IO ()
@@ -23,16 +36,3 @@ foreign import ccall safe "dynamic" hs_bindgen_8f830eadb43a6fe4_base ::
 hs_bindgen_8f830eadb43a6fe4 :: FunPtr T -> T
 -- __unique:__ @fromT@
 hs_bindgen_8f830eadb43a6fe4 = \funPtr_0 -> T (\x_1 -> hs_bindgen_8f830eadb43a6fe4_base (castFunPtr funPtr_0) (toFFIType x_1))
-instance ToFunPtr T
-    where toFunPtr = hs_bindgen_b8534912f6256492
-instance FromFunPtr T
-    where fromFunPtr = hs_bindgen_8f830eadb43a6fe4
-instance (~) ty (CInt -> IO ()) => HasField "unwrapT" T ty
-    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
-                              getField @"unwrapT" x_0)
-instance (~) ty (CInt -> IO ()) =>
-         HasField "unwrapT" (Ptr T) (Ptr ty)
-    where getField = fromPtr (Proxy @"unwrapT")
-instance HasCField T "unwrapT"
-    where type CFieldType T "unwrapT" = CInt -> IO ()
-          offset# = \_ -> \_ -> 0
