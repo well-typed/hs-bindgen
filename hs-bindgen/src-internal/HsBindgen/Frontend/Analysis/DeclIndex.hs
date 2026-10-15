@@ -437,19 +437,25 @@ buildIndex macroAnalysis isMainHeader results =
                   pure $ checkIsConflict macroAnalysis isMainHeader new (altDeclId, old)
                 C.NameKindTagged{} -> Nothing
             ]
-      in  case mConflict of
-            Nothing ->
-              Map.insert declId (resolvedResultToEntry new) index
-            Just (Redefinition entry) ->
-              Map.insert declId entry index
-            Just (SingleConflict ids conflict) ->
-              Map.union
-                ( Map.fromList
-                    [ (x, UnusableEntry (UnusableConflict conflict))
-                    | x <- Set.toList ids
-                    ]
-                )
-                index
+      in  case Map.lookup declId index of
+            -- The same identifier at the same location is the same
+            -- declaration, seen twice; e.g., Parse emits a struct defined
+            -- inline in a variable or function declaration twice.
+            Just old | entryToLoc old == C.DeclLoc (resolvedResultLoc new) ->
+              index
+            _otherwise -> case mConflict of
+              Nothing ->
+                Map.insert declId (resolvedResultToEntry new) index
+              Just (Redefinition entry) ->
+                Map.insert declId entry index
+              Just (SingleConflict ids conflict) ->
+                Map.union
+                  ( Map.fromList
+                      [ (x, UnusableEntry (UnusableConflict conflict))
+                      | x <- Set.toList ids
+                      ]
+                  )
+                  index
 
 {-------------------------------------------------------------------------------
   Conflicts
@@ -486,6 +492,11 @@ checkIsConflict macroAnalysis isMainHeader new (oldId, old)
     , newSuccess.decl.kind == oldSuccess.decl.kind
     = Redefinition $ UsableEntry $ UsableSuccess $
         mergeRedefinition keep (parseSuccessToSuccess newSuccess) oldSuccess
+    -- If a declaration fails to parse, and is itself repeated in the source
+    -- code, we will report this as a conflict, rather than with the parse
+    -- failure. Fixing this is difficult: in the absence of a parse result, we
+    -- cannot detect that we are dealing with the same declaration repeated
+    -- twice.
     | otherwise
     = singleConflict
   where

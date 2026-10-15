@@ -10,6 +10,13 @@
 
 ### Bug fixes
 
+* A `struct` or `union` defined inline in a variable or function declaration
+  that fails to parse (e.g., `struct s { long double x; } v;`) is now
+  reported with its parse failure. Previously, it was reported as conflicting
+  with itself. See [issue #2308][is-2308].
+
+[is-2308]: https://github.com/well-typed/hs-bindgen/issues/2308
+
 
 ## 1.0.0.0 -- 2026-10-08
 
