@@ -43,6 +43,17 @@ runs:
       echo "LLVM_PATH=/usr/lib/llvm-$version" | tee -a "$GITHUB_ENV"
       echo "/usr/lib/llvm-$version/bin"        | tee -a "$GITHUB_PATH"
 
+  # The GHC 9.4.8 bindist hardcodes the Command Line Tools SDK in the
+  # library-dirs of its rts and ghci packages, so the linker must come from the
+  # same Command Line Tools release; Xcode's linker can fail to read a newer
+  # SDK's .tbd stubs. Must precede the next step, which derives SDKROOT from the
+  # active developer directory.
+  - name: Use Command Line Tools (macOS; match GHC's hardcoded SDK)
+    shell: bash
+    if: ${{ runner.os == 'macOS' }}
+    run: |
+      echo "DEVELOPER_DIR=/Library/Developer/CommandLineTools" | tee -a "$GITHUB_ENV"
+
   # macOS: install from the official LLVM release tarballs (arm64). The asset
   # naming differs per release, so the URLs are pinned per version; --strip-
   # components=1 normalises the differing top-level directory names into $dest.
