@@ -14,6 +14,7 @@ module HsBindgen.Cli.Preprocess (
   , exec
   ) where
 
+import GHC.Exception (Exception (..))
 import Options.Applicative hiding (info)
 
 import HsBindgen
@@ -23,6 +24,7 @@ import HsBindgen.App.Output (OutputMode (..), OutputOptions (..),
 import HsBindgen.ArtefactM
 import HsBindgen.Config
 import HsBindgen.Config.Internal
+import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro
@@ -60,6 +62,7 @@ data ConfigCLI = ConfigCLI {
     , outputBindingSpec :: Maybe FilePath
     , dirPolicy         :: DirPolicy
     , filePolicy        :: FilePolicy
+    , hsBootPolicy      :: HsBootPolicy
     -- NOTE: Inputs (arguments) must be last, options must go before it.
     , inputs            :: [C.UncheckedRootDirective]
     }
@@ -76,6 +79,7 @@ parseConfigCLI =
       <*> optional parseGenBindingSpec
       <*> parseDirPolicy
       <*> parseFilePolicy
+      <*> parseHsBootPolicy
       <*> parseInputs
 
 {-------------------------------------------------------------------------------
@@ -84,6 +88,11 @@ parseConfigCLI =
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec global opts = do
+    case (opts.configCLI.outputOptions, opts.configCLI.hsBootPolicy) of
+      (OutputOptions (SingleFile _), GenerateHsBoot) ->
+        throwIO HsBootWithSingleFile
+      _otherwise ->
+        pure ()
     hsBindgen
       global.unsafe
       global.safe
@@ -98,6 +107,7 @@ exec global opts = do
           opts.configCLI.uniqueId
           opts.configCLI.baseModuleName
           (buildCategoryChoice opts.configCLI.outputOptions)
+          opts.configCLI.hsBootPolicy
 
     mrc :: ModuleRenderConfig
     mrc = ModuleRenderConfig {
@@ -125,3 +135,17 @@ exec global opts = do
           opts.configCLI.filePolicy
           opts.configCLI.dirPolicy
           path
+
+{-------------------------------------------------------------------------------
+  Exception
+-------------------------------------------------------------------------------}
+
+-- | Options that @preprocess@ cannot combine
+data PreprocessException = HsBootWithSingleFile
+  deriving Show
+
+instance Exception PreprocessException where
+    toException = hsBindgenExceptionToException
+    fromException = hsBindgenExceptionFromException
+    displayException HsBootWithSingleFile =
+      "--generate-hs-boot is not available with --single-file"

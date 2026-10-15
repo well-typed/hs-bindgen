@@ -99,7 +99,7 @@ checkEmptyFallbackIsRaw getTestResources test = testCase test.name $ do
     generate test' =
         runTestHsBindgenSuccess (\_ -> pure ()) getTestResources
           (test' & #tracePredicate .~ tolerateAll)
-          (getBindingsMultiple ModuleRenderConfig{
+          (fmap (fmap fst) <$> getBindingsMultiple ModuleRenderConfig{
                qualifiedStyle = test.qualifiedStyle
              })
 
