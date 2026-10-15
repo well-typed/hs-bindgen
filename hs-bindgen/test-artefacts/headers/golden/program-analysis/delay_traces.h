@@ -20,6 +20,14 @@ struct nested_long_double_u {
   } inner_u_member;
 };
 
+// A struct defined inline in a variable or function declaration is parsed
+// twice: at the top level, and nested in the variable or function. Its failure
+// must be reported, not a conflict with itself.
+struct inline_var_s { long double x; } inline_var;
+struct inline_fun_s { long double x; } inline_fun(void);
+struct { long double x; } inline_unnamed_var;
+extern struct { long double x; } inline_unnamed_extern_var;
+
 // In the tests, we do not select these. No traces should be emitted.
 long double long_double_var1;
 long double long_double_var2;

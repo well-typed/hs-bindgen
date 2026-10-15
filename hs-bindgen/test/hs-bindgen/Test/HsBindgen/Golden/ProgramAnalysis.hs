@@ -4,7 +4,8 @@ module Test.HsBindgen.Golden.ProgramAnalysis (testCases) where
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Analysis.DeclIndex (UnusableReason (..))
+import HsBindgen.Frontend.Analysis.DeclIndex (UnusableEntry (..),
+                                              UnusableReason (..))
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
@@ -70,7 +71,11 @@ test_delay_traces =
               (BIf $ SelectDecl (DeclNameMatches "_function"))
               (BOr
                 (BIf $ SelectDecl (DeclNameMatches "struct"))
-                (BIf $ SelectDecl (DeclNameMatches "union"))
+                (BOr
+                  (BIf $ SelectDecl (DeclNameMatches "union"))
+                  -- Selects the unnamed structs through their use sites
+                  (BIf $ SelectDecl (DeclNameMatches "^inline_unnamed"))
+                )
               )
             )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
@@ -80,6 +85,13 @@ test_delay_traces =
               Just $ Expected name
             MatchDelayed name ParseNestedDeclsFailed ->
               Just $ Expected name
+            -- The parse failure, not a conflict of the struct with itself
+            MatchSelect name (MatchTransMissing [
+                MatchTransUnusable (UnusableReason _ UnusableParseFailure{})
+              ]) ->
+              Just $ Expected name
+            MatchUnusable _ UnusableMangleNamesFailure{} ->
+              Just Tolerated
             _otherwise ->
                Nothing
           )
@@ -94,6 +106,12 @@ test_delay_traces =
           -- TODO https://github.com/well-typed/hs-bindgen/issues/1851
           -- Why are the untagged nested structs not reported? Because
           -- they are skipped by the FillUnnamedIds step?
+        , "struct inline_var_s"
+        , "struct inline_fun_s"
+        , "struct inline_unnamed_var"
+        , "inline_unnamed_var"
+        , "struct inline_unnamed_extern_var"
+        , "inline_unnamed_extern_var"
         ]
 
 {-------------------------------------------------------------------------------
