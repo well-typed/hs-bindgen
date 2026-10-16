@@ -12,6 +12,9 @@ ctypes:
 - headers: types/boot/ffi_module.h
   cname: struct buffer
   hsname: Buffer
+- headers: types/boot/ffi_module.h
+  cname: struct point
+  hsname: Point
 hstypes:
 - hsname: Buffer
   representation: typealias
@@ -53,6 +56,26 @@ hstypes:
   - HasFieldCompat
   - HasFieldPtr
   - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Point
+  representation:
+    record:
+      constructor: Point
+      fields:
+      - point_x
+      - point_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
   - ReadRaw
   - Show
   - StaticSize

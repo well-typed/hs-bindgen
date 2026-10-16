@@ -3,188 +3,1668 @@
 
 module Example where
 
+import qualified HsBindgen.Runtime.CEnum as CEnum
+import qualified HsBindgen.Runtime.IsArray as IsA
+import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Struct as Struct
+import qualified HsBindgen.Runtime.Support as BG
+import qualified HsBindgen.Runtime.Union as Union
+import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
+
 data An_pchar
+
+instance Eq An_pchar
+
+instance BG.Generic An_pchar
+
+instance Ord An_pchar
+
+instance Show An_pchar
+
+instance BG.HasFFIType An_pchar
+
+instance Marshal.ReadRaw An_pchar
+
+instance Marshal.StaticSize An_pchar
+
+instance BG.Storable An_pchar
+
+instance Marshal.WriteRaw An_pchar
 
 data MyCoolStruct
 
+instance Eq MyCoolStruct
+
+instance BG.Generic MyCoolStruct
+
+instance Show MyCoolStruct
+
+instance Marshal.StaticSize MyCoolStruct
+
+instance Marshal.ReadRaw MyCoolStruct
+
+instance Marshal.WriteRaw MyCoolStruct
+
+instance BG.Storable MyCoolStruct
+
+instance Struct.IsStruct MyCoolStruct
+
 data Foo_Aux
+
+instance BG.Generic Foo_Aux
+
+instance BG.ToFunPtr Foo_Aux
+
+instance BG.FromFunPtr Foo_Aux
 
 data Foo
 
+instance Eq Foo
+
+instance BG.Generic Foo
+
+instance Ord Foo
+
+instance Show Foo
+
+instance BG.HasFFIType Foo
+
+instance Marshal.ReadRaw Foo
+
+instance Marshal.StaticSize Foo
+
+instance BG.Storable Foo
+
+instance Marshal.WriteRaw Foo
+
 data Foo_t
+
+instance Eq Foo_t
+
+instance BG.Generic Foo_t
+
+instance Show Foo_t
+
+instance Marshal.StaticSize Foo_t
+
+instance Marshal.ReadRaw Foo_t
+
+instance Marshal.WriteRaw Foo_t
+
+instance BG.Storable Foo_t
+
+instance Struct.IsStruct Foo_t
 
 data Foo_10
 
 data Bar_10
 
+instance Eq Bar_10
+
+instance BG.Generic Bar_10
+
+instance Ord Bar_10
+
+instance BG.HasFFIType Bar_10
+
+instance Marshal.StaticSize Bar_10
+
+instance Marshal.ReadRaw Bar_10
+
+instance Marshal.WriteRaw Bar_10
+
+instance BG.Storable Bar_10
+
+instance BG.Prim Bar_10
+
+instance CEnum.CEnum Bar_10
+
+instance CEnum.SequentialCEnum Bar_10
+
+instance Show Bar_10
+
+instance Read Bar_10
+
 data St
+
+instance Eq St
+
+instance BG.Generic St
+
+instance Show St
+
+instance Marshal.StaticSize St
+
+instance Marshal.ReadRaw St
+
+instance Marshal.WriteRaw St
+
+instance BG.Storable St
+
+instance Struct.IsStruct St
 
 data E
 
+instance Eq E
+
+instance BG.Generic E
+
+instance Ord E
+
+instance BG.HasFFIType E
+
+instance Marshal.StaticSize E
+
+instance Marshal.ReadRaw E
+
+instance Marshal.WriteRaw E
+
+instance BG.Storable E
+
+instance BG.Prim E
+
+instance CEnum.CEnum E
+
+instance CEnum.SequentialCEnum E
+
+instance Show E
+
+instance Read E
+
 data U
+
+instance BG.Generic U
+
+instance Marshal.StaticSize U
+
+instance Marshal.ReadRaw U
+
+instance Marshal.WriteRaw U
+
+instance BG.Storable U
+
+instance Union.IsUnion U
 
 data MyTypeImpl
 
 data MyType
 
+instance Eq MyType
+
+instance BG.Generic MyType
+
+instance Ord MyType
+
+instance Show MyType
+
+instance BG.HasFFIType MyType
+
+instance Marshal.ReadRaw MyType
+
+instance Marshal.StaticSize MyType
+
+instance BG.Storable MyType
+
+instance Marshal.WriteRaw MyType
+
 data MyStructType
+
+instance Eq MyStructType
+
+instance BG.Generic MyStructType
+
+instance Show MyStructType
+
+instance Marshal.StaticSize MyStructType
+
+instance Marshal.ReadRaw MyStructType
+
+instance Marshal.WriteRaw MyStructType
+
+instance BG.Storable MyStructType
+
+instance Struct.IsStruct MyStructType
 
 data MyStructEmptyType
 
 data Ordinary_float_struct
 
+instance Eq Ordinary_float_struct
+
+instance BG.Generic Ordinary_float_struct
+
+instance Show Ordinary_float_struct
+
+instance Marshal.StaticSize Ordinary_float_struct
+
+instance Marshal.ReadRaw Ordinary_float_struct
+
+instance Marshal.WriteRaw Ordinary_float_struct
+
+instance BG.Storable Ordinary_float_struct
+
+instance Struct.IsStruct Ordinary_float_struct
+
 data Ordinary_double_struct
+
+instance Eq Ordinary_double_struct
+
+instance BG.Generic Ordinary_double_struct
+
+instance Show Ordinary_double_struct
+
+instance Marshal.StaticSize Ordinary_double_struct
+
+instance Marshal.ReadRaw Ordinary_double_struct
+
+instance Marshal.WriteRaw Ordinary_double_struct
+
+instance BG.Storable Ordinary_double_struct
+
+instance Struct.IsStruct Ordinary_double_struct
 
 data Ordinary_signed_char_struct
 
+instance Eq Ordinary_signed_char_struct
+
+instance BG.Generic Ordinary_signed_char_struct
+
+instance Show Ordinary_signed_char_struct
+
+instance Marshal.StaticSize Ordinary_signed_char_struct
+
+instance Marshal.ReadRaw Ordinary_signed_char_struct
+
+instance Marshal.WriteRaw Ordinary_signed_char_struct
+
+instance BG.Storable Ordinary_signed_char_struct
+
+instance Struct.IsStruct Ordinary_signed_char_struct
+
 data Explicit_signed_char_struct
+
+instance Eq Explicit_signed_char_struct
+
+instance BG.Generic Explicit_signed_char_struct
+
+instance Show Explicit_signed_char_struct
+
+instance Marshal.StaticSize Explicit_signed_char_struct
+
+instance Marshal.ReadRaw Explicit_signed_char_struct
+
+instance Marshal.WriteRaw Explicit_signed_char_struct
+
+instance BG.Storable Explicit_signed_char_struct
+
+instance Struct.IsStruct Explicit_signed_char_struct
 
 data Unsigned_char_struct
 
+instance Eq Unsigned_char_struct
+
+instance BG.Generic Unsigned_char_struct
+
+instance Show Unsigned_char_struct
+
+instance Marshal.StaticSize Unsigned_char_struct
+
+instance Marshal.ReadRaw Unsigned_char_struct
+
+instance Marshal.WriteRaw Unsigned_char_struct
+
+instance BG.Storable Unsigned_char_struct
+
+instance Struct.IsStruct Unsigned_char_struct
+
 data Ordinary_signed_short_struct
+
+instance Eq Ordinary_signed_short_struct
+
+instance BG.Generic Ordinary_signed_short_struct
+
+instance Show Ordinary_signed_short_struct
+
+instance Marshal.StaticSize Ordinary_signed_short_struct
+
+instance Marshal.ReadRaw Ordinary_signed_short_struct
+
+instance Marshal.WriteRaw Ordinary_signed_short_struct
+
+instance BG.Storable Ordinary_signed_short_struct
+
+instance Struct.IsStruct Ordinary_signed_short_struct
 
 data Explicit_signed_short_struct
 
+instance Eq Explicit_signed_short_struct
+
+instance BG.Generic Explicit_signed_short_struct
+
+instance Show Explicit_signed_short_struct
+
+instance Marshal.StaticSize Explicit_signed_short_struct
+
+instance Marshal.ReadRaw Explicit_signed_short_struct
+
+instance Marshal.WriteRaw Explicit_signed_short_struct
+
+instance BG.Storable Explicit_signed_short_struct
+
+instance Struct.IsStruct Explicit_signed_short_struct
+
 data Unsigned_short_struct
+
+instance Eq Unsigned_short_struct
+
+instance BG.Generic Unsigned_short_struct
+
+instance Show Unsigned_short_struct
+
+instance Marshal.StaticSize Unsigned_short_struct
+
+instance Marshal.ReadRaw Unsigned_short_struct
+
+instance Marshal.WriteRaw Unsigned_short_struct
+
+instance BG.Storable Unsigned_short_struct
+
+instance Struct.IsStruct Unsigned_short_struct
 
 data Ordinary_signed_int_struct
 
+instance Eq Ordinary_signed_int_struct
+
+instance BG.Generic Ordinary_signed_int_struct
+
+instance Show Ordinary_signed_int_struct
+
+instance Marshal.StaticSize Ordinary_signed_int_struct
+
+instance Marshal.ReadRaw Ordinary_signed_int_struct
+
+instance Marshal.WriteRaw Ordinary_signed_int_struct
+
+instance BG.Storable Ordinary_signed_int_struct
+
+instance Struct.IsStruct Ordinary_signed_int_struct
+
 data Explicit_signed_int_struct
+
+instance Eq Explicit_signed_int_struct
+
+instance BG.Generic Explicit_signed_int_struct
+
+instance Show Explicit_signed_int_struct
+
+instance Marshal.StaticSize Explicit_signed_int_struct
+
+instance Marshal.ReadRaw Explicit_signed_int_struct
+
+instance Marshal.WriteRaw Explicit_signed_int_struct
+
+instance BG.Storable Explicit_signed_int_struct
+
+instance Struct.IsStruct Explicit_signed_int_struct
 
 data Unsigned_int_struct
 
+instance Eq Unsigned_int_struct
+
+instance BG.Generic Unsigned_int_struct
+
+instance Show Unsigned_int_struct
+
+instance Marshal.StaticSize Unsigned_int_struct
+
+instance Marshal.ReadRaw Unsigned_int_struct
+
+instance Marshal.WriteRaw Unsigned_int_struct
+
+instance BG.Storable Unsigned_int_struct
+
+instance Struct.IsStruct Unsigned_int_struct
+
 data Ordinary_signed_long_struct
+
+instance Eq Ordinary_signed_long_struct
+
+instance BG.Generic Ordinary_signed_long_struct
+
+instance Show Ordinary_signed_long_struct
+
+instance Marshal.StaticSize Ordinary_signed_long_struct
+
+instance Marshal.ReadRaw Ordinary_signed_long_struct
+
+instance Marshal.WriteRaw Ordinary_signed_long_struct
+
+instance BG.Storable Ordinary_signed_long_struct
+
+instance Struct.IsStruct Ordinary_signed_long_struct
 
 data Explicit_signed_long_struct
 
+instance Eq Explicit_signed_long_struct
+
+instance BG.Generic Explicit_signed_long_struct
+
+instance Show Explicit_signed_long_struct
+
+instance Marshal.StaticSize Explicit_signed_long_struct
+
+instance Marshal.ReadRaw Explicit_signed_long_struct
+
+instance Marshal.WriteRaw Explicit_signed_long_struct
+
+instance BG.Storable Explicit_signed_long_struct
+
+instance Struct.IsStruct Explicit_signed_long_struct
+
 data Unsigned_long_struct
+
+instance Eq Unsigned_long_struct
+
+instance BG.Generic Unsigned_long_struct
+
+instance Show Unsigned_long_struct
+
+instance Marshal.StaticSize Unsigned_long_struct
+
+instance Marshal.ReadRaw Unsigned_long_struct
+
+instance Marshal.WriteRaw Unsigned_long_struct
+
+instance BG.Storable Unsigned_long_struct
+
+instance Struct.IsStruct Unsigned_long_struct
 
 data Ordinary_signed_long_long_struct
 
+instance Eq Ordinary_signed_long_long_struct
+
+instance BG.Generic Ordinary_signed_long_long_struct
+
+instance Show Ordinary_signed_long_long_struct
+
+instance Marshal.StaticSize Ordinary_signed_long_long_struct
+
+instance Marshal.ReadRaw Ordinary_signed_long_long_struct
+
+instance Marshal.WriteRaw Ordinary_signed_long_long_struct
+
+instance BG.Storable Ordinary_signed_long_long_struct
+
+instance Struct.IsStruct Ordinary_signed_long_long_struct
+
 data Explicit_signed_long_long_struct
+
+instance Eq Explicit_signed_long_long_struct
+
+instance BG.Generic Explicit_signed_long_long_struct
+
+instance Show Explicit_signed_long_long_struct
+
+instance Marshal.StaticSize Explicit_signed_long_long_struct
+
+instance Marshal.ReadRaw Explicit_signed_long_long_struct
+
+instance Marshal.WriteRaw Explicit_signed_long_long_struct
+
+instance BG.Storable Explicit_signed_long_long_struct
+
+instance Struct.IsStruct Explicit_signed_long_long_struct
 
 data Unsigned_long_long_struct
 
+instance Eq Unsigned_long_long_struct
+
+instance BG.Generic Unsigned_long_long_struct
+
+instance Show Unsigned_long_long_struct
+
+instance Marshal.StaticSize Unsigned_long_long_struct
+
+instance Marshal.ReadRaw Unsigned_long_long_struct
+
+instance Marshal.WriteRaw Unsigned_long_long_struct
+
+instance BG.Storable Unsigned_long_long_struct
+
+instance Struct.IsStruct Unsigned_long_long_struct
+
 data Ordinary_void_pointer_struct
+
+instance Eq Ordinary_void_pointer_struct
+
+instance BG.Generic Ordinary_void_pointer_struct
+
+instance Show Ordinary_void_pointer_struct
+
+instance Marshal.StaticSize Ordinary_void_pointer_struct
+
+instance Marshal.ReadRaw Ordinary_void_pointer_struct
+
+instance Marshal.WriteRaw Ordinary_void_pointer_struct
+
+instance BG.Storable Ordinary_void_pointer_struct
+
+instance Struct.IsStruct Ordinary_void_pointer_struct
 
 data Ordinary_float_pointer_struct
 
+instance Eq Ordinary_float_pointer_struct
+
+instance BG.Generic Ordinary_float_pointer_struct
+
+instance Show Ordinary_float_pointer_struct
+
+instance Marshal.StaticSize Ordinary_float_pointer_struct
+
+instance Marshal.ReadRaw Ordinary_float_pointer_struct
+
+instance Marshal.WriteRaw Ordinary_float_pointer_struct
+
+instance BG.Storable Ordinary_float_pointer_struct
+
+instance Struct.IsStruct Ordinary_float_pointer_struct
+
 data Ordinary_double_pointer_struct
+
+instance Eq Ordinary_double_pointer_struct
+
+instance BG.Generic Ordinary_double_pointer_struct
+
+instance Show Ordinary_double_pointer_struct
+
+instance Marshal.StaticSize Ordinary_double_pointer_struct
+
+instance Marshal.ReadRaw Ordinary_double_pointer_struct
+
+instance Marshal.WriteRaw Ordinary_double_pointer_struct
+
+instance BG.Storable Ordinary_double_pointer_struct
+
+instance Struct.IsStruct Ordinary_double_pointer_struct
 
 data Ordinary_signed_char_pointer_struct
 
+instance Eq Ordinary_signed_char_pointer_struct
+
+instance BG.Generic Ordinary_signed_char_pointer_struct
+
+instance Show Ordinary_signed_char_pointer_struct
+
+instance Marshal.StaticSize Ordinary_signed_char_pointer_struct
+
+instance Marshal.ReadRaw Ordinary_signed_char_pointer_struct
+
+instance Marshal.WriteRaw Ordinary_signed_char_pointer_struct
+
+instance BG.Storable Ordinary_signed_char_pointer_struct
+
+instance Struct.IsStruct Ordinary_signed_char_pointer_struct
+
 data Explicit_signed_char_pointer_struct
+
+instance Eq Explicit_signed_char_pointer_struct
+
+instance BG.Generic Explicit_signed_char_pointer_struct
+
+instance Show Explicit_signed_char_pointer_struct
+
+instance Marshal.StaticSize Explicit_signed_char_pointer_struct
+
+instance Marshal.ReadRaw Explicit_signed_char_pointer_struct
+
+instance Marshal.WriteRaw Explicit_signed_char_pointer_struct
+
+instance BG.Storable Explicit_signed_char_pointer_struct
+
+instance Struct.IsStruct Explicit_signed_char_pointer_struct
 
 data Unsigned_char_pointer_struct
 
+instance Eq Unsigned_char_pointer_struct
+
+instance BG.Generic Unsigned_char_pointer_struct
+
+instance Show Unsigned_char_pointer_struct
+
+instance Marshal.StaticSize Unsigned_char_pointer_struct
+
+instance Marshal.ReadRaw Unsigned_char_pointer_struct
+
+instance Marshal.WriteRaw Unsigned_char_pointer_struct
+
+instance BG.Storable Unsigned_char_pointer_struct
+
+instance Struct.IsStruct Unsigned_char_pointer_struct
+
 data Ordinary_signed_short_pointer_struct
+
+instance Eq Ordinary_signed_short_pointer_struct
+
+instance BG.Generic Ordinary_signed_short_pointer_struct
+
+instance Show Ordinary_signed_short_pointer_struct
+
+instance Marshal.StaticSize Ordinary_signed_short_pointer_struct
+
+instance Marshal.ReadRaw Ordinary_signed_short_pointer_struct
+
+instance Marshal.WriteRaw Ordinary_signed_short_pointer_struct
+
+instance BG.Storable Ordinary_signed_short_pointer_struct
+
+instance Struct.IsStruct Ordinary_signed_short_pointer_struct
 
 data Explicit_signed_short_pointer_struct
 
+instance Eq Explicit_signed_short_pointer_struct
+
+instance BG.Generic Explicit_signed_short_pointer_struct
+
+instance Show Explicit_signed_short_pointer_struct
+
+instance Marshal.StaticSize Explicit_signed_short_pointer_struct
+
+instance Marshal.ReadRaw Explicit_signed_short_pointer_struct
+
+instance Marshal.WriteRaw Explicit_signed_short_pointer_struct
+
+instance BG.Storable Explicit_signed_short_pointer_struct
+
+instance Struct.IsStruct Explicit_signed_short_pointer_struct
+
 data Unsigned_short_pointer_struct
+
+instance Eq Unsigned_short_pointer_struct
+
+instance BG.Generic Unsigned_short_pointer_struct
+
+instance Show Unsigned_short_pointer_struct
+
+instance Marshal.StaticSize Unsigned_short_pointer_struct
+
+instance Marshal.ReadRaw Unsigned_short_pointer_struct
+
+instance Marshal.WriteRaw Unsigned_short_pointer_struct
+
+instance BG.Storable Unsigned_short_pointer_struct
+
+instance Struct.IsStruct Unsigned_short_pointer_struct
 
 data Ordinary_signed_int_pointer_struct
 
+instance Eq Ordinary_signed_int_pointer_struct
+
+instance BG.Generic Ordinary_signed_int_pointer_struct
+
+instance Show Ordinary_signed_int_pointer_struct
+
+instance Marshal.StaticSize Ordinary_signed_int_pointer_struct
+
+instance Marshal.ReadRaw Ordinary_signed_int_pointer_struct
+
+instance Marshal.WriteRaw Ordinary_signed_int_pointer_struct
+
+instance BG.Storable Ordinary_signed_int_pointer_struct
+
+instance Struct.IsStruct Ordinary_signed_int_pointer_struct
+
 data Explicit_signed_int_pointer_struct
+
+instance Eq Explicit_signed_int_pointer_struct
+
+instance BG.Generic Explicit_signed_int_pointer_struct
+
+instance Show Explicit_signed_int_pointer_struct
+
+instance Marshal.StaticSize Explicit_signed_int_pointer_struct
+
+instance Marshal.ReadRaw Explicit_signed_int_pointer_struct
+
+instance Marshal.WriteRaw Explicit_signed_int_pointer_struct
+
+instance BG.Storable Explicit_signed_int_pointer_struct
+
+instance Struct.IsStruct Explicit_signed_int_pointer_struct
 
 data Unsigned_int_pointer_struct
 
+instance Eq Unsigned_int_pointer_struct
+
+instance BG.Generic Unsigned_int_pointer_struct
+
+instance Show Unsigned_int_pointer_struct
+
+instance Marshal.StaticSize Unsigned_int_pointer_struct
+
+instance Marshal.ReadRaw Unsigned_int_pointer_struct
+
+instance Marshal.WriteRaw Unsigned_int_pointer_struct
+
+instance BG.Storable Unsigned_int_pointer_struct
+
+instance Struct.IsStruct Unsigned_int_pointer_struct
+
 data Ordinary_signed_long_pointer_struct
+
+instance Eq Ordinary_signed_long_pointer_struct
+
+instance BG.Generic Ordinary_signed_long_pointer_struct
+
+instance Show Ordinary_signed_long_pointer_struct
+
+instance Marshal.StaticSize Ordinary_signed_long_pointer_struct
+
+instance Marshal.ReadRaw Ordinary_signed_long_pointer_struct
+
+instance Marshal.WriteRaw Ordinary_signed_long_pointer_struct
+
+instance BG.Storable Ordinary_signed_long_pointer_struct
+
+instance Struct.IsStruct Ordinary_signed_long_pointer_struct
 
 data Explicit_signed_long_pointer_struct
 
+instance Eq Explicit_signed_long_pointer_struct
+
+instance BG.Generic Explicit_signed_long_pointer_struct
+
+instance Show Explicit_signed_long_pointer_struct
+
+instance Marshal.StaticSize Explicit_signed_long_pointer_struct
+
+instance Marshal.ReadRaw Explicit_signed_long_pointer_struct
+
+instance Marshal.WriteRaw Explicit_signed_long_pointer_struct
+
+instance BG.Storable Explicit_signed_long_pointer_struct
+
+instance Struct.IsStruct Explicit_signed_long_pointer_struct
+
 data Unsigned_long_pointer_struct
+
+instance Eq Unsigned_long_pointer_struct
+
+instance BG.Generic Unsigned_long_pointer_struct
+
+instance Show Unsigned_long_pointer_struct
+
+instance Marshal.StaticSize Unsigned_long_pointer_struct
+
+instance Marshal.ReadRaw Unsigned_long_pointer_struct
+
+instance Marshal.WriteRaw Unsigned_long_pointer_struct
+
+instance BG.Storable Unsigned_long_pointer_struct
+
+instance Struct.IsStruct Unsigned_long_pointer_struct
 
 data Ordinary_signed_long_long_pointer_struct
 
+instance Eq Ordinary_signed_long_long_pointer_struct
+
+instance BG.Generic Ordinary_signed_long_long_pointer_struct
+
+instance Show Ordinary_signed_long_long_pointer_struct
+
+instance Marshal.StaticSize Ordinary_signed_long_long_pointer_struct
+
+instance Marshal.ReadRaw Ordinary_signed_long_long_pointer_struct
+
+instance Marshal.WriteRaw Ordinary_signed_long_long_pointer_struct
+
+instance BG.Storable Ordinary_signed_long_long_pointer_struct
+
+instance Struct.IsStruct Ordinary_signed_long_long_pointer_struct
+
 data Explicit_signed_long_long_pointer_struct
+
+instance Eq Explicit_signed_long_long_pointer_struct
+
+instance BG.Generic Explicit_signed_long_long_pointer_struct
+
+instance Show Explicit_signed_long_long_pointer_struct
+
+instance Marshal.StaticSize Explicit_signed_long_long_pointer_struct
+
+instance Marshal.ReadRaw Explicit_signed_long_long_pointer_struct
+
+instance Marshal.WriteRaw Explicit_signed_long_long_pointer_struct
+
+instance BG.Storable Explicit_signed_long_long_pointer_struct
+
+instance Struct.IsStruct Explicit_signed_long_long_pointer_struct
 
 data Unsigned_long_long_pointer_struct
 
+instance Eq Unsigned_long_long_pointer_struct
+
+instance BG.Generic Unsigned_long_long_pointer_struct
+
+instance Show Unsigned_long_long_pointer_struct
+
+instance Marshal.StaticSize Unsigned_long_long_pointer_struct
+
+instance Marshal.ReadRaw Unsigned_long_long_pointer_struct
+
+instance Marshal.WriteRaw Unsigned_long_long_pointer_struct
+
+instance BG.Storable Unsigned_long_long_pointer_struct
+
+instance Struct.IsStruct Unsigned_long_long_pointer_struct
+
 data Ordinary_float_array_struct
+
+instance Eq Ordinary_float_array_struct
+
+instance BG.Generic Ordinary_float_array_struct
+
+instance Show Ordinary_float_array_struct
+
+instance Marshal.StaticSize Ordinary_float_array_struct
+
+instance Marshal.ReadRaw Ordinary_float_array_struct
+
+instance Marshal.WriteRaw Ordinary_float_array_struct
+
+instance BG.Storable Ordinary_float_array_struct
+
+instance Struct.IsStruct Ordinary_float_array_struct
 
 data Ordinary_double_array_struct
 
+instance Eq Ordinary_double_array_struct
+
+instance BG.Generic Ordinary_double_array_struct
+
+instance Show Ordinary_double_array_struct
+
+instance Marshal.StaticSize Ordinary_double_array_struct
+
+instance Marshal.ReadRaw Ordinary_double_array_struct
+
+instance Marshal.WriteRaw Ordinary_double_array_struct
+
+instance BG.Storable Ordinary_double_array_struct
+
+instance Struct.IsStruct Ordinary_double_array_struct
+
 data Ordinary_signed_char_array_struct
+
+instance Eq Ordinary_signed_char_array_struct
+
+instance BG.Generic Ordinary_signed_char_array_struct
+
+instance Show Ordinary_signed_char_array_struct
+
+instance Marshal.StaticSize Ordinary_signed_char_array_struct
+
+instance Marshal.ReadRaw Ordinary_signed_char_array_struct
+
+instance Marshal.WriteRaw Ordinary_signed_char_array_struct
+
+instance BG.Storable Ordinary_signed_char_array_struct
+
+instance Struct.IsStruct Ordinary_signed_char_array_struct
 
 data Explicit_signed_char_array_struct
 
+instance Eq Explicit_signed_char_array_struct
+
+instance BG.Generic Explicit_signed_char_array_struct
+
+instance Show Explicit_signed_char_array_struct
+
+instance Marshal.StaticSize Explicit_signed_char_array_struct
+
+instance Marshal.ReadRaw Explicit_signed_char_array_struct
+
+instance Marshal.WriteRaw Explicit_signed_char_array_struct
+
+instance BG.Storable Explicit_signed_char_array_struct
+
+instance Struct.IsStruct Explicit_signed_char_array_struct
+
 data Unsigned_char_array_struct
+
+instance Eq Unsigned_char_array_struct
+
+instance BG.Generic Unsigned_char_array_struct
+
+instance Show Unsigned_char_array_struct
+
+instance Marshal.StaticSize Unsigned_char_array_struct
+
+instance Marshal.ReadRaw Unsigned_char_array_struct
+
+instance Marshal.WriteRaw Unsigned_char_array_struct
+
+instance BG.Storable Unsigned_char_array_struct
+
+instance Struct.IsStruct Unsigned_char_array_struct
 
 data Ordinary_signed_short_array_struct
 
+instance Eq Ordinary_signed_short_array_struct
+
+instance BG.Generic Ordinary_signed_short_array_struct
+
+instance Show Ordinary_signed_short_array_struct
+
+instance Marshal.StaticSize Ordinary_signed_short_array_struct
+
+instance Marshal.ReadRaw Ordinary_signed_short_array_struct
+
+instance Marshal.WriteRaw Ordinary_signed_short_array_struct
+
+instance BG.Storable Ordinary_signed_short_array_struct
+
+instance Struct.IsStruct Ordinary_signed_short_array_struct
+
 data Explicit_signed_short_array_struct
+
+instance Eq Explicit_signed_short_array_struct
+
+instance BG.Generic Explicit_signed_short_array_struct
+
+instance Show Explicit_signed_short_array_struct
+
+instance Marshal.StaticSize Explicit_signed_short_array_struct
+
+instance Marshal.ReadRaw Explicit_signed_short_array_struct
+
+instance Marshal.WriteRaw Explicit_signed_short_array_struct
+
+instance BG.Storable Explicit_signed_short_array_struct
+
+instance Struct.IsStruct Explicit_signed_short_array_struct
 
 data Unsigned_short_array_struct
 
+instance Eq Unsigned_short_array_struct
+
+instance BG.Generic Unsigned_short_array_struct
+
+instance Show Unsigned_short_array_struct
+
+instance Marshal.StaticSize Unsigned_short_array_struct
+
+instance Marshal.ReadRaw Unsigned_short_array_struct
+
+instance Marshal.WriteRaw Unsigned_short_array_struct
+
+instance BG.Storable Unsigned_short_array_struct
+
+instance Struct.IsStruct Unsigned_short_array_struct
+
 data Ordinary_signed_int_array_struct
+
+instance Eq Ordinary_signed_int_array_struct
+
+instance BG.Generic Ordinary_signed_int_array_struct
+
+instance Show Ordinary_signed_int_array_struct
+
+instance Marshal.StaticSize Ordinary_signed_int_array_struct
+
+instance Marshal.ReadRaw Ordinary_signed_int_array_struct
+
+instance Marshal.WriteRaw Ordinary_signed_int_array_struct
+
+instance BG.Storable Ordinary_signed_int_array_struct
+
+instance Struct.IsStruct Ordinary_signed_int_array_struct
 
 data Explicit_signed_int_array_struct
 
+instance Eq Explicit_signed_int_array_struct
+
+instance BG.Generic Explicit_signed_int_array_struct
+
+instance Show Explicit_signed_int_array_struct
+
+instance Marshal.StaticSize Explicit_signed_int_array_struct
+
+instance Marshal.ReadRaw Explicit_signed_int_array_struct
+
+instance Marshal.WriteRaw Explicit_signed_int_array_struct
+
+instance BG.Storable Explicit_signed_int_array_struct
+
+instance Struct.IsStruct Explicit_signed_int_array_struct
+
 data Unsigned_int_array_struct
+
+instance Eq Unsigned_int_array_struct
+
+instance BG.Generic Unsigned_int_array_struct
+
+instance Show Unsigned_int_array_struct
+
+instance Marshal.StaticSize Unsigned_int_array_struct
+
+instance Marshal.ReadRaw Unsigned_int_array_struct
+
+instance Marshal.WriteRaw Unsigned_int_array_struct
+
+instance BG.Storable Unsigned_int_array_struct
+
+instance Struct.IsStruct Unsigned_int_array_struct
 
 data Ordinary_signed_long_array_struct
 
+instance Eq Ordinary_signed_long_array_struct
+
+instance BG.Generic Ordinary_signed_long_array_struct
+
+instance Show Ordinary_signed_long_array_struct
+
+instance Marshal.StaticSize Ordinary_signed_long_array_struct
+
+instance Marshal.ReadRaw Ordinary_signed_long_array_struct
+
+instance Marshal.WriteRaw Ordinary_signed_long_array_struct
+
+instance BG.Storable Ordinary_signed_long_array_struct
+
+instance Struct.IsStruct Ordinary_signed_long_array_struct
+
 data Explicit_signed_long_array_struct
+
+instance Eq Explicit_signed_long_array_struct
+
+instance BG.Generic Explicit_signed_long_array_struct
+
+instance Show Explicit_signed_long_array_struct
+
+instance Marshal.StaticSize Explicit_signed_long_array_struct
+
+instance Marshal.ReadRaw Explicit_signed_long_array_struct
+
+instance Marshal.WriteRaw Explicit_signed_long_array_struct
+
+instance BG.Storable Explicit_signed_long_array_struct
+
+instance Struct.IsStruct Explicit_signed_long_array_struct
 
 data Unsigned_long_array_struct
 
+instance Eq Unsigned_long_array_struct
+
+instance BG.Generic Unsigned_long_array_struct
+
+instance Show Unsigned_long_array_struct
+
+instance Marshal.StaticSize Unsigned_long_array_struct
+
+instance Marshal.ReadRaw Unsigned_long_array_struct
+
+instance Marshal.WriteRaw Unsigned_long_array_struct
+
+instance BG.Storable Unsigned_long_array_struct
+
+instance Struct.IsStruct Unsigned_long_array_struct
+
 data Ordinary_signed_long_long_array_struct
+
+instance Eq Ordinary_signed_long_long_array_struct
+
+instance BG.Generic Ordinary_signed_long_long_array_struct
+
+instance Show Ordinary_signed_long_long_array_struct
+
+instance Marshal.StaticSize Ordinary_signed_long_long_array_struct
+
+instance Marshal.ReadRaw Ordinary_signed_long_long_array_struct
+
+instance Marshal.WriteRaw Ordinary_signed_long_long_array_struct
+
+instance BG.Storable Ordinary_signed_long_long_array_struct
+
+instance Struct.IsStruct Ordinary_signed_long_long_array_struct
 
 data Explicit_signed_long_long_array_struct
 
+instance Eq Explicit_signed_long_long_array_struct
+
+instance BG.Generic Explicit_signed_long_long_array_struct
+
+instance Show Explicit_signed_long_long_array_struct
+
+instance Marshal.StaticSize Explicit_signed_long_long_array_struct
+
+instance Marshal.ReadRaw Explicit_signed_long_long_array_struct
+
+instance Marshal.WriteRaw Explicit_signed_long_long_array_struct
+
+instance BG.Storable Explicit_signed_long_long_array_struct
+
+instance Struct.IsStruct Explicit_signed_long_long_array_struct
+
 data Unsigned_long_long_array_struct
+
+instance Eq Unsigned_long_long_array_struct
+
+instance BG.Generic Unsigned_long_long_array_struct
+
+instance Show Unsigned_long_long_array_struct
+
+instance Marshal.StaticSize Unsigned_long_long_array_struct
+
+instance Marshal.ReadRaw Unsigned_long_long_array_struct
+
+instance Marshal.WriteRaw Unsigned_long_long_array_struct
+
+instance BG.Storable Unsigned_long_long_array_struct
+
+instance Struct.IsStruct Unsigned_long_long_array_struct
 
 data Ordinary_void_pointer_array_struct
 
+instance Eq Ordinary_void_pointer_array_struct
+
+instance BG.Generic Ordinary_void_pointer_array_struct
+
+instance Show Ordinary_void_pointer_array_struct
+
+instance Marshal.StaticSize Ordinary_void_pointer_array_struct
+
+instance Marshal.ReadRaw Ordinary_void_pointer_array_struct
+
+instance Marshal.WriteRaw Ordinary_void_pointer_array_struct
+
+instance BG.Storable Ordinary_void_pointer_array_struct
+
+instance Struct.IsStruct Ordinary_void_pointer_array_struct
+
 data Ordinary_float_pointer_array_struct
+
+instance Eq Ordinary_float_pointer_array_struct
+
+instance BG.Generic Ordinary_float_pointer_array_struct
+
+instance Show Ordinary_float_pointer_array_struct
+
+instance Marshal.StaticSize Ordinary_float_pointer_array_struct
+
+instance Marshal.ReadRaw Ordinary_float_pointer_array_struct
+
+instance Marshal.WriteRaw Ordinary_float_pointer_array_struct
+
+instance BG.Storable Ordinary_float_pointer_array_struct
+
+instance Struct.IsStruct Ordinary_float_pointer_array_struct
 
 data Ordinary_double_pointer_array_struct
 
+instance Eq Ordinary_double_pointer_array_struct
+
+instance BG.Generic Ordinary_double_pointer_array_struct
+
+instance Show Ordinary_double_pointer_array_struct
+
+instance Marshal.StaticSize Ordinary_double_pointer_array_struct
+
+instance Marshal.ReadRaw Ordinary_double_pointer_array_struct
+
+instance Marshal.WriteRaw Ordinary_double_pointer_array_struct
+
+instance BG.Storable Ordinary_double_pointer_array_struct
+
+instance Struct.IsStruct Ordinary_double_pointer_array_struct
+
 data Ordinary_signed_char_pointer_array_struct
+
+instance Eq Ordinary_signed_char_pointer_array_struct
+
+instance BG.Generic Ordinary_signed_char_pointer_array_struct
+
+instance Show Ordinary_signed_char_pointer_array_struct
+
+instance Marshal.StaticSize Ordinary_signed_char_pointer_array_struct
+
+instance Marshal.ReadRaw Ordinary_signed_char_pointer_array_struct
+
+instance Marshal.WriteRaw Ordinary_signed_char_pointer_array_struct
+
+instance BG.Storable Ordinary_signed_char_pointer_array_struct
+
+instance Struct.IsStruct Ordinary_signed_char_pointer_array_struct
 
 data Explicit_signed_char_pointer_array_struct
 
+instance Eq Explicit_signed_char_pointer_array_struct
+
+instance BG.Generic Explicit_signed_char_pointer_array_struct
+
+instance Show Explicit_signed_char_pointer_array_struct
+
+instance Marshal.StaticSize Explicit_signed_char_pointer_array_struct
+
+instance Marshal.ReadRaw Explicit_signed_char_pointer_array_struct
+
+instance Marshal.WriteRaw Explicit_signed_char_pointer_array_struct
+
+instance BG.Storable Explicit_signed_char_pointer_array_struct
+
+instance Struct.IsStruct Explicit_signed_char_pointer_array_struct
+
 data Unsigned_char_pointer_array_struct
+
+instance Eq Unsigned_char_pointer_array_struct
+
+instance BG.Generic Unsigned_char_pointer_array_struct
+
+instance Show Unsigned_char_pointer_array_struct
+
+instance Marshal.StaticSize Unsigned_char_pointer_array_struct
+
+instance Marshal.ReadRaw Unsigned_char_pointer_array_struct
+
+instance Marshal.WriteRaw Unsigned_char_pointer_array_struct
+
+instance BG.Storable Unsigned_char_pointer_array_struct
+
+instance Struct.IsStruct Unsigned_char_pointer_array_struct
 
 data Ordinary_signed_short_pointer_array_struct
 
+instance Eq Ordinary_signed_short_pointer_array_struct
+
+instance BG.Generic Ordinary_signed_short_pointer_array_struct
+
+instance Show Ordinary_signed_short_pointer_array_struct
+
+instance Marshal.StaticSize Ordinary_signed_short_pointer_array_struct
+
+instance Marshal.ReadRaw Ordinary_signed_short_pointer_array_struct
+
+instance Marshal.WriteRaw Ordinary_signed_short_pointer_array_struct
+
+instance BG.Storable Ordinary_signed_short_pointer_array_struct
+
+instance Struct.IsStruct Ordinary_signed_short_pointer_array_struct
+
 data Explicit_signed_short_pointer_array_struct
+
+instance Eq Explicit_signed_short_pointer_array_struct
+
+instance BG.Generic Explicit_signed_short_pointer_array_struct
+
+instance Show Explicit_signed_short_pointer_array_struct
+
+instance Marshal.StaticSize Explicit_signed_short_pointer_array_struct
+
+instance Marshal.ReadRaw Explicit_signed_short_pointer_array_struct
+
+instance Marshal.WriteRaw Explicit_signed_short_pointer_array_struct
+
+instance BG.Storable Explicit_signed_short_pointer_array_struct
+
+instance Struct.IsStruct Explicit_signed_short_pointer_array_struct
 
 data Unsigned_short_pointer_array_struct
 
+instance Eq Unsigned_short_pointer_array_struct
+
+instance BG.Generic Unsigned_short_pointer_array_struct
+
+instance Show Unsigned_short_pointer_array_struct
+
+instance Marshal.StaticSize Unsigned_short_pointer_array_struct
+
+instance Marshal.ReadRaw Unsigned_short_pointer_array_struct
+
+instance Marshal.WriteRaw Unsigned_short_pointer_array_struct
+
+instance BG.Storable Unsigned_short_pointer_array_struct
+
+instance Struct.IsStruct Unsigned_short_pointer_array_struct
+
 data Ordinary_signed_int_pointer_array_struct
+
+instance Eq Ordinary_signed_int_pointer_array_struct
+
+instance BG.Generic Ordinary_signed_int_pointer_array_struct
+
+instance Show Ordinary_signed_int_pointer_array_struct
+
+instance Marshal.StaticSize Ordinary_signed_int_pointer_array_struct
+
+instance Marshal.ReadRaw Ordinary_signed_int_pointer_array_struct
+
+instance Marshal.WriteRaw Ordinary_signed_int_pointer_array_struct
+
+instance BG.Storable Ordinary_signed_int_pointer_array_struct
+
+instance Struct.IsStruct Ordinary_signed_int_pointer_array_struct
 
 data Explicit_signed_int_pointer_array_struct
 
+instance Eq Explicit_signed_int_pointer_array_struct
+
+instance BG.Generic Explicit_signed_int_pointer_array_struct
+
+instance Show Explicit_signed_int_pointer_array_struct
+
+instance Marshal.StaticSize Explicit_signed_int_pointer_array_struct
+
+instance Marshal.ReadRaw Explicit_signed_int_pointer_array_struct
+
+instance Marshal.WriteRaw Explicit_signed_int_pointer_array_struct
+
+instance BG.Storable Explicit_signed_int_pointer_array_struct
+
+instance Struct.IsStruct Explicit_signed_int_pointer_array_struct
+
 data Unsigned_int_pointer_array_struct
+
+instance Eq Unsigned_int_pointer_array_struct
+
+instance BG.Generic Unsigned_int_pointer_array_struct
+
+instance Show Unsigned_int_pointer_array_struct
+
+instance Marshal.StaticSize Unsigned_int_pointer_array_struct
+
+instance Marshal.ReadRaw Unsigned_int_pointer_array_struct
+
+instance Marshal.WriteRaw Unsigned_int_pointer_array_struct
+
+instance BG.Storable Unsigned_int_pointer_array_struct
+
+instance Struct.IsStruct Unsigned_int_pointer_array_struct
 
 data Ordinary_signed_long_pointer_array_struct
 
+instance Eq Ordinary_signed_long_pointer_array_struct
+
+instance BG.Generic Ordinary_signed_long_pointer_array_struct
+
+instance Show Ordinary_signed_long_pointer_array_struct
+
+instance Marshal.StaticSize Ordinary_signed_long_pointer_array_struct
+
+instance Marshal.ReadRaw Ordinary_signed_long_pointer_array_struct
+
+instance Marshal.WriteRaw Ordinary_signed_long_pointer_array_struct
+
+instance BG.Storable Ordinary_signed_long_pointer_array_struct
+
+instance Struct.IsStruct Ordinary_signed_long_pointer_array_struct
+
 data Explicit_signed_long_pointer_array_struct
+
+instance Eq Explicit_signed_long_pointer_array_struct
+
+instance BG.Generic Explicit_signed_long_pointer_array_struct
+
+instance Show Explicit_signed_long_pointer_array_struct
+
+instance Marshal.StaticSize Explicit_signed_long_pointer_array_struct
+
+instance Marshal.ReadRaw Explicit_signed_long_pointer_array_struct
+
+instance Marshal.WriteRaw Explicit_signed_long_pointer_array_struct
+
+instance BG.Storable Explicit_signed_long_pointer_array_struct
+
+instance Struct.IsStruct Explicit_signed_long_pointer_array_struct
 
 data Unsigned_long_pointer_array_struct
 
+instance Eq Unsigned_long_pointer_array_struct
+
+instance BG.Generic Unsigned_long_pointer_array_struct
+
+instance Show Unsigned_long_pointer_array_struct
+
+instance Marshal.StaticSize Unsigned_long_pointer_array_struct
+
+instance Marshal.ReadRaw Unsigned_long_pointer_array_struct
+
+instance Marshal.WriteRaw Unsigned_long_pointer_array_struct
+
+instance BG.Storable Unsigned_long_pointer_array_struct
+
+instance Struct.IsStruct Unsigned_long_pointer_array_struct
+
 data Ordinary_signed_long_long_pointer_array_struct
+
+instance Eq Ordinary_signed_long_long_pointer_array_struct
+
+instance BG.Generic Ordinary_signed_long_long_pointer_array_struct
+
+instance Show Ordinary_signed_long_long_pointer_array_struct
+
+instance Marshal.StaticSize Ordinary_signed_long_long_pointer_array_struct
+
+instance Marshal.ReadRaw Ordinary_signed_long_long_pointer_array_struct
+
+instance Marshal.WriteRaw Ordinary_signed_long_long_pointer_array_struct
+
+instance BG.Storable Ordinary_signed_long_long_pointer_array_struct
+
+instance Struct.IsStruct Ordinary_signed_long_long_pointer_array_struct
 
 data Explicit_signed_long_long_pointer_array_struct
 
+instance Eq Explicit_signed_long_long_pointer_array_struct
+
+instance BG.Generic Explicit_signed_long_long_pointer_array_struct
+
+instance Show Explicit_signed_long_long_pointer_array_struct
+
+instance Marshal.StaticSize Explicit_signed_long_long_pointer_array_struct
+
+instance Marshal.ReadRaw Explicit_signed_long_long_pointer_array_struct
+
+instance Marshal.WriteRaw Explicit_signed_long_long_pointer_array_struct
+
+instance BG.Storable Explicit_signed_long_long_pointer_array_struct
+
+instance Struct.IsStruct Explicit_signed_long_long_pointer_array_struct
+
 data Unsigned_long_long_pointer_array_struct
+
+instance Eq Unsigned_long_long_pointer_array_struct
+
+instance BG.Generic Unsigned_long_long_pointer_array_struct
+
+instance Show Unsigned_long_long_pointer_array_struct
+
+instance Marshal.StaticSize Unsigned_long_long_pointer_array_struct
+
+instance Marshal.ReadRaw Unsigned_long_long_pointer_array_struct
+
+instance Marshal.WriteRaw Unsigned_long_long_pointer_array_struct
+
+instance BG.Storable Unsigned_long_long_pointer_array_struct
+
+instance Struct.IsStruct Unsigned_long_long_pointer_array_struct
 
 data An_int
 
+instance Eq An_int
+
+instance BG.Generic An_int
+
+instance Ord An_int
+
+instance Read An_int
+
+instance Show An_int
+
+instance BG.Bitfield An_int
+
+instance BG.Bits An_int
+
+instance Bounded An_int
+
+instance Enum An_int
+
+instance BG.FiniteBits An_int
+
+instance BG.HasFFIType An_int
+
+instance Integral An_int
+
+instance BG.Ix An_int
+
+instance Num An_int
+
+instance BG.Prim An_int
+
+instance Marshal.ReadRaw An_int
+
+instance Real An_int
+
+instance Marshal.StaticSize An_int
+
+instance BG.Storable An_int
+
+instance Marshal.WriteRaw An_int
+
 data Cal_table_table
+
+instance Eq Cal_table_table
+
+instance BG.Generic Cal_table_table
+
+instance Show Cal_table_table
+
+instance Marshal.StaticSize Cal_table_table
+
+instance Marshal.ReadRaw Cal_table_table
+
+instance Marshal.WriteRaw Cal_table_table
+
+instance BG.Storable Cal_table_table
+
+instance Struct.IsStruct Cal_table_table
 
 data Cal_table
 
+instance Eq Cal_table
+
+instance BG.Generic Cal_table
+
+instance Show Cal_table
+
+instance Marshal.StaticSize Cal_table
+
+instance Marshal.ReadRaw Cal_table
+
+instance Marshal.WriteRaw Cal_table
+
+instance BG.Storable Cal_table
+
+instance Struct.IsStruct Cal_table
+
 data Elf32_External_Dyn_d_un
+
+instance BG.Generic Elf32_External_Dyn_d_un
+
+instance Marshal.StaticSize Elf32_External_Dyn_d_un
+
+instance Marshal.ReadRaw Elf32_External_Dyn_d_un
+
+instance Marshal.WriteRaw Elf32_External_Dyn_d_un
+
+instance BG.Storable Elf32_External_Dyn_d_un
+
+instance Union.IsUnion Elf32_External_Dyn_d_un
 
 data Elf32_External_Dyn
 
+instance BG.Generic Elf32_External_Dyn
+
+instance Marshal.StaticSize Elf32_External_Dyn
+
+instance Marshal.ReadRaw Elf32_External_Dyn
+
+instance Marshal.WriteRaw Elf32_External_Dyn
+
+instance BG.Storable Elf32_External_Dyn
+
+instance Struct.IsStruct Elf32_External_Dyn
+
 data Bug_24
+
+instance Eq Bug_24
+
+instance BG.Generic Bug_24
+
+instance Ord Bug_24
+
+instance Show Bug_24
+
+instance BG.HasFFIType Bug_24
+
+instance Marshal.ReadRaw Bug_24
+
+instance Marshal.StaticSize Bug_24
+
+instance BG.Storable Bug_24
+
+instance Marshal.WriteRaw Bug_24
 
 data Bug_24_2
 
+instance Eq Bug_24_2
+
+instance BG.Generic Bug_24_2
+
+instance Ord Bug_24_2
+
+instance Show Bug_24_2
+
+instance BG.HasFFIType Bug_24_2
+
+instance Marshal.ReadRaw Bug_24_2
+
+instance Marshal.StaticSize Bug_24_2
+
+instance BG.Storable Bug_24_2
+
+instance Marshal.WriteRaw Bug_24_2
+
 data MyArray_27
 
+instance Eq MyArray_27
+
+instance BG.Generic MyArray_27
+
+instance Show MyArray_27
+
+instance IsA.IsArray MyArray_27
+
+instance Marshal.ReadRaw MyArray_27
+
+instance Marshal.StaticSize MyArray_27
+
+instance BG.Storable MyArray_27
+
+instance Marshal.WriteRaw MyArray_27
+
 data MyStruct_27
+
+instance Eq MyStruct_27
+
+instance BG.Generic MyStruct_27
+
+instance Show MyStruct_27
+
+instance Marshal.StaticSize MyStruct_27
+
+instance Marshal.ReadRaw MyStruct_27
+
+instance Marshal.WriteRaw MyStruct_27
+
+instance BG.Storable MyStruct_27
+
+instance Struct.IsStruct MyStruct_27
