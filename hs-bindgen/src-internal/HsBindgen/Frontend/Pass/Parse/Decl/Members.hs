@@ -4,8 +4,8 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Members (
   , parseMembersWith
   ) where
 
-import Data.Either (partitionEithers)
 import Data.List.NonEmpty qualified as NE
+import Data.Maybe (mapMaybe)
 
 import Clang.Enum.Simple (fromSimpleEnum)
 import Clang.HighLevel.Types (Fold, FoldException (exception), Next,
@@ -19,9 +19,11 @@ import HsBindgen.Frontend.Pass.Parse.Decl.Field (regularFieldDecl)
 import HsBindgen.Frontend.Pass.Parse.Decl.ImplicitFields qualified as IFields
 import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
-import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (ParseImplicitFieldFailed, ParseNestedDeclsFailed))
-import HsBindgen.Frontend.Pass.Parse.Result (ParseResult,
-                                             getParseResultEitherDecl)
+import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (ParseImplicitFieldFailed, ParseNestedDeclsFailed),
+                                          NestedDeclFailure (..))
+import HsBindgen.Frontend.Pass.Parse.Result (ParseClassification (..),
+                                             ParseResult (..),
+                                             getParseResultMaybeDecl)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.Type qualified as Macro
 
@@ -56,18 +58,21 @@ parseMembersWith ::
   -> ParseDecl (Next ParseDecl a)
 parseMembersWith ty ctx parseObject k =
     foldRecurseWith (parseMember ctx parseObject) $ \xs -> do
-      let (foldExceptions, allDecls, fails, successes) = partitionParseMemberResults xs
+      let declsPerMember = [ds | ParseMemberResultDecls ds <- xs]
+          foldExceptions = [e  | ParseMemberResultFoldException e <- xs]
+          fails          = concatMap memberFailure declsPerMember
+          successes      = foldMap memberInputs xs
           -- Always return all nested declarations, regardless of their parse
           -- status. The @Select@ pass wil handle deselecting declarations if
           -- necessary.
-          declMembers = allDecls
+          declMembers    = concat declsPerMember
       if
         -- If any nested declarations failed to parse, then we can't parse the
         -- current declaration for fear of missing (implicit) fields.
-        | not (null fails)
+        | Just fails' <- NE.nonEmpty fails
         -> k ParseMembersResult {
                 declMembers = declMembers
-              , fieldMembers = Left ParseNestedDeclsFailed
+              , fieldMembers = Left (ParseNestedDeclsFailed fails')
               }
         -- If any exceptions occurred during folding, only return the first one
         | Just foldExceptions' <- NE.nonEmpty foldExceptions
@@ -113,27 +118,34 @@ data ParseMemberResult l =
   | ParseMemberResultDecls [ParseResult l Parse]
   | ParseMemberResultField (C.RegularField Parse)
 
-partitionParseMemberResults ::
-     [ParseMemberResult l]
-  -> ( [FoldException (ExceptionInCtx DelayedParseMsg)]
-     , [ParseResult l Parse]  -- ^ All parse results
-     , [ParseResult l Parse]  -- ^ Only parse failures
-     , IFields.Inputs l -- ^ Only parse successes
-     )
-partitionParseMemberResults = mconcat . fmap f
-  where
-    f = \case
-          ParseMemberResultFoldException e ->
-                ([e], [], [], IFields.inputEmpty)
-          ParseMemberResultDecls xs ->
-            let (fails, successes) = partitionEithers $ map getParseResultEitherDecl xs
-            in  ( []
-                , xs
-                , fails
-                , mconcat $ map IFields.inputDecl successes
-                )
-          ParseMemberResultField x ->
-                ([], [], [], IFields.inputField x)
+-- | Parse successes, for detecting implicit fields
+memberInputs :: ParseMemberResult l -> IFields.Inputs l
+memberInputs = \case
+    ParseMemberResultFoldException _ ->
+      IFields.inputEmpty
+    ParseMemberResultDecls ds ->
+      foldMap IFields.inputDecl $ mapMaybe getParseResultMaybeDecl ds
+    ParseMemberResultField x ->
+      IFields.inputField x
+
+-- | Failure of the member declaration itself
+--
+-- The struct and union parsers return the results of nested declarations before
+-- their own. A failed nested declaration fails all enclosing declarations, so
+-- the failure of the member accounts for those of its descendants.
+memberFailure :: [ParseResult l Parse] -> [NestedDeclFailure]
+memberFailure results =
+    case NE.last <$> NE.nonEmpty results of
+      Nothing     -> []
+      Just member -> case (member.classification, member.id) of
+        (ParseResultSuccess{}, _) ->
+          []
+        (_failure, C.PrelimDeclIdNamed name) ->
+          [NestedNamedDeclFailed name]
+        (ParseResultFailure msg, C.PrelimDeclIdUnnamed unnamedId) ->
+          [NestedUnnamedDeclFailed unnamedId msg]
+        (ParseResultUnavailable, C.PrelimDeclIdUnnamed unnamedId) ->
+          [NestedUnnamedDeclUnavailable unnamedId]
 
 -- | Parse a single member of a struct\/union
 parseMember ::

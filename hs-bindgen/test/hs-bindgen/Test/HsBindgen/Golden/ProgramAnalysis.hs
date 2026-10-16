@@ -83,7 +83,10 @@ test_delay_traces =
               Just $ Expected name
             MatchDelayed name ParseUnsupportedVariadicFunction ->
               Just $ Expected name
-            MatchDelayed name ParseNestedDeclsFailed ->
+            MatchDelayed name (ParseNestedDeclsFailed (
+                NestedUnnamedDeclFailed _
+                  (ParseUnsupportedFloatType UnsupportedLongDouble) :| []
+              )) ->
               Just $ Expected name
             -- The parse failure, not a conflict of the struct with itself
             MatchSelect name (MatchTransMissing [
@@ -103,9 +106,6 @@ test_delay_traces =
         , "struct long_double_s"
         , "struct nested_long_double_s"
         , "struct nested_long_double_u"
-          -- TODO https://github.com/well-typed/hs-bindgen/issues/1851
-          -- Why are the untagged nested structs not reported? Because
-          -- they are skipped by the FillUnnamedIds step?
         , "struct inline_var_s"
         , "struct inline_fun_s"
         , "struct inline_unnamed_var"

@@ -316,7 +316,8 @@ structDecl macroLang enclosing ctx info = \curr -> do
           -- regardless of the parse status of field declarations.
           --
           -- NOTE: the parse results *must* be returned here. The
-          -- 'withImplicitFields' algorithm relies on it.
+          -- 'withImplicitFields' algorithm relies on it. They must also come
+          -- first; see <https://github.com/well-typed/hs-bindgen/issues/2310>.
           (membersResult.declMembers ++) <$>
             -- If we failed to parse any of the field declarations, then we will
             -- not return a struct object, because it will have missing fields
@@ -399,7 +400,8 @@ unionDecl macroLang enclosing ctx info = \curr -> do
           -- regardless of the parse status of field declarations.
           --
           -- NOTE: the parse results *must* be returned here. The
-          -- 'withImplicitFields' algorithm relies on it.
+          -- 'withImplicitFields' algorithm relies on it. They must also come
+          -- first; see <https://github.com/well-typed/hs-bindgen/issues/2310>.
           (membersResult.declMembers ++) <$>
             -- If we failed to parse any of the field declarations, then we will
             -- not return a union object, because it will have missing fields

@@ -56,9 +56,10 @@ instance PassMsg FillUnnamedIds where
 data ImmediateFillUnnamedIdsMsg =
     -- | Skipped unused unnamed declaration
     --
-    -- @clang@ will produce a warning for this ("declaration does not declare
-    -- anything"); we issue a separate message here in case we skip over
-    -- something that we shouldn't.
+    -- This is not a problem in itself. Either @clang@ warns about the
+    -- declaration ("declaration does not declare anything"), or the
+    -- declaration that should use it failed to parse and reports the error. We
+    -- issue this message in case we skip something we shouldn't skip.
     FillUnnamedIdsSkippedDecl C.UnnamedId
   deriving stock (Show, Generic)
 
@@ -71,7 +72,7 @@ instance PrettyForTrace ImmediateFillUnnamedIdsMsg where
 
 instance IsTrace Level ImmediateFillUnnamedIdsMsg where
   getDefaultLogLevel = \case
-      FillUnnamedIdsSkippedDecl{} -> Debug -- clang already warned
+      FillUnnamedIdsSkippedDecl{} -> Debug
 
   getSource  = const HsBindgen
   getTraceId = const "fill-unnamed-ids"
