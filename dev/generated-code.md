@@ -14,6 +14,9 @@ the ones they import. They import every module qualified, with two exceptions:
    set in its namespace, so no generated name clashes with it.
 2. **Sibling modules**: when output is split across several modules, one
    generated module may import another unqualified (e.g. `import Example`).
+   With `--generate-hs-boot`, the types module imports its FFI module through
+   the boot file of the FFI module (`import {-# SOURCE #-} Example.FFI`), and
+   that boot file imports the types module the same way.
 
 All other imports are qualified:
 

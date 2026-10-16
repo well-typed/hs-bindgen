@@ -4,7 +4,20 @@
 
 ### Breaking changes
 
+* `ByCategory` has a new field, `cFFI`, for the code behind callbacks when
+  `--generate-hs-boot` is used. In Template Haskell mode it is always empty.
+  Code that builds a `ByCategory` by hand needs `cFFI = IncludeTermCategory
+  def`, which `useSafeCategory`, `useUnsafeCategory`, `useFunPtrCategory` and
+  `def` already set.
+
 ### New features
+
+* `hs-bindgen-cli preprocess --generate-hs-boot` writes a boot file next to the
+  types module, so that other modules can import it with `{-# SOURCE #-}`. For
+  headers with callbacks, the `"wrapper"` and `"dynamic"` imports then go to a
+  new module, `<Module>.FFI`, with a boot file of its own. List it in the
+  `.cabal` file. The flag is not available with `--single-file`. See the
+  [invocation][manual-invocation] manual page.
 
 ### Minor changes
 
@@ -368,6 +381,7 @@
 
 [manual-c-stages]: https://github.com/well-typed/hs-bindgen/blob/main/manual/low-level/usage/c-stages.md
 [manual-ffi-types]: https://github.com/well-typed/hs-bindgen/blob/main/manual/low-level/translation/ffi-types.md
+[manual-invocation]: https://github.com/well-typed/hs-bindgen/blob/main/manual/low-level/usage/invocation.md#module-generation
 [is-831]: https://github.com/well-typed/hs-bindgen/issues/831
 [is-1003]: https://github.com/well-typed/hs-bindgen/issues/1003
 [is-1225]: https://github.com/well-typed/hs-bindgen/issues/1225

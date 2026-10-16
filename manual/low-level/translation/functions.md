@@ -293,6 +293,10 @@ instance FromFunPtr ProgressUpdate_Aux where
   fromFunPtr = <somehash2>
 ```
 
+With `--generate-hs-boot` (see [Invocation][manual:invocation-module-generation]),
+the stubs go to a module of their own, `ModuleName.FFI`. The instances stay in
+the types module, which imports `ModuleName.FFI` through its boot file.
+
 A function pointer will have a `ToFunPtr` and `FromFunPtr` instance if at
 least one of its arguments contains at least one domain specific type. This
 check is done recursively so higher order functions will be inspected
@@ -568,4 +572,5 @@ to call a specific variadic function from Haskell, you can write a manual
 [haskell2010:ffi]: https://www.haskell.org/onlinereport/haskell2010/haskellch8.html
 [issue:53]: https://github.com/well-typed/hs-bindgen/issues/53
 [manual:globals-guidelines]: globals.md#guidelines-for-binding-generation
+[manual:invocation-module-generation]: ../usage/invocation.md#module-generation
 [unfolder:36]: https://www.youtube.com/watch?v=IMrBTx7aYjs&list=PLD8gywOEY4HaG5VSrKVnHxCptlJv2GAn7&index=37
