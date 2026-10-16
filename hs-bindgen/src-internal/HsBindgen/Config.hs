@@ -97,7 +97,7 @@ data ConfigTH = ConfigTH {
     -- We can also include all declarations, carefully renaming identifiers to
     -- avoid name clashes.
     --
-    -- Default: 'Category.useSafe'.
+    -- Default: 'useSafeCategory'.
     categoryChoice :: ByCategory Choice
 
     -- | Show trace messages of the provided 'Level' or higher.
