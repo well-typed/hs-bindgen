@@ -22,15 +22,13 @@ import HsBindgen.Backend.HsModule.Pretty.Type
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Instances as Inst
 import HsBindgen.IR.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 
 instance Pretty SDecl where
   pretty = \case
     DTypSyn typSyn ->
          prettyTopLevelComment typSyn.comment
-      $$ PP.fsep [
-             "type" <+> pretty typSyn.name <+> PP.char '='
-           , PP.nest 2 (pretty typSyn.typ)
-           ]
+      $$ prettyTypSyn typSyn.name typSyn.typ
     DInst inst ->
       let constraints = map pretty inst.super
           -- @flist@ should either be @PP.hlist@ or @PP.vlist@
@@ -128,20 +126,13 @@ instance Pretty SDecl where
        $$ PP.nest 5 (prettyBindingType foreignImport.parameters foreignImport.result)
 
     DBinding Binding{..} ->
-      let prettyName    = pretty name
-          prettyTyp     = prettyBindingType parameters result
-          prettySignature =
-            if null parameters; then
-              prettyName <+> "::" <+> prettyTyp
-            else
-              prettyName <+> "::" $$  PP.nest 5 prettyTyp
-      in  PP.vcat (map (prettyPragma name) pragmas)
-       $$ prettyTopLevelComment comment
-       $$ prettySignature
-       $$ PP.fsep
-            [ prettyName <+> PP.char '='
-            , PP.nest 2 $ pretty body
-            ]
+         PP.vcat (map (prettyPragma name) pragmas)
+      $$ prettyTopLevelComment comment
+      $$ prettySignature name parameters result
+      $$ PP.fsep
+           [ pretty name <+> PP.char '='
+           , PP.nest 2 $ pretty body
+           ]
 
     DDerivingInstance deriv ->
       prettyTopLevelComment deriv.comment
@@ -166,6 +157,21 @@ instance Pretty SDecl where
                   else PP.nest 4 ("," <+> pat)
               | (idx, pat) <- zip [0..] patterns
               ]
+
+{-------------------------------------------------------------------------------
+  HsBootDecl pretty-printing
+-------------------------------------------------------------------------------}
+
+instance Pretty HsBootDecl where
+  pretty = \case
+    HsBootData name ->
+      PP.hsep ["data", pretty name]
+    HsBootTypSyn name typ ->
+      prettyTypSyn name typ
+    HsBootSignature name args res ->
+      prettySignature name
+        [Parameter{typ = arg, comment = Nothing} | arg <- args]
+        Result{typ = res, comment = Nothing}
 
 {-------------------------------------------------------------------------------
   PatEpxr pretty-printing
@@ -207,6 +213,22 @@ strategy :: Hs.Strategy ClosedType -> CtxDoc
 strategy Hs.DeriveNewtype  = "newtype"
 strategy Hs.DeriveStock    = "stock"
 strategy (Hs.DeriveVia ty) = "via" <+> pretty ty
+
+-- | Type synonym, without its comment
+prettyTypSyn :: Hs.Name Hs.NsTypeConstr -> ClosedType -> CtxDoc
+prettyTypSyn name typ = PP.fsep [
+      "type" <+> pretty name <+> PP.char '='
+    , PP.nest 2 (pretty typ)
+    ]
+
+-- | Type signature of a binding
+prettySignature :: Hs.TermName -> [Parameter] -> Result -> CtxDoc
+prettySignature name params result
+  | null params = pretty name <+> "::" <+> prettyTyp
+  | otherwise   = pretty name <+> "::" $$ PP.nest 5 prettyTyp
+  where
+    prettyTyp :: CtxDoc
+    prettyTyp = prettyBindingType params result
 
 prettyPragma :: Hs.TermName -> Pragma -> CtxDoc
 prettyPragma n = \case

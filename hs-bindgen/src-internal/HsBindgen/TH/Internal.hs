@@ -336,6 +336,7 @@ toBindgenConfigTH config packageRoot choice = do
             uniqueId
             hsModuleName
             choice
+            DoNotGenerateHsBoot
     pure bindgenConfig
   where
     getUniqueId :: TH.Q UniqueId

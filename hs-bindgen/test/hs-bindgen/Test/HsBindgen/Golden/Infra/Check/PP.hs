@@ -13,6 +13,7 @@ import Test.Tasty.HUnit (assertFailure)
 import HsBindgen (getBindingsMultiple)
 import HsBindgen hiding (getBindingsMultiple)
 import HsBindgen.Backend.Category
+import HsBindgen.Backend.HsModule.Translation (hasHsBoot)
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Errors (panicIO)
@@ -43,14 +44,14 @@ check getTestResources test =
           Full -> NonEmpty.toList allCategories
     in withResource setupBindgen (\_ -> pure ()) $ \getResult ->
        testGroup "pp" [
-         goldenAnsiDiff (show bc) (fixture bc) $ \report -> do
+         goldenAnsiDiff (testName bc file) (fixture bc file) $ \report -> do
            result <- getResult
            let firstCategory = NonEmpty.head allCategories
            case result of
              Left e
                -- The primary sub-test reports the full error. The other
                -- sub-tests just reference it, avoiding redundant output.
-               | bc == firstCategory ->
+               | bc == firstCategory, ModuleFile <- file ->
                  assertFailure $
                    "Expected 'hs-bindgen' to succeed, but received an error: "
                    ++ show e
@@ -69,16 +70,25 @@ check getTestResources test =
                when (baseName /= "Example") $
                  panicIO "The module base name should be Example!"
 
-               -- Render the Haskell module
-               let ppOutput = view (lensForCategory bc) output
+               -- Render the Haskell module, or its boot file
+               let ppOutput = view (lensForCategory bc) output >>= select file
                return $ case ppOutput of
                  Nothing -> ActualNoOutput
                  Just x  -> ActualValue x
        | (bc :: Category) <- categories
+       , file <- ModuleFile : [BootFile | hasHsBoot bc]
        ]
   where
+    select :: File -> (String, Maybe String) -> Maybe String
+    select ModuleFile = Just . fst
+    select BootFile   = snd
+
+    testName :: Category -> File -> String
+    testName bc ModuleFile = show bc
+    testName bc BootFile   = show bc ++ " boot"
+
     setupBindgen ::
-         IO (Either BindgenError (BaseModuleName, [String], ByCategory_ (Maybe String)))
+         IO (Either BindgenError (BaseModuleName, [String], ByCategory_ (Maybe (String, Maybe String))))
     setupBindgen = do
       traceMessages <- newIORef []
       let collectTrace msg = modifyIORef' traceMessages (msg :)
@@ -108,8 +118,20 @@ check getTestResources test =
           (\_ -> k)
 
     -- | The names of sub-modules are based solely on the binding category
-    fixture :: Category -> FilePath
-    fixture bc = test.outputDir </> Hs.moduleNamePath moduleName
+    fixture :: Category -> File -> FilePath
+    fixture bc file = test.outputDir </> path moduleName
       where
         moduleName :: Hs.ModuleName
         moduleName = fromBaseModuleName "Example" (Just bc)
+
+        path :: Hs.ModuleName -> FilePath
+        path = case file of
+          ModuleFile -> Hs.moduleNamePath
+          BootFile   -> Hs.moduleNameBootPath
+
+-- | The files written for the module of a category
+data File =
+    -- | The module itself
+    ModuleFile
+    -- | Its boot file
+  | BootFile

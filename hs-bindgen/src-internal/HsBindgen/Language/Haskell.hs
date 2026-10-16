@@ -9,6 +9,7 @@ module HsBindgen.Language.Haskell (
   , moduleNameFromString
   , moduleNameToString
   , moduleNamePath
+  , moduleNameBootPath
     -- * Module imports
   , Import(..)
     -- * References
@@ -56,12 +57,16 @@ moduleNameToString :: ModuleName -> String
 moduleNameToString moduleName = Text.unpack moduleName.text
 
 moduleNamePath :: ModuleName -> FilePath
-moduleNamePath moduleName = withoutExt <.> "hs"
-  where
-    withoutExt :: FilePath
-    withoutExt =
-        Foldable.foldl' (</>) "" $
-          map Text.unpack (Text.splitOn "." moduleName.text)
+moduleNamePath moduleName = moduleNamePathWithoutExt moduleName <.> "hs"
+
+-- | Path of the boot file of a module
+moduleNameBootPath :: ModuleName -> FilePath
+moduleNameBootPath moduleName = moduleNamePathWithoutExt moduleName <.> "hs-boot"
+
+moduleNamePathWithoutExt :: ModuleName -> FilePath
+moduleNamePathWithoutExt moduleName =
+    Foldable.foldl' (</>) "" $
+      map Text.unpack (Text.splitOn "." moduleName.text)
 
 instance PrettyForTrace ModuleName where
   prettyForTrace moduleName = PP.text moduleName.text
