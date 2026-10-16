@@ -13,6 +13,9 @@ module HsBindgen.Config.Prelims (
     -- * Module render config
   , ModuleRenderConfig(..)
 
+    -- * Boot files
+  , HsBootPolicy(..)
+
     -- * Unique IDs
   , UniqueId (..)
   , UniqueIdMsg (..)
@@ -116,6 +119,26 @@ data ModuleRenderConfig = ModuleRenderConfig {
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (Default)
+
+{-------------------------------------------------------------------------------
+  Boot files
+-------------------------------------------------------------------------------}
+
+-- | Whether to generate boot files
+--
+-- With 'GenerateHsBoot', every types module gets a boot file, and the code
+-- behind its callbacks goes to a module of its own, @Lib.Foo.FFI@, which has a
+-- boot file too. With 'DoNotGenerateHsBoot' (the default), that code stays in
+-- the types module, and there are no boot files.
+--
+-- Only multi-module output has boot files.
+data HsBootPolicy =
+    GenerateHsBoot
+  | DoNotGenerateHsBoot
+  deriving stock (Show, Eq, Generic)
+
+instance Default HsBootPolicy where
+  def = DoNotGenerateHsBoot
 
 {-------------------------------------------------------------------------------
   Unique IDs

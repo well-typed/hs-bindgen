@@ -67,10 +67,11 @@ generateDeclarations ::
   => Macro.Lang l
   -> UniqueId
   -> BaseModuleName
+  -> HsBootPolicy
   -> DeclIndex l
   -> [C.Decl l Final]
   -> ByCategory_ [Hs.Decl l]
-generateDeclarations macroLang uniqueId name declIndex =
+generateDeclarations macroLang uniqueId name hsBootPolicy declIndex =
     fmap reverse .
       foldl' partitionBindingCategories mempty .
       generateDeclarations' macroLang env declIndex
@@ -84,7 +85,7 @@ generateDeclarations macroLang uniqueId name declIndex =
     supInsts = def
 
     env :: HsM.Env
-    env = HsM.initEnv uniqueId name supInsts
+    env = HsM.initEnv uniqueId name supInsts hsBootPolicy
 
 -- | Internal. Top-level declaration with foreign import category.
 data WithCategory a = WithCategory {
@@ -94,16 +95,25 @@ data WithCategory a = WithCategory {
 
 -- | The declarations behind a callback, each with its category
 --
--- The code goes to 'CFFI', and the instances that name it stay with their type
--- in 'CType'. This is the only place that separates the two halves; the types
--- module relies on it when it imports the FFI module (see
--- "HsBindgen.Backend.HsModule.Translation").
+-- The instances stay with their type in 'CType'. With 'GenerateHsBoot', the
+-- code that they name goes to 'CFFI'; this is the only place that separates the
+-- two halves, and the types module relies on it when it imports the FFI module
+-- (see "HsBindgen.Backend.HsModule.Translation"). With 'DoNotGenerateHsBoot',
+-- the code stays in 'CType' too.
 --
 -- See the golden fixture @types\/boot\/ffi_module@.
-callbackDecls :: ToFromFunPtr.Callback l -> [WithCategory (Hs.Decl l)]
-callbackDecls callback =
-       map (WithCategory (CTerm CFFI)) callback.ffi
-    ++ map (WithCategory CType)        callback.instances
+callbackDecls ::
+     HsM.Env
+  -> ToFromFunPtr.Callback l
+  -> [WithCategory (Hs.Decl l)]
+callbackDecls env callback =
+       map (WithCategory ffiCategory) callback.ffi
+    ++ map (WithCategory CType)       callback.instances
+  where
+    ffiCategory :: Category
+    ffiCategory = case env.hsBootPolicy of
+      GenerateHsBoot      -> CTerm CFFI
+      DoNotGenerateHsBoot -> CType
 
 generateDeclarations' ::
      Macro.HasTypes l
@@ -117,13 +127,13 @@ generateDeclarations' macroLang env declIndex decs =
       let scannedFunctionTypes = scanAllFunctionTypes decs
           -- Generate ToFunPtr/FromFunPtr instances for nested function types
           -- These go in the main module to avoid orphan instances; the code
-          -- they name goes in the FFI module (see 'callbackDecls')
+          -- they name can go in the FFI module (see 'callbackDecls')
           fFIStubsAndFunPtrInstances =
                    [ d
                    | (args, res) <- Set.toList scannedFunctionTypes
                    , not (any C.hasUnsupportedType (res: fmap (.typ) args))
                    , any (isDefinedInCurrentModule declIndex) (res: fmap (.typ) args)
-                   , d <- callbackDecls $ ToFromFunPtr.forFunction (args, res)
+                   , d <- callbackDecls env $ ToFromFunPtr.forFunction (args, res)
                    ]
       hsDeclsAction <- mapM (generateDecs macroLang) decs
       hsDecls <- HsM.runAction $ fmap concat $ sequence hsDeclsAction
@@ -575,7 +585,7 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
     aux :: HsM.Env -> Hs.Newtype -> [WithCategory (Hs.Decl l)]
     aux env nt = concat [
           types [Hs.DeclNewtype nt]
-        , maybe [] callbackDecls newtypeWrapper
+        , maybe [] (callbackDecls env) newtypeWrapper
         , types $ optDecls ++ Hs.hasFieldCompatDecs nt ++ Hs.hasFieldPtrDecs nt
         ]
       where

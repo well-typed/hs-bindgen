@@ -31,44 +31,31 @@ library
   import:          warnings, language
   exposed-modules:
     CEF.AccessibilityHandler
-    CEF.AccessibilityHandler.FFI
     CEF.ApiHash
     CEF.ApiHash.FunPtr
     CEF.ApiHash.Safe
     CEF.ApiHash.Unsafe
     CEF.App
-    CEF.App.FFI
     CEF.App.FunPtr
     CEF.App.Safe
     CEF.App.Unsafe
     CEF.AudioHandler
-    CEF.AudioHandler.FFI
     CEF.AuthCallback
-    CEF.AuthCallback.FFI
     CEF.Base
-    CEF.Base.FFI
     CEF.Browser
-    CEF.Browser.FFI
     CEF.Browser.FunPtr
     CEF.Browser.Safe
     CEF.Browser.Unsafe
     CEF.BrowserProcessHandler
-    CEF.BrowserProcessHandler.FFI
     CEF.Callback
-    CEF.Callback.FFI
     CEF.Client
-    CEF.Client.FFI
     CEF.CommandHandler
-    CEF.CommandHandler.FFI
     CEF.CommandLine
-    CEF.CommandLine.FFI
     CEF.CommandLine.FunPtr
     CEF.CommandLine.Safe
     CEF.CommandLine.Unsafe
     CEF.ContextMenuHandler
-    CEF.ContextMenuHandler.FFI
     CEF.Cookie
-    CEF.Cookie.FFI
     CEF.Cookie.FunPtr
     CEF.Cookie.Safe
     CEF.Cookie.Unsafe
@@ -77,66 +64,45 @@ library
     CEF.CrashUtil.Safe
     CEF.CrashUtil.Unsafe
     CEF.DevtoolsMessageObserver
-    CEF.DevtoolsMessageObserver.FFI
     CEF.DialogHandler
-    CEF.DialogHandler.FFI
     CEF.DisplayHandler
-    CEF.DisplayHandler.FFI
     CEF.Dom
-    CEF.Dom.FFI
     CEF.DownloadHandler
-    CEF.DownloadHandler.FFI
     CEF.DownloadItem
-    CEF.DownloadItem.FFI
     CEF.DragData
-    CEF.DragData.FFI
     CEF.DragData.FunPtr
     CEF.DragData.Safe
     CEF.DragData.Unsafe
     CEF.DragHandler
-    CEF.DragHandler.FFI
     CEF.FileUtil
     CEF.FileUtil.FunPtr
     CEF.FileUtil.Safe
     CEF.FileUtil.Unsafe
     CEF.FindHandler
-    CEF.FindHandler.FFI
     CEF.FocusHandler
-    CEF.FocusHandler.FFI
     CEF.Frame
-    CEF.Frame.FFI
     CEF.FrameHandler
-    CEF.FrameHandler.FFI
     CEF.I18nUtil.FunPtr
     CEF.I18nUtil.Safe
     CEF.I18nUtil.Unsafe
     CEF.Image
-    CEF.Image.FFI
     CEF.Image.FunPtr
     CEF.Image.Safe
     CEF.Image.Unsafe
     CEF.JsdialogHandler
-    CEF.JsdialogHandler.FFI
     CEF.KeyboardHandler
-    CEF.KeyboardHandler.FFI
     CEF.LifeSpanHandler
-    CEF.LifeSpanHandler.FFI
     CEF.LoadHandler
-    CEF.LoadHandler.FFI
     CEF.MediaRouter
-    CEF.MediaRouter.FFI
     CEF.MediaRouter.FunPtr
     CEF.MediaRouter.Safe
     CEF.MediaRouter.Unsafe
     CEF.MenuModel
-    CEF.MenuModel.FFI
     CEF.MenuModel.FunPtr
     CEF.MenuModel.Safe
     CEF.MenuModel.Unsafe
     CEF.MenuModelDelegate
-    CEF.MenuModelDelegate.FFI
     CEF.NavigationEntry
-    CEF.NavigationEntry.FFI
     CEF.OriginWhitelist
     CEF.OriginWhitelist.FunPtr
     CEF.OriginWhitelist.Safe
@@ -150,126 +116,93 @@ library
     CEF.PathUtil.Safe
     CEF.PathUtil.Unsafe
     CEF.PermissionHandler
-    CEF.PermissionHandler.FFI
     CEF.Preference
-    CEF.Preference.FFI
     CEF.Preference.FunPtr
     CEF.Preference.Safe
     CEF.Preference.Unsafe
     CEF.PrintHandler
-    CEF.PrintHandler.FFI
     CEF.PrintSettings
-    CEF.PrintSettings.FFI
     CEF.PrintSettings.FunPtr
     CEF.PrintSettings.Safe
     CEF.PrintSettings.Unsafe
     CEF.ProcessMessage
-    CEF.ProcessMessage.FFI
     CEF.ProcessMessage.FunPtr
     CEF.ProcessMessage.Safe
     CEF.ProcessMessage.Unsafe
     CEF.Registration
     CEF.RenderHandler
-    CEF.RenderHandler.FFI
     CEF.RenderProcessHandler
-    CEF.RenderProcessHandler.FFI
     CEF.Request
-    CEF.Request.FFI
     CEF.Request.FunPtr
     CEF.Request.Safe
     CEF.Request.Unsafe
     CEF.RequestContext
-    CEF.RequestContext.FFI
     CEF.RequestContext.FunPtr
     CEF.RequestContext.Safe
     CEF.RequestContext.Unsafe
     CEF.RequestContextHandler
-    CEF.RequestContextHandler.FFI
     CEF.RequestHandler
-    CEF.RequestHandler.FFI
     CEF.ResourceBundle
-    CEF.ResourceBundle.FFI
     CEF.ResourceBundle.FunPtr
     CEF.ResourceBundle.Safe
     CEF.ResourceBundle.Unsafe
     CEF.ResourceBundleHandler
-    CEF.ResourceBundleHandler.FFI
     CEF.ResourceHandler
-    CEF.ResourceHandler.FFI
     CEF.ResourceRequestHandler
-    CEF.ResourceRequestHandler.FFI
     CEF.Response
-    CEF.Response.FFI
     CEF.Response.FunPtr
     CEF.Response.Safe
     CEF.Response.Unsafe
     CEF.ResponseFilter
-    CEF.ResponseFilter.FFI
     CEF.Scheme
-    CEF.Scheme.FFI
     CEF.Scheme.FunPtr
     CEF.Scheme.Safe
     CEF.Scheme.Unsafe
     CEF.Server
-    CEF.Server.FFI
     CEF.Server.FunPtr
     CEF.Server.Safe
     CEF.Server.Unsafe
     CEF.SharedMemoryRegion
-    CEF.SharedMemoryRegion.FFI
     CEF.SharedProcessMessageBuilder
-    CEF.SharedProcessMessageBuilder.FFI
     CEF.SharedProcessMessageBuilder.FunPtr
     CEF.SharedProcessMessageBuilder.Safe
     CEF.SharedProcessMessageBuilder.Unsafe
     CEF.SslInfo
-    CEF.SslInfo.FFI
     CEF.SslInfo.FunPtr
     CEF.SslInfo.Safe
     CEF.SslInfo.Unsafe
     CEF.SslStatus
-    CEF.SslStatus.FFI
     CEF.Stream
-    CEF.Stream.FFI
     CEF.Stream.FunPtr
     CEF.Stream.Safe
     CEF.Stream.Unsafe
     CEF.StringVisitor
-    CEF.StringVisitor.FFI
     CEF.Task
-    CEF.Task.FFI
     CEF.Task.FunPtr
     CEF.Task.Safe
     CEF.Task.Unsafe
     CEF.TaskManager
-    CEF.TaskManager.FFI
     CEF.TaskManager.FunPtr
     CEF.TaskManager.Safe
     CEF.TaskManager.Unsafe
     CEF.Thread
-    CEF.Thread.FFI
     CEF.Thread.FunPtr
     CEF.Thread.Safe
     CEF.Thread.Unsafe
     CEF.Trace
-    CEF.Trace.FFI
     CEF.Trace.FunPtr
     CEF.Trace.Safe
     CEF.Trace.Unsafe
     CEF.UnresponsiveProcessCallback
-    CEF.UnresponsiveProcessCallback.FFI
     CEF.Urlrequest
-    CEF.Urlrequest.FFI
     CEF.Urlrequest.FunPtr
     CEF.Urlrequest.Safe
     CEF.Urlrequest.Unsafe
     CEF.V8
-    CEF.V8.FFI
     CEF.V8.FunPtr
     CEF.V8.Safe
     CEF.V8.Unsafe
     CEF.Values
-    CEF.Values.FFI
     CEF.Values.FunPtr
     CEF.Values.Safe
     CEF.Values.Unsafe
@@ -278,19 +211,15 @@ library
     CEF.VersionInfo.Safe
     CEF.VersionInfo.Unsafe
     CEF.WaitableEvent
-    CEF.WaitableEvent.FFI
     CEF.WaitableEvent.FunPtr
     CEF.WaitableEvent.Safe
     CEF.WaitableEvent.Unsafe
     CEF.X509Certificate
-    CEF.X509Certificate.FFI
     CEF.XmlReader
-    CEF.XmlReader.FFI
     CEF.XmlReader.FunPtr
     CEF.XmlReader.Safe
     CEF.XmlReader.Unsafe
     CEF.ZipReader
-    CEF.ZipReader.FFI
     CEF.ZipReader.FunPtr
     CEF.ZipReader.Safe
     CEF.ZipReader.Unsafe

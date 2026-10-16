@@ -142,12 +142,13 @@ hasHsBoot = isJust . hsBootDeclsFor
 translateModuleMultiple ::
      FieldNamingStrategy
   -> ModuleRenderConfig
+  -> HsBootPolicy
   -> [C.RootDirective C.HashIncludeArg]
   -> BaseModuleName
   -> ([SDecl] -> [ExportEntry])
   -> ByCategory_ ([CWrapper], [SDecl])
   -> ByCategory_ (Maybe (HsModule, Maybe HsBoot))
-translateModuleMultiple fns mrc dirs moduleBaseName resolveExports declsByCat =
+translateModuleMultiple fns mrc hsBootPolicy dirs moduleBaseName resolveExports declsByCat =
     mapWithCategory_ go declsByCat
   where
     go :: Category -> ([CWrapper], [SDecl]) -> Maybe (HsModule, Maybe HsBoot)
@@ -169,7 +170,8 @@ translateModuleMultiple fns mrc dirs moduleBaseName resolveExports declsByCat =
     --
     -- The types module names what the FFI module defines (today, the functions
     -- of its @ToFunPtr@ and @FromFunPtr@ instances), so it imports the FFI
-    -- module whenever there is one. See the golden fixture
+    -- module whenever there is one. There is one only with 'GenerateHsBoot'
+    -- (see "HsBindgen.Backend.Hs.Translation"). See the golden fixture
     -- @types\/boot\/ffi_module@.
     hasFFIModule :: Bool
     hasFFIModule = case view (lensForCategory (CTerm CFFI)) declsByCat of
@@ -188,7 +190,9 @@ translateModuleMultiple fns mrc dirs moduleBaseName resolveExports declsByCat =
       _otherCategory       -> []
 
     bootDecls :: Category -> [SDecl] -> Maybe [HsBootDecl]
-    bootDecls cat decs = (\f -> concatMap f decs) <$> hsBootDeclsFor cat
+    bootDecls cat decs = case hsBootPolicy of
+      GenerateHsBoot      -> (\f -> concatMap f decs) <$> hsBootDeclsFor cat
+      DoNotGenerateHsBoot -> Nothing
 
 translateModuleSingle ::
      FieldNamingStrategy

@@ -19,7 +19,6 @@ library
     RPM.Argv.Safe
     RPM.Argv.Unsafe
     RPM.Ds
-    RPM.Ds.FFI
     RPM.Ds.FunPtr
     RPM.Ds.Safe
     RPM.Ds.Unsafe
@@ -57,7 +56,6 @@ library
     RPM.Td.Unsafe
     RPM.Types
     RPM.Util
-    RPM.Util.FFI
     RPM.Util.FunPtr
     RPM.Util.Safe
     RPM.Util.Unsafe

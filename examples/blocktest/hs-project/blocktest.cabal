@@ -24,7 +24,6 @@ executable blocktest
 
   other-modules:
     Iterator
-    Iterator.FFI
     Iterator.Safe
 
   -- To use blocks we /must/ use clang as the C compiler and the assembler

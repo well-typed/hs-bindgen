@@ -27,7 +27,6 @@ library
   hs-source-dirs:  src
   exposed-modules:
     Generated.Pcap
-    Generated.Pcap.FFI
     Generated.Pcap.Safe
 
   autogen-modules:

@@ -13,3 +13,14 @@ struct buffer {
 };
 
 void register_handler(on_event f);
+
+struct point {
+  int x;
+  int y;
+};
+
+// A callback written in place, whose type names a type of the module: the
+// types module has ToFunPtr and FromFunPtr instances at the function type
+// Ptr Point -> IO CInt, which its boot file leaves out, and the functions that
+// they name are in the FFI module.
+void visit(int (*f)(struct point *p));

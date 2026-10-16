@@ -35,7 +35,6 @@ testCases = [
     , defaultTest "types/anonymous/union_in_struct"
     , defaultTest "types/anonymous/union_in_union"
     , defaultTest "types/anonymous/union"
-    , defaultTest "types/boot/ffi_module"
     , defaultTest "types/complex/complex_non_float_test"
     , defaultTest "types/complex/hsb_complex_test"
     , defaultTest "types/complex/vector_test"
@@ -77,6 +76,7 @@ testCases = [
     , test_anonymous_edge_cases_multi_nesting
     , test_anonymous_edge_cases_multi_nesting_omit_field_prefixes
     , test_anonymous_edge_cases_reparse
+    , test_boot_ffi_module
     , test_long_double
     , test_primitives_bool_c23
     , test_primitives_bool_macro_override
@@ -209,6 +209,12 @@ test_anonymous_edge_cases_multi_nesting_omit_field_prefixes =
 test_anonymous_edge_cases_reparse :: TestCase
 test_anonymous_edge_cases_reparse =
     defaultTest "types/anonymous/edge-cases/reparse"
+
+-- | The one fixture with boot files, and with an FFI module
+test_boot_ffi_module :: TestCase
+test_boot_ffi_module =
+    defaultTest "types/boot/ffi_module"
+      & #onBackend .~ ( #hsBootPolicy .~ GenerateHsBoot )
 
 test_long_double :: TestCase
 test_long_double =

@@ -105,6 +105,7 @@ instance Default FrontendConfig where
 data BackendConfig = BackendConfig {
       uniqueId            :: UniqueId
     , categoryChoice      :: ByCategory Choice
+    , hsBootPolicy        :: HsBootPolicy
     }
   deriving stock (Show, Generic)
   deriving anyclass Default

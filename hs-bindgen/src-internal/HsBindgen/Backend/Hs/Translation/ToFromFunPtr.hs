@@ -34,10 +34,12 @@ import HsBindgen.Language.Haskell qualified as Hs
 
 -- | The declarations behind one callback
 --
--- The two halves go to different modules. The instances stay with their type,
--- in the types module, so that they are not orphans. The code they name needs
--- @FFIType@ to reduce (hs-boot limitation/requirement), so it goes to the FFI
--- module, which the types module imports through its boot file.
+-- With @--generate-hs-boot@, the two halves go to different modules. The
+-- instances stay with their type, in the types module, so that they are not
+-- orphans. The code they name needs @FFIType@ to reduce (hs-boot
+-- limitation/requirement), so it goes to the FFI module, which the types module
+-- imports through its boot file. Without the flag, both halves stay in the types
+-- module.
 --
 -- See the golden fixture @types\/boot\/ffi_module@.
 data Callback l = Callback {
