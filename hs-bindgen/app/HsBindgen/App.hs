@@ -23,6 +23,7 @@ module HsBindgen.App (
   , parseHsOutputDir
   , parseDirPolicy
   , parseFilePolicy
+  , parseHsBootPolicy
   , parseGenBindingSpec
   , parseGenTestsOutput
     -- ** Input arguments
@@ -527,6 +528,15 @@ parseFilePolicy :: Parser FilePolicy
 parseFilePolicy = flag DoNotOverwriteFiles AllowFileOverwrite $ mconcat [
       long "overwrite-files"
     , help "Allow overwriting existing output files"
+    ]
+
+parseHsBootPolicy :: Parser HsBootPolicy
+parseHsBootPolicy = flag DoNotGenerateHsBoot GenerateHsBoot $ mconcat [
+      long "generate-hs-boot"
+    , help (  "Put the code behind callbacks in a module of its own (suffix "
+           ++ "HsBootInternal), and generate boot files for it and for its "
+           ++ "types module. Not available with --single-file"
+           )
     ]
 
 parseGenBindingSpec :: Parser FilePath

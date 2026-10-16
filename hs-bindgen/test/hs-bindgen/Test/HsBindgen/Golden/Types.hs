@@ -76,6 +76,7 @@ testCases = [
     , test_anonymous_edge_cases_multi_nesting
     , test_anonymous_edge_cases_multi_nesting_omit_field_prefixes
     , test_anonymous_edge_cases_reparse
+    , test_boot_internal_module
     , test_long_double
     , test_primitives_bool_c23
     , test_primitives_bool_macro_override
@@ -211,6 +212,12 @@ test_anonymous_edge_cases_multi_nesting_omit_field_prefixes =
 test_anonymous_edge_cases_reparse :: TestCase
 test_anonymous_edge_cases_reparse =
     defaultTest "types/anonymous/edge-cases/reparse"
+
+-- | The one fixture with boot files, and with an HsBootInternal module
+test_boot_internal_module :: TestCase
+test_boot_internal_module =
+    defaultTest "types/boot/internal_module"
+      & #onBackend .~ ( #hsBootPolicy .~ GenerateHsBoot )
 
 test_long_double :: TestCase
 test_long_double =

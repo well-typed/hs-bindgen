@@ -34,6 +34,7 @@ module HsBindgen.Backend.SHs.AST (
   , Parameter(..)
   , Result(..)
   , PatternSynonym(..)
+  , HsBootDecl(..)
   ) where
 
 import HsBindgen.Backend.Global
@@ -165,3 +166,21 @@ data PatternSynonym = PatternSynonym{
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Show, Generic)
+
+{-------------------------------------------------------------------------------
+  Boot files
+-------------------------------------------------------------------------------}
+
+-- | A declaration of a boot file
+--
+-- A module that imports another with @{-# SOURCE #-}@ sees only what the boot
+-- file of the other declares. A boot file has no bodies, so these are separate
+-- from 'SDecl'.
+data HsBootDecl =
+    -- | @data T@, without constructors
+    HsBootData (Hs.Name Hs.NsTypeConstr)
+    -- | A type synonym in full
+  | HsBootTypSyn (Hs.Name Hs.NsTypeConstr) ClosedType
+    -- | The type of a binding: the types of its parameters, and its result type
+  | HsBootSignature Hs.TermName [ClosedType] ClosedType
+  deriving stock (Show)
