@@ -99,7 +99,7 @@ data WithCategory a = WithCategory {
 -- module relies on it when it imports the FFI module (see
 -- "HsBindgen.Backend.HsModule.Translation").
 --
--- See the golden fixture @types/boot/ffi_module@.
+-- See the golden fixture @types\/boot\/ffi_module@.
 callbackDecls :: ToFromFunPtr.Callback l -> [WithCategory (Hs.Decl l)]
 callbackDecls callback =
        map (WithCategory (CTerm CFFI)) callback.ffi

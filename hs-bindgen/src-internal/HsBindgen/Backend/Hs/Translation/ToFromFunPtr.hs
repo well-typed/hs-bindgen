@@ -39,7 +39,7 @@ import HsBindgen.Language.Haskell qualified as Hs
 -- @FFIType@ to reduce (hs-boot limitation/requirement), so it goes to the FFI
 -- module, which the types module imports through its boot file.
 --
--- See the golden fixture @types/boot/ffi_module@.
+-- See the golden fixture @types\/boot\/ffi_module@.
 data Callback l = Callback {
       -- | The @"wrapper"@ and @"dynamic"@ imports, and the functions around them
       ffi       :: [Hs.Decl l]

@@ -170,7 +170,7 @@ translateModuleMultiple fns mrc dirs moduleBaseName resolveExports declsByCat =
     -- The types module names what the FFI module defines (today, the functions
     -- of its @ToFunPtr@ and @FromFunPtr@ instances), so it imports the FFI
     -- module whenever there is one. See the golden fixture
-    -- @types/boot/ffi_module@.
+    -- @types\/boot\/ffi_module@.
     hasFFIModule :: Bool
     hasFFIModule = case view (lensForCategory (CTerm CFFI)) declsByCat of
       ([], []) -> False
@@ -181,28 +181,14 @@ translateModuleMultiple fns mrc dirs moduleBaseName resolveExports declsByCat =
     -- The FFI module imports the types module, and GHC refuses two modules
     -- that import each other directly, so the types module imports the FFI
     -- module through its boot file. See the golden fixture
-    -- @types/boot/ffi_module@.
+    -- @types\/boot\/ffi_module@.
     sourceImports :: Category -> [Hs.ModuleName]
     sourceImports = \case
       CType | hasFFIModule -> [fromBaseModuleName moduleBaseName (Just (CTerm CFFI))]
       _otherCategory       -> []
 
-    -- For now, due to the nature of generated callback code, a types module
-    -- gets a boot file only when there is an FFI module. The two modules
-    -- need each other: the types module names the functions of the FFI
-    -- module (in its @ToFunPtr@ and @FromFunPtr@ instances), and the FFI module
-    -- uses the types of the types module. GHC cannot compile two modules that
-    -- import each other directly, so the types module imports the FFI module
-    -- through the boot file of the FFI module. That boot file names types of
-    -- the types module too, and GHC compiles it before the types module, so
-    -- it imports the boot file of the types module.
-    --
-    -- See the golden fixture @types/boot/ffi_module@.
     bootDecls :: Category -> [SDecl] -> Maybe [HsBootDecl]
-    bootDecls cat decs
-      | CType <- cat
-      , not hasFFIModule = Nothing
-      | otherwise = (\f -> concatMap f decs) <$> hsBootDeclsFor cat
+    bootDecls cat decs = (\f -> concatMap f decs) <$> hsBootDeclsFor cat
 
 translateModuleSingle ::
      FieldNamingStrategy
@@ -261,6 +247,21 @@ translateHsBoot fns mrc moduleBaseName cat decs =
       }
 
 -- | What the boot file of the module of a category declares, if it has one
+--
+-- The types module and the FFI module have boot files. The two modules need
+-- each other: the types module names the functions of the FFI module (in its
+-- @ToFunPtr@ and @FromFunPtr@ instances), and the FFI module uses the types of
+-- the types module. GHC cannot compile two modules that import each other
+-- directly, so the types module imports the FFI module through the boot file of
+-- the FFI module. That boot file names types of the types module too, and GHC
+-- compiles it before the types module, so it imports the boot file of the types
+-- module.
+--
+-- A types module gets a boot file even when there is no FFI module, so that
+-- types modules that use each other can import each other through their boot
+-- files.
+--
+-- See the golden fixture @types\/boot\/ffi_module@.
 hsBootDeclsFor :: Category -> Maybe (SDecl -> [HsBootDecl])
 hsBootDeclsFor = \case
     CType     -> Just typesHsBootDecls
@@ -271,25 +272,82 @@ hsBootDeclsFor = \case
       CFunPtr -> Nothing
       CGlobal -> Nothing
 
--- | The boot file of a types module declares its types
+-- | The boot file of a types module declares its types and their instances
 --
--- Data types and newtypes are declared abstract (@data T@). Type synonyms are
--- given in full: GHC rejects an abstract @data T@ in a boot file when the
--- module defines @T@ as a synonym, such as @type T = WithFlam CInt T_Aux@.
+-- A module that imports the types module with @{-# SOURCE #-}@ sees only this
+-- boot file. It can use it for two things, shown here with the two structs of
+-- the golden fixture @types\/structs\/circular_dependency_struct@:
 --
--- See the golden fixture @types/boot/ffi_module@.
+-- 1. To write the name of a type. @struct b@ has a field of type
+--    @struct a *@, so its module writes @Ptr A@. The name is all it needs.
+-- 2. To write its own instances. @struct a@ has a field of type @struct b@, so
+--    its @ReadRaw@ instance reads that field with @ReadRaw B@. GHC only needs
+--    to know that @ReadRaw B@ exists, not how it is defined.
+--
+-- So the boot file declares:
+--
+-- * every data type and newtype, without its constructors (@data T@);
+-- * every type synonym, in full, since GHC refuses @data T@ in a boot file when
+--   the module defines @T@ as a synonym, such as
+--   @type T = WithFlam CInt T_Aux@;
+-- * every instance of the form @C T@, where @T@ is a type of the module, as
+--   @instance C T@ without its @where@ part. Instances derived in a clause,
+--   derived standalone or written out are all included.
+--
+-- GHC does not allow the following in a boot file, so they are left out:
+--
+-- * Type family equations, such as the @FFIType@ equation of a @HasFFIType@
+--   instance. A module that reads the boot file knows that the instance
+--   exists, but cannot see the equation.
+-- * Pattern synonyms (enum constants) and their @COMPLETE@ pragmas.
+--
+-- For now the boot file covers only the two uses above. GHC would allow the
+-- following, and they can be added when a case needs them:
+--
+-- * Every other instance, such as @HasCField T "f"@,
+--   @HasField "f" (Ptr T) (Ptr ty)@, and the @ToFunPtr@ and @FromFunPtr@
+--   instances of function types such as @T -> IO ()@.
+-- * Values (macros).
+--
+-- See the golden fixture @types\/boot\/ffi_module@.
 typesHsBootDecls :: SDecl -> [HsBootDecl]
 typesHsBootDecls = \case
-    DTypSyn typSyn      -> [HsBootTypSyn typSyn.name typSyn.typ]
-    DRecord record      -> [HsBootData record.typ]
-    DNewtype newtyp     -> [HsBootData newtyp.name]
-    DEmptyData empty    -> [HsBootData empty.name]
-    DInst _             -> []
-    DDerivingInstance _ -> []
-    DForeignImport _    -> []
-    DBinding _          -> []
-    DPatternSynonym _   -> []
-    DCompletePragma _   -> []
+    DTypSyn typSyn ->
+      [HsBootTypSyn typSyn.name typSyn.typ]
+    DRecord record ->
+      HsBootData record.typ : derived record.typ record.deriv
+    DNewtype newtyp ->
+      HsBootData newtyp.name : derived newtyp.name newtyp.deriv
+    DEmptyData empty ->
+      [HsBootData empty.name]
+    DInst inst
+      | [TCon name] <- inst.args, null inst.super ->
+          [HsBootInstance inst.clss name]
+      | otherwise ->
+          []
+    DDerivingInstance deriv
+      | TApp (TClass clss) (TCon name) <- deriv.typ ->
+          [HsBootInstance clss name]
+      | otherwise ->
+          []
+    DForeignImport _ ->
+      []
+    DBinding _ ->
+      []
+    DPatternSynonym _ ->
+      []
+    DCompletePragma _ ->
+      []
+  where
+    derived ::
+         Hs.Name Hs.NsTypeConstr
+      -> [(Hs.Strategy ClosedType, [Inst.TypeClass])]
+      -> [HsBootDecl]
+    derived name deriv = [
+          HsBootInstance clss name
+        | (_strategy, classes) <- deriv
+        , clss <- classes
+        ]
 
 -- | The boot file of an FFI module declares the type of each of its functions
 --
@@ -298,7 +356,7 @@ typesHsBootDecls = \case
 -- all that the types module needs. The foreign imports are left out: only the
 -- functions around them are named.
 --
--- See the golden fixture @types/boot/ffi_module@.
+-- See the golden fixture @types\/boot\/ffi_module@.
 ffiHsBootDecls :: SDecl -> [HsBootDecl]
 ffiHsBootDecls = \case
     DBinding binding    -> [
@@ -412,7 +470,7 @@ resolveImports baseModule cat wrappers sourceImports ds =
 -- before the types module. The boot file imports the boot file of the types
 -- module instead, with @{-# SOURCE #-}@.
 --
--- See the golden fixture @types/boot/ffi_module@.
+-- See the golden fixture @types\/boot\/ffi_module@.
 resolveHsBootImports ::
      BaseModuleName
   -> Category
@@ -524,6 +582,8 @@ resolveHsBootDeclImports = \case
       mempty
     HsBootTypSyn _name typ ->
       resolveTypeImports typ
+    HsBootInstance clss _name ->
+      resolveTypeClassImports clss
     HsBootSignature _name args res ->
       foldMap resolveTypeImports (res : args)
 
