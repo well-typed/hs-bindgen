@@ -9,10 +9,21 @@
   example, `PTR_TO_FIELD(ptr) ptr + 4` applied to a `Ptr CInt` advances by 16
   bytes. Applied to a `Ptr Void`, or a pointer to an opaque type, they no
   longer typecheck. See [issue #2306][is-2306].
-
-[is-2306]: https://github.com/well-typed/hs-bindgen/issues/2306
+* `ByCategory` has a new field, `cHsBootInternal`, for the code behind callbacks
+  when `--generate-hs-boot` is used. In Template Haskell mode it is always
+  empty. Code that builds a `ByCategory` by hand needs
+  `cHsBootInternal = IncludeTermCategory def`, which `useSafeCategory`,
+  `useUnsafeCategory`, `useFunPtrCategory` and `def` already set.
 
 ### New features
+
+* `hs-bindgen-cli preprocess --generate-hs-boot` writes a boot file next to the
+  types module, so that other modules can import it with `{-# SOURCE #-}`. For
+  headers with callbacks, the `"wrapper"` and `"dynamic"` imports then go to a
+  new internal module, `<Module>.HsBootInternal`, with a boot file of its own;
+  list it under `other-modules` in the `.cabal` file. Headers without callbacks
+  get the boot file only. The flag is not available with `--single-file`. See
+  the [invocation][manual-invocation] manual page.
 
 ### Minor changes
 
@@ -32,6 +43,7 @@
   lost. See [issue #1851][is-1851].
 
 [is-1851]: https://github.com/well-typed/hs-bindgen/issues/1851
+[is-2306]: https://github.com/well-typed/hs-bindgen/issues/2306
 
 ## 1.0.0.0 -- 2026-10-08
 
@@ -390,6 +402,7 @@
 
 [manual-c-stages]: https://github.com/well-typed/hs-bindgen/blob/main/manual/low-level/usage/c-stages.md
 [manual-ffi-types]: https://github.com/well-typed/hs-bindgen/blob/main/manual/low-level/translation/ffi-types.md
+[manual-invocation]: https://github.com/well-typed/hs-bindgen/blob/main/manual/low-level/usage/invocation.md#module-generation
 [is-831]: https://github.com/well-typed/hs-bindgen/issues/831
 [is-1003]: https://github.com/well-typed/hs-bindgen/issues/1003
 [is-1225]: https://github.com/well-typed/hs-bindgen/issues/1225

@@ -36,6 +36,9 @@ data TermCategory =
     -- modules that use each other import each other through boot files, and a
     -- boot file can not have any type family instances, so the conversions go
     -- in a module of their own that imports the types modules normally.
+    --
+    -- This happens only with @--generate-hs-boot@. Without it, there are no
+    -- boot files, the conversions stay in 'CType', and this category is empty.
     CHsBootInternal
     -- | Foreign import bindings with a @safe@ foreign import modifier.
   | CSafe

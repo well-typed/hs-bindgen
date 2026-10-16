@@ -40,6 +40,31 @@ Options controlling module generation:
 - `--module NAME` - Base module name (e.g., `Generated.MyLib`)
 - `--unique-id ID` - Unique identifier for C wrapper functions (e.g., `org.example.mylib`)
 - `--create-output-dirs` - Create output directories if they do not exist
+- `--generate-hs-boot` - Write a boot file next to the types module
+
+With `--generate-hs-boot`, `hs-bindgen` writes a [boot
+file][ghc:guide:mutually-recursive-modules] next to the module that holds the
+types, for example `MyLib.hs-boot` next to `MyLib.hs`. Another module can then
+import `MyLib` with `{-# SOURCE #-}`, which is how GHC lets two modules import
+each other.
+
+The boot file declares each data type and newtype without its constructors,
+each type synonym in full, and each instance of the form `C T` without its
+methods. GHC does not allow pattern synonyms or type family equations in a boot
+file, so those are left out, along with `COMPLETE` pragmas, macro values and
+other instances.
+
+If the headers have no callbacks, the boot file is the only extra file. If they
+have callbacks with `ToFunPtr` and `FromFunPtr` instances (see [Wrapper and
+dynamic imports][manual:functions-wrapper-dynamic]), the code behind those
+instances, the `"wrapper"` and `"dynamic"` imports, moves to a second module,
+`MyLib.HsBootInternal`, which has a boot file too.
+
+`MyLib.HsBootInternal` is internal. `MyLib` imports it and keeps the instances,
+so your code imports `MyLib` and never `MyLib.HsBootInternal`. List
+`MyLib.HsBootInternal` under `other-modules` in the `.cabal` file.
+
+`--generate-hs-boot` cannot be combined with `--single-file`.
 
 #### Input
 
@@ -522,8 +547,10 @@ In file included from /tmp/ghc2319546_0/ghc_1.c:1:0: error:
 
 [example:bundled-c]: ../../../examples/bundled-c
 [example:literate-example]: ../../../examples/literate-example
+[ghc:guide:mutually-recursive-modules]: https://downloads.haskell.org/ghc/latest/docs/users_guide/separate_compilation.html#how-to-compile-mutually-recursive-modules
 [manual:c-stages]: c-stages.md
 [manual:clang-options]: clang-options.md
+[manual:functions-wrapper-dynamic]: ../translation/functions.md#wrapper-and-dynamic-imports
 [manual:installation]: ../../installation.md
 [manual:installation-clang-vs-gcc]: ../../installation.md#clang-vs-gcc
 [manual:macros]: ../translation/macros.md
