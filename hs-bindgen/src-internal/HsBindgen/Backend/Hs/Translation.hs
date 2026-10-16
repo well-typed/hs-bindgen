@@ -102,7 +102,7 @@ data WithCategory a = WithCategory {
 -- the callback module (see "HsBindgen.Backend.HsModule.Translation").
 -- With 'DoNotGenerateHsBoot', the code stays in 'CType' too.
 --
--- See the golden fixture @types/boot/internal_module@.
+-- See the golden fixture @types\/boot\/internal_module@.
 callbackDecls ::
      HsM.Env
   -> ToFromFunPtr.Callback l
