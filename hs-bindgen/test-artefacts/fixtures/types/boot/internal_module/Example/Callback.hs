@@ -36,3 +36,31 @@ hs_bindgen_a7705d093ccaa37a =
   \funPtr0 ->
     On_event_Aux (\x1 ->
                     fmap BG.fromFFIType (hs_bindgen_a7705d093ccaa37a_base (BG.castFunPtr funPtr0) (BG.toFFIType x1)))
+
+-- __unique:__ @instance ToFunPtr (BG.Ptr Point -> IO BG.CInt)@
+foreign import ccall safe "wrapper" hs_bindgen_ce6081d63db40b52_base ::
+     (BG.Ptr BG.Void -> IO BG.CInt)
+  -> IO (BG.FunPtr (BG.Ptr BG.Void -> IO BG.CInt))
+
+-- __unique:__ @instance ToFunPtr (BG.Ptr Point -> IO BG.CInt)@
+hs_bindgen_ce6081d63db40b52 ::
+     (BG.Ptr Point -> IO BG.CInt)
+  -> IO (BG.FunPtr (BG.Ptr Point -> IO BG.CInt))
+hs_bindgen_ce6081d63db40b52 =
+  \fun0 ->
+    fmap BG.castFunPtr (hs_bindgen_ce6081d63db40b52_base (\x1 ->
+                                                            fmap BG.toFFIType (fun0 (BG.fromFFIType x1))))
+
+-- __unique:__ @instance FromFunPtr (BG.Ptr Point -> IO BG.CInt)@
+foreign import ccall safe "dynamic" hs_bindgen_9ee31aa034cd5991_base ::
+     BG.FunPtr (BG.Ptr BG.Void -> IO BG.CInt)
+  -> BG.Ptr BG.Void -> IO BG.CInt
+
+-- __unique:__ @instance FromFunPtr (BG.Ptr Point -> IO BG.CInt)@
+hs_bindgen_9ee31aa034cd5991 ::
+     BG.FunPtr (BG.Ptr Point -> IO BG.CInt)
+  -> BG.Ptr Point -> IO BG.CInt
+hs_bindgen_9ee31aa034cd5991 =
+  \funPtr0 ->
+    \x1 ->
+      fmap BG.fromFFIType (hs_bindgen_9ee31aa034cd5991_base (BG.castFunPtr funPtr0) (BG.toFFIType x1))
