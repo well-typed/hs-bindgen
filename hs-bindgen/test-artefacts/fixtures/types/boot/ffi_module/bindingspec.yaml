@@ -1,0 +1,60 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/boot/ffi_module.h
+  cname: on_event
+  hsname: On_event
+- headers: types/boot/ffi_module.h
+  cname: struct buffer
+  hsname: Buffer_Aux
+- headers: types/boot/ffi_module.h
+  cname: struct buffer
+  hsname: Buffer
+hstypes:
+- hsname: Buffer
+  representation: typealias
+- hsname: Buffer_Aux
+  representation:
+    record:
+      constructor: Buffer
+      fields:
+      - buffer_len
+  instances:
+  - Eq
+  - Flam_Offset
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: On_event
+  representation:
+    newtype:
+      constructor: On_event
+      fields:
+      - unwrapOn_event
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
