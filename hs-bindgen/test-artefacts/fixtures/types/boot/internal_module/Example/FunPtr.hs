@@ -5,6 +5,7 @@
 
 module Example.FunPtr
     ( Example.FunPtr.register_handler
+    , Example.FunPtr.visit
     )
   where
 
@@ -23,6 +24,16 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
   , "{"
   , "  return &register_handler;"
   , "}"
+  , "/* test_typesbootinternal_module_Example_get_visit */"
+  , "__attribute__ ((const))"
+  , "void (*hs_bindgen_c20b8f8652c06a3d (void)) ("
+  , "  signed int (*arg1) ("
+  , "  struct point *arg1"
+  , ")"
+  , ")"
+  , "{"
+  , "  return &visit;"
+  , "}"
   ]))
 
 -- __unique:__ @test_typesbootinternal_module_Example_get_register_handler@
@@ -37,10 +48,30 @@ hs_bindgen_445b9f20265aa78d =
 {-# NOINLINE register_handler #-}
 {-| __C declaration:__ @register_handler@
 
-    __defined at:__ @types\/boot\/internal_module.h 16:6@
+    __defined at:__ @types\/boot\/internal_module.h 23:6@
 
     __exported by:__ @types\/boot\/internal_module.h@
 -}
 register_handler :: BG.FunPtr (On_event -> IO ())
 register_handler =
   BG.unsafePerformIO hs_bindgen_445b9f20265aa78d
+
+-- __unique:__ @test_typesbootinternal_module_Example_get_visit@
+foreign import ccall unsafe "hs_bindgen_c20b8f8652c06a3d" hs_bindgen_c20b8f8652c06a3d_base ::
+     IO (BG.FunPtr BG.Void)
+
+-- __unique:__ @test_typesbootinternal_module_Example_get_visit@
+hs_bindgen_c20b8f8652c06a3d :: IO (BG.FunPtr (BG.FunPtr (BG.Ptr Point -> IO BG.CInt) -> IO ()))
+hs_bindgen_c20b8f8652c06a3d =
+  fmap BG.fromFFIType hs_bindgen_c20b8f8652c06a3d_base
+
+{-# NOINLINE visit #-}
+{-| __C declaration:__ @visit@
+
+    __defined at:__ @types\/boot\/internal_module.h 34:6@
+
+    __exported by:__ @types\/boot\/internal_module.h@
+-}
+visit :: BG.FunPtr (BG.FunPtr (BG.Ptr Point -> IO BG.CInt) -> IO ())
+visit =
+  BG.unsafePerformIO hs_bindgen_c20b8f8652c06a3d
