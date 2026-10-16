@@ -168,6 +168,8 @@ instance Pretty HsBootDecl where
       PP.hsep ["data", pretty name]
     HsBootTypSyn name typ ->
       prettyTypSyn name typ
+    HsBootInstance clss name ->
+      "instance" <+> pretty (resolveTypeClass clss) <+> pretty name
     HsBootSignature name args res ->
       prettySignature name
         [Parameter{typ = arg, comment = Nothing} | arg <- args]

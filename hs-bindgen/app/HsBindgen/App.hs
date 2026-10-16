@@ -584,9 +584,10 @@ parseFilePolicy = flag DoNotOverwriteFiles AllowFileOverwrite $ mconcat [
 parseHsBootPolicy :: Parser HsBootPolicy
 parseHsBootPolicy = flag DoNotGenerateHsBoot GenerateHsBoot $ mconcat [
       long "generate-hs-boot"
-    , help (  "Put the code behind callbacks in a module of its own (suffix "
-           ++ "Callback), and generate boot files for it and for its "
-           ++ "types module. Not available with --single-file"
+    , help (  "Generate a boot file next to every types module, and put the "
+           ++ "code behind callbacks in a module of its own (suffix "
+           ++ "Callback), which has a boot file too. Not available with "
+           ++ "--single-file"
            )
     ]
 
