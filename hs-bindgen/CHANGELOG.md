@@ -4,6 +4,14 @@
 
 ### Breaking changes
 
+* Require `c-expr-runtime` 0.2. Generated macros applied to a pointer now
+  advance it by elements of the pointee type, as in C, not by bytes; for
+  example, `PTR_TO_FIELD(ptr) ptr + 4` applied to a `Ptr CInt` advances by 16
+  bytes. Applied to a `Ptr Void`, or a pointer to an opaque type, they no
+  longer typecheck. See [issue #2306][is-2306].
+
+[is-2306]: https://github.com/well-typed/hs-bindgen/issues/2306
+
 ### New features
 
 ### Minor changes

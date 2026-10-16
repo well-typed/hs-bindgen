@@ -20,10 +20,11 @@ examples :: IO ()
 examples = do
     section "Macros"
 
-    buffer <- mallocForeignPtrBytes 8
+    -- A byte pointer, so that 'pTR_TO_FIELD' advances by bytes.
+    buffer :: ForeignPtr Word8 <- mallocForeignPtrBytes 8
     (x :: Word32) <- withForeignPtr buffer $ \ptr -> do
       poke (plusPtr ptr (fromIntegral fIELD_OFFSET)) (1234 :: Word32)
-      peek (pTR_TO_FIELD ptr)
+      peek (castPtr (pTR_TO_FIELD ptr))
     print x
     print (pTR_TO_FIELD (1 :: FC.CLong))
 

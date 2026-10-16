@@ -388,7 +388,7 @@ library
   -- External dependencies
   build-depends:
     , c-expr-dsl      >=0.2 && <0.3
-    , c-expr-runtime  >=0.1 && <0.2
+    , c-expr-runtime  >=0.2 && <0.3
 
   -- Inherited dependencies
   build-depends:

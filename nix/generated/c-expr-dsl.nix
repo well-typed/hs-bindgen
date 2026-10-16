@@ -7,6 +7,8 @@ mkDerivation {
   pname = "c-expr-dsl";
   version = "0.2.0.0";
   sha256 = "b145a82c8b6e48f641212d118524a1bfc83b40f2b842899f4baf8cd90eb36619";
+  revision = "1";
+  editedCabalFile = "00vvawdk7ia0szrfdj813pwvgpj0y2spavl5xbnh8jir3pp6x9qk";
   enableSeparateDataOutput = true;
   libraryHaskellDepends = [
     base bytestring c-expr-runtime containers debruijn fin

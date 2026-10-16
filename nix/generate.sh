@@ -37,7 +37,7 @@ HACKAGE_PACKAGES=(
   libclang-bindings=0.2.0.0
   doxygen-parser=0.1.2
   c-expr-dsl=0.2.0.0
-  c-expr-runtime=0.1.0.0
+  c-expr-runtime=0.2.0.0
   # libclang-bindings requires tasty <1.5.4, but Nixpkgs has 1.5.4; also
   # overridden (scoped to libclang-bindings only) in
   # nix/overlay/libclang-bindings.nix, keep both in sync.
