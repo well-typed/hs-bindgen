@@ -3,8 +3,8 @@
 }:
 mkDerivation {
   pname = "c-expr-runtime";
-  version = "0.1.0.0";
-  sha256 = "827b0a340f914f2d627e09852fca87df3092c691179ae9db039415772aad7d35";
+  version = "0.2.0.0";
+  sha256 = "831f276a37cca89171b9cebf6352f1038451bd4a68ee91f4c236b0510e2e6985";
   libraryHaskellDepends = [
     base containers fin some template-haskell vec
   ];

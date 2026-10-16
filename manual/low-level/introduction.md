@@ -194,14 +194,21 @@ pTR_TO_FIELD :: forall a. (C.Add a) CInt => a -> (C.AddRes a) CInt
 respecting the typing rules for C. Two examples:
 
 * If we instantiate `a` to `(Ptr x)`, adding `CInt` (offset) to a pointer, the
-  result will also be `(Ptr x)`
+  result will also be `(Ptr x)`, advanced by four elements of type `x`, as in C.
 * If we instantiate `a` to `CLong`, adding `CInt` and `CLong`, the result will
   be `CLong`.
 
-This means that we can `peek` the value from the `poke` example above using
+Unlike `plusPtr` in the `poke` example above, which always counts bytes,
+`pTR_TO_FIELD` counts elements: applied to a `Ptr Word32`, it advances by 4
+elements of 4 bytes each, that is, 16 bytes. To advance by 4 bytes, we apply it
+to a byte pointer, just like `(char *) ptr + 4` in C. The result is again a
+byte pointer, so we convert it with `castPtr :: Ptr a -> Ptr b` (from
+`Foreign.Ptr`), which changes the pointee type but not the address. We can then
+`peek` the value from the `poke` example:
 
 ```haskell
-peek (pTR_TO_FIELD ptr)
+peekField :: Ptr Word8 -> IO Word32
+peekField ptr = peek (castPtr (pTR_TO_FIELD ptr))
 ```
 
 ### Types

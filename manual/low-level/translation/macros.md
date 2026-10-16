@@ -144,8 +144,9 @@ pTR_TO_FIELD = \ptr -> ptr C.+ (4 :: CInt)
 Macro parameters carry no type annotations, so `hs-bindgen` infers the most
 general type. The class `Add` and the type family `AddRes` come from
 [`c-expr-runtime`][hackage:c-expr-runtime], which mirrors the C typing rules at
-the Haskell type level. Instantiating `a` to `Ptr x` yields `Ptr x`;
-instantiating it to `CLong` yields `CLong`.
+the Haskell type level. Instantiating `a` to `Ptr x` yields `Ptr x`, advanced
+by four elements of type `x`, as in C; for `Ptr Void`, or an opaque `x`, it is
+a type error. Instantiating `a` to `CLong` yields `CLong`.
 
 ### Macro types
 
