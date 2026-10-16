@@ -197,6 +197,22 @@
 newtype Toggle_Aux
     = Toggle_Aux {unwrapToggle_Aux :: (IO CBool)}
     deriving stock Generic
+-- __unique:__ @toToggle_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_eca2bca8e63194be_base ::
+    IO CBool
+ -> IO (FunPtr (IO CBool))
+-- __unique:__ @toToggle_Aux@
+hs_bindgen_eca2bca8e63194be :: Toggle_Aux -> IO (FunPtr Toggle_Aux)
+-- __unique:__ @toToggle_Aux@
+hs_bindgen_eca2bca8e63194be = \fun_0 -> fmap castFunPtr (hs_bindgen_eca2bca8e63194be_base (fmap toFFIType (getField @"unwrapToggle_Aux" fun_0)))
+-- __unique:__ @fromToggle_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_703fc4bdc168721d_base ::
+    FunPtr (IO CBool)
+ -> IO CBool
+-- __unique:__ @fromToggle_Aux@
+hs_bindgen_703fc4bdc168721d :: FunPtr Toggle_Aux -> Toggle_Aux
+-- __unique:__ @fromToggle_Aux@
+hs_bindgen_703fc4bdc168721d = \funPtr_0 -> Toggle_Aux (fmap fromFFIType (hs_bindgen_703fc4bdc168721d_base (castFunPtr funPtr_0)))
 instance ToFunPtr Toggle_Aux
     where toFunPtr = hs_bindgen_eca2bca8e63194be
 instance FromFunPtr Toggle_Aux
@@ -242,6 +258,23 @@ instance HasCField Toggle "unwrapToggle"
 newtype Counter_Aux
     = Counter_Aux {unwrapCounter_Aux :: (IO CInt)}
     deriving stock Generic
+-- __unique:__ @toCounter_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_2202848aad97fe0a_base ::
+    IO CInt
+ -> IO (FunPtr (IO CInt))
+-- __unique:__ @toCounter_Aux@
+hs_bindgen_2202848aad97fe0a :: Counter_Aux ->
+                               IO (FunPtr Counter_Aux)
+-- __unique:__ @toCounter_Aux@
+hs_bindgen_2202848aad97fe0a = \fun_0 -> fmap castFunPtr (hs_bindgen_2202848aad97fe0a_base (fmap toFFIType (getField @"unwrapCounter_Aux" fun_0)))
+-- __unique:__ @fromCounter_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_73304cb84e9a2f8f_base ::
+    FunPtr (IO CInt)
+ -> IO CInt
+-- __unique:__ @fromCounter_Aux@
+hs_bindgen_73304cb84e9a2f8f :: FunPtr Counter_Aux -> Counter_Aux
+-- __unique:__ @fromCounter_Aux@
+hs_bindgen_73304cb84e9a2f8f = \funPtr_0 -> Counter_Aux (fmap fromFFIType (hs_bindgen_73304cb84e9a2f8f_base (castFunPtr funPtr_0)))
 instance ToFunPtr Counter_Aux
     where toFunPtr = hs_bindgen_2202848aad97fe0a
 instance FromFunPtr Counter_Aux
@@ -287,6 +320,25 @@ instance HasCField Counter "unwrapCounter"
 newtype VarCounter_Aux
     = VarCounter_Aux {unwrapVarCounter_Aux :: (CInt -> IO CInt)}
     deriving stock Generic
+-- __unique:__ @toVarCounter_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_42a7337570f8b0d0_base ::
+    CInt -> IO CInt
+ -> IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @toVarCounter_Aux@
+hs_bindgen_42a7337570f8b0d0 :: VarCounter_Aux ->
+                               IO (FunPtr VarCounter_Aux)
+-- __unique:__ @toVarCounter_Aux@
+hs_bindgen_42a7337570f8b0d0 = \fun_0 -> fmap castFunPtr (hs_bindgen_42a7337570f8b0d0_base (\x_1 -> fmap toFFIType (getField @"unwrapVarCounter_Aux" fun_0 (fromFFIType x_1))))
+-- __unique:__ @fromVarCounter_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_43d902480175fccf_base ::
+    FunPtr (CInt -> IO CInt)
+ -> CInt
+ -> IO CInt
+-- __unique:__ @fromVarCounter_Aux@
+hs_bindgen_43d902480175fccf :: FunPtr VarCounter_Aux ->
+                               VarCounter_Aux
+-- __unique:__ @fromVarCounter_Aux@
+hs_bindgen_43d902480175fccf = \funPtr_0 -> VarCounter_Aux (\x_1 -> fmap fromFFIType (hs_bindgen_43d902480175fccf_base (castFunPtr funPtr_0) (toFFIType x_1)))
 instance ToFunPtr VarCounter_Aux
     where toFunPtr = hs_bindgen_42a7337570f8b0d0
 instance FromFunPtr VarCounter_Aux
@@ -323,58 +375,6 @@ instance HasCField VarCounter "unwrapVarCounter"
     where type CFieldType VarCounter
                           "unwrapVarCounter" = Block VarCounter_Aux
           offset# = \_ -> \_ -> 0
--- __unique:__ @toToggle_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_eca2bca8e63194be_base ::
-    IO CBool
- -> IO (FunPtr (IO CBool))
--- __unique:__ @toToggle_Aux@
-hs_bindgen_eca2bca8e63194be :: Toggle_Aux -> IO (FunPtr Toggle_Aux)
--- __unique:__ @toToggle_Aux@
-hs_bindgen_eca2bca8e63194be = \fun_0 -> fmap castFunPtr (hs_bindgen_eca2bca8e63194be_base (fmap toFFIType (getField @"unwrapToggle_Aux" fun_0)))
--- __unique:__ @fromToggle_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_703fc4bdc168721d_base ::
-    FunPtr (IO CBool)
- -> IO CBool
--- __unique:__ @fromToggle_Aux@
-hs_bindgen_703fc4bdc168721d :: FunPtr Toggle_Aux -> Toggle_Aux
--- __unique:__ @fromToggle_Aux@
-hs_bindgen_703fc4bdc168721d = \funPtr_0 -> Toggle_Aux (fmap fromFFIType (hs_bindgen_703fc4bdc168721d_base (castFunPtr funPtr_0)))
--- __unique:__ @toCounter_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_2202848aad97fe0a_base ::
-    IO CInt
- -> IO (FunPtr (IO CInt))
--- __unique:__ @toCounter_Aux@
-hs_bindgen_2202848aad97fe0a :: Counter_Aux ->
-                               IO (FunPtr Counter_Aux)
--- __unique:__ @toCounter_Aux@
-hs_bindgen_2202848aad97fe0a = \fun_0 -> fmap castFunPtr (hs_bindgen_2202848aad97fe0a_base (fmap toFFIType (getField @"unwrapCounter_Aux" fun_0)))
--- __unique:__ @fromCounter_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_73304cb84e9a2f8f_base ::
-    FunPtr (IO CInt)
- -> IO CInt
--- __unique:__ @fromCounter_Aux@
-hs_bindgen_73304cb84e9a2f8f :: FunPtr Counter_Aux -> Counter_Aux
--- __unique:__ @fromCounter_Aux@
-hs_bindgen_73304cb84e9a2f8f = \funPtr_0 -> Counter_Aux (fmap fromFFIType (hs_bindgen_73304cb84e9a2f8f_base (castFunPtr funPtr_0)))
--- __unique:__ @toVarCounter_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_42a7337570f8b0d0_base ::
-    CInt -> IO CInt
- -> IO (FunPtr (CInt -> IO CInt))
--- __unique:__ @toVarCounter_Aux@
-hs_bindgen_42a7337570f8b0d0 :: VarCounter_Aux ->
-                               IO (FunPtr VarCounter_Aux)
--- __unique:__ @toVarCounter_Aux@
-hs_bindgen_42a7337570f8b0d0 = \fun_0 -> fmap castFunPtr (hs_bindgen_42a7337570f8b0d0_base (\x_1 -> fmap toFFIType (getField @"unwrapVarCounter_Aux" fun_0 (fromFFIType x_1))))
--- __unique:__ @fromVarCounter_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_43d902480175fccf_base ::
-    FunPtr (CInt -> IO CInt)
- -> CInt
- -> IO CInt
--- __unique:__ @fromVarCounter_Aux@
-hs_bindgen_43d902480175fccf :: FunPtr VarCounter_Aux ->
-                               VarCounter_Aux
--- __unique:__ @fromVarCounter_Aux@
-hs_bindgen_43d902480175fccf = \funPtr_0 -> VarCounter_Aux (\x_1 -> fmap fromFFIType (hs_bindgen_43d902480175fccf_base (castFunPtr funPtr_0) (toFFIType x_1)))
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeToggle@
 foreign import ccall safe "hs_bindgen_9d01035006b66206" hs_bindgen_9d01035006b66206_base ::
     CBool

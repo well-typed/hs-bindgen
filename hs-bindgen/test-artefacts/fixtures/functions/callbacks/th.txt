@@ -441,6 +441,24 @@
 newtype FileOpenedNotification_Aux
     = FileOpenedNotification_Aux {unwrapFileOpenedNotification_Aux :: (IO ())}
     deriving stock Generic
+-- __unique:__ @toFileOpenedNotification_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_b3b8b1fad168671a_base ::
+    IO ()
+ -> IO (FunPtr (IO ()))
+-- __unique:__ @toFileOpenedNotification_Aux@
+hs_bindgen_b3b8b1fad168671a :: FileOpenedNotification_Aux ->
+                               IO (FunPtr FileOpenedNotification_Aux)
+-- __unique:__ @toFileOpenedNotification_Aux@
+hs_bindgen_b3b8b1fad168671a = \fun_0 -> fmap castFunPtr (hs_bindgen_b3b8b1fad168671a_base (getField @"unwrapFileOpenedNotification_Aux" fun_0))
+-- __unique:__ @fromFileOpenedNotification_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_f3ba5920f34c7f6a_base ::
+    FunPtr (IO ())
+ -> IO ()
+-- __unique:__ @fromFileOpenedNotification_Aux@
+hs_bindgen_f3ba5920f34c7f6a :: FunPtr FileOpenedNotification_Aux ->
+                               FileOpenedNotification_Aux
+-- __unique:__ @fromFileOpenedNotification_Aux@
+hs_bindgen_f3ba5920f34c7f6a = \funPtr_0 -> FileOpenedNotification_Aux (hs_bindgen_f3ba5920f34c7f6a_base (castFunPtr funPtr_0))
 instance ToFunPtr FileOpenedNotification_Aux
     where toFunPtr = hs_bindgen_b3b8b1fad168671a
 instance FromFunPtr FileOpenedNotification_Aux
@@ -500,6 +518,25 @@ instance HasCField FileOpenedNotification
 newtype ProgressUpdate_Aux
     = ProgressUpdate_Aux {unwrapProgressUpdate_Aux :: (CInt -> IO ())}
     deriving stock Generic
+-- __unique:__ @toProgressUpdate_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_d551f31556ffa727_base ::
+    CInt -> IO ()
+ -> IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @toProgressUpdate_Aux@
+hs_bindgen_d551f31556ffa727 :: ProgressUpdate_Aux ->
+                               IO (FunPtr ProgressUpdate_Aux)
+-- __unique:__ @toProgressUpdate_Aux@
+hs_bindgen_d551f31556ffa727 = \fun_0 -> fmap castFunPtr (hs_bindgen_d551f31556ffa727_base (\x_1 -> getField @"unwrapProgressUpdate_Aux" fun_0 (fromFFIType x_1)))
+-- __unique:__ @fromProgressUpdate_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_ccf7f4b62a839a04_base ::
+    FunPtr (CInt -> IO ())
+ -> CInt
+ -> IO ()
+-- __unique:__ @fromProgressUpdate_Aux@
+hs_bindgen_ccf7f4b62a839a04 :: FunPtr ProgressUpdate_Aux ->
+                               ProgressUpdate_Aux
+-- __unique:__ @fromProgressUpdate_Aux@
+hs_bindgen_ccf7f4b62a839a04 = \funPtr_0 -> ProgressUpdate_Aux (\x_1 -> hs_bindgen_ccf7f4b62a839a04_base (castFunPtr funPtr_0) (toFFIType x_1))
 instance ToFunPtr ProgressUpdate_Aux
     where toFunPtr = hs_bindgen_d551f31556ffa727
 instance FromFunPtr ProgressUpdate_Aux
@@ -553,6 +590,25 @@ instance HasCField ProgressUpdate "unwrapProgressUpdate"
 newtype DataValidator_Aux
     = DataValidator_Aux {unwrapDataValidator_Aux :: (CInt -> IO CInt)}
     deriving stock Generic
+-- __unique:__ @toDataValidator_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_c656ca21e63343d6_base ::
+    CInt -> IO CInt
+ -> IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @toDataValidator_Aux@
+hs_bindgen_c656ca21e63343d6 :: DataValidator_Aux ->
+                               IO (FunPtr DataValidator_Aux)
+-- __unique:__ @toDataValidator_Aux@
+hs_bindgen_c656ca21e63343d6 = \fun_0 -> fmap castFunPtr (hs_bindgen_c656ca21e63343d6_base (\x_1 -> fmap toFFIType (getField @"unwrapDataValidator_Aux" fun_0 (fromFFIType x_1))))
+-- __unique:__ @fromDataValidator_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_c1e79a4c11ca4033_base ::
+    FunPtr (CInt -> IO CInt)
+ -> CInt
+ -> IO CInt
+-- __unique:__ @fromDataValidator_Aux@
+hs_bindgen_c1e79a4c11ca4033 :: FunPtr DataValidator_Aux ->
+                               DataValidator_Aux
+-- __unique:__ @fromDataValidator_Aux@
+hs_bindgen_c1e79a4c11ca4033 = \funPtr_0 -> DataValidator_Aux (\x_1 -> fmap fromFFIType (hs_bindgen_c1e79a4c11ca4033_base (castFunPtr funPtr_0) (toFFIType x_1)))
 instance ToFunPtr DataValidator_Aux
     where toFunPtr = hs_bindgen_c656ca21e63343d6
 instance FromFunPtr DataValidator_Aux
@@ -660,6 +716,25 @@ newtype MeasurementReceived_Aux
     = MeasurementReceived_Aux {unwrapMeasurementReceived_Aux :: (Ptr Measurement ->
                                                                  IO ())}
     deriving stock Generic
+-- __unique:__ @toMeasurementReceived_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_9259654df9d40f5b_base ::
+    Ptr Void -> IO ()
+ -> IO (FunPtr (Ptr Void -> IO ()))
+-- __unique:__ @toMeasurementReceived_Aux@
+hs_bindgen_9259654df9d40f5b :: MeasurementReceived_Aux ->
+                               IO (FunPtr MeasurementReceived_Aux)
+-- __unique:__ @toMeasurementReceived_Aux@
+hs_bindgen_9259654df9d40f5b = \fun_0 -> fmap castFunPtr (hs_bindgen_9259654df9d40f5b_base (\x_1 -> getField @"unwrapMeasurementReceived_Aux" fun_0 (fromFFIType x_1)))
+-- __unique:__ @fromMeasurementReceived_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_383c36bb22947621_base ::
+    FunPtr (Ptr Void -> IO ())
+ -> Ptr Void
+ -> IO ()
+-- __unique:__ @fromMeasurementReceived_Aux@
+hs_bindgen_383c36bb22947621 :: FunPtr MeasurementReceived_Aux ->
+                               MeasurementReceived_Aux
+-- __unique:__ @fromMeasurementReceived_Aux@
+hs_bindgen_383c36bb22947621 = \funPtr_0 -> MeasurementReceived_Aux (\x_1 -> hs_bindgen_383c36bb22947621_base (castFunPtr funPtr_0) (toFFIType x_1))
 instance ToFunPtr MeasurementReceived_Aux
     where toFunPtr = hs_bindgen_9259654df9d40f5b
 instance FromFunPtr MeasurementReceived_Aux
@@ -774,6 +849,25 @@ newtype SampleBufferFull_Aux
                                                                                     CInt)) ->
                                                            IO ())}
     deriving stock Generic
+-- __unique:__ @toSampleBufferFull_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_57d9e30494ae4453_base ::
+    Ptr Void -> IO ()
+ -> IO (FunPtr (Ptr Void -> IO ()))
+-- __unique:__ @toSampleBufferFull_Aux@
+hs_bindgen_57d9e30494ae4453 :: SampleBufferFull_Aux ->
+                               IO (FunPtr SampleBufferFull_Aux)
+-- __unique:__ @toSampleBufferFull_Aux@
+hs_bindgen_57d9e30494ae4453 = \fun_0 -> fmap castFunPtr (hs_bindgen_57d9e30494ae4453_base (\x_1 -> getField @"unwrapSampleBufferFull_Aux" fun_0 (fromFFIType x_1)))
+-- __unique:__ @fromSampleBufferFull_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_2ab7ac6bb756ba7e_base ::
+    FunPtr (Ptr Void -> IO ())
+ -> Ptr Void
+ -> IO ()
+-- __unique:__ @fromSampleBufferFull_Aux@
+hs_bindgen_2ab7ac6bb756ba7e :: FunPtr SampleBufferFull_Aux ->
+                               SampleBufferFull_Aux
+-- __unique:__ @fromSampleBufferFull_Aux@
+hs_bindgen_2ab7ac6bb756ba7e = \funPtr_0 -> SampleBufferFull_Aux (\x_1 -> hs_bindgen_2ab7ac6bb756ba7e_base (castFunPtr funPtr_0) (toFFIType x_1))
 instance ToFunPtr SampleBufferFull_Aux
     where toFunPtr = hs_bindgen_57d9e30494ae4453
 instance FromFunPtr SampleBufferFull_Aux
@@ -1464,180 +1558,6 @@ instance HasCField D "unwrapD"
 newtype T
     = T {unwrapT :: (FunPtr (D -> IO ()) -> IO ())}
     deriving stock Generic
-instance ToFunPtr T
-    where toFunPtr = hs_bindgen_b8534912f6256492
-instance FromFunPtr T
-    where fromFunPtr = hs_bindgen_8f830eadb43a6fe4
-instance (~) ty (FunPtr (D -> IO ()) -> IO ()) =>
-         HasField "unwrapT" T ty
-    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
-                              getField @"unwrapT" x_0)
-instance (~) ty (FunPtr (D -> IO ()) -> IO ()) =>
-         HasField "unwrapT" (Ptr T) (Ptr ty)
-    where getField = fromPtr (Proxy @"unwrapT")
-instance HasCField T "unwrapT"
-    where type CFieldType T "unwrapT" = FunPtr (D -> IO ()) -> IO ()
-          offset# = \_ -> \_ -> 0
-instance ToFunPtr (A -> IO ())
-    where toFunPtr = hs_bindgen_a46c670f88b5e6d2
-instance FromFunPtr (A -> IO ())
-    where fromFunPtr = hs_bindgen_542fc348d1df7dff
-instance ToFunPtr (B -> IO ())
-    where toFunPtr = hs_bindgen_ca9230f035bf19b1
-instance FromFunPtr (B -> IO ())
-    where fromFunPtr = hs_bindgen_05635addcbfd7dd4
-instance ToFunPtr (C -> IO ())
-    where toFunPtr = hs_bindgen_151c4eb8866d683f
-instance FromFunPtr (C -> IO ())
-    where fromFunPtr = hs_bindgen_f9f9dcb4f8267450
-instance ToFunPtr (D -> IO ())
-    where toFunPtr = hs_bindgen_bb8d99987b90516d
-instance FromFunPtr (D -> IO ())
-    where fromFunPtr = hs_bindgen_8eef50c371b3a153
-instance ToFunPtr (Foo -> IO ())
-    where toFunPtr = hs_bindgen_d2a71f330b782e41
-instance FromFunPtr (Foo -> IO ())
-    where fromFunPtr = hs_bindgen_c08440542d338bad
-instance ToFunPtr (Ptr Measurement -> IO CInt)
-    where toFunPtr = hs_bindgen_4064610c89a52f99
-instance FromFunPtr (Ptr Measurement -> IO CInt)
-    where fromFunPtr = hs_bindgen_46b04bdda1fdaafc
-instance ToFunPtr (Ptr Measurement -> IO ())
-    where toFunPtr = hs_bindgen_0e70e3ef331da59c
-instance FromFunPtr (Ptr Measurement -> IO ())
-    where fromFunPtr = hs_bindgen_900e47c9e85104f3
-instance ToFunPtr (Ptr Measurement -> DataValidator -> IO ())
-    where toFunPtr = hs_bindgen_ee5115ecd6cd3b7d
-instance FromFunPtr (Ptr Measurement -> DataValidator -> IO ())
-    where fromFunPtr = hs_bindgen_767024eb494db15e
-instance ToFunPtr (Ptr Measurement ->
-                   DataValidator -> CInt -> IO ())
-    where toFunPtr = hs_bindgen_9c62e3e4c665b341
-instance FromFunPtr (Ptr Measurement ->
-                     DataValidator -> CInt -> IO ())
-    where fromFunPtr = hs_bindgen_be989dc6cfcbaa3c
-instance ToFunPtr (Ptr Measurement ->
-                   FileOpenedNotification -> CInt -> IO ())
-    where toFunPtr = hs_bindgen_cbc1799daa163d3d
-instance FromFunPtr (Ptr Measurement ->
-                     FileOpenedNotification -> CInt -> IO ())
-    where fromFunPtr = hs_bindgen_b313881940dff0dc
-instance ToFunPtr (Ptr Measurement -> ProgressUpdate -> IO ())
-    where toFunPtr = hs_bindgen_7b1e0c518e5f0b1b
-instance FromFunPtr (Ptr Measurement -> ProgressUpdate -> IO ())
-    where fromFunPtr = hs_bindgen_0a3b532434d7e43c
-instance ToFunPtr (Ptr Measurement ->
-                   FunPtr (CDouble -> CInt -> IO CDouble) -> CInt -> IO ())
-    where toFunPtr = hs_bindgen_ba073f1e0ec5008b
-instance FromFunPtr (Ptr Measurement ->
-                     FunPtr (CDouble -> CInt -> IO CDouble) -> CInt -> IO ())
-    where fromFunPtr = hs_bindgen_090d079ea979a39d
-instance ToFunPtr (Ptr Measurement ->
-                   FunPtr (Ptr Measurement -> DataValidator -> CInt -> IO ()) ->
-                   DataValidator -> IO ())
-    where toFunPtr = hs_bindgen_e1d08f76a35007c0
-instance FromFunPtr (Ptr Measurement ->
-                     FunPtr (Ptr Measurement -> DataValidator -> CInt -> IO ()) ->
-                     DataValidator -> IO ())
-    where fromFunPtr = hs_bindgen_74f2cb0fd2d13cc1
-instance ToFunPtr (Foo2 -> IO ())
-    where toFunPtr = hs_bindgen_235fa4a89af25f04
-instance FromFunPtr (Foo2 -> IO ())
-    where fromFunPtr = hs_bindgen_8605b223a9ab9562
--- __unique:__ @toFileOpenedNotification_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_b3b8b1fad168671a_base ::
-    IO ()
- -> IO (FunPtr (IO ()))
--- __unique:__ @toFileOpenedNotification_Aux@
-hs_bindgen_b3b8b1fad168671a :: FileOpenedNotification_Aux ->
-                               IO (FunPtr FileOpenedNotification_Aux)
--- __unique:__ @toFileOpenedNotification_Aux@
-hs_bindgen_b3b8b1fad168671a = \fun_0 -> fmap castFunPtr (hs_bindgen_b3b8b1fad168671a_base (getField @"unwrapFileOpenedNotification_Aux" fun_0))
--- __unique:__ @fromFileOpenedNotification_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_f3ba5920f34c7f6a_base ::
-    FunPtr (IO ())
- -> IO ()
--- __unique:__ @fromFileOpenedNotification_Aux@
-hs_bindgen_f3ba5920f34c7f6a :: FunPtr FileOpenedNotification_Aux ->
-                               FileOpenedNotification_Aux
--- __unique:__ @fromFileOpenedNotification_Aux@
-hs_bindgen_f3ba5920f34c7f6a = \funPtr_0 -> FileOpenedNotification_Aux (hs_bindgen_f3ba5920f34c7f6a_base (castFunPtr funPtr_0))
--- __unique:__ @toProgressUpdate_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_d551f31556ffa727_base ::
-    CInt -> IO ()
- -> IO (FunPtr (CInt -> IO ()))
--- __unique:__ @toProgressUpdate_Aux@
-hs_bindgen_d551f31556ffa727 :: ProgressUpdate_Aux ->
-                               IO (FunPtr ProgressUpdate_Aux)
--- __unique:__ @toProgressUpdate_Aux@
-hs_bindgen_d551f31556ffa727 = \fun_0 -> fmap castFunPtr (hs_bindgen_d551f31556ffa727_base (\x_1 -> getField @"unwrapProgressUpdate_Aux" fun_0 (fromFFIType x_1)))
--- __unique:__ @fromProgressUpdate_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_ccf7f4b62a839a04_base ::
-    FunPtr (CInt -> IO ())
- -> CInt
- -> IO ()
--- __unique:__ @fromProgressUpdate_Aux@
-hs_bindgen_ccf7f4b62a839a04 :: FunPtr ProgressUpdate_Aux ->
-                               ProgressUpdate_Aux
--- __unique:__ @fromProgressUpdate_Aux@
-hs_bindgen_ccf7f4b62a839a04 = \funPtr_0 -> ProgressUpdate_Aux (\x_1 -> hs_bindgen_ccf7f4b62a839a04_base (castFunPtr funPtr_0) (toFFIType x_1))
--- __unique:__ @toDataValidator_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_c656ca21e63343d6_base ::
-    CInt -> IO CInt
- -> IO (FunPtr (CInt -> IO CInt))
--- __unique:__ @toDataValidator_Aux@
-hs_bindgen_c656ca21e63343d6 :: DataValidator_Aux ->
-                               IO (FunPtr DataValidator_Aux)
--- __unique:__ @toDataValidator_Aux@
-hs_bindgen_c656ca21e63343d6 = \fun_0 -> fmap castFunPtr (hs_bindgen_c656ca21e63343d6_base (\x_1 -> fmap toFFIType (getField @"unwrapDataValidator_Aux" fun_0 (fromFFIType x_1))))
--- __unique:__ @fromDataValidator_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_c1e79a4c11ca4033_base ::
-    FunPtr (CInt -> IO CInt)
- -> CInt
- -> IO CInt
--- __unique:__ @fromDataValidator_Aux@
-hs_bindgen_c1e79a4c11ca4033 :: FunPtr DataValidator_Aux ->
-                               DataValidator_Aux
--- __unique:__ @fromDataValidator_Aux@
-hs_bindgen_c1e79a4c11ca4033 = \funPtr_0 -> DataValidator_Aux (\x_1 -> fmap fromFFIType (hs_bindgen_c1e79a4c11ca4033_base (castFunPtr funPtr_0) (toFFIType x_1)))
--- __unique:__ @toMeasurementReceived_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_9259654df9d40f5b_base ::
-    Ptr Void -> IO ()
- -> IO (FunPtr (Ptr Void -> IO ()))
--- __unique:__ @toMeasurementReceived_Aux@
-hs_bindgen_9259654df9d40f5b :: MeasurementReceived_Aux ->
-                               IO (FunPtr MeasurementReceived_Aux)
--- __unique:__ @toMeasurementReceived_Aux@
-hs_bindgen_9259654df9d40f5b = \fun_0 -> fmap castFunPtr (hs_bindgen_9259654df9d40f5b_base (\x_1 -> getField @"unwrapMeasurementReceived_Aux" fun_0 (fromFFIType x_1)))
--- __unique:__ @fromMeasurementReceived_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_383c36bb22947621_base ::
-    FunPtr (Ptr Void -> IO ())
- -> Ptr Void
- -> IO ()
--- __unique:__ @fromMeasurementReceived_Aux@
-hs_bindgen_383c36bb22947621 :: FunPtr MeasurementReceived_Aux ->
-                               MeasurementReceived_Aux
--- __unique:__ @fromMeasurementReceived_Aux@
-hs_bindgen_383c36bb22947621 = \funPtr_0 -> MeasurementReceived_Aux (\x_1 -> hs_bindgen_383c36bb22947621_base (castFunPtr funPtr_0) (toFFIType x_1))
--- __unique:__ @toSampleBufferFull_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_57d9e30494ae4453_base ::
-    Ptr Void -> IO ()
- -> IO (FunPtr (Ptr Void -> IO ()))
--- __unique:__ @toSampleBufferFull_Aux@
-hs_bindgen_57d9e30494ae4453 :: SampleBufferFull_Aux ->
-                               IO (FunPtr SampleBufferFull_Aux)
--- __unique:__ @toSampleBufferFull_Aux@
-hs_bindgen_57d9e30494ae4453 = \fun_0 -> fmap castFunPtr (hs_bindgen_57d9e30494ae4453_base (\x_1 -> getField @"unwrapSampleBufferFull_Aux" fun_0 (fromFFIType x_1)))
--- __unique:__ @fromSampleBufferFull_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_2ab7ac6bb756ba7e_base ::
-    FunPtr (Ptr Void -> IO ())
- -> Ptr Void
- -> IO ()
--- __unique:__ @fromSampleBufferFull_Aux@
-hs_bindgen_2ab7ac6bb756ba7e :: FunPtr SampleBufferFull_Aux ->
-                               SampleBufferFull_Aux
--- __unique:__ @fromSampleBufferFull_Aux@
-hs_bindgen_2ab7ac6bb756ba7e = \funPtr_0 -> SampleBufferFull_Aux (\x_1 -> hs_bindgen_2ab7ac6bb756ba7e_base (castFunPtr funPtr_0) (toFFIType x_1))
 -- __unique:__ @toT@
 foreign import ccall safe "wrapper" hs_bindgen_b8534912f6256492_base ::
     FunPtr Void -> IO ()
@@ -1655,6 +1575,20 @@ foreign import ccall safe "dynamic" hs_bindgen_8f830eadb43a6fe4_base ::
 hs_bindgen_8f830eadb43a6fe4 :: FunPtr T -> T
 -- __unique:__ @fromT@
 hs_bindgen_8f830eadb43a6fe4 = \funPtr_0 -> T (\x_1 -> hs_bindgen_8f830eadb43a6fe4_base (castFunPtr funPtr_0) (toFFIType x_1))
+instance ToFunPtr T
+    where toFunPtr = hs_bindgen_b8534912f6256492
+instance FromFunPtr T
+    where fromFunPtr = hs_bindgen_8f830eadb43a6fe4
+instance (~) ty (FunPtr (D -> IO ()) -> IO ()) =>
+         HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
+instance (~) ty (FunPtr (D -> IO ()) -> IO ()) =>
+         HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = FunPtr (D -> IO ()) -> IO ()
+          offset# = \_ -> \_ -> 0
 -- __unique:__ @instance ToFunPtr (A -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_a46c670f88b5e6d2_base ::
     CInt -> IO ()
@@ -1673,6 +1607,10 @@ foreign import ccall safe "dynamic" hs_bindgen_542fc348d1df7dff_base ::
 hs_bindgen_542fc348d1df7dff :: FunPtr (A -> IO ()) -> A -> IO ()
 -- __unique:__ @instance FromFunPtr (A -> IO ())@
 hs_bindgen_542fc348d1df7dff = \funPtr_0 -> \x_1 -> hs_bindgen_542fc348d1df7dff_base (castFunPtr funPtr_0) (toFFIType x_1)
+instance ToFunPtr (A -> IO ())
+    where toFunPtr = hs_bindgen_a46c670f88b5e6d2
+instance FromFunPtr (A -> IO ())
+    where fromFunPtr = hs_bindgen_542fc348d1df7dff
 -- __unique:__ @instance ToFunPtr (B -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_ca9230f035bf19b1_base ::
     CInt -> IO ()
@@ -1691,6 +1629,10 @@ foreign import ccall safe "dynamic" hs_bindgen_05635addcbfd7dd4_base ::
 hs_bindgen_05635addcbfd7dd4 :: FunPtr (B -> IO ()) -> B -> IO ()
 -- __unique:__ @instance FromFunPtr (B -> IO ())@
 hs_bindgen_05635addcbfd7dd4 = \funPtr_0 -> \x_1 -> hs_bindgen_05635addcbfd7dd4_base (castFunPtr funPtr_0) (toFFIType x_1)
+instance ToFunPtr (B -> IO ())
+    where toFunPtr = hs_bindgen_ca9230f035bf19b1
+instance FromFunPtr (B -> IO ())
+    where fromFunPtr = hs_bindgen_05635addcbfd7dd4
 -- __unique:__ @instance ToFunPtr (C -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_151c4eb8866d683f_base ::
     CInt -> IO ()
@@ -1709,6 +1651,10 @@ foreign import ccall safe "dynamic" hs_bindgen_f9f9dcb4f8267450_base ::
 hs_bindgen_f9f9dcb4f8267450 :: FunPtr (C -> IO ()) -> C -> IO ()
 -- __unique:__ @instance FromFunPtr (C -> IO ())@
 hs_bindgen_f9f9dcb4f8267450 = \funPtr_0 -> \x_1 -> hs_bindgen_f9f9dcb4f8267450_base (castFunPtr funPtr_0) (toFFIType x_1)
+instance ToFunPtr (C -> IO ())
+    where toFunPtr = hs_bindgen_151c4eb8866d683f
+instance FromFunPtr (C -> IO ())
+    where fromFunPtr = hs_bindgen_f9f9dcb4f8267450
 -- __unique:__ @instance ToFunPtr (D -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_bb8d99987b90516d_base ::
     CInt -> IO ()
@@ -1727,6 +1673,10 @@ foreign import ccall safe "dynamic" hs_bindgen_8eef50c371b3a153_base ::
 hs_bindgen_8eef50c371b3a153 :: FunPtr (D -> IO ()) -> D -> IO ()
 -- __unique:__ @instance FromFunPtr (D -> IO ())@
 hs_bindgen_8eef50c371b3a153 = \funPtr_0 -> \x_1 -> hs_bindgen_8eef50c371b3a153_base (castFunPtr funPtr_0) (toFFIType x_1)
+instance ToFunPtr (D -> IO ())
+    where toFunPtr = hs_bindgen_bb8d99987b90516d
+instance FromFunPtr (D -> IO ())
+    where fromFunPtr = hs_bindgen_8eef50c371b3a153
 -- __unique:__ @instance ToFunPtr (Foo -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_d2a71f330b782e41_base ::
     CInt -> IO ()
@@ -1746,6 +1696,10 @@ hs_bindgen_c08440542d338bad :: FunPtr (Foo -> IO ()) ->
                                Foo -> IO ()
 -- __unique:__ @instance FromFunPtr (Foo -> IO ())@
 hs_bindgen_c08440542d338bad = \funPtr_0 -> \x_1 -> hs_bindgen_c08440542d338bad_base (castFunPtr funPtr_0) (toFFIType x_1)
+instance ToFunPtr (Foo -> IO ())
+    where toFunPtr = hs_bindgen_d2a71f330b782e41
+instance FromFunPtr (Foo -> IO ())
+    where fromFunPtr = hs_bindgen_c08440542d338bad
 -- __unique:__ @instance ToFunPtr (BG.Ptr Measurement -> IO BG.CInt)@
 foreign import ccall safe "wrapper" hs_bindgen_4064610c89a52f99_base ::
     Ptr Void -> IO CInt
@@ -1766,6 +1720,10 @@ hs_bindgen_46b04bdda1fdaafc :: FunPtr (Ptr Measurement ->
                                Ptr Measurement -> IO CInt
 -- __unique:__ @instance FromFunPtr (BG.Ptr Measurement -> IO BG.CInt)@
 hs_bindgen_46b04bdda1fdaafc = \funPtr_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_46b04bdda1fdaafc_base (castFunPtr funPtr_0) (toFFIType x_1))
+instance ToFunPtr (Ptr Measurement -> IO CInt)
+    where toFunPtr = hs_bindgen_4064610c89a52f99
+instance FromFunPtr (Ptr Measurement -> IO CInt)
+    where fromFunPtr = hs_bindgen_46b04bdda1fdaafc
 -- __unique:__ @instance ToFunPtr (BG.Ptr Measurement -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_0e70e3ef331da59c_base ::
     Ptr Void -> IO ()
@@ -1785,6 +1743,10 @@ hs_bindgen_900e47c9e85104f3 :: FunPtr (Ptr Measurement -> IO ()) ->
                                Ptr Measurement -> IO ()
 -- __unique:__ @instance FromFunPtr (BG.Ptr Measurement -> IO ())@
 hs_bindgen_900e47c9e85104f3 = \funPtr_0 -> \x_1 -> hs_bindgen_900e47c9e85104f3_base (castFunPtr funPtr_0) (toFFIType x_1)
+instance ToFunPtr (Ptr Measurement -> IO ())
+    where toFunPtr = hs_bindgen_0e70e3ef331da59c
+instance FromFunPtr (Ptr Measurement -> IO ())
+    where fromFunPtr = hs_bindgen_900e47c9e85104f3
 -- __unique:__ @instance ToFunPtr (BG.Ptr Measurement -> DataValidator -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_ee5115ecd6cd3b7d_base ::
     Ptr Void -> FunPtr Void -> IO ()
@@ -1807,6 +1769,10 @@ hs_bindgen_767024eb494db15e :: FunPtr (Ptr Measurement ->
                                Ptr Measurement -> DataValidator -> IO ()
 -- __unique:__ @instance FromFunPtr (BG.Ptr Measurement -> DataValidator -> IO ())@
 hs_bindgen_767024eb494db15e = \funPtr_0 -> \x_1 -> \x_2 -> hs_bindgen_767024eb494db15e_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)
+instance ToFunPtr (Ptr Measurement -> DataValidator -> IO ())
+    where toFunPtr = hs_bindgen_ee5115ecd6cd3b7d
+instance FromFunPtr (Ptr Measurement -> DataValidator -> IO ())
+    where fromFunPtr = hs_bindgen_767024eb494db15e
 -- __unique:__ @instance ToFunPtr (BG.Ptr Measurement -> DataValidator -> BG.CInt -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_9c62e3e4c665b341_base ::
     Ptr Void -> FunPtr Void -> CInt -> IO ()
@@ -1830,6 +1796,12 @@ hs_bindgen_be989dc6cfcbaa3c :: FunPtr (Ptr Measurement ->
                                Ptr Measurement -> DataValidator -> CInt -> IO ()
 -- __unique:__ @instance FromFunPtr (BG.Ptr Measurement -> DataValidator -> BG.CInt -> IO ())@
 hs_bindgen_be989dc6cfcbaa3c = \funPtr_0 -> \x_1 -> \x_2 -> \x_3 -> hs_bindgen_be989dc6cfcbaa3c_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2) (toFFIType x_3)
+instance ToFunPtr (Ptr Measurement ->
+                   DataValidator -> CInt -> IO ())
+    where toFunPtr = hs_bindgen_9c62e3e4c665b341
+instance FromFunPtr (Ptr Measurement ->
+                     DataValidator -> CInt -> IO ())
+    where fromFunPtr = hs_bindgen_be989dc6cfcbaa3c
 -- __unique:__ @instance ToFunPtr (BG.Ptr Measurement -> FileOpenedNotification -> BG.CInt -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_cbc1799daa163d3d_base ::
     Ptr Void -> FunPtr Void -> CInt -> IO ()
@@ -1854,6 +1826,12 @@ hs_bindgen_b313881940dff0dc :: FunPtr (Ptr Measurement ->
                                Ptr Measurement -> FileOpenedNotification -> CInt -> IO ()
 -- __unique:__ @instance FromFunPtr (BG.Ptr Measurement -> FileOpenedNotification -> BG.CInt -> IO ())@
 hs_bindgen_b313881940dff0dc = \funPtr_0 -> \x_1 -> \x_2 -> \x_3 -> hs_bindgen_b313881940dff0dc_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2) (toFFIType x_3)
+instance ToFunPtr (Ptr Measurement ->
+                   FileOpenedNotification -> CInt -> IO ())
+    where toFunPtr = hs_bindgen_cbc1799daa163d3d
+instance FromFunPtr (Ptr Measurement ->
+                     FileOpenedNotification -> CInt -> IO ())
+    where fromFunPtr = hs_bindgen_b313881940dff0dc
 -- __unique:__ @instance ToFunPtr (BG.Ptr Measurement -> ProgressUpdate -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_7b1e0c518e5f0b1b_base ::
     Ptr Void -> FunPtr Void -> IO ()
@@ -1876,6 +1854,10 @@ hs_bindgen_0a3b532434d7e43c :: FunPtr (Ptr Measurement ->
                                Ptr Measurement -> ProgressUpdate -> IO ()
 -- __unique:__ @instance FromFunPtr (BG.Ptr Measurement -> ProgressUpdate -> IO ())@
 hs_bindgen_0a3b532434d7e43c = \funPtr_0 -> \x_1 -> \x_2 -> hs_bindgen_0a3b532434d7e43c_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)
+instance ToFunPtr (Ptr Measurement -> ProgressUpdate -> IO ())
+    where toFunPtr = hs_bindgen_7b1e0c518e5f0b1b
+instance FromFunPtr (Ptr Measurement -> ProgressUpdate -> IO ())
+    where fromFunPtr = hs_bindgen_0a3b532434d7e43c
 -- __unique:__ @instance ToFunPtr (BG.Ptr Measurement -> BG.FunPtr (BG.CDouble -> BG.CInt -> IO BG.CDouble) -> BG.CInt -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_ba073f1e0ec5008b_base ::
     Ptr Void -> FunPtr Void -> CInt -> IO ()
@@ -1901,6 +1883,12 @@ hs_bindgen_090d079ea979a39d :: FunPtr (Ptr Measurement ->
                                FunPtr (CDouble -> CInt -> IO CDouble) -> CInt -> IO ()
 -- __unique:__ @instance FromFunPtr (BG.Ptr Measurement -> BG.FunPtr (BG.CDouble -> BG.CInt -> IO BG.CDouble) -> BG.CInt -> IO ())@
 hs_bindgen_090d079ea979a39d = \funPtr_0 -> \x_1 -> \x_2 -> \x_3 -> hs_bindgen_090d079ea979a39d_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2) (toFFIType x_3)
+instance ToFunPtr (Ptr Measurement ->
+                   FunPtr (CDouble -> CInt -> IO CDouble) -> CInt -> IO ())
+    where toFunPtr = hs_bindgen_ba073f1e0ec5008b
+instance FromFunPtr (Ptr Measurement ->
+                     FunPtr (CDouble -> CInt -> IO CDouble) -> CInt -> IO ())
+    where fromFunPtr = hs_bindgen_090d079ea979a39d
 -- __unique:__ @instance ToFunPtr (BG.Ptr Measurement -> BG.FunPtr (BG.Ptr Measurement -> DataValidator -> BG.CInt -> IO ()) -> DataValidator -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_e1d08f76a35007c0_base ::
     Ptr Void -> FunPtr Void -> FunPtr Void -> IO ()
@@ -1931,6 +1919,14 @@ hs_bindgen_74f2cb0fd2d13cc1 :: FunPtr (Ptr Measurement ->
                                DataValidator -> IO ()
 -- __unique:__ @instance FromFunPtr (BG.Ptr Measurement -> BG.FunPtr (BG.Ptr Measurement -> DataValidator -> BG.CInt -> IO ()) -> DataValidator -> IO ())@
 hs_bindgen_74f2cb0fd2d13cc1 = \funPtr_0 -> \x_1 -> \x_2 -> \x_3 -> hs_bindgen_74f2cb0fd2d13cc1_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2) (toFFIType x_3)
+instance ToFunPtr (Ptr Measurement ->
+                   FunPtr (Ptr Measurement -> DataValidator -> CInt -> IO ()) ->
+                   DataValidator -> IO ())
+    where toFunPtr = hs_bindgen_e1d08f76a35007c0
+instance FromFunPtr (Ptr Measurement ->
+                     FunPtr (Ptr Measurement -> DataValidator -> CInt -> IO ()) ->
+                     DataValidator -> IO ())
+    where fromFunPtr = hs_bindgen_74f2cb0fd2d13cc1
 -- __unique:__ @instance ToFunPtr (Foo2 -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_235fa4a89af25f04_base ::
     CInt -> IO ()
@@ -1950,6 +1946,10 @@ hs_bindgen_8605b223a9ab9562 :: FunPtr (Foo2 -> IO ()) ->
                                Foo2 -> IO ()
 -- __unique:__ @instance FromFunPtr (Foo2 -> IO ())@
 hs_bindgen_8605b223a9ab9562 = \funPtr_0 -> \x_1 -> hs_bindgen_8605b223a9ab9562_base (castFunPtr funPtr_0) (toFFIType x_1)
+instance ToFunPtr (Foo2 -> IO ())
+    where toFunPtr = hs_bindgen_235fa4a89af25f04
+instance FromFunPtr (Foo2 -> IO ())
+    where fromFunPtr = hs_bindgen_8605b223a9ab9562
 -- __unique:__ @test_functionscallbacks_Example_Safe_readFileWithProcessor@
 foreign import ccall safe "hs_bindgen_99bda9cd8097b0ea" hs_bindgen_99bda9cd8097b0ea_base ::
     FunPtr Void

@@ -707,6 +707,26 @@ newtype Event_callback_t_Aux
     = Event_callback_t_Aux {unwrapEvent_callback_t_Aux :: (CInt ->
                                                            Ptr Void -> IO CInt)}
     deriving stock Generic
+-- __unique:__ @toEvent_callback_t_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_111918b0aee2a7fb_base ::
+    CInt -> Ptr Void -> IO CInt
+ -> IO (FunPtr (CInt -> Ptr Void -> IO CInt))
+-- __unique:__ @toEvent_callback_t_Aux@
+hs_bindgen_111918b0aee2a7fb :: Event_callback_t_Aux ->
+                               IO (FunPtr Event_callback_t_Aux)
+-- __unique:__ @toEvent_callback_t_Aux@
+hs_bindgen_111918b0aee2a7fb = \fun_0 -> fmap castFunPtr (hs_bindgen_111918b0aee2a7fb_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapEvent_callback_t_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
+-- __unique:__ @fromEvent_callback_t_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_9e9d478c2d75628c_base ::
+    FunPtr (CInt -> Ptr Void -> IO CInt)
+ -> CInt
+ -> Ptr Void
+ -> IO CInt
+-- __unique:__ @fromEvent_callback_t_Aux@
+hs_bindgen_9e9d478c2d75628c :: FunPtr Event_callback_t_Aux ->
+                               Event_callback_t_Aux
+-- __unique:__ @fromEvent_callback_t_Aux@
+hs_bindgen_9e9d478c2d75628c = \funPtr_0 -> Event_callback_t_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_9e9d478c2d75628c_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
 instance ToFunPtr Event_callback_t_Aux
     where toFunPtr = hs_bindgen_111918b0aee2a7fb
 instance FromFunPtr Event_callback_t_Aux
@@ -1275,6 +1295,26 @@ newtype Processor_fn_t_Aux
     = Processor_fn_t_Aux {unwrapProcessor_fn_t_Aux :: (CInt ->
                                                        Ptr Void -> IO CInt)}
     deriving stock Generic
+-- __unique:__ @toProcessor_fn_t_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_d4e16471c82d5df0_base ::
+    CInt -> Ptr Void -> IO CInt
+ -> IO (FunPtr (CInt -> Ptr Void -> IO CInt))
+-- __unique:__ @toProcessor_fn_t_Aux@
+hs_bindgen_d4e16471c82d5df0 :: Processor_fn_t_Aux ->
+                               IO (FunPtr Processor_fn_t_Aux)
+-- __unique:__ @toProcessor_fn_t_Aux@
+hs_bindgen_d4e16471c82d5df0 = \fun_0 -> fmap castFunPtr (hs_bindgen_d4e16471c82d5df0_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapProcessor_fn_t_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
+-- __unique:__ @fromProcessor_fn_t_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_0d4b3d0461629423_base ::
+    FunPtr (CInt -> Ptr Void -> IO CInt)
+ -> CInt
+ -> Ptr Void
+ -> IO CInt
+-- __unique:__ @fromProcessor_fn_t_Aux@
+hs_bindgen_0d4b3d0461629423 :: FunPtr Processor_fn_t_Aux ->
+                               Processor_fn_t_Aux
+-- __unique:__ @fromProcessor_fn_t_Aux@
+hs_bindgen_0d4b3d0461629423 = \funPtr_0 -> Processor_fn_t_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_0d4b3d0461629423_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
 instance ToFunPtr Processor_fn_t_Aux
     where toFunPtr = hs_bindgen_d4e16471c82d5df0
 instance FromFunPtr Processor_fn_t_Aux
@@ -2182,46 +2222,6 @@ instance (~) ty CInt =>
 instance HasCField Api_version_t "unwrapApi_version_t"
     where type CFieldType Api_version_t "unwrapApi_version_t" = CInt
           offset# = \_ -> \_ -> 0
--- __unique:__ @toEvent_callback_t_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_111918b0aee2a7fb_base ::
-    CInt -> Ptr Void -> IO CInt
- -> IO (FunPtr (CInt -> Ptr Void -> IO CInt))
--- __unique:__ @toEvent_callback_t_Aux@
-hs_bindgen_111918b0aee2a7fb :: Event_callback_t_Aux ->
-                               IO (FunPtr Event_callback_t_Aux)
--- __unique:__ @toEvent_callback_t_Aux@
-hs_bindgen_111918b0aee2a7fb = \fun_0 -> fmap castFunPtr (hs_bindgen_111918b0aee2a7fb_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapEvent_callback_t_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
--- __unique:__ @fromEvent_callback_t_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_9e9d478c2d75628c_base ::
-    FunPtr (CInt -> Ptr Void -> IO CInt)
- -> CInt
- -> Ptr Void
- -> IO CInt
--- __unique:__ @fromEvent_callback_t_Aux@
-hs_bindgen_9e9d478c2d75628c :: FunPtr Event_callback_t_Aux ->
-                               Event_callback_t_Aux
--- __unique:__ @fromEvent_callback_t_Aux@
-hs_bindgen_9e9d478c2d75628c = \funPtr_0 -> Event_callback_t_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_9e9d478c2d75628c_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
--- __unique:__ @toProcessor_fn_t_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_d4e16471c82d5df0_base ::
-    CInt -> Ptr Void -> IO CInt
- -> IO (FunPtr (CInt -> Ptr Void -> IO CInt))
--- __unique:__ @toProcessor_fn_t_Aux@
-hs_bindgen_d4e16471c82d5df0 :: Processor_fn_t_Aux ->
-                               IO (FunPtr Processor_fn_t_Aux)
--- __unique:__ @toProcessor_fn_t_Aux@
-hs_bindgen_d4e16471c82d5df0 = \fun_0 -> fmap castFunPtr (hs_bindgen_d4e16471c82d5df0_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapProcessor_fn_t_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
--- __unique:__ @fromProcessor_fn_t_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_0d4b3d0461629423_base ::
-    FunPtr (CInt -> Ptr Void -> IO CInt)
- -> CInt
- -> Ptr Void
- -> IO CInt
--- __unique:__ @fromProcessor_fn_t_Aux@
-hs_bindgen_0d4b3d0461629423 :: FunPtr Processor_fn_t_Aux ->
-                               Processor_fn_t_Aux
--- __unique:__ @fromProcessor_fn_t_Aux@
-hs_bindgen_0d4b3d0461629423 = \funPtr_0 -> Processor_fn_t_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_0d4b3d0461629423_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 foreign import ccall safe "hs_bindgen_7eada9f65d982412" hs_bindgen_7eada9f65d982412_base ::
     Ptr Void

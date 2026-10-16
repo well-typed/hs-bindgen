@@ -469,14 +469,6 @@ instance (~) ty CShort => HasField "unwrapS" (Ptr S) (Ptr ty)
 instance HasCField S "unwrapS"
     where type CFieldType S "unwrapS" = CShort
           offset# = \_ -> \_ -> 0
-instance ToFunPtr (CShort -> IO I)
-    where toFunPtr = hs_bindgen_03e9923d8d301cca
-instance FromFunPtr (CShort -> IO I)
-    where fromFunPtr = hs_bindgen_ee10a61bcb1a5d39
-instance ToFunPtr (S -> IO CInt)
-    where toFunPtr = hs_bindgen_140ec1313a27c405
-instance FromFunPtr (S -> IO CInt)
-    where fromFunPtr = hs_bindgen_e86a5fa3f995e6fb
 -- __unique:__ @instance ToFunPtr (BG.CShort -> IO I)@
 foreign import ccall safe "wrapper" hs_bindgen_03e9923d8d301cca_base ::
     CShort -> IO CInt
@@ -496,6 +488,10 @@ hs_bindgen_ee10a61bcb1a5d39 :: FunPtr (CShort -> IO I) ->
                                CShort -> IO I
 -- __unique:__ @instance FromFunPtr (BG.CShort -> IO I)@
 hs_bindgen_ee10a61bcb1a5d39 = \funPtr_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_ee10a61bcb1a5d39_base (castFunPtr funPtr_0) (toFFIType x_1))
+instance ToFunPtr (CShort -> IO I)
+    where toFunPtr = hs_bindgen_03e9923d8d301cca
+instance FromFunPtr (CShort -> IO I)
+    where fromFunPtr = hs_bindgen_ee10a61bcb1a5d39
 -- __unique:__ @instance ToFunPtr (S -> IO BG.CInt)@
 foreign import ccall safe "wrapper" hs_bindgen_140ec1313a27c405_base ::
     CShort -> IO CInt
@@ -515,6 +511,10 @@ hs_bindgen_e86a5fa3f995e6fb :: FunPtr (S -> IO CInt) ->
                                S -> IO CInt
 -- __unique:__ @instance FromFunPtr (S -> IO BG.CInt)@
 hs_bindgen_e86a5fa3f995e6fb = \funPtr_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_e86a5fa3f995e6fb_base (castFunPtr funPtr_0) (toFFIType x_1))
+instance ToFunPtr (S -> IO CInt)
+    where toFunPtr = hs_bindgen_140ec1313a27c405
+instance FromFunPtr (S -> IO CInt)
+    where fromFunPtr = hs_bindgen_e86a5fa3f995e6fb
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_quux@
 foreign import ccall safe "hs_bindgen_d345c332b6547629" hs_bindgen_d345c332b6547629_base ::
     CFloat

@@ -587,6 +587,23 @@ instance HasCField MyCoolStruct "listOfNames"
 newtype Foo_Aux
     = Foo_Aux {unwrap :: (CInt -> IO CInt)}
     deriving stock Generic
+-- __unique:__ @toFoo_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_b5a7b5e83ffee6b4_base ::
+    CInt -> IO CInt
+ -> IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @toFoo_Aux@
+hs_bindgen_b5a7b5e83ffee6b4 :: Foo_Aux -> IO (FunPtr Foo_Aux)
+-- __unique:__ @toFoo_Aux@
+hs_bindgen_b5a7b5e83ffee6b4 = \fun_0 -> fmap castFunPtr (hs_bindgen_b5a7b5e83ffee6b4_base (\x_1 -> fmap toFFIType (getField @"unwrap" fun_0 (fromFFIType x_1))))
+-- __unique:__ @fromFoo_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_223d08172bb37c01_base ::
+    FunPtr (CInt -> IO CInt)
+ -> CInt
+ -> IO CInt
+-- __unique:__ @fromFoo_Aux@
+hs_bindgen_223d08172bb37c01 :: FunPtr Foo_Aux -> Foo_Aux
+-- __unique:__ @fromFoo_Aux@
+hs_bindgen_223d08172bb37c01 = \funPtr_0 -> Foo_Aux (\x_1 -> fmap fromFFIType (hs_bindgen_223d08172bb37c01_base (castFunPtr funPtr_0) (toFFIType x_1)))
 instance ToFunPtr Foo_Aux
     where toFunPtr = hs_bindgen_b5a7b5e83ffee6b4
 instance FromFunPtr Foo_Aux
@@ -4146,23 +4163,6 @@ instance (~) ty MyArray_27 =>
 instance HasCField MyStruct_27 "x"
     where type CFieldType MyStruct_27 "x" = MyArray_27
           offset# = \_ -> \_ -> 0
--- __unique:__ @toFoo_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_b5a7b5e83ffee6b4_base ::
-    CInt -> IO CInt
- -> IO (FunPtr (CInt -> IO CInt))
--- __unique:__ @toFoo_Aux@
-hs_bindgen_b5a7b5e83ffee6b4 :: Foo_Aux -> IO (FunPtr Foo_Aux)
--- __unique:__ @toFoo_Aux@
-hs_bindgen_b5a7b5e83ffee6b4 = \fun_0 -> fmap castFunPtr (hs_bindgen_b5a7b5e83ffee6b4_base (\x_1 -> fmap toFFIType (getField @"unwrap" fun_0 (fromFFIType x_1))))
--- __unique:__ @fromFoo_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_223d08172bb37c01_base ::
-    FunPtr (CInt -> IO CInt)
- -> CInt
- -> IO CInt
--- __unique:__ @fromFoo_Aux@
-hs_bindgen_223d08172bb37c01 :: FunPtr Foo_Aux -> Foo_Aux
--- __unique:__ @fromFoo_Aux@
-hs_bindgen_223d08172bb37c01 = \funPtr_0 -> Foo_Aux (\x_1 -> fmap fromFFIType (hs_bindgen_223d08172bb37c01_base (castFunPtr funPtr_0) (toFFIType x_1)))
 -- __unique:__ @test_comprehensivec2hsc_Example_Safe_foo_function@
 foreign import ccall safe "hs_bindgen_3fd2a5c6e681c44b" hs_bindgen_3fd2a5c6e681c44b_base ::
     FunPtr Void

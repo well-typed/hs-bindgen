@@ -4,6 +4,7 @@
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE ForeignFunctionInterface #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -26,8 +27,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.Struct as Struct
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CompatHasField as BG.CompatHasField
-import Prelude ((<*>), Eq, IO, Int, Ord, Show, pure, type (~))
-import {-# SOURCE #-} Example.FFI
+import Prelude ((<*>), Eq, IO, Int, Ord, Show, fmap, pure, type (~))
 
 {-| Auxiliary type used by 'Fun_ptr'
 
@@ -41,6 +41,34 @@ newtype Fun_ptr_Aux = Fun_ptr_Aux
   { unwrapFun_ptr_Aux :: BG.Ptr Forward_declaration -> IO ()
   }
   deriving stock (BG.Generic)
+
+-- __unique:__ @toFun_ptr_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_5964bbadb359ee4a_base ::
+     (BG.Ptr BG.Void -> IO ())
+  -> IO (BG.FunPtr (BG.Ptr BG.Void -> IO ()))
+
+-- __unique:__ @toFun_ptr_Aux@
+hs_bindgen_5964bbadb359ee4a ::
+     Fun_ptr_Aux
+  -> IO (BG.FunPtr Fun_ptr_Aux)
+hs_bindgen_5964bbadb359ee4a =
+  \fun0 ->
+    fmap BG.castFunPtr (hs_bindgen_5964bbadb359ee4a_base (\x1 ->
+                                                            BG.getField @"unwrapFun_ptr_Aux" fun0 (BG.fromFFIType x1)))
+
+-- __unique:__ @fromFun_ptr_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_f8391e85af67fcb6_base ::
+     BG.FunPtr (BG.Ptr BG.Void -> IO ())
+  -> BG.Ptr BG.Void -> IO ()
+
+-- __unique:__ @fromFun_ptr_Aux@
+hs_bindgen_f8391e85af67fcb6 ::
+     BG.FunPtr Fun_ptr_Aux
+  -> Fun_ptr_Aux
+hs_bindgen_f8391e85af67fcb6 =
+  \funPtr0 ->
+    Fun_ptr_Aux (\x1 ->
+                   hs_bindgen_f8391e85af67fcb6_base (BG.castFunPtr funPtr0) (BG.toFFIType x1))
 
 instance BG.ToFunPtr Fun_ptr_Aux where
 

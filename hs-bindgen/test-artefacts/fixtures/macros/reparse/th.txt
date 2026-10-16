@@ -2807,6 +2807,24 @@ instance HasCField Typedef3 "unwrapTypedef3"
 newtype Funptr_typedef1_Aux
     = Funptr_typedef1_Aux {unwrapFunptr_typedef1_Aux :: (IO A)}
     deriving stock Generic
+-- __unique:__ @toFunptr_typedef1_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_c584d0f839fd43de_base ::
+    IO CInt
+ -> IO (FunPtr (IO CInt))
+-- __unique:__ @toFunptr_typedef1_Aux@
+hs_bindgen_c584d0f839fd43de :: Funptr_typedef1_Aux ->
+                               IO (FunPtr Funptr_typedef1_Aux)
+-- __unique:__ @toFunptr_typedef1_Aux@
+hs_bindgen_c584d0f839fd43de = \fun_0 -> fmap castFunPtr (hs_bindgen_c584d0f839fd43de_base (fmap toFFIType (getField @"unwrapFunptr_typedef1_Aux" fun_0)))
+-- __unique:__ @fromFunptr_typedef1_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_806a46dc418a062c_base ::
+    FunPtr (IO CInt)
+ -> IO CInt
+-- __unique:__ @fromFunptr_typedef1_Aux@
+hs_bindgen_806a46dc418a062c :: FunPtr Funptr_typedef1_Aux ->
+                               Funptr_typedef1_Aux
+-- __unique:__ @fromFunptr_typedef1_Aux@
+hs_bindgen_806a46dc418a062c = \funPtr_0 -> Funptr_typedef1_Aux (fmap fromFFIType (hs_bindgen_806a46dc418a062c_base (castFunPtr funPtr_0)))
 instance ToFunPtr Funptr_typedef1_Aux
     where toFunPtr = hs_bindgen_c584d0f839fd43de
 instance FromFunPtr Funptr_typedef1_Aux
@@ -2860,6 +2878,24 @@ instance HasCField Funptr_typedef1 "unwrapFunptr_typedef1"
 newtype Funptr_typedef2_Aux
     = Funptr_typedef2_Aux {unwrapFunptr_typedef2_Aux :: (IO (Ptr A))}
     deriving stock Generic
+-- __unique:__ @toFunptr_typedef2_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_f174457a161ac5a0_base ::
+    IO (Ptr Void)
+ -> IO (FunPtr (IO (Ptr Void)))
+-- __unique:__ @toFunptr_typedef2_Aux@
+hs_bindgen_f174457a161ac5a0 :: Funptr_typedef2_Aux ->
+                               IO (FunPtr Funptr_typedef2_Aux)
+-- __unique:__ @toFunptr_typedef2_Aux@
+hs_bindgen_f174457a161ac5a0 = \fun_0 -> fmap castFunPtr (hs_bindgen_f174457a161ac5a0_base (fmap toFFIType (getField @"unwrapFunptr_typedef2_Aux" fun_0)))
+-- __unique:__ @fromFunptr_typedef2_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_323d07dff85b802c_base ::
+    FunPtr (IO (Ptr Void))
+ -> IO (Ptr Void)
+-- __unique:__ @fromFunptr_typedef2_Aux@
+hs_bindgen_323d07dff85b802c :: FunPtr Funptr_typedef2_Aux ->
+                               Funptr_typedef2_Aux
+-- __unique:__ @fromFunptr_typedef2_Aux@
+hs_bindgen_323d07dff85b802c = \funPtr_0 -> Funptr_typedef2_Aux (fmap fromFFIType (hs_bindgen_323d07dff85b802c_base (castFunPtr funPtr_0)))
 instance ToFunPtr Funptr_typedef2_Aux
     where toFunPtr = hs_bindgen_f174457a161ac5a0
 instance FromFunPtr Funptr_typedef2_Aux
@@ -2913,6 +2949,24 @@ instance HasCField Funptr_typedef2 "unwrapFunptr_typedef2"
 newtype Funptr_typedef3_Aux
     = Funptr_typedef3_Aux {unwrapFunptr_typedef3_Aux :: (IO (Ptr (Ptr A)))}
     deriving stock Generic
+-- __unique:__ @toFunptr_typedef3_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_031d1a7decd790d8_base ::
+    IO (Ptr Void)
+ -> IO (FunPtr (IO (Ptr Void)))
+-- __unique:__ @toFunptr_typedef3_Aux@
+hs_bindgen_031d1a7decd790d8 :: Funptr_typedef3_Aux ->
+                               IO (FunPtr Funptr_typedef3_Aux)
+-- __unique:__ @toFunptr_typedef3_Aux@
+hs_bindgen_031d1a7decd790d8 = \fun_0 -> fmap castFunPtr (hs_bindgen_031d1a7decd790d8_base (fmap toFFIType (getField @"unwrapFunptr_typedef3_Aux" fun_0)))
+-- __unique:__ @fromFunptr_typedef3_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_82dc7b932974117e_base ::
+    FunPtr (IO (Ptr Void))
+ -> IO (Ptr Void)
+-- __unique:__ @fromFunptr_typedef3_Aux@
+hs_bindgen_82dc7b932974117e :: FunPtr Funptr_typedef3_Aux ->
+                               Funptr_typedef3_Aux
+-- __unique:__ @fromFunptr_typedef3_Aux@
+hs_bindgen_82dc7b932974117e = \funPtr_0 -> Funptr_typedef3_Aux (fmap fromFFIType (hs_bindgen_82dc7b932974117e_base (castFunPtr funPtr_0)))
 instance ToFunPtr Funptr_typedef3_Aux
     where toFunPtr = hs_bindgen_031d1a7decd790d8
 instance FromFunPtr Funptr_typedef3_Aux
@@ -2967,6 +3021,26 @@ newtype Funptr_typedef4_Aux
     = Funptr_typedef4_Aux {unwrapFunptr_typedef4_Aux :: (CInt ->
                                                          CDouble -> IO A)}
     deriving stock Generic
+-- __unique:__ @toFunptr_typedef4_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_da2336d254667386_base ::
+    CInt -> CDouble -> IO CInt
+ -> IO (FunPtr (CInt -> CDouble -> IO CInt))
+-- __unique:__ @toFunptr_typedef4_Aux@
+hs_bindgen_da2336d254667386 :: Funptr_typedef4_Aux ->
+                               IO (FunPtr Funptr_typedef4_Aux)
+-- __unique:__ @toFunptr_typedef4_Aux@
+hs_bindgen_da2336d254667386 = \fun_0 -> fmap castFunPtr (hs_bindgen_da2336d254667386_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapFunptr_typedef4_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
+-- __unique:__ @fromFunptr_typedef4_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_d4a97954476da161_base ::
+    FunPtr (CInt -> CDouble -> IO CInt)
+ -> CInt
+ -> CDouble
+ -> IO CInt
+-- __unique:__ @fromFunptr_typedef4_Aux@
+hs_bindgen_d4a97954476da161 :: FunPtr Funptr_typedef4_Aux ->
+                               Funptr_typedef4_Aux
+-- __unique:__ @fromFunptr_typedef4_Aux@
+hs_bindgen_d4a97954476da161 = \funPtr_0 -> Funptr_typedef4_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_d4a97954476da161_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
 instance ToFunPtr Funptr_typedef4_Aux
     where toFunPtr = hs_bindgen_da2336d254667386
 instance FromFunPtr Funptr_typedef4_Aux
@@ -3021,6 +3095,26 @@ newtype Funptr_typedef5_Aux
     = Funptr_typedef5_Aux {unwrapFunptr_typedef5_Aux :: (CInt ->
                                                          CDouble -> IO (Ptr A))}
     deriving stock Generic
+-- __unique:__ @toFunptr_typedef5_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_1f45632f07742a46_base ::
+    CInt -> CDouble -> IO (Ptr Void)
+ -> IO (FunPtr (CInt -> CDouble -> IO (Ptr Void)))
+-- __unique:__ @toFunptr_typedef5_Aux@
+hs_bindgen_1f45632f07742a46 :: Funptr_typedef5_Aux ->
+                               IO (FunPtr Funptr_typedef5_Aux)
+-- __unique:__ @toFunptr_typedef5_Aux@
+hs_bindgen_1f45632f07742a46 = \fun_0 -> fmap castFunPtr (hs_bindgen_1f45632f07742a46_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapFunptr_typedef5_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
+-- __unique:__ @fromFunptr_typedef5_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_0bd1877eaaba0d3e_base ::
+    FunPtr (CInt -> CDouble -> IO (Ptr Void))
+ -> CInt
+ -> CDouble
+ -> IO (Ptr Void)
+-- __unique:__ @fromFunptr_typedef5_Aux@
+hs_bindgen_0bd1877eaaba0d3e :: FunPtr Funptr_typedef5_Aux ->
+                               Funptr_typedef5_Aux
+-- __unique:__ @fromFunptr_typedef5_Aux@
+hs_bindgen_0bd1877eaaba0d3e = \funPtr_0 -> Funptr_typedef5_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_0bd1877eaaba0d3e_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
 instance ToFunPtr Funptr_typedef5_Aux
     where toFunPtr = hs_bindgen_1f45632f07742a46
 instance FromFunPtr Funptr_typedef5_Aux
@@ -3608,6 +3702,26 @@ newtype Const_funptr1_Aux
     = Const_funptr1_Aux {unwrapConst_funptr1_Aux :: (CInt ->
                                                      CDouble -> IO A)}
     deriving stock Generic
+-- __unique:__ @toConst_funptr1_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_7f125e20a9d4075b_base ::
+    CInt -> CDouble -> IO CInt
+ -> IO (FunPtr (CInt -> CDouble -> IO CInt))
+-- __unique:__ @toConst_funptr1_Aux@
+hs_bindgen_7f125e20a9d4075b :: Const_funptr1_Aux ->
+                               IO (FunPtr Const_funptr1_Aux)
+-- __unique:__ @toConst_funptr1_Aux@
+hs_bindgen_7f125e20a9d4075b = \fun_0 -> fmap castFunPtr (hs_bindgen_7f125e20a9d4075b_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapConst_funptr1_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
+-- __unique:__ @fromConst_funptr1_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_ac4bd8d789bba94b_base ::
+    FunPtr (CInt -> CDouble -> IO CInt)
+ -> CInt
+ -> CDouble
+ -> IO CInt
+-- __unique:__ @fromConst_funptr1_Aux@
+hs_bindgen_ac4bd8d789bba94b :: FunPtr Const_funptr1_Aux ->
+                               Const_funptr1_Aux
+-- __unique:__ @fromConst_funptr1_Aux@
+hs_bindgen_ac4bd8d789bba94b = \funPtr_0 -> Const_funptr1_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_ac4bd8d789bba94b_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
 instance ToFunPtr Const_funptr1_Aux
     where toFunPtr = hs_bindgen_7f125e20a9d4075b
 instance FromFunPtr Const_funptr1_Aux
@@ -3660,6 +3774,26 @@ newtype Const_funptr2_Aux
     = Const_funptr2_Aux {unwrapConst_funptr2_Aux :: (CInt ->
                                                      CDouble -> IO A)}
     deriving stock Generic
+-- __unique:__ @toConst_funptr2_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_c7b1e36d845634fb_base ::
+    CInt -> CDouble -> IO CInt
+ -> IO (FunPtr (CInt -> CDouble -> IO CInt))
+-- __unique:__ @toConst_funptr2_Aux@
+hs_bindgen_c7b1e36d845634fb :: Const_funptr2_Aux ->
+                               IO (FunPtr Const_funptr2_Aux)
+-- __unique:__ @toConst_funptr2_Aux@
+hs_bindgen_c7b1e36d845634fb = \fun_0 -> fmap castFunPtr (hs_bindgen_c7b1e36d845634fb_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapConst_funptr2_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
+-- __unique:__ @fromConst_funptr2_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_352cebf463125ca9_base ::
+    FunPtr (CInt -> CDouble -> IO CInt)
+ -> CInt
+ -> CDouble
+ -> IO CInt
+-- __unique:__ @fromConst_funptr2_Aux@
+hs_bindgen_352cebf463125ca9 :: FunPtr Const_funptr2_Aux ->
+                               Const_funptr2_Aux
+-- __unique:__ @fromConst_funptr2_Aux@
+hs_bindgen_352cebf463125ca9 = \funPtr_0 -> Const_funptr2_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_352cebf463125ca9_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
 instance ToFunPtr Const_funptr2_Aux
     where toFunPtr = hs_bindgen_c7b1e36d845634fb
 instance FromFunPtr Const_funptr2_Aux
@@ -3712,6 +3846,26 @@ newtype Const_funptr3_Aux
     = Const_funptr3_Aux {unwrapConst_funptr3_Aux :: (CInt ->
                                                      CDouble -> IO (PtrConst A))}
     deriving stock Generic
+-- __unique:__ @toConst_funptr3_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_2dcbfe1c2502178c_base ::
+    CInt -> CDouble -> IO (Ptr Void)
+ -> IO (FunPtr (CInt -> CDouble -> IO (Ptr Void)))
+-- __unique:__ @toConst_funptr3_Aux@
+hs_bindgen_2dcbfe1c2502178c :: Const_funptr3_Aux ->
+                               IO (FunPtr Const_funptr3_Aux)
+-- __unique:__ @toConst_funptr3_Aux@
+hs_bindgen_2dcbfe1c2502178c = \fun_0 -> fmap castFunPtr (hs_bindgen_2dcbfe1c2502178c_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapConst_funptr3_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
+-- __unique:__ @fromConst_funptr3_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_86738dcfd7c9d33c_base ::
+    FunPtr (CInt -> CDouble -> IO (Ptr Void))
+ -> CInt
+ -> CDouble
+ -> IO (Ptr Void)
+-- __unique:__ @fromConst_funptr3_Aux@
+hs_bindgen_86738dcfd7c9d33c :: FunPtr Const_funptr3_Aux ->
+                               Const_funptr3_Aux
+-- __unique:__ @fromConst_funptr3_Aux@
+hs_bindgen_86738dcfd7c9d33c = \funPtr_0 -> Const_funptr3_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_86738dcfd7c9d33c_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
 instance ToFunPtr Const_funptr3_Aux
     where toFunPtr = hs_bindgen_2dcbfe1c2502178c
 instance FromFunPtr Const_funptr3_Aux
@@ -3764,6 +3918,26 @@ newtype Const_funptr4_Aux
     = Const_funptr4_Aux {unwrapConst_funptr4_Aux :: (CInt ->
                                                      CDouble -> IO (PtrConst A))}
     deriving stock Generic
+-- __unique:__ @toConst_funptr4_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_5461deeda491de0b_base ::
+    CInt -> CDouble -> IO (Ptr Void)
+ -> IO (FunPtr (CInt -> CDouble -> IO (Ptr Void)))
+-- __unique:__ @toConst_funptr4_Aux@
+hs_bindgen_5461deeda491de0b :: Const_funptr4_Aux ->
+                               IO (FunPtr Const_funptr4_Aux)
+-- __unique:__ @toConst_funptr4_Aux@
+hs_bindgen_5461deeda491de0b = \fun_0 -> fmap castFunPtr (hs_bindgen_5461deeda491de0b_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapConst_funptr4_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
+-- __unique:__ @fromConst_funptr4_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_de7846fca3bfd1b6_base ::
+    FunPtr (CInt -> CDouble -> IO (Ptr Void))
+ -> CInt
+ -> CDouble
+ -> IO (Ptr Void)
+-- __unique:__ @fromConst_funptr4_Aux@
+hs_bindgen_de7846fca3bfd1b6 :: FunPtr Const_funptr4_Aux ->
+                               Const_funptr4_Aux
+-- __unique:__ @fromConst_funptr4_Aux@
+hs_bindgen_de7846fca3bfd1b6 = \funPtr_0 -> Const_funptr4_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_de7846fca3bfd1b6_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
 instance ToFunPtr Const_funptr4_Aux
     where toFunPtr = hs_bindgen_5461deeda491de0b
 instance FromFunPtr Const_funptr4_Aux
@@ -3816,6 +3990,26 @@ newtype Const_funptr5_Aux
     = Const_funptr5_Aux {unwrapConst_funptr5_Aux :: (CInt ->
                                                      CDouble -> IO (Ptr A))}
     deriving stock Generic
+-- __unique:__ @toConst_funptr5_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_7b0174fc978a1ce1_base ::
+    CInt -> CDouble -> IO (Ptr Void)
+ -> IO (FunPtr (CInt -> CDouble -> IO (Ptr Void)))
+-- __unique:__ @toConst_funptr5_Aux@
+hs_bindgen_7b0174fc978a1ce1 :: Const_funptr5_Aux ->
+                               IO (FunPtr Const_funptr5_Aux)
+-- __unique:__ @toConst_funptr5_Aux@
+hs_bindgen_7b0174fc978a1ce1 = \fun_0 -> fmap castFunPtr (hs_bindgen_7b0174fc978a1ce1_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapConst_funptr5_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
+-- __unique:__ @fromConst_funptr5_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_38a21d84bb7115b5_base ::
+    FunPtr (CInt -> CDouble -> IO (Ptr Void))
+ -> CInt
+ -> CDouble
+ -> IO (Ptr Void)
+-- __unique:__ @fromConst_funptr5_Aux@
+hs_bindgen_38a21d84bb7115b5 :: FunPtr Const_funptr5_Aux ->
+                               Const_funptr5_Aux
+-- __unique:__ @fromConst_funptr5_Aux@
+hs_bindgen_38a21d84bb7115b5 = \funPtr_0 -> Const_funptr5_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_38a21d84bb7115b5_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
 instance ToFunPtr Const_funptr5_Aux
     where toFunPtr = hs_bindgen_7b0174fc978a1ce1
 instance FromFunPtr Const_funptr5_Aux
@@ -3868,6 +4062,26 @@ newtype Const_funptr6_Aux
     = Const_funptr6_Aux {unwrapConst_funptr6_Aux :: (CInt ->
                                                      CDouble -> IO (PtrConst A))}
     deriving stock Generic
+-- __unique:__ @toConst_funptr6_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_4e32721222f4df9f_base ::
+    CInt -> CDouble -> IO (Ptr Void)
+ -> IO (FunPtr (CInt -> CDouble -> IO (Ptr Void)))
+-- __unique:__ @toConst_funptr6_Aux@
+hs_bindgen_4e32721222f4df9f :: Const_funptr6_Aux ->
+                               IO (FunPtr Const_funptr6_Aux)
+-- __unique:__ @toConst_funptr6_Aux@
+hs_bindgen_4e32721222f4df9f = \fun_0 -> fmap castFunPtr (hs_bindgen_4e32721222f4df9f_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapConst_funptr6_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
+-- __unique:__ @fromConst_funptr6_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_45251216b04aa8b5_base ::
+    FunPtr (CInt -> CDouble -> IO (Ptr Void))
+ -> CInt
+ -> CDouble
+ -> IO (Ptr Void)
+-- __unique:__ @fromConst_funptr6_Aux@
+hs_bindgen_45251216b04aa8b5 :: FunPtr Const_funptr6_Aux ->
+                               Const_funptr6_Aux
+-- __unique:__ @fromConst_funptr6_Aux@
+hs_bindgen_45251216b04aa8b5 = \funPtr_0 -> Const_funptr6_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_45251216b04aa8b5_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
 instance ToFunPtr Const_funptr6_Aux
     where toFunPtr = hs_bindgen_4e32721222f4df9f
 instance FromFunPtr Const_funptr6_Aux
@@ -3920,6 +4134,26 @@ newtype Const_funptr7_Aux
     = Const_funptr7_Aux {unwrapConst_funptr7_Aux :: (CInt ->
                                                      CDouble -> IO (PtrConst A))}
     deriving stock Generic
+-- __unique:__ @toConst_funptr7_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_0d04fc96ffb9de06_base ::
+    CInt -> CDouble -> IO (Ptr Void)
+ -> IO (FunPtr (CInt -> CDouble -> IO (Ptr Void)))
+-- __unique:__ @toConst_funptr7_Aux@
+hs_bindgen_0d04fc96ffb9de06 :: Const_funptr7_Aux ->
+                               IO (FunPtr Const_funptr7_Aux)
+-- __unique:__ @toConst_funptr7_Aux@
+hs_bindgen_0d04fc96ffb9de06 = \fun_0 -> fmap castFunPtr (hs_bindgen_0d04fc96ffb9de06_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapConst_funptr7_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
+-- __unique:__ @fromConst_funptr7_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_42fbcebf75a973ba_base ::
+    FunPtr (CInt -> CDouble -> IO (Ptr Void))
+ -> CInt
+ -> CDouble
+ -> IO (Ptr Void)
+-- __unique:__ @fromConst_funptr7_Aux@
+hs_bindgen_42fbcebf75a973ba :: FunPtr Const_funptr7_Aux ->
+                               Const_funptr7_Aux
+-- __unique:__ @fromConst_funptr7_Aux@
+hs_bindgen_42fbcebf75a973ba = \funPtr_0 -> Const_funptr7_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_42fbcebf75a973ba_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
 instance ToFunPtr Const_funptr7_Aux
     where toFunPtr = hs_bindgen_0d04fc96ffb9de06
 instance FromFunPtr Const_funptr7_Aux
@@ -4072,240 +4306,6 @@ instance (~) ty (PtrConst CInt) =>
 instance HasCField INTCP "unwrapINTCP"
     where type CFieldType INTCP "unwrapINTCP" = PtrConst CInt
           offset# = \_ -> \_ -> 0
--- __unique:__ @toFunptr_typedef1_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_c584d0f839fd43de_base ::
-    IO CInt
- -> IO (FunPtr (IO CInt))
--- __unique:__ @toFunptr_typedef1_Aux@
-hs_bindgen_c584d0f839fd43de :: Funptr_typedef1_Aux ->
-                               IO (FunPtr Funptr_typedef1_Aux)
--- __unique:__ @toFunptr_typedef1_Aux@
-hs_bindgen_c584d0f839fd43de = \fun_0 -> fmap castFunPtr (hs_bindgen_c584d0f839fd43de_base (fmap toFFIType (getField @"unwrapFunptr_typedef1_Aux" fun_0)))
--- __unique:__ @fromFunptr_typedef1_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_806a46dc418a062c_base ::
-    FunPtr (IO CInt)
- -> IO CInt
--- __unique:__ @fromFunptr_typedef1_Aux@
-hs_bindgen_806a46dc418a062c :: FunPtr Funptr_typedef1_Aux ->
-                               Funptr_typedef1_Aux
--- __unique:__ @fromFunptr_typedef1_Aux@
-hs_bindgen_806a46dc418a062c = \funPtr_0 -> Funptr_typedef1_Aux (fmap fromFFIType (hs_bindgen_806a46dc418a062c_base (castFunPtr funPtr_0)))
--- __unique:__ @toFunptr_typedef2_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_f174457a161ac5a0_base ::
-    IO (Ptr Void)
- -> IO (FunPtr (IO (Ptr Void)))
--- __unique:__ @toFunptr_typedef2_Aux@
-hs_bindgen_f174457a161ac5a0 :: Funptr_typedef2_Aux ->
-                               IO (FunPtr Funptr_typedef2_Aux)
--- __unique:__ @toFunptr_typedef2_Aux@
-hs_bindgen_f174457a161ac5a0 = \fun_0 -> fmap castFunPtr (hs_bindgen_f174457a161ac5a0_base (fmap toFFIType (getField @"unwrapFunptr_typedef2_Aux" fun_0)))
--- __unique:__ @fromFunptr_typedef2_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_323d07dff85b802c_base ::
-    FunPtr (IO (Ptr Void))
- -> IO (Ptr Void)
--- __unique:__ @fromFunptr_typedef2_Aux@
-hs_bindgen_323d07dff85b802c :: FunPtr Funptr_typedef2_Aux ->
-                               Funptr_typedef2_Aux
--- __unique:__ @fromFunptr_typedef2_Aux@
-hs_bindgen_323d07dff85b802c = \funPtr_0 -> Funptr_typedef2_Aux (fmap fromFFIType (hs_bindgen_323d07dff85b802c_base (castFunPtr funPtr_0)))
--- __unique:__ @toFunptr_typedef3_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_031d1a7decd790d8_base ::
-    IO (Ptr Void)
- -> IO (FunPtr (IO (Ptr Void)))
--- __unique:__ @toFunptr_typedef3_Aux@
-hs_bindgen_031d1a7decd790d8 :: Funptr_typedef3_Aux ->
-                               IO (FunPtr Funptr_typedef3_Aux)
--- __unique:__ @toFunptr_typedef3_Aux@
-hs_bindgen_031d1a7decd790d8 = \fun_0 -> fmap castFunPtr (hs_bindgen_031d1a7decd790d8_base (fmap toFFIType (getField @"unwrapFunptr_typedef3_Aux" fun_0)))
--- __unique:__ @fromFunptr_typedef3_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_82dc7b932974117e_base ::
-    FunPtr (IO (Ptr Void))
- -> IO (Ptr Void)
--- __unique:__ @fromFunptr_typedef3_Aux@
-hs_bindgen_82dc7b932974117e :: FunPtr Funptr_typedef3_Aux ->
-                               Funptr_typedef3_Aux
--- __unique:__ @fromFunptr_typedef3_Aux@
-hs_bindgen_82dc7b932974117e = \funPtr_0 -> Funptr_typedef3_Aux (fmap fromFFIType (hs_bindgen_82dc7b932974117e_base (castFunPtr funPtr_0)))
--- __unique:__ @toFunptr_typedef4_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_da2336d254667386_base ::
-    CInt -> CDouble -> IO CInt
- -> IO (FunPtr (CInt -> CDouble -> IO CInt))
--- __unique:__ @toFunptr_typedef4_Aux@
-hs_bindgen_da2336d254667386 :: Funptr_typedef4_Aux ->
-                               IO (FunPtr Funptr_typedef4_Aux)
--- __unique:__ @toFunptr_typedef4_Aux@
-hs_bindgen_da2336d254667386 = \fun_0 -> fmap castFunPtr (hs_bindgen_da2336d254667386_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapFunptr_typedef4_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
--- __unique:__ @fromFunptr_typedef4_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_d4a97954476da161_base ::
-    FunPtr (CInt -> CDouble -> IO CInt)
- -> CInt
- -> CDouble
- -> IO CInt
--- __unique:__ @fromFunptr_typedef4_Aux@
-hs_bindgen_d4a97954476da161 :: FunPtr Funptr_typedef4_Aux ->
-                               Funptr_typedef4_Aux
--- __unique:__ @fromFunptr_typedef4_Aux@
-hs_bindgen_d4a97954476da161 = \funPtr_0 -> Funptr_typedef4_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_d4a97954476da161_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
--- __unique:__ @toFunptr_typedef5_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_1f45632f07742a46_base ::
-    CInt -> CDouble -> IO (Ptr Void)
- -> IO (FunPtr (CInt -> CDouble -> IO (Ptr Void)))
--- __unique:__ @toFunptr_typedef5_Aux@
-hs_bindgen_1f45632f07742a46 :: Funptr_typedef5_Aux ->
-                               IO (FunPtr Funptr_typedef5_Aux)
--- __unique:__ @toFunptr_typedef5_Aux@
-hs_bindgen_1f45632f07742a46 = \fun_0 -> fmap castFunPtr (hs_bindgen_1f45632f07742a46_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapFunptr_typedef5_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
--- __unique:__ @fromFunptr_typedef5_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_0bd1877eaaba0d3e_base ::
-    FunPtr (CInt -> CDouble -> IO (Ptr Void))
- -> CInt
- -> CDouble
- -> IO (Ptr Void)
--- __unique:__ @fromFunptr_typedef5_Aux@
-hs_bindgen_0bd1877eaaba0d3e :: FunPtr Funptr_typedef5_Aux ->
-                               Funptr_typedef5_Aux
--- __unique:__ @fromFunptr_typedef5_Aux@
-hs_bindgen_0bd1877eaaba0d3e = \funPtr_0 -> Funptr_typedef5_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_0bd1877eaaba0d3e_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
--- __unique:__ @toConst_funptr1_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_7f125e20a9d4075b_base ::
-    CInt -> CDouble -> IO CInt
- -> IO (FunPtr (CInt -> CDouble -> IO CInt))
--- __unique:__ @toConst_funptr1_Aux@
-hs_bindgen_7f125e20a9d4075b :: Const_funptr1_Aux ->
-                               IO (FunPtr Const_funptr1_Aux)
--- __unique:__ @toConst_funptr1_Aux@
-hs_bindgen_7f125e20a9d4075b = \fun_0 -> fmap castFunPtr (hs_bindgen_7f125e20a9d4075b_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapConst_funptr1_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
--- __unique:__ @fromConst_funptr1_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_ac4bd8d789bba94b_base ::
-    FunPtr (CInt -> CDouble -> IO CInt)
- -> CInt
- -> CDouble
- -> IO CInt
--- __unique:__ @fromConst_funptr1_Aux@
-hs_bindgen_ac4bd8d789bba94b :: FunPtr Const_funptr1_Aux ->
-                               Const_funptr1_Aux
--- __unique:__ @fromConst_funptr1_Aux@
-hs_bindgen_ac4bd8d789bba94b = \funPtr_0 -> Const_funptr1_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_ac4bd8d789bba94b_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
--- __unique:__ @toConst_funptr2_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_c7b1e36d845634fb_base ::
-    CInt -> CDouble -> IO CInt
- -> IO (FunPtr (CInt -> CDouble -> IO CInt))
--- __unique:__ @toConst_funptr2_Aux@
-hs_bindgen_c7b1e36d845634fb :: Const_funptr2_Aux ->
-                               IO (FunPtr Const_funptr2_Aux)
--- __unique:__ @toConst_funptr2_Aux@
-hs_bindgen_c7b1e36d845634fb = \fun_0 -> fmap castFunPtr (hs_bindgen_c7b1e36d845634fb_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapConst_funptr2_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
--- __unique:__ @fromConst_funptr2_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_352cebf463125ca9_base ::
-    FunPtr (CInt -> CDouble -> IO CInt)
- -> CInt
- -> CDouble
- -> IO CInt
--- __unique:__ @fromConst_funptr2_Aux@
-hs_bindgen_352cebf463125ca9 :: FunPtr Const_funptr2_Aux ->
-                               Const_funptr2_Aux
--- __unique:__ @fromConst_funptr2_Aux@
-hs_bindgen_352cebf463125ca9 = \funPtr_0 -> Const_funptr2_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_352cebf463125ca9_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
--- __unique:__ @toConst_funptr3_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_2dcbfe1c2502178c_base ::
-    CInt -> CDouble -> IO (Ptr Void)
- -> IO (FunPtr (CInt -> CDouble -> IO (Ptr Void)))
--- __unique:__ @toConst_funptr3_Aux@
-hs_bindgen_2dcbfe1c2502178c :: Const_funptr3_Aux ->
-                               IO (FunPtr Const_funptr3_Aux)
--- __unique:__ @toConst_funptr3_Aux@
-hs_bindgen_2dcbfe1c2502178c = \fun_0 -> fmap castFunPtr (hs_bindgen_2dcbfe1c2502178c_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapConst_funptr3_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
--- __unique:__ @fromConst_funptr3_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_86738dcfd7c9d33c_base ::
-    FunPtr (CInt -> CDouble -> IO (Ptr Void))
- -> CInt
- -> CDouble
- -> IO (Ptr Void)
--- __unique:__ @fromConst_funptr3_Aux@
-hs_bindgen_86738dcfd7c9d33c :: FunPtr Const_funptr3_Aux ->
-                               Const_funptr3_Aux
--- __unique:__ @fromConst_funptr3_Aux@
-hs_bindgen_86738dcfd7c9d33c = \funPtr_0 -> Const_funptr3_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_86738dcfd7c9d33c_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
--- __unique:__ @toConst_funptr4_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_5461deeda491de0b_base ::
-    CInt -> CDouble -> IO (Ptr Void)
- -> IO (FunPtr (CInt -> CDouble -> IO (Ptr Void)))
--- __unique:__ @toConst_funptr4_Aux@
-hs_bindgen_5461deeda491de0b :: Const_funptr4_Aux ->
-                               IO (FunPtr Const_funptr4_Aux)
--- __unique:__ @toConst_funptr4_Aux@
-hs_bindgen_5461deeda491de0b = \fun_0 -> fmap castFunPtr (hs_bindgen_5461deeda491de0b_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapConst_funptr4_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
--- __unique:__ @fromConst_funptr4_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_de7846fca3bfd1b6_base ::
-    FunPtr (CInt -> CDouble -> IO (Ptr Void))
- -> CInt
- -> CDouble
- -> IO (Ptr Void)
--- __unique:__ @fromConst_funptr4_Aux@
-hs_bindgen_de7846fca3bfd1b6 :: FunPtr Const_funptr4_Aux ->
-                               Const_funptr4_Aux
--- __unique:__ @fromConst_funptr4_Aux@
-hs_bindgen_de7846fca3bfd1b6 = \funPtr_0 -> Const_funptr4_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_de7846fca3bfd1b6_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
--- __unique:__ @toConst_funptr5_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_7b0174fc978a1ce1_base ::
-    CInt -> CDouble -> IO (Ptr Void)
- -> IO (FunPtr (CInt -> CDouble -> IO (Ptr Void)))
--- __unique:__ @toConst_funptr5_Aux@
-hs_bindgen_7b0174fc978a1ce1 :: Const_funptr5_Aux ->
-                               IO (FunPtr Const_funptr5_Aux)
--- __unique:__ @toConst_funptr5_Aux@
-hs_bindgen_7b0174fc978a1ce1 = \fun_0 -> fmap castFunPtr (hs_bindgen_7b0174fc978a1ce1_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapConst_funptr5_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
--- __unique:__ @fromConst_funptr5_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_38a21d84bb7115b5_base ::
-    FunPtr (CInt -> CDouble -> IO (Ptr Void))
- -> CInt
- -> CDouble
- -> IO (Ptr Void)
--- __unique:__ @fromConst_funptr5_Aux@
-hs_bindgen_38a21d84bb7115b5 :: FunPtr Const_funptr5_Aux ->
-                               Const_funptr5_Aux
--- __unique:__ @fromConst_funptr5_Aux@
-hs_bindgen_38a21d84bb7115b5 = \funPtr_0 -> Const_funptr5_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_38a21d84bb7115b5_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
--- __unique:__ @toConst_funptr6_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_4e32721222f4df9f_base ::
-    CInt -> CDouble -> IO (Ptr Void)
- -> IO (FunPtr (CInt -> CDouble -> IO (Ptr Void)))
--- __unique:__ @toConst_funptr6_Aux@
-hs_bindgen_4e32721222f4df9f :: Const_funptr6_Aux ->
-                               IO (FunPtr Const_funptr6_Aux)
--- __unique:__ @toConst_funptr6_Aux@
-hs_bindgen_4e32721222f4df9f = \fun_0 -> fmap castFunPtr (hs_bindgen_4e32721222f4df9f_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapConst_funptr6_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
--- __unique:__ @fromConst_funptr6_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_45251216b04aa8b5_base ::
-    FunPtr (CInt -> CDouble -> IO (Ptr Void))
- -> CInt
- -> CDouble
- -> IO (Ptr Void)
--- __unique:__ @fromConst_funptr6_Aux@
-hs_bindgen_45251216b04aa8b5 :: FunPtr Const_funptr6_Aux ->
-                               Const_funptr6_Aux
--- __unique:__ @fromConst_funptr6_Aux@
-hs_bindgen_45251216b04aa8b5 = \funPtr_0 -> Const_funptr6_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_45251216b04aa8b5_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
--- __unique:__ @toConst_funptr7_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_0d04fc96ffb9de06_base ::
-    CInt -> CDouble -> IO (Ptr Void)
- -> IO (FunPtr (CInt -> CDouble -> IO (Ptr Void)))
--- __unique:__ @toConst_funptr7_Aux@
-hs_bindgen_0d04fc96ffb9de06 :: Const_funptr7_Aux ->
-                               IO (FunPtr Const_funptr7_Aux)
--- __unique:__ @toConst_funptr7_Aux@
-hs_bindgen_0d04fc96ffb9de06 = \fun_0 -> fmap castFunPtr (hs_bindgen_0d04fc96ffb9de06_base (\x_1 -> \x_2 -> fmap toFFIType (getField @"unwrapConst_funptr7_Aux" fun_0 (fromFFIType x_1) (fromFFIType x_2))))
--- __unique:__ @fromConst_funptr7_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_42fbcebf75a973ba_base ::
-    FunPtr (CInt -> CDouble -> IO (Ptr Void))
- -> CInt
- -> CDouble
- -> IO (Ptr Void)
--- __unique:__ @fromConst_funptr7_Aux@
-hs_bindgen_42fbcebf75a973ba :: FunPtr Const_funptr7_Aux ->
-                               Const_funptr7_Aux
--- __unique:__ @fromConst_funptr7_Aux@
-hs_bindgen_42fbcebf75a973ba = \funPtr_0 -> Const_funptr7_Aux (\x_1 -> \x_2 -> fmap fromFFIType (hs_bindgen_42fbcebf75a973ba_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)))
 -- __unique:__ @test_macrosreparse_Example_Safe_args_char1@
 foreign import ccall safe "hs_bindgen_f15610128336b06a" hs_bindgen_f15610128336b06a_base ::
     CInt

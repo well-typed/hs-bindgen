@@ -255,6 +255,23 @@
 newtype MyFunction
     = MyFunction {unwrapMyFunction :: (CInt -> IO CInt)}
     deriving stock Generic
+-- __unique:__ @toMyFunction@
+foreign import ccall safe "wrapper" hs_bindgen_4e8a459829b269e0_base ::
+    CInt -> IO CInt
+ -> IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @toMyFunction@
+hs_bindgen_4e8a459829b269e0 :: MyFunction -> IO (FunPtr MyFunction)
+-- __unique:__ @toMyFunction@
+hs_bindgen_4e8a459829b269e0 = \fun_0 -> fmap castFunPtr (hs_bindgen_4e8a459829b269e0_base (\x_1 -> fmap toFFIType (getField @"unwrapMyFunction" fun_0 (fromFFIType x_1))))
+-- __unique:__ @fromMyFunction@
+foreign import ccall safe "dynamic" hs_bindgen_bb71f7e730356103_base ::
+    FunPtr (CInt -> IO CInt)
+ -> CInt
+ -> IO CInt
+-- __unique:__ @fromMyFunction@
+hs_bindgen_bb71f7e730356103 :: FunPtr MyFunction -> MyFunction
+-- __unique:__ @fromMyFunction@
+hs_bindgen_bb71f7e730356103 = \funPtr_0 -> MyFunction (\x_1 -> fmap fromFFIType (hs_bindgen_bb71f7e730356103_base (castFunPtr funPtr_0) (toFFIType x_1)))
 instance ToFunPtr MyFunction
     where toFunPtr = hs_bindgen_4e8a459829b269e0
 instance FromFunPtr MyFunction
@@ -315,23 +332,6 @@ instance (~) ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = M.C
           offset# = \_ -> \_ -> 0
--- __unique:__ @toMyFunction@
-foreign import ccall safe "wrapper" hs_bindgen_4e8a459829b269e0_base ::
-    CInt -> IO CInt
- -> IO (FunPtr (CInt -> IO CInt))
--- __unique:__ @toMyFunction@
-hs_bindgen_4e8a459829b269e0 :: MyFunction -> IO (FunPtr MyFunction)
--- __unique:__ @toMyFunction@
-hs_bindgen_4e8a459829b269e0 = \fun_0 -> fmap castFunPtr (hs_bindgen_4e8a459829b269e0_base (\x_1 -> fmap toFFIType (getField @"unwrapMyFunction" fun_0 (fromFFIType x_1))))
--- __unique:__ @fromMyFunction@
-foreign import ccall safe "dynamic" hs_bindgen_bb71f7e730356103_base ::
-    FunPtr (CInt -> IO CInt)
- -> CInt
- -> IO CInt
--- __unique:__ @fromMyFunction@
-hs_bindgen_bb71f7e730356103 :: FunPtr MyFunction -> MyFunction
--- __unique:__ @fromMyFunction@
-hs_bindgen_bb71f7e730356103 = \funPtr_0 -> MyFunction (\x_1 -> fmap fromFFIType (hs_bindgen_bb71f7e730356103_base (castFunPtr funPtr_0) (toFFIType x_1)))
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_40e15e86e5db36ce" hs_bindgen_40e15e86e5db36ce_base ::
     FunPtr Void

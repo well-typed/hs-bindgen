@@ -132,6 +132,25 @@ newtype MyFunctionPointer_Aux
     = MyFunctionPointer_Aux {unwrapMyFunctionPointer_Aux :: (CInt ->
                                                              IO CInt)}
     deriving stock Generic
+-- __unique:__ @toMyFunctionPointer_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_47dfd04698dd2e6f_base ::
+    CInt -> IO CInt
+ -> IO (FunPtr (CInt -> IO CInt))
+-- __unique:__ @toMyFunctionPointer_Aux@
+hs_bindgen_47dfd04698dd2e6f :: MyFunctionPointer_Aux ->
+                               IO (FunPtr MyFunctionPointer_Aux)
+-- __unique:__ @toMyFunctionPointer_Aux@
+hs_bindgen_47dfd04698dd2e6f = \fun_0 -> fmap castFunPtr (hs_bindgen_47dfd04698dd2e6f_base (\x_1 -> fmap toFFIType (getField @"unwrapMyFunctionPointer_Aux" fun_0 (fromFFIType x_1))))
+-- __unique:__ @fromMyFunctionPointer_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_5738272f94a589e2_base ::
+    FunPtr (CInt -> IO CInt)
+ -> CInt
+ -> IO CInt
+-- __unique:__ @fromMyFunctionPointer_Aux@
+hs_bindgen_5738272f94a589e2 :: FunPtr MyFunctionPointer_Aux ->
+                               MyFunctionPointer_Aux
+-- __unique:__ @fromMyFunctionPointer_Aux@
+hs_bindgen_5738272f94a589e2 = \funPtr_0 -> MyFunctionPointer_Aux (\x_1 -> fmap fromFFIType (hs_bindgen_5738272f94a589e2_base (castFunPtr funPtr_0) (toFFIType x_1)))
 instance ToFunPtr MyFunctionPointer_Aux
     where toFunPtr = hs_bindgen_47dfd04698dd2e6f
 instance FromFunPtr MyFunctionPointer_Aux
@@ -235,25 +254,6 @@ instance (~) ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = M.C
           offset# = \_ -> \_ -> 0
--- __unique:__ @toMyFunctionPointer_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_47dfd04698dd2e6f_base ::
-    CInt -> IO CInt
- -> IO (FunPtr (CInt -> IO CInt))
--- __unique:__ @toMyFunctionPointer_Aux@
-hs_bindgen_47dfd04698dd2e6f :: MyFunctionPointer_Aux ->
-                               IO (FunPtr MyFunctionPointer_Aux)
--- __unique:__ @toMyFunctionPointer_Aux@
-hs_bindgen_47dfd04698dd2e6f = \fun_0 -> fmap castFunPtr (hs_bindgen_47dfd04698dd2e6f_base (\x_1 -> fmap toFFIType (getField @"unwrapMyFunctionPointer_Aux" fun_0 (fromFFIType x_1))))
--- __unique:__ @fromMyFunctionPointer_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_5738272f94a589e2_base ::
-    FunPtr (CInt -> IO CInt)
- -> CInt
- -> IO CInt
--- __unique:__ @fromMyFunctionPointer_Aux@
-hs_bindgen_5738272f94a589e2 :: FunPtr MyFunctionPointer_Aux ->
-                               MyFunctionPointer_Aux
--- __unique:__ @fromMyFunctionPointer_Aux@
-hs_bindgen_5738272f94a589e2 = \funPtr_0 -> MyFunctionPointer_Aux (\x_1 -> fmap fromFFIType (hs_bindgen_5738272f94a589e2_base (castFunPtr funPtr_0) (toFFIType x_1)))
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_40e15e86e5db36ce" hs_bindgen_40e15e86e5db36ce_base ::
     FunPtr Void
