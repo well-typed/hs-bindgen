@@ -289,7 +289,14 @@ getBindingsMultiple mrc = do
     config <- getConfig
     let fns = config.frontend.fieldNamingStrategy
     pure $ fmap (bimap render (fmap renderHsBoot)) <$>
-      translateModuleMultiple fns mrc dirs name (resolveExports tags) decls
+      translateModuleMultiple
+        fns
+        mrc
+        config.backend.hsBootPolicy
+        dirs
+        name
+        (resolveExports tags)
+        decls
 
 -- | Write bindings to files in provided output directory.
 --

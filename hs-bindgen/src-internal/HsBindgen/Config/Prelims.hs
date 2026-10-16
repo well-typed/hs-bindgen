@@ -126,10 +126,10 @@ data ModuleRenderConfig = ModuleRenderConfig {
 
 -- | Whether to generate boot files
 --
--- With 'GenerateHsBoot', the code behind the callbacks of a types module goes
--- to a module of its own, @Lib.Foo.HsBootInternal@, and both modules get a boot
--- file. With 'DoNotGenerateHsBoot' (the default), that code stays in the types
--- module, and there are no boot files.
+-- With 'GenerateHsBoot', every types module gets a boot file, and the code
+-- behind its callbacks goes to a module of its own, @Lib.Foo.HsBootInternal@,
+-- which has a boot file too. With 'DoNotGenerateHsBoot' (the default), that
+-- code stays in the types module, and there are no boot files.
 --
 -- Only multi-module output has boot files.
 data HsBootPolicy =

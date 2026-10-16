@@ -181,6 +181,8 @@ data HsBootDecl =
     HsBootData (Hs.Name Hs.NsTypeConstr)
     -- | A type synonym in full
   | HsBootTypSyn (Hs.Name Hs.NsTypeConstr) ClosedType
+    -- | @instance C T@, without @where@
+  | HsBootInstance Inst.TypeClass (Hs.Name Hs.NsTypeConstr)
     -- | The type of a binding: the types of its parameters, and its result type
   | HsBootSignature Hs.TermName [ClosedType] ClosedType
   deriving stock (Show)
