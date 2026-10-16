@@ -12,6 +12,28 @@ ctypes:
 - headers: types/boot/ffi_module.h
   cname: struct buffer
   hsname: Buffer
+- headers: types/boot/ffi_module.h
+  cname: struct point
+  hsname: Point
+- headers: types/boot/ffi_module.h
+  cname: enum colour
+  hsname: Colour
+  enum: closed
+- headers: types/boot/ffi_module.h
+  cname: union value
+  hsname: Value
+- headers: types/boot/ffi_module.h
+  cname: status
+  hsname: Status
+- headers: types/boot/ffi_module.h
+  cname: sample
+  hsname: Sample
+- headers: types/boot/ffi_module.h
+  cname: macro COUNT_T
+  hsname: COUNT_T
+- headers: types/boot/ffi_module.h
+  cname: struct handle
+  hsname: Handle
 hstypes:
 - hsname: Buffer
   representation: typealias
@@ -35,6 +57,69 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
+- hsname: COUNT_T
+  representation:
+    newtype:
+      constructor: COUNT_T
+      fields:
+      - unwrapCOUNT_T
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Colour
+  representation:
+    newtype:
+      constructor: Colour
+      fields:
+      - unwrapColour
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Handle
+  representation: emptydata
 - hsname: On_event
   representation:
     newtype:
@@ -55,6 +140,111 @@ hstypes:
   - Ord
   - ReadRaw
   - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Point
+  representation:
+    record:
+      constructor: Point
+      fields:
+      - point_x
+      - point_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Sample
+  representation:
+    newtype:
+      constructor: Sample
+      fields:
+      - unwrapSample
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: Int32
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Status
+  representation:
+    newtype:
+      constructor: Status
+      fields:
+      - unwrapStatus
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Value
+  representation:
+    newtype:
+      constructor: Value
+      fields:
+      - unwrapValue
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsUnion
+  - ReadRaw
   - StaticSize
   - Storable
   - WriteRaw

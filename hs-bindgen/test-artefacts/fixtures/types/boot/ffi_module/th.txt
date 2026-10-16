@@ -1,3 +1,6 @@
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile test-artefacts/headers/golden/types/boot/ffi_module.h
 -- #include <types/boot/ffi_module.h>
 -- void hs_bindgen_50f1717af10f3667 (
@@ -6,11 +9,27 @@
 -- {
 --   (register_handler)(arg1);
 -- }
+-- void hs_bindgen_af36a0cace6cedb3 (
+--   signed int (*arg1) (
+--   struct point *arg1
+-- )
+-- )
+-- {
+--   (visit)(arg1);
+-- }
 -- void hs_bindgen_92d50ec97bf2edec (
 --   on_event arg1
 -- )
 -- {
 --   (register_handler)(arg1);
+-- }
+-- void hs_bindgen_05d58a9e27209620 (
+--   signed int (*arg1) (
+--   struct point *arg1
+-- )
+-- )
+-- {
+--   (visit)(arg1);
 -- }
 -- /* test_typesbootffi_module_Example_get_register_handler */
 -- __attribute__ ((const))
@@ -20,11 +39,21 @@
 -- {
 --   return &register_handler;
 -- }
+-- /* test_typesbootffi_module_Example_get_visit */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_95661d5d617bffad (void)) (
+--   signed int (*arg1) (
+--   struct point *arg1
+-- )
+-- )
+-- {
+--   return &visit;
+-- }
 {-| Auxiliary type used by 'On_event'
 
     __C declaration:__ @on_event@
 
-    __defined at:__ @types\/boot\/ffi_module.h 6:15@
+    __defined at:__ @types\/boot\/ffi_module.h 13:15@
 
     __exported by:__ @types\/boot\/ffi_module.h@
 -}
@@ -48,7 +77,7 @@ instance HasCField On_event_Aux "unwrapOn_event_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @on_event@
 
-    __defined at:__ @types\/boot\/ffi_module.h 6:15@
+    __defined at:__ @types\/boot\/ffi_module.h 13:15@
 
     __exported by:__ @types\/boot\/ffi_module.h@
 -}
@@ -73,7 +102,7 @@ instance HasCField On_event "unwrapOn_event"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct buffer@
 
-    __defined at:__ @types\/boot\/ffi_module.h 10:8@
+    __defined at:__ @types\/boot\/ffi_module.h 17:8@
 
     __exported by:__ @types\/boot\/ffi_module.h@
 -}
@@ -81,7 +110,7 @@ data Buffer_Aux
     = Buffer {buffer_len :: CInt
               {- ^ __C declaration:__ @len@
 
-                   __defined at:__ @types\/boot\/ffi_module.h 11:7@
+                   __defined at:__ @types\/boot\/ffi_module.h 18:7@
 
                    __exported by:__ @types\/boot\/ffi_module.h@
               -}}
@@ -108,6 +137,292 @@ instance HasCField Buffer_Aux "buffer_len"
 instance Offset CChar Buffer_Aux
     where offset = \_proxy_0 -> 4
 type Buffer = WithFlam CChar Buffer_Aux
+{-| __C declaration:__ @struct point@
+
+    __defined at:__ @types\/boot\/ffi_module.h 24:8@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+data Point
+    = Point {point_x :: CInt
+             {- ^ __C declaration:__ @x@
+
+                  __defined at:__ @types\/boot\/ffi_module.h 25:7@
+
+                  __exported by:__ @types\/boot\/ffi_module.h@
+             -},
+             point_y :: CInt
+             {- ^ __C declaration:__ @y@
+
+                  __defined at:__ @types\/boot\/ffi_module.h 26:7@
+
+                  __exported by:__ @types\/boot\/ffi_module.h@
+             -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Point
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Point
+    where readRaw = \ptr_0 -> (pure Point <*> readRaw (Proxy @"point_x") ptr_0) <*> readRaw (Proxy @"point_y") ptr_0
+instance WriteRaw Point
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Point point_x_2
+                                             point_y_3 -> writeRaw (Proxy @"point_x") ptr_0 point_x_2 >> writeRaw (Proxy @"point_y") ptr_0 point_y_3
+deriving via (EquivStorable Point) instance Storable Point
+deriving via (IsStructViaReadRaw Point) instance IsStruct Point
+instance (~) ty CInt => HasField "point_x" Point ty
+    where hasField = \x_0 -> (\y_1 -> Point{point_x = y_1,
+                                            point_y = getField @"point_y" x_0},
+                              getField @"point_x" x_0)
+instance (~) ty CInt => HasField "point_x" (Ptr Point) (Ptr ty)
+    where getField = fromPtr (Proxy @"point_x")
+instance HasCField Point "point_x"
+    where type CFieldType Point "point_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "point_y" Point ty
+    where hasField = \x_0 -> (\y_1 -> Point{point_y = y_1,
+                                            point_x = getField @"point_x" x_0},
+                              getField @"point_y" x_0)
+instance (~) ty CInt => HasField "point_y" (Ptr Point) (Ptr ty)
+    where getField = fromPtr (Proxy @"point_y")
+instance HasCField Point "point_y"
+    where type CFieldType Point "point_y" = CInt
+          offset# = \_ -> \_ -> 4
+{-| __C declaration:__ @enum colour@
+
+    __defined at:__ @types\/boot\/ffi_module.h 37:6@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+newtype Colour
+    = Colour {unwrapColour :: CUInt}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize Colour
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Colour
+    where readRaw = \ptr_0 -> pure Colour <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Colour
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Colour unwrapColour_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapColour_2
+deriving via (EquivStorable Colour) instance Storable Colour
+deriving via CUInt instance Prim Colour
+instance CEnum Colour
+    where type CEnumZ Colour = CUInt
+          toCEnum = Colour
+          fromCEnum = getField @"unwrapColour"
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "RED"),
+                                                         (1, singleton "GREEN"),
+                                                         (2, singleton "BLUE")]
+          showsUndeclared = showsWrappedUndeclared "Colour"
+          readPrecUndeclared = readPrecWrappedUndeclared "Colour"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum Colour
+    where minDeclaredValue = RED
+          maxDeclaredValue = BLUE
+instance Show Colour
+    where showsPrec = shows
+instance Read Colour
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapColour" Colour ty
+    where hasField = \x_0 -> (\y_1 -> Colour{unwrapColour = y_1},
+                              getField @"unwrapColour" x_0)
+instance (~) ty CUInt =>
+         HasField "unwrapColour" (Ptr Colour) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapColour")
+instance HasCField Colour "unwrapColour"
+    where type CFieldType Colour "unwrapColour" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @RED@
+
+    __defined at:__ @types\/boot\/ffi_module.h 37:15@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+pattern RED :: Colour
+pattern RED = Colour 0
+{-| __C declaration:__ @GREEN@
+
+    __defined at:__ @types\/boot\/ffi_module.h 37:20@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+pattern GREEN :: Colour
+pattern GREEN = Colour 1
+{-| __C declaration:__ @BLUE@
+
+    __defined at:__ @types\/boot\/ffi_module.h 37:27@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+pattern BLUE :: Colour
+pattern BLUE = Colour 2
+{-# COMPLETE RED, GREEN, BLUE #-}
+{-| __C declaration:__ @union value@
+
+    __defined at:__ @types\/boot\/ffi_module.h 40:7@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+newtype Value
+    = Value {unwrapValue :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize Value
+deriving via (SizedByteArray 4 4) instance ReadRaw Value
+deriving via (SizedByteArray 4 4) instance WriteRaw Value
+deriving via (EquivStorable Value) instance Storable Value
+deriving via (SizedByteArray 4 4) instance IsUnion Value
+instance (~) ty CInt => HasField "value_i" Value ty
+    where getField = getUnionPayload
+instance (~) ty CInt => HasField "value_i" Value ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"value_i" x_0)
+instance (~) ty CInt => HasField "value_i" (Ptr Value) (Ptr ty)
+    where getField = fromPtr (Proxy @"value_i")
+instance HasCField Value "value_i"
+    where type CFieldType Value "value_i" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CFloat => HasField "value_f" Value ty
+    where getField = getUnionPayload
+instance (~) ty CFloat => HasField "value_f" Value ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"value_f" x_0)
+instance (~) ty CFloat => HasField "value_f" (Ptr Value) (Ptr ty)
+    where getField = fromPtr (Proxy @"value_f")
+instance HasCField Value "value_f"
+    where type CFieldType Value "value_f" = CFloat
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @status@
+
+    __defined at:__ @types\/boot\/ffi_module.h 47:13@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+newtype Status
+    = Status {unwrapStatus :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapStatus" Status ty
+    where hasField = \x_0 -> (\y_1 -> Status{unwrapStatus = y_1},
+                              getField @"unwrapStatus" x_0)
+instance (~) ty CInt =>
+         HasField "unwrapStatus" (Ptr Status) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapStatus")
+instance HasCField Status "unwrapStatus"
+    where type CFieldType Status "unwrapStatus" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @sample@
+
+    __defined at:__ @types\/boot\/ffi_module.h 48:17@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+newtype Sample
+    = Sample {unwrapSample :: HsBindgen.Runtime.LibC.Int32}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int32 =>
+         HasField "unwrapSample" Sample ty
+    where hasField = \x_0 -> (\y_1 -> Sample{unwrapSample = y_1},
+                              getField @"unwrapSample" x_0)
+instance (~) ty HsBindgen.Runtime.LibC.Int32 =>
+         HasField "unwrapSample" (Ptr Sample) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapSample")
+instance HasCField Sample "unwrapSample"
+    where type CFieldType Sample
+                          "unwrapSample" = HsBindgen.Runtime.LibC.Int32
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro COUNT_T@
+
+    __defined at:__ @types\/boot\/ffi_module.h 51:9@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+newtype COUNT_T
+    = COUNT_T {unwrapCOUNT_T :: CUInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CUInt => HasField "unwrapCOUNT_T" COUNT_T ty
+    where hasField = \x_0 -> (\y_1 -> COUNT_T{unwrapCOUNT_T = y_1},
+                              getField @"unwrapCOUNT_T" x_0)
+instance (~) ty CUInt =>
+         HasField "unwrapCOUNT_T" (Ptr COUNT_T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapCOUNT_T")
+instance HasCField COUNT_T "unwrapCOUNT_T"
+    where type CFieldType COUNT_T "unwrapCOUNT_T" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro MAX_EVENTS@
+
+    __defined at:__ @types\/boot\/ffi_module.h 52:9@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+mAX_EVENTS :: CInt
+{-| __C declaration:__ @macro MAX_EVENTS@
+
+    __defined at:__ @types\/boot\/ffi_module.h 52:9@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+mAX_EVENTS = 16 :: CInt
+{-| __C declaration:__ @struct handle@
+
+    __defined at:__ @types\/boot\/ffi_module.h 55:8@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+data Handle
+instance ToFunPtr (Ptr Point -> IO CInt)
+    where toFunPtr = hs_bindgen_ce6081d63db40b52
+instance FromFunPtr (Ptr Point -> IO CInt)
+    where fromFunPtr = hs_bindgen_9ee31aa034cd5991
 -- __unique:__ @toOn_event_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_70c2110bb36ed51a_base ::
     CInt -> IO CInt
@@ -126,6 +441,25 @@ foreign import ccall safe "dynamic" hs_bindgen_a7705d093ccaa37a_base ::
 hs_bindgen_a7705d093ccaa37a :: FunPtr On_event_Aux -> On_event_Aux
 -- __unique:__ @fromOn_event_Aux@
 hs_bindgen_a7705d093ccaa37a = \funPtr_0 -> On_event_Aux (\x_1 -> fmap fromFFIType (hs_bindgen_a7705d093ccaa37a_base (castFunPtr funPtr_0) (toFFIType x_1)))
+-- __unique:__ @instance ToFunPtr (BG.Ptr Point -> IO BG.CInt)@
+foreign import ccall safe "wrapper" hs_bindgen_ce6081d63db40b52_base ::
+    Ptr Void -> IO CInt
+ -> IO (FunPtr (Ptr Void -> IO CInt))
+-- __unique:__ @instance ToFunPtr (BG.Ptr Point -> IO BG.CInt)@
+hs_bindgen_ce6081d63db40b52 :: (Ptr Point -> IO CInt) ->
+                               IO (FunPtr (Ptr Point -> IO CInt))
+-- __unique:__ @instance ToFunPtr (BG.Ptr Point -> IO BG.CInt)@
+hs_bindgen_ce6081d63db40b52 = \fun_0 -> fmap castFunPtr (hs_bindgen_ce6081d63db40b52_base (\x_1 -> fmap toFFIType (fun_0 (fromFFIType x_1))))
+-- __unique:__ @instance FromFunPtr (BG.Ptr Point -> IO BG.CInt)@
+foreign import ccall safe "dynamic" hs_bindgen_9ee31aa034cd5991_base ::
+    FunPtr (Ptr Void -> IO CInt)
+ -> Ptr Void
+ -> IO CInt
+-- __unique:__ @instance FromFunPtr (BG.Ptr Point -> IO BG.CInt)@
+hs_bindgen_9ee31aa034cd5991 :: FunPtr (Ptr Point -> IO CInt) ->
+                               Ptr Point -> IO CInt
+-- __unique:__ @instance FromFunPtr (BG.Ptr Point -> IO BG.CInt)@
+hs_bindgen_9ee31aa034cd5991 = \funPtr_0 -> \x_1 -> fmap fromFFIType (hs_bindgen_9ee31aa034cd5991_base (castFunPtr funPtr_0) (toFFIType x_1))
 -- __unique:__ @test_typesbootffi_module_Example_Safe_register_handler@
 foreign import ccall safe "hs_bindgen_50f1717af10f3667" hs_bindgen_50f1717af10f3667_base ::
     FunPtr Void
@@ -136,18 +470,41 @@ hs_bindgen_50f1717af10f3667 :: On_event -> IO ()
 hs_bindgen_50f1717af10f3667 = \x_0 -> hs_bindgen_50f1717af10f3667_base (toFFIType x_0)
 {-| __C declaration:__ @register_handler@
 
-    __defined at:__ @types\/boot\/ffi_module.h 15:6@
+    __defined at:__ @types\/boot\/ffi_module.h 22:6@
 
     __exported by:__ @types\/boot\/ffi_module.h@
 -}
 register_handler_safe :: On_event -> IO ()
 {-| __C declaration:__ @register_handler@
 
-    __defined at:__ @types\/boot\/ffi_module.h 15:6@
+    __defined at:__ @types\/boot\/ffi_module.h 22:6@
 
     __exported by:__ @types\/boot\/ffi_module.h@
 -}
 register_handler_safe = hs_bindgen_50f1717af10f3667
+-- __unique:__ @test_typesbootffi_module_Example_Safe_visit@
+foreign import ccall safe "hs_bindgen_af36a0cace6cedb3" hs_bindgen_af36a0cace6cedb3_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_typesbootffi_module_Example_Safe_visit@
+hs_bindgen_af36a0cace6cedb3 :: FunPtr (Ptr Point -> IO CInt) ->
+                               IO ()
+-- __unique:__ @test_typesbootffi_module_Example_Safe_visit@
+hs_bindgen_af36a0cace6cedb3 = \x_0 -> hs_bindgen_af36a0cace6cedb3_base (toFFIType x_0)
+{-| __C declaration:__ @visit@
+
+    __defined at:__ @types\/boot\/ffi_module.h 33:6@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+visit_safe :: FunPtr (Ptr Point -> IO CInt) -> IO ()
+{-| __C declaration:__ @visit@
+
+    __defined at:__ @types\/boot\/ffi_module.h 33:6@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+visit_safe = hs_bindgen_af36a0cace6cedb3
 -- __unique:__ @test_typesbootffi_module_Example_Unsafe_register_handler@
 foreign import ccall unsafe "hs_bindgen_92d50ec97bf2edec" hs_bindgen_92d50ec97bf2edec_base ::
     FunPtr Void
@@ -158,18 +515,41 @@ hs_bindgen_92d50ec97bf2edec :: On_event -> IO ()
 hs_bindgen_92d50ec97bf2edec = \x_0 -> hs_bindgen_92d50ec97bf2edec_base (toFFIType x_0)
 {-| __C declaration:__ @register_handler@
 
-    __defined at:__ @types\/boot\/ffi_module.h 15:6@
+    __defined at:__ @types\/boot\/ffi_module.h 22:6@
 
     __exported by:__ @types\/boot\/ffi_module.h@
 -}
 register_handler_unsafe :: On_event -> IO ()
 {-| __C declaration:__ @register_handler@
 
-    __defined at:__ @types\/boot\/ffi_module.h 15:6@
+    __defined at:__ @types\/boot\/ffi_module.h 22:6@
 
     __exported by:__ @types\/boot\/ffi_module.h@
 -}
 register_handler_unsafe = hs_bindgen_92d50ec97bf2edec
+-- __unique:__ @test_typesbootffi_module_Example_Unsafe_visit@
+foreign import ccall unsafe "hs_bindgen_05d58a9e27209620" hs_bindgen_05d58a9e27209620_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_typesbootffi_module_Example_Unsafe_visit@
+hs_bindgen_05d58a9e27209620 :: FunPtr (Ptr Point -> IO CInt) ->
+                               IO ()
+-- __unique:__ @test_typesbootffi_module_Example_Unsafe_visit@
+hs_bindgen_05d58a9e27209620 = \x_0 -> hs_bindgen_05d58a9e27209620_base (toFFIType x_0)
+{-| __C declaration:__ @visit@
+
+    __defined at:__ @types\/boot\/ffi_module.h 33:6@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+visit_unsafe :: FunPtr (Ptr Point -> IO CInt) -> IO ()
+{-| __C declaration:__ @visit@
+
+    __defined at:__ @types\/boot\/ffi_module.h 33:6@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+visit_unsafe = hs_bindgen_05d58a9e27209620
 -- __unique:__ @test_typesbootffi_module_Example_get_register_handler@
 foreign import ccall unsafe "hs_bindgen_f9c0a75f96e98b0b" hs_bindgen_f9c0a75f96e98b0b_base ::
     IO (FunPtr Void)
@@ -180,15 +560,39 @@ hs_bindgen_f9c0a75f96e98b0b = fmap fromFFIType hs_bindgen_f9c0a75f96e98b0b_base
 {-# NOINLINE register_handler_funptr #-}
 {-| __C declaration:__ @register_handler@
 
-    __defined at:__ @types\/boot\/ffi_module.h 15:6@
+    __defined at:__ @types\/boot\/ffi_module.h 22:6@
 
     __exported by:__ @types\/boot\/ffi_module.h@
 -}
 register_handler_funptr :: FunPtr (On_event -> IO ())
 {-| __C declaration:__ @register_handler@
 
-    __defined at:__ @types\/boot\/ffi_module.h 15:6@
+    __defined at:__ @types\/boot\/ffi_module.h 22:6@
 
     __exported by:__ @types\/boot\/ffi_module.h@
 -}
 register_handler_funptr = unsafePerformIO hs_bindgen_f9c0a75f96e98b0b
+-- __unique:__ @test_typesbootffi_module_Example_get_visit@
+foreign import ccall unsafe "hs_bindgen_95661d5d617bffad" hs_bindgen_95661d5d617bffad_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesbootffi_module_Example_get_visit@
+hs_bindgen_95661d5d617bffad :: IO (FunPtr (FunPtr (Ptr Point ->
+                                                   IO CInt) ->
+                                           IO ()))
+-- __unique:__ @test_typesbootffi_module_Example_get_visit@
+hs_bindgen_95661d5d617bffad = fmap fromFFIType hs_bindgen_95661d5d617bffad_base
+{-# NOINLINE visit_funptr #-}
+{-| __C declaration:__ @visit@
+
+    __defined at:__ @types\/boot\/ffi_module.h 33:6@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+visit_funptr :: FunPtr (FunPtr (Ptr Point -> IO CInt) -> IO ())
+{-| __C declaration:__ @visit@
+
+    __defined at:__ @types\/boot\/ffi_module.h 33:6@
+
+    __exported by:__ @types\/boot\/ffi_module.h@
+-}
+visit_funptr = unsafePerformIO hs_bindgen_95661d5d617bffad

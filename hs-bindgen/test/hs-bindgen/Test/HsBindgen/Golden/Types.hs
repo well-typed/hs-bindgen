@@ -214,10 +214,15 @@ test_anonymous_edge_cases_reparse =
     defaultTest "types/anonymous/edge-cases/reparse"
 
 -- | The one fixture with boot files, and with an HsBootInternal module
+--
+-- The prescriptive binding specification makes @enum colour@ closed, so that
+-- the types module has a @COMPLETE@ pragma, which the boot file leaves out.
 test_boot_internal_module :: TestCase
 test_boot_internal_module =
     defaultTest "types/boot/internal_module"
       & #onBackend .~ ( #hsBootPolicy .~ GenerateHsBoot )
+      & #specPrescriptive .~
+          Just "test-artefacts/headers/golden/types/boot/internal_module_p.yaml"
 
 test_long_double :: TestCase
 test_long_double =
