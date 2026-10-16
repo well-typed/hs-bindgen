@@ -47,7 +47,7 @@ hs_bindgen_92d50ec97bf2edec =
 
 {-| __C declaration:__ @register_handler@
 
-    __defined at:__ @types\/boot\/ffi_module.h 15:6@
+    __defined at:__ @types\/boot\/ffi_module.h 22:6@
 
     __exported by:__ @types\/boot\/ffi_module.h@
 -}
@@ -72,7 +72,7 @@ hs_bindgen_05d58a9e27209620 =
 
 {-| __C declaration:__ @visit@
 
-    __defined at:__ @types\/boot\/ffi_module.h 26:6@
+    __defined at:__ @types\/boot\/ffi_module.h 33:6@
 
     __exported by:__ @types\/boot\/ffi_module.h@
 -}

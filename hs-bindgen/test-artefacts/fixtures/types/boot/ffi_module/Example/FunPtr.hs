@@ -48,7 +48,7 @@ hs_bindgen_f9c0a75f96e98b0b =
 {-# NOINLINE register_handler #-}
 {-| __C declaration:__ @register_handler@
 
-    __defined at:__ @types\/boot\/ffi_module.h 15:6@
+    __defined at:__ @types\/boot\/ffi_module.h 22:6@
 
     __exported by:__ @types\/boot\/ffi_module.h@
 -}
@@ -68,7 +68,7 @@ hs_bindgen_95661d5d617bffad =
 {-# NOINLINE visit #-}
 {-| __C declaration:__ @visit@
 
-    __defined at:__ @types\/boot\/ffi_module.h 26:6@
+    __defined at:__ @types\/boot\/ffi_module.h 33:6@
 
     __exported by:__ @types\/boot\/ffi_module.h@
 -}
