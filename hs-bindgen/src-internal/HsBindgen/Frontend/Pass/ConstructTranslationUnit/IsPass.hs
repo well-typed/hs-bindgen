@@ -2,6 +2,7 @@ module HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (
     ConstructTranslationUnit
   ) where
 
+import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
@@ -36,7 +37,7 @@ instance PassScopedName ConstructTranslationUnit
 instance PassTypes ConstructTranslationUnit
 
 instance PassMacro ConstructTranslationUnit where
-  type MacroBody ConstructTranslationUnit = Macro.Resolved
+  type MacroBody ConstructTranslationUnit = PendingMacro Macro.Resolved
 
 instance PassExtBinding ConstructTranslationUnit
 

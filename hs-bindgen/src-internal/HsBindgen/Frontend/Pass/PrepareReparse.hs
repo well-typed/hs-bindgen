@@ -17,6 +17,7 @@ import Text.Parsec (ParseError)
 import Clang.Discover (ClangExe)
 
 import HsBindgen.Clang (ClangSetup)
+import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass (ApplyMacroFallback)
 import HsBindgen.Frontend.Pass.PrepareReparse.AST (Decl, Include (Include),
                                                    PostHeader (targets),
                                                    PreHeader, Tag,
@@ -30,7 +31,6 @@ import HsBindgen.Frontend.Pass.PrepareReparse.Printer (print)
 import HsBindgen.Frontend.Pass.PrepareReparse.Simplifier (simplify)
 import HsBindgen.Frontend.Pass.PrepareReparse.Tracer (traceImmediate)
 import HsBindgen.Frontend.Pass.PrepareReparse.Update (UpdateMode (..), update)
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckMacros)
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Frontend.TranslationUnit qualified as C
@@ -47,7 +47,7 @@ prepareReparse ::
   -> Maybe ClangExe
   -> ClangSetup
   -> RootHeader
-  -> C.TranslationUnit l TypecheckMacros
+  -> C.TranslationUnit l ApplyMacroFallback
   -> IO (C.TranslationUnit l PrepareReparse)
 prepareReparse tr clangExeMay setup root unit = do
     case clangExeMay of
@@ -121,7 +121,7 @@ cut headerPath headerContents = go (lines headerContents)
   Internal phases
 -------------------------------------------------------------------------------}
 
-runSimplifier :: FilePath -> C.TranslationUnit l TypecheckMacros -> PreHeader
+runSimplifier :: FilePath -> C.TranslationUnit l ApplyMacroFallback -> PreHeader
 runSimplifier rootHeaderPath unit = simplify () unit $ Include rootHeaderPath
 
 runPrinter :: PreHeader -> ShowS
@@ -135,7 +135,7 @@ runParser = parse
 
 runUpdater ::
      PostHeader
-  -> C.TranslationUnit l TypecheckMacros
+  -> C.TranslationUnit l ApplyMacroFallback
   -> C.TranslationUnit l PrepareReparse
 runUpdater header unit = update mode unit
   where

@@ -1,0 +1,57 @@
+-- addDependentFile test-artefacts/headers/golden/macros/macro_fallback_inner.h
+-- addDependentFile test-artefacts/headers/golden/macros/macro_fallback.h
+{-| __C declaration:__ @macro HANDLED@
+
+    __defined at:__ @macros\/macro_fallback.h 4:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+hANDLED :: CInt
+{-| __C declaration:__ @macro HANDLED@
+
+    __defined at:__ @macros\/macro_fallback.h 4:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+hANDLED = 42 :: CInt
+{-| Fails to parse.
+
+    A fallback binding keeps its Doxygen comment.
+
+    __C declaration:__ @macro PARSE_FAILURE@
+
+    __defined at:__ @macros\/macro_fallback.h 11:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+pARSE_FAILURE :: Raw String
+{-| Fails to parse.
+
+    A fallback binding keeps its Doxygen comment.
+
+    __C declaration:__ @macro PARSE_FAILURE@
+
+    __defined at:__ @macros\/macro_fallback.h 11:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+pARSE_FAILURE = objectLike "PARSE_FAILURE" ["__attribute__",
+                                            "(",
+                                            "(",
+                                            "unused",
+                                            ")",
+                                            ")"]
+{-| __C declaration:__ @macro TYPE_LIKE@
+
+    __defined at:__ @macros\/macro_fallback.h 20:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+tYPE_LIKE :: Raw String
+{-| __C declaration:__ @macro TYPE_LIKE@
+
+    __defined at:__ @macros\/macro_fallback.h 20:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+tYPE_LIKE = objectLike "TYPE_LIKE" ["const", "HANDLED"]

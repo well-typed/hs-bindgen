@@ -27,6 +27,8 @@ module Test.Common.HsBindgen.Trace.Patterns (
     -- * Select
   , pattern MatchNoDeclarations
   , pattern MatchMacrosDropped
+  , pattern MatchMacroFallback
+  , pattern MatchMacrosFallback
   , pattern MatchSelect
   , pattern MatchUnusable
   , pattern MatchTransMissing
@@ -49,6 +51,7 @@ import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (DelayedTranslateTypesM
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass.Msg (PassMsg (Msg))
+import HsBindgen.Macro.Error (MacroLangFailure)
 import HsBindgen.TraceMsg
 
 {-------------------------------------------------------------------------------
@@ -201,6 +204,16 @@ pattern MatchMacrosDropped :: Int -> TraceMsg
 pattern MatchMacrosDropped n <- TraceFrontend (
       FrontendSelect C.WithLocationInfo{
           msg = SelectMacrosDropped n
+        }
+    )
+
+pattern MatchMacroFallback :: C.DeclName -> MacroLangFailure -> TraceMsg
+pattern MatchMacroFallback name x <- MatchSelect name (SelectMacroFallback x)
+
+pattern MatchMacrosFallback :: Int -> TraceMsg
+pattern MatchMacrosFallback n <- TraceFrontend (
+      FrontendSelect C.WithLocationInfo{
+          msg = SelectMacrosFallback n
         }
     )
 

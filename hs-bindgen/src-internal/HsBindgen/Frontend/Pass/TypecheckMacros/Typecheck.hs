@@ -1,14 +1,13 @@
 module HsBindgen.Frontend.Pass.TypecheckMacros.Typecheck (
-    FailedMacro
-  , typecheckDecls
+    typecheckDecls
   ) where
 
-import Data.Either
 import Data.Map qualified as Map
 import Data.Set qualified as Set
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis
+import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
@@ -21,8 +20,6 @@ import HsBindgen.Macro.Type qualified as Macro
 type In    = ConstructTranslationUnit
 type Out   = TypecheckMacros
 
-type FailedMacro = (C.DeclInfo Out, MacroTypecheckError)
-
 {-------------------------------------------------------------------------------
   Typecheck macros
 -------------------------------------------------------------------------------}
@@ -30,79 +27,78 @@ type FailedMacro = (C.DeclInfo Out, MacroTypecheckError)
 -- | Typecheck all macro declarations, threading non-macro declarations through
 -- unchanged.
 --
--- Returns the typechecked declarations, the set of names of type-like macros
--- (used by the reparse environment), and the macros that failed to typecheck.
+-- Returns the typechecked declarations and the set of names of type-like macros
+-- (used by the reparse environment). A macro that fails to typecheck stays a
+-- declaration, recording the failure (see "HsBindgen.Frontend.MacroFallback").
 typecheckDecls ::
      forall l. Macro.HasTypes l
   => Macro.Lang l
   -> [C.Decl l In]
-  -> ([C.Decl l Out], Set Text, [FailedMacro])
+  -> ([C.Decl l Out], Set Text)
 typecheckDecls macroLang decls =
-    (successes, getKnownMacroTypes successes, failures)
+    (decls', getKnownMacroTypes decls')
   where
     tcResults :: Map Text (Macro.TypecheckResult l)
     tcResults = macroLang.typecheck (mapMaybe getResolvedMacro decls)
 
-    failures  :: [FailedMacro]
-    successes :: [C.Decl l Out]
-    (failures, successes) = partitionEithers (map (toOutcome tcResults) decls)
+    decls' :: [C.Decl l Out]
+    decls' = map (typecheckDecl tcResults) decls
 
 getResolvedMacro :: C.Decl l In -> Maybe (Macro.Resolved l)
 getResolvedMacro decl = case decl.kind of
-    C.DeclMacro macro -> Just macro
-    _otherwise        -> Nothing
+    C.DeclMacro PendingMacro{handling = Handled macro} -> Just macro
+    _otherwise                                         -> Nothing
 
 {-------------------------------------------------------------------------------
   Process a single declaration
 -------------------------------------------------------------------------------}
 
--- | The outcome of processing a single declaration: a macro that failed to
--- typecheck (dropped from the output), or a declaration to keep (a non-macro,
--- or a successfully typechecked macro).
-type Outcome l = Either FailedMacro (C.Decl l Out)
-
 -- | Coerce a non-macro declaration to the output pass, or assemble a macro from
 -- its typecheck result.
-toOutcome ::
+typecheckDecl ::
      forall l. Macro.HasTypes l
   => Map Text (Macro.TypecheckResult l)
   -> C.Decl l In
-  -> Outcome l
-toOutcome tcResults decl = case decl.kind of
-    C.DeclMacro                x -> assembleMacro tcResults info' decl.ann x
-    C.DeclTypedef              x -> nonMacro $ C.DeclTypedef              $ coercePass x
-    C.DeclStruct               x -> nonMacro $ C.DeclStruct               $ coercePass x
-    C.DeclUnion                x -> nonMacro $ C.DeclUnion                $ coercePass x
-    C.DeclEnum                 x -> nonMacro $ C.DeclEnum                 $ coercePass x
-    C.DeclUntaggedEnumConstant x -> nonMacro $ C.DeclUntaggedEnumConstant $ coercePass x
-    C.DeclOpaque               x -> nonMacro $ C.DeclOpaque                 x
-    C.DeclFunction             x -> nonMacro $ C.DeclFunction             $ coercePass x
-    C.DeclGlobal               x -> nonMacro $ C.DeclGlobal               $ coercePass x
+  -> C.Decl l Out
+typecheckDecl tcResults decl = C.Decl info' kind' decl.ann
   where
     info' :: C.DeclInfo Out
     info' = coercePass decl.info
 
-    nonMacro :: C.DeclKind l Out -> Outcome l
-    nonMacro kind' = Right $ C.Decl info' kind' decl.ann
+    kind' :: C.DeclKind l Out
+    kind' = case decl.kind of
+      C.DeclMacro                x -> C.DeclMacro                $ assembleMacro tcResults info' x
+      C.DeclTypedef              x -> C.DeclTypedef              $ coercePass x
+      C.DeclStruct               x -> C.DeclStruct               $ coercePass x
+      C.DeclUnion                x -> C.DeclUnion                $ coercePass x
+      C.DeclEnum                 x -> C.DeclEnum                 $ coercePass x
+      C.DeclUntaggedEnumConstant x -> C.DeclUntaggedEnumConstant $ coercePass x
+      C.DeclOpaque               x -> C.DeclOpaque                 x
+      C.DeclFunction             x -> C.DeclFunction             $ coercePass x
+      C.DeclGlobal               x -> C.DeclGlobal               $ coercePass x
 
--- | Assemble a macro declaration from its (pre-computed) batch typecheck result,
--- reporting failure if typechecking did not succeed.
+-- | Assemble a macro declaration from its (pre-computed) batch typecheck result
 assembleMacro ::
-     Macro.HasTypes l
+     forall l. Macro.HasTypes l
   => Map Text (Macro.TypecheckResult l)
   -> C.DeclInfo Out
-  -> Ann "Decl" Out
-  -> Macro.Resolved l
-  -> Outcome l
-assembleMacro tcResults info ann resolved =
-    case Map.lookup info.id.name.text tcResults of
+  -> MacroBody In l
+  -> MacroBody Out l
+assembleMacro tcResults info macro = PendingMacro{
+      raw      = macro.raw
+    , handling = nextStage FailedTypecheck typecheck macro.handling
+    }
+  where
+    typecheck ::
+         Macro.Resolved l
+      -> Either MacroTypecheckError (CheckedMacro Out l)
+    typecheck resolved = case Map.lookup info.id.name.text tcResults of
       Nothing ->
         panicPure $
           "assembleMacro: typechecked macro unavailable: "
             <> show info.id.name.text
-      Just tcRes -> case fromTcResult resolved.deps tcRes of
-        Left  err  -> Left (info, err)
-        Right body -> Right (C.Decl info (C.DeclMacro body) ann)
+      Just tcRes ->
+        fromTcResult resolved.deps tcRes
 
 -- | Build the typechecked macro body from its typecheck result and (previously
 -- resolved) dependencies.
@@ -110,12 +106,12 @@ fromTcResult ::
      Macro.HasTypes l
   => [(C.DeclId, Dependency)]
   -> Macro.TypecheckResult l
-  -> Either MacroTypecheckError (TypecheckedMacro TypecheckMacros l)
+  -> Either MacroTypecheckError (CheckedMacro TypecheckMacros l)
 fromTcResult deps = \case
     Macro.TypecheckType x ->
-      Right $ MacroType $ TypecheckedMacroType (fmap MacroTypeBodyVar x) deps NoAnn
+      Right $ CheckedType $ TypecheckedMacroType (fmap MacroTypeBodyVar x) deps NoAnn
     Macro.TypecheckValue x ->
-      Right $ MacroValue $ TypecheckedMacroValue x deps
+      Right $ CheckedValue $ TypecheckedMacroValue x deps
     Macro.TypecheckError err ->
       Left err
 
@@ -133,5 +129,5 @@ getKnownMacroTypes :: [C.Decl l Out] -> Set Text
 getKnownMacroTypes decls = Set.fromList
     [ decl.info.id.name.text
     | decl <- decls
-    , C.DeclMacro (MacroType _) <- [decl.kind]
+    , C.DeclMacro PendingMacro{handling = Handled CheckedType{}} <- [decl.kind]
     ]

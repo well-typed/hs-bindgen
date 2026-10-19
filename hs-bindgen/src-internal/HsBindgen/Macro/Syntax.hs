@@ -2,8 +2,8 @@
 module HsBindgen.Macro.Syntax (
     MacroDefinition (..)
   , MacroInvocation (..)
-    -- * Splitting macro definitions
-  , splitMacro
+    -- * Reading macro definitions
+  , readRawMacro
   ) where
 
 import Control.Monad (unless)
@@ -23,10 +23,10 @@ import HsBindgen.Macro.Parse
 
 data MacroDefinition = MacroDefinition {
     name  :: Text
-    -- | The definition, split into name, parameters and body
+    -- | The definition, read into a raw macro: name, parameters and body
     --
-    -- The split is language-independent and happens once, while parsing; see
-    -- 'splitMacro'.
+    -- Reading is language-independent and happens once, while parsing; see
+    -- 'readRawMacro'.
   , macro :: Either MacroParseError (Runtime.Macro.Raw (Token SourcePath TokenSpelling))
   }
 
@@ -38,10 +38,10 @@ data MacroInvocation = MacroInvocation {
   deriving stock (Show, Eq, Ord)
 
 {-------------------------------------------------------------------------------
-  Splitting macro definitions
+  Reading macro definitions
 -------------------------------------------------------------------------------}
 
--- | Split a macro definition into its name, parameters and body
+-- | Read a macro definition into a raw macro: its name, parameters and body
 --
 -- This is the /one/ language-independent macro parser in `hs-bindgen`: every
 -- macro definition passes through it before the used macro language parses the
@@ -53,11 +53,11 @@ data MacroInvocation = MacroInvocation {
 -- > #define ADD(x, y) x + y
 --
 -- the result is @Raw "ADD" (Params ["x", "y"] False) ["x", "+", "y"]@.
-splitMacro ::
+readRawMacro ::
      HasCallStack
   => [Token SourcePath TokenSpelling]
   -> Either MacroParseError (Runtime.Macro.Raw (Token SourcePath TokenSpelling))
-splitMacro = runParser (macroDefinition <* Parsec.eof)
+readRawMacro = runParser (macroDefinition <* Parsec.eof)
 
 macroDefinition :: Parser (Runtime.Macro.Raw (Token SourcePath TokenSpelling))
 macroDefinition = do

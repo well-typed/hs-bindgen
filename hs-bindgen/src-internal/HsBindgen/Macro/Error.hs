@@ -1,7 +1,9 @@
 module HsBindgen.Macro.Error (
     MacroParseError(..)
+  , prettyMacroParseErrorWithHeading
   , MacroResolutionError(..)
   , MacroTypecheckError(..)
+  , MacroLangFailure(..)
   ) where
 
 import GHC.Generics
@@ -15,6 +17,17 @@ data MacroParseError = MacroParseError {
       macroParseError       :: String
     }
   deriving stock (Eq, Show, Generic)
+
+instance PrettyForTrace MacroParseError where
+  prettyForTrace = prettyMacroParseErrorWithHeading "Could not parse macro:"
+
+-- | Render a macro parse error below the given heading
+prettyMacroParseErrorWithHeading :: PP.CtxDoc -> MacroParseError -> PP.CtxDoc
+prettyMacroParseErrorWithHeading heading err = PP.vcat [
+      heading
+    , PP.nest 2 $
+        PP.renderedLines $ \_maxWidth -> lines err.macroParseError
+    ]
 
 newtype MacroResolutionError = MacroResolutionError {
       macroResolutionError :: String
@@ -53,3 +66,16 @@ instance IsTrace Level MacroTypecheckError where
     MacroTypecheckError{} -> Info
   getSource          = const HsBindgen
   getTraceId         = const "macro-typecheck"
+
+-- | The macro-language stage that gave up on a macro, with its error
+data MacroLangFailure =
+    FailedParse     MacroParseError
+  | FailedResolve   MacroResolutionError
+  | FailedTypecheck MacroTypecheckError
+  deriving stock (Eq, Show, Generic)
+
+instance PrettyForTrace MacroLangFailure where
+  prettyForTrace = \case
+      FailedParse     err -> prettyForTrace err
+      FailedResolve   err -> prettyForTrace err
+      FailedTypecheck err -> prettyForTrace err

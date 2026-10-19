@@ -167,6 +167,7 @@ withDeclNamespace kind k =
         case macro of
           MacroType{}  -> k (Proxy @Hs.NsTypeConstr)
           MacroValue{} -> k (Proxy @Hs.NsVar)
+          MacroRaw{}   -> k (Proxy @Hs.NsVar)
 
 {-------------------------------------------------------------------------------
   Internal: working with 'MangleCandidate'
@@ -753,6 +754,7 @@ createMacro ::
 createMacro hsName = \case
     MacroType  typ -> MacroType <$> createMacroType hsName typ
     MacroValue val -> pure $ MacroValue (coercePass val)
+    MacroRaw   raw -> pure $ MacroRaw raw
 
 createMacroType ::
      Macro.HasTypes l

@@ -17,6 +17,7 @@ import HsBindgen.Backend.Category
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
+import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass (MacroFallback)
 import HsBindgen.Frontend.Pass.Parse.IsPass (EmptyMacros)
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
@@ -44,6 +45,7 @@ data Config_ path = Config {
   , programSlicing      :: ProgramSlicing
   , fieldNamingStrategy :: FieldNamingStrategy
   , emptyMacros         :: EmptyMacros
+  , macroFallback       :: MacroFallback
 
   }
   deriving stock (Eq, Show, Generic)
@@ -68,6 +70,7 @@ toBindgenConfig config uniqueId baseModuleName choice =
         , programSlicing      = config.programSlicing
         , fieldNamingStrategy = config.fieldNamingStrategy
         , emptyMacros         = config.emptyMacros
+        , macroFallback       = config.macroFallback
         , doxygenConfig       = defaultConfig
         }
     , backend = BackendConfig {

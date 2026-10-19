@@ -47,6 +47,7 @@ import HsBindgen.BindingSpec
 import HsBindgen.Config
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
+import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass (MacroFallback (..))
 import HsBindgen.Frontend.Pass.Parse.IsPass (EmptyMacros (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
@@ -241,6 +242,7 @@ parseConfig = Config
     <*> parseProgramSlicing
     <*> parseFieldNamingStrategy
     <*> parseEmptyMacros
+    <*> parseMacroFallback
 
 {-------------------------------------------------------------------------------
   Binding specifications
@@ -369,64 +371,101 @@ parseClangOptionAfter = strOption $ mconcat [
 -------------------------------------------------------------------------------}
 
 parseSelectionPredicate :: Parser (Boolean SelectionPredicate)
-parseSelectionPredicate = fmap aux . many . asum $ [
-      flag' (Right BTrue) $ mconcat [
-          long "select-all"
-        , help "Select all declarations"
-        ]
-    , flag' (Right (BIf (SelectHeader FromMainHeaders))) $ mconcat [
-          long "select-from-main-headers"
-        , help "Select declarations in main headers (default)"
-        ]
-    , flag' (Right (BIf (SelectHeader FromMainHeaderDirs))) $ mconcat [
-          long "select-from-main-header-dirs"
-        , help "Select declarations in main header directories"
-        ]
-    , flag' (Right (BIf (SelectHeader FromAllHeaders))) $ mconcat [
-          long "select-from-all-headers"
-        , help $ concat [
-              "Select declarations in any header"
-            , " (unlike --select-all, not root directives or -D options)"
-            ]
+parseSelectionPredicate =
+    parsePredicate PredicateFlags{
+        prefix     = "select"
+      , positive   = ("Select " ++)
+      , negative   = \x -> "Select except (i.e., do not select) " ++ x
+      , subject    = "declarations"
+      , noFlags    = def
+      , onlyExcept = def
+      , extra      = [
+            flag' (Left $ BIf $ SelectDecl DeclDeprecated) $ mconcat [
+                long "select-except-deprecated"
+              , help "Select except (i.e., do not select) deprecated declarations"
+              ]
+          ]
+      }
+
+-- | Command-line flags for a @'Boolean' 'SelectionPredicate'@
+data PredicateFlags = PredicateFlags {
+      -- | Prefix of every flag, e.g., @select@ for @--select-all@
+      prefix     :: String
+      -- | Help text of a positive flag, given its subject
+    , positive   :: String -> String
+      -- | Help text of a negative (@except@) flag, given its subject
+    , negative   :: String -> String
+      -- | What the predicate matches, e.g., @declarations@
+    , subject    :: String
+      -- | The predicate when no flag is given
+    , noFlags    :: Boolean SelectionPredicate
+      -- | The positive part when only negative flags are given
+    , onlyExcept :: Boolean SelectionPredicate
+      -- | Further flags; 'Left' for negative, 'Right' for positive
+    , extra      :: [Parser (Either (Boolean SelectionPredicate) (Boolean SelectionPredicate))]
+    }
+
+parsePredicate :: PredicateFlags -> Parser (Boolean SelectionPredicate)
+parsePredicate flags = fmap aux . many . asum $ [
+      positiveFlag BTrue "all" $
+        flags.positive ("all " ++ flags.subject)
+    , positiveFlag (BIf (SelectHeader FromMainHeaders)) "from-main-headers" $
+        flags.positive (flags.subject ++ " in main headers")
+    , positiveFlag (BIf (SelectHeader FromMainHeaderDirs)) "from-main-header-dirs" $
+        flags.positive (flags.subject ++ " in main header directories")
+    , positiveFlag (BIf (SelectHeader FromAllHeaders)) "from-all-headers" $ concat [
+          flags.positive (flags.subject ++ " in any header")
+        , " (unlike --" ++ flags.prefix ++ "-all,"
+        , " not root directives or -D options)"
         ]
     , fmap (Right . BIf . SelectHeader . HeaderPathMatches) $ strOption $ mconcat [
-          long "select-by-header-path"
+          long (flags.prefix ++ "-by-header-path")
         , metavar "PCRE"
-        , help "Select declarations in headers with paths that match PCRE"
+        , help $ flags.positive $
+            flags.subject ++ " in headers with paths that match PCRE"
         ]
     , fmap (Left . BIf . SelectHeader . HeaderPathMatches) $ strOption $ mconcat [
-          long "select-except-by-header-path"
+          long (flags.prefix ++ "-except-by-header-path")
         , metavar "PCRE"
-        , help $ concat [
-              "Select except declarations in headers with paths that match"
-            , " PCRE"
-            ]
+        , help $ flags.negative $
+            flags.subject ++ " in headers with paths that match PCRE"
         ]
     , fmap (Right . BIf . SelectDecl . DeclNameMatches) $ strOption $ mconcat [
-          long "select-by-decl-name"
+          long (flags.prefix ++ "-by-decl-name")
         , metavar "PCRE"
-        , help "Select declarations with C names that match PCRE"
+        , help $ flags.positive $
+            flags.subject ++ " with C names that match PCRE"
         ]
     , fmap (Left . BIf . SelectDecl . DeclNameMatches) $ strOption $ mconcat [
-          long "select-except-by-decl-name"
+          long (flags.prefix ++ "-except-by-decl-name")
         , metavar "PCRE"
-        , help "Select except (i.e., do not select) declarations with C names that match PCRE"
+        , help $ flags.negative $
+            flags.subject ++ " with C names that match PCRE"
         ]
-    , flag' (Left $ BIf $ SelectDecl DeclDeprecated) $ mconcat [
-          long "select-except-deprecated"
-        , help "Select except (i.e., do not select) deprecated declarations"
-        ]
-    ]
+    ] ++ flags.extra
   where
+    positiveFlag ::
+         Boolean SelectionPredicate
+      -> String
+      -> String
+      -> Parser (Either (Boolean SelectionPredicate) (Boolean SelectionPredicate))
+    positiveFlag p name helpText = flag' (Right p) $ mconcat [
+          long (flags.prefix ++ "-" ++ name)
+        , help $ helpText ++ concat [" (default)" | p == flags.noFlags]
+        ]
+
     aux ::
          [Either (Boolean SelectionPredicate) (Boolean SelectionPredicate)]
-      -> (Boolean SelectionPredicate)
-    aux = uncurry mergeBooleans . fmap applyDefault . partitionEithers
+      -> Boolean SelectionPredicate
+    aux = uncurry merge . partitionEithers
 
-    applyDefault :: Default a => [a] -> [a]
-    applyDefault = \case
-      [] -> [def]
-      ps -> ps
+    merge ::
+         [Boolean SelectionPredicate]
+      -> [Boolean SelectionPredicate]
+      -> Boolean SelectionPredicate
+    merge []        []        = flags.noFlags
+    merge negatives []        = mergeBooleans negatives [flags.onlyExcept]
+    merge negatives positives = mergeBooleans negatives positives
 
 parseProgramSlicing :: Parser ProgramSlicing
 parseProgramSlicing =
@@ -445,13 +484,25 @@ parseProgramSlicing =
   Macros
 -------------------------------------------------------------------------------}
 
+parseMacroFallback :: Parser MacroFallback
+parseMacroFallback = fmap MacroFallback $
+    parsePredicate PredicateFlags{
+        prefix     = "macro-fallback"
+      , positive   = ("Fall back to raw tokens for " ++)
+      , negative   = ("Do not fall back to raw tokens for " ++)
+      , subject    = "unhandled macros"
+      , noFlags    = BFalse
+      , onlyExcept = BTrue
+      , extra      = []
+      }
+
 parseEmptyMacros :: Parser EmptyMacros
 parseEmptyMacros =
     flag DoNotParseEmptyMacros ParseEmptyMacros $ mconcat [
         long "parse-empty-macros"
       , help $ concat [
             "Parse macros with an empty replacement list (e.g. '#define FOO');"
-          , " by default, empty macros are not parsed"
+          , " by default, empty macros are not parsed, and do not fall back"
           ]
       ]
 

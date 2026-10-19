@@ -24,6 +24,7 @@ import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST.Expr (FBind (FBind))
 import HsBindgen.Backend.SHs.Translation.Common
+import HsBindgen.Backend.SHs.Translation.RawMacro
 import HsBindgen.Errors
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -213,13 +214,20 @@ translateDeriveInstance deriv = DDerivingInstance DerivingInstance {
     , comment  = deriv.comment
     }
 
-translateMacroValue' :: Macro.HasTypes l => Macro.Lang l -> Hs.MacroValue l -> SDecl
-translateMacroValue' macroLang macro = DBinding $
-    withCLiteralComment $
-    macroLang.translateValue
-      macro.name
-      (fmap macroIdToHsName macro.expr.body)
-      macro.comment
+translateMacroValue' ::
+     Macro.HasTypes l
+  => Macro.Lang l
+  -> Hs.MacroBinding l
+  -> SDecl
+translateMacroValue' macroLang macro = DBinding $ case macro.value of
+    Hs.MacroValueTranslated value ->
+      withCLiteralComment $
+      macroLang.translateValue
+        macro.name
+        (fmap macroIdToHsName value.body)
+        macro.comment
+    Hs.MacroValueRaw raw ->
+      rawMacroBinding macro.name raw macro.comment
   where
     macroIdToHsName :: Id Final -> Hs.TermName
     macroIdToHsName namePair =

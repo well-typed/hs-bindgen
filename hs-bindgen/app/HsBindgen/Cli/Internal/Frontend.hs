@@ -52,6 +52,7 @@ parseFrontendPassName s = case lookup s knownPasses of
         , mk EnrichCommentsPass
         , mk ConstructTranslationUnitPass
         , mk TypecheckMacrosPass
+        , mk ApplyMacroFallbackPass
         , mk ReparseMacroExpansionsPass
         , mk ResolveBindingSpecsPass
         , mk MangleNamesPass
@@ -72,6 +73,7 @@ frontendPassName = \case
   EnrichCommentsPass           -> "enrich-comments"
   ConstructTranslationUnitPass -> "construct-translation-unit"
   TypecheckMacrosPass          -> "typecheck-macros"
+  ApplyMacroFallbackPass       -> "apply-macro-fallback"
   ReparseMacroExpansionsPass   -> "reparse-macro-expansions"
   ResolveBindingSpecsPass      -> "resolve-binding-specs"
   MangleNamesPass              -> "mangle-names"

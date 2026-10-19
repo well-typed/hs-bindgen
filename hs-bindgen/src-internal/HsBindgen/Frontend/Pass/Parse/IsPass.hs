@@ -16,6 +16,7 @@ import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
 
+import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -55,7 +56,7 @@ instance PassScopedName Parse
 instance PassTypes Parse
 
 instance PassMacro Parse where
-  type MacroBody Parse = Macro.Unresolved
+  type MacroBody Parse = PendingMacro Macro.Unresolved
 
 instance PassExtBinding Parse
 

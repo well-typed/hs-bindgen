@@ -6,6 +6,7 @@ module HsBindgen.Frontend.Pass.SimplifyAST.IsPass (
 
 import Text.SimplePrettyPrint qualified as PP
 
+import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -47,7 +48,7 @@ instance PassScopedName SimplifyAST
 instance PassTypes SimplifyAST
 
 instance PassMacro SimplifyAST where
-  type MacroBody SimplifyAST = Macro.Unresolved
+  type MacroBody SimplifyAST = PendingMacro Macro.Unresolved
 
 instance PassExtBinding SimplifyAST
 

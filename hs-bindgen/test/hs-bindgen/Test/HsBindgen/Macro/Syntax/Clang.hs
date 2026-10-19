@@ -1,6 +1,6 @@
--- | Tests for 'splitMacro' on token streams that @libclang@ actually produced
+-- | Tests for 'readRawMacro' on token streams that @libclang@ actually produced
 --
--- "Test.HsBindgen.Macro.Syntax" drives the same splitter with synthetic tokens
+-- "Test.HsBindgen.Macro.Syntax" drives the same reader with synthetic tokens
 -- laid out by "Test.HsBindgen.Macro.Infra". That layout is a /model/ of how
 -- @libclang@ assigns extents, and the model is load-bearing: the
 -- object-like\/function-like decision is an extent comparison. These tests
@@ -8,7 +8,7 @@
 -- tokens.
 --
 -- Malformed definitions are not repeated here. @clang@ rejects them outright
--- (@#define F(x,) x@ is an error, not a macro we get to split), so they can only
+-- (@#define F(x,) x@ is an error, not a macro we get to read), so they can only
 -- be expressed synthetically.
 module Test.HsBindgen.Macro.Syntax.Clang (tests) where
 
@@ -29,7 +29,7 @@ import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Macro.Error (MacroParseError (..))
 import HsBindgen.Macro.Parse (spelling)
-import HsBindgen.Macro.Syntax (splitMacro)
+import HsBindgen.Macro.Syntax (readRawMacro)
 
 import Test.HsBindgen.Clang (collectMacroTokens)
 
@@ -65,7 +65,7 @@ header = unlines $ map source cases
 --
 -- The standard decides which spellings @libclang@ reports as keywords rather
 -- than identifiers: @bool@ is a keyword under C23 and an identifier under C17.
--- Running every case under both pins that the splitter is indifferent.
+-- Running every case under both pins that the reader is indifferent.
 data CStandard = C17 | C23
 
 instance Show CStandard where
@@ -90,7 +90,7 @@ standards = C17 : [C23 | c23Supported]
   Cases
 -------------------------------------------------------------------------------}
 
--- | A macro definition and the split it should produce
+-- | A macro definition and the raw macro it should read into
 --
 -- The source line is assembled from the name, so the name asserted against the
 -- cursor spelling and the name in the source cannot drift apart.
@@ -204,7 +204,7 @@ allFound getMacros = do
 checks :: IO Macros -> Case -> Assertion
 checks getMacros c = do
     tokens <- tokensOf getMacros c
-    Right (Text.pack <$> c.expected) @=? split tokens
+    Right (Text.pack <$> c.expected) @=? readRaw tokens
 
 -- | @libclang@ puts a line continuation inside the token that follows it
 --
@@ -226,10 +226,10 @@ tokensOf getMacros c = do
       Nothing     -> assertFailure $
         "libclang reported no definition of " ++ Text.unpack c.name
 
--- | Split, keeping only the spellings; the splitter does not change them
-split :: [Token SourcePath TokenSpelling] -> Either String (Runtime.Macro.Raw Text)
-split tokens =
-    case splitMacro tokens of
+-- | Read, keeping only the spellings; the reader does not change them
+readRaw :: [Token SourcePath TokenSpelling] -> Either String (Runtime.Macro.Raw Text)
+readRaw tokens =
+    case readRawMacro tokens of
       Left  err -> Left err.macroParseError
       Right raw -> Right $ spelling <$> raw
 
@@ -237,10 +237,10 @@ split tokens =
   Round trip
 -------------------------------------------------------------------------------}
 
--- | 'Runtime.Macro.render' and 'splitMacro' are inverse
+-- | 'Runtime.Macro.render' and 'readRawMacro' are inverse
 --
 -- \[
---   \text{splitMacro} ~ (\text{tokenize} ~ (\text{render} ~ r)) = r
+--   \text{readRawMacro} ~ (\text{tokenize} ~ (\text{render} ~ r)) = r
 -- \]
 --
 -- Only in this direction: 'Runtime.Macro.render' is canonical, not faithful, so
@@ -249,8 +249,8 @@ split tokens =
 prop_renderRoundtrips :: Definitions -> Property
 prop_renderRoundtrips defs = ioProperty $ do
     macros <- collectMacroTokens (clangArgs C17) (renderAll defs)
-    -- pure $ map Right defs.unwrap === map (split . snd) macros
-    pure $ [ Right (Text.pack <$> m) | m <- defs.unwrap ] === map (split . snd) macros
+    -- pure $ map Right defs.unwrap === map (readRaw . snd) macros
+    pure $ [ Right (Text.pack <$> m) | m <- defs.unwrap ] === map (readRaw . snd) macros
 
 -- | A header's worth of macro definitions
 --

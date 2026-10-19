@@ -12,6 +12,7 @@ module HsBindgen.Frontend.Pass.PrepareReparse.IsPass (
 
 import Clang.HighLevel.Types (MultiLoc, SourcePath)
 
+import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (PrepareReparseMsg)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -73,15 +74,15 @@ data FlatTokens = FlatTokens {
   deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
-  CoercePass: TypecheckMacros → PrepareReparse
+  CoercePass: ApplyMacroFallback → PrepareReparse
 -------------------------------------------------------------------------------}
 
-instance CoercePassId                  TypecheckMacros PrepareReparse
-instance CoercePassMacroId             TypecheckMacros PrepareReparse
-instance CoercePassTypes               TypecheckMacros PrepareReparse
-instance CoercePassAnn "TypeFunArg"    TypecheckMacros PrepareReparse
+instance CoercePassId                  ApplyMacroFallback PrepareReparse
+instance CoercePassMacroId             ApplyMacroFallback PrepareReparse
+instance CoercePassTypes               ApplyMacroFallback PrepareReparse
+instance CoercePassAnn "TypeFunArg"    ApplyMacroFallback PrepareReparse
 
-instance CoercePassCommentDecl TypecheckMacros PrepareReparse where
+instance CoercePassCommentDecl ApplyMacroFallback PrepareReparse where
   coercePassCommentDecl _ = fmap coercePass
 
-instance CoercePassMacroUnderlying TypecheckMacros PrepareReparse
+instance CoercePassMacroUnderlying ApplyMacroFallback PrepareReparse

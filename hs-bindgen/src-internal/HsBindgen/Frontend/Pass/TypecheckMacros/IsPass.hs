@@ -1,6 +1,7 @@
 module HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (
     TypecheckMacros
     -- * Checked macros
+  , CheckedMacro(..)
   , TypecheckedMacro(..)
   , TypecheckedMacroType(..)
   , TypecheckedMacroValue(..)
@@ -8,6 +9,7 @@ module HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (
   ) where
 
 import HsBindgen.Frontend.Analysis (Dependency)
+import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo, Tokens)
 import HsBindgen.Imports
@@ -23,10 +25,11 @@ import HsBindgen.Macro.Type qualified as Macro
 type TypecheckMacros :: Pass
 data TypecheckMacros a
 
--- | Macros have been typechecked ('MacroBody' is 'TypecheckedMacro TypecheckMacros').
--- Other declarations still carry their 'ReparseInfo' annotations from
--- 'ConstructTranslationUnit'; these are consumed in the following
--- 'ReparseMacroExpansions' pass.
+-- | Macros have been typechecked, but the fallback for the macros the macro
+-- language gave up on is not decided yet ('MacroBody' is
+-- @'PendingMacro' ('CheckedMacro' 'TypecheckMacros')@). Other declarations
+-- still carry their 'ReparseInfo' annotations from 'ConstructTranslationUnit';
+-- these are consumed in the 'ReparseMacroExpansions' pass.
 type family AnnTypecheckMacros (ix :: Symbol) :: Star where
   AnnTypecheckMacros "IndirectField" = ReparseInfo Tokens
   AnnTypecheckMacros "Function"      = ReparseInfo Tokens
@@ -45,7 +48,7 @@ instance PassTypes TypecheckMacros
 
 instance PassMacro TypecheckMacros where
   type MacroId   TypecheckMacros = Id TypecheckMacros
-  type MacroBody TypecheckMacros = TypecheckedMacro TypecheckMacros
+  type MacroBody TypecheckMacros = PendingMacro (CheckedMacro TypecheckMacros)
 
   macroIdId _ = id
 
@@ -63,11 +66,25 @@ instance PassMsg TypecheckMacros
   Checked macros
 -------------------------------------------------------------------------------}
 
+-- | A macro the macro language typechecked
+--
+-- Used as @'PendingMacro' ('CheckedMacro' p) l@, so the order of type
+-- parameters is fixed.
+data CheckedMacro p l =
+    CheckedType  (TypecheckedMacroType  l p)
+  | CheckedValue (TypecheckedMacroValue l p)
+
 -- 'TypecheckedMacro' is used as 'MacroBody p l', so the order of type
 -- parameters is fixed.
 data TypecheckedMacro p l =
     MacroType  (TypecheckedMacroType  l p)
   | MacroValue (TypecheckedMacroValue l p)
+    -- | A macro the macro language gave up on, exported as raw token spellings
+    --
+    -- Always a value, never a type, so reparsing declarations that use it
+    -- proceeds exactly as if the macro had been dropped: only macro-defined
+    -- types are kept unexpanded.
+  | MacroRaw FallbackMacro
 
 -- | Checked type macro
 data TypecheckedMacroType l p = Macro.HasTypes l => TypecheckedMacroType{
@@ -81,10 +98,12 @@ data TypecheckedMacroValue l p = Macro.HasTypes l => TypecheckedMacroValue {
     , deps :: [(C.DeclId, Dependency)]
     }
 
+deriving stock instance IsPass p => Show (CheckedMacro          p l)
 deriving stock instance IsPass p => Show (TypecheckedMacro      p l)
 deriving stock instance IsPass p => Show (TypecheckedMacroType  l p)
 deriving stock instance IsPass p => Show (TypecheckedMacroValue l p)
 
+deriving stock instance IsPass p => Eq (CheckedMacro          p l)
 deriving stock instance IsPass p => Eq (TypecheckedMacro      p l)
 deriving stock instance IsPass p => Eq (TypecheckedMacroType  l p)
 deriving stock instance IsPass p => Eq (TypecheckedMacroValue l p)
@@ -110,6 +129,7 @@ instance (
   coercePassParam = \case
     MacroType  typ -> MacroType  (coercePass typ)
     MacroValue val -> MacroValue (coercePass val)
+    MacroRaw   raw -> MacroRaw   raw
 
 instance (
       CoercePassId p p'

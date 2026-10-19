@@ -2,11 +2,8 @@ module HsBindgen.Frontend.Pass.TypecheckMacros (
     typecheckMacros
   ) where
 
-import Data.Foldable qualified as Foldable
 import Data.Map qualified as Map
 
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -30,7 +27,8 @@ type Out = TypecheckMacros
 -- Return the updated translation unit together with the 'LanC.ReparseEnv' that
 -- 'reparseMacroExpansions' uses to reparse declarations.
 --
--- Register macro typecheck failures in @DeclMeta@.
+-- Macros that fail to typecheck stay in the translation unit; the
+-- @ApplyMacroFallback@ pass decides what becomes of them.
 typecheckMacros ::
      Macro.HasTypes l
   => Macro.Lang l
@@ -42,9 +40,13 @@ typecheckMacros ::
 typecheckMacros macroLang unit =
     let knownTypes =
           collectKnownTypes unit.decls
-        (typecheckedDecls, knownMacroTypes, failedMacros) =
+        (typecheckedDecls, knownMacroTypes) =
           typecheckDecls macroLang unit.decls
-    in  ( reconstructAfterTypecheck unit failedMacros typecheckedDecls
+    in  ( C.TranslationUnit{
+              decls        = typecheckedDecls
+            , includeGraph = unit.includeGraph
+            , meta         = unit.meta
+            }
         , Map.fromList [
               (n, v)
             | (declId, v) <- Map.toList knownTypes
@@ -52,21 +54,3 @@ typecheckMacros macroLang unit =
             ]
         , knownMacroTypes
         )
-
-reconstructAfterTypecheck ::
-     C.TranslationUnit l In
-  -> [FailedMacro]
-  -> [C.Decl l Out]
-  -> C.TranslationUnit l Out
-reconstructAfterTypecheck unit failedMacros decls =
-    C.TranslationUnit{
-        decls        = decls
-      , includeGraph = unit.includeGraph
-      , meta         = unit.meta{
-            declIndex =
-              Foldable.foldl'
-                DeclIndex.registerMacroTypecheckFailure
-                unit.meta.declIndex
-                failedMacros
-          }
-      }

@@ -38,6 +38,7 @@ import HsBindgen.Config.Internal
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
@@ -714,8 +715,9 @@ macroDecs ::
   -> HsM [Hs.Decl l]
 macroDecs macroLang info checkedMacro spec =
     case checkedMacro of
-      MacroType  ty  -> macroDecsTypedef macroLang info ty spec
-      MacroValue val -> macroVarDecs info val
+      MacroType  ty       -> macroDecsTypedef macroLang info ty spec
+      MacroValue val      -> pure $ macroVarDecs info (Hs.MacroValueTranslated val)
+      MacroRaw   fallback -> pure $ macroVarDecs info (Hs.MacroValueRaw fallback.raw)
 
 macroDecsTypedef ::
      forall l. (Macro.HasTypes l, HasCallStack)
@@ -1131,22 +1133,14 @@ referencesUntagged = go
   Macro
 -------------------------------------------------------------------------------}
 
-macroVarDecs ::
-     C.DeclInfo Final
-  -> TypecheckedMacroValue l Final
-  -> HsM [Hs.Decl l]
-macroVarDecs info macroValue = do
-    pure [
-        Hs.DeclMacroValue $
-          Hs.MacroValue
-            { name    = hsVarName
-            , expr    = macroValue
-            , comment = mkHaddocks info
-            }
-      ]
-  where
-    hsVarName :: Hs.Name Hs.NsVar
-    hsVarName = Hs.assertNs (Proxy @Hs.NsVar) info.id.hsName
+macroVarDecs :: C.DeclInfo Final -> Hs.MacroValue l -> [Hs.Decl l]
+macroVarDecs info value = [
+      Hs.DeclMacroValue Hs.MacroBinding{
+          name    = Hs.assertNs (Proxy @Hs.NsVar) info.id.hsName
+        , value   = value
+        , comment = mkHaddocks info
+        }
+    ]
 
 {-------------------------------------------------------------------------------
   Untagged Enum Constants

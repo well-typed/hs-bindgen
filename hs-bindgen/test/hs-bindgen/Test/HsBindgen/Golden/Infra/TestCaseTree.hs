@@ -37,6 +37,8 @@ import Test.HsBindgen.Resources (TestResources)
 data TestCaseTree =
     TestCaseSection String [TestCaseTree]
   | TestCaseLeaf TestCase
+    -- | A test case run with its own check, rather than the golden ones
+  | TestCaseCustom TestCase (IO TestResources -> TestCase -> TestTree)
 
 pattern TestCases :: String -> [TestCase] -> TestCaseTree
 pattern TestCases label cases = TestCaseSection label (TestCaseLeafs cases)
@@ -51,10 +53,13 @@ testTreeFor getTestResources = goTree
     goTree :: TestCaseTree -> TestTree
     goTree (TestCaseSection label sections) =
         testGroup label $ map goTree sections
-    goTree (TestCaseLeaf test) = goCase test
+    goTree (TestCaseLeaf test) = whenClangVersion test $ goCase test
+    goTree (TestCaseCustom test check) =
+        whenClangVersion test $ check getTestResources test
 
-    goCase :: TestCase -> TestTree
-    goCase test
+    -- Skip a test that requires another @libclang@ version
+    whenClangVersion :: TestCase -> TestTree -> TestTree
+    whenClangVersion test k
       | Just versionPred <- test.clangVersion
       , case runtimeClangVersion of
           ClangVersion version  -> not (versionPred version)
@@ -62,17 +67,20 @@ testTreeFor getTestResources = goTree
       = testGroup test.name []
 
       | otherwise
-      = case test.outcome of
-          Success ->
-            withTestOutputDir test.outputDir $ testGroup test.name [
-                TH.check          getTestResources test
-              , PP.check          getTestResources test
-              , BindingSpec.check getTestResources test
-              ]
-          FailureBindgen ->
-            FailureBindgen.check getTestResources test
-          FailureLibclang ->
-            FailureLibclang.check getTestResources test
+      = k
+
+    goCase :: TestCase -> TestTree
+    goCase test = case test.outcome of
+        Success ->
+          withTestOutputDir test.outputDir $ testGroup test.name [
+              TH.check          getTestResources test
+            , PP.check          getTestResources test
+            , BindingSpec.check getTestResources test
+            ]
+        FailureBindgen ->
+          FailureBindgen.check getTestResources test
+        FailureLibclang ->
+          FailureLibclang.check getTestResources test
 
     withTestOutputDir :: FilePath -> TestTree -> TestTree
     withTestOutputDir outputDir k =
@@ -81,7 +89,9 @@ testTreeFor getTestResources = goTree
           (\_ -> pure ())
           (\_ -> k)
 
+-- | The test cases with golden checks
 flatten :: TestCaseTree -> [TestCase]
 flatten = \case
     TestCaseSection _ subTrees -> concatMap flatten subTrees
     TestCaseLeaf leaf          -> [leaf]
+    TestCaseCustom _ _         -> []

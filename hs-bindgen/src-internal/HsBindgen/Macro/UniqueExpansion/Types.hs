@@ -55,7 +55,7 @@ data Redefinition =
     -- | The macro is unambiguous
     Benign
     -- | The macro is ambiguous: its definitions differ, one of them could not
-    -- be split, or it depends on an ambiguous macro
+    -- be read, or it depends on an ambiguous macro
   | NotBenign
   deriving stock (Show, Eq)
 

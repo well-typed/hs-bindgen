@@ -12,6 +12,7 @@ module HsBindgen.Frontend.Analysis.Deps (
 import Data.Proxy (Proxy (..))
 
 import HsBindgen.Frontend.Analysis
+import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.IR.C qualified as C
@@ -45,14 +46,18 @@ depsOfDeclWith depsOfMacro = \case
 
 -- | For parsed macros that have not been typechecked yet, we need to resolve
 --   names, using all available declaration IDs
+--
+-- A macro whose names could not be resolved has no dependencies.
 depsOfDeclParsedMacro ::
      forall l p.
      ( IsPass p
-     , MacroBody p ~ Macro.Resolved
+     , MacroBody p ~ PendingMacro Macro.Resolved
      , Id p ~ C.DeclId )
   => C.DeclKind l p
   -> [(Id p, Dependency)]
-depsOfDeclParsedMacro = depsOfDeclWith (.deps)
+depsOfDeclParsedMacro = depsOfDeclWith $ \macro -> case macro.handling of
+    Handled resolved -> resolved.deps
+    Unhandled _      -> []
 
 {-------------------------------------------------------------------------------
   Dependencies of declaration after @ReparseMacroExpansions@
@@ -78,12 +83,15 @@ depsOfDeclTcMacro ::
 depsOfDeclTcMacro = depsOfDeclWith typecheckedMacroDeps
 
 -- | Dependencies of typechecked macro declarations
+--
+-- A fallback macro has no dependencies.
 typecheckedMacroDeps ::
      TypecheckedMacro ReparseMacroExpansions l
   -> [(C.DeclId, Dependency)]
 typecheckedMacroDeps = \case
     MacroType  typ -> typ.deps
     MacroValue val -> val.deps
+    MacroRaw   _   -> []
 
 {-------------------------------------------------------------------------------
   Structs and unions

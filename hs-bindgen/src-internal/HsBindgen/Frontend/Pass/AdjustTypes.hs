@@ -167,6 +167,7 @@ processMacro macro =
     case macro of
       MacroType  typ -> MacroType  $ processMacroType typ
       MacroValue val -> MacroValue $ processMacroExpr val
+      MacroRaw   raw -> MacroRaw raw
 
 -- NOTE: currently type-like macro expressions don't support array or function
 -- constructors. If they do in the future, then we might have to recurse into

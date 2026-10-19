@@ -3,6 +3,7 @@ module HsBindgen.Frontend.Analysis.DeclIndex.ResolveMacro (
   ) where
 
 
+import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Imports
@@ -14,35 +15,40 @@ import HsBindgen.Macro.Interface qualified as Macro
 type In  = EnrichComments
 type Out = ConstructTranslationUnit
 
+-- | Resolve the names in a macro declaration
+--
+-- A macro whose names the macro language cannot resolve stays a declaration:
+-- it may still fall back (see @ApplyMacroFallback@).
 resolveMacroWith ::
+     forall l.
      Macro.Lang l
   -> Set C.DeclId
   -> C.Decl l In
-  -> Either MacroResolutionError (C.Decl l Out)
-resolveMacroWith macroLang allDeclIds decl = case decl.kind of
-    C.DeclStruct               x -> Right $ aux $ C.DeclStruct               $ coercePass x
-    C.DeclUnion                x -> Right $ aux $ C.DeclUnion                $ coercePass x
-    C.DeclTypedef              x -> Right $ aux $ C.DeclTypedef              $ coercePass x
-    C.DeclEnum                 x -> Right $ aux $ C.DeclEnum                 $ coercePass x
-    C.DeclUntaggedEnumConstant x -> Right $ aux $ C.DeclUntaggedEnumConstant $ coercePass x
-    C.DeclOpaque               x -> Right $ aux $ C.DeclOpaque               $ x
-    C.DeclMacro                x -> resolveMacro macroLang allDeclIds info' decl.ann x
-    C.DeclFunction             x -> Right $ aux $ C.DeclFunction             $ coercePass x
-    C.DeclGlobal               x -> Right $ aux $ C.DeclGlobal               $ coercePass x
+  -> C.Decl l Out
+resolveMacroWith macroLang allDeclIds decl = C.Decl info' kind' decl.ann
   where
     info' :: C.DeclInfo Out
     info' = coercePass decl.info
 
-    aux :: C.DeclKind l Out -> C.Decl l Out
-    aux x = C.Decl info' x decl.ann
+    kind' :: C.DeclKind l Out
+    kind' = case decl.kind of
+      C.DeclStruct               x -> C.DeclStruct               $ coercePass x
+      C.DeclUnion                x -> C.DeclUnion                $ coercePass x
+      C.DeclTypedef              x -> C.DeclTypedef              $ coercePass x
+      C.DeclEnum                 x -> C.DeclEnum                 $ coercePass x
+      C.DeclUntaggedEnumConstant x -> C.DeclUntaggedEnumConstant $ coercePass x
+      C.DeclOpaque               x -> C.DeclOpaque               $ x
+      C.DeclMacro                x -> C.DeclMacro                $ resolveMacro macroLang allDeclIds x
+      C.DeclFunction             x -> C.DeclFunction             $ coercePass x
+      C.DeclGlobal               x -> C.DeclGlobal               $ coercePass x
 
 resolveMacro ::
      Macro.Lang l
   -> Set C.DeclId
-  -> C.DeclInfo Out
-  -> Ann "Decl" Out
   -> MacroBody In l
-  -> Either MacroResolutionError (C.Decl l Out)
-resolveMacro macroLang allDeclIds info' ann unresolvedMacro = do
-    resolvedMacro <- macroLang.resolve allDeclIds unresolvedMacro
-    pure $ C.Decl info' (C.DeclMacro resolvedMacro) ann
+  -> MacroBody Out l
+resolveMacro macroLang allDeclIds macro = PendingMacro{
+      raw      = macro.raw
+    , handling =
+        nextStage FailedResolve (macroLang.resolve allDeclIds) macro.handling
+    }

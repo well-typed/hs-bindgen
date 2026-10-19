@@ -35,7 +35,7 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
   , getSquashed
   , getUnusables
     -- * Support for macro failures
-  , registerMacroTypecheckFailure
+  , registerUnhandledMacro
   , registerDelayedParseMsg
     -- * Support for the @PrepareReparse@ pass
   , registerDelayedPrepareReparseMsg
@@ -57,7 +57,6 @@ import Control.Monad.State
 import Data.Foldable qualified as Foldable
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
-import Optics.Core (traverseOf)
 
 import Clang.HighLevel.Types
 
@@ -158,9 +157,9 @@ data DeclIndex l = DeclIndex {
 -- - other "usable" declarations such as external declarations
 --   ("ResolveBindingSpecs") or squashed declarations (in "MangleNames"); or
 --
--- - "unusable" declarations (i.e, 'UnusableEntry'), for example when macro
---   typechecking fails ("TypecheckMacros") or name mangling fails
---   ("MangleNames").
+-- - "unusable" declarations (i.e, 'UnusableEntry'), for example when the
+--   macro language gives up on a macro that does not fall back
+--   ("ApplyMacroFallback") or name mangling fails ("MangleNames").
 --
 -- At the end of the `hs-bindgen` pipeline, we can generate bindings for
 -- "usable" declarations.
@@ -173,6 +172,12 @@ data DeclIndex l = DeclIndex {
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
 data UsableEntry l =
+    -- | Includes the macros the macro language gave up on, from
+    -- @ConstructTranslationUnit@ until @ApplyMacroFallback@ decides; fallback
+    -- macros stay here for good, with their body from before typechecking.
+    --
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1580>: keep such
+    -- macros pending until @ApplyMacroFallback@.
     UsableSuccess (Success l Out)
   | UsableExternal C.DeclLocs
     -- Squashed declarations are always "usable" because we only squash
@@ -310,37 +315,14 @@ fromParseResults macroLang macroAnalysis isMainHeader parseResults = DeclIndex{
   Macro resolution
 -------------------------------------------------------------------------------}
 
--- | Result of resolving macro names in a single parse result.
-data ResolvedResult l =
-    -- | Macro names were resolved successfully (or the declaration was not a
-    -- macro, or was not a parse success to begin with).
-    Resolved (ParseResult l Out)
-    -- | Macro names could not be resolved.
-  | Unresolved C.DeclId (SingleLoc C.DeclPath) MacroResolutionError
-
-resolvedResultId :: ResolvedResult l -> C.DeclId
-resolvedResultId = \case
-    Resolved result       -> result.id
-    Unresolved declId _ _ -> declId
-
-resolvedResultLoc :: ResolvedResult l -> SingleLoc C.DeclPath
-resolvedResultLoc = \case
-    Resolved result    -> result.loc
-    Unresolved _ loc _ -> loc
-
-resolvedResultToEntry :: ResolvedResult l -> Entry l
-resolvedResultToEntry = \case
-    Resolved result      -> parseResultToEntry result
-    Unresolved _ loc err -> UnusableEntry $ UnusableReason loc (UnusableMacroResolutionFailure err)
-  where
-    parseResultToEntry :: ParseResult l Out -> Entry l
-    parseResultToEntry result = case result.classification of
-      ParseResultSuccess r ->
-        UsableEntry $ UsableSuccess (parseSuccessToSuccess r)
-      ParseResultUnavailable ->
-        UnusableEntry $ UnusableReason result.loc UnusableUnavailable
-      ParseResultFailure r ->
-        UnusableEntry $ UnusableReason result.loc $ UnusableParseFailure r
+parseResultToEntry :: ParseResult l Out -> Entry l
+parseResultToEntry result = case result.classification of
+    ParseResultSuccess r ->
+      UsableEntry $ UsableSuccess (parseSuccessToSuccess r)
+    ParseResultUnavailable ->
+      UnusableEntry $ UnusableReason result.loc UnusableUnavailable
+    ParseResultFailure r ->
+      UnusableEntry $ UnusableReason result.loc $ UnusableParseFailure r
 
 parseSuccessToSuccess :: ParseSuccess l Out -> Success l Out
 parseSuccessToSuccess success = Success {
@@ -353,38 +335,27 @@ parseSuccessToSuccess success = Success {
 
 -- | Resolve macro names in every successful declaration.
 --
--- A declaration whose macro names cannot be resolved becomes 'Unresolved', which
--- 'buildIndex' turns into an 'UnusableMacroResolutionFailure' entry.
+-- Macros whose names cannot be resolved remain successes; the failure is
+-- recorded in the macro (see "HsBindgen.Frontend.MacroFallback").
 resolveMacros ::
      forall l.
      Macro.Lang l
   -> Set C.DeclId
   -> [ParseResult l In]
-  -> [ResolvedResult l]
-resolveMacros macroLang allDeclIds = map resolveParseResult
+  -> [ParseResult l Out]
+resolveMacros macroLang allDeclIds = map (over #classification resolveClassification)
   where
-    resolveParseResult :: ParseResult l In -> ResolvedResult l
-    resolveParseResult result =
-      case traverseOf #classification resolveParseClassification result of
-        Right resolved -> Resolved resolved
-        Left  err      -> Unresolved result.id result.loc err
-
-    resolveParseClassification ::
-         ParseClassification l In
-      -> Either MacroResolutionError (ParseClassification l Out)
-    resolveParseClassification = \case
+    resolveClassification :: ParseClassification l In -> ParseClassification l Out
+    resolveClassification = \case
       ParseResultSuccess success ->
-        case resolveMacroWith macroLang allDeclIds success.decl of
-          Right resolvedDecl -> Right $
-            ParseResultSuccess ParseSuccess{
-              decl             = resolvedDecl
-            , delayedParseMsgs = success.delayedParseMsgs
-            }
-          Left err -> Left err
+        ParseResultSuccess ParseSuccess{
+          decl             = resolveMacroWith macroLang allDeclIds success.decl
+        , delayedParseMsgs = success.delayedParseMsgs
+        }
       ParseResultUnavailable ->
-        Right $ ParseResultUnavailable
+        ParseResultUnavailable
       ParseResultFailure x ->
-        Right $ ParseResultFailure x
+        ParseResultFailure x
 
 {-------------------------------------------------------------------------------
   Build from resolved macros
@@ -393,21 +364,21 @@ resolveMacros macroLang allDeclIds = map resolveParseResult
 -- This function checks for conflicts between ordinary declarations and macro
 -- declarations, which must be done specially because they are in separate
 -- namespaces. This is done here because we need to detect conflicts even with
--- macros that we cannot typecheck, which are thrown out in the
--- @TypecheckMacros@ pass.
+-- macros the macro language gives up on, which are thrown out in the
+-- @ApplyMacroFallback@ pass unless they fall back.
 buildIndex ::
      forall l. Macro.HasTypes l
   => UniqueExpansion.Analysis
   -> IsMainHeader
-  -> [ResolvedResult l]
+  -> [ParseResult l Out]
   -> Map C.DeclId (Entry l)
 buildIndex macroAnalysis isMainHeader results =
     execState (mapM_ aux results) Map.empty
   where
-    aux :: ResolvedResult l -> State (Map C.DeclId (Entry l)) ()
+    aux :: ParseResult l Out -> State (Map C.DeclId (Entry l)) ()
     aux new = modify' $ \index ->
       let declId :: C.DeclId
-          declId = resolvedResultId new
+          declId = new.id
 
           mConflict :: Maybe (IsConflict l)
           mConflict = Foldable.asum [
@@ -441,11 +412,11 @@ buildIndex macroAnalysis isMainHeader results =
             -- The same identifier at the same location is the same
             -- declaration, seen twice; e.g., Parse emits a struct defined
             -- inline in a variable or function declaration twice.
-            Just old | entryToLoc old == C.DeclLoc (resolvedResultLoc new) ->
+            Just old | entryToLoc old == C.DeclLoc new.loc ->
               index
             _otherwise -> case mConflict of
               Nothing ->
-                Map.insert declId (resolvedResultToEntry new) index
+                Map.insert declId (parseResultToEntry new) index
               Just (Redefinition entry) ->
                 Map.insert declId entry index
               Just (SingleConflict ids conflict) ->
@@ -475,7 +446,7 @@ checkIsConflict ::
      forall l. Macro.HasTypes l
   => UniqueExpansion.Analysis
   -> IsMainHeader
-  -> ResolvedResult l
+  -> ParseResult l Out
   -> (C.DeclId, Entry l)
   -> IsConflict l
 checkIsConflict macroAnalysis isMainHeader new (oldId, old)
@@ -486,8 +457,7 @@ checkIsConflict macroAnalysis isMainHeader new (oldId, old)
         (_, UnusableEntry UnusableConflict{}) -> singleConflict
         (UniqueExpansion.Benign, _)           -> Redefinition macroRedefinition
         (UniqueExpansion.NotBenign, _)        -> singleConflict
-    | Resolved new' <- new
-    , ParseResultSuccess newSuccess <- new'.classification
+    | ParseResultSuccess newSuccess <- new.classification
     , UsableEntry (UsableSuccess oldSuccess) <- old
     , newSuccess.decl.kind == oldSuccess.decl.kind
     = Redefinition $ UsableEntry $ UsableSuccess $
@@ -501,10 +471,10 @@ checkIsConflict macroAnalysis isMainHeader new (oldId, old)
     = singleConflict
   where
     newId :: C.DeclId
-    newId = resolvedResultId new
+    newId = new.id
 
     newLoc :: SingleLoc C.DeclPath
-    newLoc = resolvedResultLoc new
+    newLoc = new.loc
 
     redefinition :: UniqueExpansion.Redefinition
     redefinition =
@@ -514,7 +484,7 @@ checkIsConflict macroAnalysis isMainHeader new (oldId, old)
     -- The definitions are identical, so the macro language fared the same with
     -- both.
     macroRedefinition :: Entry l
-    macroRedefinition = case (resolvedResultToEntry new, old) of
+    macroRedefinition = case (parseResultToEntry new, old) of
       ( UsableEntry (UsableSuccess newSuccess)
         , UsableEntry (UsableSuccess oldSuccess) ) ->
           UsableEntry $ UsableSuccess $
@@ -722,13 +692,25 @@ registerDelayedParseMsg (declId, msg) =
   Support for macro failures
 -------------------------------------------------------------------------------}
 
-registerMacroTypecheckFailure ::
+-- | Register a macro the macro language gave up on, and that does not fall back
+--
+-- The reason is the one of the stage that gave up. Until this point, the macro
+-- was a 'UsableSuccess'.
+--
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1580>: keep such
+-- macros pending until @ApplyMacroFallback@.
+registerUnhandledMacro ::
      DeclIndex l
-  -> (C.DeclInfo TypecheckMacros, MacroTypecheckError)
+  -> (C.DeclInfo TypecheckMacros, MacroLangFailure)
   -> DeclIndex l
-registerMacroTypecheckFailure index (info, err) = index
-    & #map %~ Map.insert info.id (UnusableEntry $ UnusableReason info.loc $
-        UnusableMacroTypecheckFailure err)
+registerUnhandledMacro index (info, failure) = index
+    & #map %~ Map.insert info.id (UnusableEntry $ UnusableReason info.loc reason)
+  where
+    reason :: UnusableReason
+    reason = case failure of
+      FailedParse     err -> UnusableParseFailure (ParseMacroErrorParse err)
+      FailedResolve   err -> UnusableMacroResolutionFailure err
+      FailedTypecheck err -> UnusableMacroTypecheckFailure err
 
 {-------------------------------------------------------------------------------
   Support for @PrepareReparse@ pass

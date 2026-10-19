@@ -23,6 +23,7 @@ import Data.Kind
 
 import Clang.HighLevel.Types
 
+import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.AST
 import HsBindgen.Frontend.Pass.PrepareReparse.Flatten
@@ -36,7 +37,7 @@ import HsBindgen.Macro.Flip
   Top-level
 -------------------------------------------------------------------------------}
 
-simplify :: Simplify a => Ctx a -> a TypecheckMacros -> Simple a
+simplify :: Simplify a => Ctx a -> a ApplyMacroFallback -> Simple a
 simplify = simplifyIt
 
 {-------------------------------------------------------------------------------
@@ -45,10 +46,10 @@ simplify = simplifyIt
 
 class Simplify a where
   type Ctx a :: Type
-  type Ctx a = C.DeclInfo TypecheckMacros
+  type Ctx a = C.DeclInfo ApplyMacroFallback
   type Simple a :: Type
   type Simple a = [Either Undef Target]
-  simplifyIt :: Ctx a -> a TypecheckMacros -> Simple a
+  simplifyIt :: Ctx a -> a ApplyMacroFallback -> Simple a
 
 {-------------------------------------------------------------------------------
   Instances
@@ -81,8 +82,8 @@ instance Simplify (C.Decl l) where
       C.DeclGlobal global          -> recurse global
     where
       recurse :: forall a.
-           (Simplify a, Ctx a ~ C.DeclInfo TypecheckMacros)
-        => a TypecheckMacros
+           (Simplify a, Ctx a ~ C.DeclInfo ApplyMacroFallback)
+        => a ApplyMacroFallback
         -> Simple a
       recurse = simplifyIt decl.info
 
@@ -128,6 +129,7 @@ instance Simplify (Flip TypecheckedMacro l) where
   simplifyIt info (Flip m) = case m of
     MacroType{}  -> singleUndef $ Undef (MacroName (P.name info ""))
     MacroValue{} -> nothing
+    MacroRaw{}   -> nothing
 
 instance Simplify C.Function where
   simplifyIt info function = case function.ann of
@@ -168,16 +170,16 @@ functionDecl tokens = Decl $ flattenFunction tokens
   Tags
 -------------------------------------------------------------------------------}
 
-fieldTag :: C.DeclInfo TypecheckMacros -> C.FieldInfo TypecheckMacros -> Tag
+fieldTag :: C.DeclInfo ApplyMacroFallback -> C.FieldInfo ApplyMacroFallback -> Tag
 fieldTag info fieldInfo = Tag Field (TagName name)
   where
     name = P.name info  . P.dot . P.fieldName fieldInfo $ ""
 
-functionTag :: C.DeclInfo TypecheckMacros -> Tag
+functionTag :: C.DeclInfo ApplyMacroFallback -> Tag
 functionTag info = Tag Function (TagName (P.name info ""))
 
-typedefTag :: C.DeclInfo TypecheckMacros -> Tag
+typedefTag :: C.DeclInfo ApplyMacroFallback -> Tag
 typedefTag info = Tag Typedef (TagName (P.name info ""))
 
-variableTag :: C.DeclInfo TypecheckMacros -> Tag
+variableTag :: C.DeclInfo ApplyMacroFallback -> Tag
 variableTag info = Tag Variable (TagName (P.name info ""))

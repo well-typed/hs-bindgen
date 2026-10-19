@@ -114,7 +114,7 @@ tokenize args contents = withClang args contents $ \unit -> do
 --
 -- The tokens are those of the macro definition cursor, which start at the macro
 -- name: the @#define@ itself is not part of them. This is the same token stream
--- that the @Parse@ pass feeds to 'HsBindgen.Macro.Syntax.splitMacro'.
+-- that the @Parse@ pass feeds to 'HsBindgen.Macro.Syntax.readRawMacro'.
 collectMacroTokens ::
      ClangArgs
   -> String

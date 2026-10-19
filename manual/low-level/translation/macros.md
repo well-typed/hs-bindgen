@@ -205,7 +205,8 @@ or one that expands to statements rather than to a value, such as
 ```
 
 is not translated and no binding is generated. `hs-bindgen` emits a trace
-message and carries on; see [tracing][manual:tracing].
+message and carries on; see [tracing][manual:tracing]. To keep such macros
+anyway, as their tokens, see the [macro fallback][t:macro-fallback].
 
 ### Character and string literals
 [t:character-and-string-literals]: #character-and-string-literals
@@ -339,13 +340,14 @@ the `null`.
 
 ## The path of a macro through `hs-bindgen`
 
-### Splitting macro definitions
-[t:splitting-macro-definitions]: #splitting-macro-definitions
+### Reading macro definitions
+[t:reading-macro-definitions]: #reading-macro-definitions
 
 `libclang` reports a [macro definition][manual:terminology-macro-definition] as
 a flat sequence of tokens. Before any [macro
-language][manual:terminology-macro-language] sees it, `hs-bindgen` splits that
-sequence into the [macro name][manual:terminology-macro-name], the
+language][manual:terminology-macro-language] sees it, `hs-bindgen` reads that
+sequence into a raw macro (`HsBindgen.Runtime.Macro.Raw`): the [macro
+name][manual:terminology-macro-name], the
 [parameters][manual:terminology-macro-parameter] if the macro is
 [function-like][manual:terminology-function-like-macro], and the [replacement
 list][manual:terminology-replacement-list]. For
@@ -357,14 +359,14 @@ list][manual:terminology-replacement-list]. For
 the name is `ADD`, the parameters are `x` and `y`, and the replacement list is
 `x + y`.
 
-The split follows the grammar given in [macros in C][t:macros-in-c], and is
+Reading follows the grammar given in [macros in C][t:macros-in-c], and is
 language-independent: it happens once, while parsing the header. Whether a
 macro is [object-like][manual:terminology-object-like-macro] or function-like
 is decided by the rule that the `(` must not be preceded by white space. Hence
 `#define ADD (x, y)` is object-like, with the replacement list `(x, y)`.
 
-`clang` has already accepted the definition by the time we split it, so the
-split rarely fails. When it does, `hs-bindgen` does not generate a binding, and
+`clang` has already accepted the definition by the time we read it, so reading
+rarely fails. When it does, `hs-bindgen` does not generate a binding, and
 emits a trace message; see [tracing][manual:tracing].
 
 ### Macro languages
@@ -372,8 +374,8 @@ emits a trace message; see [tracing][manual:tracing].
 How `hs-bindgen` interprets the replacement list is not fixed. Instead, a
 pluggable [macro language][manual:terminology-macro-language] is used: it
 parses, resolves, typechecks and translates the replacement list, mirroring the
-stages of a compiler. Splitting of the macro definition into macro name, macro
-parameters, and replacement list, happens before `hs-bindgen` consults the
+stages of a compiler. Reading the macro definition into macro name, macro
+parameters, and replacement list happens before `hs-bindgen` consults the
 macro language. At the moment, `hs-bindgen` comes with the following macro
 languages:
 
@@ -386,10 +388,10 @@ languages:
 * `Empty` recognises no macro at all, so the generated bindings directly use the
   macro [expansions][manual:terminology-macro-expansion] from `libclang`. No
   bindings to macros are generated.
-* `Raw` treats every macro as a macro value, translating it to the result of the split
-  itself. This is a `HsBindgen.Runtime.Macro.Raw` value holding the token spellings of its name,
-  its parameters and its replacement list; `Raw` does not interpret the macro
-  (e.g., it does not infer a type for a type-like macro).
+* `Raw` treats every macro as a macro value, translating it to its raw macro.
+  This is a `HsBindgen.Runtime.Macro.Raw` value holding the token spellings of
+  its name, its parameters and its replacement list; `Raw` does not interpret
+  the macro (e.g., it does not infer a type for a type-like macro).
 
 A macro with an empty replacement list, as in `#define FOO`, does not reach the
 macro language by default: include guards have this shape, and reporting every
@@ -404,6 +406,45 @@ At the moment, `hs-bindgen-cli` always uses `CExpr`. The other two macro
 languages are reachable from the Template Haskell backend, by using
 `withHsBindgenMacroLang` in place of `withHsBindgen`; they exist mainly for
 testing and for diagnosing macro handling.
+
+### Macro fallback
+[t:macro-fallback]: #macro-fallback
+
+By default, a macro the macro language gives up on, in any of its stages, yields
+no binding. With the macro fallback, `hs-bindgen` translates such a macro as
+`Raw` does. Given
+
+```c
+#define ATTR __attribute__((unused))
+```
+
+`CExpr` cannot parse the replacement list, and the fallback generates
+
+```haskell
+aTTR :: Macro.Raw String
+aTTR = Macro.objectLike "ATTR" ["__attribute__", "(", "(", "unused", ")", ")"]
+```
+
+Which macros fall back is decided by a predicate, matched like the [selection
+predicate][manual:selection-predicates]: `--macro-fallback-all`,
+`--macro-fallback-from-main-headers`, `--macro-fallback-by-decl-name PCRE`, and
+so on, each with the same meaning as its `--select-` counterpart. Without any of
+these flags, no macro falls back. Given only `--macro-fallback-except-` flags,
+every macro falls back except the ones they match. In Template Haskell mode,
+set the `macroFallback` field of the configuration, e.g., to `MacroFallback
+BTrue`.
+
+Some consequences:
+
+* A fallback binding is always a macro value. A type-like macro such as
+  `#define T struct foo` that falls back yields the value `t`; if a later
+  version of the macro language handles it, the binding becomes the type `T`.
+* A macro that uses another macro that in turn falls back usually fails, too,
+  and falls back as well.
+* A fallback macro has no dependencies.
+* A macro whose definition cannot be read, or one with an empty replacement
+  list, does not reach the macro language by default, and hence does not fall
+  back. Use `--parse-empty-macros` to pass empty macros on.
 
 ### Reparsing declarations with macro expansions
 [t:reparsing-declarations-with-macro-expansions]: #reparsing-declarations-with-macro-expansions
@@ -441,6 +482,7 @@ declaration can refer to it.
 [hackage:c-expr-runtime]: https://hackage.haskell.org/package/c-expr-runtime
 [header:macro.h]: ../../c/macro.h
 [manual:low-level/introduction-typedefs]: ../introduction.md#typedefs
+[manual:selection-predicates]: ../usage/selecting-and-program-slicing.md#selection-predicates
 [manual:terminology]: ../../terminology.md
 [manual:terminology-function-like-macro]: ../../terminology.md#function-like-macro
 [manual:terminology-macro]: ../../terminology.md#macro
