@@ -19,6 +19,8 @@ report any problems you find on the [issue tracker][issues].
 
 ### Blog posts
 
+* [First official release of `hs-bindgen`](https://www.well-typed.com/blog/2026/10/hs-bindgen-official-release/)
+  by Edsko de Vries (8 October 2026)
 * [Second pre-release of `hs-bindgen`](https://well-typed.com/blog/2026/03/hs-bindgen-alpha2/)
   by Edsko de Vries (27 March 2026)
 * [`hs-bindgen 0.1-alpha` release](https://well-typed.com/blog/2026/02/hs-bindgen-alpha/)
@@ -34,6 +36,14 @@ report any problems you find on the [issue tracker][issues].
 * [Automatic C Bindings Generation for Haskell](https://dl.acm.org/doi/10.1145/3759164.3759350)
   (9 October 2025)
     * [Presentation](https://www.youtube.com/watch?v=SeLI3lMnhnA)
+
+### Presentations
+
+* Compiling C to Haskell – How `hs-bindgen` Translates C Headers,
+  by Dominik Schrempf (11 October 2026)
+    * Keynote at MuniHac 2026
+    * [Presentation](https://www.youtube.com/watch?v=d_MA39xghmw)
+    * [Slides](doc/munihac-2026.pdf)
 
 ## Examples
 
