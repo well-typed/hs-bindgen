@@ -41,6 +41,7 @@ Options controlling module generation:
 - `--unique-id ID` - Unique identifier for C wrapper functions (e.g., `org.example.mylib`)
 - `--create-output-dirs` - Create output directories if they do not exist
 - `--generate-hs-boot` - Write a boot file next to the types module
+- `--dry-run` - Check the output files and report them, but write nothing
 
 With `--generate-hs-boot`, `hs-bindgen` writes a [boot
 file][ghc:guide:mutually-recursive-modules] next to the module that holds the
@@ -65,6 +66,27 @@ your code imports `MyLib` and never `MyLib.Callback`. List `MyLib.Callback`
 under `other-modules` in the `.cabal` file.
 
 `--generate-hs-boot` cannot be combined with `--single-file`.
+
+`--dry-run` shows what a run would generate, without writing any files or
+creating any directories. It checks the output files the same way a real run
+does, so it fails in the same cases, with the same message and exit code 4
+(see [Exit codes](#exit-codes)): when an output file exists and
+`--overwrite-files` is not given, or when an output directory is missing and
+`--create-output-dirs` is not given. It then reports each file it would write
+as a notice (`Would write ... to file ...`), and prints one line on standard
+output: the base module name, a colon, and the headers that contain a
+declaration with a binding, spelled as they were included and in include
+order, in which a header comes after the headers it includes. For example, if
+`a.h` includes `b.h` and both declare a function,
+
+```bash
+hs-bindgen-cli preprocess --dry-run --create-output-dirs --hs-output-dir out -I . --module M a.h b.h
+```
+
+prints `M: b.h, a.h`. Macros defined by `--hash-define` or by a `-D` Clang
+option are in no header, so if they are the only bindings, the line is `M:`.
+If there is nothing to bind, there is no line, and a notice says why: `No
+module for "M": there are no declarations to bind`.
 
 #### Input
 
