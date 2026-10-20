@@ -62,6 +62,7 @@ hsBindgen ::
      TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
+  -> ExecutionMode
   -> [C.UncheckedRootDirective]
   -> Artefact CExpr a
   -> IO a
