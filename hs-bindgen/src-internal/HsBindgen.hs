@@ -16,6 +16,9 @@ module HsBindgen (
   , writeBindingsMultiple
   , writeBindingSpec
   , writeTests
+  , ModuleHeaders(..)
+  , moduleHeaders
+  , getModuleHeaders
 
     -- ** Low-level artefacts
   , getConfig
@@ -42,12 +45,14 @@ module HsBindgen (
 import Control.Exception (Exception (..), catch)
 import Control.Monad.Except (MonadError (..), withExceptT)
 import Control.Monad.Trans.Except (runExceptT)
+import Data.List qualified as List
 import Data.Map qualified as Map
 import Data.Set qualified as Set
 import System.Exit (ExitCode (..), exitWith)
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.CStandard
+import Clang.HighLevel.Types (singleLocPath)
 import Clang.Paths
 
 import HsBindgen.Artefact
@@ -371,6 +376,63 @@ writeTests _testDir = do
     --     moduleBaseName
     --     testDir
     throwPure_TODO 22 "Test generation integrated into the artefact API"
+
+-- | A module and the headers its bindings come from
+--
+-- @preprocess --dry-run@ prints it as @M: a.h, b.h@, so that you can see which
+-- headers a module covers without generating it.
+data ModuleHeaders = ModuleHeaders {
+      moduleName :: BaseModuleName
+      -- | Each header as it was @#include@d, in include order
+    , headers    :: [C.HashIncludeArg]
+    }
+  deriving stock (Show, Eq)
+
+-- | The headers of a module, from the declarations it has bindings for
+--
+-- The caller decides which declarations make up the module. Each header that
+-- contains one of them is listed once, spelled as it was @#include@d, in include
+-- order: a header comes after the headers it includes. Macros defined by root
+-- directives or @-D@ options are in no header, so the list can be empty.
+moduleHeaders ::
+     IncludeGraph.IncludeOrder
+  -> BaseModuleName
+  -> [C.Decl l Final]
+  -> ModuleHeaders
+moduleHeaders order name decls = ModuleHeaders{
+      moduleName = name
+    , headers    = map snd $ inIncludeOrder $ Map.toList headers
+    }
+  where
+    -- All declarations in a header have the same include argument, so it does
+    -- not matter which one 'Map.fromList' keeps.
+    headers :: Map RealPath C.HashIncludeArg
+    headers = Map.fromList [
+        (path, info.includeArg)
+      | decl <- decls
+      , C.InHeader path   <- [singleLocPath decl.info.loc]
+      , C.FromHeader info <- [decl.info.origin]
+      ]
+
+    inIncludeOrder :: [(RealPath, a)] -> [(RealPath, a)]
+    inIncludeOrder =
+      List.sortOn (IncludeGraph.lookupIncludeOrder order . C.InHeader . fst)
+
+-- | The module of this run and its headers
+--
+-- Passes every reified declaration to 'moduleHeaders', since each one has a
+-- binding in the module: the CLI always generates at least one category of
+-- binding for every kind of declaration. 'Nothing' if there is nothing to bind.
+getModuleHeaders :: Artefact l (Maybe ModuleHeaders)
+getModuleHeaders = do
+    name         <- ModuleBaseName
+    decls        <- getReifiedC
+    includeGraph <- getIncludeGraph
+    pure $
+      if null decls
+        then Nothing
+        else Just $
+          moduleHeaders (IncludeGraph.toIncludeOrder includeGraph) name decls
 
 {-------------------------------------------------------------------------------
   Low-level artefacts
