@@ -42,6 +42,10 @@
 * A macro definition that cannot be read into name, parameters and
   replacement list is now reported as such ("Could not read macro
   definition"), apart from macros the macro language cannot parse.
+* When there are no declarations to bind, the notice now reads `No module for
+  "M": there are no declarations to bind`, or with `--single-file`, `Module "M"
+  is empty: there are no declarations to bind`. Previously it said "No output
+  generated", even when a binding specification was written.
 
 ### Bug fixes
 
