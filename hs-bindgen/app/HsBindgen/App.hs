@@ -23,6 +23,7 @@ module HsBindgen.App (
   , parseHsOutputDir
   , parseDirPolicy
   , parseFilePolicy
+  , parseExecutionMode
   , parseGenBindingSpec
   , parseGenTestsOutput
     -- ** Input arguments
@@ -528,6 +529,12 @@ parseFilePolicy :: Parser FilePolicy
 parseFilePolicy = flag DoNotOverwriteFiles AllowFileOverwrite $ mconcat [
       long "overwrite-files"
     , help "Allow overwriting existing output files"
+    ]
+
+parseExecutionMode :: Parser ExecutionMode
+parseExecutionMode = flag RealRun DryRun $ mconcat [
+      long "dry-run"
+    , help "Check the output files and report them, but write nothing"
     ]
 
 parseGenBindingSpec :: Parser FilePath

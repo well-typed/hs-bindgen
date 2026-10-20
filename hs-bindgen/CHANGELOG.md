@@ -14,6 +14,12 @@
 
 ### New features
 
+* `hs-bindgen-cli preprocess --dry-run` checks the output files as a real run
+  does, then writes nothing. It reports each file it would write, and prints
+  the base module name followed by the headers that contain a declaration with
+  a binding, for example `M: b.h, a.h`. See the invocation section of the
+  manual.
+
 ### Minor changes
 
 * When there are no declarations to bind, the notice now reads `No module for
