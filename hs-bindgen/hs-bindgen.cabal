@@ -250,6 +250,8 @@ library internal
     HsBindgen.Frontend.Pass.TranslateTypes
     HsBindgen.Frontend.Pass.TranslateTypes.IsPass
     HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
+    HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassBy
+    HsBindgen.Frontend.Pass.TranslateTypes.PassBy
     HsBindgen.Frontend.Pass.TranslateTypes.Translation
     HsBindgen.Frontend.Pass.TypecheckMacros
     HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
