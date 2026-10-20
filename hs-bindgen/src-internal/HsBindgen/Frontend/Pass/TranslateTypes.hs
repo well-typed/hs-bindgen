@@ -11,6 +11,8 @@ import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
+import HsBindgen.Frontend.Pass.TranslateTypes.PassBy (classifyArgPassingMethod,
+                                                      classifyResPassingMethod)
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
@@ -179,17 +181,17 @@ processFunctionArg arg = do
     pure C.FunctionArg{
         name = arg.name
       , typ  = processTypeFunArg Translation.FunArg arg.typ
-      , ann  = arg.ann
+      , ann  = classifyArgPassingMethod arg
       }
 
 processFunctionRes :: C.FunctionRes AdjustTypes -> M DeclEnv (C.FunctionRes TranslateTypes)
-processFunctionRes res =
+processFunctionRes res = do
     pure C.FunctionRes{
         typ = TranslatedTypes{
             c  = coercePass res.typ
           , hs = Translation.inContext Translation.FunRes res
           }
-      , ann = NoAnn
+      , ann = classifyResPassingMethod res
       }
 
 processGlobal :: C.Global AdjustTypes -> M DeclEnv (C.Global TranslateTypes)

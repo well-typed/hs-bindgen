@@ -29,6 +29,8 @@ import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg (DelayedReparse
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (DelayedTranslateTypesMsg)
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassBy (PassArgBy,
+                                                             PassResBy)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
@@ -48,6 +50,8 @@ type family AnnSelect ix where
   AnnSelect "Decl"                 = PrescriptiveDeclSpec
   AnnSelect "Enum"                 = NewtypeNames
   AnnSelect "Flam"                 = FlamNames
+  AnnSelect "FunctionArg"          = PassArgBy Select
+  AnnSelect "FunctionRes"          = PassResBy Select
   AnnSelect "IndirectField"        = IndirectFieldNames Select
   AnnSelect "Struct"               = StructNames
   AnnSelect "Typedef"              = TypedefNames
@@ -350,9 +354,11 @@ instance CoercePassMacroUnderlying TranslateTypes Select where
 instance CoercePassMacroBody TranslateTypes Select where
   coercePassMacroBody _ = coercePassParam
 
-instance CoercePassAnn "FunctionArg" TranslateTypes Select
+instance CoercePassAnn "FunctionArg" TranslateTypes Select where
+  coercePassAnn _ = coercePass
 
-instance CoercePassAnn "FunctionRes" TranslateTypes Select
+instance CoercePassAnn "FunctionRes" TranslateTypes Select where
+  coercePassAnn _ = coercePass
 
 instance CoercePassAnn "IndirectField" TranslateTypes Select where
   coercePassAnn _ = \case

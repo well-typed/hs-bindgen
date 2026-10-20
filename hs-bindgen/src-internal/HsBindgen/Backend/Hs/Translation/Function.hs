@@ -5,9 +5,7 @@ module HsBindgen.Backend.Hs.Translation.Function (
 import Control.Monad.Reader qualified as Reader
 import Data.Kind (Type)
 import Data.Text qualified as T
-import Data.Type.Equality ((:~:) (Refl))
-import DeBruijn (Add, Ctx, Env (..), Idx (..), lzeroAdd, sizeEnv, swapAdd,
-                 tabulateEnv, unrzeroAdd, zipWithEnv)
+import DeBruijn (Ctx, Env (..), Idx (..), sizeEnv, tabulateEnv, zipWithEnv)
 
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -21,19 +19,17 @@ import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
 import HsBindgen.Backend.Hs.Translation.Monad (HsM)
 import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
 import HsBindgen.Backend.SHs.AST qualified as SHs
+import HsBindgen.Backend.SHs.Translation.Common (reverseEnv)
 import HsBindgen.Backend.SHs.Translation.Common qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Config.MangleCandidate (mangleCandidateDefaultFallback)
-import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustedFrom (..))
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassBy
 import HsBindgen.Frontend.PrettyC qualified as PC
 import HsBindgen.Imports hiding (def)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
-import HsBindgen.IR.Pass (NoAnn (NoAnn))
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint (NameHint (..))
@@ -49,60 +45,79 @@ import HsBindgen.NameHint (NameHint (..))
 -- We say that functions which use only primitive types have a "primitive
 -- signature". Functions with a non-primitive signature (for example, functions
 -- that accept or return structs by value) cannot be called directly from
--- Haskell and require additional handling.
---
--- We therefore have multiple objects on both the C and the Haskell sides, and
--- have to be meticulous with names:
+-- Haskell and require additional handling. We therefore have multiple objects
+-- on both the C and the Haskell sides, and have to be meticulous with names:
 --
 -- On the C side, we have:
 --
--- - The original C function;
+-- * @originalC@: The original C function.
+--
+--   For example:
+--
+--   > int foo (struct S x);
 --
 -- On the C side, we generate:
 --
--- - A C wrapper (beware, we use the word "wrapper" only in this case); the C
---   wrapper is C code, has a globally unique name, and we bind to it using the
---   "ccall" calling convention (the combination of the C wrapper and the
---   "ccall" foreign import is what we refer to as userland CAPI).
+-- * @wrapperC@: A C wrapper around @orignalC@ that passes arguments and results
+--   by address if necessary. The C wrapper gets a globally unique name. The C
+--   wrapper will always have a primitive signature, so that we can import it it
+--   in Haskell. If the original C function also has a primitive signature, the
+--   C wrapper will have the same signature as the original C function.
 --
---   The C wrapper will always have a primitive signature, so that we can call
---   it from Haskell. If the original C function also has a primitive signature,
---   the C wrapper will have the same signature as the original C function.
+--   For example:
+--
+--   > int hs_bindgen_b66ead8229086e95 (struct S * x) {
+--   >   return foo(*x);
+--   > };
 --
 -- On the Haskell side, we generate:
 --
--- - The foreign import of the C wrapper. We consider the foreign import an
---   internal, auxiliary function; we give it the same globally unique name as
---   the C wrapper; the foreign import does _not_ have Haddock documentation.
+-- * @wrapperImport@: The foreign import of @wrapperC@. We consider the foreign
+--   import an internal, auxiliary function. we give it the same globally unique
+--   name as the C wrapper. the foreign import does _not_ have Haddock
+--   documentation.
 --
--- - We generate a function declaration which we refer to as
---   "restoreOrigSignature", and which has the same signature and name (modulo
---   name mangling) as the original C function.
+--   For example:
+--
+--   > foreign import ccall safe "hs_bindgen_b66ead8229086e95" hs_bindgen_b66ead8229086e95 ::
+--   >   Ptr S -> IO CInt
+--
+--   Note: in practice, the foreign import is implemented with multiple Haskell
+--   declarations to account for FFI types. See 'HsFI.foreignImportDec'.
+--
+-- * @restoreFun@: A function declaration that /restores/ the name (modulo name
+--   mangling) and signature of the original C function. It writes arguments to
+--   pointers (where necessary), calls @wrapperImport@, and reads the result
+--   from a pointer if necessary.
+--
+--   For example:
+--
+--   > foo :: S -> IO CInt
+--   > foo x = with x $ \ptr -> hs_bindgen_b66ead8229086e95  ptr
+--
 functionDecs ::
-     HasCallStack
-  => SHs.Safety
+     SHs.Safety
   -> C.DeclInfo Final
   -> C.Function Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-functionDecs safety info origCFun _spec = do
+functionDecs safety info originalC _spec = do
     env <- Reader.ask
     pure $ aux env
   where
     aux :: HsM.Env -> [Hs.Decl l]
     aux env = concat [
-          foreignImport
-        , [restoreOrigSignature]
+          -- @wrapperC@ is included in @wrapperImport@, so it is not a separate
+          -- declaration
+          wrapperImport
+        , [restoreFun]
         ]
       where
-        origCName :: Text
-        origCName = info.id.cName.name.text
+        wrapperImport = getWrapperImportDecl info originalC safety wrapperCName runInIO
+        restoreFun = getRestoreFunDecl info originalC wrapperCName runInIO
 
-        origHsName :: Hs.TermName
-        origHsName = Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) info.id.hsName
-
-        cWrapperName :: UniqueSymbol
-        cWrapperName =
+        wrapperCName :: UniqueSymbol
+        wrapperCName =
             globallyUnique env.uniqueId env.baseModuleName $
               concat [
                   show safety
@@ -110,152 +125,266 @@ functionDecs safety info origCFun _spec = do
                 , T.unpack origCName
                 ]
 
-        primResult :: PassResBy
-        primResult = classifyResPassingMethod origCFun.res
+        origCName :: Text
+        origCName = info.id.cName.name.text
 
-        primParams :: [PassArgBy]
-        primParams = map classifyArgPassingMethod origCFun.args
+        runInIO :: RunInIO
+        runInIO = functionShouldRunInIO originalC.attrs.purity originalC.res originalC.args
 
-        foreignImport :: [Hs.Decl l]
-        foreignImport =
-            HsFI.foreignImportDec
-              (Hs.ForeignImport.FunName cWrapperName)
-              foreignImportParams
-              foreignImportResult
-              (uniqueCDeclName cWrapperName)
-              (CallConvUserlandCapi cWrapper)
-              (Origin.Function origCFun)
-              safety
-          where
-            cWrapperDecl :: PC.FunDefn
-            cWrapperDecl =
-                getCWrapperDecl
-                  (T.unpack origCName)
-                  cWrapperName.unique
-                  primResult
-                  primParams
+{-------------------------------------------------------------------------------
+  Common getters
+-------------------------------------------------------------------------------}
 
-            cWrapper :: CWrapper
-            cWrapper = CWrapper {
-                  definition = PC.prettyFunDefn cWrapperDecl ""
-                }
+-- | Get whether the argument/result should be passed by address
+class GetByAddress a where
+  byAddress :: a -> Bool
 
-        foreignImportParams :: [Hs.ForeignImport.FunParam]
-        foreignImportParams = [
-              Hs.ForeignImport.FunParam {
-                  hsParam =
-                    Hs.FunctionParameter{
-                      typ     = toPrimitiveType Translation.FunArg arg
-                    , comment = Nothing
-                    }
-                }
-            | arg <- primParams
-            ] ++ [
-              Hs.ForeignImport.FunParam {
-                  hsParam =
-                    Hs.FunctionParameter{
-                      typ     = toPrimitiveType Translation.FunArg primResult
-                    , comment = Nothing
-                    }
-                }
-            | case primResult of
-                -- A type that is not supported by the Haskell FFI as a function result.
-                -- We pass it as a function parameter instead.
-                PassByAddress {} -> True
-                -- A "normal" result type that is supported by the Haskell FFI.
-                PassByValue {} -> False
-            ]
+instance GetByAddress (C.FunctionArg Final) where
+  byAddress arg = arg.ann.byAddress
 
-        -- When translating a 'C.Type' there are C types which we cannot pass
-        -- directly using C FFI. We need to distinguish these.
-        --
-        -- Function arguments and result have to be passed either by value or by
-        -- address. Result types that have to be passed by address become
-        -- parameters.
-        foreignImportResult :: Hs.ForeignImport.FunRes
-        foreignImportResult = case primResult of
-            -- A type that is not supported by the Haskell FFI as a function result.
-            -- We pass it as a function parameter instead.
-            PassByAddress {} -> mkFunRes (PassByValue voidRes)
-            -- A "normal" result type that is supported by the Haskell FFI.
-            PassByValue {} -> mkFunRes primResult
-          where
-            voidRes :: C.FunctionRes Final
-            voidRes = C.FunctionRes {
-                  typ = TranslatedTypes {
-                      c = C.TypeVoid
-                    , hs = Hs.PrimType Hs.PrimUnit
-                    }
-                , ann = NoAnn
-                }
+instance GetByAddress (C.FunctionRes Final) where
+  byAddress res = res.ann.byAddress
 
-            mkFunRes :: PassResBy -> Hs.ForeignImport.FunRes
-            mkFunRes passBy = Hs.ForeignImport.FunRes {
-                  hsType   = mbHsIO $ toPrimitiveType Translation.FunRes passBy
-                }
+-- | Get the C type of an argument/result as it is used in @wrapperC@
+class GetWrapperCType a where
+  wrapperCType :: a -> C.Type Final
 
-        restoreOrigSignature :: Hs.Decl l
-        restoreOrigSignature =
-            getRestoreOrigSignatureDecl
-              origHsName
-              (Hs.InternalName cWrapperName)
-              primResult
-              primParams
-              (mbHsIO $ toOrigType Translation.FunRes primResult)
-              restoreOrigSignatureParams
-              origCFun
-              (mbRestoreOrigSignatureComment <> mbIoComment)
+instance GetWrapperCType (C.FunctionRes Final) where
+  wrapperCType res = res.ann.wrapperType.c
 
-        mbRestoreOrigSignatureComment :: Maybe HsDoc.Comment
-        restoreOrigSignatureParams :: [Hs.FunctionParameter Hs.Type]
-        (mbRestoreOrigSignatureComment, restoreOrigSignatureParams) =
-          let params :: [(Maybe Text, Hs.FunctionParameter Hs.Type)]
-              params = [ ( fmap (.cName.text) arg.name
-                        , Hs.FunctionParameter{
-                            typ     = toOrigType Translation.FunArg (classifyArgPassingMethod arg)
-                          , comment = Nothing
-                          })
-                        | arg <- origCFun.args
-                        ]
-          in  mkHaddocksDecorateParams info params
+instance GetWrapperCType (C.FunctionArg Final) where
+  wrapperCType arg = arg.ann.wrapperType.c.typ
 
-        runsInIO :: Bool
-        runsInIO = functionShouldRunInIO origCFun.attrs.purity primResult primParams
+-- | Get the Haskell type of an argument/result as it is used in @wrapperImport@
+class GetImportWrapperType a where
+  importWrapperType :: a -> Hs.Type
 
-        mbHsIO :: Hs.Type -> Hs.Type
-        mbHsIO
-          | runsInIO  = Hs.IO
-          | otherwise = id
+instance GetImportWrapperType (C.FunctionRes Final) where
+  importWrapperType res = res.ann.wrapperType.hs
 
-        mbIoComment :: Maybe HsDoc.Comment
-        mbIoComment = ioComment origCFun.attrs.purity
+instance GetImportWrapperType (C.FunctionArg Final) where
+  importWrapperType arg = arg.ann.wrapperType.hs
+
+-- | Get the Haskell type of an argument/result as it is used in @restoreFun@
+class GetRestoreFunType a where
+  restoreFunType :: a -> Hs.Type
+
+instance GetRestoreFunType (C.FunctionRes Final) where
+  restoreFunType res = res.typ.hs
+
+instance GetRestoreFunType (C.FunctionArg Final) where
+  restoreFunType arg = arg.typ.hs
 
 {-------------------------------------------------------------------------------
   Purity
 -------------------------------------------------------------------------------}
 
--- | Decide whether a function has to run in 'IO'.
+-- | Decide whether function has to run in 'IO'.
 --
 -- Only Haskell-pure functions are allowed to run without 'IO'. See the
 -- documentation on 'C.FunctionPurity'.
 --
--- But, if any of the function arguments require restoration (see
--- 'requiresRestore'), then the function has to run in 'IO' regardless of the
--- function purity, because pointer manipulation requires 'IO'.
+-- But, if any of the function arguments or the function result is passed by
+-- address, then the function has to run in 'IO' regardless of the function
+-- purity, because pointer manipulation requires 'IO'.
 --
 functionShouldRunInIO ::
-     C.FunctionPurity -- ^ C function purity (function attribute)
-  -> PassResBy        -- ^ C result type
-  -> [PassArgBy]      -- ^ C parameter types
-  -> Bool
+     C.FunctionPurity      -- ^ C function purity (function attribute)
+  -> C.FunctionRes Final   -- ^ C result type
+  -> [C.FunctionArg Final] -- ^ C parameter types
+  -> RunInIO
 functionShouldRunInIO purity resType argTypes
-  | requiresRestore resType || any requiresRestore argTypes
-  = True
+  | byAddress resType || any byAddress argTypes
+  = RunInIO
   | otherwise
   = case purity of
-      C.HaskellPureFunction -> False
-      C.CPureFunction       -> True
-      C.ImpureFunction      -> True
+      C.HaskellPureFunction -> RunPure
+      C.CPureFunction       -> RunInIO
+      C.ImpureFunction      -> RunInIO
+
+data RunInIO = RunInIO | RunPure
+
+-- | Add @IO@ to a type if necessary
+hsIO :: RunInIO -> Hs.Type -> Hs.Type
+hsIO = \case
+    RunInIO -> Hs.IO
+    RunPure -> id
+
+{-------------------------------------------------------------------------------
+  @wrapperC@
+-------------------------------------------------------------------------------}
+
+-- | Construct a @wrapperC@ declaration
+--
+-- See als 'functionDecs'.
+getWrapperCDecl ::
+     C.DeclInfo Final
+  -> C.Function Final
+  -> UniqueSymbol
+  -> PC.FunDefn
+getWrapperCDecl info originalC wrapperCName = wrapperC
+  where
+    wrapperC = getWrapperCFunDefn wrapperCName.unique
+                  originalC.args originalC.res (T.unpack originalCName)
+
+    originalCName :: Text
+    originalCName = info.id.cName.name.text
+
+getWrapperCFunDefn ::
+     String                -- ^ C wrapper name
+  -> [C.FunctionArg Final] -- ^ C types of function parameters
+  -> C.FunctionRes Final   -- ^ C result type
+  -> String                -- ^ original C name
+  -> PC.FunDefn
+getWrapperCFunDefn  wrapperName args res origName
+    | C.isVoid (wrapperCType res)
+    = PC.withArgs args $ \args' ->
+        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (wrapperCType <$> args') $
+        PC.CSList $
+          PC.CSStatement
+            (PC.ExpressionStatement $ PC.Call origName (callArgs args' (PC.argsToIdx args')))
+            PC.CSNil
+
+    | byAddress res
+    = PC.withArgs args $ \args' ->
+        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (fmap wrapperCType args' :> wrapperCType res) $
+        PC.CSList $
+          PC.CSStatement
+            (PC.ExpressionStatement $ PC.Assign (PC.LDeRef (PC.LVar IZ)) $
+              PC.Call origName (callArgs args' (IS <$> PC.argsToIdx args')))
+            PC.CSNil
+
+    | otherwise
+    = PC.withArgs args $ \args' ->
+        PC.FunDefn wrapperName (wrapperCType res) C.ImpureFunction (wrapperCType <$> args') $
+        PC.CSList $
+          PC.CSStatement
+            (PC.ExpressionStatement $ PC.Return $
+              PC.Call origName (callArgs args' (PC.argsToIdx args')))
+            PC.CSNil
+  where
+    callArgs :: Env ctx' (C.FunctionArg Final) -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
+    callArgs tys ids = toList (zipWithEnv f tys ids)
+      where f ty idx = if byAddress ty then PC.DeRef (PC.Var idx) else PC.Var idx
+
+{-------------------------------------------------------------------------------
+  @wrapperImport@
+-------------------------------------------------------------------------------}
+
+-- | Construct a @wrapperImport@ declaration
+--
+-- See als 'functionDecs'.
+getWrapperImportDecl ::
+     C.DeclInfo Final
+  -> C.Function Final
+  -> SHs.Safety
+  -> UniqueSymbol
+  -> RunInIO
+  -> [Hs.Decl l]
+getWrapperImportDecl info originalC safety wrapperCName runInIO = wrapperImport
+  where
+    wrapperImport :: [Hs.Decl l]
+    wrapperImport =
+        HsFI.foreignImportDec
+          (Hs.ForeignImport.FunName wrapperCName)
+          params
+          result
+          (uniqueCDeclName wrapperCName)
+          (CallConvUserlandCapi wrapperCPretty)
+          (Origin.Function originalC)
+          safety
+
+    wrapperCPretty :: CWrapper
+    wrapperCPretty = CWrapper {
+          definition = PC.prettyFunDefn wrapperC ""
+        }
+
+    wrapperC :: PC.FunDefn
+    wrapperC = getWrapperCDecl info originalC wrapperCName
+
+    params :: [Hs.ForeignImport.FunParam]
+    params = [
+          Hs.ForeignImport.FunParam {
+              hsParam =
+                Hs.FunctionParameter{
+                  typ     = importWrapperType arg
+                , comment = Nothing
+                }
+            }
+        | arg <- originalC.args
+        ] ++ [
+          -- Result types that have to be passed by address become parameters.
+          Hs.ForeignImport.FunParam {
+              hsParam =
+                Hs.FunctionParameter{
+                  typ     = importWrapperType originalC.res
+                , comment = Nothing
+                }
+            }
+        | byAddress originalC.res
+        ]
+
+    -- Result types that have to be passed by address become parameters.
+    result :: Hs.ForeignImport.FunRes
+    result
+        -- A type that is not supported by the Haskell FFI as a function result.
+        -- We pass it as a function parameter instead.
+        | byAddress originalC.res
+        = mkFunRes voidTyp
+        -- A "normal" result type that is supported by the Haskell FFI.
+        | otherwise
+        = mkFunRes $ importWrapperType originalC.res
+      where
+        voidTyp = Hs.PrimType Hs.PrimUnit
+        mkFunRes :: Hs.Type -> Hs.ForeignImport.FunRes
+        mkFunRes ty = Hs.ForeignImport.FunRes {
+              hsType   = hsIO runInIO ty
+            }
+
+{-------------------------------------------------------------------------------
+  @restoreFun@
+-------------------------------------------------------------------------------}
+
+-- | Construct a @restoreFun@ declaration
+--
+-- See als 'functionDecs'.
+getRestoreFunDecl ::
+     C.DeclInfo Final
+  -> C.Function Final
+  -> UniqueSymbol
+  -> RunInIO
+  -> Hs.Decl l
+getRestoreFunDecl info originalC wrapperCName runInIO = restoreFun
+  where
+    restoreFun :: Hs.Decl l
+    restoreFun =
+        Hs.DeclFunction $ Hs.FunctionDecl{
+            name       = restoreFunName
+          , parameters = restoreFunParams
+          , result     = hsIO runInIO $ restoreFunType originalC.res
+          , body       = getRestoreFunBody originalC (Hs.InternalName wrapperCName)
+          , origin     = Origin.Function originalC
+          , pragmas    = []
+          , comment    = restoreFunComment <> mbIoComment
+          }
+
+    restoreFunName = Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) info.id.hsName
+
+    restoreFunComment :: Maybe HsDoc.Comment
+    restoreFunParams :: [Hs.FunctionParameter Hs.Type]
+    (restoreFunComment, restoreFunParams) =
+      let params :: [(Maybe Text, Hs.FunctionParameter Hs.Type)]
+          params = [ ( fmap (.cName.text) arg.name
+                    , Hs.FunctionParameter{
+                        typ     = restoreFunType arg
+                      , comment = Nothing
+                      })
+                    | arg <- originalC.args
+                    ]
+      in  mkHaddocksDecorateParams info params
+
+    mbIoComment :: Maybe HsDoc.Comment
+    mbIoComment = ioComment originalC.attrs.purity
 
 -- | A haddock comment related to function purity
 ioComment ::
@@ -295,225 +424,27 @@ ioComment purity =
         ]
       ]
 
-{-------------------------------------------------------------------------------
-  Argument passing method
--------------------------------------------------------------------------------}
-
--- | Classification of the type of a function argument: it is either passed by
--- value or by address.
-type PassArgBy = PassBy (C.FunctionArg Final) (C.Type Final)
-
--- | Classification of the type of a function result: it is either passed by
--- value or by address.
-type PassResBy = PassBy (C.FunctionRes Final) (C.Type Final)
-
--- | Classification of the type of a function argument\/result: it is either
--- passed by value or by address.
-data PassBy byValue byAddress =
-      -- | Types passed by value.
-      --
-      -- Ordinary, "primitive" types which can be handled by Haskell FFI
-      -- directly.
-      PassByValue byValue
-      -- | Types passed by address: union, struct, and complex
-      --
-      -- These have to be passed by address, because they can not be handled by
-      -- the Haskell FFI directly.
-    | PassByAddress byAddress
-  deriving Show
-
-isPassByAddress :: PassBy byValue byAddress -> Bool
-isPassByAddress = \case
-    PassByValue {} -> False
-    PassByAddress {} -> True
-
--- | Classify how a function result is passed from C to Haskell
-classifyResPassingMethod :: HasCallStack => C.FunctionRes Final -> PassResBy
-classifyResPassingMethod res
-  -- Heap types
-  | C.isCanonicalTypeStruct res.typ.c ||
-    C.isCanonicalTypeUnion res.typ.c ||
-    C.isCanonicalTypeComplex res.typ.c
-  = PassByAddress res.typ.c
-
-  | C.isCanonicalTypeArray res.typ.c
-  = panicPure "classifyResPassingMethod: an array can not be the result type of a function"
-
-  | C.isCanonicalTypeFunction res.typ.c
-  = panicPure "classifyResPassingMethod: a function can not be the result type of a function"
-
-  -- Other types
-  | otherwise
-  = PassByValue res
-
--- | Classify how a function argument is passed from Haskell to C
-classifyArgPassingMethod :: HasCallStack => C.FunctionArg Final -> PassArgBy
-classifyArgPassingMethod arg
-  -- Heap types
-  | C.isCanonicalTypeStruct  arg.typ.c.typ ||
-    C.isCanonicalTypeUnion   arg.typ.c.typ ||
-    C.isCanonicalTypeComplex arg.typ.c.typ
-  = if arg.typ.c.ann == NotAdjusted
-    then PassByAddress arg.typ.c.typ
-    else panicPure
-          "classifyArgPassingMethod: found a function argument/result type that is \
-          \a struct/union/complex with an unexpected annotation. \
-          \Is there a bug in the AdjustTypes frontend pass?"
-
-  | C.isCanonicalTypeArray arg.typ.c.typ
-  = panicPure
-      "classifyArgPassingMethod: found a function argument/result type that is an array, \
-      \which is unexpected because it should have been adjusted to a pointer. \
-      \Is there a bug in the AdjustTypes frontend pass?"
-
-  | C.isCanonicalTypeFunction arg.typ.c.typ
-  = panicPure
-      "classifyArgPassingMethod: found a function argument/result type that is a function, \
-      \which is unexpected because it should have been adjusted to a pointer. \
-      \Is there a bug in the AdjustTypes frontend pass?"
-
-  -- Other types
-  | otherwise
-  = PassByValue arg
-
-class ToWrapperType a where
--- | Recover type used in the C wrapper
-  toWrapperType :: a -> C.Type Final
-
-instance ToWrapperType PassArgBy where
-  toWrapperType = \case
-      PassByValue arg -> arg.typ.c.typ
-      PassByAddress ty -> C.TypePointers 1 ty
-
-instance ToWrapperType PassResBy where
-  toWrapperType = \case
-    PassByValue res -> res.typ.c
-    PassByAddress ty -> C.TypePointers 1 ty
-
-class ToPrimitiveType a where
-  -- | Recover type used in the foreign import
-  toPrimitiveType :: Translation.TypeContext -> a -> Hs.Type
-
-instance ToPrimitiveType PassArgBy where
-  toPrimitiveType ctx = \case
-      PassByValue arg -> Translation.inContext ctx arg
-      PassByAddress ty -> Translation.inContext ctx $ C.TypePointers 1 ty
-
-instance ToPrimitiveType PassResBy where
-  toPrimitiveType ctx = \case
-      PassByValue res -> Translation.inContext ctx res
-      PassByAddress ty -> Translation.inContext ctx $ C.TypePointers 1 ty
-
-class ToOrigType a where
-  -- | Recover type used in "restoreOrigSignature"
-  toOrigType :: Translation.TypeContext -> a -> Hs.Type
-
-instance ToOrigType PassArgBy where
-  toOrigType ctx = \case
-      PassByValue arg -> Translation.inContext ctx arg
-      PassByAddress ty -> Translation.inContext ctx ty
-
-instance ToOrigType PassResBy where
-  toOrigType ctx = \case
-      PassByValue res -> Translation.inContext ctx res
-      PassByAddress ty -> Translation.inContext ctx ty
-
--- | Check whether a type needs to be restored
---
--- If a type is passed by address through the Haskell FFI when the C function
--- takes it by value, then we restore the original type in the Haskell binding
--- by peeking/poking the value from/to the address. This requires performing
--- 'IO'.
---
-requiresRestore :: PassBy byValue byAddress -> Bool
-requiresRestore = \case
-    PassByValue{}   -> False
-    PassByAddress{} -> True
-
-{-------------------------------------------------------------------------------
-  Userland-API C wrapper
--------------------------------------------------------------------------------}
-
--- | Userland-API C wrapper
-getCWrapperDecl ::
-     String      -- ^ original C name
-  -> String      -- ^ C wrapper name
-  -> PassResBy   -- ^ C result type
-  -> [PassArgBy] -- ^ C types of function parameters
-  -> PC.FunDefn
-getCWrapperDecl origName wrapperName res args
-    | C.isVoid (toWrapperType res)
-    = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (toWrapperType <$> args') $
-        PC.CSList $
-          PC.CSStatement
-            (PC.ExpressionStatement $ PC.Call origName (callArgs args' (PC.argsToIdx args')))
-            PC.CSNil
-
-    | isPassByAddress res
-    = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (fmap toWrapperType args' :> toWrapperType res) $
-        PC.CSList $
-          PC.CSStatement
-            (PC.ExpressionStatement $ PC.Assign (PC.LDeRef (PC.LVar IZ)) $ PC.Call origName (callArgs args' (IS <$> PC.argsToIdx args')))
-            PC.CSNil
-
-    | otherwise
-    = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName (toWrapperType res) C.ImpureFunction (toWrapperType <$> args') $
-        PC.CSList $
-          PC.CSStatement
-            (PC.ExpressionStatement $ PC.Return $ PC.Call origName (callArgs args' (PC.argsToIdx args')))
-            PC.CSNil
+getRestoreFunBody ::
+     C.Function Final
+  -> Hs.TermName
+  -> SHs.ClosedExpr
+getRestoreFunBody originalC wrapperImportName =
+    if byAddress originalC.res || any byAddress originalC.args
+    then bodyExpr
+    else simpleBodyExpr
   where
-    callArgs :: Env ctx' PassArgBy -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
-    callArgs tys ids = toList (zipWithEnv f tys ids)
-      where f ty idx = if isPassByAddress ty then PC.DeRef (PC.Var idx) else PC.Var idx
-
-{-------------------------------------------------------------------------------
-  RestoreOrigSignature
--------------------------------------------------------------------------------}
-
--- | Generate a function declaration restoring the signature of the original C
--- function.
-getRestoreOrigSignatureDecl ::
-     Hs.TermName                    -- ^ name of new function
-  -> Hs.TermName                    -- ^ name of foreign import
-  -> PassResBy                      -- ^ C result type
-  -> [PassArgBy]                    -- ^ C types of function parameters
-  -> Hs.Type                        -- ^ Haskell result type
-  -> [Hs.FunctionParameter Hs.Type] -- ^ Haskell function parameters
-  -> C.Function Final               -- ^ original C function
-  -> Maybe HsDoc.Comment            -- ^ function comment
-  -> Hs.Decl l
-getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParams cFunc mbComment =
-    Hs.DeclFunction $ Hs.FunctionDecl{
-        name       = hiName
-      , parameters = hsParams
-        -- NOTE: the result type only includes 'IO' if 'functionShouldRunInIO'
-        -- said to include it.
-      , result     = hsResult
-      , body       =
-          if requiresRestore primResult || any requiresRestore primParams
-          then bodyExpr
-          else noRecoveryBodyExpr
-      , origin     = Origin.Function cFunc
-      , pragmas    = []
-      , comment    = mbComment
-      }
-  where
-    -- | The body of the function if no function arguments or results require
-    -- restoration (see 'requiresRestore').
+    -- | The body of the function if no function arguments or results have to be
+    -- passed by address.
     --
     -- For example, simply:
     --
     -- > foo
     --
-    noRecoveryBodyExpr :: SHs.ClosedExpr
-    noRecoveryBodyExpr = SHs.EFree loName
+    simpleBodyExpr :: SHs.ClosedExpr
+    simpleBodyExpr = SHs.EFree wrapperImportName
 
     -- | The body of the function if one or more function arguments or results
-    -- require restoration (see 'requiresRestore').
+    -- have to be passed by address.
     --
     -- For example:
     --
@@ -525,25 +456,13 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
     bodyExpr :: SHs.ClosedExpr
     bodyExpr =
       -- construct lambdas for all function arguments
-      lambdas EmptyEnv (zipWith3 mkFunArg cParamNames primParams hsParams) $ \env ->
+      lambdas EmptyEnv originalC.args $ \env ->
         -- pass function arguments by address if necessary
         passArgsByAddressIfNecessary env $ \args ->
           -- pass the function result by address if necessary
           passResultByAddressIfNecessary args $ \args' ->
             -- call the foreign import
             callForeignImport args'
-      where
-        cParamNames :: [Maybe Text]
-        cParamNames = [ fmap (.cName.text) arg.name
-                      | arg <- cFunc.args
-                      ]
-
-        mkFunArg :: Maybe Text -> PassArgBy -> Hs.FunctionParameter Hs.Type -> FunArg
-        mkFunArg mbCName passBy param = FunArg{
-            typ        = passBy
-          , cParamName = mbCName
-          , funParam   = param
-          }
 
     -- | Construct a string of lambdas
     --
@@ -554,11 +473,11 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
     lambdas ::
          forall ctx.
          -- | Context of in-scope variables
-         Env ctx VarInfo
+         Env ctx (C.FunctionArg Final)
          -- | Function arguments to create lambdas for
-      -> [FunArg]
+      -> [C.FunctionArg Final]
          -- | Construct the body of the string of lambdas
-      -> (forall ctx'. Env ctx' VarInfo -> SHs.SExpr ctx')
+      -> (forall ctx'. Env ctx' (C.FunctionArg Final) -> SHs.SExpr ctx')
       -> SHs.SExpr ctx
     lambdas env0 xs0 kont = go env0 xs0
       where
@@ -566,13 +485,11 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
         -- for each.
         go ::
              forall ctx'.
-             Env ctx'  VarInfo
-          -> [FunArg]
+             Env ctx' (C.FunctionArg Final)
+          -> [C.FunctionArg Final]
           -> SHs.SExpr ctx'
         go env []     = kont env
-        go env (x:xs) =
-            let varInfo = funArgToVarInfo x
-            in  SHs.ELam varInfo.nameHint $ go (env :> varInfo) xs
+        go env (x:xs) = SHs.ELam (mkNameHint x) $ go (env :> x) xs
 
     -- | Construct expressions to pass function arguments by address, if
     -- necessary
@@ -589,7 +506,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
     --
     passArgsByAddressIfNecessary ::
          -- | Context of in-scope variables
-         Env ctx VarInfo
+         Env ctx (C.FunctionArg Final)
          -- | Construct the body of the string of 'Foreign.Marshal.Utils.with's
       -> (forall ctx'. [(Var ctx')] -> SHs.SExpr ctx')
       -> SHs.SExpr ctx
@@ -603,20 +520,21 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
         --  | Run down the context of in-scope variables, and include a 'Foreign.Marshal.Utils.with' if
         -- if the variable is a 'PassByAddress'.
         go ::
-             Env ctx' VarInfo
+             Env ctx' (C.FunctionArg Final)
           -> Env ctx' (Idx ctx)
           -> [(Var ctx)]
           -> SHs.SExpr ctx
         go EmptyEnv EmptyEnv zs = kont (reverse zs) -- reverse again!
-        go (xs :> x) (ys :> y) zs = case x.typ of
-            PassByAddress ty -> SHs.eAppMany (SHs.eBindgenGlobal Capi_with) $
-              let wrapPtrConst = C.isErasedTypeConstQualified ty in
+        go (xs :> x) (ys :> y) zs
+          | x.ann.byAddress
+          = SHs.eAppMany (SHs.eBindgenGlobal Capi_with) $
+              let wrapPtrConst = C.isErasedTypeConstQualified x.typ.c.typ in
               [ SHs.EBound y
-              , SHs.ELam x.nameHint $
+              , SHs.ELam (mkNameHint x) $
                   go xs (IS <$> ys) (Var IZ wrapPtrConst : fmap succVar zs)
               ]
-
-            PassByValue{} -> go xs ys (Var y False : zs)
+          | otherwise
+          = go xs ys (Var y False : zs)
 
     -- | Construct an expression to pass the function result by address, if
     -- necessary
@@ -635,7 +553,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
       -> (forall ctx'. [Var ctx'] -> SHs.SExpr ctx')
       -> SHs.SExpr ctx
     passResultByAddressIfNecessary zs kont
-      | requiresRestore primResult
+      | byAddress originalC.res
       = let zs' = fmap succVar zs ++ [Var IZ False] in
         SHs.EApp
           (SHs.eBindgenGlobal Capi_allocaAndPeek)
@@ -653,34 +571,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
          -- | Context of in-scope variables to be passed to the foreign import
          [Var ctx]
       -> SHs.SExpr ctx
-    callForeignImport args = SHs.eAppMany (SHs.EFree loName) (map exprVar args)
-
-{-------------------------------------------------------------------------------
-  Function arguments
--------------------------------------------------------------------------------}
-
--- | Information about a function argument
-data FunArg = FunArg {
-    typ        :: PassArgBy
-  , cParamName :: Maybe Text
-  , funParam   :: Hs.FunctionParameter Hs.Type
-  }
-
-funArgToVarInfo :: FunArg -> VarInfo
-funArgToVarInfo arg = VarInfo {
-      typ = arg.typ
-    , nameHint = toHint $ case arg.cParamName of
-        Nothing -> fallback
-        Just x  -> mangleCandidateDefaultFallback fallback x
-    }
-  where
-    fallback :: Hs.Name Hs.NsVar
-    fallback = Hs.UnsafeName $ case arg.typ of
-      PassByValue{}   -> "x"
-      PassByAddress{} -> "ptr"
-
-    toHint :: Hs.Name Hs.NsVar -> NameHint
-    toHint n = NameHint $ T.unpack n.text
+    callForeignImport args = SHs.eAppMany (SHs.EFree wrapperImportName) (map exprVar args)
 
 {-------------------------------------------------------------------------------
   Variables
@@ -719,33 +610,18 @@ exprVar var
   = SHs.EBound var.name
 
 {-------------------------------------------------------------------------------
-  Variable info
+  Name hints
 -------------------------------------------------------------------------------}
 
--- | Information for variables corresponding to function arguments
-data VarInfo = VarInfo {
-    typ      :: PassArgBy
-  , nameHint :: NameHint
-  }
-
-{-------------------------------------------------------------------------------
-  Environment
--------------------------------------------------------------------------------}
-
--- | Reverse an 'Env'
-reverseEnv :: forall ctx a. Env ctx a -> Env ctx a
-reverseEnv = \env -> go (lzeroAdd (sizeEnv env)) EmptyEnv env
+mkNameHint :: C.FunctionArg Final -> NameHint
+mkNameHint arg =
+    toHint $ case fmap (.cName.text) arg.name of
+      Nothing -> fallback
+      Just x  -> mangleCandidateDefaultFallback fallback x
   where
-    go ::
-         forall ctx1 ctx2 ctx3.
-         -- | Proof that the output environment 's size is the same as the the
-         -- sum of the two input environment's sizes
-         Add ctx1 ctx2 ctx3
-         -- | Accumulator
-      -> Env ctx1 a
-         -- | Input to reverse
-      -> Env ctx2 a
-      -> Env ctx3 a
-    go proof acc EmptyEnv = case unrzeroAdd proof of
-        Refl -> acc
-    go proof acc (xs :> x) = go (swapAdd proof) (acc :> x) xs
+    fallback :: Hs.Name Hs.NsVar
+    fallback = Hs.UnsafeName $ if byAddress arg then "ptr" else "x"
+
+    toHint :: Hs.Name Hs.NsVar -> NameHint
+    toHint n = NameHint $ T.unpack n.text
+
