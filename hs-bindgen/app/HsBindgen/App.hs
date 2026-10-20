@@ -23,6 +23,7 @@ module HsBindgen.App (
   , parseHsOutputDir
   , parseDirPolicy
   , parseFilePolicy
+  , parseExecutionMode
   , parseGenBindingSpec
   , parseGenTestsOutput
     -- ** Input arguments
@@ -61,6 +62,7 @@ hsBindgen ::
      TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
+  -> ExecutionMode
   -> [C.UncheckedRootDirective]
   -> Artefact CExpr a
   -> IO a
@@ -527,6 +529,12 @@ parseFilePolicy :: Parser FilePolicy
 parseFilePolicy = flag DoNotOverwriteFiles AllowFileOverwrite $ mconcat [
       long "overwrite-files"
     , help "Allow overwriting existing output files"
+    ]
+
+parseExecutionMode :: Parser ExecutionMode
+parseExecutionMode = flag RealRun DryRun $ mconcat [
+      long "dry-run"
+    , help "Check the output files and report them, but write nothing"
     ]
 
 parseGenBindingSpec :: Parser FilePath

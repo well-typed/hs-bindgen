@@ -182,6 +182,7 @@ withHsBindgenMacroLang mkMacroLang config configTH hashIncludes = do
           tracerConfigUnsafe
           tracerConfigSafe
           bindgenConfig
+          RealRun
           uncheckedRootDirectives
           artefact
 
