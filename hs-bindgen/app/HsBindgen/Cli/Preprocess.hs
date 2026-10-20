@@ -14,6 +14,7 @@ module HsBindgen.Cli.Preprocess (
   , exec
   ) where
 
+import Data.List qualified as List
 import GHC.Exception (Exception (..))
 import Options.Applicative hiding (info)
 
@@ -63,6 +64,7 @@ data ConfigCLI = ConfigCLI {
     , dirPolicy         :: DirPolicy
     , filePolicy        :: FilePolicy
     , hsBootPolicy      :: HsBootPolicy
+    , executionMode     :: ExecutionMode
     -- NOTE: Inputs (arguments) must be last, options must go before it.
     , inputs            :: [C.UncheckedRootDirective]
     }
@@ -80,6 +82,7 @@ parseConfigCLI =
       <*> parseDirPolicy
       <*> parseFilePolicy
       <*> parseHsBootPolicy
+      <*> parseExecutionMode
       <*> parseInputs
 
 {-------------------------------------------------------------------------------
@@ -93,14 +96,22 @@ exec global opts = do
         throwIO HsBootWithSingleFile
       _otherwise ->
         pure ()
-    hsBindgen
-      global.unsafe
-      global.safe
-      bindgenConfig
-      RealRun
-      opts.configCLI.inputs
-      artefact
+    case opts.configCLI.executionMode of
+      RealRun ->
+        run RealRun artefact
+      DryRun -> do
+        mModuleHeaders <- run DryRun $ artefact *> getModuleHeaders
+        forM_ mModuleHeaders $ putStrLn . renderModuleLine
   where
+    run :: ExecutionMode -> Artefact CExpr a -> IO a
+    run mode =
+      hsBindgen
+        global.unsafe
+        global.safe
+        bindgenConfig
+        mode
+        opts.configCLI.inputs
+
     bindgenConfig :: BindgenConfig
     bindgenConfig =
         toBindgenConfig
@@ -150,3 +161,19 @@ instance Exception PreprocessException where
     fromException = hsBindgenExceptionFromException
     displayException HsBootWithSingleFile =
       "--generate-hs-boot is not available with --single-file"
+
+{-------------------------------------------------------------------------------
+  Dry run
+-------------------------------------------------------------------------------}
+
+-- | The line a dry run prints for a module, such as @M: a.h, b.h@
+--
+-- A module with no headers prints as @M:@.
+renderModuleLine :: ModuleHeaders -> String
+renderModuleLine m =
+    baseModuleNameToString m.moduleName ++ ":" ++ headers
+  where
+    headers :: String
+    headers = case m.headers of
+      [] -> ""
+      hs -> ' ' : List.intercalate ", " (map (.path) hs)

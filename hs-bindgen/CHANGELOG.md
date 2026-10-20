@@ -34,6 +34,12 @@
   get the boot file only. The flag is not available with `--single-file`. See
   the [invocation][manual-invocation] manual page.
 
+* `hs-bindgen-cli preprocess --dry-run` checks the output files as a real run
+  does, then writes nothing. It reports each file it would write, and prints
+  the base module name followed by the headers that contain a declaration with
+  a binding, for example `M: b.h, a.h`. See the invocation section of the
+  manual.
+
 [is-368]: https://github.com/well-typed/hs-bindgen/issues/368
 [manual-macros]: https://github.com/well-typed/hs-bindgen/blob/main/manual/low-level/translation/macros.md#macro-fallback
 
