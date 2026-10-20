@@ -97,6 +97,7 @@ exec global opts = do
       global.unsafe
       global.safe
       bindgenConfig
+      RealRun
       opts.configCLI.inputs
       artefact
   where

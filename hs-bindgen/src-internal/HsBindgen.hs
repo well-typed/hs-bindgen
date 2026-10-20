@@ -1,5 +1,6 @@
 module HsBindgen (
     hsBindgenMacroLang
+  , ExecutionMode(..)
 
     -- * Artefacts
   , Artefact(..)
@@ -96,11 +97,12 @@ hsBindgenMacroLang ::
   -> TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
+  -> ExecutionMode
   -> [C.UncheckedRootDirective]
   -> Artefact l a
   -> IO a
-hsBindgenMacroLang mkMacroLang tu ts b i a = do
-    eRes <- hsBindgenEMacroLang mkMacroLang tu ts b i a `catch` \e ->
+hsBindgenMacroLang mkMacroLang tu ts b m i a = do
+    eRes <- hsBindgenEMacroLang mkMacroLang tu ts b m i a `catch` \e ->
       case fromException e of
         Just (LibclangException msg) -> do
           print $ PP.string msg
@@ -123,6 +125,7 @@ hsBindgenEMacroLang ::
   -> TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
+  -> ExecutionMode
   -> [C.UncheckedRootDirective]
   -> Artefact l a
   -> IO (Either BindgenError a)
@@ -131,6 +134,7 @@ hsBindgenEMacroLang
   tracerConfigUnsafe
   tracerConfigSafe
   config
+  executionMode
   uncheckedRootDirectives
   artefacts = do
     eRes <- withTracer tracerConfigUnsafe $ \tracerUnsafe -> do
@@ -171,7 +175,7 @@ hsBindgenEMacroLang
           -- Before creating directories or writing output files, we verify
           -- adherence to the provided policies.
           withExceptT BindgenDelayedIOError $ mapM_ checkPolicy as
-          liftIO $ executeDelayedIOActions tracerSafe as
+          liftIO $ executeDelayedIOActions tracerSafe executionMode as
           pure r
 
 {-------------------------------------------------------------------------------

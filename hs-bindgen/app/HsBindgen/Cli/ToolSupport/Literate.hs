@@ -137,6 +137,7 @@ exec opts = do
       lit.globalOpts.unsafe
       lit.globalOpts.safe
       bindgenConfig
+      RealRun
       lit.inputs
       artefact
   where
