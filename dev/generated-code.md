@@ -14,6 +14,11 @@ the ones they import. They import every module qualified, with two exceptions:
    set in its namespace, so no generated name clashes with it.
 2. **Sibling modules**: when output is split across several modules, one
    generated module may import another unqualified (e.g. `import Example`).
+   With `--generate-hs-boot`, a types module whose header has callbacks gets an
+   HsBootInternal module, which imports it normally. The types module imports
+   the HsBootInternal module through the boot file of the HsBootInternal module
+   (`import {-# SOURCE #-} Example.HsBootInternal`), and that boot file imports
+   the types module the same way.
 
 All other imports are qualified:
 

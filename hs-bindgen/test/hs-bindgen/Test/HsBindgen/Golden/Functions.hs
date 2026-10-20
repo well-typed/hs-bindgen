@@ -168,6 +168,7 @@ test_simple_func_rename =
       & #cStandard .~ c99
       & #onBackend .~ ( #categoryChoice .~ ByCategory {
             cType = IncludeTypeCategory
+          , cHsBootInternal = IncludeTermCategory def
           , cSafe = ExcludeCategory
           , cUnsafe = ExcludeCategory
           , cFunPtr = IncludeTermCategory $ RenameTerm $ \t -> t <> "_random_user_specified_suffix"

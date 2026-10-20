@@ -73,6 +73,7 @@ cabal run --project-file="${PROJECT_ROOT}/cabal.project" hs-bindgen-cli -- \
     --create-output-dirs \
     --overwrite-files \
     --module Generated.Callbacks.Arrays.KnownSize \
+    --generate-hs-boot \
     --omit-field-prefixes \
     callbacks/arrays/known_size.h
 
@@ -84,6 +85,7 @@ cabal run --project-file="${PROJECT_ROOT}/cabal.project" hs-bindgen-cli -- \
     --create-output-dirs \
     --overwrite-files \
     --module Generated.Callbacks.Arrays.UnknownSize \
+    --generate-hs-boot \
     --omit-field-prefixes \
     callbacks/arrays/unknown_size.h
 
@@ -95,6 +97,7 @@ cabal run --project-file="${PROJECT_ROOT}/cabal.project" hs-bindgen-cli -- \
     --create-output-dirs \
     --overwrite-files \
     --module Generated.Callbacks.Basic \
+    --generate-hs-boot \
     --omit-field-prefixes \
     callbacks/basic.h
 

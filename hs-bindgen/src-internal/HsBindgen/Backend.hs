@@ -50,6 +50,7 @@ runBackend tracer config boot frontend = do
         macroLang
         config.backend.uniqueId
         boot.baseModule
+        config.backend.hsBootPolicy
         declIndex
         cDecls
 

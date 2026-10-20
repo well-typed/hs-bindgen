@@ -27,8 +27,21 @@ import HsBindgen.Backend.Level
 import HsBindgen.Imports hiding (toList)
 
 data TermCategory =
+    -- | The code that converts arguments and results with @toFFIType@ and
+    -- @fromFFIType@ or any code that makes use of type family instances in the
+    -- types module.
+    --
+    -- These conversions need @FFIType@ type family instances to reduce at the
+    -- argument and result types, which may come from other modules. Types
+    -- modules that use each other import each other through boot files, and a
+    -- boot file can not have any type family instances, so the conversions go
+    -- in a module of their own that imports the types modules normally.
+    --
+    -- This happens only with @--generate-hs-boot@. Without it, there are no
+    -- boot files, the conversions stay in 'CType', and this category is empty.
+    CHsBootInternal
     -- | Foreign import bindings with a @safe@ foreign import modifier.
-    CSafe
+  | CSafe
     -- | Foreign import bindings with an @unsafe@ foreign import modifier.
   | CUnsafe
     -- | Pointers to functions; generally @unsafe@.
@@ -54,21 +67,23 @@ mapWithCategory ::
   -> ByCategory f
   -> ByCategory g
 mapWithCategory f g x = ByCategory {
-      cType   = f         x.cType
-    , cSafe   = g CSafe   x.cSafe
-    , cUnsafe = g CUnsafe x.cUnsafe
-    , cFunPtr = g CFunPtr x.cFunPtr
-    , cGlobal = g CGlobal x.cGlobal
+      cType           = f                 x.cType
+    , cHsBootInternal = g CHsBootInternal x.cHsBootInternal
+    , cSafe           = g CSafe           x.cSafe
+    , cUnsafe         = g CUnsafe         x.cUnsafe
+    , cFunPtr         = g CFunPtr         x.cFunPtr
+    , cGlobal         = g CGlobal         x.cGlobal
     }
 
 -- | A strict, total map from 'Category' to @a@.
 type ByCategory :: (Level -> Star) -> Star
 data ByCategory f = ByCategory {
-      cType   :: !(f LvlType)
-    , cSafe   :: !(f LvlTerm)
-    , cUnsafe :: !(f LvlTerm)
-    , cFunPtr :: !(f LvlTerm)
-    , cGlobal :: !(f LvlTerm)
+      cType           :: !(f LvlType)
+    , cHsBootInternal :: !(f LvlTerm)
+    , cSafe           :: !(f LvlTerm)
+    , cUnsafe         :: !(f LvlTerm)
+    , cFunPtr         :: !(f LvlTerm)
+    , cGlobal         :: !(f LvlTerm)
   }
   deriving stock (Generic)
 
@@ -91,8 +106,9 @@ mapWithCategory_ f (ByCategory_ x) =
   ByCategory_ $ mapWithCategory (applyConst (f CType)) (applyConst . f . CTerm) x
 
 toList :: ByCategory_ a -> [a]
-toList (ByCategory_ (ByCategory t s u f g)) = [
+toList (ByCategory_ (ByCategory t h s u f g)) = [
       getConst t
+    , getConst h
     , getConst s
     , getConst u
     , getConst f
@@ -105,15 +121,16 @@ instance Foldable ByCategory_ where
 instance Semigroup a => Semigroup (ByCategory_ a) where
   (ByCategory_ l) <> (ByCategory_ r) =
     ByCategory_ $ ByCategory {
-        cType   = l.cType   <> r.cType
-      , cSafe   = l.cSafe   <> r.cSafe
-      , cUnsafe = l.cUnsafe <> r.cUnsafe
-      , cFunPtr = l.cFunPtr <> r.cFunPtr
-      , cGlobal = l.cGlobal <> r.cGlobal
+        cType           = l.cType           <> r.cType
+      , cHsBootInternal = l.cHsBootInternal <> r.cHsBootInternal
+      , cSafe           = l.cSafe           <> r.cSafe
+      , cUnsafe         = l.cUnsafe         <> r.cUnsafe
+      , cFunPtr         = l.cFunPtr         <> r.cFunPtr
+      , cGlobal         = l.cGlobal         <> r.cGlobal
       }
 
 instance Monoid a => Monoid (ByCategory_ a) where
-  mempty = ByCategory_ $ ByCategory mempty mempty mempty mempty mempty
+  mempty = ByCategory_ $ ByCategory mempty mempty mempty mempty mempty mempty
 
 isoByCategory :: Iso' (ByCategory_ a) (ByCategory (Const a))
 isoByCategory = iso getByCategory_ ByCategory_
@@ -128,10 +145,11 @@ lensForCategory = \case
 
 lensForTermCategory :: TermCategory -> Lens' (ByCategory f) (f LvlTerm)
 lensForTermCategory = \case
-  CSafe   -> #cSafe
-  CUnsafe -> #cUnsafe
-  CFunPtr -> #cFunPtr
-  CGlobal -> #cGlobal
+  CHsBootInternal -> #cHsBootInternal
+  CSafe           -> #cSafe
+  CUnsafe         -> #cUnsafe
+  CFunPtr         -> #cFunPtr
+  CGlobal         -> #cGlobal
 
 newtype RenameTerm = RenameTerm (Text -> Text)
 
@@ -175,34 +193,40 @@ instance Default (Choice LvlType) where
 instance Default (Choice LvlTerm) where
   def = IncludeTermCategory def
 
--- | Use 'CType', 'CSafe', and 'CGlobal'; do not rename declarations.
+-- | Use 'CType', 'CHsBootInternal', 'CSafe', and 'CGlobal'; do not rename
+-- declarations.
 useSafeCategory :: ByCategory Choice
 useSafeCategory = ByCategory {
-      cType   = IncludeTypeCategory
-    , cSafe   = IncludeTermCategory def
-    , cUnsafe = ExcludeCategory
-    , cFunPtr = ExcludeCategory
-    , cGlobal = IncludeTermCategory def
+      cType           = IncludeTypeCategory
+    , cHsBootInternal = IncludeTermCategory def
+    , cSafe           = IncludeTermCategory def
+    , cUnsafe         = ExcludeCategory
+    , cFunPtr         = ExcludeCategory
+    , cGlobal         = IncludeTermCategory def
     }
 
--- | Use 'CType', 'CUnsafe', and 'CGlobal'; do not rename declarations.
+-- | Use 'CType', 'CHsBootInternal', 'CUnsafe', and 'CGlobal'; do not rename
+-- declarations.
 useUnsafeCategory :: ByCategory Choice
 useUnsafeCategory = ByCategory {
-      cType   = IncludeTypeCategory
-    , cSafe   = ExcludeCategory
-    , cUnsafe = IncludeTermCategory def
-    , cFunPtr = ExcludeCategory
-    , cGlobal = IncludeTermCategory def
+      cType           = IncludeTypeCategory
+    , cHsBootInternal = IncludeTermCategory def
+    , cSafe           = ExcludeCategory
+    , cUnsafe         = IncludeTermCategory def
+    , cFunPtr         = ExcludeCategory
+    , cGlobal         = IncludeTermCategory def
     }
 
--- | Use 'CType', 'CFunPtr', and 'CGlobal'; do not rename declarations.
+-- | Use 'CType', 'CHsBootInternal', 'CFunPtr', and 'CGlobal'; do not rename
+-- declarations.
 useFunPtrCategory :: ByCategory Choice
 useFunPtrCategory = ByCategory {
-      cType   = IncludeTypeCategory
-    , cSafe   = ExcludeCategory
-    , cUnsafe = ExcludeCategory
-    , cFunPtr = IncludeTermCategory def
-    , cGlobal = IncludeTermCategory def
+      cType           = IncludeTypeCategory
+    , cHsBootInternal = IncludeTermCategory def
+    , cSafe           = ExcludeCategory
+    , cUnsafe         = ExcludeCategory
+    , cFunPtr         = IncludeTermCategory def
+    , cGlobal         = IncludeTermCategory def
     }
 
 applyConst :: (a -> b) -> Const a c -> Const b c
