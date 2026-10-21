@@ -31,6 +31,7 @@ module HsBindgen.IR.C.Decl (
   , UntaggedEnumConstant(..)
   , Function(..)
   , FunctionArg(..)
+  , FunctionRes(..)
   , typeOfFunction
   , typeOfFunctionArg
   , FunctionAttributes(..)
@@ -63,7 +64,6 @@ import HsBindgen.IR.C.HashIncludeArg qualified as C
 import HsBindgen.IR.C.Naming qualified as C
 import HsBindgen.IR.C.Type qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.IR.Pass.Types (CoercePassAnonRef (coercePassAnonRef))
 import HsBindgen.Language.C (PrimType)
 import HsBindgen.Macro.Type qualified as Macro
 
@@ -303,7 +303,7 @@ data UntaggedEnumConstant (p :: Pass) = UntaggedEnumConstant {
 
 data Function (p :: Pass) = Function {
       args  :: [FunctionArg p]
-    , res   :: Types p
+    , res   :: FunctionRes p
     , attrs :: FunctionAttributes
     , ann   :: Ann "Function" p
     }
@@ -312,33 +312,33 @@ data Function (p :: Pass) = Function {
 -- | Function argument
 --
 -- Separate types are used to represent function arguments in declarations and
--- function arguments in types ('HsBindgen.IR.C.Type.TypeFunArg').
---
--- * An argument in a declaration may have a name, while type arguments do not
---   have names.
--- * We translate declaration arguments to Haskell, while recursively
---   translating type arguments is not necessary.
---
--- Both of these types use the @TypeFunArg@ annotation, however.
+-- function arguments in types ('TypeFunArg').
 data FunctionArg (p :: Pass) = FunctionArg {
       name :: Maybe (ScopedName p)
-    , typ  :: Types p
-    , ann  :: Ann "TypeFunArg" p
+    , typ  :: TypeFunArg p
+    , ann  :: Ann "FunctionArg" p
     }
-    deriving stock (Generic)
+  deriving stock (Generic)
+
+-- | Function result
+data FunctionRes (p :: Pass) = FunctionRes {
+      typ  :: Types p
+    , ann  :: Ann "FunctionRes" p
+    }
+  deriving stock (Generic)
 
 -- | Get the type of a function declaration
 typeOfFunction :: forall p. PassTypes p => Function p -> C.Type p
 typeOfFunction fun =
-    C.TypeFun (map typeOfFunctionArg fun.args) (cType (Proxy @p) fun.res)
+    C.TypeFun (map typeOfFunctionArg fun.args) (typeOfFunctionRes fun.res)
 
 -- | Get the type of a function argument
 typeOfFunctionArg :: forall p. PassTypes p => FunctionArg p -> C.TypeFunArg p
-typeOfFunctionArg functionArg =
-    C.TypeFunArgF{
-        typ = cType (Proxy @p) functionArg.typ
-      , ann = functionArg.ann
-      }
+typeOfFunctionArg functionArg = cTypeFunArg (Proxy @p) functionArg.typ
+
+-- | Get the type of a function result
+typeOfFunctionRes :: forall p. PassTypes p => FunctionRes p -> C.Type p
+typeOfFunctionRes res = cType (Proxy @p) res.typ
 
 -- | Function attributes specify properties for C functions
 --
@@ -574,6 +574,7 @@ deriving stock instance IsPass p => Eq (FieldInfo            p)
 deriving stock instance IsPass p => Eq (Flam                 p)
 deriving stock instance IsPass p => Eq (Function             p)
 deriving stock instance IsPass p => Eq (FunctionArg          p)
+deriving stock instance IsPass p => Eq (FunctionRes          p)
 deriving stock instance IsPass p => Eq (Global               p)
 deriving stock instance IsPass p => Eq (ImplicitField        p)
 deriving stock instance IsPass p => Eq (IndirectField        p)
@@ -593,6 +594,7 @@ deriving stock instance IsPass p => Show (FieldInfo            p)
 deriving stock instance IsPass p => Show (Flam                 p)
 deriving stock instance IsPass p => Show (Function             p)
 deriving stock instance IsPass p => Show (FunctionArg          p)
+deriving stock instance IsPass p => Show (FunctionRes          p)
 deriving stock instance IsPass p => Show (Global               p)
 deriving stock instance IsPass p => Show (ImplicitField        p)
 deriving stock instance IsPass p => Show (IndirectField        p)
@@ -797,27 +799,37 @@ instance (
       }
 
 instance (
-      CoercePassTypes p p'
-    , CoercePassAnn "TypeFunArg" p p'
+      CoercePass FunctionArg p p'
+    , CoercePass FunctionRes p p'
     , ScopedName p ~ ScopedName p'
     , Ann "Function" p ~ Ann "Function" p'
     ) => CoercePass Function p p' where
   coercePass function = Function{
         args  = map coercePass function.args
-      , res   = coercePassTypes (Proxy @'(p, p')) function.res
+      , res   = coercePass function.res
       , attrs = function.attrs
       , ann   = function.ann
       }
 
 instance (
-      CoercePassTypes p p'
-    , CoercePassAnn "TypeFunArg" p p'
+      CoercePassTypeFunArg p p'
+    , CoercePassAnn "FunctionArg" p p'
     , ScopedName p ~ ScopedName p'
     ) => CoercePass FunctionArg p p' where
   coercePass functionArg = FunctionArg{
         name = functionArg.name
-      , typ  = coercePassTypes (Proxy @'(p, p')) functionArg.typ
-      , ann  = coercePassAnn (Proxy @'("TypeFunArg", p, p')) functionArg.ann
+      , typ  = coercePassTypeFunArg (Proxy @'(p, p')) functionArg.typ
+      , ann  = coercePassAnn (Proxy @'("FunctionArg", p, p')) functionArg.ann
+      }
+
+instance (
+      CoercePassTypes p p'
+    , CoercePassAnn "FunctionRes" p p'
+    , ScopedName p ~ ScopedName p'
+    ) => CoercePass FunctionRes p p' where
+  coercePass functionArg = FunctionRes{
+        typ = coercePassTypes (Proxy @'(p, p')) functionArg.typ
+      , ann = coercePassAnn (Proxy @'("FunctionRes", p, p')) functionArg.ann
       }
 
 instance (

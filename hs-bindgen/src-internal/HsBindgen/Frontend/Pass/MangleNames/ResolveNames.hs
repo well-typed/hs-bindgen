@@ -327,7 +327,7 @@ instance Resolve C.Typedef where
 instance Resolve C.Function where
   resolve info function = do
     args <- mapM resolveArg function.args
-    res' <- (resolve info) function.res
+    res' <- resolveRes function.res
     pure C.Function{
         args  = args
       , res   = res'
@@ -345,6 +345,16 @@ instance Resolve C.Function where
             name = name'
           , typ  = typ'
           , ann  = arg.ann
+          }
+
+      resolveRes ::
+           C.FunctionRes CreateNames
+        -> ResolveE (C.FunctionRes MangleNames)
+      resolveRes res = do
+        typ' <- resolve info res.typ
+        pure C.FunctionRes{
+            typ = typ'
+          , ann = res.ann
           }
 
 instance Resolve C.Global where

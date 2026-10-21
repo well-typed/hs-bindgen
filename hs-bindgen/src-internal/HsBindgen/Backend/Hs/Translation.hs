@@ -145,7 +145,7 @@ scanAllFunctionTypes = foldMap $ \decl ->
       C.DeclOpaque{} -> Set.empty
       C.DeclMacro{} -> Set.empty
       C.DeclFunction fn ->
-        foldMap C.getAllFunTypes (fn.res.c : map (.typ.c) fn.args)
+        foldMap C.getAllFunTypes (fn.res.typ.c : map (.typ.c.typ) fn.args)
       C.DeclGlobal g -> C.getAllFunTypes g.typ.c
   where
     scanField :: C.Field Final -> Set ([C.TypeFunArg Final], C.Type Final)

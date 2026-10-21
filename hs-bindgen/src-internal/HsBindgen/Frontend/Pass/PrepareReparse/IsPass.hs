@@ -76,10 +76,13 @@ data FlatTokens = FlatTokens {
   CoercePass: TypecheckMacros → PrepareReparse
 -------------------------------------------------------------------------------}
 
-instance CoercePassId                  TypecheckMacros PrepareReparse
-instance CoercePassMacroId             TypecheckMacros PrepareReparse
-instance CoercePassTypes               TypecheckMacros PrepareReparse
-instance CoercePassAnn "TypeFunArg"    TypecheckMacros PrepareReparse
+instance CoercePassId                TypecheckMacros PrepareReparse
+instance CoercePassMacroId           TypecheckMacros PrepareReparse
+instance CoercePassTypes             TypecheckMacros PrepareReparse
+instance CoercePassTypeFunArg        TypecheckMacros PrepareReparse
+instance CoercePassAnn "FunctionArg" TypecheckMacros PrepareReparse
+instance CoercePassAnn "FunctionRes" TypecheckMacros PrepareReparse
+instance CoercePassAnn "TypeFunArg"  TypecheckMacros PrepareReparse
 
 instance CoercePassCommentDecl TypecheckMacros PrepareReparse where
   coercePassCommentDecl _ = fmap coercePass

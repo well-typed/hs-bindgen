@@ -11,7 +11,7 @@ module HsBindgen.Backend.Hs.Translation.Field (
 
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.IR.C qualified as C
-import HsBindgen.IR.Pass.Types (PassTypes (Types))
+import HsBindgen.IR.Pass (PassTypes (Types))
 
 flattenFields :: [C.Field Final] -> [Field]
 flattenFields = concatMap flattenField

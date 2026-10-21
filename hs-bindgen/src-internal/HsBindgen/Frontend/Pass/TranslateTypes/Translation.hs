@@ -58,7 +58,10 @@ instance IsPassCompat p => InContext (C.TypeFunArg p) where
   inContext ctx arg = funArg ctx arg.typ arg.ann
 
 instance IsPassCompat p => InContext (C.FunctionArg p) where
-  inContext ctx arg = funArg ctx (cType (Proxy @p) arg.typ) arg.ann
+  inContext ctx arg = inContext ctx (cTypeFunArg (Proxy @p) arg.typ)
+
+instance IsPassCompat p => InContext (C.FunctionRes p) where
+  inContext ctx res = typeInContext ctx (cType (Proxy @p) res.typ)
 
 {-------------------------------------------------------------------------------
   Helper functions

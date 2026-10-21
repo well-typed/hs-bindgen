@@ -7,7 +7,6 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.IR.Pass.Types (CoercePassAnonRef)
 import HsBindgen.Macro.Interface qualified as Macro
 
 {-------------------------------------------------------------------------------
@@ -55,10 +54,13 @@ instance PassMsg ConstructTranslationUnit
 instance CoercePassAnonRef            EnrichComments ConstructTranslationUnit
 instance CoercePassId                 EnrichComments ConstructTranslationUnit
 instance CoercePassTypes              EnrichComments ConstructTranslationUnit
+instance CoercePassTypeFunArg         EnrichComments ConstructTranslationUnit
 instance CoercePassMacroId            EnrichComments ConstructTranslationUnit
 instance CoercePassMacroUnderlying    EnrichComments ConstructTranslationUnit
 
 instance CoercePassAnn "Function"      EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "FunctionArg"   EnrichComments ConstructTranslationUnit
+instance CoercePassAnn "FunctionRes"   EnrichComments ConstructTranslationUnit
 instance CoercePassAnn "Global"        EnrichComments ConstructTranslationUnit
 instance CoercePassAnn "IndirectField" EnrichComments ConstructTranslationUnit
 instance CoercePassAnn "RegularField"  EnrichComments ConstructTranslationUnit

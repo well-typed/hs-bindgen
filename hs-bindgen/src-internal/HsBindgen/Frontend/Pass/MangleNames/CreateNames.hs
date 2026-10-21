@@ -119,9 +119,11 @@ instance PassMsg CreateNames where
   reindexing.
 -------------------------------------------------------------------------------}
 
-instance CoercePassId               ResolveBindingSpecs CreateNames
-instance CoercePassMacroId          ResolveBindingSpecs CreateNames
-instance CoercePassAnn "TypeFunArg" ResolveBindingSpecs CreateNames
+instance CoercePassId                ResolveBindingSpecs CreateNames
+instance CoercePassMacroId           ResolveBindingSpecs CreateNames
+instance CoercePassTypes             ResolveBindingSpecs CreateNames
+instance CoercePassAnn "FunctionRes" ResolveBindingSpecs CreateNames
+instance CoercePassAnn "TypeFunArg"  ResolveBindingSpecs CreateNames
 
 instance CoercePassMacroUnderlying ResolveBindingSpecs CreateNames where
   coercePassMacroUnderlying _ = coercePass
@@ -719,9 +721,10 @@ createFunction ::
      C.Function ResolveBindingSpecs -> CreateE (C.Function CreateNames)
 createFunction function = do
     args <- mapM createFunctionArg function.args
+    res <- createFunctionRes function.res
     pure C.Function{
         args  = args
-      , res   = coercePass function.res
+      , res   = res
       , attrs = function.attrs
       , ann   = function.ann
       }
@@ -735,6 +738,15 @@ createFunction function = do
           name = fmap (.cName) name'
         , typ  = coercePass arg.typ
         , ann  = arg.ann
+        }
+
+    createFunctionRes ::
+         C.FunctionRes ResolveBindingSpecs
+      -> CreateE (C.FunctionRes CreateNames)
+    createFunctionRes res = do
+      pure C.FunctionRes{
+          typ  = coercePass res.typ
+        , ann  = res.ann
         }
 
 createGlobal ::

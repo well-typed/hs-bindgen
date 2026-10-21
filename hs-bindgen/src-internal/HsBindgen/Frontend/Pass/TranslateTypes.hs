@@ -11,6 +11,8 @@ import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
+import HsBindgen.Frontend.Pass.TranslateTypes.PassBy (classifyArgPassingMethod,
+                                                      classifyResPassingMethod)
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
@@ -163,25 +165,32 @@ processMacro mac = pure $ case mac of
 processFunction :: C.Function AdjustTypes -> M DeclEnv (C.Function TranslateTypes)
 processFunction fun = do
     args' <- mapM processFunctionArg fun.args
+    res' <- processFunctionRes fun.res
     pure C.Function{
         args  = args'
-      , res   = processType Translation.FunRes fun.res
+      , res   = res'
       , attrs = fun.attrs
       , ann   = fun.ann
       }
 
-processFunctionArg :: C.FunctionArg AdjustTypes -> M DeclEnv (C.FunctionArg TranslateTypes)
-processFunctionArg arg =
+processFunctionArg ::
+     C.FunctionArg AdjustTypes
+  -> M DeclEnv (C.FunctionArg TranslateTypes)
+processFunctionArg arg = do
     pure C.FunctionArg{
         name = arg.name
-      , typ  = TranslatedTypes{
-            c  = coercePass arg.typ
-          , hs = Translation.inContext Translation.FunArg arg
+      , typ  = processTypeFunArg Translation.FunArg arg.typ
+      , ann  = classifyArgPassingMethod arg
+      }
+
+processFunctionRes :: C.FunctionRes AdjustTypes -> M DeclEnv (C.FunctionRes TranslateTypes)
+processFunctionRes res = do
+    pure C.FunctionRes{
+        typ = TranslatedTypes{
+            c  = coercePass res.typ
+          , hs = Translation.inContext Translation.FunRes res
           }
-      , ann  =
-          coercePassAnn
-            (Proxy @'("TypeFunArg", AdjustTypes, TranslateTypes))
-            arg.ann
+      , ann = classifyResPassingMethod res
       }
 
 processGlobal :: C.Global AdjustTypes -> M DeclEnv (C.Global TranslateTypes)
@@ -199,6 +208,15 @@ processType ::
   -> C.Type AdjustTypes
   -> TranslatedTypes TranslateTypes
 processType ctx typ = TranslatedTypes{
+      c  = coercePass typ
+    , hs = Translation.inContext ctx typ
+    }
+
+processTypeFunArg ::
+     Translation.TypeContext
+  -> C.TypeFunArg AdjustTypes
+  -> TranslatedTypeFunArg TranslateTypes
+processTypeFunArg ctx typ = TranslatedTypeFunArg{
       c  = coercePass typ
     , hs = Translation.inContext ctx typ
     }

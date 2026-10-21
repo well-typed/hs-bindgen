@@ -597,7 +597,7 @@ instance Resolve C.Function l where
     where
       reconstruct ::
            [C.FunctionArg ResolveBindingSpecs]
-        -> C.Type ResolveBindingSpecs
+        -> C.FunctionRes ResolveBindingSpecs
         -> C.Function ResolveBindingSpecs
       reconstruct functionArgs' functionRes' = C.Function {
           args  = functionArgs'
@@ -622,12 +622,25 @@ instance Resolve C.FunctionArg l where
       <$> resolve ctx functionArg.typ
     where
       reconstruct ::
-           C.Type ResolveBindingSpecs
+           C.TypeFunArg ResolveBindingSpecs
         -> C.FunctionArg ResolveBindingSpecs
       reconstruct typ' = C.FunctionArg{
             name = functionArg.name
           , typ  = typ'
           , ann  = functionArg.ann
+          }
+
+instance Resolve C.FunctionRes l where
+  resolve ctx res =
+    reconstruct
+      <$> resolve ctx res.typ
+    where
+      reconstruct ::
+           C.Type ResolveBindingSpecs
+        -> C.FunctionRes ResolveBindingSpecs
+      reconstruct typ' = C.FunctionRes{
+            typ  = typ'
+          , ann  = res.ann
           }
 
 instance Resolve (Flip TypecheckedMacro l) l where

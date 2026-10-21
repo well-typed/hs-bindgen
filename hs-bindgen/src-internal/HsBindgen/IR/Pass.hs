@@ -28,6 +28,8 @@ module HsBindgen.IR.Pass (
   , CoercePassParam(..)
   , CoercePassId(..)
   , CoercePassTypes(..)
+  , CoercePassTypeFunArg(..)
+  , CoercePassAnonRef(..)
   , CoercePassMacroId(..)
   , CoercePassMacroBody(..)
   , CoercePassMacroUnderlying(..)
