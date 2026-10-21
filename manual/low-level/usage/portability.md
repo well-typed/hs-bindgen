@@ -241,9 +241,10 @@ enabled by default) is an example, and includes a specification for `CSize`.
 ### `hs-bindgen`-induced non-portability: FFI types
 
 Let's continue the `CSize` example from the previous section, and let's assume
-that `CSize` is given a bespoke platform-dependent implementation. Unless told
-otherwise, `hs-bindgen` will still not refer to `CSize` when it appears in
-function signatures such as
+that `CSize` is given a bespoke platform-dependent implementation, rather than
+using `Foreign.C.Types.CSize` and its builtin external binding specification.
+Unless told otherwise, `hs-bindgen` will still not refer to `CSize` when it
+appears in function signatures such as
 
 ```c
 size_t strlen(const char *s);
@@ -264,7 +265,7 @@ though ultimately this is to work around `ghc` limitations; see [the discussion
 of FFI types][manual:ffi-types] for a detailed explanation.
 
 The fix is to explicitly tell `hs-bindgen` what type to use in foreign imports;
-this amounts to an entry in the external binding specificaiton such as
+this amounts to an entry in the external binding specification such as
 
 ```yaml
 - hsname: CSize
