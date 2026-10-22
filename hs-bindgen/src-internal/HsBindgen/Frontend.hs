@@ -407,7 +407,10 @@ runFrontend tracer config boot = do
     mangleNamesPass <- cache "mangleNames" $ do
       afterResolveBindingSpecs <- resolveBindingSpecsPass
       let (afterMangleNames, msgsMangleNames) =
-            mangleNames config.fieldNamingStrategy afterResolveBindingSpecs
+            mangleNames
+              config.fieldNamingStrategy
+              AllTogether
+              afterResolveBindingSpecs
       forM_ msgsMangleNames $ traceWith (contramap FrontendMangleNames tracer)
       pure afterMangleNames
 

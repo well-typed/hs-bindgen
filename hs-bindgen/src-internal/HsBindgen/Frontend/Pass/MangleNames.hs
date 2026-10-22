@@ -1,5 +1,6 @@
 module HsBindgen.Frontend.Pass.MangleNames (
     mangleNames
+  , ModulePlacement(..)
   ) where
 
 import Data.Map qualified as Map
@@ -41,7 +42,8 @@ import HsBindgen.Util.Tracer (withCallStack)
 
   2. 'detectClashes' assembles a single 'NameRegistry' from the 'NameMap'
      (top-level names and scoped names) and the 'CreateNames' AST (local names
-     in annotations) and reports collisions.
+     in annotations) and reports collisions. It runs once for every set of
+     declarations that end up in the same modules (see 'ModulePlacement').
 
   3. 'resolveNames' rewrites 'C.DeclId' references into 'DeclIdPair's and
      'C.ScopedName' references into 'ScopedNamePair' using the 'NameMap',
@@ -62,12 +64,34 @@ import HsBindgen.Util.Tracer (withCallStack)
   decisions/.
 -------------------------------------------------------------------------------}
 
+-- | Which generated modules each declaration ends up in
+--
+-- Two declarations need different Haskell names only if some generated module
+-- sees both of them unqualified. A types module and its term modules (@Safe@,
+-- @Unsafe@ and so on), which import it unqualified, see each other's names.
+-- Generated code imports every other module only qualified.
+data ModulePlacement =
+    -- | All declarations end up in the same modules
+    --
+    -- This is every run without @--library@.
+    AllTogether
+    -- | Each declaration ends up with these types modules
+    --
+    -- That is, in one of these types modules or in one of their term modules.
+    -- With @--library@ every header has its own types module. A type is
+    -- generated in one of them, and a value (such as a macro) with every one
+    -- that needs it. A declaration missing from the map is generated with
+    -- none, so its names are not checked.
+  | ByTypesModule (Map C.DeclId (Set Hs.ModuleName))
+  deriving stock (Show)
+
 mangleNames ::
      forall l. (HasCallStack, Macro.HasTypes l)
   => FieldNamingStrategy
+  -> ModulePlacement
   -> C.TranslationUnit l ResolveBindingSpecs
   -> (C.TranslationUnit l MangleNames, [AnnMsg MangleNames])
-mangleNames fieldNaming unit = (
+mangleNames fieldNaming placement unit = (
          C.TranslationUnit{
            decls        = decls3
          , includeGraph = unit.includeGraph
@@ -79,12 +103,16 @@ mangleNames fieldNaming unit = (
     , msgs1 ++ catMaybes [
           Just $ debugMsg $ MangleNamesNameMap nameMap
         , bugMsg . MangleNamesNameMapDuplicates <$> nameMapDups
-        , Just $ debugMsg $ MangleNamesNameRegistry registry
         ]
+      ++ map (debugMsg . MangleNamesNameRegistry) registries
     )
   where
     typedefAnalysis :: TypedefAnalysis.TypedefAnalysis
-    typedefAnalysis = TypedefAnalysis.fromDecls unit.meta.declUseGraph unit.decls
+    typedefAnalysis =
+      TypedefAnalysis.fromDecls
+        (placedTogether placement)
+        unit.meta.declUseGraph
+        unit.decls
 
     mangleCandidateConfig :: MangleCandidate Maybe
     mangleCandidateConfig = MangleCandidate.mangleCandidateDefault
@@ -99,10 +127,14 @@ mangleNames fieldNaming unit = (
     (declsC, squashes, nameMap, nameMapDups, failures1, msgs1) =
       createNames typedefAnalysis mangleCandidateConfig fieldNaming unit.decls
 
-    -- Traversal 2: detect clashes among all names.
-    registry  :: NameRegistry
-    failures2 :: [MangleNamesFailure]
-    (registry, failures2) = detectClashes fieldNaming nameMap declsC
+    -- Traversal 2: detect clashes among the names of the declarations that end
+    -- up in the same modules.
+    registries :: [NameRegistry]
+    failures2  :: [MangleNamesFailure]
+    (registries, failures2) = second concat $ unzip [
+        detectClashes fieldNaming nameMap together
+      | together <- declsSharingModules placement declsC
+      ]
 
     dropped :: Set C.DeclId
     dropped = Set.fromList $ map (.id) failures2
@@ -111,6 +143,34 @@ mangleNames fieldNaming unit = (
     decls3    :: [C.Decl l MangleNames]
     failures3 :: [MangleNamesFailure]
     (decls3, failures3) = resolveNames nameMap dropped declsC
+
+-- | Do two declarations end up in some common module?
+placedTogether :: ModulePlacement -> C.DeclId -> C.DeclId -> Bool
+placedTogether AllTogether             _ _ = True
+placedTogether (ByTypesModule modules) x y =
+    not $ Set.disjoint (typesModulesOf modules x) (typesModulesOf modules y)
+
+-- | The declarations that end up in the same modules, one list per types
+-- module
+--
+-- A declaration is in the list of every types module it ends up with.
+declsSharingModules ::
+     ModulePlacement
+  -> [C.Decl l CreateNames]
+  -> [[C.Decl l CreateNames]]
+declsSharingModules AllTogether             decls = [decls]
+declsSharingModules (ByTypesModule modules) decls = [
+      filter
+        (Set.member typesModule . typesModulesOf modules . (.info.id))
+        decls
+    | typesModule <- Set.toList (Set.unions modules)
+    ]
+
+typesModulesOf ::
+     Map C.DeclId (Set Hs.ModuleName)
+  -> C.DeclId
+  -> Set Hs.ModuleName
+typesModulesOf modules declId = Map.findWithDefault Set.empty declId modules
 
 updateDeclMeta ::
       [MangleNamesFailure]

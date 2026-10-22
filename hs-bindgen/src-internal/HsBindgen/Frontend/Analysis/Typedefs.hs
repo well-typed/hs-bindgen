@@ -116,6 +116,10 @@ data Conclusion =
     -- in this case, because @struct foo@ and (the typedef) @foo@ are
     -- /different/ types. We must therefore instruct the name mangler to use
     -- a different name for one of these two types; we add a suffix.
+    --
+    -- With @--library@, the two can end up in the modules of different headers,
+    -- where they never meet. In this case they then keep the same name. Since
+    -- the imports are qualified and there will be no name clash.
   | AddSuffix Text
 
     -- | Instruct the name mangler to use the name of another C declaration
@@ -133,23 +137,29 @@ conclude declId conclusion = TypedefAnalysis $ Map.singleton declId conclusion
   Analysis proper
 -------------------------------------------------------------------------------}
 
-fromDecls :: DeclUseGraph -> [C.Decl l ResolveBindingSpecs] -> TypedefAnalysis
-fromDecls declUseGraph = mconcat . map aux
+fromDecls ::
+     -- | Do two declarations end up in some common module?
+     (C.DeclId -> C.DeclId -> Bool)
+  -> DeclUseGraph
+  -> [C.Decl l ResolveBindingSpecs]
+  -> TypedefAnalysis
+fromDecls placedTogether declUseGraph = mconcat . map aux
   where
      aux :: C.Decl l ResolveBindingSpecs -> TypedefAnalysis
      aux decl =
          case decl.kind of
            C.DeclTypedef typedef ->
-             analyseTypedef declUseGraph decl.info typedef
+             analyseTypedef placedTogether declUseGraph decl.info typedef
            _otherwise ->
              mempty
 
 analyseTypedef ::
-      DeclUseGraph
+      (C.DeclId -> C.DeclId -> Bool)
+  -> DeclUseGraph
   -> C.DeclInfo ResolveBindingSpecs
   -> C.Typedef ResolveBindingSpecs
   -> TypedefAnalysis
-analyseTypedef declUseGraph typedefInfo typedef =
+analyseTypedef placedTogether declUseGraph typedefInfo typedef =
     case directPayload of
       -- The typedef is a direct alias of a tagged type: a candidate for
       -- squashing.
@@ -164,15 +174,16 @@ analyseTypedef declUseGraph typedefInfo typedef =
              ]
 
       -- Otherwise, suffix every tagged type that is referenced /within/ the
-      -- typedef's own type and that would mangle to the same Haskell name as the
-      -- typedef itself.
+      -- typedef's own type, that would mangle to the same Haskell name as the
+      -- typedef itself, and that ends up in a module with the typedef.
       --
-      -- This is a purely /local/ decision: it depends only on this typedef's
-      -- name and its own type structure, never on which other declarations
-      -- happen to be in scope. We can only resolve a name clash here when the
-      -- clashing tagged type is syntactically referenced by the typedef; clashes
-      -- with unrelated declarations of the same name are detected (and reported)
-      -- by the collision check in "HsBindgen.Frontend.Pass.MangleNames".
+      -- This is a /local/ decision: it depends only on this typedef's name, its
+      -- own type structure and where the two end up, never on which other
+      -- declarations happen to be in scope. We can only resolve a name clash
+      -- here when the clashing tagged type is syntactically referenced by the
+      -- typedef; clashes with unrelated declarations of the same name are
+      -- detected (and reported) by the collision check in
+      -- "HsBindgen.Frontend.Pass.MangleNames".
       _otherwise ->
         foldMap suffixClashingPayload clashingPayloads
   where
@@ -204,6 +215,7 @@ analyseTypedef declUseGraph typedefInfo typedef =
         | p <- payloads
         , not p.isDirect
         , p.id.name.text == typedefName
+        , placedTogether typedefInfo.id p.id
         ]
 
     shouldSquash :: TaggedPayload -> Bool
