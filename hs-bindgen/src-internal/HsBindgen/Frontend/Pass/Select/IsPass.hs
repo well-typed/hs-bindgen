@@ -35,6 +35,7 @@ import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Pass.Types (CoercePassAnonRef (coercePassAnonRef))
 import HsBindgen.IR.Translation
+import HsBindgen.Macro.Error (MacroLangFailure)
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -191,6 +192,10 @@ data SelectMsg =
     -- | Summary of the number of selected macros that hs-bindgen failed to
     -- translate.
   | SelectMacrosDropped Int
+    -- | A selected macro falls back to its raw token spellings
+  | SelectMacroFallback MacroLangFailure
+    -- | Summary of the number of selected macros that fall back
+  | SelectMacrosFallback Int
     -- | The source of a trace message is not part of the include graph, so we
     -- do not know where to sort it.
   | SelectSourceNotInIncludeGraph RealPath
@@ -244,6 +249,14 @@ instance PrettyForTrace SelectMsg where
             <> (if n == 1 then " macro failed to translate; "
                           else " macros failed to translate; ")
             <> "use --log-enable-macro-warnings for details"
+      SelectMacroFallback x ->
+        PP.hang "Falling back to raw tokens:" 2 $ prettyForTrace x
+      SelectMacrosFallback n ->
+        PP.string $
+          show n
+            <> (if n == 1 then " macro falls back to raw tokens; "
+                          else " macros fall back to raw tokens; ")
+            <> "use --log-enable-macro-warnings for details"
       SelectSourceNotInIncludeGraph path -> PP.hsep [
           "Source not in include graph:"
         , PP.string $ getRealPath path
@@ -286,6 +299,8 @@ instance IsTrace Level SelectMsg where
     SelectDelayedTranslateTypesMsg x         -> getDefaultLogLevel x
     SelectNoDeclarationsMatched              -> Warning
     SelectMacrosDropped{}                    -> Notice
+    SelectMacroFallback{}                    -> Info
+    SelectMacrosFallback{}                   -> Notice
     SelectSourceNotInIncludeGraph{}          -> Bug
   getSource  = const HsBindgen
   getTraceId = \case
@@ -307,6 +322,8 @@ instance IsTrace Level SelectMsg where
     SelectDelayedTranslateTypesMsg x         -> "select-" <> getTraceId x
     SelectNoDeclarationsMatched              -> "select"
     SelectMacrosDropped{}                    -> "select-dropped-macros"
+    SelectMacroFallback{}                    -> "select-macro-fallback"
+    SelectMacrosFallback{}                   -> "select-fallback-macros"
     SelectSourceNotInIncludeGraph{}          -> "select-source-not-in-include-graph"
 
 {-------------------------------------------------------------------------------

@@ -47,6 +47,7 @@ testCaseTree =
       , TestCases "globals"         Globals.testCases
       , TestCaseSection "macros" $ concat [
             TestCaseLeafs Macros.testCases
+          , TestCaseLeafs Macros.fallbackTestCases
           , [ TestCaseSection "redeclaration" Macros.Redeclaration.testCases ]
           , [ TestCaseSection "reparse"       Macros.Reparse.testCases ]
           , [ TestCaseSection "languages"     Macros.Lang.testCases ]

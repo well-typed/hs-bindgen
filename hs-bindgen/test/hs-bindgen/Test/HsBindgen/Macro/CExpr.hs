@@ -1,7 +1,7 @@
--- | Tests for the glue between 'splitMacro' and @c-expr-dsl@
+-- | Tests for the glue between 'readRawMacro' and @c-expr-dsl@
 --
--- 'HsBindgen.Macro.cExpr' assembles a @c-expr-dsl@ macro from the split that
--- 'HsBindgen.Macro.Syntax.splitMacro' produced and the body that
+-- 'HsBindgen.Macro.cExpr' assembles a @c-expr-dsl@ macro from the raw macro
+-- that 'HsBindgen.Macro.Syntax.readRawMacro' produced and the body that
 -- @C.Expr.Parse.parseMacroBody@ parsed. These tests pin the two conventions the
 -- glue owns: the order of the parameters, and what happens to a variadic macro.
 module Test.HsBindgen.Macro.CExpr (tests) where
@@ -19,7 +19,7 @@ import Clang.CStandard (CStandard (C17), ClangCStandard (ClangCStandard),
 import HsBindgen.Macro (cExpr)
 import HsBindgen.Macro.Error (MacroParseError (..))
 import HsBindgen.Macro.Interface qualified as Macro
-import HsBindgen.Macro.Syntax (splitMacro)
+import HsBindgen.Macro.Syntax (readRawMacro)
 
 import Test.HsBindgen.Macro.Infra
 
@@ -69,10 +69,10 @@ variadicDeclined =
   Auxiliary
 -------------------------------------------------------------------------------}
 
--- | Split the pieces and hand the result to the @CExpr@ macro language
+-- | Read the pieces and hand the result to the @CExpr@ macro language
 parse :: [Piece] -> Either MacroParseError (CExpr.Macro ())
 parse pieces = do
-    raw    <- splitMacro (layout pieces)
+    raw    <- readRawMacro (layout pieces)
     parsed <- (cExpr cStd).parse raw
     pure parsed.unwrap
   where

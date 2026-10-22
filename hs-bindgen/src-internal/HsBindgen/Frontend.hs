@@ -26,6 +26,8 @@ import HsBindgen.Frontend.Analysis.UnnamedIdUsage (UnnamedIdUsageAnalysis)
 import HsBindgen.Frontend.Analysis.UnnamedIdUsage qualified as UnnamedIdUsageAnalysis
 import HsBindgen.Frontend.Pass.AdjustTypes
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
+import HsBindgen.Frontend.Pass.ApplyMacroFallback
+import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.EnrichComments
@@ -145,11 +147,25 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --
 -- Constraints:
 --
+-- * Must be before "HsBindgen.Frontend.Pass.ApplyMacroFallback", since
+-- "HsBindgen.Frontend.Pass.TypecheckMacros" is the last stage of the macro
+-- language that can give up on a macro.
 -- * Must be before "HsBindgen.Frontend.Pass.ReparseMacroExpansions", because
 --   "HsBindgen.Frontend.Pass.TypecheckMacros" typechecks macro-defined types
 --   that are required to parse declarations with macro expansions.
 --
--- == 7. "HsBindgen.Frontend.Pass.PrepareReparse"
+-- == 7. "HsBindgen.Frontend.Pass.ApplyMacroFallback"
+--
+-- "HsBindgen.Frontend.Pass.ApplyMacroFallback" decides whether to drop a macro
+-- that the macro language did not handle or to fall back to generating a
+-- binding which contains the raw tokens of the macro.
+--
+-- Constraints:
+--
+-- * Must be before "HsBindgen.Frontend.Pass.Select", which deselects the
+--   dependents of the macros registered as unusable here.
+--
+-- == 8. "HsBindgen.Frontend.Pass.PrepareReparse"
 --
 -- @PrepareReparse@ prepares declarations that need to be reparsed because they
 -- contain macro invocations. These declarations carry raw tokens intended to be
@@ -177,7 +193,7 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --   expects its reparser input to be preprocessed, which is what
 --   @PrepareReparse@ takes care of.
 --
--- == 8. "HsBindgen.Frontend.Pass.ReparseMacroExpansions"
+-- == 9. "HsBindgen.Frontend.Pass.ReparseMacroExpansions"
 --
 -- "HsBindgen.Frontend.Pass.ReparseMacroExpansions" reparses declarations that
 -- contain macro expansions.
@@ -188,7 +204,7 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --   "HsBindgen.Frontend.Pass.ReparseMacroExpansions" reparses declarations
 --   referencing macro-defined types that may have to be adjusted.
 --
--- == 9. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
+-- == 10. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
 --
 -- "HsBindgen.Frontend.Pass.ResolveBindingSpecs" has two responsibilities:
 --
@@ -209,24 +225,24 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- * Must be before "HsBindgen.Frontend.Pass.MangleNames" because prescriptive
 --   binding specs may specify arbitrary names
 --
--- == 10. "HsBindgen.Frontend.Pass.MangleNames"
+-- == 11. "HsBindgen.Frontend.Pass.MangleNames"
 --
 -- "HsBindgen.Frontend.Pass.MangleNames" assigns Haskell names for types,
 -- constructors, fields, etc. It also deals with name clashes that can arise
 -- from typedefs, squashing "unneeded" typedefs.
 --
--- == 11. "HsBindgen.Frontend.Pass.AdjustTypes"
+-- == 12. "HsBindgen.Frontend.Pass.AdjustTypes"
 --
 -- "HsBindgen.Frontend.Pass.AdjustTypes" adjusts types in declarations. For
 -- example, if a function argument is a function type, then it is adjusted to a
 -- function /pointer/ type.
 --
--- == 12. "HsBindgen.Frontend.Pass.TranslateTypes"
+-- == 13. "HsBindgen.Frontend.Pass.TranslateTypes"
 --
 -- "HsBindgen.Frontend.Pass.TranslateTypes" translates types (use sites) to
 -- Haskell types.
 --
--- == 13. "HsBindgen.Frontend.Pass.Select"
+-- == 14. "HsBindgen.Frontend.Pass.Select"
 --
 -- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
 -- and program slicing. It also emits delayed trace messages for declarations
@@ -346,8 +362,18 @@ runFrontend tracer config boot = do
       afterConstructTranslationUnit <- constructTranslationUnitPass
       pure $ typecheckMacros macroLang afterConstructTranslationUnit
 
-    prepareReparsePass <- cache "prepareReparse" $ do
+    applyMacroFallbackPass <- cache "applyMacroFallback" $ do
+      afterParse                   <- parsePass
       (afterTypecheckMacros, _, _) <- typecheckMacrosPass
+      pure $
+        applyMacroFallback
+          afterParse.isMainHeader
+          afterParse.isInMainHeaderDir
+          config.macroFallback
+          afterTypecheckMacros
+
+    prepareReparsePass <- cache "prepareReparse" $ do
+      afterApplyMacroFallback <- applyMacroFallbackPass
       clangExe <- boot.clangExe
       rootHeader <- rootHeaderC
       setup <- getSetup rootHeader
@@ -356,13 +382,17 @@ runFrontend tracer config boot = do
                   clangExe
                   setup
                   rootHeader
-                  afterTypecheckMacros
+                  afterApplyMacroFallback
 
     reparseMacroExpansionsPass <- cache "reparseMacroExpansions" $ do
       (_, knownTypes, knownMacros) <- typecheckMacrosPass
       afterPrepareReparse <- prepareReparsePass
       cStd <- boot.cStandard
-      pure $ reparseMacroExpansions cStd (Map.map coercePass knownTypes) knownMacros afterPrepareReparse
+      let knownTypes' =
+            Map.map
+              (coercePass . coercePass @C.Type @TypecheckMacros @ApplyMacroFallback)
+              knownTypes
+      pure $ reparseMacroExpansions cStd knownTypes' knownMacros afterPrepareReparse
 
     resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
       afterReparseMacroExpansions <- reparseMacroExpansionsPass
@@ -415,6 +445,7 @@ runFrontend tracer config boot = do
       , enrichComments           = enrichCommentsPass
       , constructTranslationUnit = constructTranslationUnitPass
       , typecheckMacros          = (\(x,_,_) -> x) <$> typecheckMacrosPass
+      , applyMacroFallback       = applyMacroFallbackPass
       , reparseMacroExpansions   = reparseMacroExpansionsPass
       , resolveBindingSpecs      = resolveBindingSpecsPass
       , mangleNames              = mangleNamesPass
@@ -465,6 +496,7 @@ data FrontendArtefact l = FrontendArtefact {
     , enrichComments           :: Cached [ParseResult       l EnrichComments]
     , constructTranslationUnit :: Cached (C.TranslationUnit l ConstructTranslationUnit)
     , typecheckMacros          :: Cached (C.TranslationUnit l TypecheckMacros)
+    , applyMacroFallback       :: Cached (C.TranslationUnit l ApplyMacroFallback)
     , reparseMacroExpansions   :: Cached (C.TranslationUnit l ReparseMacroExpansions)
     , resolveBindingSpecs      :: Cached (C.TranslationUnit l ResolveBindingSpecs)
     , mangleNames              :: Cached (C.TranslationUnit l MangleNames)

@@ -5,6 +5,7 @@ module HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass (
 
 import Text.SimplePrettyPrint qualified as PP
 
+import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -37,7 +38,7 @@ instance PassScopedName FillUnnamedIds
 instance PassTypes FillUnnamedIds
 
 instance PassMacro FillUnnamedIds where
-  type MacroBody FillUnnamedIds = Macro.Unresolved
+  type MacroBody FillUnnamedIds = PendingMacro Macro.Unresolved
 
 instance PassExtBinding FillUnnamedIds
 

@@ -131,8 +131,6 @@ test_circular_macro =
             (getCustomLogLevel [EnableMacroWarnings]) declsWithMsgs (\case
                 MatchUnusable name UnusableMacroTypecheckFailure{} ->
                   Just $ Expected (name, "typecheck")
-                MatchSelect name TransitiveDependenciesMissing{} ->
-                  Just $ Expected (name, "transitive")
                 MatchMacrosDropped{} ->
                   Just Tolerated
                 _otherwise ->
@@ -142,9 +140,7 @@ test_circular_macro =
     declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
         ("macro A", "typecheck")
-      , ("macro A", "transitive")
       , ("macro B", "typecheck")
-      , ("macro B", "transitive")
       ]
 
 {-------------------------------------------------------------------------------

@@ -27,7 +27,7 @@ module HsBindgen.Frontend.Pass.PrepareReparse.Printer.Util (
 import Data.Text qualified as Text
 import GHC.Show (showSpace)
 
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckMacros)
+import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass (ApplyMacroFallback)
 import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -74,8 +74,8 @@ include = showString "#include"
   C names
 -------------------------------------------------------------------------------}
 
-name :: C.DeclInfo TypecheckMacros -> ShowS
+name :: C.DeclInfo ApplyMacroFallback -> ShowS
 name info = showString (Text.unpack info.id.name.text)
 
-fieldName :: C.FieldInfo TypecheckMacros -> ShowS
+fieldName :: C.FieldInfo ApplyMacroFallback -> ShowS
 fieldName info = showString (Text.unpack info.name.text)

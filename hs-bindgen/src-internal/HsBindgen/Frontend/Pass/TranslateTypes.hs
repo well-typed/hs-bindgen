@@ -159,6 +159,7 @@ processMacro :: MacroBody AdjustTypes l -> M DeclEnv (MacroBody TranslateTypes l
 processMacro mac = pure $ case mac of
     MacroType  typ -> MacroType  $ coercePass typ
     MacroValue val -> MacroValue $ coercePass val
+    MacroRaw   raw -> MacroRaw raw
 
 processFunction :: C.Function AdjustTypes -> M DeclEnv (C.Function TranslateTypes)
 processFunction fun = do

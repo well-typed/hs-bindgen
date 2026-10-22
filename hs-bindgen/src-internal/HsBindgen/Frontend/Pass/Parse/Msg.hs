@@ -65,8 +65,8 @@ data ImmediateParseMsg =
 
     -- | We failed to analyse the macro definitions for ambiguity
     --
-    -- Either the definition could not be split, or the name of the split
-    -- definition disagrees with the name @libclang@ reported for the cursor.
+    -- Either the definition could not be read, or the name of the raw macro
+    -- disagrees with the name @libclang@ reported for the cursor.
     -- The macros are treated as ambiguous.
     --
     -- The payload contains the names of the failed macros.
@@ -159,8 +159,14 @@ data DelayedParseMsg =
     -- See 'HsBindgen.Frontend.Pass.Parse.IsPass.EmptyMacros'.
   | ParseMacroEmpty C.PrelimDeclId [Token SourcePath TokenSpelling]
 
-    -- | We could not parse the macro (macro def sites)
+    -- | The macro language could not parse the macro (macro def sites)
   | ParseMacroErrorParse MacroParseError
+
+    -- | We could not read the macro definition into name, parameters and body
+    --
+    -- See 'HsBindgen.Macro.Syntax.readRawMacro'. Unlike 'ParseMacroErrorParse',
+    -- there is no raw macro to fall back on.
+  | ParseMacroErrorRead MacroParseError
 
 
     -- | Fully defined global variables and functions with external linkage.
@@ -447,11 +453,10 @@ instance PrettyForTrace DelayedParseMsg where
         , "use --parse-empty-macros to parse it:"
         , PP.show tokens
         ]
-      ParseMacroErrorParse err -> PP.vcat [
-          "Could not parse macro:"
-        , PP.nest 2 $
-            PP.renderedLines $ \_maxWidth -> lines err.macroParseError
-        ]
+      ParseMacroErrorParse err ->
+        prettyForTrace err
+      ParseMacroErrorRead err ->
+        prettyMacroParseErrorWithHeading "Could not read macro definition:" err
       ParsePotentialDuplicateSymbol isPublic -> PP.hcat $ [
             "Bindings may result in duplicate symbols; "
           , "consider using 'static' or 'extern'"
@@ -557,6 +562,7 @@ instance IsTrace Level DelayedParseMsg where
       ParseImplicitFieldFailed    x        -> getDefaultLogLevel x
       ParseMacroEmpty{}                    -> Info
       ParseMacroErrorParse{}               -> Info
+      ParseMacroErrorRead{}                -> Info
       ParsePotentialDuplicateSymbol{}      -> Notice
       ParseDeclarationNotVisible{}         -> Warning
       ParseFunctionOfTypeTypedef{}         -> Warning
@@ -589,6 +595,7 @@ instance IsTrace Level DelayedParseMsg where
       ParseMacroDefinitionNoMacroName{} -> "parse-macro"
       ParseMacroEmpty{}                 -> "parse-macro"
       ParseMacroErrorParse{}            -> "parse-macro"
+      ParseMacroErrorRead{}             -> "parse-macro"
       _ -> "parse"
 
 {-------------------------------------------------------------------------------

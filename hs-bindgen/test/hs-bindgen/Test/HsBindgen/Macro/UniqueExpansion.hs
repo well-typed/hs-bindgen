@@ -16,7 +16,7 @@ import Clang.Paths (RealPath (..), getSourcePathText)
 import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Macro.Syntax (MacroDefinition (..), MacroInvocation (..),
-                               splitMacro)
+                               readRawMacro)
 import HsBindgen.Macro.UniqueExpansion
 import HsBindgen.Macro.UniqueExpansion.Types
 
@@ -124,12 +124,12 @@ tests = testGroup "Test.HsBindgen.Macro.UniqueExpansion" [
                     , spc, ident "x", spc, punc "+", spc, ident "G"
                     ])).result
           -- @libclang@ gives the name twice: as the cursor spelling and as the
-          -- first token. The split does not compare them, so this does.
+          -- first token. Reading does not compare them, so this does.
         , testCase "cursor spelling disagrees with the tokens" $
             definitionFailsWith (NameMismatch "G" "F") "G" [
                 ident "F", spc, lit "1"
               ]
-        , testCase "unsplittable definition" $
+        , testCase "unreadable definition" $
             definitionFailsWithParseError "F" [
                 ident "F", punc "(", lit "1", punc ")"
               ]
@@ -237,11 +237,11 @@ assertParseError = \case
 -- | A definition as the @Parse@ pass records it
 --
 -- The name is the cursor spelling, which 'parseDefinition' compares against the
--- tokens; the tokens are split by 'splitMacro', exactly as in the pass.
+-- tokens; the tokens are read by 'readRawMacro', exactly as in the pass.
 mkMacroDefinition :: Text -> [Piece] -> MacroDefinition
 mkMacroDefinition name pieces = MacroDefinition {
       name  = name
-    , macro = splitMacro (layout pieces)
+    , macro = readRawMacro (layout pieces)
     }
 
 mkMacroInvocation :: Text -> [Piece] -> MacroInvocation

@@ -2,6 +2,7 @@ module HsBindgen.Frontend.Pass.EnrichComments.IsPass (
     EnrichComments
   ) where
 
+import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.IR.C qualified as C
@@ -34,7 +35,7 @@ instance PassScopedName EnrichComments
 instance PassTypes EnrichComments
 
 instance PassMacro EnrichComments where
-  type MacroBody EnrichComments = Macro.Unresolved
+  type MacroBody EnrichComments = PendingMacro Macro.Unresolved
 
 instance PassExtBinding EnrichComments
 

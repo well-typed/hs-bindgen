@@ -145,6 +145,7 @@ library internal
     HsBindgen.Backend.SHs.Translation
     HsBindgen.Backend.SHs.Translation.Common
     HsBindgen.Backend.SHs.Translation.MapFunction
+    HsBindgen.Backend.SHs.Translation.RawMacro
     HsBindgen.Backend.TH.Translation
     HsBindgen.Backend.UniqueSymbol
     HsBindgen.BindingSpec
@@ -189,8 +190,11 @@ library internal
     HsBindgen.Frontend.LanguageC.PartialAST
     HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
     HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
+    HsBindgen.Frontend.MacroFallback
     HsBindgen.Frontend.Pass.AdjustTypes
     HsBindgen.Frontend.Pass.AdjustTypes.IsPass
+    HsBindgen.Frontend.Pass.ApplyMacroFallback
+    HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass
     HsBindgen.Frontend.Pass.ConstructTranslationUnit
     HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
     HsBindgen.Frontend.Pass.EnrichComments

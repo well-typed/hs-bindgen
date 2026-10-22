@@ -347,6 +347,7 @@ applyPrescriptive decl cTypeSpec mHsTypeSpec = runMaybeT $ do
             C.DeclMacro macro -> case macro of
               MacroType{}  -> (True,  Nothing)
               MacroValue{} -> (False, Nothing)
+              MacroRaw{}   -> (False, Nothing)
             _otherwise        -> (False, Nothing)
       if isValid
         then do
@@ -634,6 +635,7 @@ instance Resolve (Flip TypecheckedMacro l) l where
   resolve ctx (Flip m) = Flip <$> case m of
     MacroType  typ -> MacroType  <$> resolve ctx typ
     MacroValue val -> MacroValue <$> pure (coercePass val)
+    MacroRaw   raw -> pure $ MacroRaw raw
 
 instance Resolve (TypecheckedMacroType l) l where
   resolve ctx = \case

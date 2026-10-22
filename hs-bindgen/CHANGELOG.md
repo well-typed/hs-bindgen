@@ -14,7 +14,23 @@
 
 ### New features
 
+- Macro fallback: macros that the macro language fails to handle can be
+  exported as their tokens instead of being dropped. Which macros fall back is
+  decided by a predicate, matched like the selection predicate:
+  `--macro-fallback-all`, `--macro-fallback-by-decl-name`, and so on, or the
+  `macroFallback` field of the configuration in Template Haskell mode. By
+  default, all failed macros are dropped, and none falls back. A new frontend
+  pass, `apply-macro-fallback`, makes the decision. See [issue #368][is-368]
+  and the [macros][manual-macros] manual page.
+
+[is-368]: https://github.com/well-typed/hs-bindgen/issues/368
+[manual-macros]: https://github.com/well-typed/hs-bindgen/blob/main/manual/low-level/translation/macros.md#macro-fallback
+
 ### Minor changes
+
+* A macro definition that cannot be read into name, parameters and
+  replacement list is now reported as such ("Could not read macro
+  definition"), apart from macros the macro language cannot parse.
 
 ### Bug fixes
 
@@ -32,6 +48,10 @@
   lost. See [issue #1851][is-1851].
 
 [is-1851]: https://github.com/well-typed/hs-bindgen/issues/1851
+
+* A macro dropped because it fails to typecheck no longer gets a spurious
+  warning that its transitive dependencies are missing: it no longer depends
+  on the declarations its body refers to.
 
 ## 1.0.0.0 -- 2026-10-08
 

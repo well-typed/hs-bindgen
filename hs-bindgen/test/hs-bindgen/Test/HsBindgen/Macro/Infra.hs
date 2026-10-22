@@ -4,9 +4,9 @@
 -- definition is written as a list of 'Piece's, which 'layout' turns into tokens
 -- with the extents they would have in a source file.
 --
--- The extents matter: 'HsBindgen.Macro.Syntax.splitMacro' tells a function-like
--- macro from an object-like one by looking for white space before the @(@, so
--- 'spc' is part of the input, not decoration.
+-- The extents matter: 'HsBindgen.Macro.Syntax.readRawMacro' tells a
+-- function-like macro from an object-like one by looking for white space before
+-- the @(@, so 'spc' is part of the input, not decoration.
 module Test.HsBindgen.Macro.Infra (
     -- * Pieces of a macro definition
     Piece

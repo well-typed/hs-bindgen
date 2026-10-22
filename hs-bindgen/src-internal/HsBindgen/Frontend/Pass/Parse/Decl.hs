@@ -17,6 +17,7 @@ import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
+import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.Parse.Builtin
 import HsBindgen.Frontend.Pass.Parse.Context
 import HsBindgen.Frontend.Pass.Parse.Decl.Field
@@ -31,9 +32,10 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Macro.Error (MacroParseError)
+import HsBindgen.Macro.Error (MacroLangFailure (..), MacroParseError)
 import HsBindgen.Macro.Interface qualified as Macro
-import HsBindgen.Macro.Syntax (splitMacro)
+import HsBindgen.Macro.Parse qualified as Macro (spelling)
+import HsBindgen.Macro.Syntax (readRawMacro)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -226,17 +228,17 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
         failures <- parseFail ctx info.id info.loc ParseMacroDefinitionNoMacroName
         foldContinueWith failures
       Just macroName -> do
-        let split = splitMacro tokens
-        recordMacroDefinition macroName split
+        let raw = readRawMacro tokens
+        recordMacroDefinition macroName raw
         emptyMacros <- getEmptyMacros
-        foldContinueWith [mkResult emptyMacros split]
+        foldContinueWith [mkResult emptyMacros raw]
   where
     mkResult ::
          EmptyMacros
       -> Either MacroParseError (Runtime.Macro.Raw (Token SourcePath TokenSpelling))
       -> ParseResult l Parse
-    mkResult emptyMacros split =
-        case parseMacro emptyMacros split of
+    mkResult emptyMacros raw =
+        case parseMacro emptyMacros raw of
           Right parsed -> parseSucceed C.Decl{
               info = info
             , kind = C.DeclMacro parsed
@@ -250,17 +252,24 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
 
     -- A macro with an empty replacement list (e.g., @#define FOO@) only reaches
     -- the macro language when the user asks for it.
+    --
+    -- A macro the macro language cannot parse is not a parse failure: it may
+    -- still fall back (see @ApplyMacroFallback@).
     parseMacro ::
          EmptyMacros
       -> Either MacroParseError (Runtime.Macro.Raw (Token SourcePath TokenSpelling))
-      -> Either DelayedParseMsg (Macro.Unresolved l)
-    parseMacro emptyMacros split = do
-        macro <- first ParseMacroErrorParse split
+      -> Either DelayedParseMsg (PendingMacro Macro.Unresolved l)
+    parseMacro emptyMacros raw = do
+        macro <- first ParseMacroErrorRead raw
         case emptyMacros of
           DoNotParseEmptyMacros | null macro.body ->
             Left $ ParseMacroEmpty info.id (toList macro)
-          _otherwise ->
-            first ParseMacroErrorParse $ macroLang.parse macro
+          _otherwise -> Right PendingMacro{
+              raw      = fmap Macro.spelling macro
+            , handling = case macroLang.parse macro of
+                Left err -> Unhandled $ FailedParse err
+                Right  x -> Handled x
+            }
 
     getMacroTokens :: CXCursor -> ParseDecl [Token SourcePath TokenSpelling]
     getMacroTokens curr' = do

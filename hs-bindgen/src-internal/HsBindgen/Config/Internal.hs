@@ -17,6 +17,7 @@ import HsBindgen.Backend.Category
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Prelims
+import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass (MacroFallback)
 import HsBindgen.Frontend.Pass.Parse.IsPass (EmptyMacros)
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
 import HsBindgen.Frontend.Predicate (Boolean, SelectionPredicate)
@@ -82,6 +83,7 @@ data FrontendConfig = FrontendConfig {
     , programSlicing      :: ProgramSlicing
     , fieldNamingStrategy :: FieldNamingStrategy
     , emptyMacros         :: EmptyMacros
+    , macroFallback       :: MacroFallback
     , doxygenConfig       :: Doxygen.Config
     }
   deriving stock (Show, Eq, Generic)
@@ -92,6 +94,7 @@ instance Default FrontendConfig where
     , programSlicing      = def
     , fieldNamingStrategy = def
     , emptyMacros         = def
+    , macroFallback       = def
     , doxygenConfig       = Doxygen.defaultConfig
     }
 

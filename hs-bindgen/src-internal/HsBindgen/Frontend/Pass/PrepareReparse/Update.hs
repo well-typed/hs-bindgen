@@ -27,6 +27,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.AST
 import HsBindgen.Frontend.Pass.PrepareReparse.Flatten
@@ -54,7 +55,7 @@ data UpdateMode =
 update ::
      forall l.
      UpdateMode
-  -> C.TranslationUnit l TypecheckMacros
+  -> C.TranslationUnit l ApplyMacroFallback
   -> C.TranslationUnit l PrepareReparse
 update mode unit = unit'
   where
@@ -87,8 +88,8 @@ update mode unit = unit'
 
 class Update a where
   type Ctx a :: Type
-  type Ctx a = C.DeclInfo TypecheckMacros
-  updateIt :: Ctx a -> a TypecheckMacros -> M (a PrepareReparse)
+  type Ctx a = C.DeclInfo ApplyMacroFallback
+  updateIt :: Ctx a -> a ApplyMacroFallback -> M (a PrepareReparse)
 
 {-------------------------------------------------------------------------------
   Update: monad
@@ -149,8 +150,8 @@ instance Update (C.DeclKind l) where
       C.DeclGlobal global          -> C.DeclGlobal               <$> recurse global
     where
       recurse :: forall a.
-           (Update a, Ctx a ~ C.DeclInfo TypecheckMacros)
-        => a TypecheckMacros
+           (Update a, Ctx a ~ C.DeclInfo ApplyMacroFallback)
+        => a ApplyMacroFallback
         -> M (a PrepareReparse)
       recurse = updateIt info
 
@@ -250,7 +251,7 @@ instance Update C.Global where
         }
 
 updateReparseInfo ::
-     C.DeclInfo TypecheckMacros
+     C.DeclInfo ApplyMacroFallback
   -> Tag
   -> ReparseInfo Tokens
   -> M (ReparseInfo FlatTokens)

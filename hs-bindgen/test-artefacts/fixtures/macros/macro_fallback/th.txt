@@ -1,0 +1,195 @@
+-- addDependentFile test-artefacts/headers/golden/macros/macro_fallback_inner.h
+-- addDependentFile test-artefacts/headers/golden/macros/macro_fallback.h
+{-| __C declaration:__ @macro HANDLED@
+
+    __defined at:__ @macros\/macro_fallback.h 4:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+hANDLED :: CInt
+{-| __C declaration:__ @macro HANDLED@
+
+    __defined at:__ @macros\/macro_fallback.h 4:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+hANDLED = 42 :: CInt
+{-| Fails to parse.
+
+    A fallback binding keeps its Doxygen comment.
+
+    __C declaration:__ @macro PARSE_FAILURE@
+
+    __defined at:__ @macros\/macro_fallback.h 11:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+pARSE_FAILURE :: Raw String
+{-| Fails to parse.
+
+    A fallback binding keeps its Doxygen comment.
+
+    __C declaration:__ @macro PARSE_FAILURE@
+
+    __defined at:__ @macros\/macro_fallback.h 11:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+pARSE_FAILURE = objectLike "PARSE_FAILURE" ["__attribute__",
+                                            "(",
+                                            "(",
+                                            "unused",
+                                            ")",
+                                            ")"]
+{-| __C declaration:__ @macro RESOLVE_FAILURE@
+
+    __defined at:__ @macros\/macro_fallback.h 14:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+rESOLVE_FAILURE :: Raw String
+{-| __C declaration:__ @macro RESOLVE_FAILURE@
+
+    __defined at:__ @macros\/macro_fallback.h 14:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+rESOLVE_FAILURE = objectLike "RESOLVE_FAILURE" ["(",
+                                                "undeclared",
+                                                "+",
+                                                "1",
+                                                ")"]
+{-| __C declaration:__ @macro TYPECHECK_FAILURE@
+
+    __defined at:__ @macros\/macro_fallback.h 17:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+tYPECHECK_FAILURE :: Raw String
+{-| __C declaration:__ @macro TYPECHECK_FAILURE@
+
+    __defined at:__ @macros\/macro_fallback.h 17:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+tYPECHECK_FAILURE = objectLike "TYPECHECK_FAILURE" ["(",
+                                                    "HANDLED",
+                                                    "+",
+                                                    "\"x\"",
+                                                    ")"]
+{-| __C declaration:__ @macro TYPE_LIKE@
+
+    __defined at:__ @macros\/macro_fallback.h 20:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+tYPE_LIKE :: Raw String
+{-| __C declaration:__ @macro TYPE_LIKE@
+
+    __defined at:__ @macros\/macro_fallback.h 20:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+tYPE_LIKE = objectLike "TYPE_LIKE" ["const", "HANDLED"]
+{-| __C declaration:__ @macro CASCADE@
+
+    __defined at:__ @macros\/macro_fallback.h 23:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+cASCADE :: Raw String
+{-| __C declaration:__ @macro CASCADE@
+
+    __defined at:__ @macros\/macro_fallback.h 23:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+cASCADE = objectLike "CASCADE" ["(",
+                                "PARSE_FAILURE",
+                                "+",
+                                "1",
+                                ")"]
+{-| __C declaration:__ @macro OUTSIDE_DEP@
+
+    __defined at:__ @macros\/macro_fallback.h 28:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+oUTSIDE_DEP :: Raw String
+{-| __C declaration:__ @macro OUTSIDE_DEP@
+
+    __defined at:__ @macros\/macro_fallback.h 28:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+oUTSIDE_DEP = objectLike "OUTSIDE_DEP" ["(",
+                                        "outside_t",
+                                        "+",
+                                        "1",
+                                        ")"]
+{-| __C declaration:__ @macro CONCAT@
+
+    __defined at:__ @macros\/macro_fallback.h 31:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+cONCAT :: Raw String
+{-| __C declaration:__ @macro CONCAT@
+
+    __defined at:__ @macros\/macro_fallback.h 31:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+cONCAT = functionLike "CONCAT" ["x", "y"] ["x", "##", "y"]
+{-| __C declaration:__ @macro LOG@
+
+    __defined at:__ @macros\/macro_fallback.h 32:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+lOG :: Raw String
+{-| __C declaration:__ @macro LOG@
+
+    __defined at:__ @macros\/macro_fallback.h 32:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+lOG = variadic "LOG" ["fmt"] ["printf",
+                              "(",
+                              "fmt",
+                              ",",
+                              "__VA_ARGS__",
+                              ")"]
+{-| __C declaration:__ @macro LOG_NAMED@
+
+    __defined at:__ @macros\/macro_fallback.h 33:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+lOG_NAMED :: Raw String
+{-| __C declaration:__ @macro LOG_NAMED@
+
+    __defined at:__ @macros\/macro_fallback.h 33:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+lOG_NAMED = variadicNamed "LOG_NAMED" ["fmt"] "args" ["printf",
+                                                      "(",
+                                                      "fmt",
+                                                      ",",
+                                                      "args",
+                                                      ")"]
+{-| __C declaration:__ @macro EMPTY@
+
+    __defined at:__ @macros\/macro_fallback.h 37:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+eMPTY :: Raw String
+{-| __C declaration:__ @macro EMPTY@
+
+    __defined at:__ @macros\/macro_fallback.h 37:9@
+
+    __exported by:__ @macros\/macro_fallback.h@
+-}
+eMPTY = objectLike "EMPTY" []

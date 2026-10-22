@@ -19,9 +19,9 @@ import HsBindgen.Macro.Interface qualified as Macro
 
 -- | Parse the body of a macro definition as a C expression
 --
--- The definition has already been split by
--- 'HsBindgen.Macro.Syntax.splitMacro'; we assemble the 'CExpr.Macro' from the
--- split and the parsed body.
+-- The definition has already been read by
+-- 'HsBindgen.Macro.Syntax.readRawMacro'; we assemble the 'CExpr.Macro' from the
+-- raw macro and the parsed body.
 parseMacro ::
      ClangCStandard
   -> Runtime.Macro.Raw (Token SourcePath TokenSpelling)

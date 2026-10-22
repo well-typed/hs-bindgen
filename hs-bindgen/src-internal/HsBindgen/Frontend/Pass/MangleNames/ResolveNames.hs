@@ -362,6 +362,7 @@ resolveMacro ::
 resolveMacro = \case
     MacroType  typ -> MacroType  <$> resolveMacroType typ
     MacroValue val -> MacroValue <$> resolveMacroValue val
+    MacroRaw   raw -> pure $ MacroRaw raw
 
 resolveMacroType ::
      Macro.HasTypes l

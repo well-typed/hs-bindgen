@@ -1,14 +1,19 @@
 -- | Golden tests: macros
-module Test.HsBindgen.Golden.Macros (testCases) where
+module Test.HsBindgen.Golden.Macros (
+    testCases
+  , fallbackTestCases
+  ) where
 
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex (UnusableReason (..))
+import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass (MacroFallback (..))
 import HsBindgen.Frontend.Pass.Parse.IsPass (EmptyMacros (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.Macro.Error (MacroLangFailure (..))
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -59,6 +64,15 @@ testCases = [
     , test_parse_intermittent_include_conditional
     , test_parse_macro_typedef_scope_multiple
     , test_wrong_source_location
+    ]
+
+-- | The tests of the macro fallback
+--
+-- Not run with the other macro languages: they set the fallback themselves.
+fallbackTestCases :: [TestCase]
+fallbackTestCases = [
+      test_macro_fallback
+    , test_macro_fallback_by_decl_name
     ]
 
 {-------------------------------------------------------------------------------
@@ -221,6 +235,115 @@ test_macro_ext_binding_dep =
       & #specExternal .~
           [ "test-artefacts/headers/golden/macros/macro_ext_binding_dep.yaml"
           ]
+
+-- | Every macro the macro language gives up on falls back to its raw macro,
+-- whatever the stage.
+--
+-- Program slicing is enabled to show that a fallback macro has no
+-- dependencies: @OUTSIDE_DEP@ resolves to a typedef outside the main header,
+-- which must not be selected.
+test_macro_fallback :: TestCase
+test_macro_fallback =
+    defaultTest "macros/macro_fallback"
+      & #onFrontend     .~ ( ( #macroFallback  .~ MacroFallback BTrue )
+                           . ( #emptyMacros    .~ ParseEmptyMacros )
+                           . ( #programSlicing .~ EnableProgramSlicing )
+                           )
+      & #tracePredicate .~ macroFallbackTracePredicate [
+            ("macro PARSE_FAILURE",     FailedStageParse)
+          , ("macro RESOLVE_FAILURE",   FailedStageResolve)
+          , ("macro TYPECHECK_FAILURE", FailedStageTypecheck)
+          , ("macro TYPE_LIKE",         FailedStageTypecheck)
+          , ("macro CASCADE",           FailedStageTypecheck)
+          , ("macro OUTSIDE_DEP",       FailedStageTypecheck)
+          , ("macro CONCAT",            FailedStageParse)
+          , ("macro LOG",               FailedStageParse)
+          , ("macro LOG_NAMED",         FailedStageParse)
+          , ("macro EMPTY",             FailedStageParse)
+          ]
+          []
+
+-- | The fallback predicate narrows which macros fall back; the others are
+-- dropped as without fallback, with the reason of their stage.
+--
+-- @EMPTY@ is not passed to the macro language (no @--parse-empty-macros@), so
+-- it is neither.
+test_macro_fallback_by_decl_name :: TestCase
+test_macro_fallback_by_decl_name =
+    testVariant "macros/macro_fallback" Nothing "by_decl_name"
+      & #onFrontend     .~ ( #macroFallback .~ MacroFallback
+                               (BIf $ SelectDecl $ DeclNameMatches
+                                  "^macro (PARSE_FAILURE|TYPE_LIKE)$")
+                           )
+      & #tracePredicate .~ macroFallbackTracePredicate
+          [ ("macro PARSE_FAILURE", FailedStageParse)
+          , ("macro TYPE_LIKE",     FailedStageTypecheck)
+          ]
+          [ ("macro RESOLVE_FAILURE",   FailedStageResolve)
+          , ("macro TYPECHECK_FAILURE", FailedStageTypecheck)
+          , ("macro CASCADE",           FailedStageTypecheck)
+          , ("macro OUTSIDE_DEP",       FailedStageTypecheck)
+          , ("macro CONCAT",            FailedStageParse)
+          , ("macro LOG",               FailedStageParse)
+          , ("macro LOG_NAMED",         FailedStageParse)
+          ]
+
+-- | Expect exactly the given macros to fall back, with their summary, and
+-- exactly the given macros the macro language gave up on to be dropped
+macroFallbackTracePredicate ::
+     [(C.DeclName, FailedStage)]
+     -- ^ Fallback macros
+  -> [(C.DeclName, FailedStage)]
+     -- ^ Dropped macros
+  -> TracePredicate Level TraceMsg
+macroFallbackTracePredicate fallbacks dropped =
+    multiTracePredicate expected $ \case
+      MatchMacroFallback name failure ->
+        Just $ Expected $ FellBack name (failedStage failure)
+      MatchMacrosFallback n ->
+        Just $ Expected $ FallbackSummary n
+      MatchUnusable name reason
+        | Just stage <- droppedStage reason ->
+            Just $ Expected $ Rejected name stage
+      _otherwise ->
+        Nothing
+  where
+    expected :: [MacroFallbackTrace]
+    expected = concat [
+          [FallbackSummary (length fallbacks)]
+        , map (uncurry FellBack) fallbacks
+        , map (uncurry Rejected) dropped
+        ]
+
+-- | What we expect to be traced for a macro the macro language gave up on
+data MacroFallbackTrace =
+    FellBack C.DeclName FailedStage
+  | FallbackSummary Int
+  | Rejected C.DeclName FailedStage
+  deriving stock (Eq, Ord, Show)
+
+instance RenderLabel MacroFallbackTrace where
+  renderLabel = renderLabel . show
+
+data FailedStage =
+    FailedStageParse
+  | FailedStageResolve
+  | FailedStageTypecheck
+  deriving stock (Eq, Ord, Show)
+
+failedStage :: MacroLangFailure -> FailedStage
+failedStage = \case
+    FailedParse{}     -> FailedStageParse
+    FailedResolve{}   -> FailedStageResolve
+    FailedTypecheck{} -> FailedStageTypecheck
+
+-- | The stage of a macro the macro language gave up on, by its unusable reason
+droppedStage :: UnusableReason -> Maybe FailedStage
+droppedStage = \case
+    UnusableParseFailure ParseMacroErrorParse{} -> Just FailedStageParse
+    UnusableMacroResolutionFailure{}            -> Just FailedStageResolve
+    UnusableMacroTypecheckFailure{}             -> Just FailedStageTypecheck
+    _otherwise                                  -> Nothing
 
 -- | Macro name-resolution failures are reported at 'Info' by default.
 --

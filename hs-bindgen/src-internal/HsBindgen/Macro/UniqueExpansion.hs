@@ -67,14 +67,13 @@ data Error =
   | NameMismatch Text Text
   deriving stock (Eq, Show)
 
--- | Project the split macro definition onto its spelling and the names it
--- depends on
+-- | Project the raw macro onto its spelling and the names it depends on
 --
--- The split itself already happened during parsing; see
--- 'HsBindgen.Macro.Syntax.splitMacro'.
+-- Reading the definition into a raw macro already happened during parsing; see
+-- 'HsBindgen.Macro.Syntax.readRawMacro'.
 --
 -- We keep checking the name against the one @libclang@ reported for the cursor:
--- the split does not subsume that comparison.
+-- reading does not subsume that comparison.
 parseDefinition :: MacroDefinition -> ParseResult Definition
 parseDefinition def =
     ParseResult (Name def.name) $
@@ -152,7 +151,7 @@ parseInvocation inv =
 -- A macro is /ambiguous/ iff its expansion depends on where it is invoked. The
 -- analysis starts from the /seed/: the macros that are ambiguous on their own,
 -- because their definitions are not all identical (see 'Redefinition'), or
--- because one of them could not be split (which should never happen and is a
+-- because one of them could not be read (which should never happen and is a
 -- bug, reported to the user), so that we cannot see what it depends on. Every
 -- macro that (transitively) depends on a macro in the seed is ambiguous too,
 -- since the tokens of a replacement list are rescanned at the invocation site.
@@ -210,10 +209,10 @@ analyseMacroDefinitions defs = Analysis{
 
 -- | Are all definitions of a macro identical?
 --
--- We compare the split definitions: name, parameter list and replacement list,
--- token by token by spelling. The split matters: @#define F(x) x@ and
--- @#define F (x) x@ have the same token spellings, but only the first is
--- function-like.
+-- We compare the raw macros: name, parameter list and replacement list, token
+-- by token by spelling. The token spellings of the whole definitions would not
+-- do: @#define F(x) x@ and @#define F (x) x@ have the same token spellings, but
+-- only the first is function-like.
 --
 -- We ignore white space within the replacement list, which C does not (C23
 -- 6.10.5p1): @1-1@ and @1 - 1@ differ, and stringification can observe the

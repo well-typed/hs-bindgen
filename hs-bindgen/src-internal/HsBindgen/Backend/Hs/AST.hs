@@ -24,6 +24,7 @@ module HsBindgen.Backend.Hs.AST (
   , DeriveInstance(..)
   , Var(..)
     -- ** Variable declarations
+  , MacroBinding(..)
   , MacroValue(..)
     -- ** Deriving instances
   , Strategy(..)
@@ -93,6 +94,8 @@ module HsBindgen.Backend.Hs.AST (
 import Data.Type.Nat (SNat, SNatI, snat)
 import Data.Type.Nat qualified as Fin
 import DeBruijn (Add (..), Ctx, EmptyCtx, Idx (..), Wk (..))
+
+import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
 import HsBindgen.Backend.Hs.AST.CompletePragma
 import HsBindgen.Backend.Hs.AST.Strategy
@@ -264,7 +267,7 @@ data Decl l where
     DeclForeignImportDynamic :: ForeignImportDynamic -> Decl l
     DeclForeignImportWrapper :: ForeignImportWrapper -> Decl l
     DeclFunction             :: FunctionDecl         -> Decl l
-    DeclMacroValue           :: MacroValue l         -> Decl l
+    DeclMacroValue           :: MacroBinding l       -> Decl l
     DeclVar                  :: Var                  -> Decl l
 deriving stock instance Show (Decl l)
 
@@ -302,17 +305,22 @@ data InstanceDecl where
 
 deriving instance Show InstanceDecl
 
--- | Macro expression
-type MacroValue :: Star -> Star
-data MacroValue l = MacroValue {
-    -- | Name of variable/function.
+-- | Macro exported as a top-level value binding
+type MacroBinding :: Star -> Star
+data MacroBinding l = MacroBinding {
       name    :: Hs.Name Hs.NsVar
-    -- | Type of variable/function.
-    , expr    :: TypecheckedMacroValue l Final
-    -- | RHS of variable/function.
+    , value   :: MacroValue l
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
+
+type MacroValue :: Star -> Star
+data MacroValue l =
+    -- | Translated by the macro language
+    MacroValueTranslated (TypecheckedMacroValue l Final)
+    -- | Exported as its raw token spellings
+  | MacroValueRaw (Runtime.Macro.Raw Text)
+  deriving stock (Show)
 
 {-------------------------------------------------------------------------------
   Pattern Synonyms

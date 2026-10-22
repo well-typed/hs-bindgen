@@ -110,6 +110,7 @@ derivedNames strategy nameMap owner loc = \case
     C.DeclTypedef typedef             -> typedefNames typedef.ann
     C.DeclMacro (MacroType macroType) -> newtypeNames macroType.ann
     C.DeclMacro MacroValue{}          -> []
+    C.DeclMacro MacroRaw{}            -> []
     C.DeclFunction{}                  -> []
     C.DeclGlobal{}                    -> []
     C.DeclOpaque{}                    -> []

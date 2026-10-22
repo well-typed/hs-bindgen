@@ -25,10 +25,12 @@ import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.MacroFallback (FallbackMacro (..))
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckedMacro (..))
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
@@ -229,18 +231,47 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
           | droppedMacroCount > 0
           ]
 
+        -- Selected macros that fall back, derived from the declarations: the
+        -- declaration index keeps a fallback macro as it was in
+        -- @ConstructTranslationUnit@, a usable success, and never learns about
+        -- the fallback.
+        macroFallbackMsgs :: [AnnMsg Select]
+        macroFallbackMsgs = [
+            withCallStack C.WithLocationInfo{
+                loc = C.declIdLocationInfo decl.info.id.cName [decl.info.loc]
+              , msg = SelectMacroFallback raw.failure
+              }
+          | decl <- selectedUnitDecls
+          , C.DeclMacro (MacroRaw raw) <- [decl.kind]
+          ]
+
+        -- Single summary of fallback macros.
+        macrosFallbackSummaryMsg :: [AnnMsg Select]
+        macrosFallbackSummaryMsg = [
+            withCallStack C.WithLocationInfo{
+                loc = C.LocationUnavailable
+              , msg = SelectMacrosFallback (length macroFallbackMsgs)
+              }
+          | not (null macroFallbackMsgs)
+          ]
+
         msgs :: [AnnMsg Select]
         msgs =
           concat [
               selectMsgs
             , selectionRootMsgs
+            , macroFallbackMsgs
             , getDelayedMsgsAdditionalSelectedTransDeps additionalSelectedTransDepsIndex
             , getBugMsgsNotSelected notSelectedIndex
             , noDeclarationsMatchedMsg
             ]
 
     in  ( unitSelect
-        , sortSelectMsgs unit.includeGraph msgs ++ macrosDroppedSummaryMsg
+        , concat [
+              sortSelectMsgs unit.includeGraph msgs
+            , macrosDroppedSummaryMsg
+            , macrosFallbackSummaryMsg
+            ]
         )
   where
     index :: DeclIndex l
@@ -559,6 +590,7 @@ isDroppedMacro = \case
       ParseMacroDefinitionNoMacroName{} -> True
       ParseMacroEmpty{}                 -> False
       ParseMacroErrorParse{}            -> True
+      ParseMacroErrorRead{}             -> True
       _otherwise                        -> False
 
 {-------------------------------------------------------------------------------

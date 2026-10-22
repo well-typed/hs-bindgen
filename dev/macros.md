@@ -90,3 +90,32 @@ whole invocation, here 7:5 to 7:18. Two rules apply (`getReparseInfo`):
   Otherwise the invocations nested in the argument, such as `U` in
   `int g PARAMS((U a))`, are missed, and the reparser does not know that `U`
   names a type.
+
+## Macro fallback
+
+Handling macros can fail in three stages: `parse` (in the `Parse` pass),
+`resolve` (in `ConstructTranslationUnit`) and `typecheck` (in
+`TypecheckMacros`). Any of these failures does not yet remove the macro.
+Instead the macro body is kept as a `PendingMacro`
+(`HsBindgen.Frontend.MacroFallback`) until it is decided whether we drop the
+macro declaration or fall back to generating a "raw" macro (i.e., a list of
+token spellings). Also, when debugging with `--pass typecheck-macros` every
+unhandled macro is shown with its error.
+
+The `ApplyMacroFallback` pass is the decision point. A "pending" macro that
+matches the macro fallback predicate becomes a `MacroRaw`. Any other "pending"
+macro is removed from the declarations and registered in the declaration index
+with the unusable reason of its stage. By default, all macros are removed, and
+no fallbacks are generated.
+
+Two invariants keep the rest of the pipeline unaware of the fallback:
+
+- A fallback macro is always a value, never a type. Reparsing only treats
+  macro-defined types specially (`getKnownMacroTypes`, the `#undef`s of
+  `PrepareReparse`), so it proceeds as if the macro had been dropped.
+- A fallback macro has no dependencies (`typecheckedMacroDeps`). A macro that
+  resolved but failed to typecheck still has the edges it got in
+  `ConstructTranslationUnit`; `ReparseMacroExpansions` rebuilds the edges of
+  every declaration in the list, and so removes them. A macro that does not
+  fall back is not in the list; `ApplyMacroFallback` removes its outgoing
+  edges. The edges into it stay: its dependents use an unusable macro.
