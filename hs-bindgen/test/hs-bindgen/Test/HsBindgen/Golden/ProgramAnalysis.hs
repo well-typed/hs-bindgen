@@ -12,6 +12,7 @@ import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Macro.Error (MacroLangFailure (..))
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Patterns
@@ -129,7 +130,7 @@ test_circular_macro =
           multiTracePredicateCustomLogLevel
             -- We want to check macro traces.
             (getCustomLogLevel [EnableMacroWarnings]) declsWithMsgs (\case
-                MatchUnusable name UnusableMacroTypecheckFailure{} ->
+                MatchUnusable name (UnusableMacro FailedTypecheck{}) ->
                   Just $ Expected (name, "typecheck")
                 MatchMacrosDropped{} ->
                   Just Tolerated

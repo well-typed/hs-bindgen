@@ -154,18 +154,17 @@ data DelayedParseMsg =
     -- | We did not attempt to parse a macro with an empty replacement list
     -- (@#define FOO@)
     --
-    -- Reported separately from 'ParseMacroErrorParse' because every include
-    -- guard has this shape, and not attempting to parse one is not a failure.
+    -- Not a macro-language parse failure ('HsBindgen.Macro.Error.FailedParse')
+    -- because every include guard has this shape, and not attempting to parse
+    -- one is not a failure.
     -- See 'HsBindgen.Frontend.Pass.Parse.IsPass.EmptyMacros'.
   | ParseMacroEmpty C.PrelimDeclId [Token SourcePath TokenSpelling]
 
-    -- | The macro language could not parse the macro (macro def sites)
-  | ParseMacroErrorParse MacroParseError
-
     -- | We could not read the macro definition into name, parameters and body
     --
-    -- See 'HsBindgen.Macro.Syntax.readRawMacro'. Unlike 'ParseMacroErrorParse',
-    -- there is no raw macro to fall back on.
+    -- See 'HsBindgen.Macro.Syntax.readRawMacro'. Unlike a macro-language parse
+    -- failure ('HsBindgen.Macro.Error.FailedParse'), there is no raw macro to
+    -- fall back on.
   | ParseMacroErrorRead MacroParseError
 
 
@@ -453,8 +452,6 @@ instance PrettyForTrace DelayedParseMsg where
         , "use --parse-empty-macros to parse it:"
         , PP.show tokens
         ]
-      ParseMacroErrorParse err ->
-        prettyForTrace err
       ParseMacroErrorRead err ->
         prettyMacroParseErrorWithHeading "Could not read macro definition:" err
       ParsePotentialDuplicateSymbol isPublic -> PP.hcat $ [
@@ -561,7 +558,6 @@ instance IsTrace Level DelayedParseMsg where
         maximum $ Warning :| map nestedDeclFailureLevel (toList xs)
       ParseImplicitFieldFailed    x        -> getDefaultLogLevel x
       ParseMacroEmpty{}                    -> Info
-      ParseMacroErrorParse{}               -> Info
       ParseMacroErrorRead{}                -> Info
       ParsePotentialDuplicateSymbol{}      -> Notice
       ParseDeclarationNotVisible{}         -> Warning
@@ -594,7 +590,6 @@ instance IsTrace Level DelayedParseMsg where
       ParseImplicitFieldFailed x        -> "parse-" <> getTraceId x
       ParseMacroDefinitionNoMacroName{} -> "parse-macro"
       ParseMacroEmpty{}                 -> "parse-macro"
-      ParseMacroErrorParse{}            -> "parse-macro"
       ParseMacroErrorRead{}             -> "parse-macro"
       _ -> "parse"
 

@@ -79,3 +79,14 @@ instance PrettyForTrace MacroLangFailure where
       FailedParse     err -> prettyForTrace err
       FailedResolve   err -> prettyForTrace err
       FailedTypecheck err -> prettyForTrace err
+
+instance IsTrace Level MacroLangFailure where
+  getDefaultLogLevel = \case
+      FailedParse     _   -> Info
+      FailedResolve   err -> getDefaultLogLevel err
+      FailedTypecheck err -> getDefaultLogLevel err
+  getSource  = const HsBindgen
+  getTraceId = \case
+      FailedParse     _   -> "parse-macro"
+      FailedResolve   err -> getTraceId err
+      FailedTypecheck err -> getTraceId err

@@ -553,16 +553,14 @@ getBugMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
       UnusableOmitted                    -> False
       UnusableParseFailure           err -> getDefaultLogLevel err == Bug
       UnusableMangleNamesFailure     err -> getDefaultLogLevel err == Bug
-      UnusableMacroTypecheckFailure  err -> getDefaultLogLevel err == Bug
-      UnusableMacroResolutionFailure err -> getDefaultLogLevel err == Bug
+      UnusableMacro                  err -> getDefaultLogLevel err == Bug
 
 -- | Does this selection-root message represent a macro that hs-bindgen dropped?
 --
 isDroppedMacro :: SelectMsg -> Bool
 isDroppedMacro = \case
     SelectUnusable reason -> case reason of
-      UnusableMacroTypecheckFailure  _ -> True
-      UnusableMacroResolutionFailure _ -> True
+      UnusableMacro                  _ -> True
       -- A parse failure counts as a dropped macro iff it is a macro parse
       -- failure.
       UnusableParseFailure p           -> isMacroParseFailure p
@@ -575,7 +573,6 @@ isDroppedMacro = \case
     isMacroParseFailure = \case
       ParseMacroDefinitionNoMacroName{} -> True
       ParseMacroEmpty{}                 -> False
-      ParseMacroErrorParse{}            -> True
       ParseMacroErrorRead{}             -> True
       _otherwise                        -> False
 
