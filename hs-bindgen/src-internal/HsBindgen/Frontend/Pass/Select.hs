@@ -238,7 +238,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
         macroFallbackMsgs :: [AnnMsg Select]
         macroFallbackMsgs = [
             withCallStack C.WithLocationInfo{
-                loc = C.declIdLocationInfo decl.info.id.cName [decl.info.loc]
+                loc = C.declIdLocationInfo decl.id.cName [decl.info.loc]
               , msg = SelectMacroFallback raw.failure
               }
           | decl <- selectedUnitDecls
@@ -309,7 +309,7 @@ selectDeclWith
       _otherwise                     -> Nothing
   where
     declId :: C.DeclId
-    declId = decl.info.id.cName
+    declId = decl.id.cName
 
     isSelected :: Bool
     isSelected = Set.member declId selectedIds

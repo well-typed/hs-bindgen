@@ -33,58 +33,58 @@ import HsBindgen.NameHint
 
 -- | Generate declarations for given C struct
 structDecs ::
-     C.DeclInfo Final
+     C.Decl l Final
   -> C.Struct Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-structDecs info struct spec = do
+structDecs decl struct spec = do
     case struct.flam of
       C.NoFlam ->
-        getDeclsRegular spec info struct
+        getDeclsRegular spec decl struct
       C.Flam flam flamNames ->
-        getDeclsFlam flam flamNames.aux spec info struct
+        getDeclsFlam flam flamNames.aux spec decl struct
 
 getDeclsRegular ::
      HasCallStack
   => PrescriptiveDeclSpec
-  -> C.DeclInfo Final
+  -> C.Decl l Final
   -> C.Struct Final
   -> HsM [Hs.Decl l]
-getDeclsRegular spec info struct = do
+getDeclsRegular spec decl struct = do
     env <- Reader.ask
     let supInsts = env.supportedInstances.struct
     insts <-
       getInstances supInsts name struct.fields <$> State.gets (.instanceMap)
     let insts' = Set.insert Inst.Generic insts
         (hsStruct, decls) =
-          getDecls supInsts spec name info struct insts'
+          getDecls supInsts spec name decl struct insts'
     State.modify' $ #instanceMap %~ Map.insert name hsStruct.instances
     pure $ Hs.DeclData hsStruct : decls
   where
     name :: Hs.Name Hs.NsTypeConstr
-    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
+    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
 
 getDeclsFlam ::
      HasCallStack
   => C.RegularField Final
   -> Hs.Name Hs.NsTypeConstr -- ^ Auxiliary type-constructor name
   -> PrescriptiveDeclSpec
-  -> C.DeclInfo Final
+  -> C.Decl l Final
   -> C.Struct Final
   -> HsM [Hs.Decl l]
-getDeclsFlam flam auxName spec info struct = do
+getDeclsFlam flam auxName spec decl struct = do
     env <- Reader.ask
     let supInsts = env.supportedInstances.struct
     insts <-
       getInstances supInsts auxName struct.fields <$> State.gets (.instanceMap)
     let insts' = insts <> Set.fromList [Inst.Flam_Offset, Inst.Generic]
         (hsStruct, decls) =
-          getDecls supInsts spec auxName info struct insts'
+          getDecls supInsts spec auxName decl struct insts'
     State.modify' $ #instanceMap %~ Map.insert auxName hsStruct.instances
     pure $ Hs.DeclData hsStruct : decls ++ [getHasFlamInstanceDecl hsStruct, flamDecl]
   where
     name :: Hs.Name Hs.NsTypeConstr
-    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
+    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
 
     getHasFlamInstanceDecl :: Hs.Struct -> Hs.Decl l
     getHasFlamInstanceDecl hsStruct =
@@ -106,11 +106,12 @@ getDeclsFlam flam auxName spec info struct = do
           , typ     =
               Hs.WithFlam flam.typ.hs (Hs.TypRef auxName Nothing)
           , origin  = Origin.Decl{
-              info = info
-            , kind = Origin.Opaque info.id.cName.name.kind
+              info = decl.info
+            , id   = decl.id
+            , kind = Origin.Opaque decl.id.cName.name.kind
             , spec = spec
             }
-          , comment = mkHaddocks info
+          , comment = mkHaddocks decl
           }
 
 getInstances ::
@@ -132,11 +133,11 @@ getDecls ::
      Map Inst.TypeClass Inst.SupportedStrategies
   -> PrescriptiveDeclSpec
   -> Hs.Name Hs.NsTypeConstr
-  -> C.DeclInfo Final
+  -> C.Decl l Final
   -> C.Struct Final
   -> Set Inst.TypeClass
   -> (Hs.Struct, [Hs.Decl l])
-getDecls supInsts spec structName info struct insts =
+getDecls supInsts spec structName decl struct insts =
     ( hsStruct
     , marshalDecls ++ optDecls ++ isStructDecl ++ fieldDecls
     )
@@ -150,7 +151,7 @@ getDecls supInsts spec structName info struct insts =
             name    = fieldName field
           , typ     = field.typ.hs
           , origin  = Origin.StructField field
-          , comment = mkHaddocksFieldInfo info field.info
+          , comment = mkHaddocksFieldInfo decl.info field.info
           }
 
     fieldHint :: C.Field Final -> NameHint
@@ -174,9 +175,10 @@ getDecls supInsts spec structName info struct insts =
         , constr    = struct.names.constr
         , fields    = map getHsField struct.fields
         , instances = insts <> knownInsts
-        , comment   = mkHaddocks info
+        , comment   = mkHaddocks decl
         , origin    = Just Origin.Decl{
-              info
+              info = decl.info
+            , id   = decl.id
             , kind = Origin.Struct struct
             , spec
             }
@@ -254,8 +256,8 @@ getDecls supInsts spec structName info struct insts =
 
     fieldDecls :: [Hs.Decl l]
     fieldDecls = flip concatMap (flattenFields struct.fields) $ \field -> concat [
-          hasFieldDecs info hsStruct field
-        , hasFieldCompatDecs info hsStruct field
+          hasFieldDecs decl.info hsStruct field
+        , hasFieldCompatDecs decl.info hsStruct field
         , hasFieldPtrDecs hsStruct field
         , hasCFieldDecs hsStruct field
         , hasCBitfieldDecs hsStruct field
@@ -302,7 +304,7 @@ getDecls supInsts spec structName info struct insts =
 
 -- | Class instances for 'GHC.Records.HasField'
 hasFieldDecs ::
-     C.DeclInfo Final
+     C.DeclInfo
   -> Hs.Struct
   -> Field
   -> [Hs.Decl l]
@@ -354,7 +356,7 @@ hasFieldDecs info struct field = case field of
 
 -- | Class instances for 'GHC.Records.Compat.HasField'
 hasFieldCompatDecs ::
-     C.DeclInfo Final
+     C.DeclInfo
   -> Hs.Struct
   -> Field
   -> [Hs.Decl l]

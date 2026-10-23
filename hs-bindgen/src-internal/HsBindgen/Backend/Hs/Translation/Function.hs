@@ -80,11 +80,11 @@ import HsBindgen.NameHint (NameHint (..))
 functionDecs ::
      HasCallStack
   => SHs.Safety
-  -> C.DeclInfo Final
+  -> C.Decl l Final
   -> C.Function Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-functionDecs safety info origCFun _spec = do
+functionDecs safety decl origCFun _spec = do
     env <- Reader.ask
     pure $ aux env
   where
@@ -95,10 +95,10 @@ functionDecs safety info origCFun _spec = do
         ]
       where
         origCName :: Text
-        origCName = info.id.cName.name.text
+        origCName = decl.id.cName.name.text
 
         origHsName :: Hs.TermName
-        origHsName = Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) info.id.hsName
+        origHsName = Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) decl.id.hsName
 
         cWrapperName :: UniqueSymbol
         cWrapperName =
@@ -207,7 +207,7 @@ functionDecs safety info origCFun _spec = do
                           })
                         | arg <- origCFun.args
                         ]
-          in  mkHaddocksDecorateParams info params
+          in  mkHaddocksDecorateParams decl params
 
         runsInIO :: Bool
         runsInIO = functionShouldRunInIO origCFun.attrs.purity primResult primParams

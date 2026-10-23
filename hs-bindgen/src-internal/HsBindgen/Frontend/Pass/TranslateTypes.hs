@@ -60,11 +60,7 @@ translateTypes unit = (unit', msgs)
 processDecl :: C.Decl l AdjustTypes -> M NoEnv (C.Decl l TranslateTypes)
 processDecl decl = do
     kind' <- withEnv (const (DeclEnv decl.info)) $ processDeclKind decl.kind
-    pure C.Decl{
-        info = coercePass decl.info
-      , kind = kind'
-      , ann  = decl.ann
-      }
+    pure $ C.coercePassDeclWith kind' decl.ann decl
 
 processDeclKind :: C.DeclKind l AdjustTypes -> M DeclEnv (C.DeclKind l TranslateTypes)
 processDeclKind = \case
@@ -235,7 +231,7 @@ withEnv f (M k) = M (withReaderT f k)
 data NoEnv = NoEnv
 
 data DeclEnv = DeclEnv {
-    _info :: C.DeclInfo AdjustTypes
+    _info :: C.DeclInfo
   }
 
 newtype St = St {

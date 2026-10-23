@@ -59,7 +59,7 @@ detectClashes strategy nameMap decls =
           successes
       where
         owner :: C.DeclId
-        owner = decl.info.id
+        owner = decl.id
 
         loc :: SingleLoc C.DeclPath
         loc = decl.info.loc

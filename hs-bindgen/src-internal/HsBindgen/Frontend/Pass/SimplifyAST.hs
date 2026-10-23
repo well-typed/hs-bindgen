@@ -5,6 +5,7 @@ module HsBindgen.Frontend.Pass.SimplifyAST (
   ) where
 
 import Data.Map.Strict qualified as Map
+import Data.Proxy (Proxy (..))
 import GHC.Stack (HasCallStack)
 
 import HsBindgen.Errors
@@ -47,28 +48,28 @@ simplifyAST usage parseResults = (results, msgs)
         ParseResultSuccess success ->
           case success.decl of
             -- Found untagged enum: check if it has use sites
-            C.Decl{info, kind = C.DeclEnum enum}
-              | C.PrelimDeclIdUnnamed unnamedId <- info.id
+            C.Decl{info, comment, enclosing, kind = C.DeclEnum enum}
+              | C.PrelimDeclIdUnnamed unnamedId <- success.decl.id
               , Map.notMember unnamedId usage.map ->
                 ( [ result {
                      id = newId
                    , classification = ParseResultSuccess success {
                        decl = C.Decl{
-                              info = newInfo
-                            , kind = C.DeclUntaggedEnumConstant C.UntaggedEnumConstant{
+                              info      = info
+                            , id        = newId
+                            , comment   = coercePassCommentDecl (Proxy @'(Parse, SimplifyAST)) comment
+                            , enclosing = map coercePass enclosing
+                            , kind      = C.DeclUntaggedEnumConstant C.UntaggedEnumConstant{
                                      typ      = extractPrimType enum.typ
                                    , constant = coercePass constant
                                    }
-                            , ann = NoAnn
+                            , ann       = NoAnn
                             }
                                           }
                    }
                  | constant <- enum.constants
                  , let C.ScopedName nameText = constant.info.name
                        newId = C.PrelimDeclIdNamed (C.DeclName nameText C.NameKindOrdinary)
-                       newInfo :: C.DeclInfo SimplifyAST
-                       newInfo = (coercePass info :: C.DeclInfo SimplifyAST)
-                                   { C.id = newId }
                  ]
                 , [withCallStack (SimplifyASTUntaggedEnum unnamedId)]
                 )
@@ -76,11 +77,7 @@ simplifyAST usage parseResults = (results, msgs)
                       id = result.id
                     , loc = result.loc
                     , classification = ParseResultSuccess success {
-                        decl = C.Decl{
-                          info = coercePass decl.info
-                        , kind = coercePass decl.kind
-                        , ann = NoAnn
-                        }
+                        decl = C.coercePassDeclWith (coercePass decl.kind) NoAnn decl
                       }
                     }]
                  , []

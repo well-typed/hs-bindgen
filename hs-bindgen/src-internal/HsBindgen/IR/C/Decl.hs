@@ -17,6 +17,7 @@ module HsBindgen.IR.C.Decl (
   , HeaderInfo(..)
   , FieldInfo(..)
   , DeclKind(..)
+  , coercePassDeclWith
   , OpaqueSize(..)
   , Struct(..)
   , Flam(..)
@@ -77,9 +78,26 @@ import Doxygen.Parser.Types qualified as Doxy
 -------------------------------------------------------------------------------}
 
 data Decl l (p :: Pass) = Decl {
-      info :: DeclInfo p
-    , kind :: DeclKind l p
-    , ann  :: Ann "Decl" p
+      info      :: DeclInfo
+    , id        :: Id p
+    , comment   :: CommentDecl p
+      -- ^ Doxygen comment for this declaration
+      --
+      -- Pre-'HsBindgen.Frontend.Pass.EnrichComments.IsPass.EnrichComments'
+      -- passes have @CommentDecl p = ()@: the type system guarantees comments
+      -- cannot exist. Post-@EnrichComments@ passes have
+      -- @CommentDecl p = Maybe (Comment p)@.
+    , enclosing :: [EnclosingRef p]
+      -- ^ List of enclosing declarations, if this declaration is nested.
+      --
+      -- Set during parsing for declarations nested inside another declaration
+      -- (e.g., tagged, untagged, or anonymous structs\/unions inside an enclosing
+      -- struct\/union). Empty for top-level declarations.
+      --
+      -- Used by 'EnrichComments' to build doxygen-qualified names and look up
+      -- enclosing field comments in the doxygen state.
+    , kind      :: DeclKind l p
+    , ann       :: Ann "Decl" p
     }
   deriving stock (Generic)
 
@@ -104,9 +122,8 @@ deriving stock instance (Eq   (Id p)) => Eq   (EnclosingRef p)
 deriving stock instance (Ord  (Id p)) => Ord  (EnclosingRef p)
 deriving stock instance (Show (Id p)) => Show (EnclosingRef p)
 
-data DeclInfo (p :: Pass) = DeclInfo{
+data DeclInfo = DeclInfo{
       loc           :: SingleLoc C.DeclPath
-    , id            :: Id p
     -- | Source order index
     --
     -- The position of this declaration in /source order/ (roughly, how
@@ -117,24 +134,8 @@ data DeclInfo (p :: Pass) = DeclInfo{
     , sourceOrderIndex :: Maybe Natural
     , origin        :: DeclOrigin
     , availability  :: Availability
-    , comment       :: CommentDecl p
-      -- ^ Doxygen comment for this declaration
-      --
-      -- Pre-'HsBindgen.Frontend.Pass.EnrichComments.IsPass.EnrichComments'
-      -- passes have @CommentDecl p = ()@: the type system guarantees comments
-      -- cannot exist. Post-@EnrichComments@ passes have
-      -- @CommentDecl p = Maybe (Comment p)@.
-    , enclosing :: [EnclosingRef p]
-      -- ^ List of enclosing declarations, if this declaration is nested.
-      --
-      -- Set during parsing for declarations nested inside another declaration
-      -- (e.g., tagged, untagged, or anonymous structs\/unions inside an enclosing
-      -- struct\/union). Empty for top-level declarations.
-      --
-      -- Used by 'EnrichComments' to build doxygen-qualified names and look up
-      -- enclosing field comments in the doxygen state.
     }
-  deriving stock (Generic)
+  deriving stock (Eq, Generic, Show)
 
 -- | Where a declaration comes from
 data DeclOrigin =
@@ -566,7 +567,6 @@ data CommentRef p = CommentRef Text (Maybe (Id p)) (Maybe Doxy.RefKind)
 
 deriving stock instance IsPass p => Eq (Comment              p)
 deriving stock instance IsPass p => Eq (CommentRef           p)
-deriving stock instance IsPass p => Eq (DeclInfo             p)
 deriving stock instance IsPass p => Eq (Enum                 p)
 deriving stock instance IsPass p => Eq (EnumConstant         p)
 deriving stock instance IsPass p => Eq (Field                p)
@@ -585,7 +585,6 @@ deriving stock instance IsPass p => Eq (UntaggedEnumConstant p)
 
 deriving stock instance IsPass p => Show (Comment              p)
 deriving stock instance IsPass p => Show (CommentRef           p)
-deriving stock instance IsPass p => Show (DeclInfo             p)
 deriving stock instance IsPass p => Show (Enum                 p)
 deriving stock instance IsPass p => Show (EnumConstant         p)
 deriving stock instance IsPass p => Show (Field                p)
@@ -612,15 +611,25 @@ deriving stock instance (Macro.HasTypes l, IsPass p) => Show (DeclKind l p)
 -------------------------------------------------------------------------------}
 
 instance (
-      CoercePass DeclInfo p p'
+      CoercePassId p p'
+    , CoercePassCommentDecl p p'
     , CoercePass (DeclKind l) p p'
     , Ann "Decl" p ~ Ann "Decl" p'
     ) => CoercePass (Decl l) p p' where
-  coercePass decl = Decl{
-        info = coercePass decl.info
-      , kind = coercePass decl.kind
-      , ann  = decl.ann
-      }
+  coercePass decl = coercePassDeclWith (coercePass decl.kind) decl.ann decl
+
+-- | Coerce a declaration to the next pass, given its new kind and annotation
+coercePassDeclWith :: forall l p p'.
+     (CoercePassId p p', CoercePassCommentDecl p p')
+  => DeclKind l p' -> Ann "Decl" p' -> Decl l p -> Decl l p'
+coercePassDeclWith kind ann decl = Decl{
+      info      = decl.info
+    , id        = coercePassId (Proxy @'(p, p')) decl.id
+    , comment   = coercePassCommentDecl (Proxy @'(p, p')) decl.comment
+    , enclosing = map coercePass decl.enclosing
+    , kind      = kind
+    , ann       = ann
+    }
 
 instance (CoercePassId p p') => CoercePass EnclosingRef p p' where
     coercePass = \case
@@ -628,20 +637,6 @@ instance (CoercePassId p p') => CoercePass EnclosingRef p p' where
         EnclosingRef (coercePassId (Proxy @'(p, p')) x)
       UnusableEnclosingRef x ->
         UnusableEnclosingRef x
-
-instance (
-      CoercePassId p p'
-    , CoercePassCommentDecl p p'
-    ) => CoercePass DeclInfo p p' where
-  coercePass info = DeclInfo{
-        loc              = info.loc
-      , id               = coercePassId (Proxy @'(p, p')) info.id
-      , sourceOrderIndex = info.sourceOrderIndex
-      , origin           = info.origin
-      , availability     = info.availability
-      , comment          = coercePassCommentDecl (Proxy @'(p, p')) info.comment
-      , enclosing        = map coercePass info.enclosing
-      }
 
 instance (
       CoercePassCommentDecl p p'

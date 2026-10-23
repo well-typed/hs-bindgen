@@ -197,22 +197,22 @@ parseDeclWith ::
      forall l.
      [C.EnclosingRef Parse]
   -> ParseCtx
-  -> ([C.EnclosingRef Parse] -> ParseCtx -> C.DeclInfo Parse -> Parser l)
+  -> ([C.EnclosingRef Parse] -> ParseCtx -> C.PrelimDeclId -> C.DeclInfo -> Parser l)
   -> Parser l
 parseDeclWith enclosing ctx parser curr = do
     source <- getCursorSource curr
     case source of
       SourceBuiltin      -> foldContinue
-      SourceDecl declLoc -> withDeclInfo enclosing ctx declLoc parseExplicitDecl curr
+      SourceDecl declLoc -> withDeclInfo ctx declLoc parseExplicitDecl curr
   where
-    parseExplicitDecl :: C.DeclInfo Parse -> Parser l
-    parseExplicitDecl info = \_curr ->
+    parseExplicitDecl :: C.PrelimDeclId -> C.DeclInfo -> Parser l
+    parseExplicitDecl declId info = \_curr ->
       if | C.Unavailable <- info.availability ->
              foldContinueWith [
-                 parseUnavailable info
+                 parseUnavailable declId info
                ]
          | otherwise ->
-             parser enclosing ctx info curr
+             parser enclosing ctx declId info curr
 
 -- | Macros
 macroDefinition ::
@@ -220,12 +220,12 @@ macroDefinition ::
   => Macro.Lang l
   -> [C.EnclosingRef Parse]
   -> ParseCtx
-  -> C.DeclInfo Parse -> Parser l
-macroDefinition macroLang _enclosing ctx info = \curr -> do
+  -> C.PrelimDeclId -> C.DeclInfo -> Parser l
+macroDefinition macroLang enclosing ctx declId info = \curr -> do
     tokens <- getMacroTokens curr
-    case getMacroName info.id of
+    case getMacroName declId of
       Nothing -> do
-        failures <- parseFail ctx info.id info.loc ParseMacroDefinitionNoMacroName
+        failures <- parseFail ctx declId info.loc ParseMacroDefinitionNoMacroName
         foldContinueWith failures
       Just macroName -> do
         let raw = readRawMacro tokens
@@ -240,12 +240,15 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
     mkResult emptyMacros raw =
         case parseMacro emptyMacros raw of
           Right parsed -> parseSucceed C.Decl{
-              info = info
-            , kind = C.DeclMacro parsed
-            , ann  = NoAnn
+              info      = info
+            , id        = declId
+            , comment   = ()
+            , enclosing = enclosing
+            , kind      = C.DeclMacro parsed
+            , ann       = NoAnn
             }
           Left msg -> ParseResult{
-              id             = info.id
+              id             = declId
             , loc            = info.loc
             , classification = ParseResultFailure msg
             }
@@ -263,7 +266,7 @@ macroDefinition macroLang _enclosing ctx info = \curr -> do
         macro <- first ParseMacroErrorRead raw
         case emptyMacros of
           DoNotParseEmptyMacros | null macro.body ->
-            Left $ ParseMacroEmpty info.id (toList macro)
+            Left $ ParseMacroEmpty declId (toList macro)
           _otherwise -> Right PendingMacro{
               raw      = fmap Macro.spelling macro
             , handling = case macroLang.parse macro of
@@ -289,9 +292,10 @@ structDecl ::
      Macro.Lang l
   -> [C.EnclosingRef Parse]
   -> ParseCtx
-  -> C.DeclInfo Parse
+  -> C.PrelimDeclId
+  -> C.DeclInfo
   -> Parser l
-structDecl macroLang enclosing ctx info = \curr -> do
+structDecl macroLang enclosing ctx declId info = \curr -> do
     classification <- HighLevel.classifyDeclaration curr
     case classification of
       Definition -> do
@@ -302,9 +306,12 @@ structDecl macroLang enclosing ctx info = \curr -> do
 
         let mkStruct :: [C.Field Parse] -> C.Decl l Parse
             mkStruct allFields = C.Decl {
-                  info = info
-                , ann  = NoAnn
-                , kind = C.DeclStruct C.Struct{
+                  info      = info
+                , id        = declId
+                , comment   = ()
+                , enclosing = enclosing
+                , ann       = NoAnn
+                , kind      = C.DeclStruct C.Struct{
                       sizeof    = fromIntegral sizeof
                     , alignment = fromIntegral alignment
                     , fields    = mapMaybe removePaddingFields regularFields
@@ -316,7 +323,7 @@ structDecl macroLang enclosing ctx info = \curr -> do
                 (regularFields, mFlam) = partitionFields allFields
 
             enclosing' :: [C.EnclosingRef Parse]
-            enclosing' = C.EnclosingRef info.id : enclosing
+            enclosing' = C.EnclosingRef declId : enclosing
 
         -- Recursively parse all members of the struct. These members include
         -- field declarations and nested struct/union declarations.
@@ -333,16 +340,19 @@ structDecl macroLang enclosing ctx info = \curr -> do
             -- that are therefore inaccessible in Haskell.
             case membersResult.fieldMembers of
               Left failMsg ->
-                parseFail ctx info.id info.loc failMsg
+                parseFail ctx declId info.loc failMsg
               Right fields ->
                 pure [parseSucceed (mkStruct fields)]
 
       DefinitionUnavailable ->
         let decl :: C.Decl l Parse
             decl = C.Decl{
-                info = info
-              , kind = C.DeclOpaque Nothing
-              , ann  = NoAnn
+                info      = info
+              , id        = declId
+              , comment   = ()
+              , enclosing = enclosing
+              , kind      = C.DeclOpaque Nothing
+              , ann       = NoAnn
               }
         in  foldContinueWith [parseSucceed decl]
       DefinitionElsewhere _ ->
@@ -377,9 +387,10 @@ unionDecl ::
      Macro.Lang l
   -> [C.EnclosingRef Parse]
   -> ParseCtx
-  -> C.DeclInfo Parse
+  -> C.PrelimDeclId
+  -> C.DeclInfo
   -> Parser l
-unionDecl macroLang enclosing ctx info = \curr -> do
+unionDecl macroLang enclosing ctx declId info = \curr -> do
     classification <- HighLevel.classifyDeclaration curr
     case classification of
       Definition -> do
@@ -390,9 +401,12 @@ unionDecl macroLang enclosing ctx info = \curr -> do
 
         let mkUnion :: [C.Field Parse] -> C.Decl l Parse
             mkUnion fields = C.Decl{
-                  info = info
-                , ann  = NoAnn
-                , kind = C.DeclUnion C.Union{
+                  info      = info
+                , id        = declId
+                , comment   = ()
+                , enclosing = enclosing
+                , ann       = NoAnn
+                , kind      = C.DeclUnion C.Union{
                              sizeof    = fromIntegral sizeof
                            , alignment = fromIntegral alignment
                            , fields    = mapMaybe removePaddingFields fields
@@ -400,7 +414,7 @@ unionDecl macroLang enclosing ctx info = \curr -> do
                            }
                 }
             enclosing' :: [C.EnclosingRef Parse]
-            enclosing' = C.EnclosingRef info.id : enclosing
+            enclosing' = C.EnclosingRef declId : enclosing
 
         -- Recursively parse all members of the union. These members include
         -- field declarations and nested struct/union declarations.
@@ -417,16 +431,19 @@ unionDecl macroLang enclosing ctx info = \curr -> do
             -- that are therefore inaccessible in Haskell.
             case membersResult.fieldMembers of
               Left failMsg ->
-                parseFail ctx info.id info.loc failMsg
+                parseFail ctx declId info.loc failMsg
               Right fields ->
                 pure [parseSucceed (mkUnion fields)]
 
       DefinitionUnavailable -> do
         let decl :: C.Decl l Parse
             decl = C.Decl{
-                info = info
-              , kind = C.DeclOpaque Nothing
-              , ann  = NoAnn
+                info      = info
+              , id        = declId
+              , comment   = ()
+              , enclosing = enclosing
+              , kind      = C.DeclOpaque Nothing
+              , ann       = NoAnn
               }
         foldContinueWith [parseSucceed decl]
       DefinitionElsewhere _ ->
@@ -451,9 +468,10 @@ typedefDecl ::
      forall l.
      [C.EnclosingRef Parse]
   -> ParseCtx
-  -> C.DeclInfo Parse
+  -> C.PrelimDeclId
+  -> C.DeclInfo
   -> Parser l
-typedefDecl _enclosing ctx info = \curr -> do
+typedefDecl enclosing ctx declId info = \curr -> do
     typedefType <-
       fromCXType ctx =<< clang_getTypedefDeclUnderlyingType curr
 
@@ -475,9 +493,12 @@ typedefDecl _enclosing ctx info = \curr -> do
 
     let decl :: C.Decl l Parse
         decl = C.Decl{
-            info = info
-          , kind = declKind
-          , ann  = NoAnn
+            info      = info
+          , id        = declId
+          , comment   = ()
+          , enclosing = enclosing
+          , kind      = declKind
+          , ann       = NoAnn
           }
     foldContinueWith [parseSucceed decl]
 
@@ -533,9 +554,10 @@ macroExpansion = \curr -> do
 enumDecl ::
      [C.EnclosingRef Parse]
   -> ParseCtx
-  -> C.DeclInfo Parse
+  -> C.PrelimDeclId
+  -> C.DeclInfo
   -> Parser l
-enumDecl _enclosing ctx info = \curr -> do
+enumDecl enclosing ctx declId info = \curr -> do
     classification <- HighLevel.classifyDeclaration curr
     case classification of
       Definition -> do
@@ -580,9 +602,12 @@ enumDecl _enclosing ctx info = \curr -> do
               -> ParseDecl [ParseResult l Parse]
             mkEnum eConstants = case partitionEithers eConstants of
               ([], constants) -> pure $ (:[]) $ parseSucceed $ C.Decl{
-                  info = info
-                , ann  = NoAnn
-                , kind = C.DeclEnum C.Enum{
+                  info      = info
+                , id        = declId
+                , comment   = ()
+                , enclosing = enclosing
+                , ann       = NoAnn
+                , kind      = C.DeclEnum C.Enum{
                              typ       = ety
                            , sizeof    = fromIntegral sizeof
                            , alignment = fromIntegral alignment
@@ -591,15 +616,18 @@ enumDecl _enclosing ctx info = \curr -> do
                            }
                 }
               -- If there are errors, report the first one.
-              (msg:_, _) -> parseFail ctx info.id info.loc msg
+              (msg:_, _) -> parseFail ctx declId info.loc msg
 
         foldRecurseWith parseConstant mkEnum
       DefinitionUnavailable -> do
         let decl :: C.Decl l Parse
             decl = C.Decl{
-                info = info
-              , kind = C.DeclOpaque Nothing
-              , ann  = NoAnn
+                info      = info
+              , id        = declId
+              , comment   = ()
+              , enclosing = enclosing
+              , kind      = C.DeclOpaque Nothing
+              , ann       = NoAnn
               }
         foldContinueWith [parseSucceed decl]
       DefinitionElsewhere _ ->
@@ -624,11 +652,12 @@ functionDecl ::
      Macro.Lang l
   -> [C.EnclosingRef Parse]
   -> ParseCtx
-  -> C.DeclInfo Parse
+  -> C.PrelimDeclId
+  -> C.DeclInfo
   -> Parser l
-functionDecl macroLang enclosing ctx info =
-    withCursorVisibility ctx info $ \visibility ->
-      withCursorLinkage ctx info $ \linkage ->
+functionDecl macroLang enclosing ctx declId info =
+    withCursorVisibility ctx declId info.loc $ \visibility ->
+      withCursorLinkage ctx declId info.loc $ \linkage ->
         aux visibility linkage
   where
     aux :: Visibility -> Linkage -> Parser l
@@ -641,9 +670,12 @@ functionDecl macroLang enclosing ctx info =
           functionAnn <- getReparseInfo curr
           let mkDecl :: C.FunctionPurity -> C.Decl l Parse
               mkDecl purity = C.Decl{
-                  info = info
-                , ann  = NoAnn
-                , kind = C.DeclFunction C.Function {
+                  info      = info
+                , id        = declId
+                , comment   = ()
+                , enclosing = enclosing
+                , ann       = NoAnn
+                , kind      = C.DeclFunction C.Function {
                              args  = functionArgs
                            , res   = functionRes
                            , attrs = C.FunctionAttributes purity
@@ -670,7 +702,7 @@ functionDecl macroLang enclosing ctx info =
 
               (fails ++) <$>
                 if not (null unnamedDecls) then do
-                  parseFail ctx info.id info.loc ParseUnsupportedUnnamedInSignature
+                  parseFail ctx declId info.loc ParseUnsupportedUnnamedInSignature
                 else
                   let nonPublicVisibility = [
                           ParseNonPublicVisibility
@@ -712,10 +744,10 @@ functionDecl macroLang enclosing ctx info =
             pure $ Right (args', res)
           C.TypeTypedef{} ->
             Left <$>
-              (parseFail ctx info.id info.loc ParseFunctionOfTypeTypedef)
+              (parseFail ctx declId info.loc ParseFunctionOfTypeTypedef)
           otherType ->
             Left <$>
-              (parseFail ctx info.id info.loc $
+              (parseFail ctx declId info.loc $
                  ParseExpectedFunctionType $ show otherType)
 
     -- Look for (unsupported) declarations inside function parameters, and for
@@ -725,7 +757,7 @@ functionDecl macroLang enclosing ctx info =
     nestedDecl = simpleFold $ \curr -> do
         kind <- fromSimpleEnum <$> clang_getCursorKind curr
         let enclosing' :: [C.EnclosingRef Parse]
-            enclosing' = C.EnclosingRef info.id : enclosing
+            enclosing' = C.EnclosingRef declId : enclosing
         case kind of
           -- 'ParmDecl' sometimes appear in nested in the AST
           Right CXCursor_ParmDecl ->
@@ -766,7 +798,7 @@ functionDecl macroLang enclosing ctx info =
           -- but this is safer.
           otherKind -> do
             failures <-
-              parseFail ctx info.id info.loc
+              parseFail ctx declId info.loc
                 (ParseUnexpectedCursorKind otherKind)
             foldContinueWith $ map Left failures
 
@@ -776,11 +808,12 @@ varDecl ::
      Macro.Lang l
   -> [C.EnclosingRef Parse]
   -> ParseCtx
-  -> C.DeclInfo Parse
+  -> C.PrelimDeclId
+  -> C.DeclInfo
   -> Parser l
-varDecl macroLang enclosing ctx info = do
-    withCursorVisibility ctx info $ \visibility ->
-      withCursorLinkage ctx info $ \linkage ->
+varDecl macroLang enclosing ctx declId info = do
+    withCursorVisibility ctx declId info.loc $ \visibility ->
+      withCursorLinkage ctx declId info.loc $ \linkage ->
         aux visibility linkage
   where
     aux :: Visibility -> Linkage -> Parser l
@@ -790,9 +823,12 @@ varDecl macroLang enclosing ctx info = do
       cls        <- classifyVarDecl curr
       let mkDecl :: C.DeclKind l Parse -> C.Decl l Parse
           mkDecl kind = C.Decl{
-              info = info
-            , kind = kind
-            , ann  = NoAnn
+              info      = info
+            , id        = declId
+            , comment   = ()
+            , enclosing = enclosing
+            , kind      = kind
+            , ann       = NoAnn
             }
 
       case declCls of
@@ -827,7 +863,7 @@ varDecl macroLang enclosing ctx info = do
              in case cls of
                   VarGlobal IsExtern
                     | not (null unnamedDecls) -> do
-                      parseFail ctx info.id info.loc ParseUnsupportedUnnamedInExtern
+                      parseFail ctx declId info.loc ParseUnsupportedUnnamedInExtern
                   VarGlobal _ -> do
                     globalAnn <- getReparseInfo curr
                     pure $ (map parseSucceed (unnamedDecls ++ otherDecls) ++) $
@@ -837,13 +873,13 @@ varDecl macroLang enclosing ctx info = do
                           , ann = globalAnn
                           }
                   VarThreadLocal ->
-                    parseFail ctx info.id info.loc ParseUnsupportedTLS
+                    parseFail ctx declId info.loc ParseUnsupportedTLS
                   VarUnsupported storage ->
-                    parseFail ctx info.id info.loc $ ParseUnknownStorageClass storage
+                    parseFail ctx declId info.loc $ ParseUnknownStorageClass storage
     -- Look for nested declarations inside the global variable type
     nestedDecl :: Fold ParseDecl [ParseResult l Parse]
     nestedDecl =
-        let enclosing' = C.EnclosingRef info.id : enclosing
+        let enclosing' = C.EnclosingRef declId : enclosing
         in simpleFold $ withCursorKind ctx $ \case
           -- Reference to previously declared type can safely be skipped
           CXCursor_TypeRef -> skip
@@ -908,7 +944,7 @@ varDecl macroLang enclosing ctx info = do
           -- Fail on anything we don't recognize
           otherKind -> \_curr -> do
             failures <-
-              parseFail ctx info.id info.loc
+              parseFail ctx declId info.loc
                 (ParseUnexpectedCursorKind $ Right otherKind)
             foldContinueWith failures
 
@@ -953,29 +989,25 @@ withCursorKind ctx k = \curr -> do
 --
 -- The continuation is only called when the declaration info can be determined.
 withDeclInfo ::
-     [C.EnclosingRef Parse]
-  -> ParseCtx
+     ParseCtx
   -> SingleLoc C.DeclPath
-  -> (C.DeclInfo Parse -> Parser l)
+  -> (C.PrelimDeclId -> C.DeclInfo -> Parser l)
   -> Parser l
-withDeclInfo enclosing ctx declLoc k = \curr -> do
+withDeclInfo ctx declLoc k = \curr -> do
     declId <- C.prelimDeclIdAtCursor curr ctx.inner.kind
     (withOrigin ctx declId declLoc $ \origin ->
       withAvailability ctx declId declLoc $ \availability curr' -> do
-        let info :: C.DeclInfo Parse
+        let info :: C.DeclInfo
             info = C.DeclInfo{
                   loc              = declLoc
-                , id               = declId
                   -- We initialize the source-order index to 'Nothing', and
                   -- populate it when consolidating macros with non-macros in
                   -- "HsBindgen.Frontend.Pass.Parse".
                 , sourceOrderIndex = Nothing
                 , origin           = origin
                 , availability     = availability
-                , comment          = ()
-                , enclosing        = enclosing
                 }
-        k info curr') curr
+        k declId info curr') curr
 
 -- | Continue with availability
 --
@@ -1065,13 +1097,14 @@ data Linkage =
 -- Only call continuation if linkage can be retrieved.
 withCursorLinkage ::
      ParseCtx
-  -> C.DeclInfo Parse
+  -> C.PrelimDeclId
+  -> SingleLoc C.DeclPath
   -> (Linkage -> Parser l)
   -> Parser l
-withCursorLinkage ctx info k = \curr -> do
+withCursorLinkage ctx declId declLoc k = \curr -> do
     simpleLinkage   <- clang_getCursorLinkage curr
     case fromSimpleLinkage simpleLinkage of
-      Left err -> parseFail ctx info.id info.loc err >>= foldContinueWith
+      Left err -> parseFail ctx declId declLoc err >>= foldContinueWith
       Right l  -> k l curr
   where
     fromSimpleLinkage ::
@@ -1108,13 +1141,14 @@ data Visibility =
 -- Only call continuation if cursor visibility can be retrieved.
 withCursorVisibility ::
      ParseCtx
-  -> C.DeclInfo Parse
+  -> C.PrelimDeclId
+  -> SingleLoc C.DeclPath
   -> (Visibility -> Parser l)
   -> Parser l
-withCursorVisibility ctx info k = \curr -> do
+withCursorVisibility ctx declId declLoc k = \curr -> do
     simpleVisibility  <- clang_getCursorVisibility curr
     case fromSimpleVisibility simpleVisibility of
-      Left err -> parseFail ctx info.id info.loc err >>= foldContinueWith
+      Left err -> parseFail ctx declId declLoc err >>= foldContinueWith
       Right v  -> k v curr
   where
     fromSimpleVisibility ::
@@ -1151,7 +1185,7 @@ partitionUnnamedDecls ::
      [C.Decl l Parse]
   -> ([C.Decl l Parse], [C.Decl l Parse])
 partitionUnnamedDecls =
-    List.partition $ \decl -> declIdIsUnnamed decl.info.id
+    List.partition $ \decl -> declIdIsUnnamed decl.id
   where
     declIdIsUnnamed :: C.PrelimDeclId -> Bool
     declIdIsUnnamed C.PrelimDeclIdUnnamed{} = True

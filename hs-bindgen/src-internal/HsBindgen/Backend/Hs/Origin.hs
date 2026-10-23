@@ -32,13 +32,15 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Translation (DeclIdPair)
 
 {-------------------------------------------------------------------------------
   Declarations
 -------------------------------------------------------------------------------}
 
 data Decl a = Decl{
-      info :: C.DeclInfo Final
+      info :: C.DeclInfo
+    , id   :: DeclIdPair
     , kind :: a            -- ^ Kind-specific information
     , spec :: PrescriptiveDeclSpec
     }
