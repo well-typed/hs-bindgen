@@ -9,10 +9,7 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph.Construction (
 
 import Data.Digraph (Digraph)
 import Data.Digraph qualified as Digraph
-import Data.List qualified as List
 import Data.Set qualified as Set
-
-import Clang.HighLevel.Types
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis
@@ -20,8 +17,6 @@ import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
 import HsBindgen.Frontend.Analysis.Deps
-import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
-import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Imports
@@ -33,40 +28,26 @@ import HsBindgen.IR.C qualified as C
 
 construct ::
      forall l. HasCallStack
-  => IncludeGraph
-  -> DeclIndex l
+  => DeclIndex l
   -> DeclUseGraph
-construct includeGraph declIndex = declUseGraph
+construct declIndex = declUseGraph
   where
-    -- The include graph informs us about the order of declarations which is
-    -- key.
-    order :: IncludeGraph.IncludeOrder
-    order = IncludeGraph.toIncludeOrder includeGraph
     -- The declaration index contains declarations that we cannot use. Macros
     -- have already been resolved while constructing the declaration index.
-    successfulDecls, sortedSuccessfulDecls :: [C.Decl l ConstructTranslationUnit]
-    successfulDecls       = DeclIndex.getDecls declIndex
-    sortedSuccessfulDecls = List.sortOn (annSortKey order . (.info.loc)) successfulDecls
-
-    allDeclIds, successfulDeclIds, failedDeclIds :: Set C.DeclId
-    allDeclIds        = DeclIndex.keysSet declIndex
-    successfulDeclIds = Set.fromList $ map (.id) sortedSuccessfulDecls
-    failedDeclIds     = allDeclIds Set.\\ successfulDeclIds
+    successfulDecls :: [C.Decl l ConstructTranslationUnit]
+    successfulDecls = DeclIndex.getDecls declIndex
 
     declUseGraph :: DeclUseGraph
     declUseGraph = DeclUseGraph $
       foldl'
         (flip insertDepsOfDeclParsedMacro)
         verticesGraph
-        sortedSuccessfulDecls
+        successfulDecls
 
-    -- We first insert all declarations, so that they are assigned vertices. For
-    -- successfully parsed declarations, we do this in source order. This
-    -- ensures that we preserve source order as much as possible in 'toDecls'
-    -- (modulo dependencies).
+    -- We first insert all declarations, so that they are assigned vertices.
     verticesGraph :: Digraph Dependency C.DeclId
     verticesGraph = foldl' (flip Digraph.insertVertex) Digraph.empty $
-      map (.id) sortedSuccessfulDecls ++ Set.toList failedDeclIds
+      Set.toList (DeclIndex.keysSet declIndex)
 
     -- We cannot use plain 'depsOfDecl' here because, at this pass, macros have
     -- been resolved (in the declaration index) but not yet typechecked. We
@@ -129,33 +110,3 @@ deleteRevDeps :: Set C.DeclId -> DeclUseGraph -> DeclUseGraph
 deleteRevDeps depIds declUseGraph = DeclUseGraph{
       graph = Digraph.deleteEdgesFrom depIds declUseGraph.graph
     }
-
-{-------------------------------------------------------------------------------
-  Auxiliary
--------------------------------------------------------------------------------}
-
-data SortKey = SortKey{
-      sortPathIx :: IncludeGraph.IncludeOrderIx
-    , sortLineNo :: Int
-    , sortColNo  :: Int
-    }
-  deriving (Eq, Ord, Show)
-
-annSortKey ::
-     HasCallStack
-  => IncludeGraph.IncludeOrder
-  -> SingleLoc C.DeclPath
-  -> SortKey
-annSortKey order loc = SortKey{
-      sortPathIx = sortPathIx
-    , sortLineNo = singleLocLine   loc
-    , sortColNo  = singleLocColumn loc
-    }
-  where
-    path = singleLocPath loc
-    -- Unlike a trace message, a declaration whose source is not in the include
-    -- graph means the frontend is broken; there is nothing to salvage.
-    sortPathIx = case IncludeGraph.lookupIncludeOrder order path of
-      IncludeGraph.NotInIncludeGraph ->
-        panicPure $ "Source of declaration " <> show path <> " not in include graph"
-      ix -> ix

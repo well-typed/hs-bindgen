@@ -386,6 +386,7 @@ getOmittedTypes :: Artefact l [(C.DeclId, RealPath)]
 getOmittedTypes =
     Map.toList . DeclIndex.getOmitted <$> getDeclIndex
 
+-- | In the order of the generated bindings (see 'HsBindgen.Backend.runBackend')
 getReifiedC :: Artefact l [C.Decl l Final]
 getReifiedC = (.decls) <$> FrontendPassA FinalPass
 

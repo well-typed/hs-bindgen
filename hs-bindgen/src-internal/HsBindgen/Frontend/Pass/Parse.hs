@@ -95,7 +95,7 @@ analyseMacros = do
     record it per declaration in 'DeclInfo.sourceOrderIndex', computed above by
     sorting on source position via 'clang_isBeforeInTranslationUnit' (accurate,
     but requires Clang >= 20.1). Note that @annSortKey@ (in
-    "HsBindgen.Frontend.Analysis.DeclUseGraph.Construction") computes a
+    "HsBindgen.Frontend.Analysis.DeclUseGraph.Query") computes a
     /best-effort/ source order without that API, used only as a tiebreak when
     ordering the output; it can be inaccurate, e.g. when a header includes
     another header part-way through its own declarations.

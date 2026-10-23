@@ -10,12 +10,18 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph.Query (
 
 import Data.Digraph qualified as Digraph
 import Data.Map.Strict qualified as Map
+import Data.Ord (comparing)
 import Data.Set qualified as Set
 
+import Clang.HighLevel.Types
+
+import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
+import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -26,18 +32,58 @@ import HsBindgen.IR.C qualified as C
 
 -- | Construct ordered list of declarations
 --
--- This follows source order whenever possible, but ensures that definition
--- sites come before use sites.
---
--- For each declaration we provide one example of how that declaration is used
--- (if one exists).
-toDecls :: DeclIndex l -> DeclUseGraph -> [C.Decl l ConstructTranslationUnit]
-toDecls index declUseGraph =
-    -- NOTE: There might be dependencies in the 'DeclUseGraph' on declarations
-    -- without a corresponding entry in the 'DeclIndex'.  For example, this can
-    -- happen when we are using external binding specifications.
-    mapMaybe (`DeclIndex.lookup` index) . Digraph.sort $
+-- Dependency order, refined by 'annSortKey': definition sites come before use
+-- sites, and otherwise we follow source order as far as 'annSortKey' knows it.
+toDecls ::
+     HasCallStack
+  => IncludeGraph
+  -> DeclIndex l
+  -> DeclUseGraph
+  -> [C.Decl l ConstructTranslationUnit]
+toDecls includeGraph index declUseGraph =
+    -- 'DeclIndex.lookup' skips the declarations that failed.
+    mapMaybe (`DeclIndex.lookup` index) . Digraph.sortBy (comparing key) $
       Digraph.filterEdges (== NeedsShape) declUseGraph.graph
+  where
+    order :: IncludeGraph.IncludeOrder
+    order = IncludeGraph.toIncludeOrder includeGraph
+
+    key :: C.DeclId -> DeclSortKey
+    key declId = case DeclIndex.lookup declId index of
+      Just decl -> DeclSucceeded $ annSortKey order decl.info.loc
+      Nothing   -> DeclFailed
+
+-- | Failed declarations sort last; they have no source position we could use
+data DeclSortKey = DeclSucceeded SortKey | DeclFailed
+  deriving stock (Eq, Ord)
+
+data SortKey = SortKey{
+      sortPathIx :: IncludeGraph.IncludeOrderIx
+    , sortLineNo :: Int
+    , sortColNo  :: Int
+    }
+  deriving (Eq, Ord, Show)
+
+-- | Best-effort source order (see the note on orderings in
+-- "HsBindgen.Frontend.Pass.Parse")
+annSortKey ::
+     HasCallStack
+  => IncludeGraph.IncludeOrder
+  -> SingleLoc C.DeclPath
+  -> SortKey
+annSortKey order loc = SortKey{
+      sortPathIx = sortPathIx
+    , sortLineNo = singleLocLine   loc
+    , sortColNo  = singleLocColumn loc
+    }
+  where
+    path = singleLocPath loc
+    -- Unlike a trace message, a declaration whose source is not in the include
+    -- graph means the frontend is broken; there is nothing to salvage.
+    sortPathIx = case IncludeGraph.lookupIncludeOrder order path of
+      IncludeGraph.NotInIncludeGraph ->
+        panicPure $ "Source of declaration " <> show path <> " not in include graph"
+      ix -> ix
 
 {-------------------------------------------------------------------------------
   Transitive usage
