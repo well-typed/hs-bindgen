@@ -53,6 +53,9 @@
   warning that its transitive dependencies are missing: it no longer depends
   on the declarations its body refers to.
 
+* Bug-level delayed messages are now reported for every declaration, as
+  intended: also for conflicting, external, squashed and unusable ones.
+
 * Deprecation is now known for declarations we generate no binding of their
   own for: squashed typedefs, and declarations that fail to parse, are not
   attempted, or are unusable. The `DeclDeprecated` selection predicate matches
