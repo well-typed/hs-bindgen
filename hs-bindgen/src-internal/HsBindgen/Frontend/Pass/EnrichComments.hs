@@ -126,12 +126,9 @@ enrichComments doxy results =
     coerced = map coercePass results
 
     enrichOne :: ParseResult l EnrichComments -> ParseResult l EnrichComments
-    enrichOne pr = case pr.classification of
+    enrichOne pr = case pr of
       ParseResultSuccess success ->
-        let decl' = enrichDecl doxy success.decl
-        in  pr { classification =
-                    ParseResultSuccess success { decl = decl' }
-               }
+        ParseResultSuccess success { decl = enrichDecl doxy success.decl }
       _ -> pr
 
 {-------------------------------------------------------------------------------

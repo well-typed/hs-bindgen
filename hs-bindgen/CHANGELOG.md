@@ -12,6 +12,15 @@
 
 [is-2306]: https://github.com/well-typed/hs-bindgen/issues/2306
 
+* Headers that the root header does not reach by an `#include` are now
+  rejected with an error: headers loaded with the `-include` or `-include-pch`
+  Clang options, by `#import`, or by Clang modules. Previously, `-include` and
+  Clang modules crashed with `ClangRealPathException`, `#import` panicked
+  ("Unable to parse #include"), and every declaration of a precompiled header
+  failed to parse. See [issue #2323][is-2323].
+
+[is-2323]: https://github.com/well-typed/hs-bindgen/issues/2323
+
 ### New features
 
 - Macro fallback: macros that the macro language fails to handle can be

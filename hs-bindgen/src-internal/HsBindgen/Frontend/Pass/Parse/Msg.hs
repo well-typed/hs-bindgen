@@ -18,7 +18,6 @@ import Text.SimplePrettyPrint qualified as PP
 import Clang.Enum.Simple
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-import Clang.Paths
 
 import HsBindgen.Errors
 import HsBindgen.Imports
@@ -356,8 +355,6 @@ data DelayedParseMsg =
   | ParseUnexpectedTypeKind (Either CInt CXTypeKind)
 
   | ParseUnexpectedVisibility (Either CInt CXLinkageKind)
-
-  | ParseNoMainHeadersException String RealPath
   deriving stock (Show, Generic)
 
 -- | A nested declaration that failed to parse
@@ -537,12 +534,6 @@ instance PrettyForTrace DelayedParseMsg where
           "Unexpected visibility: "
         , PP.show visibility
         ]
-      ParseNoMainHeadersException why whr -> PP.hsep [
-          "Could not determine main headers:"
-        , PP.string why
-        , "at"
-        , PP.string $ getRealPath whr
-        ]
     where
       unexpected :: PP.CtxDoc -> PP.CtxDoc
       unexpected msg = PP.vcat [
@@ -584,7 +575,6 @@ instance IsTrace Level DelayedParseMsg where
       ParseUnexpectedLinkage{}             -> Bug
       ParseUnexpectedTypeKind{}            -> Bug
       ParseUnexpectedVisibility{}          -> Bug
-      ParseNoMainHeadersException{}        -> Error
   getSource  = const HsBindgen
   getTraceId = \case
       ParseImplicitFieldFailed x        -> "parse-" <> getTraceId x
