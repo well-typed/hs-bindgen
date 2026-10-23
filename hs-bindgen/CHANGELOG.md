@@ -72,6 +72,11 @@
 * Bug-level delayed messages are now reported for every declaration, as
   intended: also for conflicting, external, squashed and unusable ones.
 
+* A selected declaration that is unusable (e.g., because name mangling fails)
+  now also reports its earlier delayed messages, such as parse warnings.
+  Previously, they were lost. A declaration whose availability libclang
+  cannot determine is now treated as unavailable, with a warning.
+
 * Deprecation is now known for declarations we generate no binding of their
   own for: squashed typedefs, and declarations that fail to parse, are not
   attempted, or are unusable. The `DeclDeprecated` selection predicate matches

@@ -344,7 +344,7 @@ parseResultToEntry = \case
 parseResultMsgs :: ParseResult l Out -> [DelayedMsg]
 parseResultMsgs = \case
     ParseResultSuccess r     -> map DelayedParse r.delayedParseMsgs
-    ParseResultUnavailable{} -> []
+    ParseResultUnavailable r -> map DelayedParse r.delayedParseMsgs
     ParseResultFailure{}     -> []
 
 -- | Resolve macro names in every successful declaration.
