@@ -55,6 +55,7 @@ testCases = [
     , test_typedef_block
     , test_typedef_name_clash
     , test_typedef_suffix_clash
+    , test_unusable_delayed_msgs
     ]
 
 {-------------------------------------------------------------------------------
@@ -624,3 +625,17 @@ test_typedef_suffix_clash =
         , ("struct u_union"    , "collision")
         , ("u"                 , "transitivity")
         ]
+
+-- | A selected unusable declaration reports its delayed messages, too
+test_unusable_delayed_msgs :: TestCase
+test_unusable_delayed_msgs =
+    testTraceMulti "program-analysis/unusable_delayed_msgs" declsWithMsgs $ \case
+      MatchUnusableReason name UnusableMangleNames{} ->
+        Just $ Expected name
+      MatchDelayed name ParseNonPublicVisibility{} ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["F", "F", "f"]

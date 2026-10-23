@@ -998,11 +998,13 @@ withDeclInfo ctx declLoc k = \curr -> do
     case cursorInfo of
       CursorDeclInfo info ->
         k declId info curr
-      CursorDeclInfoUnknownAvailability sAvailability info -> do
-        failures <-
-          parseFail ctx declId info $
-            ParseUnknownCursorAvailability sAvailability
-        foldContinueWith failures
+      CursorDeclInfoUnknownAvailability sAvailability info ->
+        foldContinueWith [
+            parseUnavailableWith
+              [ParseUnknownCursorAvailability sAvailability]
+              declId
+              info
+          ]
 
 -- | The linkage of a linker symbol determines whether or not a linker symbol is
 -- visible to the linker outside the translation unit it is defined in.

@@ -8,6 +8,7 @@ module HsBindgen.Frontend.Pass.Parse.Result (
   , parseSucceed
   , parseSucceedWith
   , parseUnavailable
+  , parseUnavailableWith
     -- * Query
   , parseResultId
   , parseResultInfo
@@ -46,8 +47,9 @@ deriving stock instance ( IsPass p
                         ) => Show (ParseResult l p)
 
 data ParseNotAttempted p = ParseNotAttempted{
-      id   :: Id p
-    , info :: C.DeclInfo
+      id               :: Id p
+    , info             :: C.DeclInfo
+    , delayedParseMsgs :: [DelayedParseMsg]
     }
   deriving stock (Generic)
 
@@ -103,9 +105,19 @@ parseSucceedWith msgs decl = ParseResultSuccess ParseSuccess{
 
 -- | Assemble a parse result for an unavailable declaration
 parseUnavailable :: Id p -> C.DeclInfo -> ParseResult l p
-parseUnavailable declId info = ParseResultUnavailable ParseNotAttempted{
-      id   = declId
-    , info = info
+parseUnavailable = parseUnavailableWith []
+
+-- | Assemble a parse result for an unavailable declaration with delayed parse
+-- messages
+parseUnavailableWith ::
+     [DelayedParseMsg]
+  -> Id p
+  -> C.DeclInfo
+  -> ParseResult l p
+parseUnavailableWith msgs declId info = ParseResultUnavailable ParseNotAttempted{
+      id               = declId
+    , info             = info
+    , delayedParseMsgs = msgs
     }
 
 {-------------------------------------------------------------------------------
@@ -150,8 +162,9 @@ instance (
 
 instance CoercePassId p p' => CoercePass ParseNotAttempted p p' where
   coercePass n = ParseNotAttempted{
-        id   = coercePassId (Proxy @'(p, p')) n.id
-      , info = n.info
+        id               = coercePassId (Proxy @'(p, p')) n.id
+      , info             = n.info
+      , delayedParseMsgs = n.delayedParseMsgs
       }
 
 instance CoercePassId p p' => CoercePass ParseFailure p p' where
