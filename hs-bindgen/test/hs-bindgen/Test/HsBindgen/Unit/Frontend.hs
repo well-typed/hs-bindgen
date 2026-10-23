@@ -64,9 +64,9 @@ testParseSourceOrder getTestResources =
           case decl.info.sourceOrderIndex of
             Nothing ->
               panicPure $
-                "no source-order index for declaration " ++ show decl.info.id
+                "no source-order index for declaration " ++ show decl.id
             Just idx ->
-              pure (show $ prettyForTrace decl.info.id, idx)
+              pure (show $ prettyForTrace decl.id, idx)
     -- 'getParseResults' returns declarations in sequence order (libclang's
     -- visitation order: macros first, then the rest).
     let declNamesSequenceOrderActual :: [String]
@@ -116,7 +116,7 @@ testParseReparseInvocations getTestResources =
         getParseResults
     let invocationsActual :: [(String, [Text])]
         invocationsActual = [
-            (show $ prettyForTrace decl.info.id, sort names)
+            (show $ prettyForTrace decl.id, sort names)
           | Just decl  <- map getParseResultMaybeDecl results
           , Just names <- [reparseInvocations decl.kind]
           ]

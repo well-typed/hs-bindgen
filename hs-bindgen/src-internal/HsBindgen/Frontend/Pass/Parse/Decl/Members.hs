@@ -144,7 +144,7 @@ memberFailure results =
           [NestedNamedDeclFailed name]
         (ParseResultFailure msg, C.PrelimDeclIdUnnamed unnamedId) ->
           [NestedUnnamedDeclFailed unnamedId msg]
-        (ParseResultUnavailable, C.PrelimDeclIdUnnamed unnamedId) ->
+        (ParseResultNotAttempted, C.PrelimDeclIdUnnamed unnamedId) ->
           [NestedUnnamedDeclUnavailable unnamedId]
 
 -- | Parse a single member of a struct\/union

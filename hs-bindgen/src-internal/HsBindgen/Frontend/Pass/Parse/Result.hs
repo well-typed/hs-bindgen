@@ -44,11 +44,11 @@ deriving stock instance ( IsPass p
                         ) => Show (ParseResult l p)
 
 data ParseClassification l p =
-    ParseResultSuccess      (ParseSuccess l p)
+    ParseResultSuccess       (ParseSuccess l p)
     -- | We unexpectedly did not parse a declaration because it is reported
     -- "unavailable".
-  | ParseResultUnavailable
-  | ParseResultFailure      DelayedParseMsg
+  | ParseResultNotAttempted
+  | ParseResultFailure       DelayedParseMsg
   deriving stock (Generic)
 
 deriving stock instance ( IsPass p
@@ -90,7 +90,7 @@ parseSucceed = parseSucceedWith []
 -- | Assemble a parse success with delayed parse messages
 parseSucceedWith :: [DelayedParseMsg] -> C.Decl l p -> ParseResult l p
 parseSucceedWith msgs decl = ParseResult{
-     id             = decl.info.id
+     id             = decl.id
    , loc            = decl.info.loc
    , classification = ParseResultSuccess ParseSuccess{
          decl             = decl
@@ -99,11 +99,11 @@ parseSucceedWith msgs decl = ParseResult{
     }
 
 -- | Assemble a parse result for an unavailable declaration
-parseUnavailable :: C.DeclInfo p -> ParseResult l p
-parseUnavailable info = ParseResult{
-      id              = info.id
+parseUnavailable :: Id p -> C.DeclInfo -> ParseResult l p
+parseUnavailable declId info = ParseResult{
+      id              = declId
     , loc             = info.loc
-    , classification = ParseResultUnavailable
+    , classification = ParseResultNotAttempted
     }
 
 {-------------------------------------------------------------------------------
@@ -140,9 +140,9 @@ instance (
     , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
     ) => CoercePass (ParseClassification l) p p' where
   coercePass = \case
-    ParseResultSuccess s   -> ParseResultSuccess (coercePass s)
-    ParseResultUnavailable -> ParseResultUnavailable
-    ParseResultFailure x   -> ParseResultFailure x
+    ParseResultSuccess s    -> ParseResultSuccess (coercePass s)
+    ParseResultNotAttempted -> ParseResultNotAttempted
+    ParseResultFailure x    -> ParseResultFailure x
 
 instance (
       CoercePass (C.Decl l) p p'

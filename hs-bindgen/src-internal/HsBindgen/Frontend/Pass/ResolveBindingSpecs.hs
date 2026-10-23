@@ -236,30 +236,30 @@ resolveTopInHeader ::
        )
 resolveTopInHeader realPath decl = Reader.ask >>= \env -> do
     let declPaths  = IncludeGraph.reaches env.includeGraph realPath
-        mMsg       = Just $ withCallStack $ ResolveBindingSpecsOmittedType decl.info.id
+        mMsg       = Just $ withCallStack $ ResolveBindingSpecsOmittedType decl.id
     isExt <- isJust <$>
       resolveExtBinding
-        decl.info.id
+        decl.id
         (C.DeclLoc decl.info.loc)
         declPaths mMsg
     if isExt
       then do
-        State.modify' $ insertTrace (withCallStack $ ResolveBindingSpecsExtDecl decl.info.id)
+        State.modify' $ insertTrace (withCallStack $ ResolveBindingSpecsExtDecl decl.id)
         return Nothing
-      else case BindingSpec.lookupCTypeSpec decl.info.id declPaths env.pSpec of
+      else case BindingSpec.lookupCTypeSpec decl.id declPaths env.pSpec of
         Just (_hsModuleName, BindingSpec.Require cTypeSpec) -> do
           State.modify' $
-              insertTrace (withCallStack $ ResolveBindingSpecsPreRequire decl.info.id)
-            . deleteNoPType decl.info.id realPath
+              insertTrace (withCallStack $ ResolveBindingSpecsPreRequire decl.id)
+            . deleteNoPType decl.id realPath
           let mHsTypeSpec = do
                 hsIdentifier <- cTypeSpec.hsName
                 BindingSpec.lookupHsTypeSpec hsIdentifier env.pSpec
           applyPrescriptive decl cTypeSpec mHsTypeSpec
         Just (_hsModuleName, BindingSpec.Omit) -> do
           State.modify' $
-              insertTrace (withCallStack $ ResolveBindingSpecsPreOmit decl.info.id)
-            . deleteNoPType decl.info.id realPath
-            . insertOmittedType decl.info.id decl.info.loc
+              insertTrace (withCallStack $ ResolveBindingSpecsPreOmit decl.id)
+            . deleteNoPType decl.id realPath
+            . insertOmittedType decl.id decl.info.loc
           return Nothing
         Nothing -> return $ Just (decl, (Nothing, Nothing))
 
@@ -292,7 +292,7 @@ applyPrescriptive decl cTypeSpec mHsTypeSpec = runMaybeT $ do
         (_,            Nothing) -> return ()
         (_,            Just{})  -> lift . State.modify' $
           insertTrace
-            (withCallStack $ ResolveBindingSpecsEnumTypeMismatch decl.info.id)
+            (withCallStack $ ResolveBindingSpecsEnumTypeMismatch decl.id)
       return (Just cTypeSpec)
 
     applyHsTypeSpec ::
@@ -352,18 +352,21 @@ applyPrescriptive decl cTypeSpec mHsTypeSpec = runMaybeT $ do
       if isValid
         then do
           lift . State.modify' $
-              insertTrace (withCallStack $ ResolveBindingSpecsPreEmptyData decl.info.id)
-            . insertOpaquedType decl.info.id
+              insertTrace (withCallStack $ ResolveBindingSpecsPreEmptyData decl.id)
+            . insertOpaquedType decl.id
           -- Cannot use record update because 'C.kind' is ambiguous
           let decl' = C.Decl{
-                  C.info = decl.info
-                , C.kind = C.DeclOpaque mSize
-                , C.ann  = decl.ann
+                  C.info      = decl.info
+                , C.id        = decl.id
+                , C.comment   = decl.comment
+                , C.enclosing = decl.enclosing
+                , C.kind      = C.DeclOpaque mSize
+                , C.ann       = decl.ann
                 }
           return (decl', Just BindingSpec.HsTypeRepEmptyData)
         else do
           lift . State.modify' $
-            insertTrace (withCallStack $ ResolveBindingSpecsPreEmptyDataInvalid decl.info.id)
+            insertTrace (withCallStack $ ResolveBindingSpecsPreEmptyDataInvalid decl.id)
           return (decl, Nothing)
 
     auxTypeAlias ::
@@ -405,12 +408,11 @@ resolveDeep ::
   -> (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
   -> M l (C.Decl l ResolveBindingSpecs)
 resolveDeep decl (cSpec, hsSpec) = do
-    declKind' <- resolve decl.info.id decl.kind
-    return C.Decl {
-        info = coercePass decl.info
-      , kind = declKind'
-      , ann  = PrescriptiveDeclSpec{cSpec = cSpec, hsSpec = hsSpec}
-      }
+    declKind' <- resolve decl.id decl.kind
+    return $ C.coercePassDeclWith
+      declKind'
+      PrescriptiveDeclSpec{cSpec = cSpec, hsSpec = hsSpec}
+      decl
 
 {-------------------------------------------------------------------------------
   Instances

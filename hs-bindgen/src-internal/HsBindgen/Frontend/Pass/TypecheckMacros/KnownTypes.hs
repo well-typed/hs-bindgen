@@ -36,23 +36,20 @@ getKnownType decl = case decl.kind of
     C.DeclFunction{}             -> Nothing
     C.DeclGlobal{}               -> Nothing
   where
-    info :: C.DeclInfo In
-    info = decl.info
-
     getKnownTaggedTypeOpaque :: Maybe (C.DeclId, CType)
     getKnownTaggedTypeOpaque =
-      case info.id.name.kind of
+      case decl.id.name.kind of
         C.NameKindTagged _ -> Just (declId, knownStructOrUnion)
         _                  -> Nothing
 
     declId :: C.DeclId
-    declId = info.id
+    declId = decl.id
 
     getKnownTypedef :: C.Typedef In -> CType
-    getKnownTypedef typedef = C.TypeTypedef $ C.Ref info.id $ coercePass typedef.typ
+    getKnownTypedef typedef = C.TypeTypedef $ C.Ref decl.id $ coercePass typedef.typ
 
     knownStructOrUnion :: CType
-    knownStructOrUnion = C.TypeRef info.id
+    knownStructOrUnion = C.TypeRef decl.id
 
     getKnownEnum :: C.Enum In -> CType
-    getKnownEnum enum = C.TypeEnum $ C.Ref info.id $ coercePass enum.typ
+    getKnownEnum enum = C.TypeEnum $ C.Ref decl.id $ coercePass enum.typ

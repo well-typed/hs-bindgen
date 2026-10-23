@@ -50,11 +50,7 @@ adjustTypes unit =
 
 processDecl :: C.Decl l MangleNames -> C.Decl l AdjustTypes
 processDecl decl =
-    C.Decl {
-        info = coercePass decl.info
-      , ann  = decl.ann
-      , kind = processDeclKind decl.kind
-      }
+    C.coercePassDeclWith (processDeclKind decl.kind) decl.ann decl
 
 processDeclKind :: C.DeclKind l MangleNames -> C.DeclKind l AdjustTypes
 processDeclKind kind =

@@ -25,11 +25,8 @@ resolveMacroWith ::
   -> Set C.DeclId
   -> C.Decl l In
   -> C.Decl l Out
-resolveMacroWith macroLang allDeclIds decl = C.Decl info' kind' decl.ann
+resolveMacroWith macroLang allDeclIds decl = C.coercePassDeclWith kind' decl.ann decl
   where
-    info' :: C.DeclInfo Out
-    info' = coercePass decl.info
-
     kind' :: C.DeclKind l Out
     kind' = case decl.kind of
       C.DeclStruct               x -> C.DeclStruct               $ coercePass x

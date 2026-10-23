@@ -319,7 +319,7 @@ parseResultToEntry :: ParseResult l Out -> Entry l
 parseResultToEntry result = case result.classification of
     ParseResultSuccess r ->
       UsableEntry $ UsableSuccess (parseSuccessToSuccess r)
-    ParseResultUnavailable ->
+    ParseResultNotAttempted ->
       UnusableEntry $ UnusableReason result.loc UnusableUnavailable
     ParseResultFailure r ->
       UnusableEntry $ UnusableReason result.loc $ UnusableParseFailure r
@@ -352,8 +352,8 @@ resolveMacros macroLang allDeclIds = map (over #classification resolveClassifica
           decl             = resolveMacroWith macroLang allDeclIds success.decl
         , delayedParseMsgs = success.delayedParseMsgs
         }
-      ParseResultUnavailable ->
-        ParseResultUnavailable
+      ParseResultNotAttempted ->
+        ParseResultNotAttempted
       ParseResultFailure x ->
         ParseResultFailure x
 
@@ -701,10 +701,10 @@ registerDelayedParseMsg (declId, msg) =
 -- macros pending until @ApplyMacroFallback@.
 registerUnhandledMacro ::
      DeclIndex l
-  -> (C.DeclInfo TypecheckMacros, MacroLangFailure)
+  -> (C.Decl l TypecheckMacros, MacroLangFailure)
   -> DeclIndex l
-registerUnhandledMacro index (info, failure) = index
-    & #map %~ Map.insert info.id (UnusableEntry $ UnusableReason info.loc reason)
+registerUnhandledMacro index (decl, failure) = index
+    & #map %~ Map.insert decl.id (UnusableEntry $ UnusableReason decl.info.loc reason)
   where
     reason :: UnusableReason
     reason = case failure of

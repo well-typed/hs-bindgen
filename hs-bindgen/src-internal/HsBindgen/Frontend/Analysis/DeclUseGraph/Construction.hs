@@ -46,11 +46,11 @@ construct includeGraph declIndex = declUseGraph
     -- have already been resolved while constructing the declaration index.
     successfulDecls, sortedSuccessfulDecls :: [C.Decl l ConstructTranslationUnit]
     successfulDecls       = DeclIndex.getDecls declIndex
-    sortedSuccessfulDecls = List.sortOn (annSortKey order) successfulDecls
+    sortedSuccessfulDecls = List.sortOn (annSortKey order . (.info.loc)) successfulDecls
 
     allDeclIds, successfulDeclIds, failedDeclIds :: Set C.DeclId
     allDeclIds        = DeclIndex.keysSet declIndex
-    successfulDeclIds = Set.fromList $ map (.info.id) sortedSuccessfulDecls
+    successfulDeclIds = Set.fromList $ map (.id) sortedSuccessfulDecls
     failedDeclIds     = allDeclIds Set.\\ successfulDeclIds
 
     declUseGraph :: DeclUseGraph
@@ -66,7 +66,7 @@ construct includeGraph declIndex = declUseGraph
     -- (modulo dependencies).
     verticesGraph :: Digraph Dependency C.DeclId
     verticesGraph = foldl' (flip Digraph.insertVertex) Digraph.empty $
-      map (.info.id) sortedSuccessfulDecls ++ Set.toList failedDeclIds
+      map (.id) sortedSuccessfulDecls ++ Set.toList failedDeclIds
 
     -- We cannot use plain 'depsOfDecl' here because, at this pass, macros have
     -- been resolved (in the declaration index) but not yet typechecked. We
@@ -77,7 +77,7 @@ construct includeGraph declIndex = declUseGraph
       -> Digraph Dependency C.DeclId
       -> Digraph Dependency C.DeclId
     insertDepsOfDeclParsedMacro decl =
-      insertDeps decl.info.id (depsOfDeclParsedMacro decl.kind)
+      insertDeps decl.id (depsOfDeclParsedMacro decl.kind)
 
 insertDeps ::
      (HasCallStack)
@@ -106,7 +106,7 @@ insertDepsOfDecl ::
   -> DeclUseGraph
   -> DeclUseGraph
 insertDepsOfDecl decl declUseGraph = DeclUseGraph $
-    insertDeps (decl.info.id) (depsOfDecl decl.kind) declUseGraph.graph
+    insertDeps (decl.id) (depsOfDecl decl.kind) declUseGraph.graph
 
 {-------------------------------------------------------------------------------
   Deletion
@@ -141,14 +141,18 @@ data SortKey = SortKey{
     }
   deriving (Eq, Ord, Show)
 
-annSortKey :: HasCallStack => IncludeGraph.IncludeOrder -> C.Decl l p -> SortKey
-annSortKey order decl = SortKey{
+annSortKey ::
+     HasCallStack
+  => IncludeGraph.IncludeOrder
+  -> SingleLoc C.DeclPath
+  -> SortKey
+annSortKey order loc = SortKey{
       sortPathIx = sortPathIx
-    , sortLineNo = singleLocLine   decl.info.loc
-    , sortColNo  = singleLocColumn decl.info.loc
+    , sortLineNo = singleLocLine   loc
+    , sortColNo  = singleLocColumn loc
     }
   where
-    path = singleLocPath decl.info.loc
+    path = singleLocPath loc
     -- Unlike a trace message, a declaration whose source is not in the include
     -- graph means the frontend is broken; there is nothing to salvage.
     sortPathIx = case IncludeGraph.lookupIncludeOrder order path of

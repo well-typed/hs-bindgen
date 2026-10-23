@@ -26,7 +26,6 @@ import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Imports
@@ -160,18 +159,18 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
     -- Bindings specifications for macros defined on the command line or the
     -- root header.
     insertType ::
-         ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
+         ( (HsOrigin.Decl a, BindingSpec.CTypeSpec)
          , (Hs.Name Hs.NsTypeConstr, BindingSpec.HsTypeSpec)
          )
       -> UnresolvedBindingSpec
       -> UnresolvedBindingSpec
-    insertType ((declInfo, cTypeSpec), (hsName, hsTypeSpec)) spec =
-      case singleLocPath declInfo.loc of
+    insertType ((originDecl, cTypeSpec), (hsName, hsTypeSpec)) spec =
+      case singleLocPath originDecl.info.loc of
         C.InHeader path ->
           spec
             & #cTypes %~
                 Map.insertWith (++)
-                  declInfo.id.cName
+                  originDecl.id.cName
                   [(getMainHeaders' path, Require cTypeSpec)]
             & #hsTypes %~
                 Map.insert hsName hsTypeSpec
@@ -181,7 +180,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
 
     auxTypSyn ::
          Hs.TypSyn
-      -> ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
+      -> ( (HsOrigin.Decl HsOrigin.EmptyData, BindingSpec.CTypeSpec)
          , (Hs.Name Hs.NsTypeConstr, BindingSpec.HsTypeSpec)
          )
     auxTypSyn typSyn =
@@ -193,13 +192,13 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
               hsRep     = Just BindingSpec.HsTypeRepTypeAlias
             , instances = Map.empty
             }
-      in  ( (typSyn.origin.info, cTypeSpec)
+      in  ( (typSyn.origin, cTypeSpec)
           , (typSyn.name, hsTypeSpec)
           )
 
     auxStruct ::
          Hs.Struct
-      -> ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
+      -> ( (HsOrigin.Decl HsOrigin.Struct, BindingSpec.CTypeSpec)
          , (Hs.Name Hs.NsTypeConstr, BindingSpec.HsTypeSpec)
          )
     auxStruct hsStruct = case hsStruct.origin of
@@ -223,13 +222,13 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
                     (maybe Map.empty (.instances) $ originDecl.spec.hsSpec)
                     hsStruct.instances
               }
-        in  ( (originDecl.info, cTypeSpec)
+        in  ( (originDecl, cTypeSpec)
             , (hsStruct.name, hsTypeSpec)
             )
 
     auxEmptyData ::
          Hs.EmptyData
-      -> ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
+      -> ( (HsOrigin.Decl HsOrigin.EmptyData, BindingSpec.CTypeSpec)
          , (Hs.Name Hs.NsTypeConstr, BindingSpec.HsTypeSpec)
          )
     auxEmptyData edata =
@@ -245,13 +244,13 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
                   (maybe Map.empty (.instances) $ originDecl.spec.hsSpec)
                   edata.instances
             }
-      in  ( (originDecl.info, cTypeSpec)
+      in  ( (originDecl, cTypeSpec)
           , (edata.name, hsTypeSpec)
           )
 
     auxNewtype ::
          Hs.Newtype
-      -> ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
+      -> ( (HsOrigin.Decl HsOrigin.Newtype, BindingSpec.CTypeSpec)
          , (Hs.Name Hs.NsTypeConstr, BindingSpec.HsTypeSpec)
          )
     auxNewtype hsNewtype =
@@ -278,7 +277,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
                   (maybe Map.empty (.instances) $ originDecl.spec.hsSpec)
                   hsNewtype.instances
             }
-      in  ( (originDecl.info, cTypeSpec)
+      in  ( (originDecl, cTypeSpec)
           , (hsNewtype.name, hsTypeSpec)
           )
 

@@ -60,14 +60,11 @@ typecheckDecl ::
   => Map Text (Macro.TypecheckResult l)
   -> C.Decl l In
   -> C.Decl l Out
-typecheckDecl tcResults decl = C.Decl info' kind' decl.ann
+typecheckDecl tcResults decl = C.coercePassDeclWith kind' decl.ann decl
   where
-    info' :: C.DeclInfo Out
-    info' = coercePass decl.info
-
     kind' :: C.DeclKind l Out
     kind' = case decl.kind of
-      C.DeclMacro                x -> C.DeclMacro                $ assembleMacro tcResults info' x
+      C.DeclMacro                x -> C.DeclMacro                $ assembleMacro tcResults decl.id x
       C.DeclTypedef              x -> C.DeclTypedef              $ coercePass x
       C.DeclStruct               x -> C.DeclStruct               $ coercePass x
       C.DeclUnion                x -> C.DeclUnion                $ coercePass x
@@ -81,10 +78,10 @@ typecheckDecl tcResults decl = C.Decl info' kind' decl.ann
 assembleMacro ::
      forall l. Macro.HasTypes l
   => Map Text (Macro.TypecheckResult l)
-  -> C.DeclInfo Out
+  -> C.DeclId
   -> MacroBody In l
   -> MacroBody Out l
-assembleMacro tcResults info macro = PendingMacro{
+assembleMacro tcResults declId macro = PendingMacro{
       raw      = macro.raw
     , handling = nextStage FailedTypecheck typecheck macro.handling
     }
@@ -92,11 +89,11 @@ assembleMacro tcResults info macro = PendingMacro{
     typecheck ::
          Macro.Resolved l
       -> Either MacroTypecheckError (CheckedMacro Out l)
-    typecheck resolved = case Map.lookup info.id.name.text tcResults of
+    typecheck resolved = case Map.lookup declId.name.text tcResults of
       Nothing ->
         panicPure $
           "assembleMacro: typechecked macro unavailable: "
-            <> show info.id.name.text
+            <> show declId.name.text
       Just tcRes ->
         fromTcResult resolved.deps tcRes
 
@@ -127,7 +124,7 @@ fromTcResult deps = \case
 -- version.
 getKnownMacroTypes :: [C.Decl l Out] -> Set Text
 getKnownMacroTypes decls = Set.fromList
-    [ decl.info.id.name.text
+    [ decl.id.name.text
     | decl <- decls
     , C.DeclMacro PendingMacro{handling = Handled CheckedType{}} <- [decl.kind]
     ]

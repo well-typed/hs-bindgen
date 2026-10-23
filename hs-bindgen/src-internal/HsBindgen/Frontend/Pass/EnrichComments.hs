@@ -1,7 +1,7 @@
 -- | Enrich parsed declarations with doxygen comments
 --
 -- Post-processing step after @EnrichComments@: looks up each declaration's
--- comment in the 'Doxygen' state and fills in @DeclInfo.comment@ and
+-- comment in the 'Doxygen' state and fills in @Decl.comment@ and
 -- per-field comments.
 --
 -- === Doxygen nesting
@@ -72,7 +72,7 @@
 --
 -- === Lookup algorithm
 --
--- Each 'DeclInfo' carries @enclosing@: the list of enclosing declarations
+-- Each 'C.Decl' carries @enclosing@: the list of enclosing declarations
 -- (innermost first), set during parsing.
 --
 -- __Named declarations__ ('lookupCommentForId'): 'resolveQualifiedName'
@@ -143,30 +143,30 @@ enrichDecl ::
   -> C.Decl l EnrichComments
   -> C.Decl l EnrichComments
 enrichDecl doxy decl =
-    decl & #info %~ enrichDeclInfo doxy
+    enrichDeclComment doxy decl
          & #kind %~ enrichDeclKind doxy effectiveEnclosing
   where
     -- Doxygen-qualified name for field lookups (e.g., @\"outer::inner\"@)
     effectiveEnclosing :: Text
-    effectiveEnclosing = resolveQualifiedName decl.info
+    effectiveEnclosing = resolveQualifiedName decl
 
-enrichDeclInfo ::
+enrichDeclComment ::
      Doxygen
-  -> C.DeclInfo EnrichComments
-  -> C.DeclInfo EnrichComments
-enrichDeclInfo doxy info
-  | Just doxyComment <- lookupCommentForId doxy info
-  = info & #comment .~ Just (wrapDoxygenRefs doxyComment)
+  -> C.Decl l EnrichComments
+  -> C.Decl l EnrichComments
+enrichDeclComment doxy decl
+  | Just doxyComment <- lookupCommentForId doxy decl
+  = decl & #comment .~ Just (wrapDoxygenRefs doxyComment)
   | otherwise
-  = info
+  = decl
 
 lookupCommentForId ::
      Doxygen
-  -> C.DeclInfo EnrichComments
+  -> C.Decl l EnrichComments
   -> Maybe (Doxy.Comment Doxy.DoxyRef)
-lookupCommentForId doxy info
-  | not info.id.isUnnamed =
-      let qualName = resolveQualifiedName info
+lookupCommentForId doxy decl
+  | not decl.id.isUnnamed =
+      let qualName = resolveQualifiedName decl
       in  lookupComment (KeyDecl qualName) doxy
             <|> lookupComment (KeyStruct qualName) doxy
   | otherwise = Nothing
@@ -240,14 +240,14 @@ enrichEnumConstant doxy name ec =
 -- Named ancestors are joined with @\"::\"@ (e.g., @outer::inner@).
 -- Unnamed ancestors are skipped. Unnamed decls resolve to the nearest
 -- named ancestor.
-resolveQualifiedName :: C.DeclInfo EnrichComments -> Text
-resolveQualifiedName info =
+resolveQualifiedName :: C.Decl l EnrichComments -> Text
+resolveQualifiedName decl =
     Text.intercalate "::" (map (.name.text) path)
   where
     path :: [C.DeclId]
     path =
       filter (not . (.isUnnamed)) $
-      reverse (map getEnclosingRef info.enclosing) ++ [info.id]
+      reverse (map getEnclosingRef decl.enclosing) ++ [decl.id]
 
     getEnclosingRef :: C.EnclosingRef EnrichComments -> C.DeclId
     getEnclosingRef = \case

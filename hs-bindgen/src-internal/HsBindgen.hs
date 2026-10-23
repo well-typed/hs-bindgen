@@ -394,7 +394,7 @@ getReifiedC = (.decls) <$> FrontendPassA FinalPass
 getSquashedTypes :: Artefact l [(C.DeclId, (RealPath, Hs.Name Hs.NsTypeConstr))]
 getSquashedTypes = do
   decls <- getReifiedC
-  let translatedDeclIds = Set.fromList $ map (.info.id.cName) decls
+  let translatedDeclIds = Set.fromList $ map (.id.cName) decls
   declIndex <- getDeclIndex
   pure $ Map.toList $ DeclIndex.getSquashed declIndex translatedDeclIds
 
