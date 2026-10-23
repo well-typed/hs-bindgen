@@ -205,8 +205,8 @@ data UnusableReason =
     UnusableUnavailable
   | UnusableOmitted
   | UnusableParseFailure           DelayedParseMsg
-  | UnusableMacroTypecheckFailure  MacroTypecheckError
-  | UnusableMacroResolutionFailure MacroResolutionError
+    -- | By @ApplyMacroFallback@, for a macro that does not fall back
+  | UnusableMacro                  MacroLangFailure
   | UnusableMangleNamesFailure     MangleNamesError
   deriving stock (Show, Generic)
 
@@ -220,10 +220,10 @@ instance PrettyForTrace UnusableReason where
       "Parse failed"
     UnusableMangleNamesFailure{} ->
       "Name mangler failure"
-    UnusableMacroTypecheckFailure{} ->
-      "Macro type-checking failed"
-    UnusableMacroResolutionFailure{} ->
-      "Macro name resolution failed"
+    UnusableMacro failure -> case failure of
+      FailedParse{}     -> "Parse failed"
+      FailedResolve{}   -> "Macro name resolution failed"
+      FailedTypecheck{} -> "Macro type-checking failed"
 
 unusableToLoc :: UnusableEntry -> C.DeclLocs
 unusableToLoc = \case
@@ -677,13 +677,8 @@ registerUnhandledMacro ::
   -> (C.Decl l TypecheckMacros, MacroLangFailure)
   -> DeclIndex l
 registerUnhandledMacro index (decl, failure) = index
-    & #map %~ Map.insert decl.id (UnusableEntry $ UnusableReason decl.info.loc reason)
-  where
-    reason :: UnusableReason
-    reason = case failure of
-      FailedParse     err -> UnusableParseFailure (ParseMacroErrorParse err)
-      FailedResolve   err -> UnusableMacroResolutionFailure err
-      FailedTypecheck err -> UnusableMacroTypecheckFailure err
+    & #map %~ Map.insert decl.id
+        (UnusableEntry $ UnusableReason decl.info.loc $ UnusableMacro failure)
 
 {-------------------------------------------------------------------------------
   Support for binding specifications

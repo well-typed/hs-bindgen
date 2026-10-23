@@ -216,9 +216,7 @@ instance PrettyForTrace SelectMsg where
           couldNotSelect $ prettyForTrace x
         UnusableMangleNamesFailure x ->
           couldNotSelect $ prettyForTrace x
-        UnusableMacroTypecheckFailure x ->
-          couldNotSelect $ prettyForTrace x
-        UnusableMacroResolutionFailure x ->
+        UnusableMacro x ->
           couldNotSelect $ prettyForTrace x
       SelectConflict ->
         couldNotSelect "Conflicting declarations"
@@ -275,8 +273,7 @@ instance IsTrace Level SelectMsg where
       UnusableOmitted                  -> Info
       UnusableParseFailure x           -> getDefaultLogLevel x
       UnusableMangleNamesFailure x     -> getDefaultLogLevel x
-      UnusableMacroTypecheckFailure x  -> getDefaultLogLevel x
-      UnusableMacroResolutionFailure x -> getDefaultLogLevel x
+      UnusableMacro x                  -> getDefaultLogLevel x
     SelectConflict{}                         -> Warning
     SelectMangleNamesSquashed{}              -> Notice
     SelectNoDeclarationsMatched              -> Warning
@@ -295,8 +292,7 @@ instance IsTrace Level SelectMsg where
       UnusableOmitted                  -> "select-omitted"
       UnusableParseFailure           x -> "select-" <> getTraceId x
       UnusableMangleNamesFailure     x -> "select-" <> getTraceId x
-      UnusableMacroTypecheckFailure  x -> "select-" <> getTraceId x
-      UnusableMacroResolutionFailure x -> "select-" <> getTraceId x
+      UnusableMacro                  x -> "select-" <> getTraceId x
     SelectConflict{}                         -> "select"
     SelectMangleNamesSquashed{}              -> "select-mangle-names-squashed"
     SelectNoDeclarationsMatched              -> "select"
