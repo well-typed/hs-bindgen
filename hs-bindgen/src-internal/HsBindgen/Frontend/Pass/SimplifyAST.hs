@@ -44,16 +44,14 @@ simplifyAST usage parseResults = (results, msgs)
       => ParseResult l Parse
       -> ([ParseResult l SimplifyAST], [AnnMsg SimplifyAST])
     processResult result =
-      case result.classification of
+      case result of
         ParseResultSuccess success ->
           case success.decl of
             -- Found untagged enum: check if it has use sites
             C.Decl{info, comment, enclosing, kind = C.DeclEnum enum}
               | C.PrelimDeclIdUnnamed unnamedId <- success.decl.id
               , Map.notMember unnamedId usage.map ->
-                ( [ result {
-                     id = newId
-                   , classification = ParseResultSuccess success {
+                ( [ ParseResultSuccess success {
                        decl = C.Decl{
                               info      = info
                             , id        = newId
@@ -65,27 +63,22 @@ simplifyAST usage parseResults = (results, msgs)
                                    }
                             , ann       = NoAnn
                             }
-                                          }
-                   }
+                       }
                  | constant <- enum.constants
                  , let C.ScopedName nameText = constant.info.name
                        newId = C.PrelimDeclIdNamed (C.DeclName nameText C.NameKindOrdinary)
                  ]
                 , [withCallStack (SimplifyASTUntaggedEnum unnamedId)]
                 )
-            decl -> ( [ParseResult {
-                      id = result.id
-                    , loc = result.loc
-                    , classification = ParseResultSuccess success {
+            decl -> ( [ParseResultSuccess success {
                         decl = C.coercePassDeclWith (coercePass decl.kind) NoAnn decl
-                      }
-                    }]
+                      }]
                  , []
                  )
-        ParseResultUnavailable ->
-          ([ParseResult result.id result.loc ParseResultUnavailable], [])
+        ParseResultUnavailable notAttempted ->
+          ([ParseResultUnavailable (coercePass notAttempted)], [])
         ParseResultFailure failure ->
-          ([ParseResult result.id result.loc (ParseResultFailure failure)], [])
+          ([ParseResultFailure (coercePass failure)], [])
 
 {-------------------------------------------------------------------------------
   Extract PrimType from Type

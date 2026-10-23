@@ -66,7 +66,7 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate (IsMainHeader)
 import HsBindgen.Imports hiding (toList)
 import HsBindgen.IR.C qualified as C
-import HsBindgen.IR.Pass (IsPass)
+import HsBindgen.IR.Pass (IsPass, coercePass)
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Error
 import HsBindgen.Macro.Interface qualified as Macro
@@ -299,20 +299,20 @@ fromParseResults macroLang macroAnalysis isMainHeader parseResults = DeclIndex{
     declIds = getDeclIds parseResults
 
     getDeclIds :: [ParseResult l In] -> Set C.DeclId
-    getDeclIds = Set.fromList . map (.id)
+    getDeclIds = Set.fromList . map parseResultId
 
 {-------------------------------------------------------------------------------
   Macro resolution
 -------------------------------------------------------------------------------}
 
 parseResultToEntry :: ParseResult l Out -> Entry l
-parseResultToEntry result = case result.classification of
+parseResultToEntry = \case
     ParseResultSuccess r ->
       UsableEntry $ UsableSuccess (parseSuccessToSuccess r)
-    ParseResultUnavailable ->
-      UnusableEntry $ UnusableReason result.loc UnusableUnavailable
+    ParseResultUnavailable r ->
+      UnusableEntry $ UnusableReason r.info.loc UnusableUnavailable
     ParseResultFailure r ->
-      UnusableEntry $ UnusableReason result.loc $ UnusableParseFailure r
+      UnusableEntry $ UnusableReason r.info.loc $ UnusableParseFailure r.msg
 
 parseSuccessToSuccess :: ParseSuccess l Out -> Success l Out
 parseSuccessToSuccess success = Success {
@@ -330,19 +330,19 @@ resolveMacros ::
   -> Set C.DeclId
   -> [ParseResult l In]
   -> [ParseResult l Out]
-resolveMacros macroLang allDeclIds = map (over #classification resolveClassification)
+resolveMacros macroLang allDeclIds = map resolveResult
   where
-    resolveClassification :: ParseClassification l In -> ParseClassification l Out
-    resolveClassification = \case
+    resolveResult :: ParseResult l In -> ParseResult l Out
+    resolveResult = \case
       ParseResultSuccess success ->
         ParseResultSuccess ParseSuccess{
           decl             = resolveMacroWith macroLang allDeclIds success.decl
         , delayedParseMsgs = success.delayedParseMsgs
         }
-      ParseResultUnavailable ->
-        ParseResultUnavailable
-      ParseResultFailure x ->
-        ParseResultFailure x
+      ParseResultUnavailable notAttempted ->
+        ParseResultUnavailable (coercePass notAttempted)
+      ParseResultFailure failure ->
+        ParseResultFailure (coercePass failure)
 
 {-------------------------------------------------------------------------------
   Build from resolved macros
@@ -365,7 +365,7 @@ buildIndex macroAnalysis isMainHeader results =
     aux :: ParseResult l Out -> State (Map C.DeclId (Entry l)) ()
     aux new = modify' $ \index ->
       let declId :: C.DeclId
-          declId = new.id
+          declId = parseResultId new
 
           mConflict :: Maybe (IsConflict l)
           mConflict = Foldable.asum [
@@ -399,7 +399,7 @@ buildIndex macroAnalysis isMainHeader results =
             -- The same identifier at the same location is the same
             -- declaration, seen twice; e.g., Parse emits a struct defined
             -- inline in a variable or function declaration twice.
-            Just old | entryToLoc old == C.DeclLoc new.loc ->
+            Just old | entryToLoc old == C.DeclLoc (parseResultInfo new).loc ->
               index
             _otherwise -> case mConflict of
               Nothing ->
@@ -444,7 +444,7 @@ checkIsConflict macroAnalysis isMainHeader new (oldId, old)
         (_, UnusableEntry UnusableConflict{}) -> singleConflict
         (UniqueExpansion.Benign, _)           -> Redefinition macroRedefinition
         (UniqueExpansion.NotBenign, _)        -> singleConflict
-    | ParseResultSuccess newSuccess <- new.classification
+    | ParseResultSuccess newSuccess <- new
     , UsableEntry (UsableSuccess oldSuccess) <- old
     , newSuccess.decl.kind == oldSuccess.decl.kind
     = Redefinition $ UsableEntry $ UsableSuccess $
@@ -458,10 +458,10 @@ checkIsConflict macroAnalysis isMainHeader new (oldId, old)
     = singleConflict
   where
     newId :: C.DeclId
-    newId = new.id
+    newId = parseResultId new
 
     newLoc :: SingleLoc C.DeclPath
-    newLoc = new.loc
+    newLoc = (parseResultInfo new).loc
 
     redefinition :: UniqueExpansion.Redefinition
     redefinition =

@@ -46,16 +46,16 @@ updateParseResult ::
   -> ParseResult l SimplifyAST
   -> Either (AnnMsg FillUnnamedIds) (ParseResult l FillUnnamedIds)
 updateParseResult chosenNames result =
-    case result.classification of
+    case result of
       ParseResultSuccess success -> do
         auxSuccess success <$>
           updateDefSite chosenNames success.decl.id
-      ParseResultUnavailable ->
-        auxUnavailable <$>
-          updateDefSite chosenNames result.id
+      ParseResultUnavailable notAttempted ->
+        auxUnavailable notAttempted <$>
+          updateDefSite chosenNames notAttempted.id
       ParseResultFailure failure ->
         auxFailure failure <$>
-          updateDefSite chosenNames result.id
+          updateDefSite chosenNames failure.id
   where
     auxSuccess ::
          ParseSuccess l SimplifyAST
@@ -63,26 +63,24 @@ updateParseResult chosenNames result =
       -> ParseResult l FillUnnamedIds
     auxSuccess success declId' =
         case runM chosenNames updated of
-          Left (UnusableUnnamedDecl unnamedId) -> ParseResult{
-              id             = declId'
-            , loc            = result.loc
-            , classification = ParseResultFailure $ ParseUnusableUnnamedDecl unnamedId
-            }
-          Right (enclosing', declKind') -> ParseResult{
-              id             = declId'
-            , loc            = result.loc
-            , classification = ParseResultSuccess ParseSuccess{
-                  decl = C.Decl{
-                      info      = success.decl.info
-                    , id        = declId'
-                    , comment   = ()
-                    , enclosing = enclosing'
-                    , kind      = declKind'
-                    , ann       = NoAnn
-                    }
-                , delayedParseMsgs = success.delayedParseMsgs
-                }
-            }
+          Left (UnusableUnnamedDecl unnamedId) ->
+            ParseResultFailure ParseFailure{
+                id   = declId'
+              , info = success.decl.info
+              , msg  = ParseUnusableUnnamedDecl unnamedId
+              }
+          Right (enclosing', declKind') ->
+            ParseResultSuccess ParseSuccess{
+                decl = C.Decl{
+                    info      = success.decl.info
+                  , id        = declId'
+                  , comment   = ()
+                  , enclosing = enclosing'
+                  , kind      = declKind'
+                  , ann       = NoAnn
+                  }
+              , delayedParseMsgs = success.delayedParseMsgs
+              }
 
       where
         updated :: M ([C.EnclosingRef FillUnnamedIds], C.DeclKind l FillUnnamedIds)
@@ -91,23 +89,25 @@ updateParseResult chosenNames result =
             <*> updateUseSites       success.decl.kind
 
     auxUnavailable ::
-         C.DeclId
-      -> ParseResult l FillUnnamedIds
-    auxUnavailable declId' = ParseResult{
-          id             = declId'
-        , loc            = result.loc
-        , classification = ParseResultUnavailable
-        }
-
-    auxFailure ::
-         DelayedParseMsg
+         ParseNotAttempted SimplifyAST
       -> C.DeclId
       -> ParseResult l FillUnnamedIds
-    auxFailure failure declId' = ParseResult{
-          id             = declId'
-        , loc            = result.loc
-        , classification = ParseResultFailure failure
-        }
+    auxUnavailable notAttempted declId' =
+        ParseResultUnavailable ParseNotAttempted{
+            id   = declId'
+          , info = notAttempted.info
+          }
+
+    auxFailure ::
+         ParseFailure SimplifyAST
+      -> C.DeclId
+      -> ParseResult l FillUnnamedIds
+    auxFailure failure declId' =
+        ParseResultFailure ParseFailure{
+            id   = declId'
+          , info = failure.info
+          , msg  = failure.msg
+          }
 
 {-------------------------------------------------------------------------------
   Update definition sites
