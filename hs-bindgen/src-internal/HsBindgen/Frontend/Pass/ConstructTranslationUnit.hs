@@ -35,6 +35,7 @@ constructTranslationUnit ::
   -> C.TranslationUnit l ConstructTranslationUnit
 constructTranslationUnit macroLang macroAnalysis isMainHeader parseResults includeGraph = C.TranslationUnit{
       decls        = DeclUseGraph.toDecls
+                       includeGraph
                        declMeta.declIndex
                        declMeta.declUseGraph
     , includeGraph = includeGraph
@@ -43,7 +44,7 @@ constructTranslationUnit macroLang macroAnalysis isMainHeader parseResults inclu
   where
     declMeta :: DeclMeta l
     declMeta =
-      mkDeclMeta macroLang macroAnalysis isMainHeader parseResults includeGraph
+      mkDeclMeta macroLang macroAnalysis isMainHeader parseResults
 
 mkDeclMeta ::
      forall l. Macro.HasTypes l
@@ -51,16 +52,15 @@ mkDeclMeta ::
   -> UniqueExpansion.Analysis
   -> IsMainHeader
   -> [ParseResult l PreviousPass]
-  -> IncludeGraph
   -> DeclMeta l
-mkDeclMeta macroLang macroAnalysis isMainHeader parseResults includeGraph = declMeta
+mkDeclMeta macroLang macroAnalysis isMainHeader parseResults = declMeta
   where
     declIndex :: DeclIndex l
     declIndex =
       DeclIndex.fromParseResults macroLang macroAnalysis isMainHeader parseResults
 
     declUseGraph :: DeclUseGraph
-    declUseGraph = DeclUseGraph.construct includeGraph declIndex
+    declUseGraph = DeclUseGraph.construct declIndex
 
     useDeclGraph :: UseDeclGraph
     useDeclGraph = UseDeclGraph.fromDeclUseGraph declUseGraph

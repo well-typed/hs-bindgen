@@ -44,6 +44,9 @@ runBackend tracer config boot frontend = do
       let declIndex :: DeclIndex l
           declIndex = final.meta.declIndex
 
+          -- Dependency order refined by source order (see
+          -- 'HsBindgen.Frontend.Analysis.DeclUseGraph.toDecls'): the
+          -- translation needs dependency order, and the output follows it.
           cDecls :: [C.Decl l Final]
           cDecls = final.decls
       pure $ Hs.generateDeclarations

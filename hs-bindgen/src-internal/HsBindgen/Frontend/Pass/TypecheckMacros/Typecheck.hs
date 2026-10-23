@@ -38,6 +38,8 @@ typecheckDecls ::
 typecheckDecls macroLang decls =
     (decls', getKnownMacroTypes decls')
   where
+    -- Needs dependency order: a macro is typechecked in the environment of the
+    -- macros before it.
     tcResults :: Map Text (Macro.TypecheckResult l)
     tcResults = macroLang.typecheck (mapMaybe getResolvedMacro decls)
 
