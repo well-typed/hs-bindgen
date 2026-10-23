@@ -69,6 +69,9 @@
 [is-2303]: https://github.com/well-typed/hs-bindgen/issues/2303
 [is-2304]: https://github.com/well-typed/hs-bindgen/issues/2304
 
+* Bug-level delayed messages are now reported for every declaration, as
+  intended: also for conflicting, external, squashed and unusable ones.
+
 * Deprecation is now known for declarations we generate no binding of their
   own for: squashed typedefs, and declarations that fail to parse, are not
   attempted, or are unusable. The `DeclDeprecated` selection predicate matches

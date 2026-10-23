@@ -262,6 +262,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             , macroFallbackMsgs
             , getDelayedMsgsAdditionalSelectedTransDeps additionalSelectedTransDepsIndex
             , getBugMsgsNotSelected notSelectedIndex
+            , getBugMsgsInactive index
             , noDeclarationsMatchedMsg
             ]
 
@@ -560,6 +561,34 @@ getBugMsgsNotSelected declDB =
       Deactivated (Unusable r) -> getDefaultLogLevel r == Bug
       Deactivated Omitted      -> False
       Deactivated Deselected   -> False
+
+-- | Bug-level delayed messages of every entry that is not active, whether
+-- selected or not
+--
+-- Active entries report theirs with their other delayed messages.
+getBugMsgsInactive ::
+     forall l. HasCallStack
+  => DeclDB l ConstructTranslationUnit
+  -> [AnnMsg Select]
+getBugMsgsInactive declDB =
+    concatMap (uncurry aux) $ DeclDB.toList declDB
+  where
+    aux ::
+         HasCallStack
+      => C.DeclId
+      -> Entry l ConstructTranslationUnit
+      -> [AnnMsg Select]
+    aux declId = \case
+      Active{} -> []
+      entry    -> [
+          withCallStack C.WithLocationInfo{
+              loc = C.declIdLocationInfo declId $
+                maybe [] C.declLocsToList (DeclDB.entryToLoc entry)
+            , msg = SelectDelayedMsg msg
+            }
+        | msg <- DeclDB.lookupDelayedMsgs declId declDB
+        , getDefaultLogLevel msg == Bug
+        ]
 
 -- | Does this selection-root message represent a macro that hs-bindgen dropped?
 --
