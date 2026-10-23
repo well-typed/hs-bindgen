@@ -26,6 +26,7 @@ import Clang.HighLevel.Types qualified as Clang
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
@@ -72,7 +73,7 @@ update mode unit = unit'
     declIndex' =
       -- We use @foldr@ here to establish the original order of messages
       foldr
-        DeclIndex.registerDelayedPrepareReparseMsg
+        (DeclIndex.registerDelayedMsg . fmap DelayedPrepareReparse)
         unit.meta.declIndex
         delayedMsgs
 
