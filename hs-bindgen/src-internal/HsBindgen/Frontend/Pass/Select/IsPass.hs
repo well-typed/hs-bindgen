@@ -18,9 +18,10 @@ import Clang.HighLevel.Types
 import Clang.Paths
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Frontend.Analysis.DeclIndex (Squashed (..), UnusableEntry,
-                                              UnusableReason (..))
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.DeclDB (Deactivation (..), Inactive,
+                                  InactiveReason (..), SquashedTypedef (..),
+                                  UnusableReason (..))
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
@@ -139,8 +140,8 @@ data SelectStatus =
   deriving stock (Show)
 
 data TransitiveDependencyMissing =
-    -- | Transitive dependency is 'UnusableEntry'.
-    TransitiveDependencyUnusable C.DeclId UnusableEntry
+    -- | Transitive dependency is unusable
+    TransitiveDependencyUnusable C.DeclId Inactive
     -- | Transitive dependency is not selected.
   | TransitiveDependencyNotSelected C.DeclId [SingleLoc C.DeclPath]
   deriving stock (Show)
@@ -151,7 +152,7 @@ instance PrettyForTrace TransitiveDependencyMissing where
         let intro = "Transitive dependency unusable:"
         in  PP.hang intro 2 $ prettyForTrace $ C.WithLocationInfo{
                 loc = C.declIdLocationInfo i $
-                  C.declLocsToList $ DeclIndex.unusableToLoc u
+                  C.declLocsToList $ DeclDB.inactiveToLoc u
               , msg = u
               }
       TransitiveDependencyNotSelected i ls ->
@@ -175,9 +176,9 @@ data SelectMsg =
     -- | Delayed message of an earlier pass
   | SelectDelayedMsg DelayedMsg
     -- | A directly or transitively selected declaration is unusable.
-  | SelectUnusable UnusableReason
+  | SelectUnusable InactiveReason
   | SelectConflict
-  | SelectMangleNamesSquashed Squashed
+  | SelectMangleNamesSquashed SquashedTypedef
     -- | Inform the user that no declarations matched the selection predicate.
   | SelectNoDeclarationsMatched
     -- | Summary of the number of selected macros that hs-bindgen failed to
@@ -206,23 +207,25 @@ instance PrettyForTrace SelectMsg where
       SelectDelayedMsg x ->
         during x $ prettyForTrace x
       SelectUnusable reason -> case reason of
-        UnusableUnavailable ->
+        NotAttempted ->
           couldNotSelect $ PP.hang "Parse not attempted: " 2
             "Declaration is 'unavailable' on this platform"
-        UnusableOmitted ->
+        Deactivated Omitted ->
           couldNotSelect $
             "Declaration omitted by prescriptive binding specifications"
-        UnusableParseFailure x ->
+        ParseFailed x ->
           couldNotSelect $ prettyForTrace x
-        UnusableMangleNamesFailure x ->
+        Deactivated (Unusable (UnusableMangleNames x)) ->
           couldNotSelect $ prettyForTrace x
-        UnusableMacro x ->
+        Deactivated (Unusable (UnusableMacro x)) ->
           couldNotSelect $ prettyForTrace x
+        Deactivated Deselected ->
+          couldNotSelect "Declaration not selected"
       SelectConflict ->
         couldNotSelect "Conflicting declarations"
       SelectMangleNamesSquashed x -> PP.hsep [
           "Squashed typedef to"
-        , prettyForTrace x.targetNameC
+        , prettyForTrace x.target.c
         ]
       SelectNoDeclarationsMatched ->
         "No declarations matched the selection predicate"
@@ -269,11 +272,11 @@ instance IsTrace Level SelectMsg where
     SelectDeprecated{}                       -> Notice
     SelectDelayedMsg x                       -> getDefaultLogLevel x
     SelectUnusable r -> case r of
-      UnusableUnavailable              -> Warning
-      UnusableOmitted                  -> Info
-      UnusableParseFailure x           -> getDefaultLogLevel x
-      UnusableMangleNamesFailure x     -> getDefaultLogLevel x
-      UnusableMacro x                  -> getDefaultLogLevel x
+      NotAttempted             -> Warning
+      Deactivated Omitted      -> Info
+      ParseFailed x            -> getDefaultLogLevel x
+      Deactivated (Unusable x) -> getDefaultLogLevel x
+      Deactivated Deselected   -> Info
     SelectConflict{}                         -> Warning
     SelectMangleNamesSquashed{}              -> Notice
     SelectNoDeclarationsMatched              -> Warning
@@ -288,11 +291,11 @@ instance IsTrace Level SelectMsg where
     SelectDeprecated{}                       -> "select"
     SelectDelayedMsg x                       -> "select-" <> getTraceId x
     SelectUnusable r -> case r of
-      UnusableUnavailable              -> "select-parse"
-      UnusableOmitted                  -> "select-omitted"
-      UnusableParseFailure           x -> "select-" <> getTraceId x
-      UnusableMangleNamesFailure     x -> "select-" <> getTraceId x
-      UnusableMacro                  x -> "select-" <> getTraceId x
+      NotAttempted             -> "select-parse"
+      Deactivated Omitted      -> "select-omitted"
+      ParseFailed x            -> "select-" <> getTraceId x
+      Deactivated (Unusable x) -> "select-" <> getTraceId x
+      Deactivated Deselected   -> "select"
     SelectConflict{}                         -> "select"
     SelectMangleNamesSquashed{}              -> "select-mangle-names-squashed"
     SelectNoDeclarationsMatched              -> "select"

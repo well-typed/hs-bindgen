@@ -172,8 +172,6 @@ library internal
     HsBindgen.Errors
     HsBindgen.Frontend
     HsBindgen.Frontend.Analysis
-    HsBindgen.Frontend.Analysis.DeclIndex
-    HsBindgen.Frontend.Analysis.DeclIndex.ResolveMacro
     HsBindgen.Frontend.Analysis.DeclUseGraph
     HsBindgen.Frontend.Analysis.DeclUseGraph.Construction
     HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
@@ -183,6 +181,8 @@ library internal
     HsBindgen.Frontend.Analysis.Typedefs
     HsBindgen.Frontend.Analysis.UnnamedIdUsage
     HsBindgen.Frontend.Analysis.UseDeclGraph
+    HsBindgen.Frontend.DeclDB
+    HsBindgen.Frontend.DeclDB.ResolveMacro
     HsBindgen.Frontend.DeclMeta
     HsBindgen.Frontend.DelayedMsg
     HsBindgen.Frontend.LanguageC
@@ -529,6 +529,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Fixtures.Haddock
     Test.HsBindgen.Fixtures.TestCases
     Test.HsBindgen.Fixtures.Utils
+    Test.HsBindgen.Frontend.DeclDB
     Test.HsBindgen.Frontend.LanguageC
     Test.HsBindgen.Frontend.Pass.PrepareReparse
     Test.HsBindgen.Golden

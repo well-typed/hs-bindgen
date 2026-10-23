@@ -4,7 +4,7 @@ module Test.HsBindgen.Golden.Functions (testCases) where
 import HsBindgen.Backend.Category
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Analysis.DeclIndex (UnusableReason (..))
+import HsBindgen.Frontend.DeclDB (InactiveReason (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate (Boolean (..))
 import HsBindgen.Imports
@@ -79,7 +79,7 @@ test_fun_attributes =
               Just $ Expected name
             MatchSelect name SelectDeprecated{} ->
               Just $ Expected name
-            MatchUnusable name UnusableUnavailable ->
+            MatchUnusable name NotAttempted ->
               Just $ Expected name
             _otherwise ->
               Nothing

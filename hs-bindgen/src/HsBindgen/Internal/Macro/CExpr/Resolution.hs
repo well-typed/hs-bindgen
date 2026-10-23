@@ -37,12 +37,12 @@ resolveMacro declIds (Macro.Unresolved macro) = do
     -- Result:
     --
     -- - @'Just' 'CNameKind'@: This bare name refers to another declaration that is in
-    --   the 'DeclIndex'. For example, a macro, or a @typedef@.
+    --   the declaration database. For example, a macro, or a @typedef@.
     --
     -- - @'Nothing'@: This bare name is not in the set of known declarations. It
     --   may simply be non-existent, or refer to a built-in type or a system
-    --   @typedef@ not present in the 'DeclIndex'. In this case, we /do not
-    --   generate/ a dependency.
+    --   @typedef@ not present in the declaration database. In this case, we
+    --   /do not generate/ a dependency.
     resolveBare :: Text -> Either MacroResolutionError C.DeclId
     resolveBare nm = case (isMacro, isTypedef) of
         -- TODO <https://github.com/well-typed/hs-bindgen/issues/2097>

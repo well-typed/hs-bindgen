@@ -16,8 +16,9 @@ import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
+import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
@@ -41,8 +42,8 @@ runBackend tracer config boot frontend = do
     backendHsDeclsAll <- cache "hsDeclsAll" $ do
       final     <- frontend.final
       macroLang <- boot.macroLang
-      let declIndex :: DeclIndex l
-          declIndex = final.meta.declIndex
+      let declDB :: DeclDB l ConstructTranslationUnit
+          declDB = final.meta.declDB
 
           -- Dependency order refined by source order (see
           -- 'HsBindgen.Frontend.Analysis.DeclUseGraph.toDecls'): the
@@ -53,7 +54,7 @@ runBackend tracer config boot frontend = do
         macroLang
         config.backend.uniqueId
         boot.baseModule
-        declIndex
+        declDB
         cDecls
 
     -- 2. Apply binding category choice.

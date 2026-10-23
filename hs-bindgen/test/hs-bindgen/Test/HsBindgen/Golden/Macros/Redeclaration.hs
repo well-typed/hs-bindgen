@@ -8,7 +8,7 @@ import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseM
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
-import HsBindgen.Frontend.Analysis.DeclIndex (UnusableReason (..))
+import HsBindgen.Frontend.DeclDB (UnusableReason (..))
 import HsBindgen.Imports
 import HsBindgen.Macro.Error (MacroLangFailure (..))
 import HsBindgen.IR.C qualified as C
@@ -223,7 +223,7 @@ test_variadic =
     trace = \case
       MatchSelect name@"macro A" SelectConflict{} ->
         Just $ Expected name
-      MatchUnusable name@"macro ID" (UnusableMacro FailedParse{}) ->
+      MatchUnusableReason name@"macro ID" (UnusableMacro FailedParse{}) ->
         Just $ Expected name
       MatchDelayedReparseMacroExpansions name@"T" (ReparseMacroExpansionUnknownType "ID") ->
         Just $ Expected name
@@ -261,7 +261,7 @@ multiTracePredicate_custom expected predicate = multiTracePredicate expected pre
       | otherwise
       = case x of
           -- Parse (macro)
-          MatchUnusable _info (UnusableMacro FailedParse{}) ->
+          MatchUnusableReason _info (UnusableMacro FailedParse{}) ->
             Just Unexpected
           -- PrepareReparse
           MatchImmediatePrepareReparse _ ->

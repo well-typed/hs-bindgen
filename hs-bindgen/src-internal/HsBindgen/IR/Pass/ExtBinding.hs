@@ -21,7 +21,7 @@ import HsBindgen.IR.Pass.Id
 
 -- | External binding annotations vary across passes
 class (
-      Eq   (ExtBinding p)  -- For @Eq DeclKind@ in @DeclIndex@ construction
+      Eq   (ExtBinding p)  -- For @Eq DeclKind@ in @DeclDB@ construction
     , Ord  (ExtBinding p)  -- For de-duplicating types
     , Show (ExtBinding p)  -- For debugging
     ) => PassExtBinding (p :: Pass) where

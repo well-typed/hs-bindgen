@@ -14,10 +14,10 @@ import Data.Set qualified as Set
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
 import HsBindgen.Frontend.Analysis.Deps
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Imports
@@ -29,14 +29,14 @@ import HsBindgen.IR.C qualified as C
 
 construct ::
      forall l. HasCallStack
-  => DeclIndex l
+  => DeclDB l ConstructTranslationUnit
   -> DeclUseGraph
-construct declIndex = declUseGraph
+construct declDB = declUseGraph
   where
-    -- The declaration index contains declarations that we cannot use. Macros
-    -- have already been resolved while constructing the declaration index.
+    -- The database contains declarations that we cannot use. Macros have
+    -- already been resolved while constructing the database.
     successfulDecls :: [C.Decl l ConstructTranslationUnit]
-    successfulDecls = DeclIndex.getDecls declIndex
+    successfulDecls = DeclDB.getDecls declDB
 
     declUseGraph :: DeclUseGraph
     declUseGraph = DeclUseGraph $
@@ -48,10 +48,10 @@ construct declIndex = declUseGraph
     -- We first insert all declarations, so that they are assigned vertices.
     verticesGraph :: Digraph Dependency C.DeclId
     verticesGraph = foldl' (flip Digraph.insertVertex) Digraph.empty $
-      Set.toList (DeclIndex.keysSet declIndex)
+      Set.toList (DeclDB.keysSet declDB)
 
     -- We cannot use plain 'depsOfDecl' here because, at this pass, macros have
-    -- been resolved (in the declaration index) but not yet typechecked. We
+    -- been resolved (in the database) but not yet typechecked. We
     -- therefore use 'depsOfDeclParsedMacro', which derives the dependencies
     -- from the resolved (but not yet typechecked) macro body.
     insertDepsOfDeclParsedMacro ::

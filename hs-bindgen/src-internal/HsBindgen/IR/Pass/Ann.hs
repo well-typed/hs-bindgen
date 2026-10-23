@@ -23,7 +23,7 @@ import HsBindgen.IR.Pass.Definition
 -------------------------------------------------------------------------------}
 
 class (
-      -- For @Eq DeclKind@ in @DeclIndex@ construction
+      -- For @Eq DeclKind@ in @DeclDB@ construction
       Eq   (Ann "Enum"                 p)
     , Eq   (Ann "Flam"                 p)
     , Eq   (Ann "Function"             p)
