@@ -21,14 +21,11 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.DeclIndex (Squashed (..), UnusableEntry,
                                               UnusableReason (..))
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
-import HsBindgen.Frontend.Pass.Parse.Msg
-import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg)
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg (DelayedReparseMacroExpansionsMsg)
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (DelayedTranslateTypesMsg)
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassBy (PassArgBy,
                                                              PassResBy)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -180,18 +177,12 @@ data SelectMsg =
     -- | The user has selected a deprecated declaration. Maybe they want to
     -- de-select the deprecated declaration?
   | SelectDeprecated SelectReason
-    -- | Delayed parse message.
-  | SelectDelayedParseMsg DelayedParseMsg
+    -- | Delayed message of an earlier pass
+  | SelectDelayedMsg DelayedMsg
     -- | A directly or transitively selected declaration is unusable.
   | SelectUnusable UnusableReason
   | SelectConflict
   | SelectMangleNamesSquashed Squashed
-    -- | Delayed @PrepareReparse@ message
-  | SelectDelayedPrepareReparseMsg DelayedPrepareReparseMsg
-    -- | Delayed @ReparseMacroExpansions@ message
-  | SelectDelayedReparseMacroExpansionsMsg DelayedReparseMacroExpansionsMsg
-    -- | Delayed @TranslateTypes@ message
-  | SelectDelayedTranslateTypesMsg DelayedTranslateTypesMsg
     -- | Inform the user that no declarations matched the selection predicate.
   | SelectNoDeclarationsMatched
     -- | Summary of the number of selected macros that hs-bindgen failed to
@@ -217,7 +208,7 @@ instance PrettyForTrace SelectMsg where
           PP.vcat $ map prettyForTrace xs
       SelectDeprecated r ->
         withSelectReason r "Selected a deprecated declaration"
-      SelectDelayedParseMsg x ->
+      SelectDelayedMsg x ->
         during x $ prettyForTrace x
       SelectUnusable reason -> case reason of
         UnusableUnavailable ->
@@ -240,12 +231,6 @@ instance PrettyForTrace SelectMsg where
           "Squashed typedef to"
         , prettyForTrace x.targetNameC
         ]
-      SelectDelayedPrepareReparseMsg x ->
-        during x $ prettyForTrace x
-      SelectDelayedReparseMacroExpansionsMsg x ->
-        during x $ prettyForTrace x
-      SelectDelayedTranslateTypesMsg x ->
-        during x $ prettyForTrace x
       SelectNoDeclarationsMatched ->
         "No declarations matched the selection predicate"
       SelectMacrosDropped n ->
@@ -289,7 +274,7 @@ instance IsTrace Level SelectMsg where
     SelectStatusInfo{}                       -> Info
     TransitiveDependenciesMissing{}          -> Warning
     SelectDeprecated{}                       -> Notice
-    SelectDelayedParseMsg x                  -> getDefaultLogLevel x
+    SelectDelayedMsg x                       -> getDefaultLogLevel x
     SelectUnusable r -> case r of
       UnusableUnavailable              -> Warning
       UnusableOmitted                  -> Info
@@ -299,9 +284,6 @@ instance IsTrace Level SelectMsg where
       UnusableMacroResolutionFailure x -> getDefaultLogLevel x
     SelectConflict{}                         -> Warning
     SelectMangleNamesSquashed{}              -> Notice
-    SelectDelayedPrepareReparseMsg x         -> getDefaultLogLevel x
-    SelectDelayedReparseMacroExpansionsMsg x -> getDefaultLogLevel x
-    SelectDelayedTranslateTypesMsg x         -> getDefaultLogLevel x
     SelectNoDeclarationsMatched              -> Warning
     SelectMacrosDropped{}                    -> Notice
     SelectMacroFallback{}                    -> Info
@@ -312,7 +294,7 @@ instance IsTrace Level SelectMsg where
     SelectStatusInfo{}                       -> "select"
     TransitiveDependenciesMissing{}          -> "select"
     SelectDeprecated{}                       -> "select"
-    SelectDelayedParseMsg x                  -> "select-" <> getTraceId x
+    SelectDelayedMsg x                       -> "select-" <> getTraceId x
     SelectUnusable r -> case r of
       UnusableUnavailable              -> "select-parse"
       UnusableOmitted                  -> "select-omitted"
@@ -322,9 +304,6 @@ instance IsTrace Level SelectMsg where
       UnusableMacroResolutionFailure x -> "select-" <> getTraceId x
     SelectConflict{}                         -> "select"
     SelectMangleNamesSquashed{}              -> "select-mangle-names-squashed"
-    SelectDelayedPrepareReparseMsg x         -> "select-" <> getTraceId x
-    SelectDelayedReparseMacroExpansionsMsg x -> "select-" <> getTraceId x
-    SelectDelayedTranslateTypesMsg x         -> "select-" <> getTraceId x
     SelectNoDeclarationsMatched              -> "select"
     SelectMacrosDropped{}                    -> "select-dropped-macros"
     SelectMacroFallback{}                    -> "select-macro-fallback"

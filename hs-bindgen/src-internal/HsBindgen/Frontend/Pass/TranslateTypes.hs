@@ -7,6 +7,7 @@ import Control.Monad.State (MonadState, State, modify, runState)
 
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
@@ -49,7 +50,7 @@ translateTypes unit = (unit', msgs)
     declIndex' =
         -- We use @foldr@ here to establish the original order of messages
         foldr
-          DeclIndex.registerDelayedTranslateTypesMsg
+          (DeclIndex.registerDelayedMsg . fmap DelayedTranslateTypes)
           unit.meta.declIndex
           delayedMsgs
 
