@@ -31,20 +31,20 @@ import Doxygen.Parser.Types qualified as Doxy
 -- | Convert a Doxygen comment to a Haddock comment
 --
 mkHaddocks ::
-     C.DeclInfo Final
+     C.Decl l Final
   -> Maybe HsDoc.Comment
-mkHaddocks info =
-    fst $ mkHaddocksWithArgs info Args{
+mkHaddocks decl =
+    fst $ mkHaddocksWithArgs decl.info Args{
         isField = False
-      , loc     = info.loc
-      , cName   = C.renderDeclId info.id.cName
-      , hsName  = info.id.hsName
-      , comment = info.comment
+      , loc     = decl.info.loc
+      , cName   = C.renderDeclId decl.id.cName
+      , hsName  = decl.id.hsName
+      , comment = decl.comment
       , params  = []
       }
 
 mkHaddocksFieldInfo ::
-     C.DeclInfo Final
+     C.DeclInfo
   -> C.FieldInfo Final
   -> Maybe HsDoc.Comment
 mkHaddocksFieldInfo declInfo fieldInfo =
@@ -60,16 +60,16 @@ mkHaddocksFieldInfo declInfo fieldInfo =
 -- | Extract Haddock documentation for a function; enrich function parameters
 --   with parameter-specific documentation
 mkHaddocksDecorateParams ::
-    C.DeclInfo Final
+    C.Decl l Final
   -> [(Maybe Text, Hs.FunctionParameter Hs.Type)]
   -> (Maybe HsDoc.Comment, [Hs.FunctionParameter Hs.Type])
-mkHaddocksDecorateParams info params =
-    let (mbc, xs) = mkHaddocksWithArgs info Args{
+mkHaddocksDecorateParams decl params =
+    let (mbc, xs) = mkHaddocksWithArgs decl.info Args{
         isField = False
-      , loc     = info.loc
-      , cName   = C.renderDeclId info.id.cName
-      , hsName  = info.id.hsName
-      , comment = info.comment
+      , loc     = decl.info.loc
+      , cName   = C.renderDeclId decl.id.cName
+      , hsName  = decl.id.hsName
+      , comment = decl.comment
       , params  = params
       }
     in  (mbc, xs)
@@ -90,7 +90,7 @@ data Args = Args{
 -- | Convert a Doxygen comment to a Haddock comment, updating function
 -- parameters with their documentation.
 --
-mkHaddocksWithArgs :: C.DeclInfo Final -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter Hs.Type])
+mkHaddocksWithArgs :: C.DeclInfo -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter Hs.Type])
 mkHaddocksWithArgs info Args{comment = Nothing, ..} =
       ( Just $
           mempty

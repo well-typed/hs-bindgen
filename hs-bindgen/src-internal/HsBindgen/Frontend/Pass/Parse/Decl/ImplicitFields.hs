@@ -260,8 +260,8 @@ isReferenced ::
   -> [C.Decl l Parse]
   -> Bool
 isReferenced decl fields decls =
-       decl.info.id `elem` map fst (concatMap depsOfRegularField fields)
-    || decl.info.id `elem` map fst (concatMap depsOfStructOrUnion decls)
+       decl.id `elem` map fst (concatMap depsOfRegularField fields)
+    || decl.id `elem` map fst (concatMap depsOfStructOrUnion decls)
   where
     depsOfStructOrUnion d = case d.kind of
         C.DeclStruct struct -> depsOfStruct struct
@@ -359,7 +359,7 @@ getCandidateField encObj decl field = do
               , name = C.ScopedName ("anon'" <> field.info.name.text)
               , comment = ()
               }
-        , typRef = C.AnonRef decl.info.id
+        , typRef = C.AnonRef decl.id
           -- The offset to the implicit field is equal to the offset to any of
           -- the nested object's fields with respect to the enclosing object,
           -- subtracted by the offset of that same field with respect to the

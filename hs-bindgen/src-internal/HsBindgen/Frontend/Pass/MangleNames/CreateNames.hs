@@ -142,8 +142,8 @@ data MangleNamesFailure = MangleNamesFailure {
     }
   deriving (Show, Eq, Ord, Generic)
 
-toFailure :: (Id p ~ C.DeclId) => C.DeclInfo p -> MangleNamesError -> MangleNamesFailure
-toFailure i e = MangleNamesFailure i.id i.loc e
+toFailure :: (Id p ~ C.DeclId) => C.Decl l p -> MangleNamesError -> MangleNamesFailure
+toFailure d e = MangleNamesFailure d.id d.info.loc e
 
 {-------------------------------------------------------------------------------
   Shared utility
@@ -228,7 +228,7 @@ createNames td mc strategy decls = (
 
     getSpecifiedName ::
       C.Decl l ResolveBindingSpecs -> Maybe (C.DeclId, Hs.Name Hs.NsTypeConstr)
-    getSpecifiedName decl = (decl.info.id,) <$> ((.hsName) =<< decl.ann.cSpec)
+    getSpecifiedName decl = (decl.id,) <$> ((.hsName) =<< decl.ann.cSpec)
 
     env :: CreateEnv
     env = CreateEnv{
@@ -346,13 +346,10 @@ nameForDecl td mc specifiedNames decl =
                             | declId.name.text /= declId'.name.text ] )
   where
     declId :: C.DeclId
-    declId = decl.info.id
-
-    info :: C.DeclInfo ResolveBindingSpecs
-    info = decl.info
+    declId = decl.id
 
     failWith :: MangleNamesCreationError -> (CreateNamesResult a, [MangleNamesMsg])
-    failWith err = (CnFailure $ toFailure info (MangleNamesCreationError err), [])
+    failWith err = (CnFailure $ toFailure decl (MangleNamesCreationError err), [])
 
     getPair :: Hs.SingNamespace ns => Hs.Name ns -> DeclIdPair
     getPair = DeclIdPair declId . Hs.demoteNs
@@ -361,7 +358,7 @@ nameForDecl td mc specifiedNames decl =
     succeedWith n = CnMangled (getPair n) ()
 
     toMs :: HasCallStack => [a] -> [WithCallStack (C.WithLocationInfo a)]
-    toMs = map (withCallStack . withDeclLoc decl.info)
+    toMs = map (withCallStack . withDeclLoc decl)
 
     mangleType :: Text -> Either MangleNamesCreationError (Hs.Name Hs.NsTypeConstr)
     mangleType d =
@@ -432,14 +429,10 @@ createNamesWithin ::
   -> CreateNamesResult ([ScopedNamePair], C.Decl l CreateNames)
 createNamesWithin env declIdPair decl =
     case runCreate env emptyCreateSt (createDeclKind declIdPair.hsName.text decl.kind) of
-      (Left err, _)   -> CnFailure $ toFailure decl.info (MangleNamesCreationError err)
+      (Left err, _)   -> CnFailure $ toFailure decl (MangleNamesCreationError err)
       (Right kind, st) -> CnMangled declIdPair (
           st.scopedNames
-        , C.Decl{
-              info = coercePass decl.info
-            , kind = kind
-            , ann  = decl.ann
-            }
+        , C.coercePassDeclWith kind decl.ann decl
         )
 
 createDeclKind ::
@@ -786,10 +779,10 @@ createMacroType hsName macroType = do
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
-withDeclLoc :: forall p a.
+withDeclLoc :: forall l p a.
      IsPass p
-  => C.DeclInfo p -> a -> C.WithLocationInfo a
-withDeclLoc info msg = C.WithLocationInfo{
-      loc = idLocationInfo (Proxy @p) info.id [info.loc]
+  => C.Decl l p -> a -> C.WithLocationInfo a
+withDeclLoc decl msg = C.WithLocationInfo{
+      loc = idLocationInfo (Proxy @p) decl.id [decl.info.loc]
     , msg = msg
     }

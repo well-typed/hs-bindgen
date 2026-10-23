@@ -26,11 +26,11 @@ import HsBindgen.Language.Haskell qualified as Hs
 
 unionDecs ::
      HasCallStack
-  => C.DeclInfo Final
+  => C.Decl l Final
   -> C.Union Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-unionDecs info union spec = do
+unionDecs decl union spec = do
     st <- State.get
     nt <- newtypeDec
     pure $ aux st nt
@@ -41,7 +41,7 @@ unionDecs info union spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
+        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = union.names.dataConstr
@@ -56,13 +56,14 @@ unionDecs info union spec = do
 
         newtypeOrigin :: Origin.Decl Origin.Newtype
         newtypeOrigin =  Origin.Decl {
-              info = info
+              info = decl.info
+            , id   = decl.id
             , kind = Origin.Union union
             , spec = spec
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = mkHaddocks info
+        newtypeComment = mkHaddocks decl
 
         candidateInsts :: Set Inst.TypeClass
         candidateInsts = Set.empty
@@ -140,8 +141,8 @@ unionDecs info union spec = do
 
         fieldDecls :: [Hs.Decl l]
         fieldDecls = flip concatMap (flattenFields union.fields) $ \field -> concat [
-            hasFieldDecs st info nt field
-          , hasFieldCompatDecs st info nt field
+            hasFieldDecs st decl.info nt field
+          , hasFieldCompatDecs st decl.info nt field
           , hasFieldPtrDecs nt field
           , hasCFieldDecs nt field
           , hasCBitfieldDecs nt field
@@ -165,7 +166,7 @@ unionDecs info union spec = do
 -- | Class instances for 'GHC.Records.HasField'
 hasFieldDecs ::
      HsM.St
-  -> C.DeclInfo Final
+  -> C.DeclInfo
   -> Hs.Newtype
   -> Field
   -> [Hs.Decl l]
@@ -237,7 +238,7 @@ hasFieldDecs st info union field =
 -- | Class instances for 'GHC.Records.Compat.HasField'
 hasFieldCompatDecs ::
      HsM.St
-  -> C.DeclInfo Final
+  -> C.DeclInfo
   -> Hs.Newtype
   -> Field
   -> [Hs.Decl l]

@@ -701,10 +701,10 @@ registerDelayedParseMsg (declId, msg) =
 -- macros pending until @ApplyMacroFallback@.
 registerUnhandledMacro ::
      DeclIndex l
-  -> (C.DeclInfo TypecheckMacros, MacroLangFailure)
+  -> (C.Decl l TypecheckMacros, MacroLangFailure)
   -> DeclIndex l
-registerUnhandledMacro index (info, failure) = index
-    & #map %~ Map.insert info.id (UnusableEntry $ UnusableReason info.loc reason)
+registerUnhandledMacro index (decl, failure) = index
+    & #map %~ Map.insert decl.id (UnusableEntry $ UnusableReason decl.info.loc reason)
   where
     reason :: UnusableReason
     reason = case failure of

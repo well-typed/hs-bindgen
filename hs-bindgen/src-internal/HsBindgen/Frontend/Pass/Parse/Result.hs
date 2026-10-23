@@ -90,7 +90,7 @@ parseSucceed = parseSucceedWith []
 -- | Assemble a parse success with delayed parse messages
 parseSucceedWith :: [DelayedParseMsg] -> C.Decl l p -> ParseResult l p
 parseSucceedWith msgs decl = ParseResult{
-     id             = decl.info.id
+     id             = decl.id
    , loc            = decl.info.loc
    , classification = ParseResultSuccess ParseSuccess{
          decl             = decl
@@ -99,9 +99,9 @@ parseSucceedWith msgs decl = ParseResult{
     }
 
 -- | Assemble a parse result for an unavailable declaration
-parseUnavailable :: C.DeclInfo p -> ParseResult l p
-parseUnavailable info = ParseResult{
-      id              = info.id
+parseUnavailable :: Id p -> C.DeclInfo -> ParseResult l p
+parseUnavailable declId info = ParseResult{
+      id              = declId
     , loc             = info.loc
     , classification = ParseResultUnavailable
     }

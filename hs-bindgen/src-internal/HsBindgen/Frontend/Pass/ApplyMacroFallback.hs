@@ -65,28 +65,28 @@ applyMacroFallback isMainHeader isInMainHeaderDir config unit =
 
     unhandled :: Set C.DeclId
     unhandled = Set.fromList [
-          decl.info.id
+          decl.id
         | decl <- unit.decls
         , C.DeclMacro PendingMacro{handling = Unhandled _} <- [decl.kind]
         ]
 
-    rejected :: [(C.DeclInfo In, MacroLangFailure)]
+    rejected :: [(C.Decl l In, MacroLangFailure)]
     decls'   :: [C.Decl l Out]
     (rejected, decls') = partitionEithers $ map decide unit.decls
 
-    decide :: C.Decl l In -> Either (C.DeclInfo In, MacroLangFailure) (C.Decl l Out)
+    decide :: C.Decl l In -> Either (C.Decl l In, MacroLangFailure) (C.Decl l Out)
     decide decl = case decl.kind of
         C.DeclMacro macro -> case macro.handling of
           Handled (CheckedType  x) -> keep $ C.DeclMacro $ MacroType  $ coercePass x
           Handled (CheckedValue x) -> keep $ C.DeclMacro $ MacroValue $ coercePass x
           Unhandled failure
-            | fallsBack decl.info ->
+            | fallsBack decl ->
                 keep $ C.DeclMacro $ MacroRaw FallbackMacro{
                     raw     = macro.raw
                   , failure = failure
                   }
             | otherwise ->
-                Left (decl.info, failure)
+                Left (decl, failure)
         C.DeclTypedef              x -> keep $ C.DeclTypedef              $ coercePass x
         C.DeclStruct               x -> keep $ C.DeclStruct               $ coercePass x
         C.DeclUnion                x -> keep $ C.DeclUnion                $ coercePass x
@@ -97,14 +97,14 @@ applyMacroFallback isMainHeader isInMainHeaderDir config unit =
         C.DeclGlobal               x -> keep $ C.DeclGlobal               $ coercePass x
       where
         keep :: C.DeclKind l Out -> Either a (C.Decl l Out)
-        keep kind' = Right $ C.Decl (coercePass decl.info) kind' decl.ann
+        keep kind' = Right $ C.coercePassDeclWith kind' decl.ann decl
 
-    fallsBack :: C.DeclInfo In -> Bool
-    fallsBack info =
+    fallsBack :: C.Decl l In -> Bool
+    fallsBack decl =
       matchSelect
         isMainHeader
         isInMainHeaderDir
-        (singleLocPath info.loc)
-        info.id.name
-        info.availability
+        (singleLocPath decl.info.loc)
+        decl.id.name
+        decl.info.availability
         config.predicate
