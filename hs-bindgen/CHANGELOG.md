@@ -69,6 +69,12 @@
 [is-2303]: https://github.com/well-typed/hs-bindgen/issues/2303
 [is-2304]: https://github.com/well-typed/hs-bindgen/issues/2304
 
+* Deprecation is now known for declarations we generate no binding of their
+  own for: squashed typedefs, and declarations that fail to parse, are not
+  attempted, or are unusable. The `DeclDeprecated` selection predicate matches
+  them, and selecting them reports "Selected a deprecated declaration".
+  Previously, they were always considered available.
+
 ## 1.0.0.0 -- 2026-10-08
 
 ### Breaking changes

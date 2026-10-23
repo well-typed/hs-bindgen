@@ -1,0 +1,31 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: attributes/deprecated_inactive.h
+  cname: struct point
+  hsname: Point
+- headers: attributes/deprecated_inactive.h
+  cname: point
+  hsname: Point
+hstypes:
+- hsname: Point
+  representation:
+    record:
+      constructor: Point
+      fields:
+      - point_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
