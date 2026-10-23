@@ -111,7 +111,7 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --
 -- * Must be before "HsBindgen.Frontend.Pass.ConstructTranslationUnit" so that
 --   'HsBindgen.Frontend.Naming.DeclId' can be used as the key for the
---   'DeclIndex.DeclIndex', 'UseDeclGraph.UseDeclGraph', and
+--   'DeclDB.DeclDB', 'UseDeclGraph.UseDeclGraph', and
 --   'DeclUseGraph.DeclUseGraph'
 -- * Must be before "HsBindgen.Frontend.Pass.ResolveBindingSpecs" so that
 --   binding specifications can use the assigned names
@@ -124,13 +124,13 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- Constraints:
 --
 -- * Must be after "HsBindgen.Frontend.Pass.FillUnnamedIds" so that
---   'HsBindgen.Frontend.Naming.DeclId' is available for the 'DeclIndex' and
---   for building doxygen-qualified names
+--   'HsBindgen.Frontend.Naming.DeclId' is available for the 'DeclDB.DeclDB'
+--   and for building doxygen-qualified names
 --
 -- == 5. "HsBindgen.Frontend.Pass.ConstructTranslationUnit"
 --
 -- "HsBindgen.Frontend.Pass.ConstructTranslationUnit" constructs a list of
--- sorted declarations as well as 'DeclIndex.DeclIndex',
+-- sorted declarations as well as 'DeclDB.DeclDB',
 -- 'UseDeclGraph.UseDeclGraph', and 'DeclUseGraph.DeclUseGraph'.
 --
 -- Constraints:
@@ -251,7 +251,7 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- Constraints:
 --
 -- * The 'Select' pass must come last so that if a declaration is
---   'HsBindgen.Frontend.Analysis.DeclIndex.UnusableEntry' for whatever reason
+--   'HsBindgen.Frontend.DeclDB.Inactive' for whatever reason
 --   (e.g., it contains unsupported types such as @long double@, or the name
 --   mangler was unable to find a suitable name, etc.), the 'Select' pass can
 --   make sure that the unusable declaration /and all of its dependencies/ will

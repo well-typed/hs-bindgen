@@ -31,6 +31,7 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , pattern MatchMacrosFallback
   , pattern MatchSelect
   , pattern MatchUnusable
+  , pattern MatchUnusableReason
   , pattern MatchTransMissing
   , pattern MatchTransNotSelected
   , pattern MatchTransUnusable
@@ -39,7 +40,7 @@ module Test.Common.HsBindgen.Trace.Patterns (
 import Data.Text qualified as Text
 
 import HsBindgen.Doxygen (DoxygenMsg)
-import HsBindgen.Frontend.Analysis.DeclIndex
+import HsBindgen.Frontend.DeclDB
 import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg)
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg,
@@ -226,8 +227,13 @@ pattern MatchSelect name x <- TraceFrontend (
         }
     )
 
-pattern MatchUnusable :: C.DeclName -> UnusableReason -> TraceMsg
+pattern MatchUnusable :: C.DeclName -> InactiveReason -> TraceMsg
 pattern MatchUnusable name x <- MatchSelect name (SelectUnusable x)
+
+-- | A later pass found the declaration unusable
+pattern MatchUnusableReason :: C.DeclName -> UnusableReason -> TraceMsg
+pattern MatchUnusableReason name x <-
+  MatchUnusable name (Deactivated (Unusable x))
 
 -- | Transitive dependencies of a declaration are missing
 pattern MatchTransMissing :: [TransitiveDependencyMissing] -> SelectMsg
@@ -238,7 +244,7 @@ pattern MatchTransNotSelected :: TransitiveDependencyMissing
 pattern MatchTransNotSelected <- TransitiveDependencyNotSelected _ _
 
 -- | A single transitive dependency of a declaration is unusable
-pattern MatchTransUnusable :: UnusableEntry -> TransitiveDependencyMissing
+pattern MatchTransUnusable :: Inactive -> TransitiveDependencyMissing
 pattern MatchTransUnusable x <- TransitiveDependencyUnusable _ x
 
 {-------------------------------------------------------------------------------
@@ -248,5 +254,5 @@ pattern MatchTransUnusable x <- TransitiveDependencyUnusable _ x
 matchDelayed :: SelectMsg -> Maybe DelayedParseMsg
 matchDelayed = \case
     SelectDelayedMsg (DelayedParse x)       -> Just x
-    SelectUnusable (UnusableParseFailure x) -> Just x
+    SelectUnusable (ParseFailed x)          -> Just x
     _otherwise                              -> Nothing

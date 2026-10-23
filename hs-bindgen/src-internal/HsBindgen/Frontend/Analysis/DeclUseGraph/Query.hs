@@ -17,11 +17,11 @@ import Clang.HighLevel.Types
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -37,19 +37,19 @@ import HsBindgen.IR.C qualified as C
 toDecls ::
      HasCallStack
   => IncludeGraph
-  -> DeclIndex l
+  -> DeclDB l ConstructTranslationUnit
   -> DeclUseGraph
   -> [C.Decl l ConstructTranslationUnit]
-toDecls includeGraph index declUseGraph =
-    -- 'DeclIndex.lookup' skips the declarations that failed.
-    mapMaybe (`DeclIndex.lookup` index) . Digraph.sortBy (comparing key) $
+toDecls includeGraph declDB declUseGraph =
+    -- 'DeclDB.lookup' skips the inactive declarations.
+    mapMaybe (`DeclDB.lookup` declDB) . Digraph.sortBy (comparing key) $
       Digraph.filterEdges (== NeedsShape) declUseGraph.graph
   where
     order :: IncludeGraph.IncludeOrder
     order = IncludeGraph.toIncludeOrder includeGraph
 
     key :: C.DeclId -> DeclSortKey
-    key declId = case DeclIndex.lookup declId index of
+    key declId = case DeclDB.lookup declId declDB of
       Just decl -> DeclSucceeded $ annSortKey order decl.info.loc
       Nothing   -> DeclFailed
 

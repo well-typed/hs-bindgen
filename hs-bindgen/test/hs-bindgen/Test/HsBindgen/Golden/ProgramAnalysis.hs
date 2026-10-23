@@ -4,8 +4,8 @@ module Test.HsBindgen.Golden.ProgramAnalysis (testCases) where
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Analysis.DeclIndex (UnusableEntry (..),
-                                              UnusableReason (..))
+import HsBindgen.Frontend.DeclDB (Inactive (..), InactiveInfo (..),
+                                  InactiveReason (..), UnusableReason (..))
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
@@ -91,10 +91,10 @@ test_delay_traces =
               Just $ Expected name
             -- The parse failure, not a conflict of the struct with itself
             MatchSelect name (MatchTransMissing [
-                MatchTransUnusable (UnusableReason _ UnusableParseFailure{})
+                MatchTransUnusable (InactiveDecl InactiveInfo{reason = ParseFailed{}})
               ]) ->
               Just $ Expected name
-            MatchUnusable _ UnusableMangleNamesFailure{} ->
+            MatchUnusableReason _ UnusableMangleNames{} ->
               Just Tolerated
             _otherwise ->
                Nothing
@@ -130,7 +130,7 @@ test_circular_macro =
           multiTracePredicateCustomLogLevel
             -- We want to check macro traces.
             (getCustomLogLevel [EnableMacroWarnings]) declsWithMsgs (\case
-                MatchUnusable name (UnusableMacro FailedTypecheck{}) ->
+                MatchUnusableReason name (UnusableMacro FailedTypecheck{}) ->
                   Just $ Expected (name, "typecheck")
                 MatchMacrosDropped{} ->
                   Just Tolerated
@@ -265,13 +265,13 @@ test_selection_bad =
 test_selection_fail :: TestCase
 test_selection_fail =
     testTraceMulti "program-analysis/selection_fail" declsWithMsgs $ \case
-      MatchUnusable name UnusableParseFailure{} ->
+      MatchUnusable name ParseFailed{} ->
         Just $ Expected name
       MatchSelect name (MatchTransMissing [MatchTransUnusable _unusable]) ->
         Just $ Expected name
       MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
         Just $ Expected name
-      MatchUnusable name (UnusableMangleNamesFailure{}) ->
+      MatchUnusableReason name (UnusableMangleNames{}) ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -300,7 +300,7 @@ test_selection_fail_variant_1 =
               Just $ Expected name
             MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
               Just $ Expected name
-            MatchUnusable name (UnusableMangleNamesFailure{}) ->
+            MatchUnusableReason name (UnusableMangleNames{}) ->
               Just $ Expected name
             _otherwise ->
               Nothing
@@ -330,7 +330,7 @@ test_selection_fail_variant_2 =
              Just $ Expected name
            MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
              Just $ Expected name
-           MatchUnusable name (UnusableMangleNamesFailure{}) ->
+           MatchUnusableReason name (UnusableMangleNames{}) ->
              Just $ Expected name
            _otherwise ->
              Nothing
@@ -373,9 +373,9 @@ test_selection_foo =
 
       -- We get a transient name mangler failure here because @foo_t@ is
       -- unsupported, and so, it is not mangled.
-      MatchUnusable _name UnusableMangleNamesFailure{} ->
+      MatchUnusableReason _name UnusableMangleNames{} ->
         Just $ Expected ("macro A", "foo_t not mangled")
-      MatchUnusable _name UnusableParseFailure{} ->
+      MatchUnusable _name ParseFailed{} ->
         Just $ Expected ("f", "unsupported underlying type")
       _otherwise ->
         Nothing
@@ -469,7 +469,7 @@ test_selection_omit_prescriptive =
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name (MatchTransMissing{}) ->
               Just $ Expected (name, "select")
-            MatchUnusable name (UnusableMangleNamesFailure (MangleNamesResolutionError ResolveNamesUnderlyingDeclNotMangled{})) ->
+            MatchUnusableReason name (UnusableMangleNames (MangleNamesResolutionError ResolveNamesUnderlyingDeclNotMangled{})) ->
               Just $ Expected (name, "mangle")
             _otherwise ->
               Nothing
@@ -576,7 +576,7 @@ test_typedef_block =
 test_typedef_name_clash :: TestCase
 test_typedef_name_clash =
     testTraceMulti "program-analysis/typedef_name_clash" declsWithMsgs $ \case
-      MatchUnusable name (UnusableMangleNamesFailure (MangleNamesCollisionError DetectClashesCollision{})) ->
+      MatchUnusableReason name (UnusableMangleNames (MangleNamesCollisionError DetectClashesCollision{})) ->
         Just $ Expected (name, "collision")
       MatchSelect name (TransitiveDependenciesMissing{}) ->
         Just $ Expected (name, "transitivity")
@@ -606,7 +606,7 @@ test_typedef_name_clash =
 test_typedef_suffix_clash :: TestCase
 test_typedef_suffix_clash =
     testTraceMulti "program-analysis/typedef_suffix_clash" declsWithMsgs $ \case
-      MatchUnusable name (UnusableMangleNamesFailure (MangleNamesCollisionError DetectClashesCollision{})) ->
+      MatchUnusableReason name (UnusableMangleNames (MangleNamesCollisionError DetectClashesCollision{})) ->
         Just $ Expected (name, "collision")
       MatchSelect name (TransitiveDependenciesMissing{}) ->
         Just $ Expected (name, "transitivity")

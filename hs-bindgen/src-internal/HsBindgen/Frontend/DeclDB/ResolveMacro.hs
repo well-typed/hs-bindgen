@@ -1,4 +1,4 @@
-module HsBindgen.Frontend.Analysis.DeclIndex.ResolveMacro (
+module HsBindgen.Frontend.DeclDB.ResolveMacro (
     resolveMacroWith
   ) where
 

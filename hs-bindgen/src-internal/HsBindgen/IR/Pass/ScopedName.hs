@@ -21,7 +21,7 @@ import HsBindgen.IR.Pass.Definition
 
 -- | Scoped names vary across passes
 class (
-      Eq   (ScopedName p)  -- For @Eq DeclKind@ in @DeclIndex@ construction
+      Eq   (ScopedName p)  -- For @Eq DeclKind@ in @DeclDB@ construction
     , Ord  (ScopedName p)  -- For using as map key
     , Show (ScopedName p)  -- For debugging
     ) => PassScopedName (p :: Pass) where

@@ -2,13 +2,13 @@ module HsBindgen.Frontend.Pass.ConstructTranslationUnit (
     constructTranslationUnit
   ) where
 
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
@@ -36,7 +36,7 @@ constructTranslationUnit ::
 constructTranslationUnit macroLang macroAnalysis isMainHeader parseResults includeGraph = C.TranslationUnit{
       decls        = DeclUseGraph.toDecls
                        includeGraph
-                       declMeta.declIndex
+                       declMeta.declDB
                        declMeta.declUseGraph
     , includeGraph = includeGraph
     , meta         = declMeta
@@ -55,19 +55,19 @@ mkDeclMeta ::
   -> DeclMeta l
 mkDeclMeta macroLang macroAnalysis isMainHeader parseResults = declMeta
   where
-    declIndex :: DeclIndex l
-    declIndex =
-      DeclIndex.fromParseResults macroLang macroAnalysis isMainHeader parseResults
+    declDB :: DeclDB l ConstructTranslationUnit
+    declDB =
+      DeclDB.fromParseResults macroLang macroAnalysis isMainHeader parseResults
 
     declUseGraph :: DeclUseGraph
-    declUseGraph = DeclUseGraph.construct declIndex
+    declUseGraph = DeclUseGraph.construct declDB
 
     useDeclGraph :: UseDeclGraph
     useDeclGraph = UseDeclGraph.fromDeclUseGraph declUseGraph
 
     declMeta :: DeclMeta l
     declMeta = DeclMeta{
-      declIndex    = declIndex
+      declDB       = declDB
     , declUseGraph = declUseGraph
     , useDeclGraph = useDeclGraph
     }

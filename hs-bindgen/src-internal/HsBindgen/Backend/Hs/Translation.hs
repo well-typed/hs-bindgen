@@ -36,9 +36,10 @@ import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.Internal
 import HsBindgen.Errors
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.MacroFallback
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
@@ -68,13 +69,13 @@ generateDeclarations ::
   => Macro.Lang l
   -> UniqueId
   -> BaseModuleName
-  -> DeclIndex l
+  -> DeclDB l ConstructTranslationUnit
   -> [C.Decl l Final]
   -> ByCategory_ [Hs.Decl l]
-generateDeclarations macroLang uniqueId name declIndex =
+generateDeclarations macroLang uniqueId name declDB =
     fmap reverse .
       foldl' partitionBindingCategories mempty .
-      generateDeclarations' macroLang env declIndex
+      generateDeclarations' macroLang env declDB
   where
     partitionBindingCategories ::
       ByCategory_ [a] -> WithCategory a  -> ByCategory_ [a]
@@ -97,10 +98,10 @@ generateDeclarations' ::
      Macro.HasTypes l
   => Macro.Lang l
   -> HsM.Env
-  -> DeclIndex l
+  -> DeclDB l ConstructTranslationUnit
   -> [C.Decl l Final]
   -> [WithCategory (Hs.Decl l)]
-generateDeclarations' macroLang env declIndex decs =
+generateDeclarations' macroLang env declDB decs =
     HsM.runHsM env $ do
       let scannedFunctionTypes = scanAllFunctionTypes decs
           -- Generate ToFunPtr/FromFunPtr instances for nested function types
@@ -109,7 +110,7 @@ generateDeclarations' macroLang env declIndex decs =
                    [ WithCategory CType d
                    | (args, res) <- Set.toList scannedFunctionTypes
                    , not (any C.hasUnsupportedType (res: fmap (.typ) args))
-                   , any (isDefinedInCurrentModule declIndex) (res: fmap (.typ) args)
+                   , any (isDefinedInCurrentModule declDB) (res: fmap (.typ) args)
                    , d <- ToFromFunPtr.forFunction (args, res)
                    ]
       hsDeclsAction <- mapM (generateDecs macroLang) decs
@@ -156,12 +157,15 @@ scanAllFunctionTypes = foldMap $ \decl ->
         foldMap (C.getAllFunTypes . (.typ.c)) field.indirect
 
 -- | Check if a type is defined in the current module
-isDefinedInCurrentModule :: DeclIndex l -> C.Type Final -> Bool
-isDefinedInCurrentModule declIndex =
-    any (isInDeclIndex . fst) . C.depsOfType
+isDefinedInCurrentModule ::
+     DeclDB l ConstructTranslationUnit
+  -> C.Type Final
+  -> Bool
+isDefinedInCurrentModule declDB =
+    any (isActive . fst) . C.depsOfType
   where
-    isInDeclIndex :: DeclIdPair -> Bool
-    isInDeclIndex declId = isJust $ DeclIndex.lookup declId.cName declIndex
+    isActive :: DeclIdPair -> Bool
+    isActive declId = isJust $ DeclDB.lookup declId.cName declDB
 
 {-------------------------------------------------------------------------------
   Declarations

@@ -120,7 +120,7 @@ derivedNames strategy nameMap owner loc = \case
 
     failure :: C.DeclId -> C.ScopedName -> DerivedNamesResult
     failure declId scopedName =
-        Left $ MangleNamesFailure owner loc $
+        Left $ MangleNamesFailure owner $
           MangleNamesCollisionError $ DetectClashesScopedNameNotMangled declId scopedName
 
     -- Field selectors created under 'OmitFieldPrefixes' enable
@@ -190,11 +190,11 @@ collisionFailures = concatMap getCollisionFailures
         o:_ | DeclScope{} <- o.scope ->
           -- Within-record duplicate field selector. All origins share the same
           -- owner (the enclosing record), so this yields a single failure.
-          [ MangleNamesFailure o.owner o.loc $ MangleNamesCollisionError $
+          [ MangleNamesFailure o.owner $ MangleNamesCollisionError $
               DetectClashesDuplicateFieldName c.name (map (.loc) c.origins)
           ]
         _otherwise ->
-          [ MangleNamesFailure o.owner o.loc $ MangleNamesCollisionError $
+          [ MangleNamesFailure o.owner $ MangleNamesCollisionError $
               DetectClashesCollision c.name idsWithLocs
           | o <- origins
           ]

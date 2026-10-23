@@ -10,14 +10,15 @@ import Data.Set qualified as Set
 
 import Clang.CStandard (ClangCStandard)
 
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.LanguageC qualified as LanC
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.ForgetAnn (ForgetAnn (forgetAnn))
@@ -66,21 +67,17 @@ updateMeta ::
   -> DeclMeta l
   -> DeclMeta l
 updateMeta msgs decls meta = DeclMeta{
-      declIndex    = updatedDeclIndex
+      declDB       = updatedDeclDB
     , useDeclGraph = UseDeclGraph.fromDeclUseGraph updatedDeclUseGraph
     , declUseGraph = updatedDeclUseGraph
     }
   where
-    updatedDeclIndex :: DeclIndex l
-    updatedDeclIndex =
-      -- We use @foldr@ here to establish the original order of reparse
-      -- warnings.
-      foldr
-        (DeclIndex.registerDelayedMsg . fmap DelayedReparseMacroExpansions)
-        meta.declIndex
-        [ (declId, msg)
-        | (declId, msg) <- msgs
-        ]
+    updatedDeclDB :: DeclDB l ConstructTranslationUnit
+    updatedDeclDB =
+      -- Collected in reverse order
+      DeclDB.addDelayedMsgs
+        (reverse $ map (fmap DelayedReparseMacroExpansions) msgs)
+        meta.declDB
 
     updatedDeclUseGraph :: DeclUseGraph
     updatedDeclUseGraph =

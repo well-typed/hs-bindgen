@@ -5,11 +5,12 @@ module HsBindgen.Frontend.Pass.TranslateTypes (
 import Control.Monad.Reader (MonadReader, ReaderT (..), withReaderT)
 import Control.Monad.State (MonadState, State, modify, runState)
 
-import HsBindgen.Frontend.Analysis.DeclIndex
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.DelayedMsg
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
 import HsBindgen.Frontend.Pass.TranslateTypes.PassBy (classifyArgPassingMethod,
@@ -43,16 +44,15 @@ translateTypes unit = (unit', msgs)
         }
 
     meta' = unit.meta {
-          declIndex = declIndex'
+          declDB = declDB'
         }
 
-    declIndex' :: DeclIndex l
-    declIndex' =
-        -- We use @foldr@ here to establish the original order of messages
-        foldr
-          (DeclIndex.registerDelayedMsg . fmap DelayedTranslateTypes)
-          unit.meta.declIndex
-          delayedMsgs
+    declDB' :: DeclDB l ConstructTranslationUnit
+    declDB' =
+        -- Collected in reverse order
+        DeclDB.addDelayedMsgs
+          (reverse $ map (fmap DelayedTranslateTypes) delayedMsgs)
+          unit.meta.declDB
 
     (decls', delayedMsgs) = runM NoEnv $ mapM processDecl unit.decls
 

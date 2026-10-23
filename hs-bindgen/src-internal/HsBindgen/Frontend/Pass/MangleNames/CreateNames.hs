@@ -19,8 +19,6 @@ import Data.Foldable qualified as Foldable
 import Data.Map qualified as Map
 import Data.Proxy
 
-import Clang.HighLevel.Types
-
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.MangleCandidate (MangleCandidate (..))
 import HsBindgen.Config.MangleCandidate qualified as MangleCandidate
@@ -137,13 +135,12 @@ instance CoercePassCommentDecl ResolveBindingSpecs CreateNames where
 
 data MangleNamesFailure = MangleNamesFailure {
       id  :: C.DeclId
-    , loc :: SingleLoc C.DeclPath
     , err :: MangleNamesError
     }
   deriving (Show, Eq, Ord, Generic)
 
 toFailure :: (Id p ~ C.DeclId) => C.Decl l p -> MangleNamesError -> MangleNamesFailure
-toFailure d e = MangleNamesFailure d.id d.info.loc e
+toFailure d e = MangleNamesFailure d.id e
 
 {-------------------------------------------------------------------------------
   Shared utility

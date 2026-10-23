@@ -13,8 +13,6 @@ module HsBindgen.Frontend.Analysis.Typedefs (
 
 import Data.Map.Strict qualified as Map
 
-import Clang.HighLevel.Types
-
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
@@ -55,8 +53,7 @@ instance Monoid TypedefAnalysis where
       }
 
 data Squash = SquashTypedef {
-      typedefLoc :: SingleLoc C.DeclPath
-    , targetId   :: C.DeclId
+      targetId :: C.DeclId
     }
   deriving stock (Eq, Show, Generic)
 
@@ -157,8 +154,7 @@ analyseTypedef declUseGraph typedefDecl typedef =
         | shouldSquash payload
         -> mconcat [
                conclude typedefDecl.id $ Squash $ SquashTypedef {
-                   typedefLoc = typedefDecl.info.loc
-                 , targetId   = payload.id
+                   targetId = payload.id
                  }
              , conclude payload.id $ UseNameOf typedefDecl.id
              ]
