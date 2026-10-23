@@ -21,9 +21,10 @@ import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
 import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (ParseImplicitFieldFailed, ParseNestedDeclsFailed),
                                           NestedDeclFailure (..))
-import HsBindgen.Frontend.Pass.Parse.Result (ParseClassification (..),
+import HsBindgen.Frontend.Pass.Parse.Result (ParseFailure (..),
                                              ParseResult (..),
-                                             getParseResultMaybeDecl)
+                                             getParseResultMaybeDecl,
+                                             parseResultId)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Macro.Type qualified as Macro
 
@@ -137,14 +138,14 @@ memberFailure :: [ParseResult l Parse] -> [NestedDeclFailure]
 memberFailure results =
     case NE.last <$> NE.nonEmpty results of
       Nothing     -> []
-      Just member -> case (member.classification, member.id) of
+      Just member -> case (member, parseResultId member) of
         (ParseResultSuccess{}, _) ->
           []
         (_failure, C.PrelimDeclIdNamed name) ->
           [NestedNamedDeclFailed name]
-        (ParseResultFailure msg, C.PrelimDeclIdUnnamed unnamedId) ->
-          [NestedUnnamedDeclFailed unnamedId msg]
-        (ParseResultUnavailable, C.PrelimDeclIdUnnamed unnamedId) ->
+        (ParseResultFailure failure, C.PrelimDeclIdUnnamed unnamedId) ->
+          [NestedUnnamedDeclFailed unnamedId failure.msg]
+        (ParseResultUnavailable{}, C.PrelimDeclIdUnnamed unnamedId) ->
           [NestedUnnamedDeclUnavailable unnamedId]
 
 -- | Parse a single member of a struct\/union

@@ -59,7 +59,7 @@ parseDecls macroLang parseEnv = do
               -- locations with the same name.
               sourceOrderMap :: Map (Id Parse, SingleLoc C.DeclPath) Natural
               sourceOrderMap = Map.fromList
-                [ ((r.id, r.loc), i)
+                [ ((parseResultId r, (parseResultInfo r).loc), i)
                 | (i, r) <- zip [0..] resultsSourceOrder
                 ]
           ParseDecl.traceImmediateGlobal ParseSourceOrderPopulated
@@ -142,5 +142,7 @@ setSourceOrderIndex ::
   -> ParseResult l Parse
 setSourceOrderIndex sourceOrderMap result =
     result
-      &  #classification % #_ParseResultSuccess % #decl % #info % #sourceOrderIndex
-      .~ Map.lookup (result.id, result.loc) sourceOrderMap
+      &  #_ParseResultSuccess % #decl % #info % #sourceOrderIndex
+      .~ Map.lookup
+           (parseResultId result, (parseResultInfo result).loc)
+           sourceOrderMap
