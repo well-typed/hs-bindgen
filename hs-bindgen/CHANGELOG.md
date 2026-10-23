@@ -53,6 +53,12 @@
   warning that its transitive dependencies are missing: it no longer depends
   on the declarations its body refers to.
 
+* Deprecation is now known for declarations we generate no binding of their
+  own for: squashed typedefs, and declarations that fail to parse, are not
+  attempted, or are unusable. The `DeclDeprecated` selection predicate matches
+  them, and selecting them reports "Selected a deprecated declaration".
+  Previously, they were always considered available.
+
 ## 1.0.0.0 -- 2026-10-08
 
 ### Breaking changes

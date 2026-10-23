@@ -261,12 +261,14 @@ entryToLoc = \case
     External _        -> Nothing
     Inactive inactive -> Just $ inactiveToLoc inactive
 
+-- | 'C.Available' where we do not know: for conflicts and externals
 entryToAvailability :: Entry l p -> C.Availability
 entryToAvailability = \case
-    Active decl -> decl.info.availability
-    Squashed{}  -> C.Available
-    External{}  -> C.Available
-    Inactive{}  -> C.Available
+    Active decl                       -> decl.info.availability
+    Squashed squashed                 -> squashed.info.availability
+    External{}                        -> C.Available
+    Inactive (InactiveDecl inactive)  -> inactive.info.availability
+    Inactive InactiveConflict{}       -> C.Available
 
 inactiveToLoc :: Inactive -> C.DeclLocs
 inactiveToLoc = \case

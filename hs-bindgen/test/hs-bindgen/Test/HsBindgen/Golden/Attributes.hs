@@ -2,6 +2,7 @@
 module Test.HsBindgen.Golden.Attributes (testCases) where
 
 import HsBindgen.Config.Internal
+import HsBindgen.Frontend.DeclDB (InactiveReason (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -24,6 +25,7 @@ testCases = [
     , test_asm
     , test_attributes
     , test_deprecated
+    , test_deprecated_inactive
     , test_type_attributes
     , test_visibility_functions
     , test_visibility_variables
@@ -55,6 +57,20 @@ test_deprecated =
     & #tracePredicate .~ singleTracePredicate (\case
             MatchNoDeclarations ->
               Just $ Expected ()
+            _otherwise ->
+              Nothing
+          )
+
+-- | Deprecation is known also for declarations that are squashed or fail to
+-- parse
+test_deprecated_inactive :: TestCase
+test_deprecated_inactive =
+    defaultTest "attributes/deprecated_inactive"
+      & #tracePredicate .~ multiTracePredicate ["point", "f"] (\case
+            MatchSelect name SelectDeprecated{} ->
+              Just $ Expected name
+            MatchUnusable _name ParseFailed{} ->
+              Just Tolerated
             _otherwise ->
               Nothing
           )
