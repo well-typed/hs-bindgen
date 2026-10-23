@@ -24,11 +24,12 @@ import Data.Map.Lazy qualified as Map
 import Clang.HighLevel.Types qualified as Clang
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.Analysis.DeclIndex
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.DelayedMsg
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.AST
 import HsBindgen.Frontend.Pass.PrepareReparse.Flatten
@@ -66,21 +67,20 @@ update mode unit = unit'
           C.meta = meta'
         }
     meta' = unitUpdated.meta {
-          declIndex = declIndex'
+          declDB = declDB'
         }
 
-    declIndex' ::  DeclIndex l
-    declIndex' =
-      -- We use @foldr@ here to establish the original order of messages
-      foldr
-        (DeclIndex.registerDelayedMsg . fmap DelayedPrepareReparse)
-        unit.meta.declIndex
-        delayedMsgs
+    declDB' :: DeclDB l ConstructTranslationUnit
+    declDB' =
+      -- Collected in reverse order
+      DeclDB.addDelayedMsgs
+        (reverse $ map (fmap DelayedPrepareReparse) delayedMsgs)
+        unit.meta.declDB
 
     env :: Env
     env = Env{
         updateMode  = mode
-      , ambiguityOf = (`DeclIndex.lookupAmbiguity` unit.meta.declIndex)
+      , ambiguityOf = (`DeclDB.lookupAmbiguity` unit.meta.declDB)
       }
 
 {-------------------------------------------------------------------------------

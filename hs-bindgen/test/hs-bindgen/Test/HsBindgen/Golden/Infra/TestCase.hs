@@ -54,6 +54,7 @@ import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
 import Test.Common.HsBindgen.Trace.Predicate
+import Test.HsBindgen.Frontend.DeclDB qualified as DeclDB
 import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------
@@ -334,6 +335,9 @@ withTestTraceConfig report test action =
 --
 -- The artefact is polymorphic in the macro-language tag @l@, so that the same
 -- artefact can be run with whichever macro language 'test' selects.
+--
+-- A successful run also checks the declaration databases of the frontend
+-- ('DeclDB.checkFrontend').
 runTestHsBindgen ::
      forall a.
      (String -> IO ())
@@ -346,7 +350,7 @@ runTestHsBindgen report getTestResources test artefacts = do
     let frontendConfig = getTestFrontendConfig test
         backendConfig  = getTestBackendConfig test
         bindgenConfig  = BindgenConfig bootConfig frontendConfig backendConfig
-    withTestTraceConfig report test $ \traceConfigUnsafe ->
+    eRes <- withTestTraceConfig report test $ \traceConfigUnsafe ->
       case test.macroLang of
         SomeMacroLang mkMacroLang ->
           hsBindgenEMacroLang
@@ -355,7 +359,12 @@ runTestHsBindgen report getTestResources test artefacts = do
             quietTracerConfig
             bindgenConfig
             (testInputDirectives test)
-            artefacts
+            ((,) <$> artefacts <*> DeclDB.checkFrontend)
+    case eRes of
+      Right (_, violations@(_:_)) ->
+        assertFailure $ unlines $ "Declaration database:" : violations
+      _otherwise ->
+        pure $ fst <$> eRes
 
 runTestHsBindgenSuccess ::
      forall b.

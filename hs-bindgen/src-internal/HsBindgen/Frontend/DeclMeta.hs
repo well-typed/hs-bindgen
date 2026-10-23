@@ -3,9 +3,10 @@ module HsBindgen.Frontend.DeclMeta (
     DeclMeta(..)
   ) where
 
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -13,7 +14,7 @@ import HsBindgen.Imports
 -------------------------------------------------------------------------------}
 
 data DeclMeta l = DeclMeta {
-      declIndex    :: DeclIndex l
+      declDB       :: DeclDB l ConstructTranslationUnit
     , useDeclGraph :: UseDeclGraph
     , declUseGraph :: DeclUseGraph
     }

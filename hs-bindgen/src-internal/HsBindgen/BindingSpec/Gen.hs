@@ -22,10 +22,11 @@ import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.V1 (CTypeSpec (..), UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Errors
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Imports
@@ -43,7 +44,7 @@ genBindingSpec ::
      Format
   -> Hs.ModuleName
   -> IncludeGraph
-  -> DeclIndex l
+  -> DeclDB l ConstructTranslationUnit
   -> GetMainHeaders
   -> [(C.DeclId, RealPath)]
   -> [(C.DeclId, (RealPath, Hs.Name Hs.NsTypeConstr))]
@@ -53,7 +54,7 @@ genBindingSpec
   format
   hsModuleName
   includeGraph
-  declIndex
+  declDB
   getMainHeaders
   omitTypes
   squashedTypes =
@@ -65,7 +66,7 @@ genBindingSpec
 
     aux :: C.DeclId -> (IncludeGraph.IncludeOrderIx, Int, Int, Text)
     aux cDeclId =
-      case DeclIndex.lookupLoc cDeclId declIndex of
+      case DeclDB.lookupLoc cDeclId declDB of
         Just locs ->
           -- NOTE: At the moment, we attempt to get the “minimum” location and
           -- discard other conflicting locations (e.g., the ones of other

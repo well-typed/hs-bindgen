@@ -5,18 +5,14 @@ module HsBindgen.Frontend.Pass.MangleNames (
 import Data.Map qualified as Map
 import Data.Set qualified as Set
 
-import Clang.HighLevel.Types
-
 import HsBindgen.Config.MangleCandidate (MangleCandidate (..))
 import HsBindgen.Config.MangleCandidate qualified as MangleCandidate
 import HsBindgen.Config.Prelims (FieldNamingStrategy)
-import HsBindgen.Frontend.Analysis.DeclIndex (Squashed (..))
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.MangleNames.CreateNames
 import HsBindgen.Frontend.Pass.MangleNames.DetectClashes
-import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Names
 import HsBindgen.Frontend.Pass.MangleNames.ResolveNames
@@ -118,29 +114,23 @@ updateDeclMeta ::
    -> DeclMeta l
    -> DeclMeta l
 updateDeclMeta failures squashes declMeta = declMeta{
-      declIndex =
-        DeclIndex.registerMangleNamesFailure failuresMap $
-        DeclIndex.registerSquashedDeclarations squashesMap $
-          declMeta.declIndex
+      declDB =
+        DeclDB.deactivate failuresMap $
+        DeclDB.squash squashesMap $
+          declMeta.declDB
     }
   where
-    failuresMap :: Map C.DeclId (SingleLoc C.DeclPath, MangleNamesError)
-    failuresMap = Map.fromList $ map (\f -> (f.id, (f.loc, f.err))) failures
+    failuresMap :: Map C.DeclId DeclDB.Deactivation
+    failuresMap = Map.fromList [
+        (f.id, DeclDB.Unusable $ DeclDB.UnusableMangleNames f.err)
+      | f <- failures
+      ]
 
-    squashesMap ::  Map C.DeclId Squashed
-    squashesMap = Map.fromList $ map toSquashed squashes
-
-    toSquashed ::
-         (C.DeclId, Hs.Name Hs.NsTypeConstr, TypedefAnalysis.Squash)
-      -> (C.DeclId, Squashed)
-    toSquashed (cName, hsName, s) = (
-        cName
-      , Squashed {
-          typedefLoc   = s.typedefLoc
-        , targetNameC  = s.targetId
-        , targetNameHs = hsName
-        }
-      )
+    squashesMap :: Map C.DeclId DeclDB.SquashTarget
+    squashesMap = Map.fromList [
+        (cName, DeclDB.SquashTarget{c = s.targetId, hs = hsName})
+      | (cName, hsName, s) <- squashes
+      ]
 
 
 debugMsg :: MangleNamesMsg -> AnnMsg MangleNames

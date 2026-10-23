@@ -22,7 +22,7 @@ import HsBindgen.Util.Tracer
   Unifying error
 
   The three traversals each produce their own error type. Selection, however,
-  consumes a single mangle-names error: it is stored in the 'DeclIndex' as the
+  consumes a single mangle-names error: it is stored in the 'DeclDB' as the
   reason a declaration is unusable, and threaded through the 'Select' pass.
   'MangleNamesError' unifies the three at that boundary.
 -------------------------------------------------------------------------------}

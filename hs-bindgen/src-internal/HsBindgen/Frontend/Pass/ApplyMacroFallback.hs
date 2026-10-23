@@ -3,26 +3,26 @@ module HsBindgen.Frontend.Pass.ApplyMacroFallback (
   ) where
 
 import Data.Either (partitionEithers)
-import Data.Foldable qualified as Foldable
+import Data.Map.Strict qualified as Map
 import Data.Set (Set)
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Macro.Error
 
 type In  = TypecheckMacros
 type Out = ApplyMacroFallback
@@ -45,18 +45,14 @@ applyMacroFallback isMainHeader isInMainHeaderDir config unit =
         decls        = decls'
       , includeGraph = unit.includeGraph
       , meta         = DeclMeta{
-            declIndex    = declIndex'
+            declDB       = declDB'
           , useDeclGraph = UseDeclGraph.fromDeclUseGraph declUseGraph'
           , declUseGraph = declUseGraph'
           }
       }
   where
-    declIndex' :: DeclIndex l
-    declIndex' =
-      Foldable.foldl'
-        DeclIndex.registerUnhandledMacro
-        unit.meta.declIndex
-        rejected
+    declDB' :: DeclDB l ConstructTranslationUnit
+    declDB' = DeclDB.deactivate (Map.fromList rejected) unit.meta.declDB
 
     -- The edges into a rejected macro stay: its dependents use an unusable
     -- macro.
@@ -70,11 +66,13 @@ applyMacroFallback isMainHeader isInMainHeaderDir config unit =
         , C.DeclMacro PendingMacro{handling = Unhandled _} <- [decl.kind]
         ]
 
-    rejected :: [(C.Decl l In, MacroLangFailure)]
+    rejected :: [(C.DeclId, DeclDB.Deactivation)]
     decls'   :: [C.Decl l Out]
     (rejected, decls') = partitionEithers $ map decide unit.decls
 
-    decide :: C.Decl l In -> Either (C.Decl l In, MacroLangFailure) (C.Decl l Out)
+    decide ::
+         C.Decl l In
+      -> Either (C.DeclId, DeclDB.Deactivation) (C.Decl l Out)
     decide decl = case decl.kind of
         C.DeclMacro macro -> case macro.handling of
           Handled (CheckedType  x) -> keep $ C.DeclMacro $ MacroType  $ coercePass x
@@ -86,7 +84,7 @@ applyMacroFallback isMainHeader isInMainHeaderDir config unit =
                   , failure = failure
                   }
             | otherwise ->
-                Left (decl, failure)
+                Left (decl.id, DeclDB.Unusable $ DeclDB.UnusableMacro failure)
         C.DeclTypedef              x -> keep $ C.DeclTypedef              $ coercePass x
         C.DeclStruct               x -> keep $ C.DeclStruct               $ coercePass x
         C.DeclUnion                x -> keep $ C.DeclUnion                $ coercePass x
