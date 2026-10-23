@@ -94,8 +94,9 @@ updateParseResult chosenNames result =
       -> ParseResult l FillUnnamedIds
     auxNotAttempted notAttempted declId' =
         ParseResultNotAttempted ParseNotAttempted{
-            id   = declId'
-          , info = notAttempted.info
+            id               = declId'
+          , info             = notAttempted.info
+          , delayedParseMsgs = notAttempted.delayedParseMsgs
           }
 
     auxFailure ::

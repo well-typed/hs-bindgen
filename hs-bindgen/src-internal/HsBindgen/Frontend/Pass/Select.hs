@@ -476,6 +476,27 @@ mkUnusableMessage declId x = withCallStack C.WithLocationInfo{
     , msg = SelectUnusable x.reason
     }
 
+-- | The delayed messages of a selected inactive declaration, but for Bug-level
+-- ones ('getBugMsgsInactive')
+--
+-- An omitted declaration reports none: the user asked for it.
+mkInactiveMessages ::
+     HasCallStack
+  => DeclDB l ConstructTranslationUnit
+  -> C.DeclId
+  -> InactiveInfo
+  -> [AnnMsg Select]
+mkInactiveMessages declDB declId x = case x.reason of
+    Deactivated Omitted -> []
+    _otherReason        -> [
+        withCallStack C.WithLocationInfo{
+            loc = C.declIdLocationInfo declId [x.info.loc]
+          , msg = SelectDelayedMsg msg
+          }
+      | msg <- DeclDB.lookupDelayedMsgs declId declDB
+      , getDefaultLogLevel msg /= Bug
+      ]
+
 getDelayedMsgsSelectionRoots ::
      forall l. HasCallStack
   => DeclDB l ConstructTranslationUnit
@@ -497,7 +518,8 @@ getDelayedMsgsSelectionRoots declDB =
       Squashed x ->
         List.singleton $ mkSquashedMessage declId x
       Inactive (InactiveDecl x) ->
-        List.singleton $ mkUnusableMessage declId x
+          mkUnusableMessage declId x
+        : mkInactiveMessages declDB declId x
       Inactive (InactiveConflict c) ->
         List.singleton $ withCallStack C.WithLocationInfo{
             loc = C.declIdLocationInfo declId $
