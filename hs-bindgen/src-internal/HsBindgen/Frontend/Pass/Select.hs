@@ -448,23 +448,9 @@ mkSuccessMessages ::
   => C.DeclId
   -> Success l ConstructTranslationUnit
   -> [AnnMsg Select]
-mkSuccessMessages declId success = concat [
-      fmap (mkAnnMsg . SelectDelayedParseMsg)
-        delayedParseMsgs
-    , fmap (mkAnnMsg . SelectDelayedPrepareReparseMsg)
-        delayedPrepareReparseMsgs
-    , fmap (mkAnnMsg . SelectDelayedReparseMacroExpansionsMsg)
-        delayedReparseMacroExpansionsMsgs
-    , fmap (mkAnnMsg . SelectDelayedTranslateTypesMsg)
-        delayedTranslateTypesMsgs
-    ]
+mkSuccessMessages declId success =
+    map (mkAnnMsg . SelectDelayedMsg) success.delayedMsgs
   where
-    DeclIndex.Success _
-      delayedParseMsgs
-      delayedPrepareReparseMsgs
-      delayedReparseMacroExpansionsMsgs
-      delayedTranslateTypesMsgs = success
-
     mkAnnMsg :: HasCallStack => SelectMsg -> AnnMsg Select
     mkAnnMsg msg = withCallStack C.WithLocationInfo{
           loc = C.declIdLocationInfo declId [success.decl.info.loc]

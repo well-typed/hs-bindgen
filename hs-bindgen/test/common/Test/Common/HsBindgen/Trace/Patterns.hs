@@ -40,6 +40,7 @@ import Data.Text qualified as Text
 
 import HsBindgen.Doxygen (DoxygenMsg)
 import HsBindgen.Frontend.Analysis.DeclIndex
+import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg)
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg,
                                                           PrepareReparseMsg)
@@ -130,7 +131,7 @@ pattern MatchDelayedPrepareReparse name x <- MatchSelect name (matchDelayedPrepa
 
 matchDelayedPrepareReparse :: SelectMsg -> Maybe DelayedPrepareReparseMsg
 matchDelayedPrepareReparse = \case
-    SelectDelayedPrepareReparseMsg x -> Just x
+    SelectDelayedMsg (DelayedPrepareReparse x) -> Just x
     _otherwise -> Nothing
 
 {-------------------------------------------------------------------------------
@@ -150,7 +151,7 @@ pattern MatchDelayedReparseMacroExpansions name x <- MatchSelect name (matchDela
 
 matchDelayedReparseMacroExpansions :: SelectMsg -> Maybe DelayedReparseMacroExpansionsMsg
 matchDelayedReparseMacroExpansions = \case
-    SelectDelayedReparseMacroExpansionsMsg x -> Just x
+    SelectDelayedMsg (DelayedReparseMacroExpansions x) -> Just x
     _otherwise -> Nothing
 
 {-------------------------------------------------------------------------------
@@ -187,7 +188,7 @@ pattern MatchImmediateTranslateTypes :: TranslateTypesMsg -> TraceMsg
 pattern MatchImmediateTranslateTypes x <- TraceFrontend (FrontendTranslateTypes x)
 
 pattern MatchDelayedTranslateTypes :: C.DeclName -> DelayedTranslateTypesMsg -> TraceMsg
-pattern MatchDelayedTranslateTypes name x <- MatchSelect name (SelectDelayedTranslateTypesMsg x)
+pattern MatchDelayedTranslateTypes name x <- MatchSelect name (SelectDelayedMsg (DelayedTranslateTypes x))
 
 {-------------------------------------------------------------------------------
   Select
@@ -246,6 +247,6 @@ pattern MatchTransUnusable x <- TransitiveDependencyUnusable _ x
 
 matchDelayed :: SelectMsg -> Maybe DelayedParseMsg
 matchDelayed = \case
-    SelectDelayedParseMsg x                 -> Just x
+    SelectDelayedMsg (DelayedParse x)       -> Just x
     SelectUnusable (UnusableParseFailure x) -> Just x
     _otherwise                              -> Nothing

@@ -34,21 +34,16 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
   , getOmitted
   , getSquashed
   , getUnusables
+    -- * Support for delayed messages
+  , registerDelayedMsg
     -- * Support for macro failures
   , registerUnhandledMacro
-  , registerDelayedParseMsg
-    -- * Support for the @PrepareReparse@ pass
-  , registerDelayedPrepareReparseMsg
-    -- * Support for the @ReparseMacroExpansions@ pass
-  , registerDelayedReparseMacroExpansionsMsg
     -- * Support for binding specifications
   , registerOmittedDeclarations
   , registerExternalDeclarations
     -- * Support for name mangle failures
   , registerSquashedDeclarations
   , registerMangleNamesFailure
-    -- * Support for the @TranslateTypes@ pass
-  , registerDelayedTranslateTypesMsg
   ) where
 
 import Prelude hiding (filter, lookup)
@@ -60,16 +55,13 @@ import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex.ResolveMacro
+import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
-import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg (DelayedReparseMacroExpansionsMsg)
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (DelayedTranslateTypesMsg)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate (IsMainHeader)
 import HsBindgen.Imports hiding (toList)
@@ -239,11 +231,9 @@ unusableToLoc = \case
   UnusableConflict     c -> C.DeclLocsConflict c
 
 data Success l p = Success {
-    decl                              :: C.Decl l p
-  , delayedParseMsgs                  :: [DelayedParseMsg]
-  , delayedPrepareReparseMsgs         :: [DelayedPrepareReparseMsg]
-  , delayedReparseMacroExpansionsMsgs :: [DelayedReparseMacroExpansionsMsg]
-  , delayedTranslateTypesMsgs         :: [DelayedTranslateTypesMsg]
+    decl        :: C.Decl l p
+    -- | In the order the passes issued them
+  , delayedMsgs :: [DelayedMsg]
   }
   deriving stock (Generic)
 
@@ -326,11 +316,8 @@ parseResultToEntry result = case result.classification of
 
 parseSuccessToSuccess :: ParseSuccess l Out -> Success l Out
 parseSuccessToSuccess success = Success {
-      decl = success.decl
-    , delayedParseMsgs = success.delayedParseMsgs
-    , delayedPrepareReparseMsgs = []
-    , delayedReparseMacroExpansionsMsgs = []
-    , delayedTranslateTypesMsgs = []
+      decl        = success.decl
+    , delayedMsgs = map DelayedParse success.delayedParseMsgs
     }
 
 -- | Resolve macro names in every successful declaration.
@@ -530,27 +517,17 @@ keepRedefinition isMainHeader newLoc old
     inMainHeader :: SingleLoc C.DeclPath -> Bool
     inMainHeader = maybe False isMainHeader . C.declPathRealPath . singleLocPath
 
--- | Merge two definitions, keeping the delayed parse messages of both
+-- | Merge two definitions, keeping the delayed messages of both
 mergeRedefinition :: Keep -> Success l Out -> Success l Out -> Success l Out
 mergeRedefinition keep newSuccess oldSuccess =
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/2099?
     --
     -- We should make sure that we do not report delayed messages multiple
     -- times (e.g., use 'Data.List.nub').
-    let delayedParseMsgs =
-          newSuccess.delayedParseMsgs ++ oldSuccess.delayedParseMsgs
-        delayedPrepareReparseMsgs =
-          if not (null oldSuccess.delayedPrepareReparseMsgs) then
-            panicPure "expected empty prepare reparse messages"
-          else
-            []
-        kept = case keep of
+    let kept = case keep of
           KeepNew -> newSuccess
           KeepOld -> oldSuccess
-    in kept{
-           delayedParseMsgs          = delayedParseMsgs
-         , delayedPrepareReparseMsgs = delayedPrepareReparseMsgs
-         }
+    in kept{delayedMsgs = newSuccess.delayedMsgs ++ oldSuccess.delayedMsgs}
 
 {-------------------------------------------------------------------------------
   Filter
@@ -666,26 +643,22 @@ getUnusables index = Map.mapMaybe onlyUnusable . (.map) . restrictKeys index
       UnusableEntry e -> Just e
 
 {-------------------------------------------------------------------------------
-  Support for delayed parse messages
+  Support for delayed messages
 -------------------------------------------------------------------------------}
 
--- | Append a delayed parse message to an existing 'UsableSuccess' entry.
+-- | Append a delayed message to an existing 'UsableSuccess' entry.
 --
--- Has no effect if the declaration is not a parse success (e.g., if it is a
--- parse failure or a macro failure).
-registerDelayedParseMsg ::
-     (C.DeclId, DelayedParseMsg)
+-- Has no effect if the declaration is not a success
+registerDelayedMsg ::
+     (C.DeclId, DelayedMsg)
   -> DeclIndex l
   -> DeclIndex l
-registerDelayedParseMsg (declId, msg) =
+registerDelayedMsg (declId, msg) =
     #map %~ Map.adjust addMsg declId
   where
     addMsg :: Entry l -> Entry l
     addMsg (UsableEntry (UsableSuccess ps)) =
-      UsableEntry $ UsableSuccess ps {
-          HsBindgen.Frontend.Analysis.DeclIndex.delayedParseMsgs =
-            ps.delayedParseMsgs ++ [msg]
-        }
+      UsableEntry $ UsableSuccess ps{delayedMsgs = ps.delayedMsgs ++ [msg]}
     addMsg entry = entry
 
 {-------------------------------------------------------------------------------
@@ -711,51 +684,6 @@ registerUnhandledMacro index (decl, failure) = index
       FailedParse     err -> UnusableParseFailure (ParseMacroErrorParse err)
       FailedResolve   err -> UnusableMacroResolutionFailure err
       FailedTypecheck err -> UnusableMacroTypecheckFailure err
-
-{-------------------------------------------------------------------------------
-  Support for @PrepareReparse@ pass
--------------------------------------------------------------------------------}
-
--- | Append a delayed @PrepareReparse@ message to an existing 'UsableSuccess'
--- entry.
---
--- Has no effect if the declaration is not a success
-registerDelayedPrepareReparseMsg ::
-     (C.DeclId, DelayedPrepareReparseMsg)
-  -> DeclIndex l
-  -> DeclIndex l
-registerDelayedPrepareReparseMsg (declId, msg) =
-    #map %~ Map.adjust addMsg declId
-  where
-    addMsg :: Entry l -> Entry l
-    addMsg (UsableEntry (UsableSuccess ps)) =
-      UsableEntry $ UsableSuccess ps{
-          delayedPrepareReparseMsgs = ps.delayedPrepareReparseMsgs ++ [msg]
-        }
-    addMsg entry = entry
-
-
-{-------------------------------------------------------------------------------
-  Support for @ReparseMacroExpansions@ pass
--------------------------------------------------------------------------------}
-
--- | Append a delayed @ReparseMacroExpansions@ message to an existing
--- 'UsableSuccess' entry.
---
--- Has no effect if the declaration is not a success
-registerDelayedReparseMacroExpansionsMsg ::
-     (C.DeclId, DelayedReparseMacroExpansionsMsg)
-  -> DeclIndex l
-  -> DeclIndex l
-registerDelayedReparseMacroExpansionsMsg (declId, msg) =
-    #map %~ Map.adjust addMsg declId
-  where
-    addMsg :: Entry l -> Entry l
-    addMsg (UsableEntry (UsableSuccess ps)) =
-      UsableEntry $ UsableSuccess ps{
-          delayedReparseMacroExpansionsMsgs = ps.delayedReparseMacroExpansionsMsgs ++ [msg]
-        }
-    addMsg entry = entry
 
 {-------------------------------------------------------------------------------
   Support for binding specifications
@@ -800,25 +728,3 @@ registerMangleNamesFailure xs =
   where
     toEntry (loc, err) =
       UnusableEntry $ UnusableReason loc $ UnusableMangleNamesFailure err
-
-{-------------------------------------------------------------------------------
-  Support for @TranslateTypes@ pass
--------------------------------------------------------------------------------}
-
--- | Append a delayed @TranslateTypes@ message to an existing
--- 'UsableSuccess' entry.
---
--- Has no effect if the declaration is not a success
-registerDelayedTranslateTypesMsg ::
-     (C.DeclId, DelayedTranslateTypesMsg)
-  -> DeclIndex l
-  -> DeclIndex l
-registerDelayedTranslateTypesMsg (declId, msg) =
-    #map %~ Map.adjust addMsg declId
-  where
-    addMsg :: Entry l -> Entry l
-    addMsg (UsableEntry (UsableSuccess ps)) =
-      UsableEntry $ UsableSuccess ps{
-          delayedTranslateTypesMsgs = ps.delayedTranslateTypesMsgs ++ [msg]
-        }
-    addMsg entry = entry

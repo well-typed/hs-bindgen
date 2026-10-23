@@ -184,6 +184,7 @@ library internal
     HsBindgen.Frontend.Analysis.UnnamedIdUsage
     HsBindgen.Frontend.Analysis.UseDeclGraph
     HsBindgen.Frontend.DeclMeta
+    HsBindgen.Frontend.DelayedMsg
     HsBindgen.Frontend.LanguageC
     HsBindgen.Frontend.LanguageC.Error
     HsBindgen.Frontend.LanguageC.Monad

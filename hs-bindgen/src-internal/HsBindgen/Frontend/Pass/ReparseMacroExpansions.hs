@@ -12,6 +12,7 @@ import Clang.CStandard (ClangCStandard)
 
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
@@ -75,7 +76,7 @@ updateMeta msgs decls meta = DeclMeta{
       -- We use @foldr@ here to establish the original order of reparse
       -- warnings.
       foldr
-        DeclIndex.registerDelayedReparseMacroExpansionsMsg
+        (DeclIndex.registerDelayedMsg . fmap DelayedReparseMacroExpansions)
         meta.declIndex
         [ (declId, msg)
         | (declId, msg) <- msgs
