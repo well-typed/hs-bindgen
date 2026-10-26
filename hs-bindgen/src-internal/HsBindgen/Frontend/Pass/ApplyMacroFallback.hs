@@ -42,22 +42,18 @@ applyMacroFallback isMainHeader isInMainHeaderDir config unit =
     db' =
         DeclDB.deleteDeps unhandled
       . runIdentity
-      . DeclDB.traverseActive DeclDB.AnyOrder
-          (\decl -> pure $ DeclDB.lookupResult decl.id results)
+      . DeclDB.traverseActive DeclDB.AnyOrder (pure . decide)
       $ unit.db
 
     unhandled :: Set C.DeclId
     unhandled = Set.fromList [
           decl.id
-        | decl <- unit.decls
+        | decl <- DeclDB.active DeclDB.AnyOrder unit.db
         , C.DeclMacro PendingMacro{handling = Unhandled _} <- [decl.kind]
         ]
 
-    results :: Map C.DeclId (DeclDB.PassResult l Out)
-    results = DeclDB.passResults $ map decide unit.decls
-
-    decide :: C.Decl l In -> (C.DeclId, DeclDB.PassResult l Out)
-    decide decl = (decl.id,) $ case decl.kind of
+    decide :: C.Decl l In -> DeclDB.PassResult l Out
+    decide decl = case decl.kind of
         C.DeclMacro macro -> case macro.handling of
           Handled (CheckedType  x) -> keep $ C.DeclMacro $ MacroType  $ coercePass x
           Handled (CheckedValue x) -> keep $ C.DeclMacro $ MacroValue $ coercePass x
