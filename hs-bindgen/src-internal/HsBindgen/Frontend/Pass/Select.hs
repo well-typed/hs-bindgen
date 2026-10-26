@@ -547,6 +547,10 @@ getDelayedMsgsSelectionRoots getTransitiveSelectability declDB roots =
 
     -- A dependency without a Haskell name is unusable or not selected, and
     -- the message on the missing transitive dependencies reports it.
+    --
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/2326>
+    -- Remove once name mangling gives its own reason for a dependency without
+    -- a Haskell name.
     isExplainedByDependency :: C.DeclId -> InactiveReason -> Bool
     isExplainedByDependency declId = \case
       Deactivated (Unusable (UnusableMangleNames (MangleNamesResolutionError
