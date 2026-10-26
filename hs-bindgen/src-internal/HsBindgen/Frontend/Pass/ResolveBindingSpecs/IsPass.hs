@@ -63,7 +63,7 @@ instance PassAnn ResolveBindingSpecs where
   type Ann ix ResolveBindingSpecs = AnnResolveBindingSpecs ix
 
 instance PassMsg ResolveBindingSpecs where
-  type Msg ResolveBindingSpecs = ResolveBindingSpecsMsg
+  type Msg ResolveBindingSpecs = C.WithLocationInfo ResolveBindingSpecsMsg
 
 -- | Prescriptive binding specification for declaration
 --
@@ -86,20 +86,25 @@ data PrescriptiveDeclSpec = PrescriptiveDeclSpec {
   Trace messages
 -------------------------------------------------------------------------------}
 
+-- | Trace messages
+--
+-- Messages about a declaration are located at that declaration
+-- ('C.WithLocationInfo').
 data ResolveBindingSpecsMsg =
     ResolveBindingSpecsModuleMismatch       Hs.ModuleName Hs.ModuleName
-  | ResolveBindingSpecsEnumTypeMismatch     C.DeclId
-  | ResolveBindingSpecsExtHsRefNoIdentifier C.DeclId
-  | ResolveBindingSpecsNoHsTypeSpec         C.DeclId
-  | ResolveBindingSpecsOmittedType          C.DeclId
-  | ResolveBindingSpecsTypeNotUsed          C.DeclId
-  | ResolveBindingSpecsExtDecl              C.DeclId
-  | ResolveBindingSpecsExtType              C.DeclId C.DeclId
-  | ResolveBindingSpecsPreRequire           C.DeclId
-  | ResolveBindingSpecsPreOmit              C.DeclId
-  | ResolveBindingSpecsPreEmptyData         C.DeclId
-  | ResolveBindingSpecsPreEmptyDataInvalid  C.DeclId
-  | ResolveBindingSpecsIndirectFieldDropped C.DeclId C.ScopedName
+  | ResolveBindingSpecsEnumTypeMismatch
+  | ResolveBindingSpecsExtHsRefNoIdentifier
+  | ResolveBindingSpecsNoHsTypeSpec
+  | ResolveBindingSpecsOmittedType
+  | ResolveBindingSpecsTypeNotUsed
+  | ResolveBindingSpecsExtDecl
+    -- | The declaration uses this type, which has an external binding
+  | ResolveBindingSpecsExtType              C.DeclId
+  | ResolveBindingSpecsPreRequire
+  | ResolveBindingSpecsPreOmit
+  | ResolveBindingSpecsPreEmptyData
+  | ResolveBindingSpecsPreEmptyDataInvalid
+  | ResolveBindingSpecsIndirectFieldDropped C.ScopedName
   deriving stock (Show)
 
 instance PrettyForTrace ResolveBindingSpecsMsg where
@@ -109,46 +114,31 @@ instance PrettyForTrace ResolveBindingSpecsMsg where
           <+> prettyForTrace pSpecHsModuleName
           <+> "cannot be used to generate"
           <+> prettyForTrace hsModuleName
-      ResolveBindingSpecsEnumTypeMismatch cDeclId ->
-        "C enum specification for non-enum type:"
+      ResolveBindingSpecsEnumTypeMismatch ->
+        "C enum specification for non-enum type"
+      ResolveBindingSpecsExtHsRefNoIdentifier ->
+        "Haskell identifier not specified in binding specification"
+      ResolveBindingSpecsNoHsTypeSpec ->
+        "Haskell type spec not specified in binding specification"
+      ResolveBindingSpecsOmittedType ->
+        "Type omitted by binding specification used"
+      ResolveBindingSpecsTypeNotUsed ->
+        "Binding specification for type not used"
+      ResolveBindingSpecsExtDecl ->
+        "Declaration with external binding dropped"
+      ResolveBindingSpecsExtType cDeclId ->
+        "Type replaced with external binding:"
           <+> prettyForTrace cDeclId
-      ResolveBindingSpecsExtHsRefNoIdentifier cDeclId ->
-        "Haskell identifier not specified in binding specification:"
-          <+> prettyForTrace cDeclId
-      ResolveBindingSpecsNoHsTypeSpec cDeclId ->
-        "Haskell type spec not specified in binding specification:"
-          <+> prettyForTrace cDeclId
-      ResolveBindingSpecsOmittedType cDeclId ->
-        "Type omitted by binding specification used:"
-          <+> prettyForTrace cDeclId
-      ResolveBindingSpecsTypeNotUsed cDeclId ->
-        "Binding specification for type not used:"
-          <+> prettyForTrace cDeclId
-      ResolveBindingSpecsExtDecl cDeclId ->
-        "Declaration with external binding dropped:"
-          <+> prettyForTrace cDeclId
-      ResolveBindingSpecsExtType ctx cDeclId ->
-        "Within declaration"
-          <+> prettyForTrace ctx
-          <+> "type replaced with external binding:"
-          <+> prettyForTrace cDeclId
-      ResolveBindingSpecsPreRequire cDeclId ->
-        "Prescriptive binding specification found:"
-          <+> prettyForTrace cDeclId
-      ResolveBindingSpecsPreOmit cDeclId ->
-        "Declaration omitted by prescriptive binding specification:"
-          <+> prettyForTrace cDeclId
-      ResolveBindingSpecsPreEmptyData cDeclId ->
-        "Declaration opaqued by prescriptive binding specification:"
-          <+> prettyForTrace cDeclId
-      ResolveBindingSpecsPreEmptyDataInvalid cDeclId ->
-        "Declaration opaqued by prescriptive binding specification invalid for kind:"
-          <+> prettyForTrace cDeclId
-      ResolveBindingSpecsIndirectFieldDropped cDeclId cFieldName ->
-        "Within declaration"
-          <+> prettyForTrace cDeclId
-          <+> "dropped an indirect field that points into a dropped declaration"
-          <+> ":"
+      ResolveBindingSpecsPreRequire ->
+        "Prescriptive binding specification found"
+      ResolveBindingSpecsPreOmit ->
+        "Declaration omitted by prescriptive binding specification"
+      ResolveBindingSpecsPreEmptyData ->
+        "Declaration opaqued by prescriptive binding specification"
+      ResolveBindingSpecsPreEmptyDataInvalid ->
+        "Declaration opaqued by prescriptive binding specification invalid for kind"
+      ResolveBindingSpecsIndirectFieldDropped cFieldName ->
+        "Dropped an indirect field that points into a dropped declaration:"
           <+> prettyForTrace cFieldName
 
 instance IsTrace Level ResolveBindingSpecsMsg where

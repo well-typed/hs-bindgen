@@ -32,6 +32,9 @@
   replacement list is now reported as such ("Could not read macro
   definition"), apart from macros the macro language cannot parse.
 
+* Messages about binding specifications are now located at the declaration
+  they are about, like the messages of name mangling and selection.
+
 ### Bug fixes
 
 * A `struct` or `union` defined inline in a variable or function declaration
