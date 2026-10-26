@@ -355,7 +355,7 @@ data DelayedParseMsg =
   | ParseUnexpectedTypeKind (Either CInt CXTypeKind)
 
   | ParseUnexpectedVisibility (Either CInt CXLinkageKind)
-  deriving stock (Show, Generic)
+  deriving stock (Show, Eq, Generic)
 
 -- | A nested declaration that failed to parse
 data NestedDeclFailure =
@@ -368,7 +368,7 @@ data NestedDeclFailure =
     -- never named and never reported on its own.
   | NestedUnnamedDeclFailed C.UnnamedId DelayedParseMsg
   | NestedUnnamedDeclUnavailable C.UnnamedId
-  deriving stock (Show, Generic)
+  deriving stock (Show, Eq, Generic)
 
 instance PrettyForTrace NestedDeclFailure where
   prettyForTrace = \case

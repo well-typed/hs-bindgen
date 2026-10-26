@@ -190,4 +190,4 @@ test_tentative_definitions =
         Nothing
   where
     declsWithMsgs :: [C.DeclName]
-    declsWithMsgs = ["i1", "i2", "i3", "i3"]
+    declsWithMsgs = ["i1", "i2", "i3"]
