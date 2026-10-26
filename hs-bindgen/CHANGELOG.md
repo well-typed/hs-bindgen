@@ -36,6 +36,14 @@
   they are about, like the messages of name mangling and selection, and
   sorted by that location.
 
+* The Info-level messages of name mangling about assigned names ("Assigned
+  name", "Reused assigned name") are now reported only for selected
+  declarations, under the trace ID `select-mangle-names`. The trace IDs
+  `mangle-names-assigned-name` and `mangle-names-reused-assigned-name` are
+  gone. See [issue #1554][is-1554].
+
+[is-1554]: https://github.com/well-typed/hs-bindgen/issues/1554
+
 ### Bug fixes
 
 * A `struct` or `union` defined inline in a variable or function declaration

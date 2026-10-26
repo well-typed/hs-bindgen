@@ -27,6 +27,7 @@ import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
+import HsBindgen.Frontend.Pass.MangleNames.IsPass.Msg
 import HsBindgen.Frontend.Pass.MangleNames.Names
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -36,7 +37,6 @@ import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Type qualified as Macro
-import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
 
 {-------------------------------------------------------------------------------
   Intermediate pass: CreateNames
@@ -199,7 +199,7 @@ mangleCandidate mc _ cName =
 -------------------------------------------------------------------------------}
 
 createNames ::
-     forall l. (HasCallStack, Macro.HasTypes l)
+     forall l. Macro.HasTypes l
   => TypedefAnalysis
   -> MangleCandidate Maybe
   -> FieldNamingStrategy
@@ -209,7 +209,7 @@ createNames ::
      , NameMap
      , Maybe (NonEmpty DupAssign)
      , [MangleNamesFailure]
-     , [AnnMsg MangleNames]
+     , [(C.DeclId, DelayedMangleNamesMsg)]
      )
 createNames td mc strategy decls = (
       map (snd . snd) successes
@@ -234,19 +234,19 @@ createNames td mc strategy decls = (
       }
 
     results :: [CreateNamesResult ([ScopedNamePair], C.Decl l CreateNames)]
-    messages :: [AnnMsg MangleNames]
+    messages :: [(C.DeclId, DelayedMangleNamesMsg)]
     (results, messages) = second concat $ unzip $ map perDecl decls
 
     perDecl ::
          C.Decl l ResolveBindingSpecs
-      -> (CreateNamesResult ([ScopedNamePair], C.Decl l CreateNames), [AnnMsg MangleNames])
-    perDecl decl = (,msgs) $ case nameResult of
+      -> (CreateNamesResult ([ScopedNamePair], C.Decl l CreateNames), [(C.DeclId, DelayedMangleNamesMsg)])
+    perDecl decl = (,map (decl.id,) msgs) $ case nameResult of
         CnFailure err      -> CnFailure err
         CnSquashed nC nH s -> CnSquashed nC nH s
         CnMangled name ()  -> createNamesWithin env name decl
       where
         nameResult :: CreateNamesResult ()
-        msgs       :: [AnnMsg MangleNames]
+        msgs       :: [DelayedMangleNamesMsg]
         (nameResult, msgs) = nameForDecl td mc specifiedNames decl
 
     failures  :: [MangleNamesFailure]
@@ -267,14 +267,12 @@ createNames td mc strategy decls = (
             scopedNamePairs = []
 
 nameForDecl ::
-     HasCallStack
-  => TypedefAnalysis
+     TypedefAnalysis
   -> MangleCandidate Maybe
   -> Map C.DeclId (Hs.Name Hs.NsTypeConstr)
   -> C.Decl l ResolveBindingSpecs
-  -> (CreateNamesResult (), [AnnMsg MangleNames])
+  -> (CreateNamesResult (), [DelayedMangleNamesMsg])
 nameForDecl td mc specifiedNames decl =
-    second toMs $
     withDeclNamespace decl.kind $ \(nsProxy :: Proxy ns) ->
       let mangleNs :: Text -> Either MangleNamesCreationError (Hs.Name ns)
           mangleNs d = runExcept $ mangleCandidate mc nsProxy d
@@ -345,7 +343,7 @@ nameForDecl td mc specifiedNames decl =
     declId :: C.DeclId
     declId = decl.id
 
-    failWith :: MangleNamesCreationError -> (CreateNamesResult a, [MangleNamesMsg])
+    failWith :: MangleNamesCreationError -> (CreateNamesResult a, [DelayedMangleNamesMsg])
     failWith err = (CnFailure $ toFailure decl (MangleNamesCreationError err), [])
 
     getPair :: Hs.SingNamespace ns => Hs.Name ns -> DeclIdPair
@@ -353,9 +351,6 @@ nameForDecl td mc specifiedNames decl =
 
     succeedWith :: Hs.SingNamespace ns => Hs.Name ns -> CreateNamesResult ()
     succeedWith n = CnMangled (getPair n) ()
-
-    toMs :: HasCallStack => [a] -> [WithCallStack (C.WithLocationInfo a)]
-    toMs = map (withCallStack . withDeclLoc decl)
 
     mangleType :: Text -> Either MangleNamesCreationError (Hs.Name Hs.NsTypeConstr)
     mangleType d =
@@ -771,15 +766,3 @@ createMacroType hsName macroType = do
       , deps = macroType.deps
       , ann  = names
       }
-
-{-------------------------------------------------------------------------------
-  Internal auxiliary
--------------------------------------------------------------------------------}
-
-withDeclLoc :: forall l p a.
-     IsPass p
-  => C.Decl l p -> a -> C.WithLocationInfo a
-withDeclLoc decl msg = C.WithLocationInfo{
-      loc = idLocationInfo (Proxy @p) decl.id [decl.info.loc]
-    , msg = msg
-    }

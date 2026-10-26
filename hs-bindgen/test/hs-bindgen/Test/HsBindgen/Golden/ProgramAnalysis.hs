@@ -7,6 +7,7 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend.DeclDB (Inactive (..), InactiveInfo (..),
                                   InactiveReason (..), UnusableReason (..))
 import HsBindgen.Frontend.Pass.MangleNames.Error
+import HsBindgen.Frontend.Pass.MangleNames.IsPass.Msg (DelayedMangleNamesMsg (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -511,7 +512,7 @@ test_typedef_analysis =
     testTraceMulti "program-analysis/typedef_analysis" declsWithMsgs $ \case
       MatchSelect name SelectMangleNamesSquashed{} ->
         Just $ Expected (name, Nothing)
-      MatchMangle name (MangleNamesAssignedName new) ->
+      MatchDelayedMangleNames name (MangleNamesAssignedName new) ->
         Just $ Expected (name, Just new.text)
       _otherwise ->
         Nothing
@@ -557,7 +558,7 @@ test_typedef_analysis =
 test_typedef_block :: TestCase
 test_typedef_block =
     testTraceMulti "program-analysis/typedef_block" declsWithMsgs (\case
-          MatchMangle name (MangleNamesAssignedName new) ->
+          MatchDelayedMangleNames name (MangleNamesAssignedName new) ->
             Just $ Expected (name, new.text)
           _otherwise ->
             Nothing
