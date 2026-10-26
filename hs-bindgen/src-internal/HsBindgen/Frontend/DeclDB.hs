@@ -610,11 +610,19 @@ mergeRedefinition declId kept newMsgs db =
 --
 -- The order decides only the order of the effects. Ordered traversals sort
 -- every entry, active or not, so that the order keeps the constraints that pass
--- through entries that are not active (user, squashed typedef, target).
+-- through entries that are not active (user, squashed typedef, target). They
+-- place the entries of a cycle as one group.
 data Order l p =
     AnyOrder
-    -- | Topological over the 'NeedsShape' edges, dependencies first; ties
-    --   broken by a key on the entries
+    -- | Topological over every edge, 'NeedsShape' and
+    --   'HsBindgen.Frontend.Analysis.NeedsNameOnly', dependencies first; among
+    --   entries that do not depend on each other, no order is promised
+  | AllDependencies
+    -- | Topological over the 'NeedsShape' edges, dependencies first, with the
+    --   caller's function giving each entry a key: whenever several entries
+    --   have all their dependencies placed, the one with the least key comes
+    --   next (e.g. 'HsBindgen.Frontend.Analysis.DeclUseGraph.declSortKey'
+    --   puts the one earlier in the source first)
   | forall k. Ord k => DependencyBy (Entry l p -> k)
 
 -- | The outcome of processing one active declaration in a pass
@@ -638,7 +646,8 @@ traverseActive ::
   -> f (DeclDB l p')
 traverseActive order f db = case order of
     AnyOrder         -> traverseAll (const step) db
-    DependencyBy key -> inOrder $ Digraph.sortBy (comparing (key . entry)) dependencies
+    AllDependencies  -> inOrder $ Digraph.sortBy compare db.declUseGraph.graph
+    DependencyBy key -> inOrder $ Digraph.sortBy (comparing (key . entry)) shapeDependencies
   where
     step :: Entry l p -> f (Entry l p')
     step = \case
@@ -661,8 +670,8 @@ traverseActive order f db = case order of
         , reason = Deactivated deactivation
         }
 
-    dependencies :: Digraph.Digraph Dependency C.DeclId
-    dependencies = Digraph.filterEdges (== NeedsShape) db.declUseGraph.graph
+    shapeDependencies :: Digraph.Digraph Dependency C.DeclId
+    shapeDependencies = Digraph.filterEdges (== NeedsShape) db.declUseGraph.graph
 
     entry :: C.DeclId -> Entry l p
     entry declId = case Map.lookup declId db.entries of

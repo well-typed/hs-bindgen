@@ -4,6 +4,8 @@ module HsBindgen.Frontend.Pass.TypecheckMacros.KnownTypes (
 
 import Data.Map qualified as Map
 
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
@@ -14,10 +16,11 @@ type In    = ConstructTranslationUnit
 type Out   = TypecheckMacros
 type CType = C.Type Out
 
--- | Collect typedef and tagged-type mappings from all non-macro declarations in
--- the translation unit.
-collectKnownTypes :: [C.Decl l In] -> Map C.DeclId CType
-collectKnownTypes decls = Map.fromList $ mapMaybe getKnownType decls
+-- | Collect typedef and tagged-type mappings from all active non-macro
+-- declarations.
+collectKnownTypes :: DeclDB l In -> Map C.DeclId CType
+collectKnownTypes db =
+    Map.fromList $ mapMaybe getKnownType (DeclDB.active DeclDB.AnyOrder db)
 
 getKnownType :: C.Decl l In -> Maybe (C.DeclId, CType)
 getKnownType decl = case decl.kind of
