@@ -6,7 +6,7 @@ import Data.Foldable qualified as Foldable
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
-import Data.Maybe (listToMaybe, maybeToList)
+import Data.Maybe (maybeToList)
 import Data.Set ((\\))
 import Data.Set qualified as Set
 
@@ -28,6 +28,7 @@ import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckedMacro (..))
 import HsBindgen.Frontend.Predicate
+import HsBindgen.Frontend.SortMsgs
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -652,38 +653,9 @@ isDroppedMacro = \case
   Sort traces
 -------------------------------------------------------------------------------}
 
--- | Location a trace message is sorted by
---
--- Only conflicting declarations carry more than one location; we sort by the
--- first.
-msgLoc :: AnnMsg Select -> Maybe (SingleLoc C.DeclPath)
-msgLoc msg = listToMaybe $ C.locationInfoLocs msg.traceMsg.loc
-
--- | Sort key of a trace message
---
--- The constructor order /is/ the specification: messages not attached to a
--- declaration sort to the back. Do not reorder.
-data MsgSortKey =
-    MsgAt {
-        msgSource :: IncludeGraph.IncludeOrderIx
-      , msgLine   :: Int
-      , msgColumn :: Int
-      }
-  | MsgNoLocation
-  deriving stock (Eq, Ord)
-
-msgSortKey :: IncludeGraph.IncludeOrder -> AnnMsg Select -> MsgSortKey
-msgSortKey order msg = case msgLoc msg of
-    Nothing  -> MsgNoLocation
-    Just loc -> MsgAt {
-        msgSource = IncludeGraph.lookupIncludeOrder order (singleLocPath loc)
-      , msgLine   = singleLocLine   loc
-      , msgColumn = singleLocColumn loc
-      }
-
 sortSelectMsgs :: IncludeGraph -> [AnnMsg Select] -> [AnnMsg Select]
 sortSelectMsgs includeGraph msgs =
-    bugMsgs ++ List.sortOn (msgSortKey order) msgs
+    bugMsgs ++ sortMsgs order msgs
   where
     -- Compute the include order once.
     order :: IncludeGraph.IncludeOrder
