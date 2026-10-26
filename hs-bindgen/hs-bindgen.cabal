@@ -265,6 +265,7 @@ library internal
     HsBindgen.Frontend.PrettyC
     HsBindgen.Frontend.ProcessIncludes
     HsBindgen.Frontend.RootHeader
+    HsBindgen.Frontend.SortMsgs
     HsBindgen.Frontend.TranslationUnit
     HsBindgen.Guasi
     HsBindgen.Imports
