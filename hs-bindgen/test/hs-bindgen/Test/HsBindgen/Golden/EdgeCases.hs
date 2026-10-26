@@ -3,7 +3,7 @@ module Test.HsBindgen.Golden.EdgeCases (testCases) where
 
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.DeclDB (Inactive (..), UnusableReason (..))
+import HsBindgen.Frontend.DeclDB (Inactive (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -89,8 +89,6 @@ test_duplicate =
               Just $ Expected (name, "conflict")
             MatchSelect name (MatchTransMissing [MatchTransUnusable InactiveConflict{}]) ->
               Just $ Expected (name, "transitive conflict")
-            MatchUnusableReason name UnusableMangleNames{} ->
-              Just $ Expected (name, "mangle")
             _otherwise ->
                Nothing
           )
@@ -100,7 +98,6 @@ test_duplicate =
           ("macro duplicate", "conflict")
         , ("duplicate",       "conflict")
         , ("function",        "transitive conflict")
-        , ("function",        "mangle")
         ]
 
 test_duplicate_record_field :: TestCase

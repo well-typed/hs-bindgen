@@ -275,8 +275,6 @@ test_selection_fail =
         Just $ Expected name
       MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
         Just $ Expected name
-      MatchUnusableReason name (UnusableMangleNames{}) ->
-        Just $ Expected name
       _otherwise ->
         Nothing
   where
@@ -284,8 +282,6 @@ test_selection_fail =
     declsWithMsgs = [
           "struct Fail"
         , "struct DependOnFailByValue"
-        , "struct DependOnFailByValue"
-        , "struct DependOnFailByReference"
         , "struct DependOnFailByReference"
         , "struct OkBefore"
         , "struct OkAfter"
@@ -303,8 +299,6 @@ test_selection_fail_variant_1 =
               Just $ Expected name
             MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
               Just $ Expected name
-            MatchUnusableReason name (UnusableMangleNames{}) ->
-              Just $ Expected name
             _otherwise ->
               Nothing
           )
@@ -312,8 +306,6 @@ test_selection_fail_variant_1 =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           "struct DependOnFailByValue"
-        , "struct DependOnFailByValue"
-        , "struct DependOnFailByReference"
         , "struct DependOnFailByReference"
         , "struct OkBefore"
         , "struct OkAfter"
@@ -333,8 +325,6 @@ test_selection_fail_variant_2 =
              Just $ Expected name
            MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
              Just $ Expected name
-           MatchUnusableReason name (UnusableMangleNames{}) ->
-             Just $ Expected name
            _otherwise ->
              Nothing
          )
@@ -342,8 +332,6 @@ test_selection_fail_variant_2 =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           "struct DependOnFailByValue"
-        , "struct DependOnFailByValue"
-        , "struct DependOnFailByReference"
         , "struct DependOnFailByReference"
         , "struct OkBefore"
         , "struct OkAfter"
@@ -373,11 +361,6 @@ test_selection_foo =
     testTraceMulti "program-analysis/selection_foo" declsWithMsgs $ \case
       MatchSelect _name (MatchTransMissing [_]) ->
         Just $ Expected ("macro A", "foo_t not selected")
-
-      -- We get a transient name mangler failure here because @foo_t@ is
-      -- unsupported, and so, it is not mangled.
-      MatchUnusableReason _name UnusableMangleNames{} ->
-        Just $ Expected ("macro A", "foo_t not mangled")
       MatchUnusable _name ParseFailed{} ->
         Just $ Expected ("f", "unsupported underlying type")
       _otherwise ->
@@ -386,7 +369,6 @@ test_selection_foo =
     declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
         ("macro A", "foo_t not selected")
-      , ("macro A", "foo_t not mangled")
       , ("f", "unsupported underlying type")
       ]
 
@@ -472,16 +454,13 @@ test_selection_omit_prescriptive =
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name (MatchTransMissing{}) ->
               Just $ Expected (name, "select")
-            MatchUnusableReason name (UnusableMangleNames (MangleNamesResolutionError ResolveNamesUnderlyingDeclNotMangled{})) ->
-              Just $ Expected (name, "mangle")
             _otherwise ->
               Nothing
           )
   where
     declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
-          ("struct DirectlyDependsOnOmitted",   "mangle")
-        , ("struct DirectlyDependsOnOmitted",   "select")
+          ("struct DirectlyDependsOnOmitted",   "select")
         , ("struct IndirectlyDependsOnOmitted", "select")
         ]
 
@@ -654,8 +633,6 @@ test_inactive_unusable_dep =
               Just $ Expected (name, "parse")
             MatchUnusableReason name (UnusableMangleNames (MangleNamesCollisionError DetectClashesCollision{})) ->
               Just $ Expected (name, "collision")
-            MatchUnusableReason name (UnusableMangleNames (MangleNamesResolutionError ResolveNamesUnderlyingDeclNotMangled{})) ->
-              Just $ Expected (name, "mangle")
             MatchSelect name (MatchTransMissing{}) ->
               Just $ Expected (name, "transitivity")
             -- Every declaration is inactive.
@@ -673,15 +650,14 @@ test_inactive_unusable_dep =
         , ("struct deprecated_unsupported", "parse")
         , ("struct clash"       , "collision")
         , ("clash"              , "collision")
-        , ("struct uses_omitted", "mangle")
         , ("struct clash"       , "transitivity")
         , ("struct omitted"     , "transitivity")
         , ("struct uses_omitted", "transitivity")
         ]
 
 -- | A global whose type is unusable reports the parse failure of the type, and
--- the type as an unusable transitive dependency; it also reports that it failed
--- to mangle, since its type has no Haskell name
+-- the type as an unusable transitive dependency; not that it failed to mangle
+-- because its type has no Haskell name
 test_global_unusable_type :: TestCase
 test_global_unusable_type =
     testTraceMulti "program-analysis/global_unusable_type" declsWithMsgs $ \case
@@ -691,8 +667,6 @@ test_global_unusable_type =
           MatchTransUnusable (InactiveDecl InactiveInfo{reason = ParseFailed{}})
         ]) ->
         Just $ Expected (name, "transitivity")
-      MatchUnusableReason name (UnusableMangleNames (MangleNamesResolutionError ResolveNamesUnderlyingDeclNotMangled{})) ->
-        Just $ Expected (name, "mangle")
       _otherwise ->
         Nothing
   where
@@ -700,5 +674,4 @@ test_global_unusable_type =
     declsWithMsgs = [
           ("struct badGlobal", "parse")
         , ("badGlobal"       , "transitivity")
-        , ("badGlobal"       , "mangle")
         ]

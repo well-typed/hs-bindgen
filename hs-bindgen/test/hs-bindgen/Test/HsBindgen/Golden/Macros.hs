@@ -390,8 +390,6 @@ test_macro_type_unresolved_tagged =
         Just $ Expected (name, "select-parse-failure")
       MatchSelect name@"macro PTR_UNPARSABLE" (TransitiveDependenciesMissing{}) ->
         Just $ Expected (name, "select-transitive-dependencies-missing")
-      MatchUnusableReason name@"macro PTR_UNPARSABLE" (UnusableMangleNames{}) ->
-        Just $ Expected (name, "select-mangle-names-failure")
       MatchUnusableReason name@"macro PTR_UNPARSABLE" (UnusableMacro FailedResolve{}) ->
         Just $ Expected (name, "macro-unresolved-tagged-type")
       MatchUnusableReason name@"macro PTR_DOES_NOT_EXIST" (UnusableMacro FailedResolve{}) ->
@@ -405,7 +403,6 @@ test_macro_type_unresolved_tagged =
     declsWithMsgs = [
         ("struct Unparsable",        "select-parse-failure")
       , ("macro PTR_UNPARSABLE",     "select-transitive-dependencies-missing")
-      , ("macro PTR_UNPARSABLE",     "select-mangle-names-failure")
       , ("macro PTR_DOES_NOT_EXIST", "macro-unresolved-tagged-type")
       , ("macro DOES_NOT_EXIST",     "macro-unresolved-tagged-type")
       ]
