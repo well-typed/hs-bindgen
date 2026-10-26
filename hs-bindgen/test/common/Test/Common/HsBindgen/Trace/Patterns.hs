@@ -164,9 +164,12 @@ pattern MatchBindingSpec x <- TraceBoot (
       BootBindingSpec x
     )
 
-pattern MatchResolveBindingSpecs :: ResolveBindingSpecsMsg -> TraceMsg
-pattern MatchResolveBindingSpecs x <- TraceFrontend (
-      FrontendResolveBindingSpecs x
+pattern MatchResolveBindingSpecs :: C.DeclName -> ResolveBindingSpecsMsg -> TraceMsg
+pattern MatchResolveBindingSpecs name x <- TraceFrontend (
+      FrontendResolveBindingSpecs C.WithLocationInfo{
+           loc = C.locationInfoName -> Just name
+         , msg = x
+        }
     )
 
 {-------------------------------------------------------------------------------

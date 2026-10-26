@@ -149,8 +149,8 @@ test_anonymous_edge_cases_drop_indirect_fields_1 =
 
     trace :: TraceMsg -> Maybe (TraceExpectation (C.DeclName, C.ScopedName))
     trace = \case
-      MatchResolveBindingSpecs (ResolveBindingSpecsIndirectFieldDropped cDeclId cFieldName) ->
-        Just $ Expected (cDeclId.name, cFieldName)
+      MatchResolveBindingSpecs name (ResolveBindingSpecsIndirectFieldDropped cFieldName) ->
+        Just $ Expected (name, cFieldName)
       _otherwise ->
         Nothing
 
@@ -177,8 +177,8 @@ test_anonymous_edge_cases_drop_indirect_fields_2 =
 
     trace :: TraceMsg -> Maybe (TraceExpectation (C.DeclName, C.ScopedName))
     trace = \case
-      MatchResolveBindingSpecs (ResolveBindingSpecsIndirectFieldDropped cDeclId cFieldName) ->
-        Just $ Expected (cDeclId.name, cFieldName)
+      MatchResolveBindingSpecs name (ResolveBindingSpecsIndirectFieldDropped cFieldName) ->
+        Just $ Expected (name, cFieldName)
       _otherwise ->
         Nothing
 

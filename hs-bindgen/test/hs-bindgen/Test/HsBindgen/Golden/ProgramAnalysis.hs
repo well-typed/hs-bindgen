@@ -445,8 +445,8 @@ test_selection_omit_external_a =
       & #specExternal .~ ["test-artefacts/headers/golden/program-analysis/selection_omit_external.yaml"]
       & #onFrontend .~ ( #programSlicing .~ EnableProgramSlicing )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchResolveBindingSpecs (ResolveBindingSpecsOmittedType declId) ->
-              Just $ Expected declId.name
+            MatchResolveBindingSpecs name ResolveBindingSpecsOmittedType ->
+              Just $ Expected name
             _otherwise ->
               Nothing
           )
