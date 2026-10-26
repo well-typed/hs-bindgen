@@ -4,7 +4,6 @@ module HsBindgen.Frontend.Pass.TypecheckMacros (
 
 import Data.Map qualified as Map
 
-import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -40,19 +39,9 @@ typecheckMacros ::
      )
 typecheckMacros macroLang unit =
     let knownTypes =
-          collectKnownTypes unit.decls
-        (typecheckedDecls, knownMacroTypes) =
-          typecheckDecls macroLang unit.decls
-        results =
-          DeclDB.passResults [
-              (decl.id, DeclDB.Advanced decl)
-            | decl <- typecheckedDecls
-            ]
-        db' =
-          runIdentity $
-            DeclDB.traverseActive DeclDB.AnyOrder
-              (\decl -> pure $ DeclDB.lookupResult decl.id results)
-              unit.db
+          collectKnownTypes unit.db
+        (db', knownMacroTypes) =
+          typecheckDecls macroLang unit.db
     in  ( C.fromDeclDB unit.includeGraph db'
         , Map.fromList [
               (n, v)

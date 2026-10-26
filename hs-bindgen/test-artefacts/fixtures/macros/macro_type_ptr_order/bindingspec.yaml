@@ -10,6 +10,9 @@ ctypes:
   cname: macro P
   hsname: P
 - headers: macros/macro_type_ptr_order.h
+  cname: macro Z_PTR
+  hsname: Z_PTR
+- headers: macros/macro_type_ptr_order.h
   cname: macro A_T
   hsname: A_T
 hstypes:
@@ -100,6 +103,29 @@ hstypes:
   - Read
   - ReadRaw
   - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Z_PTR
+  representation:
+    newtype:
+      constructor: Z_PTR
+      fields:
+      - unwrapZ_PTR
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
   - Show
   - StaticSize
   - Storable

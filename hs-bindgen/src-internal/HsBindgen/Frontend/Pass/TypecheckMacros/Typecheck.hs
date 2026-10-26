@@ -7,6 +7,8 @@ import Data.Set qualified as Set
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -24,27 +26,32 @@ type Out   = TypecheckMacros
   Typecheck macros
 -------------------------------------------------------------------------------}
 
--- | Typecheck all macro declarations, threading non-macro declarations through
+-- | Typecheck all macro declarations, advancing non-macro declarations
 -- unchanged.
 --
--- Returns the typechecked declarations and the set of names of type-like macros
--- (used by the reparse environment). A macro that fails to typecheck stays a
--- declaration, recording the failure (see "HsBindgen.Frontend.MacroFallback").
+-- Returns the advanced database and the set of names of type-like macros (used
+-- by the reparse environment). A macro that fails to typecheck stays active,
+-- recording the failure (see "HsBindgen.Frontend.MacroFallback").
 typecheckDecls ::
      forall l. Macro.HasTypes l
   => Macro.Lang l
-  -> [C.Decl l In]
-  -> ([C.Decl l Out], Set Text)
-typecheckDecls macroLang decls =
-    (decls', getKnownMacroTypes decls')
+  -> DeclDB l In
+  -> (DeclDB l Out, Set Text)
+typecheckDecls macroLang db =
+    (db', getKnownMacroTypes $ DeclDB.active DeclDB.AnyOrder db')
   where
-    -- Needs dependency order: a macro is typechecked in the environment of the
-    -- macros before it.
+    -- A macro is typechecked in the environment of the macros before it, so
+    -- its dependencies come first, those under a pointer ('NeedsNameOnly')
+    -- included.
     tcResults :: Map Text (Macro.TypecheckResult l)
-    tcResults = macroLang.typecheck (mapMaybe getResolvedMacro decls)
+    tcResults = macroLang.typecheck $
+      mapMaybe getResolvedMacro (DeclDB.active DeclDB.AllDependencies db)
 
-    decls' :: [C.Decl l Out]
-    decls' = map (typecheckDecl tcResults) decls
+    db' :: DeclDB l Out
+    db' = runIdentity $
+      DeclDB.traverseActive DeclDB.AnyOrder
+        (pure . DeclDB.Advanced . typecheckDecl tcResults)
+        db
 
 getResolvedMacro :: C.Decl l In -> Maybe (Macro.Resolved l)
 getResolvedMacro decl = case decl.kind of

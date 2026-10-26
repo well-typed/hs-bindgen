@@ -87,6 +87,10 @@
   them, and selecting a deprecated squashed typedef reports "Selected a
   deprecated declaration". Previously, they were always considered available.
 
+* A macro that uses, under a pointer, a type macro defined after it (e.g.,
+  `#define P T *` before `#define T int`) now typechecks. Previously, it
+  failed with "Unbound variable".
+
 ## 1.0.0.0 -- 2026-10-08
 
 ### Breaking changes

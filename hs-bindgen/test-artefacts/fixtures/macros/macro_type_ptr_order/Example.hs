@@ -16,6 +16,7 @@
 module Example
     ( Example.T(..)
     , Example.P(..)
+    , Example.Z_PTR(..)
     , Example.A_T(..)
     )
   where
@@ -101,6 +102,44 @@ instance (ty ~ BG.Ptr T) => BG.HasField "unwrapP" (BG.Ptr P) (BG.Ptr ty) where
 instance HasCField.HasCField P "unwrapP" where
 
   type CFieldType P "unwrapP" = BG.Ptr T
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @macro Z_PTR@
+
+    __defined at:__ @macros\/macro_type_ptr_order.h 6:9@
+
+    __exported by:__ @macros\/macro_type_ptr_order.h@
+-}
+newtype Z_PTR = Z_PTR
+  { unwrapZ_PTR :: BG.Ptr A_T
+  }
+  deriving stock (Eq, BG.Generic, Ord, Show)
+  deriving newtype
+    ( BG.HasFFIType
+    , Marshal.ReadRaw
+    , Marshal.StaticSize
+    , BG.Storable
+    , Marshal.WriteRaw
+    )
+
+instance ( ty ~ BG.Ptr A_T
+         ) => BG.CompatHasField.HasField "unwrapZ_PTR" Z_PTR ty where
+
+  hasField =
+    \x0 ->
+      (\y1 ->
+         Z_PTR {unwrapZ_PTR = y1}, BG.getField @"unwrapZ_PTR" x0)
+
+instance ( ty ~ BG.Ptr A_T
+         ) => BG.HasField "unwrapZ_PTR" (BG.Ptr Z_PTR) (BG.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (BG.Proxy @"unwrapZ_PTR")
+
+instance HasCField.HasCField Z_PTR "unwrapZ_PTR" where
+
+  type CFieldType Z_PTR "unwrapZ_PTR" = BG.Ptr A_T
 
   offset# = \_ -> \_ -> 0
 
