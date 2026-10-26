@@ -24,6 +24,7 @@ import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.SortMsgs (sortMsgs)
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -65,7 +66,7 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
             pSpec'
             unit.includeGraph
             unit.db
-            (resolveDecls unit.decls)
+            (resolveDecls (DeclDB.active DeclDB.AnyOrder unit.db))
         -- No source location: no declaration used the specification, and an
         -- entry with the same identifier may be in another header.
         notUsedErrs = [
@@ -76,10 +77,14 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
           | declId <- Map.keys state.noPTypes
           ]
     in  ( C.fromDeclDB unit.includeGraph (resolveDB decls state)
-        , pSpecErrs ++ reverse state.traces ++ notUsedErrs
+          -- Sorted, so that their order does not depend on the processing order
+        , pSpecErrs ++ sortMsgs includeOrder (reverse state.traces ++ notUsedErrs)
         )
   where
-    -- Externalized entries are no longer active, so need no result.
+    includeOrder :: IncludeGraph.IncludeOrder
+    includeOrder = IncludeGraph.toIncludeOrder unit.includeGraph
+
+    -- Externalised entries are no longer active, so need no result.
     resolveDB ::
          [C.Decl l ResolveBindingSpecs]
       -> MState
