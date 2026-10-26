@@ -56,6 +56,7 @@ testCases = [
     , test_typedef_name_clash
     , test_typedef_suffix_clash
     , test_unusable_delayed_msgs
+    , test_inactive_unusable_dep
     ]
 
 {-------------------------------------------------------------------------------
@@ -639,3 +640,33 @@ test_unusable_delayed_msgs =
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["F", "F", "f"]
+
+-- | A selected inactive declaration has no dependencies
+test_inactive_unusable_dep :: TestCase
+test_inactive_unusable_dep =
+    defaultTest "program-analysis/inactive_unusable_dep"
+      & #specPrescriptive .~ Just "test-artefacts/headers/golden/program-analysis/inactive_unusable_dep.yaml"
+      & #onFrontend .~ ( #programSlicing .~ EnableProgramSlicing )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchDelayed name (ParseUnsupportedFloatType UnsupportedLongDouble) ->
+              Just $ Expected (name, "parse")
+            MatchUnusableReason name (UnusableMangleNames (MangleNamesCollisionError DetectClashesCollision{})) ->
+              Just $ Expected (name, "collision")
+            MatchUnusableReason name (UnusableMangleNames (MangleNamesResolutionError ResolveNamesUnderlyingDeclNotMangled{})) ->
+              Just $ Expected (name, "mangle")
+            MatchSelect name (MatchTransMissing{}) ->
+              Just $ Expected (name, "transitivity")
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [(C.DeclName, String)]
+    declsWithMsgs = [
+          ("struct unsupported" , "parse")
+        , ("struct clash"       , "collision")
+        , ("clash"              , "collision")
+        , ("struct uses_omitted", "mangle")
+        , ("struct clash"       , "transitivity")
+        , ("struct omitted"     , "transitivity")
+        , ("struct uses_omitted", "transitivity")
+        ]
