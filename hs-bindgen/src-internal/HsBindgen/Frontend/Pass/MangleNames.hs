@@ -8,16 +8,16 @@ import Data.Set qualified as Set
 import HsBindgen.Config.MangleCandidate (MangleCandidate (..))
 import HsBindgen.Config.MangleCandidate qualified as MangleCandidate
 import HsBindgen.Config.Prelims (FieldNamingStrategy)
-import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
+import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.MangleNames.CreateNames
 import HsBindgen.Frontend.Pass.MangleNames.DetectClashes
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
+import HsBindgen.Frontend.Pass.MangleNames.IsPass.Msg
 import HsBindgen.Frontend.Pass.MangleNames.Names
 import HsBindgen.Frontend.Pass.MangleNames.ResolveNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.SortMsgs (sortMsgs)
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -67,13 +67,13 @@ mangleNames ::
   -> (C.TranslationUnit l MangleNames, [AnnMsg MangleNames])
 mangleNames fieldNaming unit = (
       unit{C.db =
-          runIdentity $
-            DeclDB.traverseActive DeclDB.AnyOrder
-              (\decl -> pure $ DeclDB.lookupResult decl.id results)
-              unit.db
+          DeclDB.addDelayedMsgs (map (second DelayedMangleNames) msgs1) $
+            runIdentity $
+              DeclDB.traverseActive DeclDB.AnyOrder
+                (\decl -> pure $ DeclDB.lookupResult decl.id results)
+                unit.db
         }
-      -- Sorted, so that their order does not depend on the processing order
-    , sortMsgs includeOrder msgs1 ++ catMaybes [
+    , catMaybes [
           Just $ debugMsg $ MangleNamesNameMap nameMap
         , bugMsg . MangleNamesNameMapDuplicates <$> nameMapDups
         , Just $ debugMsg $ MangleNamesNameRegistry registry
@@ -82,9 +82,6 @@ mangleNames fieldNaming unit = (
   where
     decls :: [C.Decl l ResolveBindingSpecs]
     decls = DeclDB.active DeclDB.AnyOrder unit.db
-
-    includeOrder :: IncludeGraph.IncludeOrder
-    includeOrder = IncludeGraph.toIncludeOrder unit.includeGraph
 
     typedefAnalysis :: TypedefAnalysis.TypedefAnalysis
     typedefAnalysis = TypedefAnalysis.fromDecls unit.db.declUseGraph decls
@@ -98,7 +95,7 @@ mangleNames fieldNaming unit = (
     nameMap     :: NameMap
     nameMapDups :: Maybe (NonEmpty DupAssign)
     failures1   :: [MangleNamesFailure]
-    msgs1       :: [AnnMsg MangleNames]
+    msgs1       :: [(C.DeclId, DelayedMangleNamesMsg)]
     (declsC, squashes, nameMap, nameMapDups, failures1, msgs1) =
       createNames typedefAnalysis mangleCandidateConfig fieldNaming decls
 

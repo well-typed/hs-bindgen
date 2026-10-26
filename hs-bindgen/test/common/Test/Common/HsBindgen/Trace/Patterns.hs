@@ -20,7 +20,7 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , pattern MatchBindingSpec
   , pattern MatchResolveBindingSpecs
     -- * MangleNames
-  , pattern MatchMangle
+  , pattern MatchDelayedMangleNames
     -- * TranslateTypes
   , pattern MatchImmediateTranslateTypes
   , pattern MatchDelayedTranslateTypes
@@ -42,6 +42,7 @@ import Data.Text qualified as Text
 import HsBindgen.Doxygen (DoxygenMsg)
 import HsBindgen.Frontend.DeclDB
 import HsBindgen.Frontend.DelayedMsg
+import HsBindgen.Frontend.Pass.MangleNames.IsPass.Msg (DelayedMangleNamesMsg)
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg)
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg,
                                                           PrepareReparseMsg)
@@ -176,13 +177,8 @@ pattern MatchResolveBindingSpecs name x <- TraceFrontend (
   MangleNames
 -------------------------------------------------------------------------------}
 
-pattern MatchMangle :: C.DeclName -> MangleNamesMsg -> TraceMsg
-pattern MatchMangle name x <- TraceFrontend (
-      FrontendMangleNames C.WithLocationInfo{
-           loc = C.locationInfoName -> Just name
-         , msg = x
-        }
-    )
+pattern MatchDelayedMangleNames :: C.DeclName -> DelayedMangleNamesMsg -> TraceMsg
+pattern MatchDelayedMangleNames name x <- MatchSelect name (SelectDelayedMsg (DelayedMangleNames x))
 
 {-------------------------------------------------------------------------------
   TranslateTypes
