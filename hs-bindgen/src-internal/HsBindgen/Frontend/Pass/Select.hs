@@ -401,11 +401,16 @@ getSelectMsgsDeclId
       Set.member declId additionalSelectedTransDepIds
     transitiveSelectability = getTransitiveSelectability declId
 
+    -- An unusable declaration is not selected: as a selection root, it reports
+    -- why ('getDelayedMsgsSelectionRoots'); as a transitive dependency, its
+    -- users do.
     getMsgsFor :: HasCallStack => SelectReason -> [AnnMsg Select]
-    getMsgsFor selectReason = concat [
-          [ withLoc $ SelectStatusInfo (Selected selectReason) ]
-        , [ withLoc $ SelectDeprecated selectReason | isDeprecated ]
-        ]
+    getMsgsFor selectReason
+      | isJust (DeclDB.getUnusable entry) = []
+      | otherwise = concat [
+            [ withLoc $ SelectStatusInfo (Selected selectReason) ]
+          , [ withLoc $ SelectDeprecated selectReason | isDeprecated ]
+          ]
 
     withLoc :: HasCallStack => a -> WithCallStack (C.WithLocationInfo a)
     withLoc x = withCallStack C.WithLocationInfo{
