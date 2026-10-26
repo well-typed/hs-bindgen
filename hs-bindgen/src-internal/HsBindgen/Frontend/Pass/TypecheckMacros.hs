@@ -42,7 +42,7 @@ typecheckMacros macroLang unit =
           collectKnownTypes unit.db
         (db', knownMacroTypes) =
           typecheckDecls macroLang unit.db
-    in  ( C.fromDeclDB unit.includeGraph db'
+    in  ( unit{C.db = db'}
         , Map.fromList [
               (n, v)
             | (declId, v) <- Map.toList knownTypes

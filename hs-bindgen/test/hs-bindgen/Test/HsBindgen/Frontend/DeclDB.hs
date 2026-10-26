@@ -6,8 +6,6 @@ module Test.HsBindgen.Frontend.DeclDB (
   , checkTransition
   , checkKeysDeclId
   , checkKeysDeclIdPair
-  , checkDeclsDeclId
-  , checkDeclsDeclIdPair
     -- * Frontend
   , checkFrontend
   ) where
@@ -44,12 +42,6 @@ data Target =
 data Violation =
     -- | An active declaration whose identifier is not its key
     ActiveIdNotKey C.DeclId C.DeclId
-    -- | A declaration of the unit without an active entry
-  | DeclNotActive C.DeclId
-    -- | An active entry without a declaration in the unit
-  | ActiveNotDecl C.DeclId
-    -- | A declaration that occurs more than once in the unit
-  | DuplicateDecl C.DeclId
   | DelayedMsgsWithoutEntry C.DeclId
   | VertexWithoutEntry C.DeclId
   | EntryWithoutVertex C.DeclId
@@ -159,40 +151,12 @@ checkKeysDeclId = checkKeys (\decl -> decl.id)
 checkKeysDeclIdPair :: Id p ~ DeclIdPair => DeclDB l p -> [Violation]
 checkKeysDeclIdPair = checkKeys (\decl -> decl.id.cName)
 
--- | The identifiers of the unit's declarations are the active keys
-checkDeclsDeclId :: Id p ~ C.DeclId => C.TranslationUnit l p -> [Violation]
-checkDeclsDeclId = checkDecls (\decl -> decl.id)
-
--- | The C identifiers of the unit's declarations are the active keys
-checkDeclsDeclIdPair ::
-     Id p ~ DeclIdPair
-  => C.TranslationUnit l p
-  -> [Violation]
-checkDeclsDeclIdPair = checkDecls (\decl -> decl.id.cName)
-
 checkKeys :: (C.Decl l p -> C.DeclId) -> DeclDB l p -> [Violation]
 checkKeys key db = [
       ActiveIdNotKey declId (key decl)
     | (declId, Active decl) <- Map.toList db.entries
     , key decl /= declId
     ]
-
-checkDecls :: (C.Decl l p -> C.DeclId) -> C.TranslationUnit l p -> [Violation]
-checkDecls key unit = concat [
-      map DeclNotActive $ Set.toList $ declIds \\ activeKeys
-    , map ActiveNotDecl $ Set.toList $ activeKeys \\ declIds
-    , map DuplicateDecl $ Map.keys $ Map.filter (> 1) $
-        Map.fromListWith (+) [(key decl, 1 :: Int) | decl <- unit.decls]
-    ]
-  where
-    declIds, activeKeys :: Set C.DeclId
-    declIds    = Set.fromList $ map key unit.decls
-    activeKeys = Map.keysSet $ Map.filter isActive unit.db.entries
-
-    isActive :: Entry l p -> Bool
-    isActive = \case
-      Active{}   -> True
-      _otherwise -> False
 
 {-------------------------------------------------------------------------------
   Frontend
@@ -257,7 +221,7 @@ checkFrontend = do
 
     atDeclId :: Id p ~ C.DeclId => String -> C.TranslationUnit l p -> [String]
     atDeclId name unit =
-      report name $ checkKeysDeclId unit.db ++ checkDeclsDeclId unit
+      report name $ checkKeysDeclId unit.db
 
     atDeclIdPair ::
          Id p ~ DeclIdPair
@@ -265,7 +229,7 @@ checkFrontend = do
       -> C.TranslationUnit l p
       -> [String]
     atDeclIdPair name unit =
-      report name $ checkKeysDeclIdPair unit.db ++ checkDeclsDeclIdPair unit
+      report name $ checkKeysDeclIdPair unit.db
 
     report :: String -> [Violation] -> [String]
     report name violations = [

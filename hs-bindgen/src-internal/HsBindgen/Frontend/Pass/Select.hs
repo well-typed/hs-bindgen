@@ -193,7 +193,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
               index
 
         unitSelect :: C.TranslationUnit l Select
-        unitSelect = C.fromDeclDB unit.includeGraph db'
+        unitSelect = unit{C.db = db'}
 
         selectMsgs :: [AnnMsg Select]
         selectMsgs =

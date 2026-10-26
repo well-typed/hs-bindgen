@@ -33,11 +33,12 @@ adjustTypes ::
      C.TranslationUnit l MangleNames
   -> C.TranslationUnit l AdjustTypes
 adjustTypes unit =
-    C.fromDeclDB unit.includeGraph $
-      runIdentity $
-        DeclDB.traverseActive DeclDB.AnyOrder
-          (pure . DeclDB.Advanced . processDecl)
-          unit.db
+    unit{C.db =
+        runIdentity $
+          DeclDB.traverseActive DeclDB.AnyOrder
+            (pure . DeclDB.Advanced . processDecl)
+            unit.db
+      }
 
 {-------------------------------------------------------------------------------
   Decls

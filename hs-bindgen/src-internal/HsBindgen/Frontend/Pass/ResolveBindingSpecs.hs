@@ -76,7 +76,7 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
               }
           | declId <- Map.keys state.noPTypes
           ]
-    in  ( C.fromDeclDB unit.includeGraph (resolveDB decls state)
+    in  ( unit{C.db = resolveDB decls state}
           -- Sorted, so that their order does not depend on the processing order
         , pSpecErrs ++ sortMsgs includeOrder (reverse state.traces ++ notUsedErrs)
         )

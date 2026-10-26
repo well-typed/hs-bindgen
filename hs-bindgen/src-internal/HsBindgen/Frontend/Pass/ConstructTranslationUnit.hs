@@ -28,5 +28,8 @@ constructTranslationUnit ::
   -> IncludeGraph
   -> C.TranslationUnit l ConstructTranslationUnit
 constructTranslationUnit macroLang macroAnalysis isMainHeader parseResults includeGraph =
-    C.fromDeclDB includeGraph $
-      DeclDB.fromParseResults macroLang macroAnalysis isMainHeader parseResults
+    C.TranslationUnit{
+        includeGraph = includeGraph
+      , db           =
+          DeclDB.fromParseResults macroLang macroAnalysis isMainHeader parseResults
+      }

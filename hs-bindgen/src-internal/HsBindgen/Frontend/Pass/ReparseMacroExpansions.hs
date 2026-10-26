@@ -51,8 +51,7 @@ reparseMacroExpansions cStd knownNonMacroTypes knownMacros unit =
             (DeclDB.traverseActive DeclDB.AnyOrder
                (fmap DeclDB.Advanced . reparseDecl)
                unit.db)
-    in  C.fromDeclDB unit.includeGraph $
-          updateDB reparseState.reparseWarnings reparsedDB
+    in  unit{C.db = updateDB reparseState.reparseWarnings reparsedDB}
 
 updateDB ::
      [(C.DeclId, DelayedReparseMacroExpansionsMsg)]

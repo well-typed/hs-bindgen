@@ -31,7 +31,7 @@ translateTypes ::
   -> ( C.TranslationUnit l TranslateTypes
      , [AnnMsg TranslateTypes]
      )
-translateTypes unit = (C.fromDeclDB unit.includeGraph db', msgs)
+translateTypes unit = (unit{C.db = db'}, msgs)
   where
     msgs = []
 

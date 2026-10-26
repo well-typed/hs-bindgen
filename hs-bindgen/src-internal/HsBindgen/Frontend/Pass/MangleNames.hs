@@ -66,11 +66,12 @@ mangleNames ::
   -> C.TranslationUnit l ResolveBindingSpecs
   -> (C.TranslationUnit l MangleNames, [AnnMsg MangleNames])
 mangleNames fieldNaming unit = (
-      C.fromDeclDB unit.includeGraph $
-        runIdentity $
-          DeclDB.traverseActive DeclDB.AnyOrder
-            (\decl -> pure $ DeclDB.lookupResult decl.id results)
-            unit.db
+      unit{C.db =
+          runIdentity $
+            DeclDB.traverseActive DeclDB.AnyOrder
+              (\decl -> pure $ DeclDB.lookupResult decl.id results)
+              unit.db
+        }
       -- Sorted, so that their order does not depend on the processing order
     , sortMsgs includeOrder msgs1 ++ catMaybes [
           Just $ debugMsg $ MangleNamesNameMap nameMap
