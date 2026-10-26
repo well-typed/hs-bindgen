@@ -169,12 +169,12 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
               case (l,r) of
                 (UnselectableDependencyNotSelected, Unselectable u) ->
                   case u of
-                    InactiveDecl InactiveInfo{reason = NotAttempted}        -> r
+                    InactiveDecl InactiveInfo{reason = NotAttempted{}}      -> r
                     InactiveDecl InactiveInfo{reason = Deactivated Omitted} -> r
                     _otherReason                                            -> l
                 (Unselectable u, UnselectableDependencyNotSelected) ->
                   case u of
-                    InactiveDecl InactiveInfo{reason = NotAttempted}        -> l
+                    InactiveDecl InactiveInfo{reason = NotAttempted{}}      -> l
                     InactiveDecl InactiveInfo{reason = Deactivated Omitted} -> l
                     _otherReason                                            -> r
                 (_, _) -> l
@@ -285,13 +285,13 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
     useDeclGraph = UseDeclGraph.fromDeclUseGraph index.declUseGraph
 
     match :: Match
-    match name loc availability =
+    match name loc deprecation =
       matchSelect
         isMainHeader
         isInMainHeaderDir
         (singleLocPath loc)
         name
-        availability
+        deprecation
         config.selectionPredicate
 
 {-------------------------------------------------------------------------------
@@ -448,7 +448,7 @@ getSelectMsgsDeclId
              ]
 
     isDeprecated :: Bool
-    isDeprecated = DeclDB.entryToAvailability entry == C.Deprecated
+    isDeprecated = DeclDB.entryToDeprecation entry == C.Deprecated
 
 {-------------------------------------------------------------------------------
   Delayed traces
@@ -619,7 +619,7 @@ getBugMsgsNotSelected declDB notSelected =
 
     isBug :: InactiveReason -> Bool
     isBug = \case
-      NotAttempted             -> False
+      NotAttempted{}           -> False
       ParseFailed err          -> getDefaultLogLevel err == Bug
       Deactivated (Unusable r) -> getDefaultLogLevel r == Bug
       Deactivated Omitted      -> False
@@ -661,7 +661,7 @@ isDroppedMacro = \case
       -- A parse failure counts as a dropped macro iff it is a macro parse
       -- failure.
       ParseFailed p                                -> isMacroParseFailure p
-      NotAttempted                                 -> False
+      NotAttempted{}                               -> False
       Deactivated Omitted                          -> False
       Deactivated (Unusable UnusableMangleNames{}) -> False
     _otherwise                                     -> False
@@ -712,7 +712,7 @@ sortSelectMsgs includeGraph msgs =
 -------------------------------------------------------------------------------}
 
 -- Match function to find selection roots.
-type Match = C.DeclName -> SingleLoc C.DeclPath -> C.Availability -> Bool
+type Match = C.DeclName -> SingleLoc C.DeclPath -> C.Deprecation -> Bool
 
 -- | The entries that match the select predicate. Do not include anything
 --   external nor omitted.
@@ -730,11 +730,11 @@ selectEntries predicate declDB =
             -- External or omittted declarations have already been removed from
             -- the list of declarations
             False
-          Just (locs, availability) ->
+          Just (locs, deprecation) ->
             if declId.isUnnamed
               then matchUnnamed declId
               else Foldable.any
-                     (\loc -> predicate declId.name loc availability)
+                     (\loc -> predicate declId.name loc deprecation)
                      (C.declLocsToList locs)
 
     matchDeclId :: C.DeclId -> Bool
@@ -750,7 +750,7 @@ selectEntries predicate declDB =
     -- Returns multiple locations only for conflicts.
     entryInfo ::
          Entry l In
-      -> Maybe (C.DeclLocs, C.Availability)
+      -> Maybe (C.DeclLocs, C.Deprecation)
     entryInfo entry = case entry of
         External{} ->
           Nothing
@@ -758,7 +758,7 @@ selectEntries predicate declDB =
           Nothing
         _otherwise -> do
           locs <- DeclDB.entryToLoc entry
-          pure (locs, DeclDB.entryToAvailability entry)
+          pure (locs, DeclDB.entryToDeprecation entry)
 
     -- We match unnamed declarations based on their use sites.
     --

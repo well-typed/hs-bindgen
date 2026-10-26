@@ -227,32 +227,34 @@ traceImmediateGlobal msg = wrapEff $ \support ->
 -- | Declaration information obtained from a cursor
 data CursorDeclInfo =
     CursorDeclInfo C.DeclInfo
-    -- | libclang reports an unknown availability; the declaration information
-    -- marks the declaration 'C.Unavailable'.
-  | CursorDeclInfoUnknownAvailability
-      (SimpleEnum CXAvailabilityKind)
-      C.DeclInfo
+    -- | A declaration we do not attempt to parse
+  | CursorDeclInfoNotAttempted NotAttemptedReason C.DeclInfo
 
 -- | Obtain the information of the declaration at the given location
 getCursorDeclInfo :: SingleLoc C.DeclPath -> CXCursor -> ParseDecl CursorDeclInfo
 getCursorDeclInfo declLoc curr = do
     origin        <- getOrigin
     sAvailability <- clang_getCursorAvailability curr
-    let mkInfo :: C.Availability -> C.DeclInfo
-        mkInfo availability = C.DeclInfo{
+    let mkInfo :: C.Deprecation -> C.DeclInfo
+        mkInfo deprecation = C.DeclInfo{
               loc              = declLoc
               -- We initialize the source-order index to 'Nothing', and
               -- populate it when consolidating macros with non-macros in
               -- "HsBindgen.Frontend.Pass.Parse".
             , sourceOrderIndex = Nothing
             , origin           = origin
-            , availability     = availability
+            , deprecation      = deprecation
             }
+
+        notAttempted :: NotAttemptedReason -> CursorDeclInfo
+        notAttempted reason =
+          CursorDeclInfoNotAttempted reason $ mkInfo C.NotDeprecated
     pure $ case fromSimpleEnum sAvailability of
-      Right availability ->
-        CursorDeclInfo $ mkInfo (toAvailability availability)
-      Left _ ->
-        CursorDeclInfoUnknownAvailability sAvailability $ mkInfo C.Unavailable
+      Right CXAvailability_Available     -> CursorDeclInfo $ mkInfo C.NotDeprecated
+      Right CXAvailability_Deprecated    -> CursorDeclInfo $ mkInfo C.Deprecated
+      Right CXAvailability_NotAvailable  -> notAttempted PlatformUnavailable
+      Right CXAvailability_NotAccessible -> notAttempted PlatformUnavailable
+      Left _ -> notAttempted $ UnknownAvailability sAvailability
   where
     getOrigin :: ParseDecl C.DeclOrigin
     getOrigin = case declLoc.singleLocPath of
@@ -276,13 +278,6 @@ getCursorDeclInfo declLoc curr = do
           , includeArg      = IncludeGraph.getIncludeArg      include
           , includeMacroArg = IncludeGraph.getIncludeMacroArg include
           }
-
-    toAvailability :: CXAvailabilityKind -> C.Availability
-    toAvailability = \case
-      CXAvailability_Available     -> C.Available
-      CXAvailability_Deprecated    -> C.Deprecated
-      CXAvailability_NotAvailable  -> C.Unavailable
-      CXAvailability_NotAccessible -> C.Unavailable
 
 {-------------------------------------------------------------------------------
   Errors
@@ -330,9 +325,9 @@ parseFailNoInfo ctx msg curr = do
     cursorInfo <- getCursorDeclInfo declLoc curr
     let info :: C.DeclInfo
         info = case cursorInfo of
-          CursorDeclInfo i                      -> i
+          CursorDeclInfo i                 -> i
           -- The declaration fails anyway.
-          CursorDeclInfoUnknownAvailability _ i -> i
+          CursorDeclInfoNotAttempted _ i -> i
     parseFail ctx declId info msg
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1820>

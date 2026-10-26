@@ -138,10 +138,10 @@ checkInvariants db = concat [
 
     isNeverActive :: Inactive -> Bool
     isNeverActive = \case
-      InactiveConflict{}                                -> True
-      InactiveDecl InactiveInfo{reason = ParseFailed{}} -> True
-      InactiveDecl InactiveInfo{reason = NotAttempted}  -> True
-      InactiveDecl InactiveInfo{reason = Deactivated{}} -> False
+      InactiveConflict{}                                 -> True
+      InactiveDecl InactiveInfo{reason = ParseFailed{}}  -> True
+      InactiveDecl InactiveInfo{reason = NotAttempted{}} -> True
+      InactiveDecl InactiveInfo{reason = Deactivated{}}  -> False
 
 -- | Every active declaration's identifier is its key
 checkKeysDeclId :: Id p ~ C.DeclId => DeclDB l p -> [Violation]

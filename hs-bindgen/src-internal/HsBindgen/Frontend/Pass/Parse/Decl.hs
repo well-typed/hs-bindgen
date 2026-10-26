@@ -209,12 +209,7 @@ parseDeclWith enclosing ctx parser curr = do
   where
     parseExplicitDecl :: C.PrelimDeclId -> C.DeclInfo -> Parser l
     parseExplicitDecl declId info = \_curr ->
-      if | C.Unavailable <- info.availability ->
-             foldContinueWith [
-                 parseUnavailable declId info
-               ]
-         | otherwise ->
-             parser enclosing ctx declId info curr
+      parser enclosing ctx declId info curr
 
 -- | Macros
 macroDefinition ::
@@ -1000,7 +995,7 @@ withCursorKind ctx k = \curr -> do
 
 -- | Parse with declaration info
 --
--- The continuation is only called when the availability is known.
+-- The continuation is only called for a declaration we attempt to parse.
 withDeclInfo ::
      ParseCtx
   -> SingleLoc C.DeclPath
@@ -1012,13 +1007,8 @@ withDeclInfo ctx declLoc k = \curr -> do
     case cursorInfo of
       CursorDeclInfo info ->
         k declId info curr
-      CursorDeclInfoUnknownAvailability sAvailability info ->
-        foldContinueWith [
-            parseUnavailableWith
-              [ParseUnknownCursorAvailability sAvailability]
-              declId
-              info
-          ]
+      CursorDeclInfoNotAttempted reason info ->
+        foldContinueWith [parseNotAttempted reason declId info]
 
 -- | The linkage of a linker symbol determines whether or not a linker symbol is
 -- visible to the linker outside the translation unit it is defined in.

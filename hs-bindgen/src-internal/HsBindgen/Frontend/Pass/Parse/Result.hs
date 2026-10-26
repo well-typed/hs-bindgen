@@ -3,12 +3,12 @@ module HsBindgen.Frontend.Pass.Parse.Result (
     ParseResult(..)
   , ParseSuccess(..)
   , ParseNotAttempted(..)
+  , NotAttemptedReason(..)
   , ParseFailure(..)
     -- * Convenience constructors
   , parseSucceed
   , parseSucceedWith
-  , parseUnavailable
-  , parseUnavailableWith
+  , parseNotAttempted
     -- * Query
   , parseResultId
   , parseResultInfo
@@ -17,6 +17,9 @@ module HsBindgen.Frontend.Pass.Parse.Result (
   ) where
 
 import Text.SimplePrettyPrint qualified as PP
+
+import Clang.Enum.Simple
+import Clang.LowLevel.Core
 
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Imports
@@ -36,8 +39,7 @@ import HsBindgen.Util.Tracer
 type ParseResult :: Star -> Pass -> Star
 data ParseResult l p =
     ParseResultSuccess     (ParseSuccess l p)
-    -- | We unexpectedly did not parse a declaration because it is reported
-    -- "unavailable".
+    -- | We did not attempt to parse the declaration
   | ParseResultUnavailable (ParseNotAttempted p)
   | ParseResultFailure     (ParseFailure p)
   deriving stock (Generic)
@@ -47,13 +49,30 @@ deriving stock instance ( IsPass p
                         ) => Show (ParseResult l p)
 
 data ParseNotAttempted p = ParseNotAttempted{
-      id               :: Id p
-    , info             :: C.DeclInfo
-    , delayedParseMsgs :: [DelayedParseMsg]
+      id     :: Id p
+    , info   :: C.DeclInfo
+    , reason :: NotAttemptedReason
     }
   deriving stock (Generic)
 
 deriving stock instance IsPass p => Show (ParseNotAttempted p)
+
+-- | Why we did not attempt to parse a declaration
+data NotAttemptedReason =
+    -- | Not available or not accessible
+    PlatformUnavailable
+    -- | @libclang@ reports an availability we do not know
+  | UnknownAvailability (SimpleEnum CXAvailabilityKind)
+  deriving stock (Show, Eq, Generic)
+
+instance PrettyForTrace NotAttemptedReason where
+  prettyForTrace = \case
+    PlatformUnavailable ->
+      "Declaration is 'unavailable' on this platform"
+    UnknownAvailability simpleKind -> PP.hsep [
+        "Unknown declaration cursor availability:"
+      , PP.show simpleKind
+      ]
 
 data ParseFailure p = ParseFailure{
       id   :: Id p
@@ -103,21 +122,16 @@ parseSucceedWith msgs decl = ParseResultSuccess ParseSuccess{
     , delayedParseMsgs = msgs
     }
 
--- | Assemble a parse result for an unavailable declaration
-parseUnavailable :: Id p -> C.DeclInfo -> ParseResult l p
-parseUnavailable = parseUnavailableWith []
-
--- | Assemble a parse result for an unavailable declaration with delayed parse
--- messages
-parseUnavailableWith ::
-     [DelayedParseMsg]
+-- | Assemble a parse result for a declaration we did not attempt to parse
+parseNotAttempted ::
+     NotAttemptedReason
   -> Id p
   -> C.DeclInfo
   -> ParseResult l p
-parseUnavailableWith msgs declId info = ParseResultUnavailable ParseNotAttempted{
-      id               = declId
-    , info             = info
-    , delayedParseMsgs = msgs
+parseNotAttempted reason declId info = ParseResultUnavailable ParseNotAttempted{
+      id     = declId
+    , info   = info
+    , reason = reason
     }
 
 {-------------------------------------------------------------------------------
@@ -162,9 +176,9 @@ instance (
 
 instance CoercePassId p p' => CoercePass ParseNotAttempted p p' where
   coercePass n = ParseNotAttempted{
-        id               = coercePassId (Proxy @'(p, p')) n.id
-      , info             = n.info
-      , delayedParseMsgs = n.delayedParseMsgs
+        id     = coercePassId (Proxy @'(p, p')) n.id
+      , info   = n.info
+      , reason = n.reason
       }
 
 instance CoercePassId p p' => CoercePass ParseFailure p p' where

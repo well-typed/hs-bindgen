@@ -84,5 +84,5 @@ applyMacroFallback isMainHeader isInMainHeaderDir config unit =
         isInMainHeaderDir
         (singleLocPath decl.info.loc)
         decl.id.name
-        decl.info.availability
+        decl.info.deprecation
         config.predicate

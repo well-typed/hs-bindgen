@@ -83,7 +83,7 @@ data DeclPredicate =
     -- | Match declaration name against regex
     DeclNameMatches Regex
     -- | Match deprecated declarations taking current target platform into
-    -- account; see 'HsBindgen.Frontend.AST.Decl.Availability'
+    -- account; see 'C.Deprecation'
   | DeclDeprecated
   deriving stock (Show, Eq, Generic)
 
@@ -147,15 +147,15 @@ matchSelect ::
   -> IsInMainHeaderDir
   -> C.DeclPath
   -> C.DeclName
-  -> C.Availability
+  -> C.Deprecation
   -> Boolean SelectionPredicate
   -> Bool
-matchSelect isMainHeader isInMainHeaderDir path cDeclName availability = eval $ \case
+matchSelect isMainHeader isInMainHeaderDir path cDeclName deprecation = eval $ \case
     SelectHeader p -> case path of
       C.InHeader realPath -> matchHeaderPath isMainHeader isInMainHeaderDir realPath p
       C.InRootHeader      -> False
       C.OnCommandLine     -> False
-    SelectDecl   p -> matchDecl cDeclName availability p
+    SelectDecl   p -> matchDecl cDeclName deprecation p
 
 {-------------------------------------------------------------------------------
   Merging
@@ -234,14 +234,10 @@ matchHeaderPath isMainHeader isInMainHeaderDir realPath = \case
     HeaderPathMatches re -> matchTest re (getRealPathText realPath)
 
 -- | Match 'DeclPredicate' predicates
-matchDecl :: C.DeclName -> C.Availability -> DeclPredicate -> Bool
-matchDecl cDeclName availability = \case
+matchDecl :: C.DeclName -> C.Deprecation -> DeclPredicate -> Bool
+matchDecl cDeclName deprecation = \case
     DeclNameMatches re -> matchTest re $ C.renderDeclName cDeclName
-    DeclDeprecated     -> isDeprecated
-  where
-    isDeprecated = case availability of
-      C.Deprecated -> True
-      _            -> False
+    DeclDeprecated     -> deprecation == C.Deprecated
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: regexs

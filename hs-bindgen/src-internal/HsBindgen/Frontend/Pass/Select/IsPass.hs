@@ -212,9 +212,8 @@ instance PrettyForTrace SelectMsg where
       SelectDelayedMsg x ->
         during x $ prettyForTrace x
       SelectUnusable reason -> case reason of
-        NotAttempted ->
-          couldNotSelect $ PP.hang "Parse not attempted: " 2
-            "Declaration is 'unavailable' on this platform"
+        NotAttempted x ->
+          couldNotSelect $ PP.hang "Parse not attempted: " 2 $ prettyForTrace x
         Deactivated Omitted ->
           couldNotSelect $
             "Declaration omitted by prescriptive binding specifications"
@@ -275,7 +274,7 @@ instance IsTrace Level SelectMsg where
     SelectDeprecated{}                       -> Notice
     SelectDelayedMsg x                       -> getDefaultLogLevel x
     SelectUnusable r -> case r of
-      NotAttempted             -> Warning
+      NotAttempted{}           -> Warning
       Deactivated Omitted      -> Info
       ParseFailed x            -> getDefaultLogLevel x
       Deactivated (Unusable x) -> getDefaultLogLevel x
@@ -293,7 +292,7 @@ instance IsTrace Level SelectMsg where
     SelectDeprecated{}                       -> "select"
     SelectDelayedMsg x                       -> "select-" <> getTraceId x
     SelectUnusable r -> case r of
-      NotAttempted             -> "select-parse"
+      NotAttempted{}           -> "select-parse"
       Deactivated Omitted      -> "select-omitted"
       ParseFailed x            -> "select-" <> getTraceId x
       Deactivated (Unusable x) -> "select-" <> getTraceId x

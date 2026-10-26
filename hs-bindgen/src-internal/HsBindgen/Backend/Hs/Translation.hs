@@ -655,7 +655,7 @@ typedefFunTypeIndirectionDecs origDecl (args, res, reconstruct) names origSpec =
 
     auxDecl :: C.Decl l Final
     auxDecl = C.Decl {
-          info      = origDecl.info & #availability .~ C.Available
+          info      = origDecl.info & #deprecation .~ C.NotDeprecated
         , id        = auxDeclIdPair
         , comment   = Just auxComment
         , enclosing = []

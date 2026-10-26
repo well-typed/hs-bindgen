@@ -43,7 +43,7 @@ module HsBindgen.Frontend.DeclDB (
   , Deactivation(..)
   , UnusableReason(..)
   , entryToLoc
-  , entryToAvailability
+  , entryToDeprecation
   , inactiveToLoc
   , getUnusable
     -- * Construction
@@ -238,9 +238,9 @@ data InactiveInfo = InactiveInfo{
 -- | Why we don't have the declaration
 data InactiveReason =
     -- | At construction
-    ParseFailed DelayedParseMsg
-    -- | At construction; unavailable, see 'C.DeclInfo' availability
-  | NotAttempted
+    ParseFailed  DelayedParseMsg
+    -- | At construction
+  | NotAttempted NotAttemptedReason
     -- | By a later pass
   | Deactivated  Deactivation
   deriving stock (Show, Generic)
@@ -249,8 +249,8 @@ instance PrettyForTrace InactiveReason where
   prettyForTrace = \case
     ParseFailed{} ->
       "Parse failed"
-    NotAttempted ->
-      "Declaration is 'unavailable' on this platform"
+    NotAttempted reason ->
+      prettyForTrace reason
     Deactivated deactivation ->
       prettyForTrace deactivation
 
@@ -301,15 +301,15 @@ entryToLoc = \case
     Deselected info   -> Just $ C.DeclLoc info.loc
     Inactive inactive -> Just $ inactiveToLoc inactive
 
--- | 'C.Available' where we do not know: for conflicts and externals
-entryToAvailability :: Entry l p -> C.Availability
-entryToAvailability = \case
-    Active decl                       -> decl.info.availability
-    Squashed squashed                 -> squashed.info.availability
-    External{}                        -> C.Available
-    Deselected info                   -> info.availability
-    Inactive (InactiveDecl inactive)  -> inactive.info.availability
-    Inactive InactiveConflict{}       -> C.Available
+-- | 'C.NotDeprecated' where we do not know: for conflicts and externals
+entryToDeprecation :: Entry l p -> C.Deprecation
+entryToDeprecation = \case
+    Active decl                       -> decl.info.deprecation
+    Squashed squashed                 -> squashed.info.deprecation
+    External{}                        -> C.NotDeprecated
+    Deselected info                   -> info.deprecation
+    Inactive (InactiveDecl inactive)  -> inactive.info.deprecation
+    Inactive InactiveConflict{}       -> C.NotDeprecated
 
 inactiveToLoc :: Inactive -> C.DeclLocs
 inactiveToLoc = \case
@@ -374,7 +374,7 @@ parseResultToEntry = \case
     ParseResultUnavailable r ->
       Inactive $ InactiveDecl InactiveInfo{
           info   = r.info
-        , reason = NotAttempted
+        , reason = NotAttempted r.reason
         }
     ParseResultFailure r ->
       Inactive $ InactiveDecl InactiveInfo{
@@ -385,7 +385,7 @@ parseResultToEntry = \case
 parseResultMsgs :: ParseResult l Out -> [DelayedParseMsg]
 parseResultMsgs = \case
     ParseResultSuccess r     -> r.delayedParseMsgs
-    ParseResultUnavailable r -> r.delayedParseMsgs
+    ParseResultUnavailable{} -> []
     ParseResultFailure{}     -> []
 
 -- | Resolve macro names in every successful declaration.
