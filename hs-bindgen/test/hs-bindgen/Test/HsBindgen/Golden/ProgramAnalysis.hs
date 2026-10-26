@@ -57,6 +57,7 @@ testCases = [
     , test_typedef_suffix_clash
     , test_unusable_delayed_msgs
     , test_inactive_unusable_dep
+    , test_global_unusable_type
     ]
 
 {-------------------------------------------------------------------------------
@@ -675,4 +676,28 @@ test_inactive_unusable_dep =
         , ("struct clash"       , "transitivity")
         , ("struct omitted"     , "transitivity")
         , ("struct uses_omitted", "transitivity")
+        ]
+
+-- | A global whose type is unusable reports the parse failure of the type, and
+-- the type as an unusable transitive dependency; it also reports that it failed
+-- to mangle, since its type has no Haskell name
+test_global_unusable_type :: TestCase
+test_global_unusable_type =
+    testTraceMulti "program-analysis/global_unusable_type" declsWithMsgs $ \case
+      MatchDelayed name (ParseUnsupportedFloatType UnsupportedLongDouble) ->
+        Just $ Expected (name, "parse")
+      MatchSelect name (MatchTransMissing [
+          MatchTransUnusable (InactiveDecl InactiveInfo{reason = ParseFailed{}})
+        ]) ->
+        Just $ Expected (name, "transitivity")
+      MatchUnusableReason name (UnusableMangleNames (MangleNamesResolutionError ResolveNamesUnderlyingDeclNotMangled{})) ->
+        Just $ Expected (name, "mangle")
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [(C.DeclName, String)]
+    declsWithMsgs = [
+          ("struct badGlobal", "parse")
+        , ("badGlobal"       , "transitivity")
+        , ("badGlobal"       , "mangle")
         ]
