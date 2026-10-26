@@ -21,6 +21,13 @@
 
 [is-2323]: https://github.com/well-typed/hs-bindgen/issues/2323
 
+* A typedef of a tagged type is now also squashed when the only other use of
+  the tagged type is a typedef with an external binding: the external
+  binding replaces that typedef, so it no longer uses the tagged type. For
+  example, with the standard library binding specification, glibc's
+  `typedef struct _IO_FILE __FILE;` now generates `data C__FILE` instead of
+  `data C_IO_FILE` and `newtype C__FILE`.
+
 ### New features
 
 - Macro fallback: macros that the macro language fails to handle can be

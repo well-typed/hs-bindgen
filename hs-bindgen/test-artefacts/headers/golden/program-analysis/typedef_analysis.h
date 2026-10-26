@@ -18,6 +18,7 @@
  *   Typedef is a direct alias, self-referential       11,12    squash
  *   Direct alias (const-qualified), same name         15       squash
  *   Direct alias used by more than one typedef        7        keep both
+ *   Like 7, but the other typedef is external         17       squash
  *   Indirection, name mismatch                        5        keep both
  *   Eponymous tag via pointer                         6a       suffix tag
  *   Eponymous tag via array                           6b       suffix tag
@@ -199,4 +200,17 @@ struct use_sites_qual {
   // for struct16 both types continue to exist (the tag is suffixed)
   struct struct16 useStruct_struct16;
   struct16 useTypedef_struct16;
+};
+
+// Example 17: like example 7, but 'struct17a' has an external binding.
+//
+// An external declaration has no dependencies, so 'struct17b' is the only use
+// of 'struct struct17', and is squashed.
+struct struct17 {};
+typedef struct struct17 struct17a;
+typedef struct struct17 struct17b;
+
+// No use of 'struct17a': the generated module would import its external module.
+struct use_sites_external {
+  struct17b useTypedef_struct17b;
 };

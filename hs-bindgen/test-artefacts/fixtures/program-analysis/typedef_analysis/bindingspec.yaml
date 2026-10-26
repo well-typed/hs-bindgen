@@ -123,6 +123,15 @@ ctypes:
 - headers: program-analysis/typedef_analysis.h
   cname: struct use_sites_qual
   hsname: Use_sites_qual
+- headers: program-analysis/typedef_analysis.h
+  cname: struct struct17
+  hsname: Struct17b
+- headers: program-analysis/typedef_analysis.h
+  cname: struct17b
+  hsname: Struct17b
+- headers: program-analysis/typedef_analysis.h
+  cname: struct use_sites_external
+  hsname: Use_sites_external
 hstypes:
 - hsname: Bar
   representation:
@@ -323,6 +332,20 @@ hstypes:
   representation:
     record:
       constructor: Struct16_struct
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Struct17b
+  representation:
+    record:
+      constructor: Struct17b
       fields: []
   instances:
   - Eq
@@ -611,6 +634,25 @@ hstypes:
       - use_sites_useTypedef_struct10_t_t
       - use_sites_useTypedef_struct11_t
       - use_sites_useTypedef_struct12_t
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Use_sites_external
+  representation:
+    record:
+      constructor: Use_sites_external
+      fields:
+      - use_sites_external_useTypedef_struct17b
   instances:
   - Eq
   - Generic
