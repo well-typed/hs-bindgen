@@ -195,9 +195,6 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
         unitSelect :: C.TranslationUnit l Select
         unitSelect = C.fromDeclDB unit.includeGraph db'
 
-        selectedUnitDecls :: [Decl l]
-        selectedUnitDecls = unitSelect.decls
-
         selectMsgs :: [AnnMsg Select]
         selectMsgs =
           getSelectMsgs
@@ -241,7 +238,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
                 loc = C.declIdLocationInfo decl.id.cName [decl.info.loc]
               , msg = SelectMacroFallback raw.failure
               }
-          | decl <- selectedUnitDecls
+          | decl <- DeclDB.active DeclDB.AnyOrder db'
           , C.DeclMacro (MacroRaw raw) <- [decl.kind]
           ]
 
