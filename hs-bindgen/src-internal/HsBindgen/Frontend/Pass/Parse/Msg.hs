@@ -227,12 +227,6 @@ data DelayedParseMsg =
     -- > extern int __attribute__ ((visibility ("hidden"))) i;
   | ParseNonPublicVisibility
 
-    -- | Declaration availability can not be determined.
-    --
-    -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
-    -- provide a valid 'Clang.LowLevel.Core.CXAvailabilityKind'.
-  | ParseUnknownCursorAvailability (SimpleEnum CXAvailabilityKind)
-
     -- | Variable declaration
   | ParseUnknownStorageClass (SimpleEnum CX_StorageClass)
 
@@ -472,10 +466,6 @@ instance PrettyForTrace DelayedParseMsg where
           "Bindings may result in linker errors"
         , "because the symbol has non-public visibility"
         ]
-      ParseUnknownCursorAvailability simpleKind -> PP.hsep [
-          "Unknown declaration cursor availability:"
-        , PP.show simpleKind
-        ]
       ParseUnknownStorageClass storage -> PP.hsep [
           "Unsupported storage class"
         , PP.show storage
@@ -556,7 +546,6 @@ instance IsTrace Level DelayedParseMsg where
       ParseInvalidLinkage                  -> Warning
       ParseInvalidVisibility               -> Warning
       ParseNonPublicVisibility{}           -> Warning
-      ParseUnknownCursorAvailability{}     -> Warning
       ParseUnknownStorageClass{}           -> Warning
       ParseUnexposedType                   -> Warning
       ParseUnsupportedUnnamedInExtern{}    -> Warning

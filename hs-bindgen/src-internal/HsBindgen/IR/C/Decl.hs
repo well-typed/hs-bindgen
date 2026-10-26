@@ -10,7 +10,7 @@
 module HsBindgen.IR.C.Decl (
     -- * Declarations
     Decl(..)
-  , Availability(..)
+  , Deprecation(..)
   , EnclosingRef(..)
   , DeclInfo(..)
   , DeclOrigin(..)
@@ -101,16 +101,15 @@ data Decl l (p :: Pass) = Decl {
     }
   deriving stock (Generic)
 
--- | Availability of declarations.
+-- | Is the declaration deprecated on the target platform?
 --
--- See 'Clang.LowLevel.Core.CXAvailabilityKind'.
-data Availability =
-    -- | Available and recommended for use
-    Available
-    -- | Available but deprecated; may result in compilation error
+-- @Parse@ does not attempt a declaration that is unavailable, so an
+-- unavailable declaration is 'NotDeprecated'. See
+-- 'Clang.LowLevel.Core.CXAvailabilityKind'.
+data Deprecation =
+    NotDeprecated
+    -- | May result in a compilation error
   | Deprecated
-    -- | Unavailable or unaccessible; results in compilation error
-  | Unavailable
   deriving stock (Bounded, Eq, Generic, Ord, P.Enum, Show)
 
 -- | Reference to enclosing declaration
@@ -133,7 +132,7 @@ data DeclInfo = DeclInfo{
     -- Clang version 20.1 or newer; 'Nothing' otherwise.
     , sourceOrderIndex :: Maybe Natural
     , origin        :: DeclOrigin
-    , availability  :: Availability
+    , deprecation   :: Deprecation
     }
   deriving stock (Eq, Generic, Show)
 
