@@ -281,7 +281,6 @@ test_selection_fail =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           "struct Fail"
-        , "struct Fail"
         , "struct DependOnFailByValue"
         , "struct DependOnFailByValue"
         , "struct DependOnFailByReference"
@@ -641,7 +640,8 @@ test_unusable_delayed_msgs =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["F", "F", "f"]
 
--- | A selected inactive declaration has no dependencies
+-- | A selected inactive declaration has no dependencies, and is not reported as
+-- selected
 test_inactive_unusable_dep :: TestCase
 test_inactive_unusable_dep =
     defaultTest "program-analysis/inactive_unusable_dep"
@@ -656,6 +656,11 @@ test_inactive_unusable_dep =
               Just $ Expected (name, "mangle")
             MatchSelect name (MatchTransMissing{}) ->
               Just $ Expected (name, "transitivity")
+            -- Every declaration is inactive.
+            MatchSelect _ (SelectStatusInfo Selected{}) ->
+              Just Unexpected
+            MatchSelect _ SelectDeprecated{} ->
+              Just Unexpected
             _otherwise ->
               Nothing
           )
@@ -663,6 +668,7 @@ test_inactive_unusable_dep =
     declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
           ("struct unsupported" , "parse")
+        , ("struct deprecated_unsupported", "parse")
         , ("struct clash"       , "collision")
         , ("clash"              , "collision")
         , ("struct uses_omitted", "mangle")

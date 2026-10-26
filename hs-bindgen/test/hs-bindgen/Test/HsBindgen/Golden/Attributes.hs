@@ -69,14 +69,21 @@ test_deprecated =
 test_deprecated_inactive :: TestCase
 test_deprecated_inactive =
     defaultTest "attributes/deprecated_inactive"
-      & #tracePredicate .~ multiTracePredicate ["point", "f"] (\case
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name SelectDeprecated{} ->
-              Just $ Expected name
-            MatchUnusable _name ParseFailed{} ->
-              Just Tolerated
+              Just $ Expected (name, "deprecated")
+            MatchUnusable name ParseFailed{} ->
+              Just $ Expected (name, "parse")
             _otherwise ->
               Nothing
           )
+  where
+    -- An unusable declaration is not selected, deprecated or not.
+    declsWithMsgs :: [(C.DeclName, String)]
+    declsWithMsgs = [
+          ("point", "deprecated")
+        , ("f"    , "parse")
+        ]
 
 test_type_attributes :: TestCase
 test_type_attributes =
