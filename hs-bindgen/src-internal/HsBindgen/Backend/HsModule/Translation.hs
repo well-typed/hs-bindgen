@@ -2,6 +2,7 @@ module HsBindgen.Backend.HsModule.Translation (
     -- * GhcPragma
     GhcPragma (..)
     -- * ImportListItem
+  , ImportSource(..)
   , ImportListItem(..)
     -- * Export list
   , ExportEntry(..)
@@ -9,6 +10,9 @@ module HsBindgen.Backend.HsModule.Translation (
   , resolveDeclExports
     -- * HsModule
   , HsModule(..)
+    -- * HsBoot
+  , HsBoot(..)
+  , hasHsBoot
     -- * Translation
   , translateModuleMultiple
   , translateModuleSingle
@@ -17,6 +21,7 @@ module HsBindgen.Backend.HsModule.Translation (
 import Data.Foldable qualified as Foldable
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
+import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Extensions
@@ -48,13 +53,26 @@ newtype GhcPragma = GhcPragma { unGhcPragma :: String }
   ImportListItem
 -------------------------------------------------------------------------------}
 
+-- | Whether an import reads a module or its boot file
+data ImportSource =
+    -- | @import M@
+    NormalImport
+    -- | @import {-# SOURCE #-} M@: the boot file of @M@, which breaks an import
+    -- cycle
+  | SourceImport
+  deriving stock (Eq, Ord)
+
 -- | Import list item
+--
+-- 'resolveImports' sorts imports with this 'Ord' instance. The 'ImportSource'
+-- is the first field, and 'NormalImport' sorts before 'SourceImport', so the
+-- @{-# SOURCE #-}@ imports of each kind come after its normal imports.
 data ImportListItem =
-    QualifiedImportListItem   Hs.ModuleName (Maybe String)
+    QualifiedImportListItem   ImportSource Hs.ModuleName (Maybe String)
     -- An empty import list (@Just []@) means "import instances only", and
     -- differs greatly from having no import list (@Nothing@), which is an open,
     -- unqualified import.
-  | UnqualifiedImportListItem Hs.ModuleName (Maybe [ResolvedName])
+  | UnqualifiedImportListItem ImportSource Hs.ModuleName (Maybe [ResolvedName])
   deriving stock (Eq, Ord)
 
 {-------------------------------------------------------------------------------
@@ -110,24 +128,84 @@ data HsModule = HsModule {
     }
 
 {-------------------------------------------------------------------------------
+  HsBoot
+-------------------------------------------------------------------------------}
+
+-- | Boot file of a Haskell module
+--
+-- A boot file has no export list: it exports what it declares.
+data HsBoot = HsBoot {
+      pragmas        :: [GhcPragma]
+    , name           :: Hs.ModuleName
+    , imports        :: [ImportListItem]
+    , qualifiedStyle :: QualifiedStyle
+    , decls          :: [HsBootDecl]
+    }
+
+-- | Does the module of this category have a boot file?
+hasHsBoot :: Category -> Bool
+hasHsBoot = isJust . hsBootDeclsFor
+
+{-------------------------------------------------------------------------------
   Translation
 -------------------------------------------------------------------------------}
 
 translateModuleMultiple ::
      FieldNamingStrategy
   -> ModuleRenderConfig
+  -> HsBootPolicy
   -> [C.RootDirective C.HashIncludeArg]
   -> BaseModuleName
   -> ([SDecl] -> [ExportEntry])
   -> ByCategory_ ([CWrapper], [SDecl])
-  -> ByCategory_ (Maybe HsModule)
-translateModuleMultiple fns mrc dirs moduleBaseName resolveExports declsByCat =
+  -> ByCategory_ (Maybe (HsModule, Maybe HsBoot))
+translateModuleMultiple fns mrc hsBootPolicy dirs moduleBaseName resolveExports declsByCat =
     mapWithCategory_ go declsByCat
   where
-    go :: Category -> ([CWrapper], [SDecl]) -> Maybe HsModule
-    go _ ([], []) = Nothing
-    go cat xs     = Just $
-      translateModule' fns mrc dirs (Just cat) moduleBaseName resolveExports xs
+    go :: Category -> ([CWrapper], [SDecl]) -> Maybe (HsModule, Maybe HsBoot)
+    go _   ([], [])       = Nothing
+    go cat xs@(_, decs) = Just (
+        translateModule'
+          fns
+          mrc
+          dirs
+          (Just cat)
+          moduleBaseName
+          (sourceImports cat)
+          resolveExports
+          xs
+      , translateHsBoot mrc moduleBaseName cat <$> bootDecls cat decs
+      )
+
+    -- | Is there a callback module?
+    --
+    -- The types module names what the callback module defines (today, the
+    -- functions of its @ToFunPtr@ and @FromFunPtr@ instances), so it imports
+    -- the callback module whenever there is one. There is one only with
+    -- 'GenerateHsBoot' (see "HsBindgen.Backend.Hs.Translation"). See the golden
+    -- fixture @types\/boot\/internal_module@.
+    hasCallbackModule :: Bool
+    hasCallbackModule =
+      case view (lensForCategory (CTerm CCallback)) declsByCat of
+        ([], []) -> False
+        _decls   -> True
+
+    -- | Modules that this module imports through their boot files
+    --
+    -- The callback module imports the types module, and GHC refuses two
+    -- modules that import each other directly, so the types module imports the
+    -- callback module through its boot file. See the golden fixture
+    -- @types\/boot\/internal_module@.
+    sourceImports :: Category -> [Hs.ModuleName]
+    sourceImports = \case
+      CType | hasCallbackModule ->
+        [fromBaseModuleName moduleBaseName (Just (CTerm CCallback))]
+      _otherCategory -> []
+
+    bootDecls :: Category -> [SDecl] -> Maybe [HsBootDecl]
+    bootDecls cat decs = case hsBootPolicy of
+      GenerateHsBoot      -> (\f -> concatMap f decs) <$> hsBootDeclsFor cat
+      DoNotGenerateHsBoot -> Nothing
 
 translateModuleSingle ::
      FieldNamingStrategy
@@ -138,7 +216,7 @@ translateModuleSingle ::
   -> ByCategory_ ([CWrapper], [SDecl])
   -> HsModule
 translateModuleSingle fns mrc dirs name resolveExports declsByCat =
-    translateModule' fns mrc dirs Nothing name resolveExports $
+    translateModule' fns mrc dirs Nothing name [] resolveExports $
       Foldable.fold declsByCat
 
 translateModule' ::
@@ -147,14 +225,18 @@ translateModule' ::
   -> [C.RootDirective C.HashIncludeArg]
   -> Maybe Category
   -> BaseModuleName
+  -> [Hs.ModuleName] -- ^ Modules imported through their boot files
   -> ([SDecl] -> [ExportEntry])
   -> ([CWrapper], [SDecl])
   -> HsModule
-translateModule' fns mrc dirs mcat moduleBaseName resolveExports (cWrappers, decs) =
+translateModule' fns mrc dirs mcat moduleBaseName sourceImports resolveExports (cWrappers, decs) =
     HsModule{
-        pragmas        = resolvePragmas fns mrc.qualifiedStyle cWrappers decs
+        pragmas        = resolvePragmas mrc.qualifiedStyle cWrappers $
+                              fieldNamingPragmas fns
+                           <> Set.map extensionPragma
+                                (foldMap (requiredExtensions fns) decs)
       , exports        = resolveExports decs
-      , imports        = resolveImports moduleBaseName mcat cWrappers decs
+      , imports        = resolveImports moduleBaseName mcat cWrappers sourceImports decs
       , name           = fromBaseModuleName moduleBaseName mcat
       , qualifiedStyle = mrc.qualifiedStyle
       , rootDirectives = dirs
@@ -163,32 +245,181 @@ translateModule' fns mrc dirs mcat moduleBaseName resolveExports (cWrappers, dec
       }
 
 {-------------------------------------------------------------------------------
+  Boot files
+-------------------------------------------------------------------------------}
+
+-- | Translate the declarations of a boot file
+--
+-- A boot file has no fields, so the field naming strategy does not matter.
+translateHsBoot ::
+     ModuleRenderConfig
+  -> BaseModuleName
+  -> Category
+  -> [HsBootDecl]
+  -> HsBoot
+translateHsBoot mrc moduleBaseName cat decs =
+    HsBoot{
+        pragmas        = resolvePragmas mrc.qualifiedStyle [] $
+                           Set.map extensionPragma
+                             (foldMap requiredHsBootExtensions decs)
+      , name           = fromBaseModuleName moduleBaseName (Just cat)
+      , imports        = resolveHsBootImports moduleBaseName cat decs
+      , qualifiedStyle = mrc.qualifiedStyle
+      , decls          = decs
+      }
+
+-- | What the boot file of the module of a category declares, if it has one
+--
+-- The types module and the callback module have boot files. The two modules
+-- need each other: the types module names the functions of the callback module
+-- (in its @ToFunPtr@ and @FromFunPtr@ instances), and the callback module uses
+-- the types of the types module. GHC cannot compile two modules that import
+-- each other directly, so the types module imports the callback module through
+-- the boot file of the callback module. That boot file names types of the types
+-- module too, and GHC compiles it before the types module, so it imports the
+-- boot file of the types module.
+--
+-- A types module gets a boot file even when there is no callback module, so
+-- that types modules that use each other can import each other through their
+-- boot files.
+--
+-- See the golden fixture @types\/boot\/internal_module@.
+hsBootDeclsFor :: Category -> Maybe (SDecl -> [HsBootDecl])
+hsBootDeclsFor = \case
+    CType     -> Just typesHsBootDecls
+    CTerm cat -> case cat of
+      CCallback -> Just callbackHsBootDecls
+      CSafe     -> Nothing
+      CUnsafe   -> Nothing
+      CFunPtr   -> Nothing
+      CGlobal   -> Nothing
+
+-- | The boot file of a types module declares its types and their instances
+--
+-- A module that imports the types module with @{-# SOURCE #-}@ sees only this
+-- boot file. It can use it for two things, shown here with the two structs of
+-- the golden fixture @types\/structs\/circular_dependency_struct@:
+--
+-- 1. To write the name of a type. @struct b@ has a field of type
+--    @struct a *@, so its module writes @Ptr A@. The name is all it needs.
+-- 2. To write its own instances. @struct a@ has a field of type @struct b@, so
+--    its @ReadRaw@ instance reads that field with @ReadRaw B@. GHC only needs
+--    to know that @ReadRaw B@ exists, not how it is defined.
+--
+-- So the boot file declares:
+--
+-- * every data type and newtype, without its constructors (@data T@);
+-- * every type synonym, in full, since GHC refuses @data T@ in a boot file when
+--   the module defines @T@ as a synonym, such as
+--   @type T = WithFlam CInt T_Aux@;
+-- * every instance of the form @C T@, where @T@ is a type of the module, as
+--   @instance C T@ without its @where@ part. Instances derived in a clause,
+--   derived standalone or written out are all included.
+--
+-- GHC does not allow the following in a boot file, so they are left out:
+--
+-- * Type family equations, such as the @FFIType@ equation of a @HasFFIType@
+--   instance. A module that reads the boot file knows that the instance
+--   exists, but cannot see the equation.
+-- * Pattern synonyms (enum constants) and their @COMPLETE@ pragmas.
+--
+-- For now the boot file covers only the two uses above. GHC would allow the
+-- following, and they can be added when a case needs them:
+--
+-- * Every other instance, such as @HasCField T "f"@,
+--   @HasField "f" (Ptr T) (Ptr ty)@, and the @ToFunPtr@ and @FromFunPtr@
+--   instances of function types such as @T -> IO ()@.
+-- * Values (macros).
+--
+-- See the golden fixture @types\/boot\/internal_module@.
+typesHsBootDecls :: SDecl -> [HsBootDecl]
+typesHsBootDecls = \case
+    DTypSyn typSyn ->
+      [HsBootTypSyn typSyn.name typSyn.typ]
+    DRecord record ->
+      HsBootData record.typ : derived record.typ record.deriv
+    DNewtype newtyp ->
+      HsBootData newtyp.name : derived newtyp.name newtyp.deriv
+    DEmptyData empty ->
+      [HsBootData empty.name]
+    DInst inst
+      | [TCon name] <- inst.args, null inst.super ->
+          [HsBootInstance inst.clss name]
+      | otherwise ->
+          []
+    DDerivingInstance deriv
+      | TApp (TClass clss) (TCon name) <- deriv.typ ->
+          [HsBootInstance clss name]
+      | otherwise ->
+          []
+    DForeignImport _ ->
+      []
+    DBinding _ ->
+      []
+    DPatternSynonym _ ->
+      []
+    DCompletePragma _ ->
+      []
+  where
+    derived ::
+         Hs.Name Hs.NsTypeConstr
+      -> [(Hs.Strategy ClosedType, [Inst.TypeClass])]
+      -> [HsBootDecl]
+    derived name deriv = [
+          HsBootInstance clss name
+        | (_strategy, classes) <- deriv
+        , clss <- classes
+        ]
+
+-- | The boot file of a callback module declares each function's type
+--
+-- The types module imports the callback module through this boot file, so
+-- the boot file declares every function that the types module can name. A
+-- signature is all that the types module needs. The foreign imports are left
+-- out: only the functions around them are named.
+--
+-- See the golden fixture @types\/boot\/internal_module@.
+callbackHsBootDecls :: SDecl -> [HsBootDecl]
+callbackHsBootDecls = \case
+    DBinding binding    -> [
+        HsBootSignature
+          binding.name
+          (map (.typ) binding.parameters)
+          binding.result.typ
+      ]
+    DTypSyn _           -> []
+    DInst _             -> []
+    DRecord _           -> []
+    DEmptyData _        -> []
+    DDerivingInstance _ -> []
+    DNewtype _          -> []
+    DForeignImport _    -> []
+    DPatternSynonym _   -> []
+    DCompletePragma _   -> []
+
+{-------------------------------------------------------------------------------
   Auxiliary: Pragma resolution
 -------------------------------------------------------------------------------}
 
-resolvePragmas :: FieldNamingStrategy -> QualifiedStyle -> [CWrapper] -> [SDecl] -> [GhcPragma]
-resolvePragmas fieldNaming qualStyle wrappers ds =
-    Set.toAscList . mconcat $
-      noImplicitPreludePragma
-        : omitFieldPrefixesPragmas
-        : haddockPrunePragmas
-        : userlandCapiPragmas
-        : qualifiedPostPragma
-        : map (resolveDeclPragmas fieldNaming) ds
+-- | The pragmas of a module or boot file, given those its declarations need
+resolvePragmas ::
+     QualifiedStyle
+  -> [CWrapper]
+  -> Set GhcPragma
+  -> [GhcPragma]
+resolvePragmas qualStyle wrappers declPragmas =
+    Set.toAscList . mconcat $ [
+        noImplicitPreludePragma
+      , haddockPrunePragmas
+      , userlandCapiPragmas
+      , qualifiedPostPragma
+      , declPragmas
+      ]
   where
     -- Generated modules import every name they use; see 'resolveImports'.
     noImplicitPreludePragma :: Set GhcPragma
     noImplicitPreludePragma = Set.singleton "LANGUAGE NoImplicitPrelude"
 
-    -- 'NoFieldSelectors' is the negation of the default-on 'FieldSelectors' and
-    -- so cannot be carried in the positive 'TH.Extension' set (see
-    -- 'HsBindgen.Backend.Extensions.omitFieldPrefixesExtensions'); we emit it as
-    -- a module pragma directly. Without top-level field selectors, an unprefixed
-    -- field name cannot clash with a non-field declaration of the same name.
-    omitFieldPrefixesPragmas :: Set GhcPragma
-    omitFieldPrefixesPragmas = case fieldNaming of
-      AddFieldPrefixes  -> Set.empty
-      OmitFieldPrefixes -> Set.singleton "LANGUAGE NoFieldSelectors"
     userlandCapiPragmas :: Set GhcPragma
     userlandCapiPragmas = case wrappers of
       []  -> Set.empty
@@ -204,11 +435,18 @@ resolvePragmas fieldNaming qualStyle wrappers ds =
       PreQualified  -> Set.empty
       PostQualified -> Set.singleton "LANGUAGE ImportQualifiedPost"
 
-resolveDeclPragmas :: FieldNamingStrategy -> SDecl -> Set GhcPragma
-resolveDeclPragmas fieldNaming decl =
-    Set.map f (requiredExtensions fieldNaming decl)
-  where
-    f ext = GhcPragma ("LANGUAGE " ++ show ext)
+-- | 'NoFieldSelectors' is the negation of the default-on 'FieldSelectors' and
+-- so cannot be carried in the positive 'TH.Extension' set (see
+-- 'HsBindgen.Backend.Extensions.omitFieldPrefixesExtensions'); we emit it as a
+-- module pragma directly. Without top-level field selectors, an unprefixed
+-- field name cannot clash with a non-field declaration of the same name.
+fieldNamingPragmas :: FieldNamingStrategy -> Set GhcPragma
+fieldNamingPragmas = \case
+    AddFieldPrefixes  -> Set.empty
+    OmitFieldPrefixes -> Set.singleton "LANGUAGE NoFieldSelectors"
+
+extensionPragma :: TH.Extension -> GhcPragma
+extensionPragma ext = GhcPragma ("LANGUAGE " ++ show ext)
 
 {-------------------------------------------------------------------------------
   Auxiliary: Import resolution
@@ -219,18 +457,22 @@ resolveImports ::
      BaseModuleName
   -> Maybe Category
   -> [CWrapper]
+  -> [Hs.ModuleName] -- ^ Modules imported through their boot files
   -> [SDecl]
   -> [ImportListItem]
-resolveImports baseModule cat wrappers ds =
+resolveImports baseModule cat wrappers sourceImports ds =
     let acc = mconcat $ map resolveDeclImports ds
-    in  Set.toAscList . mconcat $
+    in  Set.toAscList . mconcat $ [
             bindingCatImport acc.requireTypes
-          : Set.map (uncurry QualifiedImportListItem) (userlandCapiImport <> acc.qualified)
-          : map (Set.singleton . uncurry mkUImportListItem) (Map.toList acc.unqualified)
+          , Set.fromList [
+                UnqualifiedImportListItem SourceImport m Nothing
+              | m <- sourceImports
+              ]
+          , Set.map (uncurry (QualifiedImportListItem NormalImport))
+              userlandCapiImport
+          , importListItems acc
+          ]
   where
-    mkUImportListItem :: Hs.ModuleName -> Set ResolvedName -> ImportListItem
-    mkUImportListItem m xs = UnqualifiedImportListItem m (Just $ Set.toAscList xs)
-
     bindingCatImport :: Bool -> Set ImportListItem
     bindingCatImport requireTypes = case requireTypes of
       False -> mempty
@@ -239,12 +481,54 @@ resolveImports baseModule cat wrappers ds =
         Just CType -> mempty
         _otherCat  ->
           let moduleName = fromBaseModuleName baseModule (Just CType)
-          in  Set.singleton $ UnqualifiedImportListItem moduleName Nothing
+          in  Set.singleton $
+                UnqualifiedImportListItem NormalImport moduleName Nothing
 
     userlandCapiImport :: Set (Hs.ModuleName, Maybe String)
     userlandCapiImport = case wrappers of
       []  -> mempty
       _xs -> Set.singleton (capiModule, Nothing)
+
+-- | Resolve the imports of a boot file
+--
+-- As for a module, except for the types module. The boot file of the callback
+-- module names types of the types module, but cannot import it: the types
+-- module imports the callback module through this boot file, so GHC compiles
+-- the boot file before the types module. The boot file imports the boot file of
+-- the types module instead, with @{-# SOURCE #-}@.
+--
+-- See the golden fixture @types\/boot\/internal_module@.
+resolveHsBootImports ::
+     BaseModuleName
+  -> Category
+  -> [HsBootDecl]
+  -> [ImportListItem]
+resolveHsBootImports baseModule cat ds =
+    let acc = mconcat $ map resolveHsBootDeclImports ds
+    in  Set.toAscList $ typesImport acc.requireTypes <> importListItems acc
+  where
+    typesImport :: Bool -> Set ImportListItem
+    typesImport requireTypes = case cat of
+      CType -> mempty
+      CTerm _
+        | requireTypes ->
+            Set.singleton $ UnqualifiedImportListItem
+              SourceImport
+              (fromBaseModuleName baseModule (Just CType))
+              Nothing
+        | otherwise ->
+            mempty
+
+-- | The import list items for the names in an accumulator
+importListItems :: ImportAcc -> Set ImportListItem
+importListItems acc = mconcat [
+      Set.map (uncurry (QualifiedImportListItem NormalImport)) acc.qualified
+    , Set.fromList $ map (uncurry mkUImportListItem) (Map.toList acc.unqualified)
+    ]
+  where
+    mkUImportListItem :: Hs.ModuleName -> Set ResolvedName -> ImportListItem
+    mkUImportListItem m xs =
+      UnqualifiedImportListItem NormalImport m (Just $ Set.toAscList xs)
 
 -- | Accumulator for resolving imports
 --
@@ -320,6 +604,18 @@ resolveDeclImports = \case
       ]
     DCompletePragma _completePragma ->
       mempty
+
+-- | Resolve imports in a declaration of a boot file
+resolveHsBootDeclImports :: HsBootDecl -> ImportAcc
+resolveHsBootDeclImports = \case
+    HsBootData _name ->
+      mempty
+    HsBootTypSyn _name typ ->
+      resolveTypeImports typ
+    HsBootInstance clss _name ->
+      resolveTypeClassImports clss
+    HsBootSignature _name args res ->
+      foldMap resolveTypeImports (res : args)
 
 -- | Resolve nested deriving clauses (part of a datatype declaration)
 resolveNestedDeriv :: [(Hs.Strategy ClosedType, [Inst.TypeClass])] -> ImportAcc
