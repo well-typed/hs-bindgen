@@ -33,7 +33,8 @@
   definition"), apart from macros the macro language cannot parse.
 
 * Messages about binding specifications are now located at the declaration
-  they are about, like the messages of name mangling and selection.
+  they are about, like the messages of name mangling and selection, and
+  sorted by that location.
 
 ### Bug fixes
 
