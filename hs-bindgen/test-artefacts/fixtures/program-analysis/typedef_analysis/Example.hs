@@ -48,6 +48,8 @@ module Example
     , Example.Struct16_struct(..)
     , Example.Struct16(..)
     , Example.Use_sites_qual(..)
+    , Example.Struct17b(..)
+    , Example.Use_sites_external(..)
     )
   where
 
@@ -62,7 +64,7 @@ import Prelude ((<*>), (>>), Eq, IO, Int, Ord, Show, pure, type (~))
 
 {-| __C declaration:__ @struct struct1@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 41:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 42:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -94,7 +96,7 @@ deriving via Struct.IsStructViaReadRaw Struct1_t instance Struct.IsStruct Struct
 
 {-| __C declaration:__ @struct struct2@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 45:16@
+    __defined at:__ @program-analysis\/typedef_analysis.h 46:16@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -126,7 +128,7 @@ deriving via Struct.IsStructViaReadRaw Struct2_t instance Struct.IsStruct Struct
 
 {-| __C declaration:__ @struct struct3@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 49:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 50:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -134,7 +136,7 @@ data Struct3_t
 
 {-| __C declaration:__ @struct struct4@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 53:16@
+    __defined at:__ @program-analysis\/typedef_analysis.h 54:16@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -142,7 +144,7 @@ data Struct4_t
 
 {-| __C declaration:__ @struct struct5@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 56:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 57:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -174,7 +176,7 @@ deriving via Struct.IsStructViaReadRaw Struct5 instance Struct.IsStruct Struct5
 
 {-| __C declaration:__ @struct5_t@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 57:25@
+    __defined at:__ @program-analysis\/typedef_analysis.h 58:25@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -213,7 +215,7 @@ instance HasCField.HasCField Struct5_t "unwrapStruct5_t" where
 
 {-| __C declaration:__ @struct struct6a@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 60:16@
+    __defined at:__ @program-analysis\/typedef_analysis.h 61:16@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -245,7 +247,7 @@ deriving via Struct.IsStructViaReadRaw Struct6a_struct instance Struct.IsStruct 
 
 {-| __C declaration:__ @struct6a@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 61:4@
+    __defined at:__ @program-analysis\/typedef_analysis.h 62:4@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -284,7 +286,7 @@ instance HasCField.HasCField Struct6a "unwrapStruct6a" where
 
 {-| __C declaration:__ @struct struct6b@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 68:16@
+    __defined at:__ @program-analysis\/typedef_analysis.h 69:16@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -316,7 +318,7 @@ deriving via Struct.IsStructViaReadRaw Struct6b_struct instance Struct.IsStruct 
 
 {-| __C declaration:__ @struct6b@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 69:3@
+    __defined at:__ @program-analysis\/typedef_analysis.h 70:3@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -355,7 +357,7 @@ instance HasCField.HasCField Struct6b "unwrapStruct6b" where
 
 {-| __C declaration:__ @struct struct7@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 72:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 73:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -387,7 +389,7 @@ deriving via Struct.IsStructViaReadRaw Struct7 instance Struct.IsStruct Struct7
 
 {-| __C declaration:__ @struct7a@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 73:24@
+    __defined at:__ @program-analysis\/typedef_analysis.h 74:24@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -424,7 +426,7 @@ instance HasCField.HasCField Struct7a "unwrapStruct7a" where
 
 {-| __C declaration:__ @struct7b@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 74:24@
+    __defined at:__ @program-analysis\/typedef_analysis.h 75:24@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -461,7 +463,7 @@ instance HasCField.HasCField Struct7b "unwrapStruct7b" where
 
 {-| __C declaration:__ @struct struct8@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 77:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 78:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -493,7 +495,7 @@ deriving via Struct.IsStructViaReadRaw Struct8 instance Struct.IsStruct Struct8
 
 {-| __C declaration:__ @struct8b@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 79:24@
+    __defined at:__ @program-analysis\/typedef_analysis.h 80:24@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -530,7 +532,7 @@ instance HasCField.HasCField Struct8b "unwrapStruct8b" where
 
 {-| __C declaration:__ @struct struct9@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 82:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 83:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -562,7 +564,7 @@ deriving via Struct.IsStructViaReadRaw Struct9 instance Struct.IsStruct Struct9
 
 {-| __C declaration:__ @struct9_t@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 84:17@
+    __defined at:__ @program-analysis\/typedef_analysis.h 85:17@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -599,7 +601,7 @@ instance HasCField.HasCField Struct9_t "unwrapStruct9_t" where
 
 {-| __C declaration:__ @struct struct10@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 90:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 91:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -631,7 +633,7 @@ deriving via Struct.IsStructViaReadRaw Struct10_t instance Struct.IsStruct Struc
 
 {-| __C declaration:__ @struct10_t_t@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 92:20@
+    __defined at:__ @program-analysis\/typedef_analysis.h 93:20@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -670,7 +672,7 @@ instance HasCField.HasCField Struct10_t_t "unwrapStruct10_t_t" where
 
 {-| __C declaration:__ @struct struct11@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 95:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 96:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -678,14 +680,14 @@ data Struct11_t = Struct11_t
   { struct11_t_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 96:7@
+         __defined at:__ @program-analysis\/typedef_analysis.h 97:7@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , struct11_t_self :: BG.Ptr Struct11_t
     {- ^ __C declaration:__ @self@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 97:20@
+         __defined at:__ @program-analysis\/typedef_analysis.h 98:20@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
@@ -722,7 +724,7 @@ deriving via Struct.IsStructViaReadRaw Struct11_t instance Struct.IsStruct Struc
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 96:7@
+    __defined at:__ @program-analysis\/typedef_analysis.h 97:7@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -750,7 +752,7 @@ instance HasCField.HasCField Struct11_t "struct11_t_x" where
 
 {-| __C declaration:__ @self@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 97:20@
+    __defined at:__ @program-analysis\/typedef_analysis.h 98:20@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -779,7 +781,7 @@ instance HasCField.HasCField Struct11_t "struct11_t_self" where
 
 {-| __C declaration:__ @struct struct12@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 104:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 105:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -787,14 +789,14 @@ data Struct12_t = Struct12_t
   { struct12_t_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 105:7@
+         __defined at:__ @program-analysis\/typedef_analysis.h 106:7@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , struct12_t_self :: BG.Ptr Struct12_t
     {- ^ __C declaration:__ @self@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 106:15@
+         __defined at:__ @program-analysis\/typedef_analysis.h 107:15@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
@@ -831,7 +833,7 @@ deriving via Struct.IsStructViaReadRaw Struct12_t instance Struct.IsStruct Struc
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 105:7@
+    __defined at:__ @program-analysis\/typedef_analysis.h 106:7@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -859,7 +861,7 @@ instance HasCField.HasCField Struct12_t "struct12_t_x" where
 
 {-| __C declaration:__ @self@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 106:15@
+    __defined at:__ @program-analysis\/typedef_analysis.h 107:15@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -888,7 +890,7 @@ instance HasCField.HasCField Struct12_t "struct12_t_self" where
 
 {-| __C declaration:__ @struct use_sites@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 110:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 111:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -896,140 +898,140 @@ data Use_sites = Use_sites
   { use_sites_useTypedef_struct1_t :: Struct1_t
     {- ^ __C declaration:__ @useTypedef_struct1_t@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 112:13@
+         __defined at:__ @program-analysis\/typedef_analysis.h 113:13@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct2_t :: Struct2_t
     {- ^ __C declaration:__ @useTypedef_struct2_t@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 115:13@
+         __defined at:__ @program-analysis\/typedef_analysis.h 116:13@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct3_t :: BG.Ptr Struct3_t
     {- ^ __C declaration:__ @useTypedef_struct3_t@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 118:14@
+         __defined at:__ @program-analysis\/typedef_analysis.h 119:14@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct4_t :: BG.Ptr Struct4_t
     {- ^ __C declaration:__ @useTypedef_struct4_t@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 119:14@
+         __defined at:__ @program-analysis\/typedef_analysis.h 120:14@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useStruct_struct5 :: Struct5
     {- ^ __C declaration:__ @useStruct_struct5@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 122:18@
+         __defined at:__ @program-analysis\/typedef_analysis.h 123:18@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct5_t :: Struct5_t
     {- ^ __C declaration:__ @useTypedef_struct5_t@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 123:13@
+         __defined at:__ @program-analysis\/typedef_analysis.h 124:13@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useStruct_struct6a :: Struct6a_struct
     {- ^ __C declaration:__ @useStruct_struct6a@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 126:19@
+         __defined at:__ @program-analysis\/typedef_analysis.h 127:19@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct6a :: Struct6a
     {- ^ __C declaration:__ @useTypedef_struct6a@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 127:12@
+         __defined at:__ @program-analysis\/typedef_analysis.h 128:12@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useStruct_struct6b :: Struct6b_struct
     {- ^ __C declaration:__ @useStruct_struct6b@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 130:19@
+         __defined at:__ @program-analysis\/typedef_analysis.h 131:19@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct6b :: Struct6b
     {- ^ __C declaration:__ @useTypedef_struct6b@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 131:12@
+         __defined at:__ @program-analysis\/typedef_analysis.h 132:12@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct7a :: Struct7a
     {- ^ __C declaration:__ @useTypedef_struct7a@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 134:12@
+         __defined at:__ @program-analysis\/typedef_analysis.h 135:12@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct7b :: Struct7b
     {- ^ __C declaration:__ @useTypedef_struct7b@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 135:12@
+         __defined at:__ @program-analysis\/typedef_analysis.h 136:12@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct8 :: Struct8
     {- ^ __C declaration:__ @useTypedef_struct8@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 139:11@
+         __defined at:__ @program-analysis\/typedef_analysis.h 140:11@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct8b :: Struct8b
     {- ^ __C declaration:__ @useTypedef_struct8b@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 140:12@
+         __defined at:__ @program-analysis\/typedef_analysis.h 141:12@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct9 :: Struct9
     {- ^ __C declaration:__ @useTypedef_struct9@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 144:11@
+         __defined at:__ @program-analysis\/typedef_analysis.h 145:11@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct9_t :: Struct9_t
     {- ^ __C declaration:__ @useTypedef_struct9_t@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 145:13@
+         __defined at:__ @program-analysis\/typedef_analysis.h 146:13@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct10_t :: Struct10_t
     {- ^ __C declaration:__ @useTypedef_struct10_t@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 146:14@
+         __defined at:__ @program-analysis\/typedef_analysis.h 147:14@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct10_t_t :: Struct10_t_t
     {- ^ __C declaration:__ @useTypedef_struct10_t_t@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 147:16@
+         __defined at:__ @program-analysis\/typedef_analysis.h 148:16@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct11_t :: Struct11_t
     {- ^ __C declaration:__ @useTypedef_struct11_t@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 150:14@
+         __defined at:__ @program-analysis\/typedef_analysis.h 151:14@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct12_t :: Struct12_t
     {- ^ __C declaration:__ @useTypedef_struct12_t@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 151:14@
+         __defined at:__ @program-analysis\/typedef_analysis.h 152:14@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
@@ -1122,7 +1124,7 @@ deriving via Struct.IsStructViaReadRaw Use_sites instance Struct.IsStruct Use_si
 
 {-| __C declaration:__ @useTypedef_struct1_t@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 112:13@
+    __defined at:__ @program-analysis\/typedef_analysis.h 113:13@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1171,7 +1173,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct1_t" where
 
 {-| __C declaration:__ @useTypedef_struct2_t@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 115:13@
+    __defined at:__ @program-analysis\/typedef_analysis.h 116:13@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1220,7 +1222,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct2_t" where
 
 {-| __C declaration:__ @useTypedef_struct3_t@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 118:14@
+    __defined at:__ @program-analysis\/typedef_analysis.h 119:14@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1269,7 +1271,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct3_t" where
 
 {-| __C declaration:__ @useTypedef_struct4_t@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 119:14@
+    __defined at:__ @program-analysis\/typedef_analysis.h 120:14@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1318,7 +1320,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct4_t" where
 
 {-| __C declaration:__ @useStruct_struct5@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 122:18@
+    __defined at:__ @program-analysis\/typedef_analysis.h 123:18@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1367,7 +1369,7 @@ instance HasCField.HasCField Use_sites "use_sites_useStruct_struct5" where
 
 {-| __C declaration:__ @useTypedef_struct5_t@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 123:13@
+    __defined at:__ @program-analysis\/typedef_analysis.h 124:13@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1416,7 +1418,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct5_t" where
 
 {-| __C declaration:__ @useStruct_struct6a@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 126:19@
+    __defined at:__ @program-analysis\/typedef_analysis.h 127:19@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1465,7 +1467,7 @@ instance HasCField.HasCField Use_sites "use_sites_useStruct_struct6a" where
 
 {-| __C declaration:__ @useTypedef_struct6a@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 127:12@
+    __defined at:__ @program-analysis\/typedef_analysis.h 128:12@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1514,7 +1516,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct6a" where
 
 {-| __C declaration:__ @useStruct_struct6b@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 130:19@
+    __defined at:__ @program-analysis\/typedef_analysis.h 131:19@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1563,7 +1565,7 @@ instance HasCField.HasCField Use_sites "use_sites_useStruct_struct6b" where
 
 {-| __C declaration:__ @useTypedef_struct6b@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 131:12@
+    __defined at:__ @program-analysis\/typedef_analysis.h 132:12@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1612,7 +1614,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct6b" where
 
 {-| __C declaration:__ @useTypedef_struct7a@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 134:12@
+    __defined at:__ @program-analysis\/typedef_analysis.h 135:12@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1661,7 +1663,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct7a" where
 
 {-| __C declaration:__ @useTypedef_struct7b@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 135:12@
+    __defined at:__ @program-analysis\/typedef_analysis.h 136:12@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1710,7 +1712,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct7b" where
 
 {-| __C declaration:__ @useTypedef_struct8@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 139:11@
+    __defined at:__ @program-analysis\/typedef_analysis.h 140:11@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1759,7 +1761,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct8" where
 
 {-| __C declaration:__ @useTypedef_struct8b@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 140:12@
+    __defined at:__ @program-analysis\/typedef_analysis.h 141:12@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1808,7 +1810,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct8b" where
 
 {-| __C declaration:__ @useTypedef_struct9@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 144:11@
+    __defined at:__ @program-analysis\/typedef_analysis.h 145:11@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1857,7 +1859,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct9" where
 
 {-| __C declaration:__ @useTypedef_struct9_t@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 145:13@
+    __defined at:__ @program-analysis\/typedef_analysis.h 146:13@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1906,7 +1908,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct9_t" where
 
 {-| __C declaration:__ @useTypedef_struct10_t@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 146:14@
+    __defined at:__ @program-analysis\/typedef_analysis.h 147:14@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -1955,7 +1957,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct10_t" where
 
 {-| __C declaration:__ @useTypedef_struct10_t_t@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 147:16@
+    __defined at:__ @program-analysis\/typedef_analysis.h 148:16@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2004,7 +2006,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct10_t_t" where
 
 {-| __C declaration:__ @useTypedef_struct11_t@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 150:14@
+    __defined at:__ @program-analysis\/typedef_analysis.h 151:14@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2053,7 +2055,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct11_t" where
 
 {-| __C declaration:__ @useTypedef_struct12_t@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 151:14@
+    __defined at:__ @program-analysis\/typedef_analysis.h 152:14@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2102,7 +2104,7 @@ instance HasCField.HasCField Use_sites "use_sites_useTypedef_struct12_t" where
 
 {-| __C declaration:__ @struct foo@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 163:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 164:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2110,14 +2112,14 @@ data Foo_struct = Foo_struct
   { foo_struct_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 164:7@
+         __defined at:__ @program-analysis\/typedef_analysis.h 165:7@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , foo_struct_y :: BG.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 165:7@
+         __defined at:__ @program-analysis\/typedef_analysis.h 166:7@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
@@ -2154,7 +2156,7 @@ deriving via Struct.IsStructViaReadRaw Foo_struct instance Struct.IsStruct Foo_s
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 164:7@
+    __defined at:__ @program-analysis\/typedef_analysis.h 165:7@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2182,7 +2184,7 @@ instance HasCField.HasCField Foo_struct "foo_struct_x" where
 
 {-| __C declaration:__ @y@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 165:7@
+    __defined at:__ @program-analysis\/typedef_analysis.h 166:7@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2212,7 +2214,7 @@ instance HasCField.HasCField Foo_struct "foo_struct_y" where
 
     __C declaration:__ @foo@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 167:22@
+    __defined at:__ @program-analysis\/typedef_analysis.h 168:22@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2244,7 +2246,7 @@ instance HasCField.HasCField Foo_Aux "unwrapFoo_Aux" where
 
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 167:22@
+    __defined at:__ @program-analysis\/typedef_analysis.h 168:22@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2281,7 +2283,7 @@ instance HasCField.HasCField Foo "unwrapFoo" where
 
 {-| __C declaration:__ @struct bar@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 171:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 172:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2289,14 +2291,14 @@ data Bar_struct = Bar_struct
   { bar_struct_a :: BG.CInt
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 172:7@
+         __defined at:__ @program-analysis\/typedef_analysis.h 173:7@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , bar_struct_b :: BG.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 173:7@
+         __defined at:__ @program-analysis\/typedef_analysis.h 174:7@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
@@ -2333,7 +2335,7 @@ deriving via Struct.IsStructViaReadRaw Bar_struct instance Struct.IsStruct Bar_s
 
 {-| __C declaration:__ @a@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 172:7@
+    __defined at:__ @program-analysis\/typedef_analysis.h 173:7@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2361,7 +2363,7 @@ instance HasCField.HasCField Bar_struct "bar_struct_a" where
 
 {-| __C declaration:__ @b@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 173:7@
+    __defined at:__ @program-analysis\/typedef_analysis.h 174:7@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2391,7 +2393,7 @@ instance HasCField.HasCField Bar_struct "bar_struct_b" where
 
     __C declaration:__ @bar@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 175:22@
+    __defined at:__ @program-analysis\/typedef_analysis.h 176:22@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2423,7 +2425,7 @@ instance HasCField.HasCField Bar_Aux "unwrapBar_Aux" where
 
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 175:22@
+    __defined at:__ @program-analysis\/typedef_analysis.h 176:22@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2460,7 +2462,7 @@ instance HasCField.HasCField Bar "unwrapBar" where
 
 {-| __C declaration:__ @struct struct15@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 182:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 183:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2492,7 +2494,7 @@ deriving via Struct.IsStructViaReadRaw Struct15 instance Struct.IsStruct Struct1
 
 {-| __C declaration:__ @struct struct16@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 191:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 192:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2524,7 +2526,7 @@ deriving via Struct.IsStructViaReadRaw Struct16_struct instance Struct.IsStruct 
 
 {-| __C declaration:__ @struct16@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 192:32@
+    __defined at:__ @program-analysis\/typedef_analysis.h 193:32@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2563,7 +2565,7 @@ instance HasCField.HasCField Struct16 "unwrapStruct16" where
 
 {-| __C declaration:__ @struct use_sites_qual@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 195:8@
+    __defined at:__ @program-analysis\/typedef_analysis.h 196:8@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2571,21 +2573,21 @@ data Use_sites_qual = Use_sites_qual
   { use_sites_qual_useTypedef_struct15 :: Struct15
     {- ^ __C declaration:__ @useTypedef_struct15@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 197:12@
+         __defined at:__ @program-analysis\/typedef_analysis.h 198:12@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_qual_useStruct_struct16 :: Struct16_struct
     {- ^ __C declaration:__ @useStruct_struct16@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 200:19@
+         __defined at:__ @program-analysis\/typedef_analysis.h 201:19@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   , use_sites_qual_useTypedef_struct16 :: Struct16
     {- ^ __C declaration:__ @useTypedef_struct16@
 
-         __defined at:__ @program-analysis\/typedef_analysis.h 201:12@
+         __defined at:__ @program-analysis\/typedef_analysis.h 202:12@
 
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
@@ -2627,7 +2629,7 @@ deriving via Struct.IsStructViaReadRaw Use_sites_qual instance Struct.IsStruct U
 
 {-| __C declaration:__ @useTypedef_struct15@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 197:12@
+    __defined at:__ @program-analysis\/typedef_analysis.h 198:12@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2659,7 +2661,7 @@ instance HasCField.HasCField Use_sites_qual "use_sites_qual_useTypedef_struct15"
 
 {-| __C declaration:__ @useStruct_struct16@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 200:19@
+    __defined at:__ @program-analysis\/typedef_analysis.h 201:19@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2691,7 +2693,7 @@ instance HasCField.HasCField Use_sites_qual "use_sites_qual_useStruct_struct16" 
 
 {-| __C declaration:__ @useTypedef_struct16@
 
-    __defined at:__ @program-analysis\/typedef_analysis.h 201:12@
+    __defined at:__ @program-analysis\/typedef_analysis.h 202:12@
 
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
@@ -2718,5 +2720,109 @@ instance HasCField.HasCField Use_sites_qual "use_sites_qual_useTypedef_struct16"
 
   type CFieldType Use_sites_qual "use_sites_qual_useTypedef_struct16" =
     Struct16
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @struct struct17@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 209:8@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
+data Struct17b = Struct17b
+  {}
+  deriving stock (Eq, BG.Generic, Show)
+
+instance Marshal.StaticSize Struct17b where
+
+  staticSizeOf = \_ -> (0 :: Int)
+
+  staticAlignment = \_ -> (1 :: Int)
+
+instance Marshal.ReadRaw Struct17b where
+
+  readRaw = \ptr0 -> pure Struct17b
+
+instance Marshal.WriteRaw Struct17b where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Struct17b -> pure ()
+
+deriving via Marshal.EquivStorable Struct17b instance BG.Storable Struct17b
+
+deriving via Struct.IsStructViaReadRaw Struct17b instance Struct.IsStruct Struct17b
+
+{-| __C declaration:__ @struct use_sites_external@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 214:8@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
+data Use_sites_external = Use_sites_external
+  { use_sites_external_useTypedef_struct17b :: Struct17b
+    {- ^ __C declaration:__ @useTypedef_struct17b@
+
+         __defined at:__ @program-analysis\/typedef_analysis.h 215:13@
+
+         __exported by:__ @program-analysis\/typedef_analysis.h@
+    -}
+  }
+  deriving stock (Eq, BG.Generic, Show)
+
+instance Marshal.StaticSize Use_sites_external where
+
+  staticSizeOf = \_ -> (0 :: Int)
+
+  staticAlignment = \_ -> (1 :: Int)
+
+instance Marshal.ReadRaw Use_sites_external where
+
+  readRaw =
+    \ptr0 ->
+          pure Use_sites_external
+      <*> HasCField.readRaw (BG.Proxy @"use_sites_external_useTypedef_struct17b") ptr0
+
+instance Marshal.WriteRaw Use_sites_external where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Use_sites_external use_sites_external_useTypedef_struct17b2 ->
+            HasCField.writeRaw (BG.Proxy @"use_sites_external_useTypedef_struct17b") ptr0 use_sites_external_useTypedef_struct17b2
+
+deriving via Marshal.EquivStorable Use_sites_external instance BG.Storable Use_sites_external
+
+deriving via Struct.IsStructViaReadRaw Use_sites_external instance Struct.IsStruct Use_sites_external
+
+{-| __C declaration:__ @useTypedef_struct17b@
+
+    __defined at:__ @program-analysis\/typedef_analysis.h 215:13@
+
+    __exported by:__ @program-analysis\/typedef_analysis.h@
+-}
+instance ( ty ~ Struct17b
+         ) => BG.CompatHasField.HasField "use_sites_external_useTypedef_struct17b" Use_sites_external ty where
+
+  hasField =
+    \x0 ->
+      ( \y1 ->
+          Use_sites_external {use_sites_external_useTypedef_struct17b = y1}
+      , BG.getField @"use_sites_external_useTypedef_struct17b" x0
+      )
+
+instance ( ty ~ Struct17b
+         ) => BG.HasField "use_sites_external_useTypedef_struct17b" (BG.Ptr Use_sites_external) (BG.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (BG.Proxy @"use_sites_external_useTypedef_struct17b")
+
+instance HasCField.HasCField Use_sites_external "use_sites_external_useTypedef_struct17b" where
+
+  type CFieldType Use_sites_external "use_sites_external_useTypedef_struct17b" =
+    Struct17b
 
   offset# = \_ -> \_ -> 0

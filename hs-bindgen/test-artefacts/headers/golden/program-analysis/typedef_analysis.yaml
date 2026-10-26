@@ -1,0 +1,15 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: M
+ctypes:
+- headers: program-analysis/typedef_analysis.h
+  cname: struct17a
+  hsname: Struct17a
+hstypes:
+- hsname: Struct17a
+  representation:
+    newtype:
+      constructor: Struct17a
+      fields:
+      - unwrapStruct17a

@@ -488,13 +488,17 @@ test_selection_squash =
 -- resolvable and are reported as failures).
 test_typedef_analysis :: TestCase
 test_typedef_analysis =
-    testTraceMulti "program-analysis/typedef_analysis" declsWithMsgs $ \case
-      MatchSelect name SelectMangleNamesSquashed{} ->
-        Just $ Expected (name, Nothing)
-      MatchDelayedMangleNames name (MangleNamesAssignedName new) ->
-        Just $ Expected (name, Just new.text)
-      _otherwise ->
-        Nothing
+    testTraceMulti "program-analysis/typedef_analysis" declsWithMsgs (\case
+          MatchSelect name SelectMangleNamesSquashed{} ->
+            Just $ Expected (name, Nothing)
+          MatchDelayedMangleNames name (MangleNamesAssignedName new) ->
+            Just $ Expected (name, Just new.text)
+          _otherwise ->
+            Nothing
+        )
+      & #specExternal .~ [
+            "test-artefacts/headers/golden/program-analysis/typedef_analysis.yaml"
+          ]
   where
     declsWithMsgs :: [(C.DeclName, Maybe Text)]
     declsWithMsgs = [
@@ -528,6 +532,10 @@ test_typedef_analysis =
           -- suffixed (like example 6a).
         , ("struct15"        , Nothing)
         , ("struct struct16" , Just "Struct16_struct")
+          -- 'struct17a' is external, so 'struct17b' is the only use of
+          -- 'struct struct17'.
+        , ("struct struct17" , Just "Struct17b")
+        , ("struct17b"       , Nothing)
         ]
 
 -- | Exercise the 'C.TypeBlock' path in 'taggedPayloads'.
