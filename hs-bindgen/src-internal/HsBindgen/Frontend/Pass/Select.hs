@@ -182,18 +182,20 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             selectedIds
             getTransitiveSelectability
 
-        -- TODO <https://github.com/well-typed/hs-bindgen/issues/1580>: deactivate
-        -- the declarations we do not select.
         db' :: DeclDB l Select
         db' =
           runIdentity $
             DeclDB.traverseActive DeclDB.AnyOrder
-              (pure . DeclDB.Advanced . coercePass)
+              (\decl -> pure $ case selectDecl (coercePass decl) of
+                  Just decl' -> DeclDB.Advanced decl'
+                  Nothing    -> DeclDB.Deselect)
               index
 
-        selectedUnitDecls  :: [Decl l]
-        selectedUnitDecls =
-          mapMaybe selectDecl $ C.activeDecls unit.includeGraph db'
+        unitSelect :: C.TranslationUnit l Select
+        unitSelect = C.fromDeclDB unit.includeGraph db'
+
+        selectedUnitDecls :: [Decl l]
+        selectedUnitDecls = unitSelect.decls
 
         selectMsgs :: [AnnMsg Select]
         selectMsgs =
@@ -202,13 +204,6 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             additionalSelectedTransDepIds
             getTransitiveSelectability
             index
-
-        unitSelect :: C.TranslationUnit l Select
-        unitSelect = C.TranslationUnit {
-                decls        = selectedUnitDecls
-              , includeGraph = unit.includeGraph
-              , db           = db'
-              }
 
         -- If there were no predicate matches we issue a warning to the user.
         noDeclarationsMatchedMsg :: [AnnMsg Select]
@@ -520,6 +515,8 @@ getDelayedMsgsSelectionRoots declDB roots =
       Active decl ->
         mkActiveMessages declDB declId decl
       External{} -> []
+      -- Only after @Select@
+      Deselected{} -> []
       -- We do not emit the delayed messages of squashed entries; instead we
       -- issue a notice that the @typedef@ was squashed.
       Squashed x ->
@@ -552,6 +549,8 @@ getDelayedMsgsAdditionalSelectedTransDeps declDB transDeps =
       Active decl ->
         mkActiveMessages declDB declId decl
       External{} -> []
+      -- Only after @Select@
+      Deselected{} -> []
       -- We do not emit the delayed messages of squashed entries; instead we
       -- issue a notice that the @typedef@ was squashed.
       Squashed x ->
@@ -581,8 +580,9 @@ getBugMsgsNotSelected declDB notSelected =
       Active decl ->
         let isBugLevel x = getDefaultLogLevel x == Bug
         in  filter isBugLevel $ mkActiveMessages declDB declId decl
-      External{} -> []
-      Squashed{} -> []
+      External{}   -> []
+      Squashed{}   -> []
+      Deselected{} -> []
       Inactive (InactiveDecl x) ->
         [ mkUnusableMessage declId x | isBug x.reason ]
       Inactive InactiveConflict{} -> []
@@ -593,7 +593,6 @@ getBugMsgsNotSelected declDB notSelected =
       ParseFailed err          -> getDefaultLogLevel err == Bug
       Deactivated (Unusable r) -> getDefaultLogLevel r == Bug
       Deactivated Omitted      -> False
-      Deactivated Deselected   -> False
 
 -- | Bug-level delayed messages of every entry that is not active, whether
 -- selected or not
@@ -635,7 +634,6 @@ isDroppedMacro = \case
       NotAttempted                                 -> False
       Deactivated Omitted                          -> False
       Deactivated (Unusable UnusableMangleNames{}) -> False
-      Deactivated Deselected                       -> False
     _otherwise                                     -> False
   where
     isMacroParseFailure :: DelayedParseMsg -> Bool

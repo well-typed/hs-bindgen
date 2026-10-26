@@ -37,6 +37,7 @@ data Target =
     ToDeactivated Deactivation
   | ToSquashed
   | ToExternal
+  | ToDeselected
 
 data Violation =
     -- | An active declaration whose identifier is not its key
@@ -87,9 +88,10 @@ checkTransition allowed old new = concat [
       (Active{}, Active{}) -> True
       (Active{}, Inactive (InactiveDecl InactiveInfo{reason = Deactivated d})) ->
         allowed (ToDeactivated d)
-      (Active{}  , Squashed{}) -> allowed ToSquashed
-      (Active{}  , External{}) -> allowed ToExternal
-      (Inactive{}, External{}) -> allowed ToExternal
+      (Active{}  , Squashed{})   -> allowed ToSquashed
+      (Active{}  , External{})   -> allowed ToExternal
+      (Active{}  , Deselected{}) -> allowed ToDeselected
+      (Inactive{}, External{})   -> allowed ToExternal
       (Active{}, _) -> False
       -- An entry that is not active is pass-independent: it stays as it is
       (_, Active{}) -> False
@@ -98,10 +100,11 @@ checkTransition allowed old new = concat [
 -- | Everything but the declaration of an active entry
 describe :: Entry l p -> String
 describe = \case
-    Active{}   -> "Active"
-    Squashed x -> "Squashed " ++ show x
-    External x -> "External " ++ show x
-    Inactive x -> "Inactive " ++ show x
+    Active{}     -> "Active"
+    Squashed x   -> "Squashed " ++ show x
+    External x   -> "External " ++ show x
+    Deselected x -> "Deselected " ++ show x
+    Inactive x   -> "Inactive " ++ show x
 
 -- | Invariants of a single database, but for the identifiers of active
 -- declarations ('checkKeysDeclId', 'checkKeysDeclIdPair')
@@ -189,11 +192,8 @@ checkFrontend = do
       , atDeclId "resolveBindingSpecs" resolveBindingSpecs
       , atDeclIdPair "mangleNames" mangleNames
       , atDeclIdPair "adjustTypes" adjustTypes
-        -- TODO <https://github.com/well-typed/hs-bindgen/issues/1580>: until
-        -- @Select@ deactivates the declarations it does not select, the
-        -- declarations of these units are only the selected active ones.
-      , report "select" $ checkKeysDeclIdPair select.db
-      , report "final"  $ checkKeysDeclIdPair final.db
+      , atDeclIdPair "select" select
+      , atDeclIdPair "final" final
       , pair "constructTranslationUnit" "typecheckMacros" none
           constructTranslationUnit typecheckMacros
       , pair "typecheckMacros" "applyMacroFallback" (\case
@@ -215,8 +215,8 @@ checkFrontend = do
       , pair "mangleNames" "adjustTypes" none
           mangleNames adjustTypes
       , pair "adjustTypes" "select" (\case
-            ToDeactivated Deselected -> True
-            _otherwise               -> False)
+            ToDeselected -> True
+            _otherwise   -> False)
           adjustTypes select
       , pair "select" "final" none
           select final
