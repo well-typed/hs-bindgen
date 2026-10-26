@@ -640,8 +640,8 @@ test_unusable_delayed_msgs =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["F", "F", "f"]
 
--- | A selected inactive declaration has no dependencies, and is not reported as
--- selected
+-- | A selected inactive declaration reports its own reason, plus its unusable
+-- transitive dependencies, and is not reported as selected
 test_inactive_unusable_dep :: TestCase
 test_inactive_unusable_dep =
     defaultTest "program-analysis/inactive_unusable_dep"

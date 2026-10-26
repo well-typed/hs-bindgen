@@ -37,7 +37,6 @@ module HsBindgen.Frontend.DeclDB (
   , addDelayedMsgs
     -- * Dependency edges
   , deleteDeps
-  , deleteRevDeps
   , insertDepsOfDecl
     -- * Query active declarations
   , lookup
@@ -102,9 +101,8 @@ type Out = ConstructTranslationUnit
 --
 -- When we replace a declaration by an external one while resolving binding
 -- specifications, its entry becomes 'External'. In the
--- "HsBindgen.Frontend.Analysis.UseDeclGraph", dependency edges from use sites
--- to the replaced declaration are deleted, because the use sites now depend on
--- the external Haskell type.
+-- "HsBindgen.Frontend.Analysis.UseDeclGraph", all edges of the replaced
+-- declaration are deleted ('externalize').
 --
 -- For example, assume the C code
 --
@@ -127,19 +125,25 @@ type Out = ConstructTranslationUnit
 -- Further, assume we have an external binding specification for D2. After
 -- resolving external binding specifications, the use-decl graph will be
 --
--- D1 <- D2    D3
---      (R2) <-|
+-- D1    D2    D3
+--      (R2) <--|
 --
--- The edge from D3 to D2 was removed, since D3 now depends on a Haskell type
--- R3, which is not part of the use-decl graph.
+-- The edges from and to D2 were removed; D2 is still in the use-decl graph; D3
+-- now depends on the Haskell type R2, which is not part of the use-decl graph.
 data DeclDB l p = DeclDB {
       entries         :: Map C.DeclId (Entry l p)
       -- | Delayed messages of any entry, in the order the passes issued them
     , delayedMsgs     :: Map C.DeclId (NonEmpty DelayedMsg)
       -- | Dependency edges, from the dependency to the user
       --
-      -- Its vertices are the keys of 'entries'. The use-decl graph is not
-      -- stored: see 'HsBindgen.Frontend.Analysis.UseDeclGraph.fromDeclUseGraph'.
+      -- Edges follow the bodies of the declarations. Edges change when
+      -- externalising, opaquing or reparsing, and when macros fail. Edges do
+      -- not change when an entry is deactivated.
+      --
+      -- Its vertices are the keys of 'entries'.
+      --
+      -- The reverse use-decl graph is not stored: see
+      -- 'HsBindgen.Frontend.Analysis.UseDeclGraph.fromDeclUseGraph'.
     , declUseGraph    :: DeclUseGraph
       -- | Macros whose expansion depends on where they are invoked
       --
@@ -723,7 +727,9 @@ withEntries db entries = DeclDB{
 
 -- | Replace active or inactive declarations by external bindings
 --
--- Panics if an identifier has no entry, or its entry is squashed or external.
+-- Deletes all edges of the externalised declarations: the binding is defined
+-- elsewhere, and its users refer to it by 'C.TypeExtBinding'. Panics if an
+-- identifier has no entry, or its entry is squashed or external.
 externalize ::
      forall l p. HasCallStack
   => Map C.DeclId ResolvedExtBinding
@@ -733,8 +739,16 @@ externalize bindings db
     | not (Map.null unknown) =
         panicPure $ "externalize: unknown declarations " ++ show (Map.keys unknown)
     | otherwise =
-        runIdentity $ traverseAll (\declId -> pure . step declId) db
+        deleteEdges . runIdentity $ traverseAll (\declId -> pure . step declId) db
   where
+    deleteEdges :: DeclDB l p -> DeclDB l p
+    deleteEdges db' = db'{
+          declUseGraph =
+              DeclUseGraph.deleteRevDeps (Map.keysSet bindings)
+            $ DeclUseGraph.deleteDeps (Map.keysSet bindings)
+            $ db'.declUseGraph
+        }
+
     unknown :: Map C.DeclId ResolvedExtBinding
     unknown = Map.difference bindings db.entries
 
@@ -782,15 +796,6 @@ addDelayedMsgs msgs db =
 deleteDeps :: Set C.DeclId -> DeclDB l p -> DeclDB l p
 deleteDeps declIds db = db{
       declUseGraph = DeclUseGraph.deleteDeps declIds db.declUseGraph
-    }
-
--- | Delete the use edges of the given declarations
---
--- For example, when a type is replaced with an external reference, its users
--- no longer depend on it directly.
-deleteRevDeps :: Set C.DeclId -> DeclDB l p -> DeclDB l p
-deleteRevDeps declIds db = db{
-      declUseGraph = DeclUseGraph.deleteRevDeps declIds db.declUseGraph
     }
 
 -- | Insert the dependency edges of a declaration

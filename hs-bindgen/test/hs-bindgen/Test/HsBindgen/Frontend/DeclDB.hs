@@ -12,12 +12,14 @@ module Test.HsBindgen.Frontend.DeclDB (
   , checkFrontend
   ) where
 
+import Data.Digraph (Digraph)
 import Data.Digraph qualified as Digraph
 import Data.Map.Strict qualified as Map
 import Data.Set ((\\))
 import Data.Set qualified as Set
 
 import HsBindgen.Artefact (Artefact (..), FrontendPass (..))
+import HsBindgen.Frontend.Analysis (Dependency)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.DeclDB (Deactivation (..), DeclDB (..), Entry (..),
                                   Inactive (..), InactiveInfo (..),
@@ -51,6 +53,10 @@ data Violation =
   | DelayedMsgsWithoutEntry C.DeclId
   | VertexWithoutEntry C.DeclId
   | EntryWithoutVertex C.DeclId
+    -- | An 'External' entry with edges
+  | EdgesOfExternal C.DeclId
+    -- | An entry inactive since construction with dependency edges
+  | DependencyEdgesOfNeverActive C.DeclId
     -- | An entry of the earlier database only
   | EntryDisappeared C.DeclId
     -- | An entry of the later database only
@@ -114,12 +120,36 @@ checkInvariants db = concat [
         Map.keysSet db.delayedMsgs \\ keys
     , map VertexWithoutEntry $ Set.toList $ vertices \\ keys
     , map EntryWithoutVertex $ Set.toList $ keys \\ vertices
+    , [ EdgesOfExternal declId
+      | (declId, External{}) <- Map.toList db.entries
+      , hasEdges declId graph || hasEdges declId depGraph
+      ]
+    , [ DependencyEdgesOfNeverActive declId
+      | (declId, Inactive inactive) <- Map.toList db.entries
+      , isNeverActive inactive
+      , hasEdges declId depGraph
+      ]
     ]
   where
     keys, vertices :: Set C.DeclId
     keys     = Map.keysSet db.entries
-    vertices =
-      Set.fromList $ Digraph.vertices $ DeclUseGraph.toDigraph db.declUseGraph
+    vertices = Set.fromList $ Digraph.vertices graph
+
+    -- Edges from the dependency to the user, and from the user to the
+    -- dependency
+    graph, depGraph :: Digraph Dependency C.DeclId
+    graph    = DeclUseGraph.toDigraph db.declUseGraph
+    depGraph = Digraph.transpose graph
+
+    hasEdges :: C.DeclId -> Digraph Dependency C.DeclId -> Bool
+    hasEdges declId = not . Map.null . Digraph.neighbors declId
+
+    isNeverActive :: Inactive -> Bool
+    isNeverActive = \case
+      InactiveConflict{}                                -> True
+      InactiveDecl InactiveInfo{reason = ParseFailed{}} -> True
+      InactiveDecl InactiveInfo{reason = NotAttempted}  -> True
+      InactiveDecl InactiveInfo{reason = Deactivated{}} -> False
 
 -- | Every active declaration's identifier is its key
 checkKeysDeclId :: Id p ~ C.DeclId => DeclDB l p -> [Violation]
