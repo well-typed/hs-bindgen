@@ -44,6 +44,11 @@
 
 [is-1554]: https://github.com/well-typed/hs-bindgen/issues/1554
 
+* A selected declaration that uses an unusable or unselected declaration no
+  longer also reports that the Haskell name of that declaration is not
+  mangled ("Underlying type constructor not mangled"); the message on its
+  missing transitive dependencies already reports the declaration.
+
 ### Bug fixes
 
 * A `struct` or `union` defined inline in a variable or function declaration

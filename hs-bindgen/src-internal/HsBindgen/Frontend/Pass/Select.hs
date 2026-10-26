@@ -23,6 +23,8 @@ import HsBindgen.Frontend.DeclDB (Deactivation (..), DeclDB, Entry (..),
                                   InactiveReason (..), UnusableReason (..))
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.MacroFallback (FallbackMacro (..))
+import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError (..),
+                                                  MangleNamesResolutionError (..))
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
@@ -214,7 +216,11 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
           ]
 
         selectionRootMsgs :: [AnnMsg Select]
-        selectionRootMsgs = getDelayedMsgsSelectionRoots index selectionRoots
+        selectionRootMsgs =
+          getDelayedMsgsSelectionRoots
+            getTransitiveSelectability
+            index
+            selectionRoots
 
         -- Number of selected macros that hs-bindgen dropped.
         droppedMacroCount :: Int
@@ -502,11 +508,12 @@ mkInactiveMessages declDB declId x = case x.reason of
 
 getDelayedMsgsSelectionRoots ::
      forall l. HasCallStack
-  => DeclDB l In
+  => (C.DeclId -> TransitiveSelectability)
+  -> DeclDB l In
   -> Map C.DeclId (Entry l In)
      -- ^ Selection roots
   -> [AnnMsg Select]
-getDelayedMsgsSelectionRoots declDB roots =
+getDelayedMsgsSelectionRoots getTransitiveSelectability declDB roots =
     concatMap (uncurry aux) $ Map.toList roots
   where
     aux ::
@@ -525,14 +532,30 @@ getDelayedMsgsSelectionRoots declDB roots =
       Squashed x ->
         List.singleton $ mkSquashedMessage declId x
       Inactive (InactiveDecl x) ->
-          mkUnusableMessage declId x
-        : mkInactiveMessages declDB declId x
+           [ mkUnusableMessage declId x
+           | not $ isExplainedByDependency declId x.reason
+           ]
+        ++ mkInactiveMessages declDB declId x
+      -- The delayed messages of the members are noise until the user resolves
+      -- the conflict; only Bug-level ones are reported ('getBugMsgsInactive').
       Inactive (InactiveConflict c) ->
         List.singleton $ withCallStack C.WithLocationInfo{
             loc = C.declIdLocationInfo declId $
               NonEmpty.toList $ C.conflictToList c
           , msg = SelectConflict
           }
+
+    -- A dependency without a Haskell name is unusable or not selected, and
+    -- the message on the missing transitive dependencies reports it.
+    isExplainedByDependency :: C.DeclId -> InactiveReason -> Bool
+    isExplainedByDependency declId = \case
+      Deactivated (Unusable (UnusableMangleNames (MangleNamesResolutionError
+        (ResolveNamesUnderlyingDeclNotMangled dep _)))) ->
+          case getTransitiveSelectability declId of
+            TransitivelyUnselectable reasons -> Map.member dep reasons
+            TransitivelySelectable           -> False
+      _otherReason ->
+        False
 
 getDelayedMsgsAdditionalSelectedTransDeps ::
      forall l. HasCallStack
