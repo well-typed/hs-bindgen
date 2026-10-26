@@ -39,7 +39,6 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.MacroFallback
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
@@ -69,7 +68,7 @@ generateDeclarations ::
   => Macro.Lang l
   -> UniqueId
   -> BaseModuleName
-  -> DeclDB l ConstructTranslationUnit
+  -> DeclDB l Final
   -> [C.Decl l Final]
   -> ByCategory_ [Hs.Decl l]
 generateDeclarations macroLang uniqueId name declDB =
@@ -98,7 +97,7 @@ generateDeclarations' ::
      Macro.HasTypes l
   => Macro.Lang l
   -> HsM.Env
-  -> DeclDB l ConstructTranslationUnit
+  -> DeclDB l Final
   -> [C.Decl l Final]
   -> [WithCategory (Hs.Decl l)]
 generateDeclarations' macroLang env declDB decs =
@@ -158,7 +157,7 @@ scanAllFunctionTypes = foldMap $ \decl ->
 
 -- | Check if a type is defined in the current module
 isDefinedInCurrentModule ::
-     DeclDB l ConstructTranslationUnit
+     DeclDB l Final
   -> C.Type Final
   -> Bool
 isDefinedInCurrentModule declDB =

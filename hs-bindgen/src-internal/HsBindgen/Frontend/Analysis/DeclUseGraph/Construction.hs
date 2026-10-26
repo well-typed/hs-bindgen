@@ -15,8 +15,6 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
 import HsBindgen.Frontend.Analysis.Deps
-import HsBindgen.Frontend.DeclDB (DeclDB)
-import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Imports
@@ -26,28 +24,30 @@ import HsBindgen.IR.C qualified as C
   Construction
 -------------------------------------------------------------------------------}
 
+-- | Construct the graph over all declarations, with the dependency edges of the
+-- given ones
+--
+-- The given declarations must be among all declarations. Macros have already
+-- been resolved.
 construct ::
      forall l. HasCallStack
-  => DeclDB l ConstructTranslationUnit
+  => Set C.DeclId
+     -- ^ All declarations, whether we can use them or not
+  -> [C.Decl l ConstructTranslationUnit]
   -> DeclUseGraph
-construct declDB = declUseGraph
+construct declIds decls = declUseGraph
   where
-    -- The database contains declarations that we cannot use. Macros have
-    -- already been resolved while constructing the database.
-    successfulDecls :: [C.Decl l ConstructTranslationUnit]
-    successfulDecls = DeclDB.getDecls declDB
-
     declUseGraph :: DeclUseGraph
     declUseGraph = DeclUseGraph $
       foldl'
         (flip insertDepsOfDeclParsedMacro)
         verticesGraph
-        successfulDecls
+        decls
 
     -- We first insert all declarations, so that they are assigned vertices.
     verticesGraph :: Digraph Dependency C.DeclId
     verticesGraph = foldl' (flip Digraph.insertVertex) Digraph.empty $
-      Set.toList (DeclDB.keysSet declDB)
+      Set.toList declIds
 
     -- We cannot use plain 'depsOfDecl' here because, at this pass, macros have
     -- been resolved (in the database) but not yet typechecked. We

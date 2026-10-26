@@ -13,7 +13,6 @@ import Data.Set qualified as Set
 import Clang.HighLevel.Types
 
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
@@ -23,9 +22,7 @@ import HsBindgen.Frontend.DeclDB (Deactivation (..), DeclDB, Entry (..),
                                   Inactive (..), InactiveInfo (..),
                                   InactiveReason (..), UnusableReason (..))
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
-import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.MacroFallback (FallbackMacro (..))
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
@@ -44,6 +41,8 @@ import HsBindgen.Util.Tracer
 
 -- Declaration itself.
 type Decl l = C.Decl l Select
+
+type In = TranslateTypes
 
 -- | Internal data type! This data type
 -- 'HsBindgen.Frontend.Pass.Select.Unselectable' refers to declarations that are
@@ -97,14 +96,14 @@ selectDecls ::
 selectDecls isMainHeader isInMainHeaderDir config unit =
     let -- Directly match the selection predicate on the 'DeclDB', obtaining
         -- information about succeeded _and failed_ selection roots.
-        selectionRootsIndex :: DeclDB l ConstructTranslationUnit
-        selectionRootsIndex = selectDeclDB unit.meta.declUseGraph match index
+        selectionRoots :: Map C.DeclId (Entry l In)
+        selectionRoots = selectEntries match index
 
         -- Identifiers of selection roots. Some of them may be unavailable
         -- (i.e., not in the 'succeeded' map, and hence, not in the list of
         -- declarations attached to the translation unit).
         rootIds :: Set C.DeclId
-        rootIds = DeclDB.keysSet selectionRootsIndex
+        rootIds = Map.keysSet selectionRoots
 
         -- Identifiers of transitive dependencies including selection roots.
         rootAndTransDepIds :: Set C.DeclId
@@ -124,11 +123,12 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
           DisableProgramSlicing -> (rootIds        , Set.empty)
           EnableProgramSlicing  -> (rootAndTransDepIds, strictTransDepIds)
 
-        additionalSelectedTransDepsIndex :: DeclDB l ConstructTranslationUnit
-        additionalSelectedTransDepsIndex = DeclDB.restrictKeys index additionalSelectedTransDepIds
+        additionalSelectedTransDeps :: Map C.DeclId (Entry l In)
+        additionalSelectedTransDeps =
+          Map.restrictKeys index.entries additionalSelectedTransDepIds
 
-        notSelectedIndex :: DeclDB l ConstructTranslationUnit
-        notSelectedIndex = DeclDB.withoutKeys index selectedIds
+        notSelected :: Map C.DeclId (Entry l In)
+        notSelected = Map.withoutKeys index.entries selectedIds
 
         getTransitiveSelectability :: C.DeclId -> TransitiveSelectability
         getTransitiveSelectability x
@@ -182,11 +182,18 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             selectedIds
             getTransitiveSelectability
 
-        unitDecls :: [Decl l]
-        unitDecls = map coercePass unit.decls
+        -- TODO <https://github.com/well-typed/hs-bindgen/issues/1580>: deactivate
+        -- the declarations we do not select.
+        db' :: DeclDB l Select
+        db' =
+          runIdentity $
+            DeclDB.traverseActive DeclDB.AnyOrder
+              (pure . DeclDB.Advanced . coercePass)
+              index
 
         selectedUnitDecls  :: [Decl l]
-        selectedUnitDecls = mapMaybe selectDecl unitDecls
+        selectedUnitDecls =
+          mapMaybe selectDecl $ C.activeDecls unit.includeGraph db'
 
         selectMsgs :: [AnnMsg Select]
         selectMsgs =
@@ -200,7 +207,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
         unitSelect = C.TranslationUnit {
                 decls        = selectedUnitDecls
               , includeGraph = unit.includeGraph
-              , meta         = unit.meta
+              , db           = db'
               }
 
         -- If there were no predicate matches we issue a warning to the user.
@@ -214,7 +221,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
           ]
 
         selectionRootMsgs :: [AnnMsg Select]
-        selectionRootMsgs = getDelayedMsgsSelectionRoots selectionRootsIndex
+        selectionRootMsgs = getDelayedMsgsSelectionRoots index selectionRoots
 
         -- Number of selected macros that hs-bindgen dropped.
         droppedMacroCount :: Int
@@ -231,9 +238,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
           | droppedMacroCount > 0
           ]
 
-        -- Selected macros that fall back, derived from the declarations: the
-        -- database keeps a fallback macro active as it was in
-        -- @ConstructTranslationUnit@, and never learns about the fallback.
+        -- Selected macros that fall back
         macroFallbackMsgs :: [AnnMsg Select]
         macroFallbackMsgs = [
             withCallStack C.WithLocationInfo{
@@ -260,8 +265,8 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
               selectMsgs
             , selectionRootMsgs
             , macroFallbackMsgs
-            , getDelayedMsgsAdditionalSelectedTransDeps additionalSelectedTransDepsIndex
-            , getBugMsgsNotSelected notSelectedIndex
+            , getDelayedMsgsAdditionalSelectedTransDeps index additionalSelectedTransDeps
+            , getBugMsgsNotSelected index notSelected
             , getBugMsgsInactive index
             , noDeclarationsMatchedMsg
             ]
@@ -274,11 +279,11 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             ]
         )
   where
-    index :: DeclDB l ConstructTranslationUnit
-    index = unit.meta.declDB
+    index :: DeclDB l In
+    index = unit.db
 
     useDeclGraph :: UseDeclGraph
-    useDeclGraph = unit.meta.useDeclGraph
+    useDeclGraph = UseDeclGraph.fromDeclUseGraph index.declUseGraph
 
     match :: Match
     match name loc availability =
@@ -329,7 +334,7 @@ getSelectMsgs ::
   -- ^ Additionally selected transitive dependencies (non-empty when program
   --   slicing is enabled).
   ->(C.DeclId -> TransitiveSelectability)
-  -> DeclDB l ConstructTranslationUnit
+  -> DeclDB l In
   -> [AnnMsg Select]
 getSelectMsgs
   rootIds
@@ -341,7 +346,7 @@ getSelectMsgs
     aux ::
          HasCallStack
       => C.DeclId
-      -> Entry l ConstructTranslationUnit
+      -> Entry l In
       -> [AnnMsg Select]
     aux =
       getSelectMsgsDeclId
@@ -353,14 +358,14 @@ getSelectMsgs
 getSelectMsgsDeclId ::
     HasCallStack
   => (C.DeclId -> TransitiveSelectability)
-  -> DeclDB l ConstructTranslationUnit
+  -> DeclDB l In
   -- | Selection roots.
   -> Set C.DeclId
   -- | Additionally selected transitive dependencies (non-empty when program
   --   slicing is enabled).
   -> Set C.DeclId
   -> C.DeclId
-  -> Entry l ConstructTranslationUnit
+  -> Entry l In
   -> [AnnMsg Select]
 getSelectMsgsDeclId
   getTransitiveSelectability
@@ -447,9 +452,9 @@ getSelectMsgsDeclId
 
 mkActiveMessages ::
      HasCallStack
-  => DeclDB l ConstructTranslationUnit
+  => DeclDB l In
   -> C.DeclId
-  -> C.Decl l ConstructTranslationUnit
+  -> C.Decl l In
   -> [AnnMsg Select]
 mkActiveMessages declDB declId decl =
     map (mkAnnMsg . SelectDelayedMsg) $ DeclDB.lookupDelayedMsgs declId declDB
@@ -482,7 +487,7 @@ mkUnusableMessage declId x = withCallStack C.WithLocationInfo{
 -- An omitted declaration reports none: the user asked for it.
 mkInactiveMessages ::
      HasCallStack
-  => DeclDB l ConstructTranslationUnit
+  => DeclDB l In
   -> C.DeclId
   -> InactiveInfo
   -> [AnnMsg Select]
@@ -499,15 +504,17 @@ mkInactiveMessages declDB declId x = case x.reason of
 
 getDelayedMsgsSelectionRoots ::
      forall l. HasCallStack
-  => DeclDB l ConstructTranslationUnit
+  => DeclDB l In
+  -> Map C.DeclId (Entry l In)
+     -- ^ Selection roots
   -> [AnnMsg Select]
-getDelayedMsgsSelectionRoots declDB =
-    concatMap (uncurry aux) $ DeclDB.toList declDB
+getDelayedMsgsSelectionRoots declDB roots =
+    concatMap (uncurry aux) $ Map.toList roots
   where
     aux ::
          HasCallStack
       => C.DeclId
-      -> Entry l ConstructTranslationUnit
+      -> Entry l In
       -> [AnnMsg Select]
     aux declId = \case
       Active decl ->
@@ -529,15 +536,17 @@ getDelayedMsgsSelectionRoots declDB =
 
 getDelayedMsgsAdditionalSelectedTransDeps ::
      forall l. HasCallStack
-  => DeclDB l ConstructTranslationUnit
+  => DeclDB l In
+  -> Map C.DeclId (Entry l In)
+     -- ^ Additionally selected transitive dependencies
   -> [AnnMsg Select]
-getDelayedMsgsAdditionalSelectedTransDeps declDB =
-    concatMap (uncurry aux) $ DeclDB.toList declDB
+getDelayedMsgsAdditionalSelectedTransDeps declDB transDeps =
+    concatMap (uncurry aux) $ Map.toList transDeps
   where
     aux ::
          HasCallStack
       => C.DeclId
-      -> Entry l ConstructTranslationUnit
+      -> Entry l In
       -> [AnnMsg Select]
     aux declId = \case
       Active decl ->
@@ -556,15 +565,17 @@ getDelayedMsgsAdditionalSelectedTransDeps declDB =
 -- parse messages are emitted for all declarations also in the future.
 getBugMsgsNotSelected ::
      forall l. HasCallStack
-  => DeclDB l ConstructTranslationUnit
+  => DeclDB l In
+  -> Map C.DeclId (Entry l In)
+     -- ^ Declarations not selected
   -> [AnnMsg Select]
-getBugMsgsNotSelected declDB =
-    concatMap (uncurry aux) $ DeclDB.toList declDB
+getBugMsgsNotSelected declDB notSelected =
+    concatMap (uncurry aux) $ Map.toList notSelected
   where
     aux ::
          HasCallStack
       => C.DeclId
-      -> Entry l ConstructTranslationUnit
+      -> Entry l In
       -> [AnnMsg Select]
     aux declId = \case
       Active decl ->
@@ -590,7 +601,7 @@ getBugMsgsNotSelected declDB =
 -- Active entries report theirs with their other delayed messages.
 getBugMsgsInactive ::
      forall l. HasCallStack
-  => DeclDB l ConstructTranslationUnit
+  => DeclDB l In
   -> [AnnMsg Select]
 getBugMsgsInactive declDB =
     concatMap (uncurry aux) $ DeclDB.toList declDB
@@ -598,7 +609,7 @@ getBugMsgsInactive declDB =
     aux ::
          HasCallStack
       => C.DeclId
-      -> Entry l ConstructTranslationUnit
+      -> Entry l In
       -> [AnnMsg Select]
     aux declId = \case
       Active{} -> []
@@ -704,17 +715,16 @@ sortSelectMsgs includeGraph msgs =
 -- Match function to find selection roots.
 type Match = C.DeclName -> SingleLoc C.DeclPath -> C.Availability -> Bool
 
--- | Limit the database to those entries that match the select
---   predicate. Do not include anything external nor omitted.
-selectDeclDB ::
-     DeclUseGraph
-  -> Match
-  -> DeclDB l ConstructTranslationUnit
-  -> DeclDB l ConstructTranslationUnit
-selectDeclDB declUseGraph predicate declDB =
-    DeclDB.filter matchEntry declDB
+-- | The entries that match the select predicate. Do not include anything
+--   external nor omitted.
+selectEntries ::
+     Match
+  -> DeclDB l In
+  -> Map C.DeclId (Entry l In)
+selectEntries predicate declDB =
+    Map.filterWithKey matchEntry declDB.entries
   where
-    matchEntry :: C.DeclId -> Entry l ConstructTranslationUnit -> Bool
+    matchEntry :: C.DeclId -> Entry l In -> Bool
     matchEntry declId entry =
         case entryInfo entry of
           Nothing ->
@@ -740,7 +750,7 @@ selectDeclDB declUseGraph predicate declDB =
     -- Returns 'Just _' for squashed declarations. Those can still be selected.
     -- Returns multiple locations only for conflicts.
     entryInfo ::
-         Entry l ConstructTranslationUnit
+         Entry l In
       -> Maybe (C.DeclLocs, C.Availability)
     entryInfo entry = case entry of
         External{} ->
@@ -779,7 +789,7 @@ selectDeclDB declUseGraph predicate declDB =
     -- inner struct is needed.
     matchUnnamed :: C.DeclId -> Bool
     matchUnnamed unnamed =
-       case DeclUseGraph.getUseSites declUseGraph unnamed of
+       case DeclUseGraph.getUseSites declDB.declUseGraph unnamed of
          (declId, _) :_ ->
            -- The only way that unnamed declarations can have multiple use
            -- sites is when multiple fields are defined together:

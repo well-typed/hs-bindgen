@@ -5,10 +5,15 @@
 -- @
 module HsBindgen.Frontend.TranslationUnit (
     TranslationUnit(..)
+  , fromDeclDB
+  , activeDecls
   ) where
 
+import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
-import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
@@ -24,6 +29,9 @@ import HsBindgen.Macro.Type qualified as Macro
 -- the frontend in a "trees that grow" (TTG) style.
 data TranslationUnit l p = TranslationUnit{
       -- | Declarations in the unit
+      --
+      -- The 'activeDecls' of 'db' (see 'fromDeclDB'); after @Select@, only the
+      -- selected ones.
       --
       -- Declarations from all headers that we have processed. Passes may remove
       -- some declarations. For example,
@@ -51,8 +59,8 @@ data TranslationUnit l p = TranslationUnit{
       -- figure out what this set of "core" headers is.
     , includeGraph :: IncludeGraph
 
-      -- | Pass-specific annotation
-    , meta :: DeclMeta l
+      -- | Declaration database
+    , db :: DeclDB l p
     }
   deriving stock (Generic)
 
@@ -60,13 +68,19 @@ deriving stock instance ( IsPass p
                         , Macro.HasTypes l
                         ) => Show (TranslationUnit l p)
 
-instance (
-      CoercePass (C.Decl l) p p'
-    , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
-    ) => CoercePass (TranslationUnit l) p p' where
-  coercePass unit = TranslationUnit{
-        decls        = map coercePass unit.decls
-      , includeGraph = unit.includeGraph
-      , meta         = unit.meta
-      }
+-- | The unit of a database: 'decls' are its 'activeDecls'
+fromDeclDB :: IncludeGraph -> DeclDB l p -> TranslationUnit l p
+fromDeclDB includeGraph db = TranslationUnit{
+      decls        = activeDecls includeGraph db
+    , includeGraph = includeGraph
+    , db           = db
+    }
 
+-- | The active declarations, in the order of 'decls'
+--
+-- Dependency order, refined by
+-- 'HsBindgen.Frontend.Analysis.DeclUseGraph.declSortKey'.
+activeDecls :: IncludeGraph -> DeclDB l p -> [C.Decl l p]
+activeDecls includeGraph =
+    DeclDB.active $ DeclDB.DependencyBy $
+      DeclUseGraph.declSortKey (IncludeGraph.toIncludeOrder includeGraph)

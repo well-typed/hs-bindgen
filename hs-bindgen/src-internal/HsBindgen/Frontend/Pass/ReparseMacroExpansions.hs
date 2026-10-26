@@ -10,15 +10,10 @@ import Data.Set qualified as Set
 
 import Clang.CStandard (ClangCStandard)
 
-import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
-import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
-import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.LanguageC qualified as LanC
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.ForgetAnn (ForgetAnn (forgetAnn))
@@ -48,49 +43,29 @@ reparseMacroExpansions ::
   -> C.TranslationUnit l PrepareReparse
   -> C.TranslationUnit l ReparseMacroExpansions
 reparseMacroExpansions cStd knownNonMacroTypes knownMacros unit =
-    let (reparsedDecls, reparseState) =
+    let (reparsedDB, reparseState) =
           runM
             cStd
             (Map.map coercePass knownNonMacroTypes)
             knownMacros
-            (mapM reparseDecl unit.decls)
-        meta' =
-          updateMeta reparseState.reparseWarnings reparsedDecls unit.meta
-    in  C.TranslationUnit{
-            decls        = DeclUseGraph.sortDecls
-                             unit.includeGraph
-                             meta'.declDB
-                             meta'.declUseGraph
-                             reparsedDecls
-          , includeGraph = unit.includeGraph
-          , meta         = meta'
-          }
+            (DeclDB.traverseActive DeclDB.AnyOrder
+               (fmap DeclDB.Advanced . reparseDecl)
+               unit.db)
+    in  C.fromDeclDB unit.includeGraph $
+          updateDB reparseState.reparseWarnings reparsedDB
 
-updateMeta ::
-     forall l.
+updateDB ::
      [(C.DeclId, DelayedReparseMacroExpansionsMsg)]
-  -> [C.Decl l ReparseMacroExpansions]
-  -> DeclMeta l
-  -> DeclMeta l
-updateMeta msgs decls meta = DeclMeta{
-      declDB       = updatedDeclDB
-    , useDeclGraph = UseDeclGraph.fromDeclUseGraph updatedDeclUseGraph
-    , declUseGraph = updatedDeclUseGraph
-    }
-  where
-    updatedDeclDB :: DeclDB l ConstructTranslationUnit
-    updatedDeclDB =
+  -> DeclDB l ReparseMacroExpansions
+  -> DeclDB l ReparseMacroExpansions
+updateDB msgs db =
+    Foldable.foldl'
+      (flip updateDeps)
       -- Collected in reverse order
-      DeclDB.addDelayedMsgs
-        (reverse $ map (fmap DelayedReparseMacroExpansions) msgs)
-        meta.declDB
-
-    updatedDeclUseGraph :: DeclUseGraph
-    updatedDeclUseGraph =
-      Foldable.foldl'
-        (flip updateDeps)
-        meta.declUseGraph
-        decls
+      (DeclDB.addDelayedMsgs
+         (reverse $ map (fmap DelayedReparseMacroExpansions) msgs)
+         db)
+      (DeclDB.active DeclDB.AnyOrder db)
 
 -- | Dependencies before reparse may point to underlying types. These have to be
 -- replaced with their actual dependencies after reparse+zip.
@@ -109,11 +84,11 @@ updateMeta msgs decls meta = DeclMeta{
 -- replace it with the dependency to @B@.
 updateDeps ::
      C.Decl l ReparseMacroExpansions
-  -> DeclUseGraph
-  -> DeclUseGraph
-updateDeps decl graph =
-    DeclUseGraph.insertDepsOfDecl decl $
-      DeclUseGraph.deleteDeps (Set.singleton decl.id) graph
+  -> DeclDB l ReparseMacroExpansions
+  -> DeclDB l ReparseMacroExpansions
+updateDeps decl db =
+    DeclDB.insertDepsOfDecl decl $
+      DeclDB.deleteDeps (Set.singleton decl.id) db
 
 {-------------------------------------------------------------------------------
   Reparse declarations with macro expansions

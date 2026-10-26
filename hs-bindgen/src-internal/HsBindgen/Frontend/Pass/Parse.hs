@@ -102,9 +102,8 @@ analyseMacros = do
 
   * Dependency order: the order according to the use-decl graph; if @A@ has a
     by-value use of @B@ then @B@ comes before @A@. This is the order the rest of
-    the frontend works in (established by @sortDecls@ in
-    "HsBindgen.Frontend.Analysis.DeclUseGraph.Query", whenever a pass changes
-    the graph).
+    the frontend works in (established by @activeDecls@ in
+    "HsBindgen.Frontend.TranslationUnit", at every pass).
 -------------------------------------------------------------------------------}
 
 -- | Stable merge sort using a monadic strict-less-than predicate.

@@ -17,15 +17,10 @@ import Clang.HighLevel.Types
 import HsBindgen.BindingSpec (MergedBindingSpecs, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
-import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
-import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
-import HsBindgen.Frontend.DeclMeta
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -65,45 +60,34 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
             extSpecs
             pSpec'
             unit.includeGraph
-            unit.meta.declDB
+            unit.db
             (resolveDecls unit.decls)
-        declUseGraph =
-            DeclUseGraph.deleteRevDeps (Map.keysSet state.extTypes)
-          . DeclUseGraph.deleteDeps state.opqTypes
-          $ unit.meta.declUseGraph
         notUsedErrs = map (withCallStack . ResolveBindingSpecsTypeNotUsed) $ Map.keys state.noPTypes
-    in  ( reconstruct decls declUseGraph state
+    in  ( C.fromDeclDB unit.includeGraph (resolveDB decls state)
         , pSpecErrs ++ reverse state.traces ++ notUsedErrs
         )
   where
-    reconstruct ::
+    -- Externalized entries are no longer active, so need no result.
+    resolveDB ::
          [C.Decl l ResolveBindingSpecs]
-      -> DeclUseGraph
       -> MState
-      -> C.TranslationUnit l ResolveBindingSpecs
-    reconstruct decls' declUseGraph state =
-      let declDB' :: DeclDB l ConstructTranslationUnit
-          declDB' =
-                DeclDB.externalize state.extTypes
-              . DeclDB.deactivate (Map.fromSet (const DeclDB.Omitted) state.omitTypes)
-              $ unit.meta.declDB
-
-          unitMeta' :: DeclMeta l
-          unitMeta' = DeclMeta {
-                declDB       = declDB'
-              , useDeclGraph = UseDeclGraph.fromDeclUseGraph declUseGraph
-              , declUseGraph = declUseGraph
-              }
-
-      in C.TranslationUnit{
-             decls        = DeclUseGraph.sortDecls
-                              unit.includeGraph
-                              declDB'
-                              declUseGraph
-                              decls'
-           , includeGraph = unit.includeGraph
-           , meta         = unitMeta'
-           }
+      -> DeclDB l ResolveBindingSpecs
+    resolveDB decls state =
+        DeclDB.deleteRevDeps (Map.keysSet state.extTypes)
+      . DeclDB.deleteDeps state.opqTypes
+      . runIdentity
+      . DeclDB.traverseActive DeclDB.AnyOrder
+          (\decl -> pure $ DeclDB.lookupResult decl.id results)
+      . DeclDB.externalize state.extTypes
+      $ unit.db
+      where
+        results :: Map C.DeclId (DeclDB.PassResult l ResolveBindingSpecs)
+        results = DeclDB.passResults $ concat [
+              [(decl.id, DeclDB.Advanced decl) | decl <- decls]
+            , [ (declId, DeclDB.Deactivate DeclDB.Omitted)
+              | declId <- Set.toList state.omitTypes
+              ]
+            ]
 
 {-------------------------------------------------------------------------------
   Internal: monad
@@ -122,7 +106,7 @@ runM ::
      MergedBindingSpecs
   -> PrescriptiveBindingSpec
   -> IncludeGraph
-  -> DeclDB l ConstructTranslationUnit
+  -> DeclDB l PreviousPass
   -> M l a
   -> (a, MState)
 runM extSpecs pSpec includeGraph declDB (WrapM m) =
@@ -138,7 +122,7 @@ data MEnv l = MEnv {
       extSpecs     :: MergedBindingSpecs
     , pSpec        :: PrescriptiveBindingSpec
     , includeGraph :: IncludeGraph
-    , declDB       :: DeclDB l ConstructTranslationUnit
+    , declDB       :: DeclDB l PreviousPass
     }
 
 deriving stock instance Macro.HasTypes l => Show (MEnv l)
@@ -384,7 +368,7 @@ applyPrescriptive decl cTypeSpec mHsTypeSpec = runMaybeT $ do
 -- pointers, and enums canonicalise to a type with no such reference and yield
 -- 'Nothing', since their sizes are not available in this frontend pass.
 underlyingOpaqueSize ::
-     DeclDB l ConstructTranslationUnit
+     DeclDB l PreviousPass
   -> C.Type PreviousPass
   -> Maybe C.OpaqueSize
 underlyingOpaqueSize declDB ty =

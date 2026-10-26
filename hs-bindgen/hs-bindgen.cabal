@@ -183,7 +183,6 @@ library internal
     HsBindgen.Frontend.Analysis.UseDeclGraph
     HsBindgen.Frontend.DeclDB
     HsBindgen.Frontend.DeclDB.ResolveMacro
-    HsBindgen.Frontend.DeclMeta
     HsBindgen.Frontend.DelayedMsg
     HsBindgen.Frontend.LanguageC
     HsBindgen.Frontend.LanguageC.Error
