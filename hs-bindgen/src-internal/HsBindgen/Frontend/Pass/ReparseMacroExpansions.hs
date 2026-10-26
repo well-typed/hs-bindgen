@@ -54,10 +54,16 @@ reparseMacroExpansions cStd knownNonMacroTypes knownMacros unit =
             (Map.map coercePass knownNonMacroTypes)
             knownMacros
             (mapM reparseDecl unit.decls)
+        meta' =
+          updateMeta reparseState.reparseWarnings reparsedDecls unit.meta
     in  C.TranslationUnit{
-            decls        = reparsedDecls
+            decls        = DeclUseGraph.sortDecls
+                             unit.includeGraph
+                             meta'.declDB
+                             meta'.declUseGraph
+                             reparsedDecls
           , includeGraph = unit.includeGraph
-          , meta         = updateMeta reparseState.reparseWarnings reparsedDecls unit.meta
+          , meta         = meta'
           }
 
 updateMeta ::

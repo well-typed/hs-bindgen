@@ -1,6 +1,7 @@
 module HsBindgen.Frontend.Analysis.DeclUseGraph.Query (
     -- * Query
-    toDecls
+    sortDecls
+  , declSortKey
     -- ** Transitive usage
   , getUseSitesTransitively
     -- ** Direct usage
@@ -22,40 +23,77 @@ import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass (Id)
 
 {-------------------------------------------------------------------------------
   Query
 -------------------------------------------------------------------------------}
 
--- | Construct ordered list of declarations
+-- | Order declarations: dependency order, refined by 'declSortKey'
 --
--- Dependency order, refined by 'annSortKey': definition sites come before use
--- sites, and otherwise we follow source order as far as 'annSortKey' knows it.
-toDecls ::
-     HasCallStack
+-- Definition sites come before use sites, and otherwise we follow source order
+-- as far as 'annSortKey' knows it. The database supplies the sort keys of all
+-- vertices, active or not; every given declaration must be a vertex.
+sortDecls ::
+     forall l p q.
+     (HasCallStack, Id p ~ C.DeclId)
   => IncludeGraph
-  -> DeclDB l ConstructTranslationUnit
+  -> DeclDB l q
   -> DeclUseGraph
-  -> [C.Decl l ConstructTranslationUnit]
-toDecls includeGraph declDB declUseGraph =
-    -- 'DeclDB.lookup' skips the inactive declarations.
-    mapMaybe (`DeclDB.lookup` declDB) . Digraph.sortBy (comparing key) $
-      Digraph.filterEdges (== NeedsShape) declUseGraph.graph
+  -> [C.Decl l p]
+  -> [C.Decl l p]
+sortDecls includeGraph declDB declUseGraph decls
+    | Map.null notVertices = sorted
+    | otherwise            = panicPure $
+        "Declarations not in the graph: " <> show (Map.keys notVertices)
   where
     order :: IncludeGraph.IncludeOrder
     order = IncludeGraph.toIncludeOrder includeGraph
 
-    key :: C.DeclId -> DeclSortKey
-    key declId = case DeclDB.lookup declId declDB of
-      Just decl -> DeclSucceeded $ annSortKey order decl.info.loc
-      Nothing   -> DeclFailed
+    byId :: Map C.DeclId (C.Decl l p)
+    byId = Map.fromList [(decl.id, decl) | decl <- decls]
 
--- | Failed declarations sort last; they have no source position we could use
-data DeclSortKey = DeclSucceeded SortKey | DeclFailed
+    sortedIds :: [C.DeclId]
+    sortedIds =
+      Digraph.sortBy (comparing key) $
+        Digraph.filterEdges (== NeedsShape) declUseGraph.graph
+
+    sorted :: [C.Decl l p]
+    sorted = mapMaybe (`Map.lookup` byId) sortedIds
+
+    notVertices :: Map C.DeclId (C.Decl l p)
+    notVertices = Map.withoutKeys byId (Set.fromList sortedIds)
+
+    key :: C.DeclId -> DeclSortKey
+    key declId = case DeclDB.lookupEntry declId declDB of
+      Just entry -> declSortKey order entry
+      Nothing    -> panicPure $ "Vertex not in the database: " <> show declId
+
+-- | Entries without a source position sort last
+data DeclSortKey = DeclWithLoc SortKey | DeclNoLoc
   deriving stock (Eq, Ord)
+
+-- | The key of an entry
+--
+-- Read from the entry's 'C.DeclInfo', so deactivating or squashing an entry
+-- keeps its key; only 'DeclDB.externalize' changes it.
+declSortKey ::
+     HasCallStack
+  => IncludeGraph.IncludeOrder
+  -> DeclDB.Entry l p
+  -> DeclSortKey
+declSortKey order = \case
+    DeclDB.Active   decl     -> withLoc decl.info
+    DeclDB.Squashed squashed -> withLoc squashed.info
+    DeclDB.External{}        -> DeclNoLoc
+    DeclDB.Inactive inactive -> case inactive of
+      DeclDB.InactiveDecl info  -> withLoc info.info
+      DeclDB.InactiveConflict{} -> DeclNoLoc
+  where
+    withLoc :: C.DeclInfo -> DeclSortKey
+    withLoc info = DeclWithLoc $ annSortKey order info.loc
 
 data SortKey = SortKey{
       sortPathIx :: IncludeGraph.IncludeOrderIx

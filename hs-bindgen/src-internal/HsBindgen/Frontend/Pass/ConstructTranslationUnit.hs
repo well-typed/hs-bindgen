@@ -34,10 +34,11 @@ constructTranslationUnit ::
   -> IncludeGraph
   -> C.TranslationUnit l ConstructTranslationUnit
 constructTranslationUnit macroLang macroAnalysis isMainHeader parseResults includeGraph = C.TranslationUnit{
-      decls        = DeclUseGraph.toDecls
+      decls        = DeclUseGraph.sortDecls
                        includeGraph
                        declMeta.declDB
                        declMeta.declUseGraph
+                       (DeclDB.getDecls declMeta.declDB)
     , includeGraph = includeGraph
     , meta         = declMeta
     }

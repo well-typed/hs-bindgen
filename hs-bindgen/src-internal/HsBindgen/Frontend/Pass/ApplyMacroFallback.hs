@@ -42,7 +42,11 @@ applyMacroFallback ::
   -> C.TranslationUnit l Out
 applyMacroFallback isMainHeader isInMainHeaderDir config unit =
     C.TranslationUnit{
-        decls        = decls'
+        decls        = DeclUseGraph.sortDecls
+                         unit.includeGraph
+                         declDB'
+                         declUseGraph'
+                         decls'
       , includeGraph = unit.includeGraph
       , meta         = DeclMeta{
             declDB       = declDB'
