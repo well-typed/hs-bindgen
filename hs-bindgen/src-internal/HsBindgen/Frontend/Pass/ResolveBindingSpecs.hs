@@ -73,8 +73,7 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
       -> MState
       -> DeclDB l ResolveBindingSpecs
     resolveDB decls state =
-        DeclDB.deleteRevDeps (Map.keysSet state.extTypes)
-      . DeclDB.deleteDeps state.opqTypes
+        DeclDB.deleteDeps state.opqTypes
       . runIdentity
       . DeclDB.traverseActive DeclDB.AnyOrder
           (\decl -> pure $ DeclDB.lookupResult decl.id results)
