@@ -96,7 +96,11 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
               }
 
       in C.TranslationUnit{
-             decls        = decls'
+             decls        = DeclUseGraph.sortDecls
+                              unit.includeGraph
+                              declDB'
+                              declUseGraph
+                              decls'
            , includeGraph = unit.includeGraph
            , meta         = unitMeta'
            }

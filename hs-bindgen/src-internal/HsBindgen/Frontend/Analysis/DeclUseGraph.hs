@@ -15,7 +15,8 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph (
   , deleteDeps
   , deleteRevDeps
     -- * Query
-  , toDecls
+  , sortDecls
+  , declSortKey
     -- ** Transitive usage
   , getUseSitesTransitively
     -- ** Direct usage
