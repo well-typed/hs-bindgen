@@ -16,7 +16,10 @@ import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
+import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
@@ -43,11 +46,15 @@ runBackend tracer config boot frontend = do
       let declDB :: DeclDB l Final
           declDB = final.db
 
-          -- Dependency order refined by source order (see
-          -- 'HsBindgen.Frontend.TranslationUnit.activeDecls'): the translation
-          -- needs dependency order, and the output follows it.
+          -- The translation needs dependency order; the output follows it,
+          -- refined by source order.
           cDecls :: [C.Decl l Final]
-          cDecls = final.decls
+          cDecls =
+            DeclDB.active
+              (DeclDB.DependencyBy $
+                DeclUseGraph.declSortKey $
+                  IncludeGraph.toIncludeOrder final.includeGraph)
+              declDB
       pure $ Hs.generateDeclarations
         macroLang
         config.backend.uniqueId

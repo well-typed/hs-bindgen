@@ -101,9 +101,9 @@ analyseMacros = do
     another header part-way through its own declarations.
 
   * Dependency order: the order according to the use-decl graph; if @A@ has a
-    by-value use of @B@ then @B@ comes before @A@. This is the order the rest of
-    the frontend works in (established by @activeDecls@ in
-    "HsBindgen.Frontend.TranslationUnit", at every pass).
+    by-value use of @B@ then @B@ comes before @A@. The backend generates the
+    bindings in this order, refined by @declSortKey@. Each traversal of the
+    declaration database states the order it needs.
 -------------------------------------------------------------------------------}
 
 -- | Stable merge sort using a monadic strict-less-than predicate.

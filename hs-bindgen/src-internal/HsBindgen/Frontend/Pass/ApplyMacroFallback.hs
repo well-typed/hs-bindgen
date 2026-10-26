@@ -34,7 +34,7 @@ applyMacroFallback ::
   -> C.TranslationUnit l In
   -> C.TranslationUnit l Out
 applyMacroFallback isMainHeader isInMainHeaderDir config unit =
-    C.fromDeclDB unit.includeGraph db'
+    unit{C.db = db'}
   where
     -- The edges into a rejected macro stay: its dependents use an unusable
     -- macro.

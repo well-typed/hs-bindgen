@@ -64,8 +64,8 @@ data Unselectable =
 
 -- | We have to treat with two notions of usability here:
 --
--- 1. A declaration can be usable because it is in the list of declarations
---    attached to the translation unit.
+-- 1. A declaration is usable if we can generate a binding for it (see
+--    'DeclDB.getUnusable').
 --
 -- 2. A declaration is available if the declaration itself and all of its
 --    transitive dependencies are available.
@@ -100,9 +100,8 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
         selectionRoots :: Map C.DeclId (Entry l In)
         selectionRoots = selectEntries match index
 
-        -- Identifiers of selection roots. Some of them may be unavailable
-        -- (i.e., not in the 'succeeded' map, and hence, not in the list of
-        -- declarations attached to the translation unit).
+        -- Identifiers of selection roots. Some of them may be squashed or
+        -- unusable (i.e., not active in the 'DeclDB').
         rootIds :: Set C.DeclId
         rootIds = Map.keysSet selectionRoots
 
@@ -193,7 +192,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
               index
 
         unitSelect :: C.TranslationUnit l Select
-        unitSelect = C.fromDeclDB unit.includeGraph db'
+        unitSelect = unit{C.db = db'}
 
         selectMsgs :: [AnnMsg Select]
         selectMsgs =
@@ -700,8 +699,7 @@ selectEntries predicate declDB =
     matchEntry declId entry =
         case entryInfo entry of
           Nothing ->
-            -- External or omittted declarations have already been removed from
-            -- the list of declarations
+            -- External and omitted declarations cannot be selected
             False
           Just (locs, availability) ->
             if declId.isUnnamed

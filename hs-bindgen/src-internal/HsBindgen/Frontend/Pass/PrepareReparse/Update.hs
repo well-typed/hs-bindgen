@@ -57,7 +57,7 @@ update ::
      UpdateMode
   -> C.TranslationUnit l ApplyMacroFallback
   -> C.TranslationUnit l PrepareReparse
-update mode unit = C.fromDeclDB unit.includeGraph db'
+update mode unit = unit{C.db = db'}
   where
     (db, delayedMsgs) =
       runM env $
