@@ -4,6 +4,29 @@
 --
 -- > import HsBindgen.Frontend.DeclDB (DeclDB)
 -- > import HsBindgen.Frontend.DeclDB qualified as DeclDB
+--
+-- = Orderings
+--
+-- The declaration database does not store any particular 'Order': each
+-- traversal states the order it needs. We distinguish three orderings:
+--
+-- * Sequence order: the order in which @libclang@ visits the declarations,
+--   and in which 'HsBindgen.Frontend.Pass.Parse.parseDecls' returns them.
+--   @libclang@ visits the macros first and the remaining declarations in
+--   source order, so sequence order is /not/ source order.
+--
+-- * Source order: roughly, how the declarations appear in the C source.
+--   @Parse@ records it in 'C.DeclInfo' (@sourceOrderIndex@), sorting on
+--   source position with @clang_isBeforeInTranslationUnit@ (accurate, but
+--   requires Clang >= 20.1). @annSortKey@ (in
+--   "HsBindgen.Frontend.Analysis.DeclUseGraph.Query") computes a best-effort
+--   source order without that API; it can be inaccurate, e.g. when a header
+--   includes another header part-way through its own declarations.
+--
+-- * Dependency order: topological over the dependency edges; if @A@ uses @B@,
+--   then @B@ comes before @A@. 'DependencyBy' follows the 'NeedsShape' edges
+--   and orders the entries that do not depend on each other by a key, such as
+--   @annSortKey@; 'AllDependencies' follows every edge.
 module HsBindgen.Frontend.DeclDB (
     DeclDB -- constructor hidden
       ( entries
@@ -161,7 +184,7 @@ deriving stock instance (IsPass p, Macro.HasTypes l) => Show (DeclDB l p)
 
 -- | What @hs-bindgen@ generates for a declaration
 --
--- Every entry but 'Inactive' is usable. Usability is not concerned with
+-- Only v'Inactive' entries are unusable. Usability is not concerned with
 -- transitivity: a usable declaration may have unusable transitive
 -- dependencies (see "HsBindgen.Frontend.Pass.Select").
 data Entry l p =
@@ -170,7 +193,7 @@ data Entry l p =
     -- Also includes macros the macro language gave up on because we may fall
     -- back to generating a raw macro binding (see @ApplyMacroFallback@).
     Active   (C.Decl l p)
-    -- | We generate the target: a typedef squashed into it
+    -- | We generate a binding for the squash target only
   | Squashed SquashedTypedef
     -- | Defined elsewhere: an external binding replaces the declaration
   | External ResolvedExtBinding
@@ -640,7 +663,8 @@ data Order l p =
     --   caller's function giving each entry a key: whenever several entries
     --   have all their dependencies placed, the one with the least key comes
     --   next (e.g. 'HsBindgen.Frontend.Analysis.DeclUseGraph.declSortKey'
-    --   puts the one earlier in the source first)
+    --   puts the one earlier in the source first); among equal keys, the one
+    --   with the least 'C.DeclId'
   | forall k. Ord k => DependencyBy (Entry l p -> k)
 
 -- | The outcome of processing one active declaration in a pass
