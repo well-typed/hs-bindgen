@@ -1,0 +1,57 @@
+-- addDependentFile test-artefacts/headers/golden/macros/macro_type_ptr_order.h
+{-| __C declaration:__ @macro T@
+
+    __defined at:__ @macros\/macro_type_ptr_order.h 2:9@
+
+    __exported by:__ @macros\/macro_type_ptr_order.h@
+-}
+t :: Raw String
+{-| __C declaration:__ @macro T@
+
+    __defined at:__ @macros\/macro_type_ptr_order.h 2:9@
+
+    __exported by:__ @macros\/macro_type_ptr_order.h@
+-}
+t = objectLike "T" ["int"]
+{-| __C declaration:__ @macro P@
+
+    __defined at:__ @macros\/macro_type_ptr_order.h 3:9@
+
+    __exported by:__ @macros\/macro_type_ptr_order.h@
+-}
+p :: Raw String
+{-| __C declaration:__ @macro P@
+
+    __defined at:__ @macros\/macro_type_ptr_order.h 3:9@
+
+    __exported by:__ @macros\/macro_type_ptr_order.h@
+-}
+p = objectLike "P" ["T", "*"]
+{-| __C declaration:__ @macro Z_PTR@
+
+    __defined at:__ @macros\/macro_type_ptr_order.h 6:9@
+
+    __exported by:__ @macros\/macro_type_ptr_order.h@
+-}
+z_PTR :: Raw String
+{-| __C declaration:__ @macro Z_PTR@
+
+    __defined at:__ @macros\/macro_type_ptr_order.h 6:9@
+
+    __exported by:__ @macros\/macro_type_ptr_order.h@
+-}
+z_PTR = objectLike "Z_PTR" ["A_T", "*"]
+{-| __C declaration:__ @macro A_T@
+
+    __defined at:__ @macros\/macro_type_ptr_order.h 7:9@
+
+    __exported by:__ @macros\/macro_type_ptr_order.h@
+-}
+a_T :: Raw String
+{-| __C declaration:__ @macro A_T@
+
+    __defined at:__ @macros\/macro_type_ptr_order.h 7:9@
+
+    __exported by:__ @macros\/macro_type_ptr_order.h@
+-}
+a_T = objectLike "A_T" ["int"]

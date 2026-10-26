@@ -54,6 +54,7 @@ testCases = [
     , test_macro_resolution_log_level_default
     , test_macro_resolution_log_level_warnings
     , test_macro_type_unresolved_tagged
+    , test_macro_type_ptr_order
     , test_macro_in_fundecl
     , test_macro_in_fundecl_vs_typedef
     , test_macro_redefines_global
@@ -408,6 +409,19 @@ test_macro_type_unresolved_tagged =
       , ("macro PTR_DOES_NOT_EXIST", "macro-unresolved-tagged-type")
       , ("macro DOES_NOT_EXIST",     "macro-unresolved-tagged-type")
       ]
+
+-- | A type macro used under a pointer by another macro, defined before or
+-- after it
+--
+-- The use is a 'NeedsNameOnly' dependency. A macro whose dependency is defined
+-- after it does not typecheck: macros are typechecked in source order.
+test_macro_type_ptr_order :: TestCase
+test_macro_type_ptr_order =
+    testTraceSimple "macros/macro_type_ptr_order" $ \case
+      MatchUnusableReason "macro Z_PTR" (UnusableMacro FailedTypecheck{}) ->
+        Just $ Expected ()
+      _otherwise ->
+        Nothing
 
 test_macro_in_fundecl :: TestCase
 test_macro_in_fundecl =
