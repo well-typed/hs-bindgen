@@ -359,10 +359,10 @@ parseResultToEntry = \case
         , reason = ParseFailed r.msg
         }
 
-parseResultMsgs :: ParseResult l Out -> [DelayedMsg]
+parseResultMsgs :: ParseResult l Out -> [DelayedParseMsg]
 parseResultMsgs = \case
-    ParseResultSuccess r     -> map DelayedParse r.delayedParseMsgs
-    ParseResultUnavailable r -> map DelayedParse r.delayedParseMsgs
+    ParseResultSuccess r     -> r.delayedParseMsgs
+    ParseResultUnavailable r -> r.delayedParseMsgs
     ParseResultFailure{}     -> []
 
 -- | Resolve macro names in every successful declaration.
@@ -405,14 +405,20 @@ buildDB ::
   -> [ParseResult l Out]
   -> DeclDB l Out
 buildDB macroAnalysis isMainHeader =
-    withGraph . Foldable.foldl' aux DeclDB{
-        entries         = Map.empty
-      , delayedMsgs     = Map.empty
-        -- Built once the entries are complete
-      , declUseGraph    = DeclUseGraph Digraph.empty
-      , ambiguousMacros = UniqueExpansion.ambiguous macroAnalysis
+    finish . Foldable.foldl' aux Build{
+        entries   = Map.empty
+      , parseMsgs = Map.empty
       }
   where
+    finish :: Build l -> DeclDB l Out
+    finish build = withGraph DeclDB{
+          entries         = build.entries
+        , delayedMsgs     = fmap (fmap DelayedParse) build.parseMsgs
+          -- Built once the entries are complete
+        , declUseGraph    = DeclUseGraph Digraph.empty
+        , ambiguousMacros = UniqueExpansion.ambiguous macroAnalysis
+        }
+
     withGraph :: DeclDB l Out -> DeclDB l Out
     withGraph db = db{
           declUseGraph =
@@ -421,7 +427,7 @@ buildDB macroAnalysis isMainHeader =
               (active AnyOrder db)
         }
 
-    aux :: DeclDB l Out -> ParseResult l Out -> DeclDB l Out
+    aux :: Build l -> ParseResult l Out -> Build l
     aux db new =
       let declId :: C.DeclId
           declId = parseResultId new
@@ -447,8 +453,8 @@ buildDB macroAnalysis isMainHeader =
             ]
 
           -- A conflict keeps the messages of its members, a parse failure
-          -- included.
-          conflictMember :: C.Conflict -> DeclDB l Out -> C.DeclId -> DeclDB l Out
+          -- included, for Bug-level reporting: @Select@ reports no others.
+          conflictMember :: C.Conflict -> Build l -> C.DeclId -> Build l
           conflictMember conflict db' x =
             let newMsgs
                   | x == declId =
@@ -457,7 +463,7 @@ buildDB macroAnalysis isMainHeader =
                       []
                 oldMsgs = case Map.lookup x db'.entries of
                   Nothing  -> []
-                  Just old -> lookupDelayedMsgs x db' ++ parseFailedMsg old
+                  Just old -> lookupBuildMsgs x db' ++ parseFailedMsg old
             in  setEntry x
                   (Inactive (InactiveConflict conflict))
                   (newMsgs ++ oldMsgs)
@@ -476,20 +482,30 @@ buildDB macroAnalysis isMainHeader =
               Just (SingleConflict ids conflict) ->
                 Foldable.foldl' (conflictMember conflict) db ids
 
-parseFailedMsg :: Entry l p -> [DelayedMsg]
+parseFailedMsg :: Entry l p -> [DelayedParseMsg]
 parseFailedMsg = \case
     Inactive (InactiveDecl InactiveInfo{reason = ParseFailed msg}) ->
-      [DelayedParse msg]
+      [msg]
     _otherwise ->
       []
 
+-- | The database under construction
+data Build l = Build {
+      entries   :: Map C.DeclId (Entry l Out)
+      -- | Delayed messages: only @Parse@ has issued any so far
+    , parseMsgs :: Map C.DeclId (NonEmpty DelayedParseMsg)
+    }
+
+lookupBuildMsgs :: C.DeclId -> Build l -> [DelayedParseMsg]
+lookupBuildMsgs x build = foldMap Foldable.toList $ Map.lookup x build.parseMsgs
+
 -- | Set an entry and its delayed messages
-setEntry :: C.DeclId -> Entry l p -> [DelayedMsg] -> DeclDB l p -> DeclDB l p
-setEntry declId entry msgs db = db{
-      entries     = Map.insert declId entry db.entries
-    , delayedMsgs = case msgs of
-        []     -> Map.delete declId db.delayedMsgs
-        m : ms -> Map.insert declId (m :| ms) db.delayedMsgs
+setEntry :: C.DeclId -> Entry l Out -> [DelayedParseMsg] -> Build l -> Build l
+setEntry declId entry msgs db = Build{
+      entries   = Map.insert declId entry db.entries
+    , parseMsgs = case msgs of
+        []     -> Map.delete declId db.parseMsgs
+        m : ms -> Map.insert declId (m :| ms) db.parseMsgs
     }
 
 {-------------------------------------------------------------------------------
@@ -586,21 +602,23 @@ keepRedefinition isMainHeader newLoc old
     inMainHeader :: SingleLoc C.DeclPath -> Bool
     inMainHeader = maybe False isMainHeader . C.declPathRealPath . singleLocPath
 
--- | Merge two definitions, keeping the delayed messages of both
+-- | Merge two definitions, keeping the delayed messages of both, each once
+--
+-- Two definitions of the same declaration often carry the same message, e.g.
+-- two tentative definitions @int i; int i;@.
 mergeRedefinition ::
      C.DeclId
   -> Entry l Out
      -- ^ The definition to keep
-  -> [DelayedMsg]
+  -> [DelayedParseMsg]
      -- ^ The messages of the new definition
-  -> DeclDB l Out
-  -> DeclDB l Out
+  -> Build l
+  -> Build l
 mergeRedefinition declId kept newMsgs db =
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/2099?
-    --
-    -- We should make sure that we do not report delayed messages multiple
-    -- times (e.g., use 'Data.List.nub').
-    setEntry declId kept (newMsgs ++ lookupDelayedMsgs declId db) db
+    setEntry declId kept (oldMsgs ++ filter (`notElem` oldMsgs) newMsgs) db
+  where
+    oldMsgs :: [DelayedParseMsg]
+    oldMsgs = lookupBuildMsgs declId db
 
 {-------------------------------------------------------------------------------
   Traversal

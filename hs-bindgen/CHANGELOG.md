@@ -99,6 +99,13 @@
   `#define P T *` before `#define T int`) now typechecks. Previously, it
   failed with "Unbound variable".
 
+* A declaration that is declared more than once (e.g., the tentative
+  definitions `int i; int i;`) now reports each of its parse messages once.
+  Previously, it reported a message once per declaration carrying it. See
+  [issue #2099][is-2099].
+
+[is-2099]: https://github.com/well-typed/hs-bindgen/issues/2099
+
 ## 1.0.0.0 -- 2026-10-08
 
 ### Breaking changes
