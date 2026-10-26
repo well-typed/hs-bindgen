@@ -8,6 +8,7 @@ import Data.Set qualified as Set
 import HsBindgen.Config.MangleCandidate (MangleCandidate (..))
 import HsBindgen.Config.MangleCandidate qualified as MangleCandidate
 import HsBindgen.Config.Prelims (FieldNamingStrategy)
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.MangleNames.CreateNames
@@ -16,6 +17,7 @@ import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Names
 import HsBindgen.Frontend.Pass.MangleNames.ResolveNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.SortMsgs (sortMsgs)
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -69,15 +71,22 @@ mangleNames fieldNaming unit = (
           DeclDB.traverseActive DeclDB.AnyOrder
             (\decl -> pure $ DeclDB.lookupResult decl.id results)
             unit.db
-    , msgs1 ++ catMaybes [
+      -- Sorted, so that their order does not depend on the processing order
+    , sortMsgs includeOrder msgs1 ++ catMaybes [
           Just $ debugMsg $ MangleNamesNameMap nameMap
         , bugMsg . MangleNamesNameMapDuplicates <$> nameMapDups
         , Just $ debugMsg $ MangleNamesNameRegistry registry
         ]
     )
   where
+    decls :: [C.Decl l ResolveBindingSpecs]
+    decls = DeclDB.active DeclDB.AnyOrder unit.db
+
+    includeOrder :: IncludeGraph.IncludeOrder
+    includeOrder = IncludeGraph.toIncludeOrder unit.includeGraph
+
     typedefAnalysis :: TypedefAnalysis.TypedefAnalysis
-    typedefAnalysis = TypedefAnalysis.fromDecls unit.db.declUseGraph unit.decls
+    typedefAnalysis = TypedefAnalysis.fromDecls unit.db.declUseGraph decls
 
     mangleCandidateConfig :: MangleCandidate Maybe
     mangleCandidateConfig = MangleCandidate.mangleCandidateDefault
@@ -90,7 +99,7 @@ mangleNames fieldNaming unit = (
     failures1   :: [MangleNamesFailure]
     msgs1       :: [AnnMsg MangleNames]
     (declsC, squashes, nameMap, nameMapDups, failures1, msgs1) =
-      createNames typedefAnalysis mangleCandidateConfig fieldNaming unit.decls
+      createNames typedefAnalysis mangleCandidateConfig fieldNaming decls
 
     -- Traversal 2: detect clashes among all names.
     registry  :: NameRegistry
@@ -121,7 +130,8 @@ mangleResults decls squashes failures = DeclDB.passResults $ concat [
       | (cName, hsName, s) <- squashes
       ]
       -- A declaration may fail more than once, e.g. in several clashes; the
-      -- last failure is its reason.
+      -- last failure is its reason. The failures of one declaration are in an
+      -- order independent of the order of the declarations.
     , Map.toList $ Map.fromList [
           (f.id, DeclDB.Deactivate $ DeclDB.Unusable $ DeclDB.UnusableMangleNames f.err)
         | f <- failures
