@@ -30,8 +30,7 @@ import HsBindgen.Macro.Type qualified as Macro
 data TranslationUnit l p = TranslationUnit{
       -- | Declarations in the unit
       --
-      -- The 'activeDecls' of 'db' (see 'fromDeclDB'); after @Select@, only the
-      -- selected ones.
+      -- The 'activeDecls' of 'db' (see 'fromDeclDB').
       --
       -- Declarations from all headers that we have processed. Passes may remove
       -- some declarations. For example,

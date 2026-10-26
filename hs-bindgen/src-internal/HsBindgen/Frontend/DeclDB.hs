@@ -170,7 +170,9 @@ data Entry l p =
   | Squashed SquashedTypedef
     -- | Defined elsewhere: an external binding replaces the declaration
   | External ResolvedExtBinding
-    -- | Nothing to generate
+    -- | Usable, but deselected
+  | Deselected C.DeclInfo
+    -- | We do not intend to generate a binding
   | Inactive Inactive
   deriving stock (Generic)
 
@@ -230,14 +232,12 @@ data Deactivation =
     Unusable UnusableReason
     -- | By a prescriptive binding specification
   | Omitted
-  | Deselected
   deriving stock (Show, Eq, Generic)
 
 instance PrettyForTrace Deactivation where
   prettyForTrace = \case
     Unusable reason -> prettyForTrace reason
     Omitted         -> "Omitted by prescriptive binding specification"
-    Deselected      -> "Not selected"
 
 data UnusableReason =
     -- | By @ApplyMacroFallback@, for a macro that does not fall back
@@ -271,6 +271,7 @@ entryToLoc = \case
     Active   decl     -> Just $ C.DeclLoc decl.info.loc
     Squashed squashed -> Just $ C.DeclLoc squashed.info.loc
     External _        -> Nothing
+    Deselected info   -> Just $ C.DeclLoc info.loc
     Inactive inactive -> Just $ inactiveToLoc inactive
 
 -- | 'C.Available' where we do not know: for conflicts and externals
@@ -279,6 +280,7 @@ entryToAvailability = \case
     Active decl                       -> decl.info.availability
     Squashed squashed                 -> squashed.info.availability
     External{}                        -> C.Available
+    Deselected info                   -> info.availability
     Inactive (InactiveDecl inactive)  -> inactive.info.availability
     Inactive InactiveConflict{}       -> C.Available
 
@@ -287,24 +289,23 @@ inactiveToLoc = \case
     InactiveDecl     inactive -> C.DeclLoc inactive.info.loc
     InactiveConflict conflict -> C.DeclLocsConflict conflict
 
--- | Why the entry is unusable, if it is; 'Nothing' for 'Deselected', which
---   arises after @Select@, its only reader
+-- | Why the entry is unusable, if it is
 getUnusable :: Entry l p -> Maybe Inactive
 getUnusable = \case
-    Inactive inactive -> case inactive of
-      InactiveDecl InactiveInfo{reason = Deactivated Deselected} -> Nothing
-      _otherwise                                                 -> Just inactive
-    Active{}   -> Nothing
-    Squashed{} -> Nothing
-    External{} -> Nothing
+    Inactive inactive -> Just inactive
+    Active{}          -> Nothing
+    Squashed{}        -> Nothing
+    External{}        -> Nothing
+    Deselected{}      -> Nothing
 
 -- | For panic messages
 entryKind :: Entry l p -> String
 entryKind = \case
-    Active{}   -> "active"
-    Squashed{} -> "squashed"
-    External{} -> "external"
-    Inactive{} -> "inactive"
+    Active{}     -> "active"
+    Squashed{}   -> "squashed"
+    External{}   -> "external"
+    Deselected{} -> "deselected"
+    Inactive{}   -> "inactive"
 
 {-------------------------------------------------------------------------------
   Construction
@@ -618,6 +619,8 @@ data PassResult l p =
     Advanced   (C.Decl l p)
     -- | Only in @MangleNames@
   | Squash     SquashTarget
+    -- | Only in @Select@
+  | Deselect
   | Deactivate Deactivation
 
 -- | Advance the active declarations; other entries are rewrapped unchanged
@@ -638,6 +641,7 @@ traverseActive order f db = case order of
       Active   decl     -> advance decl <$> f decl
       Squashed squashed -> pure $ Squashed squashed
       External binding  -> pure $ External binding
+      Deselected info   -> pure $ Deselected info
       Inactive inactive -> pure $ Inactive inactive
 
     advance :: C.Decl l p -> PassResult l p' -> Entry l p'
@@ -647,6 +651,7 @@ traverseActive order f db = case order of
           info   = decl.info
         , target = target
         }
+      Deselect -> Deselected decl.info
       Deactivate deactivation -> Inactive $ InactiveDecl InactiveInfo{
           info   = decl.info
         , reason = Deactivated deactivation

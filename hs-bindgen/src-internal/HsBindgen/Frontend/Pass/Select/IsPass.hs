@@ -224,8 +224,6 @@ instance PrettyForTrace SelectMsg where
           couldNotSelect $ prettyForTrace x
         Deactivated (Unusable (UnusableMacro x)) ->
           couldNotSelect $ prettyForTrace x
-        Deactivated Deselected ->
-          couldNotSelect "Declaration not selected"
       SelectConflict ->
         couldNotSelect "Conflicting declarations"
       SelectMangleNamesSquashed x -> PP.hsep [
@@ -281,7 +279,6 @@ instance IsTrace Level SelectMsg where
       Deactivated Omitted      -> Info
       ParseFailed x            -> getDefaultLogLevel x
       Deactivated (Unusable x) -> getDefaultLogLevel x
-      Deactivated Deselected   -> Info
     SelectConflict{}                         -> Warning
     SelectMangleNamesSquashed{}              -> Notice
     SelectNoDeclarationsMatched              -> Warning
@@ -300,7 +297,6 @@ instance IsTrace Level SelectMsg where
       Deactivated Omitted      -> "select-omitted"
       ParseFailed x            -> "select-" <> getTraceId x
       Deactivated (Unusable x) -> "select-" <> getTraceId x
-      Deactivated Deselected   -> "select"
     SelectConflict{}                         -> "select"
     SelectMangleNamesSquashed{}              -> "select-mangle-names-squashed"
     SelectNoDeclarationsMatched              -> "select"
