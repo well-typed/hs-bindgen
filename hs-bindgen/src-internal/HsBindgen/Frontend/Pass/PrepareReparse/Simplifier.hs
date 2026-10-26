@@ -23,6 +23,7 @@ import Data.Kind
 
 import Clang.HighLevel.Types
 
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.AST
@@ -65,7 +66,8 @@ instance Simplify (C.TranslationUnit l) where
       }
     where
       (undefs, targets) =
-        partitionEithers $ concatMap recurse unit.decls
+        partitionEithers $
+          concatMap recurse (DeclDB.active DeclDB.AnyOrder unit.db)
       recurse = simplifyIt ()
 
 instance Simplify (C.Decl l) where
