@@ -2,13 +2,12 @@ module HsBindgen.Frontend.Pass.AdjustTypes (
     adjustTypes
   ) where
 
-import Data.Proxy (Proxy (Proxy))
-import Numeric.Natural (Natural)
-
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
+import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 
@@ -34,15 +33,11 @@ adjustTypes ::
      C.TranslationUnit l MangleNames
   -> C.TranslationUnit l AdjustTypes
 adjustTypes unit =
-      let
-        decls' = map processDecl unit.decls
-        unit' =  C.TranslationUnit {
-              decls        = decls'
-            , includeGraph = unit.includeGraph
-            , meta         = unit.meta
-            }
-      in
-        unit'
+    C.fromDeclDB unit.includeGraph $
+      runIdentity $
+        DeclDB.traverseActive DeclDB.AnyOrder
+          (pure . DeclDB.Advanced . processDecl)
+          unit.db
 
 {-------------------------------------------------------------------------------
   Decls

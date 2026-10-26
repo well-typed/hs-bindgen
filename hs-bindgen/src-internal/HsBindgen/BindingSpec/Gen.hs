@@ -26,7 +26,6 @@ import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Imports
@@ -44,7 +43,7 @@ genBindingSpec ::
      Format
   -> Hs.ModuleName
   -> IncludeGraph
-  -> DeclDB l ConstructTranslationUnit
+  -> DeclDB l p
   -> GetMainHeaders
   -> [(C.DeclId, RealPath)]
   -> [(C.DeclId, (RealPath, Hs.Name Hs.NsTypeConstr))]

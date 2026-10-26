@@ -72,8 +72,6 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
-import HsBindgen.Frontend.DeclMeta
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
@@ -374,14 +372,14 @@ getGetMainHeaders = (.getMainHeaders) <$> ParseInfoA
 getIncludeGraph :: Artefact l IncludeGraph
 getIncludeGraph = (.includeGraph) <$> ParseInfoA
 
-getDeclDB :: Artefact l (DeclDB l ConstructTranslationUnit)
-getDeclDB = (.meta.declDB) <$> FrontendPassA FinalPass
+getDeclDB :: Artefact l (DeclDB l Final)
+getDeclDB = (.db) <$> FrontendPassA FinalPass
 
 getUseDeclGraph :: Artefact l UseDeclGraph
-getUseDeclGraph = (.meta.useDeclGraph) <$> FrontendPassA FinalPass
+getUseDeclGraph = UseDeclGraph.fromDeclUseGraph <$> getDeclUseGraph
 
 getDeclUseGraph :: Artefact l DeclUseGraph
-getDeclUseGraph = (.meta.declUseGraph) <$> FrontendPassA FinalPass
+getDeclUseGraph = (.declUseGraph) <$> getDeclDB
 
 getOmittedTypes :: Artefact l [(C.DeclId, RealPath)]
 getOmittedTypes =

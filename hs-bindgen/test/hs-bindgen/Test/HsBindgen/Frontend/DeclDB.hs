@@ -4,7 +4,10 @@ module Test.HsBindgen.Frontend.DeclDB (
     Target(..)
   , Violation(..)
   , checkTransition
-  , checkGraph
+  , checkKeysDeclId
+  , checkKeysDeclIdPair
+  , checkDeclsDeclId
+  , checkDeclsDeclIdPair
     -- * Frontend
   , checkFrontend
   ) where
@@ -15,16 +18,15 @@ import Data.Set ((\\))
 import Data.Set qualified as Set
 
 import HsBindgen.Artefact (Artefact (..), FrontendPass (..))
-import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.DeclDB (Deactivation (..), DeclDB (..), Entry (..),
                                   Inactive (..), InactiveInfo (..),
                                   InactiveReason (..), UnusableReason (..))
-import HsBindgen.Frontend.DeclMeta (DeclMeta (..))
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass (Id)
+import HsBindgen.IR.Translation (DeclIdPair (..))
 
 {-------------------------------------------------------------------------------
   Checks
@@ -39,6 +41,12 @@ data Target =
 data Violation =
     -- | An active declaration whose identifier is not its key
     ActiveIdNotKey C.DeclId C.DeclId
+    -- | A declaration of the unit without an active entry
+  | DeclNotActive C.DeclId
+    -- | An active entry without a declaration in the unit
+  | ActiveNotDecl C.DeclId
+    -- | A declaration that occurs more than once in the unit
+  | DuplicateDecl C.DeclId
   | DelayedMsgsWithoutEntry C.DeclId
   | VertexWithoutEntry C.DeclId
   | EntryWithoutVertex C.DeclId
@@ -51,8 +59,8 @@ data Violation =
 
 -- | Check the invariants of both databases, and the transitions between them
 checkTransition ::
-     forall l p p'. (Id p ~ C.DeclId, Id p' ~ C.DeclId)
-  => (Target -> Bool)
+     forall l p p'.
+     (Target -> Bool)
   -> DeclDB l p
   -> DeclDB l p'
   -> [Violation]
@@ -95,33 +103,69 @@ describe = \case
     External x -> "External " ++ show x
     Inactive x -> "Inactive " ++ show x
 
--- | Invariants of a single database
-checkInvariants :: Id p ~ C.DeclId => DeclDB l p -> [Violation]
+-- | Invariants of a single database, but for the identifiers of active
+-- declarations ('checkKeysDeclId', 'checkKeysDeclIdPair')
+checkInvariants :: DeclDB l p -> [Violation]
 checkInvariants db = concat [
-      [ ActiveIdNotKey declId decl.id
-      | (declId, Active decl) <- Map.toList db.entries
-      , decl.id /= declId
-      ]
-    , map DelayedMsgsWithoutEntry $ Set.toList $
-        Map.keysSet db.delayedMsgs \\ Map.keysSet db.entries
-    ]
-
--- | The vertices of the decl-use graph are the keys of the database
-checkGraph :: DeclDB l p -> DeclUseGraph -> [Violation]
-checkGraph db graph = concat [
-      map VertexWithoutEntry $ Set.toList $ vertices \\ keys
+      map DelayedMsgsWithoutEntry $ Set.toList $
+        Map.keysSet db.delayedMsgs \\ keys
+    , map VertexWithoutEntry $ Set.toList $ vertices \\ keys
     , map EntryWithoutVertex $ Set.toList $ keys \\ vertices
     ]
   where
     keys, vertices :: Set C.DeclId
     keys     = Map.keysSet db.entries
-    vertices = Set.fromList $ Digraph.vertices $ DeclUseGraph.toDigraph graph
+    vertices =
+      Set.fromList $ Digraph.vertices $ DeclUseGraph.toDigraph db.declUseGraph
+
+-- | Every active declaration's identifier is its key
+checkKeysDeclId :: Id p ~ C.DeclId => DeclDB l p -> [Violation]
+checkKeysDeclId = checkKeys (\decl -> decl.id)
+
+-- | Every active declaration's C identifier is its key
+checkKeysDeclIdPair :: Id p ~ DeclIdPair => DeclDB l p -> [Violation]
+checkKeysDeclIdPair = checkKeys (\decl -> decl.id.cName)
+
+-- | The identifiers of the unit's declarations are the active keys
+checkDeclsDeclId :: Id p ~ C.DeclId => C.TranslationUnit l p -> [Violation]
+checkDeclsDeclId = checkDecls (\decl -> decl.id)
+
+-- | The C identifiers of the unit's declarations are the active keys
+checkDeclsDeclIdPair ::
+     Id p ~ DeclIdPair
+  => C.TranslationUnit l p
+  -> [Violation]
+checkDeclsDeclIdPair = checkDecls (\decl -> decl.id.cName)
+
+checkKeys :: (C.Decl l p -> C.DeclId) -> DeclDB l p -> [Violation]
+checkKeys key db = [
+      ActiveIdNotKey declId (key decl)
+    | (declId, Active decl) <- Map.toList db.entries
+    , key decl /= declId
+    ]
+
+checkDecls :: (C.Decl l p -> C.DeclId) -> C.TranslationUnit l p -> [Violation]
+checkDecls key unit = concat [
+      map DeclNotActive $ Set.toList $ declIds \\ activeKeys
+    , map ActiveNotDecl $ Set.toList $ activeKeys \\ declIds
+    , map DuplicateDecl $ Map.keys $ Map.filter (> 1) $
+        Map.fromListWith (+) [(key decl, 1 :: Int) | decl <- unit.decls]
+    ]
+  where
+    declIds, activeKeys :: Set C.DeclId
+    declIds    = Set.fromList $ map key unit.decls
+    activeKeys = Map.keysSet $ Map.filter isActive unit.db.entries
+
+    isActive :: Entry l p -> Bool
+    isActive = \case
+      Active{}   -> True
+      _otherwise -> False
 
 {-------------------------------------------------------------------------------
   Frontend
 -------------------------------------------------------------------------------}
 
--- | Check the databases of a frontend run, pair by pair
+-- | Check the databases of a frontend run, pass by pass and pair by pair
 --
 -- @translateTypes@ has no 'FrontendPass'; the pair @adjustTypes@ to @select@
 -- spans it, as @applyMacroFallback@ to @reparseMacroExpansions@ spans
@@ -138,7 +182,19 @@ checkFrontend = do
     select                   <- FrontendPassA SelectPass
     final                    <- FrontendPassA FinalPass
     pure $ concat [
-        pair "constructTranslationUnit" "typecheckMacros" none
+        atDeclId "constructTranslationUnit" constructTranslationUnit
+      , atDeclId "typecheckMacros" typecheckMacros
+      , atDeclId "applyMacroFallback" applyMacroFallback
+      , atDeclId "reparseMacroExpansions" reparseMacroExpansions
+      , atDeclId "resolveBindingSpecs" resolveBindingSpecs
+      , atDeclIdPair "mangleNames" mangleNames
+      , atDeclIdPair "adjustTypes" adjustTypes
+        -- TODO <https://github.com/well-typed/hs-bindgen/issues/1580>: until
+        -- @Select@ deactivates the declarations it does not select, the
+        -- declarations of these units are only the selected active ones.
+      , report "select" $ checkKeysDeclIdPair select.db
+      , report "final"  $ checkKeysDeclIdPair final.db
+      , pair "constructTranslationUnit" "typecheckMacros" none
           constructTranslationUnit typecheckMacros
       , pair "typecheckMacros" "applyMacroFallback" (\case
             ToDeactivated (Unusable UnusableMacro{}) -> True
@@ -169,6 +225,24 @@ checkFrontend = do
     none :: Target -> Bool
     none = const False
 
+    atDeclId :: Id p ~ C.DeclId => String -> C.TranslationUnit l p -> [String]
+    atDeclId name unit =
+      report name $ checkKeysDeclId unit.db ++ checkDeclsDeclId unit
+
+    atDeclIdPair ::
+         Id p ~ DeclIdPair
+      => String
+      -> C.TranslationUnit l p
+      -> [String]
+    atDeclIdPair name unit =
+      report name $ checkKeysDeclIdPair unit.db ++ checkDeclsDeclIdPair unit
+
+    report :: String -> [Violation] -> [String]
+    report name violations = [
+          name ++ ": " ++ show violation
+        | violation <- violations
+        ]
+
     pair ::
          String
       -> String
@@ -176,11 +250,6 @@ checkFrontend = do
       -> C.TranslationUnit l p
       -> C.TranslationUnit l p'
       -> [String]
-    pair nameOld nameNew allowed old new = [
-          nameOld ++ " -> " ++ nameNew ++ ": " ++ show violation
-        | violation <- concat [
-              checkGraph old.meta.declDB old.meta.declUseGraph
-            , checkGraph new.meta.declDB new.meta.declUseGraph
-            , checkTransition allowed old.meta.declDB new.meta.declDB
-            ]
-        ]
+    pair nameOld nameNew allowed old new =
+      report (nameOld ++ " -> " ++ nameNew) $
+        checkTransition allowed old.db new.db

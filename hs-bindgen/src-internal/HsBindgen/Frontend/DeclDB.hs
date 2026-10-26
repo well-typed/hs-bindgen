@@ -8,6 +8,7 @@ module HsBindgen.Frontend.DeclDB (
     DeclDB -- constructor hidden
       ( entries
       , delayedMsgs
+      , declUseGraph
       )
     -- * Entry
   , Entry(..)
@@ -24,18 +25,22 @@ module HsBindgen.Frontend.DeclDB (
   , getUnusable
     -- * Construction
   , fromParseResults
+    -- * Traversal
+  , Order(..)
+  , PassResult(..)
+  , traverseActive
+  , active
+  , passResults
+  , lookupResult
     -- * Transitions
-  , deactivate
-  , squash
   , externalize
   , addDelayedMsgs
-    -- * Filter
-  , filter
-  , restrictKeys
-  , withoutKeys
+    -- * Dependency edges
+  , deleteDeps
+  , deleteRevDeps
+  , insertDepsOfDecl
     -- * Query active declarations
   , lookup
-  , getDecls
     -- * Other queries
   , lookupEntry
   , lookupDelayedMsgs
@@ -47,16 +52,22 @@ module HsBindgen.Frontend.DeclDB (
   , getSquashed
   ) where
 
-import Prelude hiding (filter, lookup)
+import Prelude hiding (lookup)
 
+import Data.Digraph qualified as Digraph
 import Data.Foldable qualified as Foldable
+import Data.Functor.Const (Const (..))
 import Data.Map.Strict qualified as Map
+import Data.Ord (comparing)
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
 
 import HsBindgen.BindingSpec (ResolvedExtBinding)
 import HsBindgen.Errors (panicPure)
+import HsBindgen.Frontend.Analysis (Dependency (NeedsShape))
+import HsBindgen.Frontend.Analysis.DeclUseGraph.Construction qualified as DeclUseGraph
+import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition (DeclUseGraph (..))
 import HsBindgen.Frontend.DeclDB.ResolveMacro
 import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
@@ -64,6 +75,7 @@ import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.Frontend.Predicate (IsMainHeader)
 import HsBindgen.Imports hiding (toList)
 import HsBindgen.IR.C qualified as C
@@ -124,6 +136,11 @@ data DeclDB l p = DeclDB {
       entries         :: Map C.DeclId (Entry l p)
       -- | Delayed messages of any entry, in the order the passes issued them
     , delayedMsgs     :: Map C.DeclId (NonEmpty DelayedMsg)
+      -- | Dependency edges, from the dependency to the user
+      --
+      -- Its vertices are the keys of 'entries'. The use-decl graph is not
+      -- stored: see 'HsBindgen.Frontend.Analysis.UseDeclGraph.fromDeclUseGraph'.
+    , declUseGraph    :: DeclUseGraph
       -- | Macros whose expansion depends on where they are invoked
       --
       -- See "HsBindgen.Macro.UniqueExpansion". Ambiguity is independent of the
@@ -146,12 +163,8 @@ deriving stock instance (IsPass p, Macro.HasTypes l) => Show (DeclDB l p)
 data Entry l p =
     -- | We intend to generate a binding
     --
-    -- Includes the macros the macro language gave up on, from
-    -- @ConstructTranslationUnit@ until @ApplyMacroFallback@ decides; fallback
-    -- macros stay here for good, with their body from before typechecking.
-    --
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1580>: keep such
-    -- macros pending until @ApplyMacroFallback@.
+    -- Also includes macros the macro language gave up on because we may fall
+    -- back to generating a raw macro binding (see @ApplyMacroFallback@).
     Active   (C.Decl l p)
     -- | We generate the target: a typedef squashed into it
   | Squashed SquashedTypedef
@@ -386,12 +399,23 @@ buildDB ::
   -> IsMainHeader
   -> [ParseResult l Out]
   -> DeclDB l Out
-buildDB macroAnalysis isMainHeader = Foldable.foldl' aux DeclDB{
-      entries         = Map.empty
-    , delayedMsgs     = Map.empty
-    , ambiguousMacros = UniqueExpansion.ambiguous macroAnalysis
-    }
+buildDB macroAnalysis isMainHeader =
+    withGraph . Foldable.foldl' aux DeclDB{
+        entries         = Map.empty
+      , delayedMsgs     = Map.empty
+        -- Built once the entries are complete
+      , declUseGraph    = DeclUseGraph Digraph.empty
+      , ambiguousMacros = UniqueExpansion.ambiguous macroAnalysis
+      }
   where
+    withGraph :: DeclDB l Out -> DeclDB l Out
+    withGraph db = db{
+          declUseGraph =
+            DeclUseGraph.construct
+              (keysSet db)
+              (active AnyOrder db)
+        }
+
     aux :: DeclDB l Out -> ParseResult l Out -> DeclDB l Out
     aux db new =
       let declId :: C.DeclId
@@ -574,68 +598,151 @@ mergeRedefinition declId kept newMsgs db =
     setEntry declId kept (newMsgs ++ lookupDelayedMsgs declId db) db
 
 {-------------------------------------------------------------------------------
+  Traversal
+-------------------------------------------------------------------------------}
+
+-- | The order of a traversal
+--
+-- The order decides only the order of the effects. Ordered traversals sort
+-- every entry, active or not, so that the order keeps the constraints that pass
+-- through entries that are not active (user, squashed typedef, target).
+data Order l p =
+    AnyOrder
+    -- | Topological over the 'NeedsShape' edges, dependencies first; ties
+    --   broken by a key on the entries
+  | forall k. Ord k => DependencyBy (Entry l p -> k)
+
+-- | The outcome of processing one active declaration in a pass
+data PassResult l p =
+    -- | Still active, advanced to pass @p@
+    Advanced   (C.Decl l p)
+    -- | Only in @MangleNames@
+  | Squash     SquashTarget
+  | Deactivate Deactivation
+
+-- | Advance the active declarations; other entries are rewrapped unchanged
+--
+-- Keeps every dependency edge.
+traverseActive ::
+     forall f l p p'. (HasCallStack, Applicative f)
+  => Order l p
+  -> (C.Decl l p -> f (PassResult l p'))
+  -> DeclDB l p
+  -> f (DeclDB l p')
+traverseActive order f db = case order of
+    AnyOrder         -> traverseAll (const step) db
+    DependencyBy key -> inOrder $ Digraph.sortBy (comparing (key . entry)) dependencies
+  where
+    step :: Entry l p -> f (Entry l p')
+    step = \case
+      Active   decl     -> advance decl <$> f decl
+      Squashed squashed -> pure $ Squashed squashed
+      External binding  -> pure $ External binding
+      Inactive inactive -> pure $ Inactive inactive
+
+    advance :: C.Decl l p -> PassResult l p' -> Entry l p'
+    advance decl = \case
+      Advanced decl' -> Active decl'
+      Squash target  -> Squashed SquashedTypedef{
+          info   = decl.info
+        , target = target
+        }
+      Deactivate deactivation -> Inactive $ InactiveDecl InactiveInfo{
+          info   = decl.info
+        , reason = Deactivated deactivation
+        }
+
+    dependencies :: Digraph.Digraph Dependency C.DeclId
+    dependencies = Digraph.filterEdges (== NeedsShape) db.declUseGraph.graph
+
+    entry :: C.DeclId -> Entry l p
+    entry declId = case Map.lookup declId db.entries of
+      Just x  -> x
+      Nothing -> panicPure $ "traverseActive: vertex without entry " ++ show declId
+
+    inOrder :: [C.DeclId] -> f (DeclDB l p')
+    inOrder declIds
+      | length declIds /= Map.size db.entries =
+          panicPure "traverseActive: the vertices are not the keys"
+      | otherwise =
+          withEntries db . Map.fromList <$>
+            traverse (\declId -> (declId,) <$> step (entry declId)) declIds
+
+-- | The active declarations
+active :: Order l p -> DeclDB l p -> [C.Decl l p]
+active order = getConst . traverseActive order collect
+  where
+    collect :: C.Decl l p -> Const [C.Decl l p] (PassResult l p)
+    collect decl = Const [decl]
+
+-- | The results a pass computed, by declaration
+--
+-- Panics if a declaration has more than one result.
+passResults :: HasCallStack => [(C.DeclId, a)] -> Map C.DeclId a
+passResults = Map.fromListWithKey $ \declId _ _ ->
+    panicPure $ "passResults: more than one result for " ++ show declId
+
+-- | The result a pass computed for an active declaration
+--
+-- For passes that compute their results first and then advance with
+-- 'traverseActive'. Panics if there is no result for the declaration.
+lookupResult :: HasCallStack => C.DeclId -> Map C.DeclId a -> a
+lookupResult declId results = case Map.lookup declId results of
+    Just result -> result
+    Nothing     -> panicPure $ "lookupResult: no result for " ++ show declId
+
+-- | Advance every entry
+--
+-- Not exported: its signature permits any transition.
+traverseAll ::
+     Applicative f
+  => (C.DeclId -> Entry l p -> f (Entry l p'))
+  -> DeclDB l p
+  -> f (DeclDB l p')
+traverseAll f db = withEntries db <$> Map.traverseWithKey f db.entries
+
+-- | Replace the entries
+--
+-- Precondition: the keys are unchanged.
+withEntries :: DeclDB l p -> Map C.DeclId (Entry l p') -> DeclDB l p'
+withEntries db entries = DeclDB{
+      entries         = entries
+    , delayedMsgs     = db.delayedMsgs
+    , declUseGraph    = db.declUseGraph
+    , ambiguousMacros = db.ambiguousMacros
+    }
+
+{-------------------------------------------------------------------------------
   Transitions
 -------------------------------------------------------------------------------}
 
--- | Stop generating active declarations
-deactivate ::
-     HasCallStack
-  => Map C.DeclId Deactivation
-  -> DeclDB l p
-  -> DeclDB l p
-deactivate = transition "deactivate" $ \deactivation -> \case
-    Active decl -> Just $ Inactive $ InactiveDecl InactiveInfo{
-        info   = decl.info
-      , reason = Deactivated deactivation
-      }
-    _otherwise  -> Nothing
-
--- | Squash active typedefs into their targets
-squash ::
-     HasCallStack
-  => Map C.DeclId SquashTarget
-  -> DeclDB l p
-  -> DeclDB l p
-squash = transition "squash" $ \target -> \case
-    Active decl -> Just $ Squashed SquashedTypedef{
-        info   = decl.info
-      , target = target
-      }
-    _otherwise  -> Nothing
-
 -- | Replace active or inactive declarations by external bindings
+--
+-- Panics if an identifier has no entry, or its entry is squashed or external.
 externalize ::
-     HasCallStack
+     forall l p. HasCallStack
   => Map C.DeclId ResolvedExtBinding
   -> DeclDB l p
   -> DeclDB l p
-externalize = transition "externalize" $ \binding -> \case
-    Active{}   -> Just $ External binding
-    Inactive{} -> Just $ External binding
-    _otherwise -> Nothing
-
--- | Panics if an identifier has no entry or the step rejects the entry
-transition ::
-     forall a l p. HasCallStack
-  => String
-  -> (a -> Entry l p -> Maybe (Entry l p))
-  -> Map C.DeclId a
-  -> DeclDB l p
-  -> DeclDB l p
-transition name step xs db =
-    db{entries = Map.foldlWithKey' aux db.entries xs}
+externalize bindings db
+    | not (Map.null unknown) =
+        panicPure $ "externalize: unknown declarations " ++ show (Map.keys unknown)
+    | otherwise =
+        runIdentity $ traverseAll (\declId -> pure . step declId) db
   where
-    aux :: Map C.DeclId (Entry l p) -> C.DeclId -> a -> Map C.DeclId (Entry l p)
-    aux entries declId x = case Map.lookup declId entries of
-      Nothing ->
-        panicPure $ name ++ ": unknown declaration " ++ show declId
-      Just entry -> case step x entry of
-        Nothing ->
+    unknown :: Map C.DeclId ResolvedExtBinding
+    unknown = Map.difference bindings db.entries
+
+    step :: C.DeclId -> Entry l p -> Entry l p
+    step declId entry = case Map.lookup declId bindings of
+      Nothing      -> entry
+      Just binding -> case entry of
+        Active{}   -> External binding
+        Inactive{} -> External binding
+        _otherwise ->
           panicPure $
-            name ++ ": unexpected " ++ entryKind entry ++ " entry "
+            "externalize: unexpected " ++ entryKind entry ++ " entry "
               ++ show declId
-        Just entry' ->
-          Map.insert declId entry' entries
 
 -- | Append delayed messages, in list order
 --
@@ -659,25 +766,38 @@ addDelayedMsgs msgs db =
           panicPure $ "addDelayedMsgs: unknown declaration " ++ show declId
 
 {-------------------------------------------------------------------------------
-  Filter
+  Dependency edges
+
+  None of these inserts a vertex, so the vertices stay the keys.
 -------------------------------------------------------------------------------}
 
-filter ::
-     (C.DeclId -> Entry l p -> Bool)
-  -> DeclDB l p
-  -> DeclDB l p
-filter p db = restrictKeys db $ Map.keysSet $ Map.filterWithKey p db.entries
-
-restrictKeys :: DeclDB l p -> Set C.DeclId -> DeclDB l p
-restrictKeys db xs = db{
-      entries     = Map.restrictKeys db.entries     xs
-    , delayedMsgs = Map.restrictKeys db.delayedMsgs xs
+-- | Delete the dependency edges of the given declarations
+--
+-- For example, when a type is opaqued, it no longer has dependencies.
+deleteDeps :: Set C.DeclId -> DeclDB l p -> DeclDB l p
+deleteDeps declIds db = db{
+      declUseGraph = DeclUseGraph.deleteDeps declIds db.declUseGraph
     }
 
-withoutKeys :: DeclDB l p -> Set C.DeclId -> DeclDB l p
-withoutKeys db xs = db{
-      entries     = Map.withoutKeys db.entries     xs
-    , delayedMsgs = Map.withoutKeys db.delayedMsgs xs
+-- | Delete the use edges of the given declarations
+--
+-- For example, when a type is replaced with an external reference, its users
+-- no longer depend on it directly.
+deleteRevDeps :: Set C.DeclId -> DeclDB l p -> DeclDB l p
+deleteRevDeps declIds db = db{
+      declUseGraph = DeclUseGraph.deleteRevDeps declIds db.declUseGraph
+    }
+
+-- | Insert the dependency edges of a declaration
+--
+-- Panics if the declaration or one of its dependencies has no entry.
+insertDepsOfDecl ::
+     HasCallStack
+  => C.Decl l ReparseMacroExpansions
+  -> DeclDB l p
+  -> DeclDB l p
+insertDepsOfDecl decl db = db{
+      declUseGraph = DeclUseGraph.insertDepsOfDecl decl db.declUseGraph
     }
 
 {-------------------------------------------------------------------------------
@@ -689,10 +809,6 @@ lookup :: C.DeclId -> DeclDB l p -> Maybe (C.Decl l p)
 lookup declId db = case Map.lookup declId db.entries of
     Just (Active decl) -> Just decl
     _otherwise         -> Nothing
-
--- | Get all active declarations.
-getDecls :: DeclDB l p -> [C.Decl l p]
-getDecls db = [decl | Active decl <- Map.elems db.entries]
 
 {-------------------------------------------------------------------------------
   Other queries

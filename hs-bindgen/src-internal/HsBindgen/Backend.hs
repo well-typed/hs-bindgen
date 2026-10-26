@@ -17,8 +17,6 @@ import HsBindgen.Cache
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
 import HsBindgen.Frontend.DeclDB (DeclDB)
-import HsBindgen.Frontend.DeclMeta
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
@@ -42,12 +40,12 @@ runBackend tracer config boot frontend = do
     backendHsDeclsAll <- cache "hsDeclsAll" $ do
       final     <- frontend.final
       macroLang <- boot.macroLang
-      let declDB :: DeclDB l ConstructTranslationUnit
-          declDB = final.meta.declDB
+      let declDB :: DeclDB l Final
+          declDB = final.db
 
           -- Dependency order refined by source order (see
-          -- 'HsBindgen.Frontend.Analysis.DeclUseGraph.sortDecls'): the
-          -- translation needs dependency order, and the output follows it.
+          -- 'HsBindgen.Frontend.TranslationUnit.activeDecls'): the translation
+          -- needs dependency order, and the output follows it.
           cDecls :: [C.Decl l Final]
           cDecls = final.decls
       pure $ Hs.generateDeclarations

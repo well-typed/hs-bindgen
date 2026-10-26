@@ -8,14 +8,7 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph (
     -- * Definition
     DeclUseGraph -- opaque
   , toDigraph
-    -- * Construction
-  , construct
-  , insertDepsOfDecl
-    -- * Deletion
-  , deleteDeps
-  , deleteRevDeps
     -- * Query
-  , sortDecls
   , declSortKey
     -- ** Transitive usage
   , getUseSitesTransitively
@@ -26,7 +19,8 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph (
   , renderMermaid
   ) where
 
--- NOTE This module is split up in order to avoid import cycles.
-import HsBindgen.Frontend.Analysis.DeclUseGraph.Construction
+-- NOTE This module is split up in order to avoid import cycles. The
+-- construction and the edge edits are used through "HsBindgen.Frontend.DeclDB",
+-- which keeps the vertices equal to its keys.
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Query

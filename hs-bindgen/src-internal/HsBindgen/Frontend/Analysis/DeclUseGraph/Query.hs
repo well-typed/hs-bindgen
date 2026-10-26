@@ -1,7 +1,6 @@
 module HsBindgen.Frontend.Analysis.DeclUseGraph.Query (
     -- * Query
-    sortDecls
-  , declSortKey
+    declSortKey
     -- ** Transitive usage
   , getUseSitesTransitively
     -- ** Direct usage
@@ -11,7 +10,6 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph.Query (
 
 import Data.Digraph qualified as Digraph
 import Data.Map.Strict qualified as Map
-import Data.Ord (comparing)
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
@@ -19,57 +17,14 @@ import Clang.HighLevel.Types
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
-import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
-import HsBindgen.IR.Pass (Id)
 
 {-------------------------------------------------------------------------------
   Query
 -------------------------------------------------------------------------------}
-
--- | Order declarations: dependency order, refined by 'declSortKey'
---
--- Definition sites come before use sites, and otherwise we follow source order
--- as far as 'annSortKey' knows it. The database supplies the sort keys of all
--- vertices, active or not; every given declaration must be a vertex.
-sortDecls ::
-     forall l p q.
-     (HasCallStack, Id p ~ C.DeclId)
-  => IncludeGraph
-  -> DeclDB l q
-  -> DeclUseGraph
-  -> [C.Decl l p]
-  -> [C.Decl l p]
-sortDecls includeGraph declDB declUseGraph decls
-    | Map.null notVertices = sorted
-    | otherwise            = panicPure $
-        "Declarations not in the graph: " <> show (Map.keys notVertices)
-  where
-    order :: IncludeGraph.IncludeOrder
-    order = IncludeGraph.toIncludeOrder includeGraph
-
-    byId :: Map C.DeclId (C.Decl l p)
-    byId = Map.fromList [(decl.id, decl) | decl <- decls]
-
-    sortedIds :: [C.DeclId]
-    sortedIds =
-      Digraph.sortBy (comparing key) $
-        Digraph.filterEdges (== NeedsShape) declUseGraph.graph
-
-    sorted :: [C.Decl l p]
-    sorted = mapMaybe (`Map.lookup` byId) sortedIds
-
-    notVertices :: Map C.DeclId (C.Decl l p)
-    notVertices = Map.withoutKeys byId (Set.fromList sortedIds)
-
-    key :: C.DeclId -> DeclSortKey
-    key declId = case DeclDB.lookupEntry declId declDB of
-      Just entry -> declSortKey order entry
-      Nothing    -> panicPure $ "Vertex not in the database: " <> show declId
 
 -- | Entries without a source position sort last
 data DeclSortKey = DeclWithLoc SortKey | DeclNoLoc

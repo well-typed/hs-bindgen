@@ -26,10 +26,8 @@ import Clang.HighLevel.Types qualified as Clang
 import HsBindgen.Errors
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
-import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.AST
 import HsBindgen.Frontend.Pass.PrepareReparse.Flatten
@@ -59,28 +57,25 @@ update ::
      UpdateMode
   -> C.TranslationUnit l ApplyMacroFallback
   -> C.TranslationUnit l PrepareReparse
-update mode unit = unit'
+update mode unit = C.fromDeclDB unit.includeGraph db'
   where
-    (unitUpdated, delayedMsgs) = runM env $ updateIt () unit
+    (db, delayedMsgs) =
+      runM env $
+        DeclDB.traverseActive DeclDB.AnyOrder
+          (fmap DeclDB.Advanced . updateIt ())
+          unit.db
 
-    unit' = unitUpdated {
-          C.meta = meta'
-        }
-    meta' = unitUpdated.meta {
-          declDB = declDB'
-        }
-
-    declDB' :: DeclDB l ConstructTranslationUnit
-    declDB' =
+    db' :: DeclDB l PrepareReparse
+    db' =
       -- Collected in reverse order
       DeclDB.addDelayedMsgs
         (reverse $ map (fmap DelayedPrepareReparse) delayedMsgs)
-        unit.meta.declDB
+        db
 
     env :: Env
     env = Env{
         updateMode  = mode
-      , ambiguityOf = (`DeclDB.lookupAmbiguity` unit.meta.declDB)
+      , ambiguityOf = (`DeclDB.lookupAmbiguity` unit.db)
       }
 
 {-------------------------------------------------------------------------------
@@ -117,16 +112,6 @@ newtype St = St {
 {-------------------------------------------------------------------------------
   Update: instances
 -------------------------------------------------------------------------------}
-
-instance Update (C.TranslationUnit l) where
-  type Ctx (C.TranslationUnit l) = ()
-  updateIt _ unit = do
-      decls' <- mapM (updateIt ()) unit.decls
-      pure C.TranslationUnit{
-          decls        = decls'
-        , includeGraph = unit.includeGraph
-        , meta         = unit.meta
-        }
 
 instance Update (C.Decl l) where
   type Ctx (C.Decl l) = ()

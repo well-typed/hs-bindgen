@@ -43,6 +43,11 @@ data UseDeclGraph = UseDeclGraph {
   Construction
 -------------------------------------------------------------------------------}
 
+-- | The transpose of the decl-use graph
+--
+-- The declaration database stores only the decl-use graph. Deriving this one
+-- is cheap: one transpose per reader, and @Select@ and @writeUseDeclGraph@ are
+-- the only readers.
 fromDeclUseGraph :: DeclUseGraph -> UseDeclGraph
 fromDeclUseGraph declUseGraph = UseDeclGraph{
       graph = Digraph.transpose $ DeclUseGraph.toDigraph declUseGraph

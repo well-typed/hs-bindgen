@@ -7,10 +7,8 @@ import Control.Monad.State (MonadState, State, modify, runState)
 
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
-import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
 import HsBindgen.Frontend.Pass.TranslateTypes.PassBy (classifyArgPassingMethod,
@@ -33,28 +31,22 @@ translateTypes ::
   -> ( C.TranslationUnit l TranslateTypes
      , [AnnMsg TranslateTypes]
      )
-translateTypes unit = (unit', msgs)
+translateTypes unit = (C.fromDeclDB unit.includeGraph db', msgs)
   where
     msgs = []
 
-    unit' = C.TranslationUnit{
-          decls        = decls'
-        , includeGraph = unit.includeGraph
-        , meta         = meta'
-        }
-
-    meta' = unit.meta {
-          declDB = declDB'
-        }
-
-    declDB' :: DeclDB l ConstructTranslationUnit
-    declDB' =
+    db' :: DeclDB l TranslateTypes
+    db' =
         -- Collected in reverse order
         DeclDB.addDelayedMsgs
           (reverse $ map (fmap DelayedTranslateTypes) delayedMsgs)
-          unit.meta.declDB
+          db
 
-    (decls', delayedMsgs) = runM NoEnv $ mapM processDecl unit.decls
+    (db, delayedMsgs) =
+      runM NoEnv $
+        DeclDB.traverseActive DeclDB.AnyOrder
+          (fmap DeclDB.Advanced . processDecl)
+          unit.db
 
 {-------------------------------------------------------------------------------
   Decls

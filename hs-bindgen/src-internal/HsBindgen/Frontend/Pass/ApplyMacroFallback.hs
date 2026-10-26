@@ -2,25 +2,18 @@ module HsBindgen.Frontend.Pass.ApplyMacroFallback (
     applyMacroFallback
   ) where
 
-import Data.Either (partitionEithers)
-import Data.Map.Strict qualified as Map
-import Data.Set (Set)
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
-import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
-import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.TranslationUnit qualified as C
+import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 
@@ -41,27 +34,17 @@ applyMacroFallback ::
   -> C.TranslationUnit l In
   -> C.TranslationUnit l Out
 applyMacroFallback isMainHeader isInMainHeaderDir config unit =
-    C.TranslationUnit{
-        decls        = DeclUseGraph.sortDecls
-                         unit.includeGraph
-                         declDB'
-                         declUseGraph'
-                         decls'
-      , includeGraph = unit.includeGraph
-      , meta         = DeclMeta{
-            declDB       = declDB'
-          , useDeclGraph = UseDeclGraph.fromDeclUseGraph declUseGraph'
-          , declUseGraph = declUseGraph'
-          }
-      }
+    C.fromDeclDB unit.includeGraph db'
   where
-    declDB' :: DeclDB l ConstructTranslationUnit
-    declDB' = DeclDB.deactivate (Map.fromList rejected) unit.meta.declDB
-
     -- The edges into a rejected macro stay: its dependents use an unusable
     -- macro.
-    declUseGraph' :: DeclUseGraph
-    declUseGraph' = DeclUseGraph.deleteDeps unhandled unit.meta.declUseGraph
+    db' :: DeclDB l Out
+    db' =
+        DeclDB.deleteDeps unhandled
+      . runIdentity
+      . DeclDB.traverseActive DeclDB.AnyOrder
+          (\decl -> pure $ DeclDB.lookupResult decl.id results)
+      $ unit.db
 
     unhandled :: Set C.DeclId
     unhandled = Set.fromList [
@@ -70,14 +53,11 @@ applyMacroFallback isMainHeader isInMainHeaderDir config unit =
         , C.DeclMacro PendingMacro{handling = Unhandled _} <- [decl.kind]
         ]
 
-    rejected :: [(C.DeclId, DeclDB.Deactivation)]
-    decls'   :: [C.Decl l Out]
-    (rejected, decls') = partitionEithers $ map decide unit.decls
+    results :: Map C.DeclId (DeclDB.PassResult l Out)
+    results = DeclDB.passResults $ map decide unit.decls
 
-    decide ::
-         C.Decl l In
-      -> Either (C.DeclId, DeclDB.Deactivation) (C.Decl l Out)
-    decide decl = case decl.kind of
+    decide :: C.Decl l In -> (C.DeclId, DeclDB.PassResult l Out)
+    decide decl = (decl.id,) $ case decl.kind of
         C.DeclMacro macro -> case macro.handling of
           Handled (CheckedType  x) -> keep $ C.DeclMacro $ MacroType  $ coercePass x
           Handled (CheckedValue x) -> keep $ C.DeclMacro $ MacroValue $ coercePass x
@@ -88,7 +68,7 @@ applyMacroFallback isMainHeader isInMainHeaderDir config unit =
                   , failure = failure
                   }
             | otherwise ->
-                Left (decl.id, DeclDB.Unusable $ DeclDB.UnusableMacro failure)
+                DeclDB.Deactivate $ DeclDB.Unusable $ DeclDB.UnusableMacro failure
         C.DeclTypedef              x -> keep $ C.DeclTypedef              $ coercePass x
         C.DeclStruct               x -> keep $ C.DeclStruct               $ coercePass x
         C.DeclUnion                x -> keep $ C.DeclUnion                $ coercePass x
@@ -98,8 +78,8 @@ applyMacroFallback isMainHeader isInMainHeaderDir config unit =
         C.DeclFunction             x -> keep $ C.DeclFunction             $ coercePass x
         C.DeclGlobal               x -> keep $ C.DeclGlobal               $ coercePass x
       where
-        keep :: C.DeclKind l Out -> Either a (C.Decl l Out)
-        keep kind' = Right $ C.coercePassDeclWith kind' decl.ann decl
+        keep :: C.DeclKind l Out -> DeclDB.PassResult l Out
+        keep kind' = DeclDB.Advanced $ C.coercePassDeclWith kind' decl.ann decl
 
     fallsBack :: C.Decl l In -> Bool
     fallsBack decl =
