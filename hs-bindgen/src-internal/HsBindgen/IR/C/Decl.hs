@@ -127,8 +127,8 @@ data DeclInfo = DeclInfo{
     -- | Source order index
     --
     -- The position of this declaration in /source order/ (roughly, how
-    -- declarations appear in the C source; see the ordering definitions in
-    -- "HsBindgen.Frontend.Pass.Parse"), starting at 0. Declarations with a
+    -- declarations appear in the C source; see the orderings in
+    -- "HsBindgen.Frontend.DeclDB"), starting at 0. Declarations with a
     -- lower index come before those with a higher index. Populated only with
     -- Clang version 20.1 or newer; 'Nothing' otherwise.
     , sourceOrderIndex :: Maybe Natural

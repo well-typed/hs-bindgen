@@ -40,8 +40,8 @@ parseDecls macroLang parseEnv = do
       let resultsOriginalOrder :: [ParseResult l Parse]
           resultsOriginalOrder = concatMap snd resultsWithLocs
       macroAnalysis <- analyseMacros
-      -- 'resultsOriginalOrder' is in sequence order (the order in which
-      -- libclang visits the declarations). We additionally record the source
+      -- 'resultsOriginalOrder' is in sequence order (see the orderings in
+      -- "HsBindgen.Frontend.DeclDB"). We additionally record the source
       -- order of each declaration in its 'sourceOrderIndex', obtained by
       -- sorting the declarations by source position.
       --
@@ -77,34 +77,6 @@ analyseMacros = do
     forM_ (NE.nonEmpty $ mapMaybe isFailure definitions) $
       ParseDecl.traceImmediateGlobal . ParseMacroDefinitionAnalysisFailed
     pure $ analyseMacroDefinitions definitions
-
-{-------------------------------------------------------------------------------
-  Orderings
-
-  We distinguish a few orderings of declarations (see issue #1580). These
-  definitions live here for now; they should eventually move to wherever the
-  orderings are defined and used centrally.
-
-  * Sequence order: the order in which libclang presents the declarations to
-    our parser (the order in which the cursor visits them). libclang visits
-    macros first and the remaining declarations in source order, so sequence
-    order is /not/ source order. This is the order of 'resultsOriginalOrder',
-    and the order in which 'parseDecls' returns its results.
-
-  * Source order: roughly, how the declarations appear in the C source. We
-    record it per declaration in 'DeclInfo.sourceOrderIndex', computed above by
-    sorting on source position via 'clang_isBeforeInTranslationUnit' (accurate,
-    but requires Clang >= 20.1). Note that @annSortKey@ (in
-    "HsBindgen.Frontend.Analysis.DeclUseGraph.Query") computes a
-    /best-effort/ source order without that API, used only as a tiebreak when
-    ordering the output; it can be inaccurate, e.g. when a header includes
-    another header part-way through its own declarations.
-
-  * Dependency order: the order according to the use-decl graph; if @A@ has a
-    by-value use of @B@ then @B@ comes before @A@. The backend generates the
-    bindings in this order, refined by @declSortKey@. Each traversal of the
-    declaration database states the order it needs.
--------------------------------------------------------------------------------}
 
 -- | Stable merge sort using a monadic strict-less-than predicate.
 --

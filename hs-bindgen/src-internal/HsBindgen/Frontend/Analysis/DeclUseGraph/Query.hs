@@ -58,8 +58,7 @@ data SortKey = SortKey{
     }
   deriving (Eq, Ord, Show)
 
--- | Best-effort source order (see the note on orderings in
--- "HsBindgen.Frontend.Pass.Parse")
+-- | Best-effort source order (see the orderings in "HsBindgen.Frontend.DeclDB")
 annSortKey ::
      HasCallStack
   => IncludeGraph.IncludeOrder
