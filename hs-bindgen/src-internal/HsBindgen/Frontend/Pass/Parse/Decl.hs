@@ -132,6 +132,9 @@ parseDecl' macroLang enclosing mCtx = withCursorKindNoCtx $ \case
       -- are resolved by the linker regardless of the DLL annotation.
       Right CXCursor_DLLImport          -> \_curr -> foldContinue
       Right CXCursor_DLLExport          -> \_curr -> foldContinue
+      -- @objc_boxable@ attributes on structs and unions. They permit the
+      -- Objective-C boxed expression syntax and have no meaning in C.
+      Right CXCursor_ObjCBoxable        -> \_curr -> foldContinue
       -- C11 @_Static_assert@ declarations (e.g. SDL's
       -- @SDL_COMPILE_TIME_ASSERT@): compile-time checks that declare
       -- nothing bindable.
@@ -568,6 +571,12 @@ enumDecl _enclosing ctx info = \curr -> do
                   -- @visibility@ attributes. The visibility itself the value can be
                   -- obtained using 'getCursorVisibility'.
                   Right CXCursor_VisibilityAttr -> foldContinue
+                  -- Attributes without a dedicated @libclang@ cursor kind,
+                  -- such as @availability@ and @enum_extensibility@.
+                  Right CXCursor_UnexposedAttr -> foldContinue
+                  -- @flag_enum@ does not change the enum's representation,
+                  -- so we can ignore it.
+                  Right CXCursor_FlagEnum -> foldContinue
                   -- Windows @__declspec(dllimport)@ / @__declspec(dllexport)@.
                   -- These don't affect the generated Haskell bindings.
                   Right CXCursor_DLLImport -> foldContinue
@@ -893,6 +902,10 @@ varDecl macroLang enclosing ctx info = do
           -- @visibility@ attributes, where the value is obtained using
           -- @clang_getCursorVisibility@.
           CXCursor_VisibilityAttr -> skip
+
+          -- Attributes for which @libclang@ has no dedicated cursor kind, such
+          -- as @availability@ and @swift_private@.
+          CXCursor_UnexposedAttr -> skip
 
           -- Windows @__declspec(dllimport)@ / @__declspec(dllexport)@
           -- attributes. These do not affect the generated Haskell bindings.

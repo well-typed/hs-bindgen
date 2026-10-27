@@ -1,0 +1,135 @@
+-- addDependentFile test-artefacts/headers/golden/attributes/objc_boxable.h
+{-| __C declaration:__ @struct S0@
+
+    __defined at:__ @attributes\/objc_boxable.h 12:39@
+
+    __exported by:__ @attributes\/objc_boxable.h@
+-}
+data S0
+    = S0 {s0_x :: CDouble
+          {- ^ __C declaration:__ @x@
+
+               __defined at:__ @attributes\/objc_boxable.h 12:51@
+
+               __exported by:__ @attributes\/objc_boxable.h@
+          -},
+          s0_y :: CDouble
+          {- ^ __C declaration:__ @y@
+
+               __defined at:__ @attributes\/objc_boxable.h 12:61@
+
+               __exported by:__ @attributes\/objc_boxable.h@
+          -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S0
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw S0
+    where readRaw = \ptr_0 -> (pure S0 <*> readRaw (Proxy @"s0_x") ptr_0) <*> readRaw (Proxy @"s0_y") ptr_0
+instance WriteRaw S0
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S0 s0_x_2
+                                          s0_y_3 -> writeRaw (Proxy @"s0_x") ptr_0 s0_x_2 >> writeRaw (Proxy @"s0_y") ptr_0 s0_y_3
+deriving via (EquivStorable S0) instance Storable S0
+deriving via (IsStructViaReadRaw S0) instance IsStruct S0
+instance (~) ty CDouble => HasField "s0_x" S0 ty
+    where hasField = \x_0 -> (\y_1 -> S0{s0_x = y_1,
+                                         s0_y = getField @"s0_y" x_0},
+                              getField @"s0_x" x_0)
+instance (~) ty CDouble => HasField "s0_x" (Ptr S0) (Ptr ty)
+    where getField = fromPtr (Proxy @"s0_x")
+instance HasCField S0 "s0_x"
+    where type CFieldType S0 "s0_x" = CDouble
+          offset# = \_ -> \_ -> 0
+instance (~) ty CDouble => HasField "s0_y" S0 ty
+    where hasField = \x_0 -> (\y_1 -> S0{s0_y = y_1,
+                                         s0_x = getField @"s0_x" x_0},
+                              getField @"s0_y" x_0)
+instance (~) ty CDouble => HasField "s0_y" (Ptr S0) (Ptr ty)
+    where getField = fromPtr (Proxy @"s0_y")
+instance HasCField S0 "s0_y"
+    where type CFieldType S0 "s0_y" = CDouble
+          offset# = \_ -> \_ -> 8
+{-| __C declaration:__ @struct S1@
+
+    __defined at:__ @attributes\/objc_boxable.h 15:8@
+
+    __exported by:__ @attributes\/objc_boxable.h@
+-}
+data S1
+    = S1 {s1_x :: CDouble
+          {- ^ __C declaration:__ @x@
+
+               __defined at:__ @attributes\/objc_boxable.h 15:20@
+
+               __exported by:__ @attributes\/objc_boxable.h@
+          -},
+          s1_y :: CDouble
+          {- ^ __C declaration:__ @y@
+
+               __defined at:__ @attributes\/objc_boxable.h 15:30@
+
+               __exported by:__ @attributes\/objc_boxable.h@
+          -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S1
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw S1
+    where readRaw = \ptr_0 -> (pure S1 <*> readRaw (Proxy @"s1_x") ptr_0) <*> readRaw (Proxy @"s1_y") ptr_0
+instance WriteRaw S1
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S1 s1_x_2
+                                          s1_y_3 -> writeRaw (Proxy @"s1_x") ptr_0 s1_x_2 >> writeRaw (Proxy @"s1_y") ptr_0 s1_y_3
+deriving via (EquivStorable S1) instance Storable S1
+deriving via (IsStructViaReadRaw S1) instance IsStruct S1
+instance (~) ty CDouble => HasField "s1_x" S1 ty
+    where hasField = \x_0 -> (\y_1 -> S1{s1_x = y_1,
+                                         s1_y = getField @"s1_y" x_0},
+                              getField @"s1_x" x_0)
+instance (~) ty CDouble => HasField "s1_x" (Ptr S1) (Ptr ty)
+    where getField = fromPtr (Proxy @"s1_x")
+instance HasCField S1 "s1_x"
+    where type CFieldType S1 "s1_x" = CDouble
+          offset# = \_ -> \_ -> 0
+instance (~) ty CDouble => HasField "s1_y" S1 ty
+    where hasField = \x_0 -> (\y_1 -> S1{s1_y = y_1,
+                                         s1_x = getField @"s1_x" x_0},
+                              getField @"s1_y" x_0)
+instance (~) ty CDouble => HasField "s1_y" (Ptr S1) (Ptr ty)
+    where getField = fromPtr (Proxy @"s1_y")
+instance HasCField S1 "s1_y"
+    where type CFieldType S1 "s1_y" = CDouble
+          offset# = \_ -> \_ -> 8
+{-| __C declaration:__ @union U0@
+
+    __defined at:__ @attributes\/objc_boxable.h 19:38@
+
+    __exported by:__ @attributes\/objc_boxable.h@
+-}
+newtype U0 = U0 {unwrapU0 :: ByteArray} deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize U0
+deriving via (SizedByteArray 4 4) instance ReadRaw U0
+deriving via (SizedByteArray 4 4) instance WriteRaw U0
+deriving via (EquivStorable U0) instance Storable U0
+deriving via (SizedByteArray 4 4) instance IsUnion U0
+instance (~) ty CInt => HasField "u0_i" U0 ty
+    where getField = getUnionPayload
+instance (~) ty CInt => HasField "u0_i" U0 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"u0_i" x_0)
+instance (~) ty CInt => HasField "u0_i" (Ptr U0) (Ptr ty)
+    where getField = fromPtr (Proxy @"u0_i")
+instance HasCField U0 "u0_i"
+    where type CFieldType U0 "u0_i" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CFloat => HasField "u0_f" U0 ty
+    where getField = getUnionPayload
+instance (~) ty CFloat => HasField "u0_f" U0 ty
+    where hasField = \x_0 -> (\y_1 -> setUnionPayload y_1 x_0,
+                              getField @"u0_f" x_0)
+instance (~) ty CFloat => HasField "u0_f" (Ptr U0) (Ptr ty)
+    where getField = fromPtr (Proxy @"u0_f")
+instance HasCField U0 "u0_f"
+    where type CFieldType U0 "u0_f" = CFloat
+          offset# = \_ -> \_ -> 0

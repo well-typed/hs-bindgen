@@ -1,0 +1,68 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: attributes/unexposed_attributes.h
+  cname: enum E0
+  hsname: E0
+  enum: open
+- headers: attributes/unexposed_attributes.h
+  cname: enum E1
+  hsname: E1
+  enum: open
+hstypes:
+- hsname: E0
+  representation:
+    newtype:
+      constructor: E0
+      fields:
+      - unwrapE0
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E1
+  representation:
+    newtype:
+      constructor: E1
+      fields:
+      - unwrapE1
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
