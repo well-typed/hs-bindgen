@@ -19,7 +19,7 @@ import Clang.Paths
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.DeclDB (Deactivation (..), Inactive,
-                                  InactiveReason (..), SquashedTypedef (..),
+                                  InactiveReason (..), SquashTarget (..),
                                   UnusableReason (..))
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DelayedMsg
@@ -183,7 +183,7 @@ data SelectMsg =
     -- | A directly or transitively selected declaration is unusable.
   | SelectUnusable InactiveReason
   | SelectConflict
-  | SelectMangleNamesSquashed SquashedTypedef
+  | SelectMangleNamesSquashed SquashTarget
     -- | Inform the user that no declarations matched the selection predicate.
   | SelectNoDeclarationsMatched
     -- | Summary of the number of selected macros that hs-bindgen failed to
@@ -225,9 +225,9 @@ instance PrettyForTrace SelectMsg where
           couldNotSelect $ prettyForTrace x
       SelectConflict ->
         couldNotSelect "Conflicting declarations"
-      SelectMangleNamesSquashed x -> PP.hsep [
+      SelectMangleNamesSquashed target -> PP.hsep [
           "Squashed typedef to"
-        , prettyForTrace x.target.c
+        , prettyForTrace target.c
         ]
       SelectNoDeclarationsMatched ->
         "No declarations matched the selection predicate"

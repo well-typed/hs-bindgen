@@ -41,12 +41,12 @@ declSortKey ::
   -> DeclSortKey
 declSortKey order = \case
     DeclDB.Active   decl     -> withLoc decl.info
-    DeclDB.Squashed squashed -> withLoc squashed.info
+    DeclDB.Squashed info _   -> withLoc info
     DeclDB.External{}        -> DeclNoLoc
     DeclDB.Deselected info   -> withLoc info
     DeclDB.Inactive inactive -> case inactive of
-      DeclDB.InactiveDecl info  -> withLoc info.info
-      DeclDB.InactiveConflict{} -> DeclNoLoc
+      DeclDB.InactiveDecl info _ -> withLoc info
+      DeclDB.InactiveConflict{}  -> DeclNoLoc
   where
     withLoc :: C.DeclInfo -> DeclSortKey
     withLoc info = DeclWithLoc $ annSortKey order info.loc

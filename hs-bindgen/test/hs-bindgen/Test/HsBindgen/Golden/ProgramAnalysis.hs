@@ -4,8 +4,8 @@ module Test.HsBindgen.Golden.ProgramAnalysis (testCases) where
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.DeclDB (Inactive (..), InactiveInfo (..),
-                                  InactiveReason (..), UnusableReason (..))
+import HsBindgen.Frontend.DeclDB (Inactive (..), InactiveReason (..),
+                                  UnusableReason (..))
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.MangleNames.IsPass.Msg (DelayedMangleNamesMsg (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
@@ -95,7 +95,7 @@ test_delay_traces =
               Just $ Expected name
             -- The parse failure, not a conflict of the struct with itself
             MatchSelect name (MatchTransMissing [
-                MatchTransUnusable (InactiveDecl InactiveInfo{reason = ParseFailed{}})
+                MatchTransUnusable (InactiveDecl _ ParseFailed{})
               ]) ->
               Just $ Expected name
             MatchUnusableReason _ UnusableMangleNames{} ->
@@ -672,7 +672,7 @@ test_global_unusable_type =
       MatchDelayed name (ParseUnsupportedFloatType UnsupportedLongDouble) ->
         Just $ Expected (name, "parse")
       MatchSelect name (MatchTransMissing [
-          MatchTransUnusable (InactiveDecl InactiveInfo{reason = ParseFailed{}})
+          MatchTransUnusable (InactiveDecl _ ParseFailed{})
         ]) ->
         Just $ Expected (name, "transitivity")
       _otherwise ->
