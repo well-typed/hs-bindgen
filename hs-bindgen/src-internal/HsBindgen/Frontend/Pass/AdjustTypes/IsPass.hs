@@ -1,5 +1,6 @@
 module HsBindgen.Frontend.Pass.AdjustTypes.IsPass (
     AdjustTypes
+    -- * Annotations
   , AdjustedFrom (..)
   ) where
 
@@ -73,6 +74,12 @@ data AdjustedFrom p =
   | AdjustedFromFunction (C.Type p)
   | NotAdjusted
   deriving stock (Show, Eq, Ord)
+
+instance CoercePass C.Type p p' => CoercePass AdjustedFrom p p' where
+  coercePass = \case
+    AdjustedFromArray ty    -> AdjustedFromArray (coercePass ty)
+    AdjustedFromFunction ty -> AdjustedFromFunction (coercePass ty)
+    NotAdjusted             -> NotAdjusted
 
 {-------------------------------------------------------------------------------
   CoercePass

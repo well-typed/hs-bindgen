@@ -7,7 +7,6 @@ import HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.IR.Pass.Types (CoercePassAnonRef)
 import HsBindgen.Macro.Interface qualified as Macro
 
 {-------------------------------------------------------------------------------
@@ -64,8 +63,11 @@ instance CoercePassMacroBody           FillUnnamedIds EnrichComments
 instance CoercePassMacroId             FillUnnamedIds EnrichComments
 instance CoercePassMacroUnderlying     FillUnnamedIds EnrichComments
 instance CoercePassTypes               FillUnnamedIds EnrichComments
-instance CoercePassAnn "IndirectField" FillUnnamedIds EnrichComments
+instance CoercePassTypeFunArg          FillUnnamedIds EnrichComments
+instance CoercePassAnn "FunctionArg"   FillUnnamedIds EnrichComments
+instance CoercePassAnn "FunctionRes"   FillUnnamedIds EnrichComments
 instance CoercePassAnn "Global"        FillUnnamedIds EnrichComments
+instance CoercePassAnn "IndirectField" FillUnnamedIds EnrichComments
 instance CoercePassAnn "TypeFunArg"    FillUnnamedIds EnrichComments
 
 instance CoercePassCommentDecl FillUnnamedIds EnrichComments where

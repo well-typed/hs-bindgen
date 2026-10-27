@@ -11,6 +11,7 @@ module HsBindgen.IR.Pass.Types (
     PassTypes(..)
     -- * Coercion
   , CoercePassTypes(..)
+  , CoercePassTypeFunArg(..)
   , CoercePassAnonRef(..)
   ) where
 
@@ -25,10 +26,12 @@ import HsBindgen.IR.Pass.Definition
 -- | Types (use sites) vary across passes
 class (
       Eq   (AnonRef p)
+    , Eq   (TypeFunArg p)
     , Eq   (Types p)
 
     -- For debugging
     , Show (AnonRef p)
+    , Show (TypeFunArg p)
     , Show (Types p)
     ) => PassTypes (p :: Pass) where
 
@@ -36,8 +39,13 @@ class (
   --
   -- 1. After 'HsBindgen.Frontend.Pass.Parse.IsPass.Parse', this is
   --    @'C.Type' p@.
+  -- 2. After 'HsBindgen.Frontend.Pass.TranslateTypes', this is
+  --    @TranslatedTypes@.
   type Types p :: Star
   type Types p = C.Type p
+
+  type TypeFunArg p :: Star
+  type TypeFunArg p = C.TypeFunArg p
 
   type AnonRef p :: Star
   type AnonRef p = C.AnonRef p
@@ -46,6 +54,13 @@ class (
   cType :: Proxy p -> Types p -> C.Type p
   default cType :: Types p ~ C.Type p => Proxy p -> Types p -> C.Type p
   cType _ = id
+
+  -- | C function argument type
+  cTypeFunArg :: Proxy p -> TypeFunArg p -> C.TypeFunArg p
+  default cTypeFunArg ::
+       TypeFunArg p ~ C.TypeFunArg p
+    => Proxy p -> TypeFunArg p -> C.TypeFunArg p
+  cTypeFunArg _ = id
 
   anonRefTypes :: Proxy p -> AnonRef p -> Types p
   default anonRefTypes ::
@@ -66,6 +81,17 @@ class CoercePassTypes (p :: Pass) (p' :: Pass) where
        (CoercePass C.Type p p', Types p ~ C.Type p, Types p' ~ C.Type p')
     => Proxy '(p, p') -> Types p -> Types p'
   coercePassTypes _ = coercePass
+
+class CoercePassTypeFunArg (p :: Pass) (p' :: Pass) where
+  coercePassTypeFunArg :: Proxy '(p, p') -> TypeFunArg p -> TypeFunArg p'
+
+  default coercePassTypeFunArg ::
+       ( CoercePass C.TypeFunArg p p'
+       , TypeFunArg p ~ C.TypeFunArg p
+       , TypeFunArg p' ~ C.TypeFunArg p'
+       )
+    => Proxy '(p, p') -> TypeFunArg p -> TypeFunArg p'
+  coercePassTypeFunArg _ = coercePass
 
 class CoercePassAnonRef (p :: Pass) (p' :: Pass) where
   coercePassAnonRef :: Proxy '(p, p') -> AnonRef p -> AnonRef p'

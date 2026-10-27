@@ -194,8 +194,8 @@ instance ZipReparsed C.Typedef where
 
 instance ZipReparsed C.Function where
   zipReparsed funPre fun = do
-      args'  <- zipList zipFunctionArg funPre.args fun.args
-      res'   <- zipType                funPre.res   fun.res
+      args'  <- zipList zipFunctionArg funPre.args  fun.args
+      res'   <- zipFunctionRes         funPre.res   fun.res
       attrs' <- checkEq                funPre.attrs fun.attrs
       success C.Function{
           args  = args'
@@ -209,12 +209,24 @@ instance ZipReparsed C.Function where
         -> C.FunctionArg Out
         -> ZipResult (C.FunctionArg ReparseMacroExpansions)
       zipFunctionArg arg1 arg2 = do
-            name' <- checkEq arg1.name arg2.name
-            typ'  <- zipType arg1.typ  arg2.typ
-            ann'  <- checkEq arg1.ann  arg2.ann
+            name' <- checkEq       arg1.name arg2.name
+            typ'  <- zipTypeFunArg arg1.typ  arg2.typ
+            ann'  <- checkEq       arg1.ann  arg2.ann
             success C.FunctionArg {
                 name = name'
               , typ  = typ'
+              , ann  = ann'
+              }
+
+      zipFunctionRes ::
+           C.FunctionRes In
+        -> C.FunctionRes Out
+        -> ZipResult (C.FunctionRes ReparseMacroExpansions)
+      zipFunctionRes res1 res2 = do
+            typ'  <- zipType res1.typ res2.typ
+            ann'  <- checkEq res1.ann res2.ann
+            success C.FunctionRes {
+                typ  = typ'
               , ann  = ann'
               }
 

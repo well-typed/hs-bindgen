@@ -49,10 +49,13 @@ instance PassMsg ReparseMacroExpansions
   CoercePass: PrepareReparse → ReparseMacroExpansions
 -------------------------------------------------------------------------------}
 
-instance CoercePassId                  PrepareReparse ReparseMacroExpansions
-instance CoercePassMacroId             PrepareReparse ReparseMacroExpansions
-instance CoercePassTypes               PrepareReparse ReparseMacroExpansions
-instance CoercePassAnn "TypeFunArg"    PrepareReparse ReparseMacroExpansions
+instance CoercePassId                PrepareReparse ReparseMacroExpansions
+instance CoercePassMacroId           PrepareReparse ReparseMacroExpansions
+instance CoercePassTypes             PrepareReparse ReparseMacroExpansions
+instance CoercePassTypeFunArg        PrepareReparse ReparseMacroExpansions
+instance CoercePassAnn "FunctionArg" PrepareReparse ReparseMacroExpansions
+instance CoercePassAnn "FunctionRes" PrepareReparse ReparseMacroExpansions
+instance CoercePassAnn "TypeFunArg"  PrepareReparse ReparseMacroExpansions
 
 instance CoercePassCommentDecl PrepareReparse ReparseMacroExpansions where
   coercePassCommentDecl _ = fmap coercePass
@@ -67,9 +70,12 @@ instance CoercePassMacroUnderlying PrepareReparse  ReparseMacroExpansions where
   CoercePass: LanC → ReparseMacroExpansions
 -------------------------------------------------------------------------------}
 
-instance CoercePassId               LanC ReparseMacroExpansions
-instance CoercePassMacroId          LanC ReparseMacroExpansions
-instance CoercePassAnn "TypeFunArg" LanC ReparseMacroExpansions
+instance CoercePassId                LanC ReparseMacroExpansions
+instance CoercePassMacroId           LanC ReparseMacroExpansions
+instance CoercePassAnn "FunctionArg" LanC ReparseMacroExpansions
+instance CoercePassAnn "FunctionRes" LanC ReparseMacroExpansions
+instance CoercePassAnn "TypeFunArg"  LanC ReparseMacroExpansions
+
 instance CoercePassCommentDecl      LanC ReparseMacroExpansions where
   coercePassCommentDecl _ = fmap coercePass
 

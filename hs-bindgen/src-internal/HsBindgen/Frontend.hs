@@ -239,7 +239,7 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --
 -- == 13. "HsBindgen.Frontend.Pass.TranslateTypes"
 --
--- "HsBindgen.Frontend.Pass.TranslateTypes" translates types (use sites) to
+-- "HsBindgen.Frontend.Pass.TranslateTypes" translates C types (use sites) to
 -- Haskell types.
 --
 -- == 14. "HsBindgen.Frontend.Pass.Select"

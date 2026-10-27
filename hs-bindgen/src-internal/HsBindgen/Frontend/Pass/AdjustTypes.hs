@@ -185,7 +185,7 @@ processFunction :: C.Function MangleNames -> C.Function AdjustTypes
 processFunction function =
     C.Function{
         args  = map processFunctionArg function.args
-      , res   = processType function.res
+      , res   = processFunctionRes function.res
       , attrs = function.attrs
       , ann   = function.ann
       }
@@ -194,11 +194,23 @@ processFunctionArg :: C.FunctionArg MangleNames -> C.FunctionArg AdjustTypes
 processFunctionArg functionArg =
     C.FunctionArg{
         name = functionArg.name
-      , typ  = typ'
-      , ann  = ann'
+      , typ  = processTypeFunArg functionArg.typ
+      , ann  = NoAnn
       }
-  where
-    (typ', ann') = adjustFunArg $ processType functionArg.typ
+
+processFunctionRes :: C.FunctionRes MangleNames -> C.FunctionRes AdjustTypes
+processFunctionRes res =
+    C.FunctionRes{
+        -- As specified by the C reference, a function result type can /not/ be
+        -- a function type or array type. As such, no need to adjust here.
+        --
+        -- https://en.cppreference.com/c/language/function_declaration#Syntax>
+        --
+        -- NOTE: it would be nice if we could statically enforce that function
+        -- result types are not functions or arrays.
+        typ  = processType res.typ
+      , ann  = NoAnn
+      }
 
 processGlobal :: C.Global MangleNames -> C.Global AdjustTypes
 processGlobal global = C.Global{

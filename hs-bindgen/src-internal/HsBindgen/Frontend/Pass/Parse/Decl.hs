@@ -699,7 +699,7 @@ functionDecl macroLang enclosing ctx info =
       -> ParseDecl (
             Either
               [ParseResult l Parse]
-              ([C.FunctionArg Parse], C.Type Parse)
+              ([C.FunctionArg Parse], C.FunctionRes Parse)
           )
     guardTypeFunction curr ty =
         case ty of
@@ -715,10 +715,11 @@ functionDecl macroLang enclosing ctx info =
 
               return C.FunctionArg{
                   name = mbArgName
-                , typ  = argCType.typ
-                , ann  = argCType.ann
+                , typ  = argCType
+                , ann  = NoAnn
                 }
-            pure $ Right (args', res)
+            let res' = C.FunctionRes res NoAnn
+            pure $ Right (args', res')
           C.TypeTypedef{} ->
             Left <$>
               (parseFail ctx info.id info.loc ParseFunctionOfTypeTypedef)
