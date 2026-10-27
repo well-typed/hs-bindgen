@@ -5,9 +5,9 @@ module HsBindgen.Frontend (
   , ParseInfo(..)
     -- * Parts of the frontend
   , parseHeaders
-  , ParsedHeaders
+  , ParsedHeaders (parseMeta)
   , applyBindingSpecs
-  , BoundHeaders
+  , BoundHeaders (resolveBindingSpecs)
   , prepareBindings
   , ModulePlacement (..)
   , TypeNameSpelling (..)
@@ -351,8 +351,10 @@ parseHeaders tracer config boot = do
     parseMeta <- cache "parseMeta" $ do
       afterParse <- parsePass
       pure ParseInfo {
-        includeGraph   = afterParse.includeGraph
-      , getMainHeaders = afterParse.getMainHeaders
+        includeGraph      = afterParse.includeGraph
+      , getMainHeaders    = afterParse.getMainHeaders
+      , isMainHeader      = afterParse.isMainHeader
+      , isInMainHeaderDir = afterParse.isInMainHeaderDir
       }
 
     simplifyASTPass <- cache "simplifyAST" $ do
@@ -641,6 +643,8 @@ data FrontendMsg =
 data ParseInfo = ParseInfo {
       includeGraph      :: IncludeGraph
     , getMainHeaders    :: GetMainHeaders
+    , isMainHeader      :: IsMainHeader
+    , isInMainHeaderDir :: IsInMainHeaderDir
     }
 
 {-------------------------------------------------------------------------------
