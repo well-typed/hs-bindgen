@@ -1,10 +1,13 @@
 module HsBindgen.Frontend.Pass.MangleNames (
     mangleNames
   , ModulePlacement(..)
+  , TypeNameSpelling(..)
+  , splitQualifiedTypeName
   ) where
 
 import Data.Map qualified as Map
 import Data.Set qualified as Set
+import Data.Text qualified as Text
 
 import Clang.HighLevel.Types
 
@@ -82,7 +85,27 @@ data ModulePlacement =
     -- generated in one of them, and a value (such as a macro) with every one
     -- that needs it. A declaration missing from the map is generated with
     -- none, so its names are not checked.
-  | ByTypesModule (Map C.DeclId (Set Hs.ModuleName))
+  | ByTypesModule TypeNameSpelling (Map C.DeclId (Set Hs.ModuleName))
+  deriving stock (Show)
+
+-- | How to spell the names of types under 'ByTypesModule'
+data TypeNameSpelling =
+    -- | As the generated code writes them, such as @Point@
+    PlainTypeNames
+
+    -- | With their types module, such as @Lib.Geo.Point.Point@
+    --
+    -- Two types modules can each have a @Point@, so plain names of types are
+    -- unique only within a types module. Spelled with their types module, they
+    -- are unique across modules, which is what the backend needs when it
+    -- translates all modules at once (to generate their binding
+    -- specifications). Such a translation cannot be rendered.
+    --
+    -- Only the names of types are spelled this way. The names derived from
+    -- them, such as constructors and fields, stay plain, and so does the name
+    -- of a type that does not end up with exactly one types module.
+    -- 'splitQualifiedTypeName' takes a name apart again.
+  | QualifiedTypeNames
   deriving stock (Show)
 
 mangleNames ::
@@ -125,7 +148,12 @@ mangleNames fieldNaming placement unit = (
     failures1   :: [MangleNamesFailure]
     msgs1       :: [AnnMsg MangleNames]
     (declsC, squashes, nameMap, nameMapDups, failures1, msgs1) =
-      createNames typedefAnalysis mangleCandidateConfig fieldNaming unit.decls
+      createNames
+        typedefAnalysis
+        mangleCandidateConfig
+        fieldNaming
+        (spellTypeName placement)
+        unit.decls
 
     -- Traversal 2: detect clashes among the names of the declarations that end
     -- up in the same modules.
@@ -146,8 +174,8 @@ mangleNames fieldNaming placement unit = (
 
 -- | Do two declarations end up in some common module?
 placedTogether :: ModulePlacement -> C.DeclId -> C.DeclId -> Bool
-placedTogether AllTogether             _ _ = True
-placedTogether (ByTypesModule modules) x y =
+placedTogether AllTogether               _ _ = True
+placedTogether (ByTypesModule _ modules) x y =
     not $ Set.disjoint (typesModulesOf modules x) (typesModulesOf modules y)
 
 -- | The declarations that end up in the same modules, one list per types
@@ -158,19 +186,58 @@ declsSharingModules ::
      ModulePlacement
   -> [C.Decl l CreateNames]
   -> [[C.Decl l CreateNames]]
-declsSharingModules AllTogether             decls = [decls]
-declsSharingModules (ByTypesModule modules) decls = [
-      filter
-        (Set.member typesModule . typesModulesOf modules . (.info.id))
-        decls
-    | typesModule <- Set.toList (Set.unions modules)
-    ]
+declsSharingModules AllTogether               decls = [decls]
+declsSharingModules (ByTypesModule _ modules) decls =
+    -- One pass over the declarations, which go onto their lists in reverse
+    map reverse $ Map.elems $ Map.fromListWith (++) [
+        (typesModule, [decl])
+      | decl        <- decls
+      , typesModule <- Set.toList (typesModulesOf modules decl.info.id)
+      ]
 
 typesModulesOf ::
      Map C.DeclId (Set Hs.ModuleName)
   -> C.DeclId
   -> Set Hs.ModuleName
 typesModulesOf modules declId = Map.findWithDefault Set.empty declId modules
+
+-- | Spell the name of the type of a declaration (see 'TypeNameSpelling')
+spellTypeName ::
+     ModulePlacement
+  -> C.DeclId
+  -> Hs.Name Hs.NsTypeConstr
+  -> Hs.Name Hs.NsTypeConstr
+spellTypeName = \case
+    ByTypesModule QualifiedTypeNames modules -> \declId name ->
+      case Set.toList (typesModulesOf modules declId) of
+        [typesModule] -> qualifyTypeName typesModule name
+        _otherwise    -> name
+    ByTypesModule PlainTypeNames _ -> const id
+    AllTogether                    -> const id
+
+qualifyTypeName ::
+     Hs.ModuleName
+  -> Hs.Name Hs.NsTypeConstr
+  -> Hs.Name Hs.NsTypeConstr
+qualifyTypeName typesModule name =
+    Hs.UnsafeName $ typesModule.text <> "." <> name.text
+
+-- | The types module and the plain name of a type spelled with
+-- 'QualifiedTypeNames'
+--
+-- 'Nothing' for a plain name. The module is everything before the last dot: a
+-- plain name has none, since the mangler escapes a dot like every other
+-- character that is invalid in a name.
+splitQualifiedTypeName ::
+     Hs.Name Hs.NsTypeConstr
+  -> Maybe (Hs.ModuleName, Hs.Name Hs.NsTypeConstr)
+splitQualifiedTypeName name =
+    case Text.breakOnEnd "." name.text of
+      ("",        _    ) -> Nothing
+      (qualifier, plain) -> Just (
+          Hs.ModuleName (Text.dropEnd 1 qualifier)
+        , Hs.UnsafeName plain
+        )
 
 updateDeclMeta ::
       [MangleNamesFailure]

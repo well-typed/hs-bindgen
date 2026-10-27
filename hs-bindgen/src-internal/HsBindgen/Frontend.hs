@@ -10,6 +10,7 @@ module HsBindgen.Frontend (
   , BoundHeaders
   , prepareBindings
   , ModulePlacement (..)
+  , TypeNameSpelling (..)
   ) where
 
 
