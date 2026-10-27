@@ -19,6 +19,7 @@ module HsBindgen.Frontend.Analysis.IncludeGraph (
   , reaches
   , toSortedList
   , getIncludes
+  , mainHeaders
     -- * Include order
   , IncludeOrder -- opaque
   , IncludeOrderIx(..)
@@ -166,6 +167,18 @@ getIncludes ::
   -> Digraph.FindEdgesResult Include
 getIncludes includeGraph path =
     Digraph.findEdges (HeaderNode path) includeGraph.graph
+
+-- | The main headers, by the argument of the root directive that includes each
+mainHeaders :: IncludeGraph -> Map C.HashIncludeArg RealPath
+mainHeaders includeGraph = Map.fromList [
+      (getIncludeArg include, path)
+    | (HeaderNode path, includes) <- Map.toList rootIncludes
+    , include <- Set.toList includes
+    ]
+  where
+    rootIncludes :: Map Node (Set Include)
+    rootIncludes =
+      Digraph.neighbors RootNode (Digraph.transpose includeGraph.graph)
 
 {-------------------------------------------------------------------------------
   Include order

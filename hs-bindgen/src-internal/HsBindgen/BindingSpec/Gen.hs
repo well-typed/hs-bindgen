@@ -6,6 +6,10 @@
 module HsBindgen.BindingSpec.Gen (
     -- * Public API
     genBindingSpec
+  , genUnresolvedBindingSpec
+  , encodeBindingSpec
+    -- * Libraries
+  , splitLibraryBindingSpec
   ) where
 
 import Data.ByteString (ByteString)
@@ -27,6 +31,7 @@ import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.Pass.MangleNames (splitQualifiedTypeName)
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Imports
@@ -58,8 +63,18 @@ genBindingSpec
   getMainHeaders
   omitTypes
   squashedTypes =
-      BindingSpec.encode compareCDeclId format
-    . genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes
+      encodeBindingSpec format includeGraph declIndex
+    . genUnresolvedBindingSpec hsModuleName getMainHeaders omitTypes squashedTypes
+
+-- | Encode a binding specification, with the types in include order
+encodeBindingSpec ::
+     Format
+  -> IncludeGraph
+  -> DeclIndex l
+  -> UnresolvedBindingSpec
+  -> ByteString
+encodeBindingSpec format includeGraph declIndex =
+    BindingSpec.encode compareCDeclId format
   where
     compareCDeclId :: C.DeclId -> C.DeclId -> Ordering
     compareCDeclId cDeclIdL cDeclIdR = Ord.comparing aux cDeclIdL cDeclIdR
@@ -93,17 +108,19 @@ genBindingSpec
   Auxiliary functions
 -------------------------------------------------------------------------------}
 
+-- | Generate binding specification, before encoding it
+--
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1436>
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1549>
 -- Once squashing is configurable (#1436), we should deal with aliases (#1549).
-genBindingSpec' ::
+genUnresolvedBindingSpec ::
      Hs.ModuleName
   -> GetMainHeaders
   -> [(C.DeclId, RealPath)]
   -> [(C.DeclId, (RealPath, Hs.Name Hs.NsTypeConstr))]
   -> [Hs.Decl l]
   -> UnresolvedBindingSpec
-genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
+genUnresolvedBindingSpec hsModuleName getMainHeaders omitTypes squashedTypes =
     foldr aux spec0
   where
     spec0 :: UnresolvedBindingSpec
@@ -299,3 +316,63 @@ mkInstSpecs specMap insts = Map.fromList $
     [ (cls, Omit)
     | (cls, Omit) <- Map.toList specMap
     ]
+
+{-------------------------------------------------------------------------------
+  Libraries
+-------------------------------------------------------------------------------}
+
+-- | The binding specifications of the modules of a library
+--
+-- The argument is the binding specification of the translation of the whole
+-- library, which spells the name of each type with its types module (see
+-- 'HsBindgen.Frontend.Pass.MangleNames.QualifiedTypeNames'). Each type goes to
+-- the binding specification of that module, under its plain name.
+splitLibraryBindingSpec ::
+     UnresolvedBindingSpec
+  -> Map Hs.ModuleName UnresolvedBindingSpec
+splitLibraryBindingSpec spec =
+    Map.mapWithKey moduleSpec . Map.fromListWith (flip (<>)) $
+         [ (typesModule, ([(cDeclId, [(headers, Require cTypeSpec')])], []))
+         | (cDeclId, entries)      <- Map.toList spec.cTypes
+         , (headers, oCTypeSpec)   <- entries
+         , let (typesModule, cTypeSpec') = splitCTypeSpec cDeclId oCTypeSpec
+         ]
+      ++ [ (typesModule, ([], [(name, hsTypeSpec)]))
+         | (qualified, hsTypeSpec) <- Map.toList spec.hsTypes
+         , let (typesModule, name) = splitName qualified
+         ]
+  where
+    moduleSpec ::
+         Hs.ModuleName
+      -> ( [(C.DeclId, [(Set C.HashIncludeArg, Omittable CTypeSpec)])]
+         , [(Hs.Name Hs.NsTypeConstr, BindingSpec.HsTypeSpec)]
+         )
+      -> UnresolvedBindingSpec
+    moduleSpec typesModule (cTypes, hsTypes) = BindingSpec.BindingSpec{
+          moduleName = typesModule
+        , cTypes     = Map.fromListWith (flip (++)) cTypes
+        , hsTypes    = Map.fromList hsTypes
+        }
+
+    -- The translation of a library generates every type it binds, and omits
+    -- none: @--library@ does not take a prescriptive binding specification.
+    splitCTypeSpec ::
+         C.DeclId
+      -> Omittable CTypeSpec
+      -> (Hs.ModuleName, CTypeSpec)
+    splitCTypeSpec cDeclId = \case
+        Require cTypeSpec | Just qualified <- cTypeSpec.hsName ->
+          let (typesModule, name) = splitName qualified
+          in  ( typesModule
+              , CTypeSpec{hsName = Just name, enum = cTypeSpec.enum}
+              )
+        _otherwise ->
+          panicPure $ "Library type without a Haskell type: " ++ show cDeclId
+
+    splitName ::
+         Hs.Name Hs.NsTypeConstr
+      -> (Hs.ModuleName, Hs.Name Hs.NsTypeConstr)
+    splitName qualified =
+        fromMaybe
+          (panicPure $ "Library type without a types module: " ++ show qualified)
+          (splitQualifiedTypeName qualified)

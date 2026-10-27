@@ -338,24 +338,15 @@ writeBindingSpec ::
   -> FilePath
   -> Artefact l ()
 writeBindingSpec filePolicy dirPolicy path = do
-    moduleBaseName <- ModuleBaseName
-    includeGraph   <- getIncludeGraph
-    declIndex      <- getDeclIndex
-    getMainHeaders <- getGetMainHeaders
-    omittedTypes   <- getOmittedTypes
-    squashedTypes  <- getSquashedTypes
-    hsDecls        <- HsDecls
-    -- Binding specifications only specify types.
+    includeGraph <- getIncludeGraph
+    declIndex    <- getDeclIndex
+    spec         <- getBindingSpec
     let bs =
-          genBindingSpec
+          encodeBindingSpec
             (BindingSpec.getFormat path)
-            (fromBaseModuleName moduleBaseName (Just CType))
             includeGraph
             declIndex
-            getMainHeaders
-            omittedTypes
-            squashedTypes
-            (view (lensForCategory CType) hsDecls)
+            spec
         fileDescription = FileDescription {
               description = "Binding specifications"
             , location    = UserSpecified path
@@ -476,6 +467,23 @@ getSquashedTypes = do
 
 getDependencies :: Artefact l [RealPath]
 getDependencies = IncludeGraph.toSortedList <$> getIncludeGraph
+
+-- | The binding specification of the types of the types module
+getBindingSpec :: Artefact l BindingSpec.UnresolvedBindingSpec
+getBindingSpec = do
+    moduleBaseName <- ModuleBaseName
+    getMainHeaders <- getGetMainHeaders
+    omittedTypes   <- getOmittedTypes
+    squashedTypes  <- getSquashedTypes
+    hsDecls        <- HsDecls
+    -- Binding specifications only specify types.
+    pure $
+      genUnresolvedBindingSpec
+        (fromBaseModuleName moduleBaseName (Just CType))
+        getMainHeaders
+        omittedTypes
+        squashedTypes
+        (view (lensForCategory CType) hsDecls)
 
 {-------------------------------------------------------------------------------
   Helpers
