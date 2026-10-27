@@ -67,9 +67,8 @@ update mode unit = unit{C.db = db'}
 
     db' :: DeclDB l PrepareReparse
     db' =
-      -- Collected in reverse order
       DeclDB.addDelayedMsgs
-        (reverse $ map (fmap DelayedPrepareReparse) delayedMsgs)
+        (map (fmap DelayedPrepareReparse) delayedMsgs)
         db
 
     env :: Env
@@ -91,8 +90,11 @@ class Update a where
   Update: monad
 -------------------------------------------------------------------------------}
 
+-- | Run the monad
+--
+-- Delayed trace messages are returned in the order they were recorded
 runM :: Env -> M a -> (a, [(C.DeclId, DelayedPrepareReparseMsg)])
-runM m (M k) = fmap (.messages) $ runState (runReaderT k m) (St [])
+runM m (M k) = fmap (reverse . (.messages)) $ runState (runReaderT k m) (St [])
 
 newtype M a = M (ReaderT Env (State St) a)
   deriving newtype (Functor, Applicative, Monad)
@@ -106,6 +108,7 @@ data Env = Env {
   }
 
 newtype St = St {
+    -- | Delayed trace messages in reverse order that they were recorded
     messages :: [(C.DeclId, DelayedPrepareReparseMsg)]
   }
 

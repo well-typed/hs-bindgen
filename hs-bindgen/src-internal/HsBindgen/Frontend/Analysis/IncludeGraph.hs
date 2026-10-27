@@ -193,7 +193,7 @@ data IncludeOrderIx =
     -- | Path unknown to the include graph
     --
     -- Reaching this is a bug; see
-    -- 'HsBindgen.Frontend.Pass.Select.IsPass.SelectSourceNotInIncludeGraph'.
+    -- 'HsBindgen.Frontend.SortMsgs.SortMsgsSourceNotInIncludeGraph'.
   | NotInIncludeGraph
   deriving stock (Show, Eq, Ord)
 

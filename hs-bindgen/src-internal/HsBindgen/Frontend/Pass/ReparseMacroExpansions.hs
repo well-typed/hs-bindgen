@@ -43,7 +43,7 @@ reparseMacroExpansions ::
   -> C.TranslationUnit l PrepareReparse
   -> C.TranslationUnit l ReparseMacroExpansions
 reparseMacroExpansions cStd knownNonMacroTypes knownMacros unit =
-    let (reparsedDB, reparseState) =
+    let (reparsedDB, reparseWarnings) =
           runM
             cStd
             (Map.map coercePass knownNonMacroTypes)
@@ -51,7 +51,7 @@ reparseMacroExpansions cStd knownNonMacroTypes knownMacros unit =
             (DeclDB.traverseActive DeclDB.AnyOrder
                (fmap DeclDB.Advanced . reparseDecl)
                unit.db)
-    in  unit{C.db = updateDB reparseState.reparseWarnings reparsedDB}
+    in  unit{C.db = updateDB reparseWarnings reparsedDB}
 
 updateDB ::
      [(C.DeclId, DelayedReparseMacroExpansionsMsg)]
@@ -60,9 +60,8 @@ updateDB ::
 updateDB msgs db =
     Foldable.foldl'
       (flip updateDeps)
-      -- Collected in reverse order
       (DeclDB.addDelayedMsgs
-         (reverse $ map (fmap DelayedReparseMacroExpansions) msgs)
+         (map (fmap DelayedReparseMacroExpansions) msgs)
          db)
       (DeclDB.active DeclDB.AnyOrder db)
 
@@ -398,13 +397,17 @@ data ReparseState = ReparseState {
     }
   deriving stock (Generic)
 
+-- | Run the monad
+--
+-- Delayed trace messages are returned in the order they were recorded
 runM ::
      ClangCStandard
   -> Map LanC.CName (C.Type LanC)
   -> Set LanC.CName
   -> M a
-  -> (a, ReparseState)
-runM cStd knownTypes knownMacros (WrapM ma) = runReader (runStateT ma s) e
+  -> (a, [(C.DeclId, DelayedReparseMacroExpansionsMsg)])
+runM cStd knownTypes knownMacros (WrapM ma) =
+    fmap (reverse . (.reparseWarnings)) $ runReader (runStateT ma s) e
   where
     e :: ReparseEnv
     e = ReparseEnv {

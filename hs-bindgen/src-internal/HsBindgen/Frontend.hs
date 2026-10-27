@@ -22,6 +22,7 @@ import HsBindgen.Clang
 import HsBindgen.Config.Internal
 import HsBindgen.Doxygen
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UnnamedIdUsage (UnnamedIdUsageAnalysis)
 import HsBindgen.Frontend.Analysis.UnnamedIdUsage qualified as UnnamedIdUsageAnalysis
 import HsBindgen.Frontend.Pass.AdjustTypes
@@ -59,6 +60,7 @@ import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader, RootHeaderMsg)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
+import HsBindgen.Frontend.SortMsgs
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -328,6 +330,20 @@ runFrontend tracer config boot = do
       , getMainHeaders = afterParse.getMainHeaders
       }
 
+    includeOrderC <- cache "includeOrder" $
+      IncludeGraph.toIncludeOrder . (.includeGraph) <$> parseMeta
+
+    let -- Sorted, so that their order does not depend on the processing order
+        traceSorted ::
+             Tracer (C.WithLocationInfo msg)
+          -> [WithCallStack (C.WithLocationInfo msg)]
+          -> Cached ()
+        traceSorted tracer' msgs = do
+          order <- includeOrderC
+          let (bugMsgs, sorted) = sortMsgs order msgs
+          forM_ bugMsgs $ traceWith (contramap FrontendSortMsgs tracer)
+          forM_ sorted  $ traceWith tracer'
+
     simplifyASTPass <- cache "simplifyAST" $ do
       afterParse <- parsePass
       let (afterSimplifyAST, msgsSimplifyAST) =
@@ -405,14 +421,14 @@ runFrontend tracer config boot = do
       let moduleName = Hs.ModuleName boot.baseModule.text -- do not import Backend
           (afterResolveBindingSpecs, msgsResolveBindingSpecs) =
             resolveBindingSpecs moduleName extSpecs pSpec afterReparseMacroExpansions
-      forM_ msgsResolveBindingSpecs $ traceWith (contramap FrontendResolveBindingSpecs tracer)
+      traceSorted (contramap FrontendResolveBindingSpecs tracer) msgsResolveBindingSpecs
       pure afterResolveBindingSpecs
 
     mangleNamesPass <- cache "mangleNames" $ do
       afterResolveBindingSpecs <- resolveBindingSpecsPass
       let (afterMangleNames, msgsMangleNames) =
             mangleNames config.fieldNamingStrategy afterResolveBindingSpecs
-      forM_ msgsMangleNames $ traceWith (contramap FrontendMangleNames tracer)
+      traceSorted (contramap FrontendMangleNames tracer) msgsMangleNames
       pure afterMangleNames
 
     adjustTypesPass <- cache "AdjustTypes" $ do
@@ -435,7 +451,7 @@ runFrontend tracer config boot = do
               afterParse.isInMainHeaderDir
               selectConfig
               afterTranslateTypesPass
-      forM_ msgsSelect $  traceWith (contramap FrontendSelect tracer)
+      traceSorted (contramap FrontendSelect tracer) msgsSelect
       pure afterSelect
 
     finalPass <- cache "Final" $ selectPass
@@ -528,6 +544,7 @@ data FrontendMsg =
   | FrontendMangleNames              (Msg MangleNames)
   | FrontendTranslateTypes           (Msg TranslateTypes)
   | FrontendSelect                   (Msg Select)
+  | FrontendSortMsgs                  SortMsgsMsg
   | FrontendCache                    (SafeTrace CacheMsg)
   | FrontendDoxygen                   DoxygenMsg
   | FrontendRootHeader                RootHeaderMsg

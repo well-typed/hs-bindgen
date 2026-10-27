@@ -37,9 +37,8 @@ translateTypes unit = (unit{C.db = db'}, msgs)
 
     db' :: DeclDB l TranslateTypes
     db' =
-        -- Collected in reverse order
         DeclDB.addDelayedMsgs
-          (reverse $ map (fmap DelayedTranslateTypes) delayedMsgs)
+          (map (fmap DelayedTranslateTypes) delayedMsgs)
           db
 
     (db, delayedMsgs) =
@@ -226,9 +225,9 @@ processAnonRef ctx typ = TranslatedAnonRef{
 
 -- | Run the monad
 --
--- Delayed trace messages are returned in reverse order that they were recorded
+-- Delayed trace messages are returned in the order they were recorded
 runM :: env -> M env a -> (a, [(C.DeclId, DelayedTranslateTypesMsg)])
-runM m (M k) = fmap (.messages) $ runState (runReaderT k m) (St [])
+runM m (M k) = fmap (reverse . (.messages)) $ runState (runReaderT k m) (St [])
 
 newtype M env a = M (ReaderT env (State St) a)
   deriving newtype (Functor, Applicative, Monad)

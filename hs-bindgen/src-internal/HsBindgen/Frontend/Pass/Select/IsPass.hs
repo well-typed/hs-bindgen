@@ -15,7 +15,6 @@ import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
-import Clang.Paths
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.DeclDB (Deactivation (..), Inactive,
@@ -193,9 +192,6 @@ data SelectMsg =
   | SelectMacroFallback MacroLangFailure
     -- | Summary of the number of selected macros that fall back
   | SelectMacrosFallback Int
-    -- | The source of a trace message is not part of the include graph, so we
-    -- do not know where to sort it.
-  | SelectSourceNotInIncludeGraph RealPath
   deriving stock (Show)
 
 instance PrettyForTrace SelectMsg where
@@ -245,10 +241,6 @@ instance PrettyForTrace SelectMsg where
             <> (if n == 1 then " macro falls back to raw tokens; "
                           else " macros fall back to raw tokens; ")
             <> "use --log-enable-macro-warnings for details"
-      SelectSourceNotInIncludeGraph path -> PP.hsep [
-          "Source not in include graph:"
-        , PP.string $ getRealPath path
-        ]
     where
       during :: IsTrace l e => e -> CtxDoc -> CtxDoc
       during x = PP.hang (PP.string ("During " <> (getTraceId x).id <> ":")) 2
@@ -284,7 +276,6 @@ instance IsTrace Level SelectMsg where
     SelectMacrosDropped{}                    -> Notice
     SelectMacroFallback{}                    -> Info
     SelectMacrosFallback{}                   -> Notice
-    SelectSourceNotInIncludeGraph{}          -> Bug
   getSource  = const HsBindgen
   getTraceId = \case
     SelectStatusInfo{}                       -> "select"
@@ -302,7 +293,6 @@ instance IsTrace Level SelectMsg where
     SelectMacrosDropped{}                    -> "select-dropped-macros"
     SelectMacroFallback{}                    -> "select-macro-fallback"
     SelectMacrosFallback{}                   -> "select-fallback-macros"
-    SelectSourceNotInIncludeGraph{}          -> "select-source-not-in-include-graph"
 
 {-------------------------------------------------------------------------------
   CoercePass
