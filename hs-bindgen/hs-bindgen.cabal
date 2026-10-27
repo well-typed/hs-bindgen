@@ -294,6 +294,7 @@ library internal
     HsBindgen.IR.Translation
     HsBindgen.Language.C
     HsBindgen.Language.Haskell
+    HsBindgen.Library
     HsBindgen.Macro.Empty
     HsBindgen.Macro.Error
     HsBindgen.Macro.Flip
