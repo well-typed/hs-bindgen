@@ -19,8 +19,8 @@ import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclDB (Deactivation (..), DeclDB, Entry (..),
-                                  Inactive (..), InactiveInfo (..),
-                                  InactiveReason (..), UnusableReason (..))
+                                  Inactive (..), InactiveReason (..),
+                                  UnusableReason (..))
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.MacroFallback (FallbackMacro (..))
 import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError (..),
@@ -169,14 +169,14 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
               case (l,r) of
                 (UnselectableDependencyNotSelected, Unselectable u) ->
                   case u of
-                    InactiveDecl InactiveInfo{reason = NotAttempted{}}      -> r
-                    InactiveDecl InactiveInfo{reason = Deactivated Omitted} -> r
-                    _otherReason                                            -> l
+                    InactiveDecl _ NotAttempted{}         -> r
+                    InactiveDecl _ (Deactivated Omitted)  -> r
+                    _otherReason                          -> l
                 (Unselectable u, UnselectableDependencyNotSelected) ->
                   case u of
-                    InactiveDecl InactiveInfo{reason = NotAttempted{}}      -> l
-                    InactiveDecl InactiveInfo{reason = Deactivated Omitted} -> l
-                    _otherReason                                            -> r
+                    InactiveDecl _ NotAttempted{}         -> l
+                    InactiveDecl _ (Deactivated Omitted)  -> l
+                    _otherReason                          -> r
                 (_, _) -> l
 
         selectDecl :: Decl l -> Maybe (Decl l)
@@ -472,17 +472,23 @@ mkActiveMessages declDB declId decl =
 mkSquashedMessage ::
      HasCallStack
   => C.DeclId
-  -> DeclDB.SquashedTypedef
+  -> C.DeclInfo
+  -> DeclDB.SquashTarget
   -> AnnMsg Select
-mkSquashedMessage declId x = withCallStack C.WithLocationInfo{
-      loc = C.declIdLocationInfo declId [x.info.loc]
-    , msg = SelectMangleNamesSquashed x
+mkSquashedMessage declId info target = withCallStack C.WithLocationInfo{
+      loc = C.declIdLocationInfo declId [info.loc]
+    , msg = SelectMangleNamesSquashed target
     }
 
-mkUnusableMessage :: HasCallStack => C.DeclId -> InactiveInfo -> AnnMsg Select
-mkUnusableMessage declId x = withCallStack C.WithLocationInfo{
-      loc = C.declIdLocationInfo declId [x.info.loc]
-    , msg = SelectUnusable x.reason
+mkUnusableMessage ::
+     HasCallStack
+  => C.DeclId
+  -> C.DeclInfo
+  -> InactiveReason
+  -> AnnMsg Select
+mkUnusableMessage declId info reason = withCallStack C.WithLocationInfo{
+      loc = C.declIdLocationInfo declId [info.loc]
+    , msg = SelectUnusable reason
     }
 
 -- | The delayed messages of a selected inactive declaration, but for Bug-level
@@ -493,13 +499,14 @@ mkInactiveMessages ::
      HasCallStack
   => DeclDB l In
   -> C.DeclId
-  -> InactiveInfo
+  -> C.DeclInfo
+  -> InactiveReason
   -> [AnnMsg Select]
-mkInactiveMessages declDB declId x = case x.reason of
+mkInactiveMessages declDB declId info = \case
     Deactivated Omitted -> []
     _otherReason        -> [
         withCallStack C.WithLocationInfo{
-            loc = C.declIdLocationInfo declId [x.info.loc]
+            loc = C.declIdLocationInfo declId [info.loc]
           , msg = SelectDelayedMsg msg
           }
       | msg <- DeclDB.lookupDelayedMsgs declId declDB
@@ -529,13 +536,13 @@ getDelayedMsgsSelectionRoots getTransitiveSelectability declDB roots =
       Deselected{} -> []
       -- We do not emit the delayed messages of squashed entries; instead we
       -- issue a notice that the @typedef@ was squashed.
-      Squashed x ->
-        List.singleton $ mkSquashedMessage declId x
-      Inactive (InactiveDecl x) ->
-           [ mkUnusableMessage declId x
-           | not $ isExplainedByDependency declId x.reason
+      Squashed info target ->
+        List.singleton $ mkSquashedMessage declId info target
+      Inactive (InactiveDecl info reason) ->
+           [ mkUnusableMessage declId info reason
+           | not $ isExplainedByDependency declId reason
            ]
-        ++ mkInactiveMessages declDB declId x
+        ++ mkInactiveMessages declDB declId info reason
       -- The delayed messages of the members are noise until the user resolves
       -- the conflict; only Bug-level ones are reported ('getBugMsgsInactive').
       Inactive (InactiveConflict c) ->
@@ -583,8 +590,8 @@ getDelayedMsgsAdditionalSelectedTransDeps declDB transDeps =
       Deselected{} -> []
       -- We do not emit the delayed messages of squashed entries; instead we
       -- issue a notice that the @typedef@ was squashed.
-      Squashed x ->
-        [mkSquashedMessage declId x]
+      Squashed info target ->
+        [mkSquashedMessage declId info target]
       -- Messages for unusable transitive dependencies are already attached to
       -- the traces of the reverse transitive dependencies.
       Inactive _ -> []
@@ -613,8 +620,8 @@ getBugMsgsNotSelected declDB notSelected =
       External{}   -> []
       Squashed{}   -> []
       Deselected{} -> []
-      Inactive (InactiveDecl x) ->
-        [ mkUnusableMessage declId x | isBug x.reason ]
+      Inactive (InactiveDecl info reason) ->
+        [ mkUnusableMessage declId info reason | isBug reason ]
       Inactive InactiveConflict{} -> []
 
     isBug :: InactiveReason -> Bool
@@ -754,7 +761,7 @@ selectEntries predicate declDB =
     entryInfo entry = case entry of
         External{} ->
           Nothing
-        Inactive (InactiveDecl InactiveInfo{reason = Deactivated Omitted}) ->
+        Inactive (InactiveDecl _ (Deactivated Omitted)) ->
           Nothing
         _otherwise -> do
           locs <- DeclDB.entryToLoc entry

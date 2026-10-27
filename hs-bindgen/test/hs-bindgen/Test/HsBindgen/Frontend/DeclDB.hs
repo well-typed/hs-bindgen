@@ -20,8 +20,8 @@ import HsBindgen.Artefact (Artefact (..), FrontendPass (..))
 import HsBindgen.Frontend.Analysis (Dependency)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.DeclDB (Deactivation (..), DeclDB (..), Entry (..),
-                                  Inactive (..), InactiveInfo (..),
-                                  InactiveReason (..), UnusableReason (..))
+                                  Inactive (..), InactiveReason (..),
+                                  UnusableReason (..))
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -84,7 +84,7 @@ checkTransition allowed old new = concat [
     isAllowed :: Entry l p -> Entry l p' -> Bool
     isAllowed x y = case (x, y) of
       (Active{}, Active{}) -> True
-      (Active{}, Inactive (InactiveDecl InactiveInfo{reason = Deactivated d})) ->
+      (Active{}, Inactive (InactiveDecl _ (Deactivated d))) ->
         allowed (ToDeactivated d)
       (Active{}  , Squashed{})   -> allowed ToSquashed
       (Active{}  , External{})   -> allowed ToExternal
@@ -99,7 +99,7 @@ checkTransition allowed old new = concat [
 describe :: Entry l p -> String
 describe = \case
     Active{}     -> "Active"
-    Squashed x   -> "Squashed " ++ show x
+    Squashed i t -> "Squashed " ++ show i ++ " " ++ show t
     External x   -> "External " ++ show x
     Deselected x -> "Deselected " ++ show x
     Inactive x   -> "Inactive " ++ show x
@@ -138,10 +138,10 @@ checkInvariants db = concat [
 
     isNeverActive :: Inactive -> Bool
     isNeverActive = \case
-      InactiveConflict{}                                 -> True
-      InactiveDecl InactiveInfo{reason = ParseFailed{}}  -> True
-      InactiveDecl InactiveInfo{reason = NotAttempted{}} -> True
-      InactiveDecl InactiveInfo{reason = Deactivated{}}  -> False
+      InactiveConflict{}            -> True
+      InactiveDecl _ ParseFailed{}  -> True
+      InactiveDecl _ NotAttempted{} -> True
+      InactiveDecl _ Deactivated{}  -> False
 
 -- | Every active declaration's identifier is its key
 checkKeysDeclId :: Id p ~ C.DeclId => DeclDB l p -> [Violation]

@@ -35,10 +35,8 @@ module HsBindgen.Frontend.DeclDB (
       )
     -- * Entry
   , Entry(..)
-  , SquashedTypedef(..)
   , SquashTarget(..)
   , Inactive(..)
-  , InactiveInfo(..)
   , InactiveReason(..)
   , Deactivation(..)
   , UnusableReason(..)
@@ -194,7 +192,7 @@ data Entry l p =
     -- back to generating a raw macro binding (see @ApplyMacroFallback@).
     Active   (C.Decl l p)
     -- | We generate a binding for the squash target only
-  | Squashed SquashedTypedef
+  | Squashed C.DeclInfo SquashTarget
     -- | Defined elsewhere: an external binding replaces the declaration
   | External ResolvedExtBinding
     -- | Usable, but deselected
@@ -205,12 +203,6 @@ data Entry l p =
 
 deriving stock instance (IsPass p, Macro.HasTypes l) => Show (Entry l p)
 
-data SquashedTypedef = SquashedTypedef{
-      info   :: C.DeclInfo
-    , target :: SquashTarget
-    }
-  deriving stock (Show, Generic)
-
 -- | The declaration a typedef was squashed into
 data SquashTarget = SquashTarget{
       c  :: C.DeclId
@@ -219,21 +211,15 @@ data SquashTarget = SquashTarget{
   deriving stock (Show, Eq, Generic)
 
 data Inactive =
-    InactiveDecl     InactiveInfo
+    InactiveDecl     C.DeclInfo InactiveReason
     -- | Several declarations share this name
   | InactiveConflict C.Conflict
   deriving stock (Show, Generic)
 
 instance PrettyForTrace Inactive where
   prettyForTrace = \case
-    InactiveDecl     inactive -> prettyForTrace inactive.reason
+    InactiveDecl     _ reason -> prettyForTrace reason
     InactiveConflict conflict -> prettyForTrace conflict
-
-data InactiveInfo = InactiveInfo{
-      info   :: C.DeclInfo
-    , reason :: InactiveReason
-    }
-  deriving stock (Show, Generic)
 
 -- | Why we don't have the declaration
 data InactiveReason =
@@ -296,7 +282,7 @@ instance IsTrace Level UnusableReason where
 entryToLoc :: Entry l p -> Maybe C.DeclLocs
 entryToLoc = \case
     Active   decl     -> Just $ C.DeclLoc decl.info.loc
-    Squashed squashed -> Just $ C.DeclLoc squashed.info.loc
+    Squashed info _   -> Just $ C.DeclLoc info.loc
     External _        -> Nothing
     Deselected info   -> Just $ C.DeclLoc info.loc
     Inactive inactive -> Just $ inactiveToLoc inactive
@@ -305,15 +291,15 @@ entryToLoc = \case
 entryToDeprecation :: Entry l p -> C.Deprecation
 entryToDeprecation = \case
     Active decl                       -> decl.info.deprecation
-    Squashed squashed                 -> squashed.info.deprecation
+    Squashed info _                   -> info.deprecation
     External{}                        -> C.NotDeprecated
     Deselected info                   -> info.deprecation
-    Inactive (InactiveDecl inactive)  -> inactive.info.deprecation
+    Inactive (InactiveDecl info _)    -> info.deprecation
     Inactive InactiveConflict{}       -> C.NotDeprecated
 
 inactiveToLoc :: Inactive -> C.DeclLocs
 inactiveToLoc = \case
-    InactiveDecl     inactive -> C.DeclLoc inactive.info.loc
+    InactiveDecl     info _   -> C.DeclLoc info.loc
     InactiveConflict conflict -> C.DeclLocsConflict conflict
 
 -- | Why the entry is unusable, if it is
@@ -372,15 +358,9 @@ parseResultToEntry = \case
     ParseResultSuccess r ->
       Active r.decl
     ParseResultUnavailable r ->
-      Inactive $ InactiveDecl InactiveInfo{
-          info   = r.info
-        , reason = NotAttempted r.reason
-        }
+      Inactive $ InactiveDecl r.info (NotAttempted r.reason)
     ParseResultFailure r ->
-      Inactive $ InactiveDecl InactiveInfo{
-          info   = r.info
-        , reason = ParseFailed r.msg
-        }
+      Inactive $ InactiveDecl r.info (ParseFailed r.msg)
 
 parseResultMsgs :: ParseResult l Out -> [DelayedParseMsg]
 parseResultMsgs = \case
@@ -507,7 +487,7 @@ buildDB macroAnalysis isMainHeader =
 
 parseFailedMsg :: Entry l p -> [DelayedParseMsg]
 parseFailedMsg = \case
-    Inactive (InactiveDecl InactiveInfo{reason = ParseFailed msg}) ->
+    Inactive (InactiveDecl _ (ParseFailed msg)) ->
       [msg]
     _otherwise ->
       []
@@ -694,7 +674,7 @@ traverseActive order f db = case order of
     step :: Entry l p -> f (Entry l p')
     step = \case
       Active   decl     -> advance decl <$> f decl
-      Squashed squashed -> pure $ Squashed squashed
+      Squashed info t   -> pure $ Squashed info t
       External binding  -> pure $ External binding
       Deselected info   -> pure $ Deselected info
       Inactive inactive -> pure $ Inactive inactive
@@ -702,15 +682,10 @@ traverseActive order f db = case order of
     advance :: C.Decl l p -> PassResult l p' -> Entry l p'
     advance decl = \case
       Advanced decl' -> Active decl'
-      Squash target  -> Squashed SquashedTypedef{
-          info   = decl.info
-        , target = target
-        }
+      Squash target  -> Squashed decl.info target
       Deselect -> Deselected decl.info
-      Deactivate deactivation -> Inactive $ InactiveDecl InactiveInfo{
-          info   = decl.info
-        , reason = Deactivated deactivation
-        }
+      Deactivate deactivation ->
+        Inactive $ InactiveDecl decl.info (Deactivated deactivation)
 
     shapeDependencies :: Digraph.Digraph Dependency C.DeclId
     shapeDependencies = Digraph.filterEdges (== NeedsShape) db.declUseGraph.graph
@@ -914,10 +889,10 @@ getOmitted db = Map.mapMaybe toOmitted db.entries
   where
     toOmitted :: Entry l p -> Maybe RealPath
     toOmitted = \case
-      Squashed squashed ->
-        lookupEntry squashed.target.c db >>= toOmitted
-      Inactive (InactiveDecl inactive@InactiveInfo{reason = Deactivated Omitted}) ->
-        C.declPathRealPath (singleLocPath inactive.info.loc)
+      Squashed _ target ->
+        lookupEntry target.c db >>= toOmitted
+      Inactive (InactiveDecl info (Deactivated Omitted)) ->
+        C.declPathRealPath (singleLocPath info.loc)
       _otherwise ->
         Nothing
 
@@ -935,9 +910,9 @@ getSquashed db targets = Map.mapMaybe onlySquashedTargetingSet db.entries
          Entry l p
       -> Maybe (RealPath, Hs.Name Hs.NsTypeConstr)
     onlySquashedTargetingSet = \case
-      Squashed squashed
-        | Set.member squashed.target.c targets ->
-            (, squashed.target.hs) <$>
-              C.declPathRealPath (singleLocPath squashed.info.loc)
+      Squashed info target
+        | Set.member target.c targets ->
+            (, target.hs) <$>
+              C.declPathRealPath (singleLocPath info.loc)
       _otherwise ->
         Nothing
