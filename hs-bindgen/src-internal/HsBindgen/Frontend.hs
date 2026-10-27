@@ -3,6 +3,13 @@ module HsBindgen.Frontend (
   , FrontendArtefact (..)
   , FrontendMsg(..)
   , ParseInfo(..)
+    -- * Parts of the frontend
+  , parseHeaders
+  , ParsedHeaders
+  , applyBindingSpecs
+  , BoundHeaders
+  , prepareBindings
+  , ModulePlacement (..)
   ) where
 
 
@@ -262,7 +269,30 @@ runFrontend ::
   -> FrontendConfig
   -> BootArtefact l
   -> IO (FrontendArtefact l)
-runFrontend tracer config boot = do
+runFrontend tracer config boot =
+        parseHeaders tracer config boot
+    >>= applyBindingSpecs tracer boot
+    >>= prepareBindings tracer config AllTogether
+
+{-------------------------------------------------------------------------------
+  Parts of the frontend
+
+  'runFrontend' runs the frontend in three parts, so that @--library@ can run the
+  last two once for the whole library and once for each module, all from one
+  parse of the headers.
+-------------------------------------------------------------------------------}
+
+-- | Parse the headers
+--
+-- These are the passes up to "HsBindgen.Frontend.Pass.ReparseMacroExpansions",
+-- which depend on the headers and the @clang@ options only.
+parseHeaders ::
+     forall l. (Macro.HasTypes l, HasCallStack)
+  => Tracer FrontendMsg
+  -> FrontendConfig
+  -> BootArtefact l
+  -> IO (ParsedHeaders l)
+parseHeaders tracer config boot = do
     rootHeaderC <- cache "rootHeader" $ do
       (msgs, rootHeader) <- RootHeader.fromRootDirectives <$> boot.rootDirectives
       liftIO $ mapM_ (traceWith tracerRootHeader . withCallStack) msgs
@@ -394,55 +424,9 @@ runFrontend tracer config boot = do
               knownTypes
       pure $ reparseMacroExpansions cStd knownTypes' knownMacros afterPrepareReparse
 
-    resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
-      afterReparseMacroExpansions <- reparseMacroExpansionsPass
-      extSpecs <- boot.externalBindingSpecs
-      pSpec    <- boot.prescriptiveBindingSpec
-      let moduleName = Hs.ModuleName boot.baseModule.text -- do not import Backend
-          (afterResolveBindingSpecs, msgsResolveBindingSpecs) =
-            resolveBindingSpecs moduleName extSpecs pSpec afterReparseMacroExpansions
-      forM_ msgsResolveBindingSpecs $ traceWith (contramap FrontendResolveBindingSpecs tracer)
-      pure afterResolveBindingSpecs
-
-    mangleNamesPass <- cache "mangleNames" $ do
-      afterResolveBindingSpecs <- resolveBindingSpecsPass
-      let (afterMangleNames, msgsMangleNames) =
-            mangleNames
-              config.fieldNamingStrategy
-              AllTogether
-              afterResolveBindingSpecs
-      forM_ msgsMangleNames $ traceWith (contramap FrontendMangleNames tracer)
-      pure afterMangleNames
-
-    adjustTypesPass <- cache "AdjustTypes" $ do
-      afterMangleNamesPass <- mangleNamesPass
-      pure $ adjustTypes afterMangleNamesPass
-
-    translateTypesPass <- cache "TranslateTypes" $ do
-      afterAdjustTypesPass <- adjustTypesPass
-      let (afterTranslateTypes, msgsTranslateTypes) =
-            translateTypes afterAdjustTypesPass
-      forM_ msgsTranslateTypes $ traceWith (contramap FrontendTranslateTypes tracer)
-      pure afterTranslateTypes
-
-    selectPass <- cache "select" $ do
-      afterParse <- parsePass
-      afterTranslateTypesPass <- translateTypesPass
-      let (afterSelect, msgsSelect) =
-            selectDecls
-              afterParse.isMainHeader
-              afterParse.isInMainHeaderDir
-              selectConfig
-              afterTranslateTypesPass
-      forM_ msgsSelect $  traceWith (contramap FrontendSelect tracer)
-      pure afterSelect
-
-    finalPass <- cache "Final" $ selectPass
-
-    pure FrontendArtefact{
+    pure ParsedHeaders{
         parseMeta                = parseMeta
-      , parse                    = (.results) <$> parsePass
-      , doxygen                  = (.doxygen) <$> parsePass
+      , parse                    = parsePass
       , simplifyAST              = simplifyASTPass
       , fillUnnamedIds           = fillUnnamedIdsPass
       , enrichComments           = enrichCommentsPass
@@ -450,12 +434,6 @@ runFrontend tracer config boot = do
       , typecheckMacros          = (\(x,_,_) -> x) <$> typecheckMacrosPass
       , applyMacroFallback       = applyMacroFallbackPass
       , reparseMacroExpansions   = reparseMacroExpansionsPass
-      , resolveBindingSpecs      = resolveBindingSpecsPass
-      , mangleNames              = mangleNamesPass
-      , adjustTypes              = adjustTypesPass
-      , translateTypes           = translateTypesPass
-      , select                   = selectPass
-      , final                    = finalPass
       }
   where
     getSetup :: RootHeader -> Cached ClangSetup
@@ -474,6 +452,108 @@ runFrontend tracer config boot = do
     hFilePath :: FilePath
     hFilePath = getSourcePath RootHeader.name
 
+    cache :: String -> Cached a -> IO (Cached a)
+    cache = cacheFrontend tracer
+
+    tracerRootHeader :: Tracer RootHeaderMsg
+    tracerRootHeader = contramap FrontendRootHeader tracer
+
+-- | Apply the binding specifications of a run
+--
+-- This is "HsBindgen.Frontend.Pass.ResolveBindingSpecs", which reads the
+-- binding specifications and the base module name from the 'BootArtefact'.
+applyBindingSpecs ::
+     HasCallStack
+  => Tracer FrontendMsg
+  -> BootArtefact l
+  -> ParsedHeaders l
+  -> IO (BoundHeaders l)
+applyBindingSpecs tracer boot parsed = do
+    resolveBindingSpecsPass <- cacheFrontend tracer "resolveBindingSpecs" $ do
+      afterReparseMacroExpansions <- parsed.reparseMacroExpansions
+      extSpecs <- boot.externalBindingSpecs
+      pSpec    <- boot.prescriptiveBindingSpec
+      let moduleName = Hs.ModuleName boot.baseModule.text -- do not import Backend
+          (afterResolveBindingSpecs, msgsResolveBindingSpecs) =
+            resolveBindingSpecs moduleName extSpecs pSpec afterReparseMacroExpansions
+      forM_ msgsResolveBindingSpecs $ traceWith (contramap FrontendResolveBindingSpecs tracer)
+      pure afterResolveBindingSpecs
+
+    pure BoundHeaders{
+        parsed              = parsed
+      , resolveBindingSpecs = resolveBindingSpecsPass
+      }
+
+-- | Prepare the declarations to bind
+--
+-- These are the passes from "HsBindgen.Frontend.Pass.MangleNames" to
+-- "HsBindgen.Frontend.Pass.Select". The 'ModulePlacement' says which
+-- declarations share modules, and so need different Haskell names.
+prepareBindings ::
+     forall l. (Macro.HasTypes l, HasCallStack)
+  => Tracer FrontendMsg
+  -> FrontendConfig
+  -> ModulePlacement
+  -> BoundHeaders l
+  -> IO (FrontendArtefact l)
+prepareBindings tracer config placement bound = do
+    mangleNamesPass <- cache "mangleNames" $ do
+      afterResolveBindingSpecs <- bound.resolveBindingSpecs
+      let (afterMangleNames, msgsMangleNames) =
+            mangleNames
+              config.fieldNamingStrategy
+              placement
+              afterResolveBindingSpecs
+      forM_ msgsMangleNames $ traceWith (contramap FrontendMangleNames tracer)
+      pure afterMangleNames
+
+    adjustTypesPass <- cache "AdjustTypes" $ do
+      afterMangleNamesPass <- mangleNamesPass
+      pure $ adjustTypes afterMangleNamesPass
+
+    translateTypesPass <- cache "TranslateTypes" $ do
+      afterAdjustTypesPass <- adjustTypesPass
+      let (afterTranslateTypes, msgsTranslateTypes) =
+            translateTypes afterAdjustTypesPass
+      forM_ msgsTranslateTypes $ traceWith (contramap FrontendTranslateTypes tracer)
+      pure afterTranslateTypes
+
+    selectPass <- cache "select" $ do
+      afterParse <- parsed.parse
+      afterTranslateTypesPass <- translateTypesPass
+      let (afterSelect, msgsSelect) =
+            selectDecls
+              afterParse.isMainHeader
+              afterParse.isInMainHeaderDir
+              selectConfig
+              afterTranslateTypesPass
+      forM_ msgsSelect $  traceWith (contramap FrontendSelect tracer)
+      pure afterSelect
+
+    finalPass <- cache "Final" $ selectPass
+
+    pure FrontendArtefact{
+        parseMeta                = parsed.parseMeta
+      , parse                    = (.results) <$> parsed.parse
+      , doxygen                  = (.doxygen) <$> parsed.parse
+      , simplifyAST              = parsed.simplifyAST
+      , fillUnnamedIds           = parsed.fillUnnamedIds
+      , enrichComments           = parsed.enrichComments
+      , constructTranslationUnit = parsed.constructTranslationUnit
+      , typecheckMacros          = parsed.typecheckMacros
+      , applyMacroFallback       = parsed.applyMacroFallback
+      , reparseMacroExpansions   = parsed.reparseMacroExpansions
+      , resolveBindingSpecs      = bound.resolveBindingSpecs
+      , mangleNames              = mangleNamesPass
+      , adjustTypes              = adjustTypesPass
+      , translateTypes           = translateTypesPass
+      , select                   = selectPass
+      , final                    = finalPass
+      }
+  where
+    parsed :: ParsedHeaders l
+    parsed = bound.parsed
+
     selectConfig :: SelectConfig
     selectConfig = SelectConfig{
           programSlicing     = config.programSlicing
@@ -481,10 +561,27 @@ runFrontend tracer config boot = do
         }
 
     cache :: String -> Cached a -> IO (Cached a)
-    cache = cacheWith (contramap (FrontendCache . SafeTrace) tracer) . Just
+    cache = cacheFrontend tracer
 
-    tracerRootHeader :: Tracer RootHeaderMsg
-    tracerRootHeader = contramap FrontendRootHeader tracer
+-- | The headers, parsed (see 'parseHeaders')
+data ParsedHeaders l = ParsedHeaders {
+      parseMeta                :: Cached ParseInfo
+    , parse                    :: Cached (ParsePassResult l)
+    , simplifyAST              :: Cached [ParseResult       l SimplifyAST]
+    , fillUnnamedIds           :: Cached [ParseResult       l FillUnnamedIds]
+    , enrichComments           :: Cached [ParseResult       l EnrichComments]
+    , constructTranslationUnit :: Cached (C.TranslationUnit l ConstructTranslationUnit)
+    , typecheckMacros          :: Cached (C.TranslationUnit l TypecheckMacros)
+    , applyMacroFallback       :: Cached (C.TranslationUnit l ApplyMacroFallback)
+    , reparseMacroExpansions   :: Cached (C.TranslationUnit l ReparseMacroExpansions)
+    }
+
+-- | The parsed headers, with the binding specifications of a run applied (see
+-- 'applyBindingSpecs')
+data BoundHeaders l = BoundHeaders {
+      parsed              :: ParsedHeaders l
+    , resolveBindingSpecs :: Cached (C.TranslationUnit l ResolveBindingSpecs)
+    }
 
 {-------------------------------------------------------------------------------
   Artefact
@@ -559,3 +656,6 @@ data ParsePassResult l = ParsePassResult {
     , usageAnalysis     :: UnnamedIdUsageAnalysis
     , macroAnalysis     :: UniqueExpansion.Analysis
     }
+
+cacheFrontend :: Tracer FrontendMsg -> String -> Cached a -> IO (Cached a)
+cacheFrontend tracer = cacheWith (contramap (FrontendCache . SafeTrace) tracer) . Just
