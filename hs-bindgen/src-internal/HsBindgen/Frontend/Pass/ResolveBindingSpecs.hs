@@ -24,7 +24,6 @@ import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
-import HsBindgen.Frontend.SortMsgs (sortMsgs)
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -77,13 +76,9 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
           | declId <- Map.keys state.noPTypes
           ]
     in  ( unit{C.db = resolveDB decls state}
-          -- Sorted, so that their order does not depend on the processing order
-        , pSpecErrs ++ sortMsgs includeOrder (reverse state.traces ++ notUsedErrs)
+        , pSpecErrs ++ reverse state.traces ++ notUsedErrs
         )
   where
-    includeOrder :: IncludeGraph.IncludeOrder
-    includeOrder = IncludeGraph.toIncludeOrder unit.includeGraph
-
     -- Externalised entries are no longer active, so need no result.
     resolveDB ::
          [C.Decl l ResolveBindingSpecs]

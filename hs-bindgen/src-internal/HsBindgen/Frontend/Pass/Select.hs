@@ -14,8 +14,6 @@ import Clang.HighLevel.Types
 
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
-import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclDB (Deactivation (..), DeclDB, Entry (..),
@@ -30,7 +28,6 @@ import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckedMacro (..))
 import HsBindgen.Frontend.Predicate
-import HsBindgen.Frontend.SortMsgs
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -268,15 +265,11 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             , getBugMsgsNotSelected index notSelected
             , getBugMsgsInactive index
             , noDeclarationsMatchedMsg
-            ]
-
-    in  ( unitSelect
-        , concat [
-              sortSelectMsgs unit.includeGraph msgs
             , macrosDroppedSummaryMsg
             , macrosFallbackSummaryMsg
             ]
-        )
+
+    in  (unitSelect, msgs)
   where
     index :: DeclDB l In
     index = unit.db
@@ -679,40 +672,6 @@ isDroppedMacro = \case
       ParseMacroEmpty{}                 -> False
       ParseMacroErrorRead{}             -> True
       _otherwise                        -> False
-
-{-------------------------------------------------------------------------------
-  Sort traces
--------------------------------------------------------------------------------}
-
-sortSelectMsgs :: IncludeGraph -> [AnnMsg Select] -> [AnnMsg Select]
-sortSelectMsgs includeGraph msgs =
-    bugMsgs ++ sortMsgs order msgs
-  where
-    -- Compute the include order once.
-    order :: IncludeGraph.IncludeOrder
-    order = IncludeGraph.toIncludeOrder includeGraph
-
-    -- We do not know where to sort a message whose source is not in the include
-    -- graph, but a mis-sorted message is no reason to abort: report the bug and
-    -- sort the message to the back.
-    bugMsgs :: [AnnMsg Select]
-    bugMsgs = [
-        withCallStack C.WithLocationInfo{
-            loc = C.LocationUnavailable
-          , msg = SelectSourceNotInIncludeGraph path
-          }
-      | path <- Set.toList unknownPaths
-      ]
-
-    unknownPaths :: Set RealPath
-    unknownPaths = Set.fromList [
-        path
-      | msg <- msgs
-      , Just loc <- [msgLoc msg]
-      , C.InHeader path <- [singleLocPath loc]
-      , IncludeGraph.lookupIncludeOrder order (C.InHeader path)
-          == IncludeGraph.NotInIncludeGraph
-      ]
 
 {-------------------------------------------------------------------------------
   Apply the selection predicate

@@ -43,6 +43,12 @@
   they are about, like the messages of name mangling and selection, and
   sorted by that location.
 
+* Within the messages of a frontend pass, those without a location (e.g. "No
+  declarations matched the selection predicate", or the summaries of dropped
+  and fallback macros) now come first. The trace ID
+  `select-source-not-in-include-graph` is now
+  `sort-msgs-source-not-in-include-graph`.
+
 * The Info-level messages of name mangling about assigned names ("Assigned
   name", "Reused assigned name") are now reported only for selected
   declarations, under the trace ID `select-mangle-names`. The trace IDs
