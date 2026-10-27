@@ -1,0 +1,175 @@
+{-# LANGUAGE NoImplicitPrelude #-}
+
+module M.Circular_includes_inner where
+
+import qualified HsBindgen.Runtime.Marshal as Marshal
+import qualified HsBindgen.Runtime.Support as BG
+import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
+
+data INNER_BEFORE_IFNDEF
+
+instance Eq INNER_BEFORE_IFNDEF
+
+instance BG.Generic INNER_BEFORE_IFNDEF
+
+instance Ord INNER_BEFORE_IFNDEF
+
+instance Read INNER_BEFORE_IFNDEF
+
+instance Show INNER_BEFORE_IFNDEF
+
+instance BG.Bitfield INNER_BEFORE_IFNDEF
+
+instance BG.Bits INNER_BEFORE_IFNDEF
+
+instance Bounded INNER_BEFORE_IFNDEF
+
+instance Enum INNER_BEFORE_IFNDEF
+
+instance BG.FiniteBits INNER_BEFORE_IFNDEF
+
+instance BG.HasFFIType INNER_BEFORE_IFNDEF
+
+instance Integral INNER_BEFORE_IFNDEF
+
+instance BG.Ix INNER_BEFORE_IFNDEF
+
+instance Num INNER_BEFORE_IFNDEF
+
+instance BG.Prim INNER_BEFORE_IFNDEF
+
+instance Marshal.ReadRaw INNER_BEFORE_IFNDEF
+
+instance Real INNER_BEFORE_IFNDEF
+
+instance Marshal.StaticSize INNER_BEFORE_IFNDEF
+
+instance BG.Storable INNER_BEFORE_IFNDEF
+
+instance Marshal.WriteRaw INNER_BEFORE_IFNDEF
+
+data INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance Eq INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance BG.Generic INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance Ord INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance Read INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance Show INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance BG.Bitfield INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance BG.Bits INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance Bounded INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance Enum INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance BG.FiniteBits INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance BG.HasFFIType INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance Integral INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance BG.Ix INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance Num INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance BG.Prim INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance Marshal.ReadRaw INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance Real INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance Marshal.StaticSize INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance BG.Storable INNER_BEFORE_CIRCULAR_INCLUDE
+
+instance Marshal.WriteRaw INNER_BEFORE_CIRCULAR_INCLUDE
+
+data INNER_AFTER_CIRCULAR_INCLUDE
+
+instance Eq INNER_AFTER_CIRCULAR_INCLUDE
+
+instance BG.Generic INNER_AFTER_CIRCULAR_INCLUDE
+
+instance Ord INNER_AFTER_CIRCULAR_INCLUDE
+
+instance Read INNER_AFTER_CIRCULAR_INCLUDE
+
+instance Show INNER_AFTER_CIRCULAR_INCLUDE
+
+instance BG.Bitfield INNER_AFTER_CIRCULAR_INCLUDE
+
+instance BG.Bits INNER_AFTER_CIRCULAR_INCLUDE
+
+instance Bounded INNER_AFTER_CIRCULAR_INCLUDE
+
+instance Enum INNER_AFTER_CIRCULAR_INCLUDE
+
+instance BG.FiniteBits INNER_AFTER_CIRCULAR_INCLUDE
+
+instance BG.HasFFIType INNER_AFTER_CIRCULAR_INCLUDE
+
+instance Integral INNER_AFTER_CIRCULAR_INCLUDE
+
+instance BG.Ix INNER_AFTER_CIRCULAR_INCLUDE
+
+instance Num INNER_AFTER_CIRCULAR_INCLUDE
+
+instance BG.Prim INNER_AFTER_CIRCULAR_INCLUDE
+
+instance Marshal.ReadRaw INNER_AFTER_CIRCULAR_INCLUDE
+
+instance Real INNER_AFTER_CIRCULAR_INCLUDE
+
+instance Marshal.StaticSize INNER_AFTER_CIRCULAR_INCLUDE
+
+instance BG.Storable INNER_AFTER_CIRCULAR_INCLUDE
+
+instance Marshal.WriteRaw INNER_AFTER_CIRCULAR_INCLUDE
+
+data INNER_AFTER_IFNDEF
+
+instance Eq INNER_AFTER_IFNDEF
+
+instance BG.Generic INNER_AFTER_IFNDEF
+
+instance Ord INNER_AFTER_IFNDEF
+
+instance Read INNER_AFTER_IFNDEF
+
+instance Show INNER_AFTER_IFNDEF
+
+instance BG.Bitfield INNER_AFTER_IFNDEF
+
+instance BG.Bits INNER_AFTER_IFNDEF
+
+instance Bounded INNER_AFTER_IFNDEF
+
+instance Enum INNER_AFTER_IFNDEF
+
+instance BG.FiniteBits INNER_AFTER_IFNDEF
+
+instance BG.HasFFIType INNER_AFTER_IFNDEF
+
+instance Integral INNER_AFTER_IFNDEF
+
+instance BG.Ix INNER_AFTER_IFNDEF
+
+instance Num INNER_AFTER_IFNDEF
+
+instance BG.Prim INNER_AFTER_IFNDEF
+
+instance Marshal.ReadRaw INNER_AFTER_IFNDEF
+
+instance Real INNER_AFTER_IFNDEF
+
+instance Marshal.StaticSize INNER_AFTER_IFNDEF
+
+instance BG.Storable INNER_AFTER_IFNDEF
+
+instance Marshal.WriteRaw INNER_AFTER_IFNDEF
