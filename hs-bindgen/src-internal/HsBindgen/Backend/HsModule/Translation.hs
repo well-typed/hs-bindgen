@@ -154,12 +154,21 @@ translateModuleMultiple ::
      FieldNamingStrategy
   -> ModuleRenderConfig
   -> HsBootPolicy
+  -> LibraryImports
   -> [C.RootDirective C.HashIncludeArg]
   -> BaseModuleName
   -> ([SDecl] -> [ExportEntry])
   -> ByCategory_ ([CWrapper], [SDecl])
   -> ByCategory_ (Maybe (HsModule, Maybe HsBoot))
-translateModuleMultiple fns mrc hsBootPolicy dirs moduleBaseName resolveExports declsByCat =
+translateModuleMultiple
+  fns
+  mrc
+  hsBootPolicy
+  library
+  dirs
+  moduleBaseName
+  resolveExports
+  declsByCat =
     mapWithCategory_ go declsByCat
   where
     go :: Category -> ([CWrapper], [SDecl]) -> Maybe (HsModule, Maybe HsBoot)
@@ -171,10 +180,11 @@ translateModuleMultiple fns mrc hsBootPolicy dirs moduleBaseName resolveExports 
           dirs
           (Just cat)
           moduleBaseName
-          (sourceImports cat)
+          (moduleImports cat)
           resolveExports
           xs
-      , translateHsBoot mrc moduleBaseName cat <$> bootDecls cat decs
+      , translateHsBoot mrc moduleBaseName cat libraryTypesSource
+          <$> bootDecls cat decs
       )
 
     -- | Is there a callback module?
@@ -190,6 +200,13 @@ translateModuleMultiple fns mrc hsBootPolicy dirs moduleBaseName resolveExports 
         ([], []) -> False
         _decls   -> True
 
+    moduleImports :: Category -> ModuleImports
+    moduleImports cat = ModuleImports{
+          sourceImports   = sourceImports cat
+        , instanceImports = instanceImports cat
+        , qualifiedSource = qualifiedImportSource cat
+        }
+
     -- | Modules that this module imports through their boot files
     --
     -- The callback module imports the types module, and GHC refuses two
@@ -201,6 +218,31 @@ translateModuleMultiple fns mrc hsBootPolicy dirs moduleBaseName resolveExports 
       CType | hasCallbackModule ->
         [fromBaseModuleName moduleBaseName (Just (CTerm CCallback))]
       _otherCategory -> []
+
+    -- | Modules that the module of a category imports for their instances
+    --
+    -- The term modules convert values at the FFI (see 'LibraryImports').
+    instanceImports :: Category -> Set Hs.ModuleName
+    instanceImports = \case
+      CType   -> Set.empty
+      CTerm _ -> library.instanceModules
+
+    -- | How the module of a category imports a module that it imports qualified
+    --
+    -- The types modules of a library can use each other, so the types module
+    -- imports the other types modules of the library through their boot files,
+    -- and so do the boot files (see 'resolveHsBootImports'). The term modules
+    -- import them as usual: only its own types module imports a term module,
+    -- and only through its boot file, so no term module is on a loop.
+    qualifiedImportSource :: Category -> Hs.ModuleName -> ImportSource
+    qualifiedImportSource = \case
+      CType   -> libraryTypesSource
+      CTerm _ -> const NormalImport
+
+    libraryTypesSource :: Hs.ModuleName -> ImportSource
+    libraryTypesSource m
+      | m `Set.member` library.typesModules = SourceImport
+      | otherwise                           = NormalImport
 
     bootDecls :: Category -> [SDecl] -> Maybe [HsBootDecl]
     bootDecls cat decs = case hsBootPolicy of
@@ -216,8 +258,26 @@ translateModuleSingle ::
   -> ByCategory_ ([CWrapper], [SDecl])
   -> HsModule
 translateModuleSingle fns mrc dirs name resolveExports declsByCat =
-    translateModule' fns mrc dirs Nothing name [] resolveExports $
+    translateModule' fns mrc dirs Nothing name imports resolveExports $
       Foldable.fold declsByCat
+  where
+    imports :: ModuleImports
+    imports = ModuleImports{
+          sourceImports   = []
+        , instanceImports = Set.empty
+        , qualifiedSource = const NormalImport
+        }
+
+-- | What the declarations of a module do not say about its imports
+data ModuleImports = ModuleImports {
+      -- | Modules imported through their boot files
+      sourceImports   :: [Hs.ModuleName]
+      -- | Modules imported for their instances, unless the declarations import
+      -- them anyway
+    , instanceImports :: Set Hs.ModuleName
+      -- | How to import a module qualified
+    , qualifiedSource :: Hs.ModuleName -> ImportSource
+    }
 
 translateModule' ::
      FieldNamingStrategy
@@ -225,18 +285,18 @@ translateModule' ::
   -> [C.RootDirective C.HashIncludeArg]
   -> Maybe Category
   -> BaseModuleName
-  -> [Hs.ModuleName] -- ^ Modules imported through their boot files
+  -> ModuleImports
   -> ([SDecl] -> [ExportEntry])
   -> ([CWrapper], [SDecl])
   -> HsModule
-translateModule' fns mrc dirs mcat moduleBaseName sourceImports resolveExports (cWrappers, decs) =
+translateModule' fns mrc dirs mcat moduleBaseName imports resolveExports (cWrappers, decs) =
     HsModule{
         pragmas        = resolvePragmas mrc.qualifiedStyle cWrappers $
                               fieldNamingPragmas fns
                            <> Set.map extensionPragma
                                 (foldMap (requiredExtensions fns) decs)
       , exports        = resolveExports decs
-      , imports        = resolveImports moduleBaseName mcat cWrappers sourceImports decs
+      , imports        = resolveImports moduleBaseName mcat cWrappers imports decs
       , name           = fromBaseModuleName moduleBaseName mcat
       , qualifiedStyle = mrc.qualifiedStyle
       , rootDirectives = dirs
@@ -255,15 +315,16 @@ translateHsBoot ::
      ModuleRenderConfig
   -> BaseModuleName
   -> Category
+  -> (Hs.ModuleName -> ImportSource) -- ^ How to import a module qualified
   -> [HsBootDecl]
   -> HsBoot
-translateHsBoot mrc moduleBaseName cat decs =
+translateHsBoot mrc moduleBaseName cat qualifiedSource decs =
     HsBoot{
         pragmas        = resolvePragmas mrc.qualifiedStyle [] $
                            Set.map extensionPragma
                              (foldMap requiredHsBootExtensions decs)
       , name           = fromBaseModuleName moduleBaseName (Just cat)
-      , imports        = resolveHsBootImports moduleBaseName cat decs
+      , imports        = resolveHsBootImports moduleBaseName cat qualifiedSource decs
       , qualifiedStyle = mrc.qualifiedStyle
       , decls          = decs
       }
@@ -457,20 +518,25 @@ resolveImports ::
      BaseModuleName
   -> Maybe Category
   -> [CWrapper]
-  -> [Hs.ModuleName] -- ^ Modules imported through their boot files
+  -> ModuleImports
   -> [SDecl]
   -> [ImportListItem]
-resolveImports baseModule cat wrappers sourceImports ds =
+resolveImports baseModule cat wrappers imports ds =
     let acc = mconcat $ map resolveDeclImports ds
     in  Set.toAscList . mconcat $ [
             bindingCatImport acc.requireTypes
           , Set.fromList [
                 UnqualifiedImportListItem SourceImport m Nothing
-              | m <- sourceImports
+              | m <- imports.sourceImports
+              ]
+          , Set.fromList [
+                UnqualifiedImportListItem NormalImport m (Just [])
+              | m <- Set.toList imports.instanceImports
+              , m `Set.notMember` Set.map fst acc.qualified
               ]
           , Set.map (uncurry (QualifiedImportListItem NormalImport))
               userlandCapiImport
-          , importListItems acc
+          , importListItems imports.qualifiedSource acc
           ]
   where
     bindingCatImport :: Bool -> Set ImportListItem
@@ -497,15 +563,22 @@ resolveImports baseModule cat wrappers sourceImports ds =
 -- the boot file before the types module. The boot file imports the boot file of
 -- the types module instead, with @{-# SOURCE #-}@.
 --
+-- Both boot files also import the other types modules of a library through
+-- their boot files, as the types module does: another types module can import
+-- this one through its boot file, so GHC may have to compile this boot file
+-- first.
+--
 -- See the golden fixture @types\/boot\/internal_module@.
 resolveHsBootImports ::
      BaseModuleName
   -> Category
+  -> (Hs.ModuleName -> ImportSource) -- ^ How to import a module qualified
   -> [HsBootDecl]
   -> [ImportListItem]
-resolveHsBootImports baseModule cat ds =
+resolveHsBootImports baseModule cat qualifiedSource ds =
     let acc = mconcat $ map resolveHsBootDeclImports ds
-    in  Set.toAscList $ typesImport acc.requireTypes <> importListItems acc
+    in  Set.toAscList $
+          typesImport acc.requireTypes <> importListItems qualifiedSource acc
   where
     typesImport :: Bool -> Set ImportListItem
     typesImport requireTypes = case cat of
@@ -520,9 +593,14 @@ resolveHsBootImports baseModule cat ds =
             mempty
 
 -- | The import list items for the names in an accumulator
-importListItems :: ImportAcc -> Set ImportListItem
-importListItems acc = mconcat [
-      Set.map (uncurry (QualifiedImportListItem NormalImport)) acc.qualified
+importListItems ::
+     (Hs.ModuleName -> ImportSource) -- ^ How to import a module qualified
+  -> ImportAcc
+  -> Set ImportListItem
+importListItems qualifiedSource acc = mconcat [
+      Set.map
+        (\(m, as) -> QualifiedImportListItem (qualifiedSource m) m as)
+        acc.qualified
     , Set.fromList $ map (uncurry mkUImportListItem) (Map.toList acc.unqualified)
     ]
   where

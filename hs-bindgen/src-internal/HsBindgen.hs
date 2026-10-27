@@ -289,10 +289,11 @@ writeBindingsSingle mrc filePolicy dirPolicy hsOutputDir = do
 -- it has one.
 getBindingsMultiple :: ModuleRenderConfig -> Artefact l (ByCategory_ (Maybe (String, Maybe String)))
 getBindingsMultiple mrc = do
-    name   <- ModuleBaseName
-    dirs   <- RootDirectives
-    decls  <- FinalDecls
-    tags   <- getExportTags
+    name    <- ModuleBaseName
+    library <- LibraryImportsA
+    dirs    <- RootDirectives
+    decls   <- FinalDecls
+    tags    <- getExportTags
     when (all nullDecls decls) $
       EmitTrace $ NoBindingsMultipleModules name
     config <- getConfig
@@ -302,6 +303,7 @@ getBindingsMultiple mrc = do
         fns
         mrc
         config.backend.hsBootPolicy
+        library
         dirs
         name
         (resolveExports tags)

@@ -88,6 +88,7 @@ data Artefact l (a :: Star) where
   -- * Boot
   RootDirectives  :: Artefact l [C.RootDirective C.HashIncludeArg]
   ModuleBaseName  :: Artefact l BaseModuleName
+  LibraryImportsA :: Artefact l LibraryImports
   -- * Frontend
   ParseInfoA      :: Artefact l ParseInfo
   DoxygenA        :: Artefact l Doxygen
@@ -139,6 +140,7 @@ runArtefacts tracer config boot frontend backend artefact =
         --Boot.
         RootDirectives  -> runCached boot.rootDirectives
         ModuleBaseName  -> pure boot.baseModule
+        LibraryImportsA -> pure boot.libraryImports
         -- Frontend.
         ParseInfoA      -> runCached frontend.parseMeta
         DoxygenA        -> runCached frontend.doxygen
