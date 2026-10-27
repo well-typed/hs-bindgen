@@ -1,5 +1,7 @@
 # `hs-bindgen`
 
+[![Hackage: hs-bindgen](https://img.shields.io/hackage/v/hs-bindgen?label=Hackage:%20hs-bindgen)](https://hackage.haskell.org/package/hs-bindgen)
+[![Hackage: hs-bindgen-runtime](https://img.shields.io/hackage/v/hs-bindgen-runtime?label=Hackage:%20hs-bindgen-runtime)](https://hackage.haskell.org/package/hs-bindgen-runtime)
 [![License: BSD-3-Clause](https://img.shields.io/badge/license-BSD--3--Clause-lightgray.svg)](https://github.com/well-typed/hs-bindgen/blob/main/hs-bindgen/LICENSE)
 [![Build Status](https://github.com/well-typed/hs-bindgen/actions/workflows/haskell.yml/badge.svg)](https://github.com/well-typed/hs-bindgen/actions)
 [![Nightly CI: Examples](https://img.shields.io/github/actions/workflow/status/well-typed/hs-bindgen/examples.yml?event=schedule&label=Nightly%20CI%3A%20Examples)](https://github.com/well-typed/hs-bindgen/actions/workflows/examples.yml?query=event%3Aschedule)
