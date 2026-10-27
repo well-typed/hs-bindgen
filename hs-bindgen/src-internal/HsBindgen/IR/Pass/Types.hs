@@ -39,6 +39,8 @@ class (
   --
   -- 1. After 'HsBindgen.Frontend.Pass.Parse.IsPass.Parse', this is
   --    @'C.Type' p@.
+  -- 2. After 'HsBindgen.Frontend.Pass.TranslateTypes', this is
+  --    @TranslatedTypes@.
   type Types p :: Star
   type Types p = C.Type p
 
