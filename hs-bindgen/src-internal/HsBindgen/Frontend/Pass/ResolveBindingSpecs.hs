@@ -795,7 +795,10 @@ resolveExtBinding cDeclId locs declPaths mMsg = do
             let resolved = BindingSpec.ResolvedExtBinding {
                     cName  = cDeclId
                   , locs   = locs
-                  , hsName = Hs.ExtRef hsModuleName hsName
+                  , hsName = Hs.Identifier{
+                        moduleName = hsModuleName
+                      , name       = Hs.demoteNs hsName
+                      }
                   , cSpec  = cTypeSpec
                   , hsSpec = hsTypeSpec
                   }

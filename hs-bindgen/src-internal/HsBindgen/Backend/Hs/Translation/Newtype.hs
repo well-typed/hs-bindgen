@@ -60,7 +60,7 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
         insts = knownInsts <> resolvedInsts
 
         ffiType :: Maybe BindingSpec.HsFFIType
-        ffiType = BindingSpec.HsFFIType . Hs.ffiExtRef <$> Hs.toFFIType field.typ
+        ffiType = BindingSpec.HsFFIType . Hs.ffiIdentifier <$> Hs.toFFIType field.typ
 
 hasFFITypeDecs ::
      Hs.Newtype

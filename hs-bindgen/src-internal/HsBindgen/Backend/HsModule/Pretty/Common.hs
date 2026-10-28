@@ -66,11 +66,11 @@ instance Pretty Hs.ModuleName where
 instance Pretty Hs.SomeName where
   pretty = PP.string . Text.unpack . (.text)
 
-instance Pretty Hs.ExtRef where
-  pretty extRef = PP.hcat [
-        pretty extRef.moduleName
+instance Pretty Hs.Identifier where
+  pretty identifier = PP.hcat [
+        pretty identifier.moduleName
       , PP.char '.'
-      , PP.text extRef.name.text
+      , PP.text identifier.name.text
       ]
 
 {-------------------------------------------------------------------------------

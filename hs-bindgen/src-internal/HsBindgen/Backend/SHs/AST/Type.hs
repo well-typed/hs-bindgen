@@ -41,7 +41,7 @@ data SType ctx =
   | TFun (SType ctx) (SType ctx)
   | TLit Natural
   | TStrLit String
-  | TExt Hs.ExtRef
+  | TExt Hs.Identifier
   | TBound (Idx ctx)
   | TFree (Hs.Name Hs.NsVar)
   | TApp (SType ctx) (SType ctx)
