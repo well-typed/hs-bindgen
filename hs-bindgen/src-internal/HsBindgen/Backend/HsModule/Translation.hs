@@ -703,7 +703,7 @@ resolveTypeImports = \case
     TFree _ -> mempty
     TLit _n -> mempty
     TStrLit _s -> mempty
-    TExt ref -> resolveExtHsRefImports ref
+    TExt ref -> resolveIdentifierImports ref
     TApp c x -> resolveTypeImports c <> resolveTypeImports x
     TFun a b -> resolveTypeImports a <> resolveTypeImports b
     TBound{} -> mempty
@@ -720,10 +720,10 @@ resolveStrategyImports = \case
     Hs.DeriveStock -> mempty
     Hs.DeriveVia ty -> resolveTypeImports ty
 
-resolveExtHsRefImports :: Hs.ExtRef -> ImportAcc
-resolveExtHsRefImports extRef = ImportAcc{
+resolveIdentifierImports :: Hs.Identifier -> ImportAcc
+resolveIdentifierImports identifier = ImportAcc{
       requireTypes = False
-    , qualified    = Set.singleton (extRef.moduleName, Nothing)
+    , qualified    = Set.singleton (identifier.moduleName, Nothing)
     , unqualified  = mempty
     }
 

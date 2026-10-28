@@ -15,7 +15,7 @@ module HsBindgen.IR.Hs.Type (
   , unconsArg
   , FFIResType(..)
   , FFIType(..)
-  , ffiExtRef
+  , ffiIdentifier
   ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -65,7 +65,7 @@ data Type =
   | PtrConst Type
   | IO Type
   | Fun Type Type
-  | ExtBinding Hs.ExtRef BindingSpec.CTypeSpec BindingSpec.HsTypeSpec
+  | ExtBinding Hs.Identifier BindingSpec.CTypeSpec BindingSpec.HsTypeSpec
       -- | Underlying type
       Type
   | ByteArray
@@ -104,7 +104,7 @@ data FFIResType =
   deriving stock (Generic, Show, Eq)
 
 data FFIType =
-    FFIExternal Hs.ExtRef
+    FFIExternal Hs.Identifier
 
     -- * Pointers
   | FFIPtrVoid
@@ -127,30 +127,31 @@ data FFIType =
   | FFIPrimCDouble
   deriving stock (Generic, Show, Eq)
 
--- | Convert an 'FFIType' to an external reference.
+-- | Convert an 'FFIType' to an 'Hs.Identifier'.
 --
 -- NOTE: this is very similar logic to
 -- 'HsBindgen.Backend.SHs.Translation.translateFFIType'. We could try to unify
 -- this in the future.
-ffiExtRef :: FFIType -> Hs.ExtRef
-ffiExtRef = \case
+ffiIdentifier :: FFIType -> Hs.Identifier
+ffiIdentifier = \case
     FFIExternal r  -> r
-    FFIPtrVoid     -> mkExtRef "HsBindgen.Runtime.Support" "PtrVoid"
-    FFIFunPtrVoid  -> mkExtRef "HsBindgen.Runtime.Support" "FunPtrVoid"
-    FFIPrimCChar   -> mkExtRef "HsBindgen.Runtime.Support" "CChar"
-    FFIPrimCSChar  -> mkExtRef "HsBindgen.Runtime.Support" "CSChar"
-    FFIPrimCUChar  -> mkExtRef "HsBindgen.Runtime.Support" "CUChar"
-    FFIPrimCShort  -> mkExtRef "HsBindgen.Runtime.Support" "CShort"
-    FFIPrimCUShort -> mkExtRef "HsBindgen.Runtime.Support" "CUShort"
-    FFIPrimCInt    -> mkExtRef "HsBindgen.Runtime.Support" "CInt"
-    FFIPrimCUInt   -> mkExtRef "HsBindgen.Runtime.Support" "CUInt"
-    FFIPrimCLong   -> mkExtRef "HsBindgen.Runtime.Support" "CLong"
-    FFIPrimCULong  -> mkExtRef "HsBindgen.Runtime.Support" "CULong"
-    FFIPrimCLLong  -> mkExtRef "HsBindgen.Runtime.Support" "CLLong"
-    FFIPrimCULLong -> mkExtRef "HsBindgen.Runtime.Support" "CULLong"
-    FFIPrimCBool   -> mkExtRef "HsBindgen.Runtime.Support" "CBool"
-    FFIPrimCFloat  -> mkExtRef "HsBindgen.Runtime.Support" "CFloat"
-    FFIPrimCDouble -> mkExtRef "HsBindgen.Runtime.Support" "CDouble"
+    FFIPtrVoid     -> mkIdent "HsBindgen.Runtime.Support" "PtrVoid"
+    FFIFunPtrVoid  -> mkIdent "HsBindgen.Runtime.Support" "FunPtrVoid"
+    FFIPrimCChar   -> mkIdent "HsBindgen.Runtime.Support" "CChar"
+    FFIPrimCSChar  -> mkIdent "HsBindgen.Runtime.Support" "CSChar"
+    FFIPrimCUChar  -> mkIdent "HsBindgen.Runtime.Support" "CUChar"
+    FFIPrimCShort  -> mkIdent "HsBindgen.Runtime.Support" "CShort"
+    FFIPrimCUShort -> mkIdent "HsBindgen.Runtime.Support" "CUShort"
+    FFIPrimCInt    -> mkIdent "HsBindgen.Runtime.Support" "CInt"
+    FFIPrimCUInt   -> mkIdent "HsBindgen.Runtime.Support" "CUInt"
+    FFIPrimCLong   -> mkIdent "HsBindgen.Runtime.Support" "CLong"
+    FFIPrimCULong  -> mkIdent "HsBindgen.Runtime.Support" "CULong"
+    FFIPrimCLLong  -> mkIdent "HsBindgen.Runtime.Support" "CLLong"
+    FFIPrimCULLong -> mkIdent "HsBindgen.Runtime.Support" "CULLong"
+    FFIPrimCBool   -> mkIdent "HsBindgen.Runtime.Support" "CBool"
+    FFIPrimCFloat  -> mkIdent "HsBindgen.Runtime.Support" "CFloat"
+    FFIPrimCDouble -> mkIdent "HsBindgen.Runtime.Support" "CDouble"
   where
-    mkExtRef :: Hs.ModuleName -> Text -> Hs.ExtRef
-    mkExtRef moduleName typeName = Hs.ExtRef moduleName (Hs.UnsafeName typeName)
+    mkIdent :: Hs.ModuleName -> Text -> Hs.Identifier
+    mkIdent moduleName typeName =
+        Hs.Identifier moduleName (Hs.UnsafeSomeName Hs.NsTypeConstr typeName)
