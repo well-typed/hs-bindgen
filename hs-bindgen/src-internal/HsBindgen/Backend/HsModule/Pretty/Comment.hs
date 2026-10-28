@@ -216,7 +216,7 @@ instance Pretty HsDoc.CommentInlineContent where
     HsDoc.Anchor{..}        -> "#" >< PP.text anchorContent >< "#"
     HsDoc.Math{..}          -> "\\[" >< PP.vcat (map PP.text mathContent) >< "\\]"
     HsDoc.Metadata{..}      -> pretty metadataContent
-    HsDoc.TypeSignature{..} -> "@" >< prettyType EmptyEnv 0 (translateType typeSignature) >< "@"
+    HsDoc.TypeSignature{..} -> "@" >< prettyType EmptyEnv 0 (translateTypeLocal typeSignature) >< "@"
 
 instance Pretty HsDoc.CommentMeta where
   pretty HsDoc.Since{..} = "@since" <+> PP.text sinceContent

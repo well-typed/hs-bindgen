@@ -63,10 +63,11 @@ import HsBindgen.Util.Tracer (withCallStack)
 
 mangleNames ::
      forall l. (HasCallStack, Macro.HasTypes l)
-  => FieldNamingStrategy
+  => Hs.ModuleName
+  -> FieldNamingStrategy
   -> C.TranslationUnit l ResolveBindingSpecs
   -> (C.TranslationUnit l MangleNames, [AnnMsg MangleNames])
-mangleNames fieldNaming unit = (
+mangleNames currentModule fieldNaming unit = (
       unit{C.db =
           DeclDB.addDelayedMsgs (map (second DelayedMangleNames) msgs1) $
             runIdentity $
@@ -96,7 +97,7 @@ mangleNames fieldNaming unit = (
     failures1   :: [MangleNamesFailure]
     msgs1       :: [(C.DeclId, DelayedMangleNamesMsg)]
     (declsC, squashes, nameMap, nameMapDups, failures1, msgs1) =
-      createNames typedefAnalysis mangleCandidateConfig fieldNaming decls
+      createNames currentModule typedefAnalysis mangleCandidateConfig fieldNaming decls
 
     -- Traversal 2: detect clashes among all names.
     registry  :: NameRegistry
@@ -109,7 +110,7 @@ mangleNames fieldNaming unit = (
     -- Traversal 3: resolve references.
     decls3    :: [C.Decl l MangleNames]
     failures3 :: [MangleNamesFailure]
-    (decls3, failures3) = resolveNames nameMap dropped declsC
+    (decls3, failures3) = resolveNames currentModule nameMap dropped declsC
 
     results :: Map C.DeclId (DeclDB.PassResult l MangleNames)
     results = mangleResults decls3 squashes (failures1 ++ failures2 ++ failures3)
