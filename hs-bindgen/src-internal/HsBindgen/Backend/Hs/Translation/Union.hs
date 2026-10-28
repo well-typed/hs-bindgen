@@ -41,7 +41,7 @@ unionDecs decl union spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
+        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName.name
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = union.names.dataConstr
@@ -194,7 +194,7 @@ hasFieldDecs st info union field =
     parentType = Hs.TypRef union.name Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -231,8 +231,8 @@ hasFieldDecs st info union field =
 
     implIndirect :: C.ImplicitField Final -> C.IndirectField Final -> Hs.HasFieldImpl
     implIndirect impField indField  = Hs.HasFieldImplIndirect {
-          nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsName
-        , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsName
+          nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsName.name
+        , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsName.name
         }
 
 -- | Class instances for 'GHC.Records.Compat.HasField'
@@ -266,7 +266,7 @@ hasFieldCompatDecs st info union field =
     parentType = Hs.TypRef union.name Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -303,8 +303,8 @@ hasFieldCompatDecs st info union field =
 
     implIndirect :: C.ImplicitField Final -> C.IndirectField Final -> Hs.HasFieldCompatImpl
     implIndirect impField indField  = Hs.HasFieldCompatImplIndirect {
-          nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsName
-        , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsName
+          nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsName.name
+        , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsName.name
         }
 
 -- | Class instances for 'GHC.Records.HasField' for the pointer manipulation API
@@ -322,7 +322,7 @@ hasFieldPtrDecs union field =
     parentType = Hs.TypRef union.name Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -355,7 +355,7 @@ hasCFieldDecs union field = case getFieldWidth field of
     parentType = Hs.TypRef union.name Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -385,7 +385,7 @@ hasCBitfieldDecs union field = case getFieldWidth field of
     parentType = Hs.TypRef union.name Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs

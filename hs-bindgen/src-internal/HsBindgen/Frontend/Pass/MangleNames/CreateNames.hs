@@ -200,7 +200,8 @@ mangleCandidate mc _ cName =
 
 createNames ::
      forall l. Macro.HasTypes l
-  => TypedefAnalysis
+  => Hs.ModuleName
+  -> TypedefAnalysis
   -> MangleCandidate Maybe
   -> FieldNamingStrategy
   -> [C.Decl l ResolveBindingSpecs]
@@ -211,7 +212,7 @@ createNames ::
      , [MangleNamesFailure]
      , [(C.DeclId, DelayedMangleNamesMsg)]
      )
-createNames td mc strategy decls = (
+createNames currentModule td mc strategy decls = (
       map (snd . snd) successes
     , squashes
     , nameMap
@@ -231,6 +232,7 @@ createNames td mc strategy decls = (
     env = CreateEnv{
         mangleCandidate     = mc
       , fieldNamingStrategy = strategy
+      , currentModule       = currentModule
       }
 
     results :: [CreateNamesResult ([ScopedNamePair], C.Decl l CreateNames)]
@@ -247,7 +249,7 @@ createNames td mc strategy decls = (
       where
         nameResult :: CreateNamesResult ()
         msgs       :: [DelayedMangleNamesMsg]
-        (nameResult, msgs) = nameForDecl td mc specifiedNames decl
+        (nameResult, msgs) = nameForDecl currentModule td mc specifiedNames decl
 
     failures  :: [MangleNamesFailure]
     squashes  :: [(C.DeclId, Hs.Name Hs.NsTypeConstr, TypedefAnalysis.Squash)]
@@ -263,16 +265,18 @@ createNames td mc strategy decls = (
         fromSuccess (declIdPair, (scopedNamePairs, _)) = (declIdPair, scopedNamePairs)
         fromSquash (cN, hN, _)                         = (declIdPair, scopedNamePairs)
           where
-            declIdPair = DeclIdPair cN (Hs.demoteNs hN)
+            declIdPair = DeclIdPair cN
+                (Hs.Identifier currentModule (Hs.demoteNs hN))
             scopedNamePairs = []
 
 nameForDecl ::
-     TypedefAnalysis
+     Hs.ModuleName
+  -> TypedefAnalysis
   -> MangleCandidate Maybe
   -> Map C.DeclId (Hs.Name Hs.NsTypeConstr)
   -> C.Decl l ResolveBindingSpecs
   -> (CreateNamesResult (), [DelayedMangleNamesMsg])
-nameForDecl td mc specifiedNames decl =
+nameForDecl currentModule td mc specifiedNames decl =
     withDeclNamespace decl.kind $ \(nsProxy :: Proxy ns) ->
       let mangleNs :: Text -> Either MangleNamesCreationError (Hs.Name ns)
           mangleNs d = runExcept $ mangleCandidate mc nsProxy d
@@ -347,7 +351,8 @@ nameForDecl td mc specifiedNames decl =
     failWith err = (CnFailure $ toFailure decl (MangleNamesCreationError err), [])
 
     getPair :: Hs.SingNamespace ns => Hs.Name ns -> DeclIdPair
-    getPair = DeclIdPair declId . Hs.demoteNs
+    getPair hsName = DeclIdPair declId
+        (Hs.Identifier currentModule (Hs.demoteNs hsName))
 
     succeedWith :: Hs.SingNamespace ns => Hs.Name ns -> CreateNamesResult ()
     succeedWith n = CnMangled (getPair n) ()
@@ -364,6 +369,7 @@ nameForDecl td mc specifiedNames decl =
 data CreateEnv = CreateEnv{
       mangleCandidate     :: MangleCandidate Maybe
     , fieldNamingStrategy :: FieldNamingStrategy
+    , currentModule       :: Hs.ModuleName
     }
   deriving stock (Generic)
 
@@ -420,7 +426,7 @@ createNamesWithin ::
   -> C.Decl l ResolveBindingSpecs
   -> CreateNamesResult ([ScopedNamePair], C.Decl l CreateNames)
 createNamesWithin env declIdPair decl =
-    case runCreate env emptyCreateSt (createDeclKind declIdPair.hsName.text decl.kind) of
+    case runCreate env emptyCreateSt (createDeclKind declIdPair.hsName.name.text decl.kind) of
       (Left err, _)   -> CnFailure $ toFailure decl (MangleNamesCreationError err)
       (Right kind, st) -> CnMangled declIdPair (
           st.scopedNames
@@ -506,6 +512,7 @@ createTypedefNames isFunPtr strategy name = do
 createFieldName :: Text -> C.ScopedName -> CreateE ScopedNamePair
 createFieldName hsName fieldCName = do
     strategy <- asks (.fieldNamingStrategy)
+    modName  <- asks (.currentModule)
     let candidate :: Text
         candidate = case strategy of
           AddFieldPrefixes  -> hsName <> "_" <> fieldCName.text
@@ -513,7 +520,7 @@ createFieldName hsName fieldCName = do
     name <- mkName (Proxy @Hs.NsVar) candidate
     let scopedNamePair = ScopedNamePair{
         cName  = fieldCName
-      , hsName = Hs.demoteNs name
+      , hsName = Hs.Identifier modName (Hs.demoteNs name)
       }
     modify $ #scopedNames %~ (scopedNamePair:)
     pure scopedNamePair
@@ -524,10 +531,11 @@ createFieldName hsName fieldCName = do
 -- enclosing enum.
 createEnumConstantName :: C.ScopedName -> CreateE ScopedNamePair
 createEnumConstantName cName = do
+    modName <- asks (.currentModule)
     name <- mkName (Proxy @Hs.NsConstr) cName.text
     let scopedNamePair = ScopedNamePair{
         cName  = cName
-      , hsName = Hs.demoteNs name
+      , hsName = Hs.Identifier modName (Hs.demoteNs name)
       }
     modify $ #scopedNames %~ (scopedNamePair:)
     pure scopedNamePair
@@ -539,10 +547,11 @@ createEnumConstantName cName = do
 -- mangling.
 createArgumentName :: C.ScopedName -> CreateE ScopedNamePair
 createArgumentName argName = do
+    modName <- asks (.currentModule)
     name <- mkName (Proxy @Hs.NsVar) argName.text
     let scopedNamePair = ScopedNamePair{
         cName  = argName
-      , hsName = Hs.demoteNs name
+      , hsName = Hs.Identifier modName (Hs.demoteNs name)
       }
     modify $ #scopedNames %~ (scopedNamePair:)
     pure scopedNamePair
