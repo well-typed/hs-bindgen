@@ -267,7 +267,7 @@ opaqueDecs decl spec mSize = do
     return $ mkDecl : staticSizeDecls
   where
     name :: Hs.Name Hs.NsTypeConstr
-    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
+    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName.name
 
     mkDecl :: Hs.Decl l
     mkDecl = Hs.DeclEmpty Hs.EmptyData {
@@ -324,7 +324,7 @@ enumDecs decl enum spec = do
     valueMap :: Map Integer (NonEmpty (C.FieldInfo Final, Hs.Name Hs.NsConstr))
     valueMap = Map.fromListWith (flip (<>)) [ -- preserve source order
         let name :: Hs.Name Hs.NsConstr
-            name = Hs.assertNs (Proxy @Hs.NsConstr) constant.info.name.hsName
+            name = Hs.assertNs (Proxy @Hs.NsConstr) constant.info.name.hsName.name
         in  (constant.value, NonEmpty.singleton (constant.info, name))
       | constant <- enum.constants
       ]
@@ -345,7 +345,7 @@ enumDecs decl enum spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
+        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName.name
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = enum.names.dataConstr
@@ -501,7 +501,7 @@ enumDecs decl enum spec = do
         valueDecls :: [Hs.Decl l]
         valueDecls = [
               Hs.DeclPatSyn Hs.PatSyn{
-                  name    = Hs.assertNs (Proxy @Hs.NsConstr) constant.info.name.hsName
+                  name    = Hs.assertNs (Proxy @Hs.NsConstr) constant.info.name.hsName.name
                 , typ     = Hs.TypRef nt.name (Just nt.field.typ)
                 , constr  = Just nt.constr
                 , value   = constant.value
@@ -518,7 +518,7 @@ enumDecs decl enum spec = do
           guard $ cEnumSpec == BindingSpec.CEnumClosed
           let pragma = Hs.CompletePragma{
                   patterns = [
-                      Hs.assertNs (Proxy @Hs.NsConstr) constant.info.name.hsName
+                      Hs.assertNs (Proxy @Hs.NsConstr) constant.info.name.hsName.name
                     | constant <- enum.constants
                     ]
                 }
@@ -546,7 +546,7 @@ typedefDecs decl mkNewtypeOrigin typedef spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
+        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName.name
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = typedef.names.orig.dataConstr
@@ -670,7 +670,9 @@ typedefFunTypeIndirectionDecs origDecl (args, res, reconstruct) names origSpec =
     auxDeclIdPair = DeclIdPair{
           cName  = origDecl.id.cName
           -- Still refer to the /original/ C decl...?
-        , hsName = Hs.demoteNs auxName
+        , hsName = Hs.Identifier
+            origDecl.id.hsName.moduleName
+            (Hs.demoteNs auxName)
         }
 
     auxName :: Hs.Name Hs.NsTypeConstr
@@ -771,7 +773,7 @@ macroDecsTypedef macroLang decl macroType spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
+        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName.name
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = macroType.names.dataConstr
@@ -789,10 +791,10 @@ macroDecsTypedef macroLang decl macroType spec = do
           MacroTypeExtBinding ext ->
             Hs.ExtBinding ext.hsName ext.cSpec ext.hsSpec $
               Hs.TypRef
-                (Hs.assertNs (Proxy @Hs.NsTypeConstr) (extDeclIdPair ext).hsName)
+                (Hs.assertNs (Proxy @Hs.NsTypeConstr) (extDeclIdPair ext).hsName.name)
                 Nothing
           MacroTypeBodyVar pair ->
-            Hs.TypRef (Hs.assertNs (Proxy @Hs.NsTypeConstr) pair.hsName) Nothing
+            Hs.TypRef (Hs.assertNs (Proxy @Hs.NsTypeConstr) pair.hsName.name) Nothing
 
         newtypeOrigin :: Origin.Decl Origin.Newtype
         newtypeOrigin = Origin.Decl {
@@ -963,7 +965,7 @@ constGetter ty decl pureStubName = singleton getterDecl
         , comment = Nothing
         }
 
-    getterName = Hs.assertNs (Proxy @Hs.NsVar) decl.id.hsName
+    getterName = Hs.assertNs (Proxy @Hs.NsVar) decl.id.hsName.name
     getterType = SHs.translateType ty
     getterExpr = SHs.eBindgenGlobal IO_unsafePerformIO
                 `SHs.EApp` (SHs.eBindgenGlobal PtrConst_peek
@@ -1090,7 +1092,7 @@ addressStubDecs decl ty runnerNameSpec _spec = do
           Hs.InternalName x -> Just $ HsDoc.uniqueSymbol x
 
         name :: Hs.SomeName
-        name = decl.id.hsName
+        name = decl.id.hsName.name
 
         uniquify :: Text -> UniqueSymbol
         uniquify = globallyUnique env.uniqueId env.baseModuleName . Text.unpack
@@ -1172,7 +1174,7 @@ referencesUntagged = go
 macroVarDecs :: C.Decl l Final -> Hs.MacroValue l -> [Hs.Decl l]
 macroVarDecs decl value = [
       Hs.DeclMacroValue Hs.MacroBinding{
-          name    = Hs.assertNs (Proxy @Hs.NsVar) decl.id.hsName
+          name    = Hs.assertNs (Proxy @Hs.NsVar) decl.id.hsName.name
         , value   = value
         , comment = mkHaddocks decl
         }
@@ -1197,7 +1199,7 @@ untaggedEnumConstantDecs decl enumConstant = do
           patSynName =
             Hs.assertNs
               (Proxy @Hs.NsConstr)
-              enumConstant.constant.info.name.hsName
+              enumConstant.constant.info.name.hsName.name
 
           patSynType :: Hs.Type
           patSynType = Hs.PrimType (translateCPrimType enumConstant.typ)

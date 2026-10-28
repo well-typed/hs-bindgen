@@ -99,19 +99,19 @@ fromNames names =
       Foldable.foldlM (addScopedNamePair pair) nameMap' scopedPairs
 
     addDeclIdPair :: NameMap -> DeclIdPair -> State [DupAssign] NameMap
-    addDeclIdPair nameMap pair = case pair.hsName.ns of
+    addDeclIdPair nameMap pair = case pair.hsName.name.ns of
         Hs.NsTypeConstr -> do
-          let hsName' = Hs.assertNs (Proxy @Hs.NsTypeConstr)     pair.hsName
+          let hsName' = Hs.assertNs (Proxy @Hs.NsTypeConstr) pair.hsName.name
               upd = insertChecked (DupTypeConstr pair.cName) hsName'
           typeConstrs' <- Map.alterF upd pair.cName nameMap.typeConstrs
           pure $ nameMap & #typeConstrs .~ typeConstrs'
         Hs.NsConstr -> do
-          let hsName' = Hs.assertNs (Proxy @Hs.NsConstr)     pair.hsName
+          let hsName' = Hs.assertNs (Proxy @Hs.NsConstr) pair.hsName.name
               upd = insertChecked (DupDataConstr pair.cName) hsName'
           dataConstrs' <- Map.alterF upd pair.cName nameMap.dataConstrs
           pure $ nameMap & #dataConstrs .~ dataConstrs'
         Hs.NsVar -> do
-          let hsName' = Hs.assertNs (Proxy @Hs.NsVar)     pair.hsName
+          let hsName' = Hs.assertNs (Proxy @Hs.NsVar) pair.hsName.name
               upd = insertChecked (DupVar pair.cName) hsName'
           vars' <- Map.alterF upd pair.cName nameMap.vars
           pure $ nameMap & #vars .~ vars'
@@ -128,7 +128,7 @@ fromNames names =
           pure $ Just scopedNameMap'
 
         upd2 :: Maybe Hs.SomeName -> State [DupAssign] (Maybe Hs.SomeName)
-        upd2 = insertChecked (DupScopedName pair.cName scopedPair.cName) scopedPair.hsName
+        upd2 = insertChecked (DupScopedName pair.cName scopedPair.cName) scopedPair.hsName.name
 
     -- | Insert a created name unless there is already a created name present
     insertChecked ::

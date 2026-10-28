@@ -38,7 +38,7 @@ mkHaddocks decl =
         isField = False
       , loc     = decl.info.loc
       , cName   = C.renderDeclId decl.id.cName
-      , hsName  = decl.id.hsName
+      , hsName  = decl.id.hsName.name
       , comment = decl.comment
       , params  = []
       }
@@ -52,7 +52,7 @@ mkHaddocksFieldInfo declInfo fieldInfo =
         isField = True
       , loc     = fieldInfo.loc
       , cName   = fieldInfo.name.cName.text
-      , hsName  = fieldInfo.name.hsName
+      , hsName  = fieldInfo.name.hsName.name
       , comment = fieldInfo.comment
       , params  = []
       }
@@ -68,7 +68,7 @@ mkHaddocksDecorateParams decl params =
         isField = False
       , loc     = decl.info.loc
       , cName   = C.renderDeclId decl.id.cName
-      , hsName  = decl.id.hsName
+      , hsName  = decl.id.hsName.name
       , comment = decl.comment
       , params  = params
       }
@@ -312,7 +312,7 @@ convertInline = \case
 
   Doxy.Ref (C.CommentRef c mHsIdent _mKind) _displayText ->
     case mHsIdent of
-      Just namePair -> [HsDoc.Identifier namePair.hsName.text]
+      Just namePair -> [HsDoc.Identifier namePair.hsName.name.text]
       Nothing       -> [HsDoc.Monospace [HsDoc.TextContent c]]
 
   Doxy.Anchor idText -> [HsDoc.Anchor idText]
