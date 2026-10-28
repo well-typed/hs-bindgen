@@ -25,11 +25,6 @@ declaration. The kind of the entry says what we generate for it:
 - _inactive_: nothing at all; we failed or did not attempt to parse it, its
   name conflicts, or a pass deactivated it (it is _unusable_ or _omitted_).
 
-_Active_ describes the representation: do we have the declaration at this
-pass? _Usable_ and _selected_ are judgements. Every entry but an inactive one
-is usable; a usable declaration may still have unusable transitive
-dependencies, which `Select` takes into account.
-
 In particular,
 - we avoid the terms _exclude_, and _skip_.
 - we use the term _omit_ exclusively for the effect of prescriptive binding

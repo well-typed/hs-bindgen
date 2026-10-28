@@ -43,17 +43,13 @@
   they are about, like the messages of name mangling and selection, and
   sorted by that location.
 
-* Within the messages of a frontend pass, those without a location (e.g. "No
-  declarations matched the selection predicate", or the summaries of dropped
-  and fallback macros) now come first. The trace ID
-  `select-source-not-in-include-graph` is now
-  `sort-msgs-source-not-in-include-graph`.
+- Messages without a location (e.g. "No declarations matched the selection
+  predicate", or the summaries of dropped macros) now come first.
 
-* The Info-level messages of name mangling about assigned names ("Assigned
+- The Info-level messages of name mangling about assigned names ("Assigned
   name", "Reused assigned name") are now reported only for selected
-  declarations, under the trace ID `select-mangle-names`. The trace IDs
-  `mangle-names-assigned-name` and `mangle-names-reused-assigned-name` are
-  gone. See [issue #1554][is-1554].
+  declarations, under the trace ID `select-mangle-names`. See [issue
+  #1554][is-1554].
 
 [is-1554]: https://github.com/well-typed/hs-bindgen/issues/1554
 
@@ -106,15 +102,16 @@
   now also reports its earlier delayed messages, such as parse warnings.
   Previously, they were lost.
 
-* Deprecation is now known for declarations we generate no binding of their
-  own for: squashed typedefs, and declarations that fail to parse or are
-  unusable. The `DeclDeprecated` selection predicate matches
-  them, and selecting a deprecated squashed typedef reports "Selected a
-  deprecated declaration". Previously, they were always considered available.
+- We now also store if a declaration is deprecated, even when we do not
+  generate a binding for the declaration. This affects squashed typedefs, and
+  declarations that fail to parse or are unusable. The `DeclDeprecated`
+  selection predicate matches them, and selecting a deprecated squashed typedef
+  reports "Selected a deprecated declaration". Previously, there was no
+  deprecation warning.
 
-* A macro that uses, under a pointer, a type macro defined after it (e.g.,
-  `#define P T *` before `#define T int`) now typechecks. Previously, it
-  failed with "Unbound variable".
+- A macro that references a later-defined type-macro by pointer (e.g.,
+  `#define P T *` before `#define T int`) now typechecks. Previously, it failed
+  with "Unbound variable".
 
 * A declaration that is declared more than once (e.g., the tentative
   definitions `int i; int i;`) now reports each of its parse messages once.

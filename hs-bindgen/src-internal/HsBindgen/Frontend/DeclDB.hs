@@ -51,8 +51,6 @@ module HsBindgen.Frontend.DeclDB (
   , PassResult(..)
   , traverseActive
   , active
-  , passResults
-  , lookupResult
     -- * Transitions
   , externalize
   , addDelayedMsgs
@@ -85,7 +83,7 @@ import Clang.HighLevel.Types
 
 import HsBindgen.BindingSpec (ResolvedExtBinding)
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.Analysis (Dependency (NeedsShape))
+import HsBindgen.Frontend.Analysis (Dependency (..))
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Construction qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition (DeclUseGraph (..))
 import HsBindgen.Frontend.DeclDB.ResolveMacro
@@ -180,7 +178,7 @@ deriving stock instance (IsPass p, Macro.HasTypes l) => Show (DeclDB l p)
   Entry
 -------------------------------------------------------------------------------}
 
--- | What @hs-bindgen@ generates for a declaration
+-- | Information kept about each C declaration
 --
 -- Only v'Inactive' entries are unusable. Usability is not concerned with
 -- transitivity: a usable declaration may have unusable transitive
@@ -188,8 +186,9 @@ deriving stock instance (IsPass p, Macro.HasTypes l) => Show (DeclDB l p)
 data Entry l p =
     -- | We intend to generate a binding
     --
-    -- Also includes macros the macro language gave up on because we may fall
-    -- back to generating a raw macro binding (see @ApplyMacroFallback@).
+    -- Before the pass @ApplyMacroFallback@, this may also include macros the
+    -- macro language gave up on because we may fall back to generating a raw
+    -- macro binding.
     Active   (C.Decl l p)
     -- | We generate a binding for the squash target only
   | Squashed C.DeclInfo SquashTarget
@@ -240,10 +239,10 @@ instance PrettyForTrace InactiveReason where
     Deactivated deactivation ->
       prettyForTrace deactivation
 
--- | Why a later pass stopped generating the declaration
+-- | Reason why we do not generate a binding for a declaration
 data Deactivation =
     Unusable UnusableReason
-    -- | By a prescriptive binding specification
+    -- | Applied by a prescriptive binding specification
   | Omitted
   deriving stock (Show, Eq, Generic)
 
@@ -253,7 +252,7 @@ instance PrettyForTrace Deactivation where
     Omitted         -> "Omitted by prescriptive binding specification"
 
 data UnusableReason =
-    -- | By @ApplyMacroFallback@, for a macro that does not fall back
+    -- | Apply by @ApplyMacroFallback@, for a macro that does not fall back
     UnusableMacro       MacroLangFailure
   | UnusableMangleNames MangleNamesError
   deriving stock (Show, Eq, Generic)
@@ -287,7 +286,7 @@ entryToLoc = \case
     Deselected info   -> Just $ C.DeclLoc info.loc
     Inactive inactive -> Just $ inactiveToLoc inactive
 
--- | 'C.NotDeprecated' where we do not know: for conflicts and externals
+-- | Fall back to 'C.NotDeprecated' for conflicts and externals
 entryToDeprecation :: Entry l p -> C.Deprecation
 entryToDeprecation = \case
     Active decl                       -> decl.info.deprecation
@@ -311,7 +310,7 @@ getUnusable = \case
     External{}        -> Nothing
     Deselected{}      -> Nothing
 
--- | For panic messages
+-- | For trace messages
 entryKind :: Entry l p -> String
 entryKind = \case
     Active{}     -> "active"
@@ -455,8 +454,8 @@ buildDB macroAnalysis isMainHeader =
                 C.NameKindTagged{} -> Nothing
             ]
 
-          -- A conflict keeps the messages of its members, a parse failure
-          -- included, for Bug-level reporting: @Select@ reports no others.
+          -- A conflict keeps the messages of its members for Bug-level
+          -- reporting.
           conflictMember :: C.Conflict -> Build l -> C.DeclId -> Build l
           conflictMember conflict db' x =
             let newMsgs
@@ -584,8 +583,8 @@ checkIsConflict macroAnalysis isMainHeader new (oldId, old)
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/2282>
 --
--- We should "keep" more information in a redefinition so we can apply the
--- select predicate to any of the declarations.
+-- We should keep more information in a redefinition so we can apply the select
+-- predicate to any of the declarations.
 
 -- | Which of two definitions of the same declaration to keep
 data Keep = KeepNew | KeepOld
@@ -628,33 +627,24 @@ mergeRedefinition declId kept newMsgs db =
 -------------------------------------------------------------------------------}
 
 -- | The order of a traversal
---
--- The order decides only the order of the effects. Ordered traversals sort
--- every entry, active or not, so that the order keeps the constraints that pass
--- through entries that are not active (user, squashed typedef, target). They
--- place the entries of a cycle as one group.
 data Order l p =
     AnyOrder
-    -- | Topological over every edge, 'NeedsShape' and
-    --   'HsBindgen.Frontend.Analysis.NeedsNameOnly', dependencies first; among
-    --   entries that do not depend on each other, no order is promised
+    -- | Topological over every edge, dependencies first; among entries that do
+    -- not depend on each other, no order is promised.
   | AllDependencies
-    -- | Topological over the 'NeedsShape' edges, dependencies first, with the
-    --   caller's function giving each entry a key: whenever several entries
-    --   have all their dependencies placed, the one with the least key comes
-    --   next (e.g. 'HsBindgen.Frontend.Analysis.DeclUseGraph.declSortKey'
-    --   puts the one earlier in the source first); among equal keys, the one
-    --   with the least 'C.DeclId'
+    -- | Topological over the 'NeedsShape' edges only, dependencies first. The
+    -- key function is used to break ties (the lesser key @k@ comes first). If
+    -- keys are equal, no order is promised.
   | forall k. Ord k => DependencyBy (Entry l p -> k)
 
 -- | The outcome of processing one active declaration in a pass
 data PassResult l p =
-    -- | Still active, advanced to pass @p@
     Advanced   (C.Decl l p)
-    -- | Only in @MangleNames@
+    -- ^ Still active, advanced to pass @p@
   | Squash     SquashTarget
-    -- | Only in @Select@
+    -- ^ Happens only in @MangleNames@
   | Deselect
+    -- ^ Happens only in @Select@
   | Deactivate Deactivation
 
 -- | Advance the active declarations; other entries are rewrapped unchanged
@@ -710,25 +700,9 @@ active order = getConst . traverseActive order collect
     collect :: C.Decl l p -> Const [C.Decl l p] (PassResult l p)
     collect decl = Const [decl]
 
--- | The results a pass computed, by declaration
---
--- Panics if a declaration has more than one result.
-passResults :: HasCallStack => [(C.DeclId, a)] -> Map C.DeclId a
-passResults = Map.fromListWithKey $ \declId _ _ ->
-    panicPure $ "passResults: more than one result for " ++ show declId
-
--- | The result a pass computed for an active declaration
---
--- For passes that compute their results first and then advance with
--- 'traverseActive'. Panics if there is no result for the declaration.
-lookupResult :: HasCallStack => C.DeclId -> Map C.DeclId a -> a
-lookupResult declId results = case Map.lookup declId results of
-    Just result -> result
-    Nothing     -> panicPure $ "lookupResult: no result for " ++ show declId
-
 -- | Advance every entry
 --
--- Not exported: its signature permits any transition.
+-- Internal use only: the signature permits any transition.
 traverseAll ::
      Applicative f
   => (C.DeclId -> Entry l p -> f (Entry l p'))
@@ -762,21 +736,24 @@ externalize ::
   -> DeclDB l p
   -> DeclDB l p
 externalize bindings db
-    | not (Map.null unknown) =
-        panicPure $ "externalize: unknown declarations " ++ show (Map.keys unknown)
+    | not (Set.null unknown) =
+        panicPure $ "externalize: unknown declarations " ++ show unknown
     | otherwise =
         deleteEdges . runIdentity $ traverseAll (\declId -> pure . step declId) db
   where
     deleteEdges :: DeclDB l p -> DeclDB l p
     deleteEdges db' = db'{
           declUseGraph =
-              DeclUseGraph.deleteRevDeps (Map.keysSet bindings)
-            $ DeclUseGraph.deleteDeps (Map.keysSet bindings)
+              DeclUseGraph.deleteRevDeps ids
+            $ DeclUseGraph.deleteDeps ids
             $ db'.declUseGraph
         }
 
-    unknown :: Map C.DeclId ResolvedExtBinding
-    unknown = Map.difference bindings db.entries
+    ids :: Set C.DeclId
+    ids = Map.keysSet bindings
+
+    unknown :: Set C.DeclId
+    unknown = Set.difference ids (Map.keysSet db.entries)
 
     step :: C.DeclId -> Entry l p -> Entry l p
     step declId entry = case Map.lookup declId bindings of
@@ -812,8 +789,6 @@ addDelayedMsgs msgs db =
 
 {-------------------------------------------------------------------------------
   Dependency edges
-
-  None of these inserts a vertex, so the vertices stay the keys.
 -------------------------------------------------------------------------------}
 
 -- | Delete the dependency edges of the given declarations

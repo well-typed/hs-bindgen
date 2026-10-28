@@ -1,8 +1,7 @@
 -- | Delayed messages
 --
--- A pass that has something to say about a declaration does not say it
--- immediately, but attaches a delayed message to the declaration; @Select@
--- emits it if the declaration is selected (and always if it is a bug).
+-- Messages matching specific delcarations are only emitted when these
+-- declarations are selected. (Bug messages are always emitted).
 --
 -- This module is intended to be imported unqualified.
 module HsBindgen.Frontend.DelayedMsg (

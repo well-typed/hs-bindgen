@@ -8,6 +8,7 @@ import Data.Set qualified as Set
 import HsBindgen.Config.MangleCandidate (MangleCandidate (..))
 import HsBindgen.Config.MangleCandidate qualified as MangleCandidate
 import HsBindgen.Config.Prelims (FieldNamingStrategy)
+import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DelayedMsg
@@ -69,9 +70,7 @@ mangleNames fieldNaming unit = (
       unit{C.db =
           DeclDB.addDelayedMsgs (map (second DelayedMangleNames) msgs1) $
             runIdentity $
-              DeclDB.traverseActive DeclDB.AnyOrder
-                (\decl -> pure $ DeclDB.lookupResult decl.id results)
-                unit.db
+              DeclDB.traverseActive DeclDB.AnyOrder (pure . result) unit.db
         }
     , catMaybes [
           Just $ debugMsg $ MangleNamesNameMap nameMap
@@ -115,12 +114,20 @@ mangleNames fieldNaming unit = (
     results :: Map C.DeclId (DeclDB.PassResult l MangleNames)
     results = mangleResults decls3 squashes (failures1 ++ failures2 ++ failures3)
 
+    result :: C.Decl l ResolveBindingSpecs -> DeclDB.PassResult l MangleNames
+    result decl = case Map.lookup decl.id results of
+      Just r  -> r
+      Nothing -> panicPure $ "mangleNames: no result for " ++ show decl.id
+
+-- | Panics if a declaration has more than one result
 mangleResults ::
-      [C.Decl l MangleNames]
+      HasCallStack
+   => [C.Decl l MangleNames]
    -> [(C.DeclId, Hs.Name Hs.NsTypeConstr, TypedefAnalysis.Squash)]
    -> [MangleNamesFailure]
    -> Map C.DeclId (DeclDB.PassResult l MangleNames)
-mangleResults decls squashes failures = DeclDB.passResults $ concat [
+mangleResults decls squashes failures =
+    Map.fromListWithKey duplicate $ concat [
       [ (decl.id.cName, DeclDB.Advanced decl)
       | decl <- decls
       ]
@@ -135,6 +142,10 @@ mangleResults decls squashes failures = DeclDB.passResults $ concat [
         | f <- failures
         ]
     ]
+  where
+    duplicate :: C.DeclId -> a -> a -> a
+    duplicate declId _ _ =
+        panicPure $ "mangleResults: more than one result for " ++ show declId
 
 debugMsg :: MangleNamesMsg -> AnnMsg MangleNames
 debugMsg = withCallStack . C.WithLocationInfo C.LocationUnavailable
