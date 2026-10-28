@@ -368,7 +368,7 @@ getRestoreFunDecl info originalC wrapperCName runInIO = restoreFun
           , comment    = restoreFunComment <> mbIoComment
           }
 
-    restoreFunName = Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) info.id.hsName
+    restoreFunName = Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) info.id.hsName.name
 
     restoreFunComment :: Maybe HsDoc.Comment
     restoreFunParams :: [Hs.FunctionParameter Hs.Type]

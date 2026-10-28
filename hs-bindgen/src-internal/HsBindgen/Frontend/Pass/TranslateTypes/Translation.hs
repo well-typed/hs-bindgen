@@ -86,19 +86,19 @@ typeInContext ctx = \case
       Hs.ComplexType (translateCPrimType p)
     C.TypeRef ref ->
       Hs.TypRef
-        (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.hsName)
+        (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.hsName.name)
         Nothing
     C.TypeEnum ref ->
       Hs.TypRef
-        (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
+        (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName.name)
         (Just $ typeInContext ctx ref.underlying)
     C.TypeMacro ref ->
       Hs.TypRef
-        (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
+        (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName.name)
         (Just $ typeInContext ctx ref.underlying)
     C.TypeTypedef ref ->
       Hs.TypRef
-        (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
+        (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName.name)
         (Just $ typeInContext ctx ref.underlying)
     C.TypePointers n ty
       -- Use a 'FunPtr' if the type is a function type.  We inspect the

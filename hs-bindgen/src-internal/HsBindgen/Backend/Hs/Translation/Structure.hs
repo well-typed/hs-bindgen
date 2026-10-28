@@ -62,7 +62,7 @@ getDeclsRegular spec info struct = do
     pure $ Hs.DeclData hsStruct : decls
   where
     name :: Hs.Name Hs.NsTypeConstr
-    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
+    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName.name
 
 getDeclsFlam ::
      HasCallStack
@@ -84,7 +84,7 @@ getDeclsFlam flam auxName spec info struct = do
     pure $ Hs.DeclData hsStruct : decls ++ [getHasFlamInstanceDecl hsStruct, flamDecl]
   where
     name :: Hs.Name Hs.NsTypeConstr
-    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
+    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName.name
 
     getHasFlamInstanceDecl :: Hs.Struct -> Hs.Decl l
     getHasFlamInstanceDecl hsStruct =
@@ -142,7 +142,7 @@ getDecls supInsts spec structName info struct insts =
     )
   where
     fieldName :: C.Field Final -> Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) . (.info.name.hsName)
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) . (.info.name.hsName.name)
 
     getHsField :: C.Field Final -> Hs.Field
     getHsField field =
@@ -323,7 +323,7 @@ hasFieldDecs info struct field = case field of
     parentType = Hs.TypRef struct.name Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -348,8 +348,8 @@ hasFieldDecs info struct field = case field of
 
         impl :: Hs.HasFieldImpl
         impl = Hs.HasFieldImplIndirect {
-              nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsName
-            , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsName
+              nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsName.name
+            , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsName.name
             }
 
 -- | Class instances for 'GHC.Records.Compat.HasField'
@@ -374,7 +374,7 @@ hasFieldCompatDecs info struct field = [
     parentType = Hs.TypRef struct.name Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -406,8 +406,8 @@ hasFieldCompatDecs info struct field = [
 
     implIndirect :: C.ImplicitField Final -> C.IndirectField Final -> Hs.HasFieldCompatImpl
     implIndirect impField indField = Hs.HasFieldCompatImplIndirect {
-          nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsName
-        , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsName
+          nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsName.name
+        , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsName.name
         }
 
 -- | Class instances for 'GHC.Records.HasField' for the pointer manipulation API
@@ -425,7 +425,7 @@ hasFieldPtrDecs struct field =
     parentType = Hs.TypRef struct.name Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -458,7 +458,7 @@ hasCFieldDecs struct field = case getFieldWidth field of
     parentType = Hs.TypRef struct.name Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -488,7 +488,7 @@ hasCBitfieldDecs struct field = case getFieldWidth field of
     parentType = Hs.TypRef struct.name Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -511,21 +511,21 @@ peekField ptr field = case field.width of
     Nothing -> Hs.PeekCField    (Hs.StrLit name) ptr
     Just _w -> Hs.PeekCBitfield (Hs.StrLit name) ptr
   where
-    name = Text.unpack field.info.name.hsName.text
+    name = Text.unpack field.info.name.hsName.name.text
 
 pokeField :: Idx ctx -> C.Field Final -> Idx ctx -> Hs.PokeCField ctx
 pokeField ptr field x = case field.width of
     Nothing  -> Hs.PokeCField    (Hs.StrLit name) ptr x
     Just _w  -> Hs.PokeCBitfield (Hs.StrLit name) ptr x
   where
-    name = Text.unpack field.info.name.hsName.text
+    name = Text.unpack field.info.name.hsName.name.text
 
 readRawField :: Idx ctx -> C.Field Final -> Hs.ReadRawCField ctx
 readRawField ptr field = case field.width of
     Nothing -> Hs.ReadRawCField    (Hs.StrLit name) ptr
     Just _w -> Hs.ReadRawCBitfield (Hs.StrLit name) ptr
   where
-    name = Text.unpack field.info.name.hsName.text
+    name = Text.unpack field.info.name.hsName.name.text
 
 writeRawField ::
      Idx ctx
@@ -536,4 +536,4 @@ writeRawField ptr field x = case field.width of
     Nothing  -> Hs.WriteRawCField    (Hs.StrLit name) ptr x
     Just _w  -> Hs.WriteRawCBitfield (Hs.StrLit name) ptr x
   where
-    name = Text.unpack field.info.name.hsName.text
+    name = Text.unpack field.info.name.hsName.name.text

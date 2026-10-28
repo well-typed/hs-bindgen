@@ -127,7 +127,7 @@ computeExportTags doxy decls =
         case declTag decl of
           Nothing  -> []
           Just tag ->
-            (decl.info.id.hsName.text, tag) : auxEntries decl.kind tag
+            (decl.info.id.hsName.name.text, tag) : auxEntries decl.kind tag
 
     -- | Compute the tag for a top-level or grouped declaration.  Returns
     -- 'Nothing' for nested declarations without a group (those flow through
