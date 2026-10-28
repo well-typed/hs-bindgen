@@ -25,8 +25,8 @@ import HsBindgen.Util.Tracer
 --
 -- * External binding specification, which is used to specify existing bindings
 --   that should be used, external from the module being generated.  Matching
---   types are replaced with external references, and matching declarations are
---   removed from the AST.
+--   types are replaced with external references, and the database entries of
+--   matching declarations become external.
 -- * Prescriptive binding specification, which is used to configure how bindings
 --   are generated.  This information is added to the AST as annotations.
 type ResolveBindingSpecs :: Pass

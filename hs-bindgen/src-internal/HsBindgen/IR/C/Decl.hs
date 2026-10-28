@@ -81,31 +81,13 @@ data Decl l (p :: Pass) = Decl {
       info      :: DeclInfo
     , id        :: Id p
     , comment   :: CommentDecl p
-      -- ^ Doxygen comment for this declaration
-      --
-      -- Pre-'HsBindgen.Frontend.Pass.EnrichComments.IsPass.EnrichComments'
-      -- passes have @CommentDecl p = ()@: the type system guarantees comments
-      -- cannot exist. Post-@EnrichComments@ passes have
-      -- @CommentDecl p = Maybe (Comment p)@.
     , enclosing :: [EnclosingRef p]
-      -- ^ List of enclosing declarations, if this declaration is nested.
-      --
-      -- Set during parsing for declarations nested inside another declaration
-      -- (e.g., tagged, untagged, or anonymous structs\/unions inside an enclosing
-      -- struct\/union). Empty for top-level declarations.
-      --
-      -- Used by 'EnrichComments' to build doxygen-qualified names and look up
-      -- enclosing field comments in the doxygen state.
     , kind      :: DeclKind l p
     , ann       :: Ann "Decl" p
     }
   deriving stock (Generic)
 
 -- | Is the declaration deprecated on the target platform?
---
--- @Parse@ does not attempt a declaration that is unavailable, so an
--- unavailable declaration is 'NotDeprecated'. See
--- 'Clang.LowLevel.Core.CXAvailabilityKind'.
 data Deprecation =
     NotDeprecated
     -- | May result in a compilation error

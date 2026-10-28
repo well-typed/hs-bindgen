@@ -87,18 +87,30 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
     resolveDB decls state =
         DeclDB.deleteDeps state.opqTypes
       . runIdentity
-      . DeclDB.traverseActive DeclDB.AnyOrder
-          (\decl -> pure $ DeclDB.lookupResult decl.id results)
+      . DeclDB.traverseActive DeclDB.AnyOrder (pure . result)
       . DeclDB.externalize state.extTypes
       $ unit.db
       where
         results :: Map C.DeclId (DeclDB.PassResult l ResolveBindingSpecs)
-        results = DeclDB.passResults $ concat [
+        results = Map.fromListWithKey duplicate $ concat [
               [(decl.id, DeclDB.Advanced decl) | decl <- decls]
             , [ (declId, DeclDB.Deactivate DeclDB.Omitted)
               | declId <- Set.toList state.omitTypes
               ]
             ]
+
+        duplicate :: C.DeclId -> a -> a -> a
+        duplicate declId _ _ =
+            panicPure $
+              "resolveBindingSpecs: more than one result for " ++ show declId
+
+        result ::
+             C.Decl l PreviousPass
+          -> DeclDB.PassResult l ResolveBindingSpecs
+        result decl = case Map.lookup decl.id results of
+          Just r  -> r
+          Nothing ->
+            panicPure $ "resolveBindingSpecs: no result for " ++ show decl.id
 
 {-------------------------------------------------------------------------------
   Internal: monad
