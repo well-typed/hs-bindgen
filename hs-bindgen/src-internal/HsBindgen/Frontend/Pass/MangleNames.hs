@@ -64,10 +64,11 @@ import HsBindgen.Util.Tracer (withCallStack)
 
 mangleNames ::
      forall l. (HasCallStack, Macro.HasTypes l)
-  => FieldNamingStrategy
+  => Hs.ModuleName
+  -> FieldNamingStrategy
   -> C.TranslationUnit l ResolveBindingSpecs
   -> (C.TranslationUnit l MangleNames, [AnnMsg MangleNames])
-mangleNames fieldNaming unit = (
+mangleNames currentModule fieldNaming unit = (
          C.TranslationUnit{
            decls        = decls3
          , includeGraph = unit.includeGraph
@@ -97,7 +98,7 @@ mangleNames fieldNaming unit = (
     failures1   :: [MangleNamesFailure]
     msgs1       :: [AnnMsg MangleNames]
     (declsC, squashes, nameMap, nameMapDups, failures1, msgs1) =
-      createNames typedefAnalysis mangleCandidateConfig fieldNaming unit.decls
+      createNames currentModule typedefAnalysis mangleCandidateConfig fieldNaming unit.decls
 
     -- Traversal 2: detect clashes among all names.
     registry  :: NameRegistry
@@ -110,7 +111,7 @@ mangleNames fieldNaming unit = (
     -- Traversal 3: resolve references.
     decls3    :: [C.Decl l MangleNames]
     failures3 :: [MangleNamesFailure]
-    (decls3, failures3) = resolveNames nameMap dropped declsC
+    (decls3, failures3) = resolveNames currentModule nameMap dropped declsC
 
 updateDeclMeta ::
       [MangleNamesFailure]

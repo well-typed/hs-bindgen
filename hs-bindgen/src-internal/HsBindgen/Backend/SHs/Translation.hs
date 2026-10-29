@@ -231,7 +231,7 @@ translateMacroValue' macroLang macro = DBinding $ case macro.value of
   where
     macroIdToHsName :: Id Final -> Hs.TermName
     macroIdToHsName namePair =
-        Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) namePair.hsName
+        Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) namePair.hsName.name
 
 -- | Augment a macro binding's Haddock comment with the C literal representation
 -- when the binding body is a character or string literal.

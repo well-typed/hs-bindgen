@@ -29,10 +29,10 @@ import HsBindgen.Language.Haskell qualified as Hs
   DeclIdPair
 -------------------------------------------------------------------------------}
 
--- | A t'C.DeclId' paired with a Haskell name
+-- | A t'C.DeclId' paired with a Haskell identifier (name and defining module)
 data DeclIdPair = DeclIdPair {
       cName  :: C.DeclId
-    , hsName :: Hs.SomeName
+    , hsName :: Hs.Identifier
     }
   deriving stock (Eq, Ord, Show)
 
@@ -40,20 +40,20 @@ data DeclIdPair = DeclIdPair {
 extDeclIdPair :: BindingSpec.ResolvedExtBinding -> DeclIdPair
 extDeclIdPair ext = DeclIdPair{
       cName  = ext.cName
-    , hsName = Hs.demoteNs ext.hsName.name
+    , hsName = ext.hsName
     }
 
 {-------------------------------------------------------------------------------
   ScopedNamePair
 -------------------------------------------------------------------------------}
 
--- | A t'C.ScopedName' paired with a Haskell name
+-- | A t'C.ScopedName' paired with a Haskell identifier (name and defining module)
 data ScopedNamePair = ScopedNamePair {
       cName  :: C.ScopedName
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1927>
       -- ScopedNamePair only ever refers to type constructors and variable
       -- names.
-    , hsName :: Hs.SomeName
+    , hsName :: Hs.Identifier
     }
   deriving stock (Eq, Generic, Ord, Show)
 
