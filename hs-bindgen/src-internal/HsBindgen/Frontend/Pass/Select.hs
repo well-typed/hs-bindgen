@@ -16,9 +16,8 @@ import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
-import HsBindgen.Frontend.DeclDB (Deactivation (..), DeclDB, Entry (..),
-                                  Inactive (..), InactiveReason (..),
-                                  UnusableReason (..))
+import HsBindgen.Frontend.DeclDB (DeclDB, Entry (..), PassFailure (..),
+                                  Unusable (..), UnusableReason (..))
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.MacroFallback (FallbackMacro (..))
 import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError (..),
@@ -55,7 +54,10 @@ type In = TranslateTypes
 data Unselectable =
     -- | We (i.e., `hs-bindgen`) can not select a declaration selected because
     --   it or one of its dependencies is unusable.
-    Unselectable Inactive
+    Unselectable Unusable
+    -- | We (i.e., `hs-bindgen`) can not select a declaration because one of its
+    --   dependencies is omitted by a prescriptive binding specification.
+  | UnselectableOmitted
     -- | We (i.e., `hs-bindgen`) can not select a declaration because one of its
     --   dependencies has not been selected by the user.
   | UnselectableDependencyNotSelected
@@ -143,8 +145,13 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
 
             unusables :: Map C.DeclId Unselectable
             unusables =
-              Map.mapMaybe (fmap Unselectable . DeclDB.getUnusable) $
+              Map.mapMaybe toUnselectable $
                 Map.restrictKeys index.entries transDeps
+
+            toUnselectable :: Entry l In -> Maybe Unselectable
+            toUnselectable = \case
+              Omitted{}  -> Just UnselectableOmitted
+              entry      -> Unselectable <$> DeclDB.getUnusable entry
 
             nonselected :: Map C.DeclId Unselectable
             nonselected  =
@@ -166,14 +173,14 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
               case (l,r) of
                 (UnselectableDependencyNotSelected, Unselectable u) ->
                   case u of
-                    InactiveDecl _ NotAttempted{}         -> r
-                    InactiveDecl _ (Deactivated Omitted)  -> r
-                    _otherReason                          -> l
+                    UnusableDecl _ NotAttempted{} -> r
+                    _otherReason                  -> l
+                (UnselectableDependencyNotSelected, UnselectableOmitted) -> r
                 (Unselectable u, UnselectableDependencyNotSelected) ->
                   case u of
-                    InactiveDecl _ NotAttempted{}         -> l
-                    InactiveDecl _ (Deactivated Omitted)  -> l
-                    _otherReason                          -> r
+                    UnusableDecl _ NotAttempted{} -> l
+                    _otherReason                  -> r
+                (UnselectableOmitted, UnselectableDependencyNotSelected) -> l
                 (_, _) -> l
 
         selectDecl :: Decl l -> Maybe (Decl l)
@@ -263,7 +270,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             , macroFallbackMsgs
             , getDelayedMsgsAdditionalSelectedTransDeps index additionalSelectedTransDeps
             , getBugMsgsNotSelected index notSelected
-            , getBugMsgsInactive index
+            , getBugMsgsNotActive index
             , noDeclarationsMatchedMsg
             , macrosDroppedSummaryMsg
             , macrosFallbackSummaryMsg
@@ -398,11 +405,12 @@ getSelectMsgsDeclId
       Set.member declId additionalSelectedTransDepIds
     transitiveSelectability = getTransitiveSelectability declId
 
-    -- An unusable declaration is not selected: as a selection root, it reports
-    -- why ('getDelayedMsgsSelectionRoots'); as a transitive dependency, its
-    -- users do.
+    -- An unusable or omitted declaration is not selected: as a selection root,
+    -- an unusable one reports why ('getDelayedMsgsSelectionRoots'); as a
+    -- transitive dependency, its users do.
     getMsgsFor :: HasCallStack => SelectReason -> [AnnMsg Select]
     getMsgsFor selectReason
+      | Omitted{} <- entry                = []
       | isJust (DeclDB.getUnusable entry) = []
       | otherwise = concat [
             [ withLoc $ SelectStatusInfo (Selected selectReason) ]
@@ -432,6 +440,8 @@ getSelectMsgsDeclId
                case r of
                  Unselectable u ->
                    TransitiveDependencyUnusable i u
+                 UnselectableOmitted ->
+                   TransitiveDependencyOmitted i locs
                  UnselectableDependencyNotSelected ->
                    TransitiveDependencyNotSelected i locs
              | (i, r) <- Map.toList unavailReasons
@@ -477,34 +487,29 @@ mkUnusableMessage ::
      HasCallStack
   => C.DeclId
   -> C.DeclInfo
-  -> InactiveReason
+  -> UnusableReason
   -> AnnMsg Select
 mkUnusableMessage declId info reason = withCallStack C.WithLocationInfo{
       loc = C.declIdLocationInfo declId [info.loc]
     , msg = SelectUnusable reason
     }
 
--- | The delayed messages of a selected inactive declaration, but for Bug-level
--- ones ('getBugMsgsInactive')
---
--- An omitted declaration reports none: the user asked for it.
-mkInactiveMessages ::
+-- | The delayed messages of a selected unusable declaration, but for Bug-level
+-- ones ('getBugMsgsNotActive')
+mkUnusableDelayedMessages ::
      HasCallStack
   => DeclDB l In
   -> C.DeclId
   -> C.DeclInfo
-  -> InactiveReason
   -> [AnnMsg Select]
-mkInactiveMessages declDB declId info = \case
-    Deactivated Omitted -> []
-    _otherReason        -> [
-        withCallStack C.WithLocationInfo{
-            loc = C.declIdLocationInfo declId [info.loc]
-          , msg = SelectDelayedMsg msg
-          }
-      | msg <- DeclDB.lookupDelayedMsgs declId declDB
-      , getDefaultLogLevel msg /= Bug
-      ]
+mkUnusableDelayedMessages declDB declId info = [
+      withCallStack C.WithLocationInfo{
+          loc = C.declIdLocationInfo declId [info.loc]
+        , msg = SelectDelayedMsg msg
+        }
+    | msg <- DeclDB.lookupDelayedMsgs declId declDB
+    , getDefaultLogLevel msg /= Bug
+    ]
 
 getDelayedMsgsSelectionRoots ::
      forall l. HasCallStack
@@ -525,20 +530,22 @@ getDelayedMsgsSelectionRoots getTransitiveSelectability declDB roots =
       Active decl ->
         mkActiveMessages declDB declId decl
       External{} -> []
+      -- Never a selection root ('selectEntries')
+      Omitted{} -> []
       -- Only after @Select@
       Deselected{} -> []
       -- We do not emit the delayed messages of squashed entries; instead we
       -- issue a notice that the @typedef@ was squashed.
       Squashed info target ->
         List.singleton $ mkSquashedMessage declId info target
-      Inactive (InactiveDecl info reason) ->
+      Unusable (UnusableDecl info reason) ->
            [ mkUnusableMessage declId info reason
            | not $ isExplainedByDependency declId reason
            ]
-        ++ mkInactiveMessages declDB declId info reason
+        ++ mkUnusableDelayedMessages declDB declId info
       -- The delayed messages of the members are noise until the user resolves
-      -- the conflict; only Bug-level ones are reported ('getBugMsgsInactive').
-      Inactive (InactiveConflict c) ->
+      -- the conflict; only Bug-level ones are reported ('getBugMsgsNotActive').
+      Unusable (UnusableConflict c) ->
         List.singleton $ withCallStack C.WithLocationInfo{
             loc = C.declIdLocationInfo declId $
               NonEmpty.toList $ C.conflictToList c
@@ -551,10 +558,10 @@ getDelayedMsgsSelectionRoots getTransitiveSelectability declDB roots =
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/2326>
     -- Remove once name mangling gives its own reason for a dependency without
     -- a Haskell name.
-    isExplainedByDependency :: C.DeclId -> InactiveReason -> Bool
+    isExplainedByDependency :: C.DeclId -> UnusableReason -> Bool
     isExplainedByDependency declId = \case
-      Deactivated (Unusable (UnusableMangleNames (MangleNamesResolutionError
-        (ResolveNamesUnderlyingDeclNotMangled dep _)))) ->
+      PassFailed (MangleNamesFailed (MangleNamesResolutionError
+        (ResolveNamesUnderlyingDeclNotMangled dep _))) ->
           case getTransitiveSelectability declId of
             TransitivelyUnselectable reasons -> Map.member dep reasons
             TransitivelySelectable           -> False
@@ -585,9 +592,10 @@ getDelayedMsgsAdditionalSelectedTransDeps declDB transDeps =
       -- issue a notice that the @typedef@ was squashed.
       Squashed info target ->
         [mkSquashedMessage declId info target]
-      -- Messages for unusable transitive dependencies are already attached to
-      -- the traces of the reverse transitive dependencies.
-      Inactive _ -> []
+      -- Messages for omitted and unusable transitive dependencies are already
+      -- attached to the traces of the reverse transitive dependencies.
+      Omitted{}  -> []
+      Unusable _ -> []
 
 -- NOTE: We emit delayed BUG-level parse messages even for declarations that are
 -- not selected. We do not have a test for this; please ensure delayed BUG-level
@@ -612,27 +620,27 @@ getBugMsgsNotSelected declDB notSelected =
         in  filter isBugLevel $ mkActiveMessages declDB declId decl
       External{}   -> []
       Squashed{}   -> []
+      Omitted{}    -> []
       Deselected{} -> []
-      Inactive (InactiveDecl info reason) ->
+      Unusable (UnusableDecl info reason) ->
         [ mkUnusableMessage declId info reason | isBug reason ]
-      Inactive InactiveConflict{} -> []
+      Unusable UnusableConflict{} -> []
 
-    isBug :: InactiveReason -> Bool
+    isBug :: UnusableReason -> Bool
     isBug = \case
-      NotAttempted{}           -> False
-      ParseFailed err          -> getDefaultLogLevel err == Bug
-      Deactivated (Unusable r) -> getDefaultLogLevel r == Bug
-      Deactivated Omitted      -> False
+      NotAttempted{}  -> False
+      ParseFailed err -> getDefaultLogLevel err == Bug
+      PassFailed r    -> getDefaultLogLevel r == Bug
 
 -- | Bug-level delayed messages of every entry that is not active, whether
 -- selected or not
 --
 -- Active entries report theirs with their other delayed messages.
-getBugMsgsInactive ::
+getBugMsgsNotActive ::
      forall l. HasCallStack
   => DeclDB l In
   -> [AnnMsg Select]
-getBugMsgsInactive declDB =
+getBugMsgsNotActive declDB =
     concatMap (uncurry aux) $ DeclDB.toList declDB
   where
     aux ::
@@ -657,14 +665,13 @@ getBugMsgsInactive declDB =
 isDroppedMacro :: SelectMsg -> Bool
 isDroppedMacro = \case
     SelectUnusable reason -> case reason of
-      Deactivated (Unusable UnusableMacro{})       -> True
+      PassFailed MacroFailed{}       -> True
       -- A parse failure counts as a dropped macro iff it is a macro parse
       -- failure.
-      ParseFailed p                                -> isMacroParseFailure p
-      NotAttempted{}                               -> False
-      Deactivated Omitted                          -> False
-      Deactivated (Unusable UnusableMangleNames{}) -> False
-    _otherwise                                     -> False
+      ParseFailed p                  -> isMacroParseFailure p
+      NotAttempted{}                 -> False
+      PassFailed MangleNamesFailed{} -> False
+    _otherwise                       -> False
   where
     isMacroParseFailure :: DelayedParseMsg -> Bool
     isMacroParseFailure = \case
@@ -720,7 +727,7 @@ selectEntries predicate declDB =
     entryInfo entry = case entry of
         External{} ->
           Nothing
-        Inactive (InactiveDecl _ (Deactivated Omitted)) ->
+        Omitted{} ->
           Nothing
         _otherwise -> do
           locs <- DeclDB.entryToLoc entry

@@ -36,13 +36,12 @@ module HsBindgen.Frontend.DeclDB (
     -- * Entry
   , Entry(..)
   , SquashTarget(..)
-  , Inactive(..)
-  , InactiveReason(..)
-  , Deactivation(..)
+  , Unusable(..)
   , UnusableReason(..)
+  , PassFailure(..)
   , entryToLoc
   , entryToDeprecation
-  , inactiveToLoc
+  , unusableToLoc
   , getUnusable
     -- * Construction
   , fromParseResults
@@ -157,7 +156,8 @@ data DeclDB l p = DeclDB {
       --
       -- Edges follow the bodies of the declarations. Edges change when
       -- externalising, opaquing or reparsing, and when macros fail. Edges do
-      -- not change when an entry is deactivated.
+      -- not change when an entry is squashed, omitted or deselected, or when it
+      -- becomes unusable.
       --
       -- Its vertices are the keys of 'entries'.
       --
@@ -180,24 +180,27 @@ deriving stock instance (IsPass p, Macro.HasTypes l) => Show (DeclDB l p)
 
 -- | Information kept about each C declaration
 --
--- Only v'Inactive' entries are unusable. Usability is not concerned with
--- transitivity: a usable declaration may have unusable transitive
--- dependencies (see "HsBindgen.Frontend.Pass.Select").
+-- Usability is not concerned with transitivity: a usable declaration may have
+-- unusable transitive dependencies (see "HsBindgen.Frontend.Pass.Select").
 data Entry l p =
     -- | We intend to generate a binding
     --
     -- Before the pass @ApplyMacroFallback@, this may also include macros the
     -- macro language gave up on because we may fall back to generating a raw
     -- macro binding.
-    Active   (C.Decl l p)
+    Active (C.Decl l p)
     -- | We generate a binding for the squash target only
   | Squashed C.DeclInfo SquashTarget
     -- | Defined elsewhere: an external binding replaces the declaration
   | External ResolvedExtBinding
+    -- | Omitted by a prescriptive binding specification
+    --
+    -- Its users cannot be selected.
+  | Omitted C.DeclInfo
     -- | Usable, but deselected
   | Deselected C.DeclInfo
-    -- | We do not intend to generate a binding
-  | Inactive Inactive
+    -- | We cannot generate a binding
+  | Unusable Unusable
   deriving stock (Generic)
 
 deriving stock instance (IsPass p, Macro.HasTypes l) => Show (Entry l p)
@@ -209,73 +212,62 @@ data SquashTarget = SquashTarget{
     }
   deriving stock (Show, Eq, Generic)
 
-data Inactive =
-    InactiveDecl     C.DeclInfo InactiveReason
+data Unusable =
+    UnusableDecl     C.DeclInfo UnusableReason
     -- | Several declarations share this name
-  | InactiveConflict C.Conflict
+  | UnusableConflict C.Conflict
   deriving stock (Show, Generic)
 
-instance PrettyForTrace Inactive where
+instance PrettyForTrace Unusable where
   prettyForTrace = \case
-    InactiveDecl     _ reason -> prettyForTrace reason
-    InactiveConflict conflict -> prettyForTrace conflict
+    UnusableDecl     _ reason -> prettyForTrace reason
+    UnusableConflict conflict -> prettyForTrace conflict
 
--- | Why we don't have the declaration
-data InactiveReason =
+-- | Why we cannot generate a binding for a declaration
+data UnusableReason =
     -- | At construction
     ParseFailed  DelayedParseMsg
     -- | At construction
   | NotAttempted NotAttemptedReason
     -- | By a later pass
-  | Deactivated  Deactivation
+  | PassFailed   PassFailure
   deriving stock (Show, Generic)
 
-instance PrettyForTrace InactiveReason where
+instance PrettyForTrace UnusableReason where
   prettyForTrace = \case
     ParseFailed{} ->
       "Parse failed"
     NotAttempted reason ->
       prettyForTrace reason
-    Deactivated deactivation ->
-      prettyForTrace deactivation
+    PassFailed failure ->
+      prettyForTrace failure
 
--- | Reason why we do not generate a binding for a declaration
-data Deactivation =
-    Unusable UnusableReason
-    -- | Applied by a prescriptive binding specification
-  | Omitted
-  deriving stock (Show, Eq, Generic)
+data PassFailure =
+    -- | In @ApplyMacroFallback@, for a macro that does not fall back
+    MacroFailed       MacroLangFailure
+  | MangleNamesFailed MangleNamesError
+  deriving stock (Show, Generic)
 
-instance PrettyForTrace Deactivation where
+instance PrettyForTrace PassFailure where
   prettyForTrace = \case
-    Unusable reason -> prettyForTrace reason
-    Omitted         -> "Omitted by prescriptive binding specification"
-
-data UnusableReason =
-    -- | Apply by @ApplyMacroFallback@, for a macro that does not fall back
-    UnusableMacro       MacroLangFailure
-  | UnusableMangleNames MangleNamesError
-  deriving stock (Show, Eq, Generic)
-
-instance PrettyForTrace UnusableReason where
-  prettyForTrace = \case
-    UnusableMangleNames{} ->
+    MacroFailed failure ->
+      case failure of
+        FailedParse{}     -> "Parse failed"
+        FailedResolve{}   -> "Macro name resolution failed"
+        FailedTypecheck{} -> "Macro type-checking failed"
+    MangleNamesFailed{} ->
       "Name mangler failure"
-    UnusableMacro failure -> case failure of
-      FailedParse{}     -> "Parse failed"
-      FailedResolve{}   -> "Macro name resolution failed"
-      FailedTypecheck{} -> "Macro type-checking failed"
 
-instance IsTrace Level UnusableReason where
+instance IsTrace Level PassFailure where
   getDefaultLogLevel = \case
-    UnusableMacro       err -> getDefaultLogLevel err
-    UnusableMangleNames err -> getDefaultLogLevel err
+    MacroFailed       err -> getDefaultLogLevel err
+    MangleNamesFailed err -> getDefaultLogLevel err
   getSource = \case
-    UnusableMacro       err -> getSource err
-    UnusableMangleNames err -> getSource err
+    MacroFailed       err -> getSource err
+    MangleNamesFailed err -> getSource err
   getTraceId = \case
-    UnusableMacro       err -> getTraceId err
-    UnusableMangleNames err -> getTraceId err
+    MacroFailed       err -> getTraceId err
+    MangleNamesFailed err -> getTraceId err
 
 -- | 'Nothing' only for 'External'
 entryToLoc :: Entry l p -> Maybe C.DeclLocs
@@ -283,8 +275,9 @@ entryToLoc = \case
     Active   decl     -> Just $ C.DeclLoc decl.info.loc
     Squashed info _   -> Just $ C.DeclLoc info.loc
     External _        -> Nothing
+    Omitted info      -> Just $ C.DeclLoc info.loc
     Deselected info   -> Just $ C.DeclLoc info.loc
-    Inactive inactive -> Just $ inactiveToLoc inactive
+    Unusable unusable -> Just $ unusableToLoc unusable
 
 -- | Fall back to 'C.NotDeprecated' for conflicts and externals
 entryToDeprecation :: Entry l p -> C.Deprecation
@@ -292,22 +285,24 @@ entryToDeprecation = \case
     Active decl                       -> decl.info.deprecation
     Squashed info _                   -> info.deprecation
     External{}                        -> C.NotDeprecated
+    Omitted info                      -> info.deprecation
     Deselected info                   -> info.deprecation
-    Inactive (InactiveDecl info _)    -> info.deprecation
-    Inactive InactiveConflict{}       -> C.NotDeprecated
+    Unusable (UnusableDecl info _)    -> info.deprecation
+    Unusable UnusableConflict{}       -> C.NotDeprecated
 
-inactiveToLoc :: Inactive -> C.DeclLocs
-inactiveToLoc = \case
-    InactiveDecl     info _   -> C.DeclLoc info.loc
-    InactiveConflict conflict -> C.DeclLocsConflict conflict
+unusableToLoc :: Unusable -> C.DeclLocs
+unusableToLoc = \case
+    UnusableDecl     info _   -> C.DeclLoc info.loc
+    UnusableConflict conflict -> C.DeclLocsConflict conflict
 
 -- | Why the entry is unusable, if it is
-getUnusable :: Entry l p -> Maybe Inactive
+getUnusable :: Entry l p -> Maybe Unusable
 getUnusable = \case
-    Inactive inactive -> Just inactive
+    Unusable unusable -> Just unusable
     Active{}          -> Nothing
     Squashed{}        -> Nothing
     External{}        -> Nothing
+    Omitted{}         -> Nothing
     Deselected{}      -> Nothing
 
 -- | For trace messages
@@ -316,8 +311,9 @@ entryKind = \case
     Active{}     -> "active"
     Squashed{}   -> "squashed"
     External{}   -> "external"
+    Omitted{}    -> "omitted"
     Deselected{} -> "deselected"
-    Inactive{}   -> "inactive"
+    Unusable{}   -> "unusable"
 
 {-------------------------------------------------------------------------------
   Construction
@@ -357,9 +353,9 @@ parseResultToEntry = \case
     ParseResultSuccess r ->
       Active r.decl
     ParseResultUnavailable r ->
-      Inactive $ InactiveDecl r.info (NotAttempted r.reason)
+      Unusable $ UnusableDecl r.info (NotAttempted r.reason)
     ParseResultFailure r ->
-      Inactive $ InactiveDecl r.info (ParseFailed r.msg)
+      Unusable $ UnusableDecl r.info (ParseFailed r.msg)
 
 parseResultMsgs :: ParseResult l Out -> [DelayedParseMsg]
 parseResultMsgs = \case
@@ -467,7 +463,7 @@ buildDB macroAnalysis isMainHeader =
                   Nothing  -> []
                   Just old -> lookupBuildMsgs x db' ++ parseFailedMsg old
             in  setEntry x
-                  (Inactive (InactiveConflict conflict))
+                  (Unusable (UnusableConflict conflict))
                   (newMsgs ++ oldMsgs)
                   db'
       in  case Map.lookup declId db.entries of
@@ -486,7 +482,7 @@ buildDB macroAnalysis isMainHeader =
 
 parseFailedMsg :: Entry l p -> [DelayedParseMsg]
 parseFailedMsg = \case
-    Inactive (InactiveDecl _ (ParseFailed msg)) ->
+    Unusable (UnusableDecl _ (ParseFailed msg)) ->
       [msg]
     _otherwise ->
       []
@@ -537,7 +533,7 @@ checkIsConflict macroAnalysis isMainHeader new (oldId, old)
     , C.NameKindMacro <- oldId.name.kind
     = case (redefinition, old) of
         -- E.g., the macro conflicts with an ordinary declaration
-        (_, Inactive InactiveConflict{}) -> singleConflict
+        (_, Unusable UnusableConflict{}) -> singleConflict
         -- The definitions are identical, so the macro language fared the same
         -- with both.
         (UniqueExpansion.Benign, _)      -> Redefinition kept
@@ -574,7 +570,7 @@ checkIsConflict macroAnalysis isMainHeader new (oldId, old)
     singleConflict =
       let conflict :: C.Conflict
           conflict = case old of
-            Inactive (InactiveConflict c) ->
+            Unusable (UnusableConflict c) ->
               C.conflictInsert c newLoc
             _otherwise ->
               C.conflictFromList $
@@ -639,13 +635,11 @@ data Order l p =
 
 -- | The outcome of processing one active declaration in a pass
 data PassResult l p =
-    Advanced   (C.Decl l p)
-    -- ^ Still active, advanced to pass @p@
-  | Squash     SquashTarget
-    -- ^ Happens only in @MangleNames@
-  | Deselect
-    -- ^ Happens only in @Select@
-  | Deactivate Deactivation
+    Advanced   (C.Decl l p) -- ^ Still active, advanced to pass @p@
+  | Squash     SquashTarget -- ^ Happens only in @MangleNames@
+  | Omit                    -- ^ Happens only in @ResolveBindingSpecs@
+  | Deselect                -- ^ Happens only in @Select@
+  | Fail       PassFailure
 
 -- | Advance the active declarations; other entries are rewrapped unchanged
 --
@@ -663,19 +657,20 @@ traverseActive order f db = case order of
   where
     step :: Entry l p -> f (Entry l p')
     step = \case
-      Active   decl     -> advance decl <$> f decl
-      Squashed info t   -> pure $ Squashed info t
-      External binding  -> pure $ External binding
-      Deselected info   -> pure $ Deselected info
-      Inactive inactive -> pure $ Inactive inactive
+      Active     decl      -> advance decl <$> f decl
+      Squashed   info    t -> pure $ Squashed info t
+      External   binding   -> pure $ External binding
+      Omitted    info      -> pure $ Omitted info
+      Deselected info      -> pure $ Deselected info
+      Unusable   unusable  -> pure $ Unusable unusable
 
     advance :: C.Decl l p -> PassResult l p' -> Entry l p'
     advance decl = \case
-      Advanced decl' -> Active decl'
-      Squash target  -> Squashed decl.info target
-      Deselect -> Deselected decl.info
-      Deactivate deactivation ->
-        Inactive $ InactiveDecl decl.info (Deactivated deactivation)
+      Advanced decl'  -> Active decl'
+      Squash target   -> Squashed decl.info target
+      Omit            -> Omitted decl.info
+      Deselect        -> Deselected decl.info
+      Fail failure    -> Unusable $ UnusableDecl decl.info (PassFailed failure)
 
     shapeDependencies :: Digraph.Digraph Dependency C.DeclId
     shapeDependencies = Digraph.filterEdges (== NeedsShape) db.declUseGraph.graph
@@ -725,11 +720,11 @@ withEntries db entries = DeclDB{
   Transitions
 -------------------------------------------------------------------------------}
 
--- | Replace active or inactive declarations by external bindings
+-- | Replace declarations by external bindings
 --
 -- Deletes all edges of the externalised declarations: the binding is defined
 -- elsewhere, and its users refer to it by 'C.TypeExtBinding'. Panics if an
--- identifier has no entry, or its entry is squashed or external.
+-- identifier has no entry, or its entry is squashed or already external.
 externalize ::
      forall l p. HasCallStack
   => Map C.DeclId ResolvedExtBinding
@@ -760,7 +755,7 @@ externalize bindings db
       Nothing      -> entry
       Just binding -> case entry of
         Active{}   -> External binding
-        Inactive{} -> External binding
+        Unusable{} -> External binding
         _otherwise ->
           panicPure $
             "externalize: unexpected " ++ entryKind entry ++ " entry "
@@ -866,7 +861,7 @@ getOmitted db = Map.mapMaybe toOmitted db.entries
     toOmitted = \case
       Squashed _ target ->
         lookupEntry target.c db >>= toOmitted
-      Inactive (InactiveDecl info (Deactivated Omitted)) ->
+      Omitted info ->
         C.declPathRealPath (singleLocPath info.loc)
       _otherwise ->
         Nothing

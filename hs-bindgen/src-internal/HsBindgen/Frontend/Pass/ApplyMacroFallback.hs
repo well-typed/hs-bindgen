@@ -64,7 +64,7 @@ applyMacroFallback isMainHeader isInMainHeaderDir config unit =
                   , failure = failure
                   }
             | otherwise ->
-                DeclDB.Deactivate $ DeclDB.Unusable $ DeclDB.UnusableMacro failure
+                DeclDB.Fail $ DeclDB.MacroFailed failure
         C.DeclTypedef              x -> keep $ C.DeclTypedef              $ coercePass x
         C.DeclStruct               x -> keep $ C.DeclStruct               $ coercePass x
         C.DeclUnion                x -> keep $ C.DeclUnion                $ coercePass x

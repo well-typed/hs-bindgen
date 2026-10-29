@@ -3,7 +3,7 @@ module Test.HsBindgen.Golden.EdgeCases (testCases) where
 
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.DeclDB (Inactive (..))
+import HsBindgen.Frontend.DeclDB (Unusable (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -66,7 +66,7 @@ test_clang_generated_collision =
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name SelectConflict{} ->
               Just $ Expected name
-            MatchSelect _ (MatchTransMissing [MatchTransUnusable InactiveConflict{}]) ->
+            MatchSelect _ (MatchTransMissing [MatchTransUnusable UnusableConflict{}]) ->
               Just Tolerated
             _otherwise ->
               Nothing
@@ -87,7 +87,7 @@ test_duplicate =
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name SelectConflict{} ->
               Just $ Expected (name, "conflict")
-            MatchSelect name (MatchTransMissing [MatchTransUnusable InactiveConflict{}]) ->
+            MatchSelect name (MatchTransMissing [MatchTransUnusable UnusableConflict{}]) ->
               Just $ Expected (name, "transitive conflict")
             _otherwise ->
                Nothing

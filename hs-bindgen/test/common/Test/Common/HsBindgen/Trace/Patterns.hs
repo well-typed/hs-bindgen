@@ -31,9 +31,10 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , pattern MatchMacrosFallback
   , pattern MatchSelect
   , pattern MatchUnusable
-  , pattern MatchUnusableReason
+  , pattern MatchPassFailed
   , pattern MatchTransMissing
   , pattern MatchTransNotSelected
+  , pattern MatchTransOmitted
   , pattern MatchTransUnusable
   ) where
 
@@ -226,13 +227,13 @@ pattern MatchSelect name x <- TraceFrontend (
         }
     )
 
-pattern MatchUnusable :: C.DeclName -> InactiveReason -> TraceMsg
+pattern MatchUnusable :: C.DeclName -> UnusableReason -> TraceMsg
 pattern MatchUnusable name x <- MatchSelect name (SelectUnusable x)
 
--- | A later pass found the declaration unusable
-pattern MatchUnusableReason :: C.DeclName -> UnusableReason -> TraceMsg
-pattern MatchUnusableReason name x <-
-  MatchUnusable name (Deactivated (Unusable x))
+-- | A later pass failed on the declaration
+pattern MatchPassFailed :: C.DeclName -> PassFailure -> TraceMsg
+pattern MatchPassFailed name x <-
+  MatchUnusable name (PassFailed x)
 
 -- | Transitive dependencies of a declaration are missing
 pattern MatchTransMissing :: [TransitiveDependencyMissing] -> SelectMsg
@@ -242,8 +243,12 @@ pattern MatchTransMissing xs <- TransitiveDependenciesMissing _ xs
 pattern MatchTransNotSelected :: TransitiveDependencyMissing
 pattern MatchTransNotSelected <- TransitiveDependencyNotSelected _ _
 
+-- | A single transitive dependency of a declaration is omitted
+pattern MatchTransOmitted :: TransitiveDependencyMissing
+pattern MatchTransOmitted <- TransitiveDependencyOmitted _ _
+
 -- | A single transitive dependency of a declaration is unusable
-pattern MatchTransUnusable :: Inactive -> TransitiveDependencyMissing
+pattern MatchTransUnusable :: Unusable -> TransitiveDependencyMissing
 pattern MatchTransUnusable x <- TransitiveDependencyUnusable _ x
 
 {-------------------------------------------------------------------------------

@@ -19,9 +19,8 @@ import Data.Set qualified as Set
 import HsBindgen.Artefact (Artefact (..), FrontendPass (..))
 import HsBindgen.Frontend.Analysis (Dependency)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.DeclDB (Deactivation (..), DeclDB (..), Entry (..),
-                                  Inactive (..), InactiveReason (..),
-                                  UnusableReason (..))
+import HsBindgen.Frontend.DeclDB (DeclDB (..), Entry (..), PassFailure (..),
+                                  Unusable (..), UnusableReason (..))
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -34,9 +33,10 @@ import HsBindgen.IR.Translation (DeclIdPair (..))
 
 -- | What an entry may become between two consecutive databases
 data Target =
-    ToDeactivated Deactivation
+    ToFailed PassFailure
   | ToSquashed
   | ToExternal
+  | ToOmitted
   | ToDeselected
 
 data Violation =
@@ -47,7 +47,7 @@ data Violation =
   | EntryWithoutVertex C.DeclId
     -- | An 'External' entry with edges
   | EdgesOfExternal C.DeclId
-    -- | An entry inactive since construction with dependency edges
+    -- | An entry unusable since construction, with dependency edges
   | DependencyEdgesOfNeverActive C.DeclId
     -- | An entry of the earlier database only
   | EntryDisappeared C.DeclId
@@ -84,12 +84,13 @@ checkTransition allowed old new = concat [
     isAllowed :: Entry l p -> Entry l p' -> Bool
     isAllowed x y = case (x, y) of
       (Active{}, Active{}) -> True
-      (Active{}, Inactive (InactiveDecl _ (Deactivated d))) ->
-        allowed (ToDeactivated d)
+      (Active{}, Unusable (UnusableDecl _ (PassFailed f))) ->
+        allowed (ToFailed f)
       (Active{}  , Squashed{})   -> allowed ToSquashed
       (Active{}  , External{})   -> allowed ToExternal
+      (Active{}  , Omitted{})    -> allowed ToOmitted
       (Active{}  , Deselected{}) -> allowed ToDeselected
-      (Inactive{}, External{})   -> allowed ToExternal
+      (Unusable{}, External{})   -> allowed ToExternal
       (Active{}, _) -> False
       -- An entry that is not active is pass-independent: it stays as it is
       (_, Active{}) -> False
@@ -101,8 +102,9 @@ describe = \case
     Active{}     -> "Active"
     Squashed i t -> "Squashed " ++ show i ++ " " ++ show t
     External x   -> "External " ++ show x
+    Omitted x    -> "Omitted " ++ show x
     Deselected x -> "Deselected " ++ show x
-    Inactive x   -> "Inactive " ++ show x
+    Unusable x   -> "Unusable " ++ show x
 
 -- | Invariants of a single database, but for the identifiers of active
 -- declarations ('checkKeysDeclId', 'checkKeysDeclIdPair')
@@ -117,8 +119,8 @@ checkInvariants db = concat [
       , hasEdges declId graph || hasEdges declId depGraph
       ]
     , [ DependencyEdgesOfNeverActive declId
-      | (declId, Inactive inactive) <- Map.toList db.entries
-      , isNeverActive inactive
+      | (declId, Unusable unusable) <- Map.toList db.entries
+      , isNeverActive unusable
       , hasEdges declId depGraph
       ]
     ]
@@ -136,12 +138,12 @@ checkInvariants db = concat [
     hasEdges :: C.DeclId -> Digraph Dependency C.DeclId -> Bool
     hasEdges declId = not . Map.null . Digraph.neighbors declId
 
-    isNeverActive :: Inactive -> Bool
+    isNeverActive :: Unusable -> Bool
     isNeverActive = \case
-      InactiveConflict{}            -> True
-      InactiveDecl _ ParseFailed{}  -> True
-      InactiveDecl _ NotAttempted{} -> True
-      InactiveDecl _ Deactivated{}  -> False
+      UnusableConflict{}            -> True
+      UnusableDecl _ ParseFailed{}  -> True
+      UnusableDecl _ NotAttempted{} -> True
+      UnusableDecl _ PassFailed{}   -> False
 
 -- | Every active declaration's identifier is its key
 checkKeysDeclId :: Id p ~ C.DeclId => DeclDB l p -> [Violation]
@@ -191,20 +193,20 @@ checkFrontend = do
       , pair "constructTranslationUnit" "typecheckMacros" none
           constructTranslationUnit typecheckMacros
       , pair "typecheckMacros" "applyMacroFallback" (\case
-            ToDeactivated (Unusable UnusableMacro{}) -> True
-            _otherwise                               -> False)
+            ToFailed MacroFailed{} -> True
+            _otherwise             -> False)
           typecheckMacros applyMacroFallback
       , pair "applyMacroFallback" "reparseMacroExpansions" none
           applyMacroFallback reparseMacroExpansions
       , pair "reparseMacroExpansions" "resolveBindingSpecs" (\case
-            ToDeactivated Omitted -> True
-            ToExternal            -> True
-            _otherwise            -> False)
+            ToOmitted  -> True
+            ToExternal -> True
+            _otherwise -> False)
           reparseMacroExpansions resolveBindingSpecs
       , pair "resolveBindingSpecs" "mangleNames" (\case
-            ToDeactivated (Unusable UnusableMangleNames{}) -> True
-            ToSquashed                                     -> True
-            _otherwise                                     -> False)
+            ToFailed MangleNamesFailed{} -> True
+            ToSquashed                   -> True
+            _otherwise                   -> False)
           resolveBindingSpecs mangleNames
       , pair "mangleNames" "adjustTypes" none
           mangleNames adjustTypes

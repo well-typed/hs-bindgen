@@ -2,7 +2,7 @@
 module Test.HsBindgen.Golden.Attributes (testCases) where
 
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.DeclDB (InactiveReason (..))
+import HsBindgen.Frontend.DeclDB (UnusableReason (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
