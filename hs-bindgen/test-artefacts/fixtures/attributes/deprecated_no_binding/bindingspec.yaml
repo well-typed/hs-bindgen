@@ -3,10 +3,10 @@ version:
   binding_specification: '1.0'
 hsmodule: Example
 ctypes:
-- headers: attributes/deprecated_inactive.h
+- headers: attributes/deprecated_no_binding.h
   cname: struct point
   hsname: Point
-- headers: attributes/deprecated_inactive.h
+- headers: attributes/deprecated_no_binding.h
   cname: point
   hsname: Point
 hstypes:

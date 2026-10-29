@@ -1,5 +1,6 @@
-// A selected inactive declaration reports its own reason, plus the unusable
-// transitive dependencies that may explain it, and is not reported as selected
+// A selected unusable or omitted declaration reports its own reason, plus the
+// unusable transitive dependencies that may explain it, and is not reported as
+// selected
 
 // Unusable: long double is not supported.
 struct unsupported { long double x; };

@@ -4,5 +4,5 @@ version:
 hsmodule: Example
 ctypes:
 - omit:
-    headers: program-analysis/inactive_unusable_dep.h
+    headers: program-analysis/unusable_reports_deps.h
     cname: struct omitted

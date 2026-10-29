@@ -57,7 +57,7 @@ testCases = [
     , test_typedef_name_clash
     , test_typedef_suffix_clash
     , test_unusable_delayed_msgs
-    , test_inactive_unusable_dep
+    , test_unusable_reports_deps
     , test_global_unusable_type
     ]
 
@@ -638,10 +638,10 @@ test_unusable_delayed_msgs =
 
 -- | A selected unusable declaration reports its own reason, plus its unusable
 -- transitive dependencies, and is not reported as selected
-test_inactive_unusable_dep :: TestCase
-test_inactive_unusable_dep =
-    defaultTest "program-analysis/inactive_unusable_dep"
-      & #specPrescriptive .~ Just "test-artefacts/headers/golden/program-analysis/inactive_unusable_dep.yaml"
+test_unusable_reports_deps :: TestCase
+test_unusable_reports_deps =
+    defaultTest "program-analysis/unusable_reports_deps"
+      & #specPrescriptive .~ Just "test-artefacts/headers/golden/program-analysis/unusable_reports_deps.yaml"
       & #onFrontend .~ ( #programSlicing .~ EnableProgramSlicing )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchDelayed name (ParseUnsupportedFloatType UnsupportedLongDouble) ->

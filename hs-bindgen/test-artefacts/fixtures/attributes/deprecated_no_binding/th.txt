@@ -1,17 +1,17 @@
--- addDependentFile test-artefacts/headers/golden/attributes/deprecated_inactive.h
+-- addDependentFile test-artefacts/headers/golden/attributes/deprecated_no_binding.h
 {-| __C declaration:__ @struct point@
 
-    __defined at:__ @attributes\/deprecated_inactive.h 4:9@
+    __defined at:__ @attributes\/deprecated_no_binding.h 4:9@
 
-    __exported by:__ @attributes\/deprecated_inactive.h@
+    __exported by:__ @attributes\/deprecated_no_binding.h@
 -}
 data Point
     = Point {point_x :: CInt
              {- ^ __C declaration:__ @x@
 
-                  __defined at:__ @attributes\/deprecated_inactive.h 4:22@
+                  __defined at:__ @attributes\/deprecated_no_binding.h 4:22@
 
-                  __exported by:__ @attributes\/deprecated_inactive.h@
+                  __exported by:__ @attributes\/deprecated_no_binding.h@
              -}}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Point
