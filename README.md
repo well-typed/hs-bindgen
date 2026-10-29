@@ -45,7 +45,11 @@ report any problems you find on the [issue tracker][issues].
   by Dominik Schrempf (11 October 2026)
     * Keynote at MuniHac 2026
     * [Presentation](https://www.youtube.com/watch?v=d_MA39xghmw)
-    * [Slides](doc/munihac-2026.pdf)
+    * [Slides](doc/2026-10-11-munihac.pdf)
+* `hs-bindgen` – Automatic Generation of C Bindings for Haskell, by Joris Dral
+  (26 October 2026)
+    * Talk at Haskell Utrecht Meetup
+    * [Slides](doc/2026-10-26-haskell-utrecht-meetup.pdf)
 
 ## Examples
 
