@@ -13,12 +13,19 @@ module HsBindgen.Config.Prelims (
     -- * Module render config
   , ModuleRenderConfig(..)
 
+    -- * Boot files
+  , HsBootPolicy(..)
+
+    -- * Libraries
+  , LibraryImports(..)
+
     -- * Unique IDs
   , UniqueId (..)
   , UniqueIdMsg (..)
   , checkUniqueId
   ) where
 
+import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Text.SimplePrettyPrint qualified as PP
 
@@ -57,10 +64,11 @@ fromBaseModuleName (BaseModuleName base) (Just (CTerm cat)) =
     -- suffix; we depend on this assumption for binding specifications (which
     -- only refer to types, never to functions or globals).
     submodule :: TermCategory -> Text
-    submodule CSafe   = "Safe"
-    submodule CUnsafe = "Unsafe"
-    submodule CFunPtr = "FunPtr"
-    submodule CGlobal = "Global"
+    submodule CCallback = "Callback"
+    submodule CSafe     = "Safe"
+    submodule CUnsafe   = "Unsafe"
+    submodule CFunPtr   = "FunPtr"
+    submodule CGlobal   = "Global"
 
 {-------------------------------------------------------------------------------
   Field naming strategy
@@ -115,6 +123,60 @@ data ModuleRenderConfig = ModuleRenderConfig {
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (Default)
+
+{-------------------------------------------------------------------------------
+  Boot files
+-------------------------------------------------------------------------------}
+
+-- | Whether to generate boot files
+--
+-- With 'GenerateHsBoot', every types module gets a boot file, and the code
+-- behind its callbacks goes to a module of its own, @Lib.Foo.Callback@, which
+-- has a boot file too. With 'DoNotGenerateHsBoot' (the default), that
+-- code stays in the types module, and there are no boot files.
+--
+-- Only multi-module output has boot files.
+data HsBootPolicy =
+    GenerateHsBoot
+  | DoNotGenerateHsBoot
+  deriving stock (Show, Eq, Generic)
+
+instance Default HsBootPolicy where
+  def = DoNotGenerateHsBoot
+
+{-------------------------------------------------------------------------------
+  Libraries
+-------------------------------------------------------------------------------}
+
+-- | How the modules of a header import the types modules of the other headers
+-- of its library (@--library@)
+--
+-- Both sets are empty without @--library@.
+data LibraryImports = LibraryImports {
+      -- | The types modules of the library
+      --
+      -- The types module and the boot files import these through their boot
+      -- files, since the types modules of a library can use each other.
+      typesModules    :: Set Hs.ModuleName
+
+      -- | The types modules whose instances the term modules need
+      --
+      -- A term module converts values at the FFI, which needs the @FFIType@
+      -- equation of each type it converts. Such an equation can come from
+      -- another types module that the term module sees only through a boot
+      -- file, which cannot hold it: with @typedef status shape_status;@ in
+      -- @shape.h@, @FFIType Shape_status@ is @FFIType Status@, from the types
+      -- module of @point.h@. So the term modules import these for their
+      -- instances.
+    , instanceModules :: Set Hs.ModuleName
+    }
+  deriving stock (Show, Eq)
+
+instance Default LibraryImports where
+  def = LibraryImports{
+        typesModules    = Set.empty
+      , instanceModules = Set.empty
+      }
 
 {-------------------------------------------------------------------------------
   Unique IDs

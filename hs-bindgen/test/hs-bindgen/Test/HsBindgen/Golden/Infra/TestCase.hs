@@ -34,6 +34,7 @@ module Test.HsBindgen.Golden.Infra.TestCase (
   , getTestBackendConfig
   , runTestHsBindgen
   , runTestHsBindgenSuccess
+  , runTestHsBindgenLibrary
   ) where
 
 import System.FilePath
@@ -49,6 +50,7 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.Library (getLibraryDirs)
 import HsBindgen.Macro qualified as Macro
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
@@ -342,10 +344,7 @@ runTestHsBindgen ::
   -> (forall l. Macro.HasTypes l => Artefact l a)
   -> IO (Either BindgenError a)
 runTestHsBindgen report getTestResources test artefacts = do
-    bootConfig <- getTestBootConfig test <$> getTestResources
-    let frontendConfig = getTestFrontendConfig test
-        backendConfig  = getTestBackendConfig test
-        bindgenConfig  = BindgenConfig bootConfig frontendConfig backendConfig
+    bindgenConfig <- getTestBindgenConfig test <$> getTestResources
     withTestTraceConfig report test $ \traceConfigUnsafe ->
       case test.macroLang of
         SomeMacroLang mkMacroLang ->
@@ -354,8 +353,45 @@ runTestHsBindgen report getTestResources test artefacts = do
             traceConfigUnsafe
             quietTracerConfig
             bindgenConfig
+            RealRun
             (testInputDirectives test)
             artefacts
+
+-- | Run 'hsBindgenLibraryEMacroLang' on the library in a directory
+--
+-- The artefact runs once for each module of the library.
+runTestHsBindgenLibrary ::
+     forall a.
+     (String -> IO ())
+  -> IO TestResources
+  -> TestCase
+  -> FilePath -- ^ Library directory, relative to the package root
+  -> (forall l. Macro.HasTypes l => Artefact l a)
+  -> IO (Either BindgenError [a])
+runTestHsBindgenLibrary report getTestResources test library artefacts = do
+    testResources <- getTestResources
+    dirs <- getLibraryDirs ((testResources.packageRoot </> library) :| []) >>= \case
+      Right dirs    -> pure dirs
+      Left  missing -> assertFailure $ "No library directory: " ++ show missing
+    withTestTraceConfig report test $ \traceConfigUnsafe ->
+      case test.macroLang of
+        SomeMacroLang mkMacroLang ->
+          hsBindgenLibraryEMacroLang
+            (pure . mkMacroLang)
+            traceConfigUnsafe
+            quietTracerConfig
+            (getTestBindgenConfig test testResources)
+            RealRun
+            dirs
+            (testInputDirectives test)
+            artefacts
+
+getTestBindgenConfig :: TestCase -> TestResources -> BindgenConfig
+getTestBindgenConfig test testResources = BindgenConfig{
+      boot     = getTestBootConfig test testResources
+    , frontend = getTestFrontendConfig test
+    , backend  = getTestBackendConfig test
+    }
 
 runTestHsBindgenSuccess ::
      forall b.

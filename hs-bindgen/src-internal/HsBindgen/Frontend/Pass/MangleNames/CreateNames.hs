@@ -206,6 +206,8 @@ createNames ::
   => TypedefAnalysis
   -> MangleCandidate Maybe
   -> FieldNamingStrategy
+     -- | Spell the name of the type of a declaration
+  -> (C.DeclId -> Hs.Name Hs.NsTypeConstr -> Hs.Name Hs.NsTypeConstr)
   -> [C.Decl l ResolveBindingSpecs]
   -> ( [C.Decl l CreateNames]
      , [(C.DeclId, Hs.Name Hs.NsTypeConstr, TypedefAnalysis.Squash)]
@@ -214,7 +216,7 @@ createNames ::
      , [MangleNamesFailure]
      , [AnnMsg MangleNames]
      )
-createNames td mc strategy decls = (
+createNames td mc strategy spellTypeOf decls = (
       map (snd . snd) successes
     , squashes
     , nameMap
@@ -230,10 +232,11 @@ createNames td mc strategy decls = (
       C.Decl l ResolveBindingSpecs -> Maybe (C.DeclId, Hs.Name Hs.NsTypeConstr)
     getSpecifiedName decl = (decl.info.id,) <$> ((.hsName) =<< decl.ann.cSpec)
 
-    env :: CreateEnv
-    env = CreateEnv{
+    env :: C.DeclId -> CreateEnv
+    env declId = CreateEnv{
         mangleCandidate     = mc
       , fieldNamingStrategy = strategy
+      , spellTypeName       = spellTypeOf declId
       }
 
     results :: [CreateNamesResult ([ScopedNamePair], C.Decl l CreateNames)]
@@ -245,8 +248,9 @@ createNames td mc strategy decls = (
       -> (CreateNamesResult ([ScopedNamePair], C.Decl l CreateNames), [AnnMsg MangleNames])
     perDecl decl = (,msgs) $ case nameResult of
         CnFailure err      -> CnFailure err
-        CnSquashed nC nH s -> CnSquashed nC nH s
-        CnMangled name ()  -> createNamesWithin env name decl
+        -- The squashed typedef names the type of its target.
+        CnSquashed nC nH s -> CnSquashed nC (spellTypeOf s.targetId nH) s
+        CnMangled name ()  -> createNamesWithin (env decl.info.id) name decl
       where
         nameResult :: CreateNamesResult ()
         msgs       :: [AnnMsg MangleNames]
@@ -375,6 +379,11 @@ nameForDecl td mc specifiedNames decl =
 data CreateEnv = CreateEnv{
       mangleCandidate     :: MangleCandidate Maybe
     , fieldNamingStrategy :: FieldNamingStrategy
+      -- | Spell the name of a type of the declaration
+      --
+      -- Names are derived from the plain name, and only the names of types are
+      -- spelled.
+    , spellTypeName       :: Hs.Name Hs.NsTypeConstr -> Hs.Name Hs.NsTypeConstr
     }
   deriving stock (Generic)
 
@@ -402,6 +411,10 @@ mkName ::
 mkName ns candidate = do
     mc <- asks (.mangleCandidate)
     liftEither . runExcept $ mangleCandidate mc ns candidate
+
+-- | Spell the name of a type of the declaration (see 'spellTypeName')
+spellType :: Hs.Name Hs.NsTypeConstr -> CreateE (Hs.Name Hs.NsTypeConstr)
+spellType name = asks (\env -> env.spellTypeName name)
 
 data CreateNamesResult a =
       CnFailure   MangleNamesFailure
@@ -433,7 +446,7 @@ createNamesWithin ::
 createNamesWithin env declIdPair decl =
     case runCreate env emptyCreateSt (createDeclKind declIdPair.hsName.text decl.kind) of
       (Left err, _)   -> CnFailure $ toFailure decl.info (MangleNamesCreationError err)
-      (Right kind, st) -> CnMangled declIdPair (
+      (Right kind, st) -> CnMangled spelled (
           st.scopedNames
         , C.Decl{
               info = coercePass decl.info
@@ -441,6 +454,14 @@ createNamesWithin env declIdPair decl =
             , ann  = decl.ann
             }
         )
+  where
+    spelled :: DeclIdPair
+    spelled
+      | declIdPair.hsName.ns == Hs.NsTypeConstr =
+          DeclIdPair declIdPair.cName $ Hs.demoteNs $ env.spellTypeName $
+            Hs.assertNs (Proxy @Hs.NsTypeConstr) declIdPair.hsName
+      | otherwise =
+          declIdPair
 
 createDeclKind ::
      Macro.HasTypes l
@@ -479,7 +500,7 @@ createFlam :: Text -> C.Flam ResolveBindingSpecs -> CreateE (C.Flam CreateNames)
 createFlam _      C.NoFlam        = pure C.NoFlam
 createFlam hsName (C.Flam field _) = do
     field'  <- createRegularField hsName field
-    auxName <- mkName (Proxy @Hs.NsTypeConstr) (hsName <> "_Aux")
+    auxName <- spellType =<< mkName (Proxy @Hs.NsTypeConstr) (hsName <> "_Aux")
     pure $ C.Flam field' FlamNames{ aux = auxName }
 
 -- | Generic construction of newtype names, given only the type name
@@ -506,7 +527,8 @@ createTypedefNames isFunPtr strategy name = do
       if isFunPtr then do
         auxName  <- mkName (Proxy @Hs.NsTypeConstr) $ name <> "_Aux"
         auxNames <- createNewtypeNames strategy auxName.text
-        pure $ Just (auxName, auxNames)
+        spelled  <- spellType auxName
+        pure $ Just (spelled, auxNames)
       else
         pure Nothing
     pure TypedefNames{

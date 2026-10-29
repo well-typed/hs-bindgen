@@ -23,6 +23,7 @@ extra-source-files:
   musl-include/COPYRIGHT
   musl-include/VERSION
   test-artefacts/fixtures/**/*.hs
+  test-artefacts/fixtures/**/*.hs-boot
   test-artefacts/fixtures/**/*.txt
   test-artefacts/fixtures/**/*.yaml
   test-artefacts/headers/**/*.h
@@ -295,6 +296,7 @@ library internal
     HsBindgen.IR.Translation
     HsBindgen.Language.C
     HsBindgen.Language.Haskell
+    HsBindgen.Library
     HsBindgen.Macro.Empty
     HsBindgen.Macro.Error
     HsBindgen.Macro.Flip
@@ -556,7 +558,9 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.ProgramAnalysis
     Test.HsBindgen.Golden.Types
     Test.HsBindgen.Integration.ExitCode
+    Test.HsBindgen.Integration.Library
     Test.HsBindgen.Integration.OverwritePolicy
+    Test.HsBindgen.Library
     Test.HsBindgen.Macro.CExpr
     Test.HsBindgen.Macro.Infra
     Test.HsBindgen.Macro.Syntax
@@ -574,6 +578,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Unit.ClangArgs
     Test.HsBindgen.Unit.Digraph
     Test.HsBindgen.Unit.Frontend
+    Test.HsBindgen.Unit.Library
     Test.HsBindgen.Unit.Pretty
     Test.HsBindgen.Unit.RootDirective
     Test.HsBindgen.Unit.Runtime

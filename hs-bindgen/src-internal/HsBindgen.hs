@@ -1,5 +1,7 @@
 module HsBindgen (
     hsBindgenMacroLang
+  , hsBindgenLibraryMacroLang
+  , ExecutionMode(..)
 
     -- * Artefacts
   , Artefact(..)
@@ -15,6 +17,9 @@ module HsBindgen (
   , writeBindingsMultiple
   , writeBindingSpec
   , writeTests
+  , ModuleHeaders(..)
+  , moduleHeaders
+  , getModuleHeaders
 
     -- ** Low-level artefacts
   , getConfig
@@ -36,17 +41,22 @@ module HsBindgen (
 
     -- * Test infrastructure
   , hsBindgenEMacroLang
+  , hsBindgenLibraryEMacroLang
   ) where
 
 import Control.Exception (Exception (..), catch)
-import Control.Monad.Except (MonadError (..), withExceptT)
-import Control.Monad.Trans.Except (runExceptT)
+import Control.Monad (join)
+import Control.Monad.Except (MonadError (..), liftEither, withExceptT)
+import Control.Monad.Trans.Except (ExceptT, runExceptT)
+import Data.List qualified as List
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map qualified as Map
 import Data.Set qualified as Set
 import System.Exit (ExitCode (..), exitWith)
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.CStandard
+import Clang.HighLevel.Types (singleLocPath)
 import Clang.Paths
 
 import HsBindgen.Artefact
@@ -61,6 +71,7 @@ import HsBindgen.Backend.HsModule.Translation.Doxygen (ExportTags,
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
+import HsBindgen.Cache (getCached)
 import HsBindgen.Clang
 import HsBindgen.Config.Internal
 import HsBindgen.Errors (throwPure_TODO)
@@ -74,6 +85,7 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.DeclMeta
 import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing (..))
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.TranslationUnit qualified as C
@@ -81,6 +93,8 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Library (LibraryModule (..), LibraryPlan (..))
+import HsBindgen.Library qualified as Library
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.TraceMsg
@@ -96,11 +110,230 @@ hsBindgenMacroLang ::
   -> TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
+  -> ExecutionMode
   -> [C.UncheckedRootDirective]
   -> Artefact l a
   -> IO a
-hsBindgenMacroLang mkMacroLang tu ts b i a = do
-    eRes <- hsBindgenEMacroLang mkMacroLang tu ts b i a `catch` \e ->
+hsBindgenMacroLang mkMacroLang tu ts b m i a =
+    exitOnError $ hsBindgenEMacroLang mkMacroLang tu ts b m i a
+
+-- | Like 'hsBindgen' but does not exit with failure when an error has occurred.
+hsBindgenEMacroLang ::
+     forall a l. Macro.HasTypes l
+  => (ClangCStandard -> IO (Macro.Lang l))
+  -> TracerConfig Level     TraceMsg
+  -> TracerConfig SafeLevel SafeTraceMsg
+  -> BindgenConfig
+  -> ExecutionMode
+  -> [C.UncheckedRootDirective]
+  -> Artefact l a
+  -> IO (Either BindgenError a)
+hsBindgenEMacroLang
+  mkMacroLang
+  tracerConfigUnsafe
+  tracerConfigSafe
+  config
+  executionMode
+  uncheckedRootDirectives
+  artefacts = do
+    eRes <- withTracer tracerConfigUnsafe $ \tracerUnsafe -> do
+      -- 1. Boot.
+      let tracerBoot :: Tracer BootMsg
+          tracerBoot = contramap TraceBoot tracerUnsafe
+      bootArtefact <-
+        runBoot tracerBoot mkMacroLang config uncheckedRootDirectives
+      -- 2. Frontend.
+      let tracerFrontend :: Tracer FrontendMsg
+          tracerFrontend = contramap TraceFrontend tracerUnsafe
+      frontendArtefact <-
+        runFrontend tracerFrontend config.frontend bootArtefact
+      -- 3. Backend and 4. Artefacts.
+      runBackendAndArtefacts
+        tracerConfigSafe
+        config
+        bootArtefact
+        frontendArtefact
+        artefacts
+
+    runExceptT $ do
+      (r, as) <- liftEither $ first BindgenErrorReported eRes
+      writeOutput tracerConfigSafe executionMode as
+      pure r
+
+-- | Run @hs-bindgen@ for a library, one module per header (@--library@)
+--
+-- Every module is a run of its own, and the artefact runs once for each. The
+-- results come in include order of the headers of the modules. See
+-- "HsBindgen.Library" for which headers get a module and what goes in each.
+--
+-- With @--library@, program slicing is on and every types module gets a boot
+-- file, whatever the configuration says. A prescriptive binding specification
+-- in the configuration is not used: there is none per module yet.
+hsBindgenLibraryMacroLang ::
+     Macro.HasTypes l
+  => (ClangCStandard -> IO (Macro.Lang l))
+  -> TracerConfig Level     TraceMsg
+  -> TracerConfig SafeLevel SafeTraceMsg
+  -> BindgenConfig
+  -> ExecutionMode
+  -> Library.LibraryDirs
+  -> [C.UncheckedRootDirective]
+  -> Artefact l a
+  -> IO [a]
+hsBindgenLibraryMacroLang mkMacroLang tu ts b m d i a =
+    exitOnError $ hsBindgenLibraryEMacroLang mkMacroLang tu ts b m d i a
+
+-- | Like 'hsBindgenLibraryMacroLang' but does not exit with failure when an
+-- error has occurred.
+hsBindgenLibraryEMacroLang ::
+     forall a l. Macro.HasTypes l
+  => (ClangCStandard -> IO (Macro.Lang l))
+  -> TracerConfig Level     TraceMsg
+  -> TracerConfig SafeLevel SafeTraceMsg
+  -> BindgenConfig
+  -> ExecutionMode
+  -> Library.LibraryDirs
+  -> [C.UncheckedRootDirective]
+  -> Artefact l a
+  -> IO (Either BindgenError [a])
+hsBindgenLibraryEMacroLang
+  mkMacroLang
+  tracerConfigUnsafe
+  tracerConfigSafe
+  config0
+  executionMode
+  dirs
+  uncheckedRootDirectives
+  artefact = do
+    eRes <- withTracer tracerConfigUnsafe $ \tracerUnsafe -> runExceptT $ do
+      let tracerBoot :: Tracer BootMsg
+          tracerBoot = contramap TraceBoot tracerUnsafe
+
+          tracerFrontend :: Tracer FrontendMsg
+          tracerFrontend = contramap TraceFrontend tracerUnsafe
+
+          tracerBindingSpec :: Tracer BindingSpec.BindingSpecMsg
+          tracerBindingSpec = contramap BootBindingSpec tracerBoot
+
+      -- 1. Parse the library.
+      boot   <- withoutPrescriptiveBindingSpec <$>
+        liftIO (runBoot tracerBoot mkMacroLang config uncheckedRootDirectives)
+      parsed <- liftIO $ parseHeaders tracerFrontend config.frontend boot
+      info   <- liftIO $ getCached parsed.parseMeta
+
+      -- 2. Apply the user's binding specifications, and 3. plan the modules.
+      bound <- liftIO $ applyBindingSpecs tracerFrontend boot parsed
+      unit  <- liftIO $ getCached bound.resolveBindingSpecs
+      plan  <- withExceptT BindgenLibraryError $ liftEither $
+        Library.planLibrary
+          dirs
+          boot.baseModule
+          info.isMainHeader
+          info.isInMainHeaderDir
+          predicate
+          unit
+
+      -- 4. Translate the whole library. It spells the names of types with
+      -- their types modules, so it is never rendered: only the binding
+      -- specifications of its modules leave it.
+      whole <- liftIO $
+        prepareBindings
+          tracerFrontend
+          (selecting $ Library.librarySelection predicate dirs)
+          (ByTypesModule QualifiedTypeNames plan.placement)
+          bound
+      (wholeSpec, _noOutput) <- liftIO $
+        runBackendAndArtefacts tracerConfigSafe config boot whole getBindingSpec
+
+      -- 5. Make the binding specifications of the modules.
+      specs <- liftIO $
+        traverse
+          (BindingSpec.resolveWith
+             tracerBindingSpec
+             (IncludeGraph.mainHeaders info.includeGraph))
+          (splitLibraryBindingSpec wholeSpec)
+
+      -- 6. Generate each module, with the binding specifications of the others.
+      let typesModules :: [Hs.ModuleName]
+          typesModules = map Library.typesModule plan.modules
+      outputs <- forM plan.modules $ \libraryModule -> do
+        others <- liftIO $
+          BindingSpec.mergeExtBindingSpecs tracerBindingSpec $
+            Map.elems $ Map.delete (Library.typesModule libraryModule) specs
+        let bootModule :: BootArtefact l
+            bootModule = withoutPrescriptiveBindingSpec boot{
+                baseModule              = libraryModule.name
+              , externalBindingSpecs    = (<> others) <$> boot.externalBindingSpecs
+              , libraryImports          = LibraryImports{
+                    typesModules    = Set.fromList typesModules
+                    -- Those that exist: the ones with a binding specification
+                  , instanceModules =
+                      Set.intersection libraryModule.reaches (Map.keysSet specs)
+                  }
+              }
+        boundModule <- liftIO $
+          applyBindingSpecs tracerFrontend bootModule parsed
+        frontendModule <- liftIO $
+          prepareBindings
+            tracerFrontend
+            (selecting $ Library.moduleSelection predicate libraryModule)
+            (ByTypesModule PlainTypeNames plan.placement)
+            boundModule
+        liftIO $
+          runBackendAndArtefacts
+            tracerConfigSafe
+            config
+            bootModule
+            frontendModule
+            artefact
+
+      -- 7. Check the files of all modules, before anything is written.
+      let files :: [(BaseModuleName, [FilePath])]
+          files = [
+              (libraryModule.name, filePaths as)
+            | (libraryModule, (_, as)) <- zip plan.modules outputs
+            ]
+      forM_ (NonEmpty.nonEmpty $ Library.fileClashes files) $
+        throwError . BindgenLibraryError . Library.FileClash
+      pure (map fst outputs, concatMap snd outputs)
+
+    runExceptT $ do
+      (rs, as) <- liftEither $ join $ first BindgenErrorReported eRes
+      writeOutput tracerConfigSafe executionMode as
+      pure rs
+  where
+    config :: BindgenConfig
+    config =
+        config0
+          & #frontend % #programSlicing .~ EnableProgramSlicing
+          & #backend  % #hsBootPolicy   .~ GenerateHsBoot
+
+    predicate :: Boolean SelectionPredicate
+    predicate = config.frontend.selectionPredicate
+
+    selecting :: Boolean SelectionPredicate -> FrontendConfig
+    selecting selection = config.frontend & #selectionPredicate .~ selection
+
+    -- The empty prescriptive binding specification of the run's types module
+    withoutPrescriptiveBindingSpec :: BootArtefact l -> BootArtefact l
+    withoutPrescriptiveBindingSpec boot = boot{
+          prescriptiveBindingSpec = pure $
+            BindingSpec.empty (fromBaseModuleName boot.baseModule (Just CType))
+        }
+
+    filePaths :: [DelayedIO] -> [FilePath]
+    filePaths as = [
+          fileLocationToPath fileDescription.location
+        | WriteToFile fileDescription <- as
+        ]
+
+-- | Exit when an error has occurred
+--
+-- Exit code 3 means that the call to @libclang@ has failed, and exit code 4
+-- that @hs-bindgen@ ran to completion, but an error has occurred.
+exitOnError :: IO (Either BindgenError a) -> IO a
+exitOnError run = do
+    eRes <- run `catch` \e ->
       case fromException e of
         Just (LibclangException msg) -> do
           print $ PP.string msg
@@ -116,63 +349,40 @@ hsBindgenMacroLang mkMacroLang tu ts b i a = do
         exitWith (ExitFailure 4)
       Right r -> pure r
 
--- | Like 'hsBindgen' but does not exit with failure when an error has occurred.
-hsBindgenEMacroLang ::
-     forall a l. Macro.HasTypes l
-  => (ClangCStandard -> IO (Macro.Lang l))
-  -> TracerConfig Level     TraceMsg
-  -> TracerConfig SafeLevel SafeTraceMsg
+-- | Run the backend, and then the artefact
+runBackendAndArtefacts ::
+     Macro.HasTypes l
+  => TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
-  -> [C.UncheckedRootDirective]
+  -> BootArtefact l
+  -> FrontendArtefact l
   -> Artefact l a
-  -> IO (Either BindgenError a)
-hsBindgenEMacroLang
-  mkMacroLang
-  tracerConfigUnsafe
-  tracerConfigSafe
-  config
-  uncheckedRootDirectives
-  artefacts = do
-    eRes <- withTracer tracerConfigUnsafe $ \tracerUnsafe -> do
-      -- 1. Boot.
-      let tracerBoot :: Tracer BootMsg
-          tracerBoot = contramap TraceBoot tracerUnsafe
-      bootArtefact <-
-        runBoot tracerBoot mkMacroLang config uncheckedRootDirectives
-      -- 2. Frontend.
-      let tracerFrontend :: Tracer FrontendMsg
-          tracerFrontend = contramap TraceFrontend tracerUnsafe
-      frontendArtefact <-
-        runFrontend tracerFrontend config.frontend bootArtefact
-      -- 3. Backend.
-      let tracerConfigBackend :: TracerConfig SafeLevel BackendMsg
-          tracerConfigBackend = contramap SafeBackendMsg tracerConfigSafe
-      backendArtefact <-
-        withTracerSafe tracerConfigBackend  $ \tracerSafe ->
-          runBackend tracerSafe config bootArtefact frontendArtefact
-      -- 4. Artefacts.
-      let tracerConfigArtefact :: TracerConfig SafeLevel ArtefactMsg
-          tracerConfigArtefact = contramap SafeArtefactMsg tracerConfigSafe
-      withTracerSafe tracerConfigArtefact $ \tracerSafe ->
-        runArtefacts
-          tracerSafe
-          config
-          bootArtefact
-          frontendArtefact
-          backendArtefact
-          artefacts
+  -> IO (a, [DelayedIO])
+runBackendAndArtefacts tracerConfigSafe config boot frontend artefact = do
+    let tracerConfigBackend :: TracerConfig SafeLevel BackendMsg
+        tracerConfigBackend = contramap SafeBackendMsg tracerConfigSafe
+    backend <-
+      withTracerSafe tracerConfigBackend $ \tracerSafe ->
+        runBackend tracerSafe config boot frontend
+    let tracerConfigArtefact :: TracerConfig SafeLevel ArtefactMsg
+        tracerConfigArtefact = contramap SafeArtefactMsg tracerConfigSafe
+    withTracerSafe tracerConfigArtefact $ \tracerSafe ->
+      runArtefacts tracerSafe config boot frontend backend artefact
 
+-- | Check the delayed IO actions against their policies, then run them
+writeOutput ::
+     TracerConfig SafeLevel SafeTraceMsg
+  -> ExecutionMode
+  -> [DelayedIO]
+  -> ExceptT BindgenError IO ()
+writeOutput tracerConfigSafe executionMode as = do
     let tracerConfigDelayedIO :: TracerConfig SafeLevel DelayedIOMsg
         tracerConfigDelayedIO = contramap SafeDelayedIOMsg tracerConfigSafe
-    runExceptT $ withTracerSafe tracerConfigDelayedIO $ \tracerSafe ->
-      case eRes of
-        Left er       -> throwError $ BindgenErrorReported er
-        Right (r, as) -> do
-          -- Before creating directories or writing output files, we verify
-          -- adherence to the provided policies.
-          withExceptT BindgenDelayedIOError $ mapM_ checkPolicy as
-          liftIO $ executeDelayedIOActions tracerSafe as
-          pure r
+    withTracerSafe tracerConfigDelayedIO $ \tracerSafe -> do
+      -- Before creating directories or writing output files, we verify
+      -- adherence to the provided policies.
+      withExceptT BindgenDelayedIOError $ mapM_ checkPolicy as
+      liftIO $ executeDelayedIOActions tracerSafe executionMode as
 
 {-------------------------------------------------------------------------------
   High-level artefacts
@@ -276,19 +486,29 @@ writeBindingsSingle mrc filePolicy dirPolicy hsOutputDir = do
 
     write filePolicy dirPolicy "bindings" location bindings
 
--- | Get bindings (one module per binding category).
-getBindingsMultiple :: ModuleRenderConfig -> Artefact l (ByCategory_ (Maybe String))
+-- | Get bindings (one module per binding category), each with its boot file, if
+-- it has one.
+getBindingsMultiple :: ModuleRenderConfig -> Artefact l (ByCategory_ (Maybe (String, Maybe String)))
 getBindingsMultiple mrc = do
-    name   <- ModuleBaseName
-    dirs   <- RootDirectives
-    decls  <- FinalDecls
-    tags   <- getExportTags
+    name    <- ModuleBaseName
+    library <- LibraryImportsA
+    dirs    <- RootDirectives
+    decls   <- FinalDecls
+    tags    <- getExportTags
     when (all nullDecls decls) $
       EmitTrace $ NoBindingsMultipleModules name
     config <- getConfig
     let fns = config.frontend.fieldNamingStrategy
-    pure $ fmap render <$>
-      translateModuleMultiple fns mrc dirs name (resolveExports tags) decls
+    pure $ fmap (bimap render (fmap renderHsBoot)) <$>
+      translateModuleMultiple
+        fns
+        mrc
+        config.backend.hsBootPolicy
+        library
+        dirs
+        name
+        (resolveExports tags)
+        decls
 
 -- | Write bindings to files in provided output directory.
 --
@@ -319,24 +539,15 @@ writeBindingSpec ::
   -> FilePath
   -> Artefact l ()
 writeBindingSpec filePolicy dirPolicy path = do
-    moduleBaseName <- ModuleBaseName
-    includeGraph   <- getIncludeGraph
-    declIndex      <- getDeclIndex
-    getMainHeaders <- getGetMainHeaders
-    omittedTypes   <- getOmittedTypes
-    squashedTypes  <- getSquashedTypes
-    hsDecls        <- HsDecls
-    -- Binding specifications only specify types.
+    includeGraph <- getIncludeGraph
+    declIndex    <- getDeclIndex
+    spec         <- getBindingSpec
     let bs =
-          genBindingSpec
+          encodeBindingSpec
             (BindingSpec.getFormat path)
-            (fromBaseModuleName moduleBaseName (Just CType))
             includeGraph
             declIndex
-            getMainHeaders
-            omittedTypes
-            squashedTypes
-            (view (lensForCategory CType) hsDecls)
+            spec
         fileDescription = FileDescription {
               description = "Binding specifications"
             , location    = UserSpecified path
@@ -359,6 +570,63 @@ writeTests _testDir = do
     --     moduleBaseName
     --     testDir
     throwPure_TODO 22 "Test generation integrated into the artefact API"
+
+-- | A module and the headers its bindings come from
+--
+-- @preprocess --dry-run@ prints it as @M: a.h, b.h@, so that you can see which
+-- headers a module covers without generating it.
+data ModuleHeaders = ModuleHeaders {
+      moduleName :: BaseModuleName
+      -- | Each header as it was @#include@d, in include order
+    , headers    :: [C.HashIncludeArg]
+    }
+  deriving stock (Show, Eq)
+
+-- | The headers of a module, from the declarations it has bindings for
+--
+-- The caller decides which declarations make up the module. Each header that
+-- contains one of them is listed once, spelled as it was @#include@d, in include
+-- order: a header comes after the headers it includes. Macros defined by root
+-- directives or @-D@ options are in no header, so the list can be empty.
+moduleHeaders ::
+     IncludeGraph.IncludeOrder
+  -> BaseModuleName
+  -> [C.Decl l Final]
+  -> ModuleHeaders
+moduleHeaders order name decls = ModuleHeaders{
+      moduleName = name
+    , headers    = map snd $ inIncludeOrder $ Map.toList headers
+    }
+  where
+    -- All declarations in a header have the same include argument, so it does
+    -- not matter which one 'Map.fromList' keeps.
+    headers :: Map RealPath C.HashIncludeArg
+    headers = Map.fromList [
+        (path, info.includeArg)
+      | decl <- decls
+      , C.InHeader path   <- [singleLocPath decl.info.loc]
+      , C.FromHeader info <- [decl.info.origin]
+      ]
+
+    inIncludeOrder :: [(RealPath, a)] -> [(RealPath, a)]
+    inIncludeOrder =
+      List.sortOn (IncludeGraph.lookupIncludeOrder order . C.InHeader . fst)
+
+-- | The module of this run and its headers
+--
+-- Passes every reified declaration to 'moduleHeaders', since each one has a
+-- binding in the module: the CLI always generates at least one category of
+-- binding for every kind of declaration. 'Nothing' if there is nothing to bind.
+getModuleHeaders :: Artefact l (Maybe ModuleHeaders)
+getModuleHeaders = do
+    name         <- ModuleBaseName
+    decls        <- getReifiedC
+    includeGraph <- getIncludeGraph
+    pure $
+      if null decls
+        then Nothing
+        else Just $
+          moduleHeaders (IncludeGraph.toIncludeOrder includeGraph) name decls
 
 {-------------------------------------------------------------------------------
   Low-level artefacts
@@ -401,6 +669,23 @@ getSquashedTypes = do
 getDependencies :: Artefact l [RealPath]
 getDependencies = IncludeGraph.toSortedList <$> getIncludeGraph
 
+-- | The binding specification of the types of the types module
+getBindingSpec :: Artefact l BindingSpec.UnresolvedBindingSpec
+getBindingSpec = do
+    moduleBaseName <- ModuleBaseName
+    getMainHeaders <- getGetMainHeaders
+    omittedTypes   <- getOmittedTypes
+    squashedTypes  <- getSquashedTypes
+    hsDecls        <- HsDecls
+    -- Binding specifications only specify types.
+    pure $
+      genUnresolvedBindingSpec
+        (fromBaseModuleName moduleBaseName (Just CType))
+        getMainHeaders
+        omittedTypes
+        squashedTypes
+        (view (lensForCategory CType) hsDecls)
+
 {-------------------------------------------------------------------------------
   Helpers
 -------------------------------------------------------------------------------}
@@ -419,27 +704,29 @@ writeByCategory ::
   -> String
   -> FilePath
   -> BaseModuleName
-  -> ByCategory_ (Maybe String)
+  -> ByCategory_ (Maybe (String, Maybe String))
   -> Artefact l ()
 writeByCategory filePolicy dirPolicy what dir moduleBaseName =
     sequence_ . mapWithCategory_ writeCategory
   where
-    writeCategory :: Category -> Maybe String -> Artefact l ()
-    writeCategory _    Nothing   = pure ()
-    writeCategory cat (Just str) =
-        write filePolicy dirPolicy whatWithCategory location str
+    writeCategory :: Category -> Maybe (String, Maybe String) -> Artefact l ()
+    writeCategory _    Nothing                 = pure ()
+    writeCategory cat (Just (str, mBootStr)) = do
+        write filePolicy dirPolicy whatWithCategory (location Hs.moduleNamePath) str
+        forM_ mBootStr $
+          write filePolicy dirPolicy whatBootWithCategory (location Hs.moduleNameBootPath)
       where
-        localPath :: FilePath
-        localPath = Hs.moduleNamePath $
-            fromBaseModuleName moduleBaseName (Just cat)
+        moduleName :: Hs.ModuleName
+        moduleName = fromBaseModuleName moduleBaseName (Just cat)
 
-        whatWithCategory :: String
-        whatWithCategory = what ++ " (" ++ show cat ++ ")"
+        whatWithCategory, whatBootWithCategory :: String
+        whatWithCategory     = what ++ " (" ++ show cat ++ ")"
+        whatBootWithCategory = what ++ " boot file (" ++ show cat ++ ")"
 
-        location :: FileLocation
-        location = RelativeFileLocation RelativeToOutputDir{
+        location :: (Hs.ModuleName -> FilePath) -> FileLocation
+        location path = RelativeFileLocation RelativeToOutputDir{
               outputDir = dir
-            , localPath = localPath
+            , localPath = path moduleName
             }
 
 nullDecls :: ([a], [b]) -> Bool
@@ -463,12 +750,14 @@ getExportTags = do
 data BindgenError =
       BindgenErrorReported  AnErrorHappened
     | BindgenDelayedIOError DelayedIOError
+    | BindgenLibraryError   Library.LibraryError
     deriving stock (Show)
 
 instance PrettyForTrace BindgenError where
   prettyForTrace = \case
     BindgenErrorReported  e -> prettyForTrace e
     BindgenDelayedIOError e -> prettyForTrace e
+    BindgenLibraryError   e -> prettyForTrace e
 
 {-------------------------------------------------------------------------------
   Traces

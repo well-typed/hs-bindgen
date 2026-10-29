@@ -2,6 +2,7 @@
 
 module HsBindgen.Backend.Extensions (
     requiredExtensions,
+    requiredHsBootExtensions,
 ) where
 
 import Data.Set qualified as Set
@@ -73,6 +74,18 @@ requiredExtensions fieldNaming = \case
   where
     ext :: TH.Extension -> Set TH.Extension
     ext = Set.singleton
+
+-- | Which GHC language extensions this declaration of a boot file needs.
+--
+-- Abstract data types and instance heads such as @instance C T@ are part of
+-- Haskell 2010, unlike the deriving clauses and instance bodies that their
+-- declarations in the module need.
+requiredHsBootExtensions :: HsBootDecl -> Set TH.Extension
+requiredHsBootExtensions = \case
+    HsBootData _name               -> mempty
+    HsBootTypSyn _name typ         -> typeExtensions typ
+    HsBootInstance _clss _name     -> mempty
+    HsBootSignature _name args res -> foldMap typeExtensions (res : args)
 
 -- | Check whether an instance argument has the shape @T a1 ... an@ (type
 -- constructor applied to type variables) — anything else requires

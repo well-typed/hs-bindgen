@@ -88,6 +88,7 @@ data Artefact l (a :: Star) where
   -- * Boot
   RootDirectives  :: Artefact l [C.RootDirective C.HashIncludeArg]
   ModuleBaseName  :: Artefact l BaseModuleName
+  LibraryImportsA :: Artefact l LibraryImports
   -- * Frontend
   ParseInfoA      :: Artefact l ParseInfo
   DoxygenA        :: Artefact l Doxygen
@@ -139,6 +140,7 @@ runArtefacts tracer config boot frontend backend artefact =
         --Boot.
         RootDirectives  -> runCached boot.rootDirectives
         ModuleBaseName  -> pure boot.baseModule
+        LibraryImportsA -> pure boot.libraryImports
         -- Frontend.
         ParseInfoA      -> runCached frontend.parseMeta
         DoxygenA        -> runCached frontend.doxygen
@@ -179,10 +181,13 @@ data ArtefactMsg =
 
 instance PrettyForTrace ArtefactMsg where
   prettyForTrace = \case
+    -- Unlike the per-category modules, the single module is written even when
+    -- it is empty. The build may expect the file if the module is listed in the
+    -- .cabal file, and the literate preprocessor must produce it.
     NoBindingsSingleModule md ->
-      "No output generated (module " <+> PP.show md <+> " is empty)"
+      "Module" <+> PP.show md <+> "is empty: there are no declarations to bind"
     NoBindingsMultipleModules md ->
-      "No output generated (all binding categories with base module name" <+> PP.show md <+> "are empty)"
+      "No module for" <+> PP.show md >< ": there are no declarations to bind"
     SkipWriteToFileNoBindings fp ->
       "Skipping 'write file' operation (" >< PP.show fp >< "): file is empty"
 

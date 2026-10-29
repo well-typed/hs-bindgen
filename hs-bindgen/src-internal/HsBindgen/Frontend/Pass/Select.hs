@@ -1,5 +1,6 @@
 module HsBindgen.Frontend.Pass.Select (
     selectDecls
+  , matchSelectionRoots
   ) where
 
 import Data.Foldable qualified as Foldable
@@ -99,7 +100,13 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
     let -- Directly match the selection predicate on the 'DeclIndex', obtaining
         -- information about succeeded _and failed_ selection roots.
         selectionRootsIndex :: DeclIndex l
-        selectionRootsIndex = selectDeclIndex unit.meta.declUseGraph match index
+        selectionRootsIndex =
+          matchSelectionRoots
+            isMainHeader
+            isInMainHeaderDir
+            config.selectionPredicate
+            unit.meta.declUseGraph
+            index
 
         -- Identifiers of selection roots. Some of them may be unavailable
         -- (i.e., not in the 'succeeded' map, and hence, not in the list of
@@ -279,16 +286,6 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
 
     useDeclGraph :: UseDeclGraph
     useDeclGraph = unit.meta.useDeclGraph
-
-    match :: Match
-    match name loc availability =
-      matchSelect
-        isMainHeader
-        isInMainHeaderDir
-        (singleLocPath loc)
-        name
-        availability
-        config.selectionPredicate
 
 {-------------------------------------------------------------------------------
   Filter list of declarations
@@ -659,6 +656,31 @@ sortSelectMsgs includeGraph msgs =
 {-------------------------------------------------------------------------------
   Apply the selection predicate
 -------------------------------------------------------------------------------}
+
+-- | The selection roots: the entries of the declaration index that the
+-- selection predicate matches
+--
+-- Some of them may be unusable. The entries of external and omitted
+-- declarations never match.
+matchSelectionRoots ::
+     IsMainHeader
+  -> IsInMainHeaderDir
+  -> Boolean SelectionPredicate
+  -> DeclUseGraph
+  -> DeclIndex l
+  -> DeclIndex l
+matchSelectionRoots isMainHeader isInMainHeaderDir predicate declUseGraph =
+    selectDeclIndex declUseGraph match
+  where
+    match :: Match
+    match name loc availability =
+      matchSelect
+        isMainHeader
+        isInMainHeaderDir
+        (singleLocPath loc)
+        name
+        availability
+        predicate
 
 -- Match function to find selection roots.
 type Match = C.DeclName -> SingleLoc C.DeclPath -> C.Availability -> Bool

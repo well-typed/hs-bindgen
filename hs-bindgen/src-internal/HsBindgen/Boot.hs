@@ -97,6 +97,7 @@ runBoot tracer mkMacroLang config uncheckedRootDirectives = do
         , rootDirectives          = getRootDirectives
         , externalBindingSpecs    = getExternalBindingSpecs
         , prescriptiveBindingSpec = getPrescriptiveBindingSpec
+        , libraryImports          = def
         }
   where
     tracerBootStatus :: Tracer BootStatusMsg
@@ -186,6 +187,10 @@ data BootArtefact l = BootArtefact {
     , rootDirectives          :: Cached [C.RootDirective C.HashIncludeArg]
     , externalBindingSpecs    :: Cached MergedBindingSpecs
     , prescriptiveBindingSpec :: Cached PrescriptiveBindingSpec
+      -- | How the modules of the run import the other modules of its library
+      --
+      -- Empty except in the module runs of @--library@.
+    , libraryImports          :: LibraryImports
     }
 
 {-------------------------------------------------------------------------------

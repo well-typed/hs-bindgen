@@ -34,6 +34,7 @@ module HsBindgen.BindingSpec (
   , empty
   , moduleName
     -- ** Types
+  , BindingSpec.UnresolvedBindingSpec
   , Common.Omittable(..)
   , BindingSpec.CTypeSpec(..)
   , BindingSpec.CEnumSpec(..)
@@ -48,9 +49,12 @@ module HsBindgen.BindingSpec (
   , getCTypes
   , lookupCTypeSpec
   , lookupHsTypeSpec
+    -- ** Resolving in memory
+  , resolveWith
     -- ** Merging
   , BindingSpec.MergedBindingSpecs
   , BindingSpec.lookupMergedBindingSpecs
+  , mergeExtBindingSpecs
   ) where
 
 import Data.ByteString (ByteString)
@@ -183,9 +187,7 @@ loadExtBindingSpecs ::
 loadExtBindingSpecs tracer args enableStdlib cmpt paths = do
     uspecs <- withStdlib <$> mapMaybeM read' paths
     rspecs <- mapM resolve' uspecs
-    let (msgs, mspec) = BindingSpec.merge rspecs
-    mapM_ (traceWith tracerMerge . withCallStack) msgs
-    return mspec
+    mergeResolved tracer rspecs
   where
     withStdlib ::
          [BindingSpec.UnresolvedBindingSpec]
@@ -211,9 +213,6 @@ loadExtBindingSpecs tracer args enableStdlib cmpt paths = do
 
     tracerResolve :: Tracer Common.BindingSpecResolveMsg
     tracerResolve = contramap Common.BindingSpecResolveMsg tracer
-
-    tracerMerge :: Tracer Common.BindingSpecMergeMsg
-    tracerMerge = contramap Common.BindingSpecMergeMsg tracer
 
 -- | Load prescriptive binding specification
 --
@@ -322,3 +321,45 @@ lookupHsTypeSpec ::
   -> Maybe BindingSpec.HsTypeSpec
 lookupHsTypeSpec hsIdentifier spec =
     BindingSpec.lookupHsTypeSpec hsIdentifier spec.resolved
+
+{-------------------------------------------------------------------------------
+  Internal API: Resolving in memory and merging
+-------------------------------------------------------------------------------}
+
+-- | Resolve a binding specification, given the path of each of its headers
+--
+-- Unlike loading, this does not ask @clang@ where the headers are. It serves
+-- binding specifications that @hs-bindgen@ generates and uses in the same run,
+-- whose headers are the main headers of the run.
+resolveWith ::
+     Tracer Common.BindingSpecMsg
+  -> Map C.HashIncludeArg RealPath
+  -> BindingSpec.UnresolvedBindingSpec
+  -> IO BindingSpec
+resolveWith tracer headers uspec = BindingSpec uspec <$>
+    BindingSpec.resolveWith
+      (contramap Common.BindingSpecResolveMsg tracer)
+      headers
+      uspec
+
+-- | Merge external binding specifications
+--
+-- As when loading them, a C type that more than one of them binds in the same
+-- header is reported.
+mergeExtBindingSpecs ::
+     Tracer Common.BindingSpecMsg
+  -> [ExternalBindingSpec]
+  -> IO BindingSpec.MergedBindingSpecs
+mergeExtBindingSpecs tracer = mergeResolved tracer . map (.resolved)
+
+mergeResolved ::
+     Tracer Common.BindingSpecMsg
+  -> [BindingSpec.ResolvedBindingSpec]
+  -> IO BindingSpec.MergedBindingSpecs
+mergeResolved tracer rspecs = do
+    let (msgs, mspec) = BindingSpec.merge rspecs
+    mapM_ (traceWith tracerMerge . withCallStack) msgs
+    return mspec
+  where
+    tracerMerge :: Tracer Common.BindingSpecMergeMsg
+    tracerMerge = contramap Common.BindingSpecMergeMsg tracer

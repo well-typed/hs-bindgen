@@ -21,25 +21,28 @@ module Test.HsBindgen.Fixtures.Utils (
   , sharedGhcOptions
     -- * Direct GHC compilation
   , runDirectGhcBuild
+  , runOneShotGhcBuild
   ) where
 
 import Control.Concurrent.Async (forConcurrently)
 import Control.Concurrent.QSem (newQSem, signalQSem, waitQSem)
 import Control.Exception (bracket_)
-import Control.Monad (filterM)
-import Data.List (intercalate, isPrefixOf, stripPrefix)
+import Control.Monad (filterM, forM)
+import Data.Graph (SCC (..), stronglyConnComp)
+import Data.List (intercalate, isPrefixOf, isSuffixOf, stripPrefix)
 import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
 import Data.Maybe (listToMaybe)
 import Data.Version (Version, makeVersion, parseVersion, showVersion,
                      versionBranch)
 import GHC.Conc (getNumProcessors)
-import System.Directory (createDirectoryIfMissing, doesPathExist,
-                         findExecutable, listDirectory)
+import System.Directory (createDirectoryIfMissing, doesDirectoryExist,
+                         doesPathExist, findExecutable, listDirectory)
 import System.Environment (getEnvironment)
 import System.Exit (ExitCode (..))
-import System.FilePath (isAbsolute, pathSeparator, takeDirectory, takeFileName,
-                        (<.>), (</>))
+import System.FilePath (dropExtension, isAbsolute, makeRelative, pathSeparator,
+                        splitDirectories, takeDirectory, takeFileName, (<.>),
+                        (</>))
 import System.IO (readFile')
 import System.Process (CreateProcess (..), proc, readCreateProcessWithExitCode)
 import Text.ParserCombinators.ReadP (readP_to_S)
@@ -200,6 +203,107 @@ runDirectGhcBuild workDir envFile ghcOpts includeDirs mHaddockDir jobs = do
           return (libName, result)
 
     return $ Map.fromList results
+
+-- | Compile the modules of a fixture one at a time, as a build without
+-- @--make@ does
+--
+-- Every boot file comes first, then every module, each kind in an order that
+-- its imports of the others allow: a module after the modules it imports
+-- normally, a boot file after the boot files it imports through
+-- @{-# SOURCE #-}@. A module that imports another through its boot file needs
+-- only that boot file, which is compiled before every module. Compiled this way,
+-- a @{-# SOURCE #-}@ import reads the boot file even when the real module is
+-- compiled already, unlike with @--make@.
+runOneShotGhcBuild ::
+     FilePath
+     -- ^ Working directory (temp dir for output isolation)
+  -> FilePath
+     -- ^ GHC environment file (from 'setupFixtureEnv')
+  -> [String]
+     -- ^ GHC options
+  -> [String]
+     -- ^ Include directories (for @-I@ flags)
+  -> FilePath
+     -- ^ Source directory
+  -> IO (Either String ())
+runOneShotGhcBuild workDir envFile ghcOpts includeDirs srcDir = do
+    baseEnv <- getEnvironment
+    let compileEnv = ("GHC_ENVIRONMENT", envFile)
+                   : filter ((/= "GHC_ENVIRONMENT") . fst) baseEnv
+    cmd <- resolveVersionedExe "ghc" "ghc" (parseGhcVersionFromEnvFile envFile)
+    files   <- findSources srcDir
+    sources <- forM files $ \file ->
+      (file,) . readImports <$> readFile' (srcDir </> file)
+    let outDir :: FilePath
+        outDir = workDir </> "out"
+
+        compileAll :: [FilePath] -> IO (Either String ())
+        compileAll []             = pure $ Right ()
+        compileAll (file : later) = do
+          let args = ["-c", "-XHaskell2010"]
+                  ++ ghcOpts
+                  ++ ["-I" ++ dir | dir <- includeDirs]
+                  ++ ["-i" ++ srcDir, "-odir", outDir, "-hidir", outDir]
+                  ++ ["-stubdir", outDir]
+                  ++ [srcDir </> file]
+          (exitCode, _stdout, stderr) <-
+            readCreateProcessWithExitCode
+              (proc cmd args){cwd = Just workDir, env = Just compileEnv}
+              ""
+          case exitCode of
+            ExitSuccess -> compileAll later
+            _           -> pure $ Left $ file ++ ":\n" ++ stderr
+    createDirectoryIfMissing True outDir
+    case (++) <$> compileOrder True sources <*> compileOrder False sources of
+      Left err   -> pure $ Left err
+      Right order -> compileAll order
+  where
+    -- The boot files, or the modules, in an order that their imports allow
+    compileOrder ::
+         Bool
+      -> [(FilePath, [(Bool, String)])]
+      -> Either String [FilePath]
+    compileOrder boot sources = traverse fromSCC $ stronglyConnComp [
+          (file, moduleOf file, [m | (source, m) <- imports, source == boot])
+        | (file, imports) <- sources
+        , isBoot file == boot
+        ]
+
+    fromSCC :: SCC FilePath -> Either String FilePath
+    fromSCC (AcyclicSCC file) = Right file
+    fromSCC (CyclicSCC files) = Left $ "Import cycle: " ++ unwords files
+
+    isBoot :: FilePath -> Bool
+    isBoot = (".hs-boot" `isSuffixOf`)
+
+    moduleOf :: FilePath -> String
+    moduleOf = intercalate "." . splitDirectories . dropExtension
+
+-- | The imports of a module, each with whether it is a @{-# SOURCE #-}@ import
+--
+-- Handles the forms that generated modules use: @import {-# SOURCE #-}
+-- qualified M@, @import M qualified@, and so on.
+readImports :: String -> [(Bool, String)]
+readImports contents = [
+      (source, m)
+    | ("import" : rest) <- map words (lines contents)
+    , let source = take 3 rest == ["{-#", "SOURCE", "#-}"]
+    , m : _ <- [filter (`notElem` ["{-#", "SOURCE", "#-}", "qualified"]) rest]
+    ]
+
+-- | The @.hs@ and @.hs-boot@ files under a directory, relative to it
+findSources :: FilePath -> IO [FilePath]
+findSources dir = map (makeRelative dir) <$> go dir
+  where
+    go :: FilePath -> IO [FilePath]
+    go path = do
+      entries <- map (path </>) <$> listDirectory path
+      concat <$> mapM visit entries
+
+    visit :: FilePath -> IO [FilePath]
+    visit entry = doesDirectoryExist entry >>= \case
+      True  -> go entry
+      False -> pure [entry | any (`isSuffixOf` entry) [".hs", ".hs-boot"]]
 
 -- | Convert a module name to a source file path
 --

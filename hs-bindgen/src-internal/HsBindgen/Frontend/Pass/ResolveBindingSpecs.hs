@@ -9,6 +9,7 @@ import Control.Monad.State (MonadState, State, runState)
 import Control.Monad.State qualified as State
 import Control.Monad.Trans.Class (lift)
 import Control.Monad.Trans.Maybe (MaybeT (..))
+import Data.Map.Lazy qualified as LazyMap
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
@@ -124,9 +125,16 @@ runM ::
   -> M l a
   -> (a, MState)
 runM extSpecs pSpec includeGraph declIndex (WrapM m) =
-    let env    = MEnv extSpecs pSpec includeGraph declIndex
+    let env    = MEnv extSpecs pSpec includeGraph reaches declIndex
         state0 = initMState pSpec
     in  runState (runReaderT m env) state0
+  where
+    -- Lazy: each set is computed when a lookup first needs it
+    reaches :: Map RealPath (Set RealPath)
+    reaches = LazyMap.fromList [
+          (path, IncludeGraph.reaches includeGraph path)
+        | path <- IncludeGraph.toSortedList includeGraph
+        ]
 
 {-------------------------------------------------------------------------------
   Internal: monad reader
@@ -136,10 +144,19 @@ data MEnv l = MEnv {
       extSpecs     :: MergedBindingSpecs
     , pSpec        :: PrescriptiveBindingSpec
     , includeGraph :: IncludeGraph
+      -- | 'IncludeGraph.reaches' of each header, which all the declarations of
+      -- the header share
+    , reaches      :: Map RealPath (Set RealPath)
     , declIndex    :: DeclIndex l
     }
 
 deriving stock instance Macro.HasTypes l => Show (MEnv l)
+
+-- | 'IncludeGraph.reaches', once per header
+reachesFrom :: MEnv l -> RealPath -> Set RealPath
+reachesFrom env path =
+    fromMaybe (IncludeGraph.reaches env.includeGraph path) $
+      Map.lookup path env.reaches
 
 {-------------------------------------------------------------------------------
   Internal: monad state
@@ -235,7 +252,7 @@ resolveTopInHeader ::
            )
        )
 resolveTopInHeader realPath decl = Reader.ask >>= \env -> do
-    let declPaths  = IncludeGraph.reaches env.includeGraph realPath
+    let declPaths  = reachesFrom env realPath
         mMsg       = Just $ withCallStack $ ResolveBindingSpecsOmittedType decl.info.id
     isExt <- isJust <$>
       resolveExtBinding
@@ -758,7 +775,7 @@ resolveUseSite ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
                   locs = DeclIndex.unusableToLoc x
                   declPaths =
                     foldMap
-                      (IncludeGraph.reaches env.includeGraph)
+                      (reachesFrom env)
                       (mapMaybe (C.declPathRealPath . singleLocPath) $
                         C.declLocsToList locs)
               mTy <- resolveExtBinding cDeclId locs declPaths Nothing

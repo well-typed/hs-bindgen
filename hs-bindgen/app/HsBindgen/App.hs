@@ -3,6 +3,7 @@
 -- | @hs-bindgen@ application common types and functions
 module HsBindgen.App (
     hsBindgen
+  , hsBindgenLibrary
 
     -- * Global options
   , GlobalOpts(..)
@@ -12,6 +13,7 @@ module HsBindgen.App (
     -- ** Bindgen configuration
   , Config
   , parseConfig
+  , parseConfigWith
     -- ** Clang arguments
   , parseClangArgsConfig
     -- ** Translation option
@@ -23,8 +25,11 @@ module HsBindgen.App (
   , parseHsOutputDir
   , parseDirPolicy
   , parseFilePolicy
+  , parseHsBootPolicy
+  , parseExecutionMode
   , parseGenBindingSpec
   , parseGenTestsOutput
+  , parseLibraryDirs
     -- ** Input arguments
   , parseInputs
 
@@ -52,6 +57,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass (EmptyMacros (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
+import HsBindgen.Library (LibraryDirs)
 import HsBindgen.Macro (CExpr)
 import HsBindgen.Macro qualified as Macro
 import HsBindgen.TraceMsg
@@ -62,10 +68,23 @@ hsBindgen ::
      TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
+  -> ExecutionMode
   -> [C.UncheckedRootDirective]
   -> Artefact CExpr a
   -> IO a
 hsBindgen = hsBindgenMacroLang (pure . Macro.cExpr)
+
+-- | Like 'hsBindgen', for a library: one module per header (@--library@)
+hsBindgenLibrary ::
+     TracerConfig Level     TraceMsg
+  -> TracerConfig SafeLevel SafeTraceMsg
+  -> BindgenConfig
+  -> ExecutionMode
+  -> LibraryDirs
+  -> [C.UncheckedRootDirective]
+  -> Artefact CExpr a
+  -> IO [a]
+hsBindgenLibrary = hsBindgenLibraryMacroLang (pure . Macro.cExpr)
 
 {-------------------------------------------------------------------------------
   Global options
@@ -235,14 +254,29 @@ parseShowCallStack = flag DisableCallStack EnableCallStack $ mconcat [
 type Config = Config_ FilePath
 
 parseConfig :: Parser Config
-parseConfig = Config
-    <$> parseClangArgsConfig
-    <*> parseBindingSpec
-    <*> parseSelectionPredicate
-    <*> parseProgramSlicing
-    <*> parseFieldNamingStrategy
-    <*> parseEmptyMacros
-    <*> parseMacroFallback
+parseConfig = ($ def) <$> parseConfigWith
+
+-- | The configuration, given the selection when there are no @--select@ flags
+--
+-- 'parseConfig' gives 'def', the declarations in main headers.
+parseConfigWith :: Parser (Boolean SelectionPredicate -> Config)
+parseConfigWith = do
+    clang               <- parseClangArgsConfig
+    bindingSpec         <- parseBindingSpec
+    selectionPredicate  <- parseSelectionPredicate
+    programSlicing      <- parseProgramSlicing
+    fieldNamingStrategy <- parseFieldNamingStrategy
+    emptyMacros         <- parseEmptyMacros
+    macroFallback       <- parseMacroFallback
+    pure $ \noFlags -> Config{
+        clang               = clang
+      , bindingSpec         = bindingSpec
+      , selectionPredicate  = selectionPredicate noFlags
+      , programSlicing      = programSlicing
+      , fieldNamingStrategy = fieldNamingStrategy
+      , emptyMacros         = emptyMacros
+      , macroFallback       = macroFallback
+      }
 
 {-------------------------------------------------------------------------------
   Binding specifications
@@ -370,9 +404,15 @@ parseClangOptionAfter = strOption $ mconcat [
   Predicates and slicing
 -------------------------------------------------------------------------------}
 
-parseSelectionPredicate :: Parser (Boolean SelectionPredicate)
+-- | The selection predicate, given the selection when there are no flags
+--
+-- That selection is also the positive part when only negative flags are given.
+-- It replaces the 'noFlags' and 'onlyExcept' below, which the help text shows.
+parseSelectionPredicate ::
+     Parser (Boolean SelectionPredicate -> Boolean SelectionPredicate)
 parseSelectionPredicate =
-    parsePredicate PredicateFlags{
+    (\selection noFlags -> selection noFlags noFlags) <$>
+      parsePredicateWith PredicateFlags{
         prefix     = "select"
       , positive   = ("Select " ++)
       , negative   = \x -> "Select except (i.e., do not select) " ++ x
@@ -406,7 +446,19 @@ data PredicateFlags = PredicateFlags {
     }
 
 parsePredicate :: PredicateFlags -> Parser (Boolean SelectionPredicate)
-parsePredicate flags = fmap aux . many . asum $ [
+parsePredicate flags =
+    (\predicate -> predicate flags.noFlags flags.onlyExcept) <$>
+      parsePredicateWith flags
+
+-- | Like 'parsePredicate', given 'noFlags' and 'onlyExcept' in that order
+parsePredicateWith ::
+     PredicateFlags
+  -> Parser
+       (  Boolean SelectionPredicate
+       -> Boolean SelectionPredicate
+       -> Boolean SelectionPredicate
+       )
+parsePredicateWith flags = fmap aux . many . asum $ [
       positiveFlag BTrue "all" $
         flags.positive ("all " ++ flags.subject)
     , positiveFlag (BIf (SelectHeader FromMainHeaders)) "from-main-headers" $
@@ -457,15 +509,20 @@ parsePredicate flags = fmap aux . many . asum $ [
     aux ::
          [Either (Boolean SelectionPredicate) (Boolean SelectionPredicate)]
       -> Boolean SelectionPredicate
-    aux = uncurry merge . partitionEithers
+      -> Boolean SelectionPredicate
+      -> Boolean SelectionPredicate
+    aux given noFlags onlyExcept =
+        uncurry (merge noFlags onlyExcept) (partitionEithers given)
 
     merge ::
-         [Boolean SelectionPredicate]
+         Boolean SelectionPredicate
+      -> Boolean SelectionPredicate
+      -> [Boolean SelectionPredicate]
       -> [Boolean SelectionPredicate]
       -> Boolean SelectionPredicate
-    merge []        []        = flags.noFlags
-    merge negatives []        = mergeBooleans negatives [flags.onlyExcept]
-    merge negatives positives = mergeBooleans negatives positives
+    merge noFlags _          []        []        = noFlags
+    merge _       onlyExcept negatives []        = mergeBooleans negatives [onlyExcept]
+    merge _       _          negatives positives = mergeBooleans negatives positives
 
 parseProgramSlicing :: Parser ProgramSlicing
 parseProgramSlicing =
@@ -580,11 +637,39 @@ parseFilePolicy = flag DoNotOverwriteFiles AllowFileOverwrite $ mconcat [
     , help "Allow overwriting existing output files"
     ]
 
+parseHsBootPolicy :: Parser HsBootPolicy
+parseHsBootPolicy = flag DoNotGenerateHsBoot GenerateHsBoot $ mconcat [
+      long "generate-hs-boot"
+    , help (  "Generate a boot file next to every types module, and put the "
+           ++ "code behind callbacks in a module of its own (suffix "
+           ++ "Callback), which has a boot file too. Not available with "
+           ++ "--single-file"
+           )
+    ]
+
+parseExecutionMode :: Parser ExecutionMode
+parseExecutionMode = flag RealRun DryRun $ mconcat [
+      long "dry-run"
+    , help "Check the output files and report them, but write nothing"
+    ]
+
 parseGenBindingSpec :: Parser FilePath
 parseGenBindingSpec = strOption $ mconcat [
       long "gen-binding-spec"
     , metavar "PATH"
     , help "Binding specification to generate"
+    ]
+
+parseLibraryDirs :: Parser [FilePath]
+parseLibraryDirs = many $ strOption $ mconcat [
+      long "library"
+    , metavar "DIR"
+    , help (  "Generate a module for each header in DIR (may be given more "
+           ++ "than once) that is read and has declarations selected, with "
+           ++ "boot files, so that headers whose types use each other compile. "
+           ++ "Without --select flags, select the declarations of every header "
+           ++ "in DIR"
+           )
     ]
 
 parseGenTestsOutput :: Parser FilePath

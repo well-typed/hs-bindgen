@@ -42,6 +42,7 @@ module HsBindgen.BindingSpec.Private.V1 (
   , encode
     -- ** Header resolution
   , resolve
+  , resolveWith
     -- ** Merging
   , MergedBindingSpecs
   , merge
@@ -430,7 +431,20 @@ resolve ::
 resolve tracer injResolveHeader args uSpec = do
     headerMap <-
       resolveHeaders (contramap injResolveHeader tracer) args allHeaders
+    resolveWith tracer headerMap uSpec
+  where
+    allHeaders :: Set C.HashIncludeArg
+    allHeaders = mconcat $ fst <$> concat (Map.elems uSpec.cTypes)
 
+-- | Resolve headers in a binding specification, given the path of each header
+--
+-- A type is dropped, with a message, when none of its headers has a path.
+resolveWith ::
+     Tracer BindingSpecResolveMsg
+  -> Map C.HashIncludeArg RealPath
+  -> UnresolvedBindingSpec
+  -> IO ResolvedBindingSpec
+resolveWith tracer headerMap uSpec = do
     let lookup' :: C.HashIncludeArg -> Maybe (C.HashIncludeArg, RealPath)
         lookup' uHeader = (uHeader,) <$> Map.lookup uHeader headerMap
 
@@ -472,9 +486,6 @@ resolve tracer injResolveHeader args uSpec = do
       , cTypes     = cTypes
       , hsTypes    = uSpec.hsTypes
       }
-  where
-    allHeaders :: Set C.HashIncludeArg
-    allHeaders = mconcat $ fst <$> concat (Map.elems uSpec.cTypes)
 
 {-------------------------------------------------------------------------------
   API: Merging
@@ -489,6 +500,13 @@ newtype MergedBindingSpecs = MergedBindingSpecs {
       map :: Map C.DeclId [(Set RealPath, ResolvedBindingSpec)]
     }
   deriving stock (Show)
+
+-- | Combine merged binding specifications, without checking for conflicts
+--
+-- Where both bind a C type in the same header, a lookup finds the binding on
+-- the left.
+instance Semigroup MergedBindingSpecs where
+  a <> b = MergedBindingSpecs $ Map.unionWith (++) a.map b.map
 
 -- | Merge (external) binding specifications
 merge ::
