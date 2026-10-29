@@ -40,12 +40,11 @@ declSortKey ::
   -> DeclDB.Entry l p
   -> DeclSortKey
 declSortKey order = \case
-    DeclDB.Active   decl     -> withLoc decl.info
-    DeclDB.Squashed info _   -> withLoc info
-    DeclDB.External{}        -> DeclNoLoc
-    DeclDB.Omitted info      -> withLoc info
-    DeclDB.Deselected info   -> withLoc info
-    DeclDB.Unusable unusable -> case unusable of
+    DeclDB.Active   decl      -> withLoc decl.info
+    DeclDB.Squashed info _    -> withLoc info
+    DeclDB.External{}         -> DeclNoLoc
+    DeclDB.NotSelected info _ -> withLoc info
+    DeclDB.Unusable unusable  -> case unusable of
       DeclDB.UnusableDecl info _ -> withLoc info
       DeclDB.UnusableConflict{}  -> DeclNoLoc
   where
