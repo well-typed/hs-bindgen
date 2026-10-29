@@ -130,23 +130,28 @@ conclude declId conclusion = TypedefAnalysis $ Map.singleton declId conclusion
   Analysis proper
 -------------------------------------------------------------------------------}
 
-fromDecls :: DeclUseGraph -> [C.Decl l ResolveBindingSpecs] -> TypedefAnalysis
-fromDecls declUseGraph = mconcat . map aux
+fromDecls ::
+     (C.DeclId -> C.DeclId -> Bool)
+  -> DeclUseGraph
+  -> [C.Decl l ResolveBindingSpecs]
+  -> TypedefAnalysis
+fromDecls placedTogether declUseGraph = mconcat . map aux
   where
      aux :: C.Decl l ResolveBindingSpecs -> TypedefAnalysis
      aux decl =
          case decl.kind of
            C.DeclTypedef typedef ->
-             analyseTypedef declUseGraph decl typedef
+             analyseTypedef placedTogether declUseGraph decl typedef
            _otherwise ->
              mempty
 
 analyseTypedef ::
-      DeclUseGraph
+     (C.DeclId -> C.DeclId -> Bool)
+  -> DeclUseGraph
   -> C.Decl l ResolveBindingSpecs
   -> C.Typedef ResolveBindingSpecs
   -> TypedefAnalysis
-analyseTypedef declUseGraph typedefDecl typedef =
+analyseTypedef placedTogether declUseGraph typedefDecl typedef =
     case directPayload of
       -- The typedef is a direct alias of a tagged type: a candidate for
       -- squashing.
@@ -200,6 +205,7 @@ analyseTypedef declUseGraph typedefDecl typedef =
         | p <- payloads
         , not p.isDirect
         , p.id.name.text == typedefName
+        , placedTogether typedefDecl.id p.id
         ]
 
     shouldSquash :: TaggedPayload -> Bool

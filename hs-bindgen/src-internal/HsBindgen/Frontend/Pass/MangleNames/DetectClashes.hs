@@ -38,11 +38,12 @@ import HsBindgen.Language.Haskell qualified as Hs
 
 detectClashes ::
      forall l.
-     FieldNamingStrategy
+     (C.DeclId -> Hs.ModuleName)
+  -> FieldNamingStrategy
   -> NameMap
   -> [C.Decl l CreateNames]
   -> (NameRegistry, [MangleNamesFailure])
-detectClashes strategy nameMap decls =
+detectClashes moduleOf strategy nameMap decls =
     (registry, collisionFailures (collisions registry) ++ deriveFailures)
   where
     registry :: NameRegistry
@@ -61,6 +62,9 @@ detectClashes strategy nameMap decls =
         owner :: C.DeclId
         owner = decl.id
 
+        modScope :: Scope
+        modScope = ModuleScope (moduleOf owner)
+
         loc :: SingleLoc C.DeclPath
         loc = decl.info.loc
 
@@ -68,10 +72,10 @@ detectClashes strategy nameMap decls =
         -- appear in 'decls', so they are never registered here.
         reg0 :: NameRegistry
         reg0 = case lookupSomeName owner nameMap of
-          Just sname -> registerSomeName Declaration GlobalScope owner loc sname reg
+          Just sname -> registerSomeName Declaration modScope owner loc sname reg
           Nothing    -> reg
 
-        (failures, successes) = partitionEithers $ derivedNames strategy nameMap owner loc decl.kind
+        (failures, successes) = partitionEithers $ derivedNames modScope strategy nameMap owner loc decl.kind
 
 -- | Looking up created names for scoped names can fail
 type DerivedNamesResult = Either MangleNamesFailure (NameRole, Scope, SingleLoc C.DeclPath, Hs.SomeName)
@@ -84,16 +88,17 @@ type DerivedNamesResult = Either MangleNamesFailure (NameRole, Scope, SingleLoc 
 -- location, so that a within-record duplicate-field collision points at the
 -- offending fields.
 derivedNames :: forall l.
-     FieldNamingStrategy
+     Scope
+  -> FieldNamingStrategy
   -> NameMap
   -> C.DeclId
   -> SingleLoc C.DeclPath
   -> C.DeclKind l CreateNames
   -> [DerivedNamesResult]
-derivedNames strategy nameMap owner loc = \case
+derivedNames topScope strategy nameMap owner loc = \case
     C.DeclStruct struct ->
-         success (Constructor, GlobalScope, loc, Hs.demoteNs struct.ann.constr)
-       : [ success (AuxType, GlobalScope, loc, Hs.demoteNs flamNames.aux)
+         success (Constructor, topScope, loc, Hs.demoteNs struct.ann.constr)
+       : [ success (AuxType, topScope, loc, Hs.demoteNs flamNames.aux)
          | C.Flam _ flamNames <- [struct.flam] ]
       ++ concatMap fieldNames struct.fields
       ++ foldMap regularFieldNames (C.flamStructField struct.flam)
@@ -127,7 +132,7 @@ derivedNames strategy nameMap owner loc = \case
     -- @DuplicateRecordFields@, so they need only be unique within a record.
     fieldScope :: Scope
     fieldScope = case strategy of
-      AddFieldPrefixes  -> GlobalScope
+      AddFieldPrefixes  -> topScope
       OmitFieldPrefixes -> DeclScope owner
 
     fieldNames :: C.Field CreateNames -> [DerivedNamesResult]
@@ -156,7 +161,7 @@ derivedNames strategy nameMap owner loc = \case
     enumConstantName constant =
         case lookupScopedName owner constant.info.name nameMap of
           Nothing     -> [ failure owner constant.info.name ]
-          Just hsName -> [ success (Constructor, GlobalScope, constant.info.loc, hsName) ]
+          Just hsName -> [ success (Constructor, topScope, constant.info.loc, hsName) ]
 
     -- The newtype "unwrap" field is recorded only under 'AddFieldPrefixes',
     -- where it is the globally-unique @unwrap<TypeName>@. Under
@@ -164,14 +169,14 @@ derivedNames strategy nameMap owner loc = \case
     -- and so can never collide.
     newtypeNames :: NewtypeNames -> [DerivedNamesResult]
     newtypeNames n =
-        success (Constructor, GlobalScope, loc, Hs.demoteNs n.dataConstr)
-      : [ success (Field, GlobalScope, loc, Hs.demoteNs n.field)
+        success (Constructor, topScope, loc, Hs.demoteNs n.dataConstr)
+      : [ success (Field, topScope, loc, Hs.demoteNs n.field)
         | AddFieldPrefixes <- [strategy] ]
 
     typedefNames :: TypedefNames -> [DerivedNamesResult]
     typedefNames t =
          newtypeNames t.orig
-      ++ concat [ success (AuxType, GlobalScope, loc, Hs.demoteNs auxName) : newtypeNames auxNames
+      ++ concat [ success (AuxType, topScope, loc, Hs.demoteNs auxName) : newtypeNames auxNames
                 | (auxName, auxNames) <- maybeToList t.aux ]
 
 -- | Turn registry collisions into per-declaration failures

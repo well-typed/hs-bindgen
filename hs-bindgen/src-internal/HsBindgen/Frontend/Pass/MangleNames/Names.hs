@@ -193,14 +193,14 @@ data NameRole =
 
 -- | The scope in which a created Haskell name must be unique
 --
--- Most Haskell names we generate are top-level and must be globally unique
--- ('GlobalScope'). Record field selectors created under
+-- Most Haskell names we generate are top-level and must be unique within
+-- their module ('ModuleScope'). Record field selectors created under
 -- 'HsBindgen.Config.Prelims.OmitFieldPrefixes' are an exception: the generated
 -- code enables @DuplicateRecordFields@, so the same selector name may appear in
 -- different records, but it must still be unique /within/ a single record. Such
 -- names are scoped to the enclosing declaration ('DeclScope').
 data Scope =
-    GlobalScope
+    ModuleScope Hs.ModuleName
   | DeclScope C.DeclId
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -286,15 +286,10 @@ data Collision = Collision {
 -- | All collisions in the registry, across all three namespaces
 --
 -- A name collides when it was created at least twice in the same namespace
--- /and/ the same 'Scope'. Names created in different scopes (e.g. two record
--- field selectors in different records under @DuplicateRecordFields@) do not
--- collide.
---
--- Field selectors created in a 'DeclScope' (under 'OmitFieldPrefixes') need only
--- be unique within their record: @DuplicateRecordFields@ permits the same field
--- name in different records, and @NoFieldSelectors@ (also enabled under
--- 'OmitFieldPrefixes') means no top-level selector is generated, so such a name
--- cannot clash with a non-field declaration either.
+-- /and/ the same 'Scope'. Names created in different scopes do not collide:
+-- 'ModuleScope' separates declarations in different modules, and 'DeclScope'
+-- separates record field selectors in different records under
+-- @DuplicateRecordFields@.
 collisions :: NameRegistry -> [Collision]
 collisions reg = concat [
       collisionsFor reg.typeConstrs

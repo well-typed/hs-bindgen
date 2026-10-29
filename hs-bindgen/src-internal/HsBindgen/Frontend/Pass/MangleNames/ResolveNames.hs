@@ -39,27 +39,26 @@ import Doxygen.Parser.Types qualified as Doxy
 -------------------------------------------------------------------------------}
 
 data ResolveEnv = ResolveEnv {
-      nameMap       :: NameMap
-    , currentModule :: Hs.ModuleName
+      nameMap  :: NameMap
+    , moduleOf :: C.DeclId -> Hs.ModuleName
     }
-  deriving stock (Generic)
 
 type ResolveM   = Reader ResolveEnv
 type ResolveE a = ExceptT MangleNamesResolutionError ResolveM a
 
 resolveNames ::
      forall l. Macro.HasTypes l
-  => Hs.ModuleName
+  => (C.DeclId -> Hs.ModuleName)
   -> NameMap
   -> Set C.DeclId
   -> [C.Decl l CreateNames]
   -> ([C.Decl l MangleNames], [MangleNamesFailure])
-resolveNames currentModule nameMap dropped decls = (oks, failures)
+resolveNames moduleOf nameMap dropped decls = (oks, failures)
   where
     env :: ResolveEnv
     env = ResolveEnv{
-        nameMap       = nameMap
-      , currentModule = currentModule
+        nameMap  = nameMap
+      , moduleOf = moduleOf
       }
 
     failures :: [MangleNamesFailure]
@@ -83,7 +82,7 @@ resolveDecl ::
 resolveDecl decl =
     withDeclNamespace decl.kind $ \nsProxy -> do
       hsName     <- resolveDeclName nsProxy decl.id
-      modName    <- asks (.currentModule)
+      moduleOf'  <- asks (.moduleOf)
       comment'   <- traverse (resolve decl.id) decl.comment
       enclosing' <- mapM resolveEnclosingRef decl.enclosing
       kind'      <- resolveDeclKind decl.id decl.kind
@@ -91,7 +90,7 @@ resolveDecl decl =
           info      = decl.info
         , id        = DeclIdPair{
               cName   = decl.id
-            , hsIdent = Hs.Identifier modName (Hs.demoteNs hsName)
+            , hsIdent = Hs.Identifier (moduleOf' decl.id) (Hs.demoteNs hsName)
             }
         , comment   = comment'
         , enclosing = enclosing'
@@ -191,20 +190,20 @@ lookupScopedNameR declId scopedName = do
 
 lookupTypePairR :: C.DeclId -> ResolveE DeclIdPair
 lookupTypePairR declId = do
-    modName <- asks (.currentModule)
-    (\hsName -> DeclIdPair declId (Hs.Identifier modName (Hs.demoteNs hsName)))
+    moduleOf' <- asks (.moduleOf)
+    (\hsName -> DeclIdPair declId (Hs.Identifier (moduleOf' declId) (Hs.demoteNs hsName)))
       <$> lookupTypeR declId
 
 lookupVarPairR :: C.DeclId -> ResolveE DeclIdPair
 lookupVarPairR declId = do
-    modName <- asks (.currentModule)
-    (\hsName -> DeclIdPair declId (Hs.Identifier modName (Hs.demoteNs hsName)))
+    moduleOf' <- asks (.moduleOf)
+    (\hsName -> DeclIdPair declId (Hs.Identifier (moduleOf' declId) (Hs.demoteNs hsName)))
       <$> lookupVarR declId
 
 lookupScopedNamePairR :: C.DeclId -> C.ScopedName -> ResolveE ScopedNamePair
 lookupScopedNamePairR declId scopedName = do
-    modName <- asks (.currentModule)
-    (\hsName -> ScopedNamePair scopedName (Hs.Identifier modName hsName))
+    moduleOf' <- asks (.moduleOf)
+    (\hsName -> ScopedNamePair scopedName (Hs.Identifier (moduleOf' declId) hsName))
       <$> lookupScopedNameR declId scopedName
 
 {-------------------------------------------------------------------------------
@@ -457,7 +456,7 @@ resolveExtBindingRef ownerId (C.Ref ext uTy) =
     -- external binding so that such references can be resolved.
     C.Ref ext <$>
       local
-        ( #nameMap % #typeConstrs %~ Map.insert ext.cName (Hs.assertNs (Proxy @Hs.NsTypeConstr) ext.hsIdent.name) )
+        (\env -> env{ nameMap = env.nameMap & #typeConstrs %~ Map.insert ext.cName (Hs.assertNs (Proxy @Hs.NsTypeConstr) ext.hsIdent.name) })
         ( resolve ownerId uTy )
 
 {-------------------------------------------------------------------------------
@@ -494,17 +493,17 @@ lookupByKind env = \case
     C.NameKindTagged{} -> lookupTypeNs
     _                 -> lookupTypeOrVarNs
   where
-    mkIdent :: Hs.SomeName -> Hs.Identifier
-    mkIdent = Hs.Identifier env.currentModule
+    mkIdent :: C.DeclId -> Hs.SomeName -> Hs.Identifier
+    mkIdent dId = Hs.Identifier (env.moduleOf dId)
 
     lookupTypeNs :: C.DeclId -> Maybe DeclIdPair
     lookupTypeNs declId =
-        DeclIdPair declId . mkIdent . Hs.demoteNs
+        DeclIdPair declId . mkIdent declId . Hs.demoteNs
           <$> lookupType declId env.nameMap
 
     lookupTypeOrVarNs :: C.DeclId -> Maybe DeclIdPair
     lookupTypeOrVarNs declId =
-        DeclIdPair declId . mkIdent <$> asum
+        DeclIdPair declId . mkIdent declId <$> asum
           [ Hs.demoteNs <$> lookupType declId env.nameMap
           , Hs.demoteNs <$> lookupVar  declId env.nameMap
           ]

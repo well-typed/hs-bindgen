@@ -200,7 +200,7 @@ mangleCandidate mc _ cName =
 
 createNames ::
      forall l. Macro.HasTypes l
-  => Hs.ModuleName
+  => (C.DeclId -> Hs.ModuleName)
   -> TypedefAnalysis
   -> MangleCandidate Maybe
   -> FieldNamingStrategy
@@ -212,7 +212,7 @@ createNames ::
      , [MangleNamesFailure]
      , [(C.DeclId, DelayedMangleNamesMsg)]
      )
-createNames currentModule td mc strategy decls = (
+createNames moduleOf td mc strategy decls = (
       map (snd . snd) successes
     , squashes
     , nameMap
@@ -228,13 +228,6 @@ createNames currentModule td mc strategy decls = (
       C.Decl l ResolveBindingSpecs -> Maybe (C.DeclId, Hs.Name Hs.NsTypeConstr)
     getSpecifiedName decl = (decl.id,) <$> ((.hsName) =<< decl.ann.cSpec)
 
-    env :: CreateEnv
-    env = CreateEnv{
-        mangleCandidate     = mc
-      , fieldNamingStrategy = strategy
-      , currentModule       = currentModule
-      }
-
     results :: [CreateNamesResult ([ScopedNamePair], C.Decl l CreateNames)]
     messages :: [(C.DeclId, DelayedMangleNamesMsg)]
     (results, messages) = second concat $ unzip $ map perDecl decls
@@ -245,11 +238,12 @@ createNames currentModule td mc strategy decls = (
     perDecl decl = (,map (decl.id,) msgs) $ case nameResult of
         CnFailure err      -> CnFailure err
         CnSquashed nC nH s -> CnSquashed nC nH s
-        CnMangled name ()  -> createNamesWithin env name decl
+        CnMangled name ()  ->
+          createNamesWithin mc strategy (moduleOf name.cName) name decl
       where
         nameResult :: CreateNamesResult ()
         msgs       :: [DelayedMangleNamesMsg]
-        (nameResult, msgs) = nameForDecl currentModule td mc specifiedNames decl
+        (nameResult, msgs) = nameForDecl moduleOf td mc specifiedNames decl
 
     failures  :: [MangleNamesFailure]
     squashes  :: [(C.DeclId, Hs.Name Hs.NsTypeConstr, TypedefAnalysis.Squash)]
@@ -266,17 +260,17 @@ createNames currentModule td mc strategy decls = (
         fromSquash (cN, hN, _)                         = (declIdPair, scopedNamePairs)
           where
             declIdPair = DeclIdPair cN
-                (Hs.Identifier currentModule (Hs.demoteNs hN))
+                (Hs.Identifier (moduleOf cN) (Hs.demoteNs hN))
             scopedNamePairs = []
 
 nameForDecl ::
-     Hs.ModuleName
+     (C.DeclId -> Hs.ModuleName)
   -> TypedefAnalysis
   -> MangleCandidate Maybe
   -> Map C.DeclId (Hs.Name Hs.NsTypeConstr)
   -> C.Decl l ResolveBindingSpecs
   -> (CreateNamesResult (), [DelayedMangleNamesMsg])
-nameForDecl currentModule td mc specifiedNames decl =
+nameForDecl moduleOf td mc specifiedNames decl =
     withDeclNamespace decl.kind $ \(nsProxy :: Proxy ns) ->
       let mangleNs :: Text -> Either MangleNamesCreationError (Hs.Name ns)
           mangleNs d = runExcept $ mangleCandidate mc nsProxy d
@@ -352,7 +346,7 @@ nameForDecl currentModule td mc specifiedNames decl =
 
     getPair :: Hs.SingNamespace ns => Hs.Name ns -> DeclIdPair
     getPair hsName = DeclIdPair declId
-        (Hs.Identifier currentModule (Hs.demoteNs hsName))
+        (Hs.Identifier (moduleOf declId) (Hs.demoteNs hsName))
 
     succeedWith :: Hs.SingNamespace ns => Hs.Name ns -> CreateNamesResult ()
     succeedWith n = CnMangled (getPair n) ()
@@ -421,12 +415,19 @@ partitionCreateNamesResults = rev . Foldable.foldl' aux ([], [], [])
 -- ('hsName') has already been chosen in step 1a.
 createNamesWithin ::
      Macro.HasTypes l
-  => CreateEnv
+  => MangleCandidate Maybe
+  -> FieldNamingStrategy
+  -> Hs.ModuleName
   -> DeclIdPair
   -> C.Decl l ResolveBindingSpecs
   -> CreateNamesResult ([ScopedNamePair], C.Decl l CreateNames)
-createNamesWithin env declIdPair decl =
-    case runCreate env emptyCreateSt (createDeclKind declIdPair.hsIdent.name.text decl.kind) of
+createNamesWithin mc fns modName declIdPair decl =
+    let env = CreateEnv{
+            mangleCandidate     = mc
+          , fieldNamingStrategy = fns
+          , currentModule       = modName
+          }
+    in case runCreate env emptyCreateSt (createDeclKind declIdPair.hsIdent.name.text decl.kind) of
       (Left err, _)   -> CnFailure $ toFailure decl (MangleNamesCreationError err)
       (Right kind, st) -> CnMangled declIdPair (
           st.scopedNames

@@ -63,11 +63,12 @@ import HsBindgen.Util.Tracer (withCallStack)
 
 mangleNames ::
      forall l. (HasCallStack, Macro.HasTypes l)
-  => Hs.ModuleName
+  => (C.DeclId -> Hs.ModuleName)
+  -> (C.DeclId -> C.DeclId -> Bool)
   -> FieldNamingStrategy
   -> C.TranslationUnit l ResolveBindingSpecs
   -> (C.TranslationUnit l MangleNames, [AnnMsg MangleNames])
-mangleNames currentModule fieldNaming unit = (
+mangleNames moduleOf placedTogether fieldNaming unit = (
       unit{C.db =
           DeclDB.addDelayedMsgs (map (second DelayedMangleNames) msgs1) $
             runIdentity $
@@ -84,7 +85,7 @@ mangleNames currentModule fieldNaming unit = (
     decls = DeclDB.active DeclDB.AnyOrder unit.db
 
     typedefAnalysis :: TypedefAnalysis.TypedefAnalysis
-    typedefAnalysis = TypedefAnalysis.fromDecls unit.db.declUseGraph decls
+    typedefAnalysis = TypedefAnalysis.fromDecls placedTogether unit.db.declUseGraph decls
 
     mangleCandidateConfig :: MangleCandidate Maybe
     mangleCandidateConfig = MangleCandidate.mangleCandidateDefault
@@ -97,12 +98,12 @@ mangleNames currentModule fieldNaming unit = (
     failures1   :: [MangleNamesFailure]
     msgs1       :: [(C.DeclId, DelayedMangleNamesMsg)]
     (declsC, squashes, nameMap, nameMapDups, failures1, msgs1) =
-      createNames currentModule typedefAnalysis mangleCandidateConfig fieldNaming decls
+      createNames moduleOf typedefAnalysis mangleCandidateConfig fieldNaming decls
 
     -- Traversal 2: detect clashes among all names.
     registry  :: NameRegistry
     failures2 :: [MangleNamesFailure]
-    (registry, failures2) = detectClashes fieldNaming nameMap declsC
+    (registry, failures2) = detectClashes moduleOf fieldNaming nameMap declsC
 
     dropped :: Set C.DeclId
     dropped = Set.fromList $ map (.id) failures2
@@ -110,7 +111,7 @@ mangleNames currentModule fieldNaming unit = (
     -- Traversal 3: resolve references.
     decls3    :: [C.Decl l MangleNames]
     failures3 :: [MangleNamesFailure]
-    (decls3, failures3) = resolveNames currentModule nameMap dropped declsC
+    (decls3, failures3) = resolveNames moduleOf nameMap dropped declsC
 
     results :: Map C.DeclId (DeclDB.PassResult l MangleNames)
     results = mangleResults decls3 squashes (failures1 ++ failures2 ++ failures3)
