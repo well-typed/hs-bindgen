@@ -3,7 +3,7 @@ module Test.HsBindgen.Golden.Macros.Reparse (testCases) where
 
 import Control.Applicative
 
-import HsBindgen.Frontend.DeclDB (UnusableReason (..))
+import HsBindgen.Frontend.DeclDB (PassFailure (..))
 import HsBindgen.Imports
 import HsBindgen.Macro.Error (MacroLangFailure (..))
 import HsBindgen.TraceMsg
@@ -121,7 +121,7 @@ multiTracePredicate_nesting expected predicate = multiTracePredicate expected pr
       | otherwise
       = case x of
           -- Parse (macro)
-          MatchUnusableReason _info (UnusableMacro FailedParse{}) ->
+          MatchPassFailed _info (MacroFailed FailedParse{}) ->
             Just Unexpected
           -- PrepareReparse
           MatchImmediatePrepareReparse _ ->

@@ -32,8 +32,8 @@ data DeclSortKey = DeclWithLoc SortKey | DeclNoLoc
 
 -- | The key of an entry
 --
--- Read from the entry's 'C.DeclInfo', so deactivating, squashing or
--- deselecting an entry keeps its key; only 'DeclDB.externalize' changes it.
+-- Read from the entry's 'C.DeclInfo', so squashing, omitting, deselecting or
+-- failing an entry keeps its key; only 'DeclDB.externalize' changes it.
 declSortKey ::
      HasCallStack
   => IncludeGraph.IncludeOrder
@@ -43,10 +43,11 @@ declSortKey order = \case
     DeclDB.Active   decl     -> withLoc decl.info
     DeclDB.Squashed info _   -> withLoc info
     DeclDB.External{}        -> DeclNoLoc
+    DeclDB.Omitted info      -> withLoc info
     DeclDB.Deselected info   -> withLoc info
-    DeclDB.Inactive inactive -> case inactive of
-      DeclDB.InactiveDecl info _ -> withLoc info
-      DeclDB.InactiveConflict{}  -> DeclNoLoc
+    DeclDB.Unusable unusable -> case unusable of
+      DeclDB.UnusableDecl info _ -> withLoc info
+      DeclDB.UnusableConflict{}  -> DeclNoLoc
   where
     withLoc :: C.DeclInfo -> DeclSortKey
     withLoc info = DeclWithLoc $ annSortKey order info.loc

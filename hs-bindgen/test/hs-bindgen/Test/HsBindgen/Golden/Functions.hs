@@ -4,7 +4,7 @@ module Test.HsBindgen.Golden.Functions (testCases) where
 import HsBindgen.Backend.Category
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.DeclDB (InactiveReason (..))
+import HsBindgen.Frontend.DeclDB (UnusableReason (..))
 import HsBindgen.Frontend.Pass.Parse.Result (NotAttemptedReason (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate (Boolean (..))

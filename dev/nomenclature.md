@@ -21,9 +21,12 @@ declaration. The kind of the entry says what we generate for it:
 - _squashed_: the binding of the target, into which the typedef was squashed;
 - _external_: nothing, because an external binding specification defines it
   elsewhere;
+- _omitted_: nothing, because a prescriptive binding specification omits it;
+  its users cannot be selected;
 - _deselected_: nothing, because `Select` did not select it;
-- _inactive_: nothing at all; we failed or did not attempt to parse it, its
-  name conflicts, or a pass deactivated it (it is _unusable_ or _omitted_).
+- _unusable_: nothing at all; we failed or did not attempt to parse it, its
+  name conflicts, or a later pass _failed_ on it (the macro language or the
+  name mangler).
 
 In particular,
 - we avoid the terms _exclude_, and _skip_.

@@ -138,7 +138,7 @@ mangleResults decls squashes failures =
       -- last failure is its reason. The failures of one declaration are in an
       -- order independent of the order of the declarations.
     , Map.toList $ Map.fromList [
-          (f.id, DeclDB.Deactivate $ DeclDB.Unusable $ DeclDB.UnusableMangleNames f.err)
+          (f.id, DeclDB.Fail $ DeclDB.MangleNamesFailed f.err)
         | f <- failures
         ]
     ]

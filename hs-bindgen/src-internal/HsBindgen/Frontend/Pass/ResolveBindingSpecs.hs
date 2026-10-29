@@ -94,7 +94,7 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
         results :: Map C.DeclId (DeclDB.PassResult l ResolveBindingSpecs)
         results = Map.fromListWithKey duplicate $ concat [
               [(decl.id, DeclDB.Advanced decl) | decl <- decls]
-            , [ (declId, DeclDB.Deactivate DeclDB.Omitted)
+            , [ (declId, DeclDB.Omit)
               | declId <- Set.toList state.omitTypes
               ]
             ]
@@ -769,12 +769,12 @@ resolveUseSite ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
               <> " not in declaration database"
           -- Interesting case, an unusable declaration may have an external
           -- binding specification.
-          Just (DeclDB.Inactive x) -> do
+          Just (DeclDB.Unusable x) -> do
               let declPaths =
                     foldMap
                       (IncludeGraph.reaches env.includeGraph)
                       (mapMaybe (C.declPathRealPath . singleLocPath) $
-                        C.declLocsToList (DeclDB.inactiveToLoc x))
+                        C.declLocsToList (DeclDB.unusableToLoc x))
               mTy <- resolveExtBinding cDeclId declPaths Nothing
               case mTy of
                 Just ty -> do

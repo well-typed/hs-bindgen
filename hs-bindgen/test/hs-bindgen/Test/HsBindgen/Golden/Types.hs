@@ -5,7 +5,7 @@ import System.FilePath ((<.>), (</>))
 
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.DeclDB (UnusableReason (..))
+import HsBindgen.Frontend.DeclDB (PassFailure (..))
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
@@ -369,7 +369,7 @@ test_typedefs_typedefs =
 test_typedefs_typenames :: TestCase
 test_typedefs_typenames =
     testTraceMulti "types/typedefs/typenames" declsWithMsgs $ \case
-      MatchUnusableReason name (UnusableMangleNames (MangleNamesCollisionError DetectClashesCollision{})) ->
+      MatchPassFailed name (MangleNamesFailed (MangleNamesCollisionError DetectClashesCollision{})) ->
         Just $ Expected name
       _otherwise ->
         Nothing

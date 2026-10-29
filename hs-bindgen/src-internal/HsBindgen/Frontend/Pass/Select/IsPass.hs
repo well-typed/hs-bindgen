@@ -17,8 +17,7 @@ import Text.SimplePrettyPrint qualified as PP
 import Clang.HighLevel.Types
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Frontend.DeclDB (Deactivation (..), Inactive,
-                                  InactiveReason (..), SquashTarget (..),
+import HsBindgen.Frontend.DeclDB (PassFailure (..), SquashTarget, Unusable,
                                   UnusableReason (..))
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DelayedMsg
@@ -145,7 +144,9 @@ data SelectStatus =
 
 data TransitiveDependencyMissing =
     -- | Transitive dependency is unusable
-    TransitiveDependencyUnusable C.DeclId Inactive
+    TransitiveDependencyUnusable C.DeclId Unusable
+    -- | Transitive dependency is omitted by a prescriptive binding specification
+  | TransitiveDependencyOmitted C.DeclId [SingleLoc C.DeclPath]
     -- | Transitive dependency is not selected.
   | TransitiveDependencyNotSelected C.DeclId [SingleLoc C.DeclPath]
   deriving stock (Show)
@@ -156,9 +157,13 @@ instance PrettyForTrace TransitiveDependencyMissing where
         let intro = "Transitive dependency unusable:"
         in  PP.hang intro 2 $ prettyForTrace $ C.WithLocationInfo{
                 loc = C.declIdLocationInfo i $
-                  C.declLocsToList $ DeclDB.inactiveToLoc u
+                  C.declLocsToList $ DeclDB.unusableToLoc u
               , msg = u
               }
+      TransitiveDependencyOmitted i ls ->
+        let intro =
+              "Transitive dependency omitted by prescriptive binding specification:"
+        in  PP.hang intro 2 $ prettyForTrace $ C.declIdLocationInfo i ls
       TransitiveDependencyNotSelected i ls ->
         let intro = "Transitive dependency not selected:"
         in  PP.hang intro 2 $ PP.vcat [
@@ -180,7 +185,7 @@ data SelectMsg =
     -- | Delayed message of an earlier pass
   | SelectDelayedMsg DelayedMsg
     -- | A directly or transitively selected declaration is unusable.
-  | SelectUnusable InactiveReason
+  | SelectUnusable UnusableReason
   | SelectConflict
   | SelectMangleNamesSquashed SquashTarget
     -- | Inform the user that no declarations matched the selection predicate.
@@ -210,14 +215,11 @@ instance PrettyForTrace SelectMsg where
       SelectUnusable reason -> case reason of
         NotAttempted x ->
           couldNotSelect $ PP.hang "Parse not attempted: " 2 $ prettyForTrace x
-        Deactivated Omitted ->
-          couldNotSelect $
-            "Declaration omitted by prescriptive binding specifications"
         ParseFailed x ->
           couldNotSelect $ prettyForTrace x
-        Deactivated (Unusable (UnusableMangleNames x)) ->
+        PassFailed (MangleNamesFailed x) ->
           couldNotSelect $ prettyForTrace x
-        Deactivated (Unusable (UnusableMacro x)) ->
+        PassFailed (MacroFailed x) ->
           couldNotSelect $ prettyForTrace x
       SelectConflict ->
         couldNotSelect "Conflicting declarations"
@@ -266,10 +268,9 @@ instance IsTrace Level SelectMsg where
     SelectDeprecated{}                       -> Notice
     SelectDelayedMsg x                       -> getDefaultLogLevel x
     SelectUnusable r -> case r of
-      NotAttempted{}           -> Warning
-      Deactivated Omitted      -> Info
-      ParseFailed x            -> getDefaultLogLevel x
-      Deactivated (Unusable x) -> getDefaultLogLevel x
+      NotAttempted{} -> Warning
+      ParseFailed x  -> getDefaultLogLevel x
+      PassFailed x   -> getDefaultLogLevel x
     SelectConflict{}                         -> Warning
     SelectMangleNamesSquashed{}              -> Notice
     SelectNoDeclarationsMatched              -> Warning
@@ -283,10 +284,9 @@ instance IsTrace Level SelectMsg where
     SelectDeprecated{}                       -> "select"
     SelectDelayedMsg x                       -> "select-" <> getTraceId x
     SelectUnusable r -> case r of
-      NotAttempted{}           -> "select-parse"
-      Deactivated Omitted      -> "select-omitted"
-      ParseFailed x            -> "select-" <> getTraceId x
-      Deactivated (Unusable x) -> "select-" <> getTraceId x
+      NotAttempted{} -> "select-parse"
+      ParseFailed x  -> "select-" <> getTraceId x
+      PassFailed x   -> "select-" <> getTraceId x
     SelectConflict{}                         -> "select"
     SelectMangleNamesSquashed{}              -> "select-mangle-names-squashed"
     SelectNoDeclarationsMatched              -> "select"
