@@ -28,7 +28,7 @@ testCases = [
     , test_asm
     , test_attributes
     , test_deprecated
-    , test_deprecated_inactive
+    , test_deprecated_no_binding
     , test_type_attributes
     , test_visibility_functions
     , test_visibility_variables
@@ -66,9 +66,9 @@ test_deprecated =
 
 -- | Deprecation is known also for declarations that are squashed or fail to
 -- parse
-test_deprecated_inactive :: TestCase
-test_deprecated_inactive =
-    defaultTest "attributes/deprecated_inactive"
+test_deprecated_no_binding :: TestCase
+test_deprecated_no_binding =
+    defaultTest "attributes/deprecated_no_binding"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name SelectDeprecated{} ->
               Just $ Expected (name, "deprecated")

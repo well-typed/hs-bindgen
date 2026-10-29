@@ -27,17 +27,17 @@ import Prelude ((<*>), Eq, Int, Show, pure, type (~))
 
 {-| __C declaration:__ @struct point@
 
-    __defined at:__ @attributes\/deprecated_inactive.h 4:9@
+    __defined at:__ @attributes\/deprecated_no_binding.h 4:9@
 
-    __exported by:__ @attributes\/deprecated_inactive.h@
+    __exported by:__ @attributes\/deprecated_no_binding.h@
 -}
 data Point = Point
   { point_x :: BG.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @attributes\/deprecated_inactive.h 4:22@
+         __defined at:__ @attributes\/deprecated_no_binding.h 4:22@
 
-         __exported by:__ @attributes\/deprecated_inactive.h@
+         __exported by:__ @attributes\/deprecated_no_binding.h@
     -}
   }
   deriving stock (Eq, BG.Generic, Show)
@@ -70,9 +70,9 @@ deriving via Struct.IsStructViaReadRaw Point instance Struct.IsStruct Point
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @attributes\/deprecated_inactive.h 4:22@
+    __defined at:__ @attributes\/deprecated_no_binding.h 4:22@
 
-    __exported by:__ @attributes\/deprecated_inactive.h@
+    __exported by:__ @attributes\/deprecated_no_binding.h@
 -}
 instance (ty ~ BG.CInt) => BG.CompatHasField.HasField "point_x" Point ty where
 
