@@ -241,11 +241,11 @@ pattern MatchTransMissing xs <- TransitiveDependenciesMissing _ xs
 
 -- | A single transitive dependency of a declaration was not selected
 pattern MatchTransNotSelected :: TransitiveDependencyMissing
-pattern MatchTransNotSelected <- TransitiveDependencyNotSelected _ _
+pattern MatchTransNotSelected <- TransitiveDependencyNotSelected _ _ Deselected
 
 -- | A single transitive dependency of a declaration is omitted
 pattern MatchTransOmitted :: TransitiveDependencyMissing
-pattern MatchTransOmitted <- TransitiveDependencyOmitted _ _
+pattern MatchTransOmitted <- TransitiveDependencyNotSelected _ _ Omitted
 
 -- | A single transitive dependency of a declaration is unusable
 pattern MatchTransUnusable :: Unusable -> TransitiveDependencyMissing

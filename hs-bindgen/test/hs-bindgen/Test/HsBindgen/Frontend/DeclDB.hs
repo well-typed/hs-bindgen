@@ -19,7 +19,8 @@ import Data.Set qualified as Set
 import HsBindgen.Artefact (Artefact (..), FrontendPass (..))
 import HsBindgen.Frontend.Analysis (Dependency)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.DeclDB (DeclDB (..), Entry (..), PassFailure (..),
+import HsBindgen.Frontend.DeclDB (DeclDB (..), Entry (..),
+                                  NotSelectedReason (..), PassFailure (..),
                                   Unusable (..), UnusableReason (..))
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
@@ -36,8 +37,7 @@ data Target =
     ToFailed PassFailure
   | ToSquashed
   | ToExternal
-  | ToOmitted
-  | ToDeselected
+  | ToNotSelected NotSelectedReason
 
 data Violation =
     -- | An active declaration whose identifier is not its key
@@ -86,11 +86,10 @@ checkTransition allowed old new = concat [
       (Active{}, Active{}) -> True
       (Active{}, Unusable (UnusableDecl _ (PassFailed f))) ->
         allowed (ToFailed f)
-      (Active{}  , Squashed{})   -> allowed ToSquashed
-      (Active{}  , External{})   -> allowed ToExternal
-      (Active{}  , Omitted{})    -> allowed ToOmitted
-      (Active{}  , Deselected{}) -> allowed ToDeselected
-      (Unusable{}, External{})   -> allowed ToExternal
+      (Active{}  , Squashed{})      -> allowed ToSquashed
+      (Active{}  , External{})      -> allowed ToExternal
+      (Active{}  , NotSelected _ r) -> allowed (ToNotSelected r)
+      (Unusable{}, External{})      -> allowed ToExternal
       (Active{}, _) -> False
       -- An entry that is not active is pass-independent: it stays as it is
       (_, Active{}) -> False
@@ -99,12 +98,11 @@ checkTransition allowed old new = concat [
 -- | Everything but the declaration of an active entry
 describe :: Entry l p -> String
 describe = \case
-    Active{}     -> "Active"
-    Squashed i t -> "Squashed " ++ show i ++ " " ++ show t
-    External x   -> "External " ++ show x
-    Omitted x    -> "Omitted " ++ show x
-    Deselected x -> "Deselected " ++ show x
-    Unusable x   -> "Unusable " ++ show x
+    Active{}        -> "Active"
+    Squashed i t    -> "Squashed " ++ show i ++ " " ++ show t
+    External x      -> "External " ++ show x
+    NotSelected i r -> "NotSelected " ++ show i ++ " " ++ show r
+    Unusable x      -> "Unusable " ++ show x
 
 -- | Invariants of a single database, but for the identifiers of active
 -- declarations ('checkKeysDeclId', 'checkKeysDeclIdPair')
@@ -199,9 +197,9 @@ checkFrontend = do
       , pair "applyMacroFallback" "reparseMacroExpansions" none
           applyMacroFallback reparseMacroExpansions
       , pair "reparseMacroExpansions" "resolveBindingSpecs" (\case
-            ToOmitted  -> True
-            ToExternal -> True
-            _otherwise -> False)
+            ToNotSelected Omitted -> True
+            ToExternal            -> True
+            _otherwise            -> False)
           reparseMacroExpansions resolveBindingSpecs
       , pair "resolveBindingSpecs" "mangleNames" (\case
             ToFailed MangleNamesFailed{} -> True
@@ -211,8 +209,8 @@ checkFrontend = do
       , pair "mangleNames" "adjustTypes" none
           mangleNames adjustTypes
       , pair "adjustTypes" "select" (\case
-            ToDeselected -> True
-            _otherwise   -> False)
+            ToNotSelected Deselected -> True
+            _otherwise               -> False)
           adjustTypes select
       , pair "select" "final" none
           select final

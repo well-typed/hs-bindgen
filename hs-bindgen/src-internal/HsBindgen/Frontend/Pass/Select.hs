@@ -16,7 +16,9 @@ import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
-import HsBindgen.Frontend.DeclDB (DeclDB, Entry (..), PassFailure (..),
+import HsBindgen.Frontend.DeclDB (DeclDB,
+                                  Entry (Active, External, Squashed, Unusable),
+                                  NotSelectedReason (..), PassFailure (..),
                                   Unusable (..), UnusableReason (..))
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.MacroFallback (FallbackMacro (..))
@@ -43,24 +45,19 @@ type Decl l = C.Decl l Select
 
 type In = TranslateTypes
 
--- | Internal data type! This data type
--- 'HsBindgen.Frontend.Pass.Select.Unselectable' refers to declarations that are
--- not selectable _from the perspective of `hs-bindgen`_; and, in particular,
--- not from the perspective of the user (they can change the select predicate).
+-- | Why we cannot select a dependency, and hence its users
 --
--- Also, (and in contrast to usability, see 'Entry'), selectability _is
--- concerned with transitivity_. All transitive dependencies of a selectable
--- declaration must also be selectable.
+-- In contrast to usability (see 'Entry'), selectability _is concerned with
+-- transitivity_. All transitive dependencies of a selectable declaration must
+-- also be selectable.
 data Unselectable =
-    -- | We (i.e., `hs-bindgen`) can not select a declaration selected because
-    --   it or one of its dependencies is unusable.
-    Unselectable Unusable
-    -- | We (i.e., `hs-bindgen`) can not select a declaration because one of its
-    --   dependencies is omitted by a prescriptive binding specification.
-  | UnselectableOmitted
-    -- | We (i.e., `hs-bindgen`) can not select a declaration because one of its
-    --   dependencies has not been selected by the user.
-  | UnselectableDependencyNotSelected
+    -- | We cannot generate a binding for the dependency
+    UnselectableUnusable Unusable
+    -- | The configuration does not ask for the dependency
+    --
+    -- 'Deselected' is computed: the dependency is not selected, but its entry
+    -- is still active.
+  | UnselectableNotSelected NotSelectedReason
   deriving stock (Show)
 
 -- | We have to treat with two notions of usability here:
@@ -150,12 +147,14 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
 
             toUnselectable :: Entry l In -> Maybe Unselectable
             toUnselectable = \case
-              Omitted{}  -> Just UnselectableOmitted
-              entry      -> Unselectable <$> DeclDB.getUnusable entry
+              DeclDB.NotSelected _ reason ->
+                Just $ UnselectableNotSelected reason
+              entry ->
+                UnselectableUnusable <$> DeclDB.getUnusable entry
 
             nonselected :: Map C.DeclId Unselectable
             nonselected  =
-              Map.fromSet (const UnselectableDependencyNotSelected) $
+              Map.fromSet (const $ UnselectableNotSelected Deselected) $
                 transDeps \\ selectedIds
 
             unusabilityReasons :: Map C.DeclId Unselectable
@@ -166,22 +165,25 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
                 nonselected
 
             -- Get the reason that is most useful to the user about why a
-            -- declaration is unselectable.
+            -- declaration is unselectable. Without program slicing, an omitted
+            -- dependency is also not in 'selectedIds'; omitted must win.
             getMostNaturalUnselectable ::
               Unselectable -> Unselectable -> Unselectable
             getMostNaturalUnselectable l r =
               case (l,r) of
-                (UnselectableDependencyNotSelected, Unselectable u) ->
-                  case u of
-                    UnusableDecl _ NotAttempted{} -> r
-                    _otherReason                  -> l
-                (UnselectableDependencyNotSelected, UnselectableOmitted) -> r
-                (Unselectable u, UnselectableDependencyNotSelected) ->
-                  case u of
-                    UnusableDecl _ NotAttempted{} -> l
-                    _otherReason                  -> r
-                (UnselectableOmitted, UnselectableDependencyNotSelected) -> l
+                (UnselectableNotSelected Deselected, _)
+                  | overridesDeselected r -> r
+                  | otherwise             -> l
+                (_, UnselectableNotSelected Deselected)
+                  | overridesDeselected l -> l
+                  | otherwise             -> r
                 (_, _) -> l
+
+            overridesDeselected :: Unselectable -> Bool
+            overridesDeselected = \case
+              UnselectableNotSelected Omitted                      -> True
+              UnselectableUnusable (UnusableDecl _ NotAttempted{}) -> True
+              _otherReason                                         -> False
 
         selectDecl :: Decl l -> Maybe (Decl l)
         selectDecl =
@@ -410,7 +412,7 @@ getSelectMsgsDeclId
     -- transitive dependency, its users do.
     getMsgsFor :: HasCallStack => SelectReason -> [AnnMsg Select]
     getMsgsFor selectReason
-      | Omitted{} <- entry                = []
+      | DeclDB.NotSelected{} <- entry     = []
       | isJust (DeclDB.getUnusable entry) = []
       | otherwise = concat [
             [ withLoc $ SelectStatusInfo (Selected selectReason) ]
@@ -438,12 +440,10 @@ getSelectMsgsDeclId
       where
         msgs = [
                case r of
-                 Unselectable u ->
+                 UnselectableUnusable u ->
                    TransitiveDependencyUnusable i u
-                 UnselectableOmitted ->
-                   TransitiveDependencyOmitted i locs
-                 UnselectableDependencyNotSelected ->
-                   TransitiveDependencyNotSelected i locs
+                 UnselectableNotSelected reason ->
+                   TransitiveDependencyNotSelected i locs reason
              | (i, r) <- Map.toList unavailReasons
              , let locs = case DeclDB.lookupLoc i declDB of
                      Nothing -> []
@@ -531,9 +531,9 @@ getDelayedMsgsSelectionRoots getTransitiveSelectability declDB roots =
         mkActiveMessages declDB declId decl
       External{} -> []
       -- Never a selection root ('selectEntries')
-      Omitted{} -> []
+      DeclDB.NotSelected _ Omitted -> []
       -- Only after @Select@
-      Deselected{} -> []
+      DeclDB.NotSelected _ Deselected -> []
       -- We do not emit the delayed messages of squashed entries; instead we
       -- issue a notice that the @typedef@ was squashed.
       Squashed info target ->
@@ -587,15 +587,15 @@ getDelayedMsgsAdditionalSelectedTransDeps declDB transDeps =
         mkActiveMessages declDB declId decl
       External{} -> []
       -- Only after @Select@
-      Deselected{} -> []
+      DeclDB.NotSelected _ Deselected -> []
       -- We do not emit the delayed messages of squashed entries; instead we
       -- issue a notice that the @typedef@ was squashed.
       Squashed info target ->
         [mkSquashedMessage declId info target]
       -- Messages for omitted and unusable transitive dependencies are already
       -- attached to the traces of the reverse transitive dependencies.
-      Omitted{}  -> []
-      Unusable _ -> []
+      DeclDB.NotSelected _ Omitted -> []
+      Unusable _                   -> []
 
 -- NOTE: We emit delayed BUG-level parse messages even for declarations that are
 -- not selected. We do not have a test for this; please ensure delayed BUG-level
@@ -618,10 +618,9 @@ getBugMsgsNotSelected declDB notSelected =
       Active decl ->
         let isBugLevel x = getDefaultLogLevel x == Bug
         in  filter isBugLevel $ mkActiveMessages declDB declId decl
-      External{}   -> []
-      Squashed{}   -> []
-      Omitted{}    -> []
-      Deselected{} -> []
+      External{}           -> []
+      Squashed{}           -> []
+      DeclDB.NotSelected{} -> []
       Unusable (UnusableDecl info reason) ->
         [ mkUnusableMessage declId info reason | isBug reason ]
       Unusable UnusableConflict{} -> []
@@ -718,7 +717,7 @@ selectEntries predicate declDB =
 
     -- Extract info from 'Entry' needed to match against the selection predicate
     --
-    -- Returns 'Nothing' for external or omitted declarations.
+    -- Returns 'Nothing' for external or not selected (omitted) declarations.
     -- Returns 'Just _' for squashed declarations. Those can still be selected.
     -- Returns multiple locations only for conflicts.
     entryInfo ::
@@ -727,7 +726,7 @@ selectEntries predicate declDB =
     entryInfo entry = case entry of
         External{} ->
           Nothing
-        Omitted{} ->
+        DeclDB.NotSelected{} ->
           Nothing
         _otherwise -> do
           locs <- DeclDB.entryToLoc entry

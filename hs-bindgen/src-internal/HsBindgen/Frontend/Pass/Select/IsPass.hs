@@ -145,10 +145,11 @@ data SelectStatus =
 data TransitiveDependencyMissing =
     -- | Transitive dependency is unusable
     TransitiveDependencyUnusable C.DeclId Unusable
-    -- | Transitive dependency is omitted by a prescriptive binding specification
-  | TransitiveDependencyOmitted C.DeclId [SingleLoc C.DeclPath]
-    -- | Transitive dependency is not selected.
-  | TransitiveDependencyNotSelected C.DeclId [SingleLoc C.DeclPath]
+    -- | Transitive dependency is not selected
+  | TransitiveDependencyNotSelected
+      C.DeclId
+      [SingleLoc C.DeclPath]
+      DeclDB.NotSelectedReason
   deriving stock (Show)
 
 instance PrettyForTrace TransitiveDependencyMissing where
@@ -160,11 +161,11 @@ instance PrettyForTrace TransitiveDependencyMissing where
                   C.declLocsToList $ DeclDB.unusableToLoc u
               , msg = u
               }
-      TransitiveDependencyOmitted i ls ->
+      TransitiveDependencyNotSelected i ls DeclDB.Omitted ->
         let intro =
               "Transitive dependency omitted by prescriptive binding specification:"
         in  PP.hang intro 2 $ prettyForTrace $ C.declIdLocationInfo i ls
-      TransitiveDependencyNotSelected i ls ->
+      TransitiveDependencyNotSelected i ls DeclDB.Deselected ->
         let intro = "Transitive dependency not selected:"
         in  PP.hang intro 2 $ PP.vcat [
                 prettyForTrace $ C.declIdLocationInfo i ls

@@ -36,6 +36,7 @@ module HsBindgen.Frontend.DeclDB (
     -- * Entry
   , Entry(..)
   , SquashTarget(..)
+  , NotSelectedReason(..)
   , Unusable(..)
   , UnusableReason(..)
   , PassFailure(..)
@@ -193,12 +194,10 @@ data Entry l p =
   | Squashed C.DeclInfo SquashTarget
     -- | Defined elsewhere: an external binding replaces the declaration
   | External ResolvedExtBinding
-    -- | Omitted by a prescriptive binding specification
+    -- | We generate no binding because the configuration does not ask for one
     --
     -- Its users cannot be selected.
-  | Omitted C.DeclInfo
-    -- | Usable, but deselected
-  | Deselected C.DeclInfo
+  | NotSelected C.DeclInfo NotSelectedReason
     -- | We cannot generate a binding
   | Unusable Unusable
   deriving stock (Generic)
@@ -210,6 +209,13 @@ data SquashTarget = SquashTarget{
       c  :: C.DeclId
     , hs :: Hs.Name Hs.NsTypeConstr
     }
+  deriving stock (Show, Eq, Generic)
+
+data NotSelectedReason =
+    -- | By a prescriptive binding specification, in @ResolveBindingSpecs@
+    Omitted
+    -- | By the selection predicate or program slicing, in @Select@
+  | Deselected
   deriving stock (Show, Eq, Generic)
 
 data Unusable =
@@ -272,12 +278,11 @@ instance IsTrace Level PassFailure where
 -- | 'Nothing' only for 'External'
 entryToLoc :: Entry l p -> Maybe C.DeclLocs
 entryToLoc = \case
-    Active   decl     -> Just $ C.DeclLoc decl.info.loc
-    Squashed info _   -> Just $ C.DeclLoc info.loc
-    External _        -> Nothing
-    Omitted info      -> Just $ C.DeclLoc info.loc
-    Deselected info   -> Just $ C.DeclLoc info.loc
-    Unusable unusable -> Just $ unusableToLoc unusable
+    Active   decl      -> Just $ C.DeclLoc decl.info.loc
+    Squashed info _    -> Just $ C.DeclLoc info.loc
+    External _         -> Nothing
+    NotSelected info _ -> Just $ C.DeclLoc info.loc
+    Unusable unusable  -> Just $ unusableToLoc unusable
 
 -- | Fall back to 'C.NotDeprecated' for conflicts and externals
 entryToDeprecation :: Entry l p -> C.Deprecation
@@ -285,8 +290,7 @@ entryToDeprecation = \case
     Active decl                       -> decl.info.deprecation
     Squashed info _                   -> info.deprecation
     External{}                        -> C.NotDeprecated
-    Omitted info                      -> info.deprecation
-    Deselected info                   -> info.deprecation
+    NotSelected info _                -> info.deprecation
     Unusable (UnusableDecl info _)    -> info.deprecation
     Unusable UnusableConflict{}       -> C.NotDeprecated
 
@@ -302,18 +306,17 @@ getUnusable = \case
     Active{}          -> Nothing
     Squashed{}        -> Nothing
     External{}        -> Nothing
-    Omitted{}         -> Nothing
-    Deselected{}      -> Nothing
+    NotSelected{}     -> Nothing
 
 -- | For trace messages
 entryKind :: Entry l p -> String
 entryKind = \case
-    Active{}     -> "active"
-    Squashed{}   -> "squashed"
-    External{}   -> "external"
-    Omitted{}    -> "omitted"
-    Deselected{} -> "deselected"
-    Unusable{}   -> "unusable"
+    Active{}                 -> "active"
+    Squashed{}               -> "squashed"
+    External{}               -> "external"
+    NotSelected _ Omitted    -> "omitted"
+    NotSelected _ Deselected -> "deselected"
+    Unusable{}               -> "unusable"
 
 {-------------------------------------------------------------------------------
   Construction
@@ -657,19 +660,18 @@ traverseActive order f db = case order of
   where
     step :: Entry l p -> f (Entry l p')
     step = \case
-      Active     decl      -> advance decl <$> f decl
-      Squashed   info    t -> pure $ Squashed info t
-      External   binding   -> pure $ External binding
-      Omitted    info      -> pure $ Omitted info
-      Deselected info      -> pure $ Deselected info
-      Unusable   unusable  -> pure $ Unusable unusable
+      Active      decl      -> advance decl <$> f decl
+      Squashed    info    t -> pure $ Squashed info t
+      External    binding   -> pure $ External binding
+      NotSelected info    r -> pure $ NotSelected info r
+      Unusable    unusable  -> pure $ Unusable unusable
 
     advance :: C.Decl l p -> PassResult l p' -> Entry l p'
     advance decl = \case
       Advanced decl'  -> Active decl'
       Squash target   -> Squashed decl.info target
-      Omit            -> Omitted decl.info
-      Deselect        -> Deselected decl.info
+      Omit            -> NotSelected decl.info Omitted
+      Deselect        -> NotSelected decl.info Deselected
       Fail failure    -> Unusable $ UnusableDecl decl.info (PassFailed failure)
 
     shapeDependencies :: Digraph.Digraph Dependency C.DeclId
@@ -861,7 +863,7 @@ getOmitted db = Map.mapMaybe toOmitted db.entries
     toOmitted = \case
       Squashed _ target ->
         lookupEntry target.c db >>= toOmitted
-      Omitted info ->
+      NotSelected info Omitted ->
         C.declPathRealPath (singleLocPath info.loc)
       _otherwise ->
         Nothing
