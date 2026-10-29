@@ -13,6 +13,7 @@ examples include bindings and toy programs for various C libraries.
 ## Library binding examples
 
 * `bundled-c`
+* `c-direct-optimization`
 * `c-minisat`
 * `c-qrcode`
 * `c-yaml`

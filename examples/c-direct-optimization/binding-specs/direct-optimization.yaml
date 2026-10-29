@@ -1,0 +1,39 @@
+# Prescriptive binding specification for the `external-direct-optimization`
+# C library.  Consumed by ./generate-bindings.sh via
+# `--prescriptive-binding-spec`.
+#
+# Only *names* are overridden here; the default record representation and
+# instance set are exactly what we want, so no `hstypes:` block is needed.
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+
+hsmodule: DirectOptimization
+
+ctypes:
+  # typedef uint32_t elem_t;  -- one symbol of a dynamic character
+  - headers: c_alignment_interface.h
+    cname: elem_t
+    hsname: SymbolElement
+
+  # typedef uint64_t cost_t;  -- one transition cost / distance
+  - headers: c_alignment_interface.h
+    cname: cost_t
+    hsname: TransitionCost
+
+  # `typedef struct cost_matrices_2d_t { ... } cost_matrices_2d_t;` declares
+  # *two* C names.  Both must map to one Haskell type or we get two distinct
+  # types for the same struct.
+  - headers: c_alignment_interface.h
+    cname: struct cost_matrices_2d_t
+    hsname: CostMatrix2D
+  - headers: c_alignment_interface.h
+    cname: cost_matrices_2d_t
+    hsname: CostMatrix2D
+
+  - headers: c_alignment_interface.h
+    cname: struct cost_matrices_3d_t
+    hsname: CostMatrix3D
+  - headers: c_alignment_interface.h
+    cname: cost_matrices_3d_t
+    hsname: CostMatrix3D
