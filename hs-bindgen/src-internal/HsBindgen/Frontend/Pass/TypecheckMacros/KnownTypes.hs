@@ -4,6 +4,8 @@ module HsBindgen.Frontend.Pass.TypecheckMacros.KnownTypes (
 
 import Data.Map qualified as Map
 
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
@@ -14,10 +16,11 @@ type In    = ConstructTranslationUnit
 type Out   = TypecheckMacros
 type CType = C.Type Out
 
--- | Collect typedef and tagged-type mappings from all non-macro declarations in
--- the translation unit.
-collectKnownTypes :: [C.Decl l In] -> Map C.DeclId CType
-collectKnownTypes decls = Map.fromList $ mapMaybe getKnownType decls
+-- | Collect typedef and tagged-type mappings from all active non-macro
+-- declarations.
+collectKnownTypes :: DeclDB l In -> Map C.DeclId CType
+collectKnownTypes db =
+    Map.fromList $ mapMaybe getKnownType (DeclDB.active DeclDB.AnyOrder db)
 
 getKnownType :: C.Decl l In -> Maybe (C.DeclId, CType)
 getKnownType decl = case decl.kind of
@@ -36,23 +39,20 @@ getKnownType decl = case decl.kind of
     C.DeclFunction{}             -> Nothing
     C.DeclGlobal{}               -> Nothing
   where
-    info :: C.DeclInfo In
-    info = decl.info
-
     getKnownTaggedTypeOpaque :: Maybe (C.DeclId, CType)
     getKnownTaggedTypeOpaque =
-      case info.id.name.kind of
+      case decl.id.name.kind of
         C.NameKindTagged _ -> Just (declId, knownStructOrUnion)
         _                  -> Nothing
 
     declId :: C.DeclId
-    declId = info.id
+    declId = decl.id
 
     getKnownTypedef :: C.Typedef In -> CType
-    getKnownTypedef typedef = C.TypeTypedef $ C.Ref info.id $ coercePass typedef.typ
+    getKnownTypedef typedef = C.TypeTypedef $ C.Ref decl.id $ coercePass typedef.typ
 
     knownStructOrUnion :: CType
-    knownStructOrUnion = C.TypeRef info.id
+    knownStructOrUnion = C.TypeRef decl.id
 
     getKnownEnum :: C.Enum In -> CType
-    getKnownEnum enum = C.TypeEnum $ C.Ref info.id $ coercePass enum.typ
+    getKnownEnum enum = C.TypeEnum $ C.Ref decl.id $ coercePass enum.typ

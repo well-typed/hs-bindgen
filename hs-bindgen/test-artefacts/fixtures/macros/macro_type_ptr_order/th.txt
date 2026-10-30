@@ -1,0 +1,110 @@
+-- addDependentFile test-artefacts/headers/golden/macros/macro_type_ptr_order.h
+{-| __C declaration:__ @macro T@
+
+    __defined at:__ @macros\/macro_type_ptr_order.h 2:9@
+
+    __exported by:__ @macros\/macro_type_ptr_order.h@
+-}
+newtype T
+    = T {unwrapT :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
+instance (~) ty CInt => HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro P@
+
+    __defined at:__ @macros\/macro_type_ptr_order.h 3:9@
+
+    __exported by:__ @macros\/macro_type_ptr_order.h@
+-}
+newtype P
+    = P {unwrapP :: (Ptr T)}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (Ptr T) => HasField "unwrapP" P ty
+    where hasField = \x_0 -> (\y_1 -> P{unwrapP = y_1},
+                              getField @"unwrapP" x_0)
+instance (~) ty (Ptr T) => HasField "unwrapP" (Ptr P) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapP")
+instance HasCField P "unwrapP"
+    where type CFieldType P "unwrapP" = Ptr T
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro Z_PTR@
+
+    __defined at:__ @macros\/macro_type_ptr_order.h 6:9@
+
+    __exported by:__ @macros\/macro_type_ptr_order.h@
+-}
+newtype Z_PTR
+    = Z_PTR {unwrapZ_PTR :: (Ptr A_T)}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (Ptr A_T) => HasField "unwrapZ_PTR" Z_PTR ty
+    where hasField = \x_0 -> (\y_1 -> Z_PTR{unwrapZ_PTR = y_1},
+                              getField @"unwrapZ_PTR" x_0)
+instance (~) ty (Ptr A_T) =>
+         HasField "unwrapZ_PTR" (Ptr Z_PTR) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapZ_PTR")
+instance HasCField Z_PTR "unwrapZ_PTR"
+    where type CFieldType Z_PTR "unwrapZ_PTR" = Ptr A_T
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro A_T@
+
+    __defined at:__ @macros\/macro_type_ptr_order.h 7:9@
+
+    __exported by:__ @macros\/macro_type_ptr_order.h@
+-}
+newtype A_T
+    = A_T {unwrapA_T :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapA_T" A_T ty
+    where hasField = \x_0 -> (\y_1 -> A_T{unwrapA_T = y_1},
+                              getField @"unwrapA_T" x_0)
+instance (~) ty CInt => HasField "unwrapA_T" (Ptr A_T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapA_T")
+instance HasCField A_T "unwrapA_T"
+    where type CFieldType A_T "unwrapA_T" = CInt
+          offset# = \_ -> \_ -> 0

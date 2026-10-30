@@ -46,16 +46,16 @@ updateParseResult ::
   -> ParseResult l SimplifyAST
   -> Either (AnnMsg FillUnnamedIds) (ParseResult l FillUnnamedIds)
 updateParseResult chosenNames result =
-    case result.classification of
+    case result of
       ParseResultSuccess success -> do
         auxSuccess success <$>
-          updateDefSite chosenNames success.decl.info.id
-      ParseResultUnavailable ->
-        auxUnavailable <$>
-          updateDefSite chosenNames result.id
+          updateDefSite chosenNames success.decl.id
+      ParseResultUnavailable notAttempted ->
+        auxUnavailable notAttempted <$>
+          updateDefSite chosenNames notAttempted.id
       ParseResultFailure failure ->
         auxFailure failure <$>
-          updateDefSite chosenNames result.id
+          updateDefSite chosenNames failure.id
   where
     auxSuccess ::
          ParseSuccess l SimplifyAST
@@ -63,48 +63,52 @@ updateParseResult chosenNames result =
       -> ParseResult l FillUnnamedIds
     auxSuccess success declId' =
         case runM chosenNames updated of
-          Left (UnusableUnnamedDecl unnamedId) -> ParseResult{
-              id             = declId'
-            , loc            = result.loc
-            , classification = ParseResultFailure $ ParseUnusableUnnamedDecl unnamedId
-            }
-          Right (declInfo', declKind') -> ParseResult{
-              id             = declInfo'.id
-            , loc            = result.loc
-            , classification = ParseResultSuccess ParseSuccess{
-                  decl = C.Decl{
-                      info = declInfo'
-                    , kind = declKind'
-                    , ann  = NoAnn
-                    }
-                , delayedParseMsgs = success.delayedParseMsgs
-                }
-            }
+          Left (UnusableUnnamedDecl unnamedId) ->
+            ParseResultFailure ParseFailure{
+                id   = declId'
+              , info = success.decl.info
+              , msg  = ParseUnusableUnnamedDecl unnamedId
+              }
+          Right (enclosing', declKind') ->
+            ParseResultSuccess ParseSuccess{
+                decl = C.Decl{
+                    info      = success.decl.info
+                  , id        = declId'
+                  , comment   = ()
+                  , enclosing = enclosing'
+                  , kind      = declKind'
+                  , ann       = NoAnn
+                  }
+              , delayedParseMsgs = success.delayedParseMsgs
+              }
 
       where
-        updated :: M (C.DeclInfo FillUnnamedIds, C.DeclKind l FillUnnamedIds)
+        updated :: M ([C.EnclosingRef FillUnnamedIds], C.DeclKind l FillUnnamedIds)
         updated = (,)
-            <$> updateDeclInfo declId' success.decl.info
-            <*> updateUseSites         success.decl.kind
+            <$> mapM updateEnclosing success.decl.enclosing
+            <*> updateUseSites       success.decl.kind
 
     auxUnavailable ::
-         C.DeclId
-      -> ParseResult l FillUnnamedIds
-    auxUnavailable declId' = ParseResult{
-          id             = declId'
-        , loc            = result.loc
-        , classification = ParseResultUnavailable
-        }
-
-    auxFailure ::
-         DelayedParseMsg
+         ParseNotAttempted SimplifyAST
       -> C.DeclId
       -> ParseResult l FillUnnamedIds
-    auxFailure failure declId' = ParseResult{
-          id             = declId'
-        , loc            = result.loc
-        , classification = ParseResultFailure failure
-        }
+    auxUnavailable notAttempted declId' =
+        ParseResultUnavailable ParseNotAttempted{
+            id     = declId'
+          , info   = notAttempted.info
+          , reason = notAttempted.reason
+          }
+
+    auxFailure ::
+         ParseFailure SimplifyAST
+      -> C.DeclId
+      -> ParseResult l FillUnnamedIds
+    auxFailure failure declId' =
+        ParseResultFailure ParseFailure{
+            id   = declId'
+          , info = failure.info
+          , msg  = failure.msg
+          }
 
 {-------------------------------------------------------------------------------
   Update definition sites
@@ -118,27 +122,12 @@ updateDefSite ::
 updateDefSite chosenNames =
     first (withCallStack . FillUnnamedIdsSkippedDecl) . fromPrelimDeclId chosenNames
 
-updateDeclInfo ::
-     C.DeclId
-  -> C.DeclInfo SimplifyAST
-  -> M (C.DeclInfo FillUnnamedIds)
-updateDeclInfo declId' info = do
-    enclosing' <- mapM updateEnclosing info.enclosing
-    pure C.DeclInfo{
-          loc              = info.loc
-        , id               = declId'
-        , sourceOrderIndex = info.sourceOrderIndex
-        , origin           = info.origin
-        , availability     = info.availability
-        , comment          = ()
-        , enclosing        = enclosing'
-        }
-  where
-    updateEnclosing ::
-      C.EnclosingRef SimplifyAST -> M (C.EnclosingRef FillUnnamedIds)
-    updateEnclosing = \case
-      C.EnclosingRef         x -> C.EnclosingRef <$> updateDeclId x
-      C.UnusableEnclosingRef x -> pure $ C.UnusableEnclosingRef x
+updateEnclosing ::
+     C.EnclosingRef SimplifyAST
+  -> M (C.EnclosingRef FillUnnamedIds)
+updateEnclosing = \case
+    C.EnclosingRef         x -> C.EnclosingRef <$> updateDeclId x
+    C.UnusableEnclosingRef x -> pure $ C.UnusableEnclosingRef x
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: monad for updating use sites

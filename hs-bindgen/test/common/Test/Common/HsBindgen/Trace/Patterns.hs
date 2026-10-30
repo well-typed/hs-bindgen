@@ -20,7 +20,7 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , pattern MatchBindingSpec
   , pattern MatchResolveBindingSpecs
     -- * MangleNames
-  , pattern MatchMangle
+  , pattern MatchDelayedMangleNames
     -- * TranslateTypes
   , pattern MatchImmediateTranslateTypes
   , pattern MatchDelayedTranslateTypes
@@ -31,15 +31,19 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , pattern MatchMacrosFallback
   , pattern MatchSelect
   , pattern MatchUnusable
+  , pattern MatchPassFailed
   , pattern MatchTransMissing
   , pattern MatchTransNotSelected
+  , pattern MatchTransOmitted
   , pattern MatchTransUnusable
   ) where
 
 import Data.Text qualified as Text
 
 import HsBindgen.Doxygen (DoxygenMsg)
-import HsBindgen.Frontend.Analysis.DeclIndex
+import HsBindgen.Frontend.DeclDB
+import HsBindgen.Frontend.DelayedMsg
+import HsBindgen.Frontend.Pass.MangleNames.IsPass.Msg (DelayedMangleNamesMsg)
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg)
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg,
                                                           PrepareReparseMsg)
@@ -130,7 +134,7 @@ pattern MatchDelayedPrepareReparse name x <- MatchSelect name (matchDelayedPrepa
 
 matchDelayedPrepareReparse :: SelectMsg -> Maybe DelayedPrepareReparseMsg
 matchDelayedPrepareReparse = \case
-    SelectDelayedPrepareReparseMsg x -> Just x
+    SelectDelayedMsg (DelayedPrepareReparse x) -> Just x
     _otherwise -> Nothing
 
 {-------------------------------------------------------------------------------
@@ -150,7 +154,7 @@ pattern MatchDelayedReparseMacroExpansions name x <- MatchSelect name (matchDela
 
 matchDelayedReparseMacroExpansions :: SelectMsg -> Maybe DelayedReparseMacroExpansionsMsg
 matchDelayedReparseMacroExpansions = \case
-    SelectDelayedReparseMacroExpansionsMsg x -> Just x
+    SelectDelayedMsg (DelayedReparseMacroExpansions x) -> Just x
     _otherwise -> Nothing
 
 {-------------------------------------------------------------------------------
@@ -162,22 +166,20 @@ pattern MatchBindingSpec x <- TraceBoot (
       BootBindingSpec x
     )
 
-pattern MatchResolveBindingSpecs :: ResolveBindingSpecsMsg -> TraceMsg
-pattern MatchResolveBindingSpecs x <- TraceFrontend (
-      FrontendResolveBindingSpecs x
+pattern MatchResolveBindingSpecs :: C.DeclName -> ResolveBindingSpecsMsg -> TraceMsg
+pattern MatchResolveBindingSpecs name x <- TraceFrontend (
+      FrontendResolveBindingSpecs C.WithLocationInfo{
+           loc = C.locationInfoName -> Just name
+         , msg = x
+        }
     )
 
 {-------------------------------------------------------------------------------
   MangleNames
 -------------------------------------------------------------------------------}
 
-pattern MatchMangle :: C.DeclName -> MangleNamesMsg -> TraceMsg
-pattern MatchMangle name x <- TraceFrontend (
-      FrontendMangleNames C.WithLocationInfo{
-           loc = C.locationInfoName -> Just name
-         , msg = x
-        }
-    )
+pattern MatchDelayedMangleNames :: C.DeclName -> DelayedMangleNamesMsg -> TraceMsg
+pattern MatchDelayedMangleNames name x <- MatchSelect name (SelectDelayedMsg (DelayedMangleNames x))
 
 {-------------------------------------------------------------------------------
   TranslateTypes
@@ -187,7 +189,7 @@ pattern MatchImmediateTranslateTypes :: TranslateTypesMsg -> TraceMsg
 pattern MatchImmediateTranslateTypes x <- TraceFrontend (FrontendTranslateTypes x)
 
 pattern MatchDelayedTranslateTypes :: C.DeclName -> DelayedTranslateTypesMsg -> TraceMsg
-pattern MatchDelayedTranslateTypes name x <- MatchSelect name (SelectDelayedTranslateTypesMsg x)
+pattern MatchDelayedTranslateTypes name x <- MatchSelect name (SelectDelayedMsg (DelayedTranslateTypes x))
 
 {-------------------------------------------------------------------------------
   Select
@@ -228,16 +230,25 @@ pattern MatchSelect name x <- TraceFrontend (
 pattern MatchUnusable :: C.DeclName -> UnusableReason -> TraceMsg
 pattern MatchUnusable name x <- MatchSelect name (SelectUnusable x)
 
+-- | A later pass failed on the declaration
+pattern MatchPassFailed :: C.DeclName -> PassFailure -> TraceMsg
+pattern MatchPassFailed name x <-
+  MatchUnusable name (PassFailed x)
+
 -- | Transitive dependencies of a declaration are missing
 pattern MatchTransMissing :: [TransitiveDependencyMissing] -> SelectMsg
 pattern MatchTransMissing xs <- TransitiveDependenciesMissing _ xs
 
 -- | A single transitive dependency of a declaration was not selected
 pattern MatchTransNotSelected :: TransitiveDependencyMissing
-pattern MatchTransNotSelected <- TransitiveDependencyNotSelected _ _
+pattern MatchTransNotSelected <- TransitiveDependencyNotSelected _ _ Deselected
+
+-- | A single transitive dependency of a declaration is omitted
+pattern MatchTransOmitted :: TransitiveDependencyMissing
+pattern MatchTransOmitted <- TransitiveDependencyNotSelected _ _ Omitted
 
 -- | A single transitive dependency of a declaration is unusable
-pattern MatchTransUnusable :: UnusableEntry -> TransitiveDependencyMissing
+pattern MatchTransUnusable :: Unusable -> TransitiveDependencyMissing
 pattern MatchTransUnusable x <- TransitiveDependencyUnusable _ x
 
 {-------------------------------------------------------------------------------
@@ -246,6 +257,6 @@ pattern MatchTransUnusable x <- TransitiveDependencyUnusable _ x
 
 matchDelayed :: SelectMsg -> Maybe DelayedParseMsg
 matchDelayed = \case
-    SelectDelayedParseMsg x                 -> Just x
-    SelectUnusable (UnusableParseFailure x) -> Just x
+    SelectDelayedMsg (DelayedParse x)       -> Just x
+    SelectUnusable (ParseFailed x)          -> Just x
     _otherwise                              -> Nothing

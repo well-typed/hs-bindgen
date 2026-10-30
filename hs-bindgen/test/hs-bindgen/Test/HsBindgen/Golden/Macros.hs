@@ -6,7 +6,7 @@ module Test.HsBindgen.Golden.Macros (
 
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Analysis.DeclIndex (UnusableReason (..))
+import HsBindgen.Frontend.DeclDB (PassFailure (..), UnusableReason (..))
 import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass (MacroFallback (..))
 import HsBindgen.Frontend.Pass.Parse.IsPass (EmptyMacros (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
@@ -33,6 +33,7 @@ testCases = [
     , defaultTest "macros/keyword_params"
     , defaultTest "macros/macro_functions"
     , defaultTest "macros/macro_strings"
+    , defaultTest "macros/macro_type_ptr_order"
     , defaultTest "macros/macro_type_ptr_qualifiers"
     , defaultTest "macros/macro_type_void"
     , defaultTest "macros/macro_typedef_struct"
@@ -144,7 +145,7 @@ commandLineRedefinedTracePredicate =
 test_empty_body :: TestCase
 test_empty_body =
     testTraceMulti "macros/empty_body" (map NotParsed emptyMacroNames) $ \case
-      MatchUnusable name (UnusableParseFailure ParseMacroEmpty{}) ->
+      MatchUnusable name (ParseFailed ParseMacroEmpty{}) ->
         Just $ Expected (NotParsed name)
       MatchMacrosDropped{} ->
         Just Unexpected
@@ -161,7 +162,7 @@ test_empty_body_parse =
     testVariant "macros/empty_body" Nothing "parse_empty_macros"
       & #onFrontend     .~ ( #emptyMacros .~ ParseEmptyMacros )
       & #tracePredicate .~ multiTracePredicate expected (\case
-            MatchUnusable name (UnusableParseFailure ParseMacroErrorParse{}) ->
+            MatchPassFailed name (MacroFailed FailedParse{}) ->
               Just $ Expected (Declined name)
             MatchMacrosDropped n ->
               Just $ Expected (Dropped n)
@@ -203,7 +204,7 @@ instance RenderLabel EmptyBodyTrace where
 test_gnu_variadic :: TestCase
 test_gnu_variadic =
     testTraceMulti "macros/gnu_variadic" declsWithMsgs $ \case
-      MatchUnusable name (UnusableParseFailure ParseMacroErrorParse{}) ->
+      MatchPassFailed name (MacroFailed FailedParse{}) ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -224,7 +225,7 @@ test_gnu_variadic =
 test_macro_comma :: TestCase
 test_macro_comma =
     testTraceMulti "macros/macro_comma" ["macro ARITH"] $ \case
-      MatchUnusable name@"macro ARITH" (UnusableParseFailure ParseMacroErrorParse{}) ->
+      MatchPassFailed name@"macro ARITH" (MacroFailed FailedParse{}) ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -302,7 +303,7 @@ macroFallbackTracePredicate fallbacks dropped =
         Just $ Expected $ FellBack name (failedStage failure)
       MatchMacrosFallback n ->
         Just $ Expected $ FallbackSummary n
-      MatchUnusable name reason
+      MatchPassFailed name reason
         | Just stage <- droppedStage reason ->
             Just $ Expected $ Rejected name stage
       _otherwise ->
@@ -338,12 +339,10 @@ failedStage = \case
     FailedTypecheck{} -> FailedStageTypecheck
 
 -- | The stage of a macro the macro language gave up on, by its unusable reason
-droppedStage :: UnusableReason -> Maybe FailedStage
+droppedStage :: PassFailure -> Maybe FailedStage
 droppedStage = \case
-    UnusableParseFailure ParseMacroErrorParse{} -> Just FailedStageParse
-    UnusableMacroResolutionFailure{}            -> Just FailedStageResolve
-    UnusableMacroTypecheckFailure{}             -> Just FailedStageTypecheck
-    _otherwise                                  -> Nothing
+    MacroFailed failure -> Just (failedStage failure)
+    _otherwise            -> Nothing
 
 -- | Macro name-resolution failures are reported at 'Info' by default.
 --
@@ -354,7 +353,7 @@ test_macro_resolution_log_level_default :: TestCase
 test_macro_resolution_log_level_default =
     testVariant "macros/macro_resolution_log_level" Nothing "default"
       & #tracePredicate .~ multiTracePredicate expected (\trace -> case trace of
-            MatchUnusable name (UnusableMacroResolutionFailure{})
+            MatchPassFailed name (MacroFailed FailedResolve{})
               | getDefaultLogLevel trace == Info -> Just $ Expected name
             _otherwise -> Nothing
           )
@@ -371,7 +370,7 @@ test_macro_resolution_log_level_warnings =
     testVariant "macros/macro_resolution_log_level" Nothing "enable_macro_warnings"
       & #tracePredicate .~ multiTracePredicateCustomLogLevel customLogLevel
           expected (\trace -> case trace of
-            MatchUnusable name (UnusableMacroResolutionFailure{})
+            MatchPassFailed name (MacroFailed FailedResolve{})
               | applyCustomLogLevel customLogLevel trace (getDefaultLogLevel trace)
                   == Warning -> Just $ Expected name
             MatchMacrosDropped{} -> Just Tolerated
@@ -387,17 +386,15 @@ test_macro_type_unresolved_tagged :: TestCase
 test_macro_type_unresolved_tagged =
     testTraceMulti "macros/macro_type_unresolved_tagged" declsWithMsgs $ \case
       MatchUnusable name@"struct Unparsable"
-        (UnusableParseFailure (ParseUnsupportedFloatType UnsupportedLongDouble)) ->
+        (ParseFailed (ParseUnsupportedFloatType UnsupportedLongDouble)) ->
         Just $ Expected (name, "select-parse-failure")
       MatchSelect name@"macro PTR_UNPARSABLE" (TransitiveDependenciesMissing{}) ->
         Just $ Expected (name, "select-transitive-dependencies-missing")
-      MatchUnusable name@"macro PTR_UNPARSABLE" (UnusableMangleNamesFailure{}) ->
-        Just $ Expected (name, "select-mangle-names-failure")
-      MatchUnusable name@"macro PTR_UNPARSABLE" (UnusableMacroResolutionFailure{}) ->
+      MatchPassFailed name@"macro PTR_UNPARSABLE" (MacroFailed FailedResolve{}) ->
         Just $ Expected (name, "macro-unresolved-tagged-type")
-      MatchUnusable name@"macro PTR_DOES_NOT_EXIST" (UnusableMacroResolutionFailure{}) ->
+      MatchPassFailed name@"macro PTR_DOES_NOT_EXIST" (MacroFailed FailedResolve{}) ->
         Just $ Expected (name, "macro-unresolved-tagged-type")
-      MatchUnusable name@"macro DOES_NOT_EXIST" (UnusableMacroResolutionFailure{}) ->
+      MatchPassFailed name@"macro DOES_NOT_EXIST" (MacroFailed FailedResolve{}) ->
         Just $ Expected (name, "macro-unresolved-tagged-type")
       _otherwise ->
         Nothing
@@ -406,7 +403,6 @@ test_macro_type_unresolved_tagged =
     declsWithMsgs = [
         ("struct Unparsable",        "select-parse-failure")
       , ("macro PTR_UNPARSABLE",     "select-transitive-dependencies-missing")
-      , ("macro PTR_UNPARSABLE",     "select-mangle-names-failure")
       , ("macro PTR_DOES_NOT_EXIST", "macro-unresolved-tagged-type")
       , ("macro DOES_NOT_EXIST",     "macro-unresolved-tagged-type")
       ]

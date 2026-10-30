@@ -16,8 +16,10 @@ import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
@@ -41,16 +43,28 @@ runBackend tracer config boot frontend = do
     backendHsDeclsAll <- cache "hsDeclsAll" $ do
       final     <- frontend.final
       macroLang <- boot.macroLang
-      let declIndex :: DeclIndex l
-          declIndex = final.meta.declIndex
+      let declDB :: DeclDB l Final
+          declDB = final.db
 
+      -- TODO-D: Once all analyses have moved into the frontend, the generation
+      -- of all Haskell code should happen in source order, because ultimately,
+      -- that is the order we want to generate _Haskell_ declarations in; then,
+      -- the order of Haskell declarations matches the order of C declarations.
+
+          -- The translation needs dependency order; the output follows it,
+          -- refined by source order.
           cDecls :: [C.Decl l Final]
-          cDecls = final.decls
+          cDecls =
+            DeclDB.active
+              (DeclDB.DependencyBy $
+                DeclUseGraph.declSortKey $
+                  IncludeGraph.toIncludeOrder final.includeGraph)
+              declDB
       pure $ Hs.generateDeclarations
         macroLang
         config.backend.uniqueId
         boot.baseModule
-        declIndex
+        declDB
         cDecls
 
     -- 2. Apply binding category choice.

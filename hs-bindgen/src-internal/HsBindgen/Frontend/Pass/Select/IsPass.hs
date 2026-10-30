@@ -15,20 +15,16 @@ import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
-import Clang.Paths
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Frontend.Analysis.DeclIndex (Squashed (..), UnusableEntry,
-                                              UnusableReason (..))
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.DeclDB (PassFailure (..), SquashTarget, Unusable,
+                                  UnusableReason (..))
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
+import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
-import HsBindgen.Frontend.Pass.Parse.Msg
-import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg)
-import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg (DelayedReparseMacroExpansionsMsg)
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (DelayedTranslateTypesMsg)
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassBy (PassArgBy,
                                                              PassResBy)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -147,10 +143,13 @@ data SelectStatus =
   deriving stock (Show)
 
 data TransitiveDependencyMissing =
-    -- | Transitive dependency is 'UnusableEntry'.
-    TransitiveDependencyUnusable C.DeclId UnusableEntry
-    -- | Transitive dependency is not selected.
-  | TransitiveDependencyNotSelected C.DeclId [SingleLoc C.DeclPath]
+    -- | Transitive dependency is unusable
+    TransitiveDependencyUnusable C.DeclId Unusable
+    -- | Transitive dependency is not selected
+  | TransitiveDependencyNotSelected
+      C.DeclId
+      [SingleLoc C.DeclPath]
+      DeclDB.NotSelectedReason
   deriving stock (Show)
 
 instance PrettyForTrace TransitiveDependencyMissing where
@@ -159,10 +158,14 @@ instance PrettyForTrace TransitiveDependencyMissing where
         let intro = "Transitive dependency unusable:"
         in  PP.hang intro 2 $ prettyForTrace $ C.WithLocationInfo{
                 loc = C.declIdLocationInfo i $
-                  C.declLocsToList $ DeclIndex.unusableToLoc u
+                  C.declLocsToList $ DeclDB.unusableToLoc u
               , msg = u
               }
-      TransitiveDependencyNotSelected i ls ->
+      TransitiveDependencyNotSelected i ls DeclDB.Omitted ->
+        let intro =
+              "Transitive dependency omitted by prescriptive binding specification:"
+        in  PP.hang intro 2 $ prettyForTrace $ C.declIdLocationInfo i ls
+      TransitiveDependencyNotSelected i ls DeclDB.Deselected ->
         let intro = "Transitive dependency not selected:"
         in  PP.hang intro 2 $ PP.vcat [
                 prettyForTrace $ C.declIdLocationInfo i ls
@@ -180,18 +183,12 @@ data SelectMsg =
     -- | The user has selected a deprecated declaration. Maybe they want to
     -- de-select the deprecated declaration?
   | SelectDeprecated SelectReason
-    -- | Delayed parse message.
-  | SelectDelayedParseMsg DelayedParseMsg
+    -- | Delayed message of an earlier pass
+  | SelectDelayedMsg DelayedMsg
     -- | A directly or transitively selected declaration is unusable.
   | SelectUnusable UnusableReason
   | SelectConflict
-  | SelectMangleNamesSquashed Squashed
-    -- | Delayed @PrepareReparse@ message
-  | SelectDelayedPrepareReparseMsg DelayedPrepareReparseMsg
-    -- | Delayed @ReparseMacroExpansions@ message
-  | SelectDelayedReparseMacroExpansionsMsg DelayedReparseMacroExpansionsMsg
-    -- | Delayed @TranslateTypes@ message
-  | SelectDelayedTranslateTypesMsg DelayedTranslateTypesMsg
+  | SelectMangleNamesSquashed SquashTarget
     -- | Inform the user that no declarations matched the selection predicate.
   | SelectNoDeclarationsMatched
     -- | Summary of the number of selected macros that hs-bindgen failed to
@@ -201,9 +198,6 @@ data SelectMsg =
   | SelectMacroFallback MacroLangFailure
     -- | Summary of the number of selected macros that fall back
   | SelectMacrosFallback Int
-    -- | The source of a trace message is not part of the include graph, so we
-    -- do not know where to sort it.
-  | SelectSourceNotInIncludeGraph RealPath
   deriving stock (Show)
 
 instance PrettyForTrace SelectMsg where
@@ -217,35 +211,23 @@ instance PrettyForTrace SelectMsg where
           PP.vcat $ map prettyForTrace xs
       SelectDeprecated r ->
         withSelectReason r "Selected a deprecated declaration"
-      SelectDelayedParseMsg x ->
+      SelectDelayedMsg x ->
         during x $ prettyForTrace x
       SelectUnusable reason -> case reason of
-        UnusableUnavailable ->
-          couldNotSelect $ PP.hang "Parse not attempted: " 2
-            "Declaration is 'unavailable' on this platform"
-        UnusableOmitted ->
-          couldNotSelect $
-            "Declaration omitted by prescriptive binding specifications"
-        UnusableParseFailure x ->
+        NotAttempted x ->
+          couldNotSelect $ PP.hang "Parse not attempted: " 2 $ prettyForTrace x
+        ParseFailed x ->
           couldNotSelect $ prettyForTrace x
-        UnusableMangleNamesFailure x ->
+        PassFailed (MangleNamesFailed x) ->
           couldNotSelect $ prettyForTrace x
-        UnusableMacroTypecheckFailure x ->
-          couldNotSelect $ prettyForTrace x
-        UnusableMacroResolutionFailure x ->
+        PassFailed (MacroFailed x) ->
           couldNotSelect $ prettyForTrace x
       SelectConflict ->
         couldNotSelect "Conflicting declarations"
-      SelectMangleNamesSquashed x -> PP.hsep [
+      SelectMangleNamesSquashed target -> PP.hsep [
           "Squashed typedef to"
-        , prettyForTrace x.targetNameC
+        , prettyForTrace target.c
         ]
-      SelectDelayedPrepareReparseMsg x ->
-        during x $ prettyForTrace x
-      SelectDelayedReparseMacroExpansionsMsg x ->
-        during x $ prettyForTrace x
-      SelectDelayedTranslateTypesMsg x ->
-        during x $ prettyForTrace x
       SelectNoDeclarationsMatched ->
         "No declarations matched the selection predicate"
       SelectMacrosDropped n ->
@@ -262,10 +244,6 @@ instance PrettyForTrace SelectMsg where
             <> (if n == 1 then " macro falls back to raw tokens; "
                           else " macros fall back to raw tokens; ")
             <> "use --log-enable-macro-warnings for details"
-      SelectSourceNotInIncludeGraph path -> PP.hsep [
-          "Source not in include graph:"
-        , PP.string $ getRealPath path
-        ]
     where
       during :: IsTrace l e => e -> CtxDoc -> CtxDoc
       during x = PP.hang (PP.string ("During " <> (getTraceId x).id <> ":")) 2
@@ -289,47 +267,33 @@ instance IsTrace Level SelectMsg where
     SelectStatusInfo{}                       -> Info
     TransitiveDependenciesMissing{}          -> Warning
     SelectDeprecated{}                       -> Notice
-    SelectDelayedParseMsg x                  -> getDefaultLogLevel x
+    SelectDelayedMsg x                       -> getDefaultLogLevel x
     SelectUnusable r -> case r of
-      UnusableUnavailable              -> Warning
-      UnusableOmitted                  -> Info
-      UnusableParseFailure x           -> getDefaultLogLevel x
-      UnusableMangleNamesFailure x     -> getDefaultLogLevel x
-      UnusableMacroTypecheckFailure x  -> getDefaultLogLevel x
-      UnusableMacroResolutionFailure x -> getDefaultLogLevel x
+      NotAttempted{} -> Warning
+      ParseFailed x  -> getDefaultLogLevel x
+      PassFailed x   -> getDefaultLogLevel x
     SelectConflict{}                         -> Warning
     SelectMangleNamesSquashed{}              -> Notice
-    SelectDelayedPrepareReparseMsg x         -> getDefaultLogLevel x
-    SelectDelayedReparseMacroExpansionsMsg x -> getDefaultLogLevel x
-    SelectDelayedTranslateTypesMsg x         -> getDefaultLogLevel x
     SelectNoDeclarationsMatched              -> Warning
     SelectMacrosDropped{}                    -> Notice
     SelectMacroFallback{}                    -> Info
     SelectMacrosFallback{}                   -> Notice
-    SelectSourceNotInIncludeGraph{}          -> Bug
   getSource  = const HsBindgen
   getTraceId = \case
     SelectStatusInfo{}                       -> "select"
     TransitiveDependenciesMissing{}          -> "select"
     SelectDeprecated{}                       -> "select"
-    SelectDelayedParseMsg x                  -> "select-" <> getTraceId x
+    SelectDelayedMsg x                       -> "select-" <> getTraceId x
     SelectUnusable r -> case r of
-      UnusableUnavailable              -> "select-parse"
-      UnusableOmitted                  -> "select-omitted"
-      UnusableParseFailure           x -> "select-" <> getTraceId x
-      UnusableMangleNamesFailure     x -> "select-" <> getTraceId x
-      UnusableMacroTypecheckFailure  x -> "select-" <> getTraceId x
-      UnusableMacroResolutionFailure x -> "select-" <> getTraceId x
+      NotAttempted{} -> "select-parse"
+      ParseFailed x  -> "select-" <> getTraceId x
+      PassFailed x   -> "select-" <> getTraceId x
     SelectConflict{}                         -> "select"
     SelectMangleNamesSquashed{}              -> "select-mangle-names-squashed"
-    SelectDelayedPrepareReparseMsg x         -> "select-" <> getTraceId x
-    SelectDelayedReparseMacroExpansionsMsg x -> "select-" <> getTraceId x
-    SelectDelayedTranslateTypesMsg x         -> "select-" <> getTraceId x
     SelectNoDeclarationsMatched              -> "select"
     SelectMacrosDropped{}                    -> "select-dropped-macros"
     SelectMacroFallback{}                    -> "select-macro-fallback"
     SelectMacrosFallback{}                   -> "select-fallback-macros"
-    SelectSourceNotInIncludeGraph{}          -> "select-source-not-in-include-graph"
 
 {-------------------------------------------------------------------------------
   CoercePass

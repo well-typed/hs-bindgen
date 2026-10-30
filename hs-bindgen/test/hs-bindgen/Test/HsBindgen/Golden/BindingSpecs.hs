@@ -7,9 +7,9 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
-import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
 
+import Test.Common.HsBindgen.Trace.Patterns
 import Test.Common.HsBindgen.Trace.Predicate
 import Test.HsBindgen.Golden.Infra.TestCase
 import Test.HsBindgen.Resources
@@ -166,12 +166,11 @@ test_enum_mismatch =
   where
     auxTrace :: TraceMsg -> Maybe (TraceExpectation ())
     auxTrace traceMsg = do
-      declId <- case traceMsg of
-        TraceFrontend
-          (FrontendResolveBindingSpecs
-            (ResolveBindingSpecsEnumTypeMismatch declId)) -> Just declId
+      name <- case traceMsg of
+        MatchResolveBindingSpecs name ResolveBindingSpecsEnumTypeMismatch ->
+          Just name
         _otherwise -> Nothing
-      guard $ C.renderDeclId declId == "struct pt"
+      guard $ name == "struct pt"
       return $ Expected ()
 
 {-------------------------------------------------------------------------------

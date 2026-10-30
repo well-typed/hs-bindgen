@@ -7,6 +7,8 @@ import Data.Set qualified as Set
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -24,25 +26,32 @@ type Out   = TypecheckMacros
   Typecheck macros
 -------------------------------------------------------------------------------}
 
--- | Typecheck all macro declarations, threading non-macro declarations through
+-- | Typecheck all macro declarations, advancing non-macro declarations
 -- unchanged.
 --
--- Returns the typechecked declarations and the set of names of type-like macros
--- (used by the reparse environment). A macro that fails to typecheck stays a
--- declaration, recording the failure (see "HsBindgen.Frontend.MacroFallback").
+-- Returns the advanced database and the set of names of type-like macros (used
+-- by the reparse environment). A macro that fails to typecheck stays active,
+-- recording the failure (see "HsBindgen.Frontend.MacroFallback").
 typecheckDecls ::
      forall l. Macro.HasTypes l
   => Macro.Lang l
-  -> [C.Decl l In]
-  -> ([C.Decl l Out], Set Text)
-typecheckDecls macroLang decls =
-    (decls', getKnownMacroTypes decls')
+  -> DeclDB l In
+  -> (DeclDB l Out, Set Text)
+typecheckDecls macroLang db =
+    (db', getKnownMacroTypes $ DeclDB.active DeclDB.AnyOrder db')
   where
+    -- A macro is typechecked in the environment of the macros before it, so
+    -- its dependencies come first, those under a pointer ('NeedsNameOnly')
+    -- included.
     tcResults :: Map Text (Macro.TypecheckResult l)
-    tcResults = macroLang.typecheck (mapMaybe getResolvedMacro decls)
+    tcResults = macroLang.typecheck $
+      mapMaybe getResolvedMacro (DeclDB.active DeclDB.AllDependencies db)
 
-    decls' :: [C.Decl l Out]
-    decls' = map (typecheckDecl tcResults) decls
+    db' :: DeclDB l Out
+    db' = runIdentity $
+      DeclDB.traverseActive DeclDB.AnyOrder
+        (pure . DeclDB.Advanced . typecheckDecl tcResults)
+        db
 
 getResolvedMacro :: C.Decl l In -> Maybe (Macro.Resolved l)
 getResolvedMacro decl = case decl.kind of
@@ -60,14 +69,11 @@ typecheckDecl ::
   => Map Text (Macro.TypecheckResult l)
   -> C.Decl l In
   -> C.Decl l Out
-typecheckDecl tcResults decl = C.Decl info' kind' decl.ann
+typecheckDecl tcResults decl = C.coercePassDeclWith kind' decl.ann decl
   where
-    info' :: C.DeclInfo Out
-    info' = coercePass decl.info
-
     kind' :: C.DeclKind l Out
     kind' = case decl.kind of
-      C.DeclMacro                x -> C.DeclMacro                $ assembleMacro tcResults info' x
+      C.DeclMacro                x -> C.DeclMacro                $ assembleMacro tcResults decl.id x
       C.DeclTypedef              x -> C.DeclTypedef              $ coercePass x
       C.DeclStruct               x -> C.DeclStruct               $ coercePass x
       C.DeclUnion                x -> C.DeclUnion                $ coercePass x
@@ -81,10 +87,10 @@ typecheckDecl tcResults decl = C.Decl info' kind' decl.ann
 assembleMacro ::
      forall l. Macro.HasTypes l
   => Map Text (Macro.TypecheckResult l)
-  -> C.DeclInfo Out
+  -> C.DeclId
   -> MacroBody In l
   -> MacroBody Out l
-assembleMacro tcResults info macro = PendingMacro{
+assembleMacro tcResults declId macro = PendingMacro{
       raw      = macro.raw
     , handling = nextStage FailedTypecheck typecheck macro.handling
     }
@@ -92,11 +98,11 @@ assembleMacro tcResults info macro = PendingMacro{
     typecheck ::
          Macro.Resolved l
       -> Either MacroTypecheckError (CheckedMacro Out l)
-    typecheck resolved = case Map.lookup info.id.name.text tcResults of
+    typecheck resolved = case Map.lookup declId.name.text tcResults of
       Nothing ->
         panicPure $
           "assembleMacro: typechecked macro unavailable: "
-            <> show info.id.name.text
+            <> show declId.name.text
       Just tcRes ->
         fromTcResult resolved.deps tcRes
 
@@ -127,7 +133,7 @@ fromTcResult deps = \case
 -- version.
 getKnownMacroTypes :: [C.Decl l Out] -> Set Text
 getKnownMacroTypes decls = Set.fromList
-    [ decl.info.id.name.text
+    [ decl.id.name.text
     | decl <- decls
     , C.DeclMacro PendingMacro{handling = Handled CheckedType{}} <- [decl.kind]
     ]

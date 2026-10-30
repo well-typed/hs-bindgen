@@ -90,7 +90,7 @@ data ExportGroupTag =
 --
 --  * If the originating C name belongs to a @\@defgroup@, the tag is
 --    @'Grouped' path@ (root-to-leaf section titles).
---  * Otherwise, if the declaration is top-level (@null info.enclosing@), the
+--  * Otherwise, if the declaration is top-level (@null decl.enclosing@), the
 --    tag is 'Ungrouped' and the declaration is explicitly hoisted before any
 --    section headers in the export list.
 --  * Otherwise (nested, no group), the declaration is omitted from the map.
@@ -127,18 +127,18 @@ computeExportTags doxy decls =
         case declTag decl of
           Nothing  -> []
           Just tag ->
-            (decl.info.id.hsName.text, tag) : auxEntries decl.kind tag
+            (decl.id.hsName.text, tag) : auxEntries decl.kind tag
 
     -- | Compute the tag for a top-level or grouped declaration.  Returns
     -- 'Nothing' for nested declarations without a group (those flow through
     -- as 'Derived' by lookup miss in 'resolveExports').
     declTag :: C.Decl l Final -> Maybe ExportGroupTag
     declTag decl =
-      case groupPath decl.info.id.cName.name.text of
+      case groupPath decl.id.cName.name.text of
         Just path -> Just (Grouped path)
         Nothing
-          | null decl.info.enclosing -> Just Ungrouped
-          | otherwise                -> Nothing
+          | null decl.enclosing -> Just Ungrouped
+          | otherwise             -> Nothing
 
     -- | Extra entries for backend-synthesised companion decls that share
     -- their parent's group membership.

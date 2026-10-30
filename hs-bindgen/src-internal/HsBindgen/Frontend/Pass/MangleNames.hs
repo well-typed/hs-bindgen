@@ -5,19 +5,17 @@ module HsBindgen.Frontend.Pass.MangleNames (
 import Data.Map qualified as Map
 import Data.Set qualified as Set
 
-import Clang.HighLevel.Types
-
 import HsBindgen.Config.MangleCandidate (MangleCandidate (..))
 import HsBindgen.Config.MangleCandidate qualified as MangleCandidate
 import HsBindgen.Config.Prelims (FieldNamingStrategy)
-import HsBindgen.Frontend.Analysis.DeclIndex (Squashed (..))
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
-import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
+import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.MangleNames.CreateNames
 import HsBindgen.Frontend.Pass.MangleNames.DetectClashes
-import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
+import HsBindgen.Frontend.Pass.MangleNames.IsPass.Msg
 import HsBindgen.Frontend.Pass.MangleNames.Names
 import HsBindgen.Frontend.Pass.MangleNames.ResolveNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
@@ -25,6 +23,7 @@ import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
+import HsBindgen.IR.Translation (DeclIdPair (..))
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.Util.Tracer (withCallStack)
@@ -68,23 +67,23 @@ mangleNames ::
   -> C.TranslationUnit l ResolveBindingSpecs
   -> (C.TranslationUnit l MangleNames, [AnnMsg MangleNames])
 mangleNames fieldNaming unit = (
-         C.TranslationUnit{
-           decls        = decls3
-         , includeGraph = unit.includeGraph
-         , meta         = updateDeclMeta
-                            (failures1 ++ failures2 ++ failures3)
-                            squashes
-                            unit.meta
+      unit{C.db =
+          DeclDB.addDelayedMsgs (map (second DelayedMangleNames) msgs1) $
+            runIdentity $
+              DeclDB.traverseActive DeclDB.AnyOrder (pure . result) unit.db
         }
-    , msgs1 ++ catMaybes [
+    , catMaybes [
           Just $ debugMsg $ MangleNamesNameMap nameMap
         , bugMsg . MangleNamesNameMapDuplicates <$> nameMapDups
         , Just $ debugMsg $ MangleNamesNameRegistry registry
         ]
     )
   where
+    decls :: [C.Decl l ResolveBindingSpecs]
+    decls = DeclDB.active DeclDB.AnyOrder unit.db
+
     typedefAnalysis :: TypedefAnalysis.TypedefAnalysis
-    typedefAnalysis = TypedefAnalysis.fromDecls unit.meta.declUseGraph unit.decls
+    typedefAnalysis = TypedefAnalysis.fromDecls unit.db.declUseGraph decls
 
     mangleCandidateConfig :: MangleCandidate Maybe
     mangleCandidateConfig = MangleCandidate.mangleCandidateDefault
@@ -95,9 +94,9 @@ mangleNames fieldNaming unit = (
     nameMap     :: NameMap
     nameMapDups :: Maybe (NonEmpty DupAssign)
     failures1   :: [MangleNamesFailure]
-    msgs1       :: [AnnMsg MangleNames]
+    msgs1       :: [(C.DeclId, DelayedMangleNamesMsg)]
     (declsC, squashes, nameMap, nameMapDups, failures1, msgs1) =
-      createNames typedefAnalysis mangleCandidateConfig fieldNaming unit.decls
+      createNames typedefAnalysis mangleCandidateConfig fieldNaming decls
 
     -- Traversal 2: detect clashes among all names.
     registry  :: NameRegistry
@@ -112,36 +111,41 @@ mangleNames fieldNaming unit = (
     failures3 :: [MangleNamesFailure]
     (decls3, failures3) = resolveNames nameMap dropped declsC
 
-updateDeclMeta ::
-      [MangleNamesFailure]
+    results :: Map C.DeclId (DeclDB.PassResult l MangleNames)
+    results = mangleResults decls3 squashes (failures1 ++ failures2 ++ failures3)
+
+    result :: C.Decl l ResolveBindingSpecs -> DeclDB.PassResult l MangleNames
+    result decl = case Map.lookup decl.id results of
+      Just r  -> r
+      Nothing -> panicPure $ "mangleNames: no result for " ++ show decl.id
+
+-- | Panics if a declaration has more than one result
+mangleResults ::
+      HasCallStack
+   => [C.Decl l MangleNames]
    -> [(C.DeclId, Hs.Name Hs.NsTypeConstr, TypedefAnalysis.Squash)]
-   -> DeclMeta l
-   -> DeclMeta l
-updateDeclMeta failures squashes declMeta = declMeta{
-      declIndex =
-        DeclIndex.registerMangleNamesFailure failuresMap $
-        DeclIndex.registerSquashedDeclarations squashesMap $
-          declMeta.declIndex
-    }
+   -> [MangleNamesFailure]
+   -> Map C.DeclId (DeclDB.PassResult l MangleNames)
+mangleResults decls squashes failures =
+    Map.fromListWithKey duplicate $ concat [
+      [ (decl.id.cName, DeclDB.Advanced decl)
+      | decl <- decls
+      ]
+    , [ (cName, DeclDB.Squash DeclDB.SquashTarget{c = s.targetId, hs = hsName})
+      | (cName, hsName, s) <- squashes
+      ]
+      -- A declaration may fail more than once, e.g. in several clashes; the
+      -- last failure is its reason. The failures of one declaration are in an
+      -- order independent of the order of the declarations.
+    , Map.toList $ Map.fromList [
+          (f.id, DeclDB.Fail $ DeclDB.MangleNamesFailed f.err)
+        | f <- failures
+        ]
+    ]
   where
-    failuresMap :: Map C.DeclId (SingleLoc C.DeclPath, MangleNamesError)
-    failuresMap = Map.fromList $ map (\f -> (f.id, (f.loc, f.err))) failures
-
-    squashesMap ::  Map C.DeclId Squashed
-    squashesMap = Map.fromList $ map toSquashed squashes
-
-    toSquashed ::
-         (C.DeclId, Hs.Name Hs.NsTypeConstr, TypedefAnalysis.Squash)
-      -> (C.DeclId, Squashed)
-    toSquashed (cName, hsName, s) = (
-        cName
-      , Squashed {
-          typedefLoc   = s.typedefLoc
-        , targetNameC  = s.targetId
-        , targetNameHs = hsName
-        }
-      )
-
+    duplicate :: C.DeclId -> a -> a -> a
+    duplicate declId _ _ =
+        panicPure $ "mangleResults: more than one result for " ++ show declId
 
 debugMsg :: MangleNamesMsg -> AnnMsg MangleNames
 debugMsg = withCallStack . C.WithLocationInfo C.LocationUnavailable

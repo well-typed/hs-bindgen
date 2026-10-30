@@ -105,9 +105,6 @@ data ResolvedExtBinding = ResolvedExtBinding{
       -- | C declaration for which we are using this binding
       cName :: C.DeclId
 
-      -- | Source location(s) of C declaration for which we are using this binding
-    , locs :: C.DeclLocs
-
       -- | The Haskell type which will be used
     , hsName :: Hs.ExtRef
 

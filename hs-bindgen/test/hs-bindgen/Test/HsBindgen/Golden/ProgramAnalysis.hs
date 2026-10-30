@@ -4,14 +4,16 @@ module Test.HsBindgen.Golden.ProgramAnalysis (testCases) where
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Analysis.DeclIndex (UnusableEntry (..),
-                                              UnusableReason (..))
+import HsBindgen.Frontend.DeclDB (PassFailure (..), Unusable (..),
+                                  UnusableReason (..))
 import HsBindgen.Frontend.Pass.MangleNames.Error
+import HsBindgen.Frontend.Pass.MangleNames.IsPass.Msg (DelayedMangleNamesMsg (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Macro.Error (MacroLangFailure (..))
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Patterns
@@ -54,6 +56,9 @@ testCases = [
     , test_typedef_block
     , test_typedef_name_clash
     , test_typedef_suffix_clash
+    , test_unusable_delayed_msgs
+    , test_unusable_reports_deps
+    , test_global_unusable_type
     ]
 
 {-------------------------------------------------------------------------------
@@ -90,10 +95,10 @@ test_delay_traces =
               Just $ Expected name
             -- The parse failure, not a conflict of the struct with itself
             MatchSelect name (MatchTransMissing [
-                MatchTransUnusable (UnusableReason _ UnusableParseFailure{})
+                MatchTransUnusable (UnusableDecl _ ParseFailed{})
               ]) ->
               Just $ Expected name
-            MatchUnusable _ UnusableMangleNamesFailure{} ->
+            MatchPassFailed _ MangleNamesFailed{} ->
               Just Tolerated
             _otherwise ->
                Nothing
@@ -129,7 +134,7 @@ test_circular_macro =
           multiTracePredicateCustomLogLevel
             -- We want to check macro traces.
             (getCustomLogLevel [EnableMacroWarnings]) declsWithMsgs (\case
-                MatchUnusable name UnusableMacroTypecheckFailure{} ->
+                MatchPassFailed name (MacroFailed FailedTypecheck{}) ->
                   Just $ Expected (name, "typecheck")
                 MatchMacrosDropped{} ->
                   Just Tolerated
@@ -264,13 +269,11 @@ test_selection_bad =
 test_selection_fail :: TestCase
 test_selection_fail =
     testTraceMulti "program-analysis/selection_fail" declsWithMsgs $ \case
-      MatchUnusable name UnusableParseFailure{} ->
+      MatchUnusable name ParseFailed{} ->
         Just $ Expected name
       MatchSelect name (MatchTransMissing [MatchTransUnusable _unusable]) ->
         Just $ Expected name
       MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
-        Just $ Expected name
-      MatchUnusable name (UnusableMangleNamesFailure{}) ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -278,10 +281,7 @@ test_selection_fail =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           "struct Fail"
-        , "struct Fail"
         , "struct DependOnFailByValue"
-        , "struct DependOnFailByValue"
-        , "struct DependOnFailByReference"
         , "struct DependOnFailByReference"
         , "struct OkBefore"
         , "struct OkAfter"
@@ -299,8 +299,6 @@ test_selection_fail_variant_1 =
               Just $ Expected name
             MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
               Just $ Expected name
-            MatchUnusable name (UnusableMangleNamesFailure{}) ->
-              Just $ Expected name
             _otherwise ->
               Nothing
           )
@@ -308,8 +306,6 @@ test_selection_fail_variant_1 =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           "struct DependOnFailByValue"
-        , "struct DependOnFailByValue"
-        , "struct DependOnFailByReference"
         , "struct DependOnFailByReference"
         , "struct OkBefore"
         , "struct OkAfter"
@@ -329,8 +325,6 @@ test_selection_fail_variant_2 =
              Just $ Expected name
            MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
              Just $ Expected name
-           MatchUnusable name (UnusableMangleNamesFailure{}) ->
-             Just $ Expected name
            _otherwise ->
              Nothing
          )
@@ -338,8 +332,6 @@ test_selection_fail_variant_2 =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           "struct DependOnFailByValue"
-        , "struct DependOnFailByValue"
-        , "struct DependOnFailByReference"
         , "struct DependOnFailByReference"
         , "struct OkBefore"
         , "struct OkAfter"
@@ -369,12 +361,7 @@ test_selection_foo =
     testTraceMulti "program-analysis/selection_foo" declsWithMsgs $ \case
       MatchSelect _name (MatchTransMissing [_]) ->
         Just $ Expected ("macro A", "foo_t not selected")
-
-      -- We get a transient name mangler failure here because @foo_t@ is
-      -- unsupported, and so, it is not mangled.
-      MatchUnusable _name UnusableMangleNamesFailure{} ->
-        Just $ Expected ("macro A", "foo_t not mangled")
-      MatchUnusable _name UnusableParseFailure{} ->
+      MatchUnusable _name ParseFailed{} ->
         Just $ Expected ("f", "unsupported underlying type")
       _otherwise ->
         Nothing
@@ -382,7 +369,6 @@ test_selection_foo =
     declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
         ("macro A", "foo_t not selected")
-      , ("macro A", "foo_t not mangled")
       , ("f", "unsupported underlying type")
       ]
 
@@ -443,8 +429,8 @@ test_selection_omit_external_a =
       & #specExternal .~ ["test-artefacts/headers/golden/program-analysis/selection_omit_external.yaml"]
       & #onFrontend .~ ( #programSlicing .~ EnableProgramSlicing )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchResolveBindingSpecs (ResolveBindingSpecsOmittedType declId) ->
-              Just $ Expected declId.name
+            MatchResolveBindingSpecs name ResolveBindingSpecsOmittedType ->
+              Just $ Expected name
             _otherwise ->
               Nothing
           )
@@ -466,18 +452,22 @@ test_selection_omit_prescriptive =
     defaultTest "program-analysis/selection_omit_prescriptive"
       & #specPrescriptive .~ Just "test-artefacts/headers/golden/program-analysis/selection_omit_prescriptive.yaml"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchSelect name (MatchTransMissing{}) ->
+            MatchSelect name (MatchTransMissing [MatchTransOmitted]) ->
               Just $ Expected (name, "select")
-            MatchUnusable name (UnusableMangleNamesFailure (MangleNamesResolutionError ResolveNamesUnderlyingDeclNotMangled{})) ->
-              Just $ Expected (name, "mangle")
+            -- The omitted dependency has no Haskell name, so its user fails to
+            -- mangle
+            MatchSelect name (MatchTransMissing [
+                MatchTransUnusable (UnusableDecl _ (PassFailed MangleNamesFailed{}))
+              , MatchTransOmitted
+              ]) ->
+              Just $ Expected (name, "select")
             _otherwise ->
               Nothing
           )
   where
     declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
-          ("struct DirectlyDependsOnOmitted",   "mangle")
-        , ("struct DirectlyDependsOnOmitted",   "select")
+          ("struct DirectlyDependsOnOmitted",   "select")
         , ("struct IndirectlyDependsOnOmitted", "select")
         ]
 
@@ -505,13 +495,17 @@ test_selection_squash =
 -- resolvable and are reported as failures).
 test_typedef_analysis :: TestCase
 test_typedef_analysis =
-    testTraceMulti "program-analysis/typedef_analysis" declsWithMsgs $ \case
-      MatchSelect name SelectMangleNamesSquashed{} ->
-        Just $ Expected (name, Nothing)
-      MatchMangle name (MangleNamesAssignedName new) ->
-        Just $ Expected (name, Just new.text)
-      _otherwise ->
-        Nothing
+    testTraceMulti "program-analysis/typedef_analysis" declsWithMsgs (\case
+          MatchSelect name SelectMangleNamesSquashed{} ->
+            Just $ Expected (name, Nothing)
+          MatchDelayedMangleNames name (MangleNamesAssignedName new) ->
+            Just $ Expected (name, Just new.text)
+          _otherwise ->
+            Nothing
+        )
+      & #specExternal .~ [
+            "test-artefacts/headers/golden/program-analysis/typedef_analysis.yaml"
+          ]
   where
     declsWithMsgs :: [(C.DeclName, Maybe Text)]
     declsWithMsgs = [
@@ -554,7 +548,7 @@ test_typedef_analysis =
 test_typedef_block :: TestCase
 test_typedef_block =
     testTraceMulti "program-analysis/typedef_block" declsWithMsgs (\case
-          MatchMangle name (MangleNamesAssignedName new) ->
+          MatchDelayedMangleNames name (MangleNamesAssignedName new) ->
             Just $ Expected (name, new.text)
           _otherwise ->
             Nothing
@@ -575,7 +569,7 @@ test_typedef_block =
 test_typedef_name_clash :: TestCase
 test_typedef_name_clash =
     testTraceMulti "program-analysis/typedef_name_clash" declsWithMsgs $ \case
-      MatchUnusable name (UnusableMangleNamesFailure (MangleNamesCollisionError DetectClashesCollision{})) ->
+      MatchPassFailed name (MangleNamesFailed (MangleNamesCollisionError DetectClashesCollision{})) ->
         Just $ Expected (name, "collision")
       MatchSelect name (TransitiveDependenciesMissing{}) ->
         Just $ Expected (name, "transitivity")
@@ -605,7 +599,7 @@ test_typedef_name_clash =
 test_typedef_suffix_clash :: TestCase
 test_typedef_suffix_clash =
     testTraceMulti "program-analysis/typedef_suffix_clash" declsWithMsgs $ \case
-      MatchUnusable name (UnusableMangleNamesFailure (MangleNamesCollisionError DetectClashesCollision{})) ->
+      MatchPassFailed name (MangleNamesFailed (MangleNamesCollisionError DetectClashesCollision{})) ->
         Just $ Expected (name, "collision")
       MatchSelect name (TransitiveDependenciesMissing{}) ->
         Just $ Expected (name, "transitivity")
@@ -622,4 +616,73 @@ test_typedef_suffix_clash =
         , ("union u"           , "collision")
         , ("struct u_union"    , "collision")
         , ("u"                 , "transitivity")
+        ]
+
+-- | A selected unusable declaration reports its delayed messages, too
+test_unusable_delayed_msgs :: TestCase
+test_unusable_delayed_msgs =
+    testTraceMulti "program-analysis/unusable_delayed_msgs" declsWithMsgs $ \case
+      MatchPassFailed name MangleNamesFailed{} ->
+        Just $ Expected name
+      MatchDelayed name ParseNonPublicVisibility{} ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["F", "F", "f"]
+
+-- | A selected unusable declaration reports its own reason, plus its unusable
+-- transitive dependencies, and is not reported as selected
+test_unusable_reports_deps :: TestCase
+test_unusable_reports_deps =
+    defaultTest "program-analysis/unusable_reports_deps"
+      & #specPrescriptive .~ Just "test-artefacts/headers/golden/program-analysis/unusable_reports_deps.yaml"
+      & #onFrontend .~ ( #programSlicing .~ EnableProgramSlicing )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchDelayed name (ParseUnsupportedFloatType UnsupportedLongDouble) ->
+              Just $ Expected (name, "parse")
+            MatchPassFailed name (MangleNamesFailed (MangleNamesCollisionError DetectClashesCollision{})) ->
+              Just $ Expected (name, "collision")
+            MatchSelect name (MatchTransMissing{}) ->
+              Just $ Expected (name, "transitivity")
+            -- Every declaration is unusable or omitted.
+            MatchSelect _ (SelectStatusInfo Selected{}) ->
+              Just Unexpected
+            MatchSelect _ SelectDeprecated{} ->
+              Just Unexpected
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [(C.DeclName, String)]
+    declsWithMsgs = [
+          ("struct unsupported" , "parse")
+        , ("struct deprecated_unsupported", "parse")
+        , ("struct clash"       , "collision")
+        , ("clash"              , "collision")
+        , ("struct clash"       , "transitivity")
+        , ("struct omitted"     , "transitivity")
+        , ("struct uses_omitted", "transitivity")
+        ]
+
+-- | A global whose type is unusable reports the parse failure of the type, and
+-- the type as an unusable transitive dependency; not that it failed to mangle
+-- because its type has no Haskell name
+test_global_unusable_type :: TestCase
+test_global_unusable_type =
+    testTraceMulti "program-analysis/global_unusable_type" declsWithMsgs $ \case
+      MatchDelayed name (ParseUnsupportedFloatType UnsupportedLongDouble) ->
+        Just $ Expected (name, "parse")
+      MatchSelect name (MatchTransMissing [
+          MatchTransUnusable (UnusableDecl _ ParseFailed{})
+        ]) ->
+        Just $ Expected (name, "transitivity")
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [(C.DeclName, String)]
+    declsWithMsgs = [
+          ("struct badGlobal", "parse")
+        , ("badGlobal"       , "transitivity")
         ]

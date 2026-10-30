@@ -19,7 +19,7 @@ module HsBindgen (
     -- ** Low-level artefacts
   , getConfig
   , getIncludeGraph
-  , getDeclIndex
+  , getDeclDB
   , getUseDeclGraph
   , getDeclUseGraph
   , getOmittedTypes
@@ -65,14 +65,14 @@ import HsBindgen.Clang
 import HsBindgen.Config.Internal
 import HsBindgen.Errors (throwPure_TODO)
 import HsBindgen.Frontend
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
+import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
-import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
@@ -321,7 +321,7 @@ writeBindingSpec ::
 writeBindingSpec filePolicy dirPolicy path = do
     moduleBaseName <- ModuleBaseName
     includeGraph   <- getIncludeGraph
-    declIndex      <- getDeclIndex
+    declDB         <- getDeclDB
     getMainHeaders <- getGetMainHeaders
     omittedTypes   <- getOmittedTypes
     squashedTypes  <- getSquashedTypes
@@ -332,7 +332,7 @@ writeBindingSpec filePolicy dirPolicy path = do
             (BindingSpec.getFormat path)
             (fromBaseModuleName moduleBaseName (Just CType))
             includeGraph
-            declIndex
+            declDB
             getMainHeaders
             omittedTypes
             squashedTypes
@@ -373,30 +373,38 @@ getGetMainHeaders = (.getMainHeaders) <$> ParseInfoA
 getIncludeGraph :: Artefact l IncludeGraph
 getIncludeGraph = (.includeGraph) <$> ParseInfoA
 
-getDeclIndex :: Artefact l (DeclIndex l)
-getDeclIndex = (.meta.declIndex) <$> FrontendPassA FinalPass
+getDeclDB :: Artefact l (DeclDB l Final)
+getDeclDB = (.db) <$> FrontendPassA FinalPass
 
 getUseDeclGraph :: Artefact l UseDeclGraph
-getUseDeclGraph = (.meta.useDeclGraph) <$> FrontendPassA FinalPass
+getUseDeclGraph = UseDeclGraph.fromDeclUseGraph <$> getDeclUseGraph
 
 getDeclUseGraph :: Artefact l DeclUseGraph
-getDeclUseGraph = (.meta.declUseGraph) <$> FrontendPassA FinalPass
+getDeclUseGraph = (.declUseGraph) <$> getDeclDB
 
 getOmittedTypes :: Artefact l [(C.DeclId, RealPath)]
 getOmittedTypes =
-    Map.toList . DeclIndex.getOmitted <$> getDeclIndex
+    Map.toList . DeclDB.getOmitted <$> getDeclDB
 
+-- | In the order of the generated bindings (see 'HsBindgen.Backend.runBackend')
 getReifiedC :: Artefact l [C.Decl l Final]
-getReifiedC = (.decls) <$> FrontendPassA FinalPass
+getReifiedC = do
+    final <- FrontendPassA FinalPass
+    pure $
+      DeclDB.active
+        (DeclDB.DependencyBy $
+          DeclUseGraph.declSortKey $
+            IncludeGraph.toIncludeOrder final.includeGraph)
+        final.db
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1549>
 -- When we properly record aliases, we may not need this anymore.
 getSquashedTypes :: Artefact l [(C.DeclId, (RealPath, Hs.Name Hs.NsTypeConstr))]
 getSquashedTypes = do
-  decls <- getReifiedC
-  let translatedDeclIds = Set.fromList $ map (.info.id.cName) decls
-  declIndex <- getDeclIndex
-  pure $ Map.toList $ DeclIndex.getSquashed declIndex translatedDeclIds
+  declDB <- getDeclDB
+  let translatedDeclIds =
+        Set.fromList $ map (.id.cName) $ DeclDB.active DeclDB.AnyOrder declDB
+  pure $ Map.toList $ DeclDB.getSquashed declDB translatedDeclIds
 
 getDependencies :: Artefact l [RealPath]
 getDependencies = IncludeGraph.toSortedList <$> getIncludeGraph
@@ -452,9 +460,9 @@ nullDecls (xs, ys) = null xs && null ys
 -- | Fetch doxygen data and final C declarations, then precompute export tags.
 getExportTags :: Artefact l ExportTags
 getExportTags = do
-    doxy  <- DoxygenA
-    final <- FrontendPassA FinalPass
-    pure $ computeExportTags doxy final.decls
+    doxy   <- DoxygenA
+    declDB <- getDeclDB
+    pure $ computeExportTags doxy $ DeclDB.active DeclDB.AnyOrder declDB
 
 {-------------------------------------------------------------------------------
   Errors

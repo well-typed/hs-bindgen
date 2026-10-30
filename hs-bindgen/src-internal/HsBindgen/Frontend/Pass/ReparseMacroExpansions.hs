@@ -10,12 +10,9 @@ import Data.Set qualified as Set
 
 import Clang.CStandard (ClangCStandard)
 
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
-import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
-import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
+import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
@@ -46,47 +43,27 @@ reparseMacroExpansions ::
   -> C.TranslationUnit l PrepareReparse
   -> C.TranslationUnit l ReparseMacroExpansions
 reparseMacroExpansions cStd knownNonMacroTypes knownMacros unit =
-    let (reparsedDecls, reparseState) =
+    let (reparsedDB, reparseWarnings) =
           runM
             cStd
             (Map.map coercePass knownNonMacroTypes)
             knownMacros
-            (mapM reparseDecl unit.decls)
-    in  C.TranslationUnit{
-            decls        = reparsedDecls
-          , includeGraph = unit.includeGraph
-          , meta         = updateMeta reparseState.reparseWarnings reparsedDecls unit.meta
-          }
+            (DeclDB.traverseActive DeclDB.AnyOrder
+               (fmap DeclDB.Advanced . reparseDecl)
+               unit.db)
+    in  unit{C.db = updateDB reparseWarnings reparsedDB}
 
-updateMeta ::
-     forall l.
+updateDB ::
      [(C.DeclId, DelayedReparseMacroExpansionsMsg)]
-  -> [C.Decl l ReparseMacroExpansions]
-  -> DeclMeta l
-  -> DeclMeta l
-updateMeta msgs decls meta = DeclMeta{
-      declIndex    = updatedDeclIndex
-    , useDeclGraph = UseDeclGraph.fromDeclUseGraph updatedDeclUseGraph
-    , declUseGraph = updatedDeclUseGraph
-    }
-  where
-    updatedDeclIndex :: DeclIndex l
-    updatedDeclIndex =
-      -- We use @foldr@ here to establish the original order of reparse
-      -- warnings.
-      foldr
-        DeclIndex.registerDelayedReparseMacroExpansionsMsg
-        meta.declIndex
-        [ (declId, msg)
-        | (declId, msg) <- msgs
-        ]
-
-    updatedDeclUseGraph :: DeclUseGraph
-    updatedDeclUseGraph =
-      Foldable.foldl'
-        (flip updateDeps)
-        meta.declUseGraph
-        decls
+  -> DeclDB l ReparseMacroExpansions
+  -> DeclDB l ReparseMacroExpansions
+updateDB msgs db =
+    Foldable.foldl'
+      (flip updateDeps)
+      (DeclDB.addDelayedMsgs
+         (map (fmap DelayedReparseMacroExpansions) msgs)
+         db)
+      (DeclDB.active DeclDB.AnyOrder db)
 
 -- | Dependencies before reparse may point to underlying types. These have to be
 -- replaced with their actual dependencies after reparse+zip.
@@ -105,11 +82,11 @@ updateMeta msgs decls meta = DeclMeta{
 -- replace it with the dependency to @B@.
 updateDeps ::
      C.Decl l ReparseMacroExpansions
-  -> DeclUseGraph
-  -> DeclUseGraph
-updateDeps decl graph =
-    DeclUseGraph.insertDepsOfDecl decl $
-      DeclUseGraph.deleteDeps (Set.singleton decl.info.id) graph
+  -> DeclDB l ReparseMacroExpansions
+  -> DeclDB l ReparseMacroExpansions
+updateDeps decl db =
+    DeclDB.insertDepsOfDecl decl $
+      DeclDB.deleteDeps (Set.singleton decl.id) db
 
 {-------------------------------------------------------------------------------
   Reparse declarations with macro expansions
@@ -119,18 +96,22 @@ reparseDecl ::
      C.Decl l PrepareReparse
   -> M (C.Decl l ReparseMacroExpansions)
 reparseDecl decl = case decl.kind of
-    C.DeclMacro macro                    -> processMacro                info' macro
-    C.DeclTypedef typedef                -> processTypedef              info' typedef
-    C.DeclStruct struct                  -> processStruct               info' struct
-    C.DeclUnion union                    -> processUnion                info' union
-    C.DeclEnum enum                      -> processEnum                 info' enum
-    C.DeclUntaggedEnumConstant enumConst -> processUntaggedEnumConstant info' enumConst
-    C.DeclOpaque mSize                   -> processOpaque               info' (C.DeclOpaque mSize)
-    C.DeclFunction fun                   -> processFunction             info' fun
-    C.DeclGlobal global                  -> processGlobal               info' global
-  where
-    info' :: C.DeclInfo ReparseMacroExpansions
-    info' = coercePass decl.info
+    C.DeclMacro macro                    -> processMacro                decl macro
+    C.DeclTypedef typedef                -> processTypedef              decl typedef
+    C.DeclStruct struct                  -> processStruct               decl struct
+    C.DeclUnion union                    -> processUnion                decl union
+    C.DeclEnum enum                      -> processEnum                 decl enum
+    C.DeclUntaggedEnumConstant enumConst -> processUntaggedEnumConstant decl enumConst
+    C.DeclOpaque mSize                   -> processOpaque               decl (C.DeclOpaque mSize)
+    C.DeclFunction fun                   -> processFunction             decl fun
+    C.DeclGlobal global                  -> processGlobal               decl global
+
+-- | Assemble the reparsed declaration from the original one and its new kind
+reparsedDecl ::
+     C.Decl l PrepareReparse
+  -> C.DeclKind l ReparseMacroExpansions
+  -> C.Decl l ReparseMacroExpansions
+reparsedDecl decl kind = C.coercePassDeclWith kind NoAnn decl
 
 {-------------------------------------------------------------------------------
   Function for each kind of declaration
@@ -138,60 +119,50 @@ reparseDecl decl = case decl.kind of
 
 -- | Macros have already been type-checked; just coerce the pass annotation.
 processMacro ::
-     C.DeclInfo ReparseMacroExpansions
+     C.Decl l PrepareReparse
   -> TypecheckedMacro PrepareReparse l
   -> M (C.Decl l ReparseMacroExpansions)
-processMacro info macro =
-    pure C.Decl{
-        info = info
-      , ann  = NoAnn
-      , kind = C.DeclMacro (coercePassParam macro)
-      }
+processMacro decl macro =
+    pure $ reparsedDecl decl $ C.DeclMacro (coercePassParam macro)
 
 processStruct ::
-     C.DeclInfo ReparseMacroExpansions
+     forall l.
+     C.Decl l PrepareReparse
   -> C.Struct PrepareReparse
   -> M (C.Decl l ReparseMacroExpansions)
-processStruct info struct = do
+processStruct decl struct = do
     mkDecl
-      <$> mapM (processField info.id) struct.fields
-      <*> C.traverseFlamField (processRegularField info.id) struct.flam
+      <$> mapM (processField decl.id) struct.fields
+      <*> C.traverseFlamField (processRegularField decl.id) struct.flam
   where
     mkDecl ::
          [C.Field ReparseMacroExpansions]
       -> C.Flam ReparseMacroExpansions
       -> C.Decl l ReparseMacroExpansions
-    mkDecl fields flam = C.Decl{
-          info = info
-        , ann  = NoAnn
-        , kind = C.DeclStruct C.Struct{
-              fields    = fields
-            , flam      = flam
-            , sizeof    = struct.sizeof
-            , alignment = struct.alignment
-            , ann       = struct.ann
-            }
+    mkDecl fields flam = reparsedDecl decl $ C.DeclStruct C.Struct{
+          fields    = fields
+        , flam      = flam
+        , sizeof    = struct.sizeof
+        , alignment = struct.alignment
+        , ann       = struct.ann
         }
 
 processUnion ::
-     C.DeclInfo ReparseMacroExpansions
+     forall l.
+     C.Decl l PrepareReparse
   -> C.Union PrepareReparse
   -> M (C.Decl l ReparseMacroExpansions)
-processUnion info union = do
-    combineFields <$> mapM (processField info.id) union.fields
+processUnion decl union = do
+    combineFields <$> mapM (processField decl.id) union.fields
   where
     combineFields ::
          [C.Field ReparseMacroExpansions]
       -> C.Decl l ReparseMacroExpansions
-    combineFields fields = C.Decl{
-          info = info
-        , ann  = NoAnn
-        , kind = C.DeclUnion C.Union{
-              fields    = fields
-            , sizeof    = union.sizeof
-            , alignment = union.alignment
-            , ann       = union.ann
-            }
+    combineFields fields = reparsedDecl decl $ C.DeclUnion C.Union{
+          fields    = fields
+        , sizeof    = union.sizeof
+        , alignment = union.alignment
+        , ann       = union.ann
         }
 
 -- | Reconstruct a 'C.FieldInfo' after reparsing.
@@ -270,55 +241,45 @@ processIndirectField declId field =
         }
 
 processOpaque ::
-     C.DeclInfo ReparseMacroExpansions
+     C.Decl l PrepareReparse
   -> C.DeclKind l ReparseMacroExpansions
   -> M (C.Decl l ReparseMacroExpansions)
-processOpaque info kind =
-    pure C.Decl{
-        info = info
-      , kind = kind
-      , ann  = NoAnn
-      }
+processOpaque decl kind =
+    pure $ reparsedDecl decl kind
 
 processEnum ::
-     C.DeclInfo ReparseMacroExpansions
+     forall l.
+     C.Decl l PrepareReparse
   -> C.Enum PrepareReparse
   -> M (C.Decl l ReparseMacroExpansions)
-processEnum info enum =
+processEnum decl enum =
     mkDecl <$> mapM processEnumConstant enum.constants
   where
     mkDecl ::
          [C.EnumConstant ReparseMacroExpansions]
       -> C.Decl l ReparseMacroExpansions
-    mkDecl enumerators = C.Decl{
-          info = info
-        , ann  = NoAnn
-        , kind = C.DeclEnum C.Enum{
-              typ       = coercePass enum.typ
-            , constants = enumerators
-            , sizeof    = enum.sizeof
-            , alignment = enum.alignment
-            , ann       = NoAnn
-            }
+    mkDecl enumerators = reparsedDecl decl $ C.DeclEnum C.Enum{
+          typ       = coercePass enum.typ
+        , constants = enumerators
+        , sizeof    = enum.sizeof
+        , alignment = enum.alignment
+        , ann       = NoAnn
         }
 
 processUntaggedEnumConstant ::
-     C.DeclInfo ReparseMacroExpansions
+     forall l.
+     C.Decl l PrepareReparse
   -> C.UntaggedEnumConstant PrepareReparse
   -> M (C.Decl l ReparseMacroExpansions)
-processUntaggedEnumConstant info enumConst =
+processUntaggedEnumConstant decl enumConst =
     mkDecl <$> processEnumConstant enumConst.constant
   where
     mkDecl ::
          C.EnumConstant ReparseMacroExpansions
       -> C.Decl l ReparseMacroExpansions
-    mkDecl constant = C.Decl{
-          info = info
-        , ann  = NoAnn
-        , kind = C.DeclUntaggedEnumConstant C.UntaggedEnumConstant{
-              typ      = enumConst.typ
-            , constant = constant
-            }
+    mkDecl constant = reparsedDecl decl $ C.DeclUntaggedEnumConstant C.UntaggedEnumConstant{
+          typ      = enumConst.typ
+        , constant = constant
         }
 
 processEnumConstant ::
@@ -335,16 +296,12 @@ processEnumConstant constant =
       }
 
 processTypedef ::
-     C.DeclInfo ReparseMacroExpansions
+     C.Decl l PrepareReparse
   -> C.Typedef PrepareReparse
   -> M (C.Decl l ReparseMacroExpansions)
-processTypedef info typedef = do
-    typedef' <- reparseWith info.id LanC.reparseTypedef typedef.ann withoutReparse withReparse
-    pure C.Decl{
-        info = info
-      , ann  = NoAnn
-      , kind = C.DeclTypedef typedef'
-      }
+processTypedef decl typedef = do
+    typedef' <- reparseWith decl.id LanC.reparseTypedef typedef.ann withoutReparse withReparse
+    pure $ reparsedDecl decl $ C.DeclTypedef typedef'
   where
     withoutReparse :: C.Typedef PrepareReparse
     withoutReparse = typedef
@@ -358,16 +315,12 @@ processTypedef info typedef = do
         }
 
 processFunction ::
-     C.DeclInfo ReparseMacroExpansions
+     C.Decl l PrepareReparse
   -> C.Function PrepareReparse
   -> M (C.Decl l ReparseMacroExpansions)
-processFunction info function = do
-    function' <- reparseWith info.id LanC.reparseFunDecl function.ann withoutReparse withReparse
-    pure C.Decl {
-        info = info
-      , ann = NoAnn
-      , kind = C.DeclFunction function'
-      }
+processFunction decl function = do
+    function' <- reparseWith decl.id LanC.reparseFunDecl function.ann withoutReparse withReparse
+    pure $ reparsedDecl decl $ C.DeclFunction function'
   where
     withoutReparse :: C.Function PrepareReparse
     withoutReparse = function
@@ -397,16 +350,12 @@ processFunction info function = do
 
 -- | Globals (externs or constants)
 processGlobal ::
-     C.DeclInfo ReparseMacroExpansions
+     C.Decl l PrepareReparse
   -> C.Global PrepareReparse
   -> M (C.Decl l ReparseMacroExpansions)
-processGlobal info global = do
-    global' <- reparseWith info.id LanC.reparseGlobal global.ann withoutReparse withReparse
-    pure C.Decl {
-        info = info
-      , ann = NoAnn
-      , kind = C.DeclGlobal global'
-      }
+processGlobal decl global = do
+    global' <- reparseWith decl.id LanC.reparseGlobal global.ann withoutReparse withReparse
+    pure $ reparsedDecl decl $ C.DeclGlobal global'
   where
     withoutReparse :: C.Global PrepareReparse
     withoutReparse = global
@@ -448,13 +397,17 @@ data ReparseState = ReparseState {
     }
   deriving stock (Generic)
 
+-- | Run the monad
+--
+-- Delayed trace messages are returned in the order they were recorded
 runM ::
      ClangCStandard
   -> Map LanC.CName (C.Type LanC)
   -> Set LanC.CName
   -> M a
-  -> (a, ReparseState)
-runM cStd knownTypes knownMacros (WrapM ma) = runReader (runStateT ma s) e
+  -> (a, [(C.DeclId, DelayedReparseMacroExpansionsMsg)])
+runM cStd knownTypes knownMacros (WrapM ma) =
+    fmap (reverse . (.reparseWarnings)) $ runReader (runStateT ma s) e
   where
     e :: ReparseEnv
     e = ReparseEnv {

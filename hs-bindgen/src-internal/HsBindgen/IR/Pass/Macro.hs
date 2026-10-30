@@ -26,8 +26,8 @@ import HsBindgen.Macro.Type qualified as Macro
 
 -- | Macros vary across passes
 class (
-      Eq   (MacroId         p)  -- For @Eq DeclKind@ in @DeclIndex@ construction
-    , Eq   (MacroUnderlying p)  -- For @Eq DeclKind@ in @DeclIndex@ construction
+      Eq   (MacroId         p)  -- For @Eq DeclKind@ in @DeclDB@ construction
+    , Eq   (MacroUnderlying p)  -- For @Eq DeclKind@ in @DeclDB@ construction
     , Ord  (MacroId         p)  -- For using as map key
     , Ord  (MacroUnderlying p)  -- For using as map key
     , Show (MacroId         p)  -- For debugging

@@ -23,6 +23,9 @@ module HsBindgen.Frontend.Pass.Parse.Monad.Decl (
     -- ** Logging
   , traceImmediate
   , traceImmediateGlobal
+    -- ** Declaration information
+  , CursorDeclInfo(..)
+  , getCursorDeclInfo
     -- ** Errors
   , parseFail
   , parseFailNoInfo
@@ -30,8 +33,10 @@ module HsBindgen.Frontend.Pass.Parse.Monad.Decl (
 
 import Data.IORef
 
+import Clang.Enum.Simple
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
+import Clang.Paths
 
 import HsBindgen.Runtime.Macro qualified as Runtime.Macro
 
@@ -102,13 +107,9 @@ getEmptyMacros = wrapEff $ \support -> return support.env.emptyMacros
 
 evalGetMainHeadersAndInclude ::
      RealPath
-  -> ParseDecl
-      (Either DelayedParseMsg
-        (NonEmpty C.HashIncludeArg, IncludeGraph.Include))
+  -> ParseDecl (Either String (NonEmpty C.HashIncludeArg, IncludeGraph.Include))
 evalGetMainHeadersAndInclude realPath = wrapEff $ \support ->
-    pure $
-      first (\err -> ParseNoMainHeadersException err realPath) $
-      support.env.getMainHeadersAndInclude realPath
+    pure $ support.env.getMainHeadersAndInclude realPath
 
 {-------------------------------------------------------------------------------
   "State"
@@ -220,6 +221,65 @@ traceImmediateGlobal msg = wrapEff $ \support ->
       }
 
 {-------------------------------------------------------------------------------
+  Declaration information
+-------------------------------------------------------------------------------}
+
+-- | Declaration information obtained from a cursor
+data CursorDeclInfo =
+    CursorDeclInfo C.DeclInfo
+    -- | A declaration we do not attempt to parse
+  | CursorDeclInfoNotAttempted NotAttemptedReason C.DeclInfo
+
+-- | Obtain the information of the declaration at the given location
+getCursorDeclInfo :: SingleLoc C.DeclPath -> CXCursor -> ParseDecl CursorDeclInfo
+getCursorDeclInfo declLoc curr = do
+    origin        <- getOrigin
+    sAvailability <- clang_getCursorAvailability curr
+    let mkInfo :: C.Deprecation -> C.DeclInfo
+        mkInfo deprecation = C.DeclInfo{
+              loc              = declLoc
+              -- We initialize the source-order index to 'Nothing', and
+              -- populate it when consolidating macros with non-macros in
+              -- "HsBindgen.Frontend.Pass.Parse".
+            , sourceOrderIndex = Nothing
+            , origin           = origin
+            , deprecation      = deprecation
+            }
+
+        notAttempted :: NotAttemptedReason -> CursorDeclInfo
+        notAttempted reason =
+          CursorDeclInfoNotAttempted reason $ mkInfo C.NotDeprecated
+    pure $ case fromSimpleEnum sAvailability of
+      Right CXAvailability_Available     -> CursorDeclInfo $ mkInfo C.NotDeprecated
+      Right CXAvailability_Deprecated    -> CursorDeclInfo $ mkInfo C.Deprecated
+      Right CXAvailability_NotAvailable  -> notAttempted PlatformUnavailable
+      Right CXAvailability_NotAccessible -> notAttempted PlatformUnavailable
+      Left _ -> notAttempted $ UnknownAvailability sAvailability
+  where
+    getOrigin :: ParseDecl C.DeclOrigin
+    getOrigin = case declLoc.singleLocPath of
+      C.OnCommandLine     -> pure C.FromCommandLine
+      C.InRootHeader      -> pure C.FromRootDirective
+      C.InHeader realPath -> C.FromHeader <$> getHeaderInfo realPath
+
+    getHeaderInfo :: RealPath -> ParseDecl C.HeaderInfo
+    getHeaderInfo realPath = do
+      eRes <- evalGetMainHeadersAndInclude realPath
+      case eRes of
+        Left err ->
+          throwIO_TODO 2323 $ concat [
+              "header "
+            , show (getRealPath realPath)
+            , " is not reached by an #include: "
+            , err
+            ]
+        Right (mainHeaders, include) -> pure C.HeaderInfo{
+            mainHeaders     = mainHeaders
+          , includeArg      = IncludeGraph.getIncludeArg      include
+          , includeMacroArg = IncludeGraph.getIncludeMacroArg include
+          }
+
+{-------------------------------------------------------------------------------
   Errors
 -------------------------------------------------------------------------------}
 
@@ -231,16 +291,16 @@ traceImmediateGlobal msg = wrapEff $ \support ->
 parseFail ::
      ParseCtx
   -> C.PrelimDeclId
-  -> SingleLoc C.DeclPath
+  -> C.DeclInfo
   -> DelayedParseMsg
   -> ParseDecl [ParseResult l Parse]
-parseFail ctx declId declLoc msg = do
-    maybeEmitScopingMsg ctx.outer.scoping declId declLoc
+parseFail ctx declId info msg = do
+    maybeEmitScopingMsg ctx.outer.scoping declId info.loc
     pure $ (:[]) $
-      ParseResult{
-          id             = declId
-        , loc            = declLoc
-        , classification = ParseResultFailure msg
+      ParseResultFailure ParseFailure{
+          id   = declId
+        , info = info
+        , msg  = msg
         }
 
 -- | Record a parse failure without having the declaration information readily
@@ -253,20 +313,22 @@ parseFailNoInfo ::
   -> CXCursor
   -> ParseDecl [ParseResult l Parse]
 parseFailNoInfo ctx msg curr = do
-    (declId, declLoc) <- getDeclInfoForTrace
-    parseFail ctx declId declLoc msg
-  where
-    -- The declaration ID and the location are not always available while
-    -- parsing, and so are not part of the declaration context. We have to
-    -- obtain them again here.
-    getDeclInfoForTrace :: ParseDecl (C.PrelimDeclId, SingleLoc C.DeclPath)
-    getDeclInfoForTrace = do
-      declId  <- C.prelimDeclIdAtCursor curr ctx.outer.kind
-      source  <- getCursorSource curr
-      case source of
-        SourceDecl declLoc -> pure (declId, declLoc)
-        -- We skip built-ins before parsing them
-        SourceBuiltin      -> panicIO "parse failure in a built-in"
+    -- The declaration ID and the declaration information are not always
+    -- available while parsing, and so are not part of the declaration context.
+    -- We have to obtain them again here.
+    declId <- C.prelimDeclIdAtCursor curr ctx.outer.kind
+    source <- getCursorSource curr
+    declLoc <- case source of
+      SourceDecl declLoc -> pure declLoc
+      -- We skip built-ins before parsing them
+      SourceBuiltin      -> panicIO "parse failure in a built-in"
+    cursorInfo <- getCursorDeclInfo declLoc curr
+    let info :: C.DeclInfo
+        info = case cursorInfo of
+          CursorDeclInfo i                 -> i
+          -- The declaration fails anyway.
+          CursorDeclInfoNotAttempted _ i -> i
+    parseFail ctx declId info msg
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1820>
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1249>

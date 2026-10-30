@@ -213,14 +213,13 @@ data IncDir = IncDir {
 
 processInclude :: CXTranslationUnit -> CXCursor -> IO IncDir
 processInclude unit curr = do
+    incDirTo      <- getIncludeTo curr
     -- The root header has no 'RealPath', so check for it before asking for one
-    incDirInRoot  <-
-      clang_Location_isFromMainFile =<< clang_getCursorLocation curr
+    loc           <- clang_getCursorLocation curr
+    incDirInRoot  <- clang_Location_isFromMainFile loc
     incDirFrom    <- if incDirInRoot
                        then return RootNode
-                       else HeaderNode . singleLocPath <$>
-                              HighLevel.clang_getCursorLocation' curr
-    incDirTo      <- getIncludeTo curr
+                       else getIncludeFrom loc incDirTo
     incDirInclude <- getInclude unit curr incDirTo
     return IncDir{
         from    = incDirFrom
@@ -237,11 +236,39 @@ getIncludeTo curr = do
     file <- clang_getIncludedFile curr
     HighLevel.clang_getRealPath file
 
+-- | The header containing an inclusion directive outside of the root header
+getIncludeFrom :: CXSourceLocation -> RealPath -> IO Node
+getIncludeFrom loc to = do
+    (file, _line, _col, _off) <- clang_getExpansionLocation loc
+    HighLevel.clang_tryGetRealPath file >>= \case
+      Just from -> return $ HeaderNode from
+      -- E.g., @-include@ command-line options or Clang modules
+      Nothing   -> do
+        (presumedPath, _line, _col) <- clang_getPresumedLocation loc
+        throwIO_TODO 2323 $ concat [
+            "header "
+          , show (getRealPath to)
+          , " is included from "
+          , show presumedPath
+          , " rather than from a header file"
+          ]
+
 getInclude :: CXTranslationUnit -> CXCursor -> RealPath -> IO Include
 getInclude unit curr path = do
     tokens <- HighLevel.clang_tokenize unit =<< clang_getCursorExtent curr
-    let err = "Unable to parse #include: " ++ show tokens
-    maybe (panicIO err) return $ parseInclude path tokens
+    case parseInclude path tokens of
+      Just include -> return include
+      Nothing
+        | isImport tokens ->
+            throwIO_TODO 2323 $
+              "header " ++ show (getRealPath path) ++ " is included by #import"
+        | otherwise ->
+            panicIO $ "Unable to parse #include: " ++ show tokens
+  where
+    isImport :: [Token SourcePath TokenSpelling] -> Bool
+    isImport = \case
+      _t0 : t1 : _ts2 -> getTokenSpelling (tokenSpelling t1) == "import"
+      _otherwise      -> False
 
 parseInclude :: RealPath -> [Token SourcePath TokenSpelling] -> Maybe Include
 parseInclude path = \case

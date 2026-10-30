@@ -32,6 +32,25 @@
   replacement list is now reported as such ("Could not read macro
   definition"), apart from macros the macro language cannot parse.
 
+* Messages about binding specifications are now located at the declaration
+  they are about, like the messages of name mangling and selection, and
+  sorted by that location.
+
+- Messages without a location (e.g. "No declarations matched the selection
+  predicate", or the summaries of dropped macros) now come first.
+
+- The Info-level messages of name mangling about assigned names ("Assigned
+  name", "Reused assigned name") are now reported only for selected
+  declarations, under the trace ID `select-mangle-names`. See [issue
+  #1554][is-1554].
+
+[is-1554]: https://github.com/well-typed/hs-bindgen/issues/1554
+
+* A selected declaration that uses an unusable or unselected declaration no
+  longer also reports that the Haskell name of that declaration is not
+  mangled ("Underlying type constructor not mangled"); the message on its
+  missing transitive dependencies already reports the declaration.
+
 ### Bug fixes
 
 * A `struct` or `union` defined inline in a variable or function declaration
@@ -68,6 +87,31 @@
 [is-2302]: https://github.com/well-typed/hs-bindgen/issues/2302
 [is-2303]: https://github.com/well-typed/hs-bindgen/issues/2303
 [is-2304]: https://github.com/well-typed/hs-bindgen/issues/2304
+
+* Bug-level delayed messages are now reported for every declaration, as
+  intended: also for conflicting, external, squashed and unusable ones.
+
+* A selected declaration that is unusable (e.g., because name mangling fails)
+  now also reports its earlier delayed messages, such as parse warnings.
+  Previously, they were lost.
+
+- We now also store if a declaration is deprecated, even when we do not
+  generate a binding for the declaration. This affects squashed typedefs, and
+  declarations that fail to parse or are unusable. The `DeclDeprecated`
+  selection predicate matches them, and selecting a deprecated squashed typedef
+  reports "Selected a deprecated declaration". Previously, there was no
+  deprecation warning.
+
+- A macro that references a later-defined type-macro by pointer (e.g.,
+  `#define P T *` before `#define T int`) now typechecks. Previously, it failed
+  with "Unbound variable".
+
+* A declaration that is declared more than once (e.g., the tentative
+  definitions `int i; int i;`) now reports each of its parse messages once.
+  Previously, it reported a message once per declaration carrying it. See
+  [issue #2099][is-2099].
+
+[is-2099]: https://github.com/well-typed/hs-bindgen/issues/2099
 
 ## 1.0.0.0 -- 2026-10-08
 

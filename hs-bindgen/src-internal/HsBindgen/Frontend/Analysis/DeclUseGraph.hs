@@ -8,14 +8,8 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph (
     -- * Definition
     DeclUseGraph -- opaque
   , toDigraph
-    -- * Construction
-  , construct
-  , insertDepsOfDecl
-    -- * Deletion
-  , deleteDeps
-  , deleteRevDeps
     -- * Query
-  , toDecls
+  , declSortKey
     -- ** Transitive usage
   , getUseSitesTransitively
     -- ** Direct usage
@@ -26,6 +20,5 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph (
   ) where
 
 -- NOTE This module is split up in order to avoid import cycles.
-import HsBindgen.Frontend.Analysis.DeclUseGraph.Construction
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Query

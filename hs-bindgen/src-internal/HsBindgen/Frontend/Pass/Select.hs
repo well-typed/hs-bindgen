@@ -6,27 +6,24 @@ import Data.Foldable qualified as Foldable
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
-import Data.Maybe (listToMaybe, maybeToList)
+import Data.Maybe (maybeToList)
 import Data.Set ((\\))
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
 
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex, Entry (..),
-                                              Success (..), UnusableEntry (..),
-                                              UnusableReason (..),
-                                              UsableEntry (..))
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
-import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
-import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.DeclDB (DeclDB,
+                                  Entry (Active, External, Squashed, Unusable),
+                                  NotSelectedReason (..), PassFailure (..),
+                                  Unusable (..), UnusableReason (..))
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.MacroFallback (FallbackMacro (..))
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError (..),
+                                                  MangleNamesResolutionError (..))
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
@@ -46,21 +43,17 @@ import HsBindgen.Util.Tracer
 -- Declaration itself.
 type Decl l = C.Decl l Select
 
--- | Internal data type! This data type
--- 'HsBindgen.Frontend.Pass.Select.Unselectable' refers to declarations that are
--- not selectable _from the perspective of `hs-bindgen`_; and, in particular,
--- not from the perspective of the user (they can change the select predicate).
+type In = TranslateTypes
+
+-- | Reason why we cannot select a dependency, and its users
 --
--- Also, (and in contrast to 'UsableEntry'/'UnusableEntry'), selectability _is
--- concerned with transitivity_. All transitive dependencies of a selectable
--- declaration must also be selectable.
+-- Selectability _is concerned with transitivity_. All transitive dependencies
+-- of a selectable declaration must also be selectable.
 data Unselectable =
-    -- | We (i.e., `hs-bindgen`) can not select a declaration selected because
-    --   it or one of its dependencies is unusable.
-    Unselectable UnusableEntry
-    -- | We (i.e., `hs-bindgen`) can not select a declaration because one of its
-    --   dependencies has not been selected by the user.
-  | UnselectableDependencyNotSelected
+    -- | We cannot generate a binding for the dependency
+    UnselectableUnusable Unusable
+    -- | The configuration does not ask for the dependency
+  | UnselectableNotSelected NotSelectedReason
   deriving stock (Show)
 
 -- | We have to treat with two notions of usability here:
@@ -96,16 +89,16 @@ selectDecls ::
   -> C.TranslationUnit l TranslateTypes
   -> (C.TranslationUnit l Select, [AnnMsg Select])
 selectDecls isMainHeader isInMainHeaderDir config unit =
-    let -- Directly match the selection predicate on the 'DeclIndex', obtaining
+    let -- Directly match the selection predicate on the 'DeclDB', obtaining
         -- information about succeeded _and failed_ selection roots.
-        selectionRootsIndex :: DeclIndex l
-        selectionRootsIndex = selectDeclIndex unit.meta.declUseGraph match index
+        selectionRoots :: Map C.DeclId (Entry l In)
+        selectionRoots = selectEntries match index
 
         -- Identifiers of selection roots. Some of them may be unavailable
         -- (i.e., not in the 'succeeded' map, and hence, not in the list of
         -- declarations attached to the translation unit).
         rootIds :: Set C.DeclId
-        rootIds = DeclIndex.keysSet selectionRootsIndex
+        rootIds = Map.keysSet selectionRoots
 
         -- Identifiers of transitive dependencies including selection roots.
         rootAndTransDepIds :: Set C.DeclId
@@ -125,11 +118,12 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
           DisableProgramSlicing -> (rootIds        , Set.empty)
           EnableProgramSlicing  -> (rootAndTransDepIds, strictTransDepIds)
 
-        additionalSelectedTransDepsIndex :: DeclIndex l
-        additionalSelectedTransDepsIndex = DeclIndex.restrictKeys index additionalSelectedTransDepIds
+        additionalSelectedTransDeps :: Map C.DeclId (Entry l In)
+        additionalSelectedTransDeps =
+          Map.restrictKeys index.entries additionalSelectedTransDepIds
 
-        notSelectedIndex :: DeclIndex l
-        notSelectedIndex = DeclIndex.withoutKeys index selectedIds
+        notSelected :: Map C.DeclId (Entry l In)
+        notSelected = Map.withoutKeys index.entries selectedIds
 
         getTransitiveSelectability :: C.DeclId -> TransitiveSelectability
         getTransitiveSelectability x
@@ -144,11 +138,19 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
 
             unusables :: Map C.DeclId Unselectable
             unusables =
-              Unselectable <$> DeclIndex.getUnusables index transDeps
+              Map.mapMaybe toUnselectable $
+                Map.restrictKeys index.entries transDeps
+
+            toUnselectable :: Entry l In -> Maybe Unselectable
+            toUnselectable = \case
+              DeclDB.NotSelected _ reason ->
+                Just $ UnselectableNotSelected reason
+              entry ->
+                UnselectableUnusable <$> DeclDB.getUnusable entry
 
             nonselected :: Map C.DeclId Unselectable
             nonselected  =
-              Map.fromSet (const UnselectableDependencyNotSelected) $
+              Map.fromSet (const $ UnselectableNotSelected Deselected) $
                 transDeps \\ selectedIds
 
             unusabilityReasons :: Map C.DeclId Unselectable
@@ -159,22 +161,25 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
                 nonselected
 
             -- Get the reason that is most useful to the user about why a
-            -- declaration is unselectable.
+            -- declaration is unselectable. Without program slicing, an omitted
+            -- dependency is also not in 'selectedIds'; omitted must win.
             getMostNaturalUnselectable ::
               Unselectable -> Unselectable -> Unselectable
             getMostNaturalUnselectable l r =
               case (l,r) of
-                (UnselectableDependencyNotSelected, Unselectable u) ->
-                  case u of
-                    UnusableReason _ UnusableUnavailable -> r
-                    UnusableReason _ UnusableOmitted     -> r
-                    _otherReason                         -> l
-                (Unselectable u, UnselectableDependencyNotSelected) ->
-                  case u of
-                    UnusableReason _ UnusableUnavailable -> l
-                    UnusableReason _ UnusableOmitted{}   -> l
-                    _otherReason                         -> r
+                (UnselectableNotSelected Deselected, _)
+                  | overridesDeselected r -> r
+                  | otherwise             -> l
+                (_, UnselectableNotSelected Deselected)
+                  | overridesDeselected l -> l
+                  | otherwise             -> r
                 (_, _) -> l
+
+            overridesDeselected :: Unselectable -> Bool
+            overridesDeselected = \case
+              UnselectableNotSelected Omitted                      -> True
+              UnselectableUnusable (UnusableDecl _ NotAttempted{}) -> True
+              _otherReason                                         -> False
 
         selectDecl :: Decl l -> Maybe (Decl l)
         selectDecl =
@@ -182,11 +187,17 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             selectedIds
             getTransitiveSelectability
 
-        unitDecls :: [Decl l]
-        unitDecls = map coercePass unit.decls
+        db' :: DeclDB l Select
+        db' =
+          runIdentity $
+            DeclDB.traverseActive DeclDB.AnyOrder
+              (\decl -> pure $ case selectDecl (coercePass decl) of
+                  Just decl' -> DeclDB.Advanced decl'
+                  Nothing    -> DeclDB.Deselect)
+              index
 
-        selectedUnitDecls  :: [Decl l]
-        selectedUnitDecls = mapMaybe selectDecl unitDecls
+        unitSelect :: C.TranslationUnit l Select
+        unitSelect = unit{C.db = db'}
 
         selectMsgs :: [AnnMsg Select]
         selectMsgs =
@@ -195,13 +206,6 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             additionalSelectedTransDepIds
             getTransitiveSelectability
             index
-
-        unitSelect :: C.TranslationUnit l Select
-        unitSelect = C.TranslationUnit {
-                decls        = selectedUnitDecls
-              , includeGraph = unit.includeGraph
-              , meta         = unit.meta
-              }
 
         -- If there were no predicate matches we issue a warning to the user.
         noDeclarationsMatchedMsg :: [AnnMsg Select]
@@ -214,7 +218,11 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
           ]
 
         selectionRootMsgs :: [AnnMsg Select]
-        selectionRootMsgs = getDelayedMsgsSelectionRoots selectionRootsIndex
+        selectionRootMsgs =
+          getDelayedMsgsSelectionRoots
+            getTransitiveSelectability
+            index
+            selectionRoots
 
         -- Number of selected macros that hs-bindgen dropped.
         droppedMacroCount :: Int
@@ -231,17 +239,14 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
           | droppedMacroCount > 0
           ]
 
-        -- Selected macros that fall back, derived from the declarations: the
-        -- declaration index keeps a fallback macro as it was in
-        -- @ConstructTranslationUnit@, a usable success, and never learns about
-        -- the fallback.
+        -- Selected macros that fall back
         macroFallbackMsgs :: [AnnMsg Select]
         macroFallbackMsgs = [
             withCallStack C.WithLocationInfo{
-                loc = C.declIdLocationInfo decl.info.id.cName [decl.info.loc]
+                loc = C.declIdLocationInfo decl.id.cName [decl.info.loc]
               , msg = SelectMacroFallback raw.failure
               }
-          | decl <- selectedUnitDecls
+          | decl <- DeclDB.active DeclDB.AnyOrder db'
           , C.DeclMacro (MacroRaw raw) <- [decl.kind]
           ]
 
@@ -261,33 +266,30 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
               selectMsgs
             , selectionRootMsgs
             , macroFallbackMsgs
-            , getDelayedMsgsAdditionalSelectedTransDeps additionalSelectedTransDepsIndex
-            , getBugMsgsNotSelected notSelectedIndex
+            , getDelayedMsgsAdditionalSelectedTransDeps index additionalSelectedTransDeps
+            , getBugMsgsNotSelected index notSelected
+            , getBugMsgsNotActive index
             , noDeclarationsMatchedMsg
-            ]
-
-    in  ( unitSelect
-        , concat [
-              sortSelectMsgs unit.includeGraph msgs
             , macrosDroppedSummaryMsg
             , macrosFallbackSummaryMsg
             ]
-        )
+
+    in  (unitSelect, msgs)
   where
-    index :: DeclIndex l
-    index = unit.meta.declIndex
+    index :: DeclDB l In
+    index = unit.db
 
     useDeclGraph :: UseDeclGraph
-    useDeclGraph = unit.meta.useDeclGraph
+    useDeclGraph = UseDeclGraph.fromDeclUseGraph index.declUseGraph
 
     match :: Match
-    match name loc availability =
+    match name loc deprecation =
       matchSelect
         isMainHeader
         isInMainHeaderDir
         (singleLocPath loc)
         name
-        availability
+        deprecation
         config.selectionPredicate
 
 {-------------------------------------------------------------------------------
@@ -309,7 +311,7 @@ selectDeclWith
       _otherwise                     -> Nothing
   where
     declId :: C.DeclId
-    declId = decl.info.id.cName
+    declId = decl.id.cName
 
     isSelected :: Bool
     isSelected = Set.member declId selectedIds
@@ -329,42 +331,42 @@ getSelectMsgs ::
   -- ^ Additionally selected transitive dependencies (non-empty when program
   --   slicing is enabled).
   ->(C.DeclId -> TransitiveSelectability)
-  -> DeclIndex l
+  -> DeclDB l In
   -> [AnnMsg Select]
 getSelectMsgs
   rootIds
   additionalSelectedTransDepIds
   getTransitiveSelectability
-  declIndex
-  = concatMap (uncurry aux) $ DeclIndex.toList declIndex
+  declDB
+  = concatMap (uncurry aux) $ DeclDB.toList declDB
   where
     aux ::
          HasCallStack
       => C.DeclId
-      -> Entry l
+      -> Entry l In
       -> [AnnMsg Select]
     aux =
       getSelectMsgsDeclId
         getTransitiveSelectability
-        declIndex
+        declDB
         rootIds
         additionalSelectedTransDepIds
 
 getSelectMsgsDeclId ::
     HasCallStack
   => (C.DeclId -> TransitiveSelectability)
-  -> DeclIndex l
+  -> DeclDB l In
   -- | Selection roots.
   -> Set C.DeclId
   -- | Additionally selected transitive dependencies (non-empty when program
   --   slicing is enabled).
   -> Set C.DeclId
   -> C.DeclId
-  -> Entry l
+  -> Entry l In
   -> [AnnMsg Select]
 getSelectMsgsDeclId
   getTransitiveSelectability
-  declIndex
+  declDB
   rootIds
   additionalSelectedTransDepIds
   declId
@@ -382,9 +384,11 @@ getSelectMsgsDeclId
         getMsgsFor TransitiveDependency
       (False, True, TransitivelyUnselectable rs) ->
         maybeToList $ getUnavailMsg TransitiveDependency rs
-      -- Declaration is not selected.
-      (False, False, _) ->
-        [withLoc $ SelectStatusInfo NotSelected]
+      -- Declaration is not selected. An external declaration has no location
+      -- to report.
+      (False, False, _) -> case entry of
+        External{}  -> []
+        _otherEntry -> [withLoc $ SelectStatusInfo NotSelected]
       -- Declaration is a selection root and a transitive dependency. This
       -- should be impossible and we consider it a bug.
       (True, True, _) ->
@@ -399,17 +403,23 @@ getSelectMsgsDeclId
       Set.member declId additionalSelectedTransDepIds
     transitiveSelectability = getTransitiveSelectability declId
 
+    -- An unusable or omitted declaration is not selected: as a selection root,
+    -- an unusable one reports why ('getDelayedMsgsSelectionRoots'); as a
+    -- transitive dependency, its users do.
     getMsgsFor :: HasCallStack => SelectReason -> [AnnMsg Select]
-    getMsgsFor selectReason = concat [
-          [ withLoc $ SelectStatusInfo (Selected selectReason) ]
-        , [ withLoc $ SelectDeprecated selectReason | isDeprecated ]
-        ]
+    getMsgsFor selectReason
+      | DeclDB.NotSelected{} <- entry     = []
+      | isJust (DeclDB.getUnusable entry) = []
+      | otherwise = concat [
+            [ withLoc $ SelectStatusInfo (Selected selectReason) ]
+          , [ withLoc $ SelectDeprecated selectReason | isDeprecated ]
+          ]
 
     withLoc :: HasCallStack => a -> WithCallStack (C.WithLocationInfo a)
     withLoc x = withCallStack C.WithLocationInfo{
                   loc = C.declIdLocationInfo declId $
-                          C.declLocsToList $
-                            DeclIndex.entryToLoc entry
+                          foldMap C.declLocsToList $
+                            DeclDB.entryToLoc entry
                 , msg = x
                 }
 
@@ -426,282 +436,297 @@ getSelectMsgsDeclId
       where
         msgs = [
                case r of
-                 Unselectable u ->
+                 UnselectableUnusable u ->
                    TransitiveDependencyUnusable i u
-                 UnselectableDependencyNotSelected ->
-                   TransitiveDependencyNotSelected i locs
+                 UnselectableNotSelected reason ->
+                   TransitiveDependencyNotSelected i locs reason
              | (i, r) <- Map.toList unavailReasons
-             , let locs = case DeclIndex.lookupLoc i declIndex of
+             , let locs = case DeclDB.lookupLoc i declDB of
                      Nothing -> []
                      Just xs -> C.declLocsToList xs
              ]
 
     isDeprecated :: Bool
-    isDeprecated = DeclIndex.entryToAvailability entry == C.Deprecated
+    isDeprecated = DeclDB.entryToDeprecation entry == C.Deprecated
 
 {-------------------------------------------------------------------------------
   Delayed traces
 -------------------------------------------------------------------------------}
 
-mkSuccessMessages ::
+mkActiveMessages ::
      HasCallStack
-  => C.DeclId
-  -> Success l ConstructTranslationUnit
+  => DeclDB l In
+  -> C.DeclId
+  -> C.Decl l In
   -> [AnnMsg Select]
-mkSuccessMessages declId success = concat [
-      fmap (mkAnnMsg . SelectDelayedParseMsg)
-        delayedParseMsgs
-    , fmap (mkAnnMsg . SelectDelayedPrepareReparseMsg)
-        delayedPrepareReparseMsgs
-    , fmap (mkAnnMsg . SelectDelayedReparseMacroExpansionsMsg)
-        delayedReparseMacroExpansionsMsgs
-    , fmap (mkAnnMsg . SelectDelayedTranslateTypesMsg)
-        delayedTranslateTypesMsgs
-    ]
+mkActiveMessages declDB declId decl =
+    map (mkAnnMsg . SelectDelayedMsg) $ DeclDB.lookupDelayedMsgs declId declDB
   where
-    DeclIndex.Success _
-      delayedParseMsgs
-      delayedPrepareReparseMsgs
-      delayedReparseMacroExpansionsMsgs
-      delayedTranslateTypesMsgs = success
-
     mkAnnMsg :: HasCallStack => SelectMsg -> AnnMsg Select
     mkAnnMsg msg = withCallStack C.WithLocationInfo{
-          loc = C.declIdLocationInfo declId [success.decl.info.loc]
+          loc = C.declIdLocationInfo declId [decl.info.loc]
         , msg = msg
         }
 
-getDelayedMsgsSelectionRoots :: HasCallStack => DeclIndex l -> [AnnMsg Select]
-getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
+mkSquashedMessage ::
+     HasCallStack
+  => C.DeclId
+  -> C.DeclInfo
+  -> DeclDB.SquashTarget
+  -> AnnMsg Select
+mkSquashedMessage declId info target = withCallStack C.WithLocationInfo{
+      loc = C.declIdLocationInfo declId [info.loc]
+    , msg = SelectMangleNamesSquashed target
+    }
+
+mkUnusableMessage ::
+     HasCallStack
+  => C.DeclId
+  -> C.DeclInfo
+  -> UnusableReason
+  -> AnnMsg Select
+mkUnusableMessage declId info reason = withCallStack C.WithLocationInfo{
+      loc = C.declIdLocationInfo declId [info.loc]
+    , msg = SelectUnusable reason
+    }
+
+-- | The delayed messages of a selected unusable declaration, but for Bug-level
+-- ones ('getBugMsgsNotActive')
+mkUnusableDelayedMessages ::
+     HasCallStack
+  => DeclDB l In
+  -> C.DeclId
+  -> C.DeclInfo
+  -> [AnnMsg Select]
+mkUnusableDelayedMessages declDB declId info = [
+      withCallStack C.WithLocationInfo{
+          loc = C.declIdLocationInfo declId [info.loc]
+        , msg = SelectDelayedMsg msg
+        }
+    | msg <- DeclDB.lookupDelayedMsgs declId declDB
+    , getDefaultLogLevel msg /= Bug
+    ]
+
+getDelayedMsgsSelectionRoots ::
+     forall l. HasCallStack
+  => (C.DeclId -> TransitiveSelectability)
+  -> DeclDB l In
+  -> Map C.DeclId (Entry l In)
+     -- ^ Selection roots
+  -> [AnnMsg Select]
+getDelayedMsgsSelectionRoots getTransitiveSelectability declDB roots =
+    concatMap (uncurry aux) $ Map.toList roots
   where
     aux ::
          HasCallStack
       => C.DeclId
-      -> Entry l
+      -> Entry l In
       -> [AnnMsg Select]
     aux declId = \case
-      UsableEntry e -> case e of
-        UsableSuccess success ->
-          mkSuccessMessages declId success
-        UsableExternal{} -> []
-        -- Parse messages are unavailable for squashed entries. We are OK with
-        -- this; instead we have issued a notice that the @typedef@ was squashed.
-        UsableSquashed x ->
-          List.singleton $ withCallStack C.WithLocationInfo{
-                loc = C.declIdLocationInfo declId [x.typedefLoc]
-              , msg = SelectMangleNamesSquashed x
-              }
-      UnusableEntry e -> case e of
-        UnusableReason loc s ->
-            List.singleton $ withCallStack C.WithLocationInfo{
-                  loc = C.declIdLocationInfo declId [loc]
-                , msg = SelectUnusable s
-                }
-        UnusableConflict c ->
-          List.singleton $ withCallStack C.WithLocationInfo{
-              loc = C.declIdLocationInfo declId $
-                NonEmpty.toList $ C.conflictToList c
-            , msg = SelectConflict
-            }
+      Active decl ->
+        mkActiveMessages declDB declId decl
+      External{} -> []
+      -- Never a selection root ('selectEntries')
+      DeclDB.NotSelected _ Omitted -> []
+      -- Only after @Select@
+      DeclDB.NotSelected _ Deselected -> []
+      -- We do not emit the delayed messages of squashed entries; instead we
+      -- issue a notice that the @typedef@ was squashed.
+      Squashed info target ->
+        List.singleton $ mkSquashedMessage declId info target
+      Unusable (UnusableDecl info reason) ->
+           [ mkUnusableMessage declId info reason
+           | not $ isExplainedByDependency declId reason
+           ]
+        ++ mkUnusableDelayedMessages declDB declId info
+      -- The delayed messages of the members are noise until the user resolves
+      -- the conflict; only Bug-level ones are reported ('getBugMsgsNotActive').
+      Unusable (UnusableConflict c) ->
+        List.singleton $ withCallStack C.WithLocationInfo{
+            loc = C.declIdLocationInfo declId $
+              NonEmpty.toList $ C.conflictToList c
+          , msg = SelectConflict
+          }
+
+    -- A dependency without a Haskell name is unusable or not selected, and
+    -- the message on the missing transitive dependencies reports it.
+    --
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/2326>
+    -- Remove once name mangling gives its own reason for a dependency without
+    -- a Haskell name.
+    isExplainedByDependency :: C.DeclId -> UnusableReason -> Bool
+    isExplainedByDependency declId = \case
+      PassFailed (MangleNamesFailed (MangleNamesResolutionError
+        (ResolveNamesUnderlyingDeclNotMangled dep _))) ->
+          case getTransitiveSelectability declId of
+            TransitivelyUnselectable reasons -> Map.member dep reasons
+            TransitivelySelectable           -> False
+      _otherReason ->
+        False
 
 getDelayedMsgsAdditionalSelectedTransDeps ::
-     HasCallStack
-  => DeclIndex l
+     forall l. HasCallStack
+  => DeclDB l In
+  -> Map C.DeclId (Entry l In)
+     -- ^ Additionally selected transitive dependencies
   -> [AnnMsg Select]
-getDelayedMsgsAdditionalSelectedTransDeps = concatMap (uncurry aux) . DeclIndex.toList
+getDelayedMsgsAdditionalSelectedTransDeps declDB transDeps =
+    concatMap (uncurry aux) $ Map.toList transDeps
   where
     aux ::
          HasCallStack
       => C.DeclId
-      -> Entry l
+      -> Entry l In
       -> [AnnMsg Select]
     aux declId = \case
-      UsableEntry e -> case e of
-        UsableSuccess success ->
-          mkSuccessMessages declId success
-        UsableExternal{} -> []
-        -- Parse messages are unavailable for squashed entries. We are OK with
-        -- this; instead we have issued a notice that the @typedef@ was squashed.
-        UsableSquashed x ->
-          [ withCallStack C.WithLocationInfo{
-                loc = C.declIdLocationInfo declId [x.typedefLoc]
-              , msg = SelectMangleNamesSquashed x
-              }
-          ]
-      -- Messages for unusable transitive dependencies are already attached to
-      -- the traces of the reverse transitive dependencies.
-      UnusableEntry _ -> []
+      Active decl ->
+        mkActiveMessages declDB declId decl
+      External{} -> []
+      -- Only after @Select@
+      DeclDB.NotSelected _ Deselected -> []
+      -- We do not emit the delayed messages of squashed entries; instead we
+      -- issue a notice that the @typedef@ was squashed.
+      Squashed info target ->
+        [mkSquashedMessage declId info target]
+      -- Messages for omitted and unusable transitive dependencies are already
+      -- attached to the traces of the reverse transitive dependencies.
+      DeclDB.NotSelected _ Omitted -> []
+      Unusable _                   -> []
 
 -- NOTE: We emit delayed BUG-level parse messages even for declarations that are
 -- not selected. We do not have a test for this; please ensure delayed BUG-level
 -- parse messages are emitted for all declarations also in the future.
-getBugMsgsNotSelected :: HasCallStack => DeclIndex l -> [AnnMsg Select]
-getBugMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
+getBugMsgsNotSelected ::
+     forall l. HasCallStack
+  => DeclDB l In
+  -> Map C.DeclId (Entry l In)
+     -- ^ Declarations not selected
+  -> [AnnMsg Select]
+getBugMsgsNotSelected declDB notSelected =
+    concatMap (uncurry aux) $ Map.toList notSelected
   where
     aux ::
          HasCallStack
       => C.DeclId
-      -> Entry l
+      -> Entry l In
       -> [AnnMsg Select]
     aux declId = \case
-      UsableEntry e -> case e of
-        UsableSuccess success ->
-          let isBugLevel x = getDefaultLogLevel x == Bug
-          in  filter isBugLevel $ mkSuccessMessages declId success
-        UsableExternal{} -> []
-        UsableSquashed{} -> []
-      UnusableEntry e -> case e of
-        UnusableReason loc reason ->
-          if isBug reason then
-              List.singleton $ withCallStack C.WithLocationInfo{
-                  loc = C.declIdLocationInfo declId [loc]
-                , msg = SelectUnusable reason
-                }
-          else
-            []
-        UnusableConflict{} -> []
+      Active decl ->
+        let isBugLevel x = getDefaultLogLevel x == Bug
+        in  filter isBugLevel $ mkActiveMessages declDB declId decl
+      External{}           -> []
+      Squashed{}           -> []
+      DeclDB.NotSelected{} -> []
+      Unusable (UnusableDecl info reason) ->
+        [ mkUnusableMessage declId info reason | isBug reason ]
+      Unusable UnusableConflict{} -> []
 
     isBug :: UnusableReason -> Bool
     isBug = \case
-      UnusableUnavailable                -> False
-      UnusableOmitted                    -> False
-      UnusableParseFailure           err -> getDefaultLogLevel err == Bug
-      UnusableMangleNamesFailure     err -> getDefaultLogLevel err == Bug
-      UnusableMacroTypecheckFailure  err -> getDefaultLogLevel err == Bug
-      UnusableMacroResolutionFailure err -> getDefaultLogLevel err == Bug
+      NotAttempted{}  -> False
+      ParseFailed err -> getDefaultLogLevel err == Bug
+      PassFailed r    -> getDefaultLogLevel r == Bug
+
+-- | Bug-level delayed messages of every entry that is not active, whether
+-- selected or not
+--
+-- Active entries report theirs with their other delayed messages.
+getBugMsgsNotActive ::
+     forall l. HasCallStack
+  => DeclDB l In
+  -> [AnnMsg Select]
+getBugMsgsNotActive declDB =
+    concatMap (uncurry aux) $ DeclDB.toList declDB
+  where
+    aux ::
+         HasCallStack
+      => C.DeclId
+      -> Entry l In
+      -> [AnnMsg Select]
+    aux declId = \case
+      Active{} -> []
+      entry    -> [
+          withCallStack C.WithLocationInfo{
+              loc = C.declIdLocationInfo declId $
+                maybe [] C.declLocsToList (DeclDB.entryToLoc entry)
+            , msg = SelectDelayedMsg msg
+            }
+        | msg <- DeclDB.lookupDelayedMsgs declId declDB
+        , getDefaultLogLevel msg == Bug
+        ]
 
 -- | Does this selection-root message represent a macro that hs-bindgen dropped?
 --
 isDroppedMacro :: SelectMsg -> Bool
 isDroppedMacro = \case
     SelectUnusable reason -> case reason of
-      UnusableMacroTypecheckFailure  _ -> True
-      UnusableMacroResolutionFailure _ -> True
+      PassFailed MacroFailed{}       -> True
       -- A parse failure counts as a dropped macro iff it is a macro parse
       -- failure.
-      UnusableParseFailure p           -> isMacroParseFailure p
-      UnusableUnavailable              -> False
-      UnusableOmitted                  -> False
-      UnusableMangleNamesFailure _     -> False
-    _otherwise                         -> False
+      ParseFailed p                  -> isMacroParseFailure p
+      NotAttempted{}                 -> False
+      PassFailed MangleNamesFailed{} -> False
+    _otherwise                       -> False
   where
     isMacroParseFailure :: DelayedParseMsg -> Bool
     isMacroParseFailure = \case
       ParseMacroDefinitionNoMacroName{} -> True
       ParseMacroEmpty{}                 -> False
-      ParseMacroErrorParse{}            -> True
       ParseMacroErrorRead{}             -> True
       _otherwise                        -> False
-
-{-------------------------------------------------------------------------------
-  Sort traces
--------------------------------------------------------------------------------}
-
--- | Location a trace message is sorted by
---
--- Only conflicting declarations carry more than one location; we sort by the
--- first.
-msgLoc :: AnnMsg Select -> Maybe (SingleLoc C.DeclPath)
-msgLoc msg = listToMaybe $ C.locationInfoLocs msg.traceMsg.loc
-
--- | Sort key of a trace message
---
--- The constructor order /is/ the specification: messages not attached to a
--- declaration sort to the back. Do not reorder.
-data MsgSortKey =
-    MsgAt {
-        msgSource :: IncludeGraph.IncludeOrderIx
-      , msgLine   :: Int
-      , msgColumn :: Int
-      }
-  | MsgNoLocation
-  deriving stock (Eq, Ord)
-
-msgSortKey :: IncludeGraph.IncludeOrder -> AnnMsg Select -> MsgSortKey
-msgSortKey order msg = case msgLoc msg of
-    Nothing  -> MsgNoLocation
-    Just loc -> MsgAt {
-        msgSource = IncludeGraph.lookupIncludeOrder order (singleLocPath loc)
-      , msgLine   = singleLocLine   loc
-      , msgColumn = singleLocColumn loc
-      }
-
-sortSelectMsgs :: IncludeGraph -> [AnnMsg Select] -> [AnnMsg Select]
-sortSelectMsgs includeGraph msgs =
-    bugMsgs ++ List.sortOn (msgSortKey order) msgs
-  where
-    -- Compute the include order once.
-    order :: IncludeGraph.IncludeOrder
-    order = IncludeGraph.toIncludeOrder includeGraph
-
-    -- We do not know where to sort a message whose source is not in the include
-    -- graph, but a mis-sorted message is no reason to abort: report the bug and
-    -- sort the message to the back.
-    bugMsgs :: [AnnMsg Select]
-    bugMsgs = [
-        withCallStack C.WithLocationInfo{
-            loc = C.LocationUnavailable
-          , msg = SelectSourceNotInIncludeGraph path
-          }
-      | path <- Set.toList unknownPaths
-      ]
-
-    unknownPaths :: Set RealPath
-    unknownPaths = Set.fromList [
-        path
-      | msg <- msgs
-      , Just loc <- [msgLoc msg]
-      , C.InHeader path <- [singleLocPath loc]
-      , IncludeGraph.lookupIncludeOrder order (C.InHeader path)
-          == IncludeGraph.NotInIncludeGraph
-      ]
 
 {-------------------------------------------------------------------------------
   Apply the selection predicate
 -------------------------------------------------------------------------------}
 
 -- Match function to find selection roots.
-type Match = C.DeclName -> SingleLoc C.DeclPath -> C.Availability -> Bool
+type Match = C.DeclName -> SingleLoc C.DeclPath -> C.Deprecation -> Bool
 
--- | Limit the declaration index to those entries that match the select
---   predicate. Do not include anything external nor omitted.
-selectDeclIndex :: DeclUseGraph -> Match -> DeclIndex l -> DeclIndex l
-selectDeclIndex declUseGraph predicate declIndex =
-    DeclIndex.filter matchEntry declIndex
+-- | The entries that match the select predicate. Do not include anything
+--   external nor omitted.
+selectEntries ::
+     Match
+  -> DeclDB l In
+  -> Map C.DeclId (Entry l In)
+selectEntries predicate declDB =
+    Map.filterWithKey matchEntry declDB.entries
   where
-    matchEntry :: C.DeclId -> Entry l -> Bool
+    matchEntry :: C.DeclId -> Entry l In -> Bool
     matchEntry declId entry =
         case entryInfo entry of
           Nothing ->
             -- External or omittted declarations have already been removed from
             -- the list of declarations
             False
-          Just (locs, availability) ->
+          Just (locs, deprecation) ->
             if declId.isUnnamed
               then matchUnnamed declId
               else Foldable.any
-                     (\loc -> predicate declId.name loc availability)
+                     (\loc -> predicate declId.name loc deprecation)
                      (C.declLocsToList locs)
 
     matchDeclId :: C.DeclId -> Bool
     matchDeclId declId =
-        case DeclIndex.lookupEntry declId declIndex of
+        case DeclDB.lookupEntry declId declDB of
           Just entry -> matchEntry declId entry
           Nothing    -> panicPure $ "Unknown declaration ID: " ++ show declId
 
     -- Extract info from 'Entry' needed to match against the selection predicate
     --
-    -- Returns 'Nothing' for external or omitted declarations.
+    -- Returns 'Nothing' for external or not selected (omitted) declarations.
     -- Returns 'Just _' for squashed declarations. Those can still be selected.
     -- Returns multiple locations only for conflicts.
-    entryInfo :: Entry l -> Maybe (C.DeclLocs, C.Availability)
+    entryInfo ::
+         Entry l In
+      -> Maybe (C.DeclLocs, C.Deprecation)
     entryInfo entry = case entry of
-        UsableEntry UsableExternal{} ->
+        External{} ->
           Nothing
-        UnusableEntry (UnusableReason _loc UnusableOmitted{}) ->
+        DeclDB.NotSelected{} ->
           Nothing
-        _otherwise ->
-          Just (DeclIndex.entryToLoc entry, DeclIndex.entryToAvailability entry)
+        _otherwise -> do
+          locs <- DeclDB.entryToLoc entry
+          pure (locs, DeclDB.entryToDeprecation entry)
 
     -- We match unnamed declarations based on their use sites.
     --
@@ -731,7 +756,7 @@ selectDeclIndex declUseGraph predicate declIndex =
     -- inner struct is needed.
     matchUnnamed :: C.DeclId -> Bool
     matchUnnamed unnamed =
-       case DeclUseGraph.getUseSites declUseGraph unnamed of
+       case DeclUseGraph.getUseSites declDB.declUseGraph unnamed of
          (declId, _) :_ ->
            -- The only way that unnamed declarations can have multiple use
            -- sites is when multiple fields are defined together:

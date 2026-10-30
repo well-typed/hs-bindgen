@@ -17,14 +17,10 @@ import Clang.HighLevel.Types
 import HsBindgen.BindingSpec (MergedBindingSpecs, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
-import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
-import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -56,7 +52,11 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
         (pSpecErrs, pSpec')
           | pSpecModule == hsModuleName = ([], pSpec)
           | otherwise =
-              ( [withCallStack (ResolveBindingSpecsModuleMismatch hsModuleName pSpecModule)]
+              ( [ withCallStack C.WithLocationInfo{
+                      loc = C.LocationUnavailable
+                    , msg = ResolveBindingSpecsModuleMismatch hsModuleName pSpecModule
+                    }
+                ]
               , BindingSpec.empty hsModuleName
               )
         (decls, state) =
@@ -64,44 +64,53 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
             extSpecs
             pSpec'
             unit.includeGraph
-            unit.meta.declIndex
-            (resolveDecls unit.decls)
-        declUseGraph =
-            DeclUseGraph.deleteRevDeps (Map.keysSet state.extTypes)
-          . DeclUseGraph.deleteDeps state.opqTypes
-          $ unit.meta.declUseGraph
-        notUsedErrs = map (withCallStack . ResolveBindingSpecsTypeNotUsed) $ Map.keys state.noPTypes
-    in  ( reconstruct decls declUseGraph state
+            unit.db
+            (resolveDecls (DeclDB.active DeclDB.AnyOrder unit.db))
+        -- No source location: no declaration used the specification, and an
+        -- entry with the same identifier may be in another header.
+        notUsedErrs = [
+            withCallStack C.WithLocationInfo{
+                loc = C.declIdLocationInfo declId []
+              , msg = ResolveBindingSpecsTypeNotUsed
+              }
+          | declId <- Map.keys state.noPTypes
+          ]
+    in  ( unit{C.db = resolveDB decls state}
         , pSpecErrs ++ reverse state.traces ++ notUsedErrs
         )
   where
-    reconstruct ::
+    -- Externalised entries are no longer active, so need no result.
+    resolveDB ::
          [C.Decl l ResolveBindingSpecs]
-      -> DeclUseGraph
       -> MState
-      -> C.TranslationUnit l ResolveBindingSpecs
-    reconstruct decls' declUseGraph state =
-      let externals :: [(C.DeclId, C.DeclLocs)]
-          externals = map (second (.locs)) $ Map.toList state.extTypes
+      -> DeclDB l ResolveBindingSpecs
+    resolveDB decls state =
+        DeclDB.deleteDeps state.opqTypes
+      . runIdentity
+      . DeclDB.traverseActive DeclDB.AnyOrder (pure . result)
+      . DeclDB.externalize state.extTypes
+      $ unit.db
+      where
+        results :: Map C.DeclId (DeclDB.PassResult l ResolveBindingSpecs)
+        results = Map.fromListWithKey duplicate $ concat [
+              [(decl.id, DeclDB.Advanced decl) | decl <- decls]
+            , [ (declId, DeclDB.Omit)
+              | declId <- Set.toList state.omitTypes
+              ]
+            ]
 
-          index' :: DeclIndex l
-          index' =
-                DeclIndex.registerExternalDeclarations externals
-              . DeclIndex.registerOmittedDeclarations state.omitTypes
-              $ unit.meta.declIndex
+        duplicate :: C.DeclId -> a -> a -> a
+        duplicate declId _ _ =
+            panicPure $
+              "resolveBindingSpecs: more than one result for " ++ show declId
 
-          unitMeta' :: DeclMeta l
-          unitMeta' = DeclMeta {
-                declIndex    = index'
-              , useDeclGraph = UseDeclGraph.fromDeclUseGraph declUseGraph
-              , declUseGraph = declUseGraph
-              }
-
-      in C.TranslationUnit{
-             decls        = decls'
-           , includeGraph = unit.includeGraph
-           , meta         = unitMeta'
-           }
+        result ::
+             C.Decl l PreviousPass
+          -> DeclDB.PassResult l ResolveBindingSpecs
+        result decl = case Map.lookup decl.id results of
+          Just r  -> r
+          Nothing ->
+            panicPure $ "resolveBindingSpecs: no result for " ++ show decl.id
 
 {-------------------------------------------------------------------------------
   Internal: monad
@@ -120,11 +129,11 @@ runM ::
      MergedBindingSpecs
   -> PrescriptiveBindingSpec
   -> IncludeGraph
-  -> DeclIndex l
+  -> DeclDB l PreviousPass
   -> M l a
   -> (a, MState)
-runM extSpecs pSpec includeGraph declIndex (WrapM m) =
-    let env    = MEnv extSpecs pSpec includeGraph declIndex
+runM extSpecs pSpec includeGraph declDB (WrapM m) =
+    let env    = MEnv extSpecs pSpec includeGraph declDB
         state0 = initMState pSpec
     in  runState (runReaderT m env) state0
 
@@ -136,7 +145,7 @@ data MEnv l = MEnv {
       extSpecs     :: MergedBindingSpecs
     , pSpec        :: PrescriptiveBindingSpec
     , includeGraph :: IncludeGraph
-    , declIndex    :: DeclIndex l
+    , declDB       :: DeclDB l PreviousPass
     }
 
 deriving stock instance Macro.HasTypes l => Show (MEnv l)
@@ -149,7 +158,7 @@ data MState = MState {
       traces    :: [AnnMsg ResolveBindingSpecs] -- ^ reverse order
     , extTypes  :: Map C.DeclId (ExtBinding ResolveBindingSpecs)
     , noPTypes  :: Map C.DeclId [Set RealPath]
-    , omitTypes :: Map C.DeclId (SingleLoc C.DeclPath)
+    , omitTypes :: Set C.DeclId
     , opqTypes  :: Set C.DeclId -- ^ opaqued types
     }
   deriving (Show, Generic)
@@ -159,12 +168,25 @@ initMState pSpec = MState {
       traces    = []
     , extTypes  = Map.empty
     , noPTypes  = BindingSpec.getCTypes pSpec
-    , omitTypes = Map.empty
+    , omitTypes = Set.empty
     , opqTypes  = Set.empty
     }
 
-insertTrace :: AnnMsg ResolveBindingSpecs -> MState -> MState
-insertTrace msg = #traces %~ (msg :)
+-- | Trace a message about a declaration, at its location
+insertTrace :: HasCallStack => C.DeclId -> ResolveBindingSpecsMsg -> M l ()
+insertTrace declId msg = do
+    declDB <- Reader.asks (.declDB)
+    let annMsg = withCallStack C.WithLocationInfo{
+            loc = declLocationInfo declId declDB
+          , msg = msg
+          }
+    State.modify' $ #traces %~ (annMsg :)
+
+-- | The location of a declaration; no source location if it has no entry
+declLocationInfo :: C.DeclId -> DeclDB l p -> C.LocationInfo
+declLocationInfo declId db =
+    C.declIdLocationInfo declId $
+      maybe [] C.declLocsToList (DeclDB.lookupLoc declId db)
 
 insertExtType :: C.DeclId -> ExtBinding ResolveBindingSpecs -> MState -> MState
 insertExtType cDeclId typ = #extTypes %~ Map.insert cDeclId typ
@@ -185,8 +207,8 @@ deleteNoPType cDeclId path = #noPTypes %~ Map.update (aux []) cDeclId
         | otherwise -> aux (s : acc) ss
       [] -> Just acc
 
-insertOmittedType :: C.DeclId -> SingleLoc C.DeclPath -> MState -> MState
-insertOmittedType cDeclId sloc = #omitTypes %~ Map.insert cDeclId sloc
+insertOmittedType :: C.DeclId -> MState -> MState
+insertOmittedType cDeclId = #omitTypes %~ Set.insert cDeclId
 
 {-------------------------------------------------------------------------------
   Internal: implementation
@@ -236,30 +258,25 @@ resolveTopInHeader ::
        )
 resolveTopInHeader realPath decl = Reader.ask >>= \env -> do
     let declPaths  = IncludeGraph.reaches env.includeGraph realPath
-        mMsg       = Just $ withCallStack $ ResolveBindingSpecsOmittedType decl.info.id
-    isExt <- isJust <$>
-      resolveExtBinding
-        decl.info.id
-        (C.DeclLoc decl.info.loc)
-        declPaths mMsg
+        mMsg       = Just ResolveBindingSpecsOmittedType
+    isExt <- isJust <$> resolveExtBinding decl.id declPaths mMsg
     if isExt
       then do
-        State.modify' $ insertTrace (withCallStack $ ResolveBindingSpecsExtDecl decl.info.id)
+        insertTrace decl.id ResolveBindingSpecsExtDecl
         return Nothing
-      else case BindingSpec.lookupCTypeSpec decl.info.id declPaths env.pSpec of
+      else case BindingSpec.lookupCTypeSpec decl.id declPaths env.pSpec of
         Just (_hsModuleName, BindingSpec.Require cTypeSpec) -> do
-          State.modify' $
-              insertTrace (withCallStack $ ResolveBindingSpecsPreRequire decl.info.id)
-            . deleteNoPType decl.info.id realPath
+          insertTrace decl.id ResolveBindingSpecsPreRequire
+          State.modify' $ deleteNoPType decl.id realPath
           let mHsTypeSpec = do
                 hsIdentifier <- cTypeSpec.hsName
                 BindingSpec.lookupHsTypeSpec hsIdentifier env.pSpec
           applyPrescriptive decl cTypeSpec mHsTypeSpec
         Just (_hsModuleName, BindingSpec.Omit) -> do
+          insertTrace decl.id ResolveBindingSpecsPreOmit
           State.modify' $
-              insertTrace (withCallStack $ ResolveBindingSpecsPreOmit decl.info.id)
-            . deleteNoPType decl.info.id realPath
-            . insertOmittedType decl.info.id decl.info.loc
+              deleteNoPType decl.id realPath
+            . insertOmittedType decl.id
           return Nothing
         Nothing -> return $ Just (decl, (Nothing, Nothing))
 
@@ -290,9 +307,8 @@ applyPrescriptive decl cTypeSpec mHsTypeSpec = runMaybeT $ do
       case (decl.kind, cTypeSpec.enum) of
         (C.DeclEnum{}, _)       -> return ()
         (_,            Nothing) -> return ()
-        (_,            Just{})  -> lift . State.modify' $
-          insertTrace
-            (withCallStack $ ResolveBindingSpecsEnumTypeMismatch decl.info.id)
+        (_,            Just{})  -> lift $
+          insertTrace decl.id ResolveBindingSpecsEnumTypeMismatch
       return (Just cTypeSpec)
 
     applyHsTypeSpec ::
@@ -331,7 +347,7 @@ applyPrescriptive decl cTypeSpec mHsTypeSpec = runMaybeT $ do
     auxEmptyData ::
       MaybeT (M l) (C.Decl l PreviousPass, Maybe BindingSpec.HsTypeRep)
     auxEmptyData = do
-      declIndex <- lift $ Reader.asks (.declIndex)
+      declDB <- lift $ Reader.asks (.declDB)
       -- A complete C type keeps its size and alignment, so that a 'StaticSize'
       -- instance can be generated for the empty data type.  Structs, unions, and
       -- enums carry the layout directly; a typedef is followed to its underlying
@@ -342,7 +358,7 @@ applyPrescriptive decl cTypeSpec mHsTypeSpec = runMaybeT $ do
             C.DeclStruct s    -> (True, Just (C.OpaqueSize s.sizeof s.alignment))
             C.DeclUnion  u    -> (True, Just (C.OpaqueSize u.sizeof u.alignment))
             C.DeclEnum   e    -> (True, Just (C.OpaqueSize e.sizeof e.alignment))
-            C.DeclTypedef td  -> (True, underlyingOpaqueSize declIndex td.typ)
+            C.DeclTypedef td  -> (True, underlyingOpaqueSize declDB td.typ)
             C.DeclOpaque m    -> (True, m)
             C.DeclMacro macro -> case macro of
               MacroType{}  -> (True,  Nothing)
@@ -351,19 +367,21 @@ applyPrescriptive decl cTypeSpec mHsTypeSpec = runMaybeT $ do
             _otherwise        -> (False, Nothing)
       if isValid
         then do
-          lift . State.modify' $
-              insertTrace (withCallStack $ ResolveBindingSpecsPreEmptyData decl.info.id)
-            . insertOpaquedType decl.info.id
+          lift $ do
+            insertTrace decl.id ResolveBindingSpecsPreEmptyData
+            State.modify' $ insertOpaquedType decl.id
           -- Cannot use record update because 'C.kind' is ambiguous
           let decl' = C.Decl{
-                  C.info = decl.info
-                , C.kind = C.DeclOpaque mSize
-                , C.ann  = decl.ann
+                  C.info      = decl.info
+                , C.id        = decl.id
+                , C.comment   = decl.comment
+                , C.enclosing = decl.enclosing
+                , C.kind      = C.DeclOpaque mSize
+                , C.ann       = decl.ann
                 }
           return (decl', Just BindingSpec.HsTypeRepEmptyData)
         else do
-          lift . State.modify' $
-            insertTrace (withCallStack $ ResolveBindingSpecsPreEmptyDataInvalid decl.info.id)
+          lift $ insertTrace decl.id ResolveBindingSpecsPreEmptyDataInvalid
           return (decl, Nothing)
 
     auxTypeAlias ::
@@ -379,17 +397,17 @@ applyPrescriptive decl cTypeSpec mHsTypeSpec = runMaybeT $ do
 --
 -- 'C.getCanonicalType' resolves typedef and macro-type references and strips
 -- qualifiers, so a typedef to a struct or union surfaces as a 'C.TypeRef' to its
--- declaration, whose layout we recover via the declaration index.  Primitives,
+-- declaration, whose layout we recover via the declaration database.  Primitives,
 -- pointers, and enums canonicalise to a type with no such reference and yield
 -- 'Nothing', since their sizes are not available in this frontend pass.
 underlyingOpaqueSize ::
-     DeclIndex l
+     DeclDB l PreviousPass
   -> C.Type PreviousPass
   -> Maybe C.OpaqueSize
-underlyingOpaqueSize declIndex ty =
+underlyingOpaqueSize declDB ty =
     case C.getCanonicalType ty of
       C.TypeRef declId -> do
-        decl <- DeclIndex.lookup declId declIndex
+        decl <- DeclDB.lookup declId declDB
         case decl.kind of
           C.DeclStruct s -> pure (C.OpaqueSize s.sizeof s.alignment)
           C.DeclUnion  u -> pure (C.OpaqueSize u.sizeof u.alignment)
@@ -405,12 +423,11 @@ resolveDeep ::
   -> (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
   -> M l (C.Decl l ResolveBindingSpecs)
 resolveDeep decl (cSpec, hsSpec) = do
-    declKind' <- resolve decl.info.id decl.kind
-    return C.Decl {
-        info = coercePass decl.info
-      , kind = declKind'
-      , ann  = PrescriptiveDeclSpec{cSpec = cSpec, hsSpec = hsSpec}
-      }
+    declKind' <- resolve decl.id decl.kind
+    return $ C.coercePassDeclWith
+      declKind'
+      PrescriptiveDeclSpec{cSpec = cSpec, hsSpec = hsSpec}
+      decl
 
 {-------------------------------------------------------------------------------
   Instances
@@ -544,8 +561,7 @@ resolveIndirectField ctx field = do
     -- theoretically we could generate bindings for indirect fields that cross
     -- binding spec boundaries
     if any crossesBoundary path' then do
-      State.modify' $
-        insertTrace (withCallStack $ ResolveBindingSpecsIndirectFieldDropped ctx field.info.name)
+      insertTrace ctx $ ResolveBindingSpecsIndirectFieldDropped field.info.name
       pure Nothing
     else
       Just <$> (reconstruct <$> resolve ctx field.typ <*> pure path')
@@ -740,37 +756,34 @@ resolveUseSite ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
       -- 1. Search cache: We expect all usable declarations with external
       -- bindings to be in the cache.
       Just ty -> do
-        State.modify' $ insertTrace (withCallStack $ ResolveBindingSpecsExtType ctx cDeclId)
+        insertTrace ctx $ ResolveBindingSpecsExtType cDeclId
         pure (Just ty)
       -- 2. No cache hit: The declaration is either usable and has no external
       -- binding, or it is unusable.
       Nothing ->
-        case DeclIndex.lookupEntry cDeclId env.declIndex of
+        case DeclDB.lookupEntry cDeclId env.declDB of
           Nothing ->
             panicPure $
               "resolveUseSite: declaration ID "
               <> show cDeclId
-              <> " not in declaration index"
+              <> " not in declaration database"
           -- Interesting case, an unusable declaration may have an external
           -- binding specification.
-          Just (DeclIndex.UnusableEntry x) -> do
-              let locs :: C.DeclLocs
-                  locs = DeclIndex.unusableToLoc x
-                  declPaths =
+          Just (DeclDB.Unusable x) -> do
+              let declPaths =
                     foldMap
                       (IncludeGraph.reaches env.includeGraph)
                       (mapMaybe (C.declPathRealPath . singleLocPath) $
-                        C.declLocsToList locs)
-              mTy <- resolveExtBinding cDeclId locs declPaths Nothing
+                        C.declLocsToList (DeclDB.unusableToLoc x))
+              mTy <- resolveExtBinding cDeclId declPaths Nothing
               case mTy of
                 Just ty -> do
-                  State.modify' $
-                      insertTrace (withCallStack $ ResolveBindingSpecsExtType ctx cDeclId)
-                    . insertExtType cDeclId ty
+                  insertTrace ctx $ ResolveBindingSpecsExtType cDeclId
+                  State.modify' $ insertExtType cDeclId ty
                   pure (Just ty)
                 Nothing -> pure Nothing
           -- Cannot have an external binding specification.
-          Just DeclIndex.UsableEntry{} ->
+          Just _usable ->
             pure Nothing
 
 {-------------------------------------------------------------------------------
@@ -781,12 +794,11 @@ resolveUseSite ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
 resolveExtBinding ::
      HasCallStack
   => C.DeclId
-  -> C.DeclLocs
   -> Set RealPath
      -- | Message to emit for omitted types.
-  -> Maybe (AnnMsg ResolveBindingSpecs)
+  -> Maybe ResolveBindingSpecsMsg
   -> M l (Maybe BindingSpec.ResolvedExtBinding)
-resolveExtBinding cDeclId locs declPaths mMsg = do
+resolveExtBinding cDeclId declPaths mMsg = do
     env <- Reader.ask
     case BindingSpec.lookupMergedBindingSpecs cDeclId declPaths env.extSpecs of
       Just (hsModuleName, BindingSpec.Require cTypeSpec, mHsTypeSpec) ->
@@ -794,7 +806,6 @@ resolveExtBinding cDeclId locs declPaths mMsg = do
           (Just hsName, Just hsTypeSpec) -> do
             let resolved = BindingSpec.ResolvedExtBinding {
                     cName  = cDeclId
-                  , locs   = locs
                   , hsName = Hs.ExtRef hsModuleName hsName
                   , cSpec  = cTypeSpec
                   , hsSpec = hsTypeSpec
@@ -802,15 +813,13 @@ resolveExtBinding cDeclId locs declPaths mMsg = do
             State.modify' $ insertExtType cDeclId resolved
             return (Just resolved)
           (Nothing, _) -> do
-            State.modify' $
-              insertTrace (withCallStack $ ResolveBindingSpecsExtHsRefNoIdentifier cDeclId)
+            insertTrace cDeclId ResolveBindingSpecsExtHsRefNoIdentifier
             return Nothing
           (_, Nothing) -> do
-            State.modify' $
-              insertTrace (withCallStack $ ResolveBindingSpecsNoHsTypeSpec cDeclId)
+            insertTrace cDeclId ResolveBindingSpecsNoHsTypeSpec
             return Nothing
       Just (_hsModuleName, BindingSpec.Omit, _mHsTypeSpec) -> do
-        forM_ mMsg $ \msg -> State.modify' $ insertTrace msg
+        forM_ mMsg $ insertTrace cDeclId
         return Nothing
       Nothing ->
         return Nothing

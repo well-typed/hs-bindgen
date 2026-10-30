@@ -9,19 +9,12 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph.Construction (
 
 import Data.Digraph (Digraph)
 import Data.Digraph qualified as Digraph
-import Data.List qualified as List
 import Data.Set qualified as Set
-
-import Clang.HighLevel.Types
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
 import HsBindgen.Frontend.Analysis.Deps
-import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
-import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Imports
@@ -31,45 +24,33 @@ import HsBindgen.IR.C qualified as C
   Construction
 -------------------------------------------------------------------------------}
 
+-- | Construct the graph over all declarations, with the dependency edges of the
+-- given ones
+--
+-- The given declarations must be among all declarations. Macros have already
+-- been resolved.
 construct ::
      forall l. HasCallStack
-  => IncludeGraph
-  -> DeclIndex l
+  => Set C.DeclId
+     -- ^ All declarations, whether we can use them or not
+  -> [C.Decl l ConstructTranslationUnit]
   -> DeclUseGraph
-construct includeGraph declIndex = declUseGraph
+construct declIds decls = declUseGraph
   where
-    -- The include graph informs us about the order of declarations which is
-    -- key.
-    order :: IncludeGraph.IncludeOrder
-    order = IncludeGraph.toIncludeOrder includeGraph
-    -- The declaration index contains declarations that we cannot use. Macros
-    -- have already been resolved while constructing the declaration index.
-    successfulDecls, sortedSuccessfulDecls :: [C.Decl l ConstructTranslationUnit]
-    successfulDecls       = DeclIndex.getDecls declIndex
-    sortedSuccessfulDecls = List.sortOn (annSortKey order) successfulDecls
-
-    allDeclIds, successfulDeclIds, failedDeclIds :: Set C.DeclId
-    allDeclIds        = DeclIndex.keysSet declIndex
-    successfulDeclIds = Set.fromList $ map (.info.id) sortedSuccessfulDecls
-    failedDeclIds     = allDeclIds Set.\\ successfulDeclIds
-
     declUseGraph :: DeclUseGraph
     declUseGraph = DeclUseGraph $
       foldl'
         (flip insertDepsOfDeclParsedMacro)
         verticesGraph
-        sortedSuccessfulDecls
+        decls
 
-    -- We first insert all declarations, so that they are assigned vertices. For
-    -- successfully parsed declarations, we do this in source order. This
-    -- ensures that we preserve source order as much as possible in 'toDecls'
-    -- (modulo dependencies).
+    -- We first insert all declarations, so that they are assigned vertices.
     verticesGraph :: Digraph Dependency C.DeclId
     verticesGraph = foldl' (flip Digraph.insertVertex) Digraph.empty $
-      map (.info.id) sortedSuccessfulDecls ++ Set.toList failedDeclIds
+      Set.toList declIds
 
     -- We cannot use plain 'depsOfDecl' here because, at this pass, macros have
-    -- been resolved (in the declaration index) but not yet typechecked. We
+    -- been resolved (in the database) but not yet typechecked. We
     -- therefore use 'depsOfDeclParsedMacro', which derives the dependencies
     -- from the resolved (but not yet typechecked) macro body.
     insertDepsOfDeclParsedMacro ::
@@ -77,7 +58,7 @@ construct includeGraph declIndex = declUseGraph
       -> Digraph Dependency C.DeclId
       -> Digraph Dependency C.DeclId
     insertDepsOfDeclParsedMacro decl =
-      insertDeps decl.info.id (depsOfDeclParsedMacro decl.kind)
+      insertDeps decl.id (depsOfDeclParsedMacro decl.kind)
 
 insertDeps ::
      (HasCallStack)
@@ -106,7 +87,7 @@ insertDepsOfDecl ::
   -> DeclUseGraph
   -> DeclUseGraph
 insertDepsOfDecl decl declUseGraph = DeclUseGraph $
-    insertDeps (decl.info.id) (depsOfDecl decl.kind) declUseGraph.graph
+    insertDeps (decl.id) (depsOfDecl decl.kind) declUseGraph.graph
 
 {-------------------------------------------------------------------------------
   Deletion
@@ -129,29 +110,3 @@ deleteRevDeps :: Set C.DeclId -> DeclUseGraph -> DeclUseGraph
 deleteRevDeps depIds declUseGraph = DeclUseGraph{
       graph = Digraph.deleteEdgesFrom depIds declUseGraph.graph
     }
-
-{-------------------------------------------------------------------------------
-  Auxiliary
--------------------------------------------------------------------------------}
-
-data SortKey = SortKey{
-      sortPathIx :: IncludeGraph.IncludeOrderIx
-    , sortLineNo :: Int
-    , sortColNo  :: Int
-    }
-  deriving (Eq, Ord, Show)
-
-annSortKey :: HasCallStack => IncludeGraph.IncludeOrder -> C.Decl l p -> SortKey
-annSortKey order decl = SortKey{
-      sortPathIx = sortPathIx
-    , sortLineNo = singleLocLine   decl.info.loc
-    , sortColNo  = singleLocColumn decl.info.loc
-    }
-  where
-    path = singleLocPath decl.info.loc
-    -- Unlike a trace message, a declaration whose source is not in the include
-    -- graph means the frontend is broken; there is nothing to salvage.
-    sortPathIx = case IncludeGraph.lookupIncludeOrder order path of
-      IncludeGraph.NotInIncludeGraph ->
-        panicPure $ "Source of declaration " <> show path <> " not in include graph"
-      ix -> ix

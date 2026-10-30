@@ -1,8 +1,9 @@
 Since we use various types of predicates, we agree on the following
 nomenclature:
 
-- In the `Parse` pass, we either _succeed_, _do not attempt_, or _fail_ to parse
-  a declaration.
+- In the `Parse` pass, we either _succeed_, _do not attempt_ (the declaration
+  is unavailable on this platform, or `libclang` does not know its
+  availability), or _fail_ to parse a declaration.
 - In the `Select` pass, we either _select_ or _deselect_ a declaration.
 - Prescriptive binding specifications can _omit_ types; a declaration can be
   _extern_ due to an external binding specification.
@@ -10,6 +11,22 @@ nomenclature:
   dependent either _needs the shape_ (`NeedsShape`) or _needs the name only_
   (`NeedsNameOnly`) of the dependency. We avoid the old _by-value_/_by-reference_
   framing.
+- A declaration's _dependency edges_ go to the declarations it uses; its _use
+  edges_ come from the declarations that use it.
+
+The declaration database (`HsBindgen.Frontend.DeclDB`) has one entry per
+declaration. The kind of the entry says what we generate for it:
+
+- _active_: a binding, from the declaration we have at the current pass;
+- _squashed_: the binding of the target, into which the typedef was squashed;
+- _external_: nothing, because an external binding specification defines it
+  elsewhere;
+- _not selected_: nothing, because the configuration does not ask for it;
+  its users cannot be selected. A prescriptive binding specification
+  _omitted_ it, or `Select` _deselected_ it;
+- _unusable_: nothing at all; we failed or did not attempt to parse it, its
+  name conflicts, or a later pass _failed_ on it (the macro language or the
+  name mangler).
 
 In particular,
 - we avoid the terms _exclude_, and _skip_.

@@ -5,9 +5,9 @@ module HsBindgen.Frontend.Pass.TranslateTypes (
 import Control.Monad.Reader (MonadReader, ReaderT (..), withReaderT)
 import Control.Monad.State (MonadState, State, modify, runState)
 
-import HsBindgen.Frontend.Analysis.DeclIndex
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
+import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
@@ -31,29 +31,21 @@ translateTypes ::
   -> ( C.TranslationUnit l TranslateTypes
      , [AnnMsg TranslateTypes]
      )
-translateTypes unit = (unit', msgs)
+translateTypes unit = (unit{C.db = db'}, msgs)
   where
     msgs = []
 
-    unit' = C.TranslationUnit{
-          decls        = decls'
-        , includeGraph = unit.includeGraph
-        , meta         = meta'
-        }
+    db' :: DeclDB l TranslateTypes
+    db' =
+        DeclDB.addDelayedMsgs
+          (map (fmap DelayedTranslateTypes) delayedMsgs)
+          db
 
-    meta' = unit.meta {
-          declIndex = declIndex'
-        }
-
-    declIndex' :: DeclIndex l
-    declIndex' =
-        -- We use @foldr@ here to establish the original order of messages
-        foldr
-          DeclIndex.registerDelayedTranslateTypesMsg
-          unit.meta.declIndex
-          delayedMsgs
-
-    (decls', delayedMsgs) = runM NoEnv $ mapM processDecl unit.decls
+    (db, delayedMsgs) =
+      runM NoEnv $
+        DeclDB.traverseActive DeclDB.AnyOrder
+          (fmap DeclDB.Advanced . processDecl)
+          unit.db
 
 {-------------------------------------------------------------------------------
   Decls
@@ -62,11 +54,7 @@ translateTypes unit = (unit', msgs)
 processDecl :: C.Decl l AdjustTypes -> M NoEnv (C.Decl l TranslateTypes)
 processDecl decl = do
     kind' <- withEnv (const (DeclEnv decl.info)) $ processDeclKind decl.kind
-    pure C.Decl{
-        info = coercePass decl.info
-      , kind = kind'
-      , ann  = decl.ann
-      }
+    pure $ C.coercePassDeclWith kind' decl.ann decl
 
 processDeclKind :: C.DeclKind l AdjustTypes -> M DeclEnv (C.DeclKind l TranslateTypes)
 processDeclKind = \case
@@ -237,9 +225,9 @@ processAnonRef ctx typ = TranslatedAnonRef{
 
 -- | Run the monad
 --
--- Delayed trace messages are returned in reverse order that they were recorded
+-- Delayed trace messages are returned in the order they were recorded
 runM :: env -> M env a -> (a, [(C.DeclId, DelayedTranslateTypesMsg)])
-runM m (M k) = fmap (.messages) $ runState (runReaderT k m) (St [])
+runM m (M k) = fmap (reverse . (.messages)) $ runState (runReaderT k m) (St [])
 
 newtype M env a = M (ReaderT env (State St) a)
   deriving newtype (Functor, Applicative, Monad)
@@ -253,7 +241,7 @@ withEnv f (M k) = M (withReaderT f k)
 data NoEnv = NoEnv
 
 data DeclEnv = DeclEnv {
-    _info :: C.DeclInfo AdjustTypes
+    _info :: C.DeclInfo
   }
 
 newtype St = St {
