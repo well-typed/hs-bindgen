@@ -304,6 +304,7 @@ getBindingsMultiple mrc = do
         config.backend.hsBootPolicy
         dirs
         name
+        []
         (resolveExports tags)
         decls
 

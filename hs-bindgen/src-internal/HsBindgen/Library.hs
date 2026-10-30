@@ -153,9 +153,8 @@ assignHeaders ::
   -> HeaderMap
 assignHeaders libraryDirs baseModule decls =
     Map.fromListWith merge
-      [ (header, (moduleNameFromPath baseModule libDir header, Set.singleton declId))
+      [ (header, (moduleNameFromPath baseModule libDir header, Set.singleton decl.id))
       | decl <- decls
-      , let declId = decl.id
       , Just header <- [C.declPathRealPath (singleLocPath decl.info.loc)]
       , Just libDir <- [findLibraryDir libraryDirs header]
       ]
