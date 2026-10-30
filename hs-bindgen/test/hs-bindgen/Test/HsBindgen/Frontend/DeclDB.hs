@@ -45,8 +45,8 @@ data Violation =
   | DelayedMsgsWithoutEntry C.DeclId
   | VertexWithoutEntry C.DeclId
   | EntryWithoutVertex C.DeclId
-    -- | An 'External' entry with edges
-  | EdgesOfExternal C.DeclId
+    -- | An 'External' entry with users
+  | UsersOfExternal C.DeclId
     -- | An entry unusable since construction, with dependency edges
   | DependencyEdgesOfNeverActive C.DeclId
     -- | An entry of the earlier database only
@@ -112,9 +112,9 @@ checkInvariants db = concat [
         Map.keysSet db.delayedMsgs \\ keys
     , map VertexWithoutEntry $ Set.toList $ vertices \\ keys
     , map EntryWithoutVertex $ Set.toList $ keys \\ vertices
-    , [ EdgesOfExternal declId
+    , [ UsersOfExternal declId
       | (declId, External{}) <- Map.toList db.entries
-      , hasEdges declId graph || hasEdges declId depGraph
+      , hasEdges declId graph
       ]
     , [ DependencyEdgesOfNeverActive declId
       | (declId, Unusable unusable) <- Map.toList db.entries

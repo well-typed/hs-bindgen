@@ -30,6 +30,9 @@ import HsBindgen.IR.C qualified as C
 data DeclSortKey = DeclWithLoc SortKey | DeclNoLoc
   deriving stock (Eq, Ord)
 
+-- TODO-D: Sorting should only be concerned with "Active" declarations (C.Decl
+-- l p).
+
 -- | The key of an entry
 --
 -- Read from the entry's 'C.DeclInfo', so squashing, omitting, deselecting or

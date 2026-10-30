@@ -45,18 +45,14 @@ type Decl l = C.Decl l Select
 
 type In = TranslateTypes
 
--- | Why we cannot select a dependency, and hence its users
+-- | Reason why we cannot select a dependency, and its users
 --
--- In contrast to usability (see 'Entry'), selectability _is concerned with
--- transitivity_. All transitive dependencies of a selectable declaration must
--- also be selectable.
+-- Selectability _is concerned with transitivity_. All transitive dependencies
+-- of a selectable declaration must also be selectable.
 data Unselectable =
     -- | We cannot generate a binding for the dependency
     UnselectableUnusable Unusable
     -- | The configuration does not ask for the dependency
-    --
-    -- 'Deselected' is computed: the dependency is not selected, but its entry
-    -- is still active.
   | UnselectableNotSelected NotSelectedReason
   deriving stock (Show)
 

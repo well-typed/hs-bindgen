@@ -539,10 +539,6 @@ test_typedef_analysis =
           -- suffixed (like example 6a).
         , ("struct15"        , Nothing)
         , ("struct struct16" , Just "Struct16_struct")
-          -- 'struct17a' is external, so 'struct17b' is the only use of
-          -- 'struct struct17'.
-        , ("struct struct17" , Just "Struct17b")
-        , ("struct17b"       , Nothing)
         ]
 
 -- | Exercise the 'C.TypeBlock' path in 'taggedPayloads'.

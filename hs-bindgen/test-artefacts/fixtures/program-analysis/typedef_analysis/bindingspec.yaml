@@ -125,10 +125,16 @@ ctypes:
   hsname: Use_sites_qual
 - headers: program-analysis/typedef_analysis.h
   cname: struct struct17
-  hsname: Struct17b
+  hsname: Struct17
 - headers: program-analysis/typedef_analysis.h
   cname: struct17b
   hsname: Struct17b
+- headers: program-analysis/typedef_analysis.h
+  cname: struct struct18
+  hsname: Struct18
+- headers: program-analysis/typedef_analysis.h
+  cname: struct18_t
+  hsname: Struct18_t
 - headers: program-analysis/typedef_analysis.h
   cname: struct use_sites_external
   hsname: Use_sites_external
@@ -342,15 +348,65 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Struct17b
+- hsname: Struct17
   representation:
     record:
-      constructor: Struct17b
+      constructor: Struct17
       fields: []
   instances:
   - Eq
   - Generic
   - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Struct17b
+  representation:
+    newtype:
+      constructor: Struct17b
+      fields:
+      - unwrapStruct17b
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Struct18
+  representation:
+    record:
+      constructor: Struct18
+      fields: []
+  instances:
+  - Eq
+  - Generic
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Struct18_t
+  representation:
+    newtype:
+      constructor: Struct18_t
+      fields:
+      - unwrapStruct18_t
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
   - ReadRaw
   - Show
   - StaticSize
@@ -653,6 +709,7 @@ hstypes:
       constructor: Use_sites_external
       fields:
       - use_sites_external_useTypedef_struct17b
+      - use_sites_external_useTypedef_struct18_t
   instances:
   - Eq
   - Generic

@@ -46,6 +46,11 @@ runBackend tracer config boot frontend = do
       let declDB :: DeclDB l Final
           declDB = final.db
 
+      -- TODO-D: Once all analyses have moved into the frontend, the generation
+      -- of all Haskell code should happen in source order, because ultimately,
+      -- that is the order we want to generate _Haskell_ declarations in; then,
+      -- the order of Haskell declarations matches the order of C declarations.
+
           -- The translation needs dependency order; the output follows it,
           -- refined by source order.
           cDecls :: [C.Decl l Final]
