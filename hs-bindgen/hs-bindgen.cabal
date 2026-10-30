@@ -299,6 +299,7 @@ library internal
     HsBindgen.Language.C
     HsBindgen.Language.Haskell
     HsBindgen.Library
+    HsBindgen.Library.Runner
     HsBindgen.Macro.Empty
     HsBindgen.Macro.Error
     HsBindgen.Macro.Flip
