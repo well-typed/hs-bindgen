@@ -5,7 +5,7 @@ import System.FilePath ((<.>), (</>))
 
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Analysis.DeclIndex (UnusableReason (..))
+import HsBindgen.Frontend.DeclDB (PassFailure (..))
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
@@ -149,8 +149,8 @@ test_anonymous_edge_cases_drop_indirect_fields_1 =
 
     trace :: TraceMsg -> Maybe (TraceExpectation (C.DeclName, C.ScopedName))
     trace = \case
-      MatchResolveBindingSpecs (ResolveBindingSpecsIndirectFieldDropped cDeclId cFieldName) ->
-        Just $ Expected (cDeclId.name, cFieldName)
+      MatchResolveBindingSpecs name (ResolveBindingSpecsIndirectFieldDropped cFieldName) ->
+        Just $ Expected (name, cFieldName)
       _otherwise ->
         Nothing
 
@@ -177,8 +177,8 @@ test_anonymous_edge_cases_drop_indirect_fields_2 =
 
     trace :: TraceMsg -> Maybe (TraceExpectation (C.DeclName, C.ScopedName))
     trace = \case
-      MatchResolveBindingSpecs (ResolveBindingSpecsIndirectFieldDropped cDeclId cFieldName) ->
-        Just $ Expected (cDeclId.name, cFieldName)
+      MatchResolveBindingSpecs name (ResolveBindingSpecsIndirectFieldDropped cFieldName) ->
+        Just $ Expected (name, cFieldName)
       _otherwise ->
         Nothing
 
@@ -369,7 +369,7 @@ test_typedefs_typedefs =
 test_typedefs_typenames :: TestCase
 test_typedefs_typenames =
     testTraceMulti "types/typedefs/typenames" declsWithMsgs $ \case
-      MatchUnusable name (UnusableMangleNamesFailure (MangleNamesCollisionError DetectClashesCollision{})) ->
+      MatchPassFailed name (MangleNamesFailed (MangleNamesCollisionError DetectClashesCollision{})) ->
         Just $ Expected name
       _otherwise ->
         Nothing

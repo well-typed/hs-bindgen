@@ -24,9 +24,9 @@ import Data.Map.Lazy qualified as Map
 import Clang.HighLevel.Types qualified as Clang
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.Analysis.DeclIndex
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.DeclMeta
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
+import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.AST
@@ -57,29 +57,24 @@ update ::
      UpdateMode
   -> C.TranslationUnit l ApplyMacroFallback
   -> C.TranslationUnit l PrepareReparse
-update mode unit = unit'
+update mode unit = unit{C.db = db'}
   where
-    (unitUpdated, delayedMsgs) = runM env $ updateIt () unit
+    (db, delayedMsgs) =
+      runM env $
+        DeclDB.traverseActive DeclDB.AnyOrder
+          (fmap DeclDB.Advanced . updateIt ())
+          unit.db
 
-    unit' = unitUpdated {
-          C.meta = meta'
-        }
-    meta' = unitUpdated.meta {
-          declIndex = declIndex'
-        }
-
-    declIndex' ::  DeclIndex l
-    declIndex' =
-      -- We use @foldr@ here to establish the original order of messages
-      foldr
-        DeclIndex.registerDelayedPrepareReparseMsg
-        unit.meta.declIndex
-        delayedMsgs
+    db' :: DeclDB l PrepareReparse
+    db' =
+      DeclDB.addDelayedMsgs
+        (map (fmap DelayedPrepareReparse) delayedMsgs)
+        db
 
     env :: Env
     env = Env{
         updateMode  = mode
-      , ambiguityOf = (`DeclIndex.lookupAmbiguity` unit.meta.declIndex)
+      , ambiguityOf = (`DeclDB.lookupAmbiguity` unit.db)
       }
 
 {-------------------------------------------------------------------------------
@@ -88,15 +83,18 @@ update mode unit = unit'
 
 class Update a where
   type Ctx a :: Type
-  type Ctx a = C.DeclInfo ApplyMacroFallback
+  type Ctx a = C.DeclId
   updateIt :: Ctx a -> a ApplyMacroFallback -> M (a PrepareReparse)
 
 {-------------------------------------------------------------------------------
   Update: monad
 -------------------------------------------------------------------------------}
 
+-- | Run the monad
+--
+-- Delayed trace messages are returned in the order they were recorded
 runM :: Env -> M a -> (a, [(C.DeclId, DelayedPrepareReparseMsg)])
-runM m (M k) = fmap (.messages) $ runState (runReaderT k m) (St [])
+runM m (M k) = fmap (reverse . (.messages)) $ runState (runReaderT k m) (St [])
 
 newtype M a = M (ReaderT Env (State St) a)
   deriving newtype (Functor, Applicative, Monad)
@@ -110,6 +108,7 @@ data Env = Env {
   }
 
 newtype St = St {
+    -- | Delayed trace messages in reverse order that they were recorded
     messages :: [(C.DeclId, DelayedPrepareReparseMsg)]
   }
 
@@ -117,28 +116,14 @@ newtype St = St {
   Update: instances
 -------------------------------------------------------------------------------}
 
-instance Update (C.TranslationUnit l) where
-  type Ctx (C.TranslationUnit l) = ()
-  updateIt _ unit = do
-      decls' <- mapM (updateIt ()) unit.decls
-      pure C.TranslationUnit{
-          decls        = decls'
-        , includeGraph = unit.includeGraph
-        , meta         = unit.meta
-        }
-
 instance Update (C.Decl l) where
   type Ctx (C.Decl l) = ()
   updateIt _ decl = do
-      kind' <- (updateIt decl.info) decl.kind
-      pure C.Decl {
-          info = coercePass decl.info
-        , kind = kind'
-        , ann  = decl.ann
-        }
+      kind' <- (updateIt decl.id) decl.kind
+      pure $ C.coercePassDeclWith kind' decl.ann decl
 
 instance Update (C.DeclKind l) where
-  updateIt info declKind = case declKind of
+  updateIt declId declKind = case declKind of
       C.DeclStruct struct          -> C.DeclStruct               <$> recurse struct
       C.DeclUnion union            -> C.DeclUnion                <$> recurse union
       C.DeclTypedef typedef        -> C.DeclTypedef              <$> recurse typedef
@@ -150,15 +135,15 @@ instance Update (C.DeclKind l) where
       C.DeclGlobal global          -> C.DeclGlobal               <$> recurse global
     where
       recurse :: forall a.
-           (Update a, Ctx a ~ C.DeclInfo ApplyMacroFallback)
+           (Update a, Ctx a ~ C.DeclId)
         => a ApplyMacroFallback
         -> M (a PrepareReparse)
-      recurse = updateIt info
+      recurse = updateIt declId
 
 instance Update C.Struct where
-  updateIt info struct = do
-      fields' <- mapM (updateIt info) struct.fields
-      flam' <- C.traverseFlamField (updateIt info) struct.flam
+  updateIt declId struct = do
+      fields' <- mapM (updateIt declId) struct.fields
+      flam' <- C.traverseFlamField (updateIt declId) struct.flam
       pure C.Struct {
           sizeof    = struct.sizeof
         , alignment = struct.alignment
@@ -169,8 +154,8 @@ instance Update C.Struct where
 
 
 instance Update C.Union where
-  updateIt info union = do
-      fields' <- mapM (updateIt info) union.fields
+  updateIt declId union = do
+      fields' <- mapM (updateIt declId) union.fields
       pure C.Union {
           sizeof    = union.sizeof
         , alignment = union.alignment
@@ -179,11 +164,11 @@ instance Update C.Union where
         }
 
 instance Update C.Field where
-  updateIt info = C.mapMField (updateIt info) (updateIt info)
+  updateIt declId = C.mapMField (updateIt declId) (updateIt declId)
 
 instance Update C.RegularField where
-  updateIt info field = do
-      ann' <- updateReparseInfo info (fieldTag info field.info) field.ann
+  updateIt declId field = do
+      ann' <- updateReparseInfo declId (fieldTag declId field.info) field.ann
       pure C.RegularField {
           info   = coercePass field.info
         , typ    = coercePass field.typ
@@ -193,8 +178,8 @@ instance Update C.RegularField where
         }
 
 instance Update C.ImplicitField where
-  updateIt info field = do
-      indirect' <- mapM (updateIt info) field.indirect
+  updateIt declId field = do
+      indirect' <- mapM (updateIt declId) field.indirect
       pure C.ImplicitField {
           info     = coercePass field.info
         , typRef   = coercePass field.typRef
@@ -204,8 +189,8 @@ instance Update C.ImplicitField where
         }
 
 instance Update C.IndirectField where
-  updateIt info field = do
-      ann' <- updateReparseInfo info (fieldTag info field.info) field.ann
+  updateIt declId field = do
+      ann' <- updateReparseInfo declId (fieldTag declId field.info) field.ann
       pure C.IndirectField {
           info   = coercePass field.info
         , typ    = coercePass field.typ
@@ -216,8 +201,8 @@ instance Update C.IndirectField where
         }
 
 instance Update C.Typedef where
-  updateIt info typedef = do
-      ann' <- updateReparseInfo info (typedefTag info) typedef.ann
+  updateIt declId typedef = do
+      ann' <- updateReparseInfo declId (typedefTag declId) typedef.ann
       pure C.Typedef {
           typ = coercePass typedef.typ
         , ann = ann'
@@ -230,11 +215,11 @@ instance Update C.UntaggedEnumConstant where
   updateIt _ constant = pure $ coercePass constant
 
 instance Update (Flip TypecheckedMacro l) where
-  updateIt _info (Flip macro) = pure $ Flip $ coercePassParam macro
+  updateIt _declId (Flip macro) = pure $ Flip $ coercePassParam macro
 
 instance Update C.Function where
-  updateIt info function = do
-      ann' <- updateReparseInfo info (functionTag info) function.ann
+  updateIt declId function = do
+      ann' <- updateReparseInfo declId (functionTag declId) function.ann
       pure C.Function {
           args = map coercePass function.args
         , res = coercePass function.res
@@ -243,19 +228,19 @@ instance Update C.Function where
         }
 
 instance Update C.Global where
-  updateIt info global = do
-      ann' <- updateReparseInfo info (variableTag info) global.ann
+  updateIt declId global = do
+      ann' <- updateReparseInfo declId (variableTag declId) global.ann
       pure C.Global {
           typ = coercePass global.typ
         , ann = ann'
         }
 
 updateReparseInfo ::
-     C.DeclInfo ApplyMacroFallback
+     C.DeclId
   -> Tag
   -> ReparseInfo Tokens
   -> M (ReparseInfo FlatTokens)
-updateReparseInfo info tag@(Tag typ _) reparseInfo = do
+updateReparseInfo declId tag@(Tag typ _) reparseInfo = do
     case reparseInfo of
       ReparseNotNeeded -> pure ReparseNotNeeded
       ReparseNeeded tokens macroInvs -> goReparseNeeded tokens macroInvs
@@ -267,16 +252,16 @@ updateReparseInfo info tag@(Tag typ _) reparseInfo = do
           UpdateOnlyFlatten -> pure fallback
           UpdatePreprocessAndFlatten preprocessedMap -> do
             forM_ failuresMay $ \failures ->
-              addMessage info.id (PrepareReparseMacroInvocationParseFailures failures)
+              addMessage declId (PrepareReparseMacroInvocationParseFailures failures)
             if all (isExpansionUnique env.ambiguityOf) parseResults then do
               case Map.lookup tag preprocessedMap of
                 Nothing -> do
-                  addMessage info.id PrepareReparseNoPreprocessorOutput
+                  addMessage declId PrepareReparseNoPreprocessorOutput
                   pure fallback
                 Just (Decl preppedTokens) ->
                   pure $ ReparseNeeded (mkFlatTokens preppedTokens) macroInvs
             else do
-              addMessage info.id $
+              addMessage declId $
                 PrepareReparseExpansionNotUnique fallbackTokens.locStart fallbackTokens.flatten
               pure fallback
       where

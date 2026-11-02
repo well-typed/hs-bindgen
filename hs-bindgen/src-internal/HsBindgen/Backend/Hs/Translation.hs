@@ -36,8 +36,8 @@ import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.Internal
 import HsBindgen.Errors
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.DeclDB (DeclDB)
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
@@ -68,13 +68,13 @@ generateDeclarations ::
   => Macro.Lang l
   -> UniqueId
   -> BaseModuleName
-  -> DeclIndex l
+  -> DeclDB l Final
   -> [C.Decl l Final]
   -> ByCategory_ [Hs.Decl l]
-generateDeclarations macroLang uniqueId name declIndex =
+generateDeclarations macroLang uniqueId name declDB =
     fmap reverse .
       foldl' partitionBindingCategories mempty .
-      generateDeclarations' macroLang env declIndex
+      generateDeclarations' macroLang env declDB
   where
     partitionBindingCategories ::
       ByCategory_ [a] -> WithCategory a  -> ByCategory_ [a]
@@ -97,10 +97,10 @@ generateDeclarations' ::
      Macro.HasTypes l
   => Macro.Lang l
   -> HsM.Env
-  -> DeclIndex l
+  -> DeclDB l Final
   -> [C.Decl l Final]
   -> [WithCategory (Hs.Decl l)]
-generateDeclarations' macroLang env declIndex decs =
+generateDeclarations' macroLang env declDB decs =
     HsM.runHsM env $ do
       let scannedFunctionTypes = scanAllFunctionTypes decs
           -- Generate ToFunPtr/FromFunPtr instances for nested function types
@@ -109,7 +109,7 @@ generateDeclarations' macroLang env declIndex decs =
                    [ WithCategory CType d
                    | (args, res) <- Set.toList scannedFunctionTypes
                    , not (any C.hasUnsupportedType (res: fmap (.typ) args))
-                   , any (isDefinedInCurrentModule declIndex) (res: fmap (.typ) args)
+                   , any (isDefinedInCurrentModule declDB) (res: fmap (.typ) args)
                    , d <- ToFromFunPtr.forFunction (args, res)
                    ]
       hsDeclsAction <- mapM (generateDecs macroLang) decs
@@ -156,12 +156,15 @@ scanAllFunctionTypes = foldMap $ \decl ->
         foldMap (C.getAllFunTypes . (.typ.c)) field.indirect
 
 -- | Check if a type is defined in the current module
-isDefinedInCurrentModule :: DeclIndex l -> C.Type Final -> Bool
-isDefinedInCurrentModule declIndex =
-    any (isInDeclIndex . fst) . C.depsOfType
+isDefinedInCurrentModule ::
+     DeclDB l Final
+  -> C.Type Final
+  -> Bool
+isDefinedInCurrentModule declDB =
+    any (isActive . fst) . C.depsOfType
   where
-    isInDeclIndex :: DeclIdPair -> Bool
-    isInDeclIndex declId = isJust $ DeclIndex.lookup declId.cName declIndex
+    isActive :: DeclIdPair -> Bool
+    isActive declId = isJust $ DeclDB.lookup declId.cName declDB
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -174,41 +177,44 @@ generateDecs ::
   => Macro.Lang l
   -> C.Decl l Final
   -> HsM (HsM.Action [WithCategory (Hs.Decl l)])
-generateDecs macroLang (C.Decl info kind spec) =
-    case kind of
+generateDecs macroLang decl =
+    case decl.kind of
       C.DeclStruct struct -> withCategoryM CType $
-        HsM.immediateM $ structDecs info struct spec
+        HsM.immediateM $ structDecs decl struct spec
       C.DeclUnion union -> withCategoryM CType $
-        HsM.immediateM $ unionDecs info union spec
+        HsM.immediateM $ unionDecs decl union spec
       C.DeclEnum enum -> withCategoryM CType $
-        HsM.immediateM $ enumDecs info enum spec
+        HsM.immediateM $ enumDecs decl enum spec
       C.DeclUntaggedEnumConstant enumConst -> withCategoryM CType $ do
-        HsM.immediateM $ untaggedEnumConstantDecs info enumConst
+        HsM.immediateM $ untaggedEnumConstantDecs decl enumConst
       C.DeclTypedef typedef -> withCategoryM CType $
         case C.getFirstFunTypeIndirection typedef.typ.c of
           Just (args, res, reconstruct) ->
-            typedefFunTypeIndirectionDecs info (args, res, reconstruct) typedef.names spec
+            typedefFunTypeIndirectionDecs decl (args, res, reconstruct) typedef.names spec
           Nothing ->
-            HsM.immediateM $ typedefDecs info Origin.Typedef typedef spec
+            HsM.immediateM $ typedefDecs decl Origin.Typedef typedef spec
       C.DeclOpaque mSize -> withCategoryM CType $
-        HsM.immediateM $ opaqueDecs info spec mSize
+        HsM.immediateM $ opaqueDecs decl spec mSize
       C.DeclFunction function -> do
         let funDeclsWith safety =
-              functionDecs safety info function spec
+              functionDecs safety decl function spec
             funType = C.typeOfFunction function
             -- Declare a function pointer. We can pass this 'FunPtr' to C
             -- functions that take a function pointer of the appropriate type.
             funPtrDecls = fst <$>
-                addressStubDecs info funType HaskellId spec
+                addressStubDecs decl funType HaskellId spec
         safes   <- withCategoryM (CTerm CSafe)   (HsM.immediateM $ funDeclsWith SHs.Safe)
         unsafes <- withCategoryM (CTerm CUnsafe) (HsM.immediateM $ funDeclsWith SHs.Unsafe)
         funPtrs <- withCategoryM (CTerm CFunPtr) (HsM.immediateM $ funPtrDecls)
         pure $ HsM.concatSequence [safes, unsafes, funPtrs]
       C.DeclMacro macro -> withCategoryM CType $
-        HsM.immediateM $ macroDecs macroLang info macro spec
+        HsM.immediateM $ macroDecs macroLang decl macro spec
       C.DeclGlobal g -> withCategoryM (CTerm CGlobal) $
-        HsM.immediateM $ global info g spec
+        HsM.immediateM $ global decl g spec
   where
+    spec :: PrescriptiveDeclSpec
+    spec = decl.ann
+
     withCategory ::
          Category
       -> HsM.Action [a]
@@ -228,27 +234,28 @@ generateDecs macroLang (C.Decl info kind spec) =
 
 opaqueDecs ::
      HasCallStack
-  => C.DeclInfo Final
+  => C.Decl l Final
   -> PrescriptiveDeclSpec
   -> Maybe C.OpaqueSize
   -> HsM [Hs.Decl l]
-opaqueDecs info spec mSize = do
+opaqueDecs decl spec mSize = do
     State.modify' $ #instanceMap %~ Map.insert name insts
     return $ mkDecl : staticSizeDecls
   where
     name :: Hs.Name Hs.NsTypeConstr
-    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
+    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
 
     mkDecl :: Hs.Decl l
     mkDecl = Hs.DeclEmpty Hs.EmptyData {
           name      = name
         , origin    = Origin.Decl{
-              info = info
-            , kind = Origin.Opaque info.id.cName.name.kind
+              info = decl.info
+            , id   = decl.id
+            , kind = Origin.Opaque decl.id.cName.name.kind
             , spec = spec
             }
         , instances = insts
-        , comment   = mkHaddocks info
+        , comment   = mkHaddocks decl
         }
 
     -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1528>
@@ -281,11 +288,11 @@ opaqueDecs info spec mSize = do
 
 enumDecs ::
      HasCallStack
-  => C.DeclInfo Final
+  => C.Decl l Final
   -> C.Enum Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-enumDecs info enum spec = do
+enumDecs decl enum spec = do
     env <- Reader.ask
     nt <- newtypeDec env
     pure $ aux env nt
@@ -314,7 +321,7 @@ enumDecs info enum spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
+        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = enum.names.dataConstr
@@ -329,13 +336,14 @@ enumDecs info enum spec = do
 
         newtypeOrigin :: Origin.Decl Origin.Newtype
         newtypeOrigin = Origin.Decl{
-              info = info
+              info = decl.info
+            , id   = decl.id
             , kind = Origin.Enum enum
             , spec = spec
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = mkHaddocks info
+        newtypeComment = mkHaddocks decl
 
         candidateInsts :: Set Inst.TypeClass
         candidateInsts = Hs.getCandidateInsts env.supportedInstances.enum
@@ -474,7 +482,7 @@ enumDecs info enum spec = do
                 , constr  = Just nt.constr
                 , value   = constant.value
                 , origin  = Origin.EnumConstant constant
-                , comment = mkHaddocksFieldInfo info constant.info
+                , comment = mkHaddocksFieldInfo decl.info constant.info
                 }
             | constant <- enum.constants
             ]
@@ -498,12 +506,12 @@ enumDecs info enum spec = do
 
 typedefDecs ::
      HasCallStack
-  => C.DeclInfo Final
+  => C.Decl l Final
   -> (C.Typedef Final -> Origin.Newtype)
   -> C.Typedef Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-typedefDecs info mkNewtypeOrigin typedef spec = do
+typedefDecs decl mkNewtypeOrigin typedef spec = do
     env <- Reader.ask
     nt <- newtypeDec env
     pure $ aux env nt
@@ -514,7 +522,7 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
+        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = typedef.names.orig.dataConstr
@@ -529,13 +537,14 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
 
         newtypeOrigin :: Origin.Decl Origin.Newtype
         newtypeOrigin =  Origin.Decl{
-              info = info
+              info = decl.info
+            , id   = decl.id
             , kind = mkNewtypeOrigin typedef
             , spec = spec
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = mkHaddocks info
+        newtypeComment = mkHaddocks decl
 
         candidateInsts :: Set Inst.TypeClass
         candidateInsts = Hs.getCandidateInsts env.supportedInstances.typedef
@@ -612,16 +621,16 @@ typedefDecs info mkNewtypeOrigin typedef spec = do
 --
 -- so that @F_Aux@ can be given @ToFunPtr@/@FromFunPtr@ instances.
 typedefFunTypeIndirectionDecs ::
-     HasCallStack
-  => C.DeclInfo Final
+     forall l. HasCallStack
+  => C.Decl l Final
   -> ([C.TypeFunArg Final], C.Type Final, C.Type Final -> C.Type Final) -- ^ Function arguments and result
   -> MangleNames.TypedefNames
   -> PrescriptiveDeclSpec
   -> HsM (HsM.Action [Hs.Decl l])
-typedefFunTypeIndirectionDecs origInfo (args, res, reconstruct) names origSpec =
+typedefFunTypeIndirectionDecs origDecl (args, res, reconstruct) names origSpec =
     fmap HsM.concatSequence $ sequence [
-        HsM.delayM     $ typedefDecs auxInfo  Origin.Aux     auxTypedef  auxSpec
-      , HsM.immediateM $ typedefDecs origInfo Origin.Typedef mainTypedef origSpec
+        HsM.delayM     $ typedefDecs auxDecl  Origin.Aux     auxTypedef  auxSpec
+      , HsM.immediateM $ typedefDecs origDecl Origin.Typedef mainTypedef origSpec
       ]
   where
     -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1759>
@@ -633,7 +642,7 @@ typedefFunTypeIndirectionDecs origInfo (args, res, reconstruct) names origSpec =
     -- The name of this auxiliary type should be configurable.
     auxDeclIdPair :: DeclIdPair
     auxDeclIdPair = DeclIdPair{
-          cName  = origInfo.id.cName
+          cName  = origDecl.id.cName
           -- Still refer to the /original/ C decl...?
         , hsName = Hs.demoteNs auxName
         }
@@ -644,15 +653,14 @@ typedefFunTypeIndirectionDecs origInfo (args, res, reconstruct) names origSpec =
       Nothing        -> panicPure "name of auxiliary declaration unavailable"
       Just (nm, nms) -> (nm, nms)
 
-    auxInfo :: C.DeclInfo Final
-    auxInfo = C.DeclInfo {
-          loc              = origInfo.loc
-        , id               = auxDeclIdPair
-        , sourceOrderIndex = origInfo.sourceOrderIndex
-        , origin           = origInfo.origin
-        , availability     = C.Available
-        , comment          = Just auxComment
-        , enclosing        = []
+    auxDecl :: C.Decl l Final
+    auxDecl = C.Decl {
+          info      = origDecl.info & #deprecation .~ C.NotDeprecated
+        , id        = auxDeclIdPair
+        , comment   = Just auxComment
+        , enclosing = []
+        , kind      = C.DeclTypedef auxTypedef
+        , ann       = auxSpec
         }
 
     auxComment :: C.Comment Final
@@ -660,8 +668,8 @@ typedefFunTypeIndirectionDecs origInfo (args, res, reconstruct) names origSpec =
           brief = [
               Doxy.Text "Auxiliary type used by"
             , Doxy.Ref
-                (C.CommentRef origInfo.id.cName.name.text (Just origInfo.id) Nothing)
-                origInfo.id.cName.name.text
+                (C.CommentRef origDecl.id.cName.name.text (Just origDecl.id) Nothing)
+                origDecl.id.cName.name.text
             ]
         , detailed = []
         }
@@ -691,7 +699,7 @@ typedefFunTypeIndirectionDecs origInfo (args, res, reconstruct) names origSpec =
     mainTypedef :: C.Typedef Final
     mainTypedef =
       let c = reconstruct $ C.TypeTypedef $ C.Ref{
-              name       = auxInfo.id
+              name       = auxDecl.id
             , underlying = C.TypeFun args res
             }
       in  C.Typedef{
@@ -709,24 +717,24 @@ typedefFunTypeIndirectionDecs origInfo (args, res, reconstruct) names origSpec =
 macroDecs ::
      Macro.HasTypes l
   => Macro.Lang l
-  -> C.DeclInfo Final
+  -> C.Decl l Final
   -> TypecheckedMacro Final l
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-macroDecs macroLang info checkedMacro spec =
+macroDecs macroLang decl checkedMacro spec =
     case checkedMacro of
-      MacroType  ty       -> macroDecsTypedef macroLang info ty spec
-      MacroValue val      -> pure $ macroVarDecs info (Hs.MacroValueTranslated val)
-      MacroRaw   fallback -> pure $ macroVarDecs info (Hs.MacroValueRaw fallback.raw)
+      MacroType  ty       -> macroDecsTypedef macroLang decl ty spec
+      MacroValue val      -> pure $ macroVarDecs decl (Hs.MacroValueTranslated val)
+      MacroRaw   fallback -> pure $ macroVarDecs decl (Hs.MacroValueRaw fallback.raw)
 
 macroDecsTypedef ::
      forall l. (Macro.HasTypes l, HasCallStack)
   => Macro.Lang l
-  -> C.DeclInfo Final
+  -> C.Decl l Final
   -> TypecheckedMacroType l Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-macroDecsTypedef macroLang info macroType spec = do
+macroDecsTypedef macroLang decl macroType spec = do
     env <- Reader.ask
     nt <- newtypeDec env
     pure $ aux env nt
@@ -737,7 +745,7 @@ macroDecsTypedef macroLang info macroType spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) info.id.hsName
+        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = macroType.names.dataConstr
@@ -762,13 +770,14 @@ macroDecsTypedef macroLang info macroType spec = do
 
         newtypeOrigin :: Origin.Decl Origin.Newtype
         newtypeOrigin = Origin.Decl {
-              info = info
+              info = decl.info
+            , id   = decl.id
             , kind = Origin.Macro $ macroType
             , spec = spec
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = mkHaddocks info
+        newtypeComment = mkHaddocks decl
 
         candidateInsts :: Set Inst.TypeClass
         candidateInsts = Hs.getCandidateInsts env.supportedInstances.typedef
@@ -857,11 +866,12 @@ macroDecsTypedef macroLang info macroType spec = do
 -- also generate an additional \"getter\" function in Haskell land that returns
 -- precisely the value of the constant rather than a /pointer/ to the value.
 global ::
-     C.DeclInfo Final
+     forall l.
+     C.Decl l Final
   -> C.Global Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-global info g _spec = do
+global decl g _spec = do
     insts <- getInsts
     -- Generate getter if the type is @const@-qualified. We inspect the /erased/
     -- type because we want to see through newtypes as well.
@@ -880,7 +890,7 @@ global info g _spec = do
     if C.isErasedTypeConstQualified g.typ.c && Inst.Storable `elem` insts then do
       (stubDecs :: [Hs.Decl l], pureStubName :: Hs.TermName) <- getStubDecsWith GlobalUniqueId
       let constGetterOfType :: [Hs.Decl l]
-          constGetterOfType = constGetter g.typ.hs info pureStubName
+          constGetterOfType = constGetter g.typ.hs decl pureStubName
       pure (stubDecs ++ constGetterOfType)
     -- Otherwise, do not generate a getter
     else do
@@ -888,7 +898,7 @@ global info g _spec = do
   where
     getStubDecsWith :: RunnerNameSpec -> HsM ([Hs.Decl l], Hs.TermName)
     getStubDecsWith x =
-      addressStubDecs info g.typ.c x _spec
+      addressStubDecs decl g.typ.c x _spec
 
     getInsts :: HsM (Set Inst.TypeClass)
     getInsts = do
@@ -910,10 +920,10 @@ global info g _spec = do
 -- unknown size do not have a 'Foreign.Storable.Storable' instance.
 constGetter ::
      Hs.Type
-  -> C.DeclInfo Final
+  -> C.Decl l Final
   -> Hs.TermName
   -> [Hs.Decl l]
-constGetter ty info pureStubName = singleton getterDecl
+constGetter ty decl pureStubName = singleton getterDecl
   where
     -- *** Getter ***
     --
@@ -927,7 +937,7 @@ constGetter ty info pureStubName = singleton getterDecl
         , comment = Nothing
         }
 
-    getterName = Hs.assertNs (Proxy @Hs.NsVar) info.id.hsName
+    getterName = Hs.assertNs (Proxy @Hs.NsVar) decl.id.hsName
     getterType = SHs.translateType ty
     getterExpr = SHs.eBindgenGlobal IO_unsafePerformIO
                 `SHs.EApp` (SHs.eBindgenGlobal PtrConst_peek
@@ -952,14 +962,14 @@ data RunnerNameSpec =
 --
 -- * @pureStubName@: the identifier of the /pure/ stub.
 addressStubDecs ::
-     C.DeclInfo Final -- ^ The given declaration
+     C.Decl l Final   -- ^ The given declaration
   -> C.Type Final     -- ^ The type of the given declaration
   -> RunnerNameSpec
   -> PrescriptiveDeclSpec
   -> HsM ( [Hs.Decl l]
          , Hs.TermName
          )
-addressStubDecs info ty runnerNameSpec _spec = do
+addressStubDecs decl ty runnerNameSpec _spec = do
     env <- Reader.ask
     pure $ aux env
   where
@@ -977,7 +987,7 @@ addressStubDecs info ty runnerNameSpec _spec = do
         stubName = Hs.InternalName stubSymbol
 
         varName :: String
-        varName = Text.unpack $ info.id.cName.name.text
+        varName = Text.unpack $ decl.id.cName.name.text
 
         stubType :: C.Type Final
         stubType = C.TypePointers 1 ty
@@ -1046,7 +1056,7 @@ addressStubDecs info ty runnerNameSpec _spec = do
             }
 
         mbComment :: Maybe HsDoc.Comment
-        mbComment = mkHaddocks info
+        mbComment = mkHaddocks decl
 
         mbUniqueSymbolComment :: Maybe HsDoc.Comment
         mbUniqueSymbolComment = case runnerName of
@@ -1054,7 +1064,7 @@ addressStubDecs info ty runnerNameSpec _spec = do
           Hs.InternalName x -> Just $ HsDoc.uniqueSymbol x
 
         name :: Hs.SomeName
-        name = info.id.hsName
+        name = decl.id.hsName
 
         uniquify :: Text -> UniqueSymbol
         uniquify = globallyUnique env.uniqueId env.baseModuleName . Text.unpack
@@ -1133,12 +1143,12 @@ referencesUntagged = go
   Macro
 -------------------------------------------------------------------------------}
 
-macroVarDecs :: C.DeclInfo Final -> Hs.MacroValue l -> [Hs.Decl l]
-macroVarDecs info value = [
+macroVarDecs :: C.Decl l Final -> Hs.MacroValue l -> [Hs.Decl l]
+macroVarDecs decl value = [
       Hs.DeclMacroValue Hs.MacroBinding{
-          name    = Hs.assertNs (Proxy @Hs.NsVar) info.id.hsName
+          name    = Hs.assertNs (Proxy @Hs.NsVar) decl.id.hsName
         , value   = value
-        , comment = mkHaddocks info
+        , comment = mkHaddocks decl
         }
     ]
 
@@ -1148,10 +1158,10 @@ macroVarDecs info value = [
 
 untaggedEnumConstantDecs ::
      HasCallStack
-  => C.DeclInfo Final
+  => C.Decl l Final
   -> C.UntaggedEnumConstant Final
   -> HsM [Hs.Decl l]
-untaggedEnumConstantDecs info enumConstant = do
+untaggedEnumConstantDecs decl enumConstant = do
     pure aux
   where
     aux :: [Hs.Decl l]
@@ -1173,6 +1183,6 @@ untaggedEnumConstantDecs info enumConstant = do
               , constr  = Nothing
               , value   = fromInteger enumConstant.constant.value
               , origin  = Origin.EnumConstant enumConstant.constant
-              , comment = mkHaddocks info
+              , comment = mkHaddocks decl
               }
         in  [typeSigDecl]

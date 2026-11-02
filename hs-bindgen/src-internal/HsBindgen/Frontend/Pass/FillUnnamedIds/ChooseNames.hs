@@ -40,14 +40,14 @@ chooseNames (UnnamedIdUsageAnalysis usageAnalysis) =
       -> UnnamedIdUsageAnalysis.Context
       -> Memoize (Maybe C.DeclId)
     nameForUsage unnamedId = \case
-        UnnamedIdUsageAnalysis.Field declInfo fieldInfo ->
-          fmap (nameForField unnamedId fieldInfo) <$> declName declInfo.id
-        UnnamedIdUsageAnalysis.TypedefDirect declInfo ->
-          fmap (nameForTypedefDirect unnamedId) <$> declName declInfo.id
-        UnnamedIdUsageAnalysis.TypedefIndirect declInfo ->
-          fmap (nameForTypedefIndirect unnamedId) <$> declName declInfo.id
-        UnnamedIdUsageAnalysis.GlobalVar declInfo ->
-          fmap (nameForGlobalVar unnamedId) <$> declName declInfo.id
+        UnnamedIdUsageAnalysis.Field declId fieldInfo ->
+          fmap (nameForField unnamedId fieldInfo) <$> declName declId
+        UnnamedIdUsageAnalysis.TypedefDirect declId ->
+          fmap (nameForTypedefDirect unnamedId) <$> declName declId
+        UnnamedIdUsageAnalysis.TypedefIndirect declId ->
+          fmap (nameForTypedefIndirect unnamedId) <$> declName declId
+        UnnamedIdUsageAnalysis.GlobalVar declId ->
+          fmap (nameForGlobalVar unnamedId) <$> declName declId
 
     declName :: C.PrelimDeclId -> Memoize (Maybe C.DeclId)
     declName = \case

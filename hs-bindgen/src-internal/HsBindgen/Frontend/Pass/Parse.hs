@@ -40,8 +40,8 @@ parseDecls macroLang parseEnv = do
       let resultsOriginalOrder :: [ParseResult l Parse]
           resultsOriginalOrder = concatMap snd resultsWithLocs
       macroAnalysis <- analyseMacros
-      -- 'resultsOriginalOrder' is in sequence order (the order in which
-      -- libclang visits the declarations). We additionally record the source
+      -- 'resultsOriginalOrder' is in sequence order (see the orderings in
+      -- "HsBindgen.Frontend.DeclDB"). We additionally record the source
       -- order of each declaration in its 'sourceOrderIndex', obtained by
       -- sorting the declarations by source position.
       --
@@ -59,7 +59,7 @@ parseDecls macroLang parseEnv = do
               -- locations with the same name.
               sourceOrderMap :: Map (Id Parse, SingleLoc C.DeclPath) Natural
               sourceOrderMap = Map.fromList
-                [ ((r.id, r.loc), i)
+                [ ((parseResultId r, (parseResultInfo r).loc), i)
                 | (i, r) <- zip [0..] resultsSourceOrder
                 ]
           ParseDecl.traceImmediateGlobal ParseSourceOrderPopulated
@@ -77,34 +77,6 @@ analyseMacros = do
     forM_ (NE.nonEmpty $ mapMaybe isFailure definitions) $
       ParseDecl.traceImmediateGlobal . ParseMacroDefinitionAnalysisFailed
     pure $ analyseMacroDefinitions definitions
-
-{-------------------------------------------------------------------------------
-  Orderings
-
-  We distinguish a few orderings of declarations (see issue #1580). These
-  definitions live here for now; they should eventually move to wherever the
-  orderings are defined and used centrally.
-
-  * Sequence order: the order in which libclang presents the declarations to
-    our parser (the order in which the cursor visits them). libclang visits
-    macros first and the remaining declarations in source order, so sequence
-    order is /not/ source order. This is the order of 'resultsOriginalOrder',
-    and the order in which 'parseDecls' returns its results.
-
-  * Source order: roughly, how the declarations appear in the C source. We
-    record it per declaration in 'DeclInfo.sourceOrderIndex', computed above by
-    sorting on source position via 'clang_isBeforeInTranslationUnit' (accurate,
-    but requires Clang >= 20.1). Note that @annSortKey@ (in
-    "HsBindgen.Frontend.Analysis.DeclUseGraph.Construction") computes a
-    /best-effort/ source order without that API, used only as a tiebreak when
-    ordering the output; it can be inaccurate, e.g. when a header includes
-    another header part-way through its own declarations.
-
-  * Dependency order: the order according to the use-decl graph; if @A@ has a
-    by-value use of @B@ then @B@ comes before @A@. This is the order the rest of
-    the frontend works in (established by @toDecls@ in
-    "HsBindgen.Frontend.Analysis.DeclUseGraph.Query").
--------------------------------------------------------------------------------}
 
 -- | Stable merge sort using a monadic strict-less-than predicate.
 --
@@ -142,5 +114,7 @@ setSourceOrderIndex ::
   -> ParseResult l Parse
 setSourceOrderIndex sourceOrderMap result =
     result
-      &  #classification % #_ParseResultSuccess % #decl % #info % #sourceOrderIndex
-      .~ Map.lookup (result.id, result.loc) sourceOrderMap
+      &  #_ParseResultSuccess % #decl % #info % #sourceOrderIndex
+      .~ Map.lookup
+           (parseResultId result, (parseResultInfo result).loc)
+           sourceOrderMap

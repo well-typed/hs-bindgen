@@ -43,6 +43,13 @@ data UseDeclGraph = UseDeclGraph {
   Construction
 -------------------------------------------------------------------------------}
 
+-- | The transpose of the decl-use graph
+--
+-- The declaration database stores only the decl-use graph. We compute the
+-- use-decl graph on demand.
+--
+-- The use-decl graph is only required by the @Select@ pass and when writing it
+-- using @writeUseDeclGraph@.
 fromDeclUseGraph :: DeclUseGraph -> UseDeclGraph
 fromDeclUseGraph declUseGraph = UseDeclGraph{
       graph = Digraph.transpose $ DeclUseGraph.toDigraph declUseGraph

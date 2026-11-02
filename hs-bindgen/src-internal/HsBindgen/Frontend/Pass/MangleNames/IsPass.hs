@@ -141,23 +141,13 @@ deriving stock instance PassScopedName p => Ord (IndirectFieldNames p)
 -------------------------------------------------------------------------------}
 
 data MangleNamesMsg =
-    MangleNamesAssignedName       Hs.SomeName
-  | MangleNamesReusedAssignedName Hs.SomeName
-  | MangleNamesNameMap            NameMap
+    MangleNamesNameMap            NameMap
   | MangleNamesNameMapDuplicates  (NonEmpty DupAssign)
   | MangleNamesNameRegistry       NameRegistry
   deriving stock (Show)
 
 instance PrettyForTrace MangleNamesMsg where
   prettyForTrace = \case
-      MangleNamesAssignedName newName -> PP.hsep [
-          "Assigned name"
-        , PP.text newName.text
-        ]
-      MangleNamesReusedAssignedName newName -> PP.hsep [
-          "Reused assigned name"
-        , PP.text newName.text
-        ]
       MangleNamesNameMap nm -> PP.hsep [
           "The name map is:"
         , PP.show nm
@@ -173,16 +163,12 @@ instance PrettyForTrace MangleNamesMsg where
 
 instance IsTrace Level MangleNamesMsg where
   getDefaultLogLevel = \case
-      MangleNamesAssignedName{}       -> Info
-      MangleNamesReusedAssignedName{} -> Info
       MangleNamesNameMap{}            -> Debug
       MangleNamesNameMapDuplicates{}  -> Bug
       MangleNamesNameRegistry{}       -> Debug
 
   getSource  = const HsBindgen
   getTraceId = \case
-    MangleNamesAssignedName{}       -> "mangle-names-assigned-name"
-    MangleNamesReusedAssignedName{} -> "mangle-names-reused-assigned-name"
     MangleNamesNameMap{}            -> "mangle-names-name-map"
     MangleNamesNameMapDuplicates{}  -> "mangle-names-name-map-duplicates"
     MangleNamesNameRegistry{}       -> "mangle-names-name-registry"

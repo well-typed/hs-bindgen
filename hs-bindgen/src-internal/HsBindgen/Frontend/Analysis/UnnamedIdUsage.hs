@@ -61,14 +61,14 @@ data Context =
     --
     -- @x@ is a field that references an untagged struct. @x@ is a direct field
     -- of the anonymous struct, and an indirect field of struct @rect@.
-    Field (C.DeclInfo Parse) (C.FieldInfo Parse)
+    Field C.PrelimDeclId (C.FieldInfo Parse)
 
     -- | Direct use of unnamed declaration inside in a typedef
     --
     -- E.g.
     --
     -- > typedef struct { int; int y; } point;
-  | TypedefDirect (C.DeclInfo Parse)
+  | TypedefDirect C.PrelimDeclId
 
     -- | Indirect use of an unnamed declaration inside a typedef
     --
@@ -85,7 +85,7 @@ data Context =
     -- (indeed, @clang >= 16@ already does this out of the box), but in the case
     -- of 'TypedefIndirect' we add a @_Aux@ suffix, because now the two types
     -- are meaningfully different (and @clang@ assigns no name at all).
-  | TypedefIndirect (C.DeclInfo Parse)
+  | TypedefIndirect C.PrelimDeclId
 
     -- | Unnamed declaration used as the type of a global variable
     --
@@ -95,7 +95,7 @@ data Context =
     --
     -- In this case, we use the name of the global variable as the name of
     -- the struct.
-  | GlobalVar (C.DeclInfo Parse)
+  | GlobalVar C.PrelimDeclId
   deriving stock (Show)
 
 {-------------------------------------------------------------------------------
@@ -118,7 +118,7 @@ resolveConflicts unnamedId new old =
         Fields
       -----------------------------------------------------------------------------}
 
-      (Field decl1 _, Field decl2 _) | decl1.id == decl2.id ->
+      (Field declId1 _, Field declId2 _) | declId1 == declId2 ->
         -- Example:
         --
         -- > struct rect {
@@ -193,49 +193,49 @@ resolveConflicts unnamedId new old =
 analyseDecl :: C.Decl l Parse -> [(C.UnnamedId, Context)]
 analyseDecl decl =
     case decl.kind of
-      C.DeclStruct               x -> analyseStruct  decl.info x
-      C.DeclUnion                x -> analyseUnion   decl.info x
-      C.DeclTypedef              x -> analyseTypedef decl.info x
+      C.DeclStruct               x -> analyseStruct  decl.id x
+      C.DeclUnion                x -> analyseUnion   decl.id x
+      C.DeclTypedef              x -> analyseTypedef decl.id x
       C.DeclEnum                 _ -> []
       C.DeclUntaggedEnumConstant _ -> []
       C.DeclOpaque{}               -> []
       C.DeclMacro                _ -> []
       C.DeclFunction             _ -> []
-      C.DeclGlobal               x -> analyseGlobal  decl.info x.typ
+      C.DeclGlobal               x -> analyseGlobal  decl.id x.typ
 
-analyseStruct :: C.DeclInfo Parse -> C.Struct Parse -> [(C.UnnamedId, Context)]
-analyseStruct info struct = concat [
-      concatMap (analyseField info)        struct.fields
-    , foldMap   (analyseRegularField info) (C.flamStructField struct.flam)
+analyseStruct :: C.PrelimDeclId -> C.Struct Parse -> [(C.UnnamedId, Context)]
+analyseStruct declId struct = concat [
+      concatMap (analyseField declId)        struct.fields
+    , foldMap   (analyseRegularField declId) (C.flamStructField struct.flam)
     ]
 
-analyseUnion :: C.DeclInfo Parse -> C.Union Parse -> [(C.UnnamedId, Context)]
-analyseUnion info union =
-    concatMap (analyseField info) union.fields
+analyseUnion :: C.PrelimDeclId -> C.Union Parse -> [(C.UnnamedId, Context)]
+analyseUnion declId union =
+    concatMap (analyseField declId) union.fields
 
-analyseField :: C.DeclInfo Parse -> C.Field Parse -> [(C.UnnamedId, Context)]
-analyseField info = C.elimField (analyseRegularField info) (analyseImplicitField info)
+analyseField :: C.PrelimDeclId -> C.Field Parse -> [(C.UnnamedId, Context)]
+analyseField declId = C.elimField (analyseRegularField declId) (analyseImplicitField declId)
 
-analyseRegularField :: C.DeclInfo Parse -> C.RegularField Parse -> [(C.UnnamedId, Context)]
-analyseRegularField info field = analyseType (Field info field.info) field.typ
+analyseRegularField :: C.PrelimDeclId -> C.RegularField Parse -> [(C.UnnamedId, Context)]
+analyseRegularField declId field = analyseType (Field declId field.info) field.typ
 
-analyseImplicitField :: C.DeclInfo Parse -> C.ImplicitField Parse -> [(C.UnnamedId, Context)]
-analyseImplicitField info field = concat [
-      analyseType (Field info field.info) field.typ
-    , concatMap (analyseIndirectField info) field.indirect
+analyseImplicitField :: C.PrelimDeclId -> C.ImplicitField Parse -> [(C.UnnamedId, Context)]
+analyseImplicitField declId field = concat [
+      analyseType (Field declId field.info) field.typ
+    , concatMap (analyseIndirectField declId) field.indirect
     ]
 
-analyseIndirectField :: C.DeclInfo Parse -> C.IndirectField Parse -> [(C.UnnamedId, Context)]
-analyseIndirectField _info _field =
+analyseIndirectField :: C.PrelimDeclId -> C.IndirectField Parse -> [(C.UnnamedId, Context)]
+analyseIndirectField _declId _field =
     -- Indirect fields can only exist if there is a direct field, and we always
     -- prefer the direct field. See also the haddocks on 'Field'.
     []
 
-analyseTypedef :: C.DeclInfo Parse -> C.Typedef Parse -> [(C.UnnamedId, Context)]
-analyseTypedef info typedef = analyseType (TypedefDirect info) typedef.typ
+analyseTypedef :: C.PrelimDeclId -> C.Typedef Parse -> [(C.UnnamedId, Context)]
+analyseTypedef declId typedef = analyseType (TypedefDirect declId) typedef.typ
 
-analyseGlobal :: C.DeclInfo Parse -> C.Type Parse -> [(C.UnnamedId, Context)]
-analyseGlobal info = analyseType (GlobalVar info)
+analyseGlobal :: C.PrelimDeclId -> C.Type Parse -> [(C.UnnamedId, Context)]
+analyseGlobal declId = analyseType (GlobalVar declId)
 
 {-------------------------------------------------------------------------------
   Types

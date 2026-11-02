@@ -23,12 +23,12 @@ check getTestResources test =
     goldenAnsiDiff "bindingspec" fixture $ \report -> do
       -- We compute the binding specification inside the artefact so that the
       -- result does not mention the macro-language tag @l@ (which appears in
-      -- 'getDeclIndex' and 'HsDecls'); this keeps 'runTestHsBindgenSuccess'
+      -- 'getDeclDB' and 'HsDecls'); this keeps 'runTestHsBindgenSuccess'
       -- polymorphic over the macro language.
       output <-
         runTestHsBindgenSuccess report getTestResources test $ do
           includeGraph   <- getIncludeGraph
-          declIndex      <- getDeclIndex
+          declDB         <- getDeclDB
           getMainHeaders <- getGetMainHeaders
           omitTypes      <- getOmittedTypes
           squashedTypes  <- getSquashedTypes
@@ -38,7 +38,7 @@ check getTestResources test =
               BindingSpec.FormatYAML
               "Example"
               includeGraph
-              declIndex
+              declDB
               getMainHeaders
               omitTypes
               squashedTypes

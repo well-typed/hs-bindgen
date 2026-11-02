@@ -18,7 +18,6 @@ import Text.SimplePrettyPrint qualified as PP
 import Clang.Enum.Simple
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-import Clang.Paths
 
 import HsBindgen.Errors
 import HsBindgen.Imports
@@ -154,18 +153,17 @@ data DelayedParseMsg =
     -- | We did not attempt to parse a macro with an empty replacement list
     -- (@#define FOO@)
     --
-    -- Reported separately from 'ParseMacroErrorParse' because every include
-    -- guard has this shape, and not attempting to parse one is not a failure.
+    -- Not a macro-language parse failure ('HsBindgen.Macro.Error.FailedParse')
+    -- because every include guard has this shape, and not attempting to parse
+    -- one is not a failure.
     -- See 'HsBindgen.Frontend.Pass.Parse.IsPass.EmptyMacros'.
   | ParseMacroEmpty C.PrelimDeclId [Token SourcePath TokenSpelling]
 
-    -- | The macro language could not parse the macro (macro def sites)
-  | ParseMacroErrorParse MacroParseError
-
     -- | We could not read the macro definition into name, parameters and body
     --
-    -- See 'HsBindgen.Macro.Syntax.readRawMacro'. Unlike 'ParseMacroErrorParse',
-    -- there is no raw macro to fall back on.
+    -- See 'HsBindgen.Macro.Syntax.readRawMacro'. Unlike a macro-language parse
+    -- failure ('HsBindgen.Macro.Error.FailedParse'), there is no raw macro to
+    -- fall back on.
   | ParseMacroErrorRead MacroParseError
 
 
@@ -228,12 +226,6 @@ data DelayedParseMsg =
     -- > extern void __attribute__ ((visibility ("hidden"))) f (void);
     -- > extern int __attribute__ ((visibility ("hidden"))) i;
   | ParseNonPublicVisibility
-
-    -- | Declaration availability can not be determined.
-    --
-    -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
-    -- provide a valid 'Clang.LowLevel.Core.CXAvailabilityKind'.
-  | ParseUnknownCursorAvailability (SimpleEnum CXAvailabilityKind)
 
     -- | Variable declaration
   | ParseUnknownStorageClass (SimpleEnum CX_StorageClass)
@@ -357,9 +349,7 @@ data DelayedParseMsg =
   | ParseUnexpectedTypeKind (Either CInt CXTypeKind)
 
   | ParseUnexpectedVisibility (Either CInt CXLinkageKind)
-
-  | ParseNoMainHeadersException String RealPath
-  deriving stock (Show, Generic)
+  deriving stock (Show, Eq, Generic)
 
 -- | A nested declaration that failed to parse
 data NestedDeclFailure =
@@ -372,7 +362,7 @@ data NestedDeclFailure =
     -- never named and never reported on its own.
   | NestedUnnamedDeclFailed C.UnnamedId DelayedParseMsg
   | NestedUnnamedDeclUnavailable C.UnnamedId
-  deriving stock (Show, Generic)
+  deriving stock (Show, Eq, Generic)
 
 instance PrettyForTrace NestedDeclFailure where
   prettyForTrace = \case
@@ -453,8 +443,6 @@ instance PrettyForTrace DelayedParseMsg where
         , "use --parse-empty-macros to parse it:"
         , PP.show tokens
         ]
-      ParseMacroErrorParse err ->
-        prettyForTrace err
       ParseMacroErrorRead err ->
         prettyMacroParseErrorWithHeading "Could not read macro definition:" err
       ParsePotentialDuplicateSymbol isPublic -> PP.hcat $ [
@@ -477,10 +465,6 @@ instance PrettyForTrace DelayedParseMsg where
       ParseNonPublicVisibility -> PP.hsep [
           "Bindings may result in linker errors"
         , "because the symbol has non-public visibility"
-        ]
-      ParseUnknownCursorAvailability simpleKind -> PP.hsep [
-          "Unknown declaration cursor availability:"
-        , PP.show simpleKind
         ]
       ParseUnknownStorageClass storage -> PP.hsep [
           "Unsupported storage class"
@@ -540,12 +524,6 @@ instance PrettyForTrace DelayedParseMsg where
           "Unexpected visibility: "
         , PP.show visibility
         ]
-      ParseNoMainHeadersException why whr -> PP.hsep [
-          "Could not determine main headers:"
-        , PP.string why
-        , "at"
-        , PP.string $ getRealPath whr
-        ]
     where
       unexpected :: PP.CtxDoc -> PP.CtxDoc
       unexpected msg = PP.vcat [
@@ -561,7 +539,6 @@ instance IsTrace Level DelayedParseMsg where
         maximum $ Warning :| map nestedDeclFailureLevel (toList xs)
       ParseImplicitFieldFailed    x        -> getDefaultLogLevel x
       ParseMacroEmpty{}                    -> Info
-      ParseMacroErrorParse{}               -> Info
       ParseMacroErrorRead{}                -> Info
       ParsePotentialDuplicateSymbol{}      -> Notice
       ParseDeclarationNotVisible{}         -> Warning
@@ -569,7 +546,6 @@ instance IsTrace Level DelayedParseMsg where
       ParseInvalidLinkage                  -> Warning
       ParseInvalidVisibility               -> Warning
       ParseNonPublicVisibility{}           -> Warning
-      ParseUnknownCursorAvailability{}     -> Warning
       ParseUnknownStorageClass{}           -> Warning
       ParseUnexposedType                   -> Warning
       ParseUnsupportedUnnamedInExtern{}    -> Warning
@@ -588,13 +564,11 @@ instance IsTrace Level DelayedParseMsg where
       ParseUnexpectedLinkage{}             -> Bug
       ParseUnexpectedTypeKind{}            -> Bug
       ParseUnexpectedVisibility{}          -> Bug
-      ParseNoMainHeadersException{}        -> Error
   getSource  = const HsBindgen
   getTraceId = \case
       ParseImplicitFieldFailed x        -> "parse-" <> getTraceId x
       ParseMacroDefinitionNoMacroName{} -> "parse-macro"
       ParseMacroEmpty{}                 -> "parse-macro"
-      ParseMacroErrorParse{}            -> "parse-macro"
       ParseMacroErrorRead{}             -> "parse-macro"
       _ -> "parse"
 

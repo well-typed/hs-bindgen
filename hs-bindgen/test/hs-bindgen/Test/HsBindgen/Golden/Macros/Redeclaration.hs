@@ -4,12 +4,14 @@ module Test.HsBindgen.Golden.Macros.Redeclaration (testCases) where
 import Control.Applicative
 
 import HsBindgen.Config.Internal
+import HsBindgen.Frontend.DeclDB (PassFailure (..))
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg (PrepareReparseExpansionNotUnique))
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.Macro.Error (MacroLangFailure (..))
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -221,7 +223,7 @@ test_variadic =
     trace = \case
       MatchSelect name@"macro A" SelectConflict{} ->
         Just $ Expected name
-      (MatchDelayed name@"macro ID" ParseMacroErrorParse{})  ->
+      MatchPassFailed name@"macro ID" (MacroFailed FailedParse{}) ->
         Just $ Expected name
       MatchDelayedReparseMacroExpansions name@"T" (ReparseMacroExpansionUnknownType "ID") ->
         Just $ Expected name
@@ -259,7 +261,7 @@ multiTracePredicate_custom expected predicate = multiTracePredicate expected pre
       | otherwise
       = case x of
           -- Parse (macro)
-          MatchDelayed _info ParseMacroErrorParse{} ->
+          MatchPassFailed _info (MacroFailed FailedParse{}) ->
             Just Unexpected
           -- PrepareReparse
           MatchImmediatePrepareReparse _ ->

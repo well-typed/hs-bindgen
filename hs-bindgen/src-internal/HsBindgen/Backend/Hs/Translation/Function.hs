@@ -95,13 +95,13 @@ import HsBindgen.NameHint (NameHint (..))
 --   > foo :: S -> IO CInt
 --   > foo x = with x $ \ptr -> hs_bindgen_b66ead8229086e95  ptr
 --
-functionDecs ::
+functionDecs :: forall l.
      SHs.Safety
-  -> C.DeclInfo Final
+  -> C.Decl l Final
   -> C.Function Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-functionDecs safety info originalC _spec = do
+functionDecs safety decl originalC _spec = do
     env <- Reader.ask
     pure $ aux env
   where
@@ -113,8 +113,8 @@ functionDecs safety info originalC _spec = do
         , [restoreFun]
         ]
       where
-        wrapperImport = getWrapperImportDecl info originalC safety wrapperCName runInIO
-        restoreFun = getRestoreFunDecl info originalC wrapperCName runInIO
+        wrapperImport = getWrapperImportDecl decl originalC safety wrapperCName runInIO
+        restoreFun = getRestoreFunDecl decl originalC wrapperCName runInIO
 
         wrapperCName :: UniqueSymbol
         wrapperCName =
@@ -126,7 +126,7 @@ functionDecs safety info originalC _spec = do
                 ]
 
         origCName :: Text
-        origCName = info.id.cName.name.text
+        origCName = decl.id.cName.name.text
 
         runInIO :: RunInIO
         runInIO = functionShouldRunInIO originalC.attrs.purity originalC.res originalC.args
@@ -218,17 +218,17 @@ hsIO = \case
 --
 -- See als 'functionDecs'.
 getWrapperCDecl ::
-     C.DeclInfo Final
+     C.Decl l Final
   -> C.Function Final
   -> UniqueSymbol
   -> PC.FunDefn
-getWrapperCDecl info originalC wrapperCName = wrapperC
+getWrapperCDecl decl originalC wrapperCName = wrapperC
   where
     wrapperC = getWrapperCFunDefn wrapperCName.unique
                   originalC.args originalC.res (T.unpack originalCName)
 
     originalCName :: Text
-    originalCName = info.id.cName.name.text
+    originalCName = decl.id.cName.name.text
 
 getWrapperCFunDefn ::
      String                -- ^ C wrapper name
@@ -274,14 +274,14 @@ getWrapperCFunDefn  wrapperName args res origName
 -- | Construct a @wrapperImport@ declaration
 --
 -- See als 'functionDecs'.
-getWrapperImportDecl ::
-     C.DeclInfo Final
+getWrapperImportDecl :: forall l.
+     C.Decl l Final
   -> C.Function Final
   -> SHs.Safety
   -> UniqueSymbol
   -> RunInIO
   -> [Hs.Decl l]
-getWrapperImportDecl info originalC safety wrapperCName runInIO = wrapperImport
+getWrapperImportDecl decl originalC safety wrapperCName runInIO = wrapperImport
   where
     wrapperImport :: [Hs.Decl l]
     wrapperImport =
@@ -300,7 +300,7 @@ getWrapperImportDecl info originalC safety wrapperCName runInIO = wrapperImport
         }
 
     wrapperC :: PC.FunDefn
-    wrapperC = getWrapperCDecl info originalC wrapperCName
+    wrapperC = getWrapperCDecl decl originalC wrapperCName
 
     params :: [Hs.ForeignImport.FunParam]
     params = [
@@ -348,13 +348,13 @@ getWrapperImportDecl info originalC safety wrapperCName runInIO = wrapperImport
 -- | Construct a @restoreFun@ declaration
 --
 -- See als 'functionDecs'.
-getRestoreFunDecl ::
-     C.DeclInfo Final
+getRestoreFunDecl :: forall l.
+     C.Decl l Final
   -> C.Function Final
   -> UniqueSymbol
   -> RunInIO
   -> Hs.Decl l
-getRestoreFunDecl info originalC wrapperCName runInIO = restoreFun
+getRestoreFunDecl decl originalC wrapperCName runInIO = restoreFun
   where
     restoreFun :: Hs.Decl l
     restoreFun =
@@ -368,7 +368,7 @@ getRestoreFunDecl info originalC wrapperCName runInIO = restoreFun
           , comment    = restoreFunComment <> mbIoComment
           }
 
-    restoreFunName = Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) info.id.hsName
+    restoreFunName = Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) decl.id.hsName
 
     restoreFunComment :: Maybe HsDoc.Comment
     restoreFunParams :: [Hs.FunctionParameter Hs.Type]
@@ -381,7 +381,7 @@ getRestoreFunDecl info originalC wrapperCName runInIO = restoreFun
                       })
                     | arg <- originalC.args
                     ]
-      in  mkHaddocksDecorateParams info params
+      in  mkHaddocksDecorateParams decl params
 
     mbIoComment :: Maybe HsDoc.Comment
     mbIoComment = ioComment originalC.attrs.purity

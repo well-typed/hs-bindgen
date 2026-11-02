@@ -23,6 +23,7 @@ import Data.Kind
 
 import Clang.HighLevel.Types
 
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.PrepareReparse.AST
@@ -46,7 +47,7 @@ simplify = simplifyIt
 
 class Simplify a where
   type Ctx a :: Type
-  type Ctx a = C.DeclInfo ApplyMacroFallback
+  type Ctx a = C.DeclId
   type Simple a :: Type
   type Simple a = [Either Undef Target]
   simplifyIt :: Ctx a -> a ApplyMacroFallback -> Simple a
@@ -65,7 +66,8 @@ instance Simplify (C.TranslationUnit l) where
       }
     where
       (undefs, targets) =
-        partitionEithers $ concatMap recurse unit.decls
+        partitionEithers $
+          concatMap recurse (DeclDB.active DeclDB.AnyOrder unit.db)
       recurse = simplifyIt ()
 
 instance Simplify (C.Decl l) where
@@ -82,42 +84,42 @@ instance Simplify (C.Decl l) where
       C.DeclGlobal global          -> recurse global
     where
       recurse :: forall a.
-           (Simplify a, Ctx a ~ C.DeclInfo ApplyMacroFallback)
+           (Simplify a, Ctx a ~ C.DeclId)
         => a ApplyMacroFallback
         -> Simple a
-      recurse = simplifyIt decl.info
+      recurse = simplifyIt decl.id
 
 instance Simplify C.Struct where
-  simplifyIt info struct =
-      concatMap (simplifyIt info) struct.fields ++
-      foldMap (simplifyIt info) (C.flamStructField struct.flam)
+  simplifyIt declId struct =
+      concatMap (simplifyIt declId) struct.fields ++
+      foldMap (simplifyIt declId) (C.flamStructField struct.flam)
 
 instance Simplify C.Union where
-  simplifyIt info union = concatMap (simplifyIt info) union.fields
+  simplifyIt declId union = concatMap (simplifyIt declId) union.fields
 
 instance Simplify C.Field where
-  simplifyIt info = C.elimField (simplifyIt info) (simplifyIt info)
+  simplifyIt declId = C.elimField (simplifyIt declId) (simplifyIt declId)
 
 instance Simplify C.RegularField where
-  simplifyIt info field = case field.ann of
+  simplifyIt declId field = case field.ann of
         ReparseNotNeeded -> nothing
         ReparseNeeded tokens _macroInvs -> singleTarget $
-          Target (fieldTag info field.info) (defaultDecl tokens)
+          Target (fieldTag declId field.info) (defaultDecl tokens)
 
 instance Simplify C.ImplicitField where
-  simplifyIt info field = concatMap (simplifyIt info) field.indirect
+  simplifyIt declId field = concatMap (simplifyIt declId) field.indirect
 
 instance Simplify C.IndirectField where
-  simplifyIt info field = case field.ann of
+  simplifyIt declId field = case field.ann of
         ReparseNotNeeded -> nothing
         ReparseNeeded tokens _macroInvs -> singleTarget $
-          Target (fieldTag info field.info) (defaultDecl tokens)
+          Target (fieldTag declId field.info) (defaultDecl tokens)
 
 instance Simplify C.Typedef where
-  simplifyIt info typedef = case typedef.ann of
+  simplifyIt declId typedef = case typedef.ann of
       ReparseNotNeeded -> nothing
       ReparseNeeded tokens _macroInvs -> singleTarget $
-        Target (typedefTag info) (defaultDecl tokens)
+        Target (typedefTag declId) (defaultDecl tokens)
 
 instance Simplify C.Enum where
   simplifyIt _ _ = nothing
@@ -126,22 +128,22 @@ instance Simplify C.UntaggedEnumConstant where
   simplifyIt _ _ = nothing
 
 instance Simplify (Flip TypecheckedMacro l) where
-  simplifyIt info (Flip m) = case m of
-    MacroType{}  -> singleUndef $ Undef (MacroName (P.name info ""))
+  simplifyIt declId (Flip m) = case m of
+    MacroType{}  -> singleUndef $ Undef (MacroName (P.name declId ""))
     MacroValue{} -> nothing
     MacroRaw{}   -> nothing
 
 instance Simplify C.Function where
-  simplifyIt info function = case function.ann of
+  simplifyIt declId function = case function.ann of
       ReparseNotNeeded -> nothing
       ReparseNeeded tokens _macroInvs -> singleTarget $
-        Target (functionTag info) (functionDecl tokens)
+        Target (functionTag declId) (functionDecl tokens)
 
 instance Simplify C.Global where
-  simplifyIt info global = case global.ann of
+  simplifyIt declId global = case global.ann of
       ReparseNotNeeded -> nothing
       ReparseNeeded tokens _macroInvs -> singleTarget $
-        Target (variableTag info) (defaultDecl tokens)
+        Target (variableTag declId) (defaultDecl tokens)
 
 {-------------------------------------------------------------------------------
   Lift into Simple
@@ -170,16 +172,16 @@ functionDecl tokens = Decl $ flattenFunction tokens
   Tags
 -------------------------------------------------------------------------------}
 
-fieldTag :: C.DeclInfo ApplyMacroFallback -> C.FieldInfo ApplyMacroFallback -> Tag
-fieldTag info fieldInfo = Tag Field (TagName name)
+fieldTag :: C.DeclId -> C.FieldInfo ApplyMacroFallback -> Tag
+fieldTag declId fieldInfo = Tag Field (TagName name)
   where
-    name = P.name info  . P.dot . P.fieldName fieldInfo $ ""
+    name = P.name declId  . P.dot . P.fieldName fieldInfo $ ""
 
-functionTag :: C.DeclInfo ApplyMacroFallback -> Tag
-functionTag info = Tag Function (TagName (P.name info ""))
+functionTag :: C.DeclId -> Tag
+functionTag declId = Tag Function (TagName (P.name declId ""))
 
-typedefTag :: C.DeclInfo ApplyMacroFallback -> Tag
-typedefTag info = Tag Typedef (TagName (P.name info ""))
+typedefTag :: C.DeclId -> Tag
+typedefTag declId = Tag Typedef (TagName (P.name declId ""))
 
-variableTag :: C.DeclInfo ApplyMacroFallback -> Tag
-variableTag info = Tag Variable (TagName (P.name info ""))
+variableTag :: C.DeclId -> Tag
+variableTag declId = Tag Variable (TagName (P.name declId ""))

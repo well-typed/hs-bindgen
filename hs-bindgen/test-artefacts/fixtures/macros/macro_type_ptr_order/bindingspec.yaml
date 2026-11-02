@@ -1,0 +1,132 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/macro_type_ptr_order.h
+  cname: macro T
+  hsname: T
+- headers: macros/macro_type_ptr_order.h
+  cname: macro P
+  hsname: P
+- headers: macros/macro_type_ptr_order.h
+  cname: macro Z_PTR
+  hsname: Z_PTR
+- headers: macros/macro_type_ptr_order.h
+  cname: macro A_T
+  hsname: A_T
+hstypes:
+- hsname: A_T
+  representation:
+    newtype:
+      constructor: A_T
+      fields:
+      - unwrapA_T
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: P
+  representation:
+    newtype:
+      constructor: P
+      fields:
+      - unwrapP
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T
+  representation:
+    newtype:
+      constructor: T
+      fields:
+      - unwrapT
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Z_PTR
+  representation:
+    newtype:
+      constructor: Z_PTR
+      fields:
+      - unwrapZ_PTR
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

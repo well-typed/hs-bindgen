@@ -2,7 +2,7 @@
 module Test.HsBindgen.Golden.Declarations (testCases) where
 
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.Analysis.DeclIndex (UnusableReason (..))
+import HsBindgen.Frontend.DeclDB (PassFailure (..))
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -71,7 +71,7 @@ test_duplicate_field_name_omit =
             & #fieldNamingStrategy .~ OmitFieldPrefixes
           )
       & #tracePredicate  .~ multiTracePredicate declsWithMsgs (\case
-            MatchUnusable name (UnusableMangleNamesFailure (MangleNamesCollisionError DetectClashesDuplicateFieldName{})) ->
+            MatchPassFailed name (MangleNamesFailed (MangleNamesCollisionError DetectClashesDuplicateFieldName{})) ->
               Just $ Expected name
             _otherwise ->
               Nothing
@@ -112,7 +112,7 @@ test_field_name_reuse_omit =
 test_name_collision :: TestCase
 test_name_collision =
     testTraceMulti "declarations/name_collision" declsWithMsgs $ \case
-      MatchUnusable name (UnusableMangleNamesFailure (MangleNamesCollisionError DetectClashesCollision{})) ->
+      MatchPassFailed name (MangleNamesFailed (MangleNamesCollisionError DetectClashesCollision{})) ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -131,7 +131,7 @@ test_name_collision =
 test_name_collision_aux :: TestCase
 test_name_collision_aux =
     testTraceMulti "declarations/name_collision_aux" declsWithMsgs $ \case
-      MatchUnusable name (UnusableMangleNamesFailure (MangleNamesCollisionError DetectClashesCollision{})) ->
+      MatchPassFailed name (MangleNamesFailed (MangleNamesCollisionError DetectClashesCollision{})) ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -190,4 +190,4 @@ test_tentative_definitions =
         Nothing
   where
     declsWithMsgs :: [C.DeclName]
-    declsWithMsgs = ["i1", "i2", "i3", "i3"]
+    declsWithMsgs = ["i1", "i2", "i3"]

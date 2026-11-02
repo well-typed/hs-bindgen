@@ -2,6 +2,7 @@
 module Test.HsBindgen.Golden.Attributes (testCases) where
 
 import HsBindgen.Config.Internal
+import HsBindgen.Frontend.DeclDB (UnusableReason (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -27,6 +28,7 @@ testCases = [
     , test_asm
     , test_attributes
     , test_deprecated
+    , test_deprecated_no_binding
     , test_type_attributes
     , test_visibility_functions
     , test_visibility_variables
@@ -61,6 +63,27 @@ test_deprecated =
             _otherwise ->
               Nothing
           )
+
+-- | Deprecation is known also for declarations that are squashed or fail to
+-- parse
+test_deprecated_no_binding :: TestCase
+test_deprecated_no_binding =
+    defaultTest "attributes/deprecated_no_binding"
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name SelectDeprecated{} ->
+              Just $ Expected (name, "deprecated")
+            MatchUnusable name ParseFailed{} ->
+              Just $ Expected (name, "parse")
+            _otherwise ->
+              Nothing
+          )
+  where
+    -- An unusable declaration is not selected, deprecated or not.
+    declsWithMsgs :: [(C.DeclName, String)]
+    declsWithMsgs = [
+          ("point", "deprecated")
+        , ("f"    , "parse")
+        ]
 
 test_type_attributes :: TestCase
 test_type_attributes =

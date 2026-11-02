@@ -13,8 +13,6 @@ module HsBindgen.Frontend.Analysis.Typedefs (
 
 import Data.Map.Strict qualified as Map
 
-import Clang.HighLevel.Types
-
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
@@ -55,8 +53,7 @@ instance Monoid TypedefAnalysis where
       }
 
 data Squash = SquashTypedef {
-      typedefLoc :: SingleLoc C.DeclPath
-    , targetId   :: C.DeclId
+      targetId :: C.DeclId
     }
   deriving stock (Eq, Show, Generic)
 
@@ -140,27 +137,26 @@ fromDecls declUseGraph = mconcat . map aux
      aux decl =
          case decl.kind of
            C.DeclTypedef typedef ->
-             analyseTypedef declUseGraph decl.info typedef
+             analyseTypedef declUseGraph decl typedef
            _otherwise ->
              mempty
 
 analyseTypedef ::
       DeclUseGraph
-  -> C.DeclInfo ResolveBindingSpecs
+  -> C.Decl l ResolveBindingSpecs
   -> C.Typedef ResolveBindingSpecs
   -> TypedefAnalysis
-analyseTypedef declUseGraph typedefInfo typedef =
+analyseTypedef declUseGraph typedefDecl typedef =
     case directPayload of
       -- The typedef is a direct alias of a tagged type: a candidate for
       -- squashing.
       Just payload
         | shouldSquash payload
         -> mconcat [
-               conclude typedefInfo.id $ Squash $ SquashTypedef {
-                   typedefLoc = typedefInfo.loc
-                 , targetId   = payload.id
+               conclude typedefDecl.id $ Squash $ SquashTypedef {
+                   targetId = payload.id
                  }
-             , conclude payload.id $ UseNameOf typedefInfo.id
+             , conclude payload.id $ UseNameOf typedefDecl.id
              ]
 
       -- Otherwise, suffix every tagged type that is referenced /within/ the
@@ -177,7 +173,7 @@ analyseTypedef declUseGraph typedefInfo typedef =
         foldMap suffixClashingPayload clashingPayloads
   where
     typedefName :: Text
-    typedefName = typedefInfo.id.name.text
+    typedefName = typedefDecl.id.name.text
 
     -- All tagged types referenced anywhere within the typedef's type.
     payloads :: [TaggedPayload]

@@ -1,0 +1,8 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- omit:
+    headers: program-analysis/unusable_reports_deps.h
+    cname: struct omitted

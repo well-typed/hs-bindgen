@@ -22,8 +22,8 @@ import HsBindgen.Macro.Error
 -- Used as @'HsBindgen.IR.Pass.MacroBody' p l@, so the order of type parameters
 -- is fixed.
 --
--- A pending macro is "usable", even when the macro language gave up on it;
--- see 'HsBindgen.Frontend.Analysis.DeclIndex.UsableEntry'.
+-- A pending macro is active, even when the macro language gave up on it; see
+-- 'HsBindgen.Frontend.DeclDB.Active'.
 data PendingMacro body l = PendingMacro {
       -- | Token spellings of the raw macro
       raw      :: Runtime.Macro.Raw Text

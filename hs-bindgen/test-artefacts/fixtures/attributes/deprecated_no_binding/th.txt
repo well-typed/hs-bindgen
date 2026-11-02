@@ -1,0 +1,34 @@
+-- addDependentFile test-artefacts/headers/golden/attributes/deprecated_no_binding.h
+{-| __C declaration:__ @struct point@
+
+    __defined at:__ @attributes\/deprecated_no_binding.h 4:9@
+
+    __exported by:__ @attributes\/deprecated_no_binding.h@
+-}
+data Point
+    = Point {point_x :: CInt
+             {- ^ __C declaration:__ @x@
+
+                  __defined at:__ @attributes\/deprecated_no_binding.h 4:22@
+
+                  __exported by:__ @attributes\/deprecated_no_binding.h@
+             -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Point
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Point
+    where readRaw = \ptr_0 -> pure Point <*> readRaw (Proxy @"point_x") ptr_0
+instance WriteRaw Point
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Point point_x_2 -> writeRaw (Proxy @"point_x") ptr_0 point_x_2
+deriving via (EquivStorable Point) instance Storable Point
+deriving via (IsStructViaReadRaw Point) instance IsStruct Point
+instance (~) ty CInt => HasField "point_x" Point ty
+    where hasField = \x_0 -> (\y_1 -> Point{point_x = y_1},
+                              getField @"point_x" x_0)
+instance (~) ty CInt => HasField "point_x" (Ptr Point) (Ptr ty)
+    where getField = fromPtr (Proxy @"point_x")
+instance HasCField Point "point_x"
+    where type CFieldType Point "point_x" = CInt
+          offset# = \_ -> \_ -> 0

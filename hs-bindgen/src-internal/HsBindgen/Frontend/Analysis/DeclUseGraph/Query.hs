@@ -1,6 +1,6 @@
 module HsBindgen.Frontend.Analysis.DeclUseGraph.Query (
     -- * Query
-    toDecls
+    outputOrder
     -- ** Transitive usage
   , getUseSitesTransitively
     -- ** Direct usage
@@ -12,11 +12,13 @@ import Data.Digraph qualified as Digraph
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
+import Clang.HighLevel.Types
+
+import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph.Definition
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
+import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 
@@ -24,20 +26,42 @@ import HsBindgen.IR.C qualified as C
   Query
 -------------------------------------------------------------------------------}
 
--- | Construct ordered list of declarations
---
--- This follows source order whenever possible, but ensures that definition
--- sites come before use sites.
---
--- For each declaration we provide one example of how that declaration is used
--- (if one exists).
-toDecls :: DeclIndex l -> DeclUseGraph -> [C.Decl l ConstructTranslationUnit]
-toDecls index declUseGraph =
-    -- NOTE: There might be dependencies in the 'DeclUseGraph' on declarations
-    -- without a corresponding entry in the 'DeclIndex'.  For example, this can
-    -- happen when we are using external binding specifications.
-    mapMaybe (`DeclIndex.lookup` index) . Digraph.sort $
-      Digraph.filterEdges (== NeedsShape) declUseGraph.graph
+-- | The order of the generated bindings: dependency order, refined by
+-- best-effort source order
+outputOrder :: HasCallStack => IncludeGraph.IncludeGraph -> DeclDB.Order l p
+outputOrder includeGraph =
+    DeclDB.DependencyOrder DeclDB.ShapeEdges $ \decl ->
+      annSortKey includeOrder decl.info.loc
+  where
+    includeOrder :: IncludeGraph.IncludeOrder
+    includeOrder = IncludeGraph.toIncludeOrder includeGraph
+
+data SortKey = SortKey{
+      sortPathIx :: IncludeGraph.IncludeOrderIx
+    , sortLineNo :: Int
+    , sortColNo  :: Int
+    }
+  deriving (Eq, Ord, Show)
+
+-- | Best-effort source order (see the orderings in "HsBindgen.Frontend.DeclDB")
+annSortKey ::
+     HasCallStack
+  => IncludeGraph.IncludeOrder
+  -> SingleLoc C.DeclPath
+  -> SortKey
+annSortKey order loc = SortKey{
+      sortPathIx = sortPathIx
+    , sortLineNo = singleLocLine   loc
+    , sortColNo  = singleLocColumn loc
+    }
+  where
+    path = singleLocPath loc
+    -- Unlike a trace message, a declaration whose source is not in the include
+    -- graph means the frontend is broken; there is nothing to salvage.
+    sortPathIx = case IncludeGraph.lookupIncludeOrder order path of
+      IncludeGraph.NotInIncludeGraph ->
+        panicPure $ "Source of declaration " <> show path <> " not in include graph"
+      ix -> ix
 
 {-------------------------------------------------------------------------------
   Transitive usage

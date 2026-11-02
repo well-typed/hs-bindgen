@@ -74,8 +74,8 @@ include = showString "#include"
   C names
 -------------------------------------------------------------------------------}
 
-name :: C.DeclInfo ApplyMacroFallback -> ShowS
-name info = showString (Text.unpack info.id.name.text)
+name :: C.DeclId -> ShowS
+name declId = showString (Text.unpack declId.name.text)
 
 fieldName :: C.FieldInfo ApplyMacroFallback -> ShowS
 fieldName info = showString (Text.unpack info.name.text)

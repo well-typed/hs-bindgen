@@ -39,14 +39,10 @@ typecheckMacros ::
      )
 typecheckMacros macroLang unit =
     let knownTypes =
-          collectKnownTypes unit.decls
-        (typecheckedDecls, knownMacroTypes) =
-          typecheckDecls macroLang unit.decls
-    in  ( C.TranslationUnit{
-              decls        = typecheckedDecls
-            , includeGraph = unit.includeGraph
-            , meta         = unit.meta
-            }
+          collectKnownTypes unit.db
+        (db', knownMacroTypes) =
+          typecheckDecls macroLang unit.db
+    in  ( unit{C.db = db'}
         , Map.fromList [
               (n, v)
             | (declId, v) <- Map.toList knownTypes

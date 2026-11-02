@@ -22,6 +22,7 @@ import HsBindgen.Clang
 import HsBindgen.Config.Internal
 import HsBindgen.Doxygen
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UnnamedIdUsage (UnnamedIdUsageAnalysis)
 import HsBindgen.Frontend.Analysis.UnnamedIdUsage qualified as UnnamedIdUsageAnalysis
 import HsBindgen.Frontend.Pass.AdjustTypes
@@ -59,6 +60,7 @@ import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader, RootHeaderMsg)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
+import HsBindgen.Frontend.SortMsgs
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -75,13 +77,13 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --
 -- = Overview of passes
 --
--- See the documentation of 'HsBindgen.Frontend.Pass.IsPass'.
+-- See the documentation of 'HsBindgen.IR.Pass.IsPass'.
 --
 -- == 1. "HsBindgen.Frontend.Pass.Parse"
 --
 -- "HsBindgen.Frontend.Pass.Parse" traverses the @libclang@ AST, getting all
 -- information that we need from @libclang@ and constructing a pure Haskell
--- representation (see "HsBindgen.Frontend.AST.Decl"). It runs in 'IO', to
+-- representation (see "HsBindgen.IR.C.Decl"). It runs in 'IO', to
 -- interface with @libclang@.
 --
 -- Constraints:
@@ -104,15 +106,14 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- == 3. "HsBindgen.Frontend.Pass.FillUnnamedIds"
 --
 -- "HsBindgen.Frontend.Pass.FillUnnamedIds" assigns names to all unnamed
--- declarations, replacing 'HsBindgen.Frontend.Naming.PrelimDeclId' by
--- 'HsBindgen.Frontend.Naming.DeclId', which is used from this point forward.
+-- declarations, replacing 'HsBindgen.IR.C.Naming.PrelimDeclId' by
+-- 'HsBindgen.IR.C.Naming.DeclId', which is used from this point forward.
 --
 -- Constraints:
 --
 -- * Must be before "HsBindgen.Frontend.Pass.ConstructTranslationUnit" so that
---   'HsBindgen.Frontend.Naming.DeclId' can be used as the key for the
---   'DeclIndex.DeclIndex', 'UseDeclGraph.UseDeclGraph', and
---   'DeclUseGraph.DeclUseGraph'
+--   'HsBindgen.IR.C.Naming.DeclId' can be used as the key of the
+--   'HsBindgen.Frontend.DeclDB.DeclDB' and the vertex of its dependency graph
 -- * Must be before "HsBindgen.Frontend.Pass.ResolveBindingSpecs" so that
 --   binding specifications can use the assigned names
 --
@@ -124,19 +125,20 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- Constraints:
 --
 -- * Must be after "HsBindgen.Frontend.Pass.FillUnnamedIds" so that
---   'HsBindgen.Frontend.Naming.DeclId' is available for the 'DeclIndex' and
---   for building doxygen-qualified names
+--   'HsBindgen.IR.C.Naming.DeclId' is available for building
+--   doxygen-qualified names
 --
 -- == 5. "HsBindgen.Frontend.Pass.ConstructTranslationUnit"
 --
--- "HsBindgen.Frontend.Pass.ConstructTranslationUnit" constructs a list of
--- sorted declarations as well as 'DeclIndex.DeclIndex',
--- 'UseDeclGraph.UseDeclGraph', and 'DeclUseGraph.DeclUseGraph'.
+-- "HsBindgen.Frontend.Pass.ConstructTranslationUnit" constructs the
+-- declaration database, 'HsBindgen.Frontend.DeclDB.DeclDB': an entry for every
+-- parse result, and the dependency graph. From here on, each pass advances the
+-- database.
 --
 -- Constraints:
 --
--- * Must be before the rest of the passes because they use these structures and
---   depend on the ordering of declarations
+-- * Must be before the rest of the passes because they read and advance the
+--   database
 --
 -- == 6. "HsBindgen.Frontend.Pass.TypecheckMacros"
 --
@@ -208,8 +210,9 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --
 -- "HsBindgen.Frontend.Pass.ResolveBindingSpecs" has two responsibilities:
 --
--- * It matches declarations/uses with external binding specifications, removing
---   matching declarations and replacing uses with external references.
+-- * It matches declarations/uses with external binding specifications,
+--   replacing matching declarations by 'HsBindgen.Frontend.DeclDB.External'
+--   entries and uses by external references.
 -- * It matches declarations with prescriptive binding specifications, either
 --   omitting them or annotating the declarations with specifications to be used
 --   in later passes.
@@ -217,7 +220,7 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- Constraints:
 --
 -- * Must be before "HsBindgen.Frontend.Pass.Select" because prescriptive
---   binding specs may omit declarations and external binding specs may remove
+--   binding specs may omit declarations and external binding specs may replace
 --   declarations, and program slicing must take this into account
 -- * Must be before "HsBindgen.Frontend.Pass.MangleNames" because prescriptive
 --   binding specs may configure typedef squashing, which happens in
@@ -229,7 +232,9 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --
 -- "HsBindgen.Frontend.Pass.MangleNames" assigns Haskell names for types,
 -- constructors, fields, etc. It also deals with name clashes that can arise
--- from typedefs, squashing "unneeded" typedefs.
+-- from typedefs, squashing "unneeded" typedefs into
+-- 'HsBindgen.Frontend.DeclDB.Squashed' entries. Declarations it cannot name
+-- become unusable.
 --
 -- == 12. "HsBindgen.Frontend.Pass.AdjustTypes"
 --
@@ -244,18 +249,19 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --
 -- == 14. "HsBindgen.Frontend.Pass.Select"
 --
--- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
--- and program slicing. It also emits delayed trace messages for declarations
--- that are selected.
+-- "HsBindgen.Frontend.Pass.Select" deselects declarations
+-- ('HsBindgen.Frontend.DeclDB.Deselected') using predicates and program
+-- slicing. It also emits delayed trace messages for declarations that are
+-- selected.
 --
 -- Constraints:
 --
--- * The 'Select' pass must come last so that if a declaration is
---   'HsBindgen.Frontend.Analysis.DeclIndex.UnusableEntry' for whatever reason
---   (e.g., it contains unsupported types such as @long double@, or the name
---   mangler was unable to find a suitable name, etc.), the 'Select' pass can
---   make sure that the unusable declaration /and all of its dependencies/ will
---   not be selected.
+-- * The 'Select' pass must come last so that if a declaration is unusable
+--   ('HsBindgen.Frontend.DeclDB.getUnusable') for whatever reason (e.g., it
+--   contains unsupported types such as @long double@, or the name mangler was
+--   unable to find a suitable name, etc.), the 'Select' pass can make sure
+--   that the unusable declaration /and all declarations that use it/, directly
+--   or transitively, will not be selected.
 runFrontend ::
      forall l. (Macro.HasTypes l, HasCallStack)
   => Tracer FrontendMsg
@@ -323,6 +329,20 @@ runFrontend tracer config boot = do
         includeGraph   = afterParse.includeGraph
       , getMainHeaders = afterParse.getMainHeaders
       }
+
+    includeOrderC <- cache "includeOrder" $
+      IncludeGraph.toIncludeOrder . (.includeGraph) <$> parseMeta
+
+    let -- Sorted, so that their order does not depend on the processing order
+        traceSorted ::
+             Tracer (C.WithLocationInfo msg)
+          -> [WithCallStack (C.WithLocationInfo msg)]
+          -> Cached ()
+        traceSorted tracer' msgs = do
+          order <- includeOrderC
+          let (bugMsgs, sorted) = sortMsgs order msgs
+          forM_ bugMsgs $ traceWith (contramap FrontendSortMsgs tracer)
+          forM_ sorted  $ traceWith tracer'
 
     simplifyASTPass <- cache "simplifyAST" $ do
       afterParse <- parsePass
@@ -401,14 +421,14 @@ runFrontend tracer config boot = do
       let moduleName = Hs.ModuleName boot.baseModule.text -- do not import Backend
           (afterResolveBindingSpecs, msgsResolveBindingSpecs) =
             resolveBindingSpecs moduleName extSpecs pSpec afterReparseMacroExpansions
-      forM_ msgsResolveBindingSpecs $ traceWith (contramap FrontendResolveBindingSpecs tracer)
+      traceSorted (contramap FrontendResolveBindingSpecs tracer) msgsResolveBindingSpecs
       pure afterResolveBindingSpecs
 
     mangleNamesPass <- cache "mangleNames" $ do
       afterResolveBindingSpecs <- resolveBindingSpecsPass
       let (afterMangleNames, msgsMangleNames) =
             mangleNames config.fieldNamingStrategy afterResolveBindingSpecs
-      forM_ msgsMangleNames $ traceWith (contramap FrontendMangleNames tracer)
+      traceSorted (contramap FrontendMangleNames tracer) msgsMangleNames
       pure afterMangleNames
 
     adjustTypesPass <- cache "AdjustTypes" $ do
@@ -431,7 +451,7 @@ runFrontend tracer config boot = do
               afterParse.isInMainHeaderDir
               selectConfig
               afterTranslateTypesPass
-      forM_ msgsSelect $  traceWith (contramap FrontendSelect tracer)
+      traceSorted (contramap FrontendSelect tracer) msgsSelect
       pure afterSelect
 
     finalPass <- cache "Final" $ selectPass
@@ -524,6 +544,7 @@ data FrontendMsg =
   | FrontendMangleNames              (Msg MangleNames)
   | FrontendTranslateTypes           (Msg TranslateTypes)
   | FrontendSelect                   (Msg Select)
+  | FrontendSortMsgs                  SortMsgsMsg
   | FrontendCache                    (SafeTrace CacheMsg)
   | FrontendDoxygen                   DoxygenMsg
   | FrontendRootHeader                RootHeaderMsg
