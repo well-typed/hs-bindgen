@@ -3,6 +3,7 @@
 -- | @hs-bindgen@ application common types and functions
 module HsBindgen.App (
     hsBindgen
+  , hsBindgenLibrary
 
     -- * Global options
   , GlobalOpts(..)
@@ -54,6 +55,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass (EmptyMacros (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
+import HsBindgen.Library.Runner (LibraryModuleOutput (..))
 import HsBindgen.Macro (CExpr)
 import HsBindgen.Macro qualified as Macro
 import HsBindgen.TraceMsg
@@ -69,6 +71,23 @@ hsBindgen ::
   -> Artefact CExpr a
   -> IO a
 hsBindgen = hsBindgenMacroLang (pure . Macro.cExpr)
+
+-- | Convenience entry point for library mode using the default C macro
+-- language. Parallel to 'hsBindgen'.
+hsBindgenLibrary ::
+     TracerConfig Level     TraceMsg
+  -> TracerConfig SafeLevel SafeTraceMsg
+  -> BindgenConfig
+  -> ExecutionMode
+  -> [C.UncheckedRootDirective]
+  -> [FilePath]
+  -> ModuleRenderConfig
+  -> FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> IO [LibraryModuleOutput]
+hsBindgenLibrary =
+  hsBindgenLibraryMacroLang (pure . Macro.cExpr)
 
 {-------------------------------------------------------------------------------
   Global options
