@@ -17,7 +17,6 @@ import HsBindgen.Cache
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.Final
@@ -56,11 +55,7 @@ runBackend tracer config boot frontend = do
           -- follows it, refined by source order.
           cDecls :: [C.Decl l Final]
           cDecls =
-            DeclDB.active
-              (DeclDB.DependencyBy $
-                DeclUseGraph.declSortKey $
-                  IncludeGraph.toIncludeOrder final.includeGraph)
-              declDB
+            DeclDB.active (DeclUseGraph.outputOrder final.includeGraph) declDB
       pure $ Hs.generateDeclarations
         macroLang
         config.backend.uniqueId

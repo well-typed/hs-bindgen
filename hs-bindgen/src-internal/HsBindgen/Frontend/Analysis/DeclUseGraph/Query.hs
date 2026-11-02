@@ -1,6 +1,6 @@
 module HsBindgen.Frontend.Analysis.DeclUseGraph.Query (
     -- * Query
-    declSortKey
+    outputOrder
     -- ** Transitive usage
   , getUseSitesTransitively
     -- ** Direct usage
@@ -29,6 +29,13 @@ import HsBindgen.IR.C qualified as C
 -- | Entries without a source position sort last
 data DeclSortKey = DeclWithLoc SortKey | DeclNoLoc
   deriving stock (Eq, Ord)
+
+-- | The order of the generated bindings: dependency order, refined by
+-- best-effort source order
+outputOrder :: HasCallStack => IncludeGraph.IncludeGraph -> DeclDB.Order l p
+outputOrder includeGraph =
+    DeclDB.DependencyBy $
+      declSortKey (IncludeGraph.toIncludeOrder includeGraph)
 
 -- | The key of an entry
 --

@@ -9,7 +9,7 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph (
     DeclUseGraph -- opaque
   , toDigraph
     -- * Query
-  , declSortKey
+  , outputOrder
     -- ** Transitive usage
   , getUseSitesTransitively
     -- ** Direct usage

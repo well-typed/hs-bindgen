@@ -391,11 +391,7 @@ getReifiedC :: Artefact l [C.Decl l Final]
 getReifiedC = do
     final <- FrontendPassA FinalPass
     pure $
-      DeclDB.active
-        (DeclDB.DependencyBy $
-          DeclUseGraph.declSortKey $
-            IncludeGraph.toIncludeOrder final.includeGraph)
-        final.db
+      DeclDB.active (DeclUseGraph.outputOrder final.includeGraph) final.db
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1549>
 -- When we properly record aliases, we may not need this anymore.
