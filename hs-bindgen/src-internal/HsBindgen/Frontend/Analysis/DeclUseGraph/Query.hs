@@ -26,37 +26,15 @@ import HsBindgen.IR.C qualified as C
   Query
 -------------------------------------------------------------------------------}
 
--- | Entries without a source position sort last
-data DeclSortKey = DeclWithLoc SortKey | DeclNoLoc
-  deriving stock (Eq, Ord)
-
 -- | The order of the generated bindings: dependency order, refined by
 -- best-effort source order
 outputOrder :: HasCallStack => IncludeGraph.IncludeGraph -> DeclDB.Order l p
 outputOrder includeGraph =
-    DeclDB.DependencyOrder DeclDB.ShapeEdges $
-      declSortKey (IncludeGraph.toIncludeOrder includeGraph)
-
--- | The key of an entry
---
--- Read from the entry's 'C.DeclInfo', so squashing, omitting, deselecting or
--- failing an entry keeps its key; only 'DeclDB.externalize' changes it.
-declSortKey ::
-     HasCallStack
-  => IncludeGraph.IncludeOrder
-  -> DeclDB.Entry l p
-  -> DeclSortKey
-declSortKey order = \case
-    DeclDB.Active   decl      -> withLoc decl.info
-    DeclDB.Squashed info _    -> withLoc info
-    DeclDB.External{}         -> DeclNoLoc
-    DeclDB.NotSelected info _ -> withLoc info
-    DeclDB.Unusable unusable  -> case unusable of
-      DeclDB.UnusableDecl info _ -> withLoc info
-      DeclDB.UnusableConflict{}  -> DeclNoLoc
+    DeclDB.DependencyOrder DeclDB.ShapeEdges $ \decl ->
+      annSortKey includeOrder decl.info.loc
   where
-    withLoc :: C.DeclInfo -> DeclSortKey
-    withLoc info = DeclWithLoc $ annSortKey order info.loc
+    includeOrder :: IncludeGraph.IncludeOrder
+    includeOrder = IncludeGraph.toIncludeOrder includeGraph
 
 data SortKey = SortKey{
       sortPathIx :: IncludeGraph.IncludeOrderIx

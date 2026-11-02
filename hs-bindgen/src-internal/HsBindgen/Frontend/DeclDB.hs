@@ -606,9 +606,11 @@ mergeRedefinition declId kept newMsgs db =
 data Order l p =
     AnyOrder
     -- | Topological over the given edges, dependencies first. The key function
-    -- is used to break ties (the lesser key @k@ comes first). If keys are
-    -- equal, no order is promised.
-  | forall k. Ord k => DependencyOrder Edges (Entry l p -> k)
+    -- is used to break ties between active declarations (the lesser key @k@
+    -- comes first). Inactive entries come as early as their dependencies
+    -- allow, so they never hold back an active declaration. If keys are equal,
+    -- no order is promised.
+  | forall k. Ord k => DependencyOrder Edges (C.Decl l p -> k)
 
 -- | The dependency edges a 'DependencyOrder' follows
 data Edges =
@@ -635,7 +637,10 @@ traverseActive ::
 traverseActive order f db = case order of
     AnyOrder                  -> traverseAll (const step) db
     DependencyOrder edges key ->
-      inOrder $ Digraph.sortBy (comparing (key . entry)) (graph edges)
+      -- 'Nothing' sorts first
+      inOrder $ Digraph.sortBy
+        (comparing $ \declId -> key <$> lookup declId db)
+        (graph edges)
   where
     step :: Entry l p -> f (Entry l p')
     step = \case
