@@ -45,7 +45,8 @@ typecheckDecls macroLang db =
     -- included.
     tcResults :: Map Text (Macro.TypecheckResult l)
     tcResults = macroLang.typecheck $
-      mapMaybe getResolvedMacro (DeclDB.active DeclDB.AllDependencies db)
+      mapMaybe getResolvedMacro $
+        DeclDB.active (DeclDB.DependencyOrder DeclDB.AllEdges (const ())) db
 
     db' :: DeclDB l Out
     db' = runIdentity $

@@ -34,7 +34,7 @@ data DeclSortKey = DeclWithLoc SortKey | DeclNoLoc
 -- best-effort source order
 outputOrder :: HasCallStack => IncludeGraph.IncludeGraph -> DeclDB.Order l p
 outputOrder includeGraph =
-    DeclDB.DependencyBy $
+    DeclDB.DependencyOrder DeclDB.ShapeEdges $
       declSortKey (IncludeGraph.toIncludeOrder includeGraph)
 
 -- | The key of an entry

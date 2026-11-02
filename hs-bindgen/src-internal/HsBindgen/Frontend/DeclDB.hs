@@ -25,6 +25,7 @@ module HsBindgen.Frontend.DeclDB (
   , fromParseResults
     -- * Traversal
   , Order(..)
+  , Edges(..)
   , PassResult(..)
   , traverseActive
   , active
@@ -590,9 +591,9 @@ mergeRedefinition declId kept newMsgs db =
 --   includes another header part-way through its own declarations.
 --
 -- * Dependency order: topological over the dependency edges; if @A@ uses @B@,
---   then @B@ comes before @A@. 'DependencyBy' follows the 'NeedsShape' edges
+--   then @B@ comes before @A@. 'DependencyOrder' follows the given 'Edges'
 --   and orders the entries that do not depend on each other by a key, such as
---   @annSortKey@; 'AllDependencies' follows every edge.
+--   @annSortKey@.
 --
 -- @Parse@ parses the declarations, macro bodies included, in sequence order;
 -- any other order would work too.
@@ -604,13 +605,15 @@ mergeRedefinition declId kept newMsgs db =
 -- In the future, we may add source order.
 data Order l p =
     AnyOrder
-    -- | Topological over every edge, dependencies first; among entries that do
-    -- not depend on each other, no order is promised.
-  | AllDependencies
-    -- | Topological over the 'NeedsShape' edges only, dependencies first. The
-    -- key function is used to break ties (the lesser key @k@ comes first). If
-    -- keys are equal, no order is promised.
-  | forall k. Ord k => DependencyBy (Entry l p -> k)
+    -- | Topological over the given edges, dependencies first. The key function
+    -- is used to break ties (the lesser key @k@ comes first). If keys are
+    -- equal, no order is promised.
+  | forall k. Ord k => DependencyOrder Edges (Entry l p -> k)
+
+-- | The dependency edges a 'DependencyOrder' follows
+data Edges =
+    ShapeEdges -- ^ Only the 'NeedsShape' edges
+  | AllEdges   -- ^ Every edge
 
 -- | The outcome of processing one active declaration in a pass
 data PassResult l p' =
@@ -630,9 +633,9 @@ traverseActive ::
   -> DeclDB l p
   -> f (DeclDB l p')
 traverseActive order f db = case order of
-    AnyOrder         -> traverseAll (const step) db
-    AllDependencies  -> inOrder $ Digraph.sortBy compare db.declUseGraph.graph
-    DependencyBy key -> inOrder $ Digraph.sortBy (comparing (key . entry)) shapeDependencies
+    AnyOrder                  -> traverseAll (const step) db
+    DependencyOrder edges key ->
+      inOrder $ Digraph.sortBy (comparing (key . entry)) (graph edges)
   where
     step :: Entry l p -> f (Entry l p')
     step = \case
@@ -649,8 +652,10 @@ traverseActive order f db = case order of
       NotSelect r     -> NotSelected decl.info r
       Fail failure    -> Unusable $ UnusableDecl decl.info (PassFailed failure)
 
-    shapeDependencies :: Digraph.Digraph Dependency C.DeclId
-    shapeDependencies = Digraph.filterEdges (== NeedsShape) db.declUseGraph.graph
+    graph :: Edges -> Digraph.Digraph Dependency C.DeclId
+    graph = \case
+      ShapeEdges -> Digraph.filterEdges (== NeedsShape) db.declUseGraph.graph
+      AllEdges   -> db.declUseGraph.graph
 
     entry :: C.DeclId -> Entry l p
     entry declId = case Map.lookup declId db.entries of
