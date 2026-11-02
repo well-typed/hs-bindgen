@@ -92,7 +92,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
     let -- Directly match the selection predicate on the 'DeclDB', obtaining
         -- information about succeeded _and failed_ selection roots.
         selectionRoots :: Map C.DeclId (Entry l In)
-        selectionRoots = selectEntries match index
+        selectionRoots = selectEntries match declDB
 
         -- Identifiers of selection roots. Some of them may be squashed or
         -- unusable (i.e., not active in the 'DeclDB').
@@ -119,10 +119,10 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
 
         additionalSelectedTransDeps :: Map C.DeclId (Entry l In)
         additionalSelectedTransDeps =
-          Map.restrictKeys index.entries additionalSelectedTransDepIds
+          Map.restrictKeys declDB.entries additionalSelectedTransDepIds
 
         notSelected :: Map C.DeclId (Entry l In)
-        notSelected = Map.withoutKeys index.entries selectedIds
+        notSelected = Map.withoutKeys declDB.entries selectedIds
 
         getTransitiveSelectability :: C.DeclId -> TransitiveSelectability
         getTransitiveSelectability x
@@ -138,7 +138,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             unusables :: Map C.DeclId Unselectable
             unusables =
               Map.mapMaybe toUnselectable $
-                Map.restrictKeys index.entries transDeps
+                Map.restrictKeys declDB.entries transDeps
 
             toUnselectable :: Entry l In -> Maybe Unselectable
             toUnselectable = \case
@@ -192,8 +192,8 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             DeclDB.traverseActive DeclDB.AnyOrder
               (\decl -> pure $ case selectDecl (coercePass decl) of
                   Just decl' -> DeclDB.Advanced decl'
-                  Nothing    -> DeclDB.Deselect)
-              index
+                  Nothing    -> DeclDB.NotSelect DeclDB.Deselected)
+              declDB
 
         unitSelect :: C.TranslationUnit l Select
         unitSelect = unit{C.db = db'}
@@ -204,7 +204,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             rootIds
             additionalSelectedTransDepIds
             getTransitiveSelectability
-            index
+            declDB
 
         -- If there were no predicate matches we issue a warning to the user.
         noDeclarationsMatchedMsg :: [AnnMsg Select]
@@ -220,7 +220,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
         selectionRootMsgs =
           getDelayedMsgsSelectionRoots
             getTransitiveSelectability
-            index
+            declDB
             selectionRoots
 
         -- Number of selected macros that hs-bindgen dropped.
@@ -265,9 +265,9 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
               selectMsgs
             , selectionRootMsgs
             , macroFallbackMsgs
-            , getDelayedMsgsAdditionalSelectedTransDeps index additionalSelectedTransDeps
-            , getBugMsgsNotSelected index notSelected
-            , getBugMsgsNotActive index
+            , getDelayedMsgsAdditionalSelectedTransDeps declDB additionalSelectedTransDeps
+            , getBugMsgsNotSelected declDB notSelected
+            , getBugMsgsNotActive declDB
             , noDeclarationsMatchedMsg
             , macrosDroppedSummaryMsg
             , macrosFallbackSummaryMsg
@@ -275,11 +275,11 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
 
     in  (unitSelect, msgs)
   where
-    index :: DeclDB l In
-    index = unit.db
+    declDB :: DeclDB l In
+    declDB = unit.db
 
     useDeclGraph :: UseDeclGraph
-    useDeclGraph = UseDeclGraph.fromDeclUseGraph index.declUseGraph
+    useDeclGraph = UseDeclGraph.fromDeclUseGraph declDB.declUseGraph
 
     match :: Match
     match name loc deprecation =

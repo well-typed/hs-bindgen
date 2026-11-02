@@ -94,7 +94,7 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
         results :: Map C.DeclId (DeclDB.PassResult l ResolveBindingSpecs)
         results = Map.fromListWithKey duplicate $ concat [
               [(decl.id, DeclDB.Advanced decl) | decl <- decls]
-            , [ (declId, DeclDB.Omit)
+            , [ (declId, DeclDB.NotSelect DeclDB.Omitted)
               | declId <- Set.toList state.omitTypes
               ]
             ]

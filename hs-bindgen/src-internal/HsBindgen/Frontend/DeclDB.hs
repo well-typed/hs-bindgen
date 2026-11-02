@@ -616,8 +616,8 @@ data Order l p =
 data PassResult l p' =
     Advanced   (C.Decl l p') -- ^ Still active, advanced to pass @p'@
   | Squash     SquashTarget  -- ^ Happens only in @MangleNames@
-  | Omit                     -- ^ Happens only in @ResolveBindingSpecs@
-  | Deselect                 -- ^ Happens only in @Select@
+  | NotSelect  NotSelectedReason
+    -- ^ 'Omitted' only in @ResolveBindingSpecs@, 'Deselected' only in @Select@
   | Fail       PassFailure
 
 -- | Advance the active declarations; other entries are rewrapped unchanged
@@ -646,8 +646,7 @@ traverseActive order f db = case order of
     advance decl = \case
       Advanced decl'  -> Active decl'
       Squash target   -> Squashed decl.info target
-      Omit            -> NotSelected decl.info Omitted
-      Deselect        -> NotSelected decl.info Deselected
+      NotSelect r     -> NotSelected decl.info r
       Fail failure    -> Unusable $ UnusableDecl decl.info (PassFailed failure)
 
     shapeDependencies :: Digraph.Digraph Dependency C.DeclId
