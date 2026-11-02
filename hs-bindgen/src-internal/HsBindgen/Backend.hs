@@ -46,8 +46,14 @@ runBackend tracer config boot frontend = do
       let declDB :: DeclDB l Final
           declDB = final.db
 
-          -- The translation needs dependency order; the output follows it,
-          -- refined by source order.
+          -- TODO <https://github.com/well-typed/hs-bindgen/issues/2058>
+          --
+          -- Once all analyses have moved into the frontend, and source order is
+          -- available, the generation of all Haskell code should happen in
+          -- source order.
+          --
+          -- At the moment, the translation needs dependency order; the output
+          -- follows it, refined by source order.
           cDecls :: [C.Decl l Final]
           cDecls =
             DeclDB.active

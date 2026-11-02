@@ -4,29 +4,6 @@
 --
 -- > import HsBindgen.Frontend.DeclDB (DeclDB)
 -- > import HsBindgen.Frontend.DeclDB qualified as DeclDB
---
--- = Orderings
---
--- The declaration database does not store any particular 'Order': each
--- traversal states the order it needs. We distinguish three orderings:
---
--- * Sequence order: the order in which @libclang@ visits the declarations,
---   and in which 'HsBindgen.Frontend.Pass.Parse.parseDecls' returns them.
---   @libclang@ visits the macros first and the remaining declarations in
---   source order, so sequence order is /not/ source order.
---
--- * Source order: roughly, how the declarations appear in the C source.
---   @Parse@ records it in 'C.DeclInfo' (@sourceOrderIndex@), sorting on
---   source position with @clang_isBeforeInTranslationUnit@ (accurate, but
---   requires Clang >= 20.1). @annSortKey@ (in
---   "HsBindgen.Frontend.Analysis.DeclUseGraph.Query") computes a best-effort
---   source order without that API; it can be inaccurate, e.g. when a header
---   includes another header part-way through its own declarations.
---
--- * Dependency order: topological over the dependency edges; if @A@ uses @B@,
---   then @B@ comes before @A@. 'DependencyBy' follows the 'NeedsShape' edges
---   and orders the entries that do not depend on each other by a key, such as
---   @annSortKey@; 'AllDependencies' follows every edge.
 module HsBindgen.Frontend.DeclDB (
     DeclDB -- constructor hidden
       ( entries
@@ -117,42 +94,8 @@ type Out = ConstructTranslationUnit
 --
 -- Passes change the kind of an entry, but do not remove it; the test suite
 -- checks the transitions (@Test.HsBindgen.Frontend.DeclDB.checkTransition@).
---
--- When we replace a declaration by an external one while resolving binding
--- specifications, its entry becomes 'External'. In the
--- "HsBindgen.Frontend.Analysis.UseDeclGraph", the edges from its users to the
--- replaced declaration are deleted ('externalize'), because the users now depend
--- on the external Haskell type. Its own dependency edges remain, so that
--- externalising a declaration does not change how its dependencies are used
--- (e.g., whether a typedef of a dependency is squashed).
---
--- For example, assume the C code
---
--- @
--- typedef struct {    // D1
---   int x;
--- } foo_t;            // D2
---
--- typedef foo_t foo;  // D3
--- @
---
--- - D1 declares an untagged @struct@
--- - D2 declares the typedef @foo_t@ depending on D1
--- - D3 declares a typedef @foo@ depending on D2
---
--- The use-decl graph is
---
--- D1 <- D2 <- D3
---
--- Further, assume we have an external binding specification for D2. After
--- resolving external binding specifications, the use-decl graph will be
---
--- D1 <- D2    D3
---      (R2) <--|
---
--- The edge from D3 to D2 was removed; D2 still depends on D1; D3 now depends on
--- the Haskell type R2, which is not part of the use-decl graph.
 data DeclDB l p = DeclDB {
+      -- | The entry of every declaration
       entries         :: Map C.DeclId (Entry l p)
       -- | Delayed messages of any entry, in the order the passes issued them
     , delayedMsgs     :: Map C.DeclId (NonEmpty DelayedMsg)
@@ -193,13 +136,12 @@ data Entry l p =
     -- macro language gave up on because we may fall back to generating a raw
     -- macro binding.
     Active (C.Decl l p)
-    -- | We generate a binding for the squash target only
+    -- | We intend to generate a binding for the squash target only
   | Squashed C.DeclInfo SquashTarget
     -- | Defined elsewhere: an external binding replaces the declaration
   | External ResolvedExtBinding
-    -- | We generate no binding because the configuration does not ask for one
-    --
-    -- Its users cannot be selected.
+    -- | The configuration does not ask for a binding, or we cannot select a
+    -- transitive dependency (see 'NotSelectedReason')
   | NotSelected C.DeclInfo NotSelectedReason
     -- | We cannot generate a binding
   | Unusable Unusable
@@ -215,9 +157,10 @@ data SquashTarget = SquashTarget{
   deriving stock (Show, Eq, Generic)
 
 data NotSelectedReason =
-    -- | By a prescriptive binding specification, in @ResolveBindingSpecs@
+    -- | By a prescriptive binding specification
     Omitted
-    -- | By the selection predicate or program slicing, in @Select@
+    -- | By the selection predicate or program slicing, or because we cannot
+    -- select a transitive dependency (it is unusable or not selected)
   | Deselected
   deriving stock (Show, Eq, Generic)
 
@@ -628,7 +571,37 @@ mergeRedefinition declId kept newMsgs db =
   Traversal
 -------------------------------------------------------------------------------}
 
+-- = Orderings
+--
+-- The declaration database does not store any particular 'Order': each
+-- traversal states the order it needs. We distinguish three orderings:
+--
+-- * Sequence order: the order in which @libclang@ visits the declarations,
+--   and in which 'HsBindgen.Frontend.Pass.Parse.parseDecls' returns them.
+--   @libclang@ visits the macros first and the remaining declarations in
+--   source order, so sequence order is /not/ source order.
+--
+-- * Source order: roughly, how the declarations appear in the C source.
+--   @Parse@ records it in 'C.DeclInfo' (@sourceOrderIndex@), sorting on
+--   source position with @clang_isBeforeInTranslationUnit@ (accurate, but
+--   requires Clang >= 20.1). @annSortKey@ (in
+--   "HsBindgen.Frontend.Analysis.DeclUseGraph.Query") computes a best-effort
+--   source order without that API; it can be inaccurate, e.g. when a header
+--   includes another header part-way through its own declarations.
+--
+-- * Dependency order: topological over the dependency edges; if @A@ uses @B@,
+--   then @B@ comes before @A@. 'DependencyBy' follows the 'NeedsShape' edges
+--   and orders the entries that do not depend on each other by a key, such as
+--   @annSortKey@; 'AllDependencies' follows every edge.
+--
+-- @Parse@ parses the declarations, macro bodies included, in sequence order;
+-- any other order would work too.
+--
+-- Most later passes need no particular order and use 'AnyOrder'.
+
 -- | The order of a traversal
+--
+-- In the future, we may add source order.
 data Order l p =
     AnyOrder
     -- | Topological over every edge, dependencies first; among entries that do
@@ -640,11 +613,11 @@ data Order l p =
   | forall k. Ord k => DependencyBy (Entry l p -> k)
 
 -- | The outcome of processing one active declaration in a pass
-data PassResult l p =
-    Advanced   (C.Decl l p) -- ^ Still active, advanced to pass @p@
-  | Squash     SquashTarget -- ^ Happens only in @MangleNames@
-  | Omit                    -- ^ Happens only in @ResolveBindingSpecs@
-  | Deselect                -- ^ Happens only in @Select@
+data PassResult l p' =
+    Advanced   (C.Decl l p') -- ^ Still active, advanced to pass @p'@
+  | Squash     SquashTarget  -- ^ Happens only in @MangleNames@
+  | Omit                     -- ^ Happens only in @ResolveBindingSpecs@
+  | Deselect                 -- ^ Happens only in @Select@
   | Fail       PassFailure
 
 -- | Advance the active declarations; other entries are rewrapped unchanged
@@ -693,7 +666,7 @@ traverseActive order f db = case order of
           withEntries db . Map.fromList <$>
             traverse (\declId -> (declId,) <$> step (entry declId)) declIds
 
--- | The active declarations
+-- | Get active declarations
 active :: Order l p -> DeclDB l p -> [C.Decl l p]
 active order = getConst . traverseActive order collect
   where
@@ -725,13 +698,44 @@ withEntries db entries = DeclDB{
   Transitions
 -------------------------------------------------------------------------------}
 
--- | Replace declarations by external bindings
+-- | Replace active or unusable declarations by external bindings
 --
--- Deletes the edges from the users to the externalised declarations: the
--- binding is defined elsewhere, and its users refer to it by
--- 'C.TypeExtBinding'. Keeps the dependency edges of the externalised
--- declarations (see 'DeclDB'). Panics if an identifier has no entry, or its
--- entry is squashed or already external.
+-- Deletes the edges from the externalised declarations to their users in the
+-- 'declUseGraph': the binding is defined elsewhere, and its users refer to it
+-- by 'C.TypeExtBinding'. Keeps the dependency edges of the externalised
+-- declarations, so that externalising a declaration does not change how its
+-- dependencies are used (e.g., whether a typedef of a dependency is squashed).
+--
+-- For example, assume the C code
+--
+-- @
+-- typedef struct {    // D1
+--   int x;
+-- } foo_t;            // D2
+--
+-- typedef foo_t foo;  // D3
+-- @
+--
+-- - D1 declares an untagged @struct@
+-- - D2 declares the typedef @foo_t@ depending on D1
+-- - D3 declares a typedef @foo@ depending on D2
+--
+-- The decl-use graph is
+--
+-- > D1 -> D2 -> D3
+--
+-- Further, assume we have an external binding specification for D2, the
+-- Haskell type R2. After externalising D2, the decl-use graph is
+--
+-- > D1 -> D2    D3
+--
+-- The edge from D2 to D3 was deleted; D2 still depends on D1; D3 now depends on
+-- R2, which is not part of the decl-use graph.
+--
+-- Panics on any other entry, or on an identifier without an entry.
+--
+-- Deliberately not a 'PassResult': 'traverseActive' visits only active
+-- entries and keeps every edge.
 externalize ::
      forall l p. HasCallStack
   => Map C.DeclId ResolvedExtBinding
