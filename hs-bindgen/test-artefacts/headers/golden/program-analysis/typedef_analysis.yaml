@@ -6,6 +6,9 @@ ctypes:
 - headers: program-analysis/typedef_analysis.h
   cname: struct17a
   hsname: Struct17a
+- headers: program-analysis/typedef_analysis.h
+  cname: struct struct18_user
+  hsname: Struct18_user
 hstypes:
 - hsname: Struct17a
   representation:
@@ -13,3 +16,9 @@ hstypes:
       constructor: Struct17a
       fields:
       - unwrapStruct17a
+- hsname: Struct18_user
+  representation:
+    record:
+      constructor: Struct18_user
+      fields:
+      - struct18_user_field

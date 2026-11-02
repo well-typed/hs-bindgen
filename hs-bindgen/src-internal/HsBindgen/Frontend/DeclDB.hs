@@ -120,8 +120,11 @@ type Out = ConstructTranslationUnit
 --
 -- When we replace a declaration by an external one while resolving binding
 -- specifications, its entry becomes 'External'. In the
--- "HsBindgen.Frontend.Analysis.UseDeclGraph", all edges of the replaced
--- declaration are deleted ('externalize').
+-- "HsBindgen.Frontend.Analysis.UseDeclGraph", the edges from its users to the
+-- replaced declaration are deleted ('externalize'), because the users now depend
+-- on the external Haskell type. Its own dependency edges remain, so that
+-- externalising a declaration does not change how its dependencies are used
+-- (e.g., whether a typedef of a dependency is squashed).
 --
 -- For example, assume the C code
 --
@@ -144,11 +147,11 @@ type Out = ConstructTranslationUnit
 -- Further, assume we have an external binding specification for D2. After
 -- resolving external binding specifications, the use-decl graph will be
 --
--- D1    D2    D3
+-- D1 <- D2    D3
 --      (R2) <--|
 --
--- The edges from and to D2 were removed; D2 is still in the use-decl graph; D3
--- now depends on the Haskell type R2, which is not part of the use-decl graph.
+-- The edge from D3 to D2 was removed; D2 still depends on D1; D3 now depends on
+-- the Haskell type R2, which is not part of the use-decl graph.
 data DeclDB l p = DeclDB {
       entries         :: Map C.DeclId (Entry l p)
       -- | Delayed messages of any entry, in the order the passes issued them
@@ -724,9 +727,11 @@ withEntries db entries = DeclDB{
 
 -- | Replace declarations by external bindings
 --
--- Deletes all edges of the externalised declarations: the binding is defined
--- elsewhere, and its users refer to it by 'C.TypeExtBinding'. Panics if an
--- identifier has no entry, or its entry is squashed or already external.
+-- Deletes the edges from the users to the externalised declarations: the
+-- binding is defined elsewhere, and its users refer to it by
+-- 'C.TypeExtBinding'. Keeps the dependency edges of the externalised
+-- declarations (see 'DeclDB'). Panics if an identifier has no entry, or its
+-- entry is squashed or already external.
 externalize ::
      forall l p. HasCallStack
   => Map C.DeclId ResolvedExtBinding
@@ -740,10 +745,7 @@ externalize bindings db
   where
     deleteEdges :: DeclDB l p -> DeclDB l p
     deleteEdges db' = db'{
-          declUseGraph =
-              DeclUseGraph.deleteRevDeps ids
-            $ DeclUseGraph.deleteDeps ids
-            $ db'.declUseGraph
+          declUseGraph = DeclUseGraph.deleteRevDeps ids db'.declUseGraph
         }
 
     ids :: Set C.DeclId
