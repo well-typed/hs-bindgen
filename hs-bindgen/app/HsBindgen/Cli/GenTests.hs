@@ -74,3 +74,4 @@ exec global opts =
           opts.uniqueId
           opts.baseModuleName
           def
+          DoNotGenerateHsBoot

@@ -85,6 +85,11 @@ library generated
     Generated.Unions.Safe
     Generated.Unions.Unsafe
 
+  other-modules:
+    Generated.Callbacks.Arrays.KnownSize.Callback
+    Generated.Callbacks.Arrays.UnknownSize.Callback
+    Generated.Callbacks.Basic.Callback
+
   build-depends:
     , base
     , hs-bindgen-runtime
