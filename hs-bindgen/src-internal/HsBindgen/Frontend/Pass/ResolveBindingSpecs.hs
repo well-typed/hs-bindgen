@@ -806,7 +806,7 @@ resolveExtBinding cDeclId declPaths mMsg = do
           (Just hsName, Just hsTypeSpec) -> do
             let resolved = BindingSpec.ResolvedExtBinding {
                     cName  = cDeclId
-                  , hsName = Hs.Identifier{
+                  , hsIdent = Hs.Identifier{
                         moduleName = hsModuleName
                       , name       = Hs.demoteNs hsName
                       }

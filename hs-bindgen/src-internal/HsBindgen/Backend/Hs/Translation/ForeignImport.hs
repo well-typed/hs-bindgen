@@ -24,7 +24,6 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST.Expr qualified as SHs
-import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.SHs.Translation.MapFunction
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol (..))
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -311,7 +310,7 @@ mapToFFI dynFor size funExpr = case dynFor of
           , size    = size
           })
       where
-        fieldLit = SHs.translateType $ Hs.StrLit $ Hs.nameToStr nt.field.name
+        fieldLit = TStrLit $ Hs.nameToStr nt.field.name
 
 
 -- | Map a function expression that uses FFI types to a function expression that

@@ -90,8 +90,8 @@ resolveDecl decl =
       pure C.Decl{
           info      = decl.info
         , id        = DeclIdPair{
-              cName  = decl.id
-            , hsName = Hs.Identifier modName (Hs.demoteNs hsName)
+              cName   = decl.id
+            , hsIdent = Hs.Identifier modName (Hs.demoteNs hsName)
             }
         , comment   = comment'
         , enclosing = enclosing'
@@ -457,7 +457,7 @@ resolveExtBindingRef ownerId (C.Ref ext uTy) =
     -- external binding so that such references can be resolved.
     C.Ref ext <$>
       local
-        ( #nameMap % #typeConstrs %~ Map.insert ext.cName (Hs.assertNs (Proxy @Hs.NsTypeConstr) ext.hsName.name) )
+        ( #nameMap % #typeConstrs %~ Map.insert ext.cName (Hs.assertNs (Proxy @Hs.NsTypeConstr) ext.hsIdent.name) )
         ( resolve ownerId uTy )
 
 {-------------------------------------------------------------------------------

@@ -53,7 +53,7 @@ data PrimType =
 
 data Type =
     PrimType PrimType
-  | TypRef (Hs.Name Hs.NsTypeConstr)
+  | TypRef Hs.Identifier
       -- | Underlying type (for non-union and non-struct references)
       (Maybe Type)
   | ConstArray Natural Type

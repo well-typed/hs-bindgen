@@ -54,15 +54,18 @@ getDeclsRegular spec decl struct = do
     env <- Reader.ask
     let supInsts = env.supportedInstances.struct
     insts <-
-      getInstances supInsts name struct.fields <$> State.gets (.instanceMap)
+      getInstances supInsts ident struct.fields <$> State.gets (.instanceMap)
     let insts' = Set.insert Inst.Generic insts
         (hsStruct, decls) =
-          getDecls supInsts spec name decl struct insts'
-    State.modify' $ #instanceMap %~ Map.insert name hsStruct.instances
+          getDecls supInsts spec name ident decl struct insts'
+    State.modify' $ #instanceMap %~ Map.insert ident hsStruct.instances
     pure $ Hs.DeclData hsStruct : decls
   where
+    ident :: Hs.Identifier
+    ident = decl.id.hsIdent
+
     name :: Hs.Name Hs.NsTypeConstr
-    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName.name
+    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) ident.name
 
 getDeclsFlam ::
      HasCallStack
@@ -76,15 +79,24 @@ getDeclsFlam flam auxName spec decl struct = do
     env <- Reader.ask
     let supInsts = env.supportedInstances.struct
     insts <-
-      getInstances supInsts auxName struct.fields <$> State.gets (.instanceMap)
+      getInstances supInsts auxIdent struct.fields <$> State.gets (.instanceMap)
     let insts' = insts <> Set.fromList [Inst.Flam_Offset, Inst.Generic]
         (hsStruct, decls) =
-          getDecls supInsts spec auxName decl struct insts'
-    State.modify' $ #instanceMap %~ Map.insert auxName hsStruct.instances
+          getDecls supInsts spec auxName auxIdent decl struct insts'
+    State.modify' $ #instanceMap %~ Map.insert auxIdent hsStruct.instances
     pure $ Hs.DeclData hsStruct : decls ++ [getHasFlamInstanceDecl hsStruct, flamDecl]
   where
+    ident :: Hs.Identifier
+    ident = decl.id.hsIdent
+
+    auxIdent :: Hs.Identifier
+    auxIdent = Hs.Identifier {
+        moduleName = ident.moduleName
+      , name       = Hs.demoteNs auxName
+      }
+
     name :: Hs.Name Hs.NsTypeConstr
-    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName.name
+    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) ident.name
 
     getHasFlamInstanceDecl :: Hs.Struct -> Hs.Decl l
     getHasFlamInstanceDecl hsStruct =
@@ -104,7 +116,7 @@ getDeclsFlam flam auxName spec decl struct = do
         Hs.TypSyn{
             name
           , typ     =
-              Hs.WithFlam flam.typ.hs (Hs.TypRef auxName Nothing)
+              Hs.WithFlam flam.typ.hs (Hs.TypRef auxIdent Nothing)
           , origin  = Origin.Decl{
               info = decl.info
             , id   = decl.id
@@ -116,12 +128,12 @@ getDeclsFlam flam auxName spec decl struct = do
 
 getInstances ::
      Map Inst.TypeClass Inst.SupportedStrategies
-  -> Hs.Name Hs.NsTypeConstr
+  -> Hs.Identifier
   -> [C.Field Final]
   -> Hs.InstanceMap
   -> Set Inst.TypeClass
-getInstances supInsts structName fields instanceMap =
-    Hs.getInstances instanceMap (Just structName) candidateInsts fieldTypes
+getInstances supInsts structIdent fields instanceMap =
+    Hs.getInstances instanceMap (Just structIdent) candidateInsts fieldTypes
   where
     fieldTypes :: [Hs.Type]
     fieldTypes = (.typ.hs) <$> fields
@@ -133,17 +145,18 @@ getDecls ::
      Map Inst.TypeClass Inst.SupportedStrategies
   -> PrescriptiveDeclSpec
   -> Hs.Name Hs.NsTypeConstr
+  -> Hs.Identifier
   -> C.Decl l Final
   -> C.Struct Final
   -> Set Inst.TypeClass
   -> (Hs.Struct, [Hs.Decl l])
-getDecls supInsts spec structName decl struct insts =
+getDecls supInsts spec structName structIdent decl struct insts =
     ( hsStruct
     , marshalDecls ++ optDecls ++ isStructDecl ++ fieldDecls
     )
   where
     fieldName :: C.Field Final -> Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) . (.info.name.hsName.name)
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) . (.info.name.hsIdent.name)
 
     getHsField :: C.Field Final -> Hs.Field
     getHsField field =
@@ -221,7 +234,7 @@ getDecls supInsts spec structName decl struct insts =
                   }
             , if hasStaticSize && hasReadRaw && hasWriteRaw
                 then Just $ Hs.DeclDeriveInstance Hs.DeriveInstance{
-                    strategy = Hs.DeriveVia (Hs.EquivStorable (Hs.TypRef structName Nothing))
+                    strategy = Hs.DeriveVia (Hs.EquivStorable (Hs.TypRef structIdent Nothing))
                   , clss     = Inst.Storable
                   , name     = structName
                   , comment  = Nothing
@@ -256,17 +269,17 @@ getDecls supInsts spec structName decl struct insts =
 
     fieldDecls :: [Hs.Decl l]
     fieldDecls = flip concatMap (flattenFields struct.fields) $ \field -> concat [
-          hasFieldDecs decl.info hsStruct field
-        , hasFieldCompatDecs decl.info hsStruct field
-        , hasFieldPtrDecs hsStruct field
-        , hasCFieldDecs hsStruct field
-        , hasCBitfieldDecs hsStruct field
+          hasFieldDecs       structIdent decl.info hsStruct field
+        , hasFieldCompatDecs structIdent decl.info hsStruct field
+        , hasFieldPtrDecs    structIdent           hsStruct field
+        , hasCFieldDecs      structIdent           hsStruct field
+        , hasCBitfieldDecs   structIdent           hsStruct field
         ]
 
     isStructDecl :: [Hs.Decl l]
     isStructDecl = [
           Hs.DeclDeriveInstance Hs.DeriveInstance{
-              strategy = Hs.DeriveVia (Hs.IsStructViaReadRaw (Hs.TypRef hsStruct.name Nothing))
+              strategy = Hs.DeriveVia (Hs.IsStructViaReadRaw (Hs.TypRef structIdent Nothing))
             , clss     = Inst.IsStruct
             , name     = hsStruct.name
             , comment  = Nothing
@@ -304,11 +317,12 @@ getDecls supInsts spec structName decl struct insts =
 
 -- | Class instances for 'GHC.Records.HasField'
 hasFieldDecs ::
-     C.DeclInfo
+     Hs.Identifier
+  -> C.DeclInfo
   -> Hs.Struct
   -> Field
   -> [Hs.Decl l]
-hasFieldDecs info struct field = case field of
+hasFieldDecs structIdent info struct field = case field of
     -- Regular and implicit fields are translated to Haskell record datatype
     -- fields, so they get @HasField@ instances
     RegularField  _ -> []
@@ -322,10 +336,10 @@ hasFieldDecs info struct field = case field of
     fieldComment = mkHaddocksFieldInfo info (getFieldInfo field)
 
     parentType :: Hs.Type
-    parentType = Hs.TypRef struct.name Nothing
+    parentType = Hs.TypRef structIdent Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsIdent.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -350,17 +364,18 @@ hasFieldDecs info struct field = case field of
 
         impl :: Hs.HasFieldImpl
         impl = Hs.HasFieldImplIndirect {
-              nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsName.name
-            , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsName.name
+              nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsIdent.name
+            , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsIdent.name
             }
 
 -- | Class instances for 'GHC.Records.Compat.HasField'
 hasFieldCompatDecs ::
-     C.DeclInfo
+     Hs.Identifier
+  -> C.DeclInfo
   -> Hs.Struct
   -> Field
   -> [Hs.Decl l]
-hasFieldCompatDecs info struct field = [
+hasFieldCompatDecs structIdent info struct field = [
       Hs.DeclDefineInstance $
         Hs.DefineInstance {
             comment      = fieldComment
@@ -373,10 +388,10 @@ hasFieldCompatDecs info struct field = [
     fieldComment = mkHaddocksFieldInfo info (getFieldInfo field)
 
     parentType :: Hs.Type
-    parentType = Hs.TypRef struct.name Nothing
+    parentType = Hs.TypRef structIdent Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsIdent.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -408,13 +423,13 @@ hasFieldCompatDecs info struct field = [
 
     implIndirect :: C.ImplicitField Final -> C.IndirectField Final -> Hs.HasFieldCompatImpl
     implIndirect impField indField = Hs.HasFieldCompatImplIndirect {
-          nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsName.name
-        , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsName.name
+          nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsIdent.name
+        , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsIdent.name
         }
 
 -- | Class instances for 'GHC.Records.HasField' for the pointer manipulation API
-hasFieldPtrDecs :: Hs.Struct -> Field -> [Hs.Decl l]
-hasFieldPtrDecs struct field =
+hasFieldPtrDecs :: Hs.Identifier -> Hs.Struct -> Field -> [Hs.Decl l]
+hasFieldPtrDecs structIdent struct field =
     [ Hs.DeclDefineInstance $
         Hs.DefineInstance {
             comment      = Nothing
@@ -424,10 +439,10 @@ hasFieldPtrDecs struct field =
     ]
   where
     parentType :: Hs.Type
-    parentType = Hs.TypRef struct.name Nothing
+    parentType = Hs.TypRef structIdent Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsIdent.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -444,8 +459,8 @@ hasFieldPtrDecs struct field =
         }
 
 -- | Class instances for 'HsBindgen.Runtime.HasCField.HasCField'
-hasCFieldDecs :: Hs.Struct -> Field -> [Hs.Decl l]
-hasCFieldDecs struct field = case getFieldWidth field of
+hasCFieldDecs :: Hs.Identifier -> Hs.Struct -> Field -> [Hs.Decl l]
+hasCFieldDecs structIdent struct field = case getFieldWidth field of
     Just _w -> []
     Nothing ->
       [ Hs.DeclDefineInstance $
@@ -457,10 +472,10 @@ hasCFieldDecs struct field = case getFieldWidth field of
       ]
   where
     parentType :: Hs.Type
-    parentType = Hs.TypRef struct.name Nothing
+    parentType = Hs.TypRef structIdent Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsIdent.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -474,8 +489,8 @@ hasCFieldDecs struct field = case getFieldWidth field of
         }
 
 -- | Class instances for 'HsBindgen.Runtime.HasCBitfield.HasCBitfield'
-hasCBitfieldDecs :: Hs.Struct -> Field -> [Hs.Decl l]
-hasCBitfieldDecs struct field = case getFieldWidth field of
+hasCBitfieldDecs :: Hs.Identifier -> Hs.Struct -> Field -> [Hs.Decl l]
+hasCBitfieldDecs structIdent struct field = case getFieldWidth field of
     Nothing -> []
     Just w ->
       [ Hs.DeclDefineInstance $
@@ -487,10 +502,10 @@ hasCBitfieldDecs struct field = case getFieldWidth field of
       ]
   where
     parentType :: Hs.Type
-    parentType = Hs.TypRef struct.name Nothing
+    parentType = Hs.TypRef structIdent Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsIdent.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -513,21 +528,21 @@ peekField ptr field = case field.width of
     Nothing -> Hs.PeekCField    (Hs.StrLit name) ptr
     Just _w -> Hs.PeekCBitfield (Hs.StrLit name) ptr
   where
-    name = Text.unpack field.info.name.hsName.name.text
+    name = Text.unpack field.info.name.hsIdent.name.text
 
 pokeField :: Idx ctx -> C.Field Final -> Idx ctx -> Hs.PokeCField ctx
 pokeField ptr field x = case field.width of
     Nothing  -> Hs.PokeCField    (Hs.StrLit name) ptr x
     Just _w  -> Hs.PokeCBitfield (Hs.StrLit name) ptr x
   where
-    name = Text.unpack field.info.name.hsName.name.text
+    name = Text.unpack field.info.name.hsIdent.name.text
 
 readRawField :: Idx ctx -> C.Field Final -> Hs.ReadRawCField ctx
 readRawField ptr field = case field.width of
     Nothing -> Hs.ReadRawCField    (Hs.StrLit name) ptr
     Just _w -> Hs.ReadRawCBitfield (Hs.StrLit name) ptr
   where
-    name = Text.unpack field.info.name.hsName.name.text
+    name = Text.unpack field.info.name.hsIdent.name.text
 
 writeRawField ::
      Idx ctx
@@ -538,4 +553,4 @@ writeRawField ptr field x = case field.width of
     Nothing  -> Hs.WriteRawCField    (Hs.StrLit name) ptr x
     Just _w  -> Hs.WriteRawCBitfield (Hs.StrLit name) ptr x
   where
-    name = Text.unpack field.info.name.hsName.name.text
+    name = Text.unpack field.info.name.hsIdent.name.text

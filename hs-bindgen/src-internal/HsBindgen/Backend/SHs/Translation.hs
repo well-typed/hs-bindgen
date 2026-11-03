@@ -6,6 +6,7 @@
 module HsBindgen.Backend.SHs.Translation (
     translateDecls,
     translateType,
+    translateTypeLocal,
 ) where
 
 import Data.ByteString qualified as BS
@@ -46,12 +47,13 @@ import HsBindgen.NameHint
 translateDecls ::
      forall l. Macro.HasTypes l
   => Macro.Lang l
+  -> Hs.ModuleName
   -> ByCategory_ [Hs.Decl l]
   -> ByCategory_ ([CWrapper], [SDecl])
-translateDecls macroLang = fmap go
+translateDecls macroLang currentMod = fmap go
   where
     go :: [Hs.Decl l] -> ([CWrapper], [SDecl])
-    go decls = (wrappers, map (translateDecl macroLang) decls)
+    go decls = (wrappers, map (translateDecl currentMod macroLang) decls)
       where
         wrappers = getCWrappers decls
 
@@ -67,56 +69,59 @@ getCWrappers decls = mapMaybe getCWrapper decls
           _otherCallConv         -> Nothing
       _otherDecl -> Nothing
 
-translateDecl :: Macro.HasTypes l => Macro.Lang l -> Hs.Decl l -> SDecl
-translateDecl macroLang = \case
-  Hs.DeclTypSyn               x -> translateDeclTypSyn            x
-  Hs.DeclData                 x -> translateDeclData              x
+translateDecl :: Hs.ModuleName -> Macro.HasTypes l => Macro.Lang l -> Hs.Decl l -> SDecl
+translateDecl currentMod macroLang = \case
+  Hs.DeclTypSyn               x -> translateDeclTypSyn         tt x
+  Hs.DeclData                 x -> translateDeclData           tt x
   Hs.DeclEmpty                x -> translateDeclEmpty             x
-  Hs.DeclNewtype              x -> translateNewtype               x
-  Hs.DeclDefineInstance       x -> translateDefineInstanceDecl    x
-  Hs.DeclDeriveInstance       x -> translateDeriveInstance        x
+  Hs.DeclNewtype              x -> translateNewtype            tt x
+  Hs.DeclDefineInstance       x -> translateDefineInstanceDecl tt x
+  Hs.DeclDeriveInstance       x -> translateDeriveInstance     tt x
   Hs.DeclMacroValue           x -> translateMacroValue' macroLang x
   Hs.DeclForeignImport        x -> translateForeignImportDecl     x
   Hs.DeclForeignImportWrapper x -> translateForeignImportWrapper  x
   Hs.DeclForeignImportDynamic x -> translateForeignImportDynamic  x
-  Hs.DeclFunction             x -> translateFunctionDecl          x
-  Hs.DeclPatSyn               x -> translatePatSyn                x
+  Hs.DeclFunction             x -> translateFunctionDecl       tt x
+  Hs.DeclPatSyn               x -> translatePatSyn             tt x
   Hs.DeclCompletePragma       x -> translateCompletePragma        x
   Hs.DeclVar                  x -> translateDeclVar               x
+  where
+    tt :: Hs.Type -> ClosedType
+    tt = translateType currentMod
 
-translateDeclTypSyn :: Hs.TypSyn -> SDecl
-translateDeclTypSyn d = DTypSyn $ TypeSynonym {
+translateDeclTypSyn :: (Hs.Type -> ClosedType) -> Hs.TypSyn -> SDecl
+translateDeclTypSyn tt d = DTypSyn $ TypeSynonym {
       name    = d.name
-    , typ     = translateType d.typ
+    , typ     = tt d.typ
     , origin  = d.origin
     , comment = d.comment
     }
 
-translateDefineInstanceDecl :: Hs.DefineInstance -> SDecl
-translateDefineInstanceDecl defInst =
+translateDefineInstanceDecl :: (Hs.Type -> ClosedType) -> Hs.DefineInstance -> SDecl
+translateDefineInstanceDecl tt defInst =
     case defInst.instanceDecl of
       Hs.InstanceStaticSize name i ->
         DInst $ translateStaticSizeInstance name i defInst.comment
       Hs.InstanceReadRaw struct i ->
-        DInst $ translateReadRawInstance struct i defInst.comment
+        DInst $ translateReadRawInstance tt struct i defInst.comment
       Hs.InstanceWriteRaw struct i ->
-        DInst $ translateWriteRawInstance struct i defInst.comment
+        DInst $ translateWriteRawInstance tt struct i defInst.comment
       Hs.InstanceStorable struct i ->
-        DInst $ translateStorableInstance struct i defInst.comment
+        DInst $ translateStorableInstance tt struct i defInst.comment
       Hs.InstanceHasCField i ->
-        DInst $ translateHasCFieldInstance i defInst.comment
+        DInst $ translateHasCFieldInstance tt i defInst.comment
       Hs.InstanceHasCBitfield i ->
-        DInst $ translateHasCBitfieldInstance i defInst.comment
+        DInst $ translateHasCBitfieldInstance tt i defInst.comment
       Hs.InstanceHasField i ->
-        DInst $ translateHasFieldInstance i defInst.comment
+        DInst $ translateHasFieldInstance tt i defInst.comment
       Hs.InstanceHasFieldCompat i ->
-        DInst $ translateHasFieldCompatInstance i defInst.comment
+        DInst $ translateHasFieldCompatInstance tt i defInst.comment
       Hs.InstanceHasFieldPtr i ->
-        DInst $ translateHasFieldPtrInstance i defInst.comment
+        DInst $ translateHasFieldPtrInstance tt i defInst.comment
       Hs.InstanceHasFlam struct i ->
         DInst Instance{
             clss    = Inst.Flam_Offset
-          , args    = [ translateType i.typ, TCon struct.name ]
+          , args    = [ tt i.typ, TCon struct.name ]
           , super   = []
           , types   = []
           , comment = defInst.comment
@@ -127,7 +132,7 @@ translateDefineInstanceDecl defInst =
           }
       Hs.InstanceCEnum struct i ->
         DInst $
-          translateCEnumInstance
+          translateCEnumInstance tt
             struct
             i.fieldType
             i.valueNames
@@ -143,7 +148,7 @@ translateDefineInstanceDecl defInst =
       Hs.InstanceToFunPtr inst ->
         DInst Instance{
             clss    = Inst.ToFunPtr
-          , args    = [translateType inst.typ]
+          , args    = [tt inst.typ]
           , super   = []
           , types   = []
           , comment = defInst.comment
@@ -155,7 +160,7 @@ translateDefineInstanceDecl defInst =
       Hs.InstanceFromFunPtr inst ->
         DInst Instance{
             clss    = Inst.FromFunPtr
-          , args    = [translateType inst.typ]
+          , args    = [tt inst.typ]
           , super   = []
           , types   = []
           , comment = defInst.comment
@@ -165,8 +170,8 @@ translateDefineInstanceDecl defInst =
                       ]
           }
 
-translateDeclData :: Hs.Struct -> SDecl
-translateDeclData struct = DRecord Record{
+translateDeclData :: (Hs.Type -> ClosedType) -> Hs.Struct -> SDecl
+translateDeclData tt struct = DRecord Record{
       typ     = struct.name
     , con     = struct.constr
     , deriv   = []
@@ -177,7 +182,7 @@ translateDeclData struct = DRecord Record{
     , fields  = [
           Field{
               name    = f.name
-            , typ     = translateType f.typ
+            , typ     = tt f.typ
             , origin  = f.origin
             , comment = f.comment
             }
@@ -192,8 +197,8 @@ translateDeclEmpty d = DEmptyData EmptyData{
     , comment = d.comment
     }
 
-translateNewtype :: Hs.Newtype -> SDecl
-translateNewtype n = DNewtype Newtype{
+translateNewtype :: (Hs.Type -> ClosedType) -> Hs.Newtype -> SDecl
+translateNewtype tt n = DNewtype Newtype{
       name    = n.name
     , con     = n.constr
     , origin  = n.origin
@@ -201,15 +206,15 @@ translateNewtype n = DNewtype Newtype{
     , comment = n.comment
     , field   = Field {
           name    = n.field.name
-        , typ     = translateType n.field.typ
+        , typ     = tt n.field.typ
         , origin  = n.field.origin
         , comment = n.field.comment
         }
     }
 
-translateDeriveInstance :: Hs.DeriveInstance -> SDecl
-translateDeriveInstance deriv = DDerivingInstance DerivingInstance {
-      strategy = fmap translateType deriv.strategy
+translateDeriveInstance :: (Hs.Type -> ClosedType) -> Hs.DeriveInstance -> SDecl
+translateDeriveInstance tt deriv = DDerivingInstance DerivingInstance {
+      strategy = fmap tt deriv.strategy
     , typ      = TApp (TClass deriv.clss) (TCon deriv.name)
     , comment  = deriv.comment
     }
@@ -231,7 +236,7 @@ translateMacroValue' macroLang macro = DBinding $ case macro.value of
   where
     macroIdToHsName :: Id Final -> Hs.TermName
     macroIdToHsName namePair =
-        Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) namePair.hsName.name
+        Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) namePair.hsIdent.name
 
 -- | Augment a macro binding's Haddock comment with the C literal representation
 -- when the binding body is a character or string literal.
@@ -306,10 +311,10 @@ translateForeignImportDynamic importDyn = DForeignImport ForeignImport{
     , safety     = Safe
     }
 
-translateFunctionDecl :: Hs.FunctionDecl -> SDecl
-translateFunctionDecl functionDecl = DBinding Binding{
-      parameters = map translateFunctionParam functionDecl.parameters
-    , result     = Result (translateType functionDecl.result) Nothing
+translateFunctionDecl :: (Hs.Type -> ClosedType) -> Hs.FunctionDecl -> SDecl
+translateFunctionDecl tt functionDecl = DBinding Binding{
+      parameters = map (translateFunctionParam tt) functionDecl.parameters
+    , result     = Result (tt functionDecl.result) Nothing
       -- The other fields are copied as-is
     , name       = functionDecl.name
     , body       = functionDecl.body
@@ -317,15 +322,15 @@ translateFunctionDecl functionDecl = DBinding Binding{
     , comment    = functionDecl.comment
     }
 
-translateFunctionParam :: Hs.FunctionParameter Hs.Type -> Parameter
-translateFunctionParam param = Parameter {
-      typ     = translateType param.typ
+translateFunctionParam :: (Hs.Type -> ClosedType) -> Hs.FunctionParameter Hs.Type -> Parameter
+translateFunctionParam tt param = Parameter {
+      typ     = tt param.typ
     , comment = param.comment
     }
 
-translatePatSyn :: Hs.PatSyn -> SDecl
-translatePatSyn patSyn = DPatternSynonym PatternSynonym{
-      typ     = translateType patSyn.typ
+translatePatSyn :: (Hs.Type -> ClosedType) -> Hs.PatSyn -> SDecl
+translatePatSyn tt patSyn = DPatternSynonym PatternSynonym{
+      typ     = tt patSyn.typ
     , rhs     =
       case patSyn.constr of
         Just c -> PEApps c [PELit patSyn.value]
@@ -363,29 +368,45 @@ translateHsPrimType = \case
     Hs.PrimCFloat  -> tBindgenGlobal CFloat_type
     Hs.PrimCDouble -> tBindgenGlobal CDouble_type
 
-translateType :: Hs.Type -> ClosedType
-translateType = \case
-    Hs.PrimType t           -> translateHsPrimType t
-    Hs.TypRef r _           -> TCon r
-    Hs.ConstArray n t       -> tBindgenGlobal ConstantArray_type `TApp` TLit n `TApp` (translateType t)
-    Hs.IncompleteArray t    -> tBindgenGlobal IncompleteArray_type `TApp` (translateType t)
-    Hs.PtrArrayElem t       -> tBindgenGlobal Foreign_Ptr_type `TApp` (tBindgenGlobal IsArray_Elem `TApp` translateType t)
-    Hs.PtrConstArrayElem t  -> tBindgenGlobal PtrConst_type `TApp` (tBindgenGlobal IsArray_Elem `TApp` translateType t)
-    Hs.Ptr t                -> TApp (tBindgenGlobal Foreign_Ptr_type) (translateType t)
-    Hs.FunPtr t             -> TApp (tBindgenGlobal Foreign_FunPtr_type) (translateType t)
-    Hs.PtrConst t           -> TApp (tBindgenGlobal PtrConst_type) (translateType t)
-    Hs.IO t                 -> TApp (tBindgenGlobal IO_type) (translateType t)
-    Hs.Fun a b              -> TFun (translateType a) (translateType b)
-    Hs.ExtBinding r _c _hs _-> TExt r
-    Hs.ByteArray            -> tBindgenGlobal ByteArray_type
-    Hs.SizedByteArray n m   -> tBindgenGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
-    Hs.Block t              -> tBindgenGlobal Block_type `TApp` translateType t
-    Hs.ComplexType t        -> TApp (tBindgenGlobal Complex_type) (translateType (Hs.PrimType t))
-    Hs.StrLit s             -> TStrLit s
-    Hs.WithFlam x y         ->
-      TApp (TApp (tBindgenGlobal Flam_WithFlam_type) (translateType x)) (translateType y)
-    Hs.EquivStorable t      -> TApp (tBindgenGlobal EquivStorable_type) (translateType t)
-    Hs.IsStructViaReadRaw t -> TApp (tBindgenGlobal IsStructViaReadRaw_type) (translateType t)
+translateType :: Hs.ModuleName -> Hs.Type -> ClosedType
+translateType currentMod = translateType' (Just currentMod)
+
+-- | Like 'translateType' but always renders type references with bare names,
+-- ignoring the module. Suitable for unique string generation and Haddock
+-- comments where module-aware routing is irrelevant.
+translateTypeLocal :: Hs.Type -> ClosedType
+translateTypeLocal = translateType' Nothing
+
+translateType' :: Maybe Hs.ModuleName -> Hs.Type -> ClosedType
+translateType' mCurrentMod = go
+  where
+    go :: Hs.Type -> ClosedType
+    go = \case
+      Hs.PrimType t           -> translateHsPrimType t
+      Hs.TypRef r _
+        | Just currentMod <- mCurrentMod
+        , r.moduleName /= currentMod -> TExt r
+        | otherwise ->
+            TCon (Hs.assertNs (Proxy @Hs.NsTypeConstr) r.name)
+      Hs.ConstArray n t        -> tBindgenGlobal ConstantArray_type `TApp` TLit n `TApp` go t
+      Hs.IncompleteArray t     -> tBindgenGlobal IncompleteArray_type `TApp` go t
+      Hs.PtrArrayElem t        -> tBindgenGlobal Foreign_Ptr_type `TApp` (tBindgenGlobal IsArray_Elem `TApp` go t)
+      Hs.PtrConstArrayElem t   -> tBindgenGlobal PtrConst_type `TApp` (tBindgenGlobal IsArray_Elem `TApp` go t)
+      Hs.Ptr t                 -> TApp (tBindgenGlobal Foreign_Ptr_type) (go t)
+      Hs.FunPtr t              -> TApp (tBindgenGlobal Foreign_FunPtr_type) (go t)
+      Hs.PtrConst t            -> TApp (tBindgenGlobal PtrConst_type) (go t)
+      Hs.IO t                  -> TApp (tBindgenGlobal IO_type) (go t)
+      Hs.Fun a b               -> TFun (go a) (go b)
+      Hs.ExtBinding r _c _hs _ -> TExt r
+      Hs.ByteArray             -> tBindgenGlobal ByteArray_type
+      Hs.SizedByteArray n m    -> tBindgenGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
+      Hs.Block t               -> tBindgenGlobal Block_type `TApp` go t
+      Hs.ComplexType t         -> TApp (tBindgenGlobal Complex_type) (go (Hs.PrimType t))
+      Hs.StrLit s              -> TStrLit s
+      Hs.WithFlam x y          ->
+        TApp (TApp (tBindgenGlobal Flam_WithFlam_type) (go x)) (go y)
+      Hs.EquivStorable t       -> TApp (tBindgenGlobal EquivStorable_type) (go t)
+      Hs.IsStructViaReadRaw t  -> TApp (tBindgenGlobal IsStructViaReadRaw_type) (go t)
 
 {-------------------------------------------------------------------------------
   FFI types
@@ -445,11 +466,12 @@ translateStaticSizeInstance name inst mbComment = Instance{
     }
 
 translateReadRawInstance ::
-     Hs.Struct
+     (Hs.Type -> ClosedType)
+  -> Hs.Struct
   -> Hs.ReadRawInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateReadRawInstance struct inst mbComment = Instance{
+translateReadRawInstance tt struct inst mbComment = Instance{
       clss    = Inst.ReadRaw
     , args    = [TCon struct.name]
     , super   = []
@@ -458,14 +480,15 @@ translateReadRawInstance struct inst mbComment = Instance{
     , decs    = [(bindgenGlobalTerm ReadRaw_readRaw, readRaw)]
     }
   where
-    readRaw = lambda (idiom structCon translateReadRawCField) inst.readRaw
+    readRaw = lambda (idiom structCon (translateReadRawCField tt)) inst.readRaw
 
 translateWriteRawInstance ::
-     Hs.Struct
+     (Hs.Type -> ClosedType)
+  -> Hs.Struct
   -> Hs.WriteRawInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateWriteRawInstance struct inst mbComment = Instance{
+translateWriteRawInstance tt struct inst mbComment = Instance{
       clss    = Inst.WriteRaw
     , args    = [TCon struct.name]
     , super   = []
@@ -476,35 +499,35 @@ translateWriteRawInstance struct inst mbComment = Instance{
   where
     writeRaw =
       lambda
-        (lambda (translateElimStruct (doAll translateWriteRawCField)))
+        (lambda (translateElimStruct (doAll (translateWriteRawCField tt))))
         inst.writeRaw
 
-translateReadRawCField :: Hs.ReadRawCField ctx -> SExpr ctx
-translateReadRawCField = \case
+translateReadRawCField :: (Hs.Type -> ClosedType) -> Hs.ReadRawCField ctx -> SExpr ctx
+translateReadRawCField tt = \case
     Hs.ReadRawCField field ptr ->
       appMany HasCField_readRaw [
-          eBindgenGlobal Proxy_constructor `ETypeApp` translateType field
+          eBindgenGlobal Proxy_constructor `ETypeApp` tt field
         , EBound ptr
         ]
     Hs.ReadRawCBitfield field ptr ->
       appMany HasCBitfield_peek [
-          eBindgenGlobal Proxy_constructor `ETypeApp` translateType field
+          eBindgenGlobal Proxy_constructor `ETypeApp` tt field
         , EBound ptr
         ]
     Hs.ReadRawByteOff ptr i ->
       appMany ReadRaw_readRawByteOff [EBound ptr, eInt i]
 
-translateWriteRawCField :: Hs.WriteRawCField ctx -> SExpr ctx
-translateWriteRawCField = \case
+translateWriteRawCField :: (Hs.Type -> ClosedType) -> Hs.WriteRawCField ctx -> SExpr ctx
+translateWriteRawCField tt = \case
     Hs.WriteRawCField field ptr x ->
       appMany HasCField_writeRaw [
-          eBindgenGlobal Proxy_constructor `ETypeApp` translateType field
+          eBindgenGlobal Proxy_constructor `ETypeApp` tt field
         , EBound ptr
         , EBound x
         ]
     Hs.WriteRawCBitfield field ptr x ->
       appMany HasCBitfield_poke [
-          eBindgenGlobal Proxy_constructor `ETypeApp` translateType field
+          eBindgenGlobal Proxy_constructor `ETypeApp` tt field
         , EBound ptr
         , EBound x
         ]
@@ -516,11 +539,12 @@ translateWriteRawCField = \case
 -------------------------------------------------------------------------------}
 
 translateStorableInstance ::
-     Hs.Struct
+     (Hs.Type -> ClosedType)
+  -> Hs.Struct
   -> Hs.StorableInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateStorableInstance struct inst mbComment = Instance{
+translateStorableInstance tt struct inst mbComment = Instance{
       clss    = Inst.Storable
     , args    = [TCon struct.name]
     , super   = []
@@ -534,23 +558,23 @@ translateStorableInstance struct inst mbComment = Instance{
         ]
     }
   where
-    peek = lambda (idiom structCon translatePeekCField) inst.peek
-    poke = lambda (lambda (translateElimStruct (doAll translatePokeCField))) inst.poke
+    peek = lambda (idiom structCon (translatePeekCField tt)) inst.peek
+    poke = lambda (lambda (translateElimStruct (doAll (translatePokeCField tt)))) inst.poke
 
-translatePeekCField :: Hs.PeekCField ctx -> SExpr ctx
-translatePeekCField (Hs.PeekCField field ptr) =
-    appMany HasCField_peek [eBindgenGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr]
-translatePeekCField (Hs.PeekCBitfield field ptr) =
-    appMany HasCBitfield_peek [eBindgenGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr]
-translatePeekCField (Hs.PeekByteOff ptr i) =
+translatePeekCField :: (Hs.Type -> ClosedType) -> Hs.PeekCField ctx -> SExpr ctx
+translatePeekCField tt (Hs.PeekCField field ptr) =
+    appMany HasCField_peek [eBindgenGlobal Proxy_constructor `ETypeApp` tt field, EBound ptr]
+translatePeekCField tt (Hs.PeekCBitfield field ptr) =
+    appMany HasCBitfield_peek [eBindgenGlobal Proxy_constructor `ETypeApp` tt field, EBound ptr]
+translatePeekCField _tt (Hs.PeekByteOff ptr i) =
     appMany Storable_peekByteOff [EBound ptr, eInt i]
 
-translatePokeCField :: Hs.PokeCField ctx -> SExpr ctx
-translatePokeCField (Hs.PokeCField field ptr x) =
-    appMany HasCField_poke [eBindgenGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr, EBound x]
-translatePokeCField (Hs.PokeCBitfield field ptr x) =
-    appMany HasCBitfield_poke [eBindgenGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr, EBound x]
-translatePokeCField (Hs.PokeByteOff ptr i x) =
+translatePokeCField :: (Hs.Type -> ClosedType) -> Hs.PokeCField ctx -> SExpr ctx
+translatePokeCField tt (Hs.PokeCField field ptr x) =
+    appMany HasCField_poke [eBindgenGlobal Proxy_constructor `ETypeApp` tt field, EBound ptr, EBound x]
+translatePokeCField tt (Hs.PokeCBitfield field ptr x) =
+    appMany HasCBitfield_poke [eBindgenGlobal Proxy_constructor `ETypeApp` tt field, EBound ptr, EBound x]
+translatePokeCField _tt (Hs.PokeByteOff ptr i x) =
     appMany Storable_pokeByteOff [EBound ptr, eInt i, EBound x]
 
 {-------------------------------------------------------------------------------
@@ -558,10 +582,11 @@ translatePokeCField (Hs.PokeByteOff ptr i x) =
 -------------------------------------------------------------------------------}
 
 translateHasCFieldInstance ::
-     Hs.HasCFieldInstance
+     (Hs.Type -> ClosedType)
+  -> Hs.HasCFieldInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateHasCFieldInstance inst mbComment = Instance {
+translateHasCFieldInstance tt inst mbComment = Instance {
       clss    = Inst.HasCField
     , args    = [parent, fieldLit]
     , super   = []
@@ -575,9 +600,9 @@ translateHasCFieldInstance inst mbComment = Instance {
                 ]
     }
   where
-    parent    = translateType inst.parentType
-    fieldLit  = translateType $ Hs.StrLit $ Hs.nameToStr inst.fieldName
-    fieldType = translateType inst.cFieldType
+    parent    = tt inst.parentType
+    fieldLit  = tt $ Hs.StrLit $ Hs.nameToStr inst.fieldName
+    fieldType = tt inst.cFieldType
     o         = fromIntegral inst.fieldOffset
 
 {-------------------------------------------------------------------------------
@@ -585,10 +610,11 @@ translateHasCFieldInstance inst mbComment = Instance {
 -------------------------------------------------------------------------------}
 
 translateHasCBitfieldInstance ::
-     Hs.HasCBitfieldInstance
+     (Hs.Type -> ClosedType)
+  -> Hs.HasCBitfieldInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateHasCBitfieldInstance inst mbComment = Instance{
+translateHasCBitfieldInstance tt inst mbComment = Instance{
       clss    = Inst.HasCBitfield
     , args    = [parent, fieldLit]
     , super   = []
@@ -606,9 +632,9 @@ translateHasCBitfieldInstance inst mbComment = Instance{
                 ]
     }
   where
-    parent    = translateType inst.parentType
-    fieldLit  = translateType $ Hs.StrLit $ Hs.nameToStr inst.fieldName
-    fieldType = translateType inst.cBitfieldType
+    parent    = tt inst.parentType
+    fieldLit  = tt $ Hs.StrLit $ Hs.nameToStr inst.fieldName
+    fieldType = tt inst.cBitfieldType
     o         = fromIntegral inst.bitOffset
     w         = fromIntegral inst.bitWidth
 
@@ -617,10 +643,11 @@ translateHasCBitfieldInstance inst mbComment = Instance{
 -------------------------------------------------------------------------------}
 
 translateHasFieldInstance ::
-     Hs.HasFieldInstance
+     (Hs.Type -> ClosedType)
+  -> Hs.HasFieldInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateHasFieldInstance inst mbComment = Instance{
+translateHasFieldInstance tt inst mbComment = Instance{
       clss   = Inst.HasField
     , args    = [fieldLit, parent, tyTypeVar]
     , types   = []
@@ -632,9 +659,9 @@ translateHasFieldInstance inst mbComment = Instance{
                 ]
     }
   where
-    parent    = translateType inst.parentType
-    field     = translateType inst.fieldType
-    fieldLit  = translateType $ Hs.StrLit $ Hs.nameToStr inst.fieldName
+    parent    = tt inst.parentType
+    field     = tt inst.fieldType
+    fieldLit  = tt $ Hs.StrLit $ Hs.nameToStr inst.fieldName
 
     -- This is not actually a free type variable.
     tyTypeVar = TFree $ Hs.UnsafeName "ty"
@@ -647,8 +674,8 @@ translateHasFieldInstance inst mbComment = Instance{
           `EApp` EIntegral (fromIntegral bitOffset) Nothing
           `EApp` EIntegral (fromIntegral bitWidth) Nothing
       Hs.HasFieldImplIndirect {nameTopToAnon, nameAnonToTarget} ->
-        let strLitTopToAnon    = translateType (Hs.StrLit (Hs.nameToStr nameTopToAnon))
-            strLitAnonToTarget = translateType (Hs.StrLit (Hs.nameToStr nameAnonToTarget)) in
+        let strLitTopToAnon    = tt (Hs.StrLit (Hs.nameToStr nameTopToAnon))
+            strLitAnonToTarget = tt (Hs.StrLit (Hs.nameToStr nameAnonToTarget)) in
         ELam (NameHint "x") $
           EApp (eBindgenGlobal HasField_getField `ETypeApp` strLitAnonToTarget)
                (eBindgenGlobal HasField_getField `ETypeApp` strLitTopToAnon `EApp` EBound IZ)
@@ -658,10 +685,11 @@ translateHasFieldInstance inst mbComment = Instance{
 -------------------------------------------------------------------------------}
 
 translateHasFieldCompatInstance ::
-     Hs.HasFieldCompatInstance
+     (Hs.Type -> ClosedType)
+  -> Hs.HasFieldCompatInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateHasFieldCompatInstance inst mbComment = Instance{
+translateHasFieldCompatInstance tt inst mbComment = Instance{
       clss   = Inst.HasFieldCompat
     , args    = [fieldLit, parent, tyTypeVar]
     , types   = []
@@ -676,9 +704,9 @@ translateHasFieldCompatInstance inst mbComment = Instance{
                 ]
     }
   where
-    parent    = translateType inst.parentType
-    field     = translateType inst.fieldType
-    fieldLit  = translateType $ Hs.StrLit $ Hs.nameToStr inst.fieldName
+    parent    = tt inst.parentType
+    field     = tt inst.fieldType
+    fieldLit  = tt $ Hs.StrLit $ Hs.nameToStr inst.fieldName
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1287>
     -- This is not actually a free type variable.
@@ -719,8 +747,8 @@ translateHasFieldCompatInstance inst mbComment = Instance{
               `EApp` (EBound (IS IZ))
               )
           Hs.HasFieldCompatImplIndirect {nameTopToAnon, nameAnonToTarget} ->
-            let strLitTopToAnon = translateType (Hs.StrLit (Hs.nameToStr nameTopToAnon))
-                strLitAnonToTarget = translateType (Hs.StrLit (Hs.nameToStr nameAnonToTarget)) in
+            let strLitTopToAnon = tt (Hs.StrLit (Hs.nameToStr nameTopToAnon))
+                strLitAnonToTarget = tt (Hs.StrLit (Hs.nameToStr nameAnonToTarget)) in
             ELam (NameHint "y")
               (
                      (          eBindgenGlobal HasFieldCompat_modifyField
@@ -741,7 +769,7 @@ translateHasFieldCompatInstance inst mbComment = Instance{
         mkFBindIdentity :: Hs.Name Hs.NsVar -> FBind (S (S n))
         mkFBindIdentity fieldName = FBind (Hs.nameToStr fieldName) $
                       eBindgenGlobal HasField_getField
-            `ETypeApp` (translateType (Hs.StrLit (Hs.nameToStr fieldName)))
+            `ETypeApp` (tt (Hs.StrLit (Hs.nameToStr fieldName)))
             `EApp`      EBound (IS IZ)
 
 {-------------------------------------------------------------------------------
@@ -749,10 +777,11 @@ translateHasFieldCompatInstance inst mbComment = Instance{
 -------------------------------------------------------------------------------}
 
 translateHasFieldPtrInstance ::
-     Hs.HasFieldPtrInstance
+     (Hs.Type -> ClosedType)
+  -> Hs.HasFieldPtrInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateHasFieldPtrInstance inst mbComment = Instance{
+translateHasFieldPtrInstance tt inst mbComment = Instance{
       clss   = Inst.HasField
     , args    = [fieldLit, parentPtr, tyPtr]
     , types   = []
@@ -776,10 +805,10 @@ translateHasFieldPtrInstance inst mbComment = Instance{
           , tBindgenGlobal HasCBitfield_BitfieldPtr_type `TApp` tyTypeVar
           )
 
-    parent    = translateType inst.parentType
+    parent    = tt inst.parentType
     parentPtr = tBindgenGlobal Foreign_Ptr_type `TApp` parent
-    field     = translateType inst.fieldType
-    fieldLit  = translateType $ Hs.StrLit $ Hs.nameToStr inst.fieldName
+    field     = tt inst.fieldType
+    fieldLit  = tt $ Hs.StrLit $ Hs.nameToStr inst.fieldName
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1287>
     -- This is not actually a free type variable.
@@ -804,17 +833,18 @@ translateDeclVar var = DBinding Binding{
 -------------------------------------------------------------------------------}
 
 translateCEnumInstance ::
-     Hs.Struct
+     (Hs.Type -> ClosedType)
+  -> Hs.Struct
   -> Hs.Type
   -> Map Integer (NonEmpty String)
   -> Bool
   -> Maybe HsDoc.Comment
   -> Instance
-translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
+translateCEnumInstance tt struct fTyp vMap isSequential mbComment = Instance {
       clss    = Inst.CEnum
     , args    = [tcon]
     , super   = []
-    , types   = [(bindgenGlobalType CEnumZ_type, [tcon], translateType fTyp)]
+    , types   = [(bindgenGlobalType CEnumZ_type, [tcon], tt fTyp)]
     , comment = mbComment
     , decs    = map (first bindgenGlobalTerm) [
           (CEnum_toCEnum            , ECon struct.constr)
@@ -840,7 +870,7 @@ translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
     fnameStr = Hs.nameToStr fname
 
     fromCEnumE :: ClosedExpr
-    fromCEnumE = eBindgenGlobal HasField_getField `ETypeApp` translateType (Hs.StrLit fnameStr)
+    fromCEnumE = eBindgenGlobal HasField_getField `ETypeApp` tt (Hs.StrLit fnameStr)
 
     declaredValuesE :: SExpr ctx
     declaredValuesE = EApp (eBindgenGlobal CEnum_declaredValuesFromList) $ EList [
