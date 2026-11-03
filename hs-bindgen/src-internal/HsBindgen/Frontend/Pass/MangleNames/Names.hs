@@ -99,19 +99,19 @@ fromNames names =
       Foldable.foldlM (addScopedNamePair pair) nameMap' scopedPairs
 
     addDeclIdPair :: NameMap -> DeclIdPair -> State [DupAssign] NameMap
-    addDeclIdPair nameMap pair = case pair.hsName.ns of
+    addDeclIdPair nameMap pair = case pair.hsIdent.name.ns of
         Hs.NsTypeConstr -> do
-          let hsName' = Hs.assertNs (Proxy @Hs.NsTypeConstr)     pair.hsName
+          let hsName' = Hs.assertNs (Proxy @Hs.NsTypeConstr) pair.hsIdent.name
               upd = insertChecked (DupTypeConstr pair.cName) hsName'
           typeConstrs' <- Map.alterF upd pair.cName nameMap.typeConstrs
           pure $ nameMap & #typeConstrs .~ typeConstrs'
         Hs.NsConstr -> do
-          let hsName' = Hs.assertNs (Proxy @Hs.NsConstr)     pair.hsName
+          let hsName' = Hs.assertNs (Proxy @Hs.NsConstr) pair.hsIdent.name
               upd = insertChecked (DupDataConstr pair.cName) hsName'
           dataConstrs' <- Map.alterF upd pair.cName nameMap.dataConstrs
           pure $ nameMap & #dataConstrs .~ dataConstrs'
         Hs.NsVar -> do
-          let hsName' = Hs.assertNs (Proxy @Hs.NsVar)     pair.hsName
+          let hsName' = Hs.assertNs (Proxy @Hs.NsVar) pair.hsIdent.name
               upd = insertChecked (DupVar pair.cName) hsName'
           vars' <- Map.alterF upd pair.cName nameMap.vars
           pure $ nameMap & #vars .~ vars'
@@ -128,7 +128,7 @@ fromNames names =
           pure $ Just scopedNameMap'
 
         upd2 :: Maybe Hs.SomeName -> State [DupAssign] (Maybe Hs.SomeName)
-        upd2 = insertChecked (DupScopedName pair.cName scopedPair.cName) scopedPair.hsName
+        upd2 = insertChecked (DupScopedName pair.cName scopedPair.cName) scopedPair.hsIdent.name
 
     -- | Insert a created name unless there is already a created name present
     insertChecked ::
@@ -193,14 +193,14 @@ data NameRole =
 
 -- | The scope in which a created Haskell name must be unique
 --
--- Most Haskell names we generate are top-level and must be globally unique
--- ('GlobalScope'). Record field selectors created under
+-- Most Haskell names we generate are top-level and must be unique within
+-- their module ('ModuleScope'). Record field selectors created under
 -- 'HsBindgen.Config.Prelims.OmitFieldPrefixes' are an exception: the generated
 -- code enables @DuplicateRecordFields@, so the same selector name may appear in
 -- different records, but it must still be unique /within/ a single record. Such
 -- names are scoped to the enclosing declaration ('DeclScope').
 data Scope =
-    GlobalScope
+    ModuleScope Hs.ModuleName
   | DeclScope C.DeclId
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -286,15 +286,10 @@ data Collision = Collision {
 -- | All collisions in the registry, across all three namespaces
 --
 -- A name collides when it was created at least twice in the same namespace
--- /and/ the same 'Scope'. Names created in different scopes (e.g. two record
--- field selectors in different records under @DuplicateRecordFields@) do not
--- collide.
---
--- Field selectors created in a 'DeclScope' (under 'OmitFieldPrefixes') need only
--- be unique within their record: @DuplicateRecordFields@ permits the same field
--- name in different records, and @NoFieldSelectors@ (also enabled under
--- 'OmitFieldPrefixes') means no top-level selector is generated, so such a name
--- cannot clash with a non-field declaration either.
+-- /and/ the same 'Scope'. Names created in different scopes do not collide:
+-- 'ModuleScope' separates declarations in different modules, and 'DeclScope'
+-- separates record field selectors in different records under
+-- @DuplicateRecordFields@.
 collisions :: NameRegistry -> [Collision]
 collisions reg = concat [
       collisionsFor reg.typeConstrs

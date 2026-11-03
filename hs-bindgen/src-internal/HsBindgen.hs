@@ -1,5 +1,7 @@
 module HsBindgen (
     hsBindgenMacroLang
+  , hsBindgenLibraryMacroLang
+  , ExecutionMode(..)
 
     -- * Artefacts
   , Artefact(..)
@@ -15,6 +17,9 @@ module HsBindgen (
   , writeBindingsMultiple
   , writeBindingSpec
   , writeTests
+  , ModuleHeaders(..)
+  , moduleHeaders
+  , getModuleHeaders
 
     -- ** Low-level artefacts
   , getConfig
@@ -41,12 +46,15 @@ module HsBindgen (
 import Control.Exception (Exception (..), catch)
 import Control.Monad.Except (MonadError (..), withExceptT)
 import Control.Monad.Trans.Except (runExceptT)
+import Data.List qualified as List
 import Data.Map qualified as Map
+import Data.Maybe (maybeToList)
 import Data.Set qualified as Set
 import System.Exit (ExitCode (..), exitWith)
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.CStandard
+import Clang.HighLevel.Types (singleLocPath)
 import Clang.Paths
 
 import HsBindgen.Artefact
@@ -81,6 +89,8 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Library (PlanError (..))
+import HsBindgen.Library.Runner (LibraryModuleOutput (..), runLibrary)
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.TraceMsg
@@ -96,11 +106,12 @@ hsBindgenMacroLang ::
   -> TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
+  -> ExecutionMode
   -> [C.UncheckedRootDirective]
   -> Artefact l a
   -> IO a
-hsBindgenMacroLang mkMacroLang tu ts b i a = do
-    eRes <- hsBindgenEMacroLang mkMacroLang tu ts b i a `catch` \e ->
+hsBindgenMacroLang mkMacroLang tu ts b m i a = do
+    eRes <- hsBindgenEMacroLang mkMacroLang tu ts b m i a `catch` \e ->
       case fromException e of
         Just (LibclangException msg) -> do
           print $ PP.string msg
@@ -123,6 +134,7 @@ hsBindgenEMacroLang ::
   -> TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
+  -> ExecutionMode
   -> [C.UncheckedRootDirective]
   -> Artefact l a
   -> IO (Either BindgenError a)
@@ -131,6 +143,7 @@ hsBindgenEMacroLang
   tracerConfigUnsafe
   tracerConfigSafe
   config
+  executionMode
   uncheckedRootDirectives
   artefacts = do
     eRes <- withTracer tracerConfigUnsafe $ \tracerUnsafe -> do
@@ -171,8 +184,154 @@ hsBindgenEMacroLang
           -- Before creating directories or writing output files, we verify
           -- adherence to the provided policies.
           withExceptT BindgenDelayedIOError $ mapM_ checkPolicy as
-          liftIO $ executeDelayedIOActions tracerSafe as
+          liftIO $ executeDelayedIOActions tracerSafe executionMode as
           pure r
+
+{-------------------------------------------------------------------------------
+  Library mode
+-------------------------------------------------------------------------------}
+
+-- | Entry point for library mode, parallel to 'hsBindgenMacroLang'.
+--
+-- Runs boot, frontend, library planner, and per-module backend. File output
+-- goes through the same 'DelayedIO' infrastructure as single-header mode, so
+-- @--dry-run@, @--overwrite-files@, and @--create-output-dirs@ all work.
+hsBindgenLibraryMacroLang ::
+     Macro.HasTypes l
+  => (ClangCStandard -> IO (Macro.Lang l))
+  -> TracerConfig Level     TraceMsg
+  -> TracerConfig SafeLevel SafeTraceMsg
+  -> BindgenConfig
+  -> ExecutionMode
+  -> [C.UncheckedRootDirective]
+  -> [FilePath]
+  -> ModuleRenderConfig
+  -> FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> IO [LibraryModuleOutput]
+hsBindgenLibraryMacroLang
+  mkMacroLang tu ts b m i dirs mrc fp dp out = do
+    eRes <- hsBindgenLibraryEMacroLang mkMacroLang tu ts b m i dirs mrc fp dp out
+      `catch` \e ->
+        case fromException e of
+          Just (LibclangException msg) -> do
+            print $ PP.string msg
+            exitWith (ExitFailure 3)
+          _ -> throwIO e
+    case eRes of
+      Left err -> do
+        print $ prettyForTrace err
+        exitWith (ExitFailure 4)
+      Right r -> pure r
+
+hsBindgenLibraryEMacroLang ::
+     forall l. Macro.HasTypes l
+  => (ClangCStandard -> IO (Macro.Lang l))
+  -> TracerConfig Level     TraceMsg
+  -> TracerConfig SafeLevel SafeTraceMsg
+  -> BindgenConfig
+  -> ExecutionMode
+  -> [C.UncheckedRootDirective]
+  -> [FilePath]
+  -> ModuleRenderConfig
+  -> FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> IO (Either BindgenError [LibraryModuleOutput])
+hsBindgenLibraryEMacroLang
+  mkMacroLang
+  tracerConfigUnsafe
+  tracerConfigSafe
+  config
+  executionMode
+  uncheckedRootDirectives
+  libraryDirs
+  mrc
+  filePolicy
+  dirPolicy
+  outputDir = do
+    eRes <- withTracer tracerConfigUnsafe $ \tracerUnsafe -> do
+      -- Boot.
+      let tracerBoot :: Tracer BootMsg
+          tracerBoot = contramap TraceBoot tracerUnsafe
+      bootArtefact <-
+        runBoot tracerBoot mkMacroLang config uncheckedRootDirectives
+      -- Frontend.
+      let tracerFrontend :: Tracer FrontendMsg
+          tracerFrontend = contramap TraceFrontend tracerUnsafe
+      frontendArtefact <-
+        runFrontend tracerFrontend config.frontend bootArtefact
+      -- Library.
+      let tracerLibrary :: Tracer LibraryMsg
+          tracerLibrary = contramap TraceLibrary tracerUnsafe
+          baseModule = Hs.ModuleName config.boot.baseModule.text
+      eOutputs <-
+        runLibrary tracerLibrary tracerFrontend config bootArtefact
+                   frontendArtefact mrc libraryDirs baseModule
+      case eOutputs of
+        Left planErr ->
+          pure (Left (BindgenPlanError planErr), [])
+        Right outputs ->
+          pure ( Right outputs
+               , libraryOutputsToDelayedIO filePolicy dirPolicy
+                                           outputDir outputs)
+
+    let tracerConfigDelayedIO :: TracerConfig SafeLevel DelayedIOMsg
+        tracerConfigDelayedIO = contramap SafeDelayedIOMsg tracerConfigSafe
+    runExceptT $ withTracerSafe tracerConfigDelayedIO $ \tracerSafe ->
+      case eRes of
+        Left er       -> throwError $ BindgenErrorReported er
+        Right (Left bindgenErr, _) -> throwError bindgenErr
+        Right (Right outputs, delayedActions) -> do
+          withExceptT BindgenDelayedIOError $ mapM_ checkPolicy delayedActions
+          liftIO $ executeDelayedIOActions tracerSafe executionMode delayedActions
+          pure outputs
+
+-- | Convert library outputs to 'DelayedIO' file-write actions.
+libraryOutputsToDelayedIO ::
+     FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> [LibraryModuleOutput]
+  -> [DelayedIO]
+libraryOutputsToDelayedIO filePolicy dirPolicy outputDir outputs =
+    concatMap moduleActions outputs
+  where
+    moduleActions :: LibraryModuleOutput -> [DelayedIO]
+    moduleActions output =
+        concat $ toList $
+          mapWithCategory_ (categoryActions libBaseModule) output.rendered
+      where
+        libBaseModule = BaseModuleName output.moduleName.text
+
+    categoryActions ::
+         BaseModuleName
+      -> Category
+      -> Maybe (String, Maybe String)
+      -> [DelayedIO]
+    categoryActions _       _   Nothing                        = []
+    categoryActions baseMod cat (Just (content, mBootContent)) =
+        WriteToFile (fileDesc "Bindings" modulePath content)
+          : [ WriteToFile (fileDesc "Boot file" bootPath bc)
+            | bc <- maybeToList mBootContent
+            ]
+      where
+        moduleName = fromBaseModuleName baseMod (Just cat)
+        modulePath = Hs.moduleNamePath moduleName
+        bootPath   = Hs.moduleNameBootPath moduleName
+
+    fileDesc :: String -> FilePath -> String -> FileDescription
+    fileDesc description localPath content = FileDescription {
+          description = description
+        , location    = RelativeFileLocation RelativeToOutputDir {
+              outputDir = outputDir
+            , localPath = localPath
+            }
+        , filePolicy  = filePolicy
+        , dirPolicy   = dirPolicy
+        , content     = StringContent content
+        }
 
 {-------------------------------------------------------------------------------
   High-level artefacts
@@ -276,8 +435,9 @@ writeBindingsSingle mrc filePolicy dirPolicy hsOutputDir = do
 
     write filePolicy dirPolicy "bindings" location bindings
 
--- | Get bindings (one module per binding category).
-getBindingsMultiple :: ModuleRenderConfig -> Artefact l (ByCategory_ (Maybe String))
+-- | Get bindings (one module per binding category), each with its boot file, if
+-- it has one.
+getBindingsMultiple :: ModuleRenderConfig -> Artefact l (ByCategory_ (Maybe (String, Maybe String)))
 getBindingsMultiple mrc = do
     name   <- ModuleBaseName
     dirs   <- RootDirectives
@@ -287,8 +447,16 @@ getBindingsMultiple mrc = do
       EmitTrace $ NoBindingsMultipleModules name
     config <- getConfig
     let fns = config.frontend.fieldNamingStrategy
-    pure $ fmap render <$>
-      translateModuleMultiple fns mrc dirs name (resolveExports tags) decls
+    pure $ fmap (bimap render (fmap renderHsBoot)) <$>
+      translateModuleMultiple
+        fns
+        mrc
+        config.backend.hsBootPolicy
+        dirs
+        name
+        []
+        (resolveExports tags)
+        decls
 
 -- | Write bindings to files in provided output directory.
 --
@@ -360,6 +528,63 @@ writeTests _testDir = do
     --     testDir
     throwPure_TODO 22 "Test generation integrated into the artefact API"
 
+-- | A module and the headers its bindings come from
+--
+-- @preprocess --dry-run@ prints it as @M: a.h, b.h@, so that you can see which
+-- headers a module covers without generating it.
+data ModuleHeaders = ModuleHeaders {
+      moduleName :: BaseModuleName
+      -- | Each header as it was @#include@d, in include order
+    , headers    :: [C.HashIncludeArg]
+    }
+  deriving stock (Show, Eq)
+
+-- | The headers of a module, from the declarations it has bindings for
+--
+-- The caller decides which declarations make up the module. Each header that
+-- contains one of them is listed once, spelled as it was @#include@d, in include
+-- order: a header comes after the headers it includes. Macros defined by root
+-- directives or @-D@ options are in no header, so the list can be empty.
+moduleHeaders ::
+     IncludeGraph.IncludeOrder
+  -> BaseModuleName
+  -> [C.Decl l Final]
+  -> ModuleHeaders
+moduleHeaders order name decls = ModuleHeaders{
+      moduleName = name
+    , headers    = map snd $ inIncludeOrder $ Map.toList headers
+    }
+  where
+    -- All declarations in a header have the same include argument, so it does
+    -- not matter which one 'Map.fromList' keeps.
+    headers :: Map RealPath C.HashIncludeArg
+    headers = Map.fromList [
+        (path, info.includeArg)
+      | decl <- decls
+      , C.InHeader path   <- [singleLocPath decl.info.loc]
+      , C.FromHeader info <- [decl.info.origin]
+      ]
+
+    inIncludeOrder :: [(RealPath, a)] -> [(RealPath, a)]
+    inIncludeOrder =
+      List.sortOn (IncludeGraph.lookupIncludeOrder order . C.InHeader . fst)
+
+-- | The module of this run and its headers
+--
+-- Passes every reified declaration to 'moduleHeaders', since each one has a
+-- binding in the module: the CLI always generates at least one category of
+-- binding for every kind of declaration. 'Nothing' if there is nothing to bind.
+getModuleHeaders :: Artefact l (Maybe ModuleHeaders)
+getModuleHeaders = do
+    name         <- ModuleBaseName
+    decls        <- getReifiedC
+    includeGraph <- getIncludeGraph
+    pure $
+      if null decls
+        then Nothing
+        else Just $
+          moduleHeaders (IncludeGraph.toIncludeOrder includeGraph) name decls
+
 {-------------------------------------------------------------------------------
   Low-level artefacts
 -------------------------------------------------------------------------------}
@@ -423,27 +648,29 @@ writeByCategory ::
   -> String
   -> FilePath
   -> BaseModuleName
-  -> ByCategory_ (Maybe String)
+  -> ByCategory_ (Maybe (String, Maybe String))
   -> Artefact l ()
 writeByCategory filePolicy dirPolicy what dir moduleBaseName =
     sequence_ . mapWithCategory_ writeCategory
   where
-    writeCategory :: Category -> Maybe String -> Artefact l ()
-    writeCategory _    Nothing   = pure ()
-    writeCategory cat (Just str) =
-        write filePolicy dirPolicy whatWithCategory location str
+    writeCategory :: Category -> Maybe (String, Maybe String) -> Artefact l ()
+    writeCategory _    Nothing                 = pure ()
+    writeCategory cat (Just (str, mBootStr)) = do
+        write filePolicy dirPolicy whatWithCategory (location Hs.moduleNamePath) str
+        forM_ mBootStr $
+          write filePolicy dirPolicy whatBootWithCategory (location Hs.moduleNameBootPath)
       where
-        localPath :: FilePath
-        localPath = Hs.moduleNamePath $
-            fromBaseModuleName moduleBaseName (Just cat)
+        moduleName :: Hs.ModuleName
+        moduleName = fromBaseModuleName moduleBaseName (Just cat)
 
-        whatWithCategory :: String
-        whatWithCategory = what ++ " (" ++ show cat ++ ")"
+        whatWithCategory, whatBootWithCategory :: String
+        whatWithCategory     = what ++ " (" ++ show cat ++ ")"
+        whatBootWithCategory = what ++ " boot file (" ++ show cat ++ ")"
 
-        location :: FileLocation
-        location = RelativeFileLocation RelativeToOutputDir{
+        location :: (Hs.ModuleName -> FilePath) -> FileLocation
+        location path = RelativeFileLocation RelativeToOutputDir{
               outputDir = dir
-            , localPath = localPath
+            , localPath = path moduleName
             }
 
 nullDecls :: ([a], [b]) -> Bool
@@ -467,12 +694,22 @@ getExportTags = do
 data BindgenError =
       BindgenErrorReported  AnErrorHappened
     | BindgenDelayedIOError DelayedIOError
+    | BindgenPlanError      PlanError
     deriving stock (Show)
 
 instance PrettyForTrace BindgenError where
   prettyForTrace = \case
     BindgenErrorReported  e -> prettyForTrace e
     BindgenDelayedIOError e -> prettyForTrace e
+    BindgenPlanError (ModuleNameCollision m1 m2 p1 p2) ->
+      PP.hsep [
+          "Module name collision:"
+        , prettyForTrace m1
+        , PP.parens (PP.string (show p1))
+        , "vs"
+        , prettyForTrace m2
+        , PP.parens (PP.string (show p2))
+        ]
 
 {-------------------------------------------------------------------------------
   Traces

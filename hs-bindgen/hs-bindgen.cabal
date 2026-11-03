@@ -23,6 +23,7 @@ extra-source-files:
   musl-include/COPYRIGHT
   musl-include/VERSION
   test-artefacts/fixtures/**/*.hs
+  test-artefacts/fixtures/**/*.hs-boot
   test-artefacts/fixtures/**/*.txt
   test-artefacts/fixtures/**/*.yaml
   test-artefacts/headers/**/*.h
@@ -297,6 +298,8 @@ library internal
     HsBindgen.IR.Translation
     HsBindgen.Language.C
     HsBindgen.Language.Haskell
+    HsBindgen.Library
+    HsBindgen.Library.Runner
     HsBindgen.Macro.Empty
     HsBindgen.Macro.Error
     HsBindgen.Macro.Flip

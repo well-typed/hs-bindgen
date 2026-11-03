@@ -1,0 +1,10 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+
+hsmodule: Example
+
+ctypes:
+  - headers: types/boot/internal_module.h
+    cname: enum colour
+    enum: closed

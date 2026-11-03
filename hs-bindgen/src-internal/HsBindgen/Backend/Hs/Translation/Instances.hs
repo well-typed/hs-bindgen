@@ -23,7 +23,6 @@ import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.Hs qualified as Hs
-import HsBindgen.Language.Haskell
 import HsBindgen.Language.Haskell qualified as Hs
 
 --------------------------------------------------------------------------------
@@ -50,12 +49,12 @@ getDeriveStrat supStrats = case supStrats.defStrategy of
 
 --------------------------------------------------------------------------------
 
-type InstanceMap = Map (Hs.Name NsTypeConstr) (Set Inst.TypeClass)
+type InstanceMap = Map Hs.Identifier (Set Inst.TypeClass)
 
 getInstances ::
      HasCallStack
   => InstanceMap                  -- ^ Current state
-  -> Maybe (Hs.Name NsTypeConstr) -- ^ Name of current type (optional)
+  -> Maybe Hs.Identifier          -- ^ Name of current type (optional)
   -> Set Inst.TypeClass           -- ^ Candidate instances
   -> [Hs.Type]                    -- ^ Dependencies
   -> Set Inst.TypeClass

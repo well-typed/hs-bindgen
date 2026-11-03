@@ -321,9 +321,9 @@ mkTypeN t hsId insts ffiType headers =
     dataConstrName = Hs.UnsafeName hsId
 
 mkFFIType :: Hs.ModuleName -> Text -> BindingSpec.HsFFIType
-mkFFIType moduleName typeName = BindingSpec.HsFFIType $ Hs.ExtRef {
+mkFFIType moduleName typeName = BindingSpec.HsFFIType $ Hs.Identifier {
       moduleName = moduleName
-    , name       = Hs.UnsafeName typeName
+    , name       = Hs.UnsafeSomeName Hs.NsTypeConstr typeName
     }
 
 mkFFITypeLibC :: Text -> BindingSpec.HsFFIType
