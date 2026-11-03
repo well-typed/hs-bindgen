@@ -462,15 +462,15 @@ resolveImports ::
   -> [ImportListItem]
 resolveImports baseModule cat wrappers sourceImports ds =
     let acc = mconcat $ map resolveDeclImports ds
+        currentModule = fromBaseModuleName baseModule cat
     in  Set.toAscList . mconcat $ [
             bindingCatImport acc.requireTypes
           , Set.fromList [
                 UnqualifiedImportListItem SourceImport m Nothing
               | m <- sourceImports
               ]
-          , Set.map (uncurry (QualifiedImportListItem NormalImport))
-              userlandCapiImport
-          , importListItems acc
+          , Set.map (uncurry (QualifiedImportListItem NormalImport)) userlandCapiImport
+          , importListItems currentModule acc
           ]
   where
     bindingCatImport :: Bool -> Set ImportListItem
@@ -505,8 +505,10 @@ resolveHsBootImports ::
   -> [ImportListItem]
 resolveHsBootImports baseModule cat ds =
     let acc = mconcat $ map resolveHsBootDeclImports ds
-    in  Set.toAscList $ typesImport acc.requireTypes <> importListItems acc
+    in  Set.toAscList $ typesImport acc.requireTypes <> importListItems (catModule cat) acc
   where
+    catModule c = fromBaseModuleName baseModule (Just c)
+
     typesImport :: Bool -> Set ImportListItem
     typesImport requireTypes = case cat of
       CType -> mempty
@@ -514,16 +516,19 @@ resolveHsBootImports baseModule cat ds =
         | requireTypes ->
             Set.singleton $ UnqualifiedImportListItem
               SourceImport
-              (fromBaseModuleName baseModule (Just CType))
+              (catModule CType)
               Nothing
         | otherwise ->
             mempty
 
--- | The import list items for the names in an accumulator
-importListItems :: ImportAcc -> Set ImportListItem
-importListItems acc = mconcat [
-      Set.map (uncurry (QualifiedImportListItem NormalImport)) acc.qualified
-    , Set.fromList $ map (uncurry mkUImportListItem) (Map.toList acc.unqualified)
+-- | The import list items for the names in an accumulator, filtering out
+-- self-imports (a module cannot import itself).
+importListItems :: Hs.ModuleName -> ImportAcc -> Set ImportListItem
+importListItems currentModule acc = mconcat [
+      Set.map (uncurry (QualifiedImportListItem NormalImport)) $
+        Set.filter (\(m, _) -> m /= currentModule) acc.qualified
+    , Set.fromList $ map (uncurry mkUImportListItem) $
+        filter (\(m, _) -> m /= currentModule) (Map.toList acc.unqualified)
     ]
   where
     mkUImportListItem :: Hs.ModuleName -> Set ResolvedName -> ImportListItem

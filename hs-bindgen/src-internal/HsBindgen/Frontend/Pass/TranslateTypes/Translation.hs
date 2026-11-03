@@ -22,7 +22,6 @@ import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
-import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Contextual translation
@@ -86,19 +85,19 @@ typeInContext ctx = \case
       Hs.ComplexType (translateCPrimType p)
     C.TypeRef ref ->
       Hs.TypRef
-        (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.hsName.name)
+        ref.hsIdent
         Nothing
     C.TypeEnum ref ->
       Hs.TypRef
-        (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName.name)
+        ref.name.hsIdent
         (Just $ typeInContext ctx ref.underlying)
     C.TypeMacro ref ->
       Hs.TypRef
-        (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName.name)
+        ref.name.hsIdent
         (Just $ typeInContext ctx ref.underlying)
     C.TypeTypedef ref ->
       Hs.TypRef
-        (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName.name)
+        ref.name.hsIdent
         (Just $ typeInContext ctx ref.underlying)
     C.TypePointers n ty
       -- Use a 'FunPtr' if the type is a function type.  We inspect the
@@ -137,7 +136,7 @@ typeInContext ctx = \case
     C.TypeExtBinding ref ->
       let ext = ref.name
       in  Hs.ExtBinding
-            ext.hsName
+            ext.hsIdent
             ext.cSpec
             ext.hsSpec
             (typeInContext ctx ref.underlying)

@@ -426,7 +426,7 @@ createNamesWithin ::
   -> C.Decl l ResolveBindingSpecs
   -> CreateNamesResult ([ScopedNamePair], C.Decl l CreateNames)
 createNamesWithin env declIdPair decl =
-    case runCreate env emptyCreateSt (createDeclKind declIdPair.hsName.name.text decl.kind) of
+    case runCreate env emptyCreateSt (createDeclKind declIdPair.hsIdent.name.text decl.kind) of
       (Left err, _)   -> CnFailure $ toFailure decl (MangleNamesCreationError err)
       (Right kind, st) -> CnMangled declIdPair (
           st.scopedNames
@@ -520,7 +520,7 @@ createFieldName hsName fieldCName = do
     name <- mkName (Proxy @Hs.NsVar) candidate
     let scopedNamePair = ScopedNamePair{
         cName  = fieldCName
-      , hsName = Hs.Identifier modName (Hs.demoteNs name)
+      , hsIdent = Hs.Identifier modName (Hs.demoteNs name)
       }
     modify $ #scopedNames %~ (scopedNamePair:)
     pure scopedNamePair
@@ -535,7 +535,7 @@ createEnumConstantName cName = do
     name <- mkName (Proxy @Hs.NsConstr) cName.text
     let scopedNamePair = ScopedNamePair{
         cName  = cName
-      , hsName = Hs.Identifier modName (Hs.demoteNs name)
+      , hsIdent = Hs.Identifier modName (Hs.demoteNs name)
       }
     modify $ #scopedNames %~ (scopedNamePair:)
     pure scopedNamePair
@@ -551,7 +551,7 @@ createArgumentName argName = do
     name <- mkName (Proxy @Hs.NsVar) argName.text
     let scopedNamePair = ScopedNamePair{
         cName  = argName
-      , hsName = Hs.Identifier modName (Hs.demoteNs name)
+      , hsIdent = Hs.Identifier modName (Hs.demoteNs name)
       }
     modify $ #scopedNames %~ (scopedNamePair:)
     pure scopedNamePair

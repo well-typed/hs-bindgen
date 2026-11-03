@@ -106,7 +106,7 @@ data ResolvedExtBinding = ResolvedExtBinding{
       cName :: C.DeclId
 
       -- | The Haskell type which will be used
-    , hsName :: Hs.Identifier
+    , hsIdent :: Hs.Identifier
 
       -- | Additional information about the C type
     , cSpec :: BindingSpec.CTypeSpec

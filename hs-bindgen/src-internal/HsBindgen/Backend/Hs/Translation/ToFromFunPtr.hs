@@ -88,10 +88,11 @@ forFunction (args, res) =
 
 -- | Generate instances for newtype around functions
 forNewtype ::
-     Hs.Newtype
+     Hs.Identifier
+  -> Hs.Newtype
   -> ([C.TypeFunArg Final], C.Type Final)
   -> Callback l
-forNewtype newtyp (args, res) =
+forNewtype ident newtyp (args, res) =
     instancesFor
       nameTo
       nameFrom
@@ -100,7 +101,7 @@ forNewtype newtyp (args, res) =
       importFor
   where
     funC  = C.TypeFun args res
-    funHs = Hs.TypRef newtyp.name (Just newtyp.field.typ)
+    funHs = Hs.TypRef ident (Just newtyp.field.typ)
 
     importFor :: ImportFor
     importFor = ImportForNewtype {
@@ -165,4 +166,4 @@ instancesFor nameTo nameFrom funC funHs importFor = Callback{
     }
 
 prettyHsType :: Hs.Type -> String
-prettyHsType = show . PP.pretty . SHs.translateType
+prettyHsType = show . PP.pretty . SHs.translateTypeLocal

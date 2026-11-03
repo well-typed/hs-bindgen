@@ -35,13 +35,16 @@ unionDecs decl union spec = do
     nt <- newtypeDec
     pure $ aux st nt
   where
+    newtypeIdent :: Hs.Identifier
+    newtypeIdent = decl.id.hsIdent
+
     newtypeDec :: HsM Hs.Newtype
     newtypeDec = do
-        Hs.newtypeDec newtypeName newtypeConstr newtypeField
+        Hs.newtypeDec newtypeName newtypeIdent newtypeConstr newtypeField
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName.name
+        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) newtypeIdent.name
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = union.names.dataConstr
@@ -126,7 +129,7 @@ unionDecs decl union spec = do
               , comment  = Nothing
               }
           , Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveVia (Hs.EquivStorable (Hs.TypRef nt.name Nothing))
+                strategy = Hs.DeriveVia (Hs.EquivStorable (Hs.TypRef newtypeIdent Nothing))
               , clss     = Inst.Storable
               , name     = nt.name
               , comment  = Nothing
@@ -141,11 +144,11 @@ unionDecs decl union spec = do
 
         fieldDecls :: [Hs.Decl l]
         fieldDecls = flip concatMap (flattenFields union.fields) $ \field -> concat [
-            hasFieldDecs st decl.info nt field
-          , hasFieldCompatDecs st decl.info nt field
-          , hasFieldPtrDecs nt field
-          , hasCFieldDecs nt field
-          , hasCBitfieldDecs nt field
+            hasFieldDecs       st newtypeIdent decl.info nt field
+          , hasFieldCompatDecs st newtypeIdent decl.info nt field
+          , hasFieldPtrDecs       newtypeIdent           nt field
+          , hasCFieldDecs         newtypeIdent           nt field
+          , hasCBitfieldDecs      newtypeIdent           nt field
           ]
 
         isUnionDecl :: [Hs.Decl l]
@@ -166,11 +169,12 @@ unionDecs decl union spec = do
 -- | Class instances for 'GHC.Records.HasField'
 hasFieldDecs ::
      HsM.St
+  -> Hs.Identifier
   -> C.DeclInfo
   -> Hs.Newtype
   -> Field
   -> [Hs.Decl l]
-hasFieldDecs st info union field =
+hasFieldDecs st newtypeIdent info union field =
     [ Hs.DeclDefineInstance $
         Hs.DefineInstance {
             comment = fieldComment
@@ -183,7 +187,7 @@ hasFieldDecs st info union field =
     fieldInsts :: Set Inst.TypeClass
     fieldInsts = Hs.getInstances
                     st.instanceMap
-                    (Just union.name)
+                    (Just newtypeIdent)
                     (Set.singleton Inst.Storable)
                     [fieldType]
 
@@ -191,10 +195,10 @@ hasFieldDecs st info union field =
     fieldComment = mkHaddocksFieldInfo info (getFieldInfo field)
 
     parentType :: Hs.Type
-    parentType = Hs.TypRef union.name Nothing
+    parentType = Hs.TypRef newtypeIdent Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsIdent.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -231,18 +235,19 @@ hasFieldDecs st info union field =
 
     implIndirect :: C.ImplicitField Final -> C.IndirectField Final -> Hs.HasFieldImpl
     implIndirect impField indField  = Hs.HasFieldImplIndirect {
-          nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsName.name
-        , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsName.name
+          nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsIdent.name
+        , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsIdent.name
         }
 
 -- | Class instances for 'GHC.Records.Compat.HasField'
 hasFieldCompatDecs ::
      HsM.St
+  -> Hs.Identifier
   -> C.DeclInfo
   -> Hs.Newtype
   -> Field
   -> [Hs.Decl l]
-hasFieldCompatDecs st info union field =
+hasFieldCompatDecs st newtypeIdent info union field =
    [ Hs.DeclDefineInstance $
         Hs.DefineInstance {
             comment = fieldComment
@@ -255,7 +260,7 @@ hasFieldCompatDecs st info union field =
     fieldInsts :: Set Inst.TypeClass
     fieldInsts = Hs.getInstances
                     st.instanceMap
-                    (Just union.name)
+                    (Just newtypeIdent)
                     (Set.singleton Inst.Storable)
                     [fieldType]
 
@@ -263,10 +268,10 @@ hasFieldCompatDecs st info union field =
     fieldComment = mkHaddocksFieldInfo info (getFieldInfo field)
 
     parentType :: Hs.Type
-    parentType = Hs.TypRef union.name Nothing
+    parentType = Hs.TypRef newtypeIdent Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsIdent.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -303,13 +308,13 @@ hasFieldCompatDecs st info union field =
 
     implIndirect :: C.ImplicitField Final -> C.IndirectField Final -> Hs.HasFieldCompatImpl
     implIndirect impField indField  = Hs.HasFieldCompatImplIndirect {
-          nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsName.name
-        , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsName.name
+          nameTopToAnon = Hs.assertNs (Proxy @Hs.NsVar) impField.info.name.hsIdent.name
+        , nameAnonToTarget = Hs.assertNs (Proxy @Hs.NsVar) indField.ann.fieldNameInAnon.hsIdent.name
         }
 
 -- | Class instances for 'GHC.Records.HasField' for the pointer manipulation API
-hasFieldPtrDecs :: Hs.Newtype -> Field -> [Hs.Decl l]
-hasFieldPtrDecs union field =
+hasFieldPtrDecs :: Hs.Identifier -> Hs.Newtype -> Field -> [Hs.Decl l]
+hasFieldPtrDecs newtypeIdent union field =
     [ Hs.DeclDefineInstance $
         Hs.DefineInstance {
             comment      = Nothing
@@ -319,10 +324,10 @@ hasFieldPtrDecs union field =
     ]
   where
     parentType :: Hs.Type
-    parentType = Hs.TypRef union.name Nothing
+    parentType = Hs.TypRef newtypeIdent Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsIdent.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -339,8 +344,8 @@ hasFieldPtrDecs union field =
         }
 
 -- | Class instances for 'HsBindgen.Runtime.HasCField.HasCField'
-hasCFieldDecs :: Hs.Newtype -> Field -> [Hs.Decl l]
-hasCFieldDecs union field = case getFieldWidth field of
+hasCFieldDecs :: Hs.Identifier -> Hs.Newtype -> Field -> [Hs.Decl l]
+hasCFieldDecs newtypeIdent union field = case getFieldWidth field of
     Just _w -> []
     Nothing ->
       [ Hs.DeclDefineInstance $
@@ -352,10 +357,10 @@ hasCFieldDecs union field = case getFieldWidth field of
       ]
   where
     parentType :: Hs.Type
-    parentType = Hs.TypRef union.name Nothing
+    parentType = Hs.TypRef newtypeIdent Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsIdent.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
@@ -369,8 +374,8 @@ hasCFieldDecs union field = case getFieldWidth field of
         }
 
 -- | Class instances for 'HsBindgen.Runtime.HasCBitfield.HasCBitfield'
-hasCBitfieldDecs :: Hs.Newtype -> Field -> [Hs.Decl l]
-hasCBitfieldDecs union field = case getFieldWidth field of
+hasCBitfieldDecs :: Hs.Identifier -> Hs.Newtype -> Field -> [Hs.Decl l]
+hasCBitfieldDecs newtypeIdent union field = case getFieldWidth field of
     Nothing -> []
     Just w ->
       [ Hs.DeclDefineInstance $
@@ -382,10 +387,10 @@ hasCBitfieldDecs union field = case getFieldWidth field of
       ]
   where
     parentType :: Hs.Type
-    parentType = Hs.TypRef union.name Nothing
+    parentType = Hs.TypRef newtypeIdent Nothing
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName.name
+    fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsIdent.name
 
     fieldType :: Hs.Type
     fieldType = (getFieldTyp field).hs
