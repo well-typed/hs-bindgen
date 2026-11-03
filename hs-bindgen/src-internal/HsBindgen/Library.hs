@@ -124,6 +124,7 @@ planLibrary libraryDirs baseModule useDeclGraph decls = do
               }
           | (header, (modName, declIds)) <- Map.toList headerMap
           ]
+
     pure LibraryPlan {
         modules   = libraryModules
       , placement = placement

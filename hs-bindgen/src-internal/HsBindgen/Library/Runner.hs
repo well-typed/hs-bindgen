@@ -224,11 +224,28 @@ runLibrary
         rootDirs  <- getCached boot.rootDirectives
         doxygen   <- getCached frontend.doxygen
 
-        let outputs =
+        -- TODO <https://github.com/well-typed/hs-bindgen/issues/742>
+        -- The instance map is built by running generateDeclarations over all
+        -- declarations at once, then handed to each per-module run. This
+        -- works but is wasteful: it generates (and discards) the full set of
+        -- Hs declarations just to collect the instance map. A more principled
+        -- approach would compute the instance map directly from the C AST
+        -- without going through the backend translation.
+        let (_allDecls, fullInstanceMap) = Hs.generateDeclarations
+              macroLang
+              config.backend.uniqueId
+              (BaseModuleName baseModule.text)
+              config.backend.hsBootPolicy
+              tuFinal.db
+              mempty
+              finalDecls
+
+            outputs =
               [ let moduleDecls =
                       Map.findWithDefault [] libMod.moduleName declsByModule
                 in processModule
-                     macroLang rootDirs doxygen tuFinal.db libMod moduleDecls
+                     macroLang rootDirs doxygen tuFinal.db fullInstanceMap
+                     libMod moduleDecls
               | libMod <- plan.modules
               ]
 
@@ -247,19 +264,21 @@ runLibrary
       -> [C.RootDirective C.HashIncludeArg]
       -> Doxygen
       -> DeclDB l Final
+      -> Hs.InstanceMap
       -> LibraryModule
       -> [C.Decl l Final]
       -> LibraryModuleOutput
-    processModule macroLang rootDirs doxygen declIndex libMod moduleDecls =
+    processModule macroLang rootDirs doxygen declDB instanceMap libMod moduleDecls =
       let
         libBaseModule = BaseModuleName libMod.moduleName.text
 
-        hsDecls = Hs.generateDeclarations
+        hsDecls = fst $ Hs.generateDeclarations
           macroLang
           config.backend.uniqueId
           libBaseModule
           config.backend.hsBootPolicy
-          declIndex
+          declDB
+          instanceMap
           moduleDecls
 
         filteredDecls = applyBindingCategoryChoice

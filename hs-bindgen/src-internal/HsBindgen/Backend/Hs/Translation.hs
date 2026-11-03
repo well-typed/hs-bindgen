@@ -1,6 +1,7 @@
 -- | Low-level translation of the C header to a Haskell module
 module HsBindgen.Backend.Hs.Translation (
     generateDeclarations
+  , Hs.InstanceMap
   ) where
 
 import Control.Monad.Reader qualified as Reader
@@ -70,12 +71,14 @@ generateDeclarations ::
   -> BaseModuleName
   -> HsBootPolicy
   -> DeclDB l Final
+  -> Hs.InstanceMap
   -> [C.Decl l Final]
-  -> ByCategory_ [Hs.Decl l]
-generateDeclarations macroLang uniqueId name hsBootPolicy declDB =
-    fmap reverse .
-      foldl' partitionBindingCategories mempty .
-      generateDeclarations' macroLang env declDB
+  -> (ByCategory_ [Hs.Decl l], Hs.InstanceMap)
+generateDeclarations macroLang uniqueId name hsBootPolicy declDB instanceMap0 =
+      first ( fmap reverse
+            . foldl' partitionBindingCategories mempty
+            )
+    . generateDeclarations' macroLang env instanceMap0 declDB
   where
     partitionBindingCategories ::
       ByCategory_ [a] -> WithCategory a  -> ByCategory_ [a]
@@ -120,11 +123,12 @@ generateDeclarations' ::
      Macro.HasTypes l
   => Macro.Lang l
   -> HsM.Env
+  -> Hs.InstanceMap
   -> DeclDB l Final
   -> [C.Decl l Final]
-  -> [WithCategory (Hs.Decl l)]
-generateDeclarations' macroLang env declDB decs =
-    HsM.runHsM env $ do
+  -> ([WithCategory (Hs.Decl l)], Hs.InstanceMap)
+generateDeclarations' macroLang env instanceMap0 declDB decs =
+    HsM.runHsM env instanceMap0 $ do
       let scannedFunctionTypes = scanAllFunctionTypes decs
           -- Generate ToFunPtr/FromFunPtr instances for nested function types
           -- These go in the main module to avoid orphan instances; the code
