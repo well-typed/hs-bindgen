@@ -93,6 +93,9 @@ type Out = ConstructTranslationUnit
 
 -- | The declaration database: an entry for every declaration in the C source
 --
+-- An unnamed declaration that we cannot name has no entry: it has no
+-- 'C.DeclId' ("HsBindgen.Frontend.Pass.FillUnnamedIds" drops it).
+--
 -- Passes change the kind of an entry, but do not remove it; the test suite
 -- checks the transitions (@Test.HsBindgen.Frontend.DeclDB.checkTransition@).
 data DeclDB l p = DeclDB {

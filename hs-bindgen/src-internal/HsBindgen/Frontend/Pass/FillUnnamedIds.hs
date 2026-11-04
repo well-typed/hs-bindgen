@@ -63,11 +63,11 @@ updateParseResult chosenNames result =
       -> ParseResult l FillUnnamedIds
     auxSuccess success declId' =
         case runM chosenNames updated of
-          Left (UnusableUnnamedDecl unnamedId) ->
+          Left (UnnameableDecl unnamedId) ->
             ParseResultFailure ParseFailure{
                 id   = declId'
               , info = success.decl.info
-              , msg  = ParseUnusableUnnamedDecl unnamedId
+              , msg  = ParseUnnameableDecl unnamedId
               }
           Right (enclosing', declKind') ->
             ParseResultSuccess ParseSuccess{
@@ -120,7 +120,7 @@ updateDefSite ::
   -> Id SimplifyAST
   -> Either (AnnMsg FillUnnamedIds) (Id FillUnnamedIds)
 updateDefSite chosenNames =
-    first (withCallStack . FillUnnamedIdsSkippedDecl) . fromPrelimDeclId chosenNames
+    first (withCallStack . FillUnnamedIdsUnnameableDecl) . fromPrelimDeclId chosenNames
 
 updateEnclosing ::
      C.EnclosingRef SimplifyAST
@@ -134,7 +134,7 @@ updateEnclosing = \case
 -------------------------------------------------------------------------------}
 
 newtype M a = WrapM (
-      ReaderT ChosenNames (Except UnusableUnnamedDecl) a
+      ReaderT ChosenNames (Except UnnameableDecl) a
     )
   deriving newtype (
       Functor
@@ -142,18 +142,18 @@ newtype M a = WrapM (
     , Monad
     )
 
--- | We encountered an unusable unnamed declaration
+-- | We encountered an unnamed declaration that we cannot name
 --
 -- Not all use sites of unnamed decls are given a name; for example, if we have a
 -- function signature with an untagged struct, we will not even traverse that
 -- function signature in "HsBindgen.Frontend.Analysis.UnnamedIdUsage". This means
 -- that if we then try to /update/ those use sites, that will fail.
 --
--- This is an internal type; the external equivalent is 'ParseUnusableUnnamedDecl'.
-data UnusableUnnamedDecl = UnusableUnnamedDecl C.UnnamedId
+-- This is an internal type; the external equivalent is 'ParseUnnameableDecl'.
+data UnnameableDecl = UnnameableDecl C.UnnamedId
   deriving stock (Show)
 
-runM :: ChosenNames -> M a -> Either UnusableUnnamedDecl a
+runM :: ChosenNames -> M a -> Either UnnameableDecl a
 runM chosenNames (WrapM ma) = runExcept $ runReaderT ma chosenNames
 
 {-------------------------------------------------------------------------------
@@ -401,7 +401,7 @@ updateDeclId :: C.PrelimDeclId -> M C.DeclId
 updateDeclId prelimDeclId = WrapM $ do
     chosenNames <- ask
     case fromPrelimDeclId chosenNames prelimDeclId of
-      Left  unnamedId -> throwError $ UnusableUnnamedDecl unnamedId
+      Left  unnamedId -> throwError $ UnnameableDecl unnamedId
       Right declId -> return declId
 
 {-------------------------------------------------------------------------------

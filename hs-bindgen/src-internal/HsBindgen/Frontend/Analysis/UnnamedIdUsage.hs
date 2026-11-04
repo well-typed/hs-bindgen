@@ -187,9 +187,9 @@ resolveConflicts unnamedId new old =
 
 -- | Analyse declaration
 --
--- NOTE: Unnamed declarations that appear in function signatures and
--- global variables are unusable, and so we do not assign a name to them
--- (this will cause them to be removed from the list of declarations).
+-- NOTE: Unnamed declarations that appear in function signatures get no name
+-- (see 'HsBindgen.Frontend.Pass.Parse.Msg.ParseUnsupportedUnnamedInSignature');
+-- this will cause them to be removed from the list of declarations.
 analyseDecl :: C.Decl l Parse -> [(C.UnnamedId, Context)]
 analyseDecl decl =
     case decl.kind of
