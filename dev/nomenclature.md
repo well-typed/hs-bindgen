@@ -28,6 +28,8 @@ declaration. The kind of the entry says what we generate for it:
   name conflicts, or a later pass _failed_ on it (the macro language or the
   name mangler).
 
+An entry of any other kind is _usable_.
+
 In particular,
 - we avoid the terms _exclude_, and _skip_.
 - we use the term _omit_ exclusively for the effect of prescriptive binding
