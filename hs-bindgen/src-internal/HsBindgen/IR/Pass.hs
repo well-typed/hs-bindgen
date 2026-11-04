@@ -37,6 +37,7 @@ module HsBindgen.IR.Pass (
   , CoercePassAnn(..)
     -- * Defaults
   , NoAnn(..)
+  , NoComment(..)
   , NoMsg
   ) where
 

@@ -53,7 +53,7 @@ instance PassMsg EnrichComments
   ScopedName, MacroBody, ExtBinding, MacroId, Ann). The only difference is
   'C.CommentDecl', so all trivial helpers can use the default identity, and
   'C.CoercePassCommentDecl' needs a custom instance that sets the comment to
-  'Nothing' (since @CommentDecl FillUnnamedIds = ()@ and
+  'Nothing' (since @CommentDecl FillUnnamedIds = NoComment@ and
   @CommentDecl EnrichComments = Maybe (Comment EnrichComments)@).
 -------------------------------------------------------------------------------}
 
@@ -71,4 +71,4 @@ instance CoercePassAnn "IndirectField" FillUnnamedIds EnrichComments
 instance CoercePassAnn "TypeFunArg"    FillUnnamedIds EnrichComments
 
 instance CoercePassCommentDecl FillUnnamedIds EnrichComments where
-  coercePassCommentDecl _ () = Nothing
+  coercePassCommentDecl _ NoComment = Nothing

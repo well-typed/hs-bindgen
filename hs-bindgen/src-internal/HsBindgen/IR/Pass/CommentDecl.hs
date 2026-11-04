@@ -11,6 +11,8 @@ module HsBindgen.IR.Pass.CommentDecl (
     PassCommentDecl(..)
     -- * Coercion
   , CoercePassCommentDecl(..)
+    -- * Defaults
+  , NoComment(..)
   ) where
 
 import HsBindgen.Imports
@@ -29,11 +31,11 @@ class (
   -- | Type of comments attached to declarations
   --
   -- 1. Before 'HsBindgen.Frontend.Pass.EnrichComments.IsPass.EnrichComments',
-  --   this is '()', to statically encode that comments cannot exist yet.
+  --   this is 'NoComment'.
   -- 2. After 'HsBindgen.Frontend.Pass.EnrichComments.IsPass.EnrichComments',
   --   this is @'Maybe' ('HsBindgen.IR.C.Decl.Comment' p)@.
   type CommentDecl p :: Star
-  type CommentDecl p = ()
+  type CommentDecl p = NoComment
 
 {-------------------------------------------------------------------------------
   Coercion
@@ -46,3 +48,11 @@ class CoercePassCommentDecl (p :: Pass) (p' :: Pass) where
        (CommentDecl p ~ CommentDecl p')
     => Proxy '(p, p') -> CommentDecl p -> CommentDecl p'
   coercePassCommentDecl _ = id
+
+{-------------------------------------------------------------------------------
+  Defaults
+-------------------------------------------------------------------------------}
+
+-- | Comments cannot exist yet
+data NoComment = NoComment
+  deriving stock (Eq, Ord, Show)

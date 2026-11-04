@@ -32,7 +32,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass qualified as Origin (FieldOrigin (..
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg (..))
 import HsBindgen.Imports (Bifunctor (bimap), MonadIO (..), NonEmpty, forM)
 import HsBindgen.IR.C qualified as C
-import HsBindgen.IR.Pass (PassScopedName (ScopedName))
+import HsBindgen.IR.Pass (NoComment (..), PassScopedName (ScopedName))
 
 {-------------------------------------------------------------------------------
   Inputs
@@ -357,7 +357,7 @@ getCandidateField encObj decl field = do
           info = C.FieldInfo {
                 loc = decl.info.loc
               , name = C.ScopedName ("anon'" <> field.info.name.text)
-              , comment = ()
+              , comment = NoComment
               }
         , typRef = C.AnonRef decl.id
           -- The offset to the implicit field is equal to the offset to any of

@@ -74,7 +74,7 @@ updateParseResult chosenNames result =
                 decl = C.Decl{
                     info      = success.decl.info
                   , id        = declId'
-                  , comment   = ()
+                  , comment   = NoComment
                   , enclosing = enclosing'
                   , kind      = declKind'
                   , ann       = NoAnn
@@ -210,7 +210,7 @@ instance UpdateUseSites C.Field where
 
 instance UpdateUseSites C.FieldInfo where
   updateUseSites info = pure C.FieldInfo{
-        comment = ()
+        comment = NoComment
       , name    = info.name
       , loc     = info.loc
       }
