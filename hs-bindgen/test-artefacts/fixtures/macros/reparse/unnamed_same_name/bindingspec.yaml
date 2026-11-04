@@ -1,0 +1,109 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/reparse/unnamed_same_name.h
+  cname: macro M
+  hsname: M
+- headers: macros/reparse/unnamed_same_name.h
+  cname: struct a
+  hsname: A
+- headers: macros/reparse/unnamed_same_name.h
+  cname: struct @a_b
+  hsname: A_b
+- headers: macros/reparse/unnamed_same_name.h
+  cname: struct a_b
+  hsname: Named
+hstypes:
+- hsname: A
+  representation:
+    record:
+      constructor: A
+      fields:
+      - b
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: A_b
+  representation:
+    record:
+      constructor: A_b
+      fields:
+      - x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: M
+  representation:
+    newtype:
+      constructor: M
+      fields:
+      - unwrap
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Named
+  representation:
+    record:
+      constructor: Named
+      fields:
+      - x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

@@ -1,0 +1,112 @@
+-- addDependentFile test-artefacts/headers/golden/macros/reparse/unnamed_same_name.h
+{-| __C declaration:__ @macro M@
+
+    __defined at:__ @macros\/reparse\/unnamed_same_name.h 3:9@
+
+    __exported by:__ @macros\/reparse\/unnamed_same_name.h@
+-}
+m :: Raw String
+{-| __C declaration:__ @macro M@
+
+    __defined at:__ @macros\/reparse\/unnamed_same_name.h 3:9@
+
+    __exported by:__ @macros\/reparse\/unnamed_same_name.h@
+-}
+m = objectLike "M" ["int"]
+{-| __C declaration:__ @struct \@a_b@
+
+    __defined at:__ @macros\/reparse\/unnamed_same_name.h 5:12@
+
+    __exported by:__ @macros\/reparse\/unnamed_same_name.h@
+-}
+data A_b
+    = A_b {x :: CInt
+           {- ^ __C declaration:__ @x@
+
+                __defined at:__ @macros\/reparse\/unnamed_same_name.h 5:23@
+
+                __exported by:__ @macros\/reparse\/unnamed_same_name.h@
+           -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize A_b
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw A_b
+    where readRaw = \ptr_0 -> pure A_b <*> readRaw (Proxy @"x") ptr_0
+instance WriteRaw A_b
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       A_b x_2 -> writeRaw (Proxy @"x") ptr_0 x_2
+deriving via (EquivStorable A_b) instance Storable A_b
+deriving via (IsStructViaReadRaw A_b) instance IsStruct A_b
+instance (~) ty CInt => HasField "x" A_b ty
+    where hasField = \x_0 -> (\y_1 -> A_b{x = y_1}, getField @"x" x_0)
+instance (~) ty CInt => HasField "x" (Ptr A_b) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField A_b "x"
+    where type CFieldType A_b "x" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct a@
+
+    __defined at:__ @macros\/reparse\/unnamed_same_name.h 5:8@
+
+    __exported by:__ @macros\/reparse\/unnamed_same_name.h@
+-}
+data A
+    = A {b :: A_b
+         {- ^ __C declaration:__ @b@
+
+              __defined at:__ @macros\/reparse\/unnamed_same_name.h 5:28@
+
+              __exported by:__ @macros\/reparse\/unnamed_same_name.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize A
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw A
+    where readRaw = \ptr_0 -> pure A <*> readRaw (Proxy @"b") ptr_0
+instance WriteRaw A
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       A b_2 -> writeRaw (Proxy @"b") ptr_0 b_2
+deriving via (EquivStorable A) instance Storable A
+deriving via (IsStructViaReadRaw A) instance IsStruct A
+instance (~) ty A_b => HasField "b" A ty
+    where hasField = \x_0 -> (\y_1 -> A{b = y_1}, getField @"b" x_0)
+instance (~) ty A_b => HasField "b" (Ptr A) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+instance HasCField A "b"
+    where type CFieldType A "b" = A_b
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct a_b@
+
+    __defined at:__ @macros\/reparse\/unnamed_same_name.h 6:8@
+
+    __exported by:__ @macros\/reparse\/unnamed_same_name.h@
+-}
+data Named
+    = Named {x :: (Ptr CInt)
+             {- ^ __C declaration:__ @x@
+
+                  __defined at:__ @macros\/reparse\/unnamed_same_name.h 6:17@
+
+                  __exported by:__ @macros\/reparse\/unnamed_same_name.h@
+             -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Named
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Named
+    where readRaw = \ptr_0 -> pure Named <*> readRaw (Proxy @"x") ptr_0
+instance WriteRaw Named
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Named x_2 -> writeRaw (Proxy @"x") ptr_0 x_2
+deriving via (EquivStorable Named) instance Storable Named
+deriving via (IsStructViaReadRaw Named) instance IsStruct Named
+instance (~) ty (Ptr CInt) => HasField "x" Named ty
+    where hasField = \x_0 -> (\y_1 -> Named{x = y_1},
+                              getField @"x" x_0)
+instance (~) ty (Ptr CInt) => HasField "x" (Ptr Named) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField Named "x"
+    where type CFieldType Named "x" = Ptr CInt
+          offset# = \_ -> \_ -> 0
