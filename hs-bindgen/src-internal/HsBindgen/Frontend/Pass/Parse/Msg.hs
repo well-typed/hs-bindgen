@@ -313,15 +313,15 @@ data DelayedParseMsg =
     -- | We do not support SIMD vector types (yet)
   | ParseUnsupportedVector
 
-    -- | Unusable unnamed declaration
+    -- | The declaration uses an unnamed declaration that we cannot name
     --
-    -- When an unusable declaration appears in some outer declaration (say a
+    -- When such a declaration appears in some outer declaration (say a
     -- function signature), we will fail to \"parse\" that outer declaration
     -- (actually this happens as a separate post-processing step in
     -- @FillUnnamedIds@). We record the identifier of the unnamed declaration
     -- here (that is, it's source location); the identifier of the outer
     -- declaration is recorded in the encloding 'HsBindgen.Frontend.Pass.Parse.Result.ParseResult'.
-  | ParseUnusableUnnamedDecl C.UnnamedId
+  | ParseUnnameableDecl C.UnnamedId
 
   | ParseExpectedFunctionType String
 
@@ -493,8 +493,8 @@ instance PrettyForTrace DelayedParseMsg where
         "Unsupported variadic (varargs) function"
       ParseUnsupportedVector ->
         "Unsupported SIMD vector type"
-      ParseUnusableUnnamedDecl unnamedId -> PP.hsep [
-          "Unusable unnamed declaration "
+      ParseUnnameableDecl unnamedId -> PP.hsep [
+          "Uses an unnamed declaration we cannot name:"
         , prettyForTrace unnamedId
         ]
       ParseDeclarationNotVisible kind name -> PP.hcat [
@@ -556,7 +556,7 @@ instance IsTrace Level DelayedParseMsg where
       ParseUnsupportedTLS{}                -> Warning
       ParseUnsupportedVariadicFunction     -> Warning
       ParseUnsupportedVector               -> Warning
-      ParseUnusableUnnamedDecl{}           -> Warning
+      ParseUnnameableDecl{}                -> Warning
       ParseExpectedFunctionType{}          -> Bug
       ParseMacroDefinitionNoMacroName{}    -> Bug
       ParseUnexpectedComplexType{}         -> Bug

@@ -119,7 +119,7 @@ enrichComments doxy results =
   where
     -- Coerce input to 'EnrichComments' before enrichment. The coercion sets
     -- every @comment@ field to 'Nothing' (since 'CommentDecl FillUnnamedIds'
-    -- is @()@ and 'CommentDecl EnrichComments' is @Maybe (Comment EnrichComments)@)
+    -- is 'NoComment' and 'CommentDecl EnrichComments' is @Maybe (Comment EnrichComments)@)
     -- via 'CoercePassCommentDecl'. We then fill in comments by looking up the
     -- doxygen state.
     coerced :: [ParseResult l EnrichComments]
@@ -249,7 +249,7 @@ resolveQualifiedName decl =
     getEnclosingRef :: C.EnclosingRef EnrichComments -> C.DeclId
     getEnclosingRef = \case
         C.EnclosingRef         x -> x
-        C.UnusableEnclosingRef x -> x
+        C.UnresolvedEnclosingRef x -> x
 
 {-------------------------------------------------------------------------------
   Helpers

@@ -753,12 +753,12 @@ resolveUseSite ::
   -> M l (Maybe BindingSpec.ResolvedExtBinding)
 resolveUseSite ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
     case Map.lookup cDeclId state.extTypes of
-      -- 1. Search cache: We expect all usable declarations with external
-      -- bindings to be in the cache.
+      -- 1. Search cache: every active declaration with an external binding is
+      -- in the cache ('resolveTop' runs on all of them first).
       Just ty -> do
         insertTrace ctx $ ResolveBindingSpecsExtType cDeclId
         pure (Just ty)
-      -- 2. No cache hit: The declaration is either usable and has no external
+      -- 2. No cache hit: The declaration is either active and has no external
       -- binding, or it is unusable.
       Nothing ->
         case DeclDB.lookupEntry cDeclId env.declDB of
@@ -782,8 +782,15 @@ resolveUseSite ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
                   State.modify' $ insertExtType cDeclId ty
                   pure (Just ty)
                 Nothing -> pure Nothing
-          -- Cannot have an external binding specification.
-          Just _usable ->
+          -- Has no external binding specification.
+          Just DeclDB.Active{} ->
+            pure Nothing
+          -- No entry has these kinds before this pass ends.
+          Just DeclDB.Squashed{} ->
+            pure Nothing
+          Just DeclDB.External{} ->
+            pure Nothing
+          Just DeclDB.NotSelected{} ->
             pure Nothing
 
 {-------------------------------------------------------------------------------

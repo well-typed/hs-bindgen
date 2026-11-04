@@ -93,6 +93,9 @@ type Out = ConstructTranslationUnit
 
 -- | The declaration database: an entry for every declaration in the C source
 --
+-- An unnamed declaration that we cannot name has no entry: it has no
+-- 'C.DeclId' ("HsBindgen.Frontend.Pass.FillUnnamedIds" drops it).
+--
 -- Passes change the kind of an entry, but do not remove it; the test suite
 -- checks the transitions (@Test.HsBindgen.Frontend.DeclDB.checkTransition@).
 data DeclDB l p = DeclDB {
@@ -140,7 +143,10 @@ data Entry l p =
     -- | We intend to generate a binding for the squash target only
   | Squashed C.DeclInfo SquashTarget
     -- | Defined elsewhere: an external binding replaces the declaration
-  | External ResolvedExtBinding
+  | External
+      C.DeclLocs
+      -- ^ The locations of the declaration the binding replaced
+      ResolvedExtBinding
     -- | The configuration does not ask for a binding, or we cannot select a
     -- transitive dependency (see 'NotSelectedReason')
   | NotSelected C.DeclInfo NotSelectedReason
@@ -222,14 +228,13 @@ instance IsTrace Level PassFailure where
     MacroFailed       err -> getTraceId err
     MangleNamesFailed err -> getTraceId err
 
--- | 'Nothing' only for 'External'
-entryToLoc :: Entry l p -> Maybe C.DeclLocs
+entryToLoc :: Entry l p -> C.DeclLocs
 entryToLoc = \case
-    Active   decl      -> Just $ C.DeclLoc decl.info.loc
-    Squashed info _    -> Just $ C.DeclLoc info.loc
-    External _         -> Nothing
-    NotSelected info _ -> Just $ C.DeclLoc info.loc
-    Unusable unusable  -> Just $ unusableToLoc unusable
+    Active   decl      -> C.DeclLoc decl.info.loc
+    Squashed info _    -> C.DeclLoc info.loc
+    External locs _    -> locs
+    NotSelected info _ -> C.DeclLoc info.loc
+    Unusable unusable  -> unusableToLoc unusable
 
 -- | Fall back to 'C.NotDeprecated' for conflicts and externals
 entryToDeprecation :: Entry l p -> C.Deprecation
@@ -420,7 +425,7 @@ buildDB macroAnalysis isMainHeader =
             -- The same identifier at the same location is the same
             -- declaration, seen twice; e.g., Parse emits a struct defined
             -- inline in a variable or function declaration twice.
-            Just old | entryToLoc old == Just (C.DeclLoc (parseResultInfo new).loc) ->
+            Just old | entryToLoc old == C.DeclLoc (parseResultInfo new).loc ->
               db
             _otherwise -> case mConflict of
               Nothing ->
@@ -524,7 +529,7 @@ checkIsConflict macroAnalysis isMainHeader new (oldId, old)
               C.conflictInsert c newLoc
             _otherwise ->
               C.conflictFromList $
-                newLoc : foldMap C.declLocsToList (entryToLoc old)
+                newLoc : C.declLocsToList (entryToLoc old)
       in SingleConflict (Set.fromList [newId, oldId]) conflict
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/2282>
@@ -542,7 +547,7 @@ data Keep = KeepNew | KeepOld
 keepRedefinition :: IsMainHeader -> SingleLoc C.DeclPath -> Entry l p -> Keep
 keepRedefinition isMainHeader newLoc old
     | inMainHeader newLoc
-    , not $ any inMainHeader $ foldMap C.declLocsToList (entryToLoc old)
+    , not $ any inMainHeader $ C.declLocsToList (entryToLoc old)
     = KeepNew
     | otherwise
     = KeepOld
@@ -646,7 +651,7 @@ traverseActive order f db = case order of
     step = \case
       Active      decl      -> advance decl <$> f decl
       Squashed    info    t -> pure $ Squashed info t
-      External    binding   -> pure $ External binding
+      External    locs b    -> pure $ External locs b
       NotSelected info    r -> pure $ NotSelected info r
       Unusable    unusable  -> pure $ Unusable unusable
 
@@ -771,8 +776,8 @@ externalize bindings db
     step declId entry = case Map.lookup declId bindings of
       Nothing      -> entry
       Just binding -> case entry of
-        Active{}   -> External binding
-        Unusable{} -> External binding
+        Active{}   -> External (entryToLoc entry) binding
+        Unusable{} -> External (entryToLoc entry) binding
         _otherwise ->
           panicPure $
             "externalize: unexpected " ++ entryKind entry ++ " entry "
@@ -851,9 +856,9 @@ toList db = Map.toList db.entries
 
 -- | Get the source locations of a declaration.
 --
--- 'Nothing' indicates the declaration was /not found/, or is 'External'.
+-- 'Nothing' indicates the declaration was /not found/.
 lookupLoc :: C.DeclId -> DeclDB l p -> Maybe C.DeclLocs
-lookupLoc d db = lookupEntry d db >>= entryToLoc
+lookupLoc d db = entryToLoc <$> lookupEntry d db
 
 -- | Does the expansion of a macro depend on where it is invoked?
 --

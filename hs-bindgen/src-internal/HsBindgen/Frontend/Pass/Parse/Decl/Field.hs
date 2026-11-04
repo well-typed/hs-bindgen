@@ -17,6 +17,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
 import HsBindgen.Frontend.Pass.Parse.Type (fromCXType)
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Pass (NoComment (..))
 
 regularFieldDecl :: ParseCtx -> CXCursor -> ParseDecl (C.RegularField Parse)
 regularFieldDecl ctx = \curr -> do
@@ -50,5 +51,5 @@ getFieldInfo = \curr -> do
     return C.FieldInfo {
         loc     = fieldLoc
       , name    = fieldName
-      , comment = ()
+      , comment = NoComment
       }

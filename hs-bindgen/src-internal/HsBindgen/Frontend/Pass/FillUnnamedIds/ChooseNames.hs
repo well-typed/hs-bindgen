@@ -32,7 +32,7 @@ chooseNames (UnnamedIdUsageAnalysis usageAnalysis) =
     nameFor :: C.UnnamedId -> Memoize (Maybe C.DeclId)
     nameFor = memoize $ \unnamedId ->
         case Map.lookup unnamedId usageAnalysis of
-          Nothing    -> return Nothing      -- Unused (or unusable) unnamed decl
+          Nothing    -> return Nothing      -- No use site that names it
           Just usage -> nameForUsage unnamedId usage
 
     nameForUsage ::

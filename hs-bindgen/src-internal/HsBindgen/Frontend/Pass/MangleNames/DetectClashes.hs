@@ -31,8 +31,8 @@ import HsBindgen.Language.Haskell qualified as Hs
   Ideally, we'd not purge all conflicts, but instead let selection resolve
   conflict groups. While this is possible, it is also a difficult problem: If we
   deselect a declaration in a confict group, all reverse transitive dependencies
-  of the deselected declaration also become unusable. This _may affect other
-  conflict groups_, and so is a recursive problem with a fix point.
+  of the deselected declaration can no longer be selected. This _may affect
+  other conflict groups_, and so is a recursive problem with a fix point.
 
 -------------------------------------------------------------------------------}
 

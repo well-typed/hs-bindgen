@@ -55,25 +55,25 @@ instance PassMsg FillUnnamedIds where
 -------------------------------------------------------------------------------}
 
 data ImmediateFillUnnamedIdsMsg =
-    -- | Skipped unused unnamed declaration
+    -- | An unnamed declaration that we cannot name, and drop
     --
     -- This is not a problem in itself. Either @clang@ warns about the
     -- declaration ("declaration does not declare anything"), or the
     -- declaration that should use it failed to parse and reports the error. We
-    -- issue this message in case we skip something we shouldn't skip.
-    FillUnnamedIdsSkippedDecl C.UnnamedId
+    -- issue this message in case we drop something we should name.
+    FillUnnamedIdsUnnameableDecl C.UnnamedId
   deriving stock (Show, Generic)
 
 instance PrettyForTrace ImmediateFillUnnamedIdsMsg where
   prettyForTrace = \case
-      FillUnnamedIdsSkippedDecl unnamedId -> PP.hsep [
-          "Skipped unused or unusable unnamed declaration"
+      FillUnnamedIdsUnnameableDecl unnamedId -> PP.hsep [
+          "Cannot name unnamed declaration"
         , prettyForTrace unnamedId
         ]
 
 instance IsTrace Level ImmediateFillUnnamedIdsMsg where
   getDefaultLogLevel = \case
-      FillUnnamedIdsSkippedDecl{} -> Debug
+      FillUnnamedIdsUnnameableDecl{} -> Debug
 
   getSource  = const HsBindgen
   getTraceId = const "fill-unnamed-ids"

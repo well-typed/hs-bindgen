@@ -174,11 +174,12 @@ instance PrettyForTrace TransitiveDependencyMissing where
 
 -- | Select trace messages
 data SelectMsg =
-    -- | Information about selection status; issued for all available
-    -- declarations.
+    -- | Selection status: 'NotSelected' for each declaration that is not
+    -- selected, except external ones; 'Selected' for each selected declaration
+    -- that is usable, not omitted, and has no missing transitive dependency.
     SelectStatusInfo SelectStatus
-    -- | The user has selected a declaration that is available but has missing
-    -- transitive dependencies.
+    -- | The user has selected a declaration, but some of its transitive
+    -- dependencies are missing.
   | TransitiveDependenciesMissing SelectReason [TransitiveDependencyMissing]
     -- | The user has selected a deprecated declaration. Maybe they want to
     -- de-select the deprecated declaration?

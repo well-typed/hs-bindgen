@@ -97,7 +97,9 @@ data Deprecation =
 -- | Reference to enclosing declaration
 data EnclosingRef p =
     EnclosingRef (Id p)
-  | UnusableEnclosingRef C.DeclId
+    -- | The enclosing declaration has no Haskell name: it is not active in
+    -- @MangleNames@, or name mangling failed on it
+  | UnresolvedEnclosingRef C.DeclId
 
 deriving stock instance (Eq   (Id p)) => Eq   (EnclosingRef p)
 deriving stock instance (Ord  (Id p)) => Ord  (EnclosingRef p)
@@ -618,8 +620,8 @@ instance (CoercePassId p p') => CoercePass EnclosingRef p p' where
     coercePass = \case
       EnclosingRef x ->
         EnclosingRef (coercePassId (Proxy @'(p, p')) x)
-      UnusableEnclosingRef x ->
-        UnusableEnclosingRef x
+      UnresolvedEnclosingRef x ->
+        UnresolvedEnclosingRef x
 
 instance (
       CoercePassCommentDecl p p'
