@@ -85,8 +85,8 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
         selectionRoots :: Map C.DeclId (Entry l In)
         selectionRoots = selectEntries match declDB
 
-        -- Identifiers of selection roots. Some of them may be squashed or
-        -- unusable (i.e., not active in the 'DeclDB').
+        -- Identifiers of selection roots. Some of them may not be active in the
+        -- 'DeclDB' (e.g., squashed, external, omitted, or unusable).
         rootIds :: Set C.DeclId
         rootIds = Map.keysSet selectionRoots
 
