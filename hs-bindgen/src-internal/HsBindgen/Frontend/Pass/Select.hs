@@ -45,36 +45,27 @@ type Decl l = C.Decl l Select
 
 type In = TranslateTypes
 
--- | Reason why we cannot select a dependency, and its users
---
--- Selectability _is concerned with transitivity_. All transitive dependencies
--- of a selectable declaration must also be selectable.
-data Unselectable =
+-- | Why a dependency is missing from the output, so that its users cannot be
+-- selected
+data MissingReason =
     -- | We cannot generate a binding for the dependency
-    UnselectableUnusable Unusable
+    MissingUnusable Unusable
     -- | The configuration does not ask for the dependency
-  | UnselectableNotSelected NotSelectedReason
+  | MissingNotSelected NotSelectedReason
   deriving stock (Show)
 
--- | We have to treat with two notions of usability here:
+-- | Whether a declaration can be selected, given its transitive dependencies
 --
--- 1. A declaration is usable if we can generate a binding for it (see
---    'DeclDB.getUnusable').
---
--- 2. A declaration is available if the declaration itself and all of its
---    transitive dependencies are available.
---
--- @TransitiveSelectability@ deals with the second type.
---
--- (We avoid the term available, because it is overloaded with Clang's
--- CXAvailabilityKind).
+-- Unlike usability ('DeclDB.getUnusable'), selectability is concerned with
+-- transitivity: a declaration is selectable if none of its transitive
+-- dependencies is missing.
 data TransitiveSelectability =
     TransitivelySelectable
-    -- | For each transitive dependency, we try to give the root cause of
-    -- unavailability.
+    -- | The missing transitive dependencies, each with the reason most useful
+    -- to the user
     --
     -- We should use a "non-empty" map here.
-  | TransitivelyUnselectable (Map C.DeclId Unselectable)
+  | TransitivelyUnselectable (Map C.DeclId MissingReason)
   deriving stock (Show)
 
 {-------------------------------------------------------------------------------
@@ -126,8 +117,8 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
 
         getTransitiveSelectability :: C.DeclId -> TransitiveSelectability
         getTransitiveSelectability x
-          | Map.null unusabilityReasons = TransitivelySelectable
-          | otherwise                   = TransitivelyUnselectable unusabilityReasons
+          | Map.null missingReasons = TransitivelySelectable
+          | otherwise               = TransitivelyUnselectable missingReasons
           where
             transDeps :: Set C.DeclId
             transDeps =
@@ -135,50 +126,50 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
                 useDeclGraph
                 (Set.singleton x)
 
-            unusables :: Map C.DeclId Unselectable
-            unusables =
-              Map.mapMaybe toUnselectable $
+            unusableOrNotSelected :: Map C.DeclId MissingReason
+            unusableOrNotSelected =
+              Map.mapMaybe toMissingReason $
                 Map.restrictKeys declDB.entries transDeps
 
-            toUnselectable :: Entry l In -> Maybe Unselectable
-            toUnselectable = \case
+            toMissingReason :: Entry l In -> Maybe MissingReason
+            toMissingReason = \case
               DeclDB.NotSelected _ reason ->
-                Just $ UnselectableNotSelected reason
+                Just $ MissingNotSelected reason
               entry ->
-                UnselectableUnusable <$> DeclDB.getUnusable entry
+                MissingUnusable <$> DeclDB.getUnusable entry
 
-            nonselected :: Map C.DeclId Unselectable
-            nonselected  =
-              Map.fromSet (const $ UnselectableNotSelected Deselected) $
+            outsideSelection :: Map C.DeclId MissingReason
+            outsideSelection =
+              Map.fromSet (const $ MissingNotSelected Deselected) $
                 transDeps \\ selectedIds
 
-            unusabilityReasons :: Map C.DeclId Unselectable
-            unusabilityReasons =
+            missingReasons :: Map C.DeclId MissingReason
+            missingReasons =
               Map.unionWith
-                getMostNaturalUnselectable
-                unusables
-                nonselected
+                getMostNaturalMissingReason
+                unusableOrNotSelected
+                outsideSelection
 
             -- Get the reason that is most useful to the user about why a
-            -- declaration is unselectable. Without program slicing, an omitted
+            -- dependency is missing. Without program slicing, an omitted
             -- dependency is also not in 'selectedIds'; omitted must win.
-            getMostNaturalUnselectable ::
-              Unselectable -> Unselectable -> Unselectable
-            getMostNaturalUnselectable l r =
+            getMostNaturalMissingReason ::
+              MissingReason -> MissingReason -> MissingReason
+            getMostNaturalMissingReason l r =
               case (l,r) of
-                (UnselectableNotSelected Deselected, _)
+                (MissingNotSelected Deselected, _)
                   | overridesDeselected r -> r
                   | otherwise             -> l
-                (_, UnselectableNotSelected Deselected)
+                (_, MissingNotSelected Deselected)
                   | overridesDeselected l -> l
                   | otherwise             -> r
                 (_, _) -> l
 
-            overridesDeselected :: Unselectable -> Bool
+            overridesDeselected :: MissingReason -> Bool
             overridesDeselected = \case
-              UnselectableNotSelected Omitted                      -> True
-              UnselectableUnusable (UnusableDecl _ NotAttempted{}) -> True
-              _otherReason                                         -> False
+              MissingNotSelected Omitted                      -> True
+              MissingUnusable (UnusableDecl _ NotAttempted{}) -> True
+              _otherReason                                    -> False
 
         selectDecl :: Decl l -> Maybe (Decl l)
         selectDecl =
@@ -377,12 +368,12 @@ getSelectMsgsDeclId
       (True, False, TransitivelySelectable) ->
         getMsgsFor SelectionRoot
       (True, False, TransitivelyUnselectable rs) ->
-        maybeToList $ getUnavailMsg SelectionRoot rs
+        maybeToList $ getMissingDepsMsg SelectionRoot rs
       -- Declaration is an additionally selected transitive dependency.
       (False, True, TransitivelySelectable) ->
         getMsgsFor TransitiveDependency
       (False, True, TransitivelyUnselectable rs) ->
-        maybeToList $ getUnavailMsg TransitiveDependency rs
+        maybeToList $ getMissingDepsMsg TransitiveDependency rs
       -- Declaration is not selected. An external declaration has no location
       -- to report.
       (False, False, _) -> case entry of
@@ -422,12 +413,12 @@ getSelectMsgsDeclId
                 , msg = x
                 }
 
-    getUnavailMsg ::
+    getMissingDepsMsg ::
          HasCallStack
       => SelectReason
-      -> Map C.DeclId Unselectable
+      -> Map C.DeclId MissingReason
       -> Maybe (AnnMsg Select)
-    getUnavailMsg selectReason unavailReasons =
+    getMissingDepsMsg selectReason missingReasons =
         if null msgs then
           Nothing
         else
@@ -435,11 +426,11 @@ getSelectMsgsDeclId
       where
         msgs = [
                case r of
-                 UnselectableUnusable u ->
+                 MissingUnusable u ->
                    TransitiveDependencyUnusable i u
-                 UnselectableNotSelected reason ->
+                 MissingNotSelected reason ->
                    TransitiveDependencyNotSelected i locs reason
-             | (i, r) <- Map.toList unavailReasons
+             | (i, r) <- Map.toList missingReasons
              , let locs = case DeclDB.lookupLoc i declDB of
                      Nothing -> []
                      Just xs -> C.declLocsToList xs
