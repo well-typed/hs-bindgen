@@ -113,11 +113,11 @@ resolveEnclosingRef = \case
     C.EnclosingRef e -> do
       -- We must not propagate potential name mangler failures of the enclosing
       -- declaration, which is a backwards reference. Instead, we mark the
-      -- reference "unusable".
+      -- reference unresolved.
       r <- tryError $ lookupTypePairR e
-      pure $ either (const (C.UnusableEnclosingRef e)) C.EnclosingRef r
-    C.UnusableEnclosingRef e ->
-      pure $ C.UnusableEnclosingRef e
+      pure $ either (const (C.UnresolvedEnclosingRef e)) C.EnclosingRef r
+    C.UnresolvedEnclosingRef e ->
+      pure $ C.UnresolvedEnclosingRef e
 
 resolveDeclKind ::
      Macro.HasTypes l

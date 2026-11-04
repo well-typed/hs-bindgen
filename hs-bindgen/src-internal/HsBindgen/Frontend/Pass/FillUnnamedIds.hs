@@ -127,7 +127,7 @@ updateEnclosing ::
   -> M (C.EnclosingRef FillUnnamedIds)
 updateEnclosing = \case
     C.EnclosingRef         x -> C.EnclosingRef <$> updateDeclId x
-    C.UnusableEnclosingRef x -> pure $ C.UnusableEnclosingRef x
+    C.UnresolvedEnclosingRef x -> pure $ C.UnresolvedEnclosingRef x
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: monad for updating use sites

@@ -249,7 +249,7 @@ resolveQualifiedName decl =
     getEnclosingRef :: C.EnclosingRef EnrichComments -> C.DeclId
     getEnclosingRef = \case
         C.EnclosingRef         x -> x
-        C.UnusableEnclosingRef x -> x
+        C.UnresolvedEnclosingRef x -> x
 
 {-------------------------------------------------------------------------------
   Helpers
