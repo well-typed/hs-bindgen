@@ -374,8 +374,8 @@ getSelectMsgsDeclId
         getMsgsFor TransitiveDependency
       (False, True, TransitivelyUnselectable rs) ->
         maybeToList $ getMissingDepsMsg TransitiveDependency rs
-      -- Declaration is not selected. An external declaration has no location
-      -- to report.
+      -- Declaration is not selected. An external declaration is defined
+      -- elsewhere, so we do not report it.
       (False, False, _) -> case entry of
         External{}  -> []
         _otherEntry -> [withLoc $ SelectStatusInfo NotSelected]
@@ -408,7 +408,7 @@ getSelectMsgsDeclId
     withLoc :: HasCallStack => a -> WithCallStack (C.WithLocationInfo a)
     withLoc x = withCallStack C.WithLocationInfo{
                   loc = C.declIdLocationInfo declId $
-                          foldMap C.declLocsToList $
+                          C.declLocsToList $
                             DeclDB.entryToLoc entry
                 , msg = x
                 }
@@ -638,7 +638,7 @@ getBugMsgsNotActive declDB =
       entry    -> [
           withCallStack C.WithLocationInfo{
               loc = C.declIdLocationInfo declId $
-                maybe [] C.declLocsToList (DeclDB.entryToLoc entry)
+                C.declLocsToList (DeclDB.entryToLoc entry)
             , msg = SelectDelayedMsg msg
             }
         | msg <- DeclDB.lookupDelayedMsgs declId declDB
@@ -713,9 +713,8 @@ selectEntries predicate declDB =
           Nothing
         DeclDB.NotSelected{} ->
           Nothing
-        _otherwise -> do
-          locs <- DeclDB.entryToLoc entry
-          pure (locs, DeclDB.entryToDeprecation entry)
+        _otherwise ->
+          Just (DeclDB.entryToLoc entry, DeclDB.entryToDeprecation entry)
 
     -- We match unnamed declarations based on their use sites.
     --

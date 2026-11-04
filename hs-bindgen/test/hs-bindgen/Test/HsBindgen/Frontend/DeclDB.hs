@@ -100,7 +100,7 @@ describe :: Entry l p -> String
 describe = \case
     Active{}        -> "Active"
     Squashed i t    -> "Squashed " ++ show i ++ " " ++ show t
-    External x      -> "External " ++ show x
+    External _ x    -> "External " ++ show x
     NotSelected i r -> "NotSelected " ++ show i ++ " " ++ show r
     Unusable x      -> "Unusable " ++ show x
 
