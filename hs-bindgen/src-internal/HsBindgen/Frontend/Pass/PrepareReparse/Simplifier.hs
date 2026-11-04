@@ -173,15 +173,13 @@ functionDecl tokens = Decl $ flattenFunction tokens
 -------------------------------------------------------------------------------}
 
 fieldTag :: C.DeclId -> C.FieldInfo ApplyMacroFallback -> Tag
-fieldTag declId fieldInfo = Tag Field (TagName name)
-  where
-    name = P.name declId  . P.dot . P.fieldName fieldInfo $ ""
+fieldTag declId fieldInfo = Tag (Field fieldInfo.name) declId
 
 functionTag :: C.DeclId -> Tag
-functionTag declId = Tag Function (TagName (P.name declId ""))
+functionTag = Tag Function
 
 typedefTag :: C.DeclId -> Tag
-typedefTag declId = Tag Typedef (TagName (P.name declId ""))
+typedefTag = Tag Typedef
 
 variableTag :: C.DeclId -> Tag
-variableTag declId = Tag Variable (TagName (P.name declId ""))
+variableTag = Tag Variable

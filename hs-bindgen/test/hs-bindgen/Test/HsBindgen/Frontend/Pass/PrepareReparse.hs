@@ -11,18 +11,19 @@ import Data.Char (isSpace)
 import Data.List qualified as List
 import Data.List.NonEmpty (NonEmpty (..))
 import Data.List.NonEmpty qualified as NE
+import Data.Text qualified as Text
 import Test.Tasty (TestTree, testGroup)
-import Test.Tasty.QuickCheck (Arbitrary (..), Arbitrary1 (..), Property,
-                              counterexample, elements, listOf, suchThat,
+import Test.Tasty.QuickCheck (Arbitrary (..), Arbitrary1 (..), Gen, Property,
+                              counterexample, elements, listOf, oneof, suchThat,
                               testProperty, (===))
 import Text.Parsec (ParseError)
 
 import HsBindgen.Frontend.Pass.PrepareReparse.AST (Decl (..), Tag (..),
-                                                   TagName (..), TagType,
-                                                   Target (..))
+                                                   TagType (..), Target (..))
 import HsBindgen.Frontend.Pass.PrepareReparse.Lexer (lex)
 import HsBindgen.Frontend.Pass.PrepareReparse.Parser (Parse, parse)
 import HsBindgen.Frontend.Pass.PrepareReparse.Printer (Print, print)
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Tests
@@ -40,8 +41,6 @@ tests = testGroup "Test.HsBindgen.Frontend.Pass.PrepareReparse" [
         prop_roundtripCommon @Tag
     , testProperty "prop_roundtripCommon @TagType" $
         prop_roundtripCommon @TagType
-    , testProperty "prop_roundtripCommon @TagName" $
-        prop_roundtripCommon @TagName
     ]
 
 {-------------------------------------------------------------------------------
@@ -92,13 +91,10 @@ instance Normalize Decl where
   normalize (Decl code) = Decl (normalize code)
 
 instance Normalize Tag where
-  normalize (Tag typ name) = Tag (normalize typ) (normalize name)
+  normalize = id
 
 instance Normalize TagType where
   normalize = id
-
-instance Normalize TagName where
-  normalize (TagName s) = TagName $ normalize s
 
 instance Normalize String where
   normalize s =
@@ -126,17 +122,29 @@ instance Arbitrary Decl where
   shrink (Decl x) = Decl <$> shrink x
 
 instance Arbitrary Tag where
-  arbitrary = Tag <$> arbitrary <*> arbitrary
-  shrink (Tag x y) = uncurry Tag <$> shrink (x, y)
+  arbitrary = Tag <$> arbitrary <*> genDeclId
 
-instance Arbitrary TagName where
-  arbitrary = TagName . NE.toList . (.unwrap) <$> liftArbitrary @MyNonEmpty f
-    where
-      f = elements $ concat [
-            [ 'a' .. 'z' ]
-          , [ 'A' .. 'Z' ]
-          , [ '0' .. '9' ]
-          ]
+instance Arbitrary TagType where
+  arbitrary = oneof [
+        Field . C.ScopedName <$> genIdentifier
+      , elements [Function, Typedef, Variable]
+      ]
+
+genDeclId :: Gen C.DeclId
+genDeclId = do
+    text      <- genIdentifier
+    kind      <- elements [minBound .. maxBound]
+    isUnnamed <- arbitrary
+    pure C.DeclId{name = C.DeclName{text = text, kind = kind}, isUnnamed = isUnnamed}
+
+genIdentifier :: Gen Text.Text
+genIdentifier = Text.pack . NE.toList . (.unwrap) <$> liftArbitrary @MyNonEmpty f
+  where
+    f = elements $ concat [
+          [ 'a' .. 'z' ]
+        , [ 'A' .. 'Z' ]
+        , [ '0' .. '9' ]
+        ]
 
 -- 'NonEmpty' wrapper for compatibility with QuickCheck
 --
@@ -155,7 +163,3 @@ instance Arbitrary1 MyNonEmpty where
       | xs' <- liftShrink f (x:xs)
       , not (null xs')
       ]
-
-instance Arbitrary TagType where
-  arbitrary = elements [minBound .. maxBound ]
-  shrink _ = [] -- TODO

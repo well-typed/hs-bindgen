@@ -122,6 +122,15 @@
 
 [is-2099]: https://github.com/well-typed/hs-bindgen/issues/2099
 
+* A field whose type uses a macro now keeps its own type, even when an unnamed
+  `struct` or `union` is given the name of the `struct` or `union` containing
+  the field. For example, in `struct a { struct { M x; } b; };` the unnamed
+  struct is named `a_b`, like `struct a_b { M *x; };`. Previously, the field
+  `x` of `struct a_b` could get the type `M` instead of `Ptr M`. See
+  [issue #2345][is-2345].
+
+[is-2345]: https://github.com/well-typed/hs-bindgen/issues/2345
+
 ## 1.0.0.0 -- 2026-10-08
 
 ### Breaking changes
