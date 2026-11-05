@@ -157,7 +157,7 @@ data DelayedParseMsg =
     -- because every include guard has this shape, and not attempting to parse
     -- one is not a failure.
     -- See 'HsBindgen.Frontend.Pass.Parse.IsPass.EmptyMacros'.
-  | ParseMacroEmpty C.PrelimDeclId [Token SourcePath TokenSpelling]
+  | ParseMacroEmpty [Token SourcePath TokenSpelling]
 
     -- | We could not read the macro definition into name, parameters and body
     --
@@ -437,9 +437,8 @@ instance PrettyForTrace DelayedParseMsg where
         , "referencing an anonymous object. Reason: "
         , prettyForTrace reason
         ]
-      ParseMacroEmpty name tokens -> PP.hsep [
-          "Not parsing macro with empty replacement list"
-        , prettyForTrace name >< ";"
+      ParseMacroEmpty tokens -> PP.hsep [
+          "Not parsing macro with empty replacement list;"
         , "use --parse-empty-macros to parse it:"
         , PP.show tokens
         ]
