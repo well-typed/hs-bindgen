@@ -3,6 +3,7 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -32,6 +33,7 @@ newtype B = B
   { unwrapB :: M.A
   }
   deriving stock (BG.Generic)
+  deriving newtype (BG.HasFFIType)
 
 instance (ty ~ M.A) => BG.CompatHasField.HasField "unwrapB" B ty where
 

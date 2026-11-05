@@ -13,6 +13,7 @@ module Example.Safe
     )
   where
 
+import qualified HsBindgen.Runtime.Support
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CAPI
 import qualified M
@@ -138,7 +139,7 @@ fooB = hs_bindgen_6011faf8531be4fa
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
 foreign import ccall safe "hs_bindgen_40a50b8e6ac3b09d" hs_bindgen_40a50b8e6ac3b09d_base ::
-     BG.FunPtr BG.Void
+     HsBindgen.Runtime.Support.FunPtrVoid
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
@@ -163,7 +164,7 @@ fooC = hs_bindgen_40a50b8e6ac3b09d
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
 foreign import ccall safe "hs_bindgen_32b4f35bf27a4bf8" hs_bindgen_32b4f35bf27a4bf8_base ::
-     BG.FunPtr BG.Void
+     HsBindgen.Runtime.Support.FunPtrVoid
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
@@ -188,7 +189,7 @@ fooD = hs_bindgen_32b4f35bf27a4bf8
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
 foreign import ccall safe "hs_bindgen_6e59183c0a861d01" hs_bindgen_6e59183c0a861d01_base ::
-     BG.FunPtr BG.Void
+     HsBindgen.Runtime.Support.FunPtrVoid
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@

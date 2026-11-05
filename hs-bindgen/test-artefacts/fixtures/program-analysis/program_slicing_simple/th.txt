@@ -111,7 +111,7 @@ instance HasCField Foo "foo_thirty_two"
           offset# = \_ -> \_ -> 8
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_48dbbf4b09b5b3c1" hs_bindgen_48dbbf4b09b5b3c1_base ::
-    CULong
+    HsBindgen.Runtime.Support.CULong
  -> CUInt
  -> IO CInt
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
@@ -135,7 +135,7 @@ bar_safe :: Foreign.C.Types.CULong -> Uint32_t -> IO CInt
 bar_safe = hs_bindgen_48dbbf4b09b5b3c1
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295ba8ab_base ::
-    CULong
+    HsBindgen.Runtime.Support.CULong
  -> CUInt
  -> IO CInt
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@

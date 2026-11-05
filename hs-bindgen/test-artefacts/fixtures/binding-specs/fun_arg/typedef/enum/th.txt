@@ -307,7 +307,7 @@ fooB_safe :: B -> IO ()
 fooB_safe = hs_bindgen_6011faf8531be4fa
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
 foreign import ccall safe "hs_bindgen_40a50b8e6ac3b09d" hs_bindgen_40a50b8e6ac3b09d_base ::
-    CUInt
+    HsBindgen.Runtime.Support.CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
 hs_bindgen_40a50b8e6ac3b09d :: M.C -> IO ()
@@ -329,7 +329,7 @@ fooC_safe :: M.C -> IO ()
 fooC_safe = hs_bindgen_40a50b8e6ac3b09d
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
 foreign import ccall safe "hs_bindgen_32b4f35bf27a4bf8" hs_bindgen_32b4f35bf27a4bf8_base ::
-    CUInt
+    HsBindgen.Runtime.Support.CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
 hs_bindgen_32b4f35bf27a4bf8 :: M.D -> IO ()
@@ -351,7 +351,7 @@ fooD_safe :: M.D -> IO ()
 fooD_safe = hs_bindgen_32b4f35bf27a4bf8
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
 foreign import ccall safe "hs_bindgen_6e59183c0a861d01" hs_bindgen_6e59183c0a861d01_base ::
-    CUInt
+    HsBindgen.Runtime.Support.CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
 hs_bindgen_6e59183c0a861d01 :: E -> IO ()
@@ -439,7 +439,7 @@ fooB_unsafe :: B -> IO ()
 fooB_unsafe = hs_bindgen_a11eb4471a953b64
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
 foreign import ccall unsafe "hs_bindgen_1dea92b3f3346311" hs_bindgen_1dea92b3f3346311_base ::
-    CUInt
+    HsBindgen.Runtime.Support.CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
 hs_bindgen_1dea92b3f3346311 :: M.C -> IO ()
@@ -461,7 +461,7 @@ fooC_unsafe :: M.C -> IO ()
 fooC_unsafe = hs_bindgen_1dea92b3f3346311
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
 foreign import ccall unsafe "hs_bindgen_dba6d56e1a316e2d" hs_bindgen_dba6d56e1a316e2d_base ::
-    CUInt
+    HsBindgen.Runtime.Support.CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
 hs_bindgen_dba6d56e1a316e2d :: M.D -> IO ()
@@ -483,7 +483,7 @@ fooD_unsafe :: M.D -> IO ()
 fooD_unsafe = hs_bindgen_dba6d56e1a316e2d
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
 foreign import ccall unsafe "hs_bindgen_23b6f403a534aeae" hs_bindgen_23b6f403a534aeae_base ::
-    CUInt
+    HsBindgen.Runtime.Support.CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
 hs_bindgen_23b6f403a534aeae :: E -> IO ()
