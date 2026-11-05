@@ -263,7 +263,7 @@ macroDefinition macroLang enclosing ctx declId info = \curr -> do
         macro <- first ParseMacroErrorRead raw
         case emptyMacros of
           DoNotParseEmptyMacros | null macro.body ->
-            Left $ ParseMacroEmpty declId (toList macro)
+            Left $ ParseMacroEmpty (toList macro)
           _otherwise -> Right PendingMacro{
               raw      = fmap Macro.spelling macro
             , handling = case macroLang.parse macro of
