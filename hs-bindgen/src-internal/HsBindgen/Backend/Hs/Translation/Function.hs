@@ -140,30 +140,45 @@ class GetByAddress a where
   byAddress :: a -> Bool
 
 instance GetByAddress (C.FunctionArg Final) where
-  byAddress arg = arg.ann.byAddress
+  byAddress arg = case arg.ann of
+    PassArgByValue{}   -> False
+    PassArgByAddress{} -> True
 
 instance GetByAddress (C.FunctionRes Final) where
-  byAddress res = res.ann.byAddress
+  byAddress res = case res.ann of
+    PassResVoid{}      -> False
+    PassResByValue{}   -> False
+    PassResByAddress{} -> True
 
 -- | Get the C type of an argument/result as it is used in @wrapperC@
 class GetWrapperCType a where
   wrapperCType :: a -> C.Type Final
 
 instance GetWrapperCType (C.FunctionRes Final) where
-  wrapperCType res = res.ann.wrapperType.c
+  wrapperCType res = case res.ann of
+    PassResVoid           -> res.typ.c
+    PassResByValue{}      -> res.typ.c
+    PassResByAddress wrap -> wrap.c
 
 instance GetWrapperCType (C.FunctionArg Final) where
-  wrapperCType arg = arg.ann.wrapperType.c.typ
+  wrapperCType arg = case arg.ann of
+    PassArgByValue{}      -> arg.typ.c.typ
+    PassArgByAddress wrap -> wrap.c.typ
 
 -- | Get the Haskell type of an argument/result as it is used in @wrapperImport@
 class GetImportWrapperType a where
   importWrapperType :: a -> Hs.Type
 
 instance GetImportWrapperType (C.FunctionRes Final) where
-  importWrapperType res = res.ann.wrapperType.hs
+  importWrapperType res = case res.ann of
+    PassResVoid           -> res.typ.hs
+    PassResByValue{}      -> res.typ.hs
+    PassResByAddress wrap -> wrap.hs
 
 instance GetImportWrapperType (C.FunctionArg Final) where
-  importWrapperType arg = arg.ann.wrapperType.hs
+  importWrapperType arg = case arg.ann of
+    PassArgByValue{}      -> arg.typ.hs
+    PassArgByAddress wrap -> wrap.hs
 
 -- | Get the Haskell type of an argument/result as it is used in @restoreFun@
 class GetRestoreFunType a where
@@ -237,7 +252,7 @@ getWrapperCFunDefn ::
   -> String                -- ^ original C name
   -> PC.FunDefn
 getWrapperCFunDefn  wrapperName args res origName
-    | C.isVoid (wrapperCType res)
+    | PassResVoid <- res.ann
     = PC.withArgs args $ \args' ->
         PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (wrapperCType <$> args') $
         PC.CSList $
@@ -310,6 +325,7 @@ getWrapperImportDecl decl originalC safety wrapperCName runInIO = wrapperImport
                   typ     = importWrapperType arg
                 , comment = Nothing
                 }
+            , ffiType = passArgByFFIType arg.ann
             }
         | arg <- originalC.args
         ] ++ [
@@ -320,26 +336,34 @@ getWrapperImportDecl decl originalC safety wrapperCName runInIO = wrapperImport
                   typ     = importWrapperType originalC.res
                 , comment = Nothing
                 }
+            , ffiType = byAddressFFIType
             }
         | byAddress originalC.res
         ]
 
     -- Result types that have to be passed by address become parameters.
     result :: Hs.ForeignImport.FunRes
-    result
+    result = case originalC.res.ann of
+        PassResVoid ->
+          unit
+        PassResByValue ffiType -> Hs.ForeignImport.FunRes{
+            hsType  = hsIO runInIO $ importWrapperType originalC.res
+          , ffiType = case runInIO of
+              RunInIO -> Hs.FFIResIO ffiType
+              RunPure -> Hs.FFIRes   ffiType
+          }
         -- A type that is not supported by the Haskell FFI as a function result.
         -- We pass it as a function parameter instead.
-        | byAddress originalC.res
-        = mkFunRes voidTyp
-        -- A "normal" result type that is supported by the Haskell FFI.
-        | otherwise
-        = mkFunRes $ importWrapperType originalC.res
+        PassResByAddress{} ->
+          unit
       where
-        voidTyp = Hs.PrimType Hs.PrimUnit
-        mkFunRes :: Hs.Type -> Hs.ForeignImport.FunRes
-        mkFunRes ty = Hs.ForeignImport.FunRes {
-              hsType   = hsIO runInIO ty
-            }
+        unit :: Hs.ForeignImport.FunRes
+        unit = Hs.ForeignImport.FunRes{
+            hsType  = hsIO runInIO $ Hs.PrimType Hs.PrimUnit
+          , ffiType = case runInIO of
+              RunInIO -> Hs.FFIResIOUnit
+              RunPure -> Hs.FFIResUnit
+          }
 
 {-------------------------------------------------------------------------------
   @restoreFun@
@@ -526,7 +550,7 @@ getRestoreFunBody originalC wrapperImportName =
           -> SHs.SExpr ctx
         go EmptyEnv EmptyEnv zs = kont (reverse zs) -- reverse again!
         go (xs :> x) (ys :> y) zs
-          | x.ann.byAddress
+          | byAddress x
           = SHs.eAppMany (SHs.eBindgenGlobal Capi_with) $
               let wrapPtrConst = C.isErasedTypeConstQualified x.typ.c.typ in
               [ SHs.EBound y

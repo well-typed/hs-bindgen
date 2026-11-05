@@ -1,0 +1,17 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: M
+ctypes:
+- headers: binding-specs/fun_arg/typedef/no_ffitype.h
+  cname: C
+  hsname: C
+hstypes:
+- hsname: C
+  representation:
+    newtype:
+      constructor: C
+      fields:
+      - unwrapC
+  instances:
+  - HasFFIType

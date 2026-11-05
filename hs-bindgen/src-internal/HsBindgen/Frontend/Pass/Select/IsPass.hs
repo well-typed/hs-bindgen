@@ -223,6 +223,8 @@ instance PrettyForTrace SelectMsg where
           couldNotSelect $ prettyForTrace x
         PassFailed (MacroFailed x) ->
           couldNotSelect $ prettyForTrace x
+        PassFailed (TranslateTypesFailed x) ->
+          couldNotSelect $ prettyForTrace x
       SelectConflict ->
         couldNotSelect "Conflicting declarations"
       SelectMangleNamesSquashed target -> PP.hsep [

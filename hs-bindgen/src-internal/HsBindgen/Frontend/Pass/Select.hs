@@ -650,13 +650,14 @@ getBugMsgsNotActive declDB =
 isDroppedMacro :: SelectMsg -> Bool
 isDroppedMacro = \case
     SelectUnusable reason -> case reason of
-      PassFailed MacroFailed{}       -> True
+      PassFailed MacroFailed{}          -> True
       -- A parse failure counts as a dropped macro iff it is a macro parse
       -- failure.
-      ParseFailed p                  -> isMacroParseFailure p
-      NotAttempted{}                 -> False
-      PassFailed MangleNamesFailed{} -> False
-    _otherwise                       -> False
+      ParseFailed p                     -> isMacroParseFailure p
+      NotAttempted{}                    -> False
+      PassFailed MangleNamesFailed{}    -> False
+      PassFailed TranslateTypesFailed{} -> False
+    _otherwise                          -> False
   where
     isMacroParseFailure :: DelayedParseMsg -> Bool
     isMacroParseFailure = \case

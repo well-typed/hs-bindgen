@@ -2,16 +2,23 @@ module HsBindgen.Frontend.Pass.TranslateTypes (
     translateTypes
   ) where
 
-import Control.Monad.Reader (MonadReader, ReaderT (..), withReaderT)
+import Control.Monad (zipWithM)
+import Control.Monad.Reader (MonadReader, ReaderT (..), asks, withReaderT)
 import Control.Monad.State (MonadState, State, modify, runState)
+import Control.Monad.Writer.Strict (runWriter)
+import Data.Either (partitionEithers)
+import Data.Functor ((<&>))
+import Data.List.NonEmpty qualified as NonEmpty
 
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.Error
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
-import HsBindgen.Frontend.Pass.TranslateTypes.PassBy (classifyArgPassingMethod,
+import HsBindgen.Frontend.Pass.TranslateTypes.PassBy (Classified,
+                                                      classifyArgPassingMethod,
                                                       classifyResPassingMethod)
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -43,30 +50,37 @@ translateTypes unit = (unit{C.db = db'}, msgs)
 
     (db, delayedMsgs) =
       runM NoEnv $
-        DeclDB.traverseActive DeclDB.AnyOrder
-          (fmap DeclDB.Advanced . processDecl)
-          unit.db
+        DeclDB.traverseActive DeclDB.AnyOrder processDecl unit.db
 
 {-------------------------------------------------------------------------------
   Decls
 -------------------------------------------------------------------------------}
 
-processDecl :: C.Decl l AdjustTypes -> M NoEnv (C.Decl l TranslateTypes)
+processDecl ::
+     C.Decl l AdjustTypes
+  -> M NoEnv (DeclDB.PassResult l TranslateTypes)
 processDecl decl = do
-    kind' <- withEnv (const (DeclEnv decl.info)) $ processDeclKind decl.kind
-    pure $ C.coercePassDeclWith kind' decl.ann decl
+    eKind' <- withEnv (const (DeclEnv decl.id.cName)) $ processDeclKind decl.kind
+    pure $ case eKind' of
+      Left  err   -> DeclDB.Fail $ DeclDB.TranslateTypesFailed err
+      Right kind' -> DeclDB.Advanced $ C.coercePassDeclWith kind' decl.ann decl
 
-processDeclKind :: C.DeclKind l AdjustTypes -> M DeclEnv (C.DeclKind l TranslateTypes)
+processDeclKind ::
+     C.DeclKind l AdjustTypes
+  -> M DeclEnv (Either TranslateTypesError (C.DeclKind l TranslateTypes))
 processDeclKind = \case
-    C.DeclStruct               struct   -> C.DeclStruct               <$> processStruct           struct
-    C.DeclUnion                union    -> C.DeclUnion                <$> processUnion            union
-    C.DeclTypedef              typedef  -> C.DeclTypedef              <$> processTypedef          typedef
-    C.DeclEnum                 enum     -> C.DeclEnum                 <$> processEnum             enum
-    C.DeclUntaggedEnumConstant cnst     -> C.DeclUntaggedEnumConstant <$> processUntaggedEnumConstant cnst
-    C.DeclOpaque               mSize    -> pure $ C.DeclOpaque mSize
-    C.DeclMacro                macro    -> C.DeclMacro                <$> processMacro            macro
-    C.DeclFunction             function -> C.DeclFunction             <$> processFunction         function
-    C.DeclGlobal               global   -> C.DeclGlobal               <$> processGlobal           global
+    C.DeclStruct               struct   -> ok $ C.DeclStruct               <$> processStruct           struct
+    C.DeclUnion                union    -> ok $ C.DeclUnion                <$> processUnion            union
+    C.DeclTypedef              typedef  -> ok $ C.DeclTypedef              <$> processTypedef          typedef
+    C.DeclEnum                 enum     -> ok $ C.DeclEnum                 <$> processEnum             enum
+    C.DeclUntaggedEnumConstant cnst     -> ok $ C.DeclUntaggedEnumConstant <$> processUntaggedEnumConstant cnst
+    C.DeclOpaque               mSize    -> ok $ pure $ C.DeclOpaque mSize
+    C.DeclMacro                macro    -> ok $ C.DeclMacro                <$> processMacro            macro
+    C.DeclFunction             function -> fmap C.DeclFunction             <$> processFunction         function
+    C.DeclGlobal               global   -> ok $ C.DeclGlobal               <$> processGlobal           global
+  where
+    ok :: M DeclEnv a -> M DeclEnv (Either TranslateTypesError a)
+    ok = fmap Right
 
 processStruct :: C.Struct AdjustTypes -> M DeclEnv (C.Struct TranslateTypes)
 processStruct struct = do
@@ -151,36 +165,58 @@ processMacro mac = pure $ case mac of
     MacroValue val -> MacroValue $ coercePass val
     MacroRaw   raw -> MacroRaw raw
 
-processFunction :: C.Function AdjustTypes -> M DeclEnv (C.Function TranslateTypes)
+processFunction ::
+     C.Function AdjustTypes
+  -> M DeclEnv (Either TranslateTypesError (C.Function TranslateTypes))
 processFunction fun = do
-    args' <- mapM processFunctionArg fun.args
-    res' <- processFunctionRes fun.res
-    pure C.Function{
-        args  = args'
-      , res   = res'
-      , attrs = fun.attrs
-      , ann   = fun.ann
-      }
+    (argErrs, args') <- partitionEithers <$>
+      zipWithM processFunctionArg [1..] fun.args
+    eRes' <- processFunctionRes fun.res
+    pure $ first TranslateTypesNoFFIType $
+      case (NonEmpty.nonEmpty argErrs, eRes') of
+        (Nothing  , Right res') -> Right C.Function{
+            args  = args'
+          , res   = res'
+          , attrs = fun.attrs
+          , ann   = fun.ann
+          }
+        (Nothing  , Left resErr) -> Left $ resErr :| []
+        (Just errs, Right _    ) -> Left errs
+        (Just errs, Left resErr) -> Left $ errs <> (resErr :| [])
 
 processFunctionArg ::
-     C.FunctionArg AdjustTypes
-  -> M DeclEnv (C.FunctionArg TranslateTypes)
-processFunctionArg arg = do
-    pure C.FunctionArg{
+     Int
+  -> C.FunctionArg AdjustTypes
+  -> M DeclEnv (Either NoFFIType (C.FunctionArg TranslateTypes))
+processFunctionArg i arg = do
+    eAnn <- classified pos $ classifyArgPassingMethod pos arg typ'.hs
+    pure $ eAnn <&> \ann -> C.FunctionArg{
         name = arg.name
-      , typ  = processTypeFunArg Translation.FunArg arg.typ
-      , ann  = classifyArgPassingMethod arg
+      , typ  = typ'
+      , ann  = ann
       }
+  where
+    pos  = FunPositionArg i ((.cName) <$> arg.name)
+    typ' = processTypeFunArg Translation.FunArg arg.typ
 
-processFunctionRes :: C.FunctionRes AdjustTypes -> M DeclEnv (C.FunctionRes TranslateTypes)
+processFunctionRes ::
+     C.FunctionRes AdjustTypes
+  -> M DeclEnv (Either NoFFIType (C.FunctionRes TranslateTypes))
 processFunctionRes res = do
-    pure C.FunctionRes{
-        typ = TranslatedTypes{
-            c  = coercePass res.typ
-          , hs = Translation.inContext Translation.FunRes res
-          }
-      , ann = classifyResPassingMethod res
+    eAnn <- classified FunPositionRes $ classifyResPassingMethod res typ'.hs
+    pure $ eAnn <&> \ann -> C.FunctionRes{
+        typ = typ'
+      , ann = ann
       }
+  where
+    typ' = processType Translation.FunRes res.typ
+
+-- | Report the external bindings without FFI type
+classified :: FunPosition -> Classified a -> M DeclEnv (Either NoFFIType a)
+classified pos x = do
+    let (r, fallbacks) = runWriter x
+    forM_ fallbacks $ addMessage . TranslateTypesExtBindingFallback pos
+    pure r
 
 processGlobal :: C.Global AdjustTypes -> M DeclEnv (C.Global TranslateTypes)
 processGlobal global = pure C.Global{
@@ -240,8 +276,8 @@ withEnv f (M k) = M (withReaderT f k)
 
 data NoEnv = NoEnv
 
-data DeclEnv = DeclEnv {
-    _info :: C.DeclInfo
+newtype DeclEnv = DeclEnv {
+    declId :: C.DeclId
   }
 
 newtype St = St {
@@ -249,7 +285,9 @@ newtype St = St {
     messages :: [(C.DeclId, DelayedTranslateTypesMsg)]
   }
 
-_addMessage :: C.DeclId -> DelayedTranslateTypesMsg -> M env ()
-_addMessage did msg = modify $ \st -> st {
-      messages = (did, msg) : st.messages
-    }
+addMessage :: DelayedTranslateTypesMsg -> M DeclEnv ()
+addMessage msg = do
+    did <- asks (.declId)
+    modify $ \st -> st {
+        messages = (did, msg) : st.messages
+      }
