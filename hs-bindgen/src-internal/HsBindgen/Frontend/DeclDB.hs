@@ -406,7 +406,7 @@ buildDB macroAnalysis isMainHeader =
             ]
 
           -- A conflict keeps the messages of its members for Bug-level
-          -- reporting.
+          -- reporting, each once.
           conflictMember :: C.Conflict -> Build l -> C.DeclId -> Build l
           conflictMember conflict db' x =
             let newMsgs
@@ -419,7 +419,7 @@ buildDB macroAnalysis isMainHeader =
                   Just old -> lookupBuildMsgs x db' ++ parseFailedMsg old
             in  setEntry x
                   (Unusable (UnusableConflict conflict))
-                  (newMsgs ++ oldMsgs)
+                  (mergeMsgs oldMsgs newMsgs)
                   db'
       in  case Map.lookup declId db.entries of
             -- The same identifier at the same location is the same
@@ -568,10 +568,11 @@ mergeRedefinition ::
   -> Build l
   -> Build l
 mergeRedefinition declId kept newMsgs db =
-    setEntry declId kept (oldMsgs ++ filter (`notElem` oldMsgs) newMsgs) db
-  where
-    oldMsgs :: [DelayedParseMsg]
-    oldMsgs = lookupBuildMsgs declId db
+    setEntry declId kept (mergeMsgs (lookupBuildMsgs declId db) newMsgs) db
+
+-- | Append the new messages not already present
+mergeMsgs :: [DelayedParseMsg] -> [DelayedParseMsg] -> [DelayedParseMsg]
+mergeMsgs oldMsgs newMsgs = oldMsgs ++ filter (`notElem` oldMsgs) newMsgs
 
 {-------------------------------------------------------------------------------
   Traversal
