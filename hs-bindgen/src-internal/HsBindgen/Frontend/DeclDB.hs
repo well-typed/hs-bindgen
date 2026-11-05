@@ -72,6 +72,7 @@ import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
+import HsBindgen.Frontend.Pass.TranslateTypes.Error
 import HsBindgen.Frontend.Predicate (IsMainHeader)
 import HsBindgen.Imports hiding (toList)
 import HsBindgen.IR.C qualified as C
@@ -209,8 +210,10 @@ instance PrettyForTrace UnusableReason where
 
 data PassFailure =
     -- | In @ApplyMacroFallback@, for a macro that does not fall back
-    MacroFailed       MacroLangFailure
-  | MangleNamesFailed MangleNamesError
+    MacroFailed          MacroLangFailure
+  | MangleNamesFailed    MangleNamesError
+    -- | For a function
+  | TranslateTypesFailed TranslateTypesError
   deriving stock (Show, Generic)
 
 instance PrettyForTrace PassFailure where
@@ -222,17 +225,22 @@ instance PrettyForTrace PassFailure where
         FailedTypecheck{} -> "Macro type-checking failed"
     MangleNamesFailed{} ->
       "Name mangler failure"
+    TranslateTypesFailed{} ->
+      "Type translation failure"
 
 instance IsTrace Level PassFailure where
   getDefaultLogLevel = \case
-    MacroFailed       err -> getDefaultLogLevel err
-    MangleNamesFailed err -> getDefaultLogLevel err
+    MacroFailed          err -> getDefaultLogLevel err
+    MangleNamesFailed    err -> getDefaultLogLevel err
+    TranslateTypesFailed err -> getDefaultLogLevel err
   getSource = \case
-    MacroFailed       err -> getSource err
-    MangleNamesFailed err -> getSource err
+    MacroFailed          err -> getSource err
+    MangleNamesFailed    err -> getSource err
+    TranslateTypesFailed err -> getSource err
   getTraceId = \case
-    MacroFailed       err -> getTraceId err
-    MangleNamesFailed err -> getTraceId err
+    MacroFailed          err -> getTraceId err
+    MangleNamesFailed    err -> getTraceId err
+    TranslateTypesFailed err -> getTraceId err
 
 entryToLoc :: Entry l p -> C.DeclLocs
 entryToLoc = \case

@@ -67,6 +67,13 @@
   reports "Selected a deprecated declaration". Previously, there was no
   deprecation warning.
 
+* A function argument or result passed by value whose type is an external
+  binding without an FFI type (`ffitype`) in its binding specification now
+  gets a warning ("The binding specification of ... gives no FFI type"). As
+  before, `hs-bindgen` assumes the FFI type of the underlying C type, so the
+  generated code compiles only if the external type has a matching
+  `HasFFIType` instance.
+
 ### Bug fixes
 
 * A `struct` or `union` defined inline in a variable or function declaration
@@ -127,6 +134,10 @@
   This is no longer the case. See [issue #2345][is-2345].
 
 [is-2345]: https://github.com/well-typed/hs-bindgen/issues/2345
+
+* A function with an argument or result passed by value that has no FFI type
+  (e.g., `typedef void V; V f(void);`) is now dropped with a warning ("Cannot
+  pass by value, no FFI type"). Previously, `hs-bindgen` panicked.
 
 ## 1.0.0.0 -- 2026-10-08
 

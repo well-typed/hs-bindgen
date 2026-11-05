@@ -1032,7 +1032,10 @@ addressStubDecs decl ty runnerNameSpec _spec = do
             Hs.ForeignImport.foreignImportDec
               (Hs.ForeignImport.FunName stubSymbol)
               []
-              (Hs.ForeignImport.FunRes stubImportType)
+              Hs.ForeignImport.FunRes{
+                  hsType  = stubImportType
+                , ffiType = Hs.ForeignImport.unsafeToFFIResType stubImportType
+                }
               (uniqueCDeclName stubSymbol)
               (CallConvUserlandCapi cWrapper)
               (Origin.Global ty)
