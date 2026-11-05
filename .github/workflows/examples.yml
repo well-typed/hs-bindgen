@@ -92,6 +92,7 @@ jobs:
           echo '{"runner": "windows-latest", "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "bundled", "example": "feature-tests"},'
           # then the remaining ones, which we only run for the comprehensive check (ordered alphabetically)
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "botan"},'
+          echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "c-direct-optimization"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "c-minisat"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "c-qrcode"},'
           echo '{"runner": "ubuntu-latest" , "ghc-version": "9.4", "cabal-version": "3.18", "llvm-version": "15", "example": "c-rogueutil"},'
@@ -325,6 +326,10 @@ jobs:
     - name: 🧪 Build and run bundled-c example
       if: ${{ matrix.example == 'bundled-c' }}
       uses: ./.github/actions/examples/bundled-c
+
+    - name: 🧪 Build and run c-direct-optimization example
+      if: ${{ matrix.example == 'c-direct-optimization' }}
+      uses: ./.github/actions/examples/c-direct-optimization
 
     - name: 🧪 Build and run c-minisat example
       if: ${{ matrix.example == 'c-minisat' }}
