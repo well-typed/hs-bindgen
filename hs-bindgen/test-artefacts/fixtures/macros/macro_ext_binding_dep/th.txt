@@ -26,7 +26,10 @@
 
     __exported by:__ @macros\/macro_ext_binding_dep.h@
 -}
-newtype B = B {unwrapB :: M.A} deriving stock Generic
+newtype B
+    = B {unwrapB :: M.A}
+    deriving stock Generic
+    deriving newtype HasFFIType
 instance (~) ty M.A => HasField "unwrapB" B ty
     where hasField = \x_0 -> (\y_1 -> B{unwrapB = y_1},
                               getField @"unwrapB" x_0)
@@ -37,7 +40,7 @@ instance HasCField B "unwrapB"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_macrosmacro_ext_binding_dep_Example_Safe_use_b@
 foreign import ccall safe "hs_bindgen_f70130e6504e0e5e" hs_bindgen_f70130e6504e0e5e_base ::
-    CInt
+    HsBindgen.Runtime.Support.CInt
  -> IO ()
 -- __unique:__ @test_macrosmacro_ext_binding_dep_Example_Safe_use_b@
 hs_bindgen_f70130e6504e0e5e :: B -> IO ()
@@ -59,7 +62,7 @@ use_b_safe :: B -> IO ()
 use_b_safe = hs_bindgen_f70130e6504e0e5e
 -- __unique:__ @test_macrosmacro_ext_binding_dep_Example_Unsafe_use_b@
 foreign import ccall unsafe "hs_bindgen_432a5c7b5df51cfa" hs_bindgen_432a5c7b5df51cfa_base ::
-    CInt
+    HsBindgen.Runtime.Support.CInt
  -> IO ()
 -- __unique:__ @test_macrosmacro_ext_binding_dep_Example_Unsafe_use_b@
 hs_bindgen_432a5c7b5df51cfa :: B -> IO ()

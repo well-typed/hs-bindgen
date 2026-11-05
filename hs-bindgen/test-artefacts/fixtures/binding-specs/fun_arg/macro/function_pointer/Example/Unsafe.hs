@@ -13,6 +13,7 @@ module Example.Unsafe
     )
   where
 
+import qualified HsBindgen.Runtime.Support
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CAPI
 import qualified M
@@ -136,7 +137,7 @@ fooB = hs_bindgen_269a46f9680e33ed
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooC@
 foreign import ccall unsafe "hs_bindgen_f9bc9d37a12171dd" hs_bindgen_f9bc9d37a12171dd_base ::
-     BG.FunPtr BG.Void
+     HsBindgen.Runtime.Support.FunPtrVoid
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooC@
@@ -161,7 +162,7 @@ fooC = hs_bindgen_f9bc9d37a12171dd
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooD@
 foreign import ccall unsafe "hs_bindgen_ca21c7e4aaa33a81" hs_bindgen_ca21c7e4aaa33a81_base ::
-     BG.FunPtr BG.Void
+     HsBindgen.Runtime.Support.FunPtrVoid
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooD@

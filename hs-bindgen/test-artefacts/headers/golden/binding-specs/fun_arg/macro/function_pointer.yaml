@@ -16,9 +16,19 @@ hstypes:
       constructor: C
       fields:
       - unwrapC
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
+  instances:
+  - HasFFIType
 - hsname: D
   representation:
     newtype:
       constructor: D
       fields:
       - unwrapD
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
+  instances:
+  - HasFFIType

@@ -9,6 +9,7 @@ module Example.Unsafe
   where
 
 import qualified Foreign.C.Types
+import qualified HsBindgen.Runtime.Support
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CAPI
 import Example
@@ -27,7 +28,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295ba8ab_base ::
-     BG.CULong
+     HsBindgen.Runtime.Support.CULong
   -> BG.CUInt
   -> IO BG.CInt
 

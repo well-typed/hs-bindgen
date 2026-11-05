@@ -245,7 +245,10 @@ instance HasCField B "unwrapB"
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
-newtype E = E {unwrapE :: M.C} deriving stock Generic
+newtype E
+    = E {unwrapE :: M.C}
+    deriving stock Generic
+    deriving newtype HasFFIType
 instance (~) ty M.C => HasField "unwrapE" E ty
     where hasField = \x_0 -> (\y_1 -> E{unwrapE = y_1},
                               getField @"unwrapE" x_0)
@@ -322,7 +325,7 @@ fooB_safe :: B -> IO ()
 fooB_safe = hs_bindgen_fd490df5087893ae
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooC@
 foreign import ccall safe "hs_bindgen_c552a862db9ba6eb" hs_bindgen_c552a862db9ba6eb_base ::
-    FunPtr Void
+    HsBindgen.Runtime.Support.FunPtrVoid
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooC@
 hs_bindgen_c552a862db9ba6eb :: M.C -> IO ()
@@ -344,7 +347,7 @@ fooC_safe :: M.C -> IO ()
 fooC_safe = hs_bindgen_c552a862db9ba6eb
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooD@
 foreign import ccall safe "hs_bindgen_b08ba864cf83a382" hs_bindgen_b08ba864cf83a382_base ::
-    FunPtr Void
+    HsBindgen.Runtime.Support.FunPtrVoid
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooD@
 hs_bindgen_b08ba864cf83a382 :: M.D -> IO ()
@@ -454,7 +457,7 @@ fooB_unsafe :: B -> IO ()
 fooB_unsafe = hs_bindgen_269a46f9680e33ed
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooC@
 foreign import ccall unsafe "hs_bindgen_f9bc9d37a12171dd" hs_bindgen_f9bc9d37a12171dd_base ::
-    FunPtr Void
+    HsBindgen.Runtime.Support.FunPtrVoid
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooC@
 hs_bindgen_f9bc9d37a12171dd :: M.C -> IO ()
@@ -476,7 +479,7 @@ fooC_unsafe :: M.C -> IO ()
 fooC_unsafe = hs_bindgen_f9bc9d37a12171dd
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooD@
 foreign import ccall unsafe "hs_bindgen_ca21c7e4aaa33a81" hs_bindgen_ca21c7e4aaa33a81_base ::
-    FunPtr Void
+    HsBindgen.Runtime.Support.FunPtrVoid
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooD@
 hs_bindgen_ca21c7e4aaa33a81 :: M.D -> IO ()
