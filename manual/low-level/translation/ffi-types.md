@@ -131,6 +131,11 @@ themselves as primitive FFI types. `hs-bindgen` generates instances for
 > FFI types are currently not supported in prescriptive binding specifications.
 > See [issue #2271][issue-2271].
 
+> [!WARNING]
+>
+> FFI types are currently not correctly supported for *generated* macro types that
+> reference other types by name. See [issue #2357][issue-2357].
+
 ## Examples
 [t:examples]: #examples
 
@@ -510,6 +515,11 @@ for `B` and `foo` like we did in [Example 3][t:example-3], then the outputs will
 look the same save for the fact that `B`'s FFI type is now also
 `Foreign.C.Types.CInt`.
 
+> [!WARNING]
+>
+> FFI types have to be specified in a `newtype` representation even if the
+> original type is not a `newtype`. See [issue #2355][issue-2355].
+
 ## Standard library
 
 The built-in external binding specification for the C standard library[^4]
@@ -540,3 +550,5 @@ would adopt.
 [haskell2010:ffi-foreign-types]: https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1560008.4.2
 [issue-2253]: https://github.com/well-typed/hs-bindgen/issues/2253
 [issue-2271]: https://github.com/well-typed/hs-bindgen/issues/2271
+[issue-2355]: https://github.com/well-typed/hs-bindgen/issues/2355
+[issue-2357]: https://github.com/well-typed/hs-bindgen/issues/2357

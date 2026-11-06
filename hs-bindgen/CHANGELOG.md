@@ -122,6 +122,11 @@
 
 [is-2099]: https://github.com/well-typed/hs-bindgen/issues/2099
 
+* A generated binding specification now only lists an `ffitype` if it also lists
+  a `HasFFIType` instance. See [issue #2354][is-2354].
+
+[is-2354]: https://github.com/well-typed/hs-bindgen/issues/2354
+
 ## 1.0.0.0 -- 2026-10-08
 
 ### Breaking changes
