@@ -7,6 +7,7 @@ module HsBindgen.Backend.Hs.Translation.Newtype (
 
 import Control.Monad.State qualified as State
 import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
@@ -46,7 +47,7 @@ newtypeDec name constr field override orig comment candidateInsts knownInsts = d
           , ffiType   = ffiType
           , field     = field
           , origin    = orig
-          , instances = insts
+          , instances = correctedInsts
           , comment   = comment
           }
       where
@@ -62,10 +63,17 @@ newtypeDec name constr field override orig comment candidateInsts knownInsts = d
         insts = knownInsts <> resolvedInsts
 
         ffiType :: Maybe BindingSpec.HsFFIType
-        -- TODO <https://github.com/well-typed/hs-bindgen/issues/2376>: use
-        -- sugar infos as computed by the @TranslateTypes@ pass
-        ffiType = BindingSpec.HsFFIType . Hs.ffiExtRef <$>
-            withOverride override (FFIType.toFFIType emptySugarInfos field.typ)
+        correctedInsts :: Set Inst.TypeClass
+        (ffiType, correctedInsts)
+          | Inst.HasFFIType `elem` insts
+            -- TODO <https://github.com/well-typed/hs-bindgen/issues/2376>: use
+            -- sugar infos as computed by the @TranslateTypes@ pass
+          , Just ffi <- withOverride override (FFIType.toFFIType emptySugarInfos field.typ)
+          = ( Just (BindingSpec.HsFFIType (Hs.ffiExtRef ffi))
+            , insts )
+          | otherwise
+          = ( Nothing
+            , Inst.HasFFIType `Set.delete` insts )
 
 data FFITypeOverride =
     NoOverride
