@@ -1,6 +1,5 @@
 module HsBindgen.Backend.Hs.Translation.Newtype (
     newtypeDec
-  , hasFFITypeDecs
   , hasFieldCompatDecs
   , hasFieldPtrDecs
   ) where
@@ -60,21 +59,11 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
         insts = knownInsts <> resolvedInsts
 
         ffiType :: Maybe BindingSpec.HsFFIType
-        ffiType = BindingSpec.HsFFIType . Hs.ffiExtRef <$> Hs.toFFIType field.typ
-
-hasFFITypeDecs ::
-     Hs.Newtype
-  -> [Hs.Decl l]
-hasFFITypeDecs nt =
-    [mk | Inst.HasFFIType `elem` nt.instances]
-  where
-    mk :: Hs.Decl l
-    mk = Hs.DeclDeriveInstance Hs.DeriveInstance{
-          strategy = Hs.DeriveNewtype
-        , clss     = Inst.HasFFIType
-        , name     = nt.name
-        , comment  = Nothing
-        }
+        ffiType
+          | Inst.HasFFIType `elem` insts
+          = BindingSpec.HsFFIType . Hs.ffiExtRef <$> Hs.toFFIType field.typ
+          | otherwise
+          = Nothing
 
 {-------------------------------------------------------------------------------
   HasField
