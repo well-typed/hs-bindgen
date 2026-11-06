@@ -110,7 +110,6 @@ newtype TypeB = TypeB
     , Bounded
     , Enum
     , BG.FiniteBits
-    , BG.HasFFIType
     , Integral
     , BG.Ix
     , Num

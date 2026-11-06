@@ -6,6 +6,7 @@ module HsBindgen.Backend.Hs.Translation.Newtype (
 
 import Control.Monad.State qualified as State
 import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
@@ -43,7 +44,7 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
           , ffiType   = ffiType
           , field     = field
           , origin    = orig
-          , instances = insts
+          , instances = correctedInsts
           , comment   = comment
           }
       where
@@ -59,11 +60,13 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
         insts = knownInsts <> resolvedInsts
 
         ffiType :: Maybe BindingSpec.HsFFIType
-        ffiType
+        correctedInsts :: Set Inst.TypeClass
+        (ffiType, correctedInsts)
           | Inst.HasFFIType `elem` insts
-          = BindingSpec.HsFFIType . Hs.ffiExtRef <$> Hs.toFFIType field.typ
+          , Just ffi <- BindingSpec.HsFFIType . Hs.ffiExtRef <$> Hs.toFFIType field.typ
+          = (Just ffi, insts)
           | otherwise
-          = Nothing
+          = (Nothing, Inst.HasFFIType `Set.delete` insts)
 
 {-------------------------------------------------------------------------------
   HasField

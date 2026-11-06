@@ -92,7 +92,6 @@ newtype Ma = Ma
     , Bounded
     , Enum
     , BG.FiniteBits
-    , BG.HasFFIType
     , Integral
     , BG.Ix
     , Num
@@ -182,7 +181,6 @@ newtype M1 = M1
     , Bounded
     , Enum
     , BG.FiniteBits
-    , BG.HasFFIType
     , Integral
     , BG.Ix
     , Num
@@ -227,7 +225,6 @@ newtype M2 = M2
     , Bounded
     , Enum
     , BG.FiniteBits
-    , BG.HasFFIType
     , Integral
     , BG.Ix
     , Num
@@ -317,7 +314,6 @@ newtype M3 = M3
     , Bounded
     , Enum
     , BG.FiniteBits
-    , BG.HasFFIType
     , Integral
     , BG.Ix
     , Num
@@ -362,7 +358,6 @@ newtype M4 = M4
     , Bounded
     , Enum
     , BG.FiniteBits
-    , BG.HasFFIType
     , Integral
     , BG.Ix
     , Num

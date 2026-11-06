@@ -27,7 +27,6 @@ hstypes:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -49,7 +48,6 @@ hstypes:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr

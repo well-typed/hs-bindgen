@@ -65,7 +65,6 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -121,9 +120,6 @@ hstypes:
       constructor: T4
       fields:
       - unwrapT4
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -133,7 +129,6 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr

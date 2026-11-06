@@ -412,7 +412,6 @@ newtype BOOLEAN_T = BOOLEAN_T
     , Bounded
     , Enum
     , BG.FiniteBits
-    , BG.HasFFIType
     , Integral
     , BG.Ix
     , Num
@@ -460,7 +459,6 @@ newtype Boolean_T = Boolean_T
     , Bounded
     , Enum
     , BG.FiniteBits
-    , BG.HasFFIType
     , Integral
     , BG.Ix
     , Num
