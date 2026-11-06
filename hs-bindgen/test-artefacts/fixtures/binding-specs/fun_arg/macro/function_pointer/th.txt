@@ -203,11 +203,7 @@ instance HasCField MyFunctionPointer "unwrapMyFunctionPointer"
 newtype A
     = A {unwrapA :: MyFunctionPointer}
     deriving stock (Eq, Generic, Ord, Show)
-    deriving newtype (HasFFIType,
-                      ReadRaw,
-                      StaticSize,
-                      Storable,
-                      WriteRaw)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty MyFunctionPointer => HasField "unwrapA" A ty
     where hasField = \x_0 -> (\y_1 -> A{unwrapA = y_1},
                               getField @"unwrapA" x_0)
@@ -226,11 +222,7 @@ instance HasCField A "unwrapA"
 newtype B
     = B {unwrapB :: A}
     deriving stock (Eq, Generic, Ord, Show)
-    deriving newtype (HasFFIType,
-                      ReadRaw,
-                      StaticSize,
-                      Storable,
-                      WriteRaw)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty A => HasField "unwrapB" B ty
     where hasField = \x_0 -> (\y_1 -> B{unwrapB = y_1},
                               getField @"unwrapB" x_0)

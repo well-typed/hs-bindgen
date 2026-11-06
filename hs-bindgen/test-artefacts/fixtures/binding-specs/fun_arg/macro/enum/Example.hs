@@ -151,8 +151,7 @@ newtype A = A
   }
   deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( BG.HasFFIType
-    , BG.Prim
+    ( BG.Prim
     , Marshal.ReadRaw
     , Marshal.StaticSize
     , BG.Storable
@@ -186,8 +185,7 @@ newtype B = B
   }
   deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( BG.HasFFIType
-    , BG.Prim
+    ( BG.Prim
     , Marshal.ReadRaw
     , Marshal.StaticSize
     , BG.Storable

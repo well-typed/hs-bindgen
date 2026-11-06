@@ -133,7 +133,6 @@ newtype M3 = M3
     , Bounded
     , Enum
     , BG.FiniteBits
-    , BG.HasFFIType
     , Integral
     , BG.Ix
     , Num
@@ -178,7 +177,6 @@ newtype T4 = T4
     , Bounded
     , Enum
     , BG.FiniteBits
-    , BG.HasFFIType
     , Integral
     , BG.Ix
     , Num

@@ -14,3 +14,5 @@ typedef MTy tty;
 #define UINT8_T unsigned char
 #define BOOLEAN_T UINT8_T
 typedef BOOLEAN_T boolean_T;
+
+void foo (BOOLEAN_T x);

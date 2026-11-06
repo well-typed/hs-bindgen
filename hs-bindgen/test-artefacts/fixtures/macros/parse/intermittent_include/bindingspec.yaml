@@ -43,7 +43,6 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -74,7 +73,6 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -105,7 +103,6 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -136,7 +133,6 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -167,7 +163,6 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr

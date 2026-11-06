@@ -73,7 +73,6 @@ newtype TypeB
                       Bounded,
                       Enum,
                       FiniteBits,
-                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
