@@ -1,4 +1,25 @@
 -- addDependentFile test-artefacts/headers/golden/macros/macro_types.h
+-- #include <macros/macro_types.h>
+-- void hs_bindgen_3b0cacc35c4cfb72 (
+--   unsigned char arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- void hs_bindgen_a100359168829f7a (
+--   unsigned char arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- /* test_macrosmacro_types_1_empty_Example_get_foo */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_f444911af417f241 (void)) (
+--   unsigned char arg1
+-- )
+-- {
+--   return &foo;
+-- }
 {-| __C declaration:__ @tty@
 
     __defined at:__ @macros\/macro_types.h 12:13@
@@ -62,3 +83,69 @@ instance (~) ty CUChar =>
 instance HasCField Boolean_T "unwrapBoolean_T"
     where type CFieldType Boolean_T "unwrapBoolean_T" = CUChar
           offset# = \_ -> \_ -> 0
+-- __unique:__ @test_macrosmacro_types_1_empty_Example_Safe_foo@
+foreign import ccall safe "hs_bindgen_3b0cacc35c4cfb72" hs_bindgen_3b0cacc35c4cfb72_base ::
+    CUChar
+ -> IO ()
+-- __unique:__ @test_macrosmacro_types_1_empty_Example_Safe_foo@
+hs_bindgen_3b0cacc35c4cfb72 :: CUChar -> IO ()
+-- __unique:__ @test_macrosmacro_types_1_empty_Example_Safe_foo@
+hs_bindgen_3b0cacc35c4cfb72 = \x_0 -> hs_bindgen_3b0cacc35c4cfb72_base (toFFIType x_0)
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/macro_types.h 18:6@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+foo_safe :: CUChar -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/macro_types.h 18:6@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+foo_safe = hs_bindgen_3b0cacc35c4cfb72
+-- __unique:__ @test_macrosmacro_types_1_empty_Example_Unsafe_foo@
+foreign import ccall unsafe "hs_bindgen_a100359168829f7a" hs_bindgen_a100359168829f7a_base ::
+    CUChar
+ -> IO ()
+-- __unique:__ @test_macrosmacro_types_1_empty_Example_Unsafe_foo@
+hs_bindgen_a100359168829f7a :: CUChar -> IO ()
+-- __unique:__ @test_macrosmacro_types_1_empty_Example_Unsafe_foo@
+hs_bindgen_a100359168829f7a = \x_0 -> hs_bindgen_a100359168829f7a_base (toFFIType x_0)
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/macro_types.h 18:6@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+foo_unsafe :: CUChar -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/macro_types.h 18:6@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+foo_unsafe = hs_bindgen_a100359168829f7a
+-- __unique:__ @test_macrosmacro_types_1_empty_Example_get_foo@
+foreign import ccall unsafe "hs_bindgen_f444911af417f241" hs_bindgen_f444911af417f241_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_macrosmacro_types_1_empty_Example_get_foo@
+hs_bindgen_f444911af417f241 :: IO (FunPtr (CUChar -> IO ()))
+-- __unique:__ @test_macrosmacro_types_1_empty_Example_get_foo@
+hs_bindgen_f444911af417f241 = fmap fromFFIType hs_bindgen_f444911af417f241_base
+{-# NOINLINE foo_funptr #-}
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/macro_types.h 18:6@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+foo_funptr :: FunPtr (CUChar -> IO ())
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @macros\/macro_types.h 18:6@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+foo_funptr = unsafePerformIO hs_bindgen_f444911af417f241
