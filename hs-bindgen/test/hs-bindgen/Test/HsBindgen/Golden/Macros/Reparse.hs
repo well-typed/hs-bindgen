@@ -3,6 +3,7 @@ module Test.HsBindgen.Golden.Macros.Reparse (testCases) where
 
 import Control.Applicative
 
+import HsBindgen.Config.Internal
 import HsBindgen.Frontend.DeclDB (PassFailure (..))
 import HsBindgen.Imports
 import HsBindgen.Macro.Error (MacroLangFailure (..))
@@ -28,6 +29,7 @@ testCases = [
     , TestCaseLeaf test_end_in_macro_arg
     , TestCaseLeaf test_functions
     , TestCaseLeaf test_gnu_attributes
+    , TestCaseLeaf test_unnamed_same_name
     , TestCases "nesting" [
           defaultTest_nesting "macros/reparse/nesting"
         , defaultTest_nesting "macros/reparse/nesting/struct_in_struct"
@@ -89,6 +91,14 @@ test_gnu_attributes :: TestCase
 test_gnu_attributes =
     defaultTest "macros/reparse/gnu_attributes"
       & #cStandard      .~ c23
+
+-- Without the renaming and 'OmitFieldPrefixes', the two structs would clash in
+-- 'MangleNames' and generate nothing.
+test_unnamed_same_name :: TestCase
+test_unnamed_same_name =
+    defaultTest "macros/reparse/unnamed_same_name"
+      & #specPrescriptive .~ Just "test-artefacts/headers/golden/macros/reparse/unnamed_same_name.yaml"
+      & #onFrontend .~ ( #fieldNamingStrategy .~ OmitFieldPrefixes )
 
 {-------------------------------------------------------------------------------
   Nesting

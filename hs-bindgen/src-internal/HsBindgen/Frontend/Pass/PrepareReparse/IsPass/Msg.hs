@@ -167,6 +167,11 @@ data DelayedPrepareReparseMsg =
   | PrepareReparseMacroInvocationParseFailures (NonEmpty Text)
     -- | There was no preprocessor output for this declaration
   | PrepareReparseNoPreprocessorOutput
+    -- | The preprocessor output for this declaration is ambiguous: several
+    -- targets carry its tag
+  | PrepareReparseDuplicateTag
+      -- | Number of targets carrying the tag
+      Int
   deriving stock (Show, Generic)
 
 instance PrettyForTrace DelayedPrepareReparseMsg where
@@ -184,11 +189,18 @@ instance PrettyForTrace DelayedPrepareReparseMsg where
       ]
     PrepareReparseNoPreprocessorOutput ->
       "There was no preprocessor output for this declaration"
+    PrepareReparseDuplicateTag n -> PP.hsep [
+        "The preprocessor output contains"
+      , PP.show n
+      , "candidates for this declaration;"
+      , "reparsing it without expanding its macro invocations instead"
+      ]
 
 instance IsTrace Level DelayedPrepareReparseMsg where
   getDefaultLogLevel = \case
       PrepareReparseExpansionNotUnique{} -> Info
       PrepareReparseMacroInvocationParseFailures{} -> Bug
       PrepareReparseNoPreprocessorOutput{} -> Bug
+      PrepareReparseDuplicateTag{} -> Bug
   getSource          = const HsBindgen
   getTraceId         = const "prepare-reparse"

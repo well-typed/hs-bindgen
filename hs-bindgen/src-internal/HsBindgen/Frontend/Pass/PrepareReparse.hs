@@ -8,6 +8,7 @@ import Crypto.Hash.SHA256 (hash)
 import Data.ByteString.Base16 qualified as B16
 import Data.ByteString.Char8 qualified as B
 import Data.List qualified as List
+import Data.List.NonEmpty (NonEmpty)
 import Data.Map.Lazy (Map)
 import Data.Map.Lazy qualified as Map
 import System.FilePath ((<.>), (</>))
@@ -140,9 +141,9 @@ runUpdater ::
 runUpdater header unit = update mode unit
   where
     mode = UpdatePreprocessAndFlatten preprocessedMap
-    preprocessedMap :: Map Tag Decl
-    preprocessedMap = Map.fromList [
-          (tag, decl)
+    preprocessedMap :: Map Tag (NonEmpty Decl)
+    preprocessedMap = Map.fromListWith (<>) [
+          (tag, pure decl)
         | Target tag decl <- header.targets
         ]
 
