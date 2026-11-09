@@ -7,7 +7,6 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (TranslateTypesMsg)
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassBy (PassArgBy,
                                                              PassResBy)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -75,8 +74,7 @@ instance PassCommentDecl TranslateTypes where
 instance PassAnn TranslateTypes where
   type Ann ix TranslateTypes = AnnTranslateTypes ix
 
-instance PassMsg TranslateTypes where
-  type Msg TranslateTypes = TranslateTypesMsg
+instance PassMsg TranslateTypes
 
 {-------------------------------------------------------------------------------
   CoercePass

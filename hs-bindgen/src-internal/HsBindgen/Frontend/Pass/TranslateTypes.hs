@@ -35,13 +35,9 @@ import HsBindgen.IR.Translation
 translateTypes ::
      forall l.
      C.TranslationUnit l AdjustTypes
-  -> ( C.TranslationUnit l TranslateTypes
-     , [AnnMsg TranslateTypes]
-     )
-translateTypes unit = (unit{C.db = db'}, msgs)
+  -> C.TranslationUnit l TranslateTypes
+translateTypes unit = unit{C.db = db'}
   where
-    msgs = []
-
     db' :: DeclDB l TranslateTypes
     db' =
         DeclDB.addDelayedMsgs
