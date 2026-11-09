@@ -263,7 +263,7 @@ updateReparseInfo declId tag@(Tag typ _) reparseInfo = do
                   pure $ ReparseNeeded (mkFlatTokens preppedTokens) macroInvs
                 Just decls -> do
                   addMessage declId $
-                    PrepareReparseDuplicateTag (length decls)
+                    PrepareReparseDuplicateTag tag (length decls)
                   pure fallback
             else do
               addMessage declId $

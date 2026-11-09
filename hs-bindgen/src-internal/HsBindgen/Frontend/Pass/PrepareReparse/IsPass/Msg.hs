@@ -17,6 +17,8 @@ import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types (MultiLoc (multiLocExpansion), SourcePath)
 
+import HsBindgen.Frontend.Pass.PrepareReparse.AST (Tag)
+import HsBindgen.Frontend.Pass.PrepareReparse.Printer qualified as Printer
 import HsBindgen.Util.Tracer (IsTrace (..), Level (Bug, Debug, Info, Warning),
                               PrettyForTrace (..), Source (HsBindgen))
 
@@ -170,6 +172,9 @@ data DelayedPrepareReparseMsg =
     -- | The preprocessor output for this declaration is ambiguous: several
     -- targets carry its tag
   | PrepareReparseDuplicateTag
+      -- | The tag, printed in the message as it appears in the preprocessor
+      -- output
+      Tag
       -- | Number of targets carrying the tag
       Int
   deriving stock (Show, Generic)
@@ -189,10 +194,11 @@ instance PrettyForTrace DelayedPrepareReparseMsg where
       ]
     PrepareReparseNoPreprocessorOutput ->
       "There was no preprocessor output for this declaration"
-    PrepareReparseDuplicateTag n -> PP.hsep [
+    PrepareReparseDuplicateTag tag n -> PP.hsep [
         "The preprocessor output contains"
       , PP.show n
-      , "candidates for this declaration;"
+      , "candidates for this declaration, tagged"
+      , PP.string (Printer.print tag ";")
       , "reparsing it without expanding its macro invocations instead"
       ]
 
