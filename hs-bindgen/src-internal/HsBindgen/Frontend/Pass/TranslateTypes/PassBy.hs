@@ -5,6 +5,7 @@ module HsBindgen.Frontend.Pass.TranslateTypes.PassBy (
   ) where
 
 import Control.Monad.Writer.Strict (Writer)
+import Data.Bifunctor (second)
 import Data.Text qualified as Text
 
 import HsBindgen.Errors (panicPure)
@@ -50,7 +51,7 @@ classifyResPassingMethod res hsType
       }
   -- Other types
   | otherwise
-  = fmap PassResByValue <$> passByValue FunPositionRes res.typ hsType
+  = second PassResByValue <$> passByValue FunPositionRes res.typ hsType
   where
     ty' = C.TypePointers 1 res.typ
 
@@ -82,7 +83,7 @@ classifyArgPassingMethod pos arg hsType
       }
   -- Other types
   | otherwise
-  = fmap PassArgByValue <$> passByValue pos arg.typ.typ hsType
+  = second PassArgByValue <$> passByValue pos arg.typ.typ hsType
   where
     ty' = C.TypeFunArgF (C.TypePointers 1 arg.typ.typ) NotAdjusted
 

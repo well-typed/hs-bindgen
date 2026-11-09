@@ -45,7 +45,7 @@ translateTypes unit = (unit{C.db = db'}, msgs)
     db' :: DeclDB l TranslateTypes
     db' =
         DeclDB.addDelayedMsgs
-          (map (fmap DelayedTranslateTypes) delayedMsgs)
+          (map (second DelayedTranslateTypes) delayedMsgs)
           db
 
     (db, delayedMsgs) =
@@ -76,7 +76,7 @@ processDeclKind = \case
     C.DeclUntaggedEnumConstant cnst     -> ok $ C.DeclUntaggedEnumConstant <$> processUntaggedEnumConstant cnst
     C.DeclOpaque               mSize    -> ok $ pure $ C.DeclOpaque mSize
     C.DeclMacro                macro    -> ok $ C.DeclMacro                <$> processMacro            macro
-    C.DeclFunction             function -> fmap C.DeclFunction             <$> processFunction         function
+    C.DeclFunction             function -> second C.DeclFunction           <$> processFunction         function
     C.DeclGlobal               global   -> ok $ C.DeclGlobal               <$> processGlobal           global
   where
     ok :: M DeclEnv a -> M DeclEnv (Either TranslateTypesError a)
@@ -263,7 +263,7 @@ processAnonRef ctx typ = TranslatedAnonRef{
 --
 -- Delayed trace messages are returned in the order they were recorded
 runM :: env -> M env a -> (a, [(C.DeclId, DelayedTranslateTypesMsg)])
-runM m (M k) = fmap (reverse . (.messages)) $ runState (runReaderT k m) (St [])
+runM m (M k) = second (reverse . (.messages)) $ runState (runReaderT k m) (St [])
 
 newtype M env a = M (ReaderT env (State St) a)
   deriving newtype (Functor, Applicative, Monad)
