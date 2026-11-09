@@ -15,19 +15,18 @@ module HsBindgen.Frontend.Pass.PrepareReparse.Printer.Util (
   , newline
     -- * Interpunction
   , semicolon
-  , dot
     -- * C directives
   , undef
   , include
     -- * C names
   , name
-  , fieldName
+  , declId
+  , scopedName
   ) where
 
 import Data.Text qualified as Text
 import GHC.Show (showSpace)
 
-import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass (ApplyMacroFallback)
 import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -57,9 +56,6 @@ newline = showChar '\n'
 semicolon :: ShowS
 semicolon = showChar ';'
 
-dot :: ShowS
-dot = showChar '.'
-
 {-------------------------------------------------------------------------------
   C directives
 -------------------------------------------------------------------------------}
@@ -75,7 +71,11 @@ include = showString "#include"
 -------------------------------------------------------------------------------}
 
 name :: C.DeclId -> ShowS
-name declId = showString (Text.unpack declId.name.text)
+name did = showString (Text.unpack did.name.text)
 
-fieldName :: C.FieldInfo ApplyMacroFallback -> ShowS
-fieldName info = showString (Text.unpack info.name.text)
+-- | User-facing syntax, which marks an unnamed declaration
+declId :: C.DeclId -> ShowS
+declId = showString . Text.unpack . C.renderDeclId
+
+scopedName :: C.ScopedName -> ShowS
+scopedName n = showString (Text.unpack n.text)

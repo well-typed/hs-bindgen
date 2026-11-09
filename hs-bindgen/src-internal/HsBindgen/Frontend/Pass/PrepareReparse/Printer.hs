@@ -16,9 +16,8 @@ import Prelude hiding (print)
 import HsBindgen.Frontend.Pass.PrepareReparse.AST (Decl (..), Include (..),
                                                    MacroName (..),
                                                    PreHeader (include, targets, undefs),
-                                                   Tag (..), TagName (..),
-                                                   TagType (..), Target (..),
-                                                   Undef (..))
+                                                   Tag (..), TagType (..),
+                                                   Target (..), Undef (..))
 import HsBindgen.Frontend.Pass.PrepareReparse.Printer.Util qualified as P
 
 {-------------------------------------------------------------------------------
@@ -83,22 +82,21 @@ instance Print Decl where
   printIt (Decl code) = showString code
 
 instance Print Tag where
-  printIt (Tag typ name) = P.compose [
+  printIt (Tag typ declId) = P.compose [
         showString "/*"
       , P.space
       , printIt typ
       , P.space
-      , printIt name
+      , P.declId declId
       , P.space
       , showString "*/"
       ]
 
+-- | The field name precedes the declaration, so the parser can read the field
+-- name as one token and the declaration as all remaining ones
 instance Print TagType where
   printIt = \case
-      Field -> P.string "field"
-      Function -> P.string "function"
-      Typedef -> P.string "typedef"
-      Variable -> P.string "variable"
-
-instance Print TagName where
-  printIt (TagName s) = P.string s
+      Field name -> P.string "field" . P.space . P.scopedName name
+      Function   -> P.string "function"
+      Typedef    -> P.string "typedef"
+      Variable   -> P.string "variable"

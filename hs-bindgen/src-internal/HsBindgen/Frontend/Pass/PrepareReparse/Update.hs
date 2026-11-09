@@ -17,7 +17,7 @@ import Control.Monad (forM_)
 import Control.Monad.Reader (MonadReader (ask), ReaderT (..))
 import Control.Monad.State (MonadState, State, modify, runState)
 import Data.Kind
-import Data.List.NonEmpty (NonEmpty)
+import Data.List.NonEmpty (NonEmpty ((:|)))
 import Data.List.NonEmpty qualified as NE
 import Data.Map.Lazy qualified as Map
 
@@ -50,7 +50,8 @@ import HsBindgen.Macro.UniqueExpansion.Types (Ambiguity, Name)
 
 data UpdateMode =
     UpdateOnlyFlatten
-  | UpdatePreprocessAndFlatten (Map Tag Decl)
+    -- | The preprocessed targets, all of them for each tag
+  | UpdatePreprocessAndFlatten (Map Tag (NonEmpty Decl))
 
 update ::
      forall l.
@@ -258,8 +259,12 @@ updateReparseInfo declId tag@(Tag typ _) reparseInfo = do
                 Nothing -> do
                   addMessage declId PrepareReparseNoPreprocessorOutput
                   pure fallback
-                Just (Decl preppedTokens) ->
+                Just (Decl preppedTokens :| []) ->
                   pure $ ReparseNeeded (mkFlatTokens preppedTokens) macroInvs
+                Just decls -> do
+                  addMessage declId $
+                    PrepareReparseDuplicateTag tag (length decls)
+                  pure fallback
             else do
               addMessage declId $
                 PrepareReparseExpansionNotUnique fallbackTokens.locStart fallbackTokens.flatten

@@ -98,6 +98,12 @@ type Out = ConstructTranslationUnit
 --
 -- Passes change the kind of an entry, but do not remove it; the test suite
 -- checks the transitions (@Test.HsBindgen.Frontend.DeclDB.checkTransition@).
+--
+-- Note that each `C.DeclId` is unique by construction, because the declaration
+-- database contains a @Map C.DeclId (Entry l p)@. Declaration conflicts do
+-- exist, but they are registered under a single key, and marked as @Unusable@.
+-- A unique @C.DeclId@ is important, for example, to discriminate tags when
+-- reparsing declarations.
 data DeclDB l p = DeclDB {
       -- | The entry of every declaration
       entries         :: Map C.DeclId (Entry l p)

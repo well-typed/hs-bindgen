@@ -14,14 +14,16 @@ module HsBindgen.Frontend.Pass.PrepareReparse.Parser (
 
 import Control.Applicative (asum)
 import Data.List qualified as List
+import Data.Text qualified as Text
 import Text.Parsec qualified as P
 
 import HsBindgen.Frontend.Pass.PrepareReparse.AST (Decl (..),
                                                    PostHeader (PostHeader),
-                                                   Tag (..), TagName (..),
-                                                   TagType (..), Target (..))
+                                                   Tag (..), TagType (..),
+                                                   Target (..))
 import HsBindgen.Frontend.Pass.PrepareReparse.Lexer (Token (..))
-import HsBindgen.Imports (void)
+import HsBindgen.Imports (unless, void)
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -57,7 +59,13 @@ instance Parse [Target] where
   parseIt = P.many parseIt
 
 instance Parse Target where
-  parseIt = Target <$> parseIt <*> parseIt <* parseIt @Tag
+  parseIt = do
+      open  <- parseIt
+      decl  <- parseIt
+      close <- parseIt
+      unless (close == open) $
+        P.unexpected $ "closing tag " ++ show close ++ " for " ++ show open
+      pure $ Target open decl
 
 instance Parse Decl where
   parseIt = Decl . conc <$> P.many anyText
@@ -70,14 +78,23 @@ instance Parse Tag where
 
 instance Parse TagType where
   parseIt = asum [
-        P.try $ Field <$ text "field"
+        Field    <$ text "field" <*> parseIt
       , Function <$ text "function"
-      , Typedef <$ text "typedef"
+      , Typedef  <$ text "typedef"
       , Variable <$ text "variable"
       ]
 
-instance Parse TagName where
-  parseIt = TagName <$> anyText
+instance Parse C.ScopedName where
+  parseIt = myToken $ \case
+      Text s -> C.parseScopedName (Text.pack s)
+      _      -> Nothing
+
+-- | User-facing syntax, spanning one or two tokens (e.g., @struct \@foo@)
+instance Parse C.DeclId where
+  parseIt = do
+      ts <- unwords <$> P.many1 anyText
+      maybe (P.unexpected $ "declaration " ++ ts) pure $
+        C.parseDeclId (Text.pack ts)
 
 {-------------------------------------------------------------------------------
   Helpers

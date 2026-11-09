@@ -122,6 +122,12 @@
 
 [is-2099]: https://github.com/well-typed/hs-bindgen/issues/2099
 
+- Due to internal naming clashes, a field whose type uses a macro could
+  accidentally be assigned the type of a different field that uses a macro.
+  This is no longer the case. See [issue #2345][is-2345].
+
+[is-2345]: https://github.com/well-typed/hs-bindgen/issues/2345
+
 ## 1.0.0.0 -- 2026-10-08
 
 ### Breaking changes

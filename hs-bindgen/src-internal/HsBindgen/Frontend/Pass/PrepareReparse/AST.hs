@@ -20,10 +20,11 @@ module HsBindgen.Frontend.Pass.PrepareReparse.AST (
   , Decl (..)
   , Tag (..)
   , TagType (..)
-  , TagName (..)
   ) where
 
 import Prelude hiding (print)
+
+import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
   Before preprocessing
@@ -45,8 +46,8 @@ import Prelude hiding (print)
 -- >    include = Include "foo/bar/baz.h"
 -- >  , undefs = [ Undef (MacroName "A") ]
 -- >  , targets = [
--- >        Target (Tag Function (TagName "myFunction")) (Decl "void myFunction (A x);")
--- >      , Target (Tag Field (TagName "MyStruct.myStructField")) (Decl "B myStructField;")
+-- >        Target (Tag Function "myFunction") (Decl "void myFunction (A x);")
+-- >      , Target (Tag (Field "myStructField") "struct MyStruct") (Decl "B myStructField;")
 -- >      ]
 -- >  }
 --
@@ -84,8 +85,8 @@ newtype MacroName = MacroName String
 --
 -- > PostHeader {
 -- >    targets = [
--- >        Target (Tag Function (TagName "myFunction")) (Decl "void myFunction (A x);")
--- >      , Target (Tag Field (TagName "MyStruct.myStructField")) (Decl "void myStructField;")
+-- >        Target (Tag Function "myFunction") (Decl "void myFunction (A x);")
+-- >      , Target (Tag (Field "myStructField") "struct MyStruct") (Decl "void myStructField;")
 -- >      ]
 -- >  }
 --
@@ -107,43 +108,32 @@ data Target = Target Tag Decl
 newtype Decl = Decl String
   deriving stock (Show, Eq)
 
--- | A tag records the origins of a reparser target: the kind of declaration,
--- and a unique name for the declaration
+-- | A tag records the origin of a reparse target: the kind of target, and the
+-- declaration it belongs to
 --
 -- Tags are used in the printer to signal the start and end of a reparse target,
--- which makes it easier to parse the printer output later. Moreover, the tag
--- name is used to assign unique tag names to fields, because field names are
--- not unique in general.
+-- which makes it easier to parse the printer output later. The preprocessed
+-- output is mapped back to its declaration by tag, so distinct targets must
+-- have distinct tags. A 'C.DeclId' distinguishes a declaration from an unnamed
+-- one with the same name, and a field from its namesakes in other structs or
+-- unions.
 --
--- Examples:
+-- Examples, writing a 'C.DeclId' in its user-facing syntax, and their printed
+-- form:
 --
--- > Tag Function (TagName "myFunction")
--- > Tag Field (TagName "MyStruct.myStructField")
+-- > Tag Function "myFunction"                       -- /* function myFunction */
+-- > Tag (Field "myStructField") "struct MyStruct"   -- /* field myStructField struct MyStruct */
+-- > Tag (Field "x") "struct @a_b"                   -- /* field x struct @a_b */
 --
-data Tag = Tag TagType TagName
+data Tag = Tag TagType C.DeclId
   deriving stock (Show, Eq, Ord)
 
 -- | Reparse targets can be declarations of these kinds:
 data TagType =
-    -- | A struct or union field
-    Field
+    -- | A field of the struct or union
+    Field C.ScopedName
   | Function
   | Typedef
     -- | A global variable
   | Variable
-  deriving stock (Show, Eq, Ord, Enum, Bounded)
-
--- | A unique name for a reparse target
---
--- This is generally just the name of the declaration itself, but for fields we
--- pair the name of the field with the name of the enclosing struct or union.
--- Field names are not unique in /general/. They are only unique within a single
--- struct or union.
---
--- Examples:
---
--- > TagName "myFunction"
--- > TagName "MyStruct.myStructField"
---
-newtype TagName = TagName String
   deriving stock (Show, Eq, Ord)
