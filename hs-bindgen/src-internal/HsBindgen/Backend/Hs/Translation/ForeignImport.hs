@@ -8,7 +8,6 @@ module HsBindgen.Backend.Hs.Translation.ForeignImport (
   , foreignImportWrapperDec
   , foreignImportDynamicDec
   , ImportFor (..)
-  , unsafeToFFIResType
   ) where
 
 import Data.Function
@@ -386,13 +385,5 @@ unsafeToFFIFunType :: Hs.Type -> Hs.FFIFunType
 unsafeToFFIFunType ty = case FFIType.toFFIFunType ty of
     Nothing ->
       panicPure $ printf "Type does not have an FFI function type: %s" (show ty)
-    Just ty' ->
-      ty'
-
--- | For types synthesised in the backend
-unsafeToFFIResType :: Hs.Type -> Hs.FFIResType
-unsafeToFFIResType ty = case FFIType.toFFIResType ty of
-    Nothing ->
-      panicPure $ printf "Type does not have an FFI function result type: %s" (show ty)
     Just ty' ->
       ty'

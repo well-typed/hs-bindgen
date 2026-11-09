@@ -9,11 +9,13 @@ module HsBindgen.Frontend.Pass.TranslateTypes.FFIType (
   , toFFITypeWithFallbacks
   , toFFIResType
   , toFFIFunType
+  , pointerTo
   ) where
 
 import Control.Monad.Writer.Strict (Writer, runWriter, tell)
 
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Frontend.Pass.TranslateTypes.Translation (Pointee (..))
 import HsBindgen.Imports
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
@@ -113,3 +115,10 @@ toFFIFunType = \case
           args = arg : t.args
         , res  = t.res
         }
+
+-- | FFI type of a pointer
+pointerTo :: Pointee -> Hs.FFIType
+pointerTo = \case
+    PointeeFunction    -> Hs.FFIFunPtrVoid
+    PointeeConstObject -> Hs.FFIPtrVoid
+    PointeeObject      -> Hs.FFIPtrVoid

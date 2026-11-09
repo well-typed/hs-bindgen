@@ -10,6 +10,9 @@ module HsBindgen.Frontend.Pass.TranslateTypes.Translation (
   , InContext(..)
     -- ** Helper functions
   , topLevel
+    -- * Pointers
+  , Pointee(..)
+  , pointee
   ) where
 
 import Data.Proxy (Proxy (..))
@@ -100,25 +103,15 @@ typeInContext ctx = \case
       Hs.TypRef
         (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
         (Just $ typeInContext ctx ref.underlying)
-    C.TypePointers n ty
-      -- Use a 'FunPtr' if the type is a function type.  We inspect the
-      -- /canonical/ type because we want to see through typedefs and type
-      -- qualifiers like @const@.
-      | C.isCanonicalTypeFunction ty ->
-          foldr
+    C.TypePointers n ty ->
+      let innermost = case pointee ty of
+            PointeeFunction    -> Hs.FunPtr
+            PointeeConstObject -> Hs.PtrConst
+            PointeeObject      -> Hs.Ptr
+      in  foldr
             ($)
-            (Hs.FunPtr $ typeInContext PtrArg ty)
+            (innermost $ typeInContext PtrArg ty)
             (replicate (n - 1) Hs.Ptr)
-      | C.isErasedTypeConstQualified ty ->
-          foldr
-            ($)
-            (Hs.PtrConst $ typeInContext PtrArg ty)
-            (replicate (n - 1) Hs.Ptr)
-      | otherwise ->
-          foldr
-            ($)
-            (typeInContext PtrArg ty)
-            (replicate n Hs.Ptr)
     C.TypeConstArray n ty ->
       Hs.ConstArray n (typeInContext Top ty)
     C.TypeIncompleteArray ty ->
@@ -141,6 +134,28 @@ typeInContext ctx = \case
             ext.cSpec
             ext.hsSpec
             (typeInContext ctx ref.underlying)
+
+{-------------------------------------------------------------------------------
+  Pointers
+-------------------------------------------------------------------------------}
+
+-- | What a pointer points to
+data Pointee =
+    -- | A function; the pointer is a 'Hs.FunPtr'
+    PointeeFunction
+    -- | A @const@-qualified object; the pointer is a 'Hs.PtrConst'
+  | PointeeConstObject
+    -- | Any other object; the pointer is a 'Hs.Ptr'
+  | PointeeObject
+  deriving stock (Show, Eq)
+
+pointee :: MacroUnderlying p ~ C.Type p => C.Type p -> Pointee
+pointee ty
+    -- We inspect the /canonical/ type to see through typedefs and type
+    -- qualifiers like @const@.
+    | C.isCanonicalTypeFunction ty    = PointeeFunction
+    | C.isErasedTypeConstQualified ty = PointeeConstObject
+    | otherwise                       = PointeeObject
 
 -- | Translate a function argument
 funArg ::
