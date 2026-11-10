@@ -6,9 +6,9 @@ module HsBindgen.Frontend.Pass.TranslateTypes.PassBy (
 
 import Control.Monad.Writer.Strict (Writer)
 import Data.Bifunctor (second)
+import Data.List.NonEmpty (NonEmpty ((:|)))
 import Data.Text qualified as Text
 
-import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes,
                                                    AdjustedFrom (NotAdjusted))
 import HsBindgen.Frontend.Pass.TranslateTypes.Error
@@ -25,8 +25,9 @@ import HsBindgen.IR.Translation
   Argument passing method
 -------------------------------------------------------------------------------}
 
--- | The passing method, or why a value cannot be passed by value
-type Classified a = Writer [FFIType.ExtBindingFallback] (Either NoFFIType a)
+-- | The passing method, or why the value cannot be passed
+type Classified a =
+    Writer [FFIType.ExtBindingFallback] (Either TranslateTypesError a)
 
 -- | Classify how a function result is passed from C to Haskell
 classifyResPassingMethod ::
@@ -36,9 +37,9 @@ classifyResPassingMethod ::
 classifyResPassingMethod res hsType
   -- Bad types
   | C.isCanonicalTypeArray res.typ
-  = panicPure "classifyResPassingMethod: an array can not be the result type of a function"
+  = unexpected FunPositionRes UnexpectedArray res.typ
   | C.isCanonicalTypeFunction res.typ
-  = panicPure "classifyResPassingMethod: a function can not be the result type of a function"
+  = unexpected FunPositionRes UnexpectedFunction res.typ
   | C.isVoid res.typ
   = pure $ Right PassResVoid
   -- Types the Haskell FFI cannot pass by value
@@ -64,15 +65,9 @@ classifyArgPassingMethod ::
 classifyArgPassingMethod pos arg hsType
   -- Bad types
   | C.isCanonicalTypeArray arg.typ.typ
-  = panicPure
-      "classifyArgPassingMethod: found a function argument/result type that is an array, \
-      \which is unexpected because it should have been adjusted to a pointer. \
-      \Is there a bug in the AdjustTypes frontend pass?"
+  = unexpected pos UnexpectedArray arg.typ.typ
   | C.isCanonicalTypeFunction arg.typ.typ
-  = panicPure
-      "classifyArgPassingMethod: found a function argument/result type that is a function, \
-      \which is unexpected because it should have been adjusted to a pointer. \
-      \Is there a bug in the AdjustTypes frontend pass?"
+  = unexpected pos UnexpectedFunction arg.typ.typ
   -- Types the Haskell FFI cannot pass by value
   | C.isCanonicalTypeStruct  arg.typ.typ ||
     C.isCanonicalTypeUnion   arg.typ.typ ||
@@ -96,7 +91,22 @@ passByValue pos cType hsType = do
     mFFIType <- FFIType.toFFITypeWithFallbacks hsType
     pure $ case mFFIType of
       Just ffiType -> Right ffiType
-      Nothing      -> Left NoFFIType{
+      Nothing      -> Left $ TranslateTypesNoFFIType $ NoFFIType{
           position = pos
-        , cType    = Text.strip $ Text.pack $ C.showsType (const id) cType ""
-        }
+        , cType    = renderCType cType
+        } :| []
+
+unexpected ::
+     FunPosition
+  -> UnexpectedTypeKind
+  -> C.Type AdjustTypes
+  -> Classified a
+unexpected pos kind cType =
+    pure $ Left $ TranslateTypesUnexpectedType $ UnexpectedType{
+        position = pos
+      , kind     = kind
+      , cType    = renderCType cType
+      } :| []
+
+renderCType :: C.Type AdjustTypes -> Text.Text
+renderCType cType = Text.strip $ Text.pack $ C.showsType (const id) cType ""

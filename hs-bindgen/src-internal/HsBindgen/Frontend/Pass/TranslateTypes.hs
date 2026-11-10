@@ -9,6 +9,7 @@ import Control.Monad.Writer.Strict (runWriter)
 import Data.Either (partitionEithers)
 import Data.Functor ((<&>))
 import Data.List.NonEmpty qualified as NonEmpty
+import Data.Semigroup (sconcat)
 
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
@@ -168,7 +169,7 @@ processFunction fun = do
     (argErrs, args') <- partitionEithers <$>
       zipWithM processFunctionArg [1..] fun.args
     eRes' <- processFunctionRes fun.res
-    pure $ first TranslateTypesNoFFIType $
+    pure $ first sconcat $
       case (NonEmpty.nonEmpty argErrs, eRes') of
         (Nothing  , Right res') -> Right C.Function{
             args  = args'
@@ -183,7 +184,7 @@ processFunction fun = do
 processFunctionArg ::
      Int
   -> C.FunctionArg AdjustTypes
-  -> M DeclEnv (Either NoFFIType (C.FunctionArg TranslateTypes))
+  -> M DeclEnv (Either TranslateTypesError (C.FunctionArg TranslateTypes))
 processFunctionArg i arg = do
     eAnn <- classified pos $ classifyArgPassingMethod pos arg typ'.hs
     pure $ eAnn <&> \ann -> C.FunctionArg{
@@ -197,7 +198,7 @@ processFunctionArg i arg = do
 
 processFunctionRes ::
      C.FunctionRes AdjustTypes
-  -> M DeclEnv (Either NoFFIType (C.FunctionRes TranslateTypes))
+  -> M DeclEnv (Either TranslateTypesError (C.FunctionRes TranslateTypes))
 processFunctionRes res = do
     eAnn <- classified FunPositionRes $ classifyResPassingMethod res typ'.hs
     pure $ eAnn <&> \ann -> C.FunctionRes{
@@ -208,7 +209,10 @@ processFunctionRes res = do
     typ' = processType Translation.FunRes res.typ
 
 -- | Report the external bindings without FFI type
-classified :: FunPosition -> Classified a -> M DeclEnv (Either NoFFIType a)
+classified ::
+     FunPosition
+  -> Classified a
+  -> M DeclEnv (Either TranslateTypesError a)
 classified pos x = do
     let (r, fallbacks) = runWriter x
     forM_ fallbacks $ addMessage . TranslateTypesExtBindingFallback pos

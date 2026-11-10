@@ -74,6 +74,11 @@
   generated code compiles only if the external type has a matching
   `HasFFIType` instance.
 
+* A function argument or result of array or function type now drops the
+  function with a `Bug`-level message ("Unexpected type in function
+  signature"). Previously, `hs-bindgen` panicked. C and the adjustment of
+  argument types rule out both.
+
 ### Bug fixes
 
 * A `struct` or `union` defined inline in a variable or function declaration
