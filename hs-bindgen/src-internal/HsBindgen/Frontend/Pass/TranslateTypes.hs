@@ -81,7 +81,7 @@ processDeclKind = \case
 processStruct :: C.Struct AdjustTypes -> M DeclEnv (C.Struct TranslateTypes)
 processStruct struct = do
     fields' <- mapM processField struct.fields
-    flam' <- C.traverseFlamField processRegularField struct.flam
+    flam'   <- C.traverseFlamField processRegularField struct.flam
     pure C.Struct{
         sizeof    = struct.sizeof
       , alignment = struct.alignment

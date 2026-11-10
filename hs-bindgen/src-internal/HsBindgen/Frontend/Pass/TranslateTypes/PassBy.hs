@@ -41,7 +41,7 @@ classifyResPassingMethod res hsType
   = panicPure "classifyResPassingMethod: a function can not be the result type of a function"
   | C.isVoid res.typ
   = pure $ Right PassResVoid
-  -- Heap types
+  -- Types the Haskell FFI cannot pass by value
   | C.isCanonicalTypeStruct res.typ ||
     C.isCanonicalTypeUnion res.typ ||
     C.isCanonicalTypeComplex res.typ
@@ -73,7 +73,7 @@ classifyArgPassingMethod pos arg hsType
       "classifyArgPassingMethod: found a function argument/result type that is a function, \
       \which is unexpected because it should have been adjusted to a pointer. \
       \Is there a bug in the AdjustTypes frontend pass?"
-  -- Heap types
+  -- Types the Haskell FFI cannot pass by value
   | C.isCanonicalTypeStruct  arg.typ.typ ||
     C.isCanonicalTypeUnion   arg.typ.typ ||
     C.isCanonicalTypeComplex arg.typ.typ
