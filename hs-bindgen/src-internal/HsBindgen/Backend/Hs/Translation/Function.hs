@@ -135,50 +135,26 @@ functionDecs safety decl originalC _spec = do
   Common getters
 -------------------------------------------------------------------------------}
 
--- | Get whether the argument/result should be passed by address
-class GetByAddress a where
-  byAddress :: a -> Bool
+-- | Is the argument passed by address?
+argByAddress :: C.FunctionArg Final -> Bool
+argByAddress arg = byAddress arg.ann
 
-instance GetByAddress (C.FunctionArg Final) where
-  byAddress arg = case arg.ann of
-    PassArgByValue{}   -> False
-    PassArgByAddress{} -> True
+-- | Is the result passed by address?
+resByAddress :: C.FunctionRes Final -> Bool
+resByAddress res = case res.ann of
+    PassResVoid      -> False
+    PassResNonVoid x -> byAddress x
 
-instance GetByAddress (C.FunctionRes Final) where
-  byAddress res = case res.ann of
-    PassResVoid{}      -> False
-    PassResByValue{}   -> False
-    PassResByAddress{} -> True
+byAddress :: PassBy p -> Bool
+byAddress = \case
+    PassByValue{}   -> False
+    PassByAddress{} -> True
 
--- | Get the C type of an argument/result as it is used in @wrapperC@
-class GetWrapperCType a where
-  wrapperCType :: a -> C.Type Final
-
-instance GetWrapperCType (C.FunctionRes Final) where
-  wrapperCType res = case res.ann of
-    PassResVoid           -> res.typ.c
-    PassResByValue{}      -> res.typ.c
-    PassResByAddress wrap -> wrap.c
-
-instance GetWrapperCType (C.FunctionArg Final) where
-  wrapperCType arg = case arg.ann of
-    PassArgByValue{}      -> arg.typ.c.typ
-    PassArgByAddress wrap -> wrap.c.typ
-
--- | Get the Haskell type of an argument/result as it is used in @wrapperImport@
-class GetImportWrapperType a where
-  importWrapperType :: a -> Hs.Type
-
-instance GetImportWrapperType (C.FunctionRes Final) where
-  importWrapperType res = case res.ann of
-    PassResVoid           -> res.typ.hs
-    PassResByValue{}      -> res.typ.hs
-    PassResByAddress wrap -> wrap.hs
-
-instance GetImportWrapperType (C.FunctionArg Final) where
-  importWrapperType arg = case arg.ann of
-    PassArgByValue{}      -> arg.typ.hs
-    PassArgByAddress wrap -> wrap.hs
+-- | Types of an argument as they appear in @wrapperC@ and @wrapperImport@
+wrapperArgTypes :: C.FunctionArg Final -> TranslatedTypes Final
+wrapperArgTypes arg = case arg.ann of
+    PassByValue{}     -> TranslatedTypes{c = arg.typ.c.typ, hs = arg.typ.hs}
+    PassByAddress ptr -> ptr
 
 -- | Get the Haskell type of an argument/result as it is used in @restoreFun@
 class GetRestoreFunType a where
@@ -209,7 +185,7 @@ functionShouldRunInIO ::
   -> [C.FunctionArg Final] -- ^ C parameter types
   -> RunInIO
 functionShouldRunInIO purity resType argTypes
-  | byAddress resType || any byAddress argTypes
+  | resByAddress resType || any argByAddress argTypes
   = RunInIO
   | otherwise
   = case purity of
@@ -254,15 +230,15 @@ getWrapperCFunDefn ::
 getWrapperCFunDefn  wrapperName args res origName
     | PassResVoid <- res.ann
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (wrapperCType <$> args') $
+        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (wrapperArgCType <$> args') $
         PC.CSList $
           PC.CSStatement
             (PC.ExpressionStatement $ PC.Call origName (callArgs args' (PC.argsToIdx args')))
             PC.CSNil
 
-    | byAddress res
+    | PassResNonVoid (PassByAddress ptr) <- res.ann
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (fmap wrapperCType args' :> wrapperCType res) $
+        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (fmap wrapperArgCType args' :> ptr.c) $
         PC.CSList $
           PC.CSStatement
             (PC.ExpressionStatement $ PC.Assign (PC.LDeRef (PC.LVar IZ)) $
@@ -271,7 +247,7 @@ getWrapperCFunDefn  wrapperName args res origName
 
     | otherwise
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName (wrapperCType res) C.ImpureFunction (wrapperCType <$> args') $
+        PC.FunDefn wrapperName res.typ.c C.ImpureFunction (wrapperArgCType <$> args') $
         PC.CSList $
           PC.CSStatement
             (PC.ExpressionStatement $ PC.Return $
@@ -280,7 +256,10 @@ getWrapperCFunDefn  wrapperName args res origName
   where
     callArgs :: Env ctx' (C.FunctionArg Final) -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
     callArgs tys ids = toList (zipWithEnv f tys ids)
-      where f ty idx = if byAddress ty then PC.DeRef (PC.Var idx) else PC.Var idx
+      where f ty idx = if argByAddress ty then PC.DeRef (PC.Var idx) else PC.Var idx
+
+    wrapperArgCType :: C.FunctionArg Final -> C.Type Final
+    wrapperArgCType arg = (wrapperArgTypes arg).c
 
 {-------------------------------------------------------------------------------
   @wrapperImport@
@@ -322,10 +301,10 @@ getWrapperImportDecl decl originalC safety wrapperCName runInIO = wrapperImport
           Hs.ForeignImport.FunParam {
               hsParam =
                 Hs.FunctionParameter{
-                  typ     = importWrapperType arg
+                  typ     = (wrapperArgTypes arg).hs
                 , comment = Nothing
                 }
-            , ffiType = passArgByFFIType arg.ann
+            , ffiType = passByFFIType arg.ann
             }
         | arg <- originalC.args
         ] ++ [
@@ -333,12 +312,12 @@ getWrapperImportDecl decl originalC safety wrapperCName runInIO = wrapperImport
           Hs.ForeignImport.FunParam {
               hsParam =
                 Hs.FunctionParameter{
-                  typ     = importWrapperType originalC.res
+                  typ     = ptr.hs
                 , comment = Nothing
                 }
             , ffiType = byAddressFFIType
             }
-        | byAddress originalC.res
+        | PassResNonVoid (PassByAddress ptr) <- [originalC.res.ann]
         ]
 
     -- Result types that have to be passed by address become parameters.
@@ -346,15 +325,15 @@ getWrapperImportDecl decl originalC safety wrapperCName runInIO = wrapperImport
     result = case originalC.res.ann of
         PassResVoid ->
           unit
-        PassResByValue ffiType -> Hs.ForeignImport.FunRes{
-            hsType  = hsIO runInIO $ importWrapperType originalC.res
+        PassResNonVoid (PassByValue ffiType) -> Hs.ForeignImport.FunRes{
+            hsType  = hsIO runInIO $ originalC.res.typ.hs
           , ffiType = case runInIO of
               RunInIO -> Hs.FFIResIO ffiType
               RunPure -> Hs.FFIRes   ffiType
           }
         -- A type that is not supported by the Haskell FFI as a function result.
         -- We pass it as a function parameter instead.
-        PassResByAddress{} ->
+        PassResNonVoid PassByAddress{} ->
           unit
       where
         unit :: Hs.ForeignImport.FunRes
@@ -453,7 +432,7 @@ getRestoreFunBody ::
   -> Hs.TermName
   -> SHs.ClosedExpr
 getRestoreFunBody originalC wrapperImportName =
-    if byAddress originalC.res || any byAddress originalC.args
+    if resByAddress originalC.res || any argByAddress originalC.args
     then bodyExpr
     else simpleBodyExpr
   where
@@ -550,7 +529,7 @@ getRestoreFunBody originalC wrapperImportName =
           -> SHs.SExpr ctx
         go EmptyEnv EmptyEnv zs = kont (reverse zs) -- reverse again!
         go (xs :> x) (ys :> y) zs
-          | byAddress x
+          | argByAddress x
           = SHs.eAppMany (SHs.eBindgenGlobal Capi_with) $
               let wrapPtrConst = C.isErasedTypeConstQualified x.typ.c.typ in
               [ SHs.EBound y
@@ -577,7 +556,7 @@ getRestoreFunBody originalC wrapperImportName =
       -> (forall ctx'. [Var ctx'] -> SHs.SExpr ctx')
       -> SHs.SExpr ctx
     passResultByAddressIfNecessary zs kont
-      | byAddress originalC.res
+      | resByAddress originalC.res
       = let zs' = fmap succVar zs ++ [Var IZ False] in
         SHs.EApp
           (SHs.eBindgenGlobal Capi_allocaAndPeek)
@@ -644,7 +623,7 @@ mkNameHint arg =
       Just x  -> mangleCandidateDefaultFallback fallback x
   where
     fallback :: Hs.Name Hs.NsVar
-    fallback = Hs.UnsafeName $ if byAddress arg then "ptr" else "x"
+    fallback = Hs.UnsafeName $ if argByAddress arg then "ptr" else "x"
 
     toHint :: Hs.Name Hs.NsVar -> NameHint
     toHint n = NameHint $ T.unpack n.text
