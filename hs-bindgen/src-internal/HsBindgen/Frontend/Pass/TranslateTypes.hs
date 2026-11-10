@@ -9,7 +9,6 @@ import Control.Monad.Writer.Strict (runWriter)
 import Data.Either (partitionEithers)
 import Data.Functor ((<&>))
 import Data.List.NonEmpty qualified as NonEmpty
-import Data.Semigroup (sconcat)
 
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
@@ -169,22 +168,23 @@ processFunction fun = do
     (argErrs, args') <- partitionEithers <$>
       zipWithM processFunctionArg [1..] fun.args
     eRes' <- processFunctionRes fun.res
-    pure $ first sconcat $
-      case (NonEmpty.nonEmpty argErrs, eRes') of
-        (Nothing  , Right res') -> Right C.Function{
-            args  = args'
-          , res   = res'
-          , attrs = fun.attrs
-          , ann   = fun.ann
-          }
-        (Nothing  , Left resErr) -> Left $ resErr :| []
-        (Just errs, Right _    ) -> Left errs
-        (Just errs, Left resErr) -> Left $ errs <> (resErr :| [])
+    pure $ case (argErrs, eRes') of
+      ([], Right res') -> Right C.Function{
+          args  = args'
+        , res   = res'
+        , attrs = fun.attrs
+        , ann   = fun.ann
+        }
+      (err : errs, Right _) ->
+        Left $ TranslateTypesFunctionError (err :| errs)
+      (errs, Left resErr) ->
+        Left $ TranslateTypesFunctionError $
+          NonEmpty.prependList errs (resErr :| [])
 
 processFunctionArg ::
      Int
   -> C.FunctionArg AdjustTypes
-  -> M DeclEnv (Either TranslateTypesError (C.FunctionArg TranslateTypes))
+  -> M DeclEnv (Either FunPositionError (C.FunctionArg TranslateTypes))
 processFunctionArg i arg = do
     eAnn <- classified pos $ classifyArgPassingMethod pos arg typ'.hs
     pure $ eAnn <&> \ann -> C.FunctionArg{
@@ -193,12 +193,15 @@ processFunctionArg i arg = do
       , ann  = ann
       }
   where
-    pos  = FunPositionArg i ((.cName) <$> arg.name)
+    pos  = FunPositionArg FunArgPosition{
+        index = i
+      , name  = (.cName) <$> arg.name
+      }
     typ' = processTypeFunArg Translation.FunArg arg.typ
 
 processFunctionRes ::
      C.FunctionRes AdjustTypes
-  -> M DeclEnv (Either TranslateTypesError (C.FunctionRes TranslateTypes))
+  -> M DeclEnv (Either FunPositionError (C.FunctionRes TranslateTypes))
 processFunctionRes res = do
     eAnn <- classified FunPositionRes $ classifyResPassingMethod res typ'.hs
     pure $ eAnn <&> \ann -> C.FunctionRes{
@@ -212,7 +215,7 @@ processFunctionRes res = do
 classified ::
      FunPosition
   -> Classified a
-  -> M DeclEnv (Either TranslateTypesError a)
+  -> M DeclEnv (Either FunPositionError a)
 classified pos x = do
     let (r, fallbacks) = runWriter x
     forM_ fallbacks $ addMessage . TranslateTypesExtBindingFallback pos

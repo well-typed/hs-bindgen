@@ -3,10 +3,12 @@
 -- This module is intended to be imported unqualified.
 module HsBindgen.Frontend.Pass.TranslateTypes.Error (
     TranslateTypesError (..)
+  , FunPositionError (..)
   , NoFFIType (..)
   , UnexpectedType (..)
   , UnexpectedTypeKind (..)
   , FunPosition (..)
+  , FunArgPosition (..)
   ) where
 
 import Text.SimplePrettyPrint qualified as PP
@@ -15,43 +17,42 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Util.Tracer
 
--- | Why we cannot generate a binding for a declaration
-data TranslateTypesError =
-    -- | Function arguments or result passed by value without an FFI type
-    TranslateTypesNoFFIType (NonEmpty NoFFIType)
-    -- | Function arguments or result of a type that C or an earlier pass rules
-    -- out
-  | TranslateTypesUnexpectedType (NonEmpty UnexpectedType)
+-- | Why we cannot generate a binding for a function
+newtype TranslateTypesError =
+    -- | The arguments and the result we cannot pass, in signature order
+    TranslateTypesFunctionError (NonEmpty FunPositionError)
   deriving stock (Show, Eq)
 
--- | Combine the errors of the arguments and the result of a function
---
--- An unexpected type outranks a missing FFI type: it is a bug, and the
--- function fails either way.
-instance Semigroup TranslateTypesError where
-  x <> y = case (x, y) of
-      (TranslateTypesNoFFIType xs, TranslateTypesNoFFIType ys) ->
-        TranslateTypesNoFFIType (xs <> ys)
-      (TranslateTypesUnexpectedType xs, TranslateTypesUnexpectedType ys) ->
-        TranslateTypesUnexpectedType (xs <> ys)
-      (TranslateTypesUnexpectedType{}, TranslateTypesNoFFIType{}) -> x
-      (TranslateTypesNoFFIType{}, TranslateTypesUnexpectedType{}) -> y
-
 instance PrettyForTrace TranslateTypesError where
-  prettyForTrace = \case
-      TranslateTypesNoFFIType xs ->
-        PP.hang "Cannot pass by value, no FFI type:" 2 $
-          PP.vcat $ map prettyForTrace (toList xs)
-      TranslateTypesUnexpectedType xs ->
-        PP.hang "Unexpected type in function signature:" 2 $
-          PP.vcat $ map prettyForTrace (toList xs)
+  prettyForTrace (TranslateTypesFunctionError xs) =
+      PP.hang "Cannot translate function signature:" 2 $
+        PP.vcat $ map prettyForTrace (toList xs)
 
+-- | A bug if any position has an unexpected type, a warning otherwise
 instance IsTrace Level TranslateTypesError where
-  getDefaultLogLevel = \case
-    TranslateTypesNoFFIType{}      -> Warning
-    TranslateTypesUnexpectedType{} -> Bug
+  getDefaultLogLevel (TranslateTypesFunctionError xs)
+    | any isUnexpected xs = Bug
+    | otherwise           = Warning
+    where
+      isUnexpected :: FunPositionError -> Bool
+      isUnexpected = \case
+        FunPositionNoFFIType{}      -> False
+        FunPositionUnexpectedType{} -> True
   getSource  = const HsBindgen
   getTraceId = const "translate-types"
+
+-- | Why we cannot pass a function argument or result
+data FunPositionError =
+    -- | Passed by value without an FFI type
+    FunPositionNoFFIType NoFFIType
+    -- | Of a type that C or an earlier pass rules out
+  | FunPositionUnexpectedType UnexpectedType
+  deriving stock (Show, Eq)
+
+instance PrettyForTrace FunPositionError where
+  prettyForTrace = \case
+      FunPositionNoFFIType      x -> prettyForTrace x
+      FunPositionUnexpectedType x -> prettyForTrace x
 
 data NoFFIType = NoFFIType {
       position :: FunPosition
@@ -65,6 +66,7 @@ instance PrettyForTrace NoFFIType where
         prettyForTrace x.position
       , "of C type"
       , PP.singleQuotes (PP.text x.cType)
+      , "has no FFI type to pass it by value"
       ]
 
 data UnexpectedType = UnexpectedType {
@@ -80,7 +82,7 @@ instance PrettyForTrace UnexpectedType where
         prettyForTrace x.position
       , "of C type"
       , PP.singleQuotes (PP.text x.cType)
-      , "is"
+      , "is unexpectedly"
       , prettyForTrace x.kind
       ]
 
@@ -100,15 +102,20 @@ instance PrettyForTrace UnexpectedTypeKind where
 
 -- | Position in a function signature
 data FunPosition =
-    FunPositionArg
-      Int                  -- ^ Starting at 1
-      (Maybe C.ScopedName)
+    FunPositionArg FunArgPosition
   | FunPositionRes
   deriving stock (Show, Eq)
 
 instance PrettyForTrace FunPosition where
   prettyForTrace = \case
-      FunPositionArg i mName -> PP.hsep $
-          ["argument", PP.show i]
-       ++ [PP.parens (prettyForTrace name) | Just name <- [mName]]
+      FunPositionArg arg -> PP.hsep $
+          ["argument", PP.show arg.index]
+       ++ [PP.parens (prettyForTrace name) | Just name <- [arg.name]]
       FunPositionRes -> "result"
+
+data FunArgPosition = FunArgPosition {
+      -- | Starting at 1
+      index :: Int
+    , name  :: Maybe C.ScopedName
+    }
+  deriving stock (Show, Eq)

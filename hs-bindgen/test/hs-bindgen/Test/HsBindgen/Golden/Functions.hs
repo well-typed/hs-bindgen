@@ -198,7 +198,7 @@ test_varargs =
 test_void_typedef_result :: TestCase
 test_void_typedef_result =
     testTraceMulti "functions/void_typedef_result" declsWithMsgs $ \case
-      MatchPassFailed name (TranslateTypesFailed TranslateTypesNoFFIType{}) ->
+      MatchPassFailed name (TranslateTypesFailed (TranslateTypesFunctionError (FunPositionNoFFIType{} :| []))) ->
         Just $ Expected name
       _otherwise ->
         Nothing

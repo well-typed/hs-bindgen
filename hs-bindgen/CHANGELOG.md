@@ -75,7 +75,7 @@
   `HasFFIType` instance.
 
 * A function argument or result of array or function type now drops the
-  function with a `Bug`-level message ("Unexpected type in function
+  function with a `Bug`-level message ("Cannot translate function
   signature"). Previously, `hs-bindgen` panicked. C and the adjustment of
   argument types rule out both.
 
@@ -141,8 +141,8 @@
 [is-2345]: https://github.com/well-typed/hs-bindgen/issues/2345
 
 * A function with an argument or result passed by value that has no FFI type
-  (e.g., `typedef void V; V f(void);`) is now dropped with a warning ("Cannot
-  pass by value, no FFI type"). Previously, `hs-bindgen` panicked.
+  (e.g., `typedef void V; V f(void);`) is now dropped with a warning ("... has
+  no FFI type to pass it by value"). Previously, `hs-bindgen` panicked.
 
 ## 1.0.0.0 -- 2026-10-08
 

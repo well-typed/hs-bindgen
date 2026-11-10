@@ -6,7 +6,6 @@ module HsBindgen.Frontend.Pass.TranslateTypes.PassBy (
 
 import Control.Monad.Writer.Strict (Writer)
 import Data.Bifunctor (second)
-import Data.List.NonEmpty (NonEmpty ((:|)))
 import Data.Text qualified as Text
 
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
@@ -26,7 +25,7 @@ import HsBindgen.IR.Translation
 
 -- | The passing method, or why the value cannot be passed
 type Classified a =
-    Writer [FFIType.ExtBindingFallback] (Either TranslateTypesError a)
+    Writer [FFIType.ExtBindingFallback] (Either FunPositionError a)
 
 -- | Classify how a function result is passed from C to Haskell
 classifyResPassingMethod ::
@@ -91,10 +90,10 @@ passByValue pos cType hsType = do
     mFFIType <- FFIType.toFFITypeWithFallbacks hsType
     pure $ case mFFIType of
       Just ffiType -> Right ffiType
-      Nothing      -> Left $ TranslateTypesNoFFIType $ NoFFIType{
+      Nothing      -> Left $ FunPositionNoFFIType NoFFIType{
           position = pos
         , cType    = renderCType cType
-        } :| []
+        }
 
 unexpected ::
      FunPosition
@@ -102,11 +101,11 @@ unexpected ::
   -> C.Type AdjustTypes
   -> Classified a
 unexpected pos kind cType =
-    pure $ Left $ TranslateTypesUnexpectedType $ UnexpectedType{
+    pure $ Left $ FunPositionUnexpectedType UnexpectedType{
         position = pos
       , kind     = kind
       , cType    = renderCType cType
-      } :| []
+      }
 
 renderCType :: C.Type AdjustTypes -> Text.Text
 renderCType cType = Text.strip $ Text.pack $ C.showsType (const id) cType ""
