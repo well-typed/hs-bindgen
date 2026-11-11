@@ -40,7 +40,8 @@ classifyResPassingMethod res hsType
   = unexpected FunPositionRes UnexpectedFunction res.typ
   | C.isVoid res.typ
   = pure $ Right PassResVoid
-  -- Types the Haskell FFI cannot pass by value
+  -- Heap types: the Haskell FFI cannot pass them by value, so they cross it
+  -- through a buffer on the Haskell heap
   | C.isCanonicalTypeStruct res.typ ||
     C.isCanonicalTypeUnion res.typ ||
     C.isCanonicalTypeComplex res.typ
@@ -67,7 +68,8 @@ classifyArgPassingMethod pos arg hsType
   = unexpected pos UnexpectedArray arg.typ.typ
   | C.isCanonicalTypeFunction arg.typ.typ
   = unexpected pos UnexpectedFunction arg.typ.typ
-  -- Types the Haskell FFI cannot pass by value
+  -- Heap types: the Haskell FFI cannot pass them by value, so they cross it
+  -- through a buffer on the Haskell heap
   | C.isCanonicalTypeStruct  arg.typ.typ ||
     C.isCanonicalTypeUnion   arg.typ.typ ||
     C.isCanonicalTypeComplex arg.typ.typ
