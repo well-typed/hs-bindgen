@@ -151,11 +151,7 @@ jobs:
       uses: actions/checkout@v7
 
     - name: (Debug) Check disk usage (init)
-      run: |
-        echo "--- Disk usage ---"
-        df -h
-        echo "--- Home directory size ---"
-        du -sh $HOME
+      run: df -h
 
     - name: 🛠️ Setup Haskell
       id: setup-haskell
@@ -183,11 +179,7 @@ jobs:
       uses: ./.github/actions/setup-doxygen
 
     - name: (Debug) Check disk usage (after GHC and LLVM install)
-      run: |
-        echo "--- Disk usage ---"
-        df -h
-        echo "--- Home directory size ---"
-        du -sh $HOME
+      run: df -h
 
     - name: 🛠️ Configure (hs-bindgen)
       run: cat cabal.project.ci | tee cabal.project
@@ -235,11 +227,7 @@ jobs:
       run: cabal build all
 
     - name: (Debug) Check disk usage (after build)
-      run: |
-        echo "--- Disk usage ---"
-        df -h
-        echo "--- Home directory size ---"
-        du -sh $HOME
+      run: df -h
 
     - name: 🧪 Debug (hs-bindgen)
       run: |
