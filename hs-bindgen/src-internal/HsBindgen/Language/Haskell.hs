@@ -12,8 +12,7 @@ module HsBindgen.Language.Haskell (
     -- * Module imports
   , Import(..)
     -- * References
-  , ExtRef(..)
-  , Ref(..)
+  , Identifier(..)
     -- * Namespaces
   , Namespace(..)
   , SNamespace(..)
@@ -82,25 +81,18 @@ data Import =
   References
 -------------------------------------------------------------------------------}
 
--- | External reference
-data ExtRef = ExtRef {
+-- | A Haskell name together with the module that defines it
+data Identifier = Identifier {
       moduleName :: ModuleName
-      -- TODO https://github.com/well-typed/hs-bindgen/issues/423
-      --
-      -- At the moment, we only handle external references to types types. Later
-      -- we may support external references to variables (e.g., in macros).
-    , name       :: Name NsTypeConstr
+    , name       :: SomeName
     }
   deriving stock (Eq, Generic, Ord, Show)
 
--- | Reference
-data Ref =
-    -- | Reference to a name in the local scope
-    RefLocal SomeName
-
-  | -- | Reference to a type in a different module
-    RefExt ExtRef
-  deriving stock (Eq, Show)
+instance PrettyForTrace Identifier where
+  prettyForTrace identifier =
+    prettyForTrace identifier.moduleName
+      >< "."
+      >< prettyForTrace identifier.name
 
 {-------------------------------------------------------------------------------
   Namespaces

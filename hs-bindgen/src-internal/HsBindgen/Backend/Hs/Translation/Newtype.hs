@@ -25,6 +25,7 @@ import HsBindgen.Language.Haskell qualified as Hs
 newtypeDec ::
      HasCallStack
   => Hs.Name Hs.NsTypeConstr
+  -> Hs.Identifier
   -> Hs.Name Hs.NsConstr
   -> Hs.Field
   -> Origin.Decl Origin.Newtype
@@ -32,27 +33,27 @@ newtypeDec ::
   -> Set Inst.TypeClass -- ^ Candidate instances
   -> Set Inst.TypeClass -- ^ Known instances
   -> HsM Hs.Newtype
-newtypeDec name constr field orig comment candidateInsts knownInsts = do
+newtypeDec name ident constr field orig comment candidateInsts knownInsts = do
     hsNewtype <- aux <$> State.get
-    State.modify' $ #instanceMap %~ Map.insert hsNewtype.name hsNewtype.instances
+    State.modify' $ #instanceMap %~ Map.insert ident hsNewtype.instances
     pure hsNewtype
   where
     aux :: HsM.St -> Hs.Newtype
     aux transState = Hs.Newtype {
-            name      = name
-          , constr    = constr
-          , ffiType   = ffiType
-          , field     = field
-          , origin    = orig
-          , instances = insts
-          , comment   = comment
+            name       = name
+          , constr     = constr
+          , ffiType    = ffiType
+          , field      = field
+          , origin     = orig
+          , instances  = insts
+          , comment    = comment
           }
       where
         resolvedInsts :: Set Inst.TypeClass
         resolvedInsts =
           Hs.getInstances
             transState.instanceMap
-            (Just name)
+            (Just ident)
             candidateInsts
             [field.typ]
 
@@ -60,7 +61,7 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
         insts = knownInsts <> resolvedInsts
 
         ffiType :: Maybe BindingSpec.HsFFIType
-        ffiType = BindingSpec.HsFFIType . Hs.ffiExtRef <$> Hs.toFFIType field.typ
+        ffiType = BindingSpec.HsFFIType . Hs.ffiIdentifier <$> Hs.toFFIType field.typ
 
 hasFFITypeDecs ::
      Hs.Newtype
@@ -93,8 +94,8 @@ hasFFITypeDecs nt =
 --
 -- > instance GHC.Records.Compat.HasField "unwrapMyType" MyType CInt
 --
-hasFieldCompatDecs :: Hs.Newtype -> [Hs.Decl l]
-hasFieldCompatDecs nt =
+hasFieldCompatDecs :: Hs.Identifier -> Hs.Newtype -> [Hs.Decl l]
+hasFieldCompatDecs ident nt =
     [ Hs.DeclDefineInstance $
         Hs.DefineInstance {
               comment      = Nothing
@@ -104,7 +105,7 @@ hasFieldCompatDecs nt =
     ]
   where
     parentType :: Hs.Type
-    parentType = Hs.TypRef nt.name (Just nt.field.typ)
+    parentType = Hs.TypRef ident (Just nt.field.typ)
 
     hasFieldCompatDecl :: Hs.HasFieldCompatInstance
     hasFieldCompatDecl = Hs.HasFieldCompatInstance {
@@ -129,8 +130,8 @@ hasFieldCompatDecs nt =
 -- >   type CFieldType "unwrapMyType" MyType = CInt
 -- > instance GHC.Records.HasField "unwrapMyType" (Ptr MyType) (Ptr CInt)
 --
-hasFieldPtrDecs :: Hs.Newtype -> [Hs.Decl l]
-hasFieldPtrDecs nt = concat [
+hasFieldPtrDecs :: Hs.Identifier -> Hs.Newtype -> [Hs.Decl l]
+hasFieldPtrDecs ident nt = concat [
       [ Hs.DeclDefineInstance $
           Hs.DefineInstance {
               comment      = Nothing
@@ -148,7 +149,7 @@ hasFieldPtrDecs nt = concat [
     ]
   where
     parentType :: Hs.Type
-    parentType = Hs.TypRef nt.name (Just nt.field.typ)
+    parentType = Hs.TypRef ident (Just nt.field.typ)
 
     hasFieldPtrDecl :: Hs.HasFieldPtrInstance
     hasFieldPtrDecl = Hs.HasFieldPtrInstance{

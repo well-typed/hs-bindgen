@@ -71,7 +71,8 @@ runBackend tracer config boot frontend = do
     -- 3. @Hs@ declarations to simple @Hs@ declarations.
     sHsDecls <- cache "sHsDecls" $ do
       macroLang <- boot.macroLang
-      SHs.translateDecls macroLang <$> backendHsDecls
+      let currentMod = fromBaseModuleName boot.baseModule (Just CType)
+      SHs.translateDecls macroLang currentMod <$> backendHsDecls
 
     -- 4. Simplify.
     backendFinalDecls <- cache "finalDecls" $ SHs.simplifySHs <$> sHsDecls

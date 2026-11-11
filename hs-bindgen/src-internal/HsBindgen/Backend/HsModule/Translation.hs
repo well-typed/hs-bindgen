@@ -223,14 +223,13 @@ resolveImports ::
   -> [ImportListItem]
 resolveImports baseModule cat wrappers ds =
     let acc = mconcat $ map resolveDeclImports ds
-    in  Set.toAscList . mconcat $
+        currentModule = fromBaseModuleName baseModule cat
+    in  Set.toAscList . mconcat $ [
             bindingCatImport acc.requireTypes
-          : Set.map (uncurry QualifiedImportListItem) (userlandCapiImport <> acc.qualified)
-          : map (Set.singleton . uncurry mkUImportListItem) (Map.toList acc.unqualified)
+          , Set.map (uncurry QualifiedImportListItem) (userlandCapiImport)
+          , importListItems currentModule acc
+          ]
   where
-    mkUImportListItem :: Hs.ModuleName -> Set ResolvedName -> ImportListItem
-    mkUImportListItem m xs = UnqualifiedImportListItem m (Just $ Set.toAscList xs)
-
     bindingCatImport :: Bool -> Set ImportListItem
     bindingCatImport requireTypes = case requireTypes of
       False -> mempty
@@ -245,6 +244,20 @@ resolveImports baseModule cat wrappers ds =
     userlandCapiImport = case wrappers of
       []  -> mempty
       _xs -> Set.singleton (capiModule, Nothing)
+
+-- | The import list items for the names in an accumulator, filtering out
+-- self-imports (a module cannot import itself).
+importListItems :: Hs.ModuleName -> ImportAcc -> Set ImportListItem
+importListItems currentModule acc = mconcat [
+      Set.map (uncurry QualifiedImportListItem) $
+        Set.filter (\(m, _) -> m /= currentModule) acc.qualified
+    , Set.fromList $ map (uncurry mkUImportListItem) $
+        filter (\(m, _) -> m /= currentModule) (Map.toList acc.unqualified)
+    ]
+  where
+    mkUImportListItem :: Hs.ModuleName -> Set ResolvedName -> ImportListItem
+    mkUImportListItem m xs =
+      UnqualifiedImportListItem m (Just $ Set.toAscList xs)
 
 -- | Accumulator for resolving imports
 --
@@ -407,7 +420,7 @@ resolveTypeImports = \case
     TFree _ -> mempty
     TLit _n -> mempty
     TStrLit _s -> mempty
-    TExt ref -> resolveExtHsRefImports ref
+    TExt ref -> resolveIdentifierImports ref
     TApp c x -> resolveTypeImports c <> resolveTypeImports x
     TFun a b -> resolveTypeImports a <> resolveTypeImports b
     TBound{} -> mempty
@@ -424,10 +437,10 @@ resolveStrategyImports = \case
     Hs.DeriveStock -> mempty
     Hs.DeriveVia ty -> resolveTypeImports ty
 
-resolveExtHsRefImports :: Hs.ExtRef -> ImportAcc
-resolveExtHsRefImports extRef = ImportAcc{
+resolveIdentifierImports :: Hs.Identifier -> ImportAcc
+resolveIdentifierImports identifier = ImportAcc{
       requireTypes = False
-    , qualified    = Set.singleton (extRef.moduleName, Nothing)
+    , qualified    = Set.singleton (identifier.moduleName, Nothing)
     , unqualified  = mempty
     }
 
