@@ -115,6 +115,7 @@ exec global opts =
       global.unsafe
       global.safe
       bindgenConfig
+      RealRun
       opts.inputs
       artefact
   where
@@ -135,3 +136,4 @@ exec global opts =
           (UniqueId       "unused-unique-id")
           (BaseModuleName "unused-module-name")
           (def :: ByCategory Choice)
+          DoNotGenerateHsBoot

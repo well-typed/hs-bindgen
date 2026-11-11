@@ -182,6 +182,7 @@ withHsBindgenMacroLang mkMacroLang config configTH hashIncludes = do
           tracerConfigUnsafe
           tracerConfigSafe
           bindgenConfig
+          RealRun
           uncheckedRootDirectives
           artefact
 
@@ -336,6 +337,7 @@ toBindgenConfigTH config packageRoot choice = do
             uniqueId
             hsModuleName
             choice
+            DoNotGenerateHsBoot
     pure bindgenConfig
   where
     getUniqueId :: TH.Q UniqueId

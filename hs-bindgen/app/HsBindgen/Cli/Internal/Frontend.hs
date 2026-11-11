@@ -134,6 +134,7 @@ exec global opts = do
           global.unsafe
           global.safe
           bindgenConfig
+          RealRun
           opts.inputs
           (artefact pass)
   where
@@ -149,3 +150,4 @@ exec global opts = do
           opts.uniqueId
           opts.baseModuleName
           def
+          DoNotGenerateHsBoot

@@ -56,11 +56,13 @@ runBackend tracer config boot frontend = do
           cDecls :: [C.Decl l Final]
           cDecls =
             DeclDB.active (DeclUseGraph.outputOrder final.includeGraph) declDB
-      pure $ Hs.generateDeclarations
+      pure $ fst $ Hs.generateDeclarations
         macroLang
         config.backend.uniqueId
         boot.baseModule
+        config.backend.hsBootPolicy
         declDB
+        mempty
         cDecls
 
     -- 2. Apply binding category choice.
@@ -71,7 +73,8 @@ runBackend tracer config boot frontend = do
     -- 3. @Hs@ declarations to simple @Hs@ declarations.
     sHsDecls <- cache "sHsDecls" $ do
       macroLang <- boot.macroLang
-      SHs.translateDecls macroLang <$> backendHsDecls
+      let currentMod = fromBaseModuleName boot.baseModule (Just CType)
+      SHs.translateDecls macroLang currentMod <$> backendHsDecls
 
     -- 4. Simplify.
     backendFinalDecls <- cache "finalDecls" $ SHs.simplifySHs <$> sHsDecls

@@ -17,6 +17,7 @@ module HsBindgen.TraceMsg (
   , NestedDeclFailure(..)
   , UnsupportedFloatType(..)
   , ResolveBindingSpecsMsg(..)
+  , LibraryMsg(..)
   , ResolveHeaderMsg(..)
   , SelectMsg(..)
   -- * Log level customization
@@ -42,6 +43,7 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecsMs
 import HsBindgen.Frontend.Pass.Select.IsPass (SelectMsg (..))
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.Library.Runner (LibraryMsg (..))
 import HsBindgen.Resolve (ResolveHeaderMsg (..))
 import HsBindgen.Util.Tracer
 
@@ -58,6 +60,7 @@ import HsBindgen.Util.Tracer
 data TraceMsg =
     TraceBoot          BootMsg
   | TraceFrontend      FrontendMsg
+  | TraceLibrary       LibraryMsg
   | TraceResolveHeader ResolveHeaderMsg
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
