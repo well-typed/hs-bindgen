@@ -17,9 +17,9 @@ import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.Error
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
-import HsBindgen.Frontend.Pass.TranslateTypes.PassBy (Classified,
-                                                      classifyArgPassingMethod,
-                                                      classifyResPassingMethod)
+import HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (Classified,
+                                                             classifyArgPassingMethod,
+                                                             classifyResPassingMethod)
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C

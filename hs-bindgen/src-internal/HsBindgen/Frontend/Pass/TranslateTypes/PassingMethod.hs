@@ -1,4 +1,4 @@
-module HsBindgen.Frontend.Pass.TranslateTypes.PassBy (
+module HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (
     Classified
   , classifyResPassingMethod
   , classifyArgPassingMethod
@@ -12,7 +12,7 @@ import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
 import HsBindgen.Frontend.Pass.TranslateTypes.Error
 import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass (TranslateTypes)
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassBy
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassingMethod
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
@@ -31,7 +31,7 @@ type Classified a =
 classifyResPassingMethod ::
      C.FunctionRes AdjustTypes
   -> Hs.Type -- ^ Translation of the result type
-  -> Classified (PassResBy TranslateTypes)
+  -> Classified (ResPassingMethod TranslateTypes)
 classifyResPassingMethod res hsType
   -- Bad types
   | C.isCanonicalTypeArray res.typ
@@ -45,14 +45,14 @@ classifyResPassingMethod res hsType
   | C.isCanonicalTypeStruct res.typ ||
     C.isCanonicalTypeUnion res.typ ||
     C.isCanonicalTypeComplex res.typ
-  = pure $ Right $ PassResNonVoid $ PassByAddress TranslatedTypes{
+  = pure $ Right $ PassResNonVoid $ PassSerialized TranslatedTypes{
         c  = coercePass ty'
       , hs = Translation.inContext Translation.FunRes ty'
       }
   -- Other types
   | otherwise
-  = second (PassResNonVoid . PassByValue) <$>
-      passByValue FunPositionRes res.typ hsType
+  = second (PassResNonVoid . PassDirect) <$>
+      passDirect FunPositionRes res.typ hsType
   where
     ty' = C.TypePointers 1 res.typ
 
@@ -61,7 +61,7 @@ classifyArgPassingMethod ::
      FunPosition
   -> C.FunctionArg AdjustTypes
   -> Hs.Type -- ^ Translation of the argument type
-  -> Classified (PassBy TranslateTypes)
+  -> Classified (PassingMethod TranslateTypes)
 classifyArgPassingMethod pos arg hsType
   -- Bad types
   | C.isCanonicalTypeArray arg.typ.typ
@@ -73,22 +73,22 @@ classifyArgPassingMethod pos arg hsType
   | C.isCanonicalTypeStruct  arg.typ.typ ||
     C.isCanonicalTypeUnion   arg.typ.typ ||
     C.isCanonicalTypeComplex arg.typ.typ
-  = pure $ Right $ PassByAddress TranslatedTypes{
+  = pure $ Right $ PassSerialized TranslatedTypes{
         c  = coercePass ty'
       , hs = Translation.inContext Translation.FunArg ty'
       }
   -- Other types
   | otherwise
-  = second PassByValue <$> passByValue pos arg.typ.typ hsType
+  = second PassDirect <$> passDirect pos arg.typ.typ hsType
   where
     ty' = C.TypePointers 1 arg.typ.typ
 
-passByValue ::
+passDirect ::
      FunPosition
   -> C.Type AdjustTypes
   -> Hs.Type
   -> Classified Hs.FFIType
-passByValue pos cType hsType = do
+passDirect pos cType hsType = do
     mFFIType <- FFIType.toFFITypeWithFallbacks hsType
     pure $ case mFFIType of
       Just ffiType -> Right ffiType
