@@ -19,7 +19,7 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 data DelayedTranslateTypesMsg =
-    -- | An external binding passed by value has no FFI type in its binding
+    -- | An external binding passed directly has no FFI type in its binding
     -- specification
     TranslateTypesExtBindingFallback FunPosition ExtBindingFallback
   deriving stock (Show, Generic)

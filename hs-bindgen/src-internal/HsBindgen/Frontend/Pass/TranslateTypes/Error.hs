@@ -43,7 +43,7 @@ instance IsTrace Level TranslateTypesError where
 
 -- | Why we cannot pass a function argument or result
 data FunPositionError =
-    -- | Passed by value without an FFI type
+    -- | Passed directly without an FFI type
     FunPositionNoFFIType NoFFIType
     -- | Of a type that C or an earlier pass rules out
   | FunPositionUnexpectedType UnexpectedType
@@ -66,7 +66,7 @@ instance PrettyForTrace NoFFIType where
         prettyForTrace x.position
       , "of C type"
       , PP.singleQuotes (PP.text x.cType)
-      , "has no FFI type to pass it by value"
+      , "has no FFI type"
       ]
 
 data UnexpectedType = UnexpectedType {

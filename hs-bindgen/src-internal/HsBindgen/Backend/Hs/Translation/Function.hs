@@ -308,7 +308,7 @@ getWrapperImportDecl decl originalC safety wrapperCName runInIO = wrapperImport
             }
         | arg <- originalC.args
         ] ++ [
-          -- Result types that have to be passed by address become parameters.
+          -- Serialised results become parameters.
           Hs.ForeignImport.FunParam {
               hsParam =
                 Hs.FunctionParameter{
@@ -320,7 +320,7 @@ getWrapperImportDecl decl originalC safety wrapperCName runInIO = wrapperImport
         | PassResNonVoid (PassSerialized ptr) <- [originalC.res.ann]
         ]
 
-    -- Result types that have to be passed by address become parameters.
+    -- Serialised results become parameters.
     result :: Hs.ForeignImport.FunRes
     result = case originalC.res.ann of
         PassResVoid ->
@@ -436,8 +436,8 @@ getRestoreFunBody originalC wrapperImportName =
     then bodyExpr
     else simpleBodyExpr
   where
-    -- | The body of the function if no function arguments or results have to be
-    -- passed by address.
+    -- | The body of the function if no function arguments or results are
+    -- serialised.
     --
     -- For example, simply:
     --
@@ -447,7 +447,7 @@ getRestoreFunBody originalC wrapperImportName =
     simpleBodyExpr = SHs.EFree wrapperImportName
 
     -- | The body of the function if one or more function arguments or results
-    -- have to be passed by address.
+    -- are serialised.
     --
     -- For example:
     --
@@ -460,9 +460,9 @@ getRestoreFunBody originalC wrapperImportName =
     bodyExpr =
       -- construct lambdas for all function arguments
       lambdas EmptyEnv originalC.args $ \env ->
-        -- pass function arguments by address if necessary
+        -- serialise function arguments if necessary
         passArgsSerializedIfNecessary env $ \args ->
-          -- pass the function result by address if necessary
+          -- serialise the function result if necessary
           passResultSerializedIfNecessary args $ \args' ->
             -- call the foreign import
             callForeignImport args'
@@ -494,8 +494,7 @@ getRestoreFunBody originalC wrapperImportName =
         go env []     = kont env
         go env (x:xs) = SHs.ELam (mkNameHint x) $ go (env :> x) xs
 
-    -- | Construct expressions to pass function arguments by address, if
-    -- necessary
+    -- | Construct expressions to serialise function arguments, if necessary
     --
     -- For example :
     --
@@ -539,8 +538,7 @@ getRestoreFunBody originalC wrapperImportName =
           | otherwise
           = go xs ys (Var y False : zs)
 
-    -- | Construct an expression to pass the function result by address, if
-    -- necessary
+    -- | Construct an expression to serialise the function result, if necessary
     --
     -- For example:
     --

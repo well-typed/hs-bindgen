@@ -264,7 +264,7 @@ test_fun_arg_typedef_union :: TestCase
 test_fun_arg_typedef_union =
     test_fun_arg_typedef "binding-specs/fun_arg/typedef/union"
 
--- | An external binding passed by value whose binding specification gives no
+-- | An external binding passed directly whose binding specification gives no
 -- FFI type: we warn and assume the FFI type of the underlying C type.
 test_fun_arg_typedef_no_ffitype :: TestCase
 test_fun_arg_typedef_no_ffitype =

@@ -67,17 +67,12 @@
   reports "Selected a deprecated declaration". Previously, there was no
   deprecation warning.
 
-* A function argument or result passed by value whose type is an external
-  binding without an FFI type (`ffitype`) in its binding specification now
-  gets a warning ("The binding specification of ... gives no FFI type"). As
-  before, `hs-bindgen` assumes the FFI type of the underlying C type, so the
-  generated code compiles only if the external type has a matching
-  `HasFFIType` instance.
-
-* A function argument or result of array or function type now drops the
-  function with a `Bug`-level message ("Cannot translate function
-  signature"). Previously, `hs-bindgen` panicked. C and the adjustment of
-  argument types rule out both.
+* A function argument or result whose type is an external binding without an
+  FFI type (`ffitype`) in its binding specification now gets a warning ("The
+  binding specification of ... gives no FFI type"), unless it is a struct,
+  union or complex value. As before, `hs-bindgen` assumes the FFI type of the
+  underlying C type, so the generated code compiles only if the external type
+  has a matching `HasFFIType` instance.
 
 ### Bug fixes
 
@@ -140,9 +135,12 @@
 
 [is-2345]: https://github.com/well-typed/hs-bindgen/issues/2345
 
-* A function with an argument or result passed by value that has no FFI type
-  (e.g., `typedef void V; V f(void);`) is now dropped with a warning ("... has
-  no FFI type to pass it by value"). Previously, `hs-bindgen` panicked.
+* A function with an argument or result that has no FFI type (e.g.,
+  `typedef void V; V f(void);`) is now dropped with a warning ("... has no FFI
+  type"). Previously, `hs-bindgen` panicked. Generating a binding for such a
+  function is [issue #2361][is-2361].
+
+[is-2361]: https://github.com/well-typed/hs-bindgen/issues/2361
 
 ## 1.0.0.0 -- 2026-10-08
 
