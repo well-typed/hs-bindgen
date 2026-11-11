@@ -1,0 +1,106 @@
+name: Setup Haskell
+description: Install GHC and cabal with haskell-actions/setup, caching the GHC installation
+
+# Installing GHC with ghcup unpacks and installs a binary distribution, which
+# takes about 1.5 minutes on Linux and 3 minutes on macOS and Windows; restoring
+# the installed tree from the cache is much faster. haskell-actions/setup skips
+# the installation when `ghcup set ghc <version>` succeeds, which it does once
+# the installation is restored.
+#
+# The cache key needs the exact GHC version, so `ghc-version` must be a full
+# version (`9.4.8`, not `9.4`).
+#
+# Only runs on `main` save the cache: a cache saved on a pull request or merge
+# queue ref is visible to that ref only.
+
+inputs:
+  ghc-version:
+    description: 'Full GHC version, e.g. 9.4.8'
+    required: true
+  cabal-version:
+    description: 'cabal-install version'
+    required: true
+
+outputs:
+  ghc-version:
+    description: 'GHC version (from haskell-actions/setup)'
+    value: ${{ steps.setup.outputs.ghc-version }}
+  cabal-version:
+    description: 'cabal-install version (from haskell-actions/setup)'
+    value: ${{ steps.setup.outputs.cabal-version }}
+  cabal-store:
+    description: 'Path to the cabal store (from haskell-actions/setup)'
+    value: ${{ steps.setup.outputs.cabal-store }}
+
+runs:
+  using: composite
+  steps:
+  - name: Locate GHC installation
+    id: locate
+    shell: bash
+    env:
+      GHC_VERSION: ${{ inputs.ghc-version }}
+    run: |
+      if ! [[ "$GHC_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+        echo "::error::ghc-version must be a full version (e.g. 9.4.8), not '$GHC_VERSION'"
+        exit 1
+      fi
+      case "$RUNNER_OS" in
+        Windows) ghcup_dir="C:/ghcup" ;;
+        *)       ghcup_dir="${GHCUP_INSTALL_BASE_PREFIX:-$HOME}/.ghcup" ;;
+      esac
+      # The runner image may ship this GHC version (e.g. the latest one on
+      # Windows); there is nothing to cache then.
+      if [ -d "$ghcup_dir/ghc/$GHC_VERSION" ]; then
+        echo "GHC $GHC_VERSION is preinstalled; not caching it"
+        cache=false
+      else
+        cache=true
+      fi
+      {
+        echo "ghcup-dir=$ghcup_dir"
+        # ghcup links the versioned executables (e.g. ghc-9.4.8 and ghc-9.4)
+        # into its bin directory at installation time only.
+        echo "ghc-major-minor=${GHC_VERSION%.*}"
+        echo "image-os=${ImageOS:-unknown}"
+        echo "cache=$cache"
+      } | tee -a "$GITHUB_OUTPUT"
+
+  - name: Restore GHC installation
+    id: restore
+    if: steps.locate.outputs.cache == 'true'
+    uses: actions/cache/restore@v6
+    with:
+      path: |
+        ${{ steps.locate.outputs.ghcup-dir }}/ghc/${{ inputs.ghc-version }}
+        ${{ steps.locate.outputs.ghcup-dir }}/bin/*-${{ steps.locate.outputs.ghc-major-minor }}*
+      key: ghc-${{ inputs.ghc-version }}-${{ runner.os }}-${{ runner.arch }}-${{ steps.locate.outputs.image-os }}
+
+  - name: Setup Haskell
+    id: setup
+    uses: haskell-actions/setup@v2
+    with:
+      ghc-version: ${{ inputs.ghc-version }}
+      cabal-version: ${{ inputs.cabal-version }}
+
+  - name: Check GHC installation
+    id: check
+    if: steps.locate.outputs.cache == 'true' && steps.restore.outputs.cache-hit != 'true' && github.ref == 'refs/heads/main'
+    shell: bash
+    env:
+      GHC_DIR: ${{ steps.locate.outputs.ghcup-dir }}/ghc/${{ inputs.ghc-version }}
+    run: |
+      if [ -d "$GHC_DIR" ]; then
+        echo "save=true" | tee -a "$GITHUB_OUTPUT"
+      else
+        echo "::warning::GHC is not installed at $GHC_DIR; not caching it"
+      fi
+
+  - name: Save GHC installation
+    if: steps.check.outputs.save == 'true'
+    uses: actions/cache/save@v6
+    with:
+      path: |
+        ${{ steps.locate.outputs.ghcup-dir }}/ghc/${{ inputs.ghc-version }}
+        ${{ steps.locate.outputs.ghcup-dir }}/bin/*-${{ steps.locate.outputs.ghc-major-minor }}*
+      key: ${{ steps.restore.outputs.cache-primary-key }}
