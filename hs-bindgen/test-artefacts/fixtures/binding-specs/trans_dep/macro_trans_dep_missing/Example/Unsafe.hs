@@ -8,6 +8,7 @@ module Example.Unsafe
     )
   where
 
+import qualified HsBindgen.Runtime.Support
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CAPI
 import qualified M
@@ -25,7 +26,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
 
 -- __unique:__ @test_bindingspecstrans_depmacro__Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_83453c8683cd3ff7" hs_bindgen_83453c8683cd3ff7_base ::
-     BG.CInt
+     HsBindgen.Runtime.Support.CInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecstrans_depmacro__Example_Unsafe_foo@

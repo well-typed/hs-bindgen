@@ -8,7 +8,6 @@ module HsBindgen.Backend.Hs.Translation.ForeignImport (
   , foreignImportWrapperDec
   , foreignImportDynamicDec
   , ImportFor (..)
-  , toFFIType
   ) where
 
 import Data.Function
@@ -27,8 +26,8 @@ import HsBindgen.Backend.SHs.AST.Expr qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.SHs.Translation.MapFunction
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol (..))
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors (panicPure)
+import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
@@ -42,11 +41,13 @@ data FunName = FunName {
 -- | Info about a function argument
 data FunParam = FunParam {
     hsParam :: Hs.FunctionParameter Hs.Type
+  , ffiType :: Hs.FFIType
   }
 
 -- | Info about the function result
 data FunRes = FunRes {
-    hsType :: Hs.Type
+    hsType  :: Hs.Type
+  , ffiType :: Hs.FFIResType
   }
 
 -- | Generate a foreign import
@@ -70,7 +71,7 @@ foreignImportDec name params res origName callConv origin safety =
     foreignImportDecl :: Hs.ForeignImportDecl
     foreignImportDecl =  Hs.ForeignImportDecl{
           name       = fiName
-        , result     = unsafeToFFIResType res.hsType
+        , result     = res.ffiType
         , parameters = fiParameters
         , origName   = origName
         , callConv   = callConv
@@ -85,7 +86,7 @@ foreignImportDec name params res origName callConv origin safety =
     fiParameters = over each (\x ->
         x.hsParam
           & #comment .~ Nothing
-          & #typ .~ unsafeToFFI x.hsParam.typ
+          & #typ .~ x.ffiType
           ) params
 
     fiComment =  Just $ HsDoc.uniqueSymbol name.uniqSymbol
@@ -378,108 +379,11 @@ mkConvRes g = ConvRes $ \typ e -> case typ of
   FFI types
 -------------------------------------------------------------------------------}
 
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>: once #1599 is
--- resolved all the panics in this section should go away.
-
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>: compute the FFI
+-- types of function types nested in use sites in the @TranslateTypes@ pass.
 unsafeToFFIFunType :: Hs.Type -> Hs.FFIFunType
-unsafeToFFIFunType ty = case toFFIFunType ty of
+unsafeToFFIFunType ty = case FFIType.toFFIFunType ty of
     Nothing ->
       panicPure $ printf "Type does not have an FFI function type: %s" (show ty)
     Just ty' ->
       ty'
-
-toFFIFunType :: Hs.Type -> Maybe Hs.FFIFunType
-toFFIFunType = \case
-    Hs.TypRef _ t  -> t >>= toFFIFunType
-    Hs.Fun arg res -> addArg <$> toFFIType arg <*> toFFIFunType res
-    t -> toFFIResType t >>= \res -> pure Hs.FFIFunType {args = [], res = res }
-  where
-    addArg arg t = Hs.FFIFunType {
-          args = arg : t.args
-        , res  = t.res
-        }
-
-unsafeToFFIResType :: Hs.Type -> Hs.FFIResType
-unsafeToFFIResType ty = case toFFIResType ty of
-    Nothing ->
-      panicPure $ printf "Type does not have an FFI function result type: %s" (show ty)
-    Just ty' ->
-      ty'
-
-toFFIResType :: Hs.Type -> Maybe Hs.FFIResType
-toFFIResType = \case
-    Hs.IO (Hs.PrimType Hs.PrimUnit) -> Just Hs.FFIResIOUnit
-    Hs.PrimType Hs.PrimUnit         -> Just Hs.FFIResUnit
-    Hs.IO t                         -> Hs.FFIResIO <$> toFFIType t
-    t                               -> Hs.FFIRes <$> toFFIType t
-
-unsafeToFFI :: Hs.Type -> Hs.FFIType
-unsafeToFFI ty = case toFFIType ty of
-    Nothing ->
-      panicPure $ printf "Type does not have an FFI type: %s" (show ty)
-    Just ty' ->
-      ty'
-
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>: After issue
--- #1599 is resolved, we should reconsider whether we want to use @Hs.Type@ as
--- an input here, or @C.Type Final@, or something else.
-toFFIType :: Hs.Type -> Maybe Hs.FFIType
-toFFIType = go
-  where
-    no = Nothing
-    yes = Just
-
-    go :: Hs.Type -> Maybe Hs.FFIType
-    go = \case
-      Hs.PrimType pt          -> goPrim pt
-      Hs.TypRef _ t           -> t >>= go
-      Hs.ConstArray{}         -> no
-      Hs.IncompleteArray{}    -> no
-      Hs.PtrArrayElem {}      -> yes Hs.FFIPtrVoid
-      Hs.PtrConstArrayElem {} -> yes Hs.FFIPtrVoid
-      Hs.Ptr{}                -> yes Hs.FFIPtrVoid
-      Hs.FunPtr{}             -> yes Hs.FFIFunPtrVoid
-      Hs.PtrConst{}           -> yes Hs.FFIPtrVoid
-      Hs.IO{}                 -> no
-      Hs.Fun{}                -> no
-      Hs.ExtBinding _ref _cSpec hsSpec t' ->
-        case BindingSpec.hsSpecFFIType hsSpec of
-          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>: We
-          -- should warn if a type does not have an FFI type, rather than
-          -- silently continuing.
-          Nothing -> go t'
-          Just hsFFIType -> pure $ extFFIType hsFFIType
-      Hs.ByteArray            -> no
-      Hs.SizedByteArray{}     -> no
-      Hs.Block{}              -> yes Hs.FFIPtrVoid
-      Hs.ComplexType{}        -> no
-      Hs.StrLit{}             -> no
-      Hs.WithFlam{}           -> no
-      Hs.EquivStorable{}      -> no
-      Hs.IsStructViaReadRaw{} -> no
-
-    goPrim :: Hs.PrimType -> Maybe Hs.FFIType
-    goPrim pt = case pt of
-        Hs.PrimVoid    -> no
-        Hs.PrimUnit    -> no
-        -- We never generate foreign imports with the Haskell-specific @Int@
-        -- type. We use @CInt@ or similar instead.
-        Hs.PrimInt     -> no
-        -- Primitive types that correspond to C keywords
-        Hs.PrimCChar   -> yes Hs.FFIPrimCChar
-        Hs.PrimCSChar  -> yes Hs.FFIPrimCSChar
-        Hs.PrimCUChar  -> yes Hs.FFIPrimCUChar
-        Hs.PrimCShort  -> yes Hs.FFIPrimCShort
-        Hs.PrimCUShort -> yes Hs.FFIPrimCUShort
-        Hs.PrimCInt    -> yes Hs.FFIPrimCInt
-        Hs.PrimCUInt   -> yes Hs.FFIPrimCUInt
-        Hs.PrimCLong   -> yes Hs.FFIPrimCLong
-        Hs.PrimCULong  -> yes Hs.FFIPrimCULong
-        Hs.PrimCLLong  -> yes Hs.FFIPrimCLLong
-        Hs.PrimCULLong -> yes Hs.FFIPrimCULLong
-        Hs.PrimCBool   -> yes Hs.FFIPrimCBool
-        Hs.PrimCFloat  -> yes Hs.FFIPrimCFloat
-        Hs.PrimCDouble -> yes Hs.FFIPrimCDouble
-
-    extFFIType :: BindingSpec.HsFFIType -> Hs.FFIType
-    extFFIType hsFFIType =  Hs.FFIExternal hsFFIType.unwrap

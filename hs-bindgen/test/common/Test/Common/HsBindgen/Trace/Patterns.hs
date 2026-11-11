@@ -22,7 +22,6 @@ module Test.Common.HsBindgen.Trace.Patterns (
     -- * MangleNames
   , pattern MatchDelayedMangleNames
     -- * TranslateTypes
-  , pattern MatchImmediateTranslateTypes
   , pattern MatchDelayedTranslateTypes
     -- * Select
   , pattern MatchNoDeclarations
@@ -50,8 +49,7 @@ import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseM
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg (DelayedReparseMacroExpansionsMsg)
 import HsBindgen.Frontend.Pass.Select.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (DelayedTranslateTypesMsg,
-                                                          TranslateTypesMsg)
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (DelayedTranslateTypesMsg)
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass.Msg (PassMsg (Msg))
@@ -184,9 +182,6 @@ pattern MatchDelayedMangleNames name x <- MatchSelect name (SelectDelayedMsg (De
 {-------------------------------------------------------------------------------
   TranslateTypes
 -------------------------------------------------------------------------------}
-
-pattern MatchImmediateTranslateTypes :: TranslateTypesMsg -> TraceMsg
-pattern MatchImmediateTranslateTypes x <- TraceFrontend (FrontendTranslateTypes x)
 
 pattern MatchDelayedTranslateTypes :: C.DeclName -> DelayedTranslateTypesMsg -> TraceMsg
 pattern MatchDelayedTranslateTypes name x <- MatchSelect name (SelectDelayedMsg (DelayedTranslateTypes x))

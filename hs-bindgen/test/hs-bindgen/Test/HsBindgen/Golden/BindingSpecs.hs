@@ -5,8 +5,10 @@ import System.FilePath ((<.>), (</>))
 
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Pass.Select.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
+import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Patterns
@@ -44,6 +46,7 @@ testCases = [
     , test_fun_arg_typedef_function_pointer
     , test_fun_arg_typedef_struct
     , test_fun_arg_typedef_union
+    , test_fun_arg_typedef_no_ffitype
       -- * Function arguments with macros
     , test_fun_arg_macro_array
     , test_fun_arg_macro_array_known_size
@@ -260,6 +263,21 @@ test_fun_arg_typedef_struct =
 test_fun_arg_typedef_union :: TestCase
 test_fun_arg_typedef_union =
     test_fun_arg_typedef "binding-specs/fun_arg/typedef/union"
+
+-- | An external binding passed directly whose binding specification gives no
+-- FFI type: we warn and assume the FFI type of the underlying C type.
+test_fun_arg_typedef_no_ffitype :: TestCase
+test_fun_arg_typedef_no_ffitype =
+    test_fun_arg_typedef "binding-specs/fun_arg/typedef/no_ffitype"
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchDelayedTranslateTypes name TranslateTypesExtBindingFallback{} ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["foo", "bar"]
 
 -- | Test that @hs-bindgen@ can detect whether an external binding reference in
 -- a function argument references a typedef.

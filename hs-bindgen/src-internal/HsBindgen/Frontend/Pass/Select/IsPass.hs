@@ -25,8 +25,8 @@ import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassBy (PassArgBy,
-                                                             PassResBy)
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassingMethod (PassingMethod,
+                                                                    ResPassingMethod)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
@@ -46,8 +46,8 @@ type family AnnSelect ix where
   AnnSelect "Decl"                 = PrescriptiveDeclSpec
   AnnSelect "Enum"                 = NewtypeNames
   AnnSelect "Flam"                 = FlamNames
-  AnnSelect "FunctionArg"          = PassArgBy Select
-  AnnSelect "FunctionRes"          = PassResBy Select
+  AnnSelect "FunctionArg"          = PassingMethod Select
+  AnnSelect "FunctionRes"          = ResPassingMethod Select
   AnnSelect "IndirectField"        = IndirectFieldNames Select
   AnnSelect "Struct"               = StructNames
   AnnSelect "Typedef"              = TypedefNames
@@ -222,6 +222,8 @@ instance PrettyForTrace SelectMsg where
         PassFailed (MangleNamesFailed x) ->
           couldNotSelect $ prettyForTrace x
         PassFailed (MacroFailed x) ->
+          couldNotSelect $ prettyForTrace x
+        PassFailed (TranslateTypesFailed x) ->
           couldNotSelect $ prettyForTrace x
       SelectConflict ->
         couldNotSelect "Conflicting declarations"

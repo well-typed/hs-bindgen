@@ -62,9 +62,13 @@ hstypes:
       constructor: E
       fields:
       - unwrapE
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Generic
   - HasCField
+  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr

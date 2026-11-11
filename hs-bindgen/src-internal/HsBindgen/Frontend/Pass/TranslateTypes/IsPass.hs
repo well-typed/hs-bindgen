@@ -7,9 +7,8 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (TranslateTypesMsg)
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassBy (PassArgBy,
-                                                             PassResBy)
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassingMethod (PassingMethod,
+                                                                    ResPassingMethod)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
@@ -27,8 +26,8 @@ type family AnnTranslateTypes ix where
   AnnTranslateTypes "Enum"                 = NewtypeNames
   AnnTranslateTypes "IndirectField"        = IndirectFieldNames TranslateTypes
   AnnTranslateTypes "Flam"                 = FlamNames
-  AnnTranslateTypes "FunctionArg"          = PassArgBy TranslateTypes
-  AnnTranslateTypes "FunctionRes"          = PassResBy TranslateTypes
+  AnnTranslateTypes "FunctionArg"          = PassingMethod TranslateTypes
+  AnnTranslateTypes "FunctionRes"          = ResPassingMethod TranslateTypes
   AnnTranslateTypes "Struct"               = StructNames
   AnnTranslateTypes "Typedef"              = TypedefNames
   AnnTranslateTypes "TypecheckedMacroType" = NewtypeNames
@@ -75,8 +74,7 @@ instance PassCommentDecl TranslateTypes where
 instance PassAnn TranslateTypes where
   type Ann ix TranslateTypes = AnnTranslateTypes ix
 
-instance PassMsg TranslateTypes where
-  type Msg TranslateTypes = TranslateTypesMsg
+instance PassMsg TranslateTypes
 
 {-------------------------------------------------------------------------------
   CoercePass

@@ -209,8 +209,9 @@ checkFrontend = do
       , pair "mangleNames" "adjustTypes" none
           mangleNames adjustTypes
       , pair "adjustTypes" "select" (\case
-            ToNotSelected Deselected -> True
-            _otherwise               -> False)
+            ToFailed TranslateTypesFailed{} -> True
+            ToNotSelected Deselected        -> True
+            _otherwise                      -> False)
           adjustTypes select
       , pair "select" "final" none
           select final

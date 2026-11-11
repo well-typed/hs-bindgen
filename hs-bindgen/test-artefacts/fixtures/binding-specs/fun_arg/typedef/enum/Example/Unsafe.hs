@@ -13,6 +13,7 @@ module Example.Unsafe
     )
   where
 
+import qualified HsBindgen.Runtime.Support
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CAPI
 import qualified M
@@ -136,7 +137,7 @@ fooB = hs_bindgen_a11eb4471a953b64
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
 foreign import ccall unsafe "hs_bindgen_1dea92b3f3346311" hs_bindgen_1dea92b3f3346311_base ::
-     BG.CUInt
+     HsBindgen.Runtime.Support.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
@@ -161,7 +162,7 @@ fooC = hs_bindgen_1dea92b3f3346311
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
 foreign import ccall unsafe "hs_bindgen_dba6d56e1a316e2d" hs_bindgen_dba6d56e1a316e2d_base ::
-     BG.CUInt
+     HsBindgen.Runtime.Support.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
@@ -186,7 +187,7 @@ fooD = hs_bindgen_dba6d56e1a316e2d
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
 foreign import ccall unsafe "hs_bindgen_23b6f403a534aeae" hs_bindgen_23b6f403a534aeae_base ::
-     BG.CUInt
+     HsBindgen.Runtime.Support.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@

@@ -43,6 +43,7 @@ import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.PrettyC qualified as PC
@@ -1032,7 +1033,10 @@ addressStubDecs decl ty runnerNameSpec _spec = do
             Hs.ForeignImport.foreignImportDec
               (Hs.ForeignImport.FunName stubSymbol)
               []
-              (Hs.ForeignImport.FunRes stubImportType)
+              Hs.ForeignImport.FunRes{
+                  hsType  = stubImportType
+                , ffiType = Hs.FFIResIO $ FFIType.pointerTo (Translation.pointee ty)
+                }
               (uniqueCDeclName stubSymbol)
               (CallConvUserlandCapi cWrapper)
               (Origin.Global ty)

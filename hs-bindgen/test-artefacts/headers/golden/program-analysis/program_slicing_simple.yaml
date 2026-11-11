@@ -8,7 +8,11 @@ ctypes:
   hsname: CULong
 hstypes:
 - hsname: CULong
-  representation: newtype
+  representation:
+    newtype:
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CULong
   instances:
   - Bits
   - Bounded

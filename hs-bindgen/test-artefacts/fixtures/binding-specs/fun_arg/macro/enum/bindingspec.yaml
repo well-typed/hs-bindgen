@@ -67,9 +67,13 @@ hstypes:
       constructor: E
       fields:
       - unwrapE
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - Generic
   - HasCField
+  - HasFFIType
   - HasField
   - HasFieldCompat
   - HasFieldPtr

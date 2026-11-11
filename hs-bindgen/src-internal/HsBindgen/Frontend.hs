@@ -437,10 +437,7 @@ runFrontend tracer config boot = do
 
     translateTypesPass <- cache "TranslateTypes" $ do
       afterAdjustTypesPass <- adjustTypesPass
-      let (afterTranslateTypes, msgsTranslateTypes) =
-            translateTypes afterAdjustTypesPass
-      forM_ msgsTranslateTypes $ traceWith (contramap FrontendTranslateTypes tracer)
-      pure afterTranslateTypes
+      pure $ translateTypes afterAdjustTypesPass
 
     selectPass <- cache "select" $ do
       afterParse <- parsePass
@@ -542,7 +539,6 @@ data FrontendMsg =
   | FrontendReparseMacroExpansions   (Msg ReparseMacroExpansions)
   | FrontendResolveBindingSpecs      (Msg ResolveBindingSpecs)
   | FrontendMangleNames              (Msg MangleNames)
-  | FrontendTranslateTypes           (Msg TranslateTypes)
   | FrontendSelect                   (Msg Select)
   | FrontendSortMsgs                  SortMsgsMsg
   | FrontendCache                    (SafeTrace CacheMsg)

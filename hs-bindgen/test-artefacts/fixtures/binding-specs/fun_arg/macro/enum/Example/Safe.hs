@@ -13,6 +13,7 @@ module Example.Safe
     )
   where
 
+import qualified HsBindgen.Runtime.Support
 import qualified HsBindgen.Runtime.Support as BG
 import qualified HsBindgen.Runtime.Support.CAPI
 import qualified M
@@ -136,7 +137,7 @@ fooB = hs_bindgen_16e7856908d06f71
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooC@
 foreign import ccall safe "hs_bindgen_2ebd95eb71d88a64" hs_bindgen_2ebd95eb71d88a64_base ::
-     BG.CUInt
+     HsBindgen.Runtime.Support.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooC@
@@ -161,7 +162,7 @@ fooC = hs_bindgen_2ebd95eb71d88a64
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooD@
 foreign import ccall safe "hs_bindgen_deddaf3108b305bb" hs_bindgen_deddaf3108b305bb_base ::
-     BG.CUInt
+     HsBindgen.Runtime.Support.CUInt
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooD@

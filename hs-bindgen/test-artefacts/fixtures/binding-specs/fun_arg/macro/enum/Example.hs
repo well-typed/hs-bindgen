@@ -220,6 +220,7 @@ newtype E = E
   { unwrapE :: M.C
   }
   deriving stock (BG.Generic)
+  deriving newtype (BG.HasFFIType)
 
 instance (ty ~ M.C) => BG.CompatHasField.HasField "unwrapE" E ty where
 

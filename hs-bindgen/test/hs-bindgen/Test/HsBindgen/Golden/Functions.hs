@@ -4,9 +4,10 @@ module Test.HsBindgen.Golden.Functions (testCases) where
 import HsBindgen.Backend.Category
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
-import HsBindgen.Frontend.DeclDB (UnusableReason (..))
+import HsBindgen.Frontend.DeclDB (PassFailure (..), UnusableReason (..))
 import HsBindgen.Frontend.Pass.Parse.Result (NotAttemptedReason (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.Error
 import HsBindgen.Frontend.Predicate (Boolean (..))
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -46,6 +47,7 @@ testCases = [
     , test_simple_func
     , test_simple_func_rename
     , test_varargs
+    , test_void_typedef_result
     ]
 
 {-------------------------------------------------------------------------------
@@ -191,3 +193,15 @@ test_varargs =
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["f", "g"]
+
+-- | A typedef of @void@ as result type has no FFI type
+test_void_typedef_result :: TestCase
+test_void_typedef_result =
+    testTraceMulti "functions/void_typedef_result" declsWithMsgs $ \case
+      MatchPassFailed name (TranslateTypesFailed (TranslateTypesFunctionError (FunPositionNoFFIType{} :| []))) ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["f"]
