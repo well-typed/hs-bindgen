@@ -30,6 +30,13 @@ instance Pretty HsModule where
     : (prettyCapiWrappers hsModule.rootDirectives hsModule.cWrappers)
     : map pretty hsModule.decls
 
+instance Pretty HsBoot where
+  pretty hsBoot = PP.vsep $
+      PP.vcat (map pretty hsBoot.pragmas)
+    : prettyModuleHeader hsBoot.name []
+    : PP.vcat (map (prettyImport hsBoot.qualifiedStyle) hsBoot.imports)
+    : map pretty hsBoot.decls
+
 -- | Render the module header with an explicit export list
 --
 -- When the export list is empty, we render @module M where@ (no export list).
@@ -125,41 +132,50 @@ prettyImportItem resolved
   = pretty resolved
 
 -- | Pretty-print an import statement, respecting 'QualifiedStyle'
+--
+-- A @{-# SOURCE #-}@ pragma comes right after @import@, in every form.
 prettyImport :: QualifiedStyle -> ImportListItem -> CtxDoc
 prettyImport qualStyle = \case
-    UnqualifiedImportListItem name Nothing -> PP.hsep
-      [ "import"
+    UnqualifiedImportListItem src name Nothing -> PP.hsep
+      [ importKeyword src
       , PP.string (Hs.moduleNameToString name)
       ]
-    UnqualifiedImportListItem name (Just ns) -> PP.hsep
-      [ "import"
+    UnqualifiedImportListItem src name (Just ns) -> PP.hsep
+      [ importKeyword src
       , PP.string (Hs.moduleNameToString name)
       , PP.parens . PP.hcat . List.intersperse ", " $ map prettyImportItem ns
       ]
-    QualifiedImportListItem name alias -> case qualStyle of
+    QualifiedImportListItem src name alias -> case qualStyle of
       PreQualified ->
         case alias of
           Just q -> PP.hsep
-            [ "import qualified"
+            [ importKeyword src
+            , "qualified"
             , PP.string (Hs.moduleNameToString name)
             , "as"
             , PP.string q
             ]
           Nothing -> PP.hsep
-            [ "import qualified"
+            [ importKeyword src
+            , "qualified"
             , PP.string (Hs.moduleNameToString name)
             ]
       PostQualified ->
         case alias of
           Just q -> PP.hsep
-            [ "import"
+            [ importKeyword src
             , PP.string (Hs.moduleNameToString name)
             , "qualified"
             , "as"
             , PP.string q
             ]
           Nothing -> PP.hsep
-            [ "import"
+            [ importKeyword src
             , PP.string (Hs.moduleNameToString name)
             , "qualified"
             ]
+  where
+    importKeyword :: ImportSource -> CtxDoc
+    importKeyword = \case
+      NormalImport -> "import"
+      SourceImport -> "import {-# SOURCE #-}"
