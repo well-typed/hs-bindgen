@@ -101,6 +101,10 @@ commonFixtureStatus tc
   -- Issue #1679
   | tc.name `elem` issue1679
       = Just $ FixtureSkip "Issue #1679"
+  -- Array parameter of a nested function type: the instance head of
+  -- @ToFunPtr@ and @FromFunPtr@ applies the type family @Elem@
+  | tc.name == "functions/fun_ptr_instances/array_param"
+      = Just $ FixtureSkip "Type family application in instance head (issue #2365)"
   -- Issue #1956
   | tc.name == "macros/undef"
       = Just $ FixtureSkip "Issue #1956"

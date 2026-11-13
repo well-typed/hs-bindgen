@@ -15,6 +15,10 @@ module HsBindgen.IR.Translation (
   , TranslatedAnonRef(..)
   , translatedAnonRefType
   , translateCPrimType
+    -- * Function types
+  , FunType(..)
+  , ClassifiedFunType(..)
+  , UnclassifiedFunType(..)
   ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -63,32 +67,50 @@ data ScopedNamePair = ScopedNamePair {
 
 -- | A t'C.Type' associated with possible Haskell type translations
 data TranslatedTypes (p :: Pass) = TranslatedTypes {
-      c  :: C.Type p
-    , hs :: Hs.Type
+      c       :: C.Type p
+    , hs      :: Hs.Type
+      -- | The outermost function type in 'c'
+      --
+      -- See 'FunType'.
+    , funType :: Maybe (FunType p)
     }
-  deriving stock (Eq, Generic, Show)
+  deriving stock (Generic)
+
+deriving stock instance IsPass p => Eq   (TranslatedTypes p)
+deriving stock instance IsPass p => Show (TranslatedTypes p)
 
 instance (
-      CoercePass C.Type p p'
+      CoercePass C.Type  p p'
+    , CoercePass FunType p p'
     ) => CoercePass TranslatedTypes p p' where
   coercePass translatedTypes = TranslatedTypes{
-      c  = coercePass translatedTypes.c
-    , hs = translatedTypes.hs
+      c       = coercePass translatedTypes.c
+    , hs      = translatedTypes.hs
+    , funType = coercePass <$> translatedTypes.funType
     }
 
 -- | A t'C.TypeFunArg' associated with possible Haskell type translations
 data TranslatedTypeFunArg (p :: Pass) = TranslatedTypeFunArg {
-      c  :: C.TypeFunArg p
-    , hs :: Hs.Type
+      c       :: C.TypeFunArg p
+    , hs      :: Hs.Type
+      -- | The outermost function type in 'c'
+      --
+      -- See 'FunType'.
+    , funType :: Maybe (FunType p)
     }
-  deriving stock (Eq, Generic, Show)
+  deriving stock (Generic)
+
+deriving stock instance IsPass p => Eq   (TranslatedTypeFunArg p)
+deriving stock instance IsPass p => Show (TranslatedTypeFunArg p)
 
 instance (
       CoercePass C.TypeFunArg p p'
+    , CoercePass FunType      p p'
     ) => CoercePass TranslatedTypeFunArg p p' where
   coercePass translatedTypes = TranslatedTypeFunArg{
-      c  = coercePass translatedTypes.c
-    , hs = translatedTypes.hs
+      c       = coercePass translatedTypes.c
+    , hs      = translatedTypes.hs
+    , funType = coercePass <$> translatedTypes.funType
     }
 
 -- | A t'C.AnonRef' associated with possible Haskell type translations
@@ -108,8 +130,10 @@ instance (
 
 translatedAnonRefType :: TranslatedAnonRef p -> TranslatedTypes p
 translatedAnonRefType translatedAnonRef = TranslatedTypes {
-      c = C.anonRefType translatedAnonRef.c
-    , hs = translatedAnonRef.hs
+      c       = C.anonRefType translatedAnonRef.c
+    , hs      = translatedAnonRef.hs
+      -- An anonymous declaration is a struct, union or enum
+    , funType = Nothing
     }
 
 -- | Translate a primitive type
@@ -138,3 +162,79 @@ translateCPrimType = \case
     charType (C.PrimSignImplicit _inferred)  = Hs.PrimCChar
     charType (C.PrimSignExplicit C.Signed)   = Hs.PrimCSChar
     charType (C.PrimSignExplicit C.Unsigned) = Hs.PrimCUChar
+
+{-------------------------------------------------------------------------------
+  Function types
+-------------------------------------------------------------------------------}
+
+-- | A function type nested in a use-site type
+--
+-- The outermost function type of a use-site type is the one reached through
+-- pointers, arrays, blocks and qualifiers, not through typedefs or other
+-- references. There is at most one: of the type constructors, only function
+-- types have more than one child. The function types nested deeper sit in its
+-- arguments or result, whose translated types carry their own 'FunType'.
+--
+-- @hs-bindgen@ generates @ToFunPtr@ and @FromFunPtr@ instances for a function
+-- type iff it is classified and no position is serialised: function pointers
+-- have no C wrapper.
+data FunType (p :: Pass) =
+    FunTypeClassified   (ClassifiedFunType p)
+  | FunTypeUnclassified (UnclassifiedFunType p)
+  deriving stock (Generic)
+
+deriving stock instance IsPass p => Eq   (FunType p)
+deriving stock instance IsPass p => Show (FunType p)
+
+instance (
+      CoercePass C.FunctionArg         p p'
+    , CoercePass C.FunctionRes         p p'
+    , CoercePass TranslatedTypes      p p'
+    , CoercePass TranslatedTypeFunArg p p'
+    ) => CoercePass FunType p p' where
+  coercePass = \case
+      FunTypeClassified   x -> FunTypeClassified   (coercePass x)
+      FunTypeUnclassified x -> FunTypeUnclassified (coercePass x)
+
+-- | A function type whose positions all have a passing method
+--
+-- The annotations of the arguments and the result are the passing methods,
+-- as for a function declaration. The name of an argument is always 'Nothing'.
+data ClassifiedFunType (p :: Pass) = ClassifiedFunType {
+      args :: [C.FunctionArg p]
+    , res  :: C.FunctionRes p
+    }
+  deriving stock (Generic)
+
+deriving stock instance IsPass p => Eq   (ClassifiedFunType p)
+deriving stock instance IsPass p => Show (ClassifiedFunType p)
+
+instance (
+      CoercePass C.FunctionArg p p'
+    , CoercePass C.FunctionRes p p'
+    ) => CoercePass ClassifiedFunType p p' where
+  coercePass x = ClassifiedFunType{
+      args = map coercePass x.args
+    , res  = coercePass x.res
+    }
+
+-- | A function type with a position we cannot pass
+--
+-- The @TranslateTypes@ pass reports the position errors.
+data UnclassifiedFunType (p :: Pass) = UnclassifiedFunType {
+      args :: [TranslatedTypeFunArg p]
+    , res  :: TranslatedTypes p
+    }
+  deriving stock (Generic)
+
+deriving stock instance IsPass p => Eq   (UnclassifiedFunType p)
+deriving stock instance IsPass p => Show (UnclassifiedFunType p)
+
+instance (
+      CoercePass TranslatedTypes      p p'
+    , CoercePass TranslatedTypeFunArg p p'
+    ) => CoercePass UnclassifiedFunType p p' where
+  coercePass x = UnclassifiedFunType{
+      args = map coercePass x.args
+    , res  = coercePass x.res
+    }

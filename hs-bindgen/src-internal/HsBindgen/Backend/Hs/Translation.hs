@@ -5,6 +5,7 @@ module HsBindgen.Backend.Hs.Translation (
 
 import Control.Monad.Reader qualified as Reader
 import Control.Monad.State qualified as State hiding (MonadState)
+import Data.Function (on)
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
@@ -103,58 +104,90 @@ generateDeclarations' ::
   -> [WithCategory (Hs.Decl l)]
 generateDeclarations' macroLang env declDB decs =
     HsM.runHsM env $ do
-      let scannedFunctionTypes = scanAllFunctionTypes decs
-          -- Generate ToFunPtr/FromFunPtr instances for nested function types
+      let -- Generate ToFunPtr/FromFunPtr instances for nested function types
           -- These go in the main module to avoid orphan instances
           fFIStubsAndFunPtrInstances =
                    [ WithCategory CType d
-                   | (args, res) <- Set.toList scannedFunctionTypes
-                   , not (any C.hasUnsupportedType (res: fmap (.typ) args))
-                   , any (isDefinedInCurrentModule declDB) (res: fmap (.typ) args)
-                   , d <- ToFromFunPtr.forFunction (args, res)
+                   | funType <- scanAllFunctionTypes decs
+                   , any (isDefinedInCurrentModule declDB) $
+                          funType.res.typ.c
+                        : map (.typ.c.typ) funType.args
+                   , d <- ToFromFunPtr.forFunction funType
                    ]
       hsDeclsAction <- mapM (generateDecs macroLang) decs
       hsDecls <- HsM.runAction $ fmap concat $ sequence hsDeclsAction
       pure $ hsDecls ++ fFIStubsAndFunPtrInstances
 
--- | This function takes a list of all declarations and collects all function
--- types (with some exceptions).
+-- | Collect the nested function types that get @ToFunPtr@ and @FromFunPtr@
+-- instances
 --
 -- For example: function types that exist as arguments to other functions
 -- (nth-order functions), fields of structs, fields of unions, etc.
 --
--- This explicitly excludes typedefs that are function types (.e.g, @typedef
--- void F()@) or function type indirections (e.g., @typedef void (*F)()@)
--- because these are handled separately by 'typedefDecs'
--- and'typedefFunTypeIndirectionDecs' respectively.
+-- This explicitly excludes the function type of a typedef: of a function type
+-- (e.g., @typedef void F()@), handled by 'typedefDecs', or of a function type
+-- indirection (e.g., @typedef void (*F)()@), handled by
+-- 'typedefFunTypeIndirectionDecs'. The function types nested in it are
+-- included.
 --
-scanAllFunctionTypes :: [C.Decl l Final] -> Set ([C.TypeFunArg Final], C.Type Final)
-scanAllFunctionTypes = foldMap $ \decl ->
-    case decl.kind of
-      C.DeclStruct struct -> foldMap scanField struct.fields
-      C.DeclUnion union   -> foldMap scanField union.fields
-      C.DeclTypedef typedef
-        -- Exclude function type indirections, because they are already handled
-        -- by 'typedefFuntypeIndirectionDecs'
-        | Just (args, res, _) <- C.getFirstFunTypeIndirection typedef.typ.c
-        -> foldMap C.getAllFunTypes (res : map (.typ) args)
-        -- Exclude /direct/ function types, because they are already handled by
-        -- 'typedefDecs'
-        | otherwise
-        -> C.getAllFunTypeIndirections typedef.typ.c
-      C.DeclEnum enum -> C.getAllFunTypes enum.typ.c
-      C.DeclUntaggedEnumConstant{} -> Set.empty
-      C.DeclOpaque{} -> Set.empty
-      C.DeclMacro{} -> Set.empty
-      C.DeclFunction fn ->
-        foldMap C.getAllFunTypes (fn.res.typ.c : map (.typ.c.typ) fn.args)
-      C.DeclGlobal g -> C.getAllFunTypes g.typ.c
+-- Function types that differ only in what the Haskell type does not show
+-- (qualifiers, adjusted array or function arguments) get one set of
+-- instances: we deduplicate by the Haskell type, keeping the first function
+-- type in the order of the C types.
+scanAllFunctionTypes :: [C.Decl l Final] -> [ClassifiedFunType Final]
+scanAllFunctionTypes =
+      List.nubBy ((==) `on` hsFunType)
+    . List.sortOn cFunType
+    . Maybe.mapMaybe ToFromFunPtr.withInstances
+    . concatMap declFunTypes
   where
-    scanField :: C.Field Final -> Set ([C.TypeFunArg Final], C.Type Final)
-    scanField = C.elimField scanRegularField scanImplicitField
-    scanRegularField  field = C.getAllFunTypes field.typ.c
-    scanImplicitField field = C.getAllFunTypes field.typ.c <>
-        foldMap (C.getAllFunTypes . (.typ.c)) field.indirect
+    declFunTypes :: C.Decl l Final -> [FunType Final]
+    declFunTypes decl = case decl.kind of
+      C.DeclStruct struct ->
+           concatMap fieldFunTypes struct.fields
+        ++ foldMap regularFieldFunTypes (C.flamStructField struct.flam)
+      C.DeclUnion union -> concatMap fieldFunTypes union.fields
+      C.DeclTypedef typedef -> foldMap nestedFunTypes typedef.typ.funType
+      C.DeclEnum{} -> []
+      C.DeclUntaggedEnumConstant{} -> []
+      C.DeclOpaque{} -> []
+      C.DeclMacro{} -> []
+      C.DeclFunction fn ->
+           concatMap (allFunTypes . (.typ.funType)) fn.args
+        ++ allFunTypes fn.res.typ.funType
+      C.DeclGlobal g -> allFunTypes g.typ.funType
+
+    fieldFunTypes :: C.Field Final -> [FunType Final]
+    fieldFunTypes = C.elimField regularFieldFunTypes implicitFieldFunTypes
+
+    regularFieldFunTypes :: C.RegularField Final -> [FunType Final]
+    regularFieldFunTypes field = allFunTypes field.typ.funType
+
+    implicitFieldFunTypes :: C.ImplicitField Final -> [FunType Final]
+    implicitFieldFunTypes field =
+        concatMap (allFunTypes . (.typ.funType)) field.indirect
+
+    -- The function type and the function types nested in it
+    allFunTypes :: Maybe (FunType Final) -> [FunType Final]
+    allFunTypes = foldMap $ \funType -> funType : nestedFunTypes funType
+
+    -- The function types nested in the positions of a function type
+    nestedFunTypes :: FunType Final -> [FunType Final]
+    nestedFunTypes = \case
+      FunTypeClassified funType ->
+           concatMap (allFunTypes . (.typ.funType)) funType.args
+        ++ allFunTypes funType.res.typ.funType
+      FunTypeUnclassified funType ->
+           concatMap (allFunTypes . (.funType)) funType.args
+        ++ allFunTypes funType.res.funType
+
+    hsFunType :: ClassifiedFunType Final -> Hs.Type
+    hsFunType funType =
+        Translation.funType (map (.typ.hs) funType.args) funType.res.typ.hs
+
+    cFunType :: ClassifiedFunType Final -> ([C.TypeFunArg Final], C.Type Final)
+    cFunType funType =
+        (map C.typeOfFunctionArg funType.args, funType.res.typ.c)
 
 -- | Check if a type is defined in the current module
 isDefinedInCurrentModule ::
@@ -191,7 +224,7 @@ generateDecs macroLang decl =
       C.DeclTypedef typedef -> withCategoryM CType $
         case C.getFirstFunTypeIndirection typedef.typ.c of
           Just (args, res, reconstruct) ->
-            typedefFunTypeIndirectionDecs decl (args, res, reconstruct) typedef.names spec
+            typedefFunTypeIndirectionDecs decl typedef (args, res, reconstruct) spec
           Nothing ->
             HsM.immediateM $ typedefDecs decl Origin.Typedef typedef spec
       C.DeclOpaque mSize -> withCategoryM CType $
@@ -562,11 +595,8 @@ typedefDecs decl mkNewtypeOrigin typedef spec = do
           ]
 
     -- See comment in 'newtypeWrapper` below
-    isFunType :: Maybe ([C.TypeFunArg Final], C.Type Final)
-    isFunType = case typedef.typ.c of
-      C.TypeFun args res | not (any C.hasUnsupportedType (res: fmap (.typ) args)) ->
-        Just (args, res)
-      _otherwise -> Nothing
+    isFunType :: Maybe (ClassifiedFunType Final)
+    isFunType = ToFromFunPtr.withInstances =<< typedef.typ.funType
 
     -- everything in aux is state-dependent
     aux :: HsM.Env -> Hs.Newtype -> [Hs.Decl l]
@@ -593,10 +623,11 @@ typedefDecs decl mkNewtypeOrigin typedef spec = do
 
       -- We need to be careful and not generate any wrappers for function
       -- types that receive data types not supported by Haskell's FFI
-      -- (i.e. structs, unions by value).
+      -- (i.e. structs, unions by value); see 'ToFromFunPtr.withInstances'.
       --
-      -- Note that we don't want to explicitly see all the way through
-      -- typedefs here. See the following example
+      -- The function type of a typedef is the one of its own type: the
+      -- @TranslateTypes@ pass does not see through typedefs. See the
+      -- following example
       --
       -- @
       -- typedef void (f)(int);
@@ -624,11 +655,11 @@ typedefDecs decl mkNewtypeOrigin typedef spec = do
 typedefFunTypeIndirectionDecs ::
      forall l. HasCallStack
   => C.Decl l Final
+  -> C.Typedef Final
   -> ([C.TypeFunArg Final], C.Type Final, C.Type Final -> C.Type Final) -- ^ Function arguments and result
-  -> MangleNames.TypedefNames
   -> PrescriptiveDeclSpec
   -> HsM (HsM.Action [Hs.Decl l])
-typedefFunTypeIndirectionDecs origDecl (args, res, reconstruct) names origSpec =
+typedefFunTypeIndirectionDecs origDecl origTypedef (args, res, reconstruct) origSpec =
     fmap HsM.concatSequence $ sequence [
         HsM.delayM     $ typedefDecs auxDecl  Origin.Aux     auxTypedef  auxSpec
       , HsM.immediateM $ typedefDecs origDecl Origin.Typedef mainTypedef origSpec
@@ -650,7 +681,7 @@ typedefFunTypeIndirectionDecs origDecl (args, res, reconstruct) names origSpec =
 
     auxName :: Hs.Name Hs.NsTypeConstr
     auxNames  :: NewtypeNames
-    (auxName, auxNames) = case names.aux of
+    (auxName, auxNames) = case origTypedef.names.aux of
       Nothing        -> panicPure "name of auxiliary declaration unavailable"
       Just (nm, nms) -> (nm, nms)
 
@@ -680,8 +711,10 @@ typedefFunTypeIndirectionDecs origDecl (args, res, reconstruct) names origSpec =
       let c = C.TypeFun args res
       in  C.Typedef{
               typ = TranslatedTypes{
-                  c  = c
-                , hs = Translation.topLevel c
+                  c       = c
+                , hs      = Translation.topLevel c
+                  -- The outermost function type of the original typedef
+                , funType = origTypedef.typ.funType
                 }
             , ann = MangleNames.TypedefNames{
                   orig = auxNames
@@ -705,10 +738,12 @@ typedefFunTypeIndirectionDecs origDecl (args, res, reconstruct) names origSpec =
             }
       in  C.Typedef{
               typ = TranslatedTypes{
-                  c  = c
-                , hs = Translation.topLevel c
+                  c       = c
+                , hs      = Translation.topLevel c
+                  -- The function type is behind the reference to the aux type
+                , funType = Nothing
                 }
-            , ann = names
+            , ann = origTypedef.names
             }
 
 {-------------------------------------------------------------------------------

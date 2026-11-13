@@ -10,6 +10,7 @@ module HsBindgen.Frontend.Pass.TranslateTypes.Translation (
   , InContext(..)
     -- ** Helper functions
   , topLevel
+  , funType
     -- * Pointers
   , Pointee(..)
   , pointee
@@ -73,6 +74,13 @@ instance IsPassCompat p => InContext (C.FunctionRes p) where
 topLevel :: (HasCallStack, IsPassCompat p) => C.Type p -> Hs.Type
 topLevel = inContext Top
 
+-- | Haskell type of a function type
+funType ::
+     [Hs.Type] -- ^ Arguments, translated in context 'FunArg'
+  -> Hs.Type   -- ^ Result, translated in context 'FunRes'
+  -> Hs.Type
+funType args res = foldr Hs.Fun (Hs.IO res) args
+
 {-------------------------------------------------------------------------------
   Auxiliary functions
 -------------------------------------------------------------------------------}
@@ -117,10 +125,7 @@ typeInContext ctx = \case
     C.TypeIncompleteArray ty ->
       Hs.IncompleteArray (typeInContext Top ty)
     C.TypeFun args res ->
-      foldr
-        (\arg acc -> Hs.Fun (inContext FunArg arg) acc)
-        (Hs.IO $ typeInContext FunRes res)
-        args
+      funType (map (inContext FunArg) args) (typeInContext FunRes res)
     C.TypeVoid ->
       Hs.PrimType (void ctx)
     C.TypeBlock ty ->

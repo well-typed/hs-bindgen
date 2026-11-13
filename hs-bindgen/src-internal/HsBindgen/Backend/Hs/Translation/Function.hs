@@ -137,23 +137,20 @@ functionDecs safety decl originalC _spec = do
 
 -- | Is the argument serialised?
 argSerialized :: C.FunctionArg Final -> Bool
-argSerialized arg = serialized arg.ann
+argSerialized arg = isSerialized arg.ann
 
 -- | Is the result serialised?
 resSerialized :: C.FunctionRes Final -> Bool
-resSerialized res = case res.ann of
-    PassResVoid      -> False
-    PassResNonVoid x -> serialized x
-
-serialized :: PassingMethod p -> Bool
-serialized = \case
-    PassDirect{}     -> False
-    PassSerialized{} -> True
+resSerialized res = isResSerialized res.ann
 
 -- | Types of an argument as they appear in @wrapperC@ and @wrapperImport@
 wrapperArgTypes :: C.FunctionArg Final -> TranslatedTypes Final
 wrapperArgTypes arg = case arg.ann of
-    PassDirect{}       -> TranslatedTypes{c = arg.typ.c.typ, hs = arg.typ.hs}
+    PassDirect{}       -> TranslatedTypes{
+        c       = arg.typ.c.typ
+      , hs      = arg.typ.hs
+      , funType = arg.typ.funType
+      }
     PassSerialized ptr -> ptr
 
 -- | Get the Haskell type of an argument/result as it is used in @restoreFun@

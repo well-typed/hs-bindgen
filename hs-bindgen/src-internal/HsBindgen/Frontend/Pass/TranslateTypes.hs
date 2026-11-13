@@ -7,7 +7,6 @@ import Control.Monad.Reader (MonadReader, ReaderT (..), asks, withReaderT)
 import Control.Monad.State (MonadState, State, modify, runState)
 import Control.Monad.Writer.Strict (runWriter)
 import Data.Either (partitionEithers)
-import Data.Functor ((<&>))
 import Data.List.NonEmpty qualified as NonEmpty
 
 import HsBindgen.Frontend.DeclDB (DeclDB)
@@ -17,6 +16,10 @@ import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.Error
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassingMethod (PassingMethod,
+                                                                    ResPassingMethod,
+                                                                    isResSerialized,
+                                                                    isSerialized)
 import HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (Classified,
                                                              classifyArgPassingMethod,
                                                              classifyResPassingMethod)
@@ -106,13 +109,15 @@ processField = \case
     C.FieldImplicit field -> C.FieldImplicit <$> processImplicitField field
 
 processRegularField :: C.RegularField AdjustTypes -> M DeclEnv (C.RegularField TranslateTypes)
-processRegularField field = pure C.RegularField{
-      info   = coercePass field.info
-    , typ    = processType Translation.Top field.typ
-    , offset = field.offset
-    , width  = field.width
-    , ann    = field.ann
-    }
+processRegularField field = do
+    typ' <- processType (useSiteField field.info) Translation.Top field.typ
+    pure C.RegularField{
+        info   = coercePass field.info
+      , typ    = typ'
+      , offset = field.offset
+      , width  = field.width
+      , ann    = field.ann
+      }
 
 processImplicitField :: C.ImplicitField AdjustTypes -> M DeclEnv (C.ImplicitField TranslateTypes)
 processImplicitField field = do
@@ -126,24 +131,41 @@ processImplicitField field = do
       }
 
 processIndirectField :: C.IndirectField AdjustTypes -> M DeclEnv (C.IndirectField TranslateTypes)
-processIndirectField field = pure C.IndirectField{
-      info   = coercePass field.info
-    , typ    = processType Translation.Top field.typ
-    , offset = field.offset
-    , width  = field.width
-    , path   = map (processAnonRef Translation.Top) field.path
-    , ann    = coercePassAnn (Proxy @'("IndirectField", AdjustTypes, TranslateTypes)) field.ann
+processIndirectField field = do
+    typ' <- processType (useSiteField field.info) Translation.Top field.typ
+    pure C.IndirectField{
+        info   = coercePass field.info
+      , typ    = typ'
+      , offset = field.offset
+      , width  = field.width
+      , path   = map (processAnonRef Translation.Top) field.path
+      , ann    = coercePassAnn (Proxy @'("IndirectField", AdjustTypes, TranslateTypes)) field.ann
+      }
+
+useSiteField :: C.FieldInfo AdjustTypes -> FunTypeLocation
+useSiteField info = FunTypeLocation{
+      site = UseSiteField info.name.cName
+    , path = []
     }
 
 processTypedef :: C.Typedef AdjustTypes -> M DeclEnv (C.Typedef TranslateTypes)
-processTypedef typedef = pure C.Typedef{
-      typ = processType Translation.Top typedef.typ
-    , ann = typedef.ann
-    }
+processTypedef typedef = do
+    typ' <- processType loc Translation.Top typedef.typ
+    pure C.Typedef{
+        typ = typ'
+      , ann = typedef.ann
+      }
+  where
+    loc = FunTypeLocation{site = UseSiteTypedef, path = []}
 
 processEnum :: C.Enum AdjustTypes -> M DeclEnv (C.Enum TranslateTypes)
 processEnum enum = pure C.Enum{
-      typ       = processType Translation.Top enum.typ
+      typ       = TranslatedTypes{
+          c       = coercePass enum.typ
+        , hs      = Translation.inContext Translation.Top enum.typ
+          -- The type of an enum is integral
+        , funType = Nothing
+        }
     , sizeof    = enum.sizeof
     , alignment = enum.alignment
     , constants = map coercePass enum.constants
@@ -165,89 +187,198 @@ processFunction ::
      C.Function AdjustTypes
   -> M DeclEnv (Either TranslateTypesError (C.Function TranslateTypes))
 processFunction fun = do
-    (argErrs, args') <- partitionEithers <$>
-      zipWithM processFunctionArg [1..] fun.args
-    eRes' <- processFunctionRes fun.res
-    pure $ case (argErrs, eRes') of
-      ([], Right res') -> Right C.Function{
-          args  = args'
-        , res   = res'
+    eSig <- processSignature declarationSignature fun.args fun.res
+    pure $ case eSig of
+      Left (errs, _) -> Left $ TranslateTypesFunctionError errs
+      Right sig      -> Right C.Function{
+          args  = sig.args
+        , res   = sig.res
         , attrs = fun.attrs
         , ann   = fun.ann
         }
-      (err : errs, Right _) ->
-        Left $ TranslateTypesFunctionError (err :| errs)
-      (errs, Left resErr) ->
-        Left $ TranslateTypesFunctionError $
-          NonEmpty.prependList errs (resErr :| [])
 
+-- | Translate and classify the arguments and the result of a function type
+--
+-- The position errors are in signature order.
+processSignature ::
+     FunTypeLocation
+  -> [C.FunctionArg AdjustTypes]
+  -> C.FunctionRes AdjustTypes
+  -> M DeclEnv (
+       Either
+         (NonEmpty FunPositionError, UnclassifiedFunType TranslateTypes)
+         (ClassifiedFunType TranslateTypes)
+     )
+processSignature loc args res = do
+    args' <- zipWithM (processFunctionArg loc) [1..] args
+    res'  <- processFunctionRes loc res
+    let unclassified = UnclassifiedFunType{
+            args = map fst args'
+          , res  = fst res'
+          }
+    pure $ case (partitionEithers (map snd args'), snd res') of
+      (([], argsOk), Right resOk) -> Right ClassifiedFunType{
+          args = argsOk
+        , res  = resOk
+        }
+      ((err : errs, _), Right _) ->
+        Left (err :| errs, unclassified)
+      ((errs, _), Left resErr) ->
+        Left (NonEmpty.prependList errs (resErr :| []), unclassified)
+
+-- | Translate and classify a function argument
+--
+-- Returns the translated type also on a position error.
 processFunctionArg ::
-     Int
+     FunTypeLocation
+  -> Int
   -> C.FunctionArg AdjustTypes
-  -> M DeclEnv (Either FunPositionError (C.FunctionArg TranslateTypes))
-processFunctionArg i arg = do
-    eAnn <- classified pos $ classifyArgPassingMethod pos arg typ'.hs
-    pure $ eAnn <&> \ann -> C.FunctionArg{
-        name = arg.name
-      , typ  = typ'
-      , ann  = ann
-      }
+  -> M DeclEnv (
+       TranslatedTypeFunArg TranslateTypes
+     , Either FunPositionError (C.FunctionArg TranslateTypes)
+     )
+processFunctionArg loc i arg = do
+    typ' <- processTypeFunArg (enterPosition loc pos) Translation.FunArg arg.typ
+    eAnn <- classified loc pos $ classifyArgPassingMethod pos arg typ'.hs
+    pure (typ', mk typ' <$> eAnn)
   where
     pos  = FunPositionArg FunArgPosition{
         index = i
       , name  = (.cName) <$> arg.name
       }
-    typ' = processTypeFunArg Translation.FunArg arg.typ
 
+    mk ::
+         TranslatedTypeFunArg TranslateTypes
+      -> PassingMethod TranslateTypes
+      -> C.FunctionArg TranslateTypes
+    mk typ' ann = C.FunctionArg{
+        name = arg.name
+      , typ  = typ'
+      , ann  = ann
+      }
+
+-- | Translate and classify a function result
+--
+-- Returns the translated type also on a position error.
 processFunctionRes ::
-     C.FunctionRes AdjustTypes
-  -> M DeclEnv (Either FunPositionError (C.FunctionRes TranslateTypes))
-processFunctionRes res = do
-    eAnn <- classified FunPositionRes $ classifyResPassingMethod res typ'.hs
-    pure $ eAnn <&> \ann -> C.FunctionRes{
+     FunTypeLocation
+  -> C.FunctionRes AdjustTypes
+  -> M DeclEnv (
+       TranslatedTypes TranslateTypes
+     , Either FunPositionError (C.FunctionRes TranslateTypes)
+     )
+processFunctionRes loc res = do
+    typ' <- processType (enterPosition loc pos) Translation.FunRes res.typ
+    eAnn <- classified loc pos $ classifyResPassingMethod res typ'.hs
+    pure (typ', mk typ' <$> eAnn)
+  where
+    pos = FunPositionRes
+
+    mk ::
+         TranslatedTypes TranslateTypes
+      -> ResPassingMethod TranslateTypes
+      -> C.FunctionRes TranslateTypes
+    mk typ' ann = C.FunctionRes{
         typ = typ'
       , ann = ann
       }
-  where
-    typ' = processType Translation.FunRes res.typ
 
 -- | Report the external bindings without FFI type
 classified ::
-     FunPosition
+     FunTypeLocation
+  -> FunPosition
   -> Classified a
   -> M DeclEnv (Either FunPositionError a)
-classified pos x = do
+classified loc pos x = do
     let (r, fallbacks) = runWriter x
-    forM_ fallbacks $ addMessage . TranslateTypesExtBindingFallback pos
+    forM_ fallbacks $ addMessage . TranslateTypesExtBindingFallback loc pos
     pure r
 
 processGlobal :: C.Global AdjustTypes -> M DeclEnv (C.Global TranslateTypes)
-processGlobal global = pure C.Global{
-      typ = processType Translation.Top global.typ
-    , ann = global.ann
-    }
+processGlobal global = do
+    typ' <- processType loc Translation.Top global.typ
+    pure C.Global{
+        typ = typ'
+      , ann = global.ann
+      }
+  where
+    loc = FunTypeLocation{site = UseSiteGlobal, path = []}
 
 {-------------------------------------------------------------------------------
   Types
 -------------------------------------------------------------------------------}
 
+-- | Translate a use-site type
 processType ::
-     Translation.TypeContext
+     FunTypeLocation -- ^ Location of the outermost function type in the type
+  -> Translation.TypeContext
   -> C.Type AdjustTypes
-  -> TranslatedTypes TranslateTypes
-processType ctx typ = TranslatedTypes{
-      c  = coercePass typ
-    , hs = Translation.inContext ctx typ
-    }
+  -> M DeclEnv (TranslatedTypes TranslateTypes)
+processType loc ctx typ = do
+    funType <- processOutermostFunType loc typ
+    pure TranslatedTypes{
+        c       = coercePass typ
+      , hs      = Translation.inContext ctx typ
+      , funType = funType
+      }
 
+-- | Translate a use-site function argument type
 processTypeFunArg ::
-     Translation.TypeContext
+     FunTypeLocation -- ^ Location of the outermost function type in the type
+  -> Translation.TypeContext
   -> C.TypeFunArg AdjustTypes
-  -> TranslatedTypeFunArg TranslateTypes
-processTypeFunArg ctx typ = TranslatedTypeFunArg{
-      c  = coercePass typ
-    , hs = Translation.inContext ctx typ
-    }
+  -> M DeclEnv (TranslatedTypeFunArg TranslateTypes)
+processTypeFunArg loc ctx typ = do
+    funType <- processOutermostFunType loc typ.typ
+    pure TranslatedTypeFunArg{
+        c       = coercePass typ
+      , hs      = Translation.inContext ctx typ
+      , funType = funType
+      }
+
+-- | Classify the outermost function type in a type
+--
+-- A function type that gets no @ToFunPtr@ and @FromFunPtr@ instances gets a
+-- message: one with a position we cannot pass, or with a serialised position.
+processOutermostFunType ::
+     FunTypeLocation
+  -> C.Type AdjustTypes
+  -> M DeclEnv (Maybe (FunType TranslateTypes))
+processOutermostFunType loc typ =
+    forM (C.getOutermostFunType typ) $ \(args, res) -> do
+      eSig <- processSignature loc (map mkArg args) (mkRes res)
+      case eSig of
+        Left (errs, sig) -> do
+          addMessage $ TranslateTypesFunTypeUnclassified loc errs
+          pure $ FunTypeUnclassified sig
+        Right sig -> do
+          forM_ (NonEmpty.nonEmpty $ serializedPositions sig) $
+            addMessage . TranslateTypesFunTypeSerialized loc
+          pure $ FunTypeClassified sig
+  where
+    mkArg :: C.TypeFunArg AdjustTypes -> C.FunctionArg AdjustTypes
+    mkArg typ' = C.FunctionArg{
+        name = Nothing
+      , typ  = typ'
+      , ann  = NoAnn
+      }
+
+    mkRes :: C.Type AdjustTypes -> C.FunctionRes AdjustTypes
+    mkRes typ' = C.FunctionRes{
+        typ = typ'
+      , ann = NoAnn
+      }
+
+    serializedPositions :: ClassifiedFunType TranslateTypes -> [FunPosition]
+    serializedPositions sig = concat [
+          [ FunPositionArg FunArgPosition{index = i, name = Nothing}
+          | (i, arg) <- zip [1..] sig.args
+          , isSerialized arg.ann
+          ]
+        , [ FunPositionRes
+          | isResSerialized sig.res.ann
+          ]
+        ]
 
 processAnonRef ::
      Translation.TypeContext

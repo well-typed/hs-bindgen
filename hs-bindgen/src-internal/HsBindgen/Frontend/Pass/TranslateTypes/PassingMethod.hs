@@ -46,8 +46,10 @@ classifyResPassingMethod res hsType
     C.isCanonicalTypeUnion res.typ ||
     C.isCanonicalTypeComplex res.typ
   = pure $ Right $ PassResNonVoid $ PassSerialized TranslatedTypes{
-        c  = coercePass ty'
-      , hs = Translation.inContext Translation.FunRes ty'
+        c       = coercePass ty'
+      , hs      = Translation.inContext Translation.FunRes ty'
+        -- A pointer to a struct, union or complex value
+      , funType = Nothing
       }
   -- Other types
   | otherwise
@@ -74,8 +76,10 @@ classifyArgPassingMethod pos arg hsType
     C.isCanonicalTypeUnion   arg.typ.typ ||
     C.isCanonicalTypeComplex arg.typ.typ
   = pure $ Right $ PassSerialized TranslatedTypes{
-        c  = coercePass ty'
-      , hs = Translation.inContext Translation.FunArg ty'
+        c       = coercePass ty'
+      , hs      = Translation.inContext Translation.FunArg ty'
+        -- A pointer to a struct, union or complex value
+      , funType = Nothing
       }
   -- Other types
   | otherwise

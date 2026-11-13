@@ -8,7 +8,8 @@ import HsBindgen.Frontend.DeclDB (PassFailure (..), UnusableReason (..))
 import HsBindgen.Frontend.Pass.Parse.Result (NotAttemptedReason (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.Error
-import HsBindgen.Frontend.Predicate (Boolean (..))
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
+import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.TraceMsg
@@ -27,6 +28,10 @@ testCases = [
       -- Default tests
       defaultTest "functions/callbacks"
     , defaultTest "functions/circular_dependency_fun"
+    , defaultTest "functions/fun_ptr_instances/array_param"
+    , defaultTest "functions/fun_ptr_instances/const_void_result"
+    , defaultTest "functions/fun_ptr_instances/duplicates"
+    , defaultTest "functions/fun_ptr_instances/typedef_of_typedef"
     , defaultTest "functions/heap_types/struct_const_member"
     , defaultTest "functions/heap_types/struct_const_typedef"
     , defaultTest "functions/heap_types/struct_const"
@@ -40,6 +45,9 @@ testCases = [
     , test_decls_in_signature
     , test_fun_attributes
     , test_fun_attributes_conflict
+    , test_fun_ptr_instances_deselected
+    , test_fun_ptr_instances_struct_result
+    , test_fun_ptr_instances_void_typedef_result
     , test_hash_defines
     , test_hash_defines_select_all
     , test_libc_builtins
@@ -107,6 +115,40 @@ test_fun_attributes_conflict =
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = []
+
+-- | Deselected declarations contribute no @ToFunPtr@ and @FromFunPtr@
+-- instances, and no messages about them
+test_fun_ptr_instances_deselected :: TestCase
+test_fun_ptr_instances_deselected =
+    defaultTest "functions/fun_ptr_instances/deselected"
+      & #onFrontend .~ ( #selectionPredicate .~ BAnd
+            (       BIf $ SelectHeader FromMainHeaders)
+            (BNot $ BIf $ SelectDecl $ DeclNameMatches "^deselected")
+          )
+
+-- | A function type passing a struct by value gets no instances
+test_fun_ptr_instances_struct_result :: TestCase
+test_fun_ptr_instances_struct_result =
+    testTraceMulti "functions/fun_ptr_instances/struct_result" declsWithMsgs $ \case
+      MatchDelayedTranslateTypes name TranslateTypesFunTypeSerialized{} ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["h"]
+
+-- | A function type with a typedef of @void@ as result type gets no instances
+test_fun_ptr_instances_void_typedef_result :: TestCase
+test_fun_ptr_instances_void_typedef_result =
+    testTraceMulti "functions/fun_ptr_instances/void_typedef_result" declsWithMsgs $ \case
+      MatchDelayedTranslateTypes name TranslateTypesFunTypeUnclassified{} ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["g", "F", "k"]
 
 -- | @#define@ root directives reach the generation /and/ compilation stage
 --

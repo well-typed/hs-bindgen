@@ -13,7 +13,6 @@ module HsBindgen.Backend.Hs.Translation.ForeignImport (
 import Data.Function
 import DeBruijn (Idx (IZ), Size (SS, SZ))
 import Optics.Core
-import Text.Printf (printf)
 
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -26,8 +25,6 @@ import HsBindgen.Backend.SHs.AST.Expr qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.SHs.Translation.MapFunction
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol (..))
-import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
@@ -131,10 +128,11 @@ foreignImportDec name params res origName callConv origin safety =
 foreignImportWrapperDec ::
      FunName
   -> Hs.Type
+  -> Hs.FFIFunType -- ^ FFI type of the function type
   -> ImportFor
   -> Origin.ForeignImport
   -> [Hs.Decl l]
-foreignImportWrapperDec name hsType importFor origin =
+foreignImportWrapperDec name hsType fiFunType importFor origin =
     [ Hs.DeclForeignImportWrapper foreignImportWrapperDecl
     , Hs.DeclFunction funDecl
     ]
@@ -150,7 +148,6 @@ foreignImportWrapperDec name hsType importFor origin =
     -- fiName is unique because it is created from a unique name + suffix
     fiName :: UniqueSymbol
     fiName = name.uniqSymbol & #unique %~ (<> "_base")
-    fiFunType = unsafeToFFIFunType hsType
 
     funDecl :: Hs.FunctionDecl
     funDecl = Hs.FunctionDecl
@@ -197,10 +194,11 @@ foreignImportWrapperDec name hsType importFor origin =
 foreignImportDynamicDec ::
      FunName
   -> Hs.Type
+  -> Hs.FFIFunType -- ^ FFI type of the function type
   -> ImportFor
   -> Origin.ForeignImport
   -> [Hs.Decl l]
-foreignImportDynamicDec name hsType importFor origin =
+foreignImportDynamicDec name hsType fiFunType importFor origin =
     [ Hs.DeclForeignImportDynamic foreignImportDynamicDecl
     , Hs.DeclFunction funDecl
     ]
@@ -216,7 +214,6 @@ foreignImportDynamicDec name hsType importFor origin =
     -- fiName is unique because it is created from a unique name + suffix
     fiName :: UniqueSymbol
     fiName = name.uniqSymbol & #unique %~ (<> "_base")
-    fiFunType = unsafeToFFIFunType hsType
 
     funDecl :: Hs.FunctionDecl
     funDecl = Hs.FunctionDecl
@@ -374,16 +371,3 @@ mkConvRes g = ConvRes $ \typ e -> case typ of
     Hs.PrimType Hs.PrimUnit -> e
     Hs.IO{} -> eBindgenGlobal Functor_fmap `EApp` eBindgenGlobal g `EApp` e
     _ -> eBindgenGlobal g `EApp` e
-
-{-------------------------------------------------------------------------------
-  FFI types
--------------------------------------------------------------------------------}
-
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>: compute the FFI
--- types of function types nested in use sites in the @TranslateTypes@ pass.
-unsafeToFFIFunType :: Hs.Type -> Hs.FFIFunType
-unsafeToFFIFunType ty = case FFIType.toFFIFunType ty of
-    Nothing ->
-      panicPure $ printf "Type does not have an FFI function type: %s" (show ty)
-    Just ty' ->
-      ty'

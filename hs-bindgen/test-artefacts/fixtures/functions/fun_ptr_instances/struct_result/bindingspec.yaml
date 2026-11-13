@@ -1,0 +1,31 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: functions/fun_ptr_instances/struct_result.h
+  cname: struct S
+  hsname: T
+- headers: functions/fun_ptr_instances/struct_result.h
+  cname: T
+  hsname: T
+hstypes:
+- hsname: T
+  representation:
+    record:
+      constructor: T
+      fields:
+      - t_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

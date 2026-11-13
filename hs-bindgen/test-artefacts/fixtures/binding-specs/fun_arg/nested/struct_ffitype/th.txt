@@ -1,0 +1,128 @@
+-- addDependentFile test-artefacts/headers/golden/binding-specs/fun_arg/nested/struct_ffitype.h
+-- #include <binding-specs/fun_arg/nested/struct_ffitype.h>
+-- void hs_bindgen_3b493f531c63c4d3 (
+--   void (*arg1) (
+--   C arg1
+-- )
+-- )
+-- {
+--   (f)(arg1);
+-- }
+-- void hs_bindgen_00ed18f111fbbdfb (
+--   void (*arg1) (
+--   C arg1
+-- )
+-- )
+-- {
+--   (f)(arg1);
+-- }
+-- /* test_bindingspecsfun_argnesteds_Example_get_f */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_118355d08f21c4e1 (void)) (
+--   void (*arg1) (
+--   C arg1
+-- )
+-- )
+-- {
+--   return &f;
+-- }
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @binding-specs\/fun_arg\/nested\/struct_ffitype.h 3:8@
+
+    __exported by:__ @binding-specs\/fun_arg\/nested\/struct_ffitype.h@
+-}
+data S
+    = S {s_x :: CInt
+         {- ^ __C declaration:__ @x@
+
+              __defined at:__ @binding-specs\/fun_arg\/nested\/struct_ffitype.h 3:16@
+
+              __exported by:__ @binding-specs\/fun_arg\/nested\/struct_ffitype.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_x") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_x_2 -> writeRaw (Proxy @"s_x") ptr_0 s_x_2
+deriving via (EquivStorable S) instance Storable S
+deriving via (IsStructViaReadRaw S) instance IsStruct S
+instance (~) ty CInt => HasField "s_x" S ty
+    where hasField = \x_0 -> (\y_1 -> S{s_x = y_1},
+                              getField @"s_x" x_0)
+instance (~) ty CInt => HasField "s_x" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_x")
+instance HasCField S "s_x"
+    where type CFieldType S "s_x" = CInt
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_bindingspecsfun_argnesteds_Example_Safe_f@
+foreign import ccall safe "hs_bindgen_3b493f531c63c4d3" hs_bindgen_3b493f531c63c4d3_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecsfun_argnesteds_Example_Safe_f@
+hs_bindgen_3b493f531c63c4d3 :: FunPtr (M.C -> IO ()) -> IO ()
+-- __unique:__ @test_bindingspecsfun_argnesteds_Example_Safe_f@
+hs_bindgen_3b493f531c63c4d3 = \x_0 -> hs_bindgen_3b493f531c63c4d3_base (toFFIType x_0)
+{-| __C declaration:__ @f@
+
+    __defined at:__ @binding-specs\/fun_arg\/nested\/struct_ffitype.h 9:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/nested\/struct_ffitype.h@
+-}
+f_safe :: FunPtr (M.C -> IO ()) -> IO ()
+{-| __C declaration:__ @f@
+
+    __defined at:__ @binding-specs\/fun_arg\/nested\/struct_ffitype.h 9:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/nested\/struct_ffitype.h@
+-}
+f_safe = hs_bindgen_3b493f531c63c4d3
+-- __unique:__ @test_bindingspecsfun_argnesteds_Example_Unsafe_f@
+foreign import ccall unsafe "hs_bindgen_00ed18f111fbbdfb" hs_bindgen_00ed18f111fbbdfb_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecsfun_argnesteds_Example_Unsafe_f@
+hs_bindgen_00ed18f111fbbdfb :: FunPtr (M.C -> IO ()) -> IO ()
+-- __unique:__ @test_bindingspecsfun_argnesteds_Example_Unsafe_f@
+hs_bindgen_00ed18f111fbbdfb = \x_0 -> hs_bindgen_00ed18f111fbbdfb_base (toFFIType x_0)
+{-| __C declaration:__ @f@
+
+    __defined at:__ @binding-specs\/fun_arg\/nested\/struct_ffitype.h 9:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/nested\/struct_ffitype.h@
+-}
+f_unsafe :: FunPtr (M.C -> IO ()) -> IO ()
+{-| __C declaration:__ @f@
+
+    __defined at:__ @binding-specs\/fun_arg\/nested\/struct_ffitype.h 9:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/nested\/struct_ffitype.h@
+-}
+f_unsafe = hs_bindgen_00ed18f111fbbdfb
+-- __unique:__ @test_bindingspecsfun_argnesteds_Example_get_f@
+foreign import ccall unsafe "hs_bindgen_118355d08f21c4e1" hs_bindgen_118355d08f21c4e1_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_bindingspecsfun_argnesteds_Example_get_f@
+hs_bindgen_118355d08f21c4e1 :: IO (FunPtr (FunPtr (M.C -> IO ()) ->
+                                           IO ()))
+-- __unique:__ @test_bindingspecsfun_argnesteds_Example_get_f@
+hs_bindgen_118355d08f21c4e1 = fmap fromFFIType hs_bindgen_118355d08f21c4e1_base
+{-# NOINLINE f_funptr #-}
+{-| __C declaration:__ @f@
+
+    __defined at:__ @binding-specs\/fun_arg\/nested\/struct_ffitype.h 9:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/nested\/struct_ffitype.h@
+-}
+f_funptr :: FunPtr (FunPtr (M.C -> IO ()) -> IO ())
+{-| __C declaration:__ @f@
+
+    __defined at:__ @binding-specs\/fun_arg\/nested\/struct_ffitype.h 9:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/nested\/struct_ffitype.h@
+-}
+f_funptr = unsafePerformIO hs_bindgen_118355d08f21c4e1

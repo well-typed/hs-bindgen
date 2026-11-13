@@ -1,0 +1,155 @@
+-- addDependentFile test-artefacts/headers/golden/binding-specs/fun_arg/nested/no_ffitype.h
+-- #include <binding-specs/fun_arg/nested/no_ffitype.h>
+-- void hs_bindgen_9188aad048dc5880 (
+--   void (*arg1) (
+--   C arg1,
+--   T arg2
+-- )
+-- )
+-- {
+--   (f)(arg1);
+-- }
+-- void hs_bindgen_c216f054753a1120 (
+--   void (*arg1) (
+--   C arg1,
+--   T arg2
+-- )
+-- )
+-- {
+--   (f)(arg1);
+-- }
+-- /* test_bindingspecsfun_argnestedn_Example_get_f */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_c6a92b57b9c5670b (void)) (
+--   void (*arg1) (
+--   C arg1,
+--   T arg2
+-- )
+-- )
+-- {
+--   return &f;
+-- }
+{-| __C declaration:__ @T@
+
+    __defined at:__ @binding-specs\/fun_arg\/nested\/no_ffitype.h 6:13@
+
+    __exported by:__ @binding-specs\/fun_arg\/nested\/no_ffitype.h@
+-}
+newtype T
+    = T {unwrapT :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
+instance (~) ty CInt => HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = CInt
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @instance ToFunPtr (M.C -> T -> IO ())@
+foreign import ccall safe "wrapper" hs_bindgen_3eb9be414bf7de25_base ::
+    CInt -> CInt -> IO ()
+ -> IO (FunPtr (CInt -> CInt -> IO ()))
+-- __unique:__ @instance ToFunPtr (M.C -> T -> IO ())@
+hs_bindgen_3eb9be414bf7de25 :: (M.C -> T -> IO ()) ->
+                               IO (FunPtr (M.C -> T -> IO ()))
+-- __unique:__ @instance ToFunPtr (M.C -> T -> IO ())@
+hs_bindgen_3eb9be414bf7de25 = \fun_0 -> fmap castFunPtr (hs_bindgen_3eb9be414bf7de25_base (\x_1 -> \x_2 -> fun_0 (fromFFIType x_1) (fromFFIType x_2)))
+-- __unique:__ @instance FromFunPtr (M.C -> T -> IO ())@
+foreign import ccall safe "dynamic" hs_bindgen_d3bf4e8d987645da_base ::
+    FunPtr (CInt -> CInt -> IO ())
+ -> CInt
+ -> CInt
+ -> IO ()
+-- __unique:__ @instance FromFunPtr (M.C -> T -> IO ())@
+hs_bindgen_d3bf4e8d987645da :: FunPtr (M.C -> T -> IO ()) ->
+                               M.C -> T -> IO ()
+-- __unique:__ @instance FromFunPtr (M.C -> T -> IO ())@
+hs_bindgen_d3bf4e8d987645da = \funPtr_0 -> \x_1 -> \x_2 -> hs_bindgen_d3bf4e8d987645da_base (castFunPtr funPtr_0) (toFFIType x_1) (toFFIType x_2)
+instance ToFunPtr (M.C -> T -> IO ())
+    where toFunPtr = hs_bindgen_3eb9be414bf7de25
+instance FromFunPtr (M.C -> T -> IO ())
+    where fromFunPtr = hs_bindgen_d3bf4e8d987645da
+-- __unique:__ @test_bindingspecsfun_argnestedn_Example_Safe_f@
+foreign import ccall safe "hs_bindgen_9188aad048dc5880" hs_bindgen_9188aad048dc5880_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecsfun_argnestedn_Example_Safe_f@
+hs_bindgen_9188aad048dc5880 :: FunPtr (M.C -> T -> IO ()) -> IO ()
+-- __unique:__ @test_bindingspecsfun_argnestedn_Example_Safe_f@
+hs_bindgen_9188aad048dc5880 = \x_0 -> hs_bindgen_9188aad048dc5880_base (toFFIType x_0)
+{-| __C declaration:__ @f@
+
+    __defined at:__ @binding-specs\/fun_arg\/nested\/no_ffitype.h 9:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/nested\/no_ffitype.h@
+-}
+f_safe :: FunPtr (M.C -> T -> IO ()) -> IO ()
+{-| __C declaration:__ @f@
+
+    __defined at:__ @binding-specs\/fun_arg\/nested\/no_ffitype.h 9:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/nested\/no_ffitype.h@
+-}
+f_safe = hs_bindgen_9188aad048dc5880
+-- __unique:__ @test_bindingspecsfun_argnestedn_Example_Unsafe_f@
+foreign import ccall unsafe "hs_bindgen_c216f054753a1120" hs_bindgen_c216f054753a1120_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecsfun_argnestedn_Example_Unsafe_f@
+hs_bindgen_c216f054753a1120 :: FunPtr (M.C -> T -> IO ()) -> IO ()
+-- __unique:__ @test_bindingspecsfun_argnestedn_Example_Unsafe_f@
+hs_bindgen_c216f054753a1120 = \x_0 -> hs_bindgen_c216f054753a1120_base (toFFIType x_0)
+{-| __C declaration:__ @f@
+
+    __defined at:__ @binding-specs\/fun_arg\/nested\/no_ffitype.h 9:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/nested\/no_ffitype.h@
+-}
+f_unsafe :: FunPtr (M.C -> T -> IO ()) -> IO ()
+{-| __C declaration:__ @f@
+
+    __defined at:__ @binding-specs\/fun_arg\/nested\/no_ffitype.h 9:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/nested\/no_ffitype.h@
+-}
+f_unsafe = hs_bindgen_c216f054753a1120
+-- __unique:__ @test_bindingspecsfun_argnestedn_Example_get_f@
+foreign import ccall unsafe "hs_bindgen_c6a92b57b9c5670b" hs_bindgen_c6a92b57b9c5670b_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_bindingspecsfun_argnestedn_Example_get_f@
+hs_bindgen_c6a92b57b9c5670b :: IO (FunPtr (FunPtr (M.C ->
+                                                   T -> IO ()) ->
+                                           IO ()))
+-- __unique:__ @test_bindingspecsfun_argnestedn_Example_get_f@
+hs_bindgen_c6a92b57b9c5670b = fmap fromFFIType hs_bindgen_c6a92b57b9c5670b_base
+{-# NOINLINE f_funptr #-}
+{-| __C declaration:__ @f@
+
+    __defined at:__ @binding-specs\/fun_arg\/nested\/no_ffitype.h 9:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/nested\/no_ffitype.h@
+-}
+f_funptr :: FunPtr (FunPtr (M.C -> T -> IO ()) -> IO ())
+{-| __C declaration:__ @f@
+
+    __defined at:__ @binding-specs\/fun_arg\/nested\/no_ffitype.h 9:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/nested\/no_ffitype.h@
+-}
+f_funptr = unsafePerformIO hs_bindgen_c6a92b57b9c5670b

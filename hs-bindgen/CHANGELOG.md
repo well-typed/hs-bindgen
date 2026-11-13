@@ -139,8 +139,23 @@
   `typedef void V; V f(void);`) is now dropped with a warning ("... has no FFI
   type"). Previously, `hs-bindgen` panicked. Generating a binding for such a
   function is [issue #2361][is-2361].
+  * A function type nested in a declaration (e.g., the argument type of
+    `void g(V (*x)(void));`), and a typedef of a function type (e.g., `typedef
+    V F(void);`), with such an argument or result now only lack their
+    `ToFunPtr` and `FromFunPtr` instances, with a warning. Previously,
+    `hs-bindgen` panicked.
+  * A function type that passes a struct, union or complex value (e.g., the
+    argument type of `void h(struct S (*x)(void));`) still lacks these
+    instances, but now with an info message. Previously, they were missing
+    silently.
 
 [is-2361]: https://github.com/well-typed/hs-bindgen/issues/2361
+
+* Function types that differ only in qualifiers (e.g., `void (*)(const T)` and
+  `void (*)(T)`) no longer generate duplicate `ToFunPtr` and `FromFunPtr`
+  instances. See [issue #2364][is-2364].
+
+[is-2364]: https://github.com/well-typed/hs-bindgen/issues/2364
 
 ## 1.0.0.0 -- 2026-10-08
 

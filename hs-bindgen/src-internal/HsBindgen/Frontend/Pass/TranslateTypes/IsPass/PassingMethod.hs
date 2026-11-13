@@ -1,6 +1,8 @@
 module HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassingMethod (
     PassingMethod (..)
   , ResPassingMethod (..)
+  , isSerialized
+  , isResSerialized
   , serializedFFIType
   , passingMethodFFIType
   ) where
@@ -52,6 +54,18 @@ instance (
   coercePass = \case
       PassResVoid      -> PassResVoid
       PassResNonVoid x -> PassResNonVoid (coercePass x)
+
+-- | Is the value serialised?
+isSerialized :: PassingMethod p -> Bool
+isSerialized = \case
+    PassDirect{}     -> False
+    PassSerialized{} -> True
+
+-- | Is the result serialised?
+isResSerialized :: ResPassingMethod p -> Bool
+isResSerialized = \case
+    PassResVoid      -> False
+    PassResNonVoid x -> isSerialized x
 
 -- | FFI type of a serialised value
 serializedFFIType :: Hs.FFIType

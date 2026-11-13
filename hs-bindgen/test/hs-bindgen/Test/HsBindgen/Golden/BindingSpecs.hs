@@ -47,6 +47,8 @@ testCases = [
     , test_fun_arg_typedef_struct
     , test_fun_arg_typedef_union
     , test_fun_arg_typedef_no_ffitype
+    , test_fun_arg_nested_no_ffitype
+    , test_fun_arg_nested_struct_ffitype
       -- * Function arguments with macros
     , test_fun_arg_macro_array
     , test_fun_arg_macro_array_known_size
@@ -295,6 +297,48 @@ test_fun_arg_typedef_selectionPredicate :: Boolean SelectionPredicate
 test_fun_arg_typedef_selectionPredicate =
     BOr (BIf $ SelectDecl (DeclNameMatches "\\b(A|B|C|D|E)$|My"))
         (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
+
+{-------------------------------------------------------------------------------
+  Function arguments of nested function types
+-------------------------------------------------------------------------------}
+
+-- | An external binding without an FFI type in a nested function type: we warn
+-- and generate the @ToFunPtr@ and @FromFunPtr@ instances
+test_fun_arg_nested_no_ffitype :: TestCase
+test_fun_arg_nested_no_ffitype =
+    test_fun_arg_nested "binding-specs/fun_arg/nested/no_ffitype"
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchDelayedTranslateTypes name TranslateTypesExtBindingFallback{} ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["f"]
+
+-- | An external binding of a struct in a nested function type, whose binding
+-- specification gives an FFI type: the struct is passed by value, so the
+-- function type gets no @ToFunPtr@ and @FromFunPtr@ instances
+test_fun_arg_nested_struct_ffitype :: TestCase
+test_fun_arg_nested_struct_ffitype =
+    test_fun_arg_nested "binding-specs/fun_arg/nested/struct_ffitype"
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchDelayedTranslateTypes name TranslateTypesFunTypeSerialized{} ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["f"]
+
+test_fun_arg_nested :: FilePath -> TestCase
+test_fun_arg_nested path =
+  defaultTest path
+      & #specExternal .~
+          [ "test-artefacts" </> "headers" </> "golden" </> path <.> "yaml"
+          ]
 
 {-------------------------------------------------------------------------------
   Function arguments with macros

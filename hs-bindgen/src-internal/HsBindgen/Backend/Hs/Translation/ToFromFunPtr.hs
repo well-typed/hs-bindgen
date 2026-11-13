@@ -4,7 +4,8 @@
 --
 -- > HsBindgen.Backend.Hs.Translation.ToFromFunPtr qualified as ToFromFunPtr
 module HsBindgen.Backend.Hs.Translation.ToFromFunPtr (
-    forFunction
+    withInstances
+  , forFunction
   , forNewtype
   ) where
 
@@ -19,9 +20,11 @@ import HsBindgen.Backend.HsModule.Pretty ()
 import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassingMethod
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
+import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -31,32 +34,37 @@ import HsBindgen.Language.Haskell qualified as Hs
   C counterparts); it therefore suffices if they are locally unique.
 -------------------------------------------------------------------------------}
 
--- | Generate ToFunPtr/FromFunPtr instances for nested function pointer types
+-- | The function type, if it gets @ToFunPtr@ and @FromFunPtr@ instances
 --
--- This function analyses the function declaration arguments and return types,
--- and for each function pointer argument/return type containing at least one
--- non-orphan type, generates the FFI wrapper and dynamic stubs along with
--- the respective ToFunPtr and FromFunPtr instances.
+-- A function type gets instances iff it is classified and no position is
+-- serialised: function pointers have no C wrapper. The @TranslateTypes@ pass
+-- reports the function types without instances.
+withInstances :: FunType Final -> Maybe (ClassifiedFunType Final)
+withInstances = \case
+    FunTypeUnclassified _ -> Nothing
+    FunTypeClassified funType
+      | any (isSerialized . (.ann)) funType.args -> Nothing
+      | isResSerialized funType.res.ann          -> Nothing
+      | otherwise                                -> Just funType
+
+-- | Generate ToFunPtr/FromFunPtr instances for a nested function type
 --
 -- These instances are placed in the main module to avoid orphan instances.
-forFunction ::
-     ([C.TypeFunArg Final], C.Type Final)
-  -> [Hs.Decl l]
-forFunction (args, res) =
+forFunction :: ClassifiedFunType Final -> [Hs.Decl l]
+forFunction funType =
     instancesFor
       nameTo
       nameFrom
-      funC
+      funType
       funHs
       importFor
   where
-    funC  = C.TypeFun args res
-    funHs = Translation.topLevel funC
+    funHs = hsFunType funType
 
     importFor :: ImportFor
     importFor = ImportForFunction {
-          args = Translation.inContext Translation.FunArg <$> args
-        , res =  Hs.IO $ Translation.inContext Translation.FunRes res
+          args = hsArgTypes funType
+        , res  = Hs.IO funType.res.typ.hs
         }
 
     nameWith :: String -> UniqueSymbol
@@ -70,23 +78,22 @@ forFunction (args, res) =
 -- | Generate instances for newtype around functions
 forNewtype ::
      Hs.Newtype
-  -> ([C.TypeFunArg Final], C.Type Final)
+  -> ClassifiedFunType Final
   -> [Hs.Decl l]
-forNewtype newtyp (args, res) =
+forNewtype newtyp funType =
     instancesFor
       nameTo
       nameFrom
-      funC
+      funType
       funHs
       importFor
   where
-    funC  = C.TypeFun args res
     funHs = Hs.TypRef newtyp.name (Just newtyp.field.typ)
 
     importFor :: ImportFor
     importFor = ImportForNewtype {
-          args = Translation.inContext Translation.FunArg <$> args
-        , res =  Hs.IO $ Translation.inContext Translation.FunRes res
+          args   = hsArgTypes funType
+        , res    = Hs.IO funType.res.typ.hs
         , newtyp = newtyp
         }
 
@@ -104,15 +111,16 @@ forNewtype newtyp (args, res) =
 instancesFor ::
      UniqueSymbol -- ^ Name of the @toFunPtr@ fun
   -> UniqueSymbol -- ^ Name of the @fromFunPtr@ fun
-  -> C.Type Final -- ^ Type of the C function
-  -> Hs.Type      -- ^ Corresponding Haskell type
+  -> ClassifiedFunType Final
+  -> Hs.Type      -- ^ Haskell type of the instance
   -> ImportFor
   -> [Hs.Decl l]
-instancesFor nameTo nameFrom funC funHs importFor = concat [
+instancesFor nameTo nameFrom funType funHs importFor = concat [
       -- import for @ToFunPtr@ instance
       HsFI.foreignImportWrapperDec
         (Hs.ForeignImport.FunName nameTo)
         funHs
+        (ffiFunType funType)
         importFor
         (Origin.ToFunPtr funC)
 
@@ -120,6 +128,7 @@ instancesFor nameTo nameFrom funC funHs importFor = concat [
     , HsFI.foreignImportDynamicDec
         (Hs.ForeignImport.FunName nameFrom)
         funHs
+        (ffiFunType funType)
         importFor
         (Origin.ToFunPtr funC)
 
@@ -143,6 +152,28 @@ instancesFor nameTo nameFrom funC funHs importFor = concat [
           }
       ]
     ]
+  where
+    funC :: C.Type Final
+    funC = C.TypeFun (map C.typeOfFunctionArg funType.args) funType.res.typ.c
+
+-- | Haskell types of the arguments
+hsArgTypes :: ClassifiedFunType Final -> [Hs.Type]
+hsArgTypes funType = map (.typ.hs) funType.args
+
+-- | Haskell type of the function type
+hsFunType :: ClassifiedFunType Final -> Hs.Type
+hsFunType funType = Translation.funType (hsArgTypes funType) funType.res.typ.hs
+
+-- | FFI type of the function type
+--
+-- The result is in 'IO': the @"wrapper"@ and @"dynamic"@ imports run in 'IO'.
+ffiFunType :: ClassifiedFunType Final -> Hs.FFIFunType
+ffiFunType funType = Hs.FFIFunType{
+      args = map (passingMethodFFIType . (.ann)) funType.args
+    , res  = case funType.res.ann of
+        PassResVoid      -> Hs.FFIResIOUnit
+        PassResNonVoid x -> Hs.FFIResIO (passingMethodFFIType x)
+    }
 
 prettyHsType :: Hs.Type -> String
 prettyHsType = show . PP.pretty . SHs.translateType

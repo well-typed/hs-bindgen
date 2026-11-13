@@ -1,0 +1,269 @@
+-- addDependentFile test-artefacts/headers/golden/functions/fun_ptr_instances/void_typedef_result.h
+-- #include <functions/fun_ptr_instances/void_typedef_result.h>
+-- void hs_bindgen_740066311785f776 (
+--   V (*arg1) (void)
+-- )
+-- {
+--   (g)(arg1);
+-- }
+-- void hs_bindgen_f0890062cbfca39e (
+--   V (*arg1) (
+--   void (*arg1) (
+--   T arg1
+-- )
+-- )
+-- )
+-- {
+--   (k)(arg1);
+-- }
+-- void hs_bindgen_a9e8d4f513d4ecd3 (
+--   V (*arg1) (void)
+-- )
+-- {
+--   (g)(arg1);
+-- }
+-- void hs_bindgen_ab6cc1bffc5a4696 (
+--   V (*arg1) (
+--   void (*arg1) (
+--   T arg1
+-- )
+-- )
+-- )
+-- {
+--   (k)(arg1);
+-- }
+-- /* test_functionsfun_ptr_instancesvo_Example_get_g */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_855882c031315f1f (void)) (
+--   V (*arg1) (void)
+-- )
+-- {
+--   return &g;
+-- }
+-- /* test_functionsfun_ptr_instancesvo_Example_get_k */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_3d59825292489f4b (void)) (
+--   V (*arg1) (
+--   void (*arg1) (
+--   T arg1
+-- )
+-- )
+-- )
+-- {
+--   return &k;
+-- }
+{-| __C declaration:__ @V@
+
+    __defined at:__ @functions\/fun_ptr_instances\/void_typedef_result.h 3:14@
+
+    __exported by:__ @functions\/fun_ptr_instances\/void_typedef_result.h@
+-}
+data V
+{-| __C declaration:__ @T@
+
+    __defined at:__ @functions\/fun_ptr_instances\/void_typedef_result.h 4:13@
+
+    __exported by:__ @functions\/fun_ptr_instances\/void_typedef_result.h@
+-}
+newtype T
+    = T {unwrapT :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
+instance (~) ty CInt => HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @F@
+
+    __defined at:__ @functions\/fun_ptr_instances\/void_typedef_result.h 10:11@
+
+    __exported by:__ @functions\/fun_ptr_instances\/void_typedef_result.h@
+-}
+newtype F = F {unwrapF :: (IO V)} deriving stock Generic
+instance (~) ty (IO V) => HasField "unwrapF" F ty
+    where hasField = \x_0 -> (\y_1 -> F{unwrapF = y_1},
+                              getField @"unwrapF" x_0)
+instance (~) ty (IO V) => HasField "unwrapF" (Ptr F) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapF")
+instance HasCField F "unwrapF"
+    where type CFieldType F "unwrapF" = IO V
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @instance ToFunPtr (T -> IO ())@
+foreign import ccall safe "wrapper" hs_bindgen_938f852d69e4b718_base ::
+    CInt -> IO ()
+ -> IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @instance ToFunPtr (T -> IO ())@
+hs_bindgen_938f852d69e4b718 :: (T -> IO ()) ->
+                               IO (FunPtr (T -> IO ()))
+-- __unique:__ @instance ToFunPtr (T -> IO ())@
+hs_bindgen_938f852d69e4b718 = \fun_0 -> fmap castFunPtr (hs_bindgen_938f852d69e4b718_base (\x_1 -> fun_0 (fromFFIType x_1)))
+-- __unique:__ @instance FromFunPtr (T -> IO ())@
+foreign import ccall safe "dynamic" hs_bindgen_aa40e997bef5d441_base ::
+    FunPtr (CInt -> IO ())
+ -> CInt
+ -> IO ()
+-- __unique:__ @instance FromFunPtr (T -> IO ())@
+hs_bindgen_aa40e997bef5d441 :: FunPtr (T -> IO ()) -> T -> IO ()
+-- __unique:__ @instance FromFunPtr (T -> IO ())@
+hs_bindgen_aa40e997bef5d441 = \funPtr_0 -> \x_1 -> hs_bindgen_aa40e997bef5d441_base (castFunPtr funPtr_0) (toFFIType x_1)
+instance ToFunPtr (T -> IO ())
+    where toFunPtr = hs_bindgen_938f852d69e4b718
+instance FromFunPtr (T -> IO ())
+    where fromFunPtr = hs_bindgen_aa40e997bef5d441
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_Safe_g@
+foreign import ccall safe "hs_bindgen_740066311785f776" hs_bindgen_740066311785f776_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_Safe_g@
+hs_bindgen_740066311785f776 :: FunPtr (IO V) -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_Safe_g@
+hs_bindgen_740066311785f776 = \x_0 -> hs_bindgen_740066311785f776_base (toFFIType x_0)
+{-| __C declaration:__ @g@
+
+    __defined at:__ @functions\/fun_ptr_instances\/void_typedef_result.h 7:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/void_typedef_result.h@
+-}
+g_safe :: FunPtr (IO V) -> IO ()
+{-| __C declaration:__ @g@
+
+    __defined at:__ @functions\/fun_ptr_instances\/void_typedef_result.h 7:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/void_typedef_result.h@
+-}
+g_safe = hs_bindgen_740066311785f776
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_Safe_k@
+foreign import ccall safe "hs_bindgen_f0890062cbfca39e" hs_bindgen_f0890062cbfca39e_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_Safe_k@
+hs_bindgen_f0890062cbfca39e :: FunPtr (FunPtr (T -> IO ()) ->
+                                       IO V) ->
+                               IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_Safe_k@
+hs_bindgen_f0890062cbfca39e = \x_0 -> hs_bindgen_f0890062cbfca39e_base (toFFIType x_0)
+{-| __C declaration:__ @k@
+
+    __defined at:__ @functions\/fun_ptr_instances\/void_typedef_result.h 13:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/void_typedef_result.h@
+-}
+k_safe :: FunPtr (FunPtr (T -> IO ()) -> IO V) -> IO ()
+{-| __C declaration:__ @k@
+
+    __defined at:__ @functions\/fun_ptr_instances\/void_typedef_result.h 13:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/void_typedef_result.h@
+-}
+k_safe = hs_bindgen_f0890062cbfca39e
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_Unsafe_g@
+foreign import ccall unsafe "hs_bindgen_a9e8d4f513d4ecd3" hs_bindgen_a9e8d4f513d4ecd3_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_Unsafe_g@
+hs_bindgen_a9e8d4f513d4ecd3 :: FunPtr (IO V) -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_Unsafe_g@
+hs_bindgen_a9e8d4f513d4ecd3 = \x_0 -> hs_bindgen_a9e8d4f513d4ecd3_base (toFFIType x_0)
+{-| __C declaration:__ @g@
+
+    __defined at:__ @functions\/fun_ptr_instances\/void_typedef_result.h 7:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/void_typedef_result.h@
+-}
+g_unsafe :: FunPtr (IO V) -> IO ()
+{-| __C declaration:__ @g@
+
+    __defined at:__ @functions\/fun_ptr_instances\/void_typedef_result.h 7:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/void_typedef_result.h@
+-}
+g_unsafe = hs_bindgen_a9e8d4f513d4ecd3
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_Unsafe_k@
+foreign import ccall unsafe "hs_bindgen_ab6cc1bffc5a4696" hs_bindgen_ab6cc1bffc5a4696_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_Unsafe_k@
+hs_bindgen_ab6cc1bffc5a4696 :: FunPtr (FunPtr (T -> IO ()) ->
+                                       IO V) ->
+                               IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_Unsafe_k@
+hs_bindgen_ab6cc1bffc5a4696 = \x_0 -> hs_bindgen_ab6cc1bffc5a4696_base (toFFIType x_0)
+{-| __C declaration:__ @k@
+
+    __defined at:__ @functions\/fun_ptr_instances\/void_typedef_result.h 13:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/void_typedef_result.h@
+-}
+k_unsafe :: FunPtr (FunPtr (T -> IO ()) -> IO V) -> IO ()
+{-| __C declaration:__ @k@
+
+    __defined at:__ @functions\/fun_ptr_instances\/void_typedef_result.h 13:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/void_typedef_result.h@
+-}
+k_unsafe = hs_bindgen_ab6cc1bffc5a4696
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_get_g@
+foreign import ccall unsafe "hs_bindgen_855882c031315f1f" hs_bindgen_855882c031315f1f_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_get_g@
+hs_bindgen_855882c031315f1f :: IO (FunPtr (FunPtr (IO V) -> IO ()))
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_get_g@
+hs_bindgen_855882c031315f1f = fmap fromFFIType hs_bindgen_855882c031315f1f_base
+{-# NOINLINE g_funptr #-}
+{-| __C declaration:__ @g@
+
+    __defined at:__ @functions\/fun_ptr_instances\/void_typedef_result.h 7:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/void_typedef_result.h@
+-}
+g_funptr :: FunPtr (FunPtr (IO V) -> IO ())
+{-| __C declaration:__ @g@
+
+    __defined at:__ @functions\/fun_ptr_instances\/void_typedef_result.h 7:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/void_typedef_result.h@
+-}
+g_funptr = unsafePerformIO hs_bindgen_855882c031315f1f
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_get_k@
+foreign import ccall unsafe "hs_bindgen_3d59825292489f4b" hs_bindgen_3d59825292489f4b_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_get_k@
+hs_bindgen_3d59825292489f4b :: IO (FunPtr (FunPtr (FunPtr (T ->
+                                                           IO ()) ->
+                                                   IO V) ->
+                                           IO ()))
+-- __unique:__ @test_functionsfun_ptr_instancesvo_Example_get_k@
+hs_bindgen_3d59825292489f4b = fmap fromFFIType hs_bindgen_3d59825292489f4b_base
+{-# NOINLINE k_funptr #-}
+{-| __C declaration:__ @k@
+
+    __defined at:__ @functions\/fun_ptr_instances\/void_typedef_result.h 13:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/void_typedef_result.h@
+-}
+k_funptr :: FunPtr (FunPtr (FunPtr (T -> IO ()) -> IO V) -> IO ())
+{-| __C declaration:__ @k@
+
+    __defined at:__ @functions\/fun_ptr_instances\/void_typedef_result.h 13:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/void_typedef_result.h@
+-}
+k_funptr = unsafePerformIO hs_bindgen_3d59825292489f4b

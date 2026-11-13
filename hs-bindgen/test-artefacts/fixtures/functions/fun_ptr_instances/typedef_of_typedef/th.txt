@@ -1,0 +1,84 @@
+-- addDependentFile test-artefacts/headers/golden/functions/fun_ptr_instances/typedef_of_typedef.h
+{-| __C declaration:__ @T@
+
+    __defined at:__ @functions\/fun_ptr_instances\/typedef_of_typedef.h 3:13@
+
+    __exported by:__ @functions\/fun_ptr_instances\/typedef_of_typedef.h@
+-}
+newtype T
+    = T {unwrapT :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
+instance (~) ty CInt => HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @f@
+
+    __defined at:__ @functions\/fun_ptr_instances\/typedef_of_typedef.h 5:14@
+
+    __exported by:__ @functions\/fun_ptr_instances\/typedef_of_typedef.h@
+-}
+newtype F = F {unwrapF :: (T -> IO ())} deriving stock Generic
+-- __unique:__ @toF@
+foreign import ccall safe "wrapper" hs_bindgen_ec3947c3928618e6_base ::
+    CInt -> IO ()
+ -> IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @toF@
+hs_bindgen_ec3947c3928618e6 :: F -> IO (FunPtr F)
+-- __unique:__ @toF@
+hs_bindgen_ec3947c3928618e6 = \fun_0 -> fmap castFunPtr (hs_bindgen_ec3947c3928618e6_base (\x_1 -> getField @"unwrapF" fun_0 (fromFFIType x_1)))
+-- __unique:__ @fromF@
+foreign import ccall safe "dynamic" hs_bindgen_4de86d83e18d0bbf_base ::
+    FunPtr (CInt -> IO ())
+ -> CInt
+ -> IO ()
+-- __unique:__ @fromF@
+hs_bindgen_4de86d83e18d0bbf :: FunPtr F -> F
+-- __unique:__ @fromF@
+hs_bindgen_4de86d83e18d0bbf = \funPtr_0 -> F (\x_1 -> hs_bindgen_4de86d83e18d0bbf_base (castFunPtr funPtr_0) (toFFIType x_1))
+instance ToFunPtr F
+    where toFunPtr = hs_bindgen_ec3947c3928618e6
+instance FromFunPtr F
+    where fromFunPtr = hs_bindgen_4de86d83e18d0bbf
+instance (~) ty (T -> IO ()) => HasField "unwrapF" F ty
+    where hasField = \x_0 -> (\y_1 -> F{unwrapF = y_1},
+                              getField @"unwrapF" x_0)
+instance (~) ty (T -> IO ()) => HasField "unwrapF" (Ptr F) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapF")
+instance HasCField F "unwrapF"
+    where type CFieldType F "unwrapF" = T -> IO ()
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @g@
+
+    __defined at:__ @functions\/fun_ptr_instances\/typedef_of_typedef.h 8:11@
+
+    __exported by:__ @functions\/fun_ptr_instances\/typedef_of_typedef.h@
+-}
+newtype G = G {unwrapG :: F} deriving stock Generic
+instance (~) ty F => HasField "unwrapG" G ty
+    where hasField = \x_0 -> (\y_1 -> G{unwrapG = y_1},
+                              getField @"unwrapG" x_0)
+instance (~) ty F => HasField "unwrapG" (Ptr G) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapG")
+instance HasCField G "unwrapG"
+    where type CFieldType G "unwrapG" = F
+          offset# = \_ -> \_ -> 0

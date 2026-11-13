@@ -1,0 +1,164 @@
+-- addDependentFile test-artefacts/headers/golden/functions/fun_ptr_instances/array_param.h
+-- #include <functions/fun_ptr_instances/array_param.h>
+-- void hs_bindgen_e18829d03b61c1a3 (
+--   void (*arg1) (
+--   T *arg1
+-- )
+-- )
+-- {
+--   (a)(arg1);
+-- }
+-- void hs_bindgen_54b0e4d35b7eab53 (
+--   void (*arg1) (
+--   T *arg1
+-- )
+-- )
+-- {
+--   (a)(arg1);
+-- }
+-- /* test_functionsfun_ptr_instancesar_Example_get_a */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_a00185fdfc403c08 (void)) (
+--   void (*arg1) (
+--   T *arg1
+-- )
+-- )
+-- {
+--   return &a;
+-- }
+{-| __C declaration:__ @T@
+
+    __defined at:__ @functions\/fun_ptr_instances\/array_param.h 3:13@
+
+    __exported by:__ @functions\/fun_ptr_instances\/array_param.h@
+-}
+newtype T
+    = T {unwrapT :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
+instance (~) ty CInt => HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = CInt
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @instance ToFunPtr (BG.Ptr (IsA.Elem (CA.ConstantArray 3 T)) -> IO ())@
+foreign import ccall safe "wrapper" hs_bindgen_51580f6056b315c6_base ::
+    Ptr Void -> IO ()
+ -> IO (FunPtr (Ptr Void -> IO ()))
+-- __unique:__ @instance ToFunPtr (BG.Ptr (IsA.Elem (CA.ConstantArray 3 T)) -> IO ())@
+hs_bindgen_51580f6056b315c6 :: (Ptr (Elem (ConstantArray 3 T)) ->
+                                IO ()) ->
+                               IO (FunPtr (Ptr (Elem (ConstantArray 3 T)) -> IO ()))
+-- __unique:__ @instance ToFunPtr (BG.Ptr (IsA.Elem (CA.ConstantArray 3 T)) -> IO ())@
+hs_bindgen_51580f6056b315c6 = \fun_0 -> fmap castFunPtr (hs_bindgen_51580f6056b315c6_base (\x_1 -> fun_0 (fromFFIType x_1)))
+-- __unique:__ @instance FromFunPtr (BG.Ptr (IsA.Elem (CA.ConstantArray 3 T)) -> IO ())@
+foreign import ccall safe "dynamic" hs_bindgen_461f765741b54ba8_base ::
+    FunPtr (Ptr Void -> IO ())
+ -> Ptr Void
+ -> IO ()
+-- __unique:__ @instance FromFunPtr (BG.Ptr (IsA.Elem (CA.ConstantArray 3 T)) -> IO ())@
+hs_bindgen_461f765741b54ba8 :: FunPtr (Ptr (Elem (ConstantArray 3
+                                                                T)) ->
+                                       IO ()) ->
+                               Ptr (Elem (ConstantArray 3 T)) -> IO ()
+-- __unique:__ @instance FromFunPtr (BG.Ptr (IsA.Elem (CA.ConstantArray 3 T)) -> IO ())@
+hs_bindgen_461f765741b54ba8 = \funPtr_0 -> \x_1 -> hs_bindgen_461f765741b54ba8_base (castFunPtr funPtr_0) (toFFIType x_1)
+instance ToFunPtr (Ptr (Elem (ConstantArray 3 T)) -> IO ())
+    where toFunPtr = hs_bindgen_51580f6056b315c6
+instance FromFunPtr (Ptr (Elem (ConstantArray 3 T)) -> IO ())
+    where fromFunPtr = hs_bindgen_461f765741b54ba8
+-- __unique:__ @test_functionsfun_ptr_instancesar_Example_Safe_a@
+foreign import ccall safe "hs_bindgen_e18829d03b61c1a3" hs_bindgen_e18829d03b61c1a3_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesar_Example_Safe_a@
+hs_bindgen_e18829d03b61c1a3 :: FunPtr (Ptr (Elem (ConstantArray 3
+                                                                T)) ->
+                                       IO ()) ->
+                               IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesar_Example_Safe_a@
+hs_bindgen_e18829d03b61c1a3 = \x_0 -> hs_bindgen_e18829d03b61c1a3_base (toFFIType x_0)
+{-| __C declaration:__ @a@
+
+    __defined at:__ @functions\/fun_ptr_instances\/array_param.h 6:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/array_param.h@
+-}
+a_safe :: FunPtr (Ptr (Elem (ConstantArray 3 T)) -> IO ()) -> IO ()
+{-| __C declaration:__ @a@
+
+    __defined at:__ @functions\/fun_ptr_instances\/array_param.h 6:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/array_param.h@
+-}
+a_safe = hs_bindgen_e18829d03b61c1a3
+-- __unique:__ @test_functionsfun_ptr_instancesar_Example_Unsafe_a@
+foreign import ccall unsafe "hs_bindgen_54b0e4d35b7eab53" hs_bindgen_54b0e4d35b7eab53_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesar_Example_Unsafe_a@
+hs_bindgen_54b0e4d35b7eab53 :: FunPtr (Ptr (Elem (ConstantArray 3
+                                                                T)) ->
+                                       IO ()) ->
+                               IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesar_Example_Unsafe_a@
+hs_bindgen_54b0e4d35b7eab53 = \x_0 -> hs_bindgen_54b0e4d35b7eab53_base (toFFIType x_0)
+{-| __C declaration:__ @a@
+
+    __defined at:__ @functions\/fun_ptr_instances\/array_param.h 6:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/array_param.h@
+-}
+a_unsafe :: FunPtr (Ptr (Elem (ConstantArray 3 T)) -> IO ()) ->
+            IO ()
+{-| __C declaration:__ @a@
+
+    __defined at:__ @functions\/fun_ptr_instances\/array_param.h 6:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/array_param.h@
+-}
+a_unsafe = hs_bindgen_54b0e4d35b7eab53
+-- __unique:__ @test_functionsfun_ptr_instancesar_Example_get_a@
+foreign import ccall unsafe "hs_bindgen_a00185fdfc403c08" hs_bindgen_a00185fdfc403c08_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_functionsfun_ptr_instancesar_Example_get_a@
+hs_bindgen_a00185fdfc403c08 :: IO (FunPtr (FunPtr (Ptr (Elem (ConstantArray 3
+                                                                            T)) ->
+                                                   IO ()) ->
+                                           IO ()))
+-- __unique:__ @test_functionsfun_ptr_instancesar_Example_get_a@
+hs_bindgen_a00185fdfc403c08 = fmap fromFFIType hs_bindgen_a00185fdfc403c08_base
+{-# NOINLINE a_funptr #-}
+{-| __C declaration:__ @a@
+
+    __defined at:__ @functions\/fun_ptr_instances\/array_param.h 6:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/array_param.h@
+-}
+a_funptr :: FunPtr (FunPtr (Ptr (Elem (ConstantArray 3 T)) ->
+                            IO ()) ->
+                    IO ())
+{-| __C declaration:__ @a@
+
+    __defined at:__ @functions\/fun_ptr_instances\/array_param.h 6:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/array_param.h@
+-}
+a_funptr = unsafePerformIO hs_bindgen_a00185fdfc403c08
