@@ -12,6 +12,8 @@ name: "Windows tests"
 #
 # Maintenance:
 #
+# * GHC versions are full versions: .github/actions/setup-haskell keys its
+#   cache by them.
 # * Configure supported GHC versions in
 #   `on.workflow_dispatch.inputs.ghc_versions.default`.
 # * Configure GHC versions tested on pull requests in
@@ -30,8 +32,8 @@ on:
   workflow_dispatch:
     inputs:
       ghc_versions:
-        description: "Comma-separated list of GHC version strings"
-        default: '"9.4","9.6","9.8","9.10","9.12","9.14"'
+        description: "Comma-separated list of full GHC version strings"
+        default: '"9.4.8","9.6.7","9.8.4","9.10.3","9.12.4","9.14.1"'
         required: true
       enable_cache:
         description: "Enable cache (restore and save)"
@@ -62,11 +64,11 @@ jobs:
     steps:
       - name: "Setup GHC versions (PR)"
         if: ${{ github.event_name == 'pull_request' }}
-        run: echo GHC_VERSIONS='"9.4","9.14"' | tee -a "${GITHUB_ENV}"
+        run: echo GHC_VERSIONS='"9.4.8","9.14.1"' | tee -a "${GITHUB_ENV}"
 
       - name: "Setup GHC versions (MQ and push to main)"
         if: ${{ github.event_name == 'merge_group' || github.event_name == 'push' }}
-        run: echo GHC_VERSIONS='"9.4","9.6","9.8","9.10","9.12","9.14"' | tee -a "${GITHUB_ENV}"
+        run: echo GHC_VERSIONS='"9.4.8","9.6.7","9.8.4","9.10.3","9.12.4","9.14.1"' | tee -a "${GITHUB_ENV}"
 
       - name: "Setup GHC versions (dispatch)"
         if: ${{ github.event_name == 'workflow_dispatch' }}
@@ -160,11 +162,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: "[checkout] Debug disk usage"
-        run: |
-          echo '== Disk usage =================================================================='
-          df -h
-          echo '== Home directory size ========================================================='
-          du -sh "${HOME}"
+        run: df -h
 
       - name: "[checkout] Create tmate session"
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_tmate == 'checkout' }}
@@ -172,7 +170,7 @@ jobs:
 
       - name: "[setup] Setup Haskell"
         id: setup-haskell
-        uses: haskell-actions/setup@v2
+        uses: ./.github/actions/setup-haskell
         with:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: 3.16
@@ -297,11 +295,7 @@ jobs:
           cabal run hs-bindgen-cli -- info resolve-header -v4 stddef.h
 
       - name: "[build] Debug disk usage"
-        run: |
-          echo '== Disk usage =================================================================='
-          df -h
-          echo '== Home directory size ========================================================='
-          du -sh "${HOME}"
+        run: df -h
 
       - name: "[build] Create tmate session"
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_tmate == 'build' }}

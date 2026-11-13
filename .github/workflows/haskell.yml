@@ -28,16 +28,19 @@ jobs:
     # NOTE: For caching purposes, the matrix combinations that we test on pull
     # requests (PR) should be a subset of the matrix combinations we run on the
     # merge queue and main (MQ, push to main).
+    #
+    # GHC versions are full versions: .github/actions/setup-haskell keys its
+    # cache by them.
     - name: 🛠️ Setup matrix (PR)
       if: ${{ github.event_name == 'pull_request' }}
       run: |
         { echo 'MATRIX_COMBINATIONS<<EOF'
           # Default CI: oldest (14) and newest (23) LLVM on Linux, plus macOS on
           # the oldest. All versions are covered by comprehensive-ci.
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "14"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "23"},'
-          echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "14"},'
-          echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "23"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.4.8", "llvm": "14"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.4.8", "llvm": "23"},'
+          echo '{"runner": "macos-latest"  , "ghc": "9.4.8", "llvm": "14"},'
+          echo '{"runner": "macos-latest"  , "ghc": "9.4.8", "llvm": "23"},'
           echo EOF
         } >> "$GITHUB_ENV"
 
@@ -47,16 +50,16 @@ jobs:
         { echo 'MATRIX_COMBINATIONS<<EOF'
           # Default CI: oldest (14) and newest (23) LLVM on Linux, plus macOS on
           # the oldest. The middle versions are covered by comprehensive-ci.
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "14"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "23"},'
-          echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "14"},'
-          echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "23"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.4.8", "llvm": "14"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.4.8", "llvm": "23"},'
+          echo '{"runner": "macos-latest"  , "ghc": "9.4.8", "llvm": "14"},'
+          echo '{"runner": "macos-latest"  , "ghc": "9.4.8", "llvm": "23"},'
           # Vary GHC version from 9.4 to 9.14.
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.6", "llvm": "14"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.8", "llvm": "14"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.10", "llvm": "14"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.12", "llvm": "14"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.14", "llvm": "14"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.6.7", "llvm": "14"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.8.4", "llvm": "14"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.10.3", "llvm": "14"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.12.4", "llvm": "14"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.14.1", "llvm": "14"},'
           echo EOF
         } >> "$GITHUB_ENV"
 
@@ -151,15 +154,11 @@ jobs:
       uses: actions/checkout@v7
 
     - name: (Debug) Check disk usage (init)
-      run: |
-        echo "--- Disk usage ---"
-        df -h
-        echo "--- Home directory size ---"
-        du -sh $HOME
+      run: df -h
 
     - name: 🛠️ Setup Haskell
       id: setup-haskell
-      uses: haskell-actions/setup@v2
+      uses: ./.github/actions/setup-haskell
       with:
         ghc-version: ${{ matrix.ghc }}
         cabal-version: 3.16
@@ -183,11 +182,7 @@ jobs:
       uses: ./.github/actions/setup-doxygen
 
     - name: (Debug) Check disk usage (after GHC and LLVM install)
-      run: |
-        echo "--- Disk usage ---"
-        df -h
-        echo "--- Home directory size ---"
-        du -sh $HOME
+      run: df -h
 
     - name: 🛠️ Configure (hs-bindgen)
       run: cat cabal.project.ci | tee cabal.project
@@ -235,11 +230,7 @@ jobs:
       run: cabal build all
 
     - name: (Debug) Check disk usage (after build)
-      run: |
-        echo "--- Disk usage ---"
-        df -h
-        echo "--- Home directory size ---"
-        du -sh $HOME
+      run: df -h
 
     - name: 🧪 Debug (hs-bindgen)
       run: |
