@@ -18,6 +18,7 @@ module HsBindgen.ArtefactM (
     -- ** Actions
   , delay
   , DelayedIO(..)
+  , ExecutionMode(..)
   , executeDelayedIOActions
     -- * Errors
   , DelayedIOError(..)
@@ -155,20 +156,39 @@ data DelayedIO =
       WriteToStdOut  FileContent
     | WriteToFile    FileDescription
 
-executeDelayedIOActions :: Tracer DelayedIOMsg -> [DelayedIO] -> IO ()
-executeDelayedIOActions tracer as =
+-- | Whether a run writes its output files
+--
+-- Every output is checked before anything is written, so a dry run fails where
+-- a real run would.
+data ExecutionMode =
+    RealRun
+  | DryRun
+  deriving stock (Show, Eq)
+
+executeDelayedIOActions ::
+     Tracer DelayedIOMsg
+  -> ExecutionMode
+  -> [DelayedIO]
+  -> IO ()
+executeDelayedIOActions tracer mode as =
   forM_ as $ \case
     WriteToStdOut x -> case x of
       StringContent     s  -> putStrLn s
       ByteStringContent bs -> BSS.putStr bs
     WriteToFile  fd -> do
       let path = fileLocationToPath fd.location
-      traceWith tracer $ withCallStack $ DelayedIOWriteToFile path fd.description
-      -- Creating the directory is justified by checking the policy first.
-      Dir.createDirectoryIfMissing True (takeDirectory path)
-      case fd.content of
-        StringContent     s  -> writeFile path s
-        ByteStringContent bs -> BSS.writeFile path bs
+      case mode of
+        DryRun ->
+          traceWith tracer $ withCallStack $
+            DelayedIOWouldWriteToFile path fd.description
+        RealRun -> do
+          traceWith tracer $ withCallStack $
+            DelayedIOWriteToFile path fd.description
+          -- Creating the directory is justified by checking the policy first.
+          Dir.createDirectoryIfMissing True (takeDirectory path)
+          case fd.content of
+            StringContent     s  -> writeFile path s
+            ByteStringContent bs -> BSS.writeFile path bs
 
 {-------------------------------------------------------------------------------
   Errors
@@ -195,17 +215,24 @@ instance PrettyForTrace DelayedIOError where
 -------------------------------------------------------------------------------}
 
 data DelayedIOMsg =
-      DelayedIOWriteToFile FilePath String
+      DelayedIOWriteToFile      FilePath String
+      -- | Reported by a dry run in place of the write
+    | DelayedIOWouldWriteToFile FilePath String
   deriving stock (Show, Generic)
 
 instance PrettyForTrace DelayedIOMsg where
   prettyForTrace = \case
     DelayedIOWriteToFile path what ->
       "Writing" <+> PP.show what <+> "to file" <+> PP.show path
+    DelayedIOWouldWriteToFile path what ->
+      "Would write" <+> PP.show what <+> "to file" <+> PP.show path
 
 instance IsTrace SafeLevel DelayedIOMsg where
   getDefaultLogLevel = \case
-    DelayedIOWriteToFile{} -> SafeInfo
+    DelayedIOWriteToFile{}      -> SafeInfo
+    -- A dry run exists to list these files, so show them by default.
+    DelayedIOWouldWriteToFile{} -> SafeNotice
   getSource = const HsBindgen
   getTraceId = \case
-    DelayedIOWriteToFile{} -> "delayedio-write-file"
+    DelayedIOWriteToFile{}      -> "delayedio-write-file"
+    DelayedIOWouldWriteToFile{} -> "delayedio-would-write-file"

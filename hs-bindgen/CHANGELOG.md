@@ -35,6 +35,12 @@
 [is-368]: https://github.com/well-typed/hs-bindgen/issues/368
 [manual-macros]: https://github.com/well-typed/hs-bindgen/blob/main/manual/low-level/translation/macros.md#macro-fallback
 
+* `hs-bindgen-cli preprocess --dry-run` checks the output files as a real run
+  does, then writes nothing. It reports each file it would write, and prints
+  the base module name followed by the headers that contain a declaration with
+  a binding, for example `M: b.h, a.h`. See the invocation section of the
+  manual.
+
 ### Minor changes
 
 * A macro definition that cannot be read into name, parameters and
@@ -73,6 +79,11 @@
   union or complex value. As before, `hs-bindgen` assumes the FFI type of the
   underlying C type, so the generated code compiles only if the external type
   has a matching `HasFFIType` instance.
+
+* When there are no declarations to bind, the notice now reads `No module for
+  "M": there are no declarations to bind`, or with `--single-file`, `Module "M"
+  is empty: there are no declarations to bind`. Previously it said "No output
+  generated", even when a binding specification was written.
 
 ### Bug fixes
 

@@ -71,6 +71,7 @@ exec global opts =
       global.unsafe
       global.safe
       bindgenConfig
+      RealRun
       opts.inputs
       artefact
   where
