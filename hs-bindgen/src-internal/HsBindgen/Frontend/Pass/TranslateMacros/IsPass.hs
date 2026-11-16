@@ -8,10 +8,10 @@ import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TranslateMacros.IsPass.Msg (TranslateMacrosMsg)
+import HsBindgen.Frontend.Pass.TranslateMacros.TranslatedMacro (TranslatedMacro)
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassingMethod (PassingMethod,
                                                                     ResPassingMethod)
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
@@ -24,18 +24,18 @@ type TranslateMacros :: Pass
 data TranslateMacros a
 
 type family AnnTranslateMacros ix where
-  AnnTranslateMacros "Decl"                 = PrescriptiveDeclSpec
-  AnnTranslateMacros "Enum"                 = NewtypeNames
-  AnnTranslateMacros "IndirectField"        = IndirectFieldNames TranslateMacros
-  AnnTranslateMacros "Flam"                 = FlamNames
-  AnnTranslateMacros "FunctionArg"          = PassingMethod TranslateMacros
-  AnnTranslateMacros "FunctionRes"          = ResPassingMethod TranslateMacros
-  AnnTranslateMacros "Struct"               = StructNames
-  AnnTranslateMacros "Typedef"              = TypedefNames
-  AnnTranslateMacros "TypecheckedMacroType" = NewtypeNames
-  AnnTranslateMacros "TypeFunArg"           = AdjustedFrom TranslateMacros
-  AnnTranslateMacros "Union"                = NewtypeNames
-  AnnTranslateMacros _                      = NoAnn
+  AnnTranslateMacros "Decl"                = PrescriptiveDeclSpec
+  AnnTranslateMacros "Enum"                = NewtypeNames
+  AnnTranslateMacros "IndirectField"       = IndirectFieldNames TranslateMacros
+  AnnTranslateMacros "Flam"                = FlamNames
+  AnnTranslateMacros "FunctionArg"         = PassingMethod TranslateMacros
+  AnnTranslateMacros "FunctionRes"         = ResPassingMethod TranslateMacros
+  AnnTranslateMacros "Struct"              = StructNames
+  AnnTranslateMacros "Typedef"             = TypedefNames
+  AnnTranslateMacros "TranslatedMacroType" = NewtypeNames
+  AnnTranslateMacros "TypeFunArg"          = AdjustedFrom TranslateMacros
+  AnnTranslateMacros "Union"               = NewtypeNames
+  AnnTranslateMacros _                     = NoAnn
 
 instance IsPass TranslateMacros
 
@@ -60,7 +60,7 @@ instance PassTypes TranslateMacros where
 
 instance PassMacro TranslateMacros where
   type MacroId         TranslateMacros = Id TranslateMacros
-  type MacroBody       TranslateMacros = TypecheckedMacro TranslateMacros
+  type MacroBody       TranslateMacros = TranslatedMacro TranslateMacros
   type MacroUnderlying TranslateMacros = C.Type TranslateMacros
 
   macroIdId _ = id
@@ -107,9 +107,6 @@ instance CoercePassMacroId TranslateTypes TranslateMacros
 
 instance CoercePassMacroUnderlying TranslateTypes TranslateMacros where
   coercePassMacroUnderlying _ = coercePass
-
-instance CoercePassMacroBody TranslateTypes TranslateMacros where
-  coercePassMacroBody _ = coercePassParam
 
 instance CoercePassTypes TranslateTypes TranslateMacros where
   coercePassTypes _ = coercePass

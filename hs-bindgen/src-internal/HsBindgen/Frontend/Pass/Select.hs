@@ -27,7 +27,7 @@ import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError (..),
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TranslateMacros.IsPass (TranslateMacros)
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckedMacro (..))
+import HsBindgen.Frontend.Pass.TranslateMacros.TranslatedMacro (TranslatedMacro (TMacroRaw))
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
@@ -237,7 +237,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
               , msg = SelectMacroFallback raw.failure
               }
           | decl <- DeclDB.active DeclDB.AnyOrder db'
-          , C.DeclMacro (MacroRaw raw) <- [decl.kind]
+          , C.DeclMacro (TMacroRaw raw) <- [decl.kind]
           ]
 
         -- Single summary of fallback macros.

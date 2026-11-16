@@ -2,19 +2,27 @@ module HsBindgen.Frontend.Pass.TranslateMacros (
     translateMacros
   ) where
 
-import Control.Monad.Reader (MonadReader, ReaderT (..), withReaderT)
+import Control.Monad.Reader (MonadReader, ReaderT (..), asks, withReaderT)
 import Control.Monad.State (MonadState, State, modify, runState)
+import Data.Proxy (Proxy (Proxy))
 
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.TranslateMacros.IsPass
 import HsBindgen.Frontend.Pass.TranslateMacros.IsPass.Msg
+import HsBindgen.Frontend.Pass.TranslateMacros.TranslatedMacro
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
+import HsBindgen.IR.Translation
+import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -23,12 +31,13 @@ import HsBindgen.IR.Pass
 type PassIn  = TranslateTypes
 
 translateMacros ::
-     forall l.
-     C.TranslationUnit l PassIn
+     forall l. Macro.HasTypes l
+  => Macro.Lang l
+  -> C.TranslationUnit l PassIn
   -> ( C.TranslationUnit l TranslateMacros
      , [AnnMsg TranslateMacros]
      )
-translateMacros unit = (unit{C.db = db'}, msgs)
+translateMacros macroLang unit = (unit{C.db = db'}, msgs)
   where
     msgs = []
 
@@ -39,21 +48,29 @@ translateMacros unit = (unit{C.db = db'}, msgs)
           db
 
     (db, delayedMsgs) =
-      runM NoEnv $
+      runM globalEnv $
         DeclDB.traverseActive DeclDB.AnyOrder
           (fmap DeclDB.Advanced . processDecl)
           unit.db
+
+    globalEnv = GlobalEnv { macroLang = macroLang }
 
 {-------------------------------------------------------------------------------
   Decls
 -------------------------------------------------------------------------------}
 
-processDecl :: C.Decl l PassIn -> M NoEnv (C.Decl l TranslateMacros)
+processDecl ::
+     Macro.HasTypes l
+  => C.Decl l PassIn
+  -> GM l (C.Decl l TranslateMacros)
 processDecl decl = do
-    kind' <- withEnv (const (DeclEnv decl.info)) $ processDeclKind decl.kind
+    kind' <- withDeclEnv $ processDeclKind decl.kind
     pure $ C.coercePassDeclWith kind' decl.ann decl
 
-processDeclKind :: C.DeclKind l PassIn -> M DeclEnv (C.DeclKind l TranslateMacros)
+processDeclKind ::
+     Macro.HasTypes l
+  => C.DeclKind l PassIn
+  -> DM l (C.DeclKind l TranslateMacros)
 processDeclKind = \case
     C.DeclStruct               struct   -> C.DeclStruct               <$> processStruct           struct
     C.DeclUnion                union    -> C.DeclUnion                <$> processUnion            union
@@ -65,33 +82,56 @@ processDeclKind = \case
     C.DeclFunction             function -> C.DeclFunction             <$> processFunction         function
     C.DeclGlobal               global   -> C.DeclGlobal               <$> processGlobal           global
 
-processStruct :: C.Struct PassIn -> M DeclEnv (C.Struct TranslateMacros)
+processStruct :: C.Struct PassIn -> DM l (C.Struct TranslateMacros)
 processStruct = pure . coercePass
 
-processUnion :: C.Union PassIn -> M DeclEnv (C.Union TranslateMacros)
+processUnion :: C.Union PassIn -> DM l (C.Union TranslateMacros)
 processUnion = pure . coercePass
 
-processTypedef :: C.Typedef PassIn -> M DeclEnv (C.Typedef TranslateMacros)
+processTypedef :: C.Typedef PassIn -> DM l (C.Typedef TranslateMacros)
 processTypedef = pure . coercePass
 
-processEnum :: C.Enum PassIn -> M DeclEnv (C.Enum TranslateMacros)
+processEnum :: C.Enum PassIn -> DM l (C.Enum TranslateMacros)
 processEnum = pure . coercePass
 
 processUntaggedEnumConstant ::
      C.UntaggedEnumConstant PassIn
-  -> M DeclEnv (C.UntaggedEnumConstant TranslateMacros)
+  -> DM l (C.UntaggedEnumConstant TranslateMacros)
 processUntaggedEnumConstant = pure . coercePass
 
-processMacro :: MacroBody PassIn l -> M DeclEnv (MacroBody TranslateMacros l)
-processMacro mac = pure $ case mac of
-    MacroType  typ -> MacroType  $ coercePass typ
-    MacroValue val -> MacroValue $ coercePass val
-    MacroRaw   raw -> MacroRaw raw
+processMacro ::
+     Macro.HasTypes l
+  => MacroBody PassIn l
+  -> DM l (MacroBody TranslateMacros l)
+processMacro mac = case mac of
+    MacroType  typ -> TMacroType  <$> processMacroType typ
+    MacroValue val -> pure $ TMacroValue $ coercePass val
+    MacroRaw   raw -> pure $ TMacroRaw raw
 
-processFunction :: C.Function PassIn -> M DeclEnv (C.Function TranslateMacros)
+processMacroType ::
+     Macro.HasTypes l
+  => TypecheckedMacroType l PassIn
+  -> DM l (TranslatedMacroType TranslateMacros)
+processMacroType macroType = do
+    macroLang <- asks (.macroLang)
+    pure TranslatedMacroType {
+        typ = macroLang.translateType (fmap macroVarToHsType macroType.body)
+      , ann = macroType.ann
+      }
+  where
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/2357>: annotate
+    -- macro types with correct underlying types
+    macroVarToHsType :: MacroTypeBodyVar PassIn -> Hs.Type
+    macroVarToHsType = \case
+      MacroTypeExtBinding ext ->
+        Hs.ExtBinding ext.hsName ext.cSpec ext.hsSpec
+      MacroTypeBodyVar pair ->
+        Hs.TypRef (Hs.assertNs (Proxy @Hs.NsTypeConstr) pair.hsName) Nothing
+
+processFunction :: C.Function PassIn -> DM l (C.Function TranslateMacros)
 processFunction = pure . coercePass
 
-processGlobal :: C.Global PassIn -> M DeclEnv (C.Global TranslateMacros)
+processGlobal :: C.Global PassIn -> DM l (C.Global TranslateMacros)
 processGlobal = pure . coercePass
 
 {-------------------------------------------------------------------------------
@@ -113,10 +153,20 @@ deriving newtype instance MonadState St (M env)
 withEnv :: (env1 -> env2) -> M env2 a -> M env1 a
 withEnv f (M k) = M (withReaderT f k)
 
-data NoEnv = NoEnv
+-- | Monad 'M' with a global environment
+type GM l = M (GlobalEnv l)
+-- | Monad 'M' with a decl-local environment
+type DM l = M (DeclEnv   l)
 
-data DeclEnv = DeclEnv {
-    _info :: C.DeclInfo
+withDeclEnv :: DM l a -> GM l a
+withDeclEnv = withEnv $ \ge -> DeclEnv { macroLang = ge.macroLang }
+
+data GlobalEnv l = GlobalEnv {
+    macroLang :: Macro.Lang l
+  }
+
+data DeclEnv l = DeclEnv {
+    macroLang :: Macro.Lang l
   }
 
 newtype St = St {

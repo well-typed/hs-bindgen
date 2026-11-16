@@ -453,8 +453,9 @@ runFrontend tracer config boot = do
 
     translateMacrosPass <- cache "TranslateMacros" $ do
       afterTranslateTypesPass <- translateTypesPass
+      macroLang                     <- boot.macroLang
       let (afterTranslateMacrosTypes, msgsTranslateMacros) =
-            translateMacros afterTranslateTypesPass
+            translateMacros macroLang afterTranslateTypesPass
       forM_ msgsTranslateMacros $ traceWith (contramap FrontendTranslateMacros tracer)
       pure afterTranslateMacrosTypes
 
