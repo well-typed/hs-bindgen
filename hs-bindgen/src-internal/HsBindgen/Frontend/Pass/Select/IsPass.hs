@@ -24,7 +24,7 @@ import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro (TranslatedMacro)
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
@@ -41,17 +41,17 @@ type Select :: Pass
 data Select a
 
 type family AnnSelect ix where
-  AnnSelect "Decl"                 = PrescriptiveDeclSpec
-  AnnSelect "Enum"                 = NewtypeNames
-  AnnSelect "Flam"                 = FlamNames
-  AnnSelect "FunctionArg"          = PassingMethod Select
-  AnnSelect "FunctionRes"          = ResPassingMethod Select
-  AnnSelect "IndirectField"        = IndirectFieldNames Select
-  AnnSelect "Struct"               = StructNames
-  AnnSelect "Typedef"              = TypedefNames
-  AnnSelect "TypecheckedMacroType" = NewtypeNames
-  AnnSelect "Union"                = NewtypeNames
-  AnnSelect _                      = NoAnn
+  AnnSelect "Decl"                = PrescriptiveDeclSpec
+  AnnSelect "Enum"                = NewtypeNames
+  AnnSelect "Flam"                = FlamNames
+  AnnSelect "FunctionArg"         = PassingMethod Select
+  AnnSelect "FunctionRes"         = ResPassingMethod Select
+  AnnSelect "IndirectField"       = IndirectFieldNames Select
+  AnnSelect "Struct"              = StructNames
+  AnnSelect "Typedef"             = TypedefNames
+  AnnSelect "TranslatedMacroType" = NewtypeNames
+  AnnSelect "Union"               = NewtypeNames
+  AnnSelect _                     = NoAnn
 
 instance IsPass Select
 
@@ -75,8 +75,8 @@ instance PassTypes Select where
   anonRefTypes _ = translatedAnonRefType
 
 instance PassMacro Select where
-  type MacroId Select = Id Select
-  type MacroBody       Select = TypecheckedMacro Select
+  type MacroId         Select = Id Select
+  type MacroBody       Select = TranslatedMacro Select
   type MacroUnderlying Select = C.Type Select
 
   macroIdId _ = id
@@ -325,8 +325,7 @@ instance CoercePassAnn "FunctionRes" TranslateTypes Select where
   coercePassAnn _ = coercePass
 
 instance CoercePassAnn "IndirectField" TranslateTypes Select where
-  coercePassAnn _ = \case
-      IndirectFieldNames name -> IndirectFieldNames name
+  coercePassAnn _ = coercePass
 
 instance CoercePassAnn "TypeFunArg" TranslateTypes Select
 

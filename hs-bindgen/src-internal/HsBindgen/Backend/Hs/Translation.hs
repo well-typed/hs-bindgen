@@ -42,8 +42,9 @@ import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
+import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro (TranslatedMacro (..),
+                                                               TranslatedMacroType (..))
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.PrettyC qualified as PC
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
@@ -54,8 +55,6 @@ import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Macro.Interface qualified as Macro
-import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.NameHint
 
 import Doxygen.Parser.Types qualified as Doxy
@@ -65,17 +64,15 @@ import Doxygen.Parser.Types qualified as Doxy
 -------------------------------------------------------------------------------}
 
 generateDeclarations ::
-     Macro.HasTypes l
-  => Macro.Lang l
-  -> UniqueId
+     UniqueId
   -> BaseModuleName
   -> [FunPtrInstance] -- ^ In output order
   -> [C.Decl l Final]
   -> ByCategory_ [Hs.Decl l]
-generateDeclarations macroLang uniqueId name insts =
+generateDeclarations uniqueId name insts =
     fmap reverse .
       foldl' partitionBindingCategories mempty .
-      generateDeclarations' macroLang env insts
+      generateDeclarations' env insts
   where
     partitionBindingCategories ::
       ByCategory_ [a] -> WithCategory a  -> ByCategory_ [a]
@@ -95,13 +92,11 @@ data WithCategory a = WithCategory {
   } deriving (Show)
 
 generateDeclarations' ::
-     Macro.HasTypes l
-  => Macro.Lang l
-  -> HsM.Env
+     HsM.Env
   -> [FunPtrInstance]
   -> [C.Decl l Final]
   -> [WithCategory (Hs.Decl l)]
-generateDeclarations' macroLang env insts decs =
+generateDeclarations' env insts decs =
     HsM.runHsM env $ do
       let -- In the main module, to avoid orphan instances
           fFIStubsAndFunPtrInstances =
@@ -109,7 +104,7 @@ generateDeclarations' macroLang env insts decs =
                    | inst <- insts
                    , d <- ToFromFunPtr.forInstance inst
                    ]
-      hsDeclsAction <- mapM (generateDecs macroLang funPtrNewtypes) decs
+      hsDeclsAction <- mapM (generateDecs funPtrNewtypes) decs
       hsDecls <- HsM.runAction $ fmap concat $ sequence hsDeclsAction
       pure $ hsDecls ++ fFIStubsAndFunPtrInstances
   where
@@ -129,12 +124,10 @@ type FunPtrNewtypes = Set (Hs.Name Hs.NsTypeConstr)
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1758>
 -- Take the 'PrescriptiveDeclSpec' into account.
 generateDecs ::
-     Macro.HasTypes l
-  => Macro.Lang l
-  -> FunPtrNewtypes
+     FunPtrNewtypes
   -> C.Decl l Final
   -> HsM (HsM.Action [WithCategory (Hs.Decl l)])
-generateDecs macroLang funPtrNewtypes decl =
+generateDecs funPtrNewtypes decl =
     case decl.kind of
       C.DeclStruct struct -> withCategoryM CType $
         HsM.immediateM $ structDecs decl struct spec
@@ -165,7 +158,7 @@ generateDecs macroLang funPtrNewtypes decl =
         funPtrs <- withCategoryM (CTerm CFunPtr) (HsM.immediateM $ funPtrDecls)
         pure $ HsM.concatSequence [safes, unsafes, funPtrs]
       C.DeclMacro macro -> withCategoryM CType $
-        HsM.immediateM $ macroDecs macroLang decl macro spec
+        HsM.immediateM $ macroDecs decl macro spec
       C.DeclGlobal g -> withCategoryM (CTerm CGlobal) $
         HsM.immediateM $ global decl g spec
   where
@@ -653,26 +646,23 @@ typedefFunTypeIndirectionDecs funPtrNewtypes origDecl origTypedef (sig, reconstr
 -------------------------------------------------------------------------------}
 
 macroDecs ::
-     Macro.HasTypes l
-  => Macro.Lang l
-  -> C.Decl l Final
-  -> TypecheckedMacro Final l
+     C.Decl l Final
+  -> TranslatedMacro Final l
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-macroDecs macroLang decl checkedMacro spec =
+macroDecs decl checkedMacro spec =
     case checkedMacro of
-      MacroType  ty       -> macroDecsTypedef macroLang decl ty spec
-      MacroValue val      -> pure $ macroVarDecs decl (Hs.MacroValueTranslated val)
-      MacroRaw   fallback -> pure $ macroVarDecs decl (Hs.MacroValueRaw fallback.raw)
+      TMacroType  ty       -> macroDecsTypedef decl ty spec
+      TMacroValue val      -> pure $ macroVarDecs decl (Hs.MacroValueTranslated val)
+      TMacroRaw   fallback -> pure $ macroVarDecs decl (Hs.MacroValueRaw fallback.raw)
 
 macroDecsTypedef ::
-     forall l. (Macro.HasTypes l, HasCallStack)
-  => Macro.Lang l
-  -> C.Decl l Final
-  -> TypecheckedMacroType l Final
+     forall l. HasCallStack
+  => C.Decl l Final
+  -> TranslatedMacroType Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-macroDecsTypedef macroLang decl macroType spec = do
+macroDecsTypedef decl macroType spec = do
     env <- Reader.ask
     nt <- newtypeDec env
     pure $ aux env nt
@@ -691,17 +681,10 @@ macroDecsTypedef macroLang decl macroType spec = do
         newtypeField :: Hs.Field
         newtypeField = Hs.Field{
             name    = macroType.names.field
-          , typ     = macroLang.translateType (fmap macroVarToHsType macroType.body)
+          , typ     = macroType.typ
           , origin  = Origin.GeneratedField
           , comment = Nothing
           }
-
-        macroVarToHsType :: MacroTypeBodyVar Final -> Hs.Type
-        macroVarToHsType = \case
-          MacroTypeExtBinding ext ->
-            Hs.ExtBinding ext.hsName ext.cSpec ext.hsSpec
-          MacroTypeBodyVar pair ->
-            Hs.TypRef (Hs.assertNs (Proxy @Hs.NsTypeConstr) pair.hsName) Nothing
 
         newtypeOrigin :: Origin.Decl Origin.Newtype
         newtypeOrigin = Origin.Decl {
