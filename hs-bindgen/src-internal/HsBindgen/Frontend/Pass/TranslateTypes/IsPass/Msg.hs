@@ -4,7 +4,6 @@
 module HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (
     DelayedTranslateTypesMsg (..)
   , FFITypesMsg (..)
-  , ExtBindingFallback (..)
   ) where
 
 import GHC.Generics (Generic)
@@ -12,7 +11,6 @@ import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Frontend.Pass.TranslateTypes.Error (FunPosition)
 import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo
-import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
@@ -54,25 +52,17 @@ instance IsTrace Level DelayedTranslateTypesMsg where
 -------------------------------------------------------------------------------}
 
 data FFITypesMsg =
-    -- | An external binding passed directly has no FFI type in its binding
-    -- specification
-    FFITypesExtBindingFallback ExtBindingFallback
-  | FFITypesLookupSugarInfo    (Hs.Name Hs.NsTypeConstr) SugarInfo
+    -- | An external binding did not specify an FFI type
+    FFITypesExtBindingNotSpecified Hs.ExtRef
+  | FFITypesLookupSugarInfo        (Hs.Name Hs.NsTypeConstr) SugarInfo
   deriving stock (Show, Generic)
 
 instance PrettyForTrace FFITypesMsg where
   prettyForTrace = \case
-      FFITypesExtBindingFallback fallback -> PP.vcat [
-          PP.hsep [
-              "The binding specification of"
-            , prettyExtRef fallback.extRef
-            , "gives no FFI type."
-            ]
-        , PP.hsep [
-              "Falling back to "
-            , prettyExtRef (Hs.ffiExtRef fallback.assumed)
-            ]
-        , "This requires a matching `HasFFIType` instance."
+      FFITypesExtBindingNotSpecified extRef -> PP.hsep [
+          "The binding specification of"
+        , prettyExtRef extRef
+        , "specifies no FFI type."
         ]
       FFITypesLookupSugarInfo name ty -> PP.hsep [
           "Looked up sugar info for"
@@ -90,23 +80,11 @@ instance PrettyForTrace FFITypesMsg where
 
 logLevelFFITypesMsg :: FFITypesMsg -> Level
 logLevelFFITypesMsg = \case
-    FFITypesExtBindingFallback{} -> Warning
-    FFITypesLookupSugarInfo _ ty -> case ty of
+    FFITypesExtBindingNotSpecified{} -> Warning
+    FFITypesLookupSugarInfo _ ty     -> case ty of
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/2376>:
       -- MissingSugarInfo should become Bug at some point when underlying types
       -- are completely removed
       MissingSugarInfo{}      -> Debug
       RegSugarInfo Sugar{}    -> Debug
       RegSugarInfo NotSugar{} -> Debug
-
--- | An external binding whose binding specification gives no FFI type
---
--- We assume the FFI type of its underlying type instead. The generated code
--- compiles only if the external type has a @HasFFIType@ instance with that
--- FFI type.
-data ExtBindingFallback = ExtBindingFallback {
-      extRef  :: Hs.ExtRef
-      -- | The FFI type of the underlying type
-    , assumed :: Hs.FFIType
-    }
-  deriving stock (Show, Eq)
