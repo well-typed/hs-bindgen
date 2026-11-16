@@ -129,11 +129,7 @@ typeInContext ctx = \case
       typeInContext ctx ty
     C.TypeExtBinding ref ->
       let ext = ref.name
-      in  Hs.ExtBinding
-            ext.hsName
-            ext.cSpec
-            ext.hsSpec
-            (typeInContext ctx ref.underlying)
+      in  Hs.ExtBinding ext.hsName ext.cSpec ext.hsSpec
 
 {-------------------------------------------------------------------------------
   Pointers

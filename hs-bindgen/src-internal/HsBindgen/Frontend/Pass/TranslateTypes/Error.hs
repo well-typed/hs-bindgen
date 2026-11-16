@@ -13,9 +13,15 @@ module HsBindgen.Frontend.Pass.TranslateTypes.Error (
 
 import Text.SimplePrettyPrint qualified as PP
 
+import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
+
+{-------------------------------------------------------------------------------
+  TranslateTypesError
+-------------------------------------------------------------------------------}
 
 -- | Why we cannot generate a binding for a function
 newtype TranslateTypesError =
@@ -36,7 +42,15 @@ instance IsTrace Level TranslateTypesError where
     where
       isUnexpected :: FunPositionError -> Bool
       isUnexpected = \case
-        FunPositionNoFFIType{}      -> False
+        FunPositionNoFFIType noFFIType ->
+          -- If an external type did not specify an FFI type, then we warn. In
+          -- other cases, we probably have a bug in our code because we should
+          -- really only be deriving FFI types for Haskell types that we know
+          -- should have one.
+          case noFFIType.err of
+            FFIType.TypeRefNoUnderlyingType{} -> True
+            FFIType.ExtBindingNoFFIType{}     -> False
+            FFIType.NoFFIType{}               -> True
         FunPositionUnexpectedType{} -> True
   getSource  = const HsBindgen
   getTraceId = const "translate-types"
@@ -54,10 +68,16 @@ instance PrettyForTrace FunPositionError where
       FunPositionNoFFIType      x -> prettyForTrace x
       FunPositionUnexpectedType x -> prettyForTrace x
 
+{-------------------------------------------------------------------------------
+  NoFFIType
+-------------------------------------------------------------------------------}
+
 data NoFFIType = NoFFIType {
       position :: FunPosition
       -- | Rendered in C syntax
     , cType    :: Text
+      -- | Reason why there is no FFI type
+    , err      :: FFIType.FFITypeError
     }
   deriving stock (Show, Eq)
 
@@ -66,8 +86,31 @@ instance PrettyForTrace NoFFIType where
         prettyForTrace x.position
       , "of C type"
       , PP.singleQuotes (PP.text x.cType)
-      , "has no FFI type"
+      , "has no FFI type;"
+      , case x.err of
+          FFIType.TypeRefNoUnderlyingType name -> PP.hsep [
+              "A Reference to type"
+            , prettyForTrace name
+            , "did not have an underlying type"
+            ]
+          FFIType.ExtBindingNoFFIType ref -> PP.hsep [
+              "A reference to external type"
+            , prettyExtRef ref
+            , "did not have an FFI type specified"
+            ]
+          FFIType.NoFFIType -> ""
       ]
+    where
+      prettyExtRef :: Hs.ExtRef -> PP.CtxDoc
+      prettyExtRef ref = PP.singleQuotes $ PP.hcat [
+            prettyForTrace ref.moduleName
+          , "."
+          , PP.text ref.name.text
+          ]
+
+{-------------------------------------------------------------------------------
+  UnexpectedType
+-------------------------------------------------------------------------------}
 
 data UnexpectedType = UnexpectedType {
       position :: FunPosition
@@ -99,6 +142,10 @@ instance PrettyForTrace UnexpectedTypeKind where
   prettyForTrace = \case
       UnexpectedArray    -> "an array"
       UnexpectedFunction -> "a function"
+
+{-------------------------------------------------------------------------------
+  FunPosition
+-------------------------------------------------------------------------------}
 
 -- | Position in a function signature
 data FunPosition =

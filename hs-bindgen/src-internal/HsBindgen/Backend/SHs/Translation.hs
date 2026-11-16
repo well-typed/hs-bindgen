@@ -376,7 +376,7 @@ translateType = \case
     Hs.PtrConst t           -> TApp (tBindgenGlobal PtrConst_type) (translateType t)
     Hs.IO t                 -> TApp (tBindgenGlobal IO_type) (translateType t)
     Hs.Fun a b              -> TFun (translateType a) (translateType b)
-    Hs.ExtBinding r _c _hs _-> TExt r
+    Hs.ExtBinding r _c _hs  -> TExt r
     Hs.ByteArray            -> tBindgenGlobal ByteArray_type
     Hs.SizedByteArray n m   -> tBindgenGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
     Hs.Block t              -> tBindgenGlobal Block_type `TApp` translateType t

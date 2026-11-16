@@ -312,6 +312,11 @@ ctypes:
 
 hstypes:
   - hsname: Length
+    representation:
+      newtype:
+        ffitype:
+          hsmodule: Foreign.C.Types
+          hsname: CDouble
     instances:
       - Eq
       - HasFFIType

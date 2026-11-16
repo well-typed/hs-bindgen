@@ -66,8 +66,6 @@ data Type =
   | IO Type
   | Fun Type Type
   | ExtBinding Hs.ExtRef BindingSpec.CTypeSpec BindingSpec.HsTypeSpec
-      -- | Underlying type
-      Type
   | ByteArray
   | SizedByteArray Natural Natural
   | Block Type

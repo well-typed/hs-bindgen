@@ -5,7 +5,6 @@ module HsBindgen.Frontend.Pass.TranslateTypes (
 import Control.Monad (zipWithM)
 import Control.Monad.Reader (MonadReader, ReaderT (..), asks, withReaderT)
 import Control.Monad.State (MonadState, State, modify, runState)
-import Control.Monad.Writer.Strict (runWriter)
 import Data.Either (partitionEithers)
 import Data.Functor ((<&>))
 import Data.List.NonEmpty qualified as NonEmpty
@@ -17,8 +16,7 @@ import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.Error
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
-import HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (Classified,
-                                                             classifyArgPassingMethod,
+import HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (classifyArgPassingMethod,
                                                              classifyResPassingMethod)
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -186,7 +184,7 @@ processFunctionArg ::
   -> C.FunctionArg AdjustTypes
   -> M DeclEnv (Either FunPositionError (C.FunctionArg TranslateTypes))
 processFunctionArg i arg = do
-    eAnn <- classified pos $ classifyArgPassingMethod pos arg typ'.hs
+    let eAnn = classifyArgPassingMethod pos arg typ'.hs
     pure $ eAnn <&> \ann -> C.FunctionArg{
         name = arg.name
       , typ  = typ'
@@ -203,23 +201,13 @@ processFunctionRes ::
      C.FunctionRes AdjustTypes
   -> M DeclEnv (Either FunPositionError (C.FunctionRes TranslateTypes))
 processFunctionRes res = do
-    eAnn <- classified FunPositionRes $ classifyResPassingMethod res typ'.hs
+    let eAnn = classifyResPassingMethod res typ'.hs
     pure $ eAnn <&> \ann -> C.FunctionRes{
         typ = typ'
       , ann = ann
       }
   where
     typ' = processType Translation.FunRes res.typ
-
--- | Report the external bindings without FFI type
-classified ::
-     FunPosition
-  -> Classified a
-  -> M DeclEnv (Either FunPositionError a)
-classified pos x = do
-    let (r, fallbacks) = runWriter x
-    forM_ fallbacks $ addMessage . TranslateTypesExtBindingFallback pos
-    pure r
 
 processGlobal :: C.Global AdjustTypes -> M DeclEnv (C.Global TranslateTypes)
 processGlobal global = pure C.Global{
@@ -288,8 +276,8 @@ newtype St = St {
     messages :: [(C.DeclId, DelayedTranslateTypesMsg)]
   }
 
-addMessage :: DelayedTranslateTypesMsg -> M DeclEnv ()
-addMessage msg = do
+_addMessage :: DelayedTranslateTypesMsg -> M DeclEnv ()
+_addMessage msg = do
     did <- asks (.declId)
     modify $ \st -> st {
         messages = (did, msg) : st.messages
