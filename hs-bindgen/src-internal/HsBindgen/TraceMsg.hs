@@ -89,6 +89,8 @@ data CustomLogLevelSetting =
     -- because there are many unsupported macros in standard library
     -- implementations. Using this custom log level setting, users make them
     -- 'Warning' instead.
+    --
+    -- 'Debug'-level traces stay 'Debug'-level.
   | EnableMacroWarnings
 
     -- | Set the log level of squashed-typedef traces (trace id
@@ -142,7 +144,9 @@ fromSetting = \case
         -- 'Parse', 'TypecheckMacros', 'ReparseMacroExpansions', or 'Select'
         -- passes), so we fall back to string search.
         t | "macro" `List.isInfixOf` (getTraceId t).id
-          -> const Warning
+          -> \case
+                Debug -> Debug
+                _     -> Warning
         -- Macro parsing requires declarations required for scoping.
         TraceFrontend (FrontendParse C.WithLocationInfo{msg = ParseOfDeclarationRequiredForScopingFailed{}})
           -> const Warning

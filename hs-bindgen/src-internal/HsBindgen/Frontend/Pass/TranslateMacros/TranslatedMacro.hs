@@ -45,8 +45,8 @@ instance (
 instance (
       Ann "TranslatedMacroType" p ~ Ann "TranslatedMacroType" p'
     ) => CoercePass TranslatedMacroType p p' where
-  coercePass (TranslatedMacroType typ ann) =
+  coercePass mac =
     TranslatedMacroType{
-        typ = typ
-      , ann = ann
+        typ = mac.typ
+      , ann = mac.ann
       }

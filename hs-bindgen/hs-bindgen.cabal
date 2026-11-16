@@ -256,6 +256,7 @@ library internal
     HsBindgen.Frontend.Pass.TranslateMacros.IsPass
     HsBindgen.Frontend.Pass.TranslateMacros.IsPass.Msg
     HsBindgen.Frontend.Pass.TranslateMacros.TranslatedMacro
+    HsBindgen.Frontend.Pass.TranslateMacros.UnderlyingType
     HsBindgen.Frontend.Pass.TranslateTypes
     HsBindgen.Frontend.Pass.TranslateTypes.Error
     HsBindgen.Frontend.Pass.TranslateTypes.FFIType

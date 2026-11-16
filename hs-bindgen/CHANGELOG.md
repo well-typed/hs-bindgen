@@ -140,6 +140,12 @@
 * A function with an argument or result that has no FFI type is now dropped with
   a warning ("... has no FFI type ..."). Previously, `hs-bindgen` panicked.
 
+* An FFI type is now properly derived for a macro type that references other
+  types. Previously, we would fail to do this, which would cause missing
+  `ffitype` fields in generated external binding specifications.
+
+[is-2357]: https://github.com/well-typed/hs-bindgen/issues/2357
+
 ## 1.0.0.0 -- 2026-10-08
 
 ### Breaking changes
