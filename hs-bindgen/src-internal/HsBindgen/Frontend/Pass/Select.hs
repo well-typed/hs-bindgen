@@ -26,7 +26,7 @@ import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesError (..),
                                                   MangleNamesResolutionError (..))
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
+import HsBindgen.Frontend.Pass.TranslateMacros.IsPass (TranslateMacros)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckedMacro (..))
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.TranslationUnit qualified as C
@@ -43,7 +43,7 @@ import HsBindgen.Util.Tracer
 -- Declaration itself.
 type Decl l = C.Decl l Select
 
-type In = TranslateTypes
+type In = TranslateMacros
 
 -- | Why a dependency is missing from the output, so that its users cannot be
 -- selected
@@ -77,7 +77,7 @@ selectDecls ::
   => IsMainHeader
   -> IsInMainHeaderDir
   -> SelectConfig
-  -> C.TranslationUnit l TranslateTypes
+  -> C.TranslationUnit l In
   -> (C.TranslationUnit l Select, [AnnMsg Select])
 selectDecls isMainHeader isInMainHeaderDir config unit =
     let -- Directly match the selection predicate on the 'DeclDB', obtaining

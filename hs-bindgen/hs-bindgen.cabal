@@ -252,6 +252,9 @@ library internal
     HsBindgen.Frontend.Pass.Select.IsPass
     HsBindgen.Frontend.Pass.SimplifyAST
     HsBindgen.Frontend.Pass.SimplifyAST.IsPass
+    HsBindgen.Frontend.Pass.TranslateMacros
+    HsBindgen.Frontend.Pass.TranslateMacros.IsPass
+    HsBindgen.Frontend.Pass.TranslateMacros.IsPass.Msg
     HsBindgen.Frontend.Pass.TranslateTypes
     HsBindgen.Frontend.Pass.TranslateTypes.Error
     HsBindgen.Frontend.Pass.TranslateTypes.FFIType

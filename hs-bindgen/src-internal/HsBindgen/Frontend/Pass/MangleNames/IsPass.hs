@@ -136,6 +136,11 @@ deriving stock instance PassScopedName p => Show (IndirectFieldNames p)
 deriving stock instance PassScopedName p => Eq (IndirectFieldNames p)
 deriving stock instance PassScopedName p => Ord (IndirectFieldNames p)
 
+instance ScopedName p ~ ScopedName p' => CoercePass IndirectFieldNames p p' where
+  coercePass names = IndirectFieldNames {
+        fieldNameInAnon = names.fieldNameInAnon
+      }
+
 {-------------------------------------------------------------------------------
   Trace messages
 -------------------------------------------------------------------------------}
