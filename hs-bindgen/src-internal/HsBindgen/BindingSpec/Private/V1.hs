@@ -38,7 +38,7 @@ module HsBindgen.BindingSpec.Private.V1 (
   , lookupCTypeSpec
   , lookupHsTypeSpec
     -- ** YAML/JSON
-  , readFile
+  , parseValue
   , encode
     -- ** Header resolution
   , resolve
@@ -316,38 +316,31 @@ lookupHsTypeSpec hsName spec = Map.lookup hsName spec.hsTypes
   API: YAML/JSON
 -------------------------------------------------------------------------------}
 
--- | Read a binding specification file
---
--- The format is determined by the filename extension.
-readFile ::
-     Tracer BindingSpecReadMsg
-  -> BindingSpecCompatibility
-  -> Maybe Hs.ModuleName
-  -> FilePath
-  -> IO (Maybe UnresolvedBindingSpec)
-readFile tracer cmpt mHsModuleName path = readVersion tracer path >>= \case
-    Nothing -> return Nothing
-    Just (aVersion, value)
-      | isCompatBindingSpecVersions
-          cmpt
-          aVersion.bindingSpec
-          currentBindingSpecVersion -> do
-            traceWith tracer $ withCallStack $ BindingSpecReadParseVersion path aVersion
-            case Aeson.fromJSON value of
-              Aeson.Success arep ->
-                case fromABindingSpec mHsModuleName path arep of
-                  Right (errs, spec) -> do
-                    mapM_ (traceWith tracer . withCallStack) errs
-                    return (Just spec)
-                  Left err -> do
-                    traceWith tracer (withCallStack err)
-                    return Nothing
-              Aeson.Error err -> do
-                traceWith tracer $ withCallStack $ BindingSpecReadAesonError path err
-                return Nothing
-      | otherwise -> do
-          traceWith tracer $ withCallStack $ BindingSpecReadIncompatibleVersion path aVersion
-          return Nothing
+parseValue :: ParseSpecFunction UnresolvedBindingSpec
+parseValue tracer cmpt mHsModuleName path aVersion value
+  | isCompatBindingSpecVersions
+      cmpt
+      aVersion.bindingSpec
+      currentBindingSpecVersion
+  = do
+      traceWith tracer $ withCallStack $
+        BindingSpecReadCompatibleVersion path currentBindingSpecVersion aVersion.bindingSpec
+      case Aeson.fromJSON value of
+        Aeson.Success arep ->
+          case fromABindingSpec mHsModuleName path arep of
+            Right (errs, spec) -> do
+              mapM_ (traceWith tracer . withCallStack) errs
+              return (Right spec)
+            Left err -> do
+              traceWith tracer (withCallStack err)
+              return (Left OtherError)
+        Aeson.Error err -> do
+          traceWith tracer $ withCallStack $ BindingSpecReadAesonError path err
+          return (Left OtherError)
+  | otherwise = do
+      traceWith tracer $ withCallStack $
+        BindingSpecReadIncompatibleVersion path currentBindingSpecVersion aVersion.bindingSpec
+      return (Left NoCompatibleParser)
 
 -- | Encode a binding specification
 encode ::
@@ -482,9 +475,10 @@ resolve tracer injResolveHeader args uSpec = do
 
 -- | Merged (external) binding specifications
 --
--- While a tt'HsBindgen.BindingSpec.Private.V1.BindingSpec' is specific to a Haskell module, this type supports
--- binding specifications across multiple Haskell modules.  It is a performance
--- optimization for resolving external binding specifications.
+-- While a t'HsBindgen.BindingSpec.Private.V1.BindingSpec' is specific to a
+-- Haskell module, this type supports binding specifications across multiple
+-- Haskell modules.  It is a performance optimization for resolving external
+-- binding specifications.
 newtype MergedBindingSpecs = MergedBindingSpecs {
       map :: Map C.DeclId [(Set RealPath, ResolvedBindingSpec)]
     }

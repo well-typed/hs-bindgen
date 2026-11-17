@@ -81,7 +81,7 @@ FFI type is recorded roughly as follows:
 ```yaml
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: Example
 ctypes:
 - headers: example.h
@@ -236,7 +236,7 @@ this module:
 ```yaml
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: Example2.A
 ctypes:
 - headers: ffi-types/int.h
@@ -277,7 +277,7 @@ generate an external binding specification for this module:
 ```yaml
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: Example2.B
 ctypes:
 - headers: ffi-types/int.h
@@ -359,7 +359,7 @@ We also write an external binding specification by hand:
 ```yaml
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: Example3.A
 ctypes:
 - headers: ffi-types/int.h
@@ -400,7 +400,7 @@ generate an external binding specification for this module:
 ```yaml
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: Example3.B
 ctypes:
 - headers: ffi-types/int.h
@@ -485,7 +485,7 @@ The external binding specification we implement looks like so:
 ```yaml
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: Example4.A
 ctypes:
 - headers: ffi-types/int.h
@@ -538,5 +538,4 @@ would adopt.
 <!-- sources and references -->
 
 [haskell2010:ffi-foreign-types]: https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1560008.4.2
-[issue-2253]: https://github.com/well-typed/hs-bindgen/issues/2253
 [issue-2271]: https://github.com/well-typed/hs-bindgen/issues/2271

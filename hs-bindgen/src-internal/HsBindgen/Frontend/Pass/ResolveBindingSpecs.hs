@@ -797,7 +797,7 @@ resolveUseSite ctx cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
   Internal: auxiliary functions
 -------------------------------------------------------------------------------}
 
--- | Lookup qualified name in the 'HsBindgen.BindingSpec.Private.V1.ResolvedBindingSpec'
+-- | Lookup qualified name in the 'BindingSpec.ResolvedBindingSpec'
 resolveExtBinding ::
      HasCallStack
   => C.DeclId

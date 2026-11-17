@@ -61,7 +61,7 @@ import Clang.Paths (RealPath)
 
 import HsBindgen.BindingSpec.Private.Common qualified as Common
 import HsBindgen.BindingSpec.Private.Stdlib qualified as Stdlib
-import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
+import HsBindgen.BindingSpec.Private.V2 qualified as BindingSpec
 import HsBindgen.BindingSpec.Private.Version qualified as Version
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -192,7 +192,7 @@ loadExtBindingSpecs tracer args enableStdlib cmpt paths = do
       EnableStdlibBindingSpec  -> (Stdlib.bindingSpec :)
 
     read' :: FilePath -> IO (Maybe BindingSpec.UnresolvedBindingSpec)
-    read' = BindingSpec.readFile tracerRead cmpt Nothing
+    read' path = Common.readFile tracerRead cmpt Nothing path BindingSpec.parseValue
 
     resolve' ::
          BindingSpec.UnresolvedBindingSpec
@@ -230,7 +230,7 @@ loadPrescriptiveBindingSpec tracer args hsModuleName cmpt =
     fmap (fromMaybe $ empty hsModuleName) . \case
       Nothing   -> return Nothing
       Just path ->
-        BindingSpec.readFile tracerRead cmpt (Just hsModuleName) path >>= \case
+        Common.readFile tracerRead cmpt (Just hsModuleName) path BindingSpec.parseValue >>= \case
           Nothing -> return Nothing
           Just uspec ->
             Just . BindingSpec uspec <$>

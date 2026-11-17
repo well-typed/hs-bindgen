@@ -112,14 +112,16 @@
   where the `UnresolvedBindingSpec` is the version for that module.
 
     ```haskell
-    parseValue ::
-         Monad m
-      => Tracer m BindingSpecReadMsg
+    type ParseSpecFunction spec =
+         Tracer BindingSpecReadMsg
       -> BindingSpecCompatibility
+      -> Maybe Hs.ModuleName
       -> FilePath
       -> AVersion
       -> Aeson.Value
-      -> m (Maybe UnresolvedBindingSpec)
+      -> IO (Either ParseSpecError spec)
+
+    parseValue :: ParseSpecFunction UnresolvedBindingSpec
     ```
 
   (Example) A binding specification file with version `3.0` could be parsed with
@@ -160,6 +162,9 @@
 
 * We should implement utility commands to convert between binding specification
   versions.
+
+  TODO <https://github.com/well-typed/hs-bindgen/issues/2371>: implement
+  conversions between binding specification formats.
 
   Forward conversion can be implemented using the same functions described
   above.  Users can convert to a specified major version, but the minor version

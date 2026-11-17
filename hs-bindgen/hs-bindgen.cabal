@@ -153,6 +153,7 @@ library internal
     HsBindgen.BindingSpec.Private.Common
     HsBindgen.BindingSpec.Private.Stdlib
     HsBindgen.BindingSpec.Private.V1
+    HsBindgen.BindingSpec.Private.V2
     HsBindgen.BindingSpec.Private.Version
     HsBindgen.Boot
     HsBindgen.Cache
