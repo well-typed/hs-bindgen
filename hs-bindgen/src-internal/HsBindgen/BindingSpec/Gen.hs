@@ -19,8 +19,8 @@ import Clang.HighLevel.Types
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
 import HsBindgen.BindingSpec.Private.Common
-import HsBindgen.BindingSpec.Private.V1 (CTypeSpec (..), UnresolvedBindingSpec)
-import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
+import HsBindgen.BindingSpec.Private.V2 (CTypeSpec (..), UnresolvedBindingSpec)
+import HsBindgen.BindingSpec.Private.V2 qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph

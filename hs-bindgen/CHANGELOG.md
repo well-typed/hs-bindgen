@@ -173,6 +173,14 @@
 
 [is-2354]: https://github.com/well-typed/hs-bindgen/issues/2354
 
+### Binding specification format
+
+* Upgrade the version of generated binding specifications to `2.0`. Binding
+  specifications with version `1.0` can still be parsed. See [issue
+  #2355][is-2355].
+
+[is-2355]: https://github.com/well-typed/hs-bindgen/issues/2355
+
 ## 1.0.0.0 -- 2026-10-08
 
 ### Breaking changes

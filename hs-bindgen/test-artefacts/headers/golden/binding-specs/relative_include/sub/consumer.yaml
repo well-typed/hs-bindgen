@@ -11,7 +11,7 @@
 # canonicalization makes the match work.
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: M
 ctypes:
 - headers: binding-specs/relative_include/core.h

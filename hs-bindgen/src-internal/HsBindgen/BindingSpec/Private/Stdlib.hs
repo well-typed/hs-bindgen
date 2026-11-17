@@ -23,7 +23,7 @@ import Data.Set qualified as Set
 
 import HsBindgen.Backend.Runtime qualified as Runtime
 import HsBindgen.BindingSpec.Private.Common
-import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
+import HsBindgen.BindingSpec.Private.V2 qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
