@@ -1,6 +1,6 @@
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: Example
 ctypes:
 - headers: types/enums/enum_cpp_syntax.h
@@ -17,15 +17,16 @@ hstypes:
       constructor: Foo_enum
       fields:
       - unwrapFoo_enum
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Word32
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Word32
   - HasField
   - HasFieldCompat
   - HasFieldPtr

@@ -1,6 +1,6 @@
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: Example
 ctypes:
 - headers: comprehensive/smoke.h
@@ -116,15 +116,16 @@ hstypes:
       constructor: Baz2_t
       fields:
       - unwrap
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -143,15 +144,16 @@ hstypes:
       constructor: Baz3_t
       fields:
       - unwrap
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -170,15 +172,16 @@ hstypes:
       constructor: Baz4_t
       fields:
       - unwrap
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -197,9 +200,6 @@ hstypes:
       constructor: Size_t
       fields:
       - unwrap
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CULong
   instances:
   - Bitfield
   - Bits
@@ -209,7 +209,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CULong
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -231,9 +235,6 @@ hstypes:
       constructor: Uint
       fields:
       - unwrap
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
   - Bitfield
   - Bits
@@ -243,7 +244,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr

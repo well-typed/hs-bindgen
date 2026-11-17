@@ -52,6 +52,8 @@ import HsBindgen.Frontend.Pass.Select
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.SimplifyAST
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass
+import HsBindgen.Frontend.Pass.TranslateMacros (translateMacros)
+import HsBindgen.Frontend.Pass.TranslateMacros.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros
@@ -247,6 +249,16 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- "HsBindgen.Frontend.Pass.TranslateTypes" translates C types (use sites) to
 -- Haskell types.
 --
+-- == 13. "HsBindgen.Frontend.Pass.TranslateMacros"
+--
+-- "HsBindgen.Frontend.Pass.TranslateMacros" translates type macros (declaration
+-- sites) to Haskell types.
+--
+-- Constraints:
+--
+-- * Must be after "HsBindgen.Frontend.Pass.TranslateTypes" because Haskell
+--   macro types depend on other Haskell types.
+--
 -- == 14. "HsBindgen.Frontend.Pass.Select"
 --
 -- "HsBindgen.Frontend.Pass.Select" deselects declarations
@@ -439,15 +451,23 @@ runFrontend tracer config boot = do
       afterAdjustTypesPass <- adjustTypesPass
       pure $ translateTypes afterAdjustTypesPass
 
+    translateMacrosPass <- cache "TranslateMacros" $ do
+      afterTranslateTypesPass <- translateTypesPass
+      macroLang                     <- boot.macroLang
+      let (afterTranslateMacrosTypes, msgsTranslateMacros) =
+            translateMacros macroLang afterTranslateTypesPass
+      forM_ msgsTranslateMacros $ traceWith (contramap FrontendTranslateMacros tracer)
+      pure afterTranslateMacrosTypes
+
     selectPass <- cache "select" $ do
       afterParse <- parsePass
-      afterTranslateTypesPass <- translateTypesPass
+      afterTranslateMacros <- translateMacrosPass
       let (afterSelect, msgsSelect) =
             selectDecls
               afterParse.isMainHeader
               afterParse.isInMainHeaderDir
               selectConfig
-              afterTranslateTypesPass
+              afterTranslateMacros
       traceSorted (contramap FrontendSelect tracer) msgsSelect
       pure afterSelect
 
@@ -468,6 +488,7 @@ runFrontend tracer config boot = do
       , mangleNames              = mangleNamesPass
       , adjustTypes              = adjustTypesPass
       , translateTypes           = translateTypesPass
+      , translateMacros          = translateMacrosPass
       , select                   = selectPass
       , final                    = finalPass
       }
@@ -519,6 +540,7 @@ data FrontendArtefact l = FrontendArtefact {
     , mangleNames              :: Cached (C.TranslationUnit l MangleNames)
     , adjustTypes              :: Cached (C.TranslationUnit l AdjustTypes)
     , translateTypes           :: Cached (C.TranslationUnit l TranslateTypes)
+    , translateMacros          :: Cached (C.TranslationUnit l TranslateMacros)
     , select                   :: Cached (C.TranslationUnit l Select)
     , final                    :: Cached (C.TranslationUnit l Final)
     }
@@ -539,6 +561,7 @@ data FrontendMsg =
   | FrontendReparseMacroExpansions   (Msg ReparseMacroExpansions)
   | FrontendResolveBindingSpecs      (Msg ResolveBindingSpecs)
   | FrontendMangleNames              (Msg MangleNames)
+  | FrontendTranslateMacros          (Msg TranslateMacros)
   | FrontendSelect                   (Msg Select)
   | FrontendSortMsgs                  SortMsgsMsg
   | FrontendCache                    (SafeTrace CacheMsg)

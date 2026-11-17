@@ -383,7 +383,7 @@ mkConvRes g = ConvRes $ \typ e -> case typ of
 -- types of function types nested in use sites in the @TranslateTypes@ pass.
 unsafeToFFIFunType :: Hs.Type -> Hs.FFIFunType
 unsafeToFFIFunType ty = case FFIType.toFFIFunType ty of
-    Nothing ->
+    Left{} ->
       panicPure $ printf "Type does not have an FFI function type: %s" (show ty)
-    Just ty' ->
+    Right ty' ->
       ty'

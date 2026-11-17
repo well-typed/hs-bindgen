@@ -1,6 +1,6 @@
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: Example
 ctypes:
 - headers: edge-cases/aux_funptr_newtypes.h
@@ -36,14 +36,15 @@ hstypes:
       constructor: FunPtr
       fields:
       - unwrapFunPtr
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: FunPtrVoid
   - HasField
   - HasFieldCompat
   - HasFieldPtr

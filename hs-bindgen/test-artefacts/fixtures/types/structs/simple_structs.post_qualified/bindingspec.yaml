@@ -1,6 +1,6 @@
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: Example
 ctypes:
 - headers: types/structs/simple_structs.h
@@ -173,14 +173,15 @@ hstypes:
       constructor: S7a
       fields:
       - unwrapS7a
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: PtrVoid
   instances:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: PtrVoid
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -216,14 +217,15 @@ hstypes:
       constructor: S7b
       fields:
       - unwrapS7b
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: PtrVoid
   instances:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: PtrVoid
   - HasField
   - HasFieldCompat
   - HasFieldPtr

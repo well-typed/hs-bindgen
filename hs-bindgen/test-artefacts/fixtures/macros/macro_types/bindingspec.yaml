@@ -1,6 +1,6 @@
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: Example
 ctypes:
 - headers: macros/macro_types.h
@@ -49,7 +49,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUChar
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -71,9 +75,6 @@ hstypes:
       constructor: Boolean_T
       fields:
       - unwrapBoolean_T
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUChar
   instances:
   - Bitfield
   - Bits
@@ -83,7 +84,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUChar
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -105,9 +110,6 @@ hstypes:
       constructor: MTy
       fields:
       - unwrapMTy
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CFloat
   instances:
   - Enum
   - Eq
@@ -115,7 +117,11 @@ hstypes:
   - Fractional
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CFloat
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -137,14 +143,15 @@ hstypes:
       constructor: PtrInt
       fields:
       - unwrapPtrInt
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: PtrVoid
   instances:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: PtrVoid
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -160,14 +167,15 @@ hstypes:
       constructor: PtrPtrChar
       fields:
       - unwrapPtrPtrChar
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: PtrVoid
   instances:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: PtrVoid
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -183,9 +191,6 @@ hstypes:
       constructor: ShortInt
       fields:
       - unwrapShortInt
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CShort
   instances:
   - Bitfield
   - Bits
@@ -195,7 +200,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CShort
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -217,9 +226,6 @@ hstypes:
       constructor: SignedShortInt
       fields:
       - unwrapSignedShortInt
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CShort
   instances:
   - Bitfield
   - Bits
@@ -229,7 +235,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CShort
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -251,9 +261,6 @@ hstypes:
       constructor: Tty
       fields:
       - unwrapTty
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CFloat
   instances:
   - Enum
   - Eq
@@ -261,7 +268,11 @@ hstypes:
   - Fractional
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CFloat
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -283,9 +294,6 @@ hstypes:
       constructor: UINT8_T
       fields:
       - unwrapUINT8_T
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUChar
   instances:
   - Bitfield
   - Bits
@@ -295,7 +303,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUChar
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -317,9 +329,6 @@ hstypes:
       constructor: UnsignedShortInt
       fields:
       - unwrapUnsignedShortInt
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUShort
   instances:
   - Bitfield
   - Bits
@@ -329,7 +338,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUShort
   - HasField
   - HasFieldCompat
   - HasFieldPtr

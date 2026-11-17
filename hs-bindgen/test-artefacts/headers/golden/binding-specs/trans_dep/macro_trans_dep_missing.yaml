@@ -1,6 +1,6 @@
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: M
 ctypes:
 - headers: binding-specs/trans_dep/macro_trans_dep_missing.h
@@ -8,13 +8,9 @@ ctypes:
   hsname: B
 hstypes:
 - hsname: B
-  representation:
-    newtype:
-      constructor: B
-      fields:
-      - unwrapB
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CInt
   instances:
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - hsmodule: HsBindgen.Runtime.Support
+      hsname: CInt
+      type: FFIType

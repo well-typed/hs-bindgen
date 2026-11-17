@@ -1,6 +1,6 @@
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: Example
 ctypes:
 - headers: macros/macro_types.h
@@ -16,9 +16,6 @@ hstypes:
       constructor: Boolean_T
       fields:
       - unwrapBoolean_T
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUChar
   instances:
   - Bitfield
   - Bits
@@ -28,7 +25,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUChar
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -50,9 +51,6 @@ hstypes:
       constructor: Tty
       fields:
       - unwrapTty
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CFloat
   instances:
   - Enum
   - Eq
@@ -60,7 +58,11 @@ hstypes:
   - Fractional
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CFloat
   - HasField
   - HasFieldCompat
   - HasFieldPtr

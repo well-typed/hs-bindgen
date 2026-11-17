@@ -301,7 +301,7 @@ cabal run --project-dir="${PROJECT_ROOT}" hs-bindgen-cli -- \
 cat << EOF > binding-specs/vector-types.yaml
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 
 hsmodule: Vector.Types
 
@@ -314,7 +314,11 @@ hstypes:
   - hsname: Length
     instances:
       - Eq
-      - HasFFIType
+      - class: HasFFIType
+        associated:
+        - type: FFIType
+          hsmodule: Foreign.C.Types
+          hsname: CDouble
       - Ord
       - Show
 EOF

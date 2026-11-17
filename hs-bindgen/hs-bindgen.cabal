@@ -153,6 +153,7 @@ library internal
     HsBindgen.BindingSpec.Private.Common
     HsBindgen.BindingSpec.Private.Stdlib
     HsBindgen.BindingSpec.Private.V1
+    HsBindgen.BindingSpec.Private.V2
     HsBindgen.BindingSpec.Private.Version
     HsBindgen.Boot
     HsBindgen.Cache
@@ -252,6 +253,11 @@ library internal
     HsBindgen.Frontend.Pass.Select.IsPass
     HsBindgen.Frontend.Pass.SimplifyAST
     HsBindgen.Frontend.Pass.SimplifyAST.IsPass
+    HsBindgen.Frontend.Pass.TranslateMacros
+    HsBindgen.Frontend.Pass.TranslateMacros.IsPass
+    HsBindgen.Frontend.Pass.TranslateMacros.IsPass.Msg
+    HsBindgen.Frontend.Pass.TranslateMacros.TranslatedMacro
+    HsBindgen.Frontend.Pass.TranslateMacros.UnderlyingType
     HsBindgen.Frontend.Pass.TranslateTypes
     HsBindgen.Frontend.Pass.TranslateTypes.Error
     HsBindgen.Frontend.Pass.TranslateTypes.FFIType

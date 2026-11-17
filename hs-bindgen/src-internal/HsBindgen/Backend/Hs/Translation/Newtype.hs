@@ -1,12 +1,12 @@
 module HsBindgen.Backend.Hs.Translation.Newtype (
     newtypeDec
-  , hasFFITypeDecs
   , hasFieldCompatDecs
   , hasFieldPtrDecs
   ) where
 
 import Control.Monad.State qualified as State
 import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
@@ -14,7 +14,6 @@ import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Monad (HsM)
 import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
@@ -44,7 +43,7 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
           , ffiType   = ffiType
           , field     = field
           , origin    = orig
-          , instances = insts
+          , instances = correctedInsts
           , comment   = comment
           }
       where
@@ -59,22 +58,14 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
         insts :: Set Inst.TypeClass
         insts = knownInsts <> resolvedInsts
 
-        ffiType :: Maybe BindingSpec.HsFFIType
-        ffiType = BindingSpec.HsFFIType . Hs.ffiExtRef <$> FFIType.toFFIType field.typ
-
-hasFFITypeDecs ::
-     Hs.Newtype
-  -> [Hs.Decl l]
-hasFFITypeDecs nt =
-    [mk | Inst.HasFFIType `elem` nt.instances]
-  where
-    mk :: Hs.Decl l
-    mk = Hs.DeclDeriveInstance Hs.DeriveInstance{
-          strategy = Hs.DeriveNewtype
-        , clss     = Inst.HasFFIType
-        , name     = nt.name
-        , comment  = Nothing
-        }
+        ffiType :: Maybe Hs.ExtRef
+        correctedInsts :: Set Inst.TypeClass
+        (ffiType, correctedInsts)
+          | Inst.HasFFIType `elem` insts
+          , Right ffi <- Hs.ffiExtRef <$> FFIType.toFFIType field.typ
+          = (Just ffi, insts)
+          | otherwise
+          = (Nothing, Inst.HasFFIType `Set.delete` insts)
 
 {-------------------------------------------------------------------------------
   HasField

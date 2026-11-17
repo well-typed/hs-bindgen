@@ -9,6 +9,8 @@ module HsBindgen.Instances (
   , Dependency(..)
   , Strategy(..)
   , Constraint(..)
+  , AssociatedType(.., FFIType)
+  , isFFIType
   , Instance(..)
     -- * Supported instances
   , SupportedInstances(..)
@@ -128,11 +130,32 @@ data Constraint = Constraint {
 
 --------------------------------------------------------------------------------
 
+-- | Associated type for an instance
+data AssociatedType =
+  -- | An associated type synonym
+    AssociatedTypeSyn {
+        name :: Hs.Name Hs.NsTypeConstr
+      , ref :: Hs.ExtRef
+      }
+  deriving stock (Eq, Generic, Ord, Show)
+
+-- | The @FFIType@ associated type for the 'HasFFIType' class
+pattern FFIType :: Hs.ExtRef -> AssociatedType
+pattern FFIType ref <- AssociatedTypeSyn {ref = ref}
+  where FFIType ref = AssociatedTypeSyn (Hs.UnsafeName "FFIType") ref
+
+isFFIType :: AssociatedType -> Bool
+isFFIType (FFIType{}) = True
+isFFIType _           = False
+
+--------------------------------------------------------------------------------
+
 -- | Resolved instance
 data Instance = Instance {
       clss        :: TypeClass
     , strategy    :: Strategy
     , constraints :: [Constraint]
+    , associated  :: [AssociatedType]
     }
   deriving stock (Eq, Generic, Ord, Show)
 

@@ -269,11 +269,12 @@ this amounts to an entry in the external binding specification such as
 
 ```yaml
 - hsname: CSize
-  representation:
-    newtype:
-      ffitype:
-        hsmodule: Foreign.C
-        hsname: CSize
+  instances:
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: Foreign.C
+      hsname: CSize
 ```
 
 `CSize` must then also be given a corresponding `HasFFIType` instance:

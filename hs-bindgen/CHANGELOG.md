@@ -21,6 +21,15 @@
 
 [is-2323]: https://github.com/well-typed/hs-bindgen/issues/2323
 
+* For external bindings that do not specify an FFI type, `hs-bindgen` no longer
+  assumes the FFI type of the underlying C type. Function bindings that
+  reference such an external binding will be dropped with a warning ("... has no
+  FFI type ...") as a result, unless the external binding is a struct, union or
+  complex value. External bindings should therefore always specify an FFI type
+  if it is intended to be used in a `foreign import`. See [issue #2368][is-2368]
+
+[is-2368]: https://github.com/well-typed/hs-bindgen/issues/2368
+
 ### New features
 
 - Macro fallback: macros that the macro language fails to handle can be
@@ -66,13 +75,6 @@
   selection predicate matches them, and selecting a deprecated squashed typedef
   reports "Selected a deprecated declaration". Previously, there was no
   deprecation warning.
-
-* A function argument or result whose type is an external binding without an
-  FFI type (`ffitype`) in its binding specification now gets a warning ("The
-  binding specification of ... gives no FFI type"), unless it is a struct,
-  union or complex value. As before, `hs-bindgen` assumes the FFI type of the
-  underlying C type, so the generated code compiles only if the external type
-  has a matching `HasFFIType` instance.
 
 ### Bug fixes
 
@@ -135,12 +137,76 @@
 
 [is-2345]: https://github.com/well-typed/hs-bindgen/issues/2345
 
-* A function with an argument or result that has no FFI type (e.g.,
-  `typedef void V; V f(void);`) is now dropped with a warning ("... has no FFI
-  type"). Previously, `hs-bindgen` panicked. Generating a binding for such a
-  function is [issue #2361][is-2361].
+* A function with an argument or result that has no FFI type is now dropped with
+  a warning ("... has no FFI type ..."). Previously, `hs-bindgen` panicked.
 
-[is-2361]: https://github.com/well-typed/hs-bindgen/issues/2361
+* An FFI type is now properly derived for a macro type that references other
+  types. Previously, we would fail to do this, which would cause missing FFI
+  types in generated external binding specifications.
+
+[is-2357]: https://github.com/well-typed/hs-bindgen/issues/2357
+
+* A generated binding specification now only lists an FFI type if it also lists
+  a `HasFFIType` instance and vice versa. See [issue #2354][is-2354].
+
+[is-2354]: https://github.com/well-typed/hs-bindgen/issues/2354
+
+### Binding specification format
+
+* Upgrade the version of generated binding specifications to `2.0`. Binding
+  specifications with version `1.0` can still be parsed. See [issue
+  #2355][is-2355].
+
+* Add associated type synonyms to type class instances. They are currently only
+  used by `HasFFIType` instances in external binding specifications. In other
+  cases, they are ignored. See [issue #2355][is-2355].
+
+  For example, if a class `C` has an associated type `A`, then an instance for
+  type `T` may list an associated type as follows:
+
+  ```yaml
+  hstypes:
+  - hsname: T
+    instances:
+    - class: C
+      associated:
+      - type: A
+        hsmodule: SomeModule
+        hsname: SomeType
+  ```
+
+* The `ffitype` field of the `newtype` representation is now instead an
+  associated type of the `HasFFIType` class instance. See [issue
+  #2355][is-2355].
+
+  For example, the following:
+
+  ```yaml
+  hstypes:
+  - hsname: T
+    representation:
+      newtype:
+        ffitype:
+          hsmodule: M
+          hsname: F
+    instances:
+    - HasFFIType
+  ```
+
+  Is now specified as:
+
+  ```yaml
+  hstypes:
+  - hsname: T
+    instances:
+    - class: HasFFIType
+      associated:
+      - type: FFIType
+        hsmodule: M
+        hsname: F
+  ```
+
+[is-2355]: https://github.com/well-typed/hs-bindgen/issues/2355
 
 ## 1.0.0.0 -- 2026-10-08
 
