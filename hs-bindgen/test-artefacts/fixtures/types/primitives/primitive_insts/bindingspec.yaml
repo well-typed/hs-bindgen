@@ -79,9 +79,6 @@ hstypes:
       constructor: Prim_HsPrimCBool
       fields:
       - unwrapPrim_HsPrimCBool
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CBool
   instances:
   - Bitfield
   - Bits
@@ -91,7 +88,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CBool
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -113,9 +114,6 @@ hstypes:
       constructor: Prim_HsPrimCChar
       fields:
       - unwrapPrim_HsPrimCChar
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CChar
   instances:
   - Bitfield
   - Bits
@@ -125,7 +123,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CChar
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -147,9 +149,6 @@ hstypes:
       constructor: Prim_HsPrimCDouble
       fields:
       - unwrapPrim_HsPrimCDouble
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CDouble
   instances:
   - Enum
   - Eq
@@ -157,7 +156,11 @@ hstypes:
   - Fractional
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CDouble
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -179,9 +182,6 @@ hstypes:
       constructor: Prim_HsPrimCFloat
       fields:
       - unwrapPrim_HsPrimCFloat
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CFloat
   instances:
   - Enum
   - Eq
@@ -189,7 +189,11 @@ hstypes:
   - Fractional
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CFloat
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -211,9 +215,6 @@ hstypes:
       constructor: Prim_HsPrimCInt
       fields:
       - unwrapPrim_HsPrimCInt
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -223,7 +224,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -245,9 +250,6 @@ hstypes:
       constructor: Prim_HsPrimCLLong
       fields:
       - unwrapPrim_HsPrimCLLong
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CLLong
   instances:
   - Bitfield
   - Bits
@@ -257,7 +259,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CLLong
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -279,9 +285,6 @@ hstypes:
       constructor: Prim_HsPrimCLong
       fields:
       - unwrapPrim_HsPrimCLong
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CLong
   instances:
   - Bitfield
   - Bits
@@ -291,7 +294,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CLong
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -313,9 +320,6 @@ hstypes:
       constructor: Prim_HsPrimCPtrdiff
       fields:
       - unwrapPrim_HsPrimCPtrdiff
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CPtrdiff
   instances:
   - Bitfield
   - Bits
@@ -325,7 +329,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CPtrdiff
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -347,9 +355,6 @@ hstypes:
       constructor: Prim_HsPrimCSChar
       fields:
       - unwrapPrim_HsPrimCSChar
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CSChar
   instances:
   - Bitfield
   - Bits
@@ -359,7 +364,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CSChar
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -381,9 +390,6 @@ hstypes:
       constructor: Prim_HsPrimCShort
       fields:
       - unwrapPrim_HsPrimCShort
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CShort
   instances:
   - Bitfield
   - Bits
@@ -393,7 +399,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CShort
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -415,9 +425,6 @@ hstypes:
       constructor: Prim_HsPrimCUChar
       fields:
       - unwrapPrim_HsPrimCUChar
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUChar
   instances:
   - Bitfield
   - Bits
@@ -427,7 +434,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUChar
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -449,9 +460,6 @@ hstypes:
       constructor: Prim_HsPrimCUInt
       fields:
       - unwrapPrim_HsPrimCUInt
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
   - Bitfield
   - Bits
@@ -461,7 +469,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -483,9 +495,6 @@ hstypes:
       constructor: Prim_HsPrimCULLong
       fields:
       - unwrapPrim_HsPrimCULLong
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CULLong
   instances:
   - Bitfield
   - Bits
@@ -495,7 +504,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CULLong
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -517,9 +530,6 @@ hstypes:
       constructor: Prim_HsPrimCULong
       fields:
       - unwrapPrim_HsPrimCULong
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CULong
   instances:
   - Bitfield
   - Bits
@@ -529,7 +539,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CULong
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -551,9 +565,6 @@ hstypes:
       constructor: Prim_HsPrimCUShort
       fields:
       - unwrapPrim_HsPrimCUShort
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUShort
   instances:
   - Bitfield
   - Bits
@@ -563,7 +574,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUShort
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -585,9 +600,6 @@ hstypes:
       constructor: Prim_HsPrimInt16
       fields:
       - unwrapPrim_HsPrimInt16
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Int16
   instances:
   - Bitfield
   - Bits
@@ -597,7 +609,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Int16
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -619,9 +635,6 @@ hstypes:
       constructor: Prim_HsPrimInt32
       fields:
       - unwrapPrim_HsPrimInt32
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Int32
   instances:
   - Bitfield
   - Bits
@@ -631,7 +644,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Int32
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -653,9 +670,6 @@ hstypes:
       constructor: Prim_HsPrimInt64
       fields:
       - unwrapPrim_HsPrimInt64
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Int64
   instances:
   - Bitfield
   - Bits
@@ -665,7 +679,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Int64
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -687,9 +705,6 @@ hstypes:
       constructor: Prim_HsPrimInt8
       fields:
       - unwrapPrim_HsPrimInt8
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Int8
   instances:
   - Bitfield
   - Bits
@@ -699,7 +714,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Int8
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -721,9 +740,6 @@ hstypes:
       constructor: Prim_HsPrimWord16
       fields:
       - unwrapPrim_HsPrimWord16
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Word16
   instances:
   - Bitfield
   - Bits
@@ -733,7 +749,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Word16
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -755,9 +775,6 @@ hstypes:
       constructor: Prim_HsPrimWord32
       fields:
       - unwrapPrim_HsPrimWord32
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Word32
   instances:
   - Bitfield
   - Bits
@@ -767,7 +784,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Word32
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -789,9 +810,6 @@ hstypes:
       constructor: Prim_HsPrimWord64
       fields:
       - unwrapPrim_HsPrimWord64
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Word64
   instances:
   - Bitfield
   - Bits
@@ -801,7 +819,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Word64
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -823,9 +845,6 @@ hstypes:
       constructor: Prim_HsPrimWord8
       fields:
       - unwrapPrim_HsPrimWord8
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Word8
   instances:
   - Bitfield
   - Bits
@@ -835,7 +854,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Word8
   - HasField
   - HasFieldCompat
   - HasFieldPtr

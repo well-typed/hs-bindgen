@@ -95,14 +95,15 @@ hstypes:
       constructor: Point2b
       fields:
       - unwrapPoint2b
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: PtrVoid
   instances:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: PtrVoid
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -118,14 +119,15 @@ hstypes:
       constructor: Point3a
       fields:
       - unwrapPoint3a
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: PtrVoid
   instances:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: PtrVoid
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -161,14 +163,15 @@ hstypes:
       constructor: Point3b
       fields:
       - unwrapPoint3b
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: PtrVoid
   instances:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: PtrVoid
   - HasField
   - HasFieldCompat
   - HasFieldPtr

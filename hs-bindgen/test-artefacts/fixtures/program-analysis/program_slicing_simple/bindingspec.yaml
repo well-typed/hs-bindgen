@@ -32,9 +32,6 @@ hstypes:
       constructor: Uint32_t
       fields:
       - unwrapUint32_t
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
   - Bitfield
   - Bits
@@ -44,7 +41,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr

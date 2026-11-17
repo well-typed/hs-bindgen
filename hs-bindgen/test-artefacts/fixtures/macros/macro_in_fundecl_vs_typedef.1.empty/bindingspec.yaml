@@ -128,9 +128,6 @@ hstypes:
       constructor: TC
       fields:
       - unwrapTC
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CChar
   instances:
   - Bitfield
   - Bits
@@ -140,7 +137,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CChar
   - HasField
   - HasFieldCompat
   - HasFieldPtr

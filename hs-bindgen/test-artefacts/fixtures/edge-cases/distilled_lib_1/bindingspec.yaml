@@ -45,9 +45,6 @@ hstypes:
       constructor: A_type_t
       fields:
       - unwrapA_type_t
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -57,7 +54,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -79,15 +80,16 @@ hstypes:
       constructor: A_typedef_enum_e
       fields:
       - unwrapA_typedef_enum_e
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUChar
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUChar
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -135,15 +137,16 @@ hstypes:
       constructor: Another_typedef_enum_e
       fields:
       - unwrapAnother_typedef_enum_e
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -182,14 +185,15 @@ hstypes:
       constructor: Callback_t
       fields:
       - unwrapCallback_t
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: FunPtrVoid
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -205,9 +209,6 @@ hstypes:
       constructor: Var_t
       fields:
       - unwrapVar_t
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -217,7 +218,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr

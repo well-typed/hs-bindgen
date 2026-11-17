@@ -41,7 +41,6 @@ module HsBindgen.BindingSpec (
   , BindingSpec.HsTypeRep(..)
   , BindingSpec.HsRecordRep(..)
   , BindingSpec.HsNewtypeRep(..)
-  , BindingSpec.HsFFIType(..)
   , BindingSpec.hsSpecFFIType
   , BindingSpec.InstanceSpec(..)
     -- ** Query

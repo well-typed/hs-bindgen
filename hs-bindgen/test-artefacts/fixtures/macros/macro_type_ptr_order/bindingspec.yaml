@@ -22,9 +22,6 @@ hstypes:
       constructor: A_T
       fields:
       - unwrapA_T
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -34,7 +31,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -56,14 +57,15 @@ hstypes:
       constructor: P
       fields:
       - unwrapP
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: PtrVoid
   instances:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: PtrVoid
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -79,9 +81,6 @@ hstypes:
       constructor: T
       fields:
       - unwrapT
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -91,7 +90,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -113,14 +116,15 @@ hstypes:
       constructor: Z_PTR
       fields:
       - unwrapZ_PTR
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: PtrVoid
   instances:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: PtrVoid
   - HasField
   - HasFieldCompat
   - HasFieldPtr

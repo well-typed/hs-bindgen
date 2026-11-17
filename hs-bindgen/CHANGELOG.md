@@ -157,6 +157,55 @@
   specifications with version `1.0` can still be parsed. See [issue
   #2355][is-2355].
 
+* Add associated type synonyms to type class instances. They are currently only
+  used by `HasFFIType` instances in external binding specifications. In other
+  cases, they are ignored. See [issue #2355][is-2355].
+
+  For example, if a class `C` has an associated type `A`, then an instance for
+  type `T` may list an associated type as follows:
+
+  ```yaml
+  hstypes:
+  - hsname: T
+    instances:
+    - class: C
+      associated:
+      - type: A
+        hsmodule: SomeModule
+        hsname: SomeType
+  ```
+
+* The `ffitype` field of the `newtype` representation is now instead an
+  associated type of the `HasFFIType` class instance. See [issue
+  #2355][is-2355].
+
+  For example, the following:
+
+  ```yaml
+  hstypes:
+  - hsname: T
+    representation:
+      newtype:
+        ffitype:
+          hsmodule: M
+          hsname: F
+    instances:
+    - HasFFIType
+  ```
+
+  Is now specified as:
+
+  ```yaml
+  hstypes:
+  - hsname: T
+    instances:
+    - class: HasFFIType
+      associated:
+      - type: FFIType
+        hsmodule: M
+        hsname: F
+  ```
+
 [is-2355]: https://github.com/well-typed/hs-bindgen/issues/2355
 
 ## 1.0.0.0 -- 2026-10-08

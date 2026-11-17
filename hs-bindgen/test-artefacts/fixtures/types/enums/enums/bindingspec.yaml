@@ -58,15 +58,16 @@ hstypes:
       constructor: EnumA
       fields:
       - unwrapEnumA
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -85,15 +86,16 @@ hstypes:
       constructor: EnumB
       fields:
       - unwrapEnumB
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -112,15 +114,16 @@ hstypes:
       constructor: EnumC
       fields:
       - unwrapEnumC
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -139,15 +142,16 @@ hstypes:
       constructor: EnumD_t
       fields:
       - unwrapEnumD_t
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -166,15 +170,16 @@ hstypes:
       constructor: First
       fields:
       - unwrapFirst
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -193,15 +198,16 @@ hstypes:
       constructor: Nonseq
       fields:
       - unwrapNonseq
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -219,15 +225,16 @@ hstypes:
       constructor: Packed
       fields:
       - unwrapPacked
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUChar
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUChar
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -246,15 +253,16 @@ hstypes:
       constructor: Same
       fields:
       - unwrapSame
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -273,15 +281,16 @@ hstypes:
       constructor: Second
       fields:
       - unwrapSecond
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CInt
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr

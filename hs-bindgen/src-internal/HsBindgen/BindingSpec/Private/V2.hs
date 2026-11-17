@@ -28,7 +28,6 @@ module HsBindgen.BindingSpec.Private.V2 (
   , HsTypeRep(..)
   , HsRecordRep(..)
   , HsNewtypeRep(..)
-  , HsFFIType(..)
   , hsSpecFFIType
     -- ** Instances
   , InstanceSpec(..)
@@ -187,12 +186,12 @@ instance Default HsTypeSpec where
     , instances = Map.empty
     }
 
-hsSpecFFIType :: HsTypeSpec -> Maybe HsFFIType
+hsSpecFFIType :: HsTypeSpec -> Maybe Hs.ExtRef
 hsSpecFFIType hsSpec = do
-    rep <- hsSpec.hsRep
-    case rep of
-      HsTypeRepNewtype ntRep -> ntRep.ffiType
-      _ -> Nothing
+    oInst <- Map.lookup Inst.HasFFIType hsSpec.instances
+    case oInst of
+      Require inst -> (.ref) <$> List.find Inst.isFFIType inst.associated
+      Omit         -> Nothing
 
 --------------------------------------------------------------------------------
 
@@ -239,20 +238,13 @@ data HsNewtypeRep = HsNewtypeRep {
 
       -- | Field name
     , field :: Maybe (Hs.Name Hs.NsVar)
-
-      -- | FFI type
-    , ffiType :: Maybe HsFFIType
     }
-  deriving stock (Show, Eq, Ord, Generic)
-
-data HsFFIType = HsFFIType { unwrap :: Hs.ExtRef }
   deriving stock (Show, Eq, Ord, Generic)
 
 instance Default HsNewtypeRep where
   def = HsNewtypeRep{
         constructor = Nothing
       , field       = Nothing
-      , ffiType     = Nothing
       }
 
 {-------------------------------------------------------------------------------
@@ -270,6 +262,9 @@ data InstanceSpec = InstanceSpec {
       --
       -- If specified, /all/ constraints must be listed.
     , constraints :: [Inst.Constraint]
+
+      -- | Associated types
+    , associated :: [Inst.AssociatedType]
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -277,6 +272,7 @@ instance Default InstanceSpec where
   def = InstanceSpec{
       strategy    = Nothing
     , constraints = []
+    , associated  = []
     }
 
 {-------------------------------------------------------------------------------
@@ -378,40 +374,42 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
       "binding_specification" ->  2
       -- AOmittable:1
       "omit"                  ->  3
-      -- AInstanceSpec:1, AConstraintSpec:1
+      -- AInstanceSpec:1, AConstraint:1
       "class"                 ->  4
       -- AInstanceSpec:2
       "strategy"              ->  5
       -- AInstanceSpec:3
       "constraints"           ->  6
-      -- ABindingSpec:2, AConstraintSpec:2, HsFFIType:1
-      "hsmodule"              ->  7
+      -- AAssociatedType:1
+      "type"                  ->  7
+      -- ABindingSpec:2, AConstraint:2, AAssociatedType:2
+      "hsmodule"              ->  8
       -- ABindingSpec:3
-      "ctypes"                ->  8
+      "ctypes"                ->  9
       -- ABindingSpec:4
-      "hstypes"               ->  9
+      "hstypes"               -> 10
       -- ACTypeSpec:1
-      "headers"               -> 10
+      "headers"               -> 11
       -- ACTypeSpec:2
-      "cname"                 -> 11
-      -- ACTypeSpec:3, AHsTypeSpec:1, AConstraintSpec:3, HsFFIType:2
-      "hsname"                -> 12
+      "cname"                 -> 12
+      -- ACTypeSpec:3, AHsTypeSpec:1, AConstraint:3, AAssociatedType:3
+      "hsname"                -> 13
       -- ACTypeSpec:4
-      "enum"                  -> 13
+      "enum"                  -> 14
       -- AHsTypeSpec:2
-      "representation"        -> 14
+      "representation"        -> 15
       -- AHsTypeSpec:3
-      "instances"             -> 15
+      "instances"             -> 16
       -- AHsTypeRep:1
-      "record"                -> 16
+      "record"                -> 17
       -- AHsTypeRep:2
-      "newtype"               -> 17
+      "newtype"               -> 18
       -- HsRecordRep:1, HsNewtypeRep:1
-      "constructor"           -> 18
+      "constructor"           -> 19
       -- HsRecordRep:2, HsNewtypeRep:2
-      "fields"                -> 19
-      -- HsNewtypeRep:3
-      "ffitype"               -> 20
+      "fields"                -> 20
+      -- AInstanceSpec:4
+      "associated"            -> 21
       key -> panicPure $ "Unknown key: " ++ show key
 
 {-------------------------------------------------------------------------------
@@ -1041,11 +1039,9 @@ instance Aeson.FromJSON (ARep V2 HsTypeRep) where
             Aeson.parseFail "newtype representation with no fields"
           Just{}           ->
             Aeson.parseFail "newtype representation with more than one field"
-        hsNewtypeRepFFIType <- o .:? "ffitype"
         return HsNewtypeRep{
             constructor = fromARep' <$> hsNewtypeRepConstructor
           , field       = fromARep' <$> hsNewtypeRepField
-          , ffiType     = fromARep' <$> hsNewtypeRepFFIType
           }
 
 instance Aeson.ToJSON (ARep V2 HsTypeRep) where
@@ -1067,34 +1063,9 @@ instance Aeson.ToJSON (ARep V2 HsTypeRep) where
           $ catMaybes [
                 ("constructor" .=) . toARep' <$> x.constructor
               , ("fields"      .=) . (: []) . toARep' <$> x.field
-              , ("ffitype"     .=) . toARep' <$> x.ffiType
               ]
     HsTypeRepEmptyData -> Aeson.String "emptydata"
     HsTypeRepTypeAlias -> Aeson.String "typealias"
-
---------------------------------------------------------------------------------
-
-newtype instance ARep V2 HsFFIType = AHsFFIType HsFFIType
-  deriving stock (Show)
-
-instance ARepIso V2 HsFFIType
-
-instance Aeson.FromJSON (ARep V2 HsFFIType) where
-  parseJSON = fmap AHsFFIType . parseFFIType
-    where
-      parseFFIType = Aeson.withObject "HsFFIType" $ \o -> do
-          moduleName <- o .: "hsmodule"
-          typeName   <- o .: "hsname"
-          pure $ HsFFIType $ Hs.ExtRef {
-              moduleName = fromARep' moduleName
-            , name = fromARep' typeName
-            }
-
-instance Aeson.ToJSON (ARep V2 HsFFIType) where
-  toJSON (AHsFFIType ffiType) = Aeson.object [
-        "hsmodule" .= toARep' ffiType.unwrap.moduleName
-      , "hsname"   .= toARep' ffiType.unwrap.name
-      ]
 
 --------------------------------------------------------------------------------
 
@@ -1102,6 +1073,7 @@ data instance ARep V2 InstanceSpec = AInstanceSpec {
       clss        :: Inst.TypeClass
     , strategy    :: Maybe Inst.Strategy
     , constraints :: [Inst.Constraint]
+    , associated  :: [Inst.AssociatedType]
     }
   deriving stock (Show)
 
@@ -1111,31 +1083,36 @@ instance Aeson.FromJSON (ARep V2 InstanceSpec) where
       aInstanceSpecClass <- Aeson.parseJSON s
       let aInstanceSpecStrategy    = Nothing
           aInstanceSpecConstraints = []
+          aAssociated              = []
       return AInstanceSpec{
           clss        = fromARep' aInstanceSpecClass
         , strategy    = aInstanceSpecStrategy
         , constraints = aInstanceSpecConstraints
+        , associated  = aAssociated
         }
     Aeson.Object o -> do
       aInstanceSpecClass       <- o .:  "class"
       aInstanceSpecStrategy    <- o .:? "strategy"
       aInstanceSpecConstraints <- o .:? "constraints" .!= []
+      aInstanceSpecAssociated  <- o .:? "associated" .!= []
       return AInstanceSpec{
           clss        = fromARep' aInstanceSpecClass
         , strategy    = fromARep' <$> aInstanceSpecStrategy
         , constraints = fromARep' <$> aInstanceSpecConstraints
+        , associated  = fromARep' <$> aInstanceSpecAssociated
         }
     v -> Aeson.parseFail $
       "expected InstanceSpec String or Object, but encountered " ++ typeOf v
 
 instance Aeson.ToJSON (ARep V2 InstanceSpec) where
   toJSON arep
-    | isNothing arep.strategy && null arep.constraints =
+    | isNothing arep.strategy && null arep.constraints && null arep.associated =
         Aeson.toJSON (toARep' arep.clss)
     | otherwise = Aeson.Object . KM.fromList $ catMaybes [
           Just ("class" .= toARep' arep.clss)
         , ("strategy"    .=) . toARep' <$> arep.strategy
         , ("constraints" .=) . fmap toARep' <$> omitWhenNull arep.constraints
+        , ("associated"  .=) . fmap toARep' <$> omitWhenNull arep.associated
         ]
 
 instance ARepKV V2 InstanceSpec where
@@ -1146,6 +1123,7 @@ instance ARepKV V2 InstanceSpec where
     , InstanceSpec{
           strategy    = arep.strategy
         , constraints = arep.constraints
+        , associated  = arep.associated
         }
     )
 
@@ -1153,6 +1131,7 @@ instance ARepKV V2 InstanceSpec where
       clss        = k.unwrap
     , strategy    = v.strategy
     , constraints = v.constraints
+    , associated  = v.associated
     }
 
 deriving stock instance Show (ARepK V2 InstanceSpec)
@@ -1268,6 +1247,36 @@ instance Aeson.ToJSON (ARep V2 Inst.Constraint) where
       , "hsname"   .= toARep' constraint.ref.name
       ]
 
+--------------------------------------------------------------------------------
+
+newtype instance ARep V2 Inst.AssociatedType = AAssociatedType Inst.AssociatedType
+  deriving stock (Show)
+
+instance ARepIso V2 Inst.AssociatedType
+
+instance Aeson.FromJSON (ARep V2 Inst.AssociatedType) where
+  parseJSON = Aeson.withObject "AssociatedType" $ \o -> do
+      name            <- o .: "type"
+      extRefModule    <- o .: "hsmodule"
+      extRefName      <- o .: "hsname"
+      let hsName :: Hs.Name Hs.NsTypeConstr
+          hsName = fromARep' extRefName
+          ref = Hs.ExtRef{
+              moduleName = fromARep' extRefModule
+            , name       = hsName
+            }
+      return $ AAssociatedType Inst.AssociatedTypeSyn{
+          name = fromARep' name
+        , ref  = ref
+        }
+
+instance Aeson.ToJSON (ARep V2 Inst.AssociatedType) where
+  toJSON (AAssociatedType typ) = Aeson.object [
+        "type"     .= toARep' typ.name
+      , "hsmodule" .= toARep' typ.ref.moduleName
+      , "hsname"   .= toARep' typ.ref.name
+      ]
+
 {-------------------------------------------------------------------------------
   Auxiliary functions
 -------------------------------------------------------------------------------}
@@ -1331,7 +1340,7 @@ instance FromV1 (V1.BindingSpec header) (BindingSpec header) where
 instance FromV1 V1.CTypeSpec CTypeSpec where
   fromV1 (V1.CTypeSpec hsName enum) = CTypeSpec {
       hsName = hsName
-    , enum = fmap fromV1 enum
+    , enum   = fmap fromV1 enum
     }
 
 instance FromV1 V1.CEnumSpec CEnumSpec where
@@ -1340,10 +1349,13 @@ instance FromV1 V1.CEnumSpec CEnumSpec where
     V1.CEnumClosed -> CEnumClosed
 
 instance FromV1 V1.HsTypeSpec HsTypeSpec where
-  fromV1 (V1.HsTypeSpec hsRep instances) = HsTypeSpec {
-      hsRep = fmap fromV1 hsRep
-    , instances = Map.map (fmap fromV1) instances
-    }
+  fromV1 spec@(V1.HsTypeSpec hsRep instances) = HsTypeSpec {
+        hsRep     = fmap fromV1 hsRep
+      , instances = Map.mapWithKey go instances
+      }
+    where
+      go :: Inst.TypeClass -> Omittable V1.InstanceSpec -> Omittable InstanceSpec
+      go cls = fmap (fromV1_InstanceSpec cls (V1.hsSpecFFIType spec))
 
 instance FromV1 V1.HsTypeRep HsTypeRep where
   fromV1 = \case
@@ -1359,17 +1371,27 @@ instance FromV1 V1.HsRecordRep HsRecordRep where
     }
 
 instance FromV1 V1.HsNewtypeRep HsNewtypeRep where
-  fromV1 (V1.HsNewtypeRep constructor field ffiType) = HsNewtypeRep {
+  fromV1 (V1.HsNewtypeRep constructor field _ffiType) = HsNewtypeRep {
       constructor = constructor
     , field       = field
-    , ffiType     = fmap fromV1 ffiType
     }
 
-instance FromV1 V1.HsFFIType HsFFIType where
-  fromV1 (V1.HsFFIType ref) = HsFFIType ref
-
-instance FromV1 V1.InstanceSpec InstanceSpec where
-  fromV1 (V1.InstanceSpec strategy constraints) = InstanceSpec {
-      strategy    = strategy
-    , constraints = constraints
-    }
+-- | Move the V1 @ffitype@ field into the V2 @HasFFIType@ class instance as a V2
+-- @FFIType@ associated type synonym.
+fromV1_InstanceSpec ::
+     Inst.TypeClass
+  -> Maybe V1.HsFFIType
+  -> V1.InstanceSpec
+  -> InstanceSpec
+fromV1_InstanceSpec cls ffiTypeMay (V1.InstanceSpec strategy constraints) =
+    InstanceSpec {
+        strategy    = strategy
+      , constraints = constraints
+      , associated  =
+          if cls == Inst.HasFFIType
+          then toList (mkFFIType <$> ffiTypeMay)
+          else []
+      }
+  where
+    mkFFIType :: V1.HsFFIType -> Inst.AssociatedType
+    mkFFIType ffiType = Inst.FFIType ffiType.unwrap

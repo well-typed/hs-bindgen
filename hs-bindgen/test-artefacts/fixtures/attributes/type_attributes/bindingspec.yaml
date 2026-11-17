@@ -40,9 +40,6 @@ hstypes:
       constructor: More_aligned_int
       fields:
       - unwrapMore_aligned_int
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -52,7 +49,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -153,9 +154,6 @@ hstypes:
       constructor: Short_a
       fields:
       - unwrapShort_a
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CShort
   instances:
   - Bitfield
   - Bits
@@ -165,7 +163,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CShort
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -187,9 +189,6 @@ hstypes:
       constructor: T1
       fields:
       - unwrapT1
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -199,7 +198,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr

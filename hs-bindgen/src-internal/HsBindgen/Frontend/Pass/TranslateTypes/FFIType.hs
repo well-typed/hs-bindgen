@@ -55,8 +55,8 @@ toFFIType = go
       Hs.Fun{}                -> no
       Hs.ExtBinding ref _cSpec hsSpec ->
         case BindingSpec.hsSpecFFIType hsSpec of
-          Just hsFFIType -> yes $ Hs.FFIExternal hsFFIType.unwrap
-          Nothing        -> extNoFFIType ref
+          Just ffiType -> yes $ Hs.FFIExternal ffiType
+          Nothing      -> extNoFFIType ref
       Hs.ByteArray            -> no
       Hs.SizedByteArray{}     -> no
       Hs.Block{}              -> yes Hs.FFIPtrVoid

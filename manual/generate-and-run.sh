@@ -312,14 +312,13 @@ ctypes:
 
 hstypes:
   - hsname: Length
-    representation:
-      newtype:
-        ffitype:
-          hsmodule: Foreign.C.Types
-          hsname: CDouble
     instances:
       - Eq
-      - HasFFIType
+      - class: HasFFIType
+        associated:
+        - type: FFIType
+          hsmodule: Foreign.C.Types
+          hsname: CDouble
       - Ord
       - Show
 EOF

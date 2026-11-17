@@ -8,10 +8,9 @@ ctypes:
   hsname: A
 hstypes:
 - hsname: A
-  representation:
-    newtype:
-      ffitype:
-        hsmodule: Example3.A
-        hsname: A
   instances:
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - hsmodule: Example3.A
+      hsname: A
+      type: FFIType

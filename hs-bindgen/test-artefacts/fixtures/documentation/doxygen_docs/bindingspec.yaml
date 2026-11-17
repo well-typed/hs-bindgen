@@ -111,9 +111,6 @@ hstypes:
       constructor: Api_version_t
       fields:
       - unwrapApi_version_t
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -123,7 +120,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -167,15 +168,16 @@ hstypes:
       constructor: Color_enum
       fields:
       - unwrapColor_enum
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -334,14 +336,15 @@ hstypes:
       constructor: Event_callback_t
       fields:
       - unwrapEvent_callback_t
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: FunPtrVoid
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -502,14 +505,15 @@ hstypes:
       constructor: Processor_fn_t
       fields:
       - unwrapProcessor_fn_t
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: FunPtrVoid
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -525,9 +529,6 @@ hstypes:
       constructor: Size_type
       fields:
       - unwrapSize_type
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CSize
   instances:
   - Bitfield
   - Bits
@@ -537,7 +538,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CSize
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -559,15 +564,16 @@ hstypes:
       constructor: Status_code_t
       fields:
       - unwrapStatus_code_t
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CInt
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
