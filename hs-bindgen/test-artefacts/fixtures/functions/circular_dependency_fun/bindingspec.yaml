@@ -35,14 +35,15 @@ hstypes:
       constructor: Fun_ptr
       fields:
       - unwrapFun_ptr
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: FunPtrVoid
   - HasField
   - HasFieldCompat
   - HasFieldPtr

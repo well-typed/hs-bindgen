@@ -8,11 +8,6 @@ ctypes:
   hsname: CULong
 hstypes:
 - hsname: CULong
-  representation:
-    newtype:
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CULong
   instances:
   - Bits
   - Bounded
@@ -27,4 +22,8 @@ hstypes:
   - Real
   - Show
   - Storable
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - hsmodule: HsBindgen.Runtime.Support
+      hsname: CULong
+      type: FFIType

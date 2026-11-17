@@ -8,13 +8,9 @@ ctypes:
   hsname: B
 hstypes:
 - hsname: B
-  representation:
-    newtype:
-      constructor: B
-      fields:
-      - unwrapB
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CInt
   instances:
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - hsmodule: HsBindgen.Runtime.Support
+      hsname: CInt
+      type: FFIType

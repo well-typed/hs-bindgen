@@ -17,15 +17,16 @@ hstypes:
       constructor: Foo_enum
       fields:
       - unwrapFoo_enum
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Word32
   instances:
   - CEnum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Word32
   - HasField
   - HasFieldCompat
   - HasFieldPtr

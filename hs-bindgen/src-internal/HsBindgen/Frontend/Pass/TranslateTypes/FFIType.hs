@@ -55,7 +55,7 @@ toFFITypeWithMsgs = go
       Hs.Fun{}                -> no
       Hs.ExtBinding ref _cSpec hsSpec ->
         case BindingSpec.hsSpecFFIType hsSpec of
-          Just hsFFIType -> yes $ Hs.FFIExternal hsFFIType.unwrap
+          Just hsFFIType -> yes $ Hs.FFIExternal hsFFIType
           Nothing        -> censor (FFITypesExtBindingNotSpecified ref :) no
       Hs.ByteArray            -> no
       Hs.SizedByteArray{}     -> no

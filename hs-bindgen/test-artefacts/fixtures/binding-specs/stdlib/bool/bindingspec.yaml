@@ -13,9 +13,6 @@ hstypes:
       constructor: Stdlib_CBool
       fields:
       - unwrapStdlib_CBool
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CBool
   instances:
   - Bitfield
   - Bits
@@ -25,7 +22,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CBool
   - HasField
   - HasFieldCompat
   - HasFieldPtr

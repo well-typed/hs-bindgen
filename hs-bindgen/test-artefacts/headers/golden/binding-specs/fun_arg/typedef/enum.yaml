@@ -11,24 +11,16 @@ ctypes:
   hsname: D
 hstypes:
 - hsname: C
-  representation:
-    newtype:
-      constructor: C
-      fields:
-      - unwrapC
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
+      type: FFIType
 - hsname: D
-  representation:
-    newtype:
-      constructor: D
-      fields:
-      - unwrapD
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
+      type: FFIType
