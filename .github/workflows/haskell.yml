@@ -10,6 +10,11 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
+env:
+  # TODO <https://github.com/well-typed/hs-bindgen/issues/2373>: use
+  # ubuntu-latest (i.e., ubuntu-26.04).
+  ubuntu_version: "ubuntu-24.04"
+
 jobs:
   setup-matrix:
     name: Setup matrix
@@ -37,10 +42,10 @@ jobs:
         { echo 'MATRIX_COMBINATIONS<<EOF'
           # Default CI: oldest (14) and newest (23) LLVM on Linux, plus macOS on
           # the oldest. All versions are covered by comprehensive-ci.
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.4.8", "llvm": "14"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.4.8", "llvm": "23"},'
-          echo '{"runner": "macos-latest"  , "ghc": "9.4.8", "llvm": "14"},'
-          echo '{"runner": "macos-latest"  , "ghc": "9.4.8", "llvm": "23"},'
+          echo '{"runner": "${{ env.ubuntu_version }}", "ghc": "9.4.8", "llvm": "14"},'
+          echo '{"runner": "${{ env.ubuntu_version }}", "ghc": "9.4.8", "llvm": "23"},'
+          echo '{"runner": "macos-latest"             , "ghc": "9.4.8", "llvm": "14"},'
+          echo '{"runner": "macos-latest"             , "ghc": "9.4.8", "llvm": "23"},'
           echo EOF
         } >> "$GITHUB_ENV"
 
@@ -50,16 +55,16 @@ jobs:
         { echo 'MATRIX_COMBINATIONS<<EOF'
           # Default CI: oldest (14) and newest (23) LLVM on Linux, plus macOS on
           # the oldest. The middle versions are covered by comprehensive-ci.
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.4.8", "llvm": "14"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.4.8", "llvm": "23"},'
-          echo '{"runner": "macos-latest"  , "ghc": "9.4.8", "llvm": "14"},'
-          echo '{"runner": "macos-latest"  , "ghc": "9.4.8", "llvm": "23"},'
+          echo '{"runner": "${{ env.ubuntu_version }}", "ghc": "9.4.8", "llvm": "14"},'
+          echo '{"runner": "${{ env.ubuntu_version }}", "ghc": "9.4.8", "llvm": "23"},'
+          echo '{"runner": "macos-latest"             , "ghc": "9.4.8", "llvm": "14"},'
+          echo '{"runner": "macos-latest"             , "ghc": "9.4.8", "llvm": "23"},'
           # Vary GHC version from 9.4 to 9.14.
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.6.7", "llvm": "14"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.8.4", "llvm": "14"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.10.3", "llvm": "14"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.12.4", "llvm": "14"},'
-          echo '{"runner": "ubuntu-latest" , "ghc": "9.14.1", "llvm": "14"},'
+          echo '{"runner": "${{ env.ubuntu_version }}", "ghc": "9.6.7", "llvm": "14"},'
+          echo '{"runner": "${{ env.ubuntu_version }}", "ghc": "9.8.4", "llvm": "14"},'
+          echo '{"runner": "${{ env.ubuntu_version }}", "ghc": "9.10.3", "llvm": "14"},'
+          echo '{"runner": "${{ env.ubuntu_version }}", "ghc": "9.12.4", "llvm": "14"},'
+          echo '{"runner": "${{ env.ubuntu_version }}", "ghc": "9.14.1", "llvm": "14"},'
           echo EOF
         } >> "$GITHUB_ENV"
 

@@ -16,7 +16,7 @@ runs:
   # <https://github.com/actions/runner-images/issues/14823>
   - name: Download packages from archive.ubuntu.com (Linux)
     shell: bash
-    if: ${{ runner.os == 'Linux' }}
+    if: ${{ runner.os == 'Linux' && false }}
     run: |
       cat /etc/apt/apt-mirrors.txt
       echo "Deleting..."
