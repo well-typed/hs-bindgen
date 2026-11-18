@@ -22,7 +22,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        runner: [ubuntu-latest, macos-latest]
+        # TODO <https://github.com/well-typed/hs-bindgen/issues/2373>: use
+        # ubuntu-latest (i.e., ubuntu-26.04).
+        runner: [ubuntu-24.04, macos-latest]
         ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
         llvm: ['14', '16', '18', '20', '21', '22', '23']
         exclude:
@@ -233,7 +235,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        runner: [ubuntu-latest, macos-latest]
+        # TODO <https://github.com/well-typed/hs-bindgen/issues/2373>: use
+        # ubuntu-latest (i.e., ubuntu-26.04).
+        runner: [ubuntu-24.04, macos-latest]
         ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
         llvm: ['14', '16', '18', '20', '21', '22', '23']
         exclude:
@@ -383,7 +387,9 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        runner: [ubuntu-latest, macos-latest]
+        # TODO <https://github.com/well-typed/hs-bindgen/issues/2373>: use
+        # ubuntu-latest (i.e., ubuntu-26.04).
+        runner: [ubuntu-24.04, macos-latest]
         ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
         llvm: ['14', '16', '18', '20', '21', '22', '23']
         exclude:
@@ -479,7 +485,9 @@ jobs:
 
   generate-fixture-haddocks:
     name: Generate Fixture Haddocks (GHC ${{ matrix.ghc }}, LLVM ${{ matrix.llvm }})
-    runs-on: ubuntu-latest
+    # TODO <https://github.com/well-typed/hs-bindgen/issues/2373>: use
+    # ubuntu-latest (i.e., ubuntu-26.04).
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
 
     strategy:
@@ -528,7 +536,9 @@ jobs:
 
   cross-compile-test:
     name: Cross-compile to aarch64
-    runs-on: ubuntu-latest
+    # TODO <https://github.com/well-typed/hs-bindgen/issues/2373>: use
+    # ubuntu-latest (i.e., ubuntu-26.04).
+    runs-on: ubuntu-24.04
     timeout-minutes: 360
 
     steps:
