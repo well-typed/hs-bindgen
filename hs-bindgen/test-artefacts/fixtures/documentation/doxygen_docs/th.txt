@@ -64,7 +64,7 @@
 --   return (versioned_function)(arg1);
 -- }
 -- signed int hs_bindgen_0c0057f1700372a7 (
---   char *arg1,
+--   char arg1[64],
 --   size_t arg2
 -- )
 -- {
@@ -223,7 +223,7 @@
 --   return (versioned_function)(arg1);
 -- }
 -- signed int hs_bindgen_97c1191917e6eece (
---   char *arg1,
+--   char arg1[64],
 --   size_t arg2
 -- )
 -- {
@@ -402,7 +402,7 @@
 -- /* test_documentationdoxygen_docs_Example_get_process_buffer */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_f4ccc6d90e8d3ebd (void)) (
---   char *arg1,
+--   char arg1[64],
 --   size_t arg2
 -- )
 -- {

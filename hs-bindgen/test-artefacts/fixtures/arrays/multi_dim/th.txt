@@ -1,97 +1,97 @@
 -- addDependentFile test-artefacts/headers/golden/arrays/multi_dim.h
 -- #include <arrays/multi_dim.h>
 -- signed int hs_bindgen_57b00b79dd5b838e (
---   signed int (*arg1)[4]
+--   signed int arg1[3][4]
 -- )
 -- {
 --   return (foo)(arg1);
 -- }
 -- signed int hs_bindgen_b75122693c32e26c (
---   signed int const (*arg1)[4]
+--   signed int const arg1[3][4]
 -- )
 -- {
 --   return (foo_const)(arg1);
 -- }
 -- signed int hs_bindgen_595b7d50222e502a (
---   signed int (*arg1)[2]
+--   signed int arg1[][2]
 -- )
 -- {
 --   return (bar)(arg1);
 -- }
 -- signed int hs_bindgen_1e0c14a0ed027681 (
---   signed int const (*arg1)[2]
+--   signed int const arg1[][2]
 -- )
 -- {
 --   return (bar_const)(arg1);
 -- }
 -- signed int hs_bindgen_39849d83dadd53d9 (
---   signed int (*arg1)[3]
+--   matrix arg1
 -- )
 -- {
 --   return (baz)(arg1);
 -- }
 -- signed int hs_bindgen_0c873d371c129e78 (
---   signed int const (*arg1)[3]
+--   matrix const arg1
 -- )
 -- {
 --   return (baz_const)(arg1);
 -- }
 -- signed int hs_bindgen_a364da5adecafb37 (
---   signed int (*arg1)[3]
+--   triplets arg1
 -- )
 -- {
 --   return (quuz)(arg1);
 -- }
 -- signed int hs_bindgen_e39fa59aeb1fef3d (
---   signed int const (*arg1)[3]
+--   triplets const arg1
 -- )
 -- {
 --   return (quuz_const)(arg1);
 -- }
 -- signed int hs_bindgen_3389520bc7419af4 (
---   signed int (*arg1)[4]
+--   signed int arg1[3][4]
 -- )
 -- {
 --   return (foo)(arg1);
 -- }
 -- signed int hs_bindgen_73e2db5ad5d807f7 (
---   signed int const (*arg1)[4]
+--   signed int const arg1[3][4]
 -- )
 -- {
 --   return (foo_const)(arg1);
 -- }
 -- signed int hs_bindgen_a28b81f0afc23eed (
---   signed int (*arg1)[2]
+--   signed int arg1[][2]
 -- )
 -- {
 --   return (bar)(arg1);
 -- }
 -- signed int hs_bindgen_58337c492b64ae2c (
---   signed int const (*arg1)[2]
+--   signed int const arg1[][2]
 -- )
 -- {
 --   return (bar_const)(arg1);
 -- }
 -- signed int hs_bindgen_48876e6767cb5923 (
---   signed int (*arg1)[3]
+--   matrix arg1
 -- )
 -- {
 --   return (baz)(arg1);
 -- }
 -- signed int hs_bindgen_13ce150055e8aa41 (
---   signed int const (*arg1)[3]
+--   matrix const arg1
 -- )
 -- {
 --   return (baz_const)(arg1);
 -- }
 -- signed int hs_bindgen_da5c432144bd5546 (
---   signed int (*arg1)[3]
+--   triplets arg1
 -- )
 -- {
 --   return (quuz)(arg1);
 -- }
 -- signed int hs_bindgen_70be94a6fb59f547 (
---   signed int const (*arg1)[3]
+--   triplets const arg1
 -- )
 -- {
 --   return (quuz_const)(arg1);
@@ -99,7 +99,7 @@
 -- /* test_arraysmulti_dim_Example_get_foo */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_02d97ecc46bbc8e0 (void)) (
---   signed int (*arg1)[4]
+--   signed int arg1[3][4]
 -- )
 -- {
 --   return &foo;
@@ -107,7 +107,7 @@
 -- /* test_arraysmulti_dim_Example_get_foo_const */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_8baaa4bee7bf2bf7 (void)) (
---   signed int const (*arg1)[4]
+--   signed int const arg1[3][4]
 -- )
 -- {
 --   return &foo_const;
@@ -115,7 +115,7 @@
 -- /* test_arraysmulti_dim_Example_get_bar */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_27d306f03bbe4aeb (void)) (
---   signed int (*arg1)[2]
+--   signed int arg1[][2]
 -- )
 -- {
 --   return &bar;
@@ -123,7 +123,7 @@
 -- /* test_arraysmulti_dim_Example_get_bar_const */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_dedcf308a5d44f1d (void)) (
---   signed int const (*arg1)[2]
+--   signed int const arg1[][2]
 -- )
 -- {
 --   return &bar_const;
@@ -131,7 +131,7 @@
 -- /* test_arraysmulti_dim_Example_get_baz */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_f8c450c8715a6834 (void)) (
---   signed int (*arg1)[3]
+--   matrix arg1
 -- )
 -- {
 --   return &baz;
@@ -139,7 +139,7 @@
 -- /* test_arraysmulti_dim_Example_get_baz_const */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_520d9475875f88b2 (void)) (
---   signed int const (*arg1)[3]
+--   matrix const arg1
 -- )
 -- {
 --   return &baz_const;
@@ -147,7 +147,7 @@
 -- /* test_arraysmulti_dim_Example_get_quuz */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_cb1714c714867d37 (void)) (
---   signed int (*arg1)[3]
+--   triplets arg1
 -- )
 -- {
 --   return &quuz;
@@ -155,7 +155,7 @@
 -- /* test_arraysmulti_dim_Example_get_quuz_const */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_b4e5ee141d4c7703 (void)) (
---   signed int const (*arg1)[3]
+--   triplets const arg1
 -- )
 -- {
 --   return &quuz_const;

@@ -25,8 +25,6 @@ import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UnnamedIdUsage (UnnamedIdUsageAnalysis)
 import HsBindgen.Frontend.Analysis.UnnamedIdUsage qualified as UnnamedIdUsageAnalysis
-import HsBindgen.Frontend.Pass.AdjustTypes
-import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.ApplyMacroFallback
 import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit
@@ -200,12 +198,6 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- "HsBindgen.Frontend.Pass.ReparseMacroExpansions" reparses declarations that
 -- contain macro expansions.
 --
--- Constraints:
---
--- * Must be before "HsBindgen.Frontend.Pass.AdjustTypes", because
---   "HsBindgen.Frontend.Pass.ReparseMacroExpansions" reparses declarations
---   referencing macro-defined types that may have to be adjusted.
---
 -- == 10. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
 --
 -- "HsBindgen.Frontend.Pass.ResolveBindingSpecs" has two responsibilities:
@@ -236,18 +228,12 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 -- 'HsBindgen.Frontend.DeclDB.Squashed' entries. Declarations it cannot name
 -- become unusable.
 --
--- == 12. "HsBindgen.Frontend.Pass.AdjustTypes"
---
--- "HsBindgen.Frontend.Pass.AdjustTypes" adjusts types in declarations. For
--- example, if a function argument is a function type, then it is adjusted to a
--- function /pointer/ type.
---
--- == 13. "HsBindgen.Frontend.Pass.TranslateTypes"
+-- == 12. "HsBindgen.Frontend.Pass.TranslateTypes"
 --
 -- "HsBindgen.Frontend.Pass.TranslateTypes" translates C types (use sites) to
 -- Haskell types.
 --
--- == 14. "HsBindgen.Frontend.Pass.Select"
+-- == 13. "HsBindgen.Frontend.Pass.Select"
 --
 -- "HsBindgen.Frontend.Pass.Select" deselects declarations
 -- ('HsBindgen.Frontend.DeclDB.Deselected') using predicates and program
@@ -431,13 +417,9 @@ runFrontend tracer config boot = do
       traceSorted (contramap FrontendMangleNames tracer) msgsMangleNames
       pure afterMangleNames
 
-    adjustTypesPass <- cache "AdjustTypes" $ do
-      afterMangleNamesPass <- mangleNamesPass
-      pure $ adjustTypes afterMangleNamesPass
-
     translateTypesPass <- cache "TranslateTypes" $ do
-      afterAdjustTypesPass <- adjustTypesPass
-      pure $ translateTypes afterAdjustTypesPass
+      afterMangleNamesPass <- mangleNamesPass
+      pure $ translateTypes afterMangleNamesPass
 
     selectPass <- cache "select" $ do
       afterParse <- parsePass
@@ -466,7 +448,6 @@ runFrontend tracer config boot = do
       , reparseMacroExpansions   = reparseMacroExpansionsPass
       , resolveBindingSpecs      = resolveBindingSpecsPass
       , mangleNames              = mangleNamesPass
-      , adjustTypes              = adjustTypesPass
       , translateTypes           = translateTypesPass
       , select                   = selectPass
       , final                    = finalPass
@@ -517,7 +498,6 @@ data FrontendArtefact l = FrontendArtefact {
     , reparseMacroExpansions   :: Cached (C.TranslationUnit l ReparseMacroExpansions)
     , resolveBindingSpecs      :: Cached (C.TranslationUnit l ResolveBindingSpecs)
     , mangleNames              :: Cached (C.TranslationUnit l MangleNames)
-    , adjustTypes              :: Cached (C.TranslationUnit l AdjustTypes)
     , translateTypes           :: Cached (C.TranslationUnit l TranslateTypes)
     , select                   :: Cached (C.TranslationUnit l Select)
     , final                    :: Cached (C.TranslationUnit l Final)

@@ -21,7 +21,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
   , "int32_t hs_bindgen_2a91c367a9380a63 ("
   , "  a_type_t *arg1,"
   , "  uint32_t arg2,"
-  , "  uint8_t *arg3"
+  , "  uint8_t arg3[]"
   , ")"
   , "{"
   , "  return (some_fun)(arg1, arg2, arg3);"

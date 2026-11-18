@@ -21,7 +21,6 @@ import HsBindgen.Frontend.DeclDB (PassFailure (..), SquashTarget, Unusable,
                                   UnusableReason (..))
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DelayedMsg
-import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
@@ -52,7 +51,6 @@ type family AnnSelect ix where
   AnnSelect "Struct"               = StructNames
   AnnSelect "Typedef"              = TypedefNames
   AnnSelect "TypecheckedMacroType" = NewtypeNames
-  AnnSelect "TypeFunArg"           = AdjustedFrom Select
   AnnSelect "Union"                = NewtypeNames
   AnnSelect _                      = NoAnn
 
@@ -331,8 +329,7 @@ instance CoercePassAnn "IndirectField" TranslateTypes Select where
   coercePassAnn _ = \case
       IndirectFieldNames name -> IndirectFieldNames name
 
-instance CoercePassAnn "TypeFunArg" TranslateTypes Select where
-  coercePassAnn _ = coercePass
+instance CoercePassAnn "TypeFunArg" TranslateTypes Select
 
 instance CoercePassCommentDecl TranslateTypes Select where
   coercePassCommentDecl _ = fmap coercePass

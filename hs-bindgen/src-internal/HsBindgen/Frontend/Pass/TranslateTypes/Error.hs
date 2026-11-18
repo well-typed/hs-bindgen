@@ -5,8 +5,6 @@ module HsBindgen.Frontend.Pass.TranslateTypes.Error (
     TranslateTypesError (..)
   , FunPositionError (..)
   , NoFFIType (..)
-  , UnexpectedType (..)
-  , UnexpectedTypeKind (..)
   , FunPosition (..)
   , FunArgPosition (..)
   ) where
@@ -30,29 +28,26 @@ instance PrettyForTrace TranslateTypesError where
 
 -- | A bug if any position has an unexpected type, a warning otherwise
 instance IsTrace Level TranslateTypesError where
-  getDefaultLogLevel (TranslateTypesFunctionError xs)
-    | any isUnexpected xs = Bug
-    | otherwise           = Warning
-    where
-      isUnexpected :: FunPositionError -> Bool
-      isUnexpected = \case
-        FunPositionNoFFIType{}      -> False
-        FunPositionUnexpectedType{} -> True
+  getDefaultLogLevel (TranslateTypesFunctionError xs) = positionErrorsLevel xs
   getSource  = const HsBindgen
   getTraceId = const "translate-types"
+
+positionErrorsLevel :: NonEmpty FunPositionError -> Level
+positionErrorsLevel xs = maximum (fmap logLevel xs)
+  where
+    logLevel :: FunPositionError -> Level
+    logLevel = \case
+      FunPositionNoFFIType{} -> Warning
 
 -- | Why we cannot pass a function argument or result
 data FunPositionError =
     -- | Passed directly without an FFI type
     FunPositionNoFFIType NoFFIType
-    -- | Of a type that C or an earlier pass rules out
-  | FunPositionUnexpectedType UnexpectedType
   deriving stock (Show, Eq)
 
 instance PrettyForTrace FunPositionError where
   prettyForTrace = \case
       FunPositionNoFFIType      x -> prettyForTrace x
-      FunPositionUnexpectedType x -> prettyForTrace x
 
 data NoFFIType = NoFFIType {
       position :: FunPosition
@@ -68,37 +63,6 @@ instance PrettyForTrace NoFFIType where
       , PP.singleQuotes (PP.text x.cType)
       , "has no FFI type"
       ]
-
-data UnexpectedType = UnexpectedType {
-      position :: FunPosition
-    , kind     :: UnexpectedTypeKind
-      -- | Rendered in C syntax
-    , cType    :: Text
-    }
-  deriving stock (Show, Eq)
-
-instance PrettyForTrace UnexpectedType where
-  prettyForTrace x = PP.hsep [
-        prettyForTrace x.position
-      , "of C type"
-      , PP.singleQuotes (PP.text x.cType)
-      , "is unexpectedly"
-      , prettyForTrace x.kind
-      ]
-
--- | The canonical type of an 'UnexpectedType'
---
--- C rules out both as result types; @AdjustTypes@ adjusts both to pointers as
--- argument types.
-data UnexpectedTypeKind =
-    UnexpectedArray
-  | UnexpectedFunction
-  deriving stock (Show, Eq)
-
-instance PrettyForTrace UnexpectedTypeKind where
-  prettyForTrace = \case
-      UnexpectedArray    -> "an array"
-      UnexpectedFunction -> "a function"
 
 -- | Position in a function signature
 data FunPosition =

@@ -13,7 +13,7 @@ import Data.List.NonEmpty qualified as NonEmpty
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DelayedMsg
-import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
+import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
 import HsBindgen.Frontend.Pass.TranslateTypes.Error
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
@@ -34,7 +34,7 @@ import HsBindgen.IR.Translation
 
 translateTypes ::
      forall l.
-     C.TranslationUnit l AdjustTypes
+     C.TranslationUnit l MangleNames
   -> C.TranslationUnit l TranslateTypes
 translateTypes unit = unit{C.db = db'}
   where
@@ -53,7 +53,7 @@ translateTypes unit = unit{C.db = db'}
 -------------------------------------------------------------------------------}
 
 processDecl ::
-     C.Decl l AdjustTypes
+     C.Decl l MangleNames
   -> M NoEnv (DeclDB.PassResult l TranslateTypes)
 processDecl decl = do
     eKind' <- withEnv (const (DeclEnv decl.id.cName)) $ processDeclKind decl.kind
@@ -62,7 +62,7 @@ processDecl decl = do
       Right kind' -> DeclDB.Advanced $ C.coercePassDeclWith kind' decl.ann decl
 
 processDeclKind ::
-     C.DeclKind l AdjustTypes
+     C.DeclKind l MangleNames
   -> M DeclEnv (Either TranslateTypesError (C.DeclKind l TranslateTypes))
 processDeclKind = \case
     C.DeclStruct               struct   -> ok $ C.DeclStruct               <$> processStruct           struct
@@ -78,7 +78,7 @@ processDeclKind = \case
     ok :: M DeclEnv a -> M DeclEnv (Either TranslateTypesError a)
     ok = fmap Right
 
-processStruct :: C.Struct AdjustTypes -> M DeclEnv (C.Struct TranslateTypes)
+processStruct :: C.Struct MangleNames -> M DeclEnv (C.Struct TranslateTypes)
 processStruct struct = do
     fields' <- mapM processField struct.fields
     flam'   <- C.traverseFlamField processRegularField struct.flam
@@ -90,7 +90,7 @@ processStruct struct = do
       , ann       = struct.ann
       }
 
-processUnion :: C.Union AdjustTypes -> M DeclEnv (C.Union TranslateTypes)
+processUnion :: C.Union MangleNames -> M DeclEnv (C.Union TranslateTypes)
 processUnion union = do
     fields' <- mapM processField union.fields
     pure C.Union{
@@ -100,12 +100,12 @@ processUnion union = do
       , ann       = union.ann
       }
 
-processField :: C.Field AdjustTypes -> M DeclEnv (C.Field TranslateTypes)
+processField :: C.Field MangleNames -> M DeclEnv (C.Field TranslateTypes)
 processField = \case
     C.FieldRegular  field -> C.FieldRegular  <$> processRegularField field
     C.FieldImplicit field -> C.FieldImplicit <$> processImplicitField field
 
-processRegularField :: C.RegularField AdjustTypes -> M DeclEnv (C.RegularField TranslateTypes)
+processRegularField :: C.RegularField MangleNames -> M DeclEnv (C.RegularField TranslateTypes)
 processRegularField field = pure C.RegularField{
       info   = coercePass field.info
     , typ    = processType Translation.Top field.typ
@@ -114,7 +114,7 @@ processRegularField field = pure C.RegularField{
     , ann    = field.ann
     }
 
-processImplicitField :: C.ImplicitField AdjustTypes -> M DeclEnv (C.ImplicitField TranslateTypes)
+processImplicitField :: C.ImplicitField MangleNames -> M DeclEnv (C.ImplicitField TranslateTypes)
 processImplicitField field = do
     indirect' <- mapM processIndirectField field.indirect
     pure C.ImplicitField{
@@ -125,23 +125,23 @@ processImplicitField field = do
       , ann      = field.ann
       }
 
-processIndirectField :: C.IndirectField AdjustTypes -> M DeclEnv (C.IndirectField TranslateTypes)
+processIndirectField :: C.IndirectField MangleNames -> M DeclEnv (C.IndirectField TranslateTypes)
 processIndirectField field = pure C.IndirectField{
       info   = coercePass field.info
     , typ    = processType Translation.Top field.typ
     , offset = field.offset
     , width  = field.width
     , path   = map (processAnonRef Translation.Top) field.path
-    , ann    = coercePassAnn (Proxy @'("IndirectField", AdjustTypes, TranslateTypes)) field.ann
+    , ann    = coercePassAnn (Proxy @'("IndirectField", MangleNames, TranslateTypes)) field.ann
     }
 
-processTypedef :: C.Typedef AdjustTypes -> M DeclEnv (C.Typedef TranslateTypes)
+processTypedef :: C.Typedef MangleNames -> M DeclEnv (C.Typedef TranslateTypes)
 processTypedef typedef = pure C.Typedef{
       typ = processType Translation.Top typedef.typ
     , ann = typedef.ann
     }
 
-processEnum :: C.Enum AdjustTypes -> M DeclEnv (C.Enum TranslateTypes)
+processEnum :: C.Enum MangleNames -> M DeclEnv (C.Enum TranslateTypes)
 processEnum enum = pure C.Enum{
       typ       = processType Translation.Top enum.typ
     , sizeof    = enum.sizeof
@@ -151,18 +151,18 @@ processEnum enum = pure C.Enum{
     }
 
 processUntaggedEnumConstant ::
-     C.UntaggedEnumConstant AdjustTypes
+     C.UntaggedEnumConstant MangleNames
   -> M DeclEnv (C.UntaggedEnumConstant TranslateTypes)
 processUntaggedEnumConstant = pure . coercePass
 
-processMacro :: MacroBody AdjustTypes l -> M DeclEnv (MacroBody TranslateTypes l)
+processMacro :: MacroBody MangleNames l -> M DeclEnv (MacroBody TranslateTypes l)
 processMacro mac = pure $ case mac of
     MacroType  typ -> MacroType  $ coercePass typ
     MacroValue val -> MacroValue $ coercePass val
     MacroRaw   raw -> MacroRaw raw
 
 processFunction ::
-     C.Function AdjustTypes
+     C.Function MangleNames
   -> M DeclEnv (Either TranslateTypesError (C.Function TranslateTypes))
 processFunction fun = do
     (argErrs, args') <- partitionEithers <$>
@@ -183,7 +183,7 @@ processFunction fun = do
 
 processFunctionArg ::
      Int
-  -> C.FunctionArg AdjustTypes
+  -> C.FunctionArg MangleNames
   -> M DeclEnv (Either FunPositionError (C.FunctionArg TranslateTypes))
 processFunctionArg i arg = do
     eAnn <- classified pos $ classifyArgPassingMethod pos arg typ'.hs
@@ -200,7 +200,7 @@ processFunctionArg i arg = do
     typ' = processTypeFunArg Translation.FunArg arg.typ
 
 processFunctionRes ::
-     C.FunctionRes AdjustTypes
+     C.FunctionRes MangleNames
   -> M DeclEnv (Either FunPositionError (C.FunctionRes TranslateTypes))
 processFunctionRes res = do
     eAnn <- classified FunPositionRes $ classifyResPassingMethod res typ'.hs
@@ -221,7 +221,7 @@ classified pos x = do
     forM_ fallbacks $ addMessage . TranslateTypesExtBindingFallback pos
     pure r
 
-processGlobal :: C.Global AdjustTypes -> M DeclEnv (C.Global TranslateTypes)
+processGlobal :: C.Global MangleNames -> M DeclEnv (C.Global TranslateTypes)
 processGlobal global = pure C.Global{
       typ = processType Translation.Top global.typ
     , ann = global.ann
@@ -233,7 +233,7 @@ processGlobal global = pure C.Global{
 
 processType ::
      Translation.TypeContext
-  -> C.Type AdjustTypes
+  -> C.Type MangleNames
   -> TranslatedTypes TranslateTypes
 processType ctx typ = TranslatedTypes{
       c  = coercePass typ
@@ -242,7 +242,7 @@ processType ctx typ = TranslatedTypes{
 
 processTypeFunArg ::
      Translation.TypeContext
-  -> C.TypeFunArg AdjustTypes
+  -> C.TypeFunArg MangleNames
   -> TranslatedTypeFunArg TranslateTypes
 processTypeFunArg ctx typ = TranslatedTypeFunArg{
       c  = coercePass typ
@@ -251,7 +251,7 @@ processTypeFunArg ctx typ = TranslatedTypeFunArg{
 
 processAnonRef ::
      Translation.TypeContext
-  -> C.AnonRef AdjustTypes
+  -> C.AnonRef MangleNames
   -> TranslatedAnonRef TranslateTypes
 processAnonRef ctx typ = TranslatedAnonRef{
       c = coercePass typ

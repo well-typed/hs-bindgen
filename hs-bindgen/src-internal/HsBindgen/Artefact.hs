@@ -22,7 +22,6 @@ import HsBindgen.Boot
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
-import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
 import HsBindgen.Frontend.Pass.ApplyMacroFallback.IsPass (ApplyMacroFallback)
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.EnrichComments.IsPass (EnrichComments)
@@ -35,6 +34,7 @@ import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpans
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecs)
 import HsBindgen.Frontend.Pass.Select.IsPass (Select)
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST)
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass (TranslateTypes)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass (TypecheckMacros)
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
@@ -72,8 +72,8 @@ data FrontendPass (l :: Star) (result :: Star) where
     :: FrontendPass l (C.TranslationUnit l ResolveBindingSpecs)
   MangleNamesPass
     :: FrontendPass l (C.TranslationUnit l MangleNames)
-  AdjustTypesPass
-    :: FrontendPass l (C.TranslationUnit l AdjustTypes)
+  TranslateTypesPass
+    :: FrontendPass l (C.TranslationUnit l TranslateTypes)
   SelectPass
     :: FrontendPass l (C.TranslationUnit l Select)
   FinalPass
@@ -163,7 +163,7 @@ runArtefacts tracer config boot frontend backend artefact =
         ReparseMacroExpansionsPass   -> runCached frontend.reparseMacroExpansions
         ResolveBindingSpecsPass      -> runCached frontend.resolveBindingSpecs
         MangleNamesPass              -> runCached frontend.mangleNames
-        AdjustTypesPass              -> runCached frontend.adjustTypes
+        TranslateTypesPass           -> runCached frontend.translateTypes
         SelectPass                   -> runCached frontend.select
         FinalPass                    -> runCached frontend.final
 

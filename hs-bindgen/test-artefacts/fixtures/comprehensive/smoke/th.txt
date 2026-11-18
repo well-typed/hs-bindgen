@@ -75,19 +75,19 @@
 --   return (foo12)(arg1);
 -- }
 -- char *hs_bindgen_6bee8b08c7819690 (
---   char *arg1
+--   char arg1[]
 -- )
 -- {
 --   return (foo13)(arg1);
 -- }
 -- char *hs_bindgen_a670ae425db6b59c (
---   char *arg1
+--   char arg1[]
 -- )
 -- {
 --   return (foo14)(arg1);
 -- }
 -- char *hs_bindgen_2422a51b7a32f594 (
---   char *arg1
+--   char arg1[5]
 -- )
 -- {
 --   return (foo15)(arg1);
@@ -265,19 +265,19 @@
 --   return (foo12)(arg1);
 -- }
 -- char *hs_bindgen_325eccfd4464f38f (
---   char *arg1
+--   char arg1[]
 -- )
 -- {
 --   return (foo13)(arg1);
 -- }
 -- char *hs_bindgen_e6168413cff5674e (
---   char *arg1
+--   char arg1[]
 -- )
 -- {
 --   return (foo14)(arg1);
 -- }
 -- char *hs_bindgen_0ea84b195eb56e51 (
---   char *arg1
+--   char arg1[5]
 -- )
 -- {
 --   return (foo15)(arg1);
@@ -481,7 +481,7 @@
 -- /* test_comprehensivesmoke_Example_get_foo13 */
 -- __attribute__ ((const))
 -- char *(*hs_bindgen_caa14e75b1229a54 (void)) (
---   char *arg1
+--   char arg1[]
 -- )
 -- {
 --   return &foo13;
@@ -489,7 +489,7 @@
 -- /* test_comprehensivesmoke_Example_get_foo14 */
 -- __attribute__ ((const))
 -- char *(*hs_bindgen_3cb093b66f7944d4 (void)) (
---   char *arg1
+--   char arg1[]
 -- )
 -- {
 --   return &foo14;
@@ -497,7 +497,7 @@
 -- /* test_comprehensivesmoke_Example_get_foo15 */
 -- __attribute__ ((const))
 -- char *(*hs_bindgen_fe12aea8f26fdc44 (void)) (
---   char *arg1
+--   char arg1[5]
 -- )
 -- {
 --   return &foo15;

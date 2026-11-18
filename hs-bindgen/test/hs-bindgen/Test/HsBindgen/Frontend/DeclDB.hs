@@ -164,9 +164,8 @@ checkKeys key db = [
 
 -- | Check the databases of a frontend run, pass by pass and pair by pair
 --
--- @translateTypes@ has no 'FrontendPass'; the pair @adjustTypes@ to @select@
--- spans it, as @applyMacroFallback@ to @reparseMacroExpansions@ spans
--- @PrepareReparse@. Allowed transitions compose.
+-- @applyMacroFallback@ to @reparseMacroExpansions@ spans @PrepareReparse@.
+-- Allowed transitions compose.
 checkFrontend :: Artefact l [String]
 checkFrontend = do
     constructTranslationUnit <- FrontendPassA ConstructTranslationUnitPass
@@ -175,7 +174,7 @@ checkFrontend = do
     reparseMacroExpansions   <- FrontendPassA ReparseMacroExpansionsPass
     resolveBindingSpecs      <- FrontendPassA ResolveBindingSpecsPass
     mangleNames              <- FrontendPassA MangleNamesPass
-    adjustTypes              <- FrontendPassA AdjustTypesPass
+    translateTypes           <- FrontendPassA TranslateTypesPass
     select                   <- FrontendPassA SelectPass
     final                    <- FrontendPassA FinalPass
     pure $ concat [
@@ -185,7 +184,7 @@ checkFrontend = do
       , atDeclId "reparseMacroExpansions" reparseMacroExpansions
       , atDeclId "resolveBindingSpecs" resolveBindingSpecs
       , atDeclIdPair "mangleNames" mangleNames
-      , atDeclIdPair "adjustTypes" adjustTypes
+      , atDeclIdPair "translateTypes" translateTypes
       , atDeclIdPair "select" select
       , atDeclIdPair "final" final
       , pair "constructTranslationUnit" "typecheckMacros" none
@@ -206,13 +205,14 @@ checkFrontend = do
             ToSquashed                   -> True
             _otherwise                   -> False)
           resolveBindingSpecs mangleNames
-      , pair "mangleNames" "adjustTypes" none
-          mangleNames adjustTypes
-      , pair "adjustTypes" "select" (\case
+      , pair "mangleNames" "translateTypes" (\case
             ToFailed TranslateTypesFailed{} -> True
-            ToNotSelected Deselected        -> True
             _otherwise                      -> False)
-          adjustTypes select
+          mangleNames translateTypes
+      , pair "translateTypes" "select" (\case
+            ToNotSelected Deselected -> True
+            _otherwise               -> False)
+          translateTypes select
       , pair "select" "final" none
           select final
       ]

@@ -641,13 +641,15 @@ hasUnsupportedType = aux . getCanonicalType
     aux :: CanonicalType p -> Bool
     aux (TypeRef declId)      = auxRef (idNameKind (Proxy @p) declId)
     aux TypeComplex{}         = True
-    aux TypeConstArray{}      = True
-    aux TypeIncompleteArray{} = True
     aux TypePrim{}            = False
     aux TypePointers{}        = False
-    aux TypeFun{}             = False
     aux TypeVoid              = False
     aux TypeBlock{}           = False
+    -- arrays are allowed: they are adjusted to pointers by the @TranslateTypes@ pass
+    aux TypeConstArray{}      = False
+    aux TypeIncompleteArray{} = False
+    -- functions are allowed: they are adjusted to pointers by the @TranslateTypes@ pass
+    aux TypeFun{}             = False
 
     -- 'Normalize Full Erased' erases @typedef@s, @enum@s, and type macros.
     auxRef :: C.NameKind -> Bool
