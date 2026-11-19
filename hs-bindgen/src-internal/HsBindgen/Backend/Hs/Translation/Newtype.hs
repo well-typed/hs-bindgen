@@ -16,6 +16,7 @@ import HsBindgen.Backend.Hs.Translation.Monad (HsM)
 import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
+import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo (emptySugarInfos)
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.Hs qualified as Hs
@@ -60,7 +61,7 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
         insts = knownInsts <> resolvedInsts
 
         ffiType :: Maybe BindingSpec.HsFFIType
-        ffiType = BindingSpec.HsFFIType . Hs.ffiExtRef <$> FFIType.toFFIType field.typ
+        ffiType = BindingSpec.HsFFIType . Hs.ffiExtRef <$> FFIType.toFFIType emptySugarInfos field.typ
 
 hasFFITypeDecs ::
      Hs.Newtype
