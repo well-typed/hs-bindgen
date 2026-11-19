@@ -28,6 +28,7 @@ import HsBindgen.Backend.SHs.Translation.MapFunction
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol (..))
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
+import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo (emptySugarInfos)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
@@ -382,7 +383,7 @@ mkConvRes g = ConvRes $ \typ e -> case typ of
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>: compute the FFI
 -- types of function types nested in use sites in the @TranslateTypes@ pass.
 unsafeToFFIFunType :: Hs.Type -> Hs.FFIFunType
-unsafeToFFIFunType ty = case FFIType.toFFIFunType ty of
+unsafeToFFIFunType ty = case FFIType.toFFIFunType emptySugarInfos ty of
     Nothing ->
       panicPure $ printf "Type does not have an FFI function type: %s" (show ty)
     Just ty' ->

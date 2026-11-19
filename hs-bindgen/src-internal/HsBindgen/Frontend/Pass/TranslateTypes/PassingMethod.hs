@@ -4,7 +4,8 @@ module HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (
   , classifyArgPassingMethod
   ) where
 
-import Control.Monad.Writer.Strict (Writer)
+import Control.Monad.Reader (MonadReader (ask), ReaderT)
+import Control.Monad.Writer.Strict (MonadTrans (lift), Writer)
 import Data.Bifunctor (second)
 import Data.Text qualified as Text
 
@@ -12,7 +13,9 @@ import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
 import HsBindgen.Frontend.Pass.TranslateTypes.Error
 import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass (TranslateTypes)
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (FFITypesMsg)
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassingMethod
+import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo (SugarInfos)
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
@@ -25,7 +28,7 @@ import HsBindgen.IR.Translation
 
 -- | The passing method, or why the value cannot be passed
 type Classified a =
-    Writer [FFIType.ExtBindingFallback] (Either FunPositionError a)
+    ReaderT SugarInfos (Writer [FFITypesMsg]) (Either FunPositionError a)
 
 -- | Classify how a function result is passed from C to Haskell
 classifyResPassingMethod ::
@@ -80,7 +83,8 @@ passDirect ::
   -> Hs.Type
   -> Classified Hs.FFIType
 passDirect pos cType hsType = do
-    mFFIType <- FFIType.toFFITypeWithFallbacks hsType
+    sugars <- ask
+    mFFIType <- lift $ FFIType.toFFITypeWithMsgs sugars hsType
     pure $ case mFFIType of
       Just ffiType -> Right ffiType
       Nothing      -> Left $ FunPositionNoFFIType NoFFIType{

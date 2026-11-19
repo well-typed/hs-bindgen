@@ -4,52 +4,47 @@
 --
 -- > import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
 module HsBindgen.Frontend.Pass.TranslateTypes.FFIType (
-    ExtBindingFallback (..)
-  , toFFIType
-  , toFFITypeWithFallbacks
+    toFFIType
+  , toFFITypeWithMsgs
   , toFFIResType
   , toFFIFunType
   , pointerTo
   ) where
 
-import Control.Monad.Writer.Strict (Writer, runWriter, tell)
+import Control.Monad.Writer.Strict (Writer, censor, runWriter)
 
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
+import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation (Pointee (..))
-import HsBindgen.Imports
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
 
--- | An external binding whose binding specification gives no FFI type
---
--- We assume the FFI type of its underlying type instead. The generated code
--- compiles only if the external type has a @HasFFIType@ instance with that
--- FFI type.
-data ExtBindingFallback = ExtBindingFallback {
-      extRef  :: Hs.ExtRef
-      -- | The FFI type of the underlying type
-    , assumed :: Hs.FFIType
-    }
-  deriving stock (Show, Eq)
 
-toFFIType :: Hs.Type -> Maybe Hs.FFIType
-toFFIType = fst . runWriter . toFFITypeWithFallbacks
 
-toFFITypeWithFallbacks ::
-     Hs.Type
-  -> Writer [ExtBindingFallback] (Maybe Hs.FFIType)
-toFFITypeWithFallbacks = go
+toFFIType :: SugarInfos -> Hs.Type -> Maybe Hs.FFIType
+toFFIType sugars = fst . runWriter . toFFITypeWithMsgs sugars
+
+toFFITypeWithMsgs ::
+     SugarInfos
+  -> Hs.Type
+  -> Writer [FFITypesMsg] (Maybe Hs.FFIType)
+toFFITypeWithMsgs sugars = go
   where
-    no :: Writer [ExtBindingFallback] (Maybe Hs.FFIType)
+    no :: Writer [FFITypesMsg] (Maybe Hs.FFIType)
     no = pure Nothing
 
-    yes :: Hs.FFIType -> Writer [ExtBindingFallback] (Maybe Hs.FFIType)
+    yes :: Hs.FFIType -> Writer [FFITypesMsg] (Maybe Hs.FFIType)
     yes = pure . Just
 
-    go :: Hs.Type -> Writer [ExtBindingFallback] (Maybe Hs.FFIType)
+    go :: Hs.Type -> Writer [FFITypesMsg] (Maybe Hs.FFIType)
     go = \case
       Hs.PrimType pt          -> pure $ goPrim pt
-      Hs.TypRef _ t           -> maybe no go t
+      Hs.TypRef ref t         ->
+        lookupSugarInfoHsM ref sugars >>= \case
+          MissingSugarInfo        -> maybe no go t
+          RegSugarInfo NotSugar   -> no
+          RegSugarInfo (Sugar t') -> go t'
       Hs.ConstArray{}         -> no
       Hs.IncompleteArray{}    -> no
       Hs.PtrArrayElem {}      -> yes Hs.FFIPtrVoid
@@ -64,8 +59,7 @@ toFFITypeWithFallbacks = go
           Just hsFFIType -> yes $ Hs.FFIExternal hsFFIType.unwrap
           Nothing -> do
             mFFIType <- go t'
-            forM_ mFFIType $ \assumed -> tell [ExtBindingFallback ref assumed]
-            pure mFFIType
+            censor (maybe id (\ffiType -> (FFITypesExtBindingFallback (ExtBindingFallback ref ffiType) :)) mFFIType) $ pure mFFIType
       Hs.ByteArray            -> no
       Hs.SizedByteArray{}     -> no
       Hs.Block{}              -> yes Hs.FFIPtrVoid
@@ -98,18 +92,22 @@ toFFITypeWithFallbacks = go
         Hs.PrimCFloat  -> Just Hs.FFIPrimCFloat
         Hs.PrimCDouble -> Just Hs.FFIPrimCDouble
 
-toFFIResType :: Hs.Type -> Maybe Hs.FFIResType
-toFFIResType = \case
+toFFIResType :: SugarInfos -> Hs.Type -> Maybe Hs.FFIResType
+toFFIResType sugars = \case
     Hs.IO (Hs.PrimType Hs.PrimUnit) -> Just Hs.FFIResIOUnit
     Hs.PrimType Hs.PrimUnit         -> Just Hs.FFIResUnit
-    Hs.IO t                         -> Hs.FFIResIO <$> toFFIType t
-    t                               -> Hs.FFIRes <$> toFFIType t
+    Hs.IO t                         -> Hs.FFIResIO <$> toFFIType sugars t
+    t                               -> Hs.FFIRes <$> toFFIType sugars t
 
-toFFIFunType :: Hs.Type -> Maybe Hs.FFIFunType
-toFFIFunType = \case
-    Hs.TypRef _ t  -> t >>= toFFIFunType
-    Hs.Fun arg res -> addArg <$> toFFIType arg <*> toFFIFunType res
-    t -> toFFIResType t >>= \res -> pure Hs.FFIFunType {args = [], res = res }
+toFFIFunType :: SugarInfos -> Hs.Type -> Maybe Hs.FFIFunType
+toFFIFunType sugars = \case
+    Hs.TypRef ref t ->
+      case lookupSugarInfoHs ref sugars of
+        MissingSugarInfo -> t >>= toFFIFunType sugars
+        RegSugarInfo NotSugar -> Nothing
+        RegSugarInfo (Sugar t') -> toFFIFunType sugars t'
+    Hs.Fun arg res -> addArg <$> toFFIType sugars arg <*> toFFIFunType sugars res
+    t -> toFFIResType sugars t >>= \res -> pure Hs.FFIFunType {args = [], res = res }
   where
     addArg arg t = Hs.FFIFunType {
           args = arg : t.args
@@ -122,3 +120,8 @@ pointerTo = \case
     PointeeFunction    -> Hs.FFIFunPtrVoid
     PointeeConstObject -> Hs.FFIPtrVoid
     PointeeObject      -> Hs.FFIPtrVoid
+
+lookupSugarInfoHsM :: Hs.Name Hs.NsTypeConstr -> SugarInfos -> Writer [FFITypesMsg] SugarInfo
+lookupSugarInfoHsM name sugars = do
+    let sugar = lookupSugarInfoHs name sugars
+    censor (FFITypesLookupSugarInfo name sugar :) $ pure sugar
