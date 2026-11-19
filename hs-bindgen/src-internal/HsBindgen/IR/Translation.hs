@@ -10,8 +10,9 @@ module HsBindgen.IR.Translation (
     -- * ScopedNamePair
   , ScopedNamePair(..)
     -- * Types
-  , TranslatedTypes(..)
-  , TranslatedTypeFunArg(..)
+  , Translated(..)
+  , TranslatedTypes
+  , TranslatedTypeFunArg
   , TranslatedAnonRef(..)
   , translatedAnonRefType
   , translateCPrimType
@@ -61,35 +62,33 @@ data ScopedNamePair = ScopedNamePair {
   Types
 -------------------------------------------------------------------------------}
 
--- | A t'C.Type' associated with possible Haskell type translations
-data TranslatedTypes (p :: Pass) = TranslatedTypes {
-      c  :: C.Type p
+-- | A C use-site type associated with its Haskell type translation
+data Translated (f :: Pass -> Star) (p :: Pass) = Translated {
+      -- | A t'C.Type' ('TranslatedTypes') or a t'C.TypeFunArg'
+      -- ('TranslatedTypeFunArg')
+      --
+      -- A t'C.TypeFunArg' keeps its annotation, on which the translation of the
+      -- argument depends: an argument adjusted from an array type translates
+      -- to an array element pointer.
+      c  :: f p
     , hs :: Hs.Type
     }
-  deriving stock (Eq, Generic, Show)
+  deriving stock (Generic)
 
-instance (
-      CoercePass C.Type p p'
-    ) => CoercePass TranslatedTypes p p' where
-  coercePass translatedTypes = TranslatedTypes{
-      c  = coercePass translatedTypes.c
-    , hs = translatedTypes.hs
+deriving stock instance Eq   (f p) => Eq   (Translated f p)
+deriving stock instance Show (f p) => Show (Translated f p)
+
+instance CoercePass f p p' => CoercePass (Translated f) p p' where
+  coercePass translated = Translated{
+      c  = coercePass translated.c
+    , hs = translated.hs
     }
 
--- | A t'C.TypeFunArg' associated with possible Haskell type translations
-data TranslatedTypeFunArg (p :: Pass) = TranslatedTypeFunArg {
-      c  :: C.TypeFunArg p
-    , hs :: Hs.Type
-    }
-  deriving stock (Eq, Generic, Show)
+-- | A t'C.Type' associated with its Haskell type translation
+type TranslatedTypes = Translated C.Type
 
-instance (
-      CoercePass C.TypeFunArg p p'
-    ) => CoercePass TranslatedTypeFunArg p p' where
-  coercePass translatedTypes = TranslatedTypeFunArg{
-      c  = coercePass translatedTypes.c
-    , hs = translatedTypes.hs
-    }
+-- | A t'C.TypeFunArg' associated with its Haskell type translation
+type TranslatedTypeFunArg = Translated C.TypeFunArg
 
 -- | A t'C.AnonRef' associated with possible Haskell type translations
 data TranslatedAnonRef (p :: Pass) = TranslatedAnonRef {
@@ -107,8 +106,8 @@ instance (
     }
 
 translatedAnonRefType :: TranslatedAnonRef p -> TranslatedTypes p
-translatedAnonRefType translatedAnonRef = TranslatedTypes {
-      c = C.anonRefType translatedAnonRef.c
+translatedAnonRefType translatedAnonRef = Translated{
+      c  = C.anonRefType translatedAnonRef.c
     , hs = translatedAnonRef.hs
     }
 

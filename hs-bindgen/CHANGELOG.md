@@ -72,7 +72,9 @@
   binding specification of ... gives no FFI type"), unless it is a struct,
   union or complex value. As before, `hs-bindgen` assumes the FFI type of the
   underlying C type, so the generated code compiles only if the external type
-  has a matching `HasFFIType` instance.
+  has a matching `HasFFIType` instance. The same holds for an argument or
+  result of a nested function type that gets `ToFunPtr` and `FromFunPtr`
+  instances.
 
 ### Bug fixes
 
@@ -139,8 +141,24 @@
   `typedef void V; V f(void);`) is now dropped with a warning ("... has no FFI
   type"). Previously, `hs-bindgen` panicked. Generating a binding for such a
   function is [issue #2361][is-2361].
+  * A nested function type (e.g., the argument of `void g(V (*x)(void));`) or
+    a function typedef (e.g., `typedef V F(void);`) with such an argument or
+    result now does not get `ToFunPtr` and `FromFunPtr` instances, with a
+    warning. Previously, `hs-bindgen` panicked.
+  * A function type that passes a struct, union or complex value (e.g., the
+    argument of `void h(struct S (*x)(void));`) still does not get these
+    instances, but now `hs-bindgen` informs the user with an info message.
+  * Each distinct function type is reported once, and only if it would
+    otherwise get these instances: it is the type of a function typedef, or
+    one of its types is defined in the module.
 
 [is-2361]: https://github.com/well-typed/hs-bindgen/issues/2361
+
+* Function types that differ only in qualifiers (e.g., `void (*)(const T)` and
+  `void (*)(T)`) no longer generate duplicate `ToFunPtr` and `FromFunPtr`
+  instances. See [issue #2364][is-2364].
+
+[is-2364]: https://github.com/well-typed/hs-bindgen/issues/2364
 
 ## 1.0.0.0 -- 2026-10-08
 

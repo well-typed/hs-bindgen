@@ -4,6 +4,7 @@ module Test.HsBindgen.Golden.BindingSpecs (testCases) where
 import System.FilePath ((<.>), (</>))
 
 import HsBindgen.Config.Internal
+import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
 import HsBindgen.Frontend.Predicate
@@ -47,6 +48,8 @@ testCases = [
     , test_fun_arg_typedef_struct
     , test_fun_arg_typedef_union
     , test_fun_arg_typedef_no_ffitype
+    , test_fun_arg_nested_no_ffitype
+    , test_fun_arg_nested_struct_ffitype
       -- * Function arguments with macros
     , test_fun_arg_macro_array
     , test_fun_arg_macro_array_known_size
@@ -295,6 +298,40 @@ test_fun_arg_typedef_selectionPredicate :: Boolean SelectionPredicate
 test_fun_arg_typedef_selectionPredicate =
     BOr (BIf $ SelectDecl (DeclNameMatches "\\b(A|B|C|D|E)$|My"))
         (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
+
+{-------------------------------------------------------------------------------
+  Function arguments of nested function types
+-------------------------------------------------------------------------------}
+
+-- | An external binding without an FFI type in a nested function type: we warn,
+-- but still generate the @ToFunPtr@ and @FromFunPtr@ instances
+test_fun_arg_nested_no_ffitype :: TestCase
+test_fun_arg_nested_no_ffitype =
+    test_fun_arg_nested "binding-specs/fun_arg/nested/no_ffitype"
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchFunPtrInstances name FunPtrInstancesExtBindingFallback{} ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["f"]
+
+-- | An external binding of a struct in a nested function type, with an FFI
+-- type: none of the types of the function type is defined in this module, so
+-- it does not get @ToFunPtr@ and @FromFunPtr@ instances, and no message about
+-- the struct
+test_fun_arg_nested_struct_ffitype :: TestCase
+test_fun_arg_nested_struct_ffitype =
+    test_fun_arg_nested "binding-specs/fun_arg/nested/struct_ffitype"
+
+test_fun_arg_nested :: FilePath -> TestCase
+test_fun_arg_nested path =
+  defaultTest path
+      & #specExternal .~
+          [ "test-artefacts" </> "headers" </> "golden" </> path <.> "yaml"
+          ]
 
 {-------------------------------------------------------------------------------
   Function arguments with macros

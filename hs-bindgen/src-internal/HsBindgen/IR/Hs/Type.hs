@@ -77,7 +77,7 @@ data Type =
   | EquivStorable Type
     -- | 'HsBindgen.Runtime.Struct.IsStructViaReadRaw'
   | IsStructViaReadRaw Type
-  deriving stock (Generic, Show, Eq)
+  deriving stock (Generic, Show, Eq, Ord)
 
 {-------------------------------------------------------------------------------
   FFI types

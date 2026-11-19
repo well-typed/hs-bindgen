@@ -34,6 +34,8 @@ import HsBindgen.Frontend.Pass.EnrichComments.IsPass
 import HsBindgen.Frontend.Pass.FillUnnamedIds
 import HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass
 import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.Pass.FunPtrInstances qualified as FunPtrInstances
+import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass
 import HsBindgen.Frontend.Pass.MangleNames
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.Parse
@@ -242,12 +244,25 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --
 -- Constraints:
 --
--- * The 'Select' pass must come last so that if a declaration is unusable
---   ('HsBindgen.Frontend.DeclDB.getUnusable') for whatever reason (e.g., it
---   contains unsupported types such as @long double@, or the name mangler was
---   unable to find a suitable name, etc.), the 'Select' pass can make sure
---   that the unusable declaration /and all declarations that use it/, directly
---   or transitively, will not be selected.
+-- * Must be after every pass that can make a declaration unusable
+--   ('HsBindgen.Frontend.DeclDB.getUnusable'; e.g., it contains unsupported
+--   types such as @long double@, or the name mangler was unable to find a
+--   suitable name, etc.), so that the 'Select' pass can make sure that the
+--   unusable declaration /and all declarations that use it/, directly or
+--   transitively, will not be selected.
+--
+-- == 14. "HsBindgen.Frontend.Pass.FunPtrInstances"
+--
+-- "HsBindgen.Frontend.Pass.FunPtrInstances" decides which function types get
+-- @ToFunPtr@ and @FromFunPtr@ instances. It returns them next to the
+-- translation unit ('HsBindgen.Frontend.Pass.FunPtrInstances.Result').
+--
+-- Constraints:
+--
+-- * Must be after "HsBindgen.Frontend.Pass.Select": nested function types get
+--   instances only if one of their types is selected, and messages concern
+--   selected declarations only. Nothing depends on the instances, so no
+--   declaration needs to fail here.
 runFrontend ::
      forall l. (Macro.HasTypes l, HasCallStack)
   => Tracer FrontendMsg
@@ -433,7 +448,16 @@ runFrontend tracer config boot = do
       traceSorted (contramap FrontendSelect tracer) msgsSelect
       pure afterSelect
 
-    finalPass <- cache "Final" $ selectPass
+    funPtrInstancesPass <- cache "funPtrInstances" $ do
+      afterSelect <- selectPass
+      let (afterFunPtrInstances, msgsFunPtrInstances) =
+            FunPtrInstances.funPtrInstances afterSelect
+      traceSorted
+        (contramap FrontendFunPtrInstances tracer)
+        msgsFunPtrInstances
+      pure afterFunPtrInstances
+
+    finalPass <- cache "Final" $ (.unit) <$> funPtrInstancesPass
 
     pure FrontendArtefact{
         parseMeta                = parseMeta
@@ -450,6 +474,7 @@ runFrontend tracer config boot = do
       , mangleNames              = mangleNamesPass
       , translateTypes           = translateTypesPass
       , select                   = selectPass
+      , funPtrInstances          = funPtrInstancesPass
       , final                    = finalPass
       }
   where
@@ -500,6 +525,7 @@ data FrontendArtefact l = FrontendArtefact {
     , mangleNames              :: Cached (C.TranslationUnit l MangleNames)
     , translateTypes           :: Cached (C.TranslationUnit l TranslateTypes)
     , select                   :: Cached (C.TranslationUnit l Select)
+    , funPtrInstances          :: Cached (FunPtrInstances.Result l)
     , final                    :: Cached (C.TranslationUnit l Final)
     }
 
@@ -520,6 +546,7 @@ data FrontendMsg =
   | FrontendResolveBindingSpecs      (Msg ResolveBindingSpecs)
   | FrontendMangleNames              (Msg MangleNames)
   | FrontendSelect                   (Msg Select)
+  | FrontendFunPtrInstances          (Msg FunPtrInstances)
   | FrontendSortMsgs                  SortMsgsMsg
   | FrontendCache                    (SafeTrace CacheMsg)
   | FrontendDoxygen                   DoxygenMsg

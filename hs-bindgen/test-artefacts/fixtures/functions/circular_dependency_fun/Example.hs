@@ -42,42 +42,6 @@ newtype Fun_ptr_Aux = Fun_ptr_Aux
   }
   deriving stock (BG.Generic)
 
--- __unique:__ @toFun_ptr_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_5964bbadb359ee4a_base ::
-     (BG.Ptr BG.Void -> IO ())
-  -> IO (BG.FunPtr (BG.Ptr BG.Void -> IO ()))
-
--- __unique:__ @toFun_ptr_Aux@
-hs_bindgen_5964bbadb359ee4a ::
-     Fun_ptr_Aux
-  -> IO (BG.FunPtr Fun_ptr_Aux)
-hs_bindgen_5964bbadb359ee4a =
-  \fun0 ->
-    fmap BG.castFunPtr (hs_bindgen_5964bbadb359ee4a_base (\x1 ->
-                                                            BG.getField @"unwrapFun_ptr_Aux" fun0 (BG.fromFFIType x1)))
-
--- __unique:__ @fromFun_ptr_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_f8391e85af67fcb6_base ::
-     BG.FunPtr (BG.Ptr BG.Void -> IO ())
-  -> BG.Ptr BG.Void -> IO ()
-
--- __unique:__ @fromFun_ptr_Aux@
-hs_bindgen_f8391e85af67fcb6 ::
-     BG.FunPtr Fun_ptr_Aux
-  -> Fun_ptr_Aux
-hs_bindgen_f8391e85af67fcb6 =
-  \funPtr0 ->
-    Fun_ptr_Aux (\x1 ->
-                   hs_bindgen_f8391e85af67fcb6_base (BG.castFunPtr funPtr0) (BG.toFFIType x1))
-
-instance BG.ToFunPtr Fun_ptr_Aux where
-
-  toFunPtr = hs_bindgen_5964bbadb359ee4a
-
-instance BG.FromFunPtr Fun_ptr_Aux where
-
-  fromFunPtr = hs_bindgen_f8391e85af67fcb6
-
 instance ( ty ~ (BG.Ptr Forward_declaration -> IO ())
          ) => BG.CompatHasField.HasField "unwrapFun_ptr_Aux" Fun_ptr_Aux ty where
 
@@ -210,3 +174,39 @@ instance HasCField.HasCField Forward_declaration "forward_declaration_f" where
     Fun_ptr
 
   offset# = \_ -> \_ -> 0
+
+-- __unique:__ @toFun_ptr_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_5964bbadb359ee4a_base ::
+     (BG.Ptr BG.Void -> IO ())
+  -> IO (BG.FunPtr (BG.Ptr BG.Void -> IO ()))
+
+-- __unique:__ @toFun_ptr_Aux@
+hs_bindgen_5964bbadb359ee4a ::
+     Fun_ptr_Aux
+  -> IO (BG.FunPtr Fun_ptr_Aux)
+hs_bindgen_5964bbadb359ee4a =
+  \fun0 ->
+    fmap BG.castFunPtr (hs_bindgen_5964bbadb359ee4a_base (\x1 ->
+                                                            BG.getField @"unwrapFun_ptr_Aux" fun0 (BG.fromFFIType x1)))
+
+-- __unique:__ @fromFun_ptr_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_f8391e85af67fcb6_base ::
+     BG.FunPtr (BG.Ptr BG.Void -> IO ())
+  -> BG.Ptr BG.Void -> IO ()
+
+-- __unique:__ @fromFun_ptr_Aux@
+hs_bindgen_f8391e85af67fcb6 ::
+     BG.FunPtr Fun_ptr_Aux
+  -> Fun_ptr_Aux
+hs_bindgen_f8391e85af67fcb6 =
+  \funPtr0 ->
+    Fun_ptr_Aux (\x1 ->
+                   hs_bindgen_f8391e85af67fcb6_base (BG.castFunPtr funPtr0) (BG.toFFIType x1))
+
+instance BG.ToFunPtr Fun_ptr_Aux where
+
+  toFunPtr = hs_bindgen_5964bbadb359ee4a
+
+instance BG.FromFunPtr Fun_ptr_Aux where
+
+  fromFunPtr = hs_bindgen_f8391e85af67fcb6

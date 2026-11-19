@@ -7,8 +7,6 @@ module HsBindgen.Frontend.Pass.TranslateTypes.FFIType (
     ExtBindingFallback (..)
   , toFFIType
   , toFFITypeWithFallbacks
-  , toFFIResType
-  , toFFIFunType
   , pointerTo
   ) where
 
@@ -97,24 +95,6 @@ toFFITypeWithFallbacks = go
         Hs.PrimCBool   -> Just Hs.FFIPrimCBool
         Hs.PrimCFloat  -> Just Hs.FFIPrimCFloat
         Hs.PrimCDouble -> Just Hs.FFIPrimCDouble
-
-toFFIResType :: Hs.Type -> Maybe Hs.FFIResType
-toFFIResType = \case
-    Hs.IO (Hs.PrimType Hs.PrimUnit) -> Just Hs.FFIResIOUnit
-    Hs.PrimType Hs.PrimUnit         -> Just Hs.FFIResUnit
-    Hs.IO t                         -> Hs.FFIResIO <$> toFFIType t
-    t                               -> Hs.FFIRes <$> toFFIType t
-
-toFFIFunType :: Hs.Type -> Maybe Hs.FFIFunType
-toFFIFunType = \case
-    Hs.TypRef _ t  -> t >>= toFFIFunType
-    Hs.Fun arg res -> addArg <$> toFFIType arg <*> toFFIFunType res
-    t -> toFFIResType t >>= \res -> pure Hs.FFIFunType {args = [], res = res }
-  where
-    addArg arg t = Hs.FFIFunType {
-          args = arg : t.args
-        , res  = t.res
-        }
 
 -- | FFI type of a pointer
 pointerTo :: Pointee -> Hs.FFIType

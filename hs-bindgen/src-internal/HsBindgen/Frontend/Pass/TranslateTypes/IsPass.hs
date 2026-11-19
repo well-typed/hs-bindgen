@@ -6,11 +6,10 @@ module HsBindgen.Frontend.Pass.TranslateTypes.IsPass (
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassingMethod (PassingMethod,
-                                                                    ResPassingMethod)
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
+import HsBindgen.IR.PassingMethod (PassingMethod, ResPassingMethod)
 import HsBindgen.IR.Translation
 
 {-------------------------------------------------------------------------------

@@ -25,11 +25,11 @@ import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Config.MangleCandidate (mangleCandidateDefaultFallback)
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassingMethod
 import HsBindgen.Frontend.PrettyC qualified as PC
 import HsBindgen.Imports hiding (def)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
+import HsBindgen.IR.PassingMethod
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint (NameHint (..))
@@ -137,23 +137,16 @@ functionDecs safety decl originalC _spec = do
 
 -- | Is the argument serialised?
 argSerialized :: C.FunctionArg Final -> Bool
-argSerialized arg = serialized arg.ann
+argSerialized arg = isSerialized arg.ann
 
 -- | Is the result serialised?
 resSerialized :: C.FunctionRes Final -> Bool
-resSerialized res = case res.ann of
-    PassResVoid      -> False
-    PassResNonVoid x -> serialized x
-
-serialized :: PassingMethod p -> Bool
-serialized = \case
-    PassDirect{}     -> False
-    PassSerialized{} -> True
+resSerialized res = isResSerialized res.ann
 
 -- | Types of an argument as they appear in @wrapperC@ and @wrapperImport@
 wrapperArgTypes :: C.FunctionArg Final -> TranslatedTypes Final
 wrapperArgTypes arg = case arg.ann of
-    PassDirect{}       -> TranslatedTypes{c = arg.typ.c.typ, hs = arg.typ.hs}
+    PassDirect{}       -> Translated{c = arg.typ.c.typ, hs = arg.typ.hs}
     PassSerialized ptr -> ptr
 
 -- | Get the Haskell type of an argument/result as it is used in @restoreFun@
