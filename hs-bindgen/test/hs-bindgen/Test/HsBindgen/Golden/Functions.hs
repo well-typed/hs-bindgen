@@ -32,6 +32,7 @@ testCases = [
     , defaultTest "functions/fun_ptr_instances/const_void_result"
     , defaultTest "functions/fun_ptr_instances/duplicates"
     , defaultTest "functions/fun_ptr_instances/flam"
+    , defaultTest "functions/fun_ptr_instances/squashed_typedef"
     , defaultTest "functions/fun_ptr_instances/typedef_of_typedef"
     , defaultTest "functions/heap_types/struct_const_member"
     , defaultTest "functions/heap_types/struct_const_typedef"

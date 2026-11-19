@@ -160,6 +160,11 @@
 
 [is-2364]: https://github.com/well-typed/hs-bindgen/issues/2364
 
+* A nested function type whose only type defined in the module is a squashed
+  typedef (e.g., the argument of `void h(void (*x)(T *));`, with
+  `typedef struct S T;`) now gets `ToFunPtr` and `FromFunPtr` instances.
+  Previously, they were missing.
+
 ## 1.0.0.0 -- 2026-10-08
 
 ### Breaking changes

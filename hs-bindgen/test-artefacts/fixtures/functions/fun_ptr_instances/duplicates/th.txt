@@ -26,6 +26,17 @@
 -- {
 --   (e)(arg1, arg2);
 -- }
+-- void hs_bindgen_d096ff4db3bb9cdf (
+--   void (*arg1) (
+--   S *arg1
+-- ),
+--   void (*arg2) (
+--   struct S *arg1
+-- )
+-- )
+-- {
+--   (f)(arg1, arg2);
+-- }
 -- void hs_bindgen_93eb7cb73ea7709d (
 --   void (*arg1) (
 --   T const arg1
@@ -51,6 +62,17 @@
 -- )
 -- {
 --   (e)(arg1, arg2);
+-- }
+-- void hs_bindgen_f086a1810867f008 (
+--   void (*arg1) (
+--   S *arg1
+-- ),
+--   void (*arg2) (
+--   struct S *arg1
+-- )
+-- )
+-- {
+--   (f)(arg1, arg2);
 -- }
 -- /* test_functionsfun_ptr_instancesdu_Example_get_d */
 -- __attribute__ ((const))
@@ -81,6 +103,19 @@
 -- )
 -- {
 --   return &e;
+-- }
+-- /* test_functionsfun_ptr_instancesdu_Example_get_f */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_bbd8dae792a07698 (void)) (
+--   void (*arg1) (
+--   S *arg1
+-- ),
+--   void (*arg2) (
+--   struct S *arg1
+-- )
+-- )
+-- {
+--   return &f;
 -- }
 {-| __C declaration:__ @T@
 
@@ -113,6 +148,39 @@ instance (~) ty CInt => HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @functions\/fun_ptr_instances\/duplicates.h 12:16@
+
+    __exported by:__ @functions\/fun_ptr_instances\/duplicates.h@
+-}
+data S
+    = S {s_x :: CInt
+         {- ^ __C declaration:__ @x@
+
+              __defined at:__ @functions\/fun_ptr_instances\/duplicates.h 12:24@
+
+              __exported by:__ @functions\/fun_ptr_instances\/duplicates.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_x") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_x_2 -> writeRaw (Proxy @"s_x") ptr_0 s_x_2
+deriving via (EquivStorable S) instance Storable S
+deriving via (IsStructViaReadRaw S) instance IsStruct S
+instance (~) ty CInt => HasField "s_x" S ty
+    where hasField = \x_0 -> (\y_1 -> S{s_x = y_1},
+                              getField @"s_x" x_0)
+instance (~) ty CInt => HasField "s_x" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_x")
+instance HasCField S "s_x"
+    where type CFieldType S "s_x" = CInt
           offset# = \_ -> \_ -> 0
 -- __unique:__ @instance ToFunPtr (T -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_938f852d69e4b718_base ::
@@ -160,6 +228,29 @@ instance ToFunPtr (FunPtr (T -> IO ()) -> IO ())
     where toFunPtr = hs_bindgen_86e0703874ba870d
 instance FromFunPtr (FunPtr (T -> IO ()) -> IO ())
     where fromFunPtr = hs_bindgen_d1c65e3640cf4367
+-- __unique:__ @instance ToFunPtr (BG.Ptr S -> IO ())@
+foreign import ccall safe "wrapper" hs_bindgen_3a11d92b7d8961e6_base ::
+    Ptr Void -> IO ()
+ -> IO (FunPtr (Ptr Void -> IO ()))
+-- __unique:__ @instance ToFunPtr (BG.Ptr S -> IO ())@
+hs_bindgen_3a11d92b7d8961e6 :: (Ptr S -> IO ()) ->
+                               IO (FunPtr (Ptr S -> IO ()))
+-- __unique:__ @instance ToFunPtr (BG.Ptr S -> IO ())@
+hs_bindgen_3a11d92b7d8961e6 = \fun_0 -> fmap castFunPtr (hs_bindgen_3a11d92b7d8961e6_base (\x_1 -> fun_0 (fromFFIType x_1)))
+-- __unique:__ @instance FromFunPtr (BG.Ptr S -> IO ())@
+foreign import ccall safe "dynamic" hs_bindgen_16b157993d4d5b48_base ::
+    FunPtr (Ptr Void -> IO ())
+ -> Ptr Void
+ -> IO ()
+-- __unique:__ @instance FromFunPtr (BG.Ptr S -> IO ())@
+hs_bindgen_16b157993d4d5b48 :: FunPtr (Ptr S -> IO ()) ->
+                               Ptr S -> IO ()
+-- __unique:__ @instance FromFunPtr (BG.Ptr S -> IO ())@
+hs_bindgen_16b157993d4d5b48 = \funPtr_0 -> \x_1 -> hs_bindgen_16b157993d4d5b48_base (castFunPtr funPtr_0) (toFFIType x_1)
+instance ToFunPtr (Ptr S -> IO ())
+    where toFunPtr = hs_bindgen_3a11d92b7d8961e6
+instance FromFunPtr (Ptr S -> IO ())
+    where fromFunPtr = hs_bindgen_16b157993d4d5b48
 -- __unique:__ @test_functionsfun_ptr_instancesdu_Example_Safe_d@
 foreign import ccall safe "hs_bindgen_5c6f2e55013c8e99" hs_bindgen_5c6f2e55013c8e99_base ::
     FunPtr Void
@@ -210,6 +301,31 @@ e_safe :: FunPtr (FunPtr (T -> IO ()) -> IO ()) ->
     __exported by:__ @functions\/fun_ptr_instances\/duplicates.h@
 -}
 e_safe = hs_bindgen_7240c8d348fed165
+-- __unique:__ @test_functionsfun_ptr_instancesdu_Example_Safe_f@
+foreign import ccall safe "hs_bindgen_d096ff4db3bb9cdf" hs_bindgen_d096ff4db3bb9cdf_base ::
+    FunPtr Void
+ -> FunPtr Void
+ -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesdu_Example_Safe_f@
+hs_bindgen_d096ff4db3bb9cdf :: FunPtr (Ptr S -> IO ()) ->
+                               FunPtr (Ptr S -> IO ()) -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesdu_Example_Safe_f@
+hs_bindgen_d096ff4db3bb9cdf = \x_0 -> \x_1 -> hs_bindgen_d096ff4db3bb9cdf_base (toFFIType x_0) (toFFIType x_1)
+{-| __C declaration:__ @f@
+
+    __defined at:__ @functions\/fun_ptr_instances\/duplicates.h 13:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/duplicates.h@
+-}
+f_safe :: FunPtr (Ptr S -> IO ()) ->
+          FunPtr (Ptr S -> IO ()) -> IO ()
+{-| __C declaration:__ @f@
+
+    __defined at:__ @functions\/fun_ptr_instances\/duplicates.h 13:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/duplicates.h@
+-}
+f_safe = hs_bindgen_d096ff4db3bb9cdf
 -- __unique:__ @test_functionsfun_ptr_instancesdu_Example_Unsafe_d@
 foreign import ccall unsafe "hs_bindgen_93eb7cb73ea7709d" hs_bindgen_93eb7cb73ea7709d_base ::
     FunPtr Void
@@ -260,6 +376,31 @@ e_unsafe :: FunPtr (FunPtr (T -> IO ()) -> IO ()) ->
     __exported by:__ @functions\/fun_ptr_instances\/duplicates.h@
 -}
 e_unsafe = hs_bindgen_5c262dc098f92ec7
+-- __unique:__ @test_functionsfun_ptr_instancesdu_Example_Unsafe_f@
+foreign import ccall unsafe "hs_bindgen_f086a1810867f008" hs_bindgen_f086a1810867f008_base ::
+    FunPtr Void
+ -> FunPtr Void
+ -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesdu_Example_Unsafe_f@
+hs_bindgen_f086a1810867f008 :: FunPtr (Ptr S -> IO ()) ->
+                               FunPtr (Ptr S -> IO ()) -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesdu_Example_Unsafe_f@
+hs_bindgen_f086a1810867f008 = \x_0 -> \x_1 -> hs_bindgen_f086a1810867f008_base (toFFIType x_0) (toFFIType x_1)
+{-| __C declaration:__ @f@
+
+    __defined at:__ @functions\/fun_ptr_instances\/duplicates.h 13:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/duplicates.h@
+-}
+f_unsafe :: FunPtr (Ptr S -> IO ()) ->
+            FunPtr (Ptr S -> IO ()) -> IO ()
+{-| __C declaration:__ @f@
+
+    __defined at:__ @functions\/fun_ptr_instances\/duplicates.h 13:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/duplicates.h@
+-}
+f_unsafe = hs_bindgen_f086a1810867f008
 -- __unique:__ @test_functionsfun_ptr_instancesdu_Example_get_d@
 foreign import ccall unsafe "hs_bindgen_d46a8eccbac18ea2" hs_bindgen_d46a8eccbac18ea2_base ::
     IO (FunPtr Void)
@@ -310,3 +451,28 @@ e_funptr :: FunPtr (FunPtr (FunPtr (T -> IO ()) -> IO ()) ->
     __exported by:__ @functions\/fun_ptr_instances\/duplicates.h@
 -}
 e_funptr = unsafePerformIO hs_bindgen_128acdbed0ef8810
+-- __unique:__ @test_functionsfun_ptr_instancesdu_Example_get_f@
+foreign import ccall unsafe "hs_bindgen_bbd8dae792a07698" hs_bindgen_bbd8dae792a07698_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_functionsfun_ptr_instancesdu_Example_get_f@
+hs_bindgen_bbd8dae792a07698 :: IO (FunPtr (FunPtr (Ptr S ->
+                                                   IO ()) ->
+                                           FunPtr (Ptr S -> IO ()) -> IO ()))
+-- __unique:__ @test_functionsfun_ptr_instancesdu_Example_get_f@
+hs_bindgen_bbd8dae792a07698 = fmap fromFFIType hs_bindgen_bbd8dae792a07698_base
+{-# NOINLINE f_funptr #-}
+{-| __C declaration:__ @f@
+
+    __defined at:__ @functions\/fun_ptr_instances\/duplicates.h 13:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/duplicates.h@
+-}
+f_funptr :: FunPtr (FunPtr (Ptr S -> IO ()) ->
+                    FunPtr (Ptr S -> IO ()) -> IO ())
+{-| __C declaration:__ @f@
+
+    __defined at:__ @functions\/fun_ptr_instances\/duplicates.h 13:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/duplicates.h@
+-}
+f_funptr = unsafePerformIO hs_bindgen_bbd8dae792a07698

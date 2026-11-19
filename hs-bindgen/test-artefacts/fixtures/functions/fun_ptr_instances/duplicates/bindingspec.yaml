@@ -6,7 +6,32 @@ ctypes:
 - headers: functions/fun_ptr_instances/duplicates.h
   cname: T
   hsname: T
+- headers: functions/fun_ptr_instances/duplicates.h
+  cname: struct S
+  hsname: S
+- headers: functions/fun_ptr_instances/duplicates.h
+  cname: S
+  hsname: S
 hstypes:
+- hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - s_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: T
   representation:
     newtype:

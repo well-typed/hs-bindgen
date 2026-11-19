@@ -216,10 +216,14 @@ processFunType occurrence loc args res = do
 -- After @Select@, the active declarations are the selected ones.
 isDefinedInCurrentModule :: DeclDB l Select -> C.Type Select -> Bool
 isDefinedInCurrentModule db =
-    any (isActive . fst) . C.depsOfType
+    any (isDefined . (.cName) . fst) . C.depsOfType
   where
-    isActive :: DeclIdPair -> Bool
-    isActive declId = isJust $ DeclDB.lookup declId.cName db
+    isDefined :: C.DeclId -> Bool
+    isDefined declId = case DeclDB.lookupEntry declId db of
+      Just DeclDB.Active{} -> True
+      -- Uses of a squashed typedef refer to the declaration of its target
+      Just (DeclDB.Squashed _ target) -> isJust $ DeclDB.lookup target.c db
+      _otherwise -> False
 
 -- | Classify a function type, reporting why it gets no instances
 --

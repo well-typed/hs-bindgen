@@ -1,0 +1,152 @@
+-- addDependentFile test-artefacts/headers/golden/functions/fun_ptr_instances/squashed_typedef.h
+-- #include <functions/fun_ptr_instances/squashed_typedef.h>
+-- void hs_bindgen_cfc42f16d6bff675 (
+--   void (*arg1) (
+--   T *arg1
+-- )
+-- )
+-- {
+--   (h)(arg1);
+-- }
+-- void hs_bindgen_dde31e341499352f (
+--   void (*arg1) (
+--   T *arg1
+-- )
+-- )
+-- {
+--   (h)(arg1);
+-- }
+-- /* test_functionsfun_ptr_instancessq_Example_get_h */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_d4648cb235c86cb6 (void)) (
+--   void (*arg1) (
+--   T *arg1
+-- )
+-- )
+-- {
+--   return &h;
+-- }
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @functions\/fun_ptr_instances\/squashed_typedef.h 3:8@
+
+    __exported by:__ @functions\/fun_ptr_instances\/squashed_typedef.h@
+-}
+data T
+    = T {t_x :: CInt
+         {- ^ __C declaration:__ @x@
+
+              __defined at:__ @functions\/fun_ptr_instances\/squashed_typedef.h 3:16@
+
+              __exported by:__ @functions\/fun_ptr_instances\/squashed_typedef.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize T
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw T
+    where readRaw = \ptr_0 -> pure T <*> readRaw (Proxy @"t_x") ptr_0
+instance WriteRaw T
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       T t_x_2 -> writeRaw (Proxy @"t_x") ptr_0 t_x_2
+deriving via (EquivStorable T) instance Storable T
+deriving via (IsStructViaReadRaw T) instance IsStruct T
+instance (~) ty CInt => HasField "t_x" T ty
+    where hasField = \x_0 -> (\y_1 -> T{t_x = y_1},
+                              getField @"t_x" x_0)
+instance (~) ty CInt => HasField "t_x" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"t_x")
+instance HasCField T "t_x"
+    where type CFieldType T "t_x" = CInt
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @instance ToFunPtr (BG.Ptr T -> IO ())@
+foreign import ccall safe "wrapper" hs_bindgen_cd9938955d8254da_base ::
+    Ptr Void -> IO ()
+ -> IO (FunPtr (Ptr Void -> IO ()))
+-- __unique:__ @instance ToFunPtr (BG.Ptr T -> IO ())@
+hs_bindgen_cd9938955d8254da :: (Ptr T -> IO ()) ->
+                               IO (FunPtr (Ptr T -> IO ()))
+-- __unique:__ @instance ToFunPtr (BG.Ptr T -> IO ())@
+hs_bindgen_cd9938955d8254da = \fun_0 -> fmap castFunPtr (hs_bindgen_cd9938955d8254da_base (\x_1 -> fun_0 (fromFFIType x_1)))
+-- __unique:__ @instance FromFunPtr (BG.Ptr T -> IO ())@
+foreign import ccall safe "dynamic" hs_bindgen_a30df0ed4fa7cc2a_base ::
+    FunPtr (Ptr Void -> IO ())
+ -> Ptr Void
+ -> IO ()
+-- __unique:__ @instance FromFunPtr (BG.Ptr T -> IO ())@
+hs_bindgen_a30df0ed4fa7cc2a :: FunPtr (Ptr T -> IO ()) ->
+                               Ptr T -> IO ()
+-- __unique:__ @instance FromFunPtr (BG.Ptr T -> IO ())@
+hs_bindgen_a30df0ed4fa7cc2a = \funPtr_0 -> \x_1 -> hs_bindgen_a30df0ed4fa7cc2a_base (castFunPtr funPtr_0) (toFFIType x_1)
+instance ToFunPtr (Ptr T -> IO ())
+    where toFunPtr = hs_bindgen_cd9938955d8254da
+instance FromFunPtr (Ptr T -> IO ())
+    where fromFunPtr = hs_bindgen_a30df0ed4fa7cc2a
+-- __unique:__ @test_functionsfun_ptr_instancessq_Example_Safe_h@
+foreign import ccall safe "hs_bindgen_cfc42f16d6bff675" hs_bindgen_cfc42f16d6bff675_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancessq_Example_Safe_h@
+hs_bindgen_cfc42f16d6bff675 :: FunPtr (Ptr T -> IO ()) -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancessq_Example_Safe_h@
+hs_bindgen_cfc42f16d6bff675 = \x_0 -> hs_bindgen_cfc42f16d6bff675_base (toFFIType x_0)
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/fun_ptr_instances\/squashed_typedef.h 9:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/squashed_typedef.h@
+-}
+h_safe :: FunPtr (Ptr T -> IO ()) -> IO ()
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/fun_ptr_instances\/squashed_typedef.h 9:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/squashed_typedef.h@
+-}
+h_safe = hs_bindgen_cfc42f16d6bff675
+-- __unique:__ @test_functionsfun_ptr_instancessq_Example_Unsafe_h@
+foreign import ccall unsafe "hs_bindgen_dde31e341499352f" hs_bindgen_dde31e341499352f_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancessq_Example_Unsafe_h@
+hs_bindgen_dde31e341499352f :: FunPtr (Ptr T -> IO ()) -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancessq_Example_Unsafe_h@
+hs_bindgen_dde31e341499352f = \x_0 -> hs_bindgen_dde31e341499352f_base (toFFIType x_0)
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/fun_ptr_instances\/squashed_typedef.h 9:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/squashed_typedef.h@
+-}
+h_unsafe :: FunPtr (Ptr T -> IO ()) -> IO ()
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/fun_ptr_instances\/squashed_typedef.h 9:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/squashed_typedef.h@
+-}
+h_unsafe = hs_bindgen_dde31e341499352f
+-- __unique:__ @test_functionsfun_ptr_instancessq_Example_get_h@
+foreign import ccall unsafe "hs_bindgen_d4648cb235c86cb6" hs_bindgen_d4648cb235c86cb6_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_functionsfun_ptr_instancessq_Example_get_h@
+hs_bindgen_d4648cb235c86cb6 :: IO (FunPtr (FunPtr (Ptr T ->
+                                                   IO ()) ->
+                                           IO ()))
+-- __unique:__ @test_functionsfun_ptr_instancessq_Example_get_h@
+hs_bindgen_d4648cb235c86cb6 = fmap fromFFIType hs_bindgen_d4648cb235c86cb6_base
+{-# NOINLINE h_funptr #-}
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/fun_ptr_instances\/squashed_typedef.h 9:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/squashed_typedef.h@
+-}
+h_funptr :: FunPtr (FunPtr (Ptr T -> IO ()) -> IO ())
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/fun_ptr_instances\/squashed_typedef.h 9:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/squashed_typedef.h@
+-}
+h_funptr = unsafePerformIO hs_bindgen_d4648cb235c86cb6

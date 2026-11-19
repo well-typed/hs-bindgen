@@ -6,6 +6,7 @@
 module Example.FunPtr
     ( Example.FunPtr.d
     , Example.FunPtr.e
+    , Example.FunPtr.f
     )
   where
 
@@ -46,6 +47,19 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
   , "{"
   , "  return &e;"
   , "}"
+  , "/* test_functionsfun_ptr_instancesdu_Example_get_f */"
+  , "__attribute__ ((const))"
+  , "void (*hs_bindgen_bbd8dae792a07698 (void)) ("
+  , "  void (*arg1) ("
+  , "  S *arg1"
+  , "),"
+  , "  void (*arg2) ("
+  , "  struct S *arg1"
+  , ")"
+  , ")"
+  , "{"
+  , "  return &f;"
+  , "}"
   ]))
 
 -- __unique:__ @test_functionsfun_ptr_instancesdu_Example_get_d@
@@ -85,3 +99,22 @@ hs_bindgen_128acdbed0ef8810 =
 -}
 e :: BG.FunPtr (BG.FunPtr (BG.FunPtr (T -> IO ()) -> IO ()) -> BG.FunPtr (BG.FunPtr (T -> IO ()) -> IO ()) -> IO ())
 e = BG.unsafePerformIO hs_bindgen_128acdbed0ef8810
+
+-- __unique:__ @test_functionsfun_ptr_instancesdu_Example_get_f@
+foreign import ccall unsafe "hs_bindgen_bbd8dae792a07698" hs_bindgen_bbd8dae792a07698_base ::
+     IO (BG.FunPtr BG.Void)
+
+-- __unique:__ @test_functionsfun_ptr_instancesdu_Example_get_f@
+hs_bindgen_bbd8dae792a07698 :: IO (BG.FunPtr (BG.FunPtr (BG.Ptr S -> IO ()) -> BG.FunPtr (BG.Ptr S -> IO ()) -> IO ()))
+hs_bindgen_bbd8dae792a07698 =
+  fmap BG.fromFFIType hs_bindgen_bbd8dae792a07698_base
+
+{-# NOINLINE f #-}
+{-| __C declaration:__ @f@
+
+    __defined at:__ @functions\/fun_ptr_instances\/duplicates.h 13:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/duplicates.h@
+-}
+f :: BG.FunPtr (BG.FunPtr (BG.Ptr S -> IO ()) -> BG.FunPtr (BG.Ptr S -> IO ()) -> IO ())
+f = BG.unsafePerformIO hs_bindgen_bbd8dae792a07698

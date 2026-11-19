@@ -6,6 +6,7 @@
 module Example.Safe
     ( Example.Safe.d
     , Example.Safe.e
+    , Example.Safe.f
     )
   where
 
@@ -41,6 +42,17 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
   , ")"
   , "{"
   , "  (e)(arg1, arg2);"
+  , "}"
+  , "void hs_bindgen_d096ff4db3bb9cdf ("
+  , "  void (*arg1) ("
+  , "  S *arg1"
+  , "),"
+  , "  void (*arg2) ("
+  , "  struct S *arg1"
+  , ")"
+  , ")"
+  , "{"
+  , "  (f)(arg1, arg2);"
   , "}"
   ]))
 
@@ -103,3 +115,33 @@ e ::
      -- ^ __C declaration:__ @c@
   -> IO ()
 e = hs_bindgen_7240c8d348fed165
+
+-- __unique:__ @test_functionsfun_ptr_instancesdu_Example_Safe_f@
+foreign import ccall safe "hs_bindgen_d096ff4db3bb9cdf" hs_bindgen_d096ff4db3bb9cdf_base ::
+     BG.FunPtr BG.Void
+  -> BG.FunPtr BG.Void
+  -> IO ()
+
+-- __unique:__ @test_functionsfun_ptr_instancesdu_Example_Safe_f@
+hs_bindgen_d096ff4db3bb9cdf ::
+     BG.FunPtr (BG.Ptr S -> IO ())
+  -> BG.FunPtr (BG.Ptr S -> IO ())
+  -> IO ()
+hs_bindgen_d096ff4db3bb9cdf =
+  \x0 ->
+    \x1 ->
+      hs_bindgen_d096ff4db3bb9cdf_base (BG.toFFIType x0) (BG.toFFIType x1)
+
+{-| __C declaration:__ @f@
+
+    __defined at:__ @functions\/fun_ptr_instances\/duplicates.h 13:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/duplicates.h@
+-}
+f ::
+     BG.FunPtr (BG.Ptr S -> IO ())
+     -- ^ __C declaration:__ @a@
+  -> BG.FunPtr (BG.Ptr S -> IO ())
+     -- ^ __C declaration:__ @b@
+  -> IO ()
+f = hs_bindgen_d096ff4db3bb9cdf
