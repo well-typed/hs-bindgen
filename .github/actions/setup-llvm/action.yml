@@ -9,18 +9,20 @@ inputs:
 runs:
   using: composite
   steps:
-  # Some Azure apt mirror nodes serve packages extremely slowly, and apt doesn't
-  # fail from a slow mirror, only from a failing one. We remove the mirror.
+  # Some apt mirrors can occasionally serve packages extremely slowly, and apt
+  # doesn't fail from a slow mirror, only from a failing one. We remove
+  # potentially slow mirrors.
   #
-  # TODO: reintroduce the Azure apt mirror once the following issue is fixed:
-  # <https://github.com/actions/runner-images/issues/14823>
-  - name: Download packages from archive.ubuntu.com (Linux)
+  # TODO: reintroduce mirrors once and for all when the following issue is
+  # fixed: <https://github.com/actions/runner-images/issues/14823>
+  - name: Remove apt mirrors (Linux)
     shell: bash
-    if: ${{ runner.os == 'Linux' && false }}
+    if: ${{ runner.os == 'Linux' }}
     run: |
       cat /etc/apt/apt-mirrors.txt
       echo "Deleting..."
       sudo sed -i '/azure\.archive\.ubuntu\.com/d' /etc/apt/apt-mirrors.txt
+      sudo sed -i '/us-east-2\.ec2\.archive\.ubuntu\.com/d' /etc/apt/apt-mirrors.txt
       cat /etc/apt/apt-mirrors.txt
 
   # Linux: install from apt. Ubuntu noble ships clang/llvm 14-19 in its own repos;
