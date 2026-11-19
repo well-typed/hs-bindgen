@@ -346,25 +346,25 @@
 --   return (bespoke_ret2)(arg1);
 -- }
 -- void hs_bindgen_e20689fe39004225 (
---   A *arg1
+--   A arg1[]
 -- )
 -- {
 --   (arr_args1)(arg1);
 -- }
 -- void hs_bindgen_084796e4bfd3f4cd (
---   A **arg1
+--   A *arg1[]
 -- )
 -- {
 --   (arr_args2)(arg1);
 -- }
 -- void hs_bindgen_a3d1560aaa4352df (
---   A *arg1
+--   A arg1[5]
 -- )
 -- {
 --   (arr_args3)(arg1);
 -- }
 -- void hs_bindgen_88659ccccc6c1f5f (
---   A **arg1
+--   A *arg1[5]
 -- )
 -- {
 --   (arr_args4)(arg1);
@@ -638,19 +638,19 @@
 --   return (const_pointers_ret5)(arg1);
 -- }
 -- void hs_bindgen_678576320923a4d1 (
---   A const *arg1
+--   A const arg1[]
 -- )
 -- {
 --   (const_array_elem1)(arg1);
 -- }
 -- void hs_bindgen_b317941dde4eeff2 (
---   A const **arg1
+--   A const *arg1[]
 -- )
 -- {
 --   (const_array_elem2)(arg1);
 -- }
 -- void hs_bindgen_707e602e6beb1bb6 (
---   A *const *arg1
+--   A *const arg1[]
 -- )
 -- {
 --   (const_array_elem3)(arg1);
@@ -1097,25 +1097,25 @@
 --   return (bespoke_ret2)(arg1);
 -- }
 -- void hs_bindgen_4956a52bf5073b9f (
---   A *arg1
+--   A arg1[]
 -- )
 -- {
 --   (arr_args1)(arg1);
 -- }
 -- void hs_bindgen_0fc8b091085a88e9 (
---   A **arg1
+--   A *arg1[]
 -- )
 -- {
 --   (arr_args2)(arg1);
 -- }
 -- void hs_bindgen_ca6f1bc1a29b85f8 (
---   A *arg1
+--   A arg1[5]
 -- )
 -- {
 --   (arr_args3)(arg1);
 -- }
 -- void hs_bindgen_a168ae0de206febe (
---   A **arg1
+--   A *arg1[5]
 -- )
 -- {
 --   (arr_args4)(arg1);
@@ -1389,19 +1389,19 @@
 --   return (const_pointers_ret5)(arg1);
 -- }
 -- void hs_bindgen_224608f780bff5bd (
---   A const *arg1
+--   A const arg1[]
 -- )
 -- {
 --   (const_array_elem1)(arg1);
 -- }
 -- void hs_bindgen_9aa74ad89f2c1fba (
---   A const **arg1
+--   A const *arg1[]
 -- )
 -- {
 --   (const_array_elem2)(arg1);
 -- }
 -- void hs_bindgen_6a328300c5ef0c9e (
---   A *const *arg1
+--   A *const arg1[]
 -- )
 -- {
 --   (const_array_elem3)(arg1);
@@ -1952,7 +1952,7 @@
 -- /* test_macrosreparse_Example_get_arr_args1 */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_b38b526cf0817bf0 (void)) (
---   A *arg1
+--   A arg1[]
 -- )
 -- {
 --   return &arr_args1;
@@ -1960,7 +1960,7 @@
 -- /* test_macrosreparse_Example_get_arr_args2 */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_2c0bca39b42ecbec (void)) (
---   A **arg1
+--   A *arg1[]
 -- )
 -- {
 --   return &arr_args2;
@@ -1968,7 +1968,7 @@
 -- /* test_macrosreparse_Example_get_arr_args3 */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_82a8c15919ae3f33 (void)) (
---   A *arg1
+--   A arg1[5]
 -- )
 -- {
 --   return &arr_args3;
@@ -1976,7 +1976,7 @@
 -- /* test_macrosreparse_Example_get_arr_args4 */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_db074918e0d38cb5 (void)) (
---   A **arg1
+--   A *arg1[5]
 -- )
 -- {
 --   return &arr_args4;
@@ -2328,7 +2328,7 @@
 -- /* test_macrosreparse_Example_get_const_array_elem1 */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_ae95c15a81eacd52 (void)) (
---   A const *arg1
+--   A const arg1[]
 -- )
 -- {
 --   return &const_array_elem1;
@@ -2336,7 +2336,7 @@
 -- /* test_macrosreparse_Example_get_const_array_elem2 */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_9dbbae3758752935 (void)) (
---   A const **arg1
+--   A const *arg1[]
 -- )
 -- {
 --   return &const_array_elem2;
@@ -2344,7 +2344,7 @@
 -- /* test_macrosreparse_Example_get_const_array_elem3 */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_9fdb904f0c0776ed (void)) (
---   A *const *arg1
+--   A *const arg1[]
 -- )
 -- {
 --   return &const_array_elem3;

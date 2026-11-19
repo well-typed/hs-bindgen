@@ -20,7 +20,6 @@ import GHC.Stack
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
-import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
@@ -44,7 +43,6 @@ data TypeContext =
 -- 'HsBindgen.Frontend.Pass.TranslateTypes.IsPass.TranslateTypes' and later.
 type IsPassCompat p = (
     IsPass p
-  , Ann "TypeFunArg" p ~ AdjustedFrom p
   , ExtBinding p ~ BindingSpec.ResolvedExtBinding
   , Id p ~ DeclIdPair
   , MacroId p ~ Id p
@@ -58,7 +56,7 @@ instance IsPassCompat p => InContext (C.Type p) where
   inContext = typeInContext
 
 instance IsPassCompat p => InContext (C.TypeFunArg p) where
-  inContext ctx arg = funArg ctx arg.typ arg.ann
+  inContext ctx arg = funArg ctx arg.typ
 
 instance IsPassCompat p => InContext (C.FunctionArg p) where
   inContext ctx arg = inContext ctx (cTypeFunArg (Proxy @p) arg.typ)
@@ -157,22 +155,6 @@ pointee ty
     | C.isErasedTypeConstQualified ty = PointeeConstObject
     | otherwise                       = PointeeObject
 
--- | Translate a function argument
-funArg ::
-     (HasCallStack, IsPassCompat p)
-  => TypeContext
-  -> C.Type p
-  -> AdjustedFrom p
-  -> Hs.Type
-funArg ctx ty = \case
-    AdjustedFromArray origTy
-      | C.isErasedTypeConstQualified origTy ->
-          Hs.PtrConstArrayElem (typeInContext Top origTy)
-      | otherwise ->
-          Hs.PtrArrayElem (typeInContext Top origTy)
-    AdjustedFromFunction _origTy -> typeInContext ctx ty
-    NotAdjusted -> typeInContext ctx ty
-
 -- | Translate @void@
 --
 -- This only makes sense in non-top-level contexts.  (We take special care in
@@ -182,3 +164,83 @@ void = \case
     FunRes -> Hs.PrimUnit
     PtrArg -> Hs.PrimVoid
     c      -> panicPure ("Unexpected type void in context " ++ show c)
+
+{-------------------------------------------------------------------------------
+  Function argument types
+-------------------------------------------------------------------------------}
+
+-- | Translate a function argument
+--
+-- Some function argument types are adjusted while translating to Haskell types.
+-- See 'adjustFunArg'.
+funArg ::
+     (HasCallStack, IsPassCompat p)
+  => TypeContext
+  -> C.Type p
+  -> Hs.Type
+funArg ctx ty = case adjustFunArg ty of
+    AdjustArray
+      | C.isErasedTypeConstQualified ty ->
+          Hs.PtrConstArrayElem (typeInContext Top ty)
+      | otherwise ->
+          Hs.PtrArrayElem (typeInContext Top ty)
+    AdjustFunction -> typeInContext ctx (C.TypePointers 1 ty)
+    NoAdjust -> typeInContext ctx ty
+
+-- | Adjust function argument types
+--
+-- The C reference describes that function parameters of some specific types are
+-- adjusted. See:
+--
+-- <https://en.cppreference.com/w/c/language/function_declaration.html#Explanation>
+--
+-- We apply some of these adjustments to reduce ambiguity about the
+-- representation of function parameter types. These adjustments are applied
+-- everywhere that a C type occurs in the AST, even recursively. The adjustments
+-- we apply are:
+--
+-- > * any parameter of function type is adjusted to the corresponding pointer
+-- >  type
+-- >
+-- > * any parameter of array type is adjusted to the corresponding pointer
+-- >   type
+--
+-- Function arguments of function type are changed to *pointer* to function
+-- type. For example, the former is adjusted to the latter:
+--
+-- > int foo (char f (float))
+-- > int foo (char (*f)(float))
+--
+-- Function arguments of array type are changed to pointer to the array element
+-- type. For example, the former is adjusted to the latter:
+--
+-- > int foo (char xs[])
+-- > int foo (char * xs)
+--
+-- === Function results
+--
+-- As specified by the C reference, a function result type can /not/ be
+-- a function type or array type. As such, no need to adjust there.
+--
+-- https://en.cppreference.com/c/language/function_declaration#Syntax>
+--
+-- === Macro types
+--
+-- NOTE: currently type-like macro expressions don't support array or function
+-- constructors. If they do in the future, then we might have to recurse into
+-- the macro expression.
+--
+adjustFunArg :: IsPassCompat p => C.Type p -> Adjust
+adjustFunArg ty
+  | C.isCanonicalTypeArray ty
+  = AdjustArray
+  | C.isCanonicalTypeFunction ty
+  = AdjustFunction
+  | otherwise
+  = NoAdjust
+
+data Adjust =
+    AdjustArray
+  | AdjustFunction
+  | NoAdjust
+  deriving stock (Show, Eq, Ord)

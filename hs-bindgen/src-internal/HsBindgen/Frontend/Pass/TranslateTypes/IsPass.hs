@@ -4,7 +4,6 @@ module HsBindgen.Frontend.Pass.TranslateTypes.IsPass (
   ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassingMethod (PassingMethod,
@@ -31,7 +30,6 @@ type family AnnTranslateTypes ix where
   AnnTranslateTypes "Struct"               = StructNames
   AnnTranslateTypes "Typedef"              = TypedefNames
   AnnTranslateTypes "TypecheckedMacroType" = NewtypeNames
-  AnnTranslateTypes "TypeFunArg"           = AdjustedFrom TranslateTypes
   AnnTranslateTypes "Union"                = NewtypeNames
   AnnTranslateTypes _                      = NoAnn
 
@@ -80,24 +78,20 @@ instance PassMsg TranslateTypes
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassId      AdjustTypes TranslateTypes
-instance CoercePassMacroId AdjustTypes TranslateTypes
+instance CoercePassId      MangleNames TranslateTypes
+instance CoercePassMacroId MangleNames TranslateTypes
 
-instance CoercePassMacroUnderlying AdjustTypes TranslateTypes where
+instance CoercePassMacroUnderlying MangleNames TranslateTypes where
   coercePassMacroUnderlying _ = coercePass
 
-instance CoercePassMacroBody AdjustTypes TranslateTypes where
+instance CoercePassMacroBody MangleNames TranslateTypes where
   coercePassMacroBody _ = coercePassParam
 
-instance CoercePassAnn "IndirectField" AdjustTypes TranslateTypes where
+instance CoercePassAnn "IndirectField" MangleNames TranslateTypes where
   coercePassAnn _ = \case
       IndirectFieldNames name -> IndirectFieldNames name
 
-instance CoercePassAnn "TypeFunArg" AdjustTypes TranslateTypes where
-  coercePassAnn _ = \case
-    AdjustedFromArray    ty -> AdjustedFromArray    (coercePass ty)
-    AdjustedFromFunction ty -> AdjustedFromFunction (coercePass ty)
-    NotAdjusted             -> NotAdjusted
+instance CoercePassAnn "TypeFunArg" MangleNames TranslateTypes
 
-instance CoercePassCommentDecl AdjustTypes TranslateTypes where
+instance CoercePassCommentDecl MangleNames TranslateTypes where
   coercePassCommentDecl _ = fmap coercePass

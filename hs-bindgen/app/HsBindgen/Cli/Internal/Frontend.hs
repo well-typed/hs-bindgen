@@ -56,7 +56,7 @@ parseFrontendPassName s = case lookup s knownPasses of
         , mk ReparseMacroExpansionsPass
         , mk ResolveBindingSpecsPass
         , mk MangleNamesPass
-        , mk AdjustTypesPass
+        , mk TranslateTypesPass
         , mk SelectPass
         , mk FinalPass
         ]
@@ -77,7 +77,7 @@ frontendPassName = \case
   ReparseMacroExpansionsPass   -> "reparse-macro-expansions"
   ResolveBindingSpecsPass      -> "resolve-binding-specs"
   MangleNamesPass              -> "mangle-names"
-  AdjustTypesPass              -> "adjust-types"
+  TranslateTypesPass           -> "translate-types"
   SelectPass                   -> "select"
   FinalPass                    -> "final"
 
@@ -116,7 +116,7 @@ parseOpts =
 parseDump :: Parser SomeFrontendPass
 parseDump = option (eitherReader parseFrontendPassName) $ mconcat [
       long "pass"
-    , value (SomeFrontendPass AdjustTypesPass)
+    , value (SomeFrontendPass TranslateTypesPass)
     , showDefaultWith (\(SomeFrontendPass d) -> frontendPassName d)
     , help "Frontend pass to dump"
     , metavar "PASS"

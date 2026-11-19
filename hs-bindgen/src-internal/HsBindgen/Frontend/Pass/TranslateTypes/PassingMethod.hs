@@ -8,7 +8,7 @@ import Control.Monad.Writer.Strict (Writer)
 import Data.Bifunctor (second)
 import Data.Text qualified as Text
 
-import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
+import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
 import HsBindgen.Frontend.Pass.TranslateTypes.Error
 import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass (TranslateTypes)
@@ -29,15 +29,11 @@ type Classified a =
 
 -- | Classify how a function result is passed from C to Haskell
 classifyResPassingMethod ::
-     C.FunctionRes AdjustTypes
+     C.FunctionRes MangleNames
   -> Hs.Type -- ^ Translation of the result type
   -> Classified (ResPassingMethod TranslateTypes)
 classifyResPassingMethod res hsType
   -- Bad types
-  | C.isCanonicalTypeArray res.typ
-  = unexpected FunPositionRes UnexpectedArray res.typ
-  | C.isCanonicalTypeFunction res.typ
-  = unexpected FunPositionRes UnexpectedFunction res.typ
   | C.isVoid res.typ
   = pure $ Right PassResVoid
   -- Heap types: the Haskell FFI cannot pass them by value, so they cross it
@@ -59,15 +55,10 @@ classifyResPassingMethod res hsType
 -- | Classify how a function argument is passed from Haskell to C
 classifyArgPassingMethod ::
      FunPosition
-  -> C.FunctionArg AdjustTypes
+  -> C.FunctionArg MangleNames
   -> Hs.Type -- ^ Translation of the argument type
   -> Classified (PassingMethod TranslateTypes)
 classifyArgPassingMethod pos arg hsType
-  -- Bad types
-  | C.isCanonicalTypeArray arg.typ.typ
-  = unexpected pos UnexpectedArray arg.typ.typ
-  | C.isCanonicalTypeFunction arg.typ.typ
-  = unexpected pos UnexpectedFunction arg.typ.typ
   -- Heap types: the Haskell FFI cannot pass them by value, so they cross it
   -- through a buffer on the Haskell heap
   | C.isCanonicalTypeStruct  arg.typ.typ ||
@@ -85,7 +76,7 @@ classifyArgPassingMethod pos arg hsType
 
 passDirect ::
      FunPosition
-  -> C.Type AdjustTypes
+  -> C.Type MangleNames
   -> Hs.Type
   -> Classified Hs.FFIType
 passDirect pos cType hsType = do
@@ -97,17 +88,5 @@ passDirect pos cType hsType = do
         , cType    = renderCType cType
         }
 
-unexpected ::
-     FunPosition
-  -> UnexpectedTypeKind
-  -> C.Type AdjustTypes
-  -> Classified a
-unexpected pos kind cType =
-    pure $ Left $ FunPositionUnexpectedType UnexpectedType{
-        position = pos
-      , kind     = kind
-      , cType    = renderCType cType
-      }
-
-renderCType :: C.Type AdjustTypes -> Text.Text
+renderCType :: C.Type MangleNames -> Text.Text
 renderCType cType = Text.strip $ Text.pack $ C.showsType (const id) cType ""

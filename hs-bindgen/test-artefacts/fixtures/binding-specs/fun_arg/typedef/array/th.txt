@@ -1,73 +1,73 @@
 -- addDependentFile test-artefacts/headers/golden/binding-specs/fun_arg/typedef/array.h
 -- #include <binding-specs/fun_arg/typedef/array.h>
 -- void hs_bindgen_99bb90e6d7637d2c (
---   signed int *arg1
+--   signed int arg1[]
 -- )
 -- {
 --   (foo)(arg1);
 -- }
 -- void hs_bindgen_392e3092a2681c13 (
---   signed int *arg1
+--   A arg1
 -- )
 -- {
 --   (fooA)(arg1);
 -- }
 -- void hs_bindgen_6011faf8531be4fa (
---   signed int *arg1
+--   B arg1
 -- )
 -- {
 --   (fooB)(arg1);
 -- }
 -- void hs_bindgen_40a50b8e6ac3b09d (
---   signed int *arg1
+--   C arg1
 -- )
 -- {
 --   (fooC)(arg1);
 -- }
 -- void hs_bindgen_32b4f35bf27a4bf8 (
---   signed int *arg1
+--   D arg1
 -- )
 -- {
 --   (fooD)(arg1);
 -- }
 -- void hs_bindgen_6e59183c0a861d01 (
---   signed int *arg1
+--   E arg1
 -- )
 -- {
 --   (fooE)(arg1);
 -- }
 -- void hs_bindgen_51195acecf6b880e (
---   signed int *arg1
+--   signed int arg1[]
 -- )
 -- {
 --   (foo)(arg1);
 -- }
 -- void hs_bindgen_eb4a794c10ca94f9 (
---   signed int *arg1
+--   A arg1
 -- )
 -- {
 --   (fooA)(arg1);
 -- }
 -- void hs_bindgen_a11eb4471a953b64 (
---   signed int *arg1
+--   B arg1
 -- )
 -- {
 --   (fooB)(arg1);
 -- }
 -- void hs_bindgen_1dea92b3f3346311 (
---   signed int *arg1
+--   C arg1
 -- )
 -- {
 --   (fooC)(arg1);
 -- }
 -- void hs_bindgen_dba6d56e1a316e2d (
---   signed int *arg1
+--   D arg1
 -- )
 -- {
 --   (fooD)(arg1);
 -- }
 -- void hs_bindgen_23b6f403a534aeae (
---   signed int *arg1
+--   E arg1
 -- )
 -- {
 --   (fooE)(arg1);
@@ -75,7 +75,7 @@
 -- /* test_bindingspecsfun_argtypedef_Example_get_foo */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_2020929269c10652 (void)) (
---   signed int *arg1
+--   signed int arg1[]
 -- )
 -- {
 --   return &foo;
@@ -83,7 +83,7 @@
 -- /* test_bindingspecsfun_argtypedef_Example_get_fooA */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_3fbd7681308a7575 (void)) (
---   signed int *arg1
+--   A arg1
 -- )
 -- {
 --   return &fooA;
@@ -91,7 +91,7 @@
 -- /* test_bindingspecsfun_argtypedef_Example_get_fooB */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_118f9a485493ca2d (void)) (
---   signed int *arg1
+--   B arg1
 -- )
 -- {
 --   return &fooB;
@@ -99,7 +99,7 @@
 -- /* test_bindingspecsfun_argtypedef_Example_get_fooC */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_dbe89d4787aae78a (void)) (
---   signed int *arg1
+--   C arg1
 -- )
 -- {
 --   return &fooC;
@@ -107,7 +107,7 @@
 -- /* test_bindingspecsfun_argtypedef_Example_get_fooD */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_cf5702eef5ab2ac4 (void)) (
---   signed int *arg1
+--   D arg1
 -- )
 -- {
 --   return &fooD;
@@ -115,7 +115,7 @@
 -- /* test_bindingspecsfun_argtypedef_Example_get_fooE */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_dc10cdc4b07670d1 (void)) (
---   signed int *arg1
+--   E arg1
 -- )
 -- {
 --   return &fooE;

@@ -106,7 +106,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
   , "  return (versioned_function)(arg1);"
   , "}"
   , "signed int hs_bindgen_0c0057f1700372a7 ("
-  , "  char *arg1,"
+  , "  char arg1[64],"
   , "  size_t arg2"
   , ")"
   , "{"

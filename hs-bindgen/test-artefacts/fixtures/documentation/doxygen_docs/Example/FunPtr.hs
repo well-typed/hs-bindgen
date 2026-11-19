@@ -126,7 +126,7 @@ $(HsBindgen.Runtime.Support.CAPI.addCSource (HsBindgen.Runtime.Support.CAPI.unli
   , "/* test_documentationdoxygen_docs_Example_get_process_buffer */"
   , "__attribute__ ((const))"
   , "signed int (*hs_bindgen_f4ccc6d90e8d3ebd (void)) ("
-  , "  char *arg1,"
+  , "  char arg1[64],"
   , "  size_t arg2"
   , ")"
   , "{"

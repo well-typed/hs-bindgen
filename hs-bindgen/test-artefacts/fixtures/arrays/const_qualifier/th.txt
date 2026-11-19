@@ -1,49 +1,49 @@
 -- addDependentFile test-artefacts/headers/golden/arrays/const_qualifier.h
 -- #include <arrays/const_qualifier.h>
 -- void hs_bindgen_41e3579627406714 (
---   signed int const *arg1
+--   signed int const arg1[]
 -- )
 -- {
 --   (foo)(arg1);
 -- }
 -- void hs_bindgen_ef925a32def7d5e9 (
---   signed int const *arg1
+--   S arg1
 -- )
 -- {
 --   (fooA)(arg1);
 -- }
 -- void hs_bindgen_4237cee8985eb7fc (
---   signed int const *arg1
+--   S const arg1
 -- )
 -- {
 --   (fooB)(arg1);
 -- }
 -- void hs_bindgen_dc3d2325cbc25f6e (
---   signed int const *arg1
+--   T const arg1
 -- )
 -- {
 --   (fooC)(arg1);
 -- }
 -- void hs_bindgen_0820d6c6e877663d (
---   signed int const *arg1
+--   signed int const arg1[3]
 -- )
 -- {
 --   (bar)(arg1);
 -- }
 -- void hs_bindgen_bb3ba1c8635c0008 (
---   signed int const *arg1
+--   U arg1
 -- )
 -- {
 --   (barA)(arg1);
 -- }
 -- void hs_bindgen_63794b19284a8cd9 (
---   signed int const *arg1
+--   U const arg1
 -- )
 -- {
 --   (barB)(arg1);
 -- }
 -- void hs_bindgen_e936f5907d7bdf9b (
---   signed int const *arg1
+--   V const arg1
 -- )
 -- {
 --   (barC)(arg1);
@@ -73,49 +73,49 @@
 --   (bazC)(arg1);
 -- }
 -- void hs_bindgen_7eb8358d30ebb28b (
---   signed int const *arg1
+--   signed int const arg1[]
 -- )
 -- {
 --   (foo)(arg1);
 -- }
 -- void hs_bindgen_2fc1970fe11a3461 (
---   signed int const *arg1
+--   S arg1
 -- )
 -- {
 --   (fooA)(arg1);
 -- }
 -- void hs_bindgen_58689a7e4b1d44f6 (
---   signed int const *arg1
+--   S const arg1
 -- )
 -- {
 --   (fooB)(arg1);
 -- }
 -- void hs_bindgen_f88b417ee6e28c0c (
---   signed int const *arg1
+--   T const arg1
 -- )
 -- {
 --   (fooC)(arg1);
 -- }
 -- void hs_bindgen_78493aa01e9cc5da (
---   signed int const *arg1
+--   signed int const arg1[3]
 -- )
 -- {
 --   (bar)(arg1);
 -- }
 -- void hs_bindgen_bee2c20f290d25d6 (
---   signed int const *arg1
+--   U arg1
 -- )
 -- {
 --   (barA)(arg1);
 -- }
 -- void hs_bindgen_71f805899a96d9f1 (
---   signed int const *arg1
+--   U const arg1
 -- )
 -- {
 --   (barB)(arg1);
 -- }
 -- void hs_bindgen_89af56a24c359834 (
---   signed int const *arg1
+--   V const arg1
 -- )
 -- {
 --   (barC)(arg1);
@@ -147,7 +147,7 @@
 -- /* test_arraysconst_qualifier_Example_get_foo */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_08ac8ef9de29103e (void)) (
---   signed int const *arg1
+--   signed int const arg1[]
 -- )
 -- {
 --   return &foo;
@@ -155,7 +155,7 @@
 -- /* test_arraysconst_qualifier_Example_get_fooA */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_54fbf41deabb186a (void)) (
---   signed int const *arg1
+--   S arg1
 -- )
 -- {
 --   return &fooA;
@@ -163,7 +163,7 @@
 -- /* test_arraysconst_qualifier_Example_get_fooB */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_639b20c53a422f2a (void)) (
---   signed int const *arg1
+--   S const arg1
 -- )
 -- {
 --   return &fooB;
@@ -171,7 +171,7 @@
 -- /* test_arraysconst_qualifier_Example_get_fooC */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_fef335c60d51fed2 (void)) (
---   signed int const *arg1
+--   T const arg1
 -- )
 -- {
 --   return &fooC;
@@ -179,7 +179,7 @@
 -- /* test_arraysconst_qualifier_Example_get_bar */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_20a55b314c10f7b0 (void)) (
---   signed int const *arg1
+--   signed int const arg1[3]
 -- )
 -- {
 --   return &bar;
@@ -187,7 +187,7 @@
 -- /* test_arraysconst_qualifier_Example_get_barA */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_d75c925bc91f45d8 (void)) (
---   signed int const *arg1
+--   U arg1
 -- )
 -- {
 --   return &barA;
@@ -195,7 +195,7 @@
 -- /* test_arraysconst_qualifier_Example_get_barB */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_aecd16e35ff42812 (void)) (
---   signed int const *arg1
+--   U const arg1
 -- )
 -- {
 --   return &barB;
@@ -203,7 +203,7 @@
 -- /* test_arraysconst_qualifier_Example_get_barC */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_7b514bc063bee42a (void)) (
---   signed int const *arg1
+--   V const arg1
 -- )
 -- {
 --   return &barC;
