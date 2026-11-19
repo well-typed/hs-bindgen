@@ -270,7 +270,7 @@ test_fun_arg_typedef_no_ffitype :: TestCase
 test_fun_arg_typedef_no_ffitype =
     test_fun_arg_typedef "binding-specs/fun_arg/typedef/no_ffitype"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchDelayedTranslateTypes name TranslateTypesExtBindingFallback{} ->
+            MatchDelayedTranslateTypes name (TranslateTypesFFITypes _ FFITypesExtBindingFallback{}) ->
               Just $ Expected name
             _otherwise ->
               Nothing
