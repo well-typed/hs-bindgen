@@ -123,21 +123,23 @@ buildCategoryChoice opts = case opts.mode of
     -- Multi-module: all categories, no renaming
     useAllCategories :: ByCategory Choice
     useAllCategories = ByCategory {
-          cType   = IncludeTypeCategory
-        , cSafe   = IncludeTermCategory def
-        , cUnsafe = IncludeTermCategory def
-        , cFunPtr = IncludeTermCategory def
-        , cGlobal = IncludeTermCategory def
+          cType     = IncludeTypeCategory
+        , cCallback = IncludeTermCategory def
+        , cSafe     = IncludeTermCategory def
+        , cUnsafe   = IncludeTermCategory def
+        , cFunPtr   = IncludeTermCategory def
+        , cGlobal   = IncludeTermCategory def
         }
 
     -- Single-file: build based on category selections
     buildSingleFileChoice :: NonEmpty SingleFileCategory -> ByCategory Choice
     buildSingleFileChoice cats = ByCategory {
-          cType   = IncludeTypeCategory
-        , cSafe   = foldMap safeChoice cats
-        , cUnsafe = foldMap unsafeChoice cats
-        , cFunPtr = foldMap pointerChoice cats
-        , cGlobal = IncludeTermCategory def
+          cType     = IncludeTypeCategory
+        , cCallback = IncludeTermCategory def
+        , cSafe     = foldMap safeChoice cats
+        , cUnsafe   = foldMap unsafeChoice cats
+        , cFunPtr   = foldMap pointerChoice cats
+        , cGlobal   = IncludeTermCategory def
         }
 
     safeChoice :: SingleFileCategory -> Choice LvlTerm

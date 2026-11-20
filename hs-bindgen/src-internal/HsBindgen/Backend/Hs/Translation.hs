@@ -69,10 +69,11 @@ generateDeclarations ::
   => Macro.Lang l
   -> UniqueId
   -> BaseModuleName
+  -> HsBootPolicy
   -> DeclDB l Final
   -> [C.Decl l Final]
   -> ByCategory_ [Hs.Decl l]
-generateDeclarations macroLang uniqueId name declDB =
+generateDeclarations macroLang uniqueId name hsBootPolicy declDB =
     fmap reverse .
       foldl' partitionBindingCategories mempty .
       generateDeclarations' macroLang env declDB
@@ -86,13 +87,32 @@ generateDeclarations macroLang uniqueId name declDB =
     supInsts = def
 
     env :: HsM.Env
-    env = HsM.initEnv uniqueId name supInsts
+    env = HsM.initEnv uniqueId name supInsts hsBootPolicy
 
 -- | Internal. Top-level declaration with foreign import category.
 data WithCategory a = WithCategory {
     _withCategoryCategory :: Category
   , _withCategoryDecl     :: a
   } deriving (Show)
+
+-- | The declarations behind a callback, each with its category
+--
+-- With 'GenerateHsBoot', both the conversion code and the @ToFunPtr@ and
+-- @FromFunPtr@ instances go to 'CCallback'. With 'DoNotGenerateHsBoot',
+-- everything stays in 'CType'.
+--
+-- See the golden fixture @types\/boot\/internal_module@.
+callbackDecls ::
+     HsM.Env
+  -> ToFromFunPtr.Callback l
+  -> [WithCategory (Hs.Decl l)]
+callbackDecls env callback =
+    map (WithCategory cat) (callback.ffi ++ callback.instances)
+  where
+    cat :: Category
+    cat = case env.hsBootPolicy of
+      GenerateHsBoot      -> CTerm CCallback
+      DoNotGenerateHsBoot -> CType
 
 generateDeclarations' ::
      Macro.HasTypes l
@@ -105,13 +125,13 @@ generateDeclarations' macroLang env declDB decs =
     HsM.runHsM env $ do
       let scannedFunctionTypes = scanAllFunctionTypes decs
           -- Generate ToFunPtr/FromFunPtr instances for nested function types
-          -- These go in the main module to avoid orphan instances
+          -- (see 'callbackDecls' for the category they land in)
           fFIStubsAndFunPtrInstances =
-                   [ WithCategory CType d
+                   [ d
                    | (args, res) <- Set.toList scannedFunctionTypes
                    , not (any C.hasUnsupportedType (res: fmap (.typ) args))
                    , any (isDefinedInCurrentModule declDB) (res: fmap (.typ) args)
-                   , d <- ToFromFunPtr.forFunction (args, res)
+                   , d <- callbackDecls env $ ToFromFunPtr.forFunction (args, res)
                    ]
       hsDeclsAction <- mapM (generateDecs macroLang) decs
       hsDecls <- HsM.runAction $ fmap concat $ sequence hsDeclsAction
@@ -188,7 +208,7 @@ generateDecs macroLang decl =
         HsM.immediateM $ enumDecs decl enum spec
       C.DeclUntaggedEnumConstant enumConst -> withCategoryM CType $ do
         HsM.immediateM $ untaggedEnumConstantDecs decl enumConst
-      C.DeclTypedef typedef -> withCategoryM CType $
+      C.DeclTypedef typedef ->
         case C.getFirstFunTypeIndirection typedef.typ.c of
           Just (args, res, reconstruct) ->
             typedefFunTypeIndirectionDecs decl (args, res, reconstruct) typedef.names spec
@@ -511,7 +531,7 @@ typedefDecs ::
   -> (C.Typedef Final -> Origin.Newtype)
   -> C.Typedef Final
   -> PrescriptiveDeclSpec
-  -> HsM [Hs.Decl l]
+  -> HsM [WithCategory (Hs.Decl l)]
 typedefDecs decl mkNewtypeOrigin typedef spec = do
     env <- Reader.ask
     nt <- newtypeDec env
@@ -569,14 +589,16 @@ typedefDecs decl mkNewtypeOrigin typedef spec = do
       _otherwise -> Nothing
 
     -- everything in aux is state-dependent
-    aux :: HsM.Env -> Hs.Newtype -> [Hs.Decl l]
-    aux env nt =
-        Hs.DeclNewtype nt
-        : newtypeWrapper
-        ++ optDecls
-        ++ Hs.hasFieldCompatDecs nt
-        ++ Hs.hasFieldPtrDecs nt
+    aux :: HsM.Env -> Hs.Newtype -> [WithCategory (Hs.Decl l)]
+    aux env nt = concat [
+          types [Hs.DeclNewtype nt]
+        , maybe [] (callbackDecls env) newtypeWrapper
+        , types $ optDecls ++ Hs.hasFieldCompatDecs nt ++ Hs.hasFieldPtrDecs nt
+        ]
       where
+        types :: [Hs.Decl l] -> [WithCategory (Hs.Decl l)]
+        types = map (WithCategory CType)
+
         optDecls :: [Hs.Decl l]
         optDecls = catMaybes [
             case Hs.getDeriveStrat supStrats of
@@ -606,8 +628,8 @@ typedefDecs decl mkNewtypeOrigin typedef spec = do
       -- If we see all the way through the typedef this case will not be
       -- handled correctly.
       --
-        newtypeWrapper :: [Hs.Decl l]
-        newtypeWrapper  = maybe [] (ToFromFunPtr.forNewtype nt) isFunType
+        newtypeWrapper :: Maybe (ToFromFunPtr.Callback l)
+        newtypeWrapper  = ToFromFunPtr.forNewtype nt <$> isFunType
 
 -- | Typedef around function type indirection
 --
@@ -627,7 +649,7 @@ typedefFunTypeIndirectionDecs ::
   -> ([C.TypeFunArg Final], C.Type Final, C.Type Final -> C.Type Final) -- ^ Function arguments and result
   -> MangleNames.TypedefNames
   -> PrescriptiveDeclSpec
-  -> HsM (HsM.Action [Hs.Decl l])
+  -> HsM (HsM.Action [WithCategory (Hs.Decl l)])
 typedefFunTypeIndirectionDecs origDecl (args, res, reconstruct) names origSpec =
     fmap HsM.concatSequence $ sequence [
         HsM.delayM     $ typedefDecs auxDecl  Origin.Aux     auxTypedef  auxSpec

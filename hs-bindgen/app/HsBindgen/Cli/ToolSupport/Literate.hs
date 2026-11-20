@@ -118,6 +118,7 @@ exec opts = do
             lit.uniqueId
             lit.baseModuleName
             (buildCategoryChoice lit.outputOptions)
+            DoNotGenerateHsBoot
 
         -- It is understood that literate mode will overwrite existing files
         -- (generated files will anyway live in @dist-newstyle@ or similar)

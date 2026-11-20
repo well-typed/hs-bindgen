@@ -4,7 +4,8 @@
 --
 -- > HsBindgen.Backend.Hs.Translation.ToFromFunPtr qualified as ToFromFunPtr
 module HsBindgen.Backend.Hs.Translation.ToFromFunPtr (
-    forFunction
+    Callback(..)
+  , forFunction
   , forNewtype
   ) where
 
@@ -31,17 +32,28 @@ import HsBindgen.Language.Haskell qualified as Hs
   C counterparts); it therefore suffices if they are locally unique.
 -------------------------------------------------------------------------------}
 
+-- | The declarations behind one callback
+--
+-- With @--generate-hs-boot@, both the conversion code and the instances go to
+-- the callback module. Without the flag, both halves stay in the types module.
+--
+-- See the golden fixture @types\/boot\/internal_module@.
+data Callback l = Callback {
+      -- | The @"wrapper"@ and @"dynamic"@ imports, and the functions around them
+      ffi       :: [Hs.Decl l]
+      -- | The @ToFunPtr@ and @FromFunPtr@ instances, which name those functions
+    , instances :: [Hs.Decl l]
+    }
+
 -- | Generate ToFunPtr/FromFunPtr instances for nested function pointer types
 --
 -- This function analyses the function declaration arguments and return types,
 -- and for each function pointer argument/return type containing at least one
--- non-orphan type, generates the FFI wrapper and dynamic stubs along with
--- the respective ToFunPtr and FromFunPtr instances.
---
--- These instances are placed in the main module to avoid orphan instances.
+-- type defined in the current module, generates the FFI wrapper and dynamic
+-- stubs along with the respective ToFunPtr and FromFunPtr instances.
 forFunction ::
      ([C.TypeFunArg Final], C.Type Final)
-  -> [Hs.Decl l]
+  -> Callback l
 forFunction (args, res) =
     instancesFor
       nameTo
@@ -71,7 +83,7 @@ forFunction (args, res) =
 forNewtype ::
      Hs.Newtype
   -> ([C.TypeFunArg Final], C.Type Final)
-  -> [Hs.Decl l]
+  -> Callback l
 forNewtype newtyp (args, res) =
     instancesFor
       nameTo
@@ -107,42 +119,43 @@ instancesFor ::
   -> C.Type Final -- ^ Type of the C function
   -> Hs.Type      -- ^ Corresponding Haskell type
   -> ImportFor
-  -> [Hs.Decl l]
-instancesFor nameTo nameFrom funC funHs importFor = concat [
-      -- import for @ToFunPtr@ instance
-      HsFI.foreignImportWrapperDec
-        (Hs.ForeignImport.FunName nameTo)
-        funHs
-        importFor
-        (Origin.ToFunPtr funC)
+  -> Callback l
+instancesFor nameTo nameFrom funC funHs importFor = Callback{
+      ffi = concat [
+          -- import for @ToFunPtr@ instance
+          HsFI.foreignImportWrapperDec
+            (Hs.ForeignImport.FunName nameTo)
+            funHs
+            importFor
+            (Origin.ToFunPtr funC)
 
-      -- import for @FromFunPtr@ instance
-    , HsFI.foreignImportDynamicDec
-        (Hs.ForeignImport.FunName nameFrom)
-        funHs
-        importFor
-        (Origin.ToFunPtr funC)
+          -- import for @FromFunPtr@ instance
+        , HsFI.foreignImportDynamicDec
+            (Hs.ForeignImport.FunName nameFrom)
+            funHs
+            importFor
+            (Origin.ToFunPtr funC)
+        ]
+    , instances = [
+          -- @ToFunPtr@ instance proper
+          Hs.DeclDefineInstance Hs.DefineInstance{
+              comment      = Nothing
+            , instanceDecl = Hs.InstanceToFunPtr Hs.ToFunPtrInstance{
+                  typ  = funHs
+                , body = nameTo
+                }
+            }
 
-      -- @ToFunPtr@ instance proper
-    , [ Hs.DeclDefineInstance Hs.DefineInstance{
-            comment      = Nothing
-          , instanceDecl = Hs.InstanceToFunPtr Hs.ToFunPtrInstance{
-                typ  = funHs
-              , body = nameTo
-              }
-          }
-      ]
-
-      -- @FromFunPtr@ instance proper
-    , [ Hs.DeclDefineInstance Hs.DefineInstance{
-            comment      = Nothing
-          , instanceDecl = Hs.InstanceFromFunPtr Hs.FromFunPtrInstance{
-                typ  = funHs
-              , body = nameFrom
-              }
-          }
-      ]
-    ]
+          -- @FromFunPtr@ instance proper
+        , Hs.DeclDefineInstance Hs.DefineInstance{
+              comment      = Nothing
+            , instanceDecl = Hs.InstanceFromFunPtr Hs.FromFunPtrInstance{
+                  typ  = funHs
+                , body = nameFrom
+                }
+            }
+        ]
+    }
 
 prettyHsType :: Hs.Type -> String
 prettyHsType = show . PP.pretty . SHs.translateType
