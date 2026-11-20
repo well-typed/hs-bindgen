@@ -33,12 +33,12 @@ instance PrettyForTrace DelayedTranslateTypesMsg where
             , "gives no FFI type;"
             , prettyForTrace pos
             , "uses FFI type"
-            , prettyExtRef (Hs.ffiExtRef fallback.assumed)
+            , prettyExtRef (Hs.ffiIdentifier fallback.assumed)
             ]
         , "This requires a matching `HasFFIType` instance."
         ]
     where
-      prettyExtRef :: Hs.ExtRef -> PP.CtxDoc
+      prettyExtRef :: Hs.Identifier -> PP.CtxDoc
       prettyExtRef ref = PP.singleQuotes $ PP.hcat [
             prettyForTrace ref.moduleName
           , "."

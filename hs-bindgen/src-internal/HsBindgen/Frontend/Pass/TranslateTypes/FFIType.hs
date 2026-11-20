@@ -26,7 +26,7 @@ import HsBindgen.Language.Haskell qualified as Hs
 -- compiles only if the external type has a @HasFFIType@ instance with that
 -- FFI type.
 data ExtBindingFallback = ExtBindingFallback {
-      extRef  :: Hs.ExtRef
+      extRef  :: Hs.Identifier
       -- | The FFI type of the underlying type
     , assumed :: Hs.FFIType
     }
