@@ -1,0 +1,91 @@
+-- addDependentFile test-artefacts/headers/golden/functions/fun_ptr_instances/flam.h
+{-| __C declaration:__ @T@
+
+    __defined at:__ @functions\/fun_ptr_instances\/flam.h 3:13@
+
+    __exported by:__ @functions\/fun_ptr_instances\/flam.h@
+-}
+newtype T
+    = T {unwrapT :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
+instance (~) ty CInt => HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @functions\/fun_ptr_instances\/flam.h 6:8@
+
+    __exported by:__ @functions\/fun_ptr_instances\/flam.h@
+-}
+data S_Aux
+    = S {s_n :: CInt
+         {- ^ __C declaration:__ @n@
+
+              __defined at:__ @functions\/fun_ptr_instances\/flam.h 7:7@
+
+              __exported by:__ @functions\/fun_ptr_instances\/flam.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S_Aux
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw S_Aux
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_n") ptr_0
+instance WriteRaw S_Aux
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_n_2 -> writeRaw (Proxy @"s_n") ptr_0 s_n_2
+deriving via (EquivStorable S_Aux) instance Storable S_Aux
+deriving via (IsStructViaReadRaw S_Aux) instance IsStruct S_Aux
+instance (~) ty CInt => HasField "s_n" S_Aux ty
+    where hasField = \x_0 -> (\y_1 -> S{s_n = y_1},
+                              getField @"s_n" x_0)
+instance (~) ty CInt => HasField "s_n" (Ptr S_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_n")
+instance HasCField S_Aux "s_n"
+    where type CFieldType S_Aux "s_n" = CInt
+          offset# = \_ -> \_ -> 0
+instance Offset (FunPtr (T -> IO ())) S_Aux
+    where offset = \_proxy_0 -> 8
+type S = WithFlam (FunPtr (T -> IO ())) S_Aux
+-- __unique:__ @instance ToFunPtr (T -> IO ())@
+foreign import ccall safe "wrapper" hs_bindgen_938f852d69e4b718_base ::
+    CInt -> IO ()
+ -> IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @instance ToFunPtr (T -> IO ())@
+hs_bindgen_938f852d69e4b718 :: (T -> IO ()) ->
+                               IO (FunPtr (T -> IO ()))
+-- __unique:__ @instance ToFunPtr (T -> IO ())@
+hs_bindgen_938f852d69e4b718 = \fun_0 -> fmap castFunPtr (hs_bindgen_938f852d69e4b718_base (\x_1 -> fun_0 (fromFFIType x_1)))
+-- __unique:__ @instance FromFunPtr (T -> IO ())@
+foreign import ccall safe "dynamic" hs_bindgen_aa40e997bef5d441_base ::
+    FunPtr (CInt -> IO ())
+ -> CInt
+ -> IO ()
+-- __unique:__ @instance FromFunPtr (T -> IO ())@
+hs_bindgen_aa40e997bef5d441 :: FunPtr (T -> IO ()) -> T -> IO ()
+-- __unique:__ @instance FromFunPtr (T -> IO ())@
+hs_bindgen_aa40e997bef5d441 = \funPtr_0 -> \x_1 -> hs_bindgen_aa40e997bef5d441_base (castFunPtr funPtr_0) (toFFIType x_1)
+instance ToFunPtr (T -> IO ())
+    where toFunPtr = hs_bindgen_938f852d69e4b718
+instance FromFunPtr (T -> IO ())
+    where fromFunPtr = hs_bindgen_aa40e997bef5d441

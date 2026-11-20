@@ -5,14 +5,13 @@ module HsBindgen.Frontend.Pass.TranslateTypes.Error (
     TranslateTypesError (..)
   , FunPositionError (..)
   , NoFFIType (..)
-  , FunPosition (..)
-  , FunArgPosition (..)
+  , positionErrorsLevel
   ) where
 
 import Text.SimplePrettyPrint qualified as PP
 
+import HsBindgen.Frontend.Pass.TranslateTypes.Position
 import HsBindgen.Imports
-import HsBindgen.IR.C qualified as C
 import HsBindgen.Util.Tracer
 
 -- | Why we cannot generate a binding for a function
@@ -26,7 +25,6 @@ instance PrettyForTrace TranslateTypesError where
       PP.hang "Cannot translate function signature:" 2 $
         PP.vcat $ map prettyForTrace (toList xs)
 
--- | A bug if any position has an unexpected type, a warning otherwise
 instance IsTrace Level TranslateTypesError where
   getDefaultLogLevel (TranslateTypesFunctionError xs) = positionErrorsLevel xs
   getSource  = const HsBindgen
@@ -64,22 +62,3 @@ instance PrettyForTrace NoFFIType where
       , "has no FFI type"
       ]
 
--- | Position in a function signature
-data FunPosition =
-    FunPositionArg FunArgPosition
-  | FunPositionRes
-  deriving stock (Show, Eq)
-
-instance PrettyForTrace FunPosition where
-  prettyForTrace = \case
-      FunPositionArg arg -> PP.hsep $
-          ["argument", PP.show arg.index]
-       ++ [PP.parens (prettyForTrace name) | Just name <- [arg.name]]
-      FunPositionRes -> "result"
-
-data FunArgPosition = FunArgPosition {
-      -- | Starting at 1
-      index :: Int
-    , name  :: Maybe C.ScopedName
-    }
-  deriving stock (Show, Eq)

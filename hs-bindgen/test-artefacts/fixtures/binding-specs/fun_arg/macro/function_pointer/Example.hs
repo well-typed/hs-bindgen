@@ -42,42 +42,6 @@ newtype MyFunctionPointer_Aux = MyFunctionPointer_Aux
   }
   deriving stock (BG.Generic)
 
--- __unique:__ @toMyFunctionPointer_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_47dfd04698dd2e6f_base ::
-     (BG.CInt -> IO BG.CInt)
-  -> IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
-
--- __unique:__ @toMyFunctionPointer_Aux@
-hs_bindgen_47dfd04698dd2e6f ::
-     MyFunctionPointer_Aux
-  -> IO (BG.FunPtr MyFunctionPointer_Aux)
-hs_bindgen_47dfd04698dd2e6f =
-  \fun0 ->
-    fmap BG.castFunPtr (hs_bindgen_47dfd04698dd2e6f_base (\x1 ->
-                                                            fmap BG.toFFIType (BG.getField @"unwrapMyFunctionPointer_Aux" fun0 (BG.fromFFIType x1))))
-
--- __unique:__ @fromMyFunctionPointer_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_5738272f94a589e2_base ::
-     BG.FunPtr (BG.CInt -> IO BG.CInt)
-  -> BG.CInt -> IO BG.CInt
-
--- __unique:__ @fromMyFunctionPointer_Aux@
-hs_bindgen_5738272f94a589e2 ::
-     BG.FunPtr MyFunctionPointer_Aux
-  -> MyFunctionPointer_Aux
-hs_bindgen_5738272f94a589e2 =
-  \funPtr0 ->
-    MyFunctionPointer_Aux (\x1 ->
-                             fmap BG.fromFFIType (hs_bindgen_5738272f94a589e2_base (BG.castFunPtr funPtr0) (BG.toFFIType x1)))
-
-instance BG.ToFunPtr MyFunctionPointer_Aux where
-
-  toFunPtr = hs_bindgen_47dfd04698dd2e6f
-
-instance BG.FromFunPtr MyFunctionPointer_Aux where
-
-  fromFunPtr = hs_bindgen_5738272f94a589e2
-
 instance ( ty ~ (BG.CInt -> IO BG.CInt)
          ) => BG.CompatHasField.HasField "unwrapMyFunctionPointer_Aux" MyFunctionPointer_Aux ty where
 
@@ -239,3 +203,39 @@ instance HasCField.HasCField E "unwrapE" where
   type CFieldType E "unwrapE" = M.C
 
   offset# = \_ -> \_ -> 0
+
+-- __unique:__ @toMyFunctionPointer_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_47dfd04698dd2e6f_base ::
+     (BG.CInt -> IO BG.CInt)
+  -> IO (BG.FunPtr (BG.CInt -> IO BG.CInt))
+
+-- __unique:__ @toMyFunctionPointer_Aux@
+hs_bindgen_47dfd04698dd2e6f ::
+     MyFunctionPointer_Aux
+  -> IO (BG.FunPtr MyFunctionPointer_Aux)
+hs_bindgen_47dfd04698dd2e6f =
+  \fun0 ->
+    fmap BG.castFunPtr (hs_bindgen_47dfd04698dd2e6f_base (\x1 ->
+                                                            fmap BG.toFFIType (BG.getField @"unwrapMyFunctionPointer_Aux" fun0 (BG.fromFFIType x1))))
+
+-- __unique:__ @fromMyFunctionPointer_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_5738272f94a589e2_base ::
+     BG.FunPtr (BG.CInt -> IO BG.CInt)
+  -> BG.CInt -> IO BG.CInt
+
+-- __unique:__ @fromMyFunctionPointer_Aux@
+hs_bindgen_5738272f94a589e2 ::
+     BG.FunPtr MyFunctionPointer_Aux
+  -> MyFunctionPointer_Aux
+hs_bindgen_5738272f94a589e2 =
+  \funPtr0 ->
+    MyFunctionPointer_Aux (\x1 ->
+                             fmap BG.fromFFIType (hs_bindgen_5738272f94a589e2_base (BG.castFunPtr funPtr0) (BG.toFFIType x1)))
+
+instance BG.ToFunPtr MyFunctionPointer_Aux where
+
+  toFunPtr = hs_bindgen_47dfd04698dd2e6f
+
+instance BG.FromFunPtr MyFunctionPointer_Aux where
+
+  fromFunPtr = hs_bindgen_5738272f94a589e2

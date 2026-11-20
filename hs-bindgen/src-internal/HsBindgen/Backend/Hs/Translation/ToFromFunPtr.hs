@@ -4,8 +4,7 @@
 --
 -- > HsBindgen.Backend.Hs.Translation.ToFromFunPtr qualified as ToFromFunPtr
 module HsBindgen.Backend.Hs.Translation.ToFromFunPtr (
-    forFunction
-  , forNewtype
+    forInstance
   ) where
 
 import Text.SimplePrettyPrint qualified as PP
@@ -13,14 +12,12 @@ import Text.SimplePrettyPrint qualified as PP
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.ForeignImport (ImportFor (..))
-import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImport
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
 import HsBindgen.Backend.HsModule.Pretty ()
 import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
-import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
-import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunPtrInstance
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -31,103 +28,31 @@ import HsBindgen.Language.Haskell qualified as Hs
   C counterparts); it therefore suffices if they are locally unique.
 -------------------------------------------------------------------------------}
 
--- | Generate ToFunPtr/FromFunPtr instances for nested function pointer types
---
--- This function analyses the function declaration arguments and return types,
--- and for each function pointer argument/return type containing at least one
--- non-orphan type, generates the FFI wrapper and dynamic stubs along with
--- the respective ToFunPtr and FromFunPtr instances.
---
--- These instances are placed in the main module to avoid orphan instances.
-forFunction ::
-     ([C.TypeFunArg Final], C.Type Final)
-  -> [Hs.Decl l]
-forFunction (args, res) =
-    instancesFor
-      nameTo
-      nameFrom
-      funC
-      funHs
-      importFor
-  where
-    funC  = C.TypeFun args res
-    funHs = Translation.topLevel funC
-
-    importFor :: ImportFor
-    importFor = ImportForFunction {
-          args = Translation.inContext Translation.FunArg <$> args
-        , res =  Hs.IO $ Translation.inContext Translation.FunRes res
-        }
-
-    nameWith :: String -> UniqueSymbol
-    nameWith s =
-      locallyUnique $ "instance " <> s <> " (" <> prettyHsType funHs <> ")"
-
-    nameTo, nameFrom :: UniqueSymbol
-    nameTo   = nameWith "ToFunPtr"
-    nameFrom = nameWith "FromFunPtr"
-
--- | Generate instances for newtype around functions
-forNewtype ::
-     Hs.Newtype
-  -> ([C.TypeFunArg Final], C.Type Final)
-  -> [Hs.Decl l]
-forNewtype newtyp (args, res) =
-    instancesFor
-      nameTo
-      nameFrom
-      funC
-      funHs
-      importFor
-  where
-    funC  = C.TypeFun args res
-    funHs = Hs.TypRef newtyp.name (Just newtyp.field.typ)
-
-    importFor :: ImportFor
-    importFor = ImportForNewtype {
-          args = Translation.inContext Translation.FunArg <$> args
-        , res =  Hs.IO $ Translation.inContext Translation.FunRes res
-        , newtyp = newtyp
-        }
-
-    nameWith :: String -> UniqueSymbol
-    nameWith s = locallyUnique $ s <> Hs.nameToStr newtyp.name
-
-    nameTo, nameFrom :: UniqueSymbol
-    nameTo   = nameWith "to"
-    nameFrom = nameWith "from"
-
-{-------------------------------------------------------------------------------
-  Internal auxiliary
--------------------------------------------------------------------------------}
-
-instancesFor ::
-     UniqueSymbol -- ^ Name of the @toFunPtr@ fun
-  -> UniqueSymbol -- ^ Name of the @fromFunPtr@ fun
-  -> C.Type Final -- ^ Type of the C function
-  -> Hs.Type      -- ^ Corresponding Haskell type
-  -> ImportFor
-  -> [Hs.Decl l]
-instancesFor nameTo nameFrom funC funHs importFor = concat [
+-- | Generate a pair of @ToFunPtr@ and @FromFunPtr@ instances, with their
+-- @"wrapper"@ and @"dynamic"@ imports
+forInstance :: FunPtrInstance -> [Hs.Decl l]
+forInstance inst = concat [
       -- import for @ToFunPtr@ instance
       HsFI.foreignImportWrapperDec
-        (Hs.ForeignImport.FunName nameTo)
-        funHs
+        (HsFI.FunName nameTo)
+        instHead
+        ffiFunType
         importFor
-        (Origin.ToFunPtr funC)
+        (Origin.ToFunPtr instHead)
 
       -- import for @FromFunPtr@ instance
     , HsFI.foreignImportDynamicDec
-        (Hs.ForeignImport.FunName nameFrom)
-        funHs
+        (HsFI.FunName nameFrom)
+        instHead
+        ffiFunType
         importFor
-        (Origin.ToFunPtr funC)
+        (Origin.FromFunPtr instHead)
 
       -- @ToFunPtr@ instance proper
     , [ Hs.DeclDefineInstance Hs.DefineInstance{
             comment      = Nothing
           , instanceDecl = Hs.InstanceToFunPtr Hs.ToFunPtrInstance{
-                typ  = funHs
+                typ  = instHead
               , body = nameTo
               }
           }
@@ -137,12 +62,54 @@ instancesFor nameTo nameFrom funC funHs importFor = concat [
     , [ Hs.DeclDefineInstance Hs.DefineInstance{
             comment      = Nothing
           , instanceDecl = Hs.InstanceFromFunPtr Hs.FromFunPtrInstance{
-                typ  = funHs
+                typ  = instHead
               , body = nameFrom
               }
           }
       ]
     ]
+  where
+    funType :: Hs.Type
+    funType = Translation.funType (map (.hs) inst.args) inst.res.hs
+
+    -- The type of the instances
+    instHead :: Hs.Type
+    instHead = case inst.head of
+      HeadFunType        -> funType
+      HeadNewtype name _ -> Hs.TypRef name (Just funType)
+
+    importFor :: ImportFor
+    importFor = case inst.head of
+      HeadFunType -> ImportForFunction{
+          args = map (.hs) inst.args
+        , res  = Hs.IO inst.res.hs
+        }
+      HeadNewtype _ names -> ImportForNewtype{
+          args  = map (.hs) inst.args
+        , res   = Hs.IO inst.res.hs
+        , names = names
+        }
+
+    ffiFunType :: Hs.FFIFunType
+    ffiFunType = Hs.FFIFunType{
+          args = map (.ffi) inst.args
+        , res  = inst.res.ffi
+        }
+
+    nameTo, nameFrom :: UniqueSymbol
+    (nameTo, nameFrom) = case inst.head of
+      HeadFunType -> (
+          funTypeName "ToFunPtr"
+        , funTypeName "FromFunPtr"
+        )
+      HeadNewtype name _ -> (
+          locallyUnique $ "to"   <> Hs.nameToStr name
+        , locallyUnique $ "from" <> Hs.nameToStr name
+        )
+
+    funTypeName :: String -> UniqueSymbol
+    funTypeName s =
+      locallyUnique $ "instance " <> s <> " (" <> prettyHsType funType <> ")"
 
 prettyHsType :: Hs.Type -> String
 prettyHsType = show . PP.pretty . SHs.translateType

@@ -35,6 +35,8 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , pattern MatchTransNotSelected
   , pattern MatchTransOmitted
   , pattern MatchTransUnusable
+    -- * FunPtrInstances
+  , pattern MatchFunPtrInstances
   ) where
 
 import Data.Text qualified as Text
@@ -42,6 +44,7 @@ import Data.Text qualified as Text
 import HsBindgen.Doxygen (DoxygenMsg)
 import HsBindgen.Frontend.DeclDB
 import HsBindgen.Frontend.DelayedMsg
+import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass.Msg (FunPtrInstancesMsg)
 import HsBindgen.Frontend.Pass.MangleNames.IsPass.Msg (DelayedMangleNamesMsg)
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg)
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass.Msg (DelayedPrepareReparseMsg,
@@ -255,3 +258,15 @@ matchDelayed = \case
     SelectDelayedMsg (DelayedParse x)       -> Just x
     SelectUnusable (ParseFailed x)          -> Just x
     _otherwise                              -> Nothing
+
+{-------------------------------------------------------------------------------
+  FunPtrInstances
+-------------------------------------------------------------------------------}
+
+pattern MatchFunPtrInstances :: C.DeclName -> FunPtrInstancesMsg -> TraceMsg
+pattern MatchFunPtrInstances name x <- TraceFrontend (
+      FrontendFunPtrInstances C.WithLocationInfo{
+          loc = C.locationInfoName -> Just name
+        , msg = x
+        }
+    )

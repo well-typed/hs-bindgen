@@ -33,6 +33,24 @@ newtype T = T
   }
   deriving stock (BG.Generic)
 
+instance ( ty ~ (BG.CInt -> IO ())
+         ) => BG.CompatHasField.HasField "unwrapT" T ty where
+
+  hasField =
+    \x0 ->
+      (\y1 -> T {unwrapT = y1}, BG.getField @"unwrapT" x0)
+
+instance ( ty ~ (BG.CInt -> IO ())
+         ) => BG.HasField "unwrapT" (BG.Ptr T) (BG.Ptr ty) where
+
+  getField = HasCField.fromPtr (BG.Proxy @"unwrapT")
+
+instance HasCField.HasCField T "unwrapT" where
+
+  type CFieldType T "unwrapT" = BG.CInt -> IO ()
+
+  offset# = \_ -> \_ -> 0
+
 -- __unique:__ @toT@
 foreign import ccall safe "wrapper" hs_bindgen_b8534912f6256492_base ::
      (BG.CInt -> IO ())
@@ -68,21 +86,3 @@ instance BG.ToFunPtr T where
 instance BG.FromFunPtr T where
 
   fromFunPtr = hs_bindgen_8f830eadb43a6fe4
-
-instance ( ty ~ (BG.CInt -> IO ())
-         ) => BG.CompatHasField.HasField "unwrapT" T ty where
-
-  hasField =
-    \x0 ->
-      (\y1 -> T {unwrapT = y1}, BG.getField @"unwrapT" x0)
-
-instance ( ty ~ (BG.CInt -> IO ())
-         ) => BG.HasField "unwrapT" (BG.Ptr T) (BG.Ptr ty) where
-
-  getField = HasCField.fromPtr (BG.Proxy @"unwrapT")
-
-instance HasCField.HasCField T "unwrapT" where
-
-  type CFieldType T "unwrapT" = BG.CInt -> IO ()
-
-  offset# = \_ -> \_ -> 0

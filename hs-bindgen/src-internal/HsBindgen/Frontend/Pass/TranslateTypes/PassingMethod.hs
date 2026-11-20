@@ -8,15 +8,14 @@ import Control.Monad.Writer.Strict (Writer)
 import Data.Bifunctor (second)
 import Data.Text qualified as Text
 
-import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
 import HsBindgen.Frontend.Pass.TranslateTypes.Error
 import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass (TranslateTypes)
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassingMethod
+import HsBindgen.Frontend.Pass.TranslateTypes.Position
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
-import HsBindgen.IR.Pass.Definition (CoercePass (coercePass))
+import HsBindgen.IR.Pass.Types (PassTypes (Types))
+import HsBindgen.IR.PassingMethod
 import HsBindgen.IR.Translation
 
 {-------------------------------------------------------------------------------
@@ -29,54 +28,64 @@ type Classified a =
 
 -- | Classify how a function result is passed from C to Haskell
 classifyResPassingMethod ::
-     C.FunctionRes MangleNames
-  -> Hs.Type -- ^ Translation of the result type
-  -> Classified (ResPassingMethod TranslateTypes)
-classifyResPassingMethod res hsType
+     (Translation.IsPassCompat p, Types p ~ TranslatedTypes p)
+  => C.Type p -- ^ Result type
+  -> Hs.Type  -- ^ Translation of the result type
+  -> Classified (ResPassingMethod p)
+classifyResPassingMethod ty hsType
   -- Bad types
-  | C.isVoid res.typ
+  | C.isVoid ty
   = pure $ Right PassResVoid
   -- Heap types: the Haskell FFI cannot pass them by value, so they cross it
   -- through a buffer on the Haskell heap
-  | C.isCanonicalTypeStruct res.typ ||
-    C.isCanonicalTypeUnion res.typ ||
-    C.isCanonicalTypeComplex res.typ
-  = pure $ Right $ PassResNonVoid $ PassSerialized TranslatedTypes{
-        c  = coercePass ty'
-      , hs = Translation.inContext Translation.FunRes ty'
-      }
+  | isHeapType ty
+  = pure $ Right $ PassResNonVoid $ PassSerialized $
+      serializedPointer Translation.FunRes ty
   -- Other types
   | otherwise
   = second (PassResNonVoid . PassDirect) <$>
-      passDirect FunPositionRes res.typ hsType
-  where
-    ty' = C.TypePointers 1 res.typ
+      passDirect FunPositionRes ty hsType
 
 -- | Classify how a function argument is passed from Haskell to C
 classifyArgPassingMethod ::
-     FunPosition
-  -> C.FunctionArg MangleNames
-  -> Hs.Type -- ^ Translation of the argument type
-  -> Classified (PassingMethod TranslateTypes)
-classifyArgPassingMethod pos arg hsType
+     (Translation.IsPassCompat p, Types p ~ TranslatedTypes p)
+  => FunPosition
+  -> C.Type p -- ^ Argument type
+  -> Hs.Type  -- ^ Translation of the argument type
+  -> Classified (PassingMethod p)
+classifyArgPassingMethod pos ty hsType
   -- Heap types: the Haskell FFI cannot pass them by value, so they cross it
   -- through a buffer on the Haskell heap
-  | C.isCanonicalTypeStruct  arg.typ.typ ||
-    C.isCanonicalTypeUnion   arg.typ.typ ||
-    C.isCanonicalTypeComplex arg.typ.typ
-  = pure $ Right $ PassSerialized TranslatedTypes{
-        c  = coercePass ty'
-      , hs = Translation.inContext Translation.FunArg ty'
-      }
+  | isHeapType ty
+  = pure $ Right $ PassSerialized $ serializedPointer Translation.FunArg ty
   -- Other types
   | otherwise
-  = second PassDirect <$> passDirect pos arg.typ.typ hsType
+  = second PassDirect <$> passDirect pos ty hsType
+
+-- | Is the type a struct, union or complex type?
+isHeapType :: Translation.IsPassCompat p => C.Type p -> Bool
+isHeapType ty =
+       C.isCanonicalTypeStruct  ty
+    || C.isCanonicalTypeUnion   ty
+    || C.isCanonicalTypeComplex ty
+
+-- | The pointer to a serialised value
+serializedPointer ::
+     Translation.IsPassCompat p
+  => Translation.TypeContext
+  -> C.Type p
+  -> TranslatedTypes p
+serializedPointer ctx ty = Translated{
+      c  = ty'
+    , hs = Translation.inContext ctx ty'
+    }
   where
-    ty' = C.TypePointers 1 arg.typ.typ
+    ty' = C.TypePointers 1 ty
 
 passDirect ::
-     FunPosition
-  -> C.Type MangleNames
+     Translation.IsPassCompat p
+  => FunPosition
+  -> C.Type p
   -> Hs.Type
   -> Classified Hs.FFIType
 passDirect pos cType hsType = do
@@ -88,5 +97,5 @@ passDirect pos cType hsType = do
         , cType    = renderCType cType
         }
 
-renderCType :: C.Type MangleNames -> Text.Text
+renderCType :: Translation.IsPassCompat p => C.Type p -> Text.Text
 renderCType cType = Text.strip $ Text.pack $ C.showsType (const id) cType ""

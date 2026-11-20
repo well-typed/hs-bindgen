@@ -293,10 +293,15 @@ instance FromFunPtr ProgressUpdate_Aux where
   fromFunPtr = <somehash2>
 ```
 
-A function pointer will have a `ToFunPtr` and `FromFunPtr` instance if at
-least one of its arguments contains at least one domain specific type. This
-check is done recursively so higher order functions will be inspected
-correctly.
+The function type of a typedef has these instances for its newtype
+(`ProgressUpdate_Aux` above). Any other function type, such as the type of a
+function pointer argument, has them only if at least one of the types of its
+arguments or result contains at least one domain-specific type. This check is
+done recursively so higher-order functions will be inspected correctly.
+
+A function type that passes a struct, union or complex value has no
+instances, because the Haskell FFI cannot pass these values directly;
+`hs-bindgen` reports this with an info message.
 
 For the purpose of instance generation, **domain-specific types** are types
 defined in the generated bindings for the specific C library being bound,

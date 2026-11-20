@@ -20,6 +20,7 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.Pass.FunPtrInstances qualified as FunPtrInstances
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -41,6 +42,7 @@ runBackend tracer config boot frontend = do
     -- 1. Reified C declarations to @Hs@ declarations.
     backendHsDeclsAll <- cache "hsDeclsAll" $ do
       final     <- frontend.final
+      insts     <- (.instances) <$> frontend.funPtrInstances
       macroLang <- boot.macroLang
       let declDB :: DeclDB l Final
           declDB = final.db
@@ -60,7 +62,7 @@ runBackend tracer config boot frontend = do
         macroLang
         config.backend.uniqueId
         boot.baseModule
-        declDB
+        insts
         cDecls
 
     -- 2. Apply binding category choice.
