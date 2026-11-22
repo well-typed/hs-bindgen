@@ -4,7 +4,7 @@ module HsBindgen.Frontend.Pass.TranslateTypes (
 
 import Control.Monad (zipWithM)
 import Control.Monad.Reader (MonadReader, ReaderT (..), asks, withReaderT)
-import Control.Monad.State (MonadState, State, modify, runState)
+import Control.Monad.State (MonadState, State, gets, modify, runState)
 import Control.Monad.Writer.Strict (runWriter)
 import Data.Either (partitionEithers)
 import Data.Functor ((<&>))
@@ -20,6 +20,7 @@ import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
 import HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (Classified,
                                                              classifyArgPassingMethod,
                                                              classifyResPassingMethod)
+import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
@@ -45,8 +46,16 @@ translateTypes unit = unit{C.db = db'}
           db
 
     (db, delayedMsgs) =
-      runM NoEnv $
-        DeclDB.traverseActive DeclDB.AnyOrder processDecl unit.db
+      runM globalEnv $
+        DeclDB.traverseActive
+          (DeclDB.DependencyOrder DeclDB.AllEdges tieBreaker)
+          processDecl
+          unit.db
+
+    -- Trivial tie breaker
+    tieBreaker = const (0 :: Int)
+
+    globalEnv = GlobalEnv
 
 {-------------------------------------------------------------------------------
   Decls
@@ -54,16 +63,16 @@ translateTypes unit = unit{C.db = db'}
 
 processDecl ::
      C.Decl l MangleNames
-  -> M NoEnv (DeclDB.PassResult l TranslateTypes)
+  -> GM l (DeclDB.PassResult l TranslateTypes)
 processDecl decl = do
-    eKind' <- withEnv (const (DeclEnv decl.id.cName)) $ processDeclKind decl.kind
+    eKind' <- withDeclEnv decl.id $ processDeclKind decl.kind
     pure $ case eKind' of
       Left  err   -> DeclDB.Fail $ DeclDB.TranslateTypesFailed err
       Right kind' -> DeclDB.Advanced $ C.coercePassDeclWith kind' decl.ann decl
 
 processDeclKind ::
      C.DeclKind l MangleNames
-  -> M DeclEnv (Either TranslateTypesError (C.DeclKind l TranslateTypes))
+  -> DM l (Either TranslateTypesError (C.DeclKind l TranslateTypes))
 processDeclKind = \case
     C.DeclStruct               struct   -> ok $ C.DeclStruct               <$> processStruct           struct
     C.DeclUnion                union    -> ok $ C.DeclUnion                <$> processUnion            union
@@ -75,11 +84,12 @@ processDeclKind = \case
     C.DeclFunction             function -> second C.DeclFunction           <$> processFunction         function
     C.DeclGlobal               global   -> ok $ C.DeclGlobal               <$> processGlobal           global
   where
-    ok :: M DeclEnv a -> M DeclEnv (Either TranslateTypesError a)
+    ok :: DM l a -> DM l (Either TranslateTypesError a)
     ok = fmap Right
 
-processStruct :: C.Struct MangleNames -> M DeclEnv (C.Struct TranslateTypes)
+processStruct :: C.Struct MangleNames -> DM l (C.Struct TranslateTypes)
 processStruct struct = do
+    registerSugarInfoM NotSugar
     fields' <- mapM processField struct.fields
     flam'   <- C.traverseFlamField processRegularField struct.flam
     pure C.Struct{
@@ -90,8 +100,9 @@ processStruct struct = do
       , ann       = struct.ann
       }
 
-processUnion :: C.Union MangleNames -> M DeclEnv (C.Union TranslateTypes)
+processUnion :: C.Union MangleNames -> DM l (C.Union TranslateTypes)
 processUnion union = do
+    registerSugarInfoM NotSugar
     fields' <- mapM processField union.fields
     pure C.Union{
         sizeof    = union.sizeof
@@ -100,12 +111,12 @@ processUnion union = do
       , ann       = union.ann
       }
 
-processField :: C.Field MangleNames -> M DeclEnv (C.Field TranslateTypes)
+processField :: C.Field MangleNames -> DM l (C.Field TranslateTypes)
 processField = \case
     C.FieldRegular  field -> C.FieldRegular  <$> processRegularField field
     C.FieldImplicit field -> C.FieldImplicit <$> processImplicitField field
 
-processRegularField :: C.RegularField MangleNames -> M DeclEnv (C.RegularField TranslateTypes)
+processRegularField :: C.RegularField MangleNames -> DM l (C.RegularField TranslateTypes)
 processRegularField field = pure C.RegularField{
       info   = coercePass field.info
     , typ    = processType Translation.Top field.typ
@@ -114,7 +125,7 @@ processRegularField field = pure C.RegularField{
     , ann    = field.ann
     }
 
-processImplicitField :: C.ImplicitField MangleNames -> M DeclEnv (C.ImplicitField TranslateTypes)
+processImplicitField :: C.ImplicitField MangleNames -> DM l (C.ImplicitField TranslateTypes)
 processImplicitField field = do
     indirect' <- mapM processIndirectField field.indirect
     pure C.ImplicitField{
@@ -125,7 +136,7 @@ processImplicitField field = do
       , ann      = field.ann
       }
 
-processIndirectField :: C.IndirectField MangleNames -> M DeclEnv (C.IndirectField TranslateTypes)
+processIndirectField :: C.IndirectField MangleNames -> DM l (C.IndirectField TranslateTypes)
 processIndirectField field = pure C.IndirectField{
       info   = coercePass field.info
     , typ    = processType Translation.Top field.typ
@@ -135,27 +146,33 @@ processIndirectField field = pure C.IndirectField{
     , ann    = coercePassAnn (Proxy @'("IndirectField", MangleNames, TranslateTypes)) field.ann
     }
 
-processTypedef :: C.Typedef MangleNames -> M DeclEnv (C.Typedef TranslateTypes)
-processTypedef typedef = pure C.Typedef{
-      typ = processType Translation.Top typedef.typ
-    , ann = typedef.ann
-    }
+processTypedef :: C.Typedef MangleNames -> DM l (C.Typedef TranslateTypes)
+processTypedef typedef = do
+    let typ' = processType Translation.Top typedef.typ
+    registerSugarInfoM $ Sugar typ'.hs
+    pure C.Typedef{
+        typ = typ'
+      , ann = typedef.ann
+      }
 
-processEnum :: C.Enum MangleNames -> M DeclEnv (C.Enum TranslateTypes)
-processEnum enum = pure C.Enum{
-      typ       = processType Translation.Top enum.typ
-    , sizeof    = enum.sizeof
-    , alignment = enum.alignment
-    , constants = map coercePass enum.constants
-    , ann       = enum.ann
-    }
+processEnum :: C.Enum MangleNames -> DM l (C.Enum TranslateTypes)
+processEnum enum = do
+    let typ' = processType Translation.Top enum.typ
+    registerSugarInfoM $ Sugar typ'.hs
+    pure C.Enum{
+        typ       = typ'
+      , sizeof    = enum.sizeof
+      , alignment = enum.alignment
+      , constants = map coercePass enum.constants
+      , ann       = enum.ann
+      }
 
 processUntaggedEnumConstant ::
      C.UntaggedEnumConstant MangleNames
-  -> M DeclEnv (C.UntaggedEnumConstant TranslateTypes)
+  -> DM l (C.UntaggedEnumConstant TranslateTypes)
 processUntaggedEnumConstant = pure . coercePass
 
-processMacro :: MacroBody MangleNames l -> M DeclEnv (MacroBody TranslateTypes l)
+processMacro :: MacroBody MangleNames l -> DM l (MacroBody TranslateTypes l)
 processMacro mac = pure $ case mac of
     MacroType  typ -> MacroType  $ coercePass typ
     MacroValue val -> MacroValue $ coercePass val
@@ -163,7 +180,7 @@ processMacro mac = pure $ case mac of
 
 processFunction ::
      C.Function MangleNames
-  -> M DeclEnv (Either TranslateTypesError (C.Function TranslateTypes))
+  -> DM l (Either TranslateTypesError (C.Function TranslateTypes))
 processFunction fun = do
     (argErrs, args') <- partitionEithers <$>
       zipWithM processFunctionArg [1..] fun.args
@@ -184,7 +201,7 @@ processFunction fun = do
 processFunctionArg ::
      Int
   -> C.FunctionArg MangleNames
-  -> M DeclEnv (Either FunPositionError (C.FunctionArg TranslateTypes))
+  -> DM l (Either FunPositionError (C.FunctionArg TranslateTypes))
 processFunctionArg i arg = do
     eAnn <- classified pos $ classifyArgPassingMethod pos arg typ'.hs
     pure $ eAnn <&> \ann -> C.FunctionArg{
@@ -201,7 +218,7 @@ processFunctionArg i arg = do
 
 processFunctionRes ::
      C.FunctionRes MangleNames
-  -> M DeclEnv (Either FunPositionError (C.FunctionRes TranslateTypes))
+  -> DM l (Either FunPositionError (C.FunctionRes TranslateTypes))
 processFunctionRes res = do
     eAnn <- classified FunPositionRes $ classifyResPassingMethod res typ'.hs
     pure $ eAnn <&> \ann -> C.FunctionRes{
@@ -215,13 +232,14 @@ processFunctionRes res = do
 classified ::
      FunPosition
   -> Classified a
-  -> M DeclEnv (Either FunPositionError a)
+  -> DM l (Either FunPositionError a)
 classified pos x = do
-    let (r, fallbacks) = runWriter x
-    forM_ fallbacks $ addMessage . TranslateTypesExtBindingFallback pos
+    sugars <- gets (.sugars)
+    let (r, fallbacks) = runWriter (runReaderT x sugars)
+    forM_ fallbacks $ addMessage . TranslateTypesFFITypes pos
     pure r
 
-processGlobal :: C.Global MangleNames -> M DeclEnv (C.Global TranslateTypes)
+processGlobal :: C.Global MangleNames -> DM l (C.Global TranslateTypes)
 processGlobal global = pure C.Global{
       typ = processType Translation.Top global.typ
     , ann = global.ann
@@ -266,7 +284,7 @@ processAnonRef ctx typ = TranslatedAnonRef{
 --
 -- Delayed trace messages are returned in the order they were recorded
 runM :: env -> M env a -> (a, [(C.DeclId, DelayedTranslateTypesMsg)])
-runM m (M k) = second (reverse . (.messages)) $ runState (runReaderT k m) (St [])
+runM m (M k) = fmap (reverse . (.messages)) $ runState (runReaderT k m) initSt
 
 newtype M env a = M (ReaderT env (State St) a)
   deriving newtype (Functor, Applicative, Monad)
@@ -274,23 +292,61 @@ newtype M env a = M (ReaderT env (State St) a)
 deriving newtype instance MonadReader env (M env)
 deriving newtype instance MonadState St (M env)
 
+-- | Monad 'M' with a global environment
+type GM l = M (GlobalEnv l)
+-- | Monad 'M' with a decl-local environment
+type DM l = M (DeclEnv   l)
+
+{-------------------------------------------------------------------------------
+  Reader
+-------------------------------------------------------------------------------}
+
 withEnv :: (env1 -> env2) -> M env2 a -> M env1 a
 withEnv f (M k) = M (withReaderT f k)
 
-data NoEnv = NoEnv
+withDeclEnv :: DeclIdPair -> DM l a -> GM l a
+withDeclEnv declIdPair = withEnv $ \_ -> DeclEnv {
+      declIdPair = declIdPair
+    }
 
-newtype DeclEnv = DeclEnv {
-    declId :: C.DeclId
+data GlobalEnv l = GlobalEnv
+
+data DeclEnv l = DeclEnv {
+    declIdPair :: DeclIdPair
   }
 
-newtype St = St {
+{-------------------------------------------------------------------------------
+  State
+-------------------------------------------------------------------------------}
+
+data St = St {
     -- | Delayed trace messages in reverse order that they were recorded
     messages :: [(C.DeclId, DelayedTranslateTypesMsg)]
+    -- | Sugar info
+  , sugars   :: SugarInfos
   }
 
-addMessage :: DelayedTranslateTypesMsg -> M DeclEnv ()
+initSt :: St
+initSt = St { messages = [], sugars = emptySugarInfos }
+
+addMessage ::
+     (MonadReader (DeclEnv l) m, MonadState St m)
+  => DelayedTranslateTypesMsg -> m ()
 addMessage msg = do
-    did <- asks (.declId)
+    declIdPair <- asks (.declIdPair)
     modify $ \st -> st {
-        messages = (did, msg) : st.messages
+        messages = (declIdPair.cName, msg) : st.messages
       }
+
+registerSugarInfoM ::
+     (MonadReader (DeclEnv l) m, MonadState St m)
+  => RegSugarInfo -> m ()
+registerSugarInfoM ty = do
+    declIdPair <- asks (.declIdPair)
+    sugars <- gets (.sugars)
+    case registerSugarInfo declIdPair ty sugars of
+      Left err               -> do
+        addMessage $ TranslateTypesRegisterSugarInfoDuplicate err
+      Right sugars' -> do
+        modify $ \st -> st { sugars = sugars' }
+        addMessage $ TranslateTypesRegisterSugarInfo ty
