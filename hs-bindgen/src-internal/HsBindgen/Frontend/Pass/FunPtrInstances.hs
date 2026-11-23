@@ -199,10 +199,10 @@ processFunType occurrence loc args res = do
           HeadFunType <$ guard (isDefinedInCurrentModule db (C.TypeFun args res))
     forM_ mHead $ \hd -> do
       mSig <- classifyCached loc key funType
-      forM_ mSig $ \(args', res') ->
+      forM_ mSig $ \sig ->
         modify $ \st ->
           if (hd, key) `Set.member` st.seen then st else st{
-              instances = FunPtrInstance hd args' res' : st.instances
+              instances = FunPtrInstance hd sig.args sig.res : st.instances
             , seen      = Set.insert (hd, key) st.seen
             }
   where
@@ -254,7 +254,7 @@ classifyCached ::
      FunTypeLocation
   -> Hs.Type -- ^ The Haskell function type, with 'eraseUnderlying'
   -> FunType
-  -> M l (Maybe ([FunPtrArg], FunPtrRes))
+  -> M l (Maybe FunPtrSig)
 classifyCached loc key funType = do
     cached <- gets (Map.lookup key . (.cache))
     case cached of
@@ -264,24 +264,24 @@ classifyCached loc key funType = do
         modify $ \st -> st{cache = Map.insert key mSig st.cache}
         pure mSig
 
-classify :: FunTypeLocation -> FunType -> M l (Maybe ([FunPtrArg], FunPtrRes))
+classify :: FunTypeLocation -> FunType -> M l (Maybe FunPtrSig)
 classify loc funType = do
-    forM_ ffiTypesMsgs $ \(pos, msg) ->
-      addMessage $ FunPtrInstancesFFITypes loc pos msg
-    case collectPositionErrors (map fst args') (fst res') of
+    forM_ ffiTypesMsgs $ \m ->
+      addMessage $ FunPtrInstancesFFITypes loc m.position m.msg
+    case collectPositionErrors (map (.result) args') res'.result of
       Left errs -> do
         addMessage $ FunPtrInstancesPositionErrors loc errs
         pure Nothing
       Right (argsOk, resOk) ->
         case (traverse direct argsOk, directRes resOk) of
           (Just argsDirect, Just resDirect) ->
-            pure $ Just (argsDirect, resDirect)
+            pure $ Just FunPtrSig{args = argsDirect, res = resDirect}
           _otherwise -> do
             forM_ (NonEmpty.nonEmpty (serialized argsOk resOk)) $
               addMessage . FunPtrInstancesSerialized loc
             pure Nothing
   where
-    args' :: [(Either FunPositionError (ClassifiedPosition (PassingMethod Select)), [PositionedMsg])]
+    args' :: [WithMsgs (ClassifiedPosition (PassingMethod Select))]
     args' = [
         runClassified pos $
           fmap (ClassifiedPosition arg.hs) <$>
@@ -290,14 +290,14 @@ classify loc funType = do
       , let pos = argPosition i
       ]
 
-    res' :: (Either FunPositionError (ClassifiedPosition (ResPassingMethod Select)), [PositionedMsg])
+    res' :: WithMsgs (ClassifiedPosition (ResPassingMethod Select))
     res' =
         runClassified FunPositionRes $
           fmap (ClassifiedPosition funType.res.hs) <$>
             classifyResPassingMethod funType.res.c funType.res.hs
 
     ffiTypesMsgs :: [PositionedMsg]
-    ffiTypesMsgs = concatMap snd args' ++ snd res'
+    ffiTypesMsgs = concatMap (.msgs) args' ++ res'.msgs
 
     direct :: ClassifiedPosition (PassingMethod Select) -> Maybe FunPtrArg
     direct arg = case arg.passing of
@@ -328,16 +328,33 @@ data ClassifiedPosition a = ClassifiedPosition {
     , passing :: a
     }
 
-type PositionedMsg = (FunPosition, FFITypesMsg)
+-- | The arguments and result of a function type that gets instances
+data FunPtrSig = FunPtrSig {
+      args :: [FunPtrArg]
+    , res  :: FunPtrRes
+    }
 
-runClassified ::
-     FunPosition
-  -> Classified a
-  -> (Either FunPositionError a, [PositionedMsg])
-runClassified pos x =
+-- | A message from deriving the FFI type of an argument or result
+data PositionedMsg = PositionedMsg {
+      position :: FunPosition
+    , msg      :: FFITypesMsg
+    }
+
+-- | The classification of an argument or result, with its messages
+data WithMsgs a = WithMsgs {
+      result :: Either FunPositionError a
+    , msgs   :: [PositionedMsg]
+    }
+
+runClassified :: FunPosition -> Classified a -> WithMsgs a
+runClassified pos x = WithMsgs{
+      result = result
+    , msgs   = map (PositionedMsg pos) msgs
+    }
+  where
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/2376>: use sugar
     -- infos as computed by the @TranslateTypes@ pass
-    second (map (pos,)) $ runWriter (runReaderT x emptySugarInfos)
+    (result, msgs) = runWriter (runReaderT x emptySugarInfos)
 
 -- | Erase the underlying types of references
 --
@@ -394,7 +411,7 @@ data St = St {
     , seen      :: Set (FunPtrHead, Hs.Type)
       -- | Signatures of the Haskell function types classified so far (with
       -- 'eraseUnderlying'), or 'Nothing' if they get no instances
-    , cache     :: Map Hs.Type (Maybe ([FunPtrArg], FunPtrRes))
+    , cache     :: Map Hs.Type (Maybe FunPtrSig)
       -- | In reverse order
     , messages  :: [AnnMsg FunPtrInstances]
     }
