@@ -312,11 +312,9 @@ instance Resolve C.Typedef where
 
 instance Resolve C.Function where
   resolve ownerId function = do
-    args <- mapM resolveArg function.args
-    res' <- resolveRes function.res
+    sig <- bitraverse resolveArg resolveRes function.sig
     pure C.Function{
-        args  = args
-      , res   = res'
+        sig   = sig
       , attrs = function.attrs
       , ann   = function.ann
       }

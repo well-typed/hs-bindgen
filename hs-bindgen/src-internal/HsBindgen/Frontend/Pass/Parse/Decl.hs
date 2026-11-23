@@ -680,8 +680,7 @@ functionDecl macroLang enclosing ctx declId info =
                 , enclosing = enclosing
                 , ann       = NoAnn
                 , kind      = C.DeclFunction C.Function {
-                             args  = functionSig.args
-                           , res   = functionSig.res
+                             sig   = functionSig
                            , attrs = C.FunctionAttributes purity
                            , ann   = functionAnn
                            }

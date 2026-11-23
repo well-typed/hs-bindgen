@@ -182,13 +182,12 @@ processFunction ::
      C.Function MangleNames
   -> DM l (Either TranslateTypesError (C.Function TranslateTypes))
 processFunction fun = do
-    eArgs <- zipWithM processFunctionArg [1..] fun.args
-    eRes  <- processFunctionRes fun.res
+    eArgs <- zipWithM processFunctionArg [1..] fun.sig.args
+    eRes  <- processFunctionRes fun.sig.res
     pure $ case collectErrors FunSig{args = eArgs, res = eRes} of
       Left errs -> Left $ TranslateTypesFunctionError errs
       Right sig -> Right C.Function{
-          args  = sig.args
-        , res   = sig.res
+          sig   = sig
         , attrs = fun.attrs
         , ann   = fun.ann
         }

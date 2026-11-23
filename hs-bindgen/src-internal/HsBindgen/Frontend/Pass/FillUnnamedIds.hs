@@ -16,6 +16,7 @@ import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST)
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass
 import HsBindgen.Util.Tracer (withCallStack)
 
@@ -319,16 +320,13 @@ instance UpdateUseSites C.Enum where
 instance UpdateUseSites C.Function where
   updateUseSites function =
       reconstruct
-        <$> mapM updateUseSites function.args
-        <*> updateUseSites function.res
+        <$> bitraverse updateUseSites updateUseSites function.sig
     where
       reconstruct ::
-           [C.FunctionArg FillUnnamedIds]
-        -> C.FunctionRes FillUnnamedIds
+           FunSig (C.FunctionArg FillUnnamedIds) (C.FunctionRes FillUnnamedIds)
         -> C.Function FillUnnamedIds
-      reconstruct functionArgs' functionRes' = C.Function {
-            args  = functionArgs'
-          , res   = functionRes'
+      reconstruct sig' = C.Function {
+            sig   = sig'
           , attrs = function.attrs
           , ann   = function.ann
           }

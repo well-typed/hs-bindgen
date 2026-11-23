@@ -706,11 +706,9 @@ createTypedef hsName typedef = do
 createFunction ::
      C.Function ResolveBindingSpecs -> CreateE (C.Function CreateNames)
 createFunction function = do
-    args <- mapM createFunctionArg function.args
-    res <- createFunctionRes function.res
+    sig <- bitraverse createFunctionArg createFunctionRes function.sig
     pure C.Function{
-        args  = args
-      , res   = res
+        sig   = sig
       , attrs = function.attrs
       , ann   = function.ann
       }

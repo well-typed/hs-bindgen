@@ -287,8 +287,7 @@ data UntaggedEnumConstant (p :: Pass) = UntaggedEnumConstant {
   deriving stock (Generic)
 
 data Function (p :: Pass) = Function {
-      args  :: [FunctionArg p]
-    , res   :: FunctionRes p
+      sig   :: FunSig (FunctionArg p) (FunctionRes p)
     , attrs :: FunctionAttributes
     , ann   :: Ann "Function" p
     }
@@ -315,10 +314,7 @@ data FunctionRes (p :: Pass) = FunctionRes {
 -- | Get the type of a function declaration
 typeOfFunction :: forall p. PassTypes p => Function p -> C.Type p
 typeOfFunction fun =
-    C.TypeFun FunSig{
-        args = map typeOfFunctionArg fun.args
-      , res  = typeOfFunctionRes fun.res
-      }
+    C.TypeFun $ bimap typeOfFunctionArg typeOfFunctionRes fun.sig
 
 -- | Get the type of a function argument
 typeOfFunctionArg :: forall p. PassTypes p => FunctionArg p -> C.TypeFunArg p
@@ -787,8 +783,7 @@ instance (
     , Ann "Function" p ~ Ann "Function" p'
     ) => CoercePass Function p p' where
   coercePass function = Function{
-        args  = map coercePass function.args
-      , res   = coercePass function.res
+        sig   = bimap coercePass coercePass function.sig
       , attrs = function.attrs
       , ann   = function.ann
       }

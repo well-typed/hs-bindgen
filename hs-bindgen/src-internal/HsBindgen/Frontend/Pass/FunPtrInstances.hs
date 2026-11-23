@@ -116,7 +116,7 @@ processDeclKind decl = case decl.kind of
       processType (TypedefOwn (typedefHead decl typedef))
         (atUseSite UseSiteTypedef) typedef.typ.c
     C.DeclFunction fun -> do
-      forM_ (zip [1..] fun.args) $ \(i, arg) ->
+      forM_ (zip [1..] fun.sig.args) $ \(i, arg) ->
         processType Nested
           (enterPosition declarationSignature $ FunPositionArg FunArgPosition{
               index = i
@@ -125,7 +125,7 @@ processDeclKind decl = case decl.kind of
           arg.typ.c.typ
       processType Nested
         (enterPosition declarationSignature FunPositionRes)
-        fun.res.typ.c
+        fun.sig.res.typ.c
     C.DeclGlobal global ->
       processType Nested (atUseSite UseSiteGlobal) global.typ.c
     -- Integral

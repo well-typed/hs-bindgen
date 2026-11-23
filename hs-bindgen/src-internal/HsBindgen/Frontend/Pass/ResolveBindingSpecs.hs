@@ -27,6 +27,7 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Flip
@@ -609,16 +610,15 @@ instance Resolve C.Typedef l where
 instance Resolve C.Function l where
   resolve ctx function =
     reconstruct
-      <$> mapM (resolve ctx) function.args
-      <*> resolve ctx function.res
+      <$> bitraverse (resolve ctx) (resolve ctx) function.sig
     where
       reconstruct ::
-           [C.FunctionArg ResolveBindingSpecs]
-        -> C.FunctionRes ResolveBindingSpecs
+           FunSig
+             (C.FunctionArg ResolveBindingSpecs)
+             (C.FunctionRes ResolveBindingSpecs)
         -> C.Function ResolveBindingSpecs
-      reconstruct functionArgs' functionRes' = C.Function {
-          args  = functionArgs'
-        , res   = functionRes'
+      reconstruct sig' = C.Function {
+          sig   = sig'
         , attrs = function.attrs
         , ann   = function.ann
         }
