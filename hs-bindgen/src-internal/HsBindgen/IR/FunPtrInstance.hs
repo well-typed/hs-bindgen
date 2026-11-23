@@ -9,6 +9,7 @@ module HsBindgen.IR.FunPtrInstance (
   ) where
 
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (NewtypeNames)
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -19,8 +20,7 @@ import HsBindgen.Language.Haskell qualified as Hs
 -- types only.
 data FunPtrInstance = FunPtrInstance {
       head :: FunPtrHead
-    , args :: [FunPtrArg]
-    , res  :: FunPtrRes
+    , sig  :: FunSig FunPtrArg FunPtrRes
     }
   deriving stock (Show, Eq)
 

@@ -7,6 +7,7 @@ module HsBindgen.Backend.Hs.Translation.ToFromFunPtr (
     forInstance
   ) where
 
+import Data.Bifunctor (bimap)
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -18,6 +19,7 @@ import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.IR.FunPtrInstance
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -70,7 +72,7 @@ forInstance inst = concat [
     ]
   where
     funType :: Hs.Type
-    funType = Translation.funType (map (.hs) inst.args) inst.res.hs
+    funType = Translation.funType $ bimap (.hs) (.hs) inst.sig
 
     -- The type of the instances
     instHead :: Hs.Type
@@ -81,19 +83,19 @@ forInstance inst = concat [
     importFor :: ImportFor
     importFor = case inst.head of
       HeadFunType -> ImportForFunction{
-          args = map (.hs) inst.args
-        , res  = Hs.IO inst.res.hs
+          args = map (.hs) inst.sig.args
+        , res  = Hs.IO inst.sig.res.hs
         }
       HeadNewtype _ names -> ImportForNewtype{
-          args  = map (.hs) inst.args
-        , res   = Hs.IO inst.res.hs
+          args  = map (.hs) inst.sig.args
+        , res   = Hs.IO inst.sig.res.hs
         , names = names
         }
 
     ffiFunType :: Hs.FFIFunType
     ffiFunType = Hs.FFIFunType{
-          args = map (.ffi) inst.args
-        , res  = inst.res.ffi
+          args = map (.ffi) inst.sig.args
+        , res  = inst.sig.res.ffi
         }
 
     nameTo, nameFrom :: UniqueSymbol

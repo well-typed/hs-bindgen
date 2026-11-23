@@ -287,6 +287,7 @@ library internal
     HsBindgen.IR.C.RootDirective
     HsBindgen.IR.C.Type
     HsBindgen.IR.FunPtrInstance
+    HsBindgen.IR.FunSig
     HsBindgen.IR.Hs
     HsBindgen.IR.Hs.Type
     HsBindgen.IR.Pass

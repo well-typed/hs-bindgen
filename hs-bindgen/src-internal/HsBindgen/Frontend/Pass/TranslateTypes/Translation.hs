@@ -22,6 +22,7 @@ import GHC.Stack
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
@@ -77,10 +78,9 @@ topLevel = inContext Top
 
 -- | Haskell type of a function type
 funType ::
-     [Hs.Type] -- ^ Arguments, translated in context 'FunArg'
-  -> Hs.Type   -- ^ Result, translated in context 'FunRes'
+     FunSig Hs.Type Hs.Type -- ^ Translated in contexts 'FunArg' and 'FunRes'
   -> Hs.Type
-funType args res = foldr Hs.Fun (Hs.IO res) args
+funType sig = foldr Hs.Fun (Hs.IO sig.res) sig.args
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
@@ -126,7 +126,10 @@ typeInContext ctx = \case
     C.TypeIncompleteArray ty ->
       Hs.IncompleteArray (typeInContext Top ty)
     C.TypeFun args res ->
-      funType (map (inContext FunArg) args) (typeInContext FunRes res)
+      funType FunSig{
+          args = map (inContext FunArg) args
+        , res  = typeInContext FunRes res
+        }
     C.TypeVoid ->
       Hs.PrimType (void ctx)
     C.TypeBlock ty ->

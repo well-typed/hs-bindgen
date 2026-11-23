@@ -25,6 +25,7 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
 
@@ -183,11 +184,11 @@ processFunction ::
 processFunction fun = do
     eArgs <- zipWithM processFunctionArg [1..] fun.args
     eRes  <- processFunctionRes fun.res
-    pure $ case collectPositionErrors eArgs eRes of
+    pure $ case collectErrors FunSig{args = eArgs, res = eRes} of
       Left errs -> Left $ TranslateTypesFunctionError errs
-      Right (args', res') -> Right C.Function{
-          args  = args'
-        , res   = res'
+      Right sig -> Right C.Function{
+          args  = sig.args
+        , res   = sig.res
         , attrs = fun.attrs
         , ann   = fun.ann
         }

@@ -68,6 +68,7 @@ module HsBindgen.IR.C.Type (
 import HsBindgen.Frontend.Analysis
 import HsBindgen.Imports
 import HsBindgen.IR.C.Naming qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass.Ann
 import HsBindgen.IR.Pass.Definition
 import HsBindgen.IR.Pass.ExtBinding
@@ -631,10 +632,10 @@ depsOfTypeFunArg arg = depsOfType arg.typ
 -- Looks through pointers, arrays, blocks and qualifiers, but not through
 -- typedefs or other references. There is at most one: only function types
 -- have more than one child type.
-getOutermostFunType :: Type p -> Maybe ([TypeFunArg p], Type p)
+getOutermostFunType :: Type p -> Maybe (FunSig (TypeFunArg p) (Type p))
 getOutermostFunType ty = do
     (_, args, res, _) <- findOutermostFunType ty
-    pure (args, res)
+    pure FunSig{args = args, res = res}
 
 -- | Get the first function type indirection
 --

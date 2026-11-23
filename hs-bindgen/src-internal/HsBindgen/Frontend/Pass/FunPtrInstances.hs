@@ -23,6 +23,8 @@ module HsBindgen.Frontend.Pass.FunPtrInstances (
 import Control.Monad.Reader (ReaderT (..), asks)
 import Control.Monad.State (State, gets, modify, runState)
 import Control.Monad.Writer.Strict (runWriter)
+import Data.Bifoldable (bifoldMap)
+import Data.Bitraversable (bitraverse)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
@@ -35,8 +37,7 @@ import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass
 import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass.Msg
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (TypedefNames (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.Error (FunPositionError,
-                                                     collectPositionErrors)
+import HsBindgen.Frontend.Pass.TranslateTypes.Error (FunPositionError)
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (FFITypesMsg)
 import HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (Classified,
                                                              classifyArgPassingMethod,
@@ -48,6 +49,7 @@ import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.FunPtrInstance
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.PassingMethod
@@ -178,36 +180,35 @@ data Occurrence =
 -- nested in its arguments and result
 processType :: Occurrence -> FunTypeLocation -> C.Type Select -> M l ()
 processType occurrence loc ty =
-    forM_ (C.getOutermostFunType ty) $ \(args, res) -> do
-      processFunType occurrence loc args res
-      forM_ (zip [1..] args) $ \(i, arg) ->
+    forM_ (C.getOutermostFunType ty) $ \sig -> do
+      processFunType occurrence loc sig
+      forM_ (zip [1..] sig.args) $ \(i, arg) ->
         processType Nested (enterPosition loc (argPosition i)) arg.typ
-      processType Nested (enterPosition loc FunPositionRes) res
+      processType Nested (enterPosition loc FunPositionRes) sig.res
 
 processFunType ::
      Occurrence
   -> FunTypeLocation
-  -> [C.TypeFunArg Select]
-  -> C.Type Select
+  -> FunSig (C.TypeFunArg Select) (C.Type Select)
   -> M l ()
-processFunType occurrence loc args res = do
+processFunType occurrence loc sig = do
     mHead <- case occurrence of
       TypedefOwn hd -> pure $ Just hd
       Nested        -> do
         db <- asks (.db)
-        pure $
-          HeadFunType <$ guard (isDefinedInCurrentModule db (C.TypeFun args res))
+        pure $ HeadFunType <$
+          guard (isDefinedInCurrentModule db (C.TypeFun sig.args sig.res))
     forM_ mHead $ \hd -> do
-      mSig <- classifyCached loc key funType
-      forM_ mSig $ \sig ->
+      mSigOk <- classifyCached loc key funType
+      forM_ mSigOk $ \sigOk ->
         modify $ \st ->
           if (hd, key) `Set.member` st.seen then st else st{
-              instances = FunPtrInstance hd sig.args sig.res : st.instances
+              instances = FunPtrInstance{head = hd, sig = sigOk} : st.instances
             , seen      = Set.insert (hd, key) st.seen
             }
   where
     funType :: FunType
-    funType = translateFunType args res
+    funType = translateFunType sig
 
     key :: Hs.Type
     key = eraseUnderlying $ funTypeHs funType
@@ -227,25 +228,19 @@ isDefinedInCurrentModule db =
       _otherwise -> False
 
 -- | A function type, with the Haskell types of its arguments and result
-data FunType = FunType {
-      -- | Translated in context @FunArg@
-      args :: [TranslatedTypeFunArg Select]
-      -- | Translated in context @FunRes@
-    , res  :: TranslatedTypes Select
-    }
+--
+-- The arguments are translated in context @FunArg@, the result in context
+-- @FunRes@.
+type FunType = FunSig (TranslatedTypeFunArg Select) (TranslatedTypes Select)
 
-translateFunType :: [C.TypeFunArg Select] -> C.Type Select -> FunType
-translateFunType args res = FunType{
-      args = [
-          Translated{c = arg, hs = Translation.inContext Translation.FunArg arg}
-        | arg <- args
-        ]
-    , res  = Translated{c = res, hs = Translation.inContext Translation.FunRes res}
-    }
+translateFunType :: FunSig (C.TypeFunArg Select) (C.Type Select) -> FunType
+translateFunType = bimap
+    (\arg -> Translated{c = arg, hs = Translation.inContext Translation.FunArg arg})
+    (\res -> Translated{c = res, hs = Translation.inContext Translation.FunRes res})
 
 -- | The Haskell type of the function type, as in the instance head
 funTypeHs :: FunType -> Hs.Type
-funTypeHs funType = Translation.funType (map (.hs) funType.args) funType.res.hs
+funTypeHs = Translation.funType . bimap (.hs) (.hs)
 
 -- | Classify a function type, reporting why it gets no instances
 --
@@ -254,7 +249,7 @@ classifyCached ::
      FunTypeLocation
   -> Hs.Type -- ^ The Haskell function type, with 'eraseUnderlying'
   -> FunType
-  -> M l (Maybe FunPtrSig)
+  -> M l (Maybe (FunSig FunPtrArg FunPtrRes))
 classifyCached loc key funType = do
     cached <- gets (Map.lookup key . (.cache))
     case cached of
@@ -264,40 +259,38 @@ classifyCached loc key funType = do
         modify $ \st -> st{cache = Map.insert key mSig st.cache}
         pure mSig
 
-classify :: FunTypeLocation -> FunType -> M l (Maybe FunPtrSig)
+classify :: FunTypeLocation -> FunType -> M l (Maybe (FunSig FunPtrArg FunPtrRes))
 classify loc funType = do
-    forM_ ffiTypesMsgs $ \m ->
+    forM_ (bifoldMap (.msgs) (.msgs) classified) $ \m ->
       addMessage $ FunPtrInstancesFFITypes loc m.position m.msg
-    case collectPositionErrors (map (.result) args') res'.result of
+    case collectErrors (bimap (.result) (.result) classified) of
       Left errs -> do
         addMessage $ FunPtrInstancesPositionErrors loc errs
         pure Nothing
-      Right (argsOk, resOk) ->
-        case (traverse direct argsOk, directRes resOk) of
-          (Just argsDirect, Just resDirect) ->
-            pure $ Just FunPtrSig{args = argsDirect, res = resDirect}
-          _otherwise -> do
-            forM_ (NonEmpty.nonEmpty (serialized argsOk resOk)) $
+      Right sigOk ->
+        case bitraverse direct directRes sigOk of
+          Just sigDirect -> pure $ Just sigDirect
+          Nothing        -> do
+            forM_ (NonEmpty.nonEmpty (serialized sigOk)) $
               addMessage . FunPtrInstancesSerialized loc
             pure Nothing
   where
-    args' :: [WithMsgs (ClassifiedPosition (PassingMethod Select))]
-    args' = [
-        runClassified pos $
-          fmap (ClassifiedPosition arg.hs) <$>
-            classifyArgPassingMethod pos arg.c.typ arg.hs
-      | (i, arg) <- zip [1..] funType.args
-      , let pos = argPosition i
-      ]
-
-    res' :: WithMsgs (ClassifiedPosition (ResPassingMethod Select))
-    res' =
-        runClassified FunPositionRes $
-          fmap (ClassifiedPosition funType.res.hs) <$>
-            classifyResPassingMethod funType.res.c funType.res.hs
-
-    ffiTypesMsgs :: [PositionedMsg]
-    ffiTypesMsgs = concatMap (.msgs) args' ++ res'.msgs
+    classified :: FunSig
+      (WithMsgs (ClassifiedPosition (PassingMethod Select)))
+      (WithMsgs (ClassifiedPosition (ResPassingMethod Select)))
+    classified = FunSig{
+          args = [
+              runClassified pos $
+                fmap (ClassifiedPosition arg.hs) <$>
+                  classifyArgPassingMethod pos arg.c.typ arg.hs
+            | (i, arg) <- zip [1..] funType.args
+            , let pos = argPosition i
+            ]
+        , res  =
+            runClassified FunPositionRes $
+              fmap (ClassifiedPosition funType.res.hs) <$>
+                classifyResPassingMethod funType.res.c funType.res.hs
+        }
 
     direct :: ClassifiedPosition (PassingMethod Select) -> Maybe FunPtrArg
     direct arg = case arg.passing of
@@ -311,27 +304,22 @@ classify loc funType = do
       PassResNonVoid PassSerialized{} -> Nothing
 
     serialized ::
-         [ClassifiedPosition (PassingMethod Select)]
-      -> ClassifiedPosition (ResPassingMethod Select)
+         FunSig
+           (ClassifiedPosition (PassingMethod Select))
+           (ClassifiedPosition (ResPassingMethod Select))
       -> [FunPosition]
-    serialized argsOk resOk = concat [
+    serialized sigOk = concat [
           [ argPosition i
-          | (i, arg) <- zip [1..] argsOk
+          | (i, arg) <- zip [1..] sigOk.args
           , isSerialized arg.passing
           ]
-        , [ FunPositionRes | isResSerialized resOk.passing ]
+        , [ FunPositionRes | isResSerialized sigOk.res.passing ]
         ]
 
 -- | A classified argument or result, with its Haskell type
 data ClassifiedPosition a = ClassifiedPosition {
       hs      :: Hs.Type
     , passing :: a
-    }
-
--- | The arguments and result of a function type that gets instances
-data FunPtrSig = FunPtrSig {
-      args :: [FunPtrArg]
-    , res  :: FunPtrRes
     }
 
 -- | A message from deriving the FFI type of an argument or result
@@ -411,7 +399,7 @@ data St = St {
     , seen      :: Set (FunPtrHead, Hs.Type)
       -- | Signatures of the Haskell function types classified so far (with
       -- 'eraseUnderlying'), or 'Nothing' if they get no instances
-    , cache     :: Map Hs.Type (Maybe FunPtrSig)
+    , cache     :: Map Hs.Type (Maybe (FunSig FunPtrArg FunPtrRes))
       -- | In reverse order
     , messages  :: [AnnMsg FunPtrInstances]
     }
