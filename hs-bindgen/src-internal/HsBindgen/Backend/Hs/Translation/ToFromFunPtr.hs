@@ -93,10 +93,7 @@ forInstance inst = concat [
         }
 
     ffiFunType :: Hs.FFIFunType
-    ffiFunType = Hs.FFIFunType{
-          args = map (.ffi) inst.sig.args
-        , res  = inst.sig.res.ffi
-        }
+    ffiFunType = bimap (.ffi) (.ffi) inst.sig
 
     nameTo, nameFrom :: UniqueSymbol
     (nameTo, nameFrom) = case inst.head of

@@ -31,6 +31,7 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
@@ -392,9 +393,8 @@ translateType = \case
 -------------------------------------------------------------------------------}
 
 translateFFIFunType :: Hs.FFIFunType -> ClosedType
-translateFFIFunType ty = case Hs.unconsArg ty of
-    Left (arg, ty') -> TFun (translateFFIType arg) (translateFFIFunType ty')
-    Right res -> translateFFIResType res
+translateFFIFunType ty =
+    foldr (TFun . translateFFIType) (translateFFIResType ty.res) ty.args
 
 translateFFIResType :: Hs.FFIResType -> ClosedType
 translateFFIResType = \case

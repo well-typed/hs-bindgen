@@ -11,8 +11,7 @@ module HsBindgen.IR.Hs.Type (
     PrimType(..)
   , Type (..)
     -- * FFI types
-  , FFIFunType(..)
-  , unconsArg
+  , FFIFunType
   , FFIResType(..)
   , FFIType(..)
   , ffiExtRef
@@ -20,6 +19,7 @@ module HsBindgen.IR.Hs.Type (
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
+import HsBindgen.IR.FunSig
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -82,16 +82,7 @@ data Type =
 -------------------------------------------------------------------------------}
 
 -- | A function type using FFI types in argument and result positions
-data FFIFunType = FFIFunType {
-    args :: [FFIType]
-  , res  :: FFIResType
-  }
-  deriving stock (Generic, Show, Eq)
-
-unconsArg :: FFIFunType -> Either (FFIType, FFIFunType) FFIResType
-unconsArg ty = case ty.args of
-    [] -> Right ty.res
-    (arg:args) -> Left (arg, FFIFunType { args = args, res = ty.res })
+type FFIFunType = FunSig FFIType FFIResType
 
 -- | A function result type using FFI types
 data FFIResType =
