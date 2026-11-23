@@ -159,12 +159,30 @@ processIndirectField field = pure C.IndirectField{
 
 processTypedef :: C.Typedef MangleNames -> DM l (C.Typedef TranslateTypes)
 processTypedef typedef = do
-    let typ' = processType Translation.Top typedef.typ
-    registerSugarInfoM $ Sugar typ'.hs
+    registerSugarInfoM $ Sugar hs
     pure C.Typedef{
         typ = typ'
       , ann = typedef.ann
       }
+  where
+    typ' :: C.TypedefType TranslateTypes
+    hs   :: Hs.Type
+    (typ', hs) = case typedef.typ of
+      C.TypedefFun sig NoAnn ->
+        let hsFun = Translation.topLevel (C.TypeFun sig)
+        in  (C.TypedefFun (coerceSig sig) hsFun, hsFun)
+      C.TypedefFunIndirect indirections sig auxNames ->
+        ( C.TypedefFunIndirect indirections (coerceSig sig) auxNames
+        , Translation.topLevel (C.typedefType typedef.typ)
+        )
+      C.TypedefOther typ ->
+        let translated = processType Translation.Top typ
+        in  (C.TypedefOther translated, translated.hs)
+
+    coerceSig ::
+         FunSig (C.TypeFunArg MangleNames) (C.Type MangleNames)
+      -> FunSig (C.TypeFunArg TranslateTypes) (C.Type TranslateTypes)
+    coerceSig = bimap coercePass coercePass
 
 processEnum :: C.Enum MangleNames -> DM l (C.Enum TranslateTypes)
 processEnum enum = do

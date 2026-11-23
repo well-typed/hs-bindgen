@@ -5,7 +5,6 @@ module HsBindgen.Frontend.Pass.MangleNames.DetectClashes (
 import Data.Either (partitionEithers)
 import Data.Foldable qualified as Foldable
 import Data.Map qualified as Map
-import Data.Maybe (maybeToList)
 
 import Clang.HighLevel.Types
 
@@ -107,7 +106,7 @@ derivedNames strategy nameMap owner loc = \case
     -- its name is registered as a 'Declaration'. We must /not/ also register
     -- the inner enum-constant scoped name, or it would collide with itself.
     C.DeclUntaggedEnumConstant{}      -> []
-    C.DeclTypedef typedef             -> typedefNames typedef.ann
+    C.DeclTypedef typedef             -> typedefNames typedef
     C.DeclMacro (MacroType macroType) -> newtypeNames macroType.ann
     C.DeclMacro MacroValue{}          -> []
     C.DeclMacro MacroRaw{}            -> []
@@ -168,11 +167,15 @@ derivedNames strategy nameMap owner loc = \case
       : [ success (Field, GlobalScope, loc, Hs.demoteNs n.field)
         | AddFieldPrefixes <- [strategy] ]
 
-    typedefNames :: TypedefNames -> [DerivedNamesResult]
-    typedefNames t =
-         newtypeNames t.orig
-      ++ concat [ success (AuxType, GlobalScope, loc, Hs.demoteNs auxName) : newtypeNames auxNames
-                | (auxName, auxNames) <- maybeToList t.aux ]
+    typedefNames :: C.Typedef CreateNames -> [DerivedNamesResult]
+    typedefNames typedef =
+         newtypeNames typedef.ann
+      ++ case typedef.typ of
+           C.TypedefFunIndirect _ _ aux ->
+               success (AuxType, GlobalScope, loc, Hs.demoteNs aux.typeConstr)
+             : newtypeNames aux.newtypeNames
+           C.TypedefFun{}   -> []
+           C.TypedefOther{} -> []
 
 -- | Turn registry collisions into per-declaration failures
 --

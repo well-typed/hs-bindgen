@@ -311,7 +311,7 @@ processTypedef decl typedef = do
          C.Type LanC
       -> M (C.Typedef LanC)
     withReparse typ' = pure C.Typedef{
-          typ = typ'
+          typ = C.classifyTypedef typ'
         , ann = NoAnn
         }
 

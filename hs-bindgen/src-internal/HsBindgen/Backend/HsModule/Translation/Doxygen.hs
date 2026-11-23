@@ -25,8 +25,8 @@ import HsBindgen.Backend.HsModule.Translation (ExportEntry (..), ExportItem,
                                                resolveDeclExports)
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Frontend.Pass.Final
-import HsBindgen.Frontend.Pass.MangleNames.IsPass (FlamNames (..),
-                                                   TypedefNames (..))
+import HsBindgen.Frontend.Pass.MangleNames.IsPass (AuxNames (..),
+                                                   FlamNames (..))
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Translation
@@ -101,7 +101,8 @@ data ExportGroupTag =
 -- Haskell name with the same tag as their parent:
 --
 --  * Typedef function pointers contribute an auxiliary newtype @F_Aux@ whose
---    name comes from @typedef.names.aux@; the @_Aux@ form is delayed during
+--    name comes from the @AuxNames@ carried by the typedef's
+--    @C.TypedefFunIndirect@ type; the @_Aux@ form is delayed during
 --    Hs translation and therefore not adjacent to its parent in source
 --    order, so an entry under its own Hs name is necessary to keep it in
 --    its parent's section.
@@ -145,8 +146,8 @@ computeExportTags doxy decls =
     auxEntries :: C.DeclKind l Final -> ExportGroupTag -> [(Text, ExportGroupTag)]
     auxEntries kind tag = case kind of
       C.DeclTypedef typedef
-        | Just (auxName, _) <- typedef.names.aux ->
-            [(auxName.text, tag)]
+        | C.TypedefFunIndirect _ _ auxNames <- typedef.typ ->
+            [(auxNames.typeConstr.text, tag)]
       C.DeclStruct struct
         | C.Flam _ flamNames <- struct.flam ->
             [(flamNames.aux.text, tag)]

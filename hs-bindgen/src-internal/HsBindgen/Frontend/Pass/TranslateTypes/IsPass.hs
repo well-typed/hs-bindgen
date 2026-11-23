@@ -9,6 +9,7 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro
 import HsBindgen.IR.AddressStub (AddressStub)
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.PassingMethod (PassingMethod, ResPassingMethod)
 import HsBindgen.IR.Translation
@@ -30,7 +31,9 @@ type family AnnTranslateTypes ix where
   AnnTranslateTypes "FunctionRes"         = ResPassingMethod TranslateTypes
   AnnTranslateTypes "Global"              = AddressStub
   AnnTranslateTypes "Struct"              = StructNames
-  AnnTranslateTypes "Typedef"             = TypedefNames
+  AnnTranslateTypes "Typedef"             = NewtypeNames
+  AnnTranslateTypes "TypedefFun"          = Hs.Type
+  AnnTranslateTypes "TypedefFunIndirect"  = AuxNames
   AnnTranslateTypes "TranslatedMacroType" = NewtypeNames
   AnnTranslateTypes "Union"               = NewtypeNames
   AnnTranslateTypes _                     = NoAnn

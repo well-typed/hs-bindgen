@@ -48,8 +48,12 @@ module HsBindgen.IR.C.Type (
     -- * Queries
   , depsOfType
   , depsOfTypeFunArg
-  , getFirstFunTypeIndirection
   , getOutermostFunType
+
+    -- * Indirections
+  , Indirection(..)
+  , splitOutermostFunType
+  , applyIndirections
 
     -- * Reductions
   , TypeLookup
@@ -638,58 +642,71 @@ depsOfTypeFunArg arg = depsOfType arg.typ
 -- typedefs or other references. There is at most one: only function types
 -- have more than one child type.
 getOutermostFunType :: Type p -> Maybe (FunSig (TypeFunArg p) (Type p))
-getOutermostFunType ty = fst <$> findOutermostFunType ty
+getOutermostFunType = fmap snd . splitOutermostFunType
 
--- | Get the first function type indirection
+{-------------------------------------------------------------------------------
+  Indirections
+-------------------------------------------------------------------------------}
+
+-- | A layer of a type between the type and the function type inside it
+data Indirection =
+    -- | One or more pointers
+    Pointers Int
+  | ConstArray Natural
+  | IncompleteArray
+  | Block
+  | Qual TypeQual
+  deriving stock (Eq, Generic, Show)
+
+-- | Split off the outermost function type (see 'getOutermostFunType')
 --
--- Like 'getOutermostFunType', but 'Nothing' if the type is itself a function
--- type.
-getFirstFunTypeIndirection ::
-     Type p
-  -> Maybe ( FunSig (TypeFunArg p) (Type p)
-           , Type p -> Type p -- ^ zipper: how to reconstruct the original type
-           )
-getFirstFunTypeIndirection = \case
-    TypeFun{}  -> Nothing
-    ty         -> findOutermostFunType ty
-
--- | Find the outermost function type, and how to rebuild the type
-findOutermostFunType ::
+-- Returns the indirections that lead to it, outermost first.
+splitOutermostFunType ::
      forall p.
      Type p
-  -> Maybe ( FunSig (TypeFunArg p) (Type p)
-           , Type p -> Type p
-           )
-findOutermostFunType = go id
+  -> Maybe ([Indirection], FunSig (TypeFunArg p) (Type p))
+splitOutermostFunType = \case
+    -- interesting case
+    TypeFun sig -> Just ([], sig)
+
+    -- recursive cases
+    TypePointers n t      -> through (Pointers n)   t
+    TypeConstArray n t    -> through (ConstArray n) t
+    TypeIncompleteArray t -> through IncompleteArray t
+    TypeBlock t           -> through Block          t
+    TypeQual q t          -> through (Qual q)       t
+
+    -- primitive cases
+    TypePrim{} -> Nothing
+    TypeComplex{} -> Nothing
+    TypeVoid{} -> Nothing
+
+    -- sugar cases
+    TypeRef{} -> Nothing
+    TypeEnum{} -> Nothing
+    TypeMacro{} -> Nothing
+    TypeTypedef{} -> Nothing
+    TypeExtBinding{} -> Nothing
   where
-    go ::
-         (Type p -> Type p)
+    through ::
+         Indirection
       -> Type p
-      -> Maybe ( FunSig (TypeFunArg p) (Type p)
-               , Type p -> Type p
-               )
-    go reconstruct = \case
-      -- interesting case
-      TypeFun sig -> Just (sig, reconstruct)
+      -> Maybe ([Indirection], FunSig (TypeFunArg p) (Type p))
+    through indirection t = first (indirection :) <$> splitOutermostFunType t
 
-      -- recursive cases
-      TypePointers n t        -> go (reconstruct . TypePointers n) t
-      TypeConstArray n t      -> go (reconstruct . TypeConstArray n) t
-      TypeIncompleteArray  t  -> go (reconstruct . TypeIncompleteArray) t
-      TypeBlock t             -> go (reconstruct . TypeBlock) t
-      TypeQual q t            -> go (reconstruct . TypeQual q) t
-
-      -- primitive cases
-      TypePrim{} -> Nothing
-      TypeComplex{} -> Nothing
-      TypeVoid{} -> Nothing
-
-      -- sugar cases
-      TypeRef{} -> Nothing
-      TypeEnum{} -> Nothing
-      TypeMacro{} -> Nothing
-      TypeTypedef{} -> Nothing
-      TypeExtBinding{} -> Nothing
+-- | Wrap a type in indirections, outermost first
+--
+-- Inverse of 'splitOutermostFunType'.
+applyIndirections :: [Indirection] -> Type p -> Type p
+applyIndirections indirections ty = foldr apply ty indirections
+  where
+    apply :: Indirection -> Type p -> Type p
+    apply = \case
+      Pointers n      -> TypePointers n
+      ConstArray n    -> TypeConstArray n
+      IncompleteArray -> TypeIncompleteArray
+      Block           -> TypeBlock
+      Qual q          -> TypeQual q
 
 {-------------------------------------------------------------------------------
   Reductions

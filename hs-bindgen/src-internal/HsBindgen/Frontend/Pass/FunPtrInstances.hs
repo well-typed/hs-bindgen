@@ -27,13 +27,12 @@ import Control.Monad.Writer.Strict (runWriter)
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
-import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass
 import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass.Msg
-import HsBindgen.Frontend.Pass.MangleNames.IsPass (TypedefNames (..))
+import HsBindgen.Frontend.Pass.MangleNames.IsPass (AuxNames (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.Error (FunPositionError)
 import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
@@ -117,8 +116,7 @@ processDeclKind decl = case decl.kind of
     C.DeclUnion union ->
       mapM_ processField union.fields
     C.DeclTypedef typedef ->
-      processType (typedefHead decl typedef)
-        (atUseSite UseSiteTypedef) typedef.typ.c
+      processTypedef decl typedef
     C.DeclFunction fun -> do
       forM_ (zip [1..] fun.sig.args) $ \(i, arg) ->
         processType HeadFunType
@@ -152,19 +150,29 @@ processImplicitField field =
         (atUseSite (UseSiteField indirect.info.name.cName))
         indirect.typ.c
 
--- | The head of the instances for the function type of a typedef
+-- | Process the function types of a typedef
 --
--- Evaluated only if the type of the typedef has a function type.
-typedefHead :: C.Decl l Select -> C.Typedef Select -> FunPtrHead
-typedefHead decl typedef = case typedef.typ.c of
-    C.TypeFun{} ->
-      HeadNewtype
-        (Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName)
-        typedef.ann.orig
-    _otherwise -> case typedef.ann.aux of
-      -- TODO <https://github.com/well-typed/hs-bindgen/issues/2369>
-      Nothing          -> panicPure "name of auxiliary declaration unavailable"
-      Just (name, nms) -> HeadNewtype name nms
+-- The function type of the typedef itself gets instances for a newtype: the
+-- typedef's own, or its auxiliary newtype.
+processTypedef :: C.Decl l Select -> C.Typedef Select -> M l ()
+processTypedef decl typedef = case typedef.typ of
+    C.TypedefFun sig _hs ->
+      processOwn
+        (HeadNewtype
+          (Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName)
+          typedef.ann)
+        sig
+    C.TypedefFunIndirect _indirections sig auxNames ->
+      processOwn (HeadNewtype auxNames.typeConstr auxNames.newtypeNames) sig
+    -- Function types occur only behind references
+    C.TypedefOther{} ->
+      pure ()
+  where
+    processOwn ::
+         FunPtrHead
+      -> FunSig (C.TypeFunArg Select) (C.Type Select)
+      -> M l ()
+    processOwn hd = processSig hd (atUseSite UseSiteTypedef)
 
 {-------------------------------------------------------------------------------
   Function types
@@ -178,11 +186,20 @@ processType ::
   -> C.Type Select
   -> M l ()
 processType hd loc ty =
-    forM_ (C.getOutermostFunType ty) $ \sig -> do
-      processFunType hd loc sig
-      forM_ (zip [1..] sig.args) $ \(i, arg) ->
-        processType HeadFunType (enterPosition loc (argPosition i)) arg.typ
-      processType HeadFunType (enterPosition loc FunPositionRes) sig.res
+    forM_ (C.getOutermostFunType ty) $ processSig hd loc
+
+-- | Process a function type, and the function types nested in its arguments
+-- and result
+processSig ::
+     FunPtrHead -- ^ The head of the instances for the function type
+  -> FunTypeLocation
+  -> FunSig (C.TypeFunArg Select) (C.Type Select)
+  -> M l ()
+processSig hd loc sig = do
+    processFunType hd loc sig
+    forM_ (zip [1..] sig.args) $ \(i, arg) ->
+      processType HeadFunType (enterPosition loc (argPosition i)) arg.typ
+    processType HeadFunType (enterPosition loc FunPositionRes) sig.res
 
 processFunType ::
      FunPtrHead

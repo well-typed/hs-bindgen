@@ -42,7 +42,7 @@ instance HasField "names" (C.Union Final) MangleNames.NewtypeNames where
 instance HasField "names" (C.Enum Final) MangleNames.NewtypeNames where
   getField enum = enum.ann
 
-instance HasField "names" (C.Typedef Final) MangleNames.TypedefNames where
+instance HasField "names" (C.Typedef Final) MangleNames.NewtypeNames where
   getField typedef = typedef.ann
 
 instance HasField "names" (TranslatedMacroType Final) MangleNames.NewtypeNames where

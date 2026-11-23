@@ -187,7 +187,7 @@ instance ZipReparsed C.IndirectField where
 
 instance ZipReparsed C.Typedef where
   zipReparsed typedefPre typedef = do
-      typ' <- zipType typedefPre.typ typedef.typ
+      typ' <- zipTypedefType typedefPre.typ typedef.typ
       success C.Typedef{
           typ = typ'
         , ann = NoAnn
@@ -275,7 +275,7 @@ zipType t1 t2 = case (t1, t2) of
       (C.TypeIncompleteArray et1, C.TypeIncompleteArray et2) ->
         C.TypeIncompleteArray <$> zipType et1 et2
       (C.TypeFun sig1, C.TypeFun sig2) ->
-        C.TypeFun <$> zipFunSig zipTypeFunArg zipType sig1 sig2
+        C.TypeFun <$> zipTypeFunSig sig1 sig2
       (C.TypeVoid, C.TypeVoid) ->
         success C.TypeVoid
       (C.TypeBlock t1', C.TypeBlock t2') ->
@@ -319,6 +319,27 @@ zipType t1 t2 = case (t1, t2) of
         C.TypeBlock{} -> ()
         C.TypeQual{} -> ()
 
+-- | Zip the types of a typedef
+--
+-- Reparsing cannot change the classification of a typedef: a macro type
+-- cannot denote a function type.
+zipTypedefType ::
+     C.TypedefType In
+  -> C.TypedefType Out
+  -> ZipResult (C.TypedefType ReparseMacroExpansions)
+zipTypedefType t1 t2 = case (t1, t2) of
+    (C.TypedefFun sig1 NoAnn, C.TypedefFun sig2 NoAnn) ->
+      (\sig -> C.TypedefFun sig NoAnn) <$> zipTypeFunSig sig1 sig2
+    ( C.TypedefFunIndirect indirections1 sig1 NoAnn
+      , C.TypedefFunIndirect indirections2 sig2 NoAnn
+      ) ->
+      (\indirections sig -> C.TypedefFunIndirect indirections sig NoAnn)
+        <$> checkEq indirections1 indirections2
+        <*> zipTypeFunSig sig1 sig2
+    (C.TypedefOther typ1, C.TypedefOther typ2) ->
+      C.TypedefOther <$> zipType typ1 typ2
+    (_, _) -> failure $ zipErrorNotZipped t1 t2
+
 zipTypeQual :: C.TypeQual -> C.TypeQual -> ZipResult C.TypeQual
 zipTypeQual C.QualConst C.QualConst = success C.QualConst
 
@@ -350,6 +371,16 @@ zipPrimSignChar csign1 csign2 = case (csign1, csign2) of
     _coveredAllCases = \case
         C.PrimSignExplicit{} -> ()
         C.PrimSignImplicit{} -> ()
+
+-- | Zip the signature of a function type
+zipTypeFunSig ::
+     FunSig (C.TypeFunArg In) (C.Type In)
+  -> FunSig (C.TypeFunArg Out) (C.Type Out)
+  -> ZipResult
+       (FunSig
+         (C.TypeFunArg ReparseMacroExpansions)
+         (C.Type ReparseMacroExpansions))
+zipTypeFunSig = zipFunSig zipTypeFunArg zipType
 
 zipTypeFunArg ::
      C.TypeFunArg In

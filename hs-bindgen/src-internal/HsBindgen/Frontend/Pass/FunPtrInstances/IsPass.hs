@@ -10,6 +10,7 @@ import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro (TranslatedMacro)
 import HsBindgen.IR.AddressStub (AddressStub)
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.PassingMethod (PassingMethod, ResPassingMethod)
 import HsBindgen.IR.Translation
@@ -31,7 +32,9 @@ type family AnnFunPtrInstances ix where
   AnnFunPtrInstances "Global"              = AddressStub
   AnnFunPtrInstances "IndirectField"       = IndirectFieldNames FunPtrInstances
   AnnFunPtrInstances "Struct"              = StructNames
-  AnnFunPtrInstances "Typedef"             = TypedefNames
+  AnnFunPtrInstances "Typedef"             = NewtypeNames
+  AnnFunPtrInstances "TypedefFun"          = Hs.Type
+  AnnFunPtrInstances "TypedefFunIndirect"  = AuxNames
   AnnFunPtrInstances "TranslatedMacroType" = NewtypeNames
   AnnFunPtrInstances "Union"               = NewtypeNames
   AnnFunPtrInstances _                     = NoAnn

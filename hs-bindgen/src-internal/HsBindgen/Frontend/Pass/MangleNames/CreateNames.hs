@@ -33,6 +33,7 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
@@ -71,7 +72,8 @@ type family AnnCreateNames ix where
   AnnCreateNames "Enum"                 = NewtypeNames
   AnnCreateNames "Flam"                 = FlamNames
   AnnCreateNames "Struct"               = StructNames
-  AnnCreateNames "Typedef"              = TypedefNames
+  AnnCreateNames "Typedef"              = NewtypeNames
+  AnnCreateNames "TypedefFunIndirect"   = AuxNames
   AnnCreateNames "TypecheckedMacroType" = NewtypeNames
   AnnCreateNames "Union"                = NewtypeNames
   AnnCreateNames _                      = NoAnn
@@ -479,24 +481,14 @@ createNewtypeNames strategy name = do
       , field      = field
       }
 
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1925>
---
--- Whether we need the auxiliary name or not should be reflected in the AST, so
--- we can use an annotation just like we do for FLAMs.
-createTypedefNames ::
-  Bool -> FieldNamingStrategy -> Text -> CreateE TypedefNames
-createTypedefNames isFunPtr strategy name = do
-    orig <- createNewtypeNames strategy name
-    aux  <-
-      if isFunPtr then do
-        auxName  <- mkName (Proxy @Hs.NsTypeConstr) $ name <> "_Aux"
-        auxNames <- createNewtypeNames strategy auxName.text
-        pure $ Just (auxName, auxNames)
-      else
-        pure Nothing
-    pure TypedefNames{
-        orig = orig
-      , aux  = aux
+-- | Names of the auxiliary newtype of a typedef, given the typedef name
+createAuxNames :: FieldNamingStrategy -> Text -> CreateE AuxNames
+createAuxNames strategy name = do
+    typeConstr   <- mkName (Proxy @Hs.NsTypeConstr) $ name <> "_Aux"
+    newtypeNames <- createNewtypeNames strategy typeConstr.text
+    pure AuxNames{
+        typeConstr   = typeConstr
+      , newtypeNames = newtypeNames
       }
 
 {-------------------------------------------------------------------------------
@@ -690,18 +682,24 @@ createTypedef ::
      Text -> C.Typedef ResolveBindingSpecs -> CreateE (C.Typedef CreateNames)
 createTypedef hsName typedef = do
     strategy <- asks (.fieldNamingStrategy)
-    names    <- createTypedefNames isFunPtr strategy hsName
+    names    <- createNewtypeNames strategy hsName
+    typ'     <- case typedef.typ of
+      C.TypedefFun sig NoAnn ->
+        pure $ C.TypedefFun (coerceSig sig) NoAnn
+      C.TypedefFunIndirect indirections sig NoAnn ->
+        C.TypedefFunIndirect indirections (coerceSig sig)
+          <$> createAuxNames strategy hsName
+      C.TypedefOther typ ->
+        pure $ C.TypedefOther (coercePass typ)
     pure C.Typedef{
-        typ = coercePass typedef.typ
+        typ = typ'
       , ann = names
       }
   where
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1925
-    --
-    -- Tie generation of names to the generation of the associated code. This
-    -- is especially ugly.
-    isFunPtr :: Bool
-    isFunPtr = isJust $ C.getFirstFunTypeIndirection typedef.typ
+    coerceSig ::
+         FunSig (C.TypeFunArg ResolveBindingSpecs) (C.Type ResolveBindingSpecs)
+      -> FunSig (C.TypeFunArg CreateNames) (C.Type CreateNames)
+    coerceSig = bimap coercePass coercePass
 
 createFunction ::
      C.Function ResolveBindingSpecs -> CreateE (C.Function CreateNames)

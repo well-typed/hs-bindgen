@@ -49,7 +49,8 @@ getKnownType decl = case decl.kind of
     declId = decl.id
 
     getKnownTypedef :: C.Typedef In -> CType
-    getKnownTypedef typedef = C.TypeTypedef $ C.Ref decl.id $ coercePass typedef.typ
+    getKnownTypedef typedef =
+      C.TypeTypedef $ C.Ref decl.id $ coercePass (C.typedefType typedef.typ)
 
     knownStructOrUnion :: CType
     knownStructOrUnion = C.TypeRef decl.id
