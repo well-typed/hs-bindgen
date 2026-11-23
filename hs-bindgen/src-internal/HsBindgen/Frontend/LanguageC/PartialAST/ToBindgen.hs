@@ -36,16 +36,11 @@ fromNamedDecl partialDecl = do
 
 fromFunDecl ::
      PartialDecl
-  -> FromLanC (
-         CName
-       , ( [(Maybe CName, C.Type LanC)]
-         , C.Type LanC
-         )
-       )
+  -> FromLanC (CName, FunSig (Maybe CName, C.Type LanC) (C.Type LanC))
 fromFunDecl partialDecl = do
-    name          <- partialFromJust partialDecl.name
-    (params, res) <- fromTopLevelFun =<< fromPartialType partialDecl.typ
-    return (name, (params, res))
+    name <- partialFromJust partialDecl.name
+    sig  <- fromTopLevelFun =<< fromPartialType partialDecl.typ
+    return (name, sig)
 
 {-------------------------------------------------------------------------------
   Types
@@ -87,10 +82,7 @@ fromUnknownType uty =
 fromKnownType :: KnownType -> C.Type LanC
 fromKnownType = \case
     KnownType   typ        -> typ
-    TopLevelFun params res -> C.TypeFun FunSig{
-        args = map (mkTypeFunArg . snd) params
-      , res  = res
-      }
+    TopLevelFun sig -> C.TypeFun $ first (mkTypeFunArg . snd) sig
   where
     mkTypeFunArg typ = C.TypeFunArgF {
           typ = typ
@@ -99,12 +91,9 @@ fromKnownType = \case
 
 fromTopLevelFun ::
      KnownType
-  -> FromLanC (
-         [(Maybe CName, C.Type LanC)]
-       , C.Type LanC
-       )
+  -> FromLanC (FunSig (Maybe CName, C.Type LanC) (C.Type LanC))
 fromTopLevelFun = \case
-    TopLevelFun params res -> return (params, res)
+    TopLevelFun sig -> return sig
     other -> unexpected $ show other
 
 {-------------------------------------------------------------------------------

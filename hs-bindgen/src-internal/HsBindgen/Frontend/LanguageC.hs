@@ -44,6 +44,7 @@ import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.LanC
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 
 #if !MIN_VERSION_language_c(0,10,2)
 import HsBindgen.Language.C qualified as C
@@ -60,14 +61,9 @@ type Parser a =
 
 -- | Reparse function declaration
 --
--- Returns the function parameters, function result, and function name.
+-- Returns the function signature (with parameter names) and the function name.
 reparseFunDecl ::
-     Parser (
-         ( [(Maybe CName, C.Type LanC)]
-         , C.Type LanC
-         )
-       , CName
-       )
+     Parser (FunSig (Maybe CName, C.Type LanC) (C.Type LanC), CName)
 reparseFunDecl = parseWith (fmap swap . fromFunDecl)
 
 -- | Reparse typedef
