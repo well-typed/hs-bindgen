@@ -12,7 +12,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DelayedMsg
-import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
+import HsBindgen.Frontend.Pass.MangleNames.IsPass (AuxNames (..), MangleNames)
 import HsBindgen.Frontend.Pass.TranslateTypes.Error
 import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
@@ -166,15 +166,22 @@ processTypedef typedef = do
       }
   where
     typ' :: C.TypedefType TranslateTypes
+    -- | The type the newtype wraps
     hs   :: Hs.Type
     (typ', hs) = case typedef.typ of
       C.TypedefFun sig NoAnn ->
         let hsFun = Translation.topLevel (C.TypeFun sig)
         in  (C.TypedefFun (coerceSig sig) hsFun, hsFun)
       C.TypedefFunIndirect indirections sig auxNames ->
-        ( C.TypedefFunIndirect indirections (coerceSig sig) auxNames
-        , Translation.topLevel (C.typedefType typedef.typ)
-        )
+        let auxHs  = Translation.topLevel (C.TypeFun sig)
+            mainHs = Translation.indirectionsType indirections $
+              Hs.TypRef auxNames.typeConstr
+            types  = AuxTypes{
+                names    = auxNames
+              , funType  = auxHs
+              , mainType = mainHs
+              }
+        in  (C.TypedefFunIndirect indirections (coerceSig sig) types, mainHs)
       C.TypedefOther typ ->
         let translated = processType Translation.Top typ
         in  (C.TypedefOther translated, translated.hs)

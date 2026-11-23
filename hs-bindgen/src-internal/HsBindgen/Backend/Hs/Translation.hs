@@ -40,10 +40,10 @@ import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass (AuxTypes (..))
 import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo (SugarInfos)
 import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro (TranslatedMacro (..),
                                                                TranslatedMacroType (..))
-import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Frontend.PrettyC qualified as PC
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
@@ -143,9 +143,9 @@ generateDecs funPtrNewtypes decl =
           C.TypedefFun _sig hs ->
             HsM.immediateM $ typedefDecs funPtrNewtypes decl
               (Origin.Typedef typedef) typedef.names hs spec
-          C.TypedefFunIndirect indirections sig auxNames ->
-            typedefFunTypeIndirectionDecs funPtrNewtypes decl typedef
-              indirections sig auxNames spec
+          C.TypedefFunIndirect _indirections sig aux ->
+            typedefFunTypeIndirectionDecs funPtrNewtypes decl typedef sig aux
+              spec
           C.TypedefOther typ ->
             HsM.immediateM $ typedefDecs funPtrNewtypes decl
               (Origin.Typedef typedef) typedef.names typ.hs spec
@@ -565,20 +565,19 @@ typedefFunTypeIndirectionDecs ::
   => FunPtrNewtypes
   -> C.Decl l Final
   -> C.Typedef Final
-  -> NonEmpty C.Indirection
   -> FunSig (C.TypeFunArg Final) (C.Type Final)
-  -> AuxNames
+  -> AuxTypes
   -> PrescriptiveDeclSpec
   -> HsM (HsM.Action [Hs.Decl l])
 typedefFunTypeIndirectionDecs
-  funPtrNewtypes origDecl origTypedef indirections sig auxNames origSpec =
+  funPtrNewtypes origDecl origTypedef sig aux origSpec =
     fmap HsM.concatSequence $ sequence [
         HsM.delayM     $ typedefDecs funPtrNewtypes auxDecl
-                           (Origin.Aux auxTypedef) auxNames.newtypeNames
-                           auxHs auxSpec
+                           (Origin.Aux auxTypedef) aux.names.newtypeNames
+                           aux.funType auxSpec
       , HsM.immediateM $ typedefDecs funPtrNewtypes origDecl
                            (Origin.Typedef origTypedef) origTypedef.names
-                           mainHs origSpec
+                           aux.mainType origSpec
       ]
   where
     -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1759>
@@ -592,7 +591,7 @@ typedefFunTypeIndirectionDecs
     auxDeclIdPair = DeclIdPair{
           cName  = origDecl.id.cName
           -- Still refer to the /original/ C decl...?
-        , hsName = Hs.demoteNs auxNames.typeConstr
+        , hsName = Hs.demoteNs aux.names.typeConstr
         }
 
     auxDecl :: C.Decl l Final
@@ -616,13 +615,10 @@ typedefFunTypeIndirectionDecs
         , detailed = []
         }
 
-    auxHs :: Hs.Type
-    auxHs = Translation.topLevel (C.TypeFun sig)
-
     auxTypedef :: C.Typedef Final
     auxTypedef = C.Typedef{
-          typ = C.TypedefFun sig auxHs
-        , ann = auxNames.newtypeNames
+          typ = C.TypedefFun sig aux.funType
+        , ann = aux.names.newtypeNames
         }
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1379>
@@ -631,13 +627,6 @@ typedefFunTypeIndirectionDecs
     auxSpec = PrescriptiveDeclSpec{
           cSpec  = Nothing
         , hsSpec = Nothing
-        }
-
-    mainHs :: Hs.Type
-    mainHs = Translation.topLevel $
-      C.applyIndirections (toList indirections) $ C.TypeTypedef $ C.Ref{
-          name       = auxDecl.id
-        , underlying = C.TypeFun sig
         }
 
 {-------------------------------------------------------------------------------

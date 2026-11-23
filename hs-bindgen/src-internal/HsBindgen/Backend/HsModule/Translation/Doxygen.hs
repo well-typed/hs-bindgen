@@ -27,6 +27,7 @@ import HsBindgen.Backend.SHs.AST
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (AuxNames (..),
                                                    FlamNames (..))
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass (AuxTypes (..))
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Translation
@@ -146,8 +147,8 @@ computeExportTags doxy decls =
     auxEntries :: C.DeclKind l Final -> ExportGroupTag -> [(Text, ExportGroupTag)]
     auxEntries kind tag = case kind of
       C.DeclTypedef typedef
-        | C.TypedefFunIndirect _ _ auxNames <- typedef.typ ->
-            [(auxNames.typeConstr.text, tag)]
+        | C.TypedefFunIndirect _ _ aux <- typedef.typ ->
+            [(aux.names.typeConstr.text, tag)]
       C.DeclStruct struct
         | C.Flam _ flamNames <- struct.flam ->
             [(flamNames.aux.text, tag)]

@@ -7,6 +7,7 @@ import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass.Msg
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro (TranslatedMacro)
 import HsBindgen.IR.AddressStub (AddressStub)
 import HsBindgen.IR.C qualified as C
@@ -34,7 +35,7 @@ type family AnnFunPtrInstances ix where
   AnnFunPtrInstances "Struct"              = StructNames
   AnnFunPtrInstances "Typedef"             = NewtypeNames
   AnnFunPtrInstances "TypedefFun"          = Hs.Type
-  AnnFunPtrInstances "TypedefFunIndirect"  = AuxNames
+  AnnFunPtrInstances "TypedefFunIndirect"  = AuxTypes
   AnnFunPtrInstances "TranslatedMacroType" = NewtypeNames
   AnnFunPtrInstances "Union"               = NewtypeNames
   AnnFunPtrInstances _                     = NoAnn

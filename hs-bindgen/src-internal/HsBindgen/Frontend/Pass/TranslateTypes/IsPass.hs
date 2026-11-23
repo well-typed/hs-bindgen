@@ -1,7 +1,11 @@
 module HsBindgen.Frontend.Pass.TranslateTypes.IsPass (
     -- * Definition
     TranslateTypes
+    -- * Additional types
+  , AuxTypes(..)
   ) where
+
+import GHC.Generics (Generic)
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
@@ -33,12 +37,34 @@ type family AnnTranslateTypes ix where
   AnnTranslateTypes "Struct"              = StructNames
   AnnTranslateTypes "Typedef"             = NewtypeNames
   AnnTranslateTypes "TypedefFun"          = Hs.Type
-  AnnTranslateTypes "TypedefFunIndirect"  = AuxNames
+  AnnTranslateTypes "TypedefFunIndirect"  = AuxTypes
   AnnTranslateTypes "TranslatedMacroType" = NewtypeNames
   AnnTranslateTypes "Union"               = NewtypeNames
   AnnTranslateTypes _                     = NoAnn
 
 instance IsPass TranslateTypes
+
+{-------------------------------------------------------------------------------
+  Additional types
+-------------------------------------------------------------------------------}
+
+-- | Auxiliary newtype of a typedef with a function type behind indirections,
+-- with the types that it and the typedef's newtype wrap
+--
+-- > typedef int (*P)(char);
+--
+-- > newtype P_Aux = P_Aux (FC.CChar -> IO FC.CInt)
+-- > newtype P     = P (Ptr.FunPtr P_Aux)
+data AuxTypes = AuxTypes {
+      names    :: AuxNames
+      -- | The function type, translated at the top level (@FC.CChar -> IO
+      -- FC.CInt@)
+    , funType  :: Hs.Type
+      -- | The indirections around a reference to the auxiliary newtype
+      -- (@Ptr.FunPtr P_Aux@)
+    , mainType :: Hs.Type
+    }
+  deriving stock (Show, Eq, Generic)
 
 instance PassId TranslateTypes where
   type Id TranslateTypes = DeclIdPair

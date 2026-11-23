@@ -14,9 +14,13 @@ module HsBindgen.Frontend.Pass.TranslateTypes.Translation (
     -- * Pointers
   , Pointee(..)
   , pointee
+    -- * Indirections
+  , indirectionsType
   ) where
 
 import Data.Bifunctor (bimap)
+import Data.Foldable (toList)
+import Data.List.NonEmpty (NonEmpty)
 import Data.Proxy (Proxy (..))
 import GHC.Stack
 
@@ -110,14 +114,7 @@ typeInContext ctx = \case
       Hs.TypRef
         (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
     C.TypePointers n ty ->
-      let innermost = case pointee ty of
-            PointeeFunction    -> Hs.FunPtr
-            PointeeConstObject -> Hs.PtrConst
-            PointeeObject      -> Hs.Ptr
-      in  foldr
-            ($)
-            (innermost $ typeInContext PtrArg ty)
-            (replicate (n - 1) Hs.Ptr)
+      pointers n (pointee ty) (typeInContext PtrArg ty)
     C.TypeConstArray n ty ->
       Hs.ConstArray n (typeInContext Top ty)
     C.TypeIncompleteArray ty ->
@@ -156,6 +153,24 @@ pointee ty
     | C.isErasedTypeConstQualified ty = PointeeConstObject
     | otherwise                       = PointeeObject
 
+-- | Haskell type of one or more pointers
+--
+-- The innermost pointer points to the given 'Pointee'; any others point to
+-- pointers.
+pointers ::
+     Int     -- ^ Number of pointers, at least one
+  -> Pointee -- ^ What the innermost pointer points to
+  -> Hs.Type -- ^ Haskell type of the pointee
+  -> Hs.Type
+pointers n p ty =
+    foldr ($) (innermost ty) (replicate (n - 1) Hs.Ptr)
+  where
+    innermost :: Hs.Type -> Hs.Type
+    innermost = case p of
+      PointeeFunction    -> Hs.FunPtr
+      PointeeConstObject -> Hs.PtrConst
+      PointeeObject      -> Hs.Ptr
+
 -- | Translate @void@
 --
 -- This only makes sense in non-top-level contexts.  (We take special care in
@@ -165,6 +180,60 @@ void = \case
     FunRes -> Hs.PrimUnit
     PtrArg -> Hs.PrimVoid
     c      -> panicPure ("Unexpected type void in context " ++ show c)
+
+{-------------------------------------------------------------------------------
+  Indirections
+-------------------------------------------------------------------------------}
+
+-- | Haskell type of a function type behind indirections
+--
+-- Translates @C.applyIndirections indirections fun@ at the top level, given the
+-- Haskell type of @fun@: a function type, or a reference to one, such as the
+-- auxiliary newtype of a typedef. As 'pointee' sees through typedefs and
+-- qualifiers, each 'Pointee' follows from the indirections below the pointer:
+--
+-- * only qualifiers below: 'PointeeFunction';
+-- * a @const@ qualifier below, possibly behind arrays: 'PointeeConstObject';
+-- * otherwise: 'PointeeObject'.
+--
+-- The 'TypeContext' does not matter: it affects only the translation of
+-- @void@, which cannot occur in the indirections, and the function type is
+-- translated independently of its context.
+indirectionsType ::
+     NonEmpty C.Indirection -- ^ Outermost first
+  -> Hs.Type                -- ^ Haskell type of the function type
+  -> Hs.Type
+indirectionsType indirections fun = go (toList indirections)
+  where
+    go :: [C.Indirection] -> Hs.Type
+    go = \case
+      []                        -> fun
+      C.Pointers n       : rest -> pointers n (pointeeOf rest) (go rest)
+      C.ConstArray n     : rest -> Hs.ConstArray n (go rest)
+      C.IncompleteArray  : rest -> Hs.IncompleteArray (go rest)
+      C.Block            : rest -> Hs.Block (go rest)
+      C.Qual C.QualConst : rest -> go rest
+
+    -- | What a pointer points to, given the indirections below it
+    pointeeOf :: [C.Indirection] -> Pointee
+    pointeeOf rest
+      | all isQual rest     = PointeeFunction
+      | constQualified rest = PointeeConstObject
+      | otherwise           = PointeeObject
+
+    isQual :: C.Indirection -> Bool
+    isQual = \case
+      C.Qual _   -> True
+      _otherwise -> False
+
+    -- Mirrors 'C.isErasedTypeConstQualified': arrays are @const@-qualified if
+    -- their element type is.
+    constQualified :: [C.Indirection] -> Bool
+    constQualified = \case
+      C.Qual C.QualConst : _    -> True
+      C.ConstArray _     : rest -> constQualified rest
+      C.IncompleteArray  : rest -> constQualified rest
+      _otherwise                -> False
 
 {-------------------------------------------------------------------------------
   Function argument types

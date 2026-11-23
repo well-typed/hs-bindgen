@@ -54,7 +54,7 @@ type family AnnSelect ix where
   AnnSelect "Struct"              = StructNames
   AnnSelect "Typedef"             = NewtypeNames
   AnnSelect "TypedefFun"          = Hs.Type
-  AnnSelect "TypedefFunIndirect"  = AuxNames
+  AnnSelect "TypedefFunIndirect"  = AuxTypes
   AnnSelect "TranslatedMacroType" = NewtypeNames
   AnnSelect "Union"               = NewtypeNames
   AnnSelect _                     = NoAnn
