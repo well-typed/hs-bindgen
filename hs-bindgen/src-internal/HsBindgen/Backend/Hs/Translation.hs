@@ -103,8 +103,7 @@ generateDeclarations' env insts decs =
                    | inst <- insts
                    , d <- ToFromFunPtr.forInstance inst
                    ]
-      hsDeclsAction <- mapM (generateDecs funPtrNewtypes) decs
-      hsDecls <- HsM.runAction $ fmap concat $ sequence hsDeclsAction
+      hsDecls <- concat <$> mapM (generateDecs funPtrNewtypes) decs
       pure $ hsDecls ++ fFIStubsAndFunPtrInstances
   where
     funPtrNewtypes :: FunPtrNewtypes
@@ -125,31 +124,31 @@ type FunPtrNewtypes = Set (Hs.Name Hs.NsTypeConstr)
 generateDecs ::
      FunPtrNewtypes
   -> C.Decl l Final
-  -> HsM (HsM.Action [WithCategory (Hs.Decl l)])
+  -> HsM [WithCategory (Hs.Decl l)]
 generateDecs funPtrNewtypes decl =
     case decl.kind of
       C.DeclStruct struct -> withCategoryM CType $
-        HsM.immediateM $ structDecs decl struct spec
+        structDecs decl struct spec
       C.DeclUnion union -> withCategoryM CType $
-        HsM.immediateM $ unionDecs decl union spec
+        unionDecs decl union spec
       C.DeclEnum enum -> withCategoryM CType $
-        HsM.immediateM $ enumDecs decl enum spec
+        enumDecs decl enum spec
       C.DeclUntaggedEnumConstant enumConst -> withCategoryM CType $ do
-        HsM.immediateM $ untaggedEnumConstantDecs decl enumConst
+        untaggedEnumConstantDecs decl enumConst
       C.DeclTypedef typedef -> withCategoryM CType $
         case typedef.typ of
           C.TypedefFun _sig hs ->
-            HsM.immediateM $ typedefDecs funPtrNewtypes
+            typedefDecs funPtrNewtypes
               (typedefOrigin decl typedef spec) (mkHaddocks decl)
               typedef.names hs
           C.TypedefFunIndirect _indirections _sig aux ->
             typedefFunTypeIndirectionDecs funPtrNewtypes decl typedef aux spec
           C.TypedefOther typ ->
-            HsM.immediateM $ typedefDecs funPtrNewtypes
+            typedefDecs funPtrNewtypes
               (typedefOrigin decl typedef spec) (mkHaddocks decl)
               typedef.names typ.hs
       C.DeclOpaque mSize -> withCategoryM CType $
-        HsM.immediateM $ opaqueDecs decl spec mSize
+        opaqueDecs decl spec mSize
       C.DeclFunction function -> do
         let funDeclsWith safety =
               functionDecs safety decl function spec
@@ -162,30 +161,20 @@ generateDecs funPtrNewtypes decl =
                   function.addressStub
                   HaskellId
                   spec
-        safes   <- withCategoryM (CTerm CSafe)   (HsM.immediateM $ funDeclsWith SHs.Safe)
-        unsafes <- withCategoryM (CTerm CUnsafe) (HsM.immediateM $ funDeclsWith SHs.Unsafe)
-        funPtrs <- withCategoryM (CTerm CFunPtr) (HsM.immediateM $ funPtrDecls)
-        pure $ HsM.concatSequence [safes, unsafes, funPtrs]
+        safes   <- withCategoryM (CTerm CSafe)   (funDeclsWith SHs.Safe)
+        unsafes <- withCategoryM (CTerm CUnsafe) (funDeclsWith SHs.Unsafe)
+        funPtrs <- withCategoryM (CTerm CFunPtr) funPtrDecls
+        pure $ safes ++ unsafes ++ funPtrs
       C.DeclMacro macro -> withCategoryM CType $
-        HsM.immediateM $ macroDecs decl macro spec
+        macroDecs decl macro spec
       C.DeclGlobal g -> withCategoryM (CTerm CGlobal) $
-        HsM.immediateM $ global decl g spec
+        global decl g spec
   where
     spec :: PrescriptiveDeclSpec
     spec = decl.ann
 
-    withCategory ::
-         Category
-      -> HsM.Action [a]
-      -> HsM.Action [WithCategory a]
-    withCategory c = fmap (map (WithCategory c))
-
-    withCategoryM ::
-         Functor m
-      => Category
-      -> m (HsM.Action [a])
-      -> m (HsM.Action [WithCategory a])
-    withCategoryM c = fmap (withCategory c)
+    withCategoryM :: Category -> HsM [a] -> HsM [WithCategory a]
+    withCategoryM c = fmap (map (WithCategory c))
 
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum
@@ -567,16 +556,14 @@ typedefFunTypeIndirectionDecs ::
   -> C.Typedef Final
   -> AuxTypes
   -> PrescriptiveDeclSpec
-  -> HsM (HsM.Action [Hs.Decl l])
+  -> HsM [Hs.Decl l]
 typedefFunTypeIndirectionDecs funPtrNewtypes origDecl origTypedef aux origSpec =
-    fmap HsM.concatSequence $ sequence [
-        HsM.delayM     $ typedefDecs funPtrNewtypes auxOrigin
-                           (mkHaddocksAux origDecl) aux.names.newtypeNames
-                           aux.funType
-      , HsM.immediateM $ typedefDecs funPtrNewtypes
-                           (typedefOrigin origDecl origTypedef origSpec)
-                           (mkHaddocks origDecl) origTypedef.names aux.mainType
-      ]
+    (++)
+      <$> typedefDecs funPtrNewtypes auxOrigin
+            (mkHaddocksAux origDecl) aux.names.newtypeNames aux.funType
+      <*> typedefDecs funPtrNewtypes
+            (typedefOrigin origDecl origTypedef origSpec)
+            (mkHaddocks origDecl) origTypedef.names aux.mainType
   where
     auxOrigin :: Origin.Decl Origin.Newtype
     auxOrigin = Origin.Decl{

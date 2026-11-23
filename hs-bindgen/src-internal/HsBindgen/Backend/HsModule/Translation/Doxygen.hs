@@ -103,10 +103,9 @@ data ExportGroupTag =
 --
 --  * Typedef function pointers contribute an auxiliary newtype @F_Aux@ whose
 --    name comes from the @AuxNames@ carried by the typedef's
---    @C.TypedefFunIndirect@ type; the @_Aux@ form is delayed during
---    Hs translation and therefore not adjacent to its parent in source
---    order, so an entry under its own Hs name is necessary to keep it in
---    its parent's section.
+--    @C.TypedefFunIndirect@ type; the @_Aux@ form precedes its parent in the
+--    output, so without an entry under its own Hs name it would be 'Derived'
+--    and take the section of the preceding declaration, not its parent's.
 --  * Structs with flexible array members contribute an auxiliary type whose
 --    name comes from the @FlamNames@ carried by the struct's @C.Flam@ field
 --    (@struct.flam@); same reasoning.
