@@ -98,7 +98,7 @@ getInstances instanceMap name = aux
           Hs.PtrConst{} -> aux (acc /\ ptrInsts) hsTypes
           Hs.IO t  -> aux (acc /\ ioInsts) (t : hsTypes)
           Hs.Fun arg res -> aux (acc /\ funInsts) (arg : res : hsTypes)
-          Hs.ExtBinding _ref _cTypeSpec hsTypeSpec _ ->
+          Hs.ExtBinding _ref _cTypeSpec hsTypeSpec ->
             let acc' = acc /\ hsTypeSpecInsts hsTypeSpec
             in  aux acc' hsTypes
           Hs.ByteArray{} ->

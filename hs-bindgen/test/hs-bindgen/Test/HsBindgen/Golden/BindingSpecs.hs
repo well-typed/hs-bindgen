@@ -4,8 +4,12 @@ module Test.HsBindgen.Golden.BindingSpecs (testCases) where
 import System.FilePath ((<.>), (</>))
 
 import HsBindgen.Config.Internal
+import HsBindgen.Frontend.DeclDB (PassFailure (TranslateTypesFailed))
 import HsBindgen.Frontend.Pass.Select.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
+import HsBindgen.Frontend.Pass.TranslateTypes.Error (FunPositionError (FunPositionNoFFIType),
+                                                     TranslateTypesError (TranslateTypesFunctionError))
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (DelayedTranslateTypesMsg (TranslateTypesFFITypes),
+                                                          FFITypesMsg (FFITypesExtBindingNotSpecified))
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
@@ -265,19 +269,21 @@ test_fun_arg_typedef_union =
     test_fun_arg_typedef "binding-specs/fun_arg/typedef/union"
 
 -- | An external binding passed directly whose binding specification gives no
--- FFI type: we warn and assume the FFI type of the underlying C type.
+-- FFI type: we fail to generate bindings.
 test_fun_arg_typedef_no_ffitype :: TestCase
 test_fun_arg_typedef_no_ffitype =
     test_fun_arg_typedef "binding-specs/fun_arg/typedef/no_ffitype"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchDelayedTranslateTypes name (TranslateTypesFFITypes _ FFITypesExtBindingFallback{}) ->
+            MatchDelayedTranslateTypes name (TranslateTypesFFITypes _ FFITypesExtBindingNotSpecified{}) ->
+              Just $ Expected name
+            MatchPassFailed name (TranslateTypesFailed (TranslateTypesFunctionError (FunPositionNoFFIType{} :| []))) ->
               Just $ Expected name
             _otherwise ->
               Nothing
           )
   where
     declsWithMsgs :: [C.DeclName]
-    declsWithMsgs = ["foo", "bar"]
+    declsWithMsgs = ["foo", "foo", "bar", "bar"]
 
 -- | Test that @hs-bindgen@ can detect whether an external binding reference in
 -- a function argument references a typedef.

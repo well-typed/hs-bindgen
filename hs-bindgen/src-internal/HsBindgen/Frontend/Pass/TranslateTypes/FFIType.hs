@@ -20,7 +20,7 @@ import HsBindgen.Frontend.Pass.TranslateTypes.Translation (Pointee (..))
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
 
-
+type M = Writer [FFITypesMsg]
 
 toFFIType :: SugarInfos -> Hs.Type -> Maybe Hs.FFIType
 toFFIType sugars = fst . runWriter . toFFITypeWithMsgs sugars
@@ -28,18 +28,18 @@ toFFIType sugars = fst . runWriter . toFFITypeWithMsgs sugars
 toFFITypeWithMsgs ::
      SugarInfos
   -> Hs.Type
-  -> Writer [FFITypesMsg] (Maybe Hs.FFIType)
+  -> M (Maybe Hs.FFIType)
 toFFITypeWithMsgs sugars = go
   where
-    no :: Writer [FFITypesMsg] (Maybe Hs.FFIType)
+    no :: M (Maybe Hs.FFIType)
     no = pure Nothing
 
-    yes :: Hs.FFIType -> Writer [FFITypesMsg] (Maybe Hs.FFIType)
+    yes :: Hs.FFIType -> M (Maybe Hs.FFIType)
     yes = pure . Just
 
-    go :: Hs.Type -> Writer [FFITypesMsg] (Maybe Hs.FFIType)
+    go :: Hs.Type -> M (Maybe Hs.FFIType)
     go = \case
-      Hs.PrimType pt          -> pure $ goPrim pt
+      Hs.PrimType pt          -> goPrim pt
       Hs.TypRef ref t         ->
         lookupSugarInfoM ref sugars >>= \case
           MissingSugarInfo        -> maybe no go t
@@ -54,12 +54,10 @@ toFFITypeWithMsgs sugars = go
       Hs.PtrConst{}           -> yes Hs.FFIPtrVoid
       Hs.IO{}                 -> no
       Hs.Fun{}                -> no
-      Hs.ExtBinding ref _cSpec hsSpec t' ->
+      Hs.ExtBinding ref _cSpec hsSpec ->
         case BindingSpec.hsSpecFFIType hsSpec of
           Just hsFFIType -> yes $ Hs.FFIExternal hsFFIType.unwrap
-          Nothing -> do
-            mFFIType <- go t'
-            censor (maybe id (\ffiType -> (FFITypesExtBindingFallback (ExtBindingFallback ref ffiType) :)) mFFIType) $ pure mFFIType
+          Nothing        -> censor (FFITypesExtBindingNotSpecified ref :) no
       Hs.ByteArray            -> no
       Hs.SizedByteArray{}     -> no
       Hs.Block{}              -> yes Hs.FFIPtrVoid
@@ -69,28 +67,28 @@ toFFITypeWithMsgs sugars = go
       Hs.EquivStorable{}      -> no
       Hs.IsStructViaReadRaw{} -> no
 
-    goPrim :: Hs.PrimType -> Maybe Hs.FFIType
+    goPrim :: Hs.PrimType -> M (Maybe Hs.FFIType)
     goPrim = \case
-        Hs.PrimVoid    -> Nothing
-        Hs.PrimUnit    -> Nothing
+        Hs.PrimVoid    -> no
+        Hs.PrimUnit    -> no
         -- We never generate foreign imports with the Haskell-specific @Int@
         -- type. We use @CInt@ or similar instead.
-        Hs.PrimInt     -> Nothing
+        Hs.PrimInt     -> no
         -- Primitive types that correspond to C keywords
-        Hs.PrimCChar   -> Just Hs.FFIPrimCChar
-        Hs.PrimCSChar  -> Just Hs.FFIPrimCSChar
-        Hs.PrimCUChar  -> Just Hs.FFIPrimCUChar
-        Hs.PrimCShort  -> Just Hs.FFIPrimCShort
-        Hs.PrimCUShort -> Just Hs.FFIPrimCUShort
-        Hs.PrimCInt    -> Just Hs.FFIPrimCInt
-        Hs.PrimCUInt   -> Just Hs.FFIPrimCUInt
-        Hs.PrimCLong   -> Just Hs.FFIPrimCLong
-        Hs.PrimCULong  -> Just Hs.FFIPrimCULong
-        Hs.PrimCLLong  -> Just Hs.FFIPrimCLLong
-        Hs.PrimCULLong -> Just Hs.FFIPrimCULLong
-        Hs.PrimCBool   -> Just Hs.FFIPrimCBool
-        Hs.PrimCFloat  -> Just Hs.FFIPrimCFloat
-        Hs.PrimCDouble -> Just Hs.FFIPrimCDouble
+        Hs.PrimCChar   -> yes Hs.FFIPrimCChar
+        Hs.PrimCSChar  -> yes Hs.FFIPrimCSChar
+        Hs.PrimCUChar  -> yes Hs.FFIPrimCUChar
+        Hs.PrimCShort  -> yes Hs.FFIPrimCShort
+        Hs.PrimCUShort -> yes Hs.FFIPrimCUShort
+        Hs.PrimCInt    -> yes Hs.FFIPrimCInt
+        Hs.PrimCUInt   -> yes Hs.FFIPrimCUInt
+        Hs.PrimCLong   -> yes Hs.FFIPrimCLong
+        Hs.PrimCULong  -> yes Hs.FFIPrimCULong
+        Hs.PrimCLLong  -> yes Hs.FFIPrimCLLong
+        Hs.PrimCULLong -> yes Hs.FFIPrimCULLong
+        Hs.PrimCBool   -> yes Hs.FFIPrimCBool
+        Hs.PrimCFloat  -> yes Hs.FFIPrimCFloat
+        Hs.PrimCDouble -> yes Hs.FFIPrimCDouble
 
 toFFIResType :: SugarInfos -> Hs.Type -> Maybe Hs.FFIResType
 toFFIResType sugars = \case

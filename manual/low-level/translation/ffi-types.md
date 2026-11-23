@@ -99,9 +99,9 @@ hstypes:
 Again, any `newtype` `U` that `hs-bindgen` generates that wraps such an external
 type `T` will adopt `T`'s FFI type.
 
-If the field is omitted from an external binding specification, then
-`hs-bindgen` will default to assigning a primitive FFI type again based on `T`'s
-*underlying C type*: the C type corresponding to `T` as reported by `libclang`.
+If the `ffitype` field is omitted from an external binding specification, then
+`hs-bindgen` will drop bindings (involving `foreign import`s) that reference `T`
+with a warning.
 
 > [!NOTE]
 >
