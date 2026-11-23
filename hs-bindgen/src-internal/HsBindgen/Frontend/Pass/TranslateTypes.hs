@@ -131,7 +131,7 @@ processImplicitField field = do
     indirect' <- mapM processIndirectField field.indirect
     pure C.ImplicitField{
         info     = coercePass field.info
-      , typRef   = processAnonRef Translation.Top field.typRef
+      , typRef   = processType Translation.Top field.typRef
       , offset   = field.offset
       , indirect = indirect'
       , ann      = field.ann
@@ -143,7 +143,7 @@ processIndirectField field = pure C.IndirectField{
     , typ    = processType Translation.Top field.typ
     , offset = field.offset
     , width  = field.width
-    , path   = map (processAnonRef Translation.Top) field.path
+    , path   = map (processType Translation.Top) field.path
     , ann    = coercePassAnn (Proxy @'("IndirectField", MangleNames, TranslateTypes)) field.ann
     }
 
@@ -215,7 +215,7 @@ processFunctionArg i arg = do
         index = i
       , name  = (.cName) <$> arg.name
       }
-    typ' = processTypeFunArg Translation.FunArg arg.typ
+    typ' = processType Translation.FunArg arg.typ
 
 processFunctionRes ::
      C.FunctionRes MangleNames
@@ -251,30 +251,15 @@ processGlobal global = pure C.Global{
 -------------------------------------------------------------------------------}
 
 processType ::
-     Translation.TypeContext
-  -> C.Type MangleNames
-  -> TranslatedTypes TranslateTypes
+     ( CoercePass f MangleNames TranslateTypes
+     , Translation.InContext (f MangleNames)
+     )
+  => Translation.TypeContext
+  -> f MangleNames
+  -> Translated f TranslateTypes
 processType ctx typ = Translated{
       c  = coercePass typ
     , hs = Translation.inContext ctx typ
-    }
-
-processTypeFunArg ::
-     Translation.TypeContext
-  -> C.TypeFunArg MangleNames
-  -> TranslatedTypeFunArg TranslateTypes
-processTypeFunArg ctx typ = Translated{
-      c  = coercePass typ
-    , hs = Translation.inContext ctx typ
-    }
-
-processAnonRef ::
-     Translation.TypeContext
-  -> C.AnonRef MangleNames
-  -> TranslatedAnonRef TranslateTypes
-processAnonRef ctx typ = TranslatedAnonRef{
-      c = coercePass typ
-    , hs = Translation.inContext ctx (C.anonRefType typ)
     }
 
 {-------------------------------------------------------------------------------

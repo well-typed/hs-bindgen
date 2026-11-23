@@ -36,7 +36,7 @@ classifyResPassingMethod ::
   -> Hs.Type  -- ^ Translation of the result type
   -> Classified (ResPassingMethod p)
 classifyResPassingMethod ty hsType
-  -- Bad types
+  -- No value to pass
   | C.isVoid ty
   = pure $ Right PassResVoid
   -- Heap types: the Haskell FFI cannot pass them by value, so they cross it

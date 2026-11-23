@@ -13,7 +13,7 @@ module HsBindgen.IR.Translation (
   , Translated(..)
   , TranslatedTypes
   , TranslatedTypeFunArg
-  , TranslatedAnonRef(..)
+  , TranslatedAnonRef
   , translatedAnonRefType
   , translateCPrimType
   ) where
@@ -64,8 +64,8 @@ data ScopedNamePair = ScopedNamePair {
 
 -- | A C use-site type associated with its Haskell type translation
 data Translated (f :: Pass -> Star) (p :: Pass) = Translated {
-      -- | A t'C.Type' ('TranslatedTypes') or a t'C.TypeFunArg'
-      -- ('TranslatedTypeFunArg')
+      -- | A t'C.Type' ('TranslatedTypes'), a t'C.TypeFunArg'
+      -- ('TranslatedTypeFunArg') or a t'C.AnonRef' ('TranslatedAnonRef')
       --
       -- A t'C.TypeFunArg' keeps its annotation, on which the translation of the
       -- argument depends: an argument adjusted from an array type translates
@@ -90,20 +90,8 @@ type TranslatedTypes = Translated C.Type
 -- | A t'C.TypeFunArg' associated with its Haskell type translation
 type TranslatedTypeFunArg = Translated C.TypeFunArg
 
--- | A t'C.AnonRef' associated with possible Haskell type translations
-data TranslatedAnonRef (p :: Pass) = TranslatedAnonRef {
-      c :: C.AnonRef p
-    , hs :: Hs.Type
-    }
-  deriving stock (Eq, Generic, Show)
-
-instance (
-      CoercePass C.AnonRef p p'
-    ) => CoercePass TranslatedAnonRef p p' where
-  coercePass translatedAnonRef = TranslatedAnonRef {
-      c = coercePass translatedAnonRef.c
-    , hs = translatedAnonRef.hs
-    }
+-- | A t'C.AnonRef' associated with its Haskell type translation
+type TranslatedAnonRef = Translated C.AnonRef
 
 translatedAnonRefType :: TranslatedAnonRef p -> TranslatedTypes p
 translatedAnonRefType translatedAnonRef = Translated{
