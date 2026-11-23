@@ -141,7 +141,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
       Hs.DeclEmpty edata            -> insertType $ auxEmptyData edata
       Hs.DeclNewtype ntype          ->
         case ntype.origin.kind of
-          HsOrigin.Aux{} -> id
+          HsOrigin.Aux -> id
           _otherwise     -> insertType $ auxNewtype ntype
       Hs.DeclPatSyn{}               -> id
       Hs.DeclCompletePragma{}       -> id
