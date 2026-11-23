@@ -14,6 +14,7 @@ import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
 import HsBindgen.Frontend.Pass.TranslateTypes.Error
+import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
 import HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (Classified,
@@ -196,11 +197,13 @@ processMacroType ::
   -> DM l (TranslatedMacroType TranslateTypes)
 processMacroType macroType = do
     macroLang <- asks (.macroLang)
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/2357>: annotate
-    -- macro types with FFI types
+    let typ = macroLang.translateType (fmap macroVarToHsType macroType.body)
+    registerSugarInfoM $ Sugar typ
+    ffiType <- runFFITypeM TranslateTypesMacroFFIType (FFIType.toFFITypeWithMsgs typ)
     pure TranslatedMacroType {
-        typ = macroLang.translateType (fmap macroVarToHsType macroType.body)
-      , ann = macroType.ann
+        typ     = typ
+      , ffiType = ffiType
+      , ann     = macroType.ann
       }
   where
     macroVarToHsType :: MacroTypeBodyVar MangleNames -> Hs.Type
@@ -254,16 +257,11 @@ processFunctionRes res = do
   where
     typ' = processType Translation.FunRes res.typ
 
--- | Report the external bindings without FFI type
 classified ::
      FunPosition
   -> Classified a
   -> DM l (Either FunPositionError a)
-classified pos x = do
-    sugars <- gets (.sugars)
-    let (r, fallbacks) = runWriter (runReaderT x sugars)
-    forM_ fallbacks $ addMessage . TranslateTypesFFITypes pos
-    pure r
+classified pos = runFFITypeM (TranslateTypesFunctionFFITypes pos)
 
 processGlobal :: C.Global MangleNames -> DM l (C.Global TranslateTypes)
 processGlobal global = pure C.Global{
@@ -286,6 +284,20 @@ processType ctx typ = Translated{
       c  = coercePass typ
     , hs = Translation.inContext ctx typ
     }
+
+{-------------------------------------------------------------------------------
+  FFI types
+-------------------------------------------------------------------------------}
+
+runFFITypeM ::
+     (FFITypesMsg -> DelayedTranslateTypesMsg)
+  -> FFIType.M a
+  -> DM l a
+runFFITypeM mkMsg action = do
+    sugars <- gets (.sugars)
+    let (r, msgs) = runWriter (runReaderT action sugars)
+    forM_ msgs $ addMessage . mkMsg
+    pure r
 
 {-------------------------------------------------------------------------------
   Monad

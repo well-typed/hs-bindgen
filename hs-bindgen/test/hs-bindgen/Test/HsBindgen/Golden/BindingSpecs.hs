@@ -9,7 +9,7 @@ import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass.Msg
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.Error (FunPositionError (FunPositionNoFFIType),
                                                      TranslateTypesError (TranslateTypesFunctionError))
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (DelayedTranslateTypesMsg (TranslateTypesFFITypes),
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (DelayedTranslateTypesMsg (TranslateTypesFunctionFFITypes),
                                                           FFITypesMsg (FFITypesExtBindingNotSpecified))
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -277,7 +277,7 @@ test_fun_arg_typedef_no_ffitype :: TestCase
 test_fun_arg_typedef_no_ffitype =
     test_fun_arg_typedef "binding-specs/fun_arg/typedef/no_ffitype"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchDelayedTranslateTypes name (TranslateTypesFFITypes _ FFITypesExtBindingNotSpecified{}) ->
+            MatchDelayedTranslateTypes name (TranslateTypesFunctionFFITypes _ FFITypesExtBindingNotSpecified{}) ->
               Just $ Expected name
             MatchPassFailed name (TranslateTypesFailed (TranslateTypesFunctionError (FunPositionNoFFIType{} :| []))) ->
               Just $ Expected name

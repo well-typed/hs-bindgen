@@ -1,6 +1,6 @@
 module HsBindgen.Backend.Hs.Translation.Newtype (
     newtypeDec
-  , hasFFITypeDecs
+  , FFITypeOverride (..)
   , hasFieldCompatDecs
   , hasFieldPtrDecs
   ) where
@@ -28,12 +28,13 @@ newtypeDec ::
   => Hs.Name Hs.NsTypeConstr
   -> Hs.Name Hs.NsConstr
   -> Hs.Field
+  -> FFITypeOverride
   -> Origin.Decl Origin.Newtype
   -> Maybe HsDoc.Comment
   -> Set Inst.TypeClass -- ^ Candidate instances
   -> Set Inst.TypeClass -- ^ Known instances
   -> HsM Hs.Newtype
-newtypeDec name constr field orig comment candidateInsts knownInsts = do
+newtypeDec name constr field override orig comment candidateInsts knownInsts = do
     hsNewtype <- aux <$> State.get
     State.modify' $ #instanceMap %~ Map.insert hsNewtype.name hsNewtype.instances
     pure hsNewtype
@@ -63,21 +64,17 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
         ffiType :: Maybe BindingSpec.HsFFIType
         -- TODO <https://github.com/well-typed/hs-bindgen/issues/2376>: use
         -- sugar infos as computed by the @TranslateTypes@ pass
-        ffiType = BindingSpec.HsFFIType . Hs.ffiExtRef <$> FFIType.toFFIType emptySugarInfos field.typ
+        ffiType = BindingSpec.HsFFIType . Hs.ffiExtRef <$>
+            withOverride override (FFIType.toFFIType emptySugarInfos field.typ)
 
-hasFFITypeDecs ::
-     Hs.Newtype
-  -> [Hs.Decl l]
-hasFFITypeDecs nt =
-    [mk | Inst.HasFFIType `elem` nt.instances]
-  where
-    mk :: Hs.Decl l
-    mk = Hs.DeclDeriveInstance Hs.DeriveInstance{
-          strategy = Hs.DeriveNewtype
-        , clss     = Inst.HasFFIType
-        , name     = nt.name
-        , comment  = Nothing
-        }
+data FFITypeOverride =
+    NoOverride
+  | Override (Maybe Hs.FFIType)
+
+withOverride :: FFITypeOverride -> Maybe Hs.FFIType -> Maybe Hs.FFIType
+withOverride = \case
+    NoOverride       -> id
+    Override ffiType -> const ffiType
 
 {-------------------------------------------------------------------------------
   HasField

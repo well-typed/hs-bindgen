@@ -23,6 +23,9 @@ hstypes:
       constructor: A
       fields:
       - unwrapA
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - Eq
   - Generic
@@ -45,6 +48,9 @@ hstypes:
       constructor: B
       fields:
       - unwrapB
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
   instances:
   - Eq
   - Generic

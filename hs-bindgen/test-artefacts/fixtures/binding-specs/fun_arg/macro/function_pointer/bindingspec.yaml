@@ -22,6 +22,9 @@ hstypes:
       constructor: A
       fields:
       - unwrapA
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic
@@ -42,6 +45,9 @@ hstypes:
       constructor: B
       fields:
       - unwrapB
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
   instances:
   - Eq
   - Generic

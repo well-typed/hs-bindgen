@@ -267,7 +267,7 @@ enumDecs decl enum spec = do
 
     newtypeDec :: HsM.Env -> HsM Hs.Newtype
     newtypeDec env = do
-        Hs.newtypeDec newtypeName newtypeConstr newtypeField
+        Hs.newtypeDec newtypeName newtypeConstr newtypeField Hs.NoOverride
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
@@ -469,7 +469,7 @@ typedefDecs funPtrNewtypes decl mkNewtypeOrigin typedef spec = do
   where
     newtypeDec :: HsM.Env -> HsM Hs.Newtype
     newtypeDec env = do
-        Hs.newtypeDec newtypeName newtypeConstr newtypeField
+        Hs.newtypeDec newtypeName newtypeConstr newtypeField Hs.NoOverride
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeConstr :: Hs.Name Hs.NsConstr
@@ -669,7 +669,7 @@ macroDecsTypedef decl macroType spec = do
   where
     newtypeDec :: HsM.Env -> HsM Hs.Newtype
     newtypeDec env = do
-        Hs.newtypeDec newtypeName newtypeConstr newtypeField
+        Hs.newtypeDec newtypeName newtypeConstr newtypeField (Hs.Override macroType.ffiType)
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr

@@ -20,15 +20,21 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 data DelayedTranslateTypesMsg =
-    TranslateTypesFFITypes                   FunPosition FFITypesMsg
-  | TranslateTypesRegisterSugarInfoDuplicate ErrorDuplicate
-  | TranslateTypesRegisterSugarInfo          RegSugarInfo
+    -- | Messages while deriving an FFI type for a macro declaration
+    TranslateTypesMacroFFIType                 FFITypesMsg
+    -- | Messages while deriving FFI types for a function declaration
+  | TranslateTypesFunctionFFITypes FunPosition FFITypesMsg
+  | TranslateTypesRegisterSugarInfoDuplicate   ErrorDuplicate
+  | TranslateTypesRegisterSugarInfo            RegSugarInfo
   deriving stock (Show, Generic)
 
 instance PrettyForTrace DelayedTranslateTypesMsg where
   prettyForTrace = \case
-      TranslateTypesFFITypes pos msg ->
-        PP.hang ("While deriving an FFI type at" PP.<+> prettyForTrace pos PP.>< ":") 2 $
+      TranslateTypesMacroFFIType msg ->
+        PP.hang ("While deriving an FFI type for a macro declaration site:") 2 $
+          prettyForTrace msg
+      TranslateTypesFunctionFFITypes pos msg ->
+        PP.hang ("While deriving an FFI type for a function declaration at" PP.<+> prettyForTrace pos PP.>< ":") 2 $
           prettyForTrace msg
       TranslateTypesRegisterSugarInfoDuplicate dup -> PP.vcat [
           "Tried to register sugar info more than once;"
@@ -42,7 +48,13 @@ instance PrettyForTrace DelayedTranslateTypesMsg where
 
 instance IsTrace Level DelayedTranslateTypesMsg where
   getDefaultLogLevel = \case
-    TranslateTypesFFITypes _ msg               -> logLevelFFITypesMsg msg
+    -- Deriving an FFI type for a macro declaration may fail for benign reasons.
+    -- For example, a macro type that references an external struct type has no
+    -- FFI type, but this will still cause an 'FFITypesExtBindingNotSpecified'
+    -- message to be emitted. For this reason, these messages are always at
+    -- Debug-level (for now).
+    TranslateTypesMacroFFIType       _msg      -> Debug
+    TranslateTypesFunctionFFITypes _ msg       -> logLevelFFITypesMsg msg
     TranslateTypesRegisterSugarInfoDuplicate{} -> Bug
     TranslateTypesRegisterSugarInfo{}          -> Debug
   getSource          = const HsBindgen
