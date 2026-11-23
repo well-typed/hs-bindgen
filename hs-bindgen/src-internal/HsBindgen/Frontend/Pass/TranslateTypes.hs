@@ -20,6 +20,7 @@ import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
 import HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (Classified,
                                                              classifyArgPassingMethod,
                                                              classifyResPassingMethod)
+import HsBindgen.Frontend.Pass.TranslateTypes.Position
 import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
@@ -203,7 +204,7 @@ processFunctionArg ::
   -> C.FunctionArg MangleNames
   -> DM l (Either FunPositionError (C.FunctionArg TranslateTypes))
 processFunctionArg i arg = do
-    eAnn <- classified pos $ classifyArgPassingMethod pos arg typ'.hs
+    eAnn <- classified pos $ classifyArgPassingMethod pos typ'.c.typ typ'.hs
     pure $ eAnn <&> \ann -> C.FunctionArg{
         name = arg.name
       , typ  = typ'
@@ -220,7 +221,7 @@ processFunctionRes ::
      C.FunctionRes MangleNames
   -> DM l (Either FunPositionError (C.FunctionRes TranslateTypes))
 processFunctionRes res = do
-    eAnn <- classified FunPositionRes $ classifyResPassingMethod res typ'.hs
+    eAnn <- classified FunPositionRes $ classifyResPassingMethod typ'.c typ'.hs
     pure $ eAnn <&> \ann -> C.FunctionRes{
         typ = typ'
       , ann = ann
@@ -253,7 +254,7 @@ processType ::
      Translation.TypeContext
   -> C.Type MangleNames
   -> TranslatedTypes TranslateTypes
-processType ctx typ = TranslatedTypes{
+processType ctx typ = Translated{
       c  = coercePass typ
     , hs = Translation.inContext ctx typ
     }
@@ -262,7 +263,7 @@ processTypeFunArg ::
      Translation.TypeContext
   -> C.TypeFunArg MangleNames
   -> TranslatedTypeFunArg TranslateTypes
-processTypeFunArg ctx typ = TranslatedTypeFunArg{
+processTypeFunArg ctx typ = Translated{
       c  = coercePass typ
     , hs = Translation.inContext ctx typ
     }

@@ -201,6 +201,9 @@ library internal
     HsBindgen.Frontend.Pass.FillUnnamedIds.ChooseNames
     HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass
     HsBindgen.Frontend.Pass.Final
+    HsBindgen.Frontend.Pass.FunPtrInstances
+    HsBindgen.Frontend.Pass.FunPtrInstances.IsPass
+    HsBindgen.Frontend.Pass.FunPtrInstances.IsPass.Msg
     HsBindgen.Frontend.Pass.MangleNames
     HsBindgen.Frontend.Pass.MangleNames.CreateNames
     HsBindgen.Frontend.Pass.MangleNames.DetectClashes
@@ -255,8 +258,8 @@ library internal
     HsBindgen.Frontend.Pass.TranslateTypes.FFIType
     HsBindgen.Frontend.Pass.TranslateTypes.IsPass
     HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
-    HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassingMethod
     HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod
+    HsBindgen.Frontend.Pass.TranslateTypes.Position
     HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo
     HsBindgen.Frontend.Pass.TranslateTypes.Translation
     HsBindgen.Frontend.Pass.TypecheckMacros
@@ -283,6 +286,7 @@ library internal
     HsBindgen.IR.C.PrettyPrinter
     HsBindgen.IR.C.RootDirective
     HsBindgen.IR.C.Type
+    HsBindgen.IR.FunPtrInstance
     HsBindgen.IR.Hs
     HsBindgen.IR.Hs.Type
     HsBindgen.IR.Pass
@@ -295,6 +299,7 @@ library internal
     HsBindgen.IR.Pass.Msg
     HsBindgen.IR.Pass.ScopedName
     HsBindgen.IR.Pass.Types
+    HsBindgen.IR.PassingMethod
     HsBindgen.IR.Translation
     HsBindgen.Language.C
     HsBindgen.Language.Haskell

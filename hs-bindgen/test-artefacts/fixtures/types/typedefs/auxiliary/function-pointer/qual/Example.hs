@@ -38,42 +38,6 @@ newtype T_Aux = T_Aux
   }
   deriving stock (BG.Generic)
 
--- __unique:__ @toT_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_5927fedc3abfa99c_base ::
-     (BG.CInt -> IO ())
-  -> IO (BG.FunPtr (BG.CInt -> IO ()))
-
--- __unique:__ @toT_Aux@
-hs_bindgen_5927fedc3abfa99c ::
-     T_Aux
-  -> IO (BG.FunPtr T_Aux)
-hs_bindgen_5927fedc3abfa99c =
-  \fun0 ->
-    fmap BG.castFunPtr (hs_bindgen_5927fedc3abfa99c_base (\x1 ->
-                                                            BG.getField @"unwrapT_Aux" fun0 (BG.fromFFIType x1)))
-
--- __unique:__ @fromT_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_281617c90fa9307a_base ::
-     BG.FunPtr (BG.CInt -> IO ())
-  -> BG.CInt -> IO ()
-
--- __unique:__ @fromT_Aux@
-hs_bindgen_281617c90fa9307a ::
-     BG.FunPtr T_Aux
-  -> T_Aux
-hs_bindgen_281617c90fa9307a =
-  \funPtr0 ->
-    T_Aux (\x1 ->
-             hs_bindgen_281617c90fa9307a_base (BG.castFunPtr funPtr0) (BG.toFFIType x1))
-
-instance BG.ToFunPtr T_Aux where
-
-  toFunPtr = hs_bindgen_5927fedc3abfa99c
-
-instance BG.FromFunPtr T_Aux where
-
-  fromFunPtr = hs_bindgen_281617c90fa9307a
-
 instance ( ty ~ (BG.CInt -> IO ())
          ) => BG.CompatHasField.HasField "unwrapT_Aux" T_Aux ty where
 
@@ -130,3 +94,39 @@ instance HasCField.HasCField T "unwrapT" where
   type CFieldType T "unwrapT" = BG.FunPtr T_Aux
 
   offset# = \_ -> \_ -> 0
+
+-- __unique:__ @toT_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_5927fedc3abfa99c_base ::
+     (BG.CInt -> IO ())
+  -> IO (BG.FunPtr (BG.CInt -> IO ()))
+
+-- __unique:__ @toT_Aux@
+hs_bindgen_5927fedc3abfa99c ::
+     T_Aux
+  -> IO (BG.FunPtr T_Aux)
+hs_bindgen_5927fedc3abfa99c =
+  \fun0 ->
+    fmap BG.castFunPtr (hs_bindgen_5927fedc3abfa99c_base (\x1 ->
+                                                            BG.getField @"unwrapT_Aux" fun0 (BG.fromFFIType x1)))
+
+-- __unique:__ @fromT_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_281617c90fa9307a_base ::
+     BG.FunPtr (BG.CInt -> IO ())
+  -> BG.CInt -> IO ()
+
+-- __unique:__ @fromT_Aux@
+hs_bindgen_281617c90fa9307a ::
+     BG.FunPtr T_Aux
+  -> T_Aux
+hs_bindgen_281617c90fa9307a =
+  \funPtr0 ->
+    T_Aux (\x1 ->
+             hs_bindgen_281617c90fa9307a_base (BG.castFunPtr funPtr0) (BG.toFFIType x1))
+
+instance BG.ToFunPtr T_Aux where
+
+  toFunPtr = hs_bindgen_5927fedc3abfa99c
+
+instance BG.FromFunPtr T_Aux where
+
+  fromFunPtr = hs_bindgen_281617c90fa9307a

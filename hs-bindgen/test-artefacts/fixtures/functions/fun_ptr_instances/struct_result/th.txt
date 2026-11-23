@@ -1,0 +1,121 @@
+-- addDependentFile test-artefacts/headers/golden/functions/fun_ptr_instances/struct_result.h
+-- #include <functions/fun_ptr_instances/struct_result.h>
+-- void hs_bindgen_125560afce0d4119 (
+--   T (*arg1) (void)
+-- )
+-- {
+--   (h)(arg1);
+-- }
+-- void hs_bindgen_6c4023261ffcbb0d (
+--   T (*arg1) (void)
+-- )
+-- {
+--   (h)(arg1);
+-- }
+-- /* test_functionsfun_ptr_instancesst_Example_get_h */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_a7286809c160d51a (void)) (
+--   T (*arg1) (void)
+-- )
+-- {
+--   return &h;
+-- }
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @functions\/fun_ptr_instances\/struct_result.h 3:8@
+
+    __exported by:__ @functions\/fun_ptr_instances\/struct_result.h@
+-}
+data T
+    = T {t_x :: CInt
+         {- ^ __C declaration:__ @x@
+
+              __defined at:__ @functions\/fun_ptr_instances\/struct_result.h 3:16@
+
+              __exported by:__ @functions\/fun_ptr_instances\/struct_result.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize T
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw T
+    where readRaw = \ptr_0 -> pure T <*> readRaw (Proxy @"t_x") ptr_0
+instance WriteRaw T
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       T t_x_2 -> writeRaw (Proxy @"t_x") ptr_0 t_x_2
+deriving via (EquivStorable T) instance Storable T
+deriving via (IsStructViaReadRaw T) instance IsStruct T
+instance (~) ty CInt => HasField "t_x" T ty
+    where hasField = \x_0 -> (\y_1 -> T{t_x = y_1},
+                              getField @"t_x" x_0)
+instance (~) ty CInt => HasField "t_x" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"t_x")
+instance HasCField T "t_x"
+    where type CFieldType T "t_x" = CInt
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_functionsfun_ptr_instancesst_Example_Safe_h@
+foreign import ccall safe "hs_bindgen_125560afce0d4119" hs_bindgen_125560afce0d4119_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesst_Example_Safe_h@
+hs_bindgen_125560afce0d4119 :: FunPtr (IO T) -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesst_Example_Safe_h@
+hs_bindgen_125560afce0d4119 = \x_0 -> hs_bindgen_125560afce0d4119_base (toFFIType x_0)
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/fun_ptr_instances\/struct_result.h 7:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/struct_result.h@
+-}
+h_safe :: FunPtr (IO T) -> IO ()
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/fun_ptr_instances\/struct_result.h 7:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/struct_result.h@
+-}
+h_safe = hs_bindgen_125560afce0d4119
+-- __unique:__ @test_functionsfun_ptr_instancesst_Example_Unsafe_h@
+foreign import ccall unsafe "hs_bindgen_6c4023261ffcbb0d" hs_bindgen_6c4023261ffcbb0d_base ::
+    FunPtr Void
+ -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesst_Example_Unsafe_h@
+hs_bindgen_6c4023261ffcbb0d :: FunPtr (IO T) -> IO ()
+-- __unique:__ @test_functionsfun_ptr_instancesst_Example_Unsafe_h@
+hs_bindgen_6c4023261ffcbb0d = \x_0 -> hs_bindgen_6c4023261ffcbb0d_base (toFFIType x_0)
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/fun_ptr_instances\/struct_result.h 7:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/struct_result.h@
+-}
+h_unsafe :: FunPtr (IO T) -> IO ()
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/fun_ptr_instances\/struct_result.h 7:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/struct_result.h@
+-}
+h_unsafe = hs_bindgen_6c4023261ffcbb0d
+-- __unique:__ @test_functionsfun_ptr_instancesst_Example_get_h@
+foreign import ccall unsafe "hs_bindgen_a7286809c160d51a" hs_bindgen_a7286809c160d51a_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_functionsfun_ptr_instancesst_Example_get_h@
+hs_bindgen_a7286809c160d51a :: IO (FunPtr (FunPtr (IO T) -> IO ()))
+-- __unique:__ @test_functionsfun_ptr_instancesst_Example_get_h@
+hs_bindgen_a7286809c160d51a = fmap fromFFIType hs_bindgen_a7286809c160d51a_base
+{-# NOINLINE h_funptr #-}
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/fun_ptr_instances\/struct_result.h 7:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/struct_result.h@
+-}
+h_funptr :: FunPtr (FunPtr (IO T) -> IO ())
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/fun_ptr_instances\/struct_result.h 7:6@
+
+    __exported by:__ @functions\/fun_ptr_instances\/struct_result.h@
+-}
+h_funptr = unsafePerformIO hs_bindgen_a7286809c160d51a

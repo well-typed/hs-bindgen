@@ -6,8 +6,6 @@
 module HsBindgen.Frontend.Pass.TranslateTypes.FFIType (
     toFFIType
   , toFFITypeWithMsgs
-  , toFFIResType
-  , toFFIFunType
   , pointerTo
   ) where
 
@@ -89,28 +87,6 @@ toFFITypeWithMsgs sugars = go
         Hs.PrimCBool   -> yes Hs.FFIPrimCBool
         Hs.PrimCFloat  -> yes Hs.FFIPrimCFloat
         Hs.PrimCDouble -> yes Hs.FFIPrimCDouble
-
-toFFIResType :: SugarInfos -> Hs.Type -> Maybe Hs.FFIResType
-toFFIResType sugars = \case
-    Hs.IO (Hs.PrimType Hs.PrimUnit) -> Just Hs.FFIResIOUnit
-    Hs.PrimType Hs.PrimUnit         -> Just Hs.FFIResUnit
-    Hs.IO t                         -> Hs.FFIResIO <$> toFFIType sugars t
-    t                               -> Hs.FFIRes <$> toFFIType sugars t
-
-toFFIFunType :: SugarInfos -> Hs.Type -> Maybe Hs.FFIFunType
-toFFIFunType sugars = \case
-    Hs.TypRef ref t ->
-      case lookupSugarInfo ref sugars of
-        MissingSugarInfo -> t >>= toFFIFunType sugars
-        RegSugarInfo NotSugar -> Nothing
-        RegSugarInfo (Sugar t') -> toFFIFunType sugars t'
-    Hs.Fun arg res -> addArg <$> toFFIType sugars arg <*> toFFIFunType sugars res
-    t -> toFFIResType sugars t >>= \res -> pure Hs.FFIFunType {args = [], res = res }
-  where
-    addArg arg t = Hs.FFIFunType {
-          args = arg : t.args
-        , res  = t.res
-        }
 
 -- | FFI type of a pointer
 pointerTo :: Pointee -> Hs.FFIType
