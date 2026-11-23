@@ -432,7 +432,7 @@ runFrontend tracer config boot = do
       traceSorted (contramap FrontendMangleNames tracer) msgsMangleNames
       pure afterMangleNames
 
-    translateTypesPass <- cache "TranslateTypes" $ do
+    translateTypesPass <- cache "translateTypes" $ do
       afterMangleNamesPass <- mangleNamesPass
       pure $ translateTypes afterMangleNamesPass
 
@@ -457,7 +457,7 @@ runFrontend tracer config boot = do
         msgsFunPtrInstances
       pure afterFunPtrInstances
 
-    finalPass <- cache "Final" $ (.unit) <$> funPtrInstancesPass
+    finalPass <- cache "final" $ (.unit) <$> funPtrInstancesPass
 
     pure FrontendArtefact{
         parseMeta                = parseMeta
