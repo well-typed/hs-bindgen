@@ -6,8 +6,11 @@ module HsBindgen.Frontend.Pass.TranslateTypes.Error (
   , FunPositionError (..)
   , NoFFIType (..)
   , positionErrorsLevel
+  , collectPositionErrors
   ) where
 
+import Data.Either (partitionEithers)
+import Data.List.NonEmpty qualified as NonEmpty
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Frontend.Pass.TranslateTypes.Position
@@ -36,6 +39,18 @@ positionErrorsLevel xs = maximum (fmap logLevel xs)
     logLevel :: FunPositionError -> Level
     logLevel = \case
       FunPositionNoFFIType{} -> Warning
+
+-- | The classified arguments and result, or the errors of all positions, in
+-- signature order
+collectPositionErrors ::
+     [Either FunPositionError a] -- ^ Arguments
+  -> Either FunPositionError b   -- ^ Result
+  -> Either (NonEmpty FunPositionError) ([a], b)
+collectPositionErrors args res = case (partitionEithers args, res) of
+    (([]       , argsOk), Right resOk) -> Right (argsOk, resOk)
+    ((err : errs, _     ), Right _    ) -> Left (err :| errs)
+    ((errs      , _     ), Left err   ) ->
+      Left $ NonEmpty.prependList errs (err :| [])
 
 -- | Why we cannot pass a function argument or result
 data FunPositionError =

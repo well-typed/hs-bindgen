@@ -23,7 +23,6 @@ module HsBindgen.Frontend.Pass.FunPtrInstances (
 import Control.Monad.Reader (ReaderT (..), asks)
 import Control.Monad.State (State, gets, modify, runState)
 import Control.Monad.Writer.Strict (runWriter)
-import Data.Either (partitionEithers)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
@@ -36,7 +35,8 @@ import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass
 import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass.Msg
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (TypedefNames (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.Error (FunPositionError)
+import HsBindgen.Frontend.Pass.TranslateTypes.Error (FunPositionError,
+                                                     collectPositionErrors)
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (FFITypesMsg)
 import HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (Classified,
                                                              classifyArgPassingMethod,
@@ -195,22 +195,22 @@ processFunType occurrence loc args res = do
       TypedefOwn hd -> pure $ Just hd
       Nested        -> do
         db <- asks (.db)
-        pure $ HeadFunType <$ guard (isDefinedInCurrentModule db funC)
+        pure $
+          HeadFunType <$ guard (isDefinedInCurrentModule db (C.TypeFun args res))
     forM_ mHead $ \hd -> do
-      mSig <- classifyCached loc args res
+      mSig <- classifyCached loc key funType
       forM_ mSig $ \(args', res') ->
         modify $ \st ->
-          let key = (hd, eraseUnderlying funHs)
-          in  if key `Set.member` st.seen then st else st{
-                  instances = FunPtrInstance hd args' res' : st.instances
-                , seen      = Set.insert key st.seen
-                }
+          if (hd, key) `Set.member` st.seen then st else st{
+              instances = FunPtrInstance hd args' res' : st.instances
+            , seen      = Set.insert (hd, key) st.seen
+            }
   where
-    funHs :: Hs.Type
-    funHs = Translation.topLevel funC
+    funType :: FunType
+    funType = translateFunType args res
 
-    funC :: C.Type Select
-    funC = C.TypeFun args res
+    key :: Hs.Type
+    key = eraseUnderlying $ funTypeHs funType
 
 -- | Is one of the types defined in the current module?
 --
@@ -226,73 +226,75 @@ isDefinedInCurrentModule db =
       Just (DeclDB.Squashed _ target) -> isJust $ DeclDB.lookup target.c db
       _otherwise -> False
 
+-- | A function type, with the Haskell types of its arguments and result
+data FunType = FunType {
+      -- | Translated in context @FunArg@
+      args :: [TranslatedTypeFunArg Select]
+      -- | Translated in context @FunRes@
+    , res  :: TranslatedTypes Select
+    }
+
+translateFunType :: [C.TypeFunArg Select] -> C.Type Select -> FunType
+translateFunType args res = FunType{
+      args = [
+          Translated{c = arg, hs = Translation.inContext Translation.FunArg arg}
+        | arg <- args
+        ]
+    , res  = Translated{c = res, hs = Translation.inContext Translation.FunRes res}
+    }
+
+-- | The Haskell type of the function type, as in the instance head
+funTypeHs :: FunType -> Hs.Type
+funTypeHs funType = Translation.funType (map (.hs) funType.args) funType.res.hs
+
 -- | Classify a function type, reporting why it gets no instances
 --
 -- Classifies and reports each distinct Haskell function type once.
 classifyCached ::
      FunTypeLocation
-  -> [C.TypeFunArg Select]
-  -> C.Type Select
+  -> Hs.Type -- ^ The Haskell function type, with 'eraseUnderlying'
+  -> FunType
   -> M l (Maybe ([FunPtrArg], FunPtrRes))
-classifyCached loc args res = do
+classifyCached loc key funType = do
     cached <- gets (Map.lookup key . (.cache))
     case cached of
       Just mSig -> pure mSig
       Nothing   -> do
-        mSig <- classify loc args res
+        mSig <- classify loc funType
         modify $ \st -> st{cache = Map.insert key mSig st.cache}
         pure mSig
-  where
-    key :: Hs.Type
-    key = eraseUnderlying $ Translation.topLevel (C.TypeFun args res)
 
-classify ::
-     FunTypeLocation
-  -> [C.TypeFunArg Select]
-  -> C.Type Select
-  -> M l (Maybe ([FunPtrArg], FunPtrRes))
-classify loc args res = do
+classify :: FunTypeLocation -> FunType -> M l (Maybe ([FunPtrArg], FunPtrRes))
+classify loc funType = do
     forM_ ffiTypesMsgs $ \(pos, msg) ->
       addMessage $ FunPtrInstancesFFITypes loc pos msg
-    case (partitionEithers (map fst args'), fst res') of
-      (([], argsOk), Right resOk) ->
+    case collectPositionErrors (map fst args') (fst res') of
+      Left errs -> do
+        addMessage $ FunPtrInstancesPositionErrors loc errs
+        pure Nothing
+      Right (argsOk, resOk) ->
         case (traverse direct argsOk, directRes resOk) of
           (Just argsDirect, Just resDirect) ->
             pure $ Just (argsDirect, resDirect)
           _otherwise -> do
-            forM_ (NonEmpty.nonEmpty serialized) $
+            forM_ (NonEmpty.nonEmpty (serialized argsOk resOk)) $
               addMessage . FunPtrInstancesSerialized loc
             pure Nothing
-        where
-          serialized :: [FunPosition]
-          serialized = concat [
-                [ argPosition i
-                | (i, arg) <- zip [1..] argsOk
-                , isSerialized arg.passing
-                ]
-              , [ FunPositionRes | isResSerialized resOk.passing ]
-              ]
-      ((errs, _), eRes) -> do
-        let allErrs = errs ++ either pure (const []) eRes
-        forM_ (NonEmpty.nonEmpty allErrs) $
-          addMessage . FunPtrInstancesPositionErrors loc
-        pure Nothing
   where
     args' :: [(Either FunPositionError (ClassifiedPosition (PassingMethod Select)), [PositionedMsg])]
     args' = [
         runClassified pos $
-          fmap (ClassifiedPosition hs) <$> classifyArgPassingMethod pos arg.typ hs
-      | (i, arg) <- zip [1..] args
+          fmap (ClassifiedPosition arg.hs) <$>
+            classifyArgPassingMethod pos arg.c.typ arg.hs
+      | (i, arg) <- zip [1..] funType.args
       , let pos = argPosition i
-            hs  = Translation.inContext Translation.FunArg arg
       ]
 
     res' :: (Either FunPositionError (ClassifiedPosition (ResPassingMethod Select)), [PositionedMsg])
     res' =
         runClassified FunPositionRes $
-          fmap (ClassifiedPosition hs) <$> classifyResPassingMethod res hs
-      where
-        hs = Translation.inContext Translation.FunRes res
+          fmap (ClassifiedPosition funType.res.hs) <$>
+            classifyResPassingMethod funType.res.c funType.res.hs
 
     ffiTypesMsgs :: [PositionedMsg]
     ffiTypesMsgs = concatMap snd args' ++ snd res'
@@ -307,6 +309,18 @@ classify loc args res = do
       PassResVoid                   -> Just FunPtrRes{hs = r.hs, ffi = Hs.FFIResIOUnit}
       PassResNonVoid (PassDirect t) -> Just FunPtrRes{hs = r.hs, ffi = Hs.FFIResIO t}
       PassResNonVoid PassSerialized{} -> Nothing
+
+    serialized ::
+         [ClassifiedPosition (PassingMethod Select)]
+      -> ClassifiedPosition (ResPassingMethod Select)
+      -> [FunPosition]
+    serialized argsOk resOk = concat [
+          [ argPosition i
+          | (i, arg) <- zip [1..] argsOk
+          , isSerialized arg.passing
+          ]
+        , [ FunPositionRes | isResSerialized resOk.passing ]
+        ]
 
 -- | A classified argument or result, with its Haskell type
 data ClassifiedPosition a = ClassifiedPosition {

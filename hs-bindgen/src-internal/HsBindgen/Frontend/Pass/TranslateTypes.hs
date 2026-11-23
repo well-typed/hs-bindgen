@@ -6,9 +6,7 @@ import Control.Monad (zipWithM)
 import Control.Monad.Reader (MonadReader, ReaderT (..), asks, withReaderT)
 import Control.Monad.State (MonadState, State, gets, modify, runState)
 import Control.Monad.Writer.Strict (runWriter)
-import Data.Either (partitionEithers)
 import Data.Functor ((<&>))
-import Data.List.NonEmpty qualified as NonEmpty
 
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
@@ -183,21 +181,16 @@ processFunction ::
      C.Function MangleNames
   -> DM l (Either TranslateTypesError (C.Function TranslateTypes))
 processFunction fun = do
-    (argErrs, args') <- partitionEithers <$>
-      zipWithM processFunctionArg [1..] fun.args
-    eRes' <- processFunctionRes fun.res
-    pure $ case (argErrs, eRes') of
-      ([], Right res') -> Right C.Function{
+    eArgs <- zipWithM processFunctionArg [1..] fun.args
+    eRes  <- processFunctionRes fun.res
+    pure $ case collectPositionErrors eArgs eRes of
+      Left errs -> Left $ TranslateTypesFunctionError errs
+      Right (args', res') -> Right C.Function{
           args  = args'
         , res   = res'
         , attrs = fun.attrs
         , ann   = fun.ann
         }
-      (err : errs, Right _) ->
-        Left $ TranslateTypesFunctionError (err :| errs)
-      (errs, Left resErr) ->
-        Left $ TranslateTypesFunctionError $
-          NonEmpty.prependList errs (resErr :| [])
 
 processFunctionArg ::
      Int
