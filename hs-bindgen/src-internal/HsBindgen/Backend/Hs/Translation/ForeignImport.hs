@@ -27,6 +27,7 @@ import HsBindgen.Backend.SHs.Translation.MapFunction
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol (..))
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (NewtypeNames (..))
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
@@ -101,9 +102,9 @@ foreignImportDec name params res origName callConv origin safety =
         }
 
     importFor :: ImportFor
-    importFor = ImportForFunction {
+    importFor = ImportForFunction FunSig{
           args = fmap (.hsParam.typ) params
-        , res = res.hsType
+        , res  = res.hsType
         }
 
     -- fName is unique
@@ -258,16 +259,10 @@ foreignImportDynamicDec name hsType fiFunType importFor origin =
 -- Note: for function @newtype@s we only generate dynamic wrappers and dynamic
 -- imports, not regular @foreign import@ declarations.
 data ImportFor =
-    ImportForFunction {
-        args :: [Hs.Type]
-      , res  :: Hs.Type
-      }
-  | ImportForNewtype {
-        args  :: [Hs.Type]
-      , res   :: Hs.Type
-        -- | Names of the constructor and field of the newtype
-      , names :: NewtypeNames
-      }
+    ImportForFunction (FunSig Hs.Type Hs.Type)
+  | ImportForNewtype
+      (FunSig Hs.Type Hs.Type)
+      NewtypeNames -- ^ Names of the constructor and field of the newtype
 
 -- | Map a function expression that uses arbitrary Haskell types to a function
 -- expression that uses FFI types
@@ -285,28 +280,26 @@ data ImportFor =
 --
 mapToFFI :: ImportFor -> Size ctx -> SHs.SExpr ctx -> SHs.SExpr ctx
 mapToFFI dynFor size funExpr = case dynFor of
-    ImportForFunction args res -> forFunction args res
-    ImportForNewtype args res nt -> forNewtype args res nt
+    ImportForFunction sig    -> forFunction sig
+    ImportForNewtype  sig nt -> forNewtype sig nt
   where
     convArg = mkConvArg HasFFIType_fromFFIType
     convRes = mkConvRes HasFFIType_toFFIType
 
-    forFunction args res =
+    forFunction sig =
         mapFunctionExpr (MapFunctionParams {
             convArg = convArg
           , convRes = convRes
-          , args    = args
-          , res     = res
+          , sig     = sig
           , funExpr = funExpr
           , size    = size
           })
 
-    forNewtype args res nt =
+    forNewtype sig nt =
         mapFunctionExpr (MapFunctionParams {
             convArg = convArg
           , convRes = convRes
-          , args    = args
-          , res     = res
+          , sig     = sig
           , funExpr = eBindgenGlobal HasField_getField `ETypeApp` fieldLit `EApp` funExpr
           , size    = size
           })
@@ -330,29 +323,27 @@ mapToFFI dynFor size funExpr = case dynFor of
 --
 mapFromFFI :: ImportFor -> Size ctx -> SHs.SExpr ctx -> SHs.SExpr ctx
 mapFromFFI dynFor size funExpr = case dynFor of
-    ImportForFunction args res -> forFunction args res
-    ImportForNewtype args res nt -> forNewtype args res nt
+    ImportForFunction sig    -> forFunction sig
+    ImportForNewtype  sig nt -> forNewtype sig nt
   where
     convArg = mkConvArg HasFFIType_toFFIType
     convRes = mkConvRes HasFFIType_fromFFIType
 
-    forFunction args res =
+    forFunction sig =
         mapFunctionExpr (MapFunctionParams {
             convArg = convArg
           , convRes = convRes
-          , args    = args
-          , res     = res
+          , sig     = sig
           , funExpr = funExpr
           , size    = size
           })
 
-    forNewtype args res nt =
+    forNewtype sig nt =
         ECon nt.dataConstr `EApp`
         mapFunctionExpr (MapFunctionParams {
             convArg = convArg
           , convRes = convRes
-          , args    = args
-          , res     = res
+          , sig     = sig
           , funExpr = funExpr
           , size    = size
           })

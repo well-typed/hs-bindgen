@@ -16,6 +16,7 @@ import DeBruijn (EmptyCtx, Env (..), Idx, Size (..), Wk (..), weakenIdx)
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation.Common qualified as SHs
 import HsBindgen.Imports
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.NameHint (NameHint (NameHint))
 
@@ -25,10 +26,8 @@ data MapFunctionParams ctx = MapFunctionParams {
     convArg  :: ConvArg
     -- | The conversion expression to apply to the function result
   , convRes  :: ConvRes
-    -- | The type each function arguments
-  , args     :: [Hs.Type]
-    -- | The type of the function result
-  , res      :: Hs.Type
+    -- | The types of the function arguments and result
+  , sig      :: FunSig Hs.Type Hs.Type
     -- | The function expression that we apply the mapping to
   , funExpr  :: SHs.SExpr ctx
     -- | The size of the context of 'funExpr'
@@ -74,9 +73,9 @@ type FunExpr ctx = SHs.SExpr ctx
 mapFunctionExpr ::  MapFunctionParams ctx -> SHs.SExpr ctx
 mapFunctionExpr params =
     -- construct lambdas for all function arguments
-    lambdas params.funExpr (mkWk params.size) EmptyEnv params.args $ \funExpr' wk env ->
+    lambdas params.funExpr (mkWk params.size) EmptyEnv params.sig.args $ \funExpr' wk env ->
       -- convert the function result
-      convertRes params.res $
+      convertRes params.sig.res $
         -- call the function
         callFunction funExpr' $
           -- convert the function arguments

@@ -82,15 +82,11 @@ forInstance inst = concat [
 
     importFor :: ImportFor
     importFor = case inst.head of
-      HeadFunType -> ImportForFunction{
-          args = map (.hs) inst.sig.args
-        , res  = Hs.IO inst.sig.res.hs
-        }
-      HeadNewtype _ names -> ImportForNewtype{
-          args  = map (.hs) inst.sig.args
-        , res   = Hs.IO inst.sig.res.hs
-        , names = names
-        }
+      HeadFunType         -> ImportForFunction hsSig
+      HeadNewtype _ names -> ImportForNewtype hsSig names
+
+    hsSig :: FunSig Hs.Type Hs.Type
+    hsSig = bimap (.hs) (Hs.IO . (.hs)) inst.sig
 
     ffiFunType :: Hs.FFIFunType
     ffiFunType = bimap (.ffi) (.ffi) inst.sig
