@@ -14,6 +14,7 @@ import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.LanC (LanC)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Zip.Error
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
 
@@ -275,10 +276,10 @@ zipType t1 t2 = case (t1, t2) of
         C.TypeConstArray <$> checkEq n1 n2 <*> zipType et1 et2
       (C.TypeIncompleteArray et1, C.TypeIncompleteArray et2) ->
         C.TypeIncompleteArray <$> zipType et1 et2
-      (C.TypeFun args1 res1, C.TypeFun args2 res2) ->
-        C.TypeFun
-          <$> zipList zipTypeFunArg args1 args2
-          <*> zipType res1 res2
+      (C.TypeFun sig1, C.TypeFun sig2) ->
+        fmap C.TypeFun $ FunSig
+          <$> zipList zipTypeFunArg sig1.args sig2.args
+          <*> zipType sig1.res sig2.res
       (C.TypeVoid, C.TypeVoid) ->
         success C.TypeVoid
       (C.TypeBlock t1', C.TypeBlock t2') ->

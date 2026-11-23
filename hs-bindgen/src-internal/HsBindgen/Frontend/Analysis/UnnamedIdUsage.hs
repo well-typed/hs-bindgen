@@ -272,7 +272,7 @@ analyseType = go
         C.TypeConstArray _sz  ty -> indirect ty
         C.TypeIncompleteArray ty -> indirect ty
         C.TypeBlock           ty -> indirect ty
-        C.TypeFun args res       -> concatMap analyseTypeFunArg args ++ indirect res
+        C.TypeFun sig            -> bifoldMap analyseTypeFunArg indirect sig
 
         -- Trivial cases
         C.TypeComplex{}    -> []

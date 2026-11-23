@@ -29,6 +29,7 @@ import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Macro.Error (MacroLangFailure (..), MacroParseError)
@@ -669,7 +670,7 @@ functionDecl macroLang enclosing ctx declId info =
       typ        <- fromCXType ctx =<< clang_getCursorType curr
       guardTypeFunction curr typ >>= \case
         Left rs -> foldContinueWith rs
-        Right (functionArgs, functionRes) -> do
+        Right functionSig -> do
           functionAnn <- getReparseInfo curr
           let mkDecl :: C.FunctionPurity -> C.Decl l Parse
               mkDecl purity = C.Decl{
@@ -679,8 +680,8 @@ functionDecl macroLang enclosing ctx declId info =
                 , enclosing = enclosing
                 , ann       = NoAnn
                 , kind      = C.DeclFunction C.Function {
-                             args  = functionArgs
-                           , res   = functionRes
+                             args  = functionSig.args
+                           , res   = functionSig.res
                            , attrs = C.FunctionAttributes purity
                            , ann   = functionAnn
                            }
@@ -725,12 +726,12 @@ functionDecl macroLang enclosing ctx declId info =
       -> ParseDecl (
             Either
               [ParseResult l Parse]
-              ([C.FunctionArg Parse], C.FunctionRes Parse)
+              (FunSig (C.FunctionArg Parse) (C.FunctionRes Parse))
           )
     guardTypeFunction curr ty =
         case ty of
-          C.TypeFun args res -> do
-            args' <- forM (zip args [0 :: Int ..]) $ \(argCType, i) -> do
+          C.TypeFun sig -> do
+            args' <- forM (zip sig.args [0 :: Int ..]) $ \(argCType, i) -> do
               argCursor <- clang_Cursor_getArgument curr i
 
               argName <- clang_getCursorDisplayName argCursor
@@ -744,8 +745,7 @@ functionDecl macroLang enclosing ctx declId info =
                 , typ  = argCType
                 , ann  = NoAnn
                 }
-            let res' = C.FunctionRes res NoAnn
-            pure $ Right (args', res')
+            pure $ Right FunSig{args = args', res = C.FunctionRes sig.res NoAnn}
           C.TypeTypedef{} ->
             Left <$>
               (parseFail ctx declId info ParseFunctionOfTypeTypedef)

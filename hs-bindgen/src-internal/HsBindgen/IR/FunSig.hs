@@ -6,8 +6,6 @@ module HsBindgen.IR.FunSig (
   , collectErrors
   ) where
 
-import Data.Bifoldable (Bifoldable (bifoldMap))
-import Data.Bitraversable (Bitraversable (bitraverse))
 import Data.Either (partitionEithers)
 import Data.List.NonEmpty qualified as NonEmpty
 

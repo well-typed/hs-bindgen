@@ -133,7 +133,7 @@ data TypeF (tag :: TypeTag) (p :: Pass) =
   | TypeIncompleteArray (TypeF tag p)
 
     -- | Functions
-  | TypeFun [TypeFunArgF tag p] (TypeF tag p)
+  | TypeFun (FunSig (TypeFunArgF tag p) (TypeF tag p))
 
     -- | Void
     --
@@ -205,7 +205,7 @@ mapTypeF fTypedefRef fQual fExtBindingRef fMacroRef fEnumRef = go
       TypePointers n t      -> TypePointers n $ go t
       TypeConstArray n t    -> TypeConstArray n $ go t
       TypeIncompleteArray t -> TypeIncompleteArray (go t)
-      TypeFun args res      -> TypeFun (fmap goTypeFunArg args) (go res)
+      TypeFun sig           -> TypeFun (bimap goTypeFunArg go sig)
       TypeVoid              -> TypeVoid
       TypeBlock t           -> TypeBlock (go t)
       TypeQual q t          -> fQual q t
@@ -619,7 +619,7 @@ depsOfType = \case
     TypeIncompleteArray t -> depsOfType t
     TypeBlock           t -> depsOfType t
     TypeQual _          t -> depsOfType t
-    TypeFun args res      -> concatMap depsOfTypeFunArg args <> depsOfType res
+    TypeFun sig           -> bifoldMap depsOfTypeFunArg depsOfType sig
 
 depsOfTypeFunArg ::
      PassMacro p
@@ -634,8 +634,8 @@ depsOfTypeFunArg arg = depsOfType arg.typ
 -- have more than one child type.
 getOutermostFunType :: Type p -> Maybe (FunSig (TypeFunArg p) (Type p))
 getOutermostFunType ty = do
-    (_, args, res, _) <- findOutermostFunType ty
-    pure FunSig{args = args, res = res}
+    (_, sig, _) <- findOutermostFunType ty
+    pure sig
 
 -- | Get the first function type indirection
 --
@@ -644,14 +644,13 @@ getOutermostFunType ty = do
 getFirstFunTypeIndirection ::
      forall p.
      Type p
-  -> Maybe ( [TypeFunArg p]
-           , Type p
+  -> Maybe ( FunSig (TypeFunArg p) (Type p)
            , Type p -> Type p -- ^ zipper: how to reconstruct the original type
            )
 getFirstFunTypeIndirection ty = do
-    (numIndirections, args, res, reconstruct) <- findOutermostFunType ty
+    (numIndirections, sig, reconstruct) <- findOutermostFunType ty
     guard $ numIndirections > 0
-    pure (args, res, reconstruct)
+    pure (sig, reconstruct)
 
 -- | Find the outermost function type, the number of indirections to reach it,
 -- and how to rebuild the type
@@ -659,8 +658,7 @@ findOutermostFunType ::
      forall p.
      Type p
   -> Maybe ( Int
-           , [TypeFunArg p]
-           , Type p
+           , FunSig (TypeFunArg p) (Type p)
            , Type p -> Type p
            )
 findOutermostFunType = go 0 id
@@ -670,13 +668,12 @@ findOutermostFunType = go 0 id
       -> (Type p -> Type p)
       -> Type p
       -> Maybe ( Int
-               , [TypeFunArg p]
-               , Type p
+               , FunSig (TypeFunArg p) (Type p)
                , Type p -> Type p
                )
     go numIndirections reconstruct = \case
       -- interesting case
-      TypeFun args res -> Just (numIndirections, args, res, reconstruct)
+      TypeFun sig -> Just (numIndirections, sig, reconstruct)
 
       -- recursive cases
       TypePointers n t        -> go (numIndirections + n) (reconstruct . TypePointers n) t
@@ -802,7 +799,7 @@ instance (
       TypeMacro ref           -> TypeMacro (MacroRef (goMacroId ref.name) (goMacroUnderlying ref.underlying))
       TypeTypedef ref         -> TypeTypedef (Ref (goId ref.name) (coercePass ref.underlying))
       TypePointers n typ      -> TypePointers n (coercePass typ)
-      TypeFun args res        -> TypeFun (map coercePass args) (coercePass res)
+      TypeFun sig             -> TypeFun (bimap coercePass coercePass sig)
       TypeVoid                -> TypeVoid
       TypeConstArray n typ    -> TypeConstArray n (coercePass typ)
       TypeIncompleteArray typ -> TypeIncompleteArray (coercePass typ)

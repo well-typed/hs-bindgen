@@ -64,6 +64,7 @@ import HsBindgen.IR.C.DeclPath qualified as C
 import HsBindgen.IR.C.HashIncludeArg qualified as C
 import HsBindgen.IR.C.Naming qualified as C
 import HsBindgen.IR.C.Type qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C (PrimType)
 import HsBindgen.Macro.Type qualified as Macro
@@ -314,7 +315,10 @@ data FunctionRes (p :: Pass) = FunctionRes {
 -- | Get the type of a function declaration
 typeOfFunction :: forall p. PassTypes p => Function p -> C.Type p
 typeOfFunction fun =
-    C.TypeFun (map typeOfFunctionArg fun.args) (typeOfFunctionRes fun.res)
+    C.TypeFun FunSig{
+        args = map typeOfFunctionArg fun.args
+      , res  = typeOfFunctionRes fun.res
+      }
 
 -- | Get the type of a function argument
 typeOfFunctionArg :: forall p. PassTypes p => FunctionArg p -> C.TypeFunArg p

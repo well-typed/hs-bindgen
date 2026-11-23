@@ -723,8 +723,8 @@ instance Resolve C.Type l where
 
       -- Recursive cases
       C.TypePointers n t      -> C.TypePointers n <$> resolve ctx t
-      C.TypeFun args res      ->
-        C.TypeFun <$> mapM (resolve ctx) args <*> resolve ctx res
+      C.TypeFun sig           ->
+        C.TypeFun <$> bitraverse (resolve ctx) (resolve ctx) sig
       C.TypeConstArray n t    -> C.TypeConstArray n <$> resolve ctx t
       C.TypeIncompleteArray t -> C.TypeIncompleteArray <$> resolve ctx t
       C.TypeBlock t           -> C.TypeBlock <$> resolve ctx t

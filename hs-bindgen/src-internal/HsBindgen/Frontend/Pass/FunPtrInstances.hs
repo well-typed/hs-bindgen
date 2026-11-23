@@ -23,8 +23,6 @@ module HsBindgen.Frontend.Pass.FunPtrInstances (
 import Control.Monad.Reader (ReaderT (..), asks)
 import Control.Monad.State (State, gets, modify, runState)
 import Control.Monad.Writer.Strict (runWriter)
-import Data.Bifoldable (bifoldMap)
-import Data.Bitraversable (bitraverse)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
@@ -197,7 +195,7 @@ processFunType occurrence loc sig = do
       Nested        -> do
         db <- asks (.db)
         pure $ HeadFunType <$
-          guard (isDefinedInCurrentModule db (C.TypeFun sig.args sig.res))
+          guard (isDefinedInCurrentModule db (C.TypeFun sig))
     forM_ mHead $ \hd -> do
       mSigOk <- classifyCached loc key funType
       forM_ mSigOk $ \sigOk ->

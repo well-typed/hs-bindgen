@@ -15,6 +15,7 @@ import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.LanC (LanC)
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass (NoAnn (..))
 import HsBindgen.Language.C qualified as C
 
@@ -86,7 +87,10 @@ fromUnknownType uty =
 fromKnownType :: KnownType -> C.Type LanC
 fromKnownType = \case
     KnownType   typ        -> typ
-    TopLevelFun params res -> C.TypeFun (map (mkTypeFunArg . snd) params) res
+    TopLevelFun params res -> C.TypeFun FunSig{
+        args = map (mkTypeFunArg . snd) params
+      , res  = res
+      }
   where
     mkTypeFunArg typ = C.TypeFunArgF {
           typ = typ

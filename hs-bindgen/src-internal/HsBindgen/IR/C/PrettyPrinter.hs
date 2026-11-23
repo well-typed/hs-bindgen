@@ -22,6 +22,7 @@ import HsBindgen.Imports
 import HsBindgen.IR.C.Decl qualified as C
 import HsBindgen.IR.C.Naming qualified as C
 import HsBindgen.IR.C.Type qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
 
@@ -162,12 +163,12 @@ showsType x (C.TypePointers n t)      = showsType (\d -> showParen (d > arrayPre
                                       . x (pointerPrec + 1)) t
 showsType x (C.TypeConstArray n t)    = showsType (\_d -> x (arrayPrec + 1) . showChar '[' . shows n . showChar ']') t
 showsType x (C.TypeIncompleteArray t) = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
-showsType x (C.TypeFun args res)      =
+showsType x (C.TypeFun sig)           =
     -- Note: we pass 'ImpureFunction' to 'showsFunctionType' so that no function
     -- attributes are included in the printed string. Function attributes should
     -- not appear inside types, rather only as part of top-level function
     -- declarations.
-    showsFunctionType (showParen True (x 0)) C.ImpureFunction (zipWith named [1..] args) res
+    showsFunctionType (showParen True (x 0)) C.ImpureFunction (zipWith named [1..] sig.args) sig.res
   where
     named :: Int -> C.TypeFunArg p -> (ShowS, C.Type p)
     named i arg = (showString "arg" . shows i, arg.typ)

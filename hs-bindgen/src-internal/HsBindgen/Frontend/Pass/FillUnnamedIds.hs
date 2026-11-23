@@ -382,7 +382,7 @@ instance UpdateUseSites C.Type where
           C.TypeIncompleteArray ty -> C.TypeIncompleteArray <$> go ty
           C.TypeBlock           ty -> C.TypeBlock <$> go ty
           C.TypeQual qual       ty -> C.TypeQual qual <$> go ty
-          C.TypeFun args res       -> C.TypeFun <$> mapM updateUseSites args <*> go res
+          C.TypeFun sig            -> C.TypeFun <$> bitraverse updateUseSites go sig
 
           -- SimpleCases
           C.TypeVoid           -> return $ C.TypeVoid

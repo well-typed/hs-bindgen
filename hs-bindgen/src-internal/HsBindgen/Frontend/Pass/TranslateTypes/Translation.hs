@@ -16,6 +16,7 @@ module HsBindgen.Frontend.Pass.TranslateTypes.Translation (
   , pointee
   ) where
 
+import Data.Bifunctor (bimap)
 import Data.Proxy (Proxy (..))
 import GHC.Stack
 
@@ -125,11 +126,8 @@ typeInContext ctx = \case
       Hs.ConstArray n (typeInContext Top ty)
     C.TypeIncompleteArray ty ->
       Hs.IncompleteArray (typeInContext Top ty)
-    C.TypeFun args res ->
-      funType FunSig{
-          args = map (inContext FunArg) args
-        , res  = typeInContext FunRes res
-        }
+    C.TypeFun sig ->
+      funType $ bimap (inContext FunArg) (typeInContext FunRes) sig
     C.TypeVoid ->
       Hs.PrimType (void ctx)
     C.TypeBlock ty ->

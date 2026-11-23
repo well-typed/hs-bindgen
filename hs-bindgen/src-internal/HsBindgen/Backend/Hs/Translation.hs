@@ -49,6 +49,7 @@ import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.FunPtrInstance
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
@@ -145,8 +146,8 @@ generateDecs macroLang funPtrNewtypes decl =
         HsM.immediateM $ untaggedEnumConstantDecs decl enumConst
       C.DeclTypedef typedef -> withCategoryM CType $
         case C.getFirstFunTypeIndirection typedef.typ.c of
-          Just (args, res, reconstruct) ->
-            typedefFunTypeIndirectionDecs funPtrNewtypes decl typedef (args, res, reconstruct) spec
+          Just indirection ->
+            typedefFunTypeIndirectionDecs funPtrNewtypes decl typedef indirection spec
           Nothing ->
             HsM.immediateM $ typedefDecs funPtrNewtypes decl Origin.Typedef typedef spec
       C.DeclOpaque mSize -> withCategoryM CType $
@@ -560,10 +561,11 @@ typedefFunTypeIndirectionDecs ::
   => FunPtrNewtypes
   -> C.Decl l Final
   -> C.Typedef Final
-  -> ([C.TypeFunArg Final], C.Type Final, C.Type Final -> C.Type Final) -- ^ Function arguments and result
+  -> (FunSig (C.TypeFunArg Final) (C.Type Final), C.Type Final -> C.Type Final)
+     -- ^ The function type, and how to reconstruct the type of the typedef
   -> PrescriptiveDeclSpec
   -> HsM (HsM.Action [Hs.Decl l])
-typedefFunTypeIndirectionDecs funPtrNewtypes origDecl origTypedef (args, res, reconstruct) origSpec =
+typedefFunTypeIndirectionDecs funPtrNewtypes origDecl origTypedef (sig, reconstruct) origSpec =
     fmap HsM.concatSequence $ sequence [
         HsM.delayM     $ typedefDecs funPtrNewtypes auxDecl  Origin.Aux     auxTypedef  auxSpec
       , HsM.immediateM $ typedefDecs funPtrNewtypes origDecl Origin.Typedef mainTypedef origSpec
@@ -612,7 +614,7 @@ typedefFunTypeIndirectionDecs funPtrNewtypes origDecl origTypedef (args, res, re
 
     auxTypedef :: C.Typedef Final
     auxTypedef =
-      let c = C.TypeFun args res
+      let c = C.TypeFun sig
       in  C.Typedef{
               typ = Translated{
                   c  = c
@@ -636,7 +638,7 @@ typedefFunTypeIndirectionDecs funPtrNewtypes origDecl origTypedef (args, res, re
     mainTypedef =
       let c = reconstruct $ C.TypeTypedef $ C.Ref{
               name       = auxDecl.id
-            , underlying = C.TypeFun args res
+            , underlying = C.TypeFun sig
             }
       in  C.Typedef{
               typ = Translated{
@@ -1062,8 +1064,8 @@ referencesUntagged = go
         C.TypePointers _n ty -> go ty
         C.TypeConstArray _n ty -> go ty
         C.TypeIncompleteArray ty -> go ty
-        C.TypeFun args res ->
-          any goTypeFunArg args || go res
+        C.TypeFun sig ->
+          any goTypeFunArg sig.args || go sig.res
         C.TypeVoid -> False
         C.TypeBlock ty -> go ty
         C.TypeQual _qual ty -> go ty
