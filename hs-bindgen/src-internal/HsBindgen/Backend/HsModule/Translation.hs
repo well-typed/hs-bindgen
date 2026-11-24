@@ -2,6 +2,7 @@ module HsBindgen.Backend.HsModule.Translation (
     -- * GhcPragma
     GhcPragma (..)
     -- * ImportListItem
+  , ImportSource(..)
   , ImportListItem(..)
     -- * Export list
   , ExportEntry(..)
@@ -9,6 +10,7 @@ module HsBindgen.Backend.HsModule.Translation (
   , resolveDeclExports
     -- * HsModule
   , HsModule(..)
+  , withModuleDoc
     -- * HsBoot
   , HsBoot(..)
   , hasHsBoot
@@ -52,13 +54,26 @@ newtype GhcPragma = GhcPragma { unGhcPragma :: String }
   ImportListItem
 -------------------------------------------------------------------------------}
 
+-- | Whether an import reads a module or its boot file
+data ImportSource =
+    -- | @import M@
+    NormalImport
+    -- | @import {-# SOURCE #-} M@: the boot file of @M@, which breaks an import
+    -- cycle
+  | SourceImport
+  deriving stock (Eq, Ord)
+
 -- | Import list item
+--
+-- 'resolveImports' sorts imports with this 'Ord' instance. The 'ImportSource'
+-- is the first field, and 'NormalImport' sorts before 'SourceImport', so the
+-- @{-# SOURCE #-}@ imports of each kind come after its normal imports.
 data ImportListItem =
-    QualifiedImportListItem   Hs.ModuleName (Maybe String)
+    QualifiedImportListItem   ImportSource Hs.ModuleName (Maybe String)
     -- An empty import list (@Just []@) means "import instances only", and
     -- differs greatly from having no import list (@Nothing@), which is an open,
     -- unqualified import.
-  | UnqualifiedImportListItem Hs.ModuleName (Maybe [ResolvedName])
+  | UnqualifiedImportListItem ImportSource Hs.ModuleName (Maybe [ResolvedName])
   deriving stock (Eq, Ord)
 
 {-------------------------------------------------------------------------------
@@ -103,6 +118,8 @@ data ExportItem =
 -- | Haskell module
 data HsModule = HsModule {
       pragmas        :: [GhcPragma]
+      -- | The Haddock of the module itself, above the module header
+    , moduleDoc      :: Maybe HsDoc.Comment
     , name           ::  Hs.ModuleName
     , exports        :: [ExportEntry]
     , imports        :: [ImportListItem]
@@ -112,6 +129,12 @@ data HsModule = HsModule {
     , cWrappers      :: [CWrapper]
     , decls          :: [SDecl]
     }
+
+-- | Give a module its own Haddock
+--
+-- Library mode documents its vendor module this way.
+withModuleDoc :: HsDoc.Comment -> HsModule -> HsModule
+withModuleDoc doc m = m{moduleDoc = Just doc}
 
 {-------------------------------------------------------------------------------
   HsBoot
@@ -142,10 +165,13 @@ translateModuleMultiple ::
   -> HsBootPolicy
   -> [C.RootDirective C.HashIncludeArg]
   -> BaseModuleName
+  -> [ImportListItem]
+     -- ^ Library-mode @{-# SOURCE #-}@ imports of the types module (see
+     -- @crossImportsFor@). Empty outside library mode.
   -> ([SDecl] -> [ExportEntry])
   -> ByCategory_ ([CWrapper], [SDecl])
   -> ByCategory_ (Maybe (HsModule, Maybe HsBoot))
-translateModuleMultiple fns mrc hsBootPolicy dirs moduleBaseName resolveExports declsByCat =
+translateModuleMultiple fns mrc hsBootPolicy dirs moduleBaseName crossModuleImports resolveExports declsByCat =
     mapWithCategory_ go declsByCat
   where
     go :: Category -> ([CWrapper], [SDecl]) -> Maybe (HsModule, Maybe HsBoot)
@@ -158,6 +184,7 @@ translateModuleMultiple fns mrc hsBootPolicy dirs moduleBaseName resolveExports 
             dirs
             (Just cat)
             moduleBaseName
+            (crossImportsFor cat)
             resolveExports
             xs
       , translateHsBoot mrc moduleBaseName cat <$> bootDecls cat decs
@@ -166,6 +193,7 @@ translateModuleMultiple fns mrc hsBootPolicy dirs moduleBaseName resolveExports 
     addOrphanPragma :: Category -> HsModule -> HsModule
     addOrphanPragma (CTerm CCallback) m = HsModule{
           pragmas        = "OPTIONS_GHC -Wno-orphans" : m.pragmas
+        , moduleDoc      = m.moduleDoc
         , name           = m.name
         , exports        = m.exports
         , imports        = m.imports
@@ -175,6 +203,18 @@ translateModuleMultiple fns mrc hsBootPolicy dirs moduleBaseName resolveExports 
         , decls          = m.decls
         }
     addOrphanPragma _otherCategory m = m
+
+    -- Only a types module gets these: a @{-# SOURCE #-}@ import of each peer in
+    -- its import cycle that its types refer to. Term modules (Safe, Unsafe,
+    -- FunPtr, Global, Callback) can't be in a cycle, so they get none.
+    --
+    -- NOTE: This assumes the bindings are compiled as a whole package with
+    -- @ghc --make@, as cabal and stack do. Compiling bindings with import
+    -- cycles one module at a time, with @ghc -c@, is not supported: a term
+    -- module can then fail with "Couldn't match type FFIType ...".
+    crossImportsFor :: Category -> [ImportListItem]
+    crossImportsFor CType     = crossModuleImports
+    crossImportsFor (CTerm _) = []
 
     bootDecls :: Category -> [SDecl] -> Maybe [HsBootDecl]
     bootDecls cat decs = case hsBootPolicy of
@@ -190,7 +230,7 @@ translateModuleSingle ::
   -> ByCategory_ ([CWrapper], [SDecl])
   -> HsModule
 translateModuleSingle fns mrc dirs name resolveExports declsByCat =
-    translateModule' fns mrc dirs Nothing name resolveExports $
+    translateModule' fns mrc dirs Nothing name [] resolveExports $
       Foldable.fold declsByCat
 
 translateModule' ::
@@ -199,17 +239,20 @@ translateModule' ::
   -> [C.RootDirective C.HashIncludeArg]
   -> Maybe Category
   -> BaseModuleName
+  -> [ImportListItem] -- ^ Library-mode cross-module imports, already adjusted
+                     --   per category by @crossImportsFor@
   -> ([SDecl] -> [ExportEntry])
   -> ([CWrapper], [SDecl])
   -> HsModule
-translateModule' fns mrc dirs mcat moduleBaseName resolveExports (cWrappers, decs) =
+translateModule' fns mrc dirs mcat moduleBaseName crossModuleImports resolveExports (cWrappers, decs) =
     HsModule{
         pragmas        = resolvePragmas mrc.qualifiedStyle cWrappers $
                               fieldNamingPragmas fns
                            <> Set.map extensionPragma
                                 (foldMap (requiredExtensions fns) decs)
+      , moduleDoc      = Nothing
       , exports        = resolveExports decs
-      , imports        = resolveImports moduleBaseName mcat cWrappers decs
+      , imports        = resolveImports moduleBaseName mcat cWrappers crossModuleImports decs
       , name           = fromBaseModuleName moduleBaseName mcat
       , qualifiedStyle = mrc.qualifiedStyle
       , rootDirectives = dirs
@@ -366,15 +409,28 @@ resolveImports ::
      BaseModuleName
   -> Maybe Category
   -> [CWrapper]
+  -> [ImportListItem] -- ^ Library-mode cross-module imports: the SOURCE
+                     --   imports of a types module, none for a term module
   -> [SDecl]
   -> [ImportListItem]
-resolveImports baseModule cat wrappers ds =
+resolveImports baseModule cat wrappers crossModuleImports ds =
     let acc = mconcat $ map resolveDeclImports ds
         currentModule = fromBaseModuleName baseModule cat
+
+        -- The modules this module imports with {-# SOURCE #-}: the other
+        -- types modules of its import cycle. A reference to one of their
+        -- names (TExt or EExt) would add a normal qualified import of the
+        -- same module and close the cycle, so 'importListItems' drops it. A
+        -- term module has no SOURCE imports, so it imports every module
+        -- normally.
+        sccPeerModules = Set.fromList
+          [ m | QualifiedImportListItem SourceImport m _ <- crossModuleImports ]
+
     in  Set.toAscList . mconcat $ [
             bindingCatImport acc.requireTypes
-          , Set.map (uncurry QualifiedImportListItem) userlandCapiImport
-          , importListItems currentModule acc
+          , Set.fromList crossModuleImports
+          , Set.map (uncurry (QualifiedImportListItem NormalImport)) userlandCapiImport
+          , importListItems currentModule sccPeerModules acc
           ]
   where
     bindingCatImport :: Bool -> Set ImportListItem
@@ -386,7 +442,7 @@ resolveImports baseModule cat wrappers ds =
         _otherCat  ->
           let moduleName = fromBaseModuleName baseModule (Just CType)
           in  Set.singleton $
-                UnqualifiedImportListItem moduleName Nothing
+                UnqualifiedImportListItem NormalImport moduleName Nothing
 
     userlandCapiImport :: Set (Hs.ModuleName, Maybe String)
     userlandCapiImport = case wrappers of
@@ -396,26 +452,35 @@ resolveImports baseModule cat wrappers ds =
 -- | Resolve the imports of a boot file
 --
 -- Only types modules have boot files. Their imports are the qualified modules
--- that the boot file's declarations refer to (the same mechanism as for a
--- normal module).
+-- that the boot file's declarations refer to, as for a normal module. Unlike a
+-- normal module, a boot file imports the other modules of its import cycle
+-- normally, not through their boot files. A type synonym that names a peer's
+-- type therefore closes the cycle: the flexible array member of
+-- @struct A { int n; struct B *items[]; }@ makes the boot file of @Lib.A@
+-- import @Lib.B@, which imports @Lib.A@ with @{-# SOURCE #-}@.
 resolveHsBootImports :: Hs.ModuleName -> [HsBootDecl] -> [ImportListItem]
 resolveHsBootImports currentModule ds =
     let acc = mconcat $ map resolveHsBootDeclImports ds
-    in  Set.toAscList $ importListItems currentModule acc
+    in  Set.toAscList $ importListItems currentModule Set.empty acc
 
--- | The import list items for the names in an accumulator, filtering out
--- self-imports (a module cannot import itself).
-importListItems :: Hs.ModuleName -> ImportAcc -> Set ImportListItem
-importListItems currentModule acc = mconcat [
-      Set.map (uncurry QualifiedImportListItem) $
-        Set.filter (\(m, _) -> m /= currentModule) acc.qualified
+-- | The import list items for the names in an accumulator, without the
+-- current module and without the given import-cycle peers, which already have
+-- a @{-# SOURCE #-}@ import.
+importListItems ::
+     Hs.ModuleName -> Set Hs.ModuleName -> ImportAcc -> Set ImportListItem
+importListItems currentModule sccPeerModules acc = mconcat [
+      Set.map (uncurry (QualifiedImportListItem NormalImport)) $
+        Set.filter (\(m, _) -> not (suppress m)) acc.qualified
     , Set.fromList $ map (uncurry mkUImportListItem) $
-        filter (\(m, _) -> m /= currentModule) (Map.toList acc.unqualified)
+        filter (\(m, _) -> not (suppress m)) (Map.toList acc.unqualified)
     ]
   where
+    suppress :: Hs.ModuleName -> Bool
+    suppress m = m == currentModule || Set.member m sccPeerModules
+
     mkUImportListItem :: Hs.ModuleName -> Set ResolvedName -> ImportListItem
     mkUImportListItem m xs =
-      UnqualifiedImportListItem m (Just $ Set.toAscList xs)
+      UnqualifiedImportListItem NormalImport m (Just $ Set.toAscList xs)
 
 -- | Accumulator for resolving imports
 --
