@@ -184,7 +184,7 @@ processFunction ::
 processFunction fun = do
     eArgs <- zipWithM processFunctionArg [1..] fun.sig.args
     eRes  <- processFunctionRes fun.sig.res
-    pure $ case collectErrors FunSig{args = eArgs, res = eRes} of
+    pure $ case collectLefts FunSig{args = eArgs, res = eRes} of
       Left errs -> Left $ TranslateTypesFunctionError errs
       Right sig -> Right C.Function{
           sig   = sig

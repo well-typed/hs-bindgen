@@ -20,10 +20,10 @@ module HsBindgen.Frontend.Pass.FunPtrInstances (
   , funPtrInstances
   ) where
 
+import Control.Monad (zipWithM)
 import Control.Monad.Reader (ReaderT (..), asks)
 import Control.Monad.State (State, gets, modify, runState)
 import Control.Monad.Writer.Strict (runWriter)
-import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
@@ -36,7 +36,6 @@ import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass.Msg
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (TypedefNames (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.Error (FunPositionError)
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (FFITypesMsg)
 import HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (Classified,
                                                              classifyArgPassingMethod,
                                                              classifyResPassingMethod)
@@ -260,84 +259,57 @@ classifyCached loc key funType = do
 
 classify :: FunTypeLocation -> FunType -> M l (Maybe (FunSig FunPtrArg FunPtrRes))
 classify loc funType = do
-    forM_ (bifoldMap (.msgs) (.msgs) classified) $ \m ->
-      addMessage $ FunPtrInstancesFFITypes loc m.position m.msg
-    case collectErrors (bimap (.result) (.result) classified) of
+    args <- zipWithM classifyArg [1..] funType.args
+    res  <- classifyRes funType.res
+    case collectLefts FunSig{args = args, res = res} of
       Left errs -> do
         addMessage $ FunPtrInstancesPositionErrors loc errs
         pure Nothing
-      Right sigOk ->
-        case bitraverse direct directRes sigOk of
-          Just sigDirect -> pure $ Just sigDirect
-          Nothing        -> do
-            forM_ (NonEmpty.nonEmpty (serialized sigOk)) $
-              addMessage . FunPtrInstancesSerialized loc
-            pure Nothing
+      Right sig -> case collectLefts sig of
+        Left serialized -> do
+          addMessage $ FunPtrInstancesSerialized loc serialized
+          pure Nothing
+        Right sigDirect ->
+          pure $ Just sigDirect
   where
-    classified :: FunSig
-      (WithMsgs (ClassifiedPosition (PassingMethod Select)))
-      (WithMsgs (ClassifiedPosition (ResPassingMethod Select)))
-    classified = FunSig{
-          args = [
-              runClassified pos $
-                fmap (ClassifiedPosition arg.hs) <$>
-                  classifyArgPassingMethod pos arg.c.typ arg.hs
-            | (i, arg) <- zip [1..] funType.args
-            , let pos = argPosition i
-            ]
-        , res  =
-            runClassified FunPositionRes $
-              fmap (ClassifiedPosition funType.res.hs) <$>
-                classifyResPassingMethod funType.res.c funType.res.hs
-        }
+    classifyArg ::
+         Int
+      -> TranslatedTypeFunArg Select
+      -> M l (Either FunPositionError (Either FunPosition FunPtrArg))
+    classifyArg i arg =
+        fmap direct <$>
+          classified loc pos (classifyArgPassingMethod pos arg.c.typ arg.hs)
+      where
+        pos :: FunPosition
+        pos = argPosition i
 
-    direct :: ClassifiedPosition (PassingMethod Select) -> Maybe FunPtrArg
-    direct arg = case arg.passing of
-      PassDirect ffi   -> Just FunPtrArg{hs = arg.hs, ffi = ffi}
-      PassSerialized _ -> Nothing
+        direct :: PassingMethod Select -> Either FunPosition FunPtrArg
+        direct = \case
+          PassDirect ffi   -> Right FunPtrArg{hs = arg.hs, ffi = ffi}
+          PassSerialized _ -> Left pos
 
-    directRes :: ClassifiedPosition (ResPassingMethod Select) -> Maybe FunPtrRes
-    directRes r = case r.passing of
-      PassResVoid                   -> Just FunPtrRes{hs = r.hs, ffi = Hs.FFIResIOUnit}
-      PassResNonVoid (PassDirect t) -> Just FunPtrRes{hs = r.hs, ffi = Hs.FFIResIO t}
-      PassResNonVoid PassSerialized{} -> Nothing
+    classifyRes ::
+         TranslatedTypes Select
+      -> M l (Either FunPositionError (Either FunPosition FunPtrRes))
+    classifyRes res =
+        fmap direct <$>
+          classified loc FunPositionRes (classifyResPassingMethod res.c res.hs)
+      where
+        direct :: ResPassingMethod Select -> Either FunPosition FunPtrRes
+        direct = \case
+          PassResVoid                     -> Right FunPtrRes{hs = res.hs, ffi = Hs.FFIResIOUnit}
+          PassResNonVoid (PassDirect t)   -> Right FunPtrRes{hs = res.hs, ffi = Hs.FFIResIO t}
+          PassResNonVoid PassSerialized{} -> Left FunPositionRes
 
-    serialized ::
-         FunSig
-           (ClassifiedPosition (PassingMethod Select))
-           (ClassifiedPosition (ResPassingMethod Select))
-      -> [FunPosition]
-    serialized sigOk = concat [
-          [ argPosition i
-          | (i, arg) <- zip [1..] sigOk.args
-          , isSerialized arg.passing
-          ]
-        , [ FunPositionRes | isResSerialized sigOk.res.passing ]
-        ]
-
--- | A classified argument or result, with its Haskell type
-data ClassifiedPosition a = ClassifiedPosition {
-      hs      :: Hs.Type
-    , passing :: a
-    }
-
--- | A message from deriving the FFI type of an argument or result
-data PositionedMsg = PositionedMsg {
-      position :: FunPosition
-    , msg      :: FFITypesMsg
-    }
-
--- | The classification of an argument or result, with its messages
-data WithMsgs a = WithMsgs {
-      result :: Either FunPositionError a
-    , msgs   :: [PositionedMsg]
-    }
-
-runClassified :: FunPosition -> Classified a -> WithMsgs a
-runClassified pos x = WithMsgs{
-      result = result
-    , msgs   = map (PositionedMsg pos) msgs
-    }
+-- | Run a classification, reporting its messages
+classified ::
+     FunTypeLocation
+  -> FunPosition
+  -> Classified a
+  -> M l (Either FunPositionError a)
+classified loc pos x = do
+    forM_ msgs $ addMessage . FunPtrInstancesFFITypes loc pos
+    pure result
   where
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/2376>: use sugar
     -- infos as computed by the @TranslateTypes@ pass

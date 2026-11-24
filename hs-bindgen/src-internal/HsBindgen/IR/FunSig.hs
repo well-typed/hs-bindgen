@@ -3,7 +3,7 @@
 -- Intended for unqualified import.
 module HsBindgen.IR.FunSig (
     FunSig(..)
-  , collectErrors
+  , collectLefts
   ) where
 
 import Data.Either (partitionEithers)
@@ -28,11 +28,11 @@ instance Bifoldable FunSig where
 instance Bitraversable FunSig where
   bitraverse f g sig = FunSig <$> traverse f sig.args <*> g sig.res
 
--- | The signature without errors, or the errors of all positions, in
--- signature order
-collectErrors :: FunSig (Either e a) (Either e b) -> Either (NonEmpty e) (FunSig a b)
-collectErrors sig = case (partitionEithers sig.args, sig.res) of
-    (([]        , argsOk), Right resOk) -> Right FunSig{args = argsOk, res = resOk}
-    ((err : errs, _     ), Right _    ) -> Left (err :| errs)
-    ((errs      , _     ), Left err   ) ->
-      Left $ NonEmpty.prependList errs (err :| [])
+-- | The signature if all positions are 'Right', or the 'Left's of all
+-- positions, in signature order
+collectLefts :: FunSig (Either l a) (Either l b) -> Either (NonEmpty l) (FunSig a b)
+collectLefts sig = case (partitionEithers sig.args, sig.res) of
+    (([]    , argsOk), Right resOk) -> Right FunSig{args = argsOk, res = resOk}
+    ((l : ls, _     ), Right _    ) -> Left (l :| ls)
+    ((ls    , _     ), Left l     ) ->
+      Left $ NonEmpty.prependList ls (l :| [])
