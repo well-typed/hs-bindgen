@@ -253,44 +253,17 @@ hsBootDeclsFor = \case
     CType    -> Just typesHsBootDecls
     CTerm _  -> Nothing
 
--- | The boot file of a types module declares its types and their instances
+-- | What the boot file of a types module declares
 --
--- A module that imports the types module with @{-# SOURCE #-}@ sees only this
--- boot file. It can use it for two things, shown here with the two structs of
--- the golden fixture @types\/structs\/circular_dependency_struct@:
+-- A module that imports the types module with @{-# SOURCE #-}@ sees only the
+-- boot file, and needs three things from it:
 --
--- 1. To write the name of a type. @struct b@ has a field of type
---    @struct a *@, so its module writes @Ptr A@. The name is all it needs.
--- 2. To write its own instances. @struct a@ has a field of type @struct b@, so
---    its @ReadRaw@ instance reads that field with @ReadRaw B@. GHC only needs
---    to know that @ReadRaw B@ exists, not how it is defined.
+-- * the name of a type, to write a type such as @Ptr A@;
+-- * that an instance exists, to write its own instances: the @ReadRaw@
+--   instance of a struct with a field of type @B@ needs @ReadRaw B@;
+-- * the type of a value, to use a macro of another header in its cycle:
+--   @#define B_LIMIT (A_MAGIC + 1)@ needs the type of @a_MAGIC@.
 --
--- So the boot file declares:
---
--- * every data type and newtype, without its constructors (@data T@);
--- * every type synonym, in full, since GHC refuses @data T@ in a boot file when
---   the module defines @T@ as a synonym, such as
---   @type T = WithFlam CInt T_Aux@;
--- * every instance of the form @C T@, where @T@ is a type of the module, as
---   @instance C T@ without its @where@ part. Instances derived in a clause,
---   derived standalone or written out are all included.
---
--- GHC does not allow the following in a boot file, so they are left out:
---
--- * Type family equations, such as the @FFIType@ equation of a @HasFFIType@
---   instance. A module that reads the boot file knows that the instance
---   exists, but cannot see the equation.
--- * Pattern synonyms (enum constants) and their @COMPLETE@ pragmas.
---
--- For now the boot file covers only the two uses above. GHC would allow the
--- following, and they can be added when a case needs them:
---
--- * Every other instance, such as @HasCField T "f"@ and
---   @HasField "f" (Ptr T) (Ptr ty)@. (@ToFunPtr@ and @FromFunPtr@ instances
---   live in the callback module, not here.)
--- * Values (macros).
---
--- See the golden fixture @types\/boot\/internal_module@.
 typesHsBootDecls :: SDecl -> [HsBootDecl]
 typesHsBootDecls = \case
     DTypSyn typSyn ->
@@ -313,8 +286,11 @@ typesHsBootDecls = \case
           []
     DForeignImport _ ->
       []
-    DBinding _ ->
-      []
+    DBinding binding -> case binding.name of
+      Hs.ExportedName _ ->
+        [HsBootSig binding.name binding.parameters binding.result]
+      Hs.InternalName _ ->
+        []
     DPatternSynonym _ ->
       []
     DCompletePragma _ ->
@@ -329,7 +305,6 @@ typesHsBootDecls = \case
         | (_strategy, classes) <- deriv
         , clss <- classes
         ]
-
 
 {-------------------------------------------------------------------------------
   Auxiliary: Pragma resolution
@@ -526,6 +501,10 @@ resolveHsBootDeclImports = \case
       resolveTypeImports typ
     HsBootInstance clss _name ->
       resolveTypeClassImports clss
+    HsBootSig _name params result -> mconcat [
+        foldMap (resolveTypeImports . (.typ)) params
+      , resolveTypeImports result.typ
+      ]
 
 -- | Resolve nested deriving clauses (part of a datatype declaration)
 resolveNestedDeriv :: [(Hs.Strategy ClosedType, [Inst.TypeClass])] -> ImportAcc

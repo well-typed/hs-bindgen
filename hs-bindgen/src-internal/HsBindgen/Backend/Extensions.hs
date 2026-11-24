@@ -85,9 +85,13 @@ requiredHsBootExtensions = \case
     HsBootData _name           -> mempty
     HsBootTypSyn _name typ     -> typeExtensions typ
     HsBootInstance _clss _name -> mempty
+    HsBootSig _name params res -> mconcat [
+        foldMap (typeExtensions . (.typ)) params
+      , typeExtensions res.typ
+      ]
 
 -- | Check whether an instance argument has the shape @T a1 ... an@ (type
--- constructor applied to type variables) — anything else requires
+-- constructor applied to type variables). Anything else requires
 -- @FlexibleInstances@.
 --
 -- We don't check that the type variables are distinct: @FlexibleInstances@

@@ -183,4 +183,6 @@ data HsBootDecl =
   | HsBootTypSyn (Hs.Name Hs.NsTypeConstr) ClosedType
     -- | @instance C T@, without @where@
   | HsBootInstance Inst.TypeClass (Hs.Name Hs.NsTypeConstr)
+    -- | The type signature of a value that the module exports
+  | HsBootSig Hs.TermName [Parameter] Result
   deriving stock (Show)

@@ -126,20 +126,13 @@ instance Pretty SDecl where
        $$ PP.nest 5 (prettyBindingType foreignImport.parameters foreignImport.result)
 
     DBinding Binding{..} ->
-      let prettyName    = pretty name
-          prettyTyp     = prettyBindingType parameters result
-          prettySignature =
-            if null parameters; then
-              prettyName <+> "::" <+> prettyTyp
-            else
-              prettyName <+> "::" $$  PP.nest 5 prettyTyp
-      in  PP.vcat (map (prettyPragma name) pragmas)
-       $$ prettyTopLevelComment comment
-       $$ prettySignature
-       $$ PP.fsep
-            [ prettyName <+> PP.char '='
-            , PP.nest 2 $ pretty body
-            ]
+         PP.vcat (map (prettyPragma name) pragmas)
+      $$ prettyTopLevelComment comment
+      $$ prettySignature name parameters result
+      $$ PP.fsep
+           [ pretty name <+> PP.char '='
+           , PP.nest 2 $ pretty body
+           ]
 
     DDerivingInstance deriv ->
       prettyTopLevelComment deriv.comment
@@ -177,6 +170,8 @@ instance Pretty HsBootDecl where
       prettyTypSyn name typ
     HsBootInstance clss name ->
       "instance" <+> pretty (resolveTypeClass clss) <+> pretty name
+    HsBootSig name params result ->
+      prettySignature name params result
 
 {-------------------------------------------------------------------------------
   PatEpxr pretty-printing
@@ -225,6 +220,15 @@ prettyTypSyn name typ = PP.fsep [
       "type" <+> pretty name <+> PP.char '='
     , PP.nest 2 (pretty typ)
     ]
+
+-- | Type signature of a binding
+prettySignature :: Hs.TermName -> [Parameter] -> Result -> CtxDoc
+prettySignature name params result
+  | null params = pretty name <+> "::" <+> prettyTyp
+  | otherwise   = pretty name <+> "::" $$ PP.nest 5 prettyTyp
+  where
+    prettyTyp :: CtxDoc
+    prettyTyp = prettyBindingType params result
 
 prettyPragma :: Hs.TermName -> Pragma -> CtxDoc
 prettyPragma n = \case
