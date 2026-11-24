@@ -1,0 +1,11 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: declarations/forward_declared_enum.h
+  cname: enum E
+  hsname: E
+hstypes:
+- hsname: E
+  representation: emptydata

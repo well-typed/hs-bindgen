@@ -23,6 +23,7 @@ testCases = [
       -- Default tests
       defaultTest "declarations/declarations_required_for_scoping"
     , defaultTest "declarations/forward_declaration"
+    , test_forward_declared_enum
     , defaultTest "declarations/opaque_declaration"
       -- Bespoke tests
     , test_declaration_unselected_b
@@ -191,3 +192,17 @@ test_tentative_definitions =
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["i1", "i2", "i3"]
+
+-- | Forward-declared enum used in function signatures
+--
+-- <https://github.com/well-typed/hs-bindgen/issues/2353>
+test_forward_declared_enum :: TestCase
+test_forward_declared_enum =
+    testTraceMulti "declarations/forward_declared_enum" declsWithMsgs $ \case
+      MatchDelayed name ParseIncompleteEnumType ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["takes_e", "returns_e", "takes_e_ptr"]

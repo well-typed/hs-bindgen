@@ -1,6 +1,7 @@
 -- | Fold types
 module HsBindgen.Frontend.Pass.Parse.Type (fromCXType) where
 
+import Control.Exception qualified as Exception
 import Control.Monad
 import Control.Monad.Catch
 import Control.Monad.Error.Class
@@ -186,12 +187,18 @@ typeEnum decl = do
     -- enum type directly.
     let mDeclName = C.prelimDeclIdSourceName declId
     ParseType.cachedMaybe mDeclName $ do
-      underlying <- handle (addUnderlyingTypeContextHandler declId)
-                      (cxtype =<< clang_getEnumDeclIntegerType decl)
-      pure $ C.TypeEnum $ C.Ref {
-            name = declId
-          , underlying = underlying
-          }
+      mIntType <- liftIO $ Exception.try @CallFailed $
+                    clang_getEnumDeclIntegerType decl
+      case mIntType of
+        Left _callFailed ->
+          throwError ParseIncompleteEnumType
+        Right intType -> do
+          underlying <- handle (addUnderlyingTypeContextHandler declId)
+                          (cxtype intType)
+          pure $ C.TypeEnum $ C.Ref {
+                name = declId
+              , underlying = underlying
+              }
 
 typeTypedef :: HasCallStack => CXCursor -> ParseType (C.Type Parse)
 typeTypedef curr = do
