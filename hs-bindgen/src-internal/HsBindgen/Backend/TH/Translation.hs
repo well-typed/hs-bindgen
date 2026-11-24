@@ -181,7 +181,7 @@ mkRolledType env ty = case ty of
     TFun a b   -> TH.arrowT `TH.appT` mkType env a `TH.appT` mkType env b
     TLit n     -> TH.litT (TH.numTyLit (toInteger n))
     TStrLit s  -> TH.litT (TH.strTyLit s)
-    TExt extRef -> lookupExtType extRef
+    TExt identifier -> lookupExtType identifier
     TBound x   -> TH.varT (lookupEnv x env)
     TFree n    -> TH.varT $ mkHsName n
     TApp f t   -> TH.appT (mkType env f) (mkType env t)
@@ -509,20 +509,20 @@ panicWith msg x = panicPure $ msg ++ ": " ++ show x
 -- cascading type errors.
 --
 -- See https://github.com/well-typed/hs-bindgen/issues/1622.
-lookupExtType :: Guasi q => Hs.ExtRef -> q TH.Type
-lookupExtType extRef = do
+lookupExtType :: Guasi q => Hs.Identifier -> q TH.Type
+lookupExtType identifier = do
     mName <- lookupTypeName qualName
     case mName of
       Just n  -> TH.conT n
       Nothing -> do
-          modifyGuasi (putMissingModule extRef.moduleName)
+          modifyGuasi (putMissingModule identifier.moduleName)
           TH.conT (TH.mkName qualName)
   where
     qualName :: String
     qualName = concat [
-          Hs.moduleNameToString extRef.moduleName
+          Hs.moduleNameToString identifier.moduleName
         , "."
-        , Text.unpack extRef.name.text
+        , Text.unpack identifier.name.text
         ]
 
     putMissingModule :: Hs.ModuleName -> GuasiState -> GuasiState

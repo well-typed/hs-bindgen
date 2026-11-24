@@ -231,12 +231,13 @@ translateHsBoot ::
   -> [HsBootDecl]
   -> HsBoot
 translateHsBoot mrc moduleBaseName cat decs =
-    HsBoot{
+  let currentModule = fromBaseModuleName moduleBaseName (Just cat)
+   in HsBoot{
         pragmas        = resolvePragmas mrc.qualifiedStyle [] $
                            Set.map extensionPragma
                              (foldMap requiredHsBootExtensions decs)
       , name           = fromBaseModuleName moduleBaseName (Just cat)
-      , imports        = resolveHsBootImports decs
+      , imports        = resolveHsBootImports currentModule decs
       , qualifiedStyle = mrc.qualifiedStyle
       , decls          = decs
       }
@@ -394,11 +395,11 @@ resolveImports ::
   -> [ImportListItem]
 resolveImports baseModule cat wrappers ds =
     let acc = mconcat $ map resolveDeclImports ds
+        currentModule = fromBaseModuleName baseModule cat
     in  Set.toAscList . mconcat $ [
             bindingCatImport acc.requireTypes
-          , Set.map (uncurry QualifiedImportListItem)
-              userlandCapiImport
-          , importListItems acc
+          , Set.map (uncurry QualifiedImportListItem) userlandCapiImport
+          , importListItems currentModule acc
           ]
   where
     bindingCatImport :: Bool -> Set ImportListItem
@@ -422,16 +423,19 @@ resolveImports baseModule cat wrappers ds =
 -- Only types modules have boot files. Their imports are the qualified modules
 -- that the boot file's declarations refer to (the same mechanism as for a
 -- normal module).
-resolveHsBootImports :: [HsBootDecl] -> [ImportListItem]
-resolveHsBootImports ds =
+resolveHsBootImports :: Hs.ModuleName -> [HsBootDecl] -> [ImportListItem]
+resolveHsBootImports currentModule ds =
     let acc = mconcat $ map resolveHsBootDeclImports ds
-    in  Set.toAscList $ importListItems acc
+    in  Set.toAscList $ importListItems currentModule acc
 
--- | The import list items for the names in an accumulator
-importListItems :: ImportAcc -> Set ImportListItem
-importListItems acc = mconcat [
-      Set.map (uncurry QualifiedImportListItem) acc.qualified
-    , Set.fromList $ map (uncurry mkUImportListItem) (Map.toList acc.unqualified)
+-- | The import list items for the names in an accumulator, filtering out
+-- self-imports (a module cannot import itself).
+importListItems :: Hs.ModuleName -> ImportAcc -> Set ImportListItem
+importListItems currentModule acc = mconcat [
+      Set.map (uncurry QualifiedImportListItem) $
+        Set.filter (\(m, _) -> m /= currentModule) acc.qualified
+    , Set.fromList $ map (uncurry mkUImportListItem) $
+        filter (\(m, _) -> m /= currentModule) (Map.toList acc.unqualified)
     ]
   where
     mkUImportListItem :: Hs.ModuleName -> Set ResolvedName -> ImportListItem
@@ -609,7 +613,7 @@ resolveTypeImports = \case
     TFree _ -> mempty
     TLit _n -> mempty
     TStrLit _s -> mempty
-    TExt ref -> resolveExtHsRefImports ref
+    TExt ref -> resolveIdentifierImports ref
     TApp c x -> resolveTypeImports c <> resolveTypeImports x
     TFun a b -> resolveTypeImports a <> resolveTypeImports b
     TBound{} -> mempty
@@ -626,10 +630,10 @@ resolveStrategyImports = \case
     Hs.DeriveStock -> mempty
     Hs.DeriveVia ty -> resolveTypeImports ty
 
-resolveExtHsRefImports :: Hs.ExtRef -> ImportAcc
-resolveExtHsRefImports extRef = ImportAcc{
+resolveIdentifierImports :: Hs.Identifier -> ImportAcc
+resolveIdentifierImports identifier = ImportAcc{
       requireTypes = False
-    , qualified    = Set.singleton (extRef.moduleName, Nothing)
+    , qualified    = Set.singleton (identifier.moduleName, Nothing)
     , unqualified  = mempty
     }
 

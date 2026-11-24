@@ -31,7 +31,7 @@ data FunPtrHead =
     -- | The newtype of a typedef of a function type (@typedef void F(T)@), or
     -- the @_Aux@ newtype of a typedef of a pointer to one
     -- (@typedef void (*F)(T)@): @instance ToFunPtr F@
-  | HeadNewtype (Hs.Name Hs.NsTypeConstr) NewtypeNames
+  | HeadNewtype Hs.Identifier NewtypeNames
   deriving stock (Show, Eq, Ord)
 
 -- | An argument of the function type

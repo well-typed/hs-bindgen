@@ -13,7 +13,6 @@ module HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo (
 
 import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
-import Data.Proxy (Proxy (Proxy))
 
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Translation
@@ -23,7 +22,7 @@ import HsBindgen.Language.Haskell qualified as Hs
 --
 -- A missing entry represents 'MissingSugarInfo'.
 data SugarInfos = SugarInfos {
-    hsMap :: Map (Hs.Name Hs.NsTypeConstr) RegSugarInfo
+    hsMap :: Map Hs.Identifier RegSugarInfo
   }
 
 emptySugarInfos :: SugarInfos
@@ -51,7 +50,7 @@ registerSugarInfo ::
   -> SugarInfos
   -> Either ErrorDuplicate SugarInfos
 registerSugarInfo declIdPair ty sugars = do
-    hsMap' <- Map.alterF f (Hs.assertNs (Proxy @Hs.NsTypeConstr) declIdPair.hsName) sugars.hsMap
+    hsMap' <- Map.alterF f declIdPair.hsIdent sugars.hsMap
     pure SugarInfos {
         hsMap = hsMap'
       }
@@ -69,7 +68,7 @@ data ErrorDuplicate = ErrorDuplicate {
     }
   deriving stock (Show, Eq)
 
-lookupSugarInfo :: Hs.Name Hs.NsTypeConstr -> SugarInfos -> SugarInfo
+lookupSugarInfo :: Hs.Identifier -> SugarInfos -> SugarInfo
 lookupSugarInfo name sugars = case Map.lookup name sugars.hsMap of
     Nothing -> MissingSugarInfo
     Just ty -> RegSugarInfo ty
