@@ -65,7 +65,6 @@ import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Data.Yaml.Pretty qualified
 import Text.Read (readMaybe)
-import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Args
 import Clang.Paths
@@ -73,8 +72,6 @@ import Clang.Paths
 import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.V1 qualified as V1
 import HsBindgen.BindingSpec.Private.Version
-import HsBindgen.Config.MangleCandidate (MangleCandidate (..))
-import HsBindgen.Config.MangleCandidate qualified as MangleCandidate
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
@@ -1276,52 +1273,6 @@ instance Aeson.ToJSON (ARep V2 Inst.AssociatedType) where
       , "hsmodule" .= toARep' typ.ref.moduleName
       , "hsname"   .= toARep' typ.ref.name
       ]
-
-{-------------------------------------------------------------------------------
-  Auxiliary functions
--------------------------------------------------------------------------------}
-
--- 'List.lookup' using a predicate
-lookupBy :: (a -> Bool) -> [(a, b)] -> Maybe b
-lookupBy p = fmap snd . List.find (p . fst)
-
-data MangleCandidateError =
-    MangleCandidateCouldNotMangleError Text
-  | MangleCandidateParseError          MangleCandidate.ParseCandidateError
-
-instance PrettyForTrace MangleCandidateError where
-  prettyForTrace = \case
-    MangleCandidateCouldNotMangleError x -> PP.hsep [
-        "Could not mangle:"
-      , PP.text x
-      ]
-    MangleCandidateParseError err -> PP.hsep [
-        "Name does not adhere to naming rules:"
-      , prettyForTrace err
-      ]
-
-parseHsName :: forall ns.
-     Hs.SingNamespace ns
-  => Proxy ns
-  -> Text
-  -> Either MangleCandidateError (Hs.Name ns)
-parseHsName _ hsNameCandidate =
-    case MangleCandidate.parseCandidate mangleCandidateConfig hsNameCandidate of
-      Nothing ->
-        Left $ MangleCandidateCouldNotMangleError hsNameCandidate
-      Just (Left  err) ->
-        Left $ MangleCandidateParseError err
-      Just (Right hsName) ->
-        Right $ hsName
-  where
-    mangleCandidateConfig :: MangleCandidate Maybe
-    mangleCandidateConfig =
-      MangleCandidate.mangleCandidateDefault
-        -- Names in binding specs are supplied by the user and are expected to
-        -- be valid Haskell identifiers. We therefore do not check reserved
-        -- names: the user is trusted to avoid them, and checking would reject
-        -- names like @type@ that are legitimately used in external packages.
-        & #reservedNames .~ mempty
 
 {-------------------------------------------------------------------------------
   Conversion V1 -> V2

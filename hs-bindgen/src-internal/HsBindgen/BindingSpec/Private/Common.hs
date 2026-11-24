@@ -30,7 +30,11 @@ module HsBindgen.BindingSpec.Private.Common (
   , ParseSpecFunction
   , ParseSpecError(..)
   , readFile
+    -- * Hs names
+  , MangleCandidateError(..)
+  , parseHsName
     -- * Aeson auxiliary functions
+  , lookupBy
   , omitWhenNull
   , listToJSON
   , listFromJSON
@@ -53,6 +57,8 @@ import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.BindingSpec.Private.Version
+import HsBindgen.Config.MangleCandidate (MangleCandidate (..))
+import HsBindgen.Config.MangleCandidate qualified as MangleCandidate
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -478,8 +484,54 @@ readFile tracer cmpt mHsModuleName path parseSpec =
           Right spec -> pure (Just spec)
 
 {-------------------------------------------------------------------------------
+  Hs names
+-------------------------------------------------------------------------------}
+
+data MangleCandidateError =
+    MangleCandidateCouldNotMangleError Text
+  | MangleCandidateParseError          MangleCandidate.ParseCandidateError
+
+instance PrettyForTrace MangleCandidateError where
+  prettyForTrace = \case
+    MangleCandidateCouldNotMangleError x -> PP.hsep [
+        "Could not mangle:"
+      , PP.text x
+      ]
+    MangleCandidateParseError err -> PP.hsep [
+        "Name does not adhere to naming rules:"
+      , prettyForTrace err
+      ]
+
+parseHsName :: forall ns.
+     Hs.SingNamespace ns
+  => Proxy ns
+  -> Text
+  -> Either MangleCandidateError (Hs.Name ns)
+parseHsName _ hsNameCandidate =
+    case MangleCandidate.parseCandidate mangleCandidateConfig hsNameCandidate of
+      Nothing ->
+        Left $ MangleCandidateCouldNotMangleError hsNameCandidate
+      Just (Left  err) ->
+        Left $ MangleCandidateParseError err
+      Just (Right hsName) ->
+        Right $ hsName
+  where
+    mangleCandidateConfig :: MangleCandidate Maybe
+    mangleCandidateConfig =
+      MangleCandidate.mangleCandidateDefault
+        -- Names in binding specs are supplied by the user and are expected to
+        -- be valid Haskell identifiers. We therefore do not check reserved
+        -- names: the user is trusted to avoid them, and checking would reject
+        -- names like @type@ that are legitimately used in external packages.
+        & #reservedNames .~ mempty
+
+{-------------------------------------------------------------------------------
   Aeson auxiliary functions
 -------------------------------------------------------------------------------}
+
+-- 'List.lookup' using a predicate
+lookupBy :: (a -> Bool) -> [(a, b)] -> Maybe b
+lookupBy p = fmap snd . List.find (p . fst)
 
 -- | Omit empty lists in aeson output
 omitWhenNull :: [a] -> Maybe [a]
