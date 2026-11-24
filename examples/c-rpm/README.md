@@ -1,20 +1,21 @@
 # RPM Haskell Bindings
 
-This example demonstrates generating Haskell bindings for
-[RPM Package Manager](https://github.com/rpm-software-management/rpm), a
-powerful package management system.
+This example demonstrates generating Haskell bindings for the C libraries of the
+[RPM Package Manager](https://github.com/rpm-software-management/rpm).
 
 ## Prerequisites
 
 ### Using Nix Shell
 
-This example includes a `shell.nix` file that provides all necessary
-dependencies for building RPM from source. The shell environment includes:
+The `shell.nix` file of this example provides the dependencies needed to build
+RPM from source:
 
 **Build tools:**
 - `cmake` - Build system generator
 - `pkg-config` - Helper tool for compile/link flags
 - `scdoc` - Documentation generator
+- `gettext` - Message catalog tools (`msgfmt`, `msgmerge`) that RPM's cmake
+  configuration requires
 
 **RPM dependencies:**
 - `popt` - Command line option parsing
@@ -39,58 +40,53 @@ dependencies for building RPM from source. The shell environment includes:
 > If you are using Nix or NixOS, please also have a look at our [`hs-bindgen`
 > Nix tutorial](https://github.com/well-typed/hs-bindgen-tutorial-nix).
 
-If not using Nix at all, take a look at the [INSTALL](https://github.com/rpm-software-management/rpm/blob/rpm-6.1.0-rc1/INSTALL) file for more details
-on the instructions of how to build `rpm`.
+If you do not use Nix, see the
+[INSTALL](https://github.com/rpm-software-management/rpm/blob/rpm-6.1.0-rc1/INSTALL)
+file for how to build `rpm`.
 
 ## Running the Example
 
 ### Building RPM from Source
 
-According to the instructions in [INSTALL](https://github.com/rpm-software-management/rpm/blob/rpm-6.1.0-rc1/INSTALL):
-
-```sh
-# On the `rpm` folder
-mkdir _build
-cd _build
-cmake ..
-make
-make install
-```
-
-Once all these steps have completed successfully the libraries will be under
-`rpm/_build/_install/lib64`.
+`generate-and-run.sh` clones RPM at tag `rpm-6.1.0-rc1` into `rpm/` and builds
+it in `rpm/_build` with `cmake` and `make`, without installing it. The Haskell
+project links against the libraries in `rpm/_build/rpmio` and
+`rpm/_build/build`. To pass extra options to `cmake`, set `RPM_CMAKE_FLAGS`. CI
+uses `-DWITH_SEQUOIA=OFF -DENABLE_PYTHON=OFF`.
 
 ### Linking Against the C Library
 
-The `.cabal` file includes `extra-libraries: rpm, rpmio`, which tells the
-linker to link against both `librpm.so` and `librpmio.so`. RPM is split into
-multiple libraries, and both are needed for the bindings to work correctly.
+The `.cabal` file includes `extra-libraries: rpmbuild, rpmio`, which tells the
+linker to link against `librpmbuild.so` and `librpmio.so`. RPM is split into
+several libraries, and the bindings need both of them.
 
-### Generating the bindings
+### Generating the Bindings
 
-```bash
-./generate-and-run.sh
-```
-
-### Generating the Include Graph
-
-This script will already generate the bindings by their right order, i.e. the
-header include dependency order. If for any reason the `rpm` library updated,
-then it might be necessary to change the `generate-and-run` script so that it
-follows the right order.
-
-
-To visualize the header dependencies, you can generate an include graph using
-`hs-bindgen-cli`:
+From the repository root, start the dev shell, which provides GHC, cabal and
+libclang. Then run the script inside this example's `shell.nix`, which provides
+the C dependencies:
 
 ```bash
+nix develop
 cd examples/c-rpm
-cabal run hs-bindgen-cli -- info include-graph \
-    -I rpm/include \
-    -o output-graph.md \
-    rpm/rpmlib.h
+nix-shell --run ./generate-and-run.sh
 ```
 
-This generates a Mermaid diagram showing all header includes and their
-dependencies. You can visualize it at [mermaid.live](https://mermaid.live/) or
-in any Markdown viewer that supports Mermaid diagrams (like GitHub).
+Without Nix, install the dependencies listed above and run
+`./generate-and-run.sh` from this directory.
+
+The script generates bindings for 13 RPM headers with a single `hs-bindgen-cli`
+run in library mode (`--library rpm/include/rpm`). Each header gets its own
+modules, named after the header. For
+example, `argv.h` becomes `RPM.Argv`, `RPM.Argv.Safe`, `RPM.Argv.Unsafe` and
+`RPM.Argv.FunPtr`, and `rpmtypes.h` becomes `RPM.Rpmtypes`. See the [library
+mode manual page](../../manual/low-level/usage/library-mode.md) for how library
+mode works.
+
+Some RPM declarations use system types from glibc, such as `off_t`, `ssize_t`
+and `struct timeval`. The script passes `--enable-program-slicing`, so the run
+also generates these types, into one module, `RPM.Vendor`. Without the flag,
+the run would skip the RPM declarations that use them, such as `Fread` and the
+stopwatch functions of `rpmsw.h`. `RPM.Vendor` holds copies of the system
+types: to share them with other libraries, use an external binding
+specification instead, as the [CEF example](../cef) does.
