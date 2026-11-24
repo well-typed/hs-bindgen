@@ -65,6 +65,7 @@ mkRolledExpr :: Guasi q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
 mkRolledExpr env expr = case expr of
     EGlobal n     -> mkGlobalExpr n
     EFree n       -> TH.varE $ mkHsTermName n
+    EExt iden     -> lookupExtTerm iden
     EBound x      -> TH.varE (lookupEnv x env)
     ECon n        -> TH.conE $ mkHsName n
     EUnboxedIntegral i -> TH.sigE (TH.litE (TH.IntPrimL i)) (TH.conT ''GHC.Base.Int#)
@@ -528,3 +529,20 @@ lookupExtType identifier = do
     putMissingModule :: Hs.ModuleName -> GuasiState -> GuasiState
     putMissingModule m s = s & #missingModules %~ Set.insert m
 
+-- | Look up an external (cross-module) term-level reference.
+--
+-- Parallel to 'lookupExtType' for type-level references.
+lookupExtTerm :: Guasi q => Hs.Identifier -> q TH.Exp
+lookupExtTerm identifier = do
+    modifyGuasi (putMissingModule identifier.moduleName)
+    TH.varE (TH.mkName qualName)
+  where
+    qualName :: String
+    qualName = concat [
+          Hs.moduleNameToString identifier.moduleName
+        , "."
+        , Text.unpack identifier.name.text
+        ]
+
+    putMissingModule :: Hs.ModuleName -> GuasiState -> GuasiState
+    putMissingModule m s = s & #missingModules %~ Set.insert m

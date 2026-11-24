@@ -53,6 +53,7 @@ prettyRolledExpr env prec expr = case expr of
 
     EBound x -> lookupEnv x env
     EFree x  -> pretty x
+    EExt i   -> pretty i
     ECon n   -> pretty n
 
     EIntegral i Nothing -> PP.parensWhen (prec > 0 && i < 0) (PP.show i)

@@ -30,7 +30,7 @@ import HsBindgen.NameHint
 
 translateMacroValue ::
      Hs.Name Hs.NsVar
-  -> Macro.TypecheckedValue CExpr Hs.TermName
+  -> Macro.TypecheckedValue CExpr (Either Hs.Identifier Hs.TermName)
   -> Maybe HsDoc.Comment
   -> Binding
 translateMacroValue name expr comment =
@@ -201,7 +201,7 @@ runtimeFloating = \case
 -------------------------------------------------------------------------------}
 
 translateBody ::
-     CExpr.TypecheckedMacroValueExpr Hs.TermName
+     CExpr.TypecheckedMacroValueExpr (Either Hs.Identifier Hs.TermName)
   -> ClosedExpr
 translateBody (CExpr.TypecheckedMacroValueExpr params body _) =
     lambdaN (Vec.reverse (identifierToHint <$> params)) (mexpr body)
@@ -216,15 +216,20 @@ identifierToHint nm =
     toHint :: Hs.Name Hs.NsVar -> NameHint
     toHint x = NameHint $ Text.unpack x.text
 
-mexpr :: forall ctx. V.Expr ctx Hs.TermName -> SExpr ctx
+mexpr :: forall ctx. V.Expr ctx (Either Hs.Identifier Hs.TermName) -> SExpr ctx
 mexpr = goExpr
   where
-    goExpr :: V.Expr ctx Hs.TermName -> SExpr ctx
+    goExpr :: V.Expr ctx (Either Hs.Identifier Hs.TermName) -> SExpr ctx
     goExpr = \case
       V.Literal lit       -> goLiteral lit
       V.LocalParam i      -> EBound i
-      V.Var termName args -> eAppN (EFree termName) (map goExpr args)
+      V.Var var args      -> eAppN (varToExpr var) (map goExpr args)
       V.App fun xs        -> eAppN (mfun fun) (Vec.toList (fmap goExpr xs))
+
+    varToExpr :: Either Hs.Identifier Hs.TermName -> SExpr ctx
+    varToExpr = \case
+      Left  ident    -> EExt ident
+      Right termName -> EFree termName
 
     goLiteral :: CExpr.ValueLit -> SExpr ctx
     goLiteral = \case

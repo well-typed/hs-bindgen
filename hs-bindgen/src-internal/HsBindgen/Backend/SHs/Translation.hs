@@ -72,20 +72,20 @@ getCWrappers decls = mapMaybe getCWrapper decls
 
 translateDecl :: Hs.ModuleName -> Macro.HasTypes l => Macro.Lang l -> Hs.Decl l -> SDecl
 translateDecl currentMod macroLang = \case
-  Hs.DeclTypSyn               x -> translateDeclTypSyn         tt x
-  Hs.DeclData                 x -> translateDeclData           tt x
-  Hs.DeclEmpty                x -> translateDeclEmpty             x
-  Hs.DeclNewtype              x -> translateNewtype            tt x
-  Hs.DeclDefineInstance       x -> translateDefineInstanceDecl tt x
-  Hs.DeclDeriveInstance       x -> translateDeriveInstance     tt x
-  Hs.DeclMacroValue           x -> translateMacroValue' macroLang x
-  Hs.DeclForeignImport        x -> translateForeignImportDecl     x
-  Hs.DeclForeignImportWrapper x -> translateForeignImportWrapper  x
-  Hs.DeclForeignImportDynamic x -> translateForeignImportDynamic  x
-  Hs.DeclFunction             x -> translateFunctionDecl       tt x
-  Hs.DeclPatSyn               x -> translatePatSyn             tt x
-  Hs.DeclCompletePragma       x -> translateCompletePragma        x
-  Hs.DeclVar                  x -> translateDeclVar               x
+  Hs.DeclTypSyn               x -> translateDeclTypSyn                    tt x
+  Hs.DeclData                 x -> translateDeclData                      tt x
+  Hs.DeclEmpty                x -> translateDeclEmpty                        x
+  Hs.DeclNewtype              x -> translateNewtype                       tt x
+  Hs.DeclDefineInstance       x -> translateDefineInstanceDecl            tt x
+  Hs.DeclDeriveInstance       x -> translateDeriveInstance                tt x
+  Hs.DeclMacroValue           x -> translateMacroValue' currentMod macroLang x
+  Hs.DeclForeignImport        x -> translateForeignImportDecl                x
+  Hs.DeclForeignImportWrapper x -> translateForeignImportWrapper             x
+  Hs.DeclForeignImportDynamic x -> translateForeignImportDynamic             x
+  Hs.DeclFunction             x -> translateFunctionDecl                  tt x
+  Hs.DeclPatSyn               x -> translatePatSyn                        tt x
+  Hs.DeclCompletePragma       x -> translateCompletePragma                   x
+  Hs.DeclVar                  x -> translateDeclVar                          x
   where
     tt :: Hs.Type -> ClosedType
     tt = translateType currentMod
@@ -222,22 +222,33 @@ translateDeriveInstance tt deriv = DDerivingInstance DerivingInstance {
 
 translateMacroValue' ::
      Macro.HasTypes l
-  => Macro.Lang l
+  => Hs.ModuleName
+  -> Macro.Lang l
   -> Hs.MacroBinding l
   -> SDecl
-translateMacroValue' macroLang macro = DBinding $ case macro.value of
+translateMacroValue' currentMod macroLang macro =
+  DBinding $ case macro.value of
     Hs.MacroValueTranslated value ->
       withCLiteralComment $
       macroLang.translateValue
         macro.name
-        (fmap macroIdToHsName value.body)
+        (fmap macroIdToRef value.body)
         macro.comment
     Hs.MacroValueRaw raw ->
       rawMacroBinding macro.name raw macro.comment
   where
-    macroIdToHsName :: Id Final -> Hs.TermName
-    macroIdToHsName namePair =
-        Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) namePair.hsIdent.name
+    -- | Map a declaration identifier to a term-level reference.
+    --
+    -- A declaration of the current module becomes an unqualified term name
+    -- ('Right'). A declaration of another module becomes a qualified
+    -- identifier ('Left'), as 'translateType'' does with 'TExt' for types.
+    macroIdToRef :: Id Final -> Either Hs.Identifier Hs.TermName
+    macroIdToRef namePair
+        | namePair.hsIdent.moduleName /= currentMod
+        = Left namePair.hsIdent
+        | otherwise
+        = Right $ Hs.ExportedName $
+            Hs.assertNs (Proxy @Hs.NsVar) namePair.hsIdent.name
 
 -- | Augment a macro binding's Haddock comment with the C literal representation
 -- when the binding body is a character or string literal.

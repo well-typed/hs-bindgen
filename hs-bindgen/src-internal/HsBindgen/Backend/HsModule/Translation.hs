@@ -563,6 +563,7 @@ resolveExprImports = \case
     EGlobal g -> resolveGlobalImports g
     EBound _x -> mempty
     EFree {} -> mempty
+    EExt ref -> resolveIdentifierImports ref
     ECon _n -> mempty
     EIntegral _ t -> maybe mempty resolveTypeImports t
     EUnboxedIntegral _ -> mempty

@@ -145,6 +145,7 @@ exprExtensions = \case
     EGlobal{} -> mempty
     EBound{} -> mempty
     EFree{} -> mempty
+    EExt{} -> mempty
     ECon{} -> mempty
     EIntegral{} -> mempty
     EUnboxedIntegral{} -> mempty
