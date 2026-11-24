@@ -113,21 +113,21 @@ processDeclKind decl = case decl.kind of
     C.DeclUnion union ->
       mapM_ processField union.fields
     C.DeclTypedef typedef ->
-      processType (TypedefOwn (typedefHead decl typedef))
+      processType (typedefHead decl typedef)
         (atUseSite UseSiteTypedef) typedef.typ.c
     C.DeclFunction fun -> do
       forM_ (zip [1..] fun.sig.args) $ \(i, arg) ->
-        processType Nested
+        processType HeadFunType
           (enterPosition declarationSignature $ FunPositionArg FunArgPosition{
               index = i
             , name  = (.cName) <$> arg.name
             })
           arg.typ.c.typ
-      processType Nested
+      processType HeadFunType
         (enterPosition declarationSignature FunPositionRes)
         fun.sig.res.typ.c
     C.DeclGlobal global ->
-      processType Nested (atUseSite UseSiteGlobal) global.typ.c
+      processType HeadFunType (atUseSite UseSiteGlobal) global.typ.c
     -- Integral
     C.DeclEnum{}                 -> pure ()
     C.DeclUntaggedEnumConstant{} -> pure ()
@@ -139,12 +139,12 @@ processField = C.elimField processRegularField processImplicitField
 
 processRegularField :: C.RegularField Select -> M l ()
 processRegularField field =
-    processType Nested (atUseSite (UseSiteField field.info.name.cName)) field.typ.c
+    processType HeadFunType (atUseSite (UseSiteField field.info.name.cName)) field.typ.c
 
 processImplicitField :: C.ImplicitField Select -> M l ()
 processImplicitField field =
     forM_ field.indirect $ \indirect ->
-      processType Nested
+      processType HeadFunType
         (atUseSite (UseSiteField indirect.info.name.cName))
         indirect.typ.c
 
@@ -166,37 +166,28 @@ typedefHead decl typedef = case typedef.typ.c of
   Function types
 -------------------------------------------------------------------------------}
 
--- | Where a function type occurs
-data Occurrence =
-    -- | The function type of a typedef: it gets instances for the newtype
-    TypedefOwn FunPtrHead
-    -- | Any other function type: it gets instances for itself, if one of its
-    -- types is defined in this module
-  | Nested
-
 -- | Process the outermost function type in a type, and the function types
 -- nested in its arguments and result
-processType :: Occurrence -> FunTypeLocation -> C.Type Select -> M l ()
-processType occurrence loc ty =
+processType ::
+     FunPtrHead -- ^ The head of the instances for the outermost function type
+  -> FunTypeLocation
+  -> C.Type Select
+  -> M l ()
+processType hd loc ty =
     forM_ (C.getOutermostFunType ty) $ \sig -> do
-      processFunType occurrence loc sig
+      processFunType hd loc sig
       forM_ (zip [1..] sig.args) $ \(i, arg) ->
-        processType Nested (enterPosition loc (argPosition i)) arg.typ
-      processType Nested (enterPosition loc FunPositionRes) sig.res
+        processType HeadFunType (enterPosition loc (argPosition i)) arg.typ
+      processType HeadFunType (enterPosition loc FunPositionRes) sig.res
 
 processFunType ::
-     Occurrence
+     FunPtrHead
   -> FunTypeLocation
   -> FunSig (C.TypeFunArg Select) (C.Type Select)
   -> M l ()
-processFunType occurrence loc sig = do
-    mHead <- case occurrence of
-      TypedefOwn hd -> pure $ Just hd
-      Nested        -> do
-        db <- asks (.db)
-        pure $ HeadFunType <$
-          guard (isDefinedInCurrentModule db (C.TypeFun sig))
-    forM_ mHead $ \hd -> do
+processFunType hd loc sig = do
+    db <- asks (.db)
+    when (isLocalInstance db hd (C.TypeFun sig)) $ do
       mSigOk <- classifyCached loc key funType
       forM_ mSigOk $ \sigOk ->
         modify $ \st ->
@@ -210,6 +201,16 @@ processFunType occurrence loc sig = do
 
     key :: Hs.Type
     key = eraseUnderlying $ funTypeHs funType
+
+-- | May this module define the instances with this head for the function type?
+--
+-- A newtype is defined in this module. An instance for the function type
+-- itself needs one of its types defined in this module: it is no orphan, and
+-- no other module defines it.
+isLocalInstance :: DeclDB l Select -> FunPtrHead -> C.Type Select -> Bool
+isLocalInstance db = \case
+    HeadNewtype{} -> const True
+    HeadFunType   -> isDefinedInCurrentModule db
 
 -- | Is one of the types defined in the current module?
 --
