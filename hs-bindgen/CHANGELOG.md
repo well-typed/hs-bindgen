@@ -161,6 +161,18 @@
   `typedef struct S T;`) now gets `ToFunPtr` and `FromFunPtr` instances.
   Previously, they were missing.
 
+* An FFI type is now properly derived for a macro type that references other
+  types. Previously, we would fail to do this, which would cause missing FFI
+  types in generated external binding specifications. See [issue
+  #2357][is-2357].
+
+[is-2357]: https://github.com/well-typed/hs-bindgen/issues/2357
+
+* A generated binding specification now only lists an FFI type if it also lists
+  a `HasFFIType` instance and vice versa. See [issue #2354][is-2354].
+
+[is-2354]: https://github.com/well-typed/hs-bindgen/issues/2354
+
 ## 1.0.0.0 -- 2026-10-08
 
 ### Breaking changes

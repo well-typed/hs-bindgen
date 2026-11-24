@@ -11,7 +11,7 @@ import GHC.Records
 
 import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro (TranslatedMacroType (..))
 import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -44,5 +44,5 @@ instance HasField "names" (C.Enum Final) MangleNames.NewtypeNames where
 instance HasField "names" (C.Typedef Final) MangleNames.TypedefNames where
   getField typedef = typedef.ann
 
-instance HasField "names" (TypecheckedMacroType l Final) MangleNames.NewtypeNames where
+instance HasField "names" (TranslatedMacroType Final) MangleNames.NewtypeNames where
   getField macro = macro.ann

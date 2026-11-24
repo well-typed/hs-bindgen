@@ -434,7 +434,8 @@ runFrontend tracer config boot = do
 
     translateTypesPass <- cache "translateTypes" $ do
       afterMangleNamesPass <- mangleNamesPass
-      pure $ translateTypes afterMangleNamesPass
+      macroLang            <- boot.macroLang
+      pure $ translateTypes macroLang afterMangleNamesPass
 
     selectPass <- cache "select" $ do
       afterParse <- parsePass

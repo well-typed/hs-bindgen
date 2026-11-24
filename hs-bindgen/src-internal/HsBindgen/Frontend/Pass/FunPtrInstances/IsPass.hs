@@ -7,7 +7,7 @@ import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass.Msg
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro (TranslatedMacro)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.IR.PassingMethod (PassingMethod, ResPassingMethod)
@@ -21,17 +21,17 @@ type FunPtrInstances :: Pass
 data FunPtrInstances a
 
 type family AnnFunPtrInstances ix where
-  AnnFunPtrInstances "Decl"                 = PrescriptiveDeclSpec
-  AnnFunPtrInstances "Enum"                 = NewtypeNames
-  AnnFunPtrInstances "Flam"                 = FlamNames
-  AnnFunPtrInstances "FunctionArg"          = PassingMethod FunPtrInstances
-  AnnFunPtrInstances "FunctionRes"          = ResPassingMethod FunPtrInstances
-  AnnFunPtrInstances "IndirectField"        = IndirectFieldNames FunPtrInstances
-  AnnFunPtrInstances "Struct"               = StructNames
-  AnnFunPtrInstances "Typedef"              = TypedefNames
-  AnnFunPtrInstances "TypecheckedMacroType" = NewtypeNames
-  AnnFunPtrInstances "Union"                = NewtypeNames
-  AnnFunPtrInstances _                      = NoAnn
+  AnnFunPtrInstances "Decl"                = PrescriptiveDeclSpec
+  AnnFunPtrInstances "Enum"                = NewtypeNames
+  AnnFunPtrInstances "Flam"                = FlamNames
+  AnnFunPtrInstances "FunctionArg"         = PassingMethod FunPtrInstances
+  AnnFunPtrInstances "FunctionRes"         = ResPassingMethod FunPtrInstances
+  AnnFunPtrInstances "IndirectField"       = IndirectFieldNames FunPtrInstances
+  AnnFunPtrInstances "Struct"              = StructNames
+  AnnFunPtrInstances "Typedef"             = TypedefNames
+  AnnFunPtrInstances "TranslatedMacroType" = NewtypeNames
+  AnnFunPtrInstances "Union"               = NewtypeNames
+  AnnFunPtrInstances _                     = NoAnn
 
 instance IsPass FunPtrInstances
 
@@ -56,7 +56,7 @@ instance PassTypes FunPtrInstances where
 
 instance PassMacro FunPtrInstances where
   type MacroId         FunPtrInstances = Id FunPtrInstances
-  type MacroBody       FunPtrInstances = TypecheckedMacro FunPtrInstances
+  type MacroBody       FunPtrInstances = TranslatedMacro FunPtrInstances
   type MacroUnderlying FunPtrInstances = C.Type FunPtrInstances
 
   macroIdId _ = id
@@ -105,8 +105,7 @@ instance CoercePassAnn "FunctionRes" Select FunPtrInstances where
   coercePassAnn _ = coercePass
 
 instance CoercePassAnn "IndirectField" Select FunPtrInstances where
-  coercePassAnn _ = \case
-      IndirectFieldNames name -> IndirectFieldNames name
+  coercePassAnn _ = coercePass
 
 instance CoercePassAnn "TypeFunArg" Select FunPtrInstances
 

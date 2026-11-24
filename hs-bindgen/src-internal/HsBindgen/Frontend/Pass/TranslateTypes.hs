@@ -8,11 +8,13 @@ import Control.Monad.State (MonadState, State, gets, modify, runState)
 import Control.Monad.Writer.Strict (runWriter)
 import Data.Functor ((<&>))
 
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DelayedMsg
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
 import HsBindgen.Frontend.Pass.TranslateTypes.Error
+import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
 import HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (Classified,
@@ -20,24 +22,30 @@ import HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (Classified,
                                                              classifyResPassingMethod)
 import HsBindgen.Frontend.Pass.TranslateTypes.Position
 import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo
+import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.FunSig
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
+import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Macro.Interface qualified as Macro
+import HsBindgen.Macro.Type qualified as Macro
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
 translateTypes ::
-     forall l.
-     C.TranslationUnit l MangleNames
+     forall l. Macro.HasTypes l
+  => Macro.Lang l
+  -> C.TranslationUnit l MangleNames
   -> C.TranslationUnit l TranslateTypes
-translateTypes unit = unit{C.db = db'}
+translateTypes macroLang unit = unit{C.db = db'}
   where
     db' :: DeclDB l TranslateTypes
     db' =
@@ -55,14 +63,15 @@ translateTypes unit = unit{C.db = db'}
     -- Trivial tie breaker
     tieBreaker = const (0 :: Int)
 
-    globalEnv = GlobalEnv
+    globalEnv = GlobalEnv { macroLang = macroLang }
 
 {-------------------------------------------------------------------------------
   Decls
 -------------------------------------------------------------------------------}
 
 processDecl ::
-     C.Decl l MangleNames
+     Macro.HasTypes l
+  => C.Decl l MangleNames
   -> GM l (DeclDB.PassResult l TranslateTypes)
 processDecl decl = do
     eKind' <- withDeclEnv decl.id $ processDeclKind decl.kind
@@ -71,7 +80,8 @@ processDecl decl = do
       Right kind' -> DeclDB.Advanced $ C.coercePassDeclWith kind' decl.ann decl
 
 processDeclKind ::
-     C.DeclKind l MangleNames
+     Macro.HasTypes l
+  => C.DeclKind l MangleNames
   -> DM l (Either TranslateTypesError (C.DeclKind l TranslateTypes))
 processDeclKind = \case
     C.DeclStruct               struct   -> ok $ C.DeclStruct               <$> processStruct           struct
@@ -172,11 +182,36 @@ processUntaggedEnumConstant ::
   -> DM l (C.UntaggedEnumConstant TranslateTypes)
 processUntaggedEnumConstant = pure . coercePass
 
-processMacro :: MacroBody MangleNames l -> DM l (MacroBody TranslateTypes l)
-processMacro mac = pure $ case mac of
-    MacroType  typ -> MacroType  $ coercePass typ
-    MacroValue val -> MacroValue $ coercePass val
-    MacroRaw   raw -> MacroRaw raw
+processMacro ::
+     Macro.HasTypes l
+  => MacroBody MangleNames l
+  -> DM l (MacroBody TranslateTypes l)
+processMacro mac = case mac of
+    MacroType  typ -> TMacroType  <$> processMacroType typ
+    MacroValue val -> pure $ TMacroValue $ coercePass val
+    MacroRaw   raw -> pure $ TMacroRaw raw
+
+processMacroType ::
+     Macro.HasTypes l
+  => TypecheckedMacroType l MangleNames
+  -> DM l (TranslatedMacroType TranslateTypes)
+processMacroType macroType = do
+    macroLang <- asks (.macroLang)
+    let typ = macroLang.translateType (fmap macroVarToHsType macroType.body)
+    registerSugarInfoM $ Sugar typ
+    ffiType <- runFFITypeM TranslateTypesMacroFFIType (FFIType.toFFITypeWithMsgs typ)
+    pure TranslatedMacroType {
+        typ     = typ
+      , ffiType = ffiType
+      , ann     = macroType.ann
+      }
+  where
+    macroVarToHsType :: MacroTypeBodyVar MangleNames -> Hs.Type
+    macroVarToHsType = \case
+      MacroTypeExtBinding ext ->
+        Hs.ExtBinding ext.hsName ext.cSpec ext.hsSpec
+      MacroTypeBodyVar pair ->
+        Hs.TypRef (Hs.assertNs (Proxy @Hs.NsTypeConstr) pair.hsName) Nothing
 
 processFunction ::
      C.Function MangleNames
@@ -222,16 +257,11 @@ processFunctionRes res = do
   where
     typ' = processType Translation.FunRes res.typ
 
--- | Report the external bindings without FFI type
 classified ::
      FunPosition
   -> Classified a
   -> DM l (Either FunPositionError a)
-classified pos x = do
-    sugars <- gets (.sugars)
-    let (r, fallbacks) = runWriter (runReaderT x sugars)
-    forM_ fallbacks $ addMessage . TranslateTypesFFITypes pos
-    pure r
+classified pos = runFFITypeM (TranslateTypesFunctionFFITypes pos)
 
 processGlobal :: C.Global MangleNames -> DM l (C.Global TranslateTypes)
 processGlobal global = pure C.Global{
@@ -254,6 +284,20 @@ processType ctx typ = Translated{
       c  = coercePass typ
     , hs = Translation.inContext ctx typ
     }
+
+{-------------------------------------------------------------------------------
+  FFI types
+-------------------------------------------------------------------------------}
+
+runFFITypeM ::
+     (FFITypesMsg -> DelayedTranslateTypesMsg)
+  -> FFIType.M a
+  -> DM l a
+runFFITypeM mkMsg action = do
+    sugars <- gets (.sugars)
+    let (r, msgs) = runWriter (runReaderT action sugars)
+    forM_ msgs $ addMessage . mkMsg
+    pure r
 
 {-------------------------------------------------------------------------------
   Monad
@@ -284,14 +328,18 @@ withEnv :: (env1 -> env2) -> M env2 a -> M env1 a
 withEnv f (M k) = M (withReaderT f k)
 
 withDeclEnv :: DeclIdPair -> DM l a -> GM l a
-withDeclEnv declIdPair = withEnv $ \_ -> DeclEnv {
-      declIdPair = declIdPair
+withDeclEnv declIdPair = withEnv $ \ge -> DeclEnv {
+      macroLang  = ge.macroLang
+    , declIdPair = declIdPair
     }
 
-data GlobalEnv l = GlobalEnv
+data GlobalEnv l = GlobalEnv {
+    macroLang :: Macro.Lang l
+  }
 
 data DeclEnv l = DeclEnv {
-    declIdPair :: DeclIdPair
+    macroLang  :: Macro.Lang l
+  , declIdPair :: DeclIdPair
   }
 
 {-------------------------------------------------------------------------------

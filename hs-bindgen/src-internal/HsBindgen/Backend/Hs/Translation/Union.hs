@@ -37,7 +37,7 @@ unionDecs decl union spec = do
   where
     newtypeDec :: HsM Hs.Newtype
     newtypeDec = do
-        Hs.newtypeDec newtypeName newtypeConstr newtypeField
+        Hs.newtypeDec newtypeName newtypeConstr newtypeField Hs.NoOverride
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr

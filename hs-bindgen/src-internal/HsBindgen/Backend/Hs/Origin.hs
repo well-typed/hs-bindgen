@@ -29,7 +29,7 @@ module HsBindgen.Backend.Hs.Origin (
 
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro (TranslatedMacroType)
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Hs qualified as Hs
@@ -52,11 +52,11 @@ data Struct =
   deriving stock (Generic, Show)
 
 data Newtype =
-    Enum    (C.Enum                         Final)
-  | Typedef (C.Typedef                      Final)
-  | Union   (C.Union                        Final)
-  | Aux     (C.Typedef                      Final)
-  | forall l. Macro (TypecheckedMacroType l Final)
+    Enum    (C.Enum              Final)
+  | Typedef (C.Typedef           Final)
+  | Union   (C.Union             Final)
+  | Aux     (C.Typedef           Final)
+  | Macro   (TranslatedMacroType Final)
 
 deriving stock instance Show Newtype
 

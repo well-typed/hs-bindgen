@@ -6,7 +6,7 @@ module HsBindgen.Frontend.Pass.TranslateTypes.IsPass (
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.IR.PassingMethod (PassingMethod, ResPassingMethod)
@@ -20,17 +20,17 @@ type TranslateTypes :: Pass
 data TranslateTypes a
 
 type family AnnTranslateTypes ix where
-  AnnTranslateTypes "Decl"                 = PrescriptiveDeclSpec
-  AnnTranslateTypes "Enum"                 = NewtypeNames
-  AnnTranslateTypes "IndirectField"        = IndirectFieldNames TranslateTypes
-  AnnTranslateTypes "Flam"                 = FlamNames
-  AnnTranslateTypes "FunctionArg"          = PassingMethod TranslateTypes
-  AnnTranslateTypes "FunctionRes"          = ResPassingMethod TranslateTypes
-  AnnTranslateTypes "Struct"               = StructNames
-  AnnTranslateTypes "Typedef"              = TypedefNames
-  AnnTranslateTypes "TypecheckedMacroType" = NewtypeNames
-  AnnTranslateTypes "Union"                = NewtypeNames
-  AnnTranslateTypes _                      = NoAnn
+  AnnTranslateTypes "Decl"                = PrescriptiveDeclSpec
+  AnnTranslateTypes "Enum"                = NewtypeNames
+  AnnTranslateTypes "IndirectField"       = IndirectFieldNames TranslateTypes
+  AnnTranslateTypes "Flam"                = FlamNames
+  AnnTranslateTypes "FunctionArg"         = PassingMethod TranslateTypes
+  AnnTranslateTypes "FunctionRes"         = ResPassingMethod TranslateTypes
+  AnnTranslateTypes "Struct"              = StructNames
+  AnnTranslateTypes "Typedef"             = TypedefNames
+  AnnTranslateTypes "TranslatedMacroType" = NewtypeNames
+  AnnTranslateTypes "Union"               = NewtypeNames
+  AnnTranslateTypes _                     = NoAnn
 
 instance IsPass TranslateTypes
 
@@ -55,7 +55,7 @@ instance PassTypes TranslateTypes where
 
 instance PassMacro TranslateTypes where
   type MacroId         TranslateTypes = Id TranslateTypes
-  type MacroBody       TranslateTypes = TypecheckedMacro TranslateTypes
+  type MacroBody       TranslateTypes = TranslatedMacro TranslateTypes
   type MacroUnderlying TranslateTypes = C.Type TranslateTypes
 
   macroIdId _ = id
@@ -82,9 +82,6 @@ instance CoercePassMacroId MangleNames TranslateTypes
 
 instance CoercePassMacroUnderlying MangleNames TranslateTypes where
   coercePassMacroUnderlying _ = coercePass
-
-instance CoercePassMacroBody MangleNames TranslateTypes where
-  coercePassMacroBody _ = coercePassParam
 
 instance CoercePassAnn "IndirectField" MangleNames TranslateTypes where
   coercePassAnn _ = \case

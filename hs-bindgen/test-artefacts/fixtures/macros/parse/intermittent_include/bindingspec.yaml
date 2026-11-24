@@ -34,6 +34,9 @@ hstypes:
       constructor: M1
       fields:
       - unwrapM1
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -65,6 +68,9 @@ hstypes:
       constructor: M2
       fields:
       - unwrapM2
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -96,6 +102,9 @@ hstypes:
       constructor: M3
       fields:
       - unwrapM3
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -127,6 +136,9 @@ hstypes:
       constructor: M4
       fields:
       - unwrapM4
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -158,6 +170,9 @@ hstypes:
       constructor: Ma
       fields:
       - unwrapMa
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CInt
   instances:
   - Bitfield
   - Bits

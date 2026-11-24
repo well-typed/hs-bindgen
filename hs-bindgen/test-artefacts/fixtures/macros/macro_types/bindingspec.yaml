@@ -40,6 +40,9 @@ hstypes:
       constructor: BOOLEAN_T
       fields:
       - unwrapBOOLEAN_T
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUChar
   instances:
   - Bitfield
   - Bits

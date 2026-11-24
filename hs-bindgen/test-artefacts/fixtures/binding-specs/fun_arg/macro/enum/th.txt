@@ -351,7 +351,7 @@ fooD_safe :: M.D -> IO ()
 fooD_safe = hs_bindgen_deddaf3108b305bb
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooE@
 foreign import ccall safe "hs_bindgen_9ed085d5f2e5837e" hs_bindgen_9ed085d5f2e5837e_base ::
-    CUInt
+    HsBindgen.Runtime.Support.CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooE@
 hs_bindgen_9ed085d5f2e5837e :: E -> IO ()
@@ -483,7 +483,7 @@ fooD_unsafe :: M.D -> IO ()
 fooD_unsafe = hs_bindgen_2be41098f80a9019
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooE@
 foreign import ccall unsafe "hs_bindgen_07241b4b6cbf2991" hs_bindgen_07241b4b6cbf2991_base ::
-    CUInt
+    HsBindgen.Runtime.Support.CUInt
  -> IO ()
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooE@
 hs_bindgen_07241b4b6cbf2991 :: E -> IO ()

@@ -187,7 +187,7 @@ fooD = hs_bindgen_b08ba864cf83a382
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooE@
 foreign import ccall safe "hs_bindgen_ca717b3afd1e43f5" hs_bindgen_ca717b3afd1e43f5_base ::
-     BG.FunPtr BG.Void
+     HsBindgen.Runtime.Support.FunPtrVoid
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooE@

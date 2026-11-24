@@ -4,11 +4,13 @@
 --
 -- > import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
 module HsBindgen.Frontend.Pass.TranslateTypes.FFIType (
-    toFFIType
+    M
+  , toFFIType
   , toFFITypeWithMsgs
   , pointerTo
   ) where
 
+import Control.Monad.Reader (ReaderT, ask, runReaderT)
 import Control.Monad.Writer.Strict (Writer, censor, runWriter)
 
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -18,16 +20,15 @@ import HsBindgen.Frontend.Pass.TranslateTypes.Translation (Pointee (..))
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.Language.Haskell qualified as Hs
 
-type M = Writer [FFITypesMsg]
+type M = ReaderT SugarInfos (Writer [FFITypesMsg])
 
 toFFIType :: SugarInfos -> Hs.Type -> Maybe Hs.FFIType
-toFFIType sugars = fst . runWriter . toFFITypeWithMsgs sugars
+toFFIType sugars ty = fst $ runWriter $ runReaderT (toFFITypeWithMsgs ty) sugars
 
 toFFITypeWithMsgs ::
-     SugarInfos
-  -> Hs.Type
+     Hs.Type
   -> M (Maybe Hs.FFIType)
-toFFITypeWithMsgs sugars = go
+toFFITypeWithMsgs = go
   where
     no :: M (Maybe Hs.FFIType)
     no = pure Nothing
@@ -39,7 +40,7 @@ toFFITypeWithMsgs sugars = go
     go = \case
       Hs.PrimType pt          -> goPrim pt
       Hs.TypRef ref t         ->
-        lookupSugarInfoM ref sugars >>= \case
+        lookupSugarInfoM ref >>= \case
           MissingSugarInfo        -> maybe no go t
           RegSugarInfo NotSugar   -> no
           RegSugarInfo (Sugar t') -> go t'
@@ -95,7 +96,8 @@ pointerTo = \case
     PointeeConstObject -> Hs.FFIPtrVoid
     PointeeObject      -> Hs.FFIPtrVoid
 
-lookupSugarInfoM :: Hs.Name Hs.NsTypeConstr -> SugarInfos -> Writer [FFITypesMsg] SugarInfo
-lookupSugarInfoM name sugars = do
+lookupSugarInfoM :: Hs.Name Hs.NsTypeConstr -> M SugarInfo
+lookupSugarInfoM name = do
+    sugars <- ask
     let sugar = lookupSugarInfo name sugars
     censor (FFITypesLookupSugarInfo name sugar :) $ pure sugar

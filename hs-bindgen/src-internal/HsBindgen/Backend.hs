@@ -43,7 +43,6 @@ runBackend tracer config boot frontend = do
     backendHsDeclsAll <- cache "hsDeclsAll" $ do
       final     <- frontend.final
       insts     <- (.instances) <$> frontend.funPtrInstances
-      macroLang <- boot.macroLang
       let declDB :: DeclDB l Final
           declDB = final.db
 
@@ -59,7 +58,6 @@ runBackend tracer config boot frontend = do
           cDecls =
             DeclDB.active (DeclUseGraph.outputOrder final.includeGraph) declDB
       pure $ Hs.generateDeclarations
-        macroLang
         config.backend.uniqueId
         boot.baseModule
         insts

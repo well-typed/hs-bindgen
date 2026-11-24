@@ -261,6 +261,7 @@ library internal
     HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod
     HsBindgen.Frontend.Pass.TranslateTypes.Position
     HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo
+    HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro
     HsBindgen.Frontend.Pass.TranslateTypes.Translation
     HsBindgen.Frontend.Pass.TypecheckMacros
     HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
