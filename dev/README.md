@@ -24,6 +24,8 @@ please refer to the [main documentation](../manual).
   the repository layout.
 - [Generated Code](generated-code.md): Rules the generated Haskell code
   follows, such as which modules it imports and how.
+- [Library Mode](library-mode.md): How `preprocess --library` gives each
+  header of a C library its own modules, and why it works the way it does.
 - [Tests](testing.md): Guide to running tests, test structure, and
   testing best practices for the project.
 - [Macros](macros.md): How macros are handled internally, such as finding the
