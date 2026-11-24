@@ -1,5 +1,6 @@
 module HsBindgen (
     hsBindgenMacroLang
+  , hsBindgenLibraryMacroLang
   , ExecutionMode(..)
 
     -- * Artefacts
@@ -40,6 +41,7 @@ module HsBindgen (
 
     -- * Test infrastructure
   , hsBindgenEMacroLang
+  , hsBindgenLibraryEMacroLang
   ) where
 
 import Control.Exception (Exception (..), catch)
@@ -47,8 +49,10 @@ import Control.Monad.Except (MonadError (..), withExceptT)
 import Control.Monad.Trans.Except (runExceptT)
 import Data.List qualified as List
 import Data.Map qualified as Map
+import Data.Maybe (maybeToList)
 import Data.Set qualified as Set
 import System.Exit (ExitCode (..), exitWith)
+import System.FilePath ((</>))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.CStandard
@@ -87,6 +91,10 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Library (OutputFile (..), OutputOrigin (..), PlanError (..),
+                          UnitHeader (..), bindingSpecFileName, outputFilePath)
+import HsBindgen.Library.Runner (LibraryResult (..), LibraryUnitOutput (..),
+                                 runLibrary)
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.TraceMsg
@@ -182,6 +190,222 @@ hsBindgenEMacroLang
           withExceptT BindgenDelayedIOError $ mapM_ checkPolicy as
           liftIO $ executeDelayedIOActions tracerSafe executionMode as
           pure r
+
+{-------------------------------------------------------------------------------
+  Library mode
+-------------------------------------------------------------------------------}
+
+-- | Entry point for library mode, parallel to 'hsBindgenMacroLang'.
+--
+-- Runs boot and the frontend once, plans the header units, and runs the
+-- backend once per unit (see "HsBindgen.Library").
+--
+hsBindgenLibraryMacroLang ::
+     Macro.HasTypes l
+  => (ClangCStandard -> IO (Macro.Lang l))
+  -> TracerConfig Level     TraceMsg
+  -> TracerConfig SafeLevel SafeTraceMsg
+  -> BindgenConfig
+  -> ExecutionMode
+  -> [C.UncheckedRootDirective]
+  -> [FilePath]
+  -> ModuleRenderConfig
+  -> FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> Maybe FilePath
+  -> IO [OutputFile]
+hsBindgenLibraryMacroLang
+  mkMacroLang tu ts b m i dirs mrc fp dp out mBsDir = do
+    eRes <- hsBindgenLibraryEMacroLang mkMacroLang tu ts b m i dirs mrc fp dp out mBsDir
+      `catch` \e ->
+        case fromException e of
+          Just (LibclangException msg) -> do
+            print $ PP.string msg
+            exitWith (ExitFailure 3)
+          _ -> throwIO e
+    case eRes of
+      Left err -> do
+        print $ prettyForTrace err
+        exitWith (ExitFailure 4)
+      Right r -> pure r
+
+hsBindgenLibraryEMacroLang ::
+     forall l. Macro.HasTypes l
+  => (ClangCStandard -> IO (Macro.Lang l))
+  -> TracerConfig Level     TraceMsg
+  -> TracerConfig SafeLevel SafeTraceMsg
+  -> BindgenConfig
+  -> ExecutionMode
+  -> [C.UncheckedRootDirective]
+  -> [FilePath]
+  -> ModuleRenderConfig
+  -> FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> Maybe FilePath
+  -> IO (Either BindgenError [OutputFile])
+hsBindgenLibraryEMacroLang
+  mkMacroLang
+  tracerConfigUnsafe
+  tracerConfigSafe
+  config
+  executionMode
+  uncheckedRootDirectives
+  libraryDirs
+  mrc
+  filePolicy
+  dirPolicy
+  outputDir
+  mBindingSpecDir = do
+    eRes <- withTracer tracerConfigUnsafe $ \tracerUnsafe -> do
+      -- Boot.
+      let tracerBoot :: Tracer BootMsg
+          tracerBoot = contramap TraceBoot tracerUnsafe
+      bootArtefact <-
+        runBoot tracerBoot mkMacroLang config uncheckedRootDirectives
+      -- Frontend.
+      let tracerFrontend :: Tracer FrontendMsg
+          tracerFrontend = contramap TraceFrontend tracerUnsafe
+      frontendArtefact <-
+        runFrontend tracerFrontend config.frontend bootArtefact
+      -- Library.
+      let tracerLibrary :: Tracer LibraryMsg
+          tracerLibrary = contramap TraceLibrary tracerUnsafe
+          baseModule = Hs.ModuleName config.boot.baseModule.text
+      eOutputs <-
+        runLibrary tracerLibrary tracerFrontend config bootArtefact
+                   frontendArtefact mrc libraryDirs baseModule
+                   (BindingSpec.getFormat <$> mBindingSpecDir)
+      case eOutputs of
+        Left planErr ->
+          pure (Left (BindgenPlanError planErr), [])
+        Right result -> do
+          let globalCallbackActions = case result.globalCallback of
+                Nothing -> []
+                Just (modName, content) ->
+                  let modPath = Hs.moduleNamePath modName
+                  in [ WriteToFile FileDescription {
+                           description = "Global callback module"
+                         , location    = RelativeFileLocation RelativeToOutputDir {
+                               outputDir = outputDir
+                             , localPath = modPath
+                             }
+                         , filePolicy  = filePolicy
+                         , dirPolicy   = dirPolicy
+                         , content     = StringContent content
+                         }
+                     ]
+              bindingSpecActions = case mBindingSpecDir of
+                Nothing      -> []
+                Just specDir ->
+                  let fmt = BindingSpec.getFormat specDir
+                  in  bindingSpecsToDelayedIO
+                        filePolicy dirPolicy fmt specDir result.units
+
+              actions = libraryOutputsToDelayedIO filePolicy dirPolicy
+                                                  outputDir result.units
+                     ++ globalCallbackActions
+                     ++ bindingSpecActions
+
+              -- The plan decides output path collisions and the dry-run
+              -- listing, so it must predict exactly the files written.
+              plannedPaths = List.sort
+                [ outputFilePath outputDir mBindingSpecDir file
+                | file <- result.plannedOutputs
+                ]
+              writtenPaths = List.sort
+                [ fileLocationToPath fd.location
+                | WriteToFile fd <- actions
+                ]
+
+          when (plannedPaths /= writtenPaths) $
+            traceWith tracerLibrary $ withCallStack $
+              LibraryOutputMismatch plannedPaths writtenPaths
+
+          pure (Right result.plannedOutputs, actions)
+
+    let tracerConfigDelayedIO :: TracerConfig SafeLevel DelayedIOMsg
+        tracerConfigDelayedIO = contramap SafeDelayedIOMsg tracerConfigSafe
+    runExceptT $ withTracerSafe tracerConfigDelayedIO $ \tracerSafe ->
+      case eRes of
+        Left er                    -> throwError $ BindgenErrorReported er
+        Right (Left bindgenErr, _) -> throwError bindgenErr
+        Right ( Right outputFiles
+              , delayedActions )   -> do
+          withExceptT BindgenDelayedIOError $ mapM_ checkPolicy delayedActions
+          liftIO $ executeDelayedIOActions tracerSafe executionMode delayedActions
+          pure outputFiles
+
+-- | Convert library outputs to 'DelayedIO' file-write actions.
+libraryOutputsToDelayedIO ::
+     FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> [LibraryUnitOutput]
+  -> [DelayedIO]
+libraryOutputsToDelayedIO filePolicy dirPolicy outputDir outputs =
+    concatMap unitActions outputs
+  where
+    unitActions :: LibraryUnitOutput -> [DelayedIO]
+    unitActions output =
+        concat $ toList $
+          mapWithCategory_ (categoryActions libBaseModule) output.rendered
+      where
+        libBaseModule = BaseModuleName output.moduleName.text
+
+    categoryActions ::
+         BaseModuleName
+      -> Category
+      -> Maybe (String, Maybe String)
+      -> [DelayedIO]
+    categoryActions _       _   Nothing                        = []
+    categoryActions baseMod cat (Just (content, mBootContent)) =
+        WriteToFile (fileDesc "Bindings" modulePath content)
+          : [ WriteToFile (fileDesc "Boot file" bootPath bc)
+            | bc <- maybeToList mBootContent
+            ]
+      where
+        moduleName = fromBaseModuleName baseMod (Just cat)
+        modulePath = Hs.moduleNamePath moduleName
+        bootPath   = Hs.moduleNameBootPath moduleName
+
+    fileDesc :: String -> FilePath -> String -> FileDescription
+    fileDesc description localPath content = FileDescription {
+          description = description
+        , location    = RelativeFileLocation RelativeToOutputDir {
+              outputDir = outputDir
+            , localPath = localPath
+            }
+        , filePolicy  = filePolicy
+        , dirPolicy   = dirPolicy
+        , content     = StringContent content
+        }
+
+-- | Convert the binding specifications of the header units to 'DelayedIO'
+-- file-write actions.
+--
+-- Each binding spec is written to @\<specDir\>\/\<ModuleName\>.bindingspec.yaml@
+-- (or @.json@ when the spec directory path ends in @.json@).
+bindingSpecsToDelayedIO ::
+     FilePolicy
+  -> DirPolicy
+  -> BindingSpec.Format
+  -> FilePath
+  -> [LibraryUnitOutput]
+  -> [DelayedIO]
+bindingSpecsToDelayedIO filePolicy dirPolicy format specDir units = [
+      WriteToFile FileDescription {
+          description = "Binding specification"
+        , location    = UserSpecified $
+            specDir </> bindingSpecFileName format unit.moduleName
+        , filePolicy  = filePolicy
+        , dirPolicy   = dirPolicy
+        , content     = ByteStringContent content
+        }
+    | unit <- units
+    , Just content <- [unit.bindingSpec]
+    ]
 
 {-------------------------------------------------------------------------------
   High-level artefacts
@@ -542,12 +766,79 @@ getExportTags = do
 data BindgenError =
       BindgenErrorReported  AnErrorHappened
     | BindgenDelayedIOError DelayedIOError
+    | BindgenPlanError      PlanError
     deriving stock (Show)
 
 instance PrettyForTrace BindgenError where
   prettyForTrace = \case
     BindgenErrorReported  e -> prettyForTrace e
     BindgenDelayedIOError e -> prettyForTrace e
+    BindgenPlanError (ModuleNameCollision m (h1, files1) (h2, files2)) ->
+      PP.vcat [
+          PP.hsep [
+              "Module name collision:"
+            , prettyUnitHeader h1
+            , "and"
+            , prettyUnitHeader h2
+            , "both get the module name"
+            , prettyForTrace m
+            ]
+        , PP.nest 2 $ PP.vcat [
+              PP.hsep [
+                  prettyUnitHeader h
+                , writes h
+                , PP.string $ List.intercalate ", " $
+                    List.sort (map (.path) (toList files))
+                ]
+            | (h, files) <- [(h1, files1), (h2, files2)]
+            ]
+        ]
+    BindgenPlanError (NoHeadersFound dirs) ->
+      PP.hsep [
+          "No C headers found under library"
+        , if length dirs == 1 then "directory:" else "directories:"
+        , PP.string (List.intercalate ", " dirs)
+        ]
+    BindgenPlanError (OutputPathCollision f1 f2) ->
+      PP.hsep [
+          "Output path collision:"
+        , PP.string f1.path
+        , PP.parens (prettyOutputOrigin f1.origin)
+        , "vs"
+        , PP.string f2.path
+        , PP.parens (prettyOutputOrigin f2.origin)
+        ]
+    where
+      prettyOutputOrigin :: OutputOrigin -> PP.CtxDoc
+      prettyOutputOrigin = \case
+        HeaderModule header cat ->
+          PP.hsep [categoryModule cat, "of", prettyUnitHeader header]
+        HeaderBootFile header ->
+          PP.hsep ["boot file of", prettyUnitHeader header]
+        GlobalCallbackModule ->
+          "global callback module"
+        BindingSpecFile header ->
+          PP.hsep ["binding specification of", prettyUnitHeader header]
+
+      prettyUnitHeader :: UnitHeader -> PP.CtxDoc
+      prettyUnitHeader = \case
+        LibraryHeader header -> PP.string (getRealPath header)
+        VendorHeaders        -> "the vendor declarations"
+
+      -- The verb after 'prettyUnitHeader', in agreement with it
+      writes :: UnitHeader -> PP.CtxDoc
+      writes = \case
+        LibraryHeader _ -> "writes"
+        VendorHeaders   -> "write"
+
+      categoryModule :: Category -> PP.CtxDoc
+      categoryModule = \case
+        CType           -> "Types module"
+        CTerm CCallback -> "Callback module"
+        CTerm CSafe     -> "Safe module"
+        CTerm CUnsafe   -> "Unsafe module"
+        CTerm CFunPtr   -> "FunPtr module"
+        CTerm CGlobal   -> "Global module"
 
 {-------------------------------------------------------------------------------
   Traces
