@@ -350,6 +350,9 @@ runClassified pos x = WithMsgs{
 -- instance. For example, with @typedef struct S S;@ squashed, a use of the
 -- typedef translates to @TypRef "S" (Just (TypRef "S" Nothing))@, and a use
 -- of @struct S@ to @TypRef "S" Nothing@.
+--
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/2376>: remove with the
+-- underlying types, and key 'seen' by 'FunPtrInstance'
 eraseUnderlying :: Hs.Type -> Hs.Type
 eraseUnderlying = \case
     Hs.PrimType t             -> Hs.PrimType t
