@@ -42,6 +42,7 @@ import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
+import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo (SugarInfos)
 import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro (TranslatedMacro (..),
                                                                TranslatedMacroType (..))
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
@@ -66,10 +67,11 @@ import Doxygen.Parser.Types qualified as Doxy
 generateDeclarations ::
      UniqueId
   -> BaseModuleName
+  -> SugarInfos
   -> [FunPtrInstance] -- ^ In output order
   -> [C.Decl l Final]
   -> ByCategory_ [Hs.Decl l]
-generateDeclarations uniqueId name insts =
+generateDeclarations uniqueId name sugars insts =
     fmap reverse .
       foldl' partitionBindingCategories mempty .
       generateDeclarations' env insts
@@ -83,7 +85,7 @@ generateDeclarations uniqueId name insts =
     supInsts = def
 
     env :: HsM.Env
-    env = HsM.initEnv uniqueId name supInsts
+    env = HsM.initEnv uniqueId name supInsts sugars
 
 -- | Internal. Top-level declaration with foreign import category.
 data WithCategory a = WithCategory {

@@ -54,6 +54,7 @@ import HsBindgen.Frontend.Pass.SimplifyAST
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo (SugarInfos)
 import HsBindgen.Frontend.Pass.TypecheckMacros
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
@@ -439,7 +440,7 @@ runFrontend tracer config boot = do
 
     selectPass <- cache "select" $ do
       afterParse <- parsePass
-      afterTranslateTypesPass <- translateTypesPass
+      afterTranslateTypesPass <- fst <$> translateTypesPass
       let (afterSelect, msgsSelect) =
             selectDecls
               afterParse.isMainHeader
@@ -451,8 +452,9 @@ runFrontend tracer config boot = do
 
     funPtrInstancesPass <- cache "funPtrInstances" $ do
       afterSelect <- selectPass
+      sugars <- snd <$> translateTypesPass
       let (afterFunPtrInstances, msgsFunPtrInstances) =
-            FunPtrInstances.funPtrInstances afterSelect
+            FunPtrInstances.funPtrInstances sugars afterSelect
       traceSorted
         (contramap FrontendFunPtrInstances tracer)
         msgsFunPtrInstances
@@ -473,7 +475,8 @@ runFrontend tracer config boot = do
       , reparseMacroExpansions   = reparseMacroExpansionsPass
       , resolveBindingSpecs      = resolveBindingSpecsPass
       , mangleNames              = mangleNamesPass
-      , translateTypes           = translateTypesPass
+      , translateTypes           = fst <$> translateTypesPass
+      , sugars                   = snd <$> translateTypesPass
       , select                   = selectPass
       , funPtrInstances          = funPtrInstancesPass
       , final                    = finalPass
@@ -525,6 +528,7 @@ data FrontendArtefact l = FrontendArtefact {
     , resolveBindingSpecs      :: Cached (C.TranslationUnit l ResolveBindingSpecs)
     , mangleNames              :: Cached (C.TranslationUnit l MangleNames)
     , translateTypes           :: Cached (C.TranslationUnit l TranslateTypes)
+    , sugars                   :: Cached SugarInfos
     , select                   :: Cached (C.TranslationUnit l Select)
     , funPtrInstances          :: Cached (FunPtrInstances.Result l)
     , final                    :: Cached (C.TranslationUnit l Final)

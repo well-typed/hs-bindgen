@@ -1,3 +1,5 @@
+{- HLINT ignore "Use asks" -}
+
 module HsBindgen.Backend.Hs.Translation.Newtype (
     newtypeDec
   , FFITypeOverride (..)
@@ -5,6 +7,7 @@ module HsBindgen.Backend.Hs.Translation.Newtype (
   , hasFieldPtrDecs
   ) where
 
+import Control.Monad.Reader qualified as Reader
 import Control.Monad.State qualified as State
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
@@ -17,7 +20,6 @@ import HsBindgen.Backend.Hs.Translation.Monad (HsM)
 import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
-import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo (emptySugarInfos)
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.Hs qualified as Hs
@@ -36,12 +38,12 @@ newtypeDec ::
   -> Set Inst.TypeClass -- ^ Known instances
   -> HsM Hs.Newtype
 newtypeDec name constr field override orig comment candidateInsts knownInsts = do
-    hsNewtype <- aux <$> State.get
+    hsNewtype <- aux <$> Reader.ask <*> State.get
     State.modify' $ #instanceMap %~ Map.insert hsNewtype.name hsNewtype.instances
     pure hsNewtype
   where
-    aux :: HsM.St -> Hs.Newtype
-    aux transState = Hs.Newtype {
+    aux :: HsM.Env -> HsM.St -> Hs.Newtype
+    aux env transState = Hs.Newtype {
             name      = name
           , constr    = constr
           , ffiType   = ffiType
@@ -66,9 +68,7 @@ newtypeDec name constr field override orig comment candidateInsts knownInsts = d
         correctedInsts :: Set Inst.TypeClass
         (ffiType, correctedInsts)
           | Inst.HasFFIType `elem` insts
-            -- TODO <https://github.com/well-typed/hs-bindgen/issues/2376>: use
-            -- sugar infos as computed by the @TranslateTypes@ pass
-          , Just ffi <- withOverride override (FFIType.toFFIType emptySugarInfos field.typ)
+          , Just ffi <- withOverride override (FFIType.toFFIType env.sugars field.typ)
           = ( Just (BindingSpec.HsFFIType (Hs.ffiExtRef ffi))
             , insts )
           | otherwise

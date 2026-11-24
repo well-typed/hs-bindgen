@@ -39,9 +39,9 @@ toFFITypeWithMsgs = go
     go :: Hs.Type -> M (Maybe Hs.FFIType)
     go = \case
       Hs.PrimType pt          -> goPrim pt
-      Hs.TypRef ref t         ->
+      Hs.TypRef ref _         ->
         lookupSugarInfoM ref >>= \case
-          MissingSugarInfo        -> maybe no go t
+          MissingSugarInfo        -> no
           RegSugarInfo NotSugar   -> no
           RegSugarInfo (Sugar t') -> go t'
       Hs.ConstArray{}         -> no

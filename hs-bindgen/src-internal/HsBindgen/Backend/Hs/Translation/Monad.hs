@@ -28,6 +28,7 @@ import Data.Map.Strict qualified as Map
 
 import HsBindgen.Backend.Hs.Translation.Instances
 import HsBindgen.Config.Prelims
+import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo (SugarInfos)
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 
@@ -55,18 +56,21 @@ data Env = Env {
     uniqueId           :: UniqueId
   , baseModuleName     :: BaseModuleName
   , supportedInstances :: Inst.SupportedInstances
+  , sugars             :: SugarInfos
   }
 
 initEnv ::
      UniqueId
   -> BaseModuleName
   -> Inst.SupportedInstances
+  -> SugarInfos
   -> Env
-initEnv uniqueId baseModuleName supportedInstances =
+initEnv uniqueId baseModuleName supportedInstances sugars =
     Env {
-        uniqueId = uniqueId
-      , baseModuleName = baseModuleName
+        uniqueId           = uniqueId
+      , baseModuleName     = baseModuleName
       , supportedInstances = supportedInstances
+      , sugars             = sugars
       }
 
 {-------------------------------------------------------------------------------

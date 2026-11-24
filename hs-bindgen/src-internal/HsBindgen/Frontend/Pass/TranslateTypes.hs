@@ -44,16 +44,16 @@ translateTypes ::
      forall l. Macro.HasTypes l
   => Macro.Lang l
   -> C.TranslationUnit l MangleNames
-  -> C.TranslationUnit l TranslateTypes
-translateTypes macroLang unit = unit{C.db = db'}
+  -> (C.TranslationUnit l TranslateTypes, SugarInfos)
+translateTypes macroLang unit = (unit{C.db = db'}, st.sugars)
   where
     db' :: DeclDB l TranslateTypes
     db' =
         DeclDB.addDelayedMsgs
-          (map (second DelayedTranslateTypes) delayedMsgs)
+          (map (second DelayedTranslateTypes) st.messages)
           db
 
-    (db, delayedMsgs) =
+    (db, st) =
       runM globalEnv $
         DeclDB.traverseActive
           (DeclDB.DependencyOrder DeclDB.AllEdges tieBreaker)
@@ -306,8 +306,11 @@ runFFITypeM mkMsg action = do
 -- | Run the monad
 --
 -- Delayed trace messages are returned in the order they were recorded
-runM :: env -> M env a -> (a, [(C.DeclId, DelayedTranslateTypesMsg)])
-runM m (M k) = fmap (reverse . (.messages)) $ runState (runReaderT k m) initSt
+runM :: env -> M env a -> (a, St)
+runM m (M k) = fmap reverseMessages $ runState (runReaderT k m) initSt
+  where
+    reverseMessages :: St -> St
+    reverseMessages st = st { messages = reverse st.messages }
 
 newtype M env a = M (ReaderT env (State St) a)
   deriving newtype (Functor, Applicative, Monad)
