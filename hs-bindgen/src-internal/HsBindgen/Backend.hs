@@ -42,6 +42,7 @@ runBackend tracer config boot frontend = do
     -- 1. Reified C declarations to @Hs@ declarations.
     backendHsDeclsAll <- cache "hsDeclsAll" $ do
       final     <- frontend.final
+      sugars    <- frontend.sugars
       insts     <- (.instances) <$> frontend.funPtrInstances
       let declDB :: DeclDB l Final
           declDB = final.db
@@ -60,6 +61,7 @@ runBackend tracer config boot frontend = do
       pure $ Hs.generateDeclarations
         config.backend.uniqueId
         boot.baseModule
+        sugars
         insts
         cDecls
 

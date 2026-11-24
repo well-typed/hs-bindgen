@@ -36,11 +36,13 @@ import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass.Msg
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (TypedefNames (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.Error (FunPositionError)
+import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (FFITypesMsg)
 import HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (Classified,
                                                              classifyArgPassingMethod,
                                                              classifyResPassingMethod)
 import HsBindgen.Frontend.Pass.TranslateTypes.Position
-import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo (emptySugarInfos)
+import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo (SugarInfos)
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
@@ -66,9 +68,10 @@ data Result l = Result {
     }
 
 funPtrInstances ::
-     C.TranslationUnit l Select
+     SugarInfos
+  -> C.TranslationUnit l Select
   -> (Result l, [AnnMsg FunPtrInstances])
-funPtrInstances unit = (
+funPtrInstances sugars unit = (
       Result{
           unit      = unit{C.db = db'}
         , instances = reverse st.instances
@@ -82,7 +85,7 @@ funPtrInstances unit = (
       flip runState initSt $
         DeclDB.traverseActive
           (DeclUseGraph.outputOrder unit.includeGraph)
-          (processDecl unit.db)
+          (processDecl sugars unit.db)
           unit.db
 
 {-------------------------------------------------------------------------------
@@ -91,17 +94,19 @@ funPtrInstances unit = (
 
 processDecl ::
      forall l.
-     DeclDB l Select
+     SugarInfos
+  -> DeclDB l Select
   -> C.Decl l Select
   -> State St (DeclDB.PassResult l FunPtrInstances)
-processDecl db decl = do
+processDecl sugars db decl = do
     runReaderT (processDeclKind decl) env
     pure $ DeclDB.Advanced $ coercePass decl
   where
     env :: Env l
     env = Env{
-        db  = db
-      , loc = C.declIdLocationInfo decl.id.cName [decl.info.loc]
+        db     = db
+      , loc    = C.declIdLocationInfo decl.id.cName [decl.info.loc]
+      , sugars = sugars
       }
 
 processDeclKind :: C.Decl l Select -> M l ()
@@ -307,13 +312,7 @@ classified ::
   -> FunPosition
   -> Classified a
   -> M l (Either FunPositionError a)
-classified loc pos x = do
-    forM_ msgs $ addMessage . FunPtrInstancesFFITypes loc pos
-    pure result
-  where
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/2376>: use sugar
-    -- infos as computed by the @TranslateTypes@ pass
-    (result, msgs) = runWriter (runReaderT x emptySugarInfos)
+classified loc pos = runFFITypeM (FunPtrInstancesFFITypes loc pos)
 
 -- | Erase the underlying types of references
 --
@@ -353,6 +352,20 @@ argPosition :: Int -> FunPosition
 argPosition i = FunPositionArg FunArgPosition{index = i, name = Nothing}
 
 {-------------------------------------------------------------------------------
+  FFI types
+-------------------------------------------------------------------------------}
+
+runFFITypeM ::
+     (FFITypesMsg -> FunPtrInstancesMsg)
+  -> FFIType.M a
+  -> M l a
+runFFITypeM mkMsg action = do
+    sugars <- asks (.sugars)
+    let (r, msgs) = runWriter (runReaderT action sugars)
+    forM_ msgs $ addMessage . mkMsg
+    pure r
+
+{-------------------------------------------------------------------------------
   Monad
 -------------------------------------------------------------------------------}
 
@@ -360,9 +373,10 @@ type M l = ReaderT (Env l) (State St)
 
 data Env l = Env {
       -- | The declarations after @Select@
-      db  :: DeclDB l Select
+      db     :: DeclDB l Select
       -- | Location of the current declaration
-    , loc :: C.LocationInfo
+    , loc    :: C.LocationInfo
+    , sugars :: SugarInfos
     }
 
 data St = St {
