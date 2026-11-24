@@ -31,6 +31,8 @@ testCases = [
     , test_circular_includes
     , test_circular_macro
       -- * Program slicing
+    , test_program_slicing_enum_selected
+    , test_program_slicing_enum_unselected
     , test_program_slicing_macro_selected
     , test_program_slicing_macro_unselected
     , test_program_slicing_typedef_selected
@@ -151,6 +153,29 @@ test_circular_macro =
 {-------------------------------------------------------------------------------
   Program slicing
 -------------------------------------------------------------------------------}
+
+test_program_slicing_enum_selected :: TestCase
+test_program_slicing_enum_selected =
+    defaultTest "program-analysis/program-slicing/enum_selected"
+      & #onFrontend .~ (\cfg -> cfg
+            & #programSlicing .~ EnableProgramSlicing
+          )
+
+test_program_slicing_enum_unselected :: TestCase
+test_program_slicing_enum_unselected =
+    defaultTest "program-analysis/program-slicing/enum_unselected"
+      & #onFrontend     .~ (\cfg -> cfg
+            & #programSlicing .~ DisableProgramSlicing
+          )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name TransitiveDependenciesMissing{} ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["enum E", "U_A"]
 
 test_program_slicing_macro_selected :: TestCase
 test_program_slicing_macro_selected =

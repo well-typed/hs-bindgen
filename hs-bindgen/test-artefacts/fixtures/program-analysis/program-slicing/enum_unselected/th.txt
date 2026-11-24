@@ -1,0 +1,57 @@
+-- addDependentFile test-artefacts/headers/golden/program-analysis/program-slicing/enum_unselected_t.h
+-- addDependentFile test-artefacts/headers/golden/program-analysis/program-slicing/enum_unselected.h
+{-| __C declaration:__ @enum F@
+
+    __defined at:__ @program-analysis\/program-slicing\/enum_unselected.h 14:6@
+
+    __exported by:__ @program-analysis\/program-slicing\/enum_unselected.h@
+-}
+newtype F
+    = F {unwrapF :: CUInt}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize F
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw F
+    where readRaw = \ptr_0 -> pure F <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw F
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       F unwrapF_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapF_2
+deriving via (EquivStorable F) instance Storable F
+deriving via CUInt instance Prim F
+instance CEnum F
+    where type CEnumZ F = CUInt
+          toCEnum = F
+          fromCEnum = getField @"unwrapF"
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "F_A")]
+          showsUndeclared = showsWrappedUndeclared "F"
+          readPrecUndeclared = readPrecWrappedUndeclared "F"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum F
+    where minDeclaredValue = F_A
+          maxDeclaredValue = F_A
+instance Show F
+    where showsPrec = shows
+instance Read F
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapF" F ty
+    where hasField = \x_0 -> (\y_1 -> F{unwrapF = y_1},
+                              getField @"unwrapF" x_0)
+instance (~) ty CUInt => HasField "unwrapF" (Ptr F) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapF")
+instance HasCField F "unwrapF"
+    where type CFieldType F "unwrapF" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @F_A@
+
+    __defined at:__ @program-analysis\/program-slicing\/enum_unselected.h 14:10@
+
+    __exported by:__ @program-analysis\/program-slicing\/enum_unselected.h@
+-}
+pattern F_A :: F
+pattern F_A = F 0

@@ -85,6 +85,11 @@
 
 [is-2387]: https://github.com/well-typed/hs-bindgen/issues/2387
 
+* A tagged `enum` now depends on the `typedef` that fixes its underlying type
+  (C23, e.g., `enum E : T { A };`). Previously, if `T` was not selected,
+  `hs-bindgen` panicked ("Type not found"); now `E` is deselected with a
+  warning, unless program slicing selects `T`.
+
 * A `struct` or `union` defined inline in a variable or function declaration
   that fails to parse (e.g., `struct s { long double x; } v;`) is now
   reported with its parse failure. Previously, it was reported as conflicting
