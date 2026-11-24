@@ -22,15 +22,13 @@ import HsBindgen.Backend.HsModule.Pretty.Type
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Instances as Inst
 import HsBindgen.IR.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 
 instance Pretty SDecl where
   pretty = \case
     DTypSyn typSyn ->
          prettyTopLevelComment typSyn.comment
-      $$ PP.fsep [
-             "type" <+> pretty typSyn.name <+> PP.char '='
-           , PP.nest 2 (pretty typSyn.typ)
-           ]
+      $$ prettyTypSyn typSyn.name typSyn.typ
     DInst inst ->
       let constraints = map pretty inst.super
           -- @flist@ should either be @PP.hlist@ or @PP.vlist@
@@ -168,6 +166,19 @@ instance Pretty SDecl where
               ]
 
 {-------------------------------------------------------------------------------
+  HsBootDecl pretty-printing
+-------------------------------------------------------------------------------}
+
+instance Pretty HsBootDecl where
+  pretty = \case
+    HsBootData name ->
+      PP.hsep ["data", pretty name]
+    HsBootTypSyn name typ ->
+      prettyTypSyn name typ
+    HsBootInstance clss name ->
+      "instance" <+> pretty (resolveTypeClass clss) <+> pretty name
+
+{-------------------------------------------------------------------------------
   PatEpxr pretty-printing
 -------------------------------------------------------------------------------}
 
@@ -207,6 +218,13 @@ strategy :: Hs.Strategy ClosedType -> CtxDoc
 strategy Hs.DeriveNewtype  = "newtype"
 strategy Hs.DeriveStock    = "stock"
 strategy (Hs.DeriveVia ty) = "via" <+> pretty ty
+
+-- | Type synonym, without its comment
+prettyTypSyn :: Hs.Name Hs.NsTypeConstr -> ClosedType -> CtxDoc
+prettyTypSyn name typ = PP.fsep [
+      "type" <+> pretty name <+> PP.char '='
+    , PP.nest 2 (pretty typ)
+    ]
 
 prettyPragma :: Hs.TermName -> Pragma -> CtxDoc
 prettyPragma n = \case

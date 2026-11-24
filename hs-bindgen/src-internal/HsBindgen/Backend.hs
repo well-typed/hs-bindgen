@@ -60,6 +60,7 @@ runBackend tracer config boot frontend = do
       pure $ Hs.generateDeclarations
         config.backend.uniqueId
         boot.baseModule
+        config.backend.hsBootPolicy
         insts
         cDecls
 

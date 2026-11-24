@@ -136,3 +136,4 @@ exec global opts =
           (UniqueId       "unused-unique-id")
           (BaseModuleName "unused-module-name")
           (def :: ByCategory Choice)
+          DoNotGenerateHsBoot

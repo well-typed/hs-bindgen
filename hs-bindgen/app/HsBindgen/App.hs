@@ -24,6 +24,7 @@ module HsBindgen.App (
   , parseDirPolicy
   , parseFilePolicy
   , parseExecutionMode
+  , parseHsBootPolicy
   , parseGenBindingSpec
   , parseGenTestsOutput
     -- ** Input arguments
@@ -586,6 +587,15 @@ parseExecutionMode :: Parser ExecutionMode
 parseExecutionMode = flag RealRun DryRun $ mconcat [
       long "dry-run"
     , help "Check the output files and report them, but write nothing"
+    ]
+
+parseHsBootPolicy :: Parser HsBootPolicy
+parseHsBootPolicy = flag DoNotGenerateHsBoot GenerateHsBoot $ mconcat [
+      long "generate-hs-boot"
+    , help (  "Generate a boot file next to every types module, and put the "
+           ++ "code behind callbacks in a module of its own (suffix "
+           ++ "Callback). Not available with --single-file"
+           )
     ]
 
 parseGenBindingSpec :: Parser FilePath
