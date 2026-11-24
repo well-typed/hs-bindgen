@@ -418,11 +418,16 @@ instance UpdateUseSites C.EnumConstant where
 
 instance UpdateUseSites C.UntaggedEnumConstant where
   updateUseSites enumConst =
-      reconstruct <$> updateUseSites enumConst.constant
+      reconstruct
+        <$> updateUseSites enumConst.typ
+        <*> updateUseSites enumConst.constant
     where
-      reconstruct :: C.EnumConstant FillUnnamedIds -> C.UntaggedEnumConstant FillUnnamedIds
-      reconstruct constant' = C.UntaggedEnumConstant{
-            typ      = enumConst.typ  -- PrimType has no use sites to update
+      reconstruct ::
+           C.Type FillUnnamedIds
+        -> C.EnumConstant FillUnnamedIds
+        -> C.UntaggedEnumConstant FillUnnamedIds
+      reconstruct typ' constant' = C.UntaggedEnumConstant{
+            typ      = typ'
           , constant = constant'
           }
 

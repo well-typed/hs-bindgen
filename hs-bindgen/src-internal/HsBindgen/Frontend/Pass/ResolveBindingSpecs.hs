@@ -462,7 +462,7 @@ instance Resolve (C.DeclKind l) l where
       C.DeclUnion union                    -> C.DeclUnion    <$> resolve ctx union
       C.DeclTypedef typedef                -> C.DeclTypedef  <$> resolve ctx typedef
       C.DeclEnum enum                      -> C.DeclEnum     <$> resolve ctx enum
-      C.DeclUntaggedEnumConstant enumConst -> pure $ C.DeclUntaggedEnumConstant (coercePass enumConst)
+      C.DeclUntaggedEnumConstant enumConst -> C.DeclUntaggedEnumConstant <$> resolve ctx enumConst
       C.DeclOpaque mSize                   -> return (C.DeclOpaque mSize)
       C.DeclMacro macro                    -> C.DeclMacro    <$> resolveFlip ctx macro
       C.DeclFunction fun                   -> C.DeclFunction <$> resolve ctx fun
@@ -596,6 +596,18 @@ instance Resolve C.Enum l where
         , sizeof    = enum.sizeof
         , alignment = enum.alignment
         , ann       = enum.ann
+        }
+
+instance Resolve C.UntaggedEnumConstant l where
+  resolve ctx enumConst =
+      reconstruct <$> resolve ctx enumConst.typ
+    where
+      reconstruct ::
+           C.Type ResolveBindingSpecs
+        -> C.UntaggedEnumConstant ResolveBindingSpecs
+      reconstruct typ' = C.UntaggedEnumConstant {
+          typ      = typ'
+        , constant = coercePass enumConst.constant
         }
 
 instance Resolve C.Typedef l where

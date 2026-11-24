@@ -42,6 +42,7 @@ testCases = [
     , defaultTest "types/enums/enum_unsigned_values"
     , defaultTest "types/enums/enums"
     , defaultTest "types/enums/nested_enums"
+    , defaultTest "types/enums/untagged_enum_fixed_type"
     , defaultTest "types/enums/untagged_enum_toplevel"
     , defaultTest "types/nested/nested_types"
     , defaultTest "types/primitives/bool"

@@ -78,6 +78,13 @@
 
 ### Bug fixes
 
+* An untagged `enum` whose underlying type is a `typedef` (C23, e.g.,
+  `enum : uint8_t { A, B };`) no longer panics ("Expected TypePrim"). Its
+  constants are pattern synonyms of the `typedef`'s Haskell type, and they
+  depend on the `typedef` for selection. See [issue #2387][is-2387].
+
+[is-2387]: https://github.com/well-typed/hs-bindgen/issues/2387
+
 * A `struct` or `union` defined inline in a variable or function declaration
   that fails to parse (e.g., `struct s { long double x; } v;`) is now
   reported with its parse failure. Previously, it was reported as conflicting

@@ -679,10 +679,10 @@ createEnumConstant constant = do
 createUntaggedEnumConstant ::
      C.UntaggedEnumConstant ResolveBindingSpecs
   -> CreateE (C.UntaggedEnumConstant CreateNames)
-createUntaggedEnumConstant (C.UntaggedEnumConstant primTyp constant) = do
-    constant' <- createEnumConstant constant
+createUntaggedEnumConstant enumConst = do
+    constant' <- createEnumConstant enumConst.constant
     pure C.UntaggedEnumConstant{
-        typ      = primTyp
+        typ      = coercePass enumConst.typ
       , constant = constant'
       }
 

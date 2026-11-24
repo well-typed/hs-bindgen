@@ -1,0 +1,77 @@
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/stdint.h
+-- addDependentFile test-artefacts/headers/golden/types/enums/untagged_enum_fixed_type.h
+{-| __C declaration:__ @small@
+
+    __defined at:__ @types\/enums\/untagged_enum_fixed_type.h 10:23@
+
+    __exported by:__ @types\/enums\/untagged_enum_fixed_type.h@
+-}
+newtype Small
+    = Small {unwrapSmall :: CUChar}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CUChar => HasField "unwrapSmall" Small ty
+    where hasField = \x_0 -> (\y_1 -> Small{unwrapSmall = y_1},
+                              getField @"unwrapSmall" x_0)
+instance (~) ty CUChar =>
+         HasField "unwrapSmall" (Ptr Small) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapSmall")
+instance HasCField Small "unwrapSmall"
+    where type CFieldType Small "unwrapSmall" = CUChar
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @SMALL_A@
+
+    __defined at:__ @types\/enums\/untagged_enum_fixed_type.h 13:1@
+
+    __exported by:__ @types\/enums\/untagged_enum_fixed_type.h@
+-}
+pattern SMALL_A :: Small
+pattern SMALL_A = 0
+{-| __C declaration:__ @SMALL_B@
+
+    __defined at:__ @types\/enums\/untagged_enum_fixed_type.h 13:1@
+
+    __exported by:__ @types\/enums\/untagged_enum_fixed_type.h@
+-}
+pattern SMALL_B :: Small
+pattern SMALL_B = 1
+{-| __C declaration:__ @BYTE_A@
+
+    __defined at:__ @types\/enums\/untagged_enum_fixed_type.h 19:1@
+
+    __exported by:__ @types\/enums\/untagged_enum_fixed_type.h@
+-}
+pattern BYTE_A :: HsBindgen.Runtime.LibC.Word8
+pattern BYTE_A = 0
+{-| __C declaration:__ @BYTE_B@
+
+    __defined at:__ @types\/enums\/untagged_enum_fixed_type.h 19:1@
+
+    __exported by:__ @types\/enums\/untagged_enum_fixed_type.h@
+-}
+pattern BYTE_B :: HsBindgen.Runtime.LibC.Word8
+pattern BYTE_B = 255
+{-| __C declaration:__ @SHORT_A@
+
+    __defined at:__ @types\/enums\/untagged_enum_fixed_type.h 25:1@
+
+    __exported by:__ @types\/enums\/untagged_enum_fixed_type.h@
+-}
+pattern SHORT_A :: CUShort
+pattern SHORT_A = 0

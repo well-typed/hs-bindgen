@@ -295,10 +295,11 @@ instance Resolve C.EnumConstant where
       }
 
 instance Resolve C.UntaggedEnumConstant where
-  resolve ownerId (C.UntaggedEnumConstant primTyp constant) = do
-    constant' <- (resolve ownerId) constant
+  resolve ownerId enumConst = do
+    typ'      <- (resolve ownerId) enumConst.typ
+    constant' <- (resolve ownerId) enumConst.constant
     pure C.UntaggedEnumConstant{
-        typ      = primTyp
+        typ      = typ'
       , constant = constant'
       }
 
