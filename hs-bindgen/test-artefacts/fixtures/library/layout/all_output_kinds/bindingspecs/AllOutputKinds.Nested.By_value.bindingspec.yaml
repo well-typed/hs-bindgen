@@ -1,0 +1,29 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: AllOutputKinds.Nested.By_value
+ctypes:
+- headers: all_output_kinds/nested/by_value.h
+  cname: struct by_value
+  hsname: By_value
+hstypes:
+- hsname: By_value
+  representation:
+    record:
+      constructor: By_value
+      fields:
+      - by_value_x
+      - by_value_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

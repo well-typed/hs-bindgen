@@ -33,8 +33,8 @@ applyTerms = \case
         Hs.DeclNewtype{}                  -> p
         Hs.DeclPatSyn{}                   -> p
         Hs.DeclCompletePragma{}           -> p
-        Hs.DeclDefineInstance{}           -> p
-        Hs.DeclDeriveInstance{}           -> p
+        di@Hs.DeclDefineInstance{}        -> di
+        dv@Hs.DeclDeriveInstance{}        -> dv
         fi@Hs.DeclForeignImport{}         -> fi
         fiw@Hs.DeclForeignImportWrapper{} -> fiw
         fid@Hs.DeclForeignImportDynamic{} -> fid

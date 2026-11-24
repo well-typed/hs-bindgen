@@ -1,7 +1,6 @@
 # Custom
 cabal.project.paths
 hs-project/src/CEF
-binding-specs
 cef_binary*
 
 # https://github.com/github/gitignore/blob/main/Haskell.gitignore

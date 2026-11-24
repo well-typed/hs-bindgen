@@ -1,0 +1,53 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: program-analysis/selection_squash_into_selected.h
+  cname: s
+  hsname: S
+- headers: program-analysis/selection_squash_into_selected.h
+  cname: struct s
+  hsname: S
+- headers: program-analysis/selection_squash_into_selected.h
+  cname: struct t
+  hsname: T
+hstypes:
+- hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - s_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: T
+  representation:
+    record:
+      constructor: T
+      fields:
+      - t_ptr
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

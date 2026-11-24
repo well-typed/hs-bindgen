@@ -34,6 +34,7 @@ module Test.HsBindgen.Golden.Infra.TestCase (
   , getTestBackendConfig
   , runTestHsBindgen
   , runTestHsBindgenSuccess
+  , runTestHsBindgenLibrary
   ) where
 
 import System.FilePath
@@ -44,11 +45,13 @@ import Clang.CStandard (ClangCStandard)
 import Clang.HighLevel.Types qualified as Clang
 
 import HsBindgen
+import HsBindgen.ArtefactM (DirPolicy (..), FilePolicy (..))
 import HsBindgen.BindingSpec
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.Library (OutputFile)
 import HsBindgen.Macro qualified as Macro
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
@@ -358,6 +361,7 @@ runTestHsBindgen report getTestResources test artefacts = do
             traceConfigUnsafe
             quietTracerConfig
             bindgenConfig
+            RealRun
             (testInputDirectives test)
             ((,) <$> artefacts <*> DeclDB.checkFrontend)
     case eRes of
@@ -381,3 +385,47 @@ runTestHsBindgenSuccess report getTestResources test artefacts = do
   where
     msgWith :: BindgenError -> String
     msgWith e = "Expected 'hs-bindgen' to succeed, but received an error: " <> show e
+
+-- | Run 'hsBindgen' in library mode
+--
+-- The run creates the output directories it needs and overwrites existing
+-- files. It returns the files the library plan predicts, which are the files
+-- a dry run lists. As in 'runTestHsBindgen', the trace messages must satisfy
+-- the predicate of the test.
+runTestHsBindgenLibrary ::
+     (String -> IO ())
+  -> IO TestResources
+  -> TestCase
+  -> [FilePath]     -- ^ Library directories, relative to the package root
+  -> FilePath       -- ^ Haskell output directory
+  -> Maybe FilePath -- ^ Binding specification directory
+  -> IO (Either BindgenError [OutputFile])
+runTestHsBindgenLibrary
+  report
+  getTestResources
+  test
+  libraryDirs
+  hsOutputDir
+  mBindingSpecDir = do
+    testResources <- getTestResources
+    let bootConfig     = getTestBootConfig test testResources
+        frontendConfig = getTestFrontendConfig test
+        backendConfig  = getTestBackendConfig test
+        bindgenConfig  = BindgenConfig bootConfig frontendConfig backendConfig
+        mrc            = ModuleRenderConfig{qualifiedStyle = test.qualifiedStyle}
+    withTestTraceConfig report test $ \traceConfigUnsafe ->
+      case test.macroLang of
+        SomeMacroLang mkMacroLang ->
+          hsBindgenLibraryEMacroLang
+            (pure . mkMacroLang)
+            traceConfigUnsafe
+            quietTracerConfig
+            bindgenConfig
+            RealRun
+            (testInputDirectives test)
+            (map (testResources.packageRoot </>) libraryDirs)
+            mrc
+            AllowFileOverwrite
+            CreateOutputDirs
+            hsOutputDir
+            mBindingSpecDir

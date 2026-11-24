@@ -65,6 +65,7 @@ mkRolledExpr :: Guasi q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
 mkRolledExpr env expr = case expr of
     EGlobal n     -> mkGlobalExpr n
     EFree n       -> TH.varE $ mkHsTermName n
+    EExt iden     -> lookupExtTerm iden
     EBound x      -> TH.varE (lookupEnv x env)
     ECon n        -> TH.conE $ mkHsName n
     EUnboxedIntegral i -> TH.sigE (TH.litE (TH.IntPrimL i)) (TH.conT ''GHC.Base.Int#)
@@ -181,7 +182,7 @@ mkRolledType env ty = case ty of
     TFun a b   -> TH.arrowT `TH.appT` mkType env a `TH.appT` mkType env b
     TLit n     -> TH.litT (TH.numTyLit (toInteger n))
     TStrLit s  -> TH.litT (TH.strTyLit s)
-    TExt extRef -> lookupExtType extRef
+    TExt identifier -> lookupExtType identifier
     TBound x   -> TH.varT (lookupEnv x env)
     TFree n    -> TH.varT $ mkHsName n
     TApp f t   -> TH.appT (mkType env f) (mkType env t)
@@ -509,22 +510,39 @@ panicWith msg x = panicPure $ msg ++ ": " ++ show x
 -- cascading type errors.
 --
 -- See https://github.com/well-typed/hs-bindgen/issues/1622.
-lookupExtType :: Guasi q => Hs.ExtRef -> q TH.Type
-lookupExtType extRef = do
+lookupExtType :: Guasi q => Hs.Identifier -> q TH.Type
+lookupExtType identifier = do
     mName <- lookupTypeName qualName
     case mName of
       Just n  -> TH.conT n
       Nothing -> do
-          modifyGuasi (putMissingModule extRef.moduleName)
+          modifyGuasi (putMissingModule identifier.moduleName)
           TH.conT (TH.mkName qualName)
   where
     qualName :: String
     qualName = concat [
-          Hs.moduleNameToString extRef.moduleName
+          Hs.moduleNameToString identifier.moduleName
         , "."
-        , Text.unpack extRef.name.text
+        , Text.unpack identifier.name.text
         ]
 
     putMissingModule :: Hs.ModuleName -> GuasiState -> GuasiState
     putMissingModule m s = s & #missingModules %~ Set.insert m
 
+-- | Look up an external (cross-module) term-level reference.
+--
+-- Parallel to 'lookupExtType' for type-level references.
+lookupExtTerm :: Guasi q => Hs.Identifier -> q TH.Exp
+lookupExtTerm identifier = do
+    modifyGuasi (putMissingModule identifier.moduleName)
+    TH.varE (TH.mkName qualName)
+  where
+    qualName :: String
+    qualName = concat [
+          Hs.moduleNameToString identifier.moduleName
+        , "."
+        , Text.unpack identifier.name.text
+        ]
+
+    putMissingModule :: Hs.ModuleName -> GuasiState -> GuasiState
+    putMissingModule m s = s & #missingModules %~ Set.insert m

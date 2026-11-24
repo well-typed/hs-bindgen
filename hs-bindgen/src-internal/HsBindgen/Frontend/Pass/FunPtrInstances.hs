@@ -153,13 +153,15 @@ processImplicitField field =
 typedefHead :: C.Decl l Select -> C.Typedef Select -> FunPtrHead
 typedefHead decl typedef = case typedef.typ.c of
     C.TypeFun{} ->
-      HeadNewtype
-        (Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName)
-        typedef.ann.orig
+      HeadNewtype decl.id.hsIdent typedef.ann.orig
     _otherwise -> case typedef.ann.aux of
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/2369>
       Nothing          -> panicPure "name of auxiliary declaration unavailable"
-      Just (name, nms) -> HeadNewtype name nms
+      -- The auxiliary newtype is defined next to the typedef
+      Just (name, nms) ->
+        HeadNewtype
+          (Hs.Identifier decl.id.hsIdent.moduleName (Hs.demoteNs name))
+          nms
 
 {-------------------------------------------------------------------------------
   Function types

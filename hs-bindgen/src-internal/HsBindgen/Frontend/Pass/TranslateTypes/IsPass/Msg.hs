@@ -66,15 +66,15 @@ instance IsTrace Level DelayedTranslateTypesMsg where
 
 data FFITypesMsg =
     -- | An external binding did not specify an FFI type
-    FFITypesExtBindingNotSpecified Hs.ExtRef
-  | FFITypesLookupSugarInfo        (Hs.Name Hs.NsTypeConstr) SugarInfo
+    FFITypesExtBindingNotSpecified Hs.Identifier
+  | FFITypesLookupSugarInfo        Hs.Identifier SugarInfo
   deriving stock (Show, Generic)
 
 instance PrettyForTrace FFITypesMsg where
   prettyForTrace = \case
-      FFITypesExtBindingNotSpecified extRef -> PP.hsep [
+      FFITypesExtBindingNotSpecified ident -> PP.hsep [
           "The binding specification of"
-        , prettyExtRef extRef
+        , prettyIdentifier ident
         , "specifies no FFI type."
         ]
       FFITypesLookupSugarInfo name ty -> PP.hsep [
@@ -84,8 +84,8 @@ instance PrettyForTrace FFITypesMsg where
         , PP.show ty
         ]
     where
-      prettyExtRef :: Hs.ExtRef -> PP.CtxDoc
-      prettyExtRef ref = PP.singleQuotes $ PP.hcat [
+      prettyIdentifier :: Hs.Identifier -> PP.CtxDoc
+      prettyIdentifier ref = PP.singleQuotes $ PP.hcat [
             prettyForTrace ref.moduleName
           , "."
           , PP.text ref.name.text

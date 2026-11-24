@@ -293,6 +293,13 @@ instance FromFunPtr ProgressUpdate_Aux where
   fromFunPtr = <somehash2>
 ```
 
+With `--generate-hs-boot` (see [Invocation][manual:invocation-module-generation]),
+the stubs and the instances go to a module of their own,
+`ModuleName.Callback`, which is generated only when there are stubs to put in
+it. The instances are orphan there (the type lives in the types module), and no
+generated module imports `ModuleName.Callback`, so import it where you use
+them: `import ModuleName.Callback ()`.
+
 The function type of a typedef has these instances for its newtype
 (`ProgressUpdate_Aux` above). Any other function type, such as the type of a
 function pointer argument, has them only if at least one of the types of its
@@ -573,4 +580,5 @@ to call a specific variadic function from Haskell, you can write a manual
 [haskell2010:ffi]: https://www.haskell.org/onlinereport/haskell2010/haskellch8.html
 [issue:53]: https://github.com/well-typed/hs-bindgen/issues/53
 [manual:globals-guidelines]: globals.md#guidelines-for-binding-generation
+[manual:invocation-module-generation]: ../usage/invocation.md#module-generation
 [unfolder:36]: https://www.youtube.com/watch?v=IMrBTx7aYjs&list=PLD8gywOEY4HaG5VSrKVnHxCptlJv2GAn7&index=37

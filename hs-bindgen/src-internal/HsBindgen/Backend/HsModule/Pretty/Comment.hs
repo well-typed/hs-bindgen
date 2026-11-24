@@ -142,11 +142,18 @@ instance Pretty CommentKind where
              $$ PP.string commentEnd
              | otherwise -> PP.empty
 
-          _ -> PP.vsep (PP.string commentStart <+> firstContent
-                     : map (PP.nest indentation . pretty) comment.children)
-            $+$ PP.vcat [ PP.nest indentation (PP.vsep allMetadata)
-                     , PP.string commentEnd
-                     ]
+          _ ->
+            let content = PP.vsep $
+                      PP.string commentStart <+> firstContent
+                    : map (PP.nest indentation . pretty) comment.children
+            in if null allMetadata
+                 -- Without metadata, such as the Haddock of a module, the
+                 -- comment ends right after its content.
+                 then content $$ PP.string commentEnd
+                 else content
+                  $+$ PP.vcat [ PP.nest indentation (PP.vsep allMetadata)
+                              , PP.string commentEnd
+                              ]
 
 prettyHashIncludeArgLoc :: C.HeaderInfo -> SingleLoc C.DeclPath -> CtxDoc
 prettyHashIncludeArgLoc info loc =
@@ -216,7 +223,7 @@ instance Pretty HsDoc.CommentInlineContent where
     HsDoc.Anchor{..}        -> "#" >< PP.text anchorContent >< "#"
     HsDoc.Math{..}          -> "\\[" >< PP.vcat (map PP.text mathContent) >< "\\]"
     HsDoc.Metadata{..}      -> pretty metadataContent
-    HsDoc.TypeSignature{..} -> "@" >< prettyType EmptyEnv 0 (translateType typeSignature) >< "@"
+    HsDoc.TypeSignature{..} -> "@" >< prettyType EmptyEnv 0 (translateTypeLocal typeSignature) >< "@"
 
 instance Pretty HsDoc.CommentMeta where
   pretty HsDoc.Since{..} = "@since" <+> PP.text sinceContent

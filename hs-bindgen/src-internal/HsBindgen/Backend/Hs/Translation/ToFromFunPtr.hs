@@ -8,6 +8,7 @@ module HsBindgen.Backend.Hs.Translation.ToFromFunPtr (
   ) where
 
 import Data.Bifunctor (bimap)
+import Data.Text qualified as Text
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -78,7 +79,7 @@ forInstance inst = concat [
     instHead :: Hs.Type
     instHead = case inst.head of
       HeadFunType        -> funType
-      HeadNewtype name _ -> Hs.TypRef name (Just funType)
+      HeadNewtype ident _ -> Hs.TypRef ident (Just funType)
 
     importFor :: ImportFor
     importFor = case inst.head of
@@ -97,9 +98,9 @@ forInstance inst = concat [
           funTypeName "ToFunPtr"
         , funTypeName "FromFunPtr"
         )
-      HeadNewtype name _ -> (
-          locallyUnique $ "to"   <> Hs.nameToStr name
-        , locallyUnique $ "from" <> Hs.nameToStr name
+      HeadNewtype ident _ -> (
+          locallyUnique $ "to"   <> Text.unpack ident.name.text
+        , locallyUnique $ "from" <> Text.unpack ident.name.text
         )
 
     funTypeName :: String -> UniqueSymbol
@@ -107,4 +108,4 @@ forInstance inst = concat [
       locallyUnique $ "instance " <> s <> " (" <> prettyHsType funType <> ")"
 
 prettyHsType :: Hs.Type -> String
-prettyHsType = show . PP.pretty . SHs.translateType
+prettyHsType = show . PP.pretty . SHs.translateTypeLocal

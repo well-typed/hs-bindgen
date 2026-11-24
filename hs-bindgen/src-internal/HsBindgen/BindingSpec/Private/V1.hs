@@ -244,7 +244,7 @@ data HsNewtypeRep = HsNewtypeRep {
     }
   deriving stock (Show, Eq, Ord, Generic)
 
-data HsFFIType = HsFFIType { unwrap :: Hs.ExtRef }
+data HsFFIType = HsFFIType { unwrap :: Hs.Identifier }
   deriving stock (Show, Eq, Ord, Generic)
 
 instance Default HsNewtypeRep where
@@ -1086,15 +1086,17 @@ instance Aeson.FromJSON (ARep V1 HsFFIType) where
       parseFFIType = Aeson.withObject "HsFFIType" $ \o -> do
           moduleName <- o .: "hsmodule"
           typeName   <- o .: "hsname"
-          pure $ HsFFIType $ Hs.ExtRef {
+          let hsName :: Hs.Name Hs.NsTypeConstr
+              hsName = fromARep' typeName
+          pure $ HsFFIType $ Hs.Identifier {
               moduleName = fromARep' moduleName
-            , name = fromARep' typeName
+            , name = Hs.demoteNs hsName
             }
 
 instance Aeson.ToJSON (ARep V1 HsFFIType) where
   toJSON (AHsFFIType ffiType) = Aeson.object [
         "hsmodule" .= toARep' ffiType.unwrap.moduleName
-      , "hsname"   .= toARep' ffiType.unwrap.name
+      , "hsname"   .= Aeson.String ffiType.unwrap.name.text
       ]
 
 --------------------------------------------------------------------------------
@@ -1239,18 +1241,18 @@ instance ARepIso V1 Inst.Constraint
 instance Aeson.FromJSON (ARep V1 Inst.Constraint) where
   parseJSON = Aeson.withObject "Constraint" $ \o -> do
       constraintClass <- o .: "class"
-      extRefModule    <- o .: "hsmodule"
-      extRefName      <- o .: "hsname"
+      identModule     <- o .: "hsmodule"
+      identName       <- o .: "hsname"
       let hsName :: Hs.Name Hs.NsTypeConstr
-          hsName = fromARep' extRefName
+          hsName = fromARep' identName
           -- TODO https://github.com/well-typed/hs-bindgen/issues/423
           --
           -- At the moment, we only handle external references to types types.
           -- Later we may support external references to variables (e.g., in
           -- macros).
-          constraintRef = Hs.ExtRef{
-              moduleName = fromARep' extRefModule
-            , name       = hsName
+          constraintRef = Hs.Identifier{
+              moduleName = fromARep' identModule
+            , name       = Hs.demoteNs hsName
             }
       return $ AConstraint Inst.Constraint{
           clss = fromARep' constraintClass
@@ -1266,7 +1268,7 @@ instance Aeson.ToJSON (ARep V1 Inst.Constraint) where
         -- At the moment, we only handle external references to types types.
         -- Later we may support external references to variables (e.g., in
         -- macros).
-      , "hsname"   .= toARep' constraint.ref.name
+      , "hsname"   .= Aeson.String constraint.ref.name.text
       ]
 
 {-------------------------------------------------------------------------------

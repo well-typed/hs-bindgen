@@ -1,0 +1,79 @@
+# External binding specification for the POSIX types pid_t and pthread_t.
+#
+# include/internal/cef_thread_internal.h uses them, but they come from system
+# headers outside the --library directory. Without this file, library mode
+# skips every declaration that depends on them, which is the thread API of
+# cef_thread_capi.h and cef_thread_internal.h.
+#
+# On Linux (glibc), pid_t is int and pthread_t is unsigned long.
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: HsBindgen.Runtime.LibC
+ctypes:
+- headers:
+  - pthread.h
+  - sys/types.h
+  - unistd.h
+  cname: pid_t
+  hsname: CInt
+- headers:
+  - pthread.h
+  - sys/types.h
+  cname: pthread_t
+  hsname: CULong
+hstypes:
+- hsname: CInt
+  representation:
+    newtype:
+      constructor: CInt
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: CInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasFFIType
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: CULong
+  representation:
+    newtype:
+      constructor: CULong
+      ffitype:
+        hsmodule: HsBindgen.Runtime.LibC
+        hsname: CULong
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasFFIType
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

@@ -27,7 +27,6 @@ import HsBindgen.IR.FunSig
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
-import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Contextual translation
@@ -99,19 +98,19 @@ typeInContext ctx = \case
       Hs.ComplexType (translateCPrimType p)
     C.TypeRef ref ->
       Hs.TypRef
-        (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.hsName)
+        ref.hsIdent
         Nothing
     C.TypeEnum ref ->
       Hs.TypRef
-        (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
+        ref.name.hsIdent
         (Just $ typeInContext ctx ref.underlying)
     C.TypeMacro ref ->
       Hs.TypRef
-        (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
+        ref.name.hsIdent
         (Just $ typeInContext ctx ref.underlying)
     C.TypeTypedef ref ->
       Hs.TypRef
-        (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
+        ref.name.hsIdent
         (Just $ typeInContext ctx ref.underlying)
     C.TypePointers n ty ->
       let innermost = case pointee ty of
@@ -136,7 +135,7 @@ typeInContext ctx = \case
       typeInContext ctx ty
     C.TypeExtBinding ref ->
       let ext = ref.name
-      in  Hs.ExtBinding ext.hsName ext.cSpec ext.hsSpec
+      in  Hs.ExtBinding ext.hsIdent ext.cSpec ext.hsSpec
 
 {-------------------------------------------------------------------------------
   Pointers

@@ -1,6 +1,10 @@
 -- | Low-level translation of the C header to a Haskell module
 module HsBindgen.Backend.Hs.Translation (
     generateDeclarations
+  , Hs.InstanceMap
+    -- * Predicting the output
+  , callbackCategory
+  , declCategories
   ) where
 
 import Control.Monad.Reader qualified as Reader
@@ -63,16 +67,26 @@ import Doxygen.Parser.Types qualified as Doxy
   Top-level
 -------------------------------------------------------------------------------}
 
+-- | Translate C declarations to Haskell declarations
+--
+-- Returns a pair:
+--
+-- 1. Per-declaration Haskell declarations, partitioned by binding category.
+-- 2. The instance map, recording which types have which instances.
+--
+-- The instance map starts from the given one, so that the caller can translate
+-- the declarations in several groups, as library mode does for its headers.
 generateDeclarations ::
      UniqueId
   -> BaseModuleName
+  -> HsBootPolicy
+  -> Hs.InstanceMap
   -> [FunPtrInstance] -- ^ In output order
   -> [C.Decl l Final]
-  -> ByCategory_ [Hs.Decl l]
-generateDeclarations uniqueId name insts =
-    fmap reverse .
-      foldl' partitionBindingCategories mempty .
-      generateDeclarations' env insts
+  -> (ByCategory_ [Hs.Decl l], Hs.InstanceMap)
+generateDeclarations uniqueId name hsBootPolicy instanceMap0 insts =
+      first (fmap reverse . foldl' partitionBindingCategories mempty)
+    . generateDeclarations' env instanceMap0 insts
   where
     partitionBindingCategories ::
       ByCategory_ [a] -> WithCategory a  -> ByCategory_ [a]
@@ -83,7 +97,7 @@ generateDeclarations uniqueId name insts =
     supInsts = def
 
     env :: HsM.Env
-    env = HsM.initEnv uniqueId name supInsts
+    env = HsM.initEnv uniqueId name supInsts hsBootPolicy
 
 -- | Internal. Top-level declaration with foreign import category.
 data WithCategory a = WithCategory {
@@ -91,18 +105,40 @@ data WithCategory a = WithCategory {
   , _withCategoryDecl     :: a
   } deriving (Show)
 
+-- | The declarations behind a callback, each with its category
+--
+-- With 'GenerateHsBoot', both the conversion code and the @ToFunPtr@ and
+-- @FromFunPtr@ instances go to 'CCallback'. With 'DoNotGenerateHsBoot',
+-- everything stays in 'CType'.
+--
+-- See the golden fixture @types\/boot\/internal_module@.
+callbackDecls ::
+     HsM.Env
+  -> [Hs.Decl l]
+  -> [WithCategory (Hs.Decl l)]
+callbackDecls env =
+    map (WithCategory (callbackCategory env.hsBootPolicy))
+
+-- | The category of the declarations behind a callback (see 'callbackDecls')
+callbackCategory :: HsBootPolicy -> Category
+callbackCategory = \case
+    GenerateHsBoot      -> CTerm CCallback
+    DoNotGenerateHsBoot -> CType
+
 generateDeclarations' ::
      HsM.Env
+  -> Hs.InstanceMap
   -> [FunPtrInstance]
   -> [C.Decl l Final]
-  -> [WithCategory (Hs.Decl l)]
-generateDeclarations' env insts decs =
-    HsM.runHsM env $ do
-      let -- In the main module, to avoid orphan instances
+  -> ([WithCategory (Hs.Decl l)], Hs.InstanceMap)
+generateDeclarations' env instanceMap0 insts decs =
+    HsM.runHsM env instanceMap0 $ do
+      let -- In the types module, to avoid orphan instances, or with boot
+          -- files in the callback module (see 'callbackDecls')
           fFIStubsAndFunPtrInstances =
-                   [ WithCategory CType d
+                   [ d
                    | inst <- insts
-                   , d <- ToFromFunPtr.forInstance inst
+                   , d <- callbackDecls env $ ToFromFunPtr.forInstance inst
                    ]
       hsDeclsAction <- mapM (generateDecs funPtrNewtypes) decs
       hsDecls <- HsM.runAction $ fmap concat $ sequence hsDeclsAction
@@ -115,7 +151,7 @@ generateDeclarations' env insts decs =
         ]
 
 -- | The newtypes with @ToFunPtr@ and @FromFunPtr@ instances
-type FunPtrNewtypes = Set (Hs.Name Hs.NsTypeConstr)
+type FunPtrNewtypes = Set Hs.Identifier
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -178,6 +214,29 @@ generateDecs funPtrNewtypes decl =
       -> m (HsM.Action [WithCategory a])
     withCategoryM c = fmap (withCategory c)
 
+-- | The categories in which 'generateDecs' puts the declarations of a C
+-- declaration
+--
+-- 'generateDecs' generates at least one declaration in each of these
+-- categories, and none in any other. Library mode uses this to predict which
+-- modules it writes, so the two functions must agree.
+--
+-- The @ToFunPtr@ and @FromFunPtr@ instances are not among them:
+-- 'generateDeclarations' puts the instances it is given in 'callbackCategory'.
+declCategories :: C.Decl l Final -> Set Category
+declCategories decl =
+    case decl.kind of
+      C.DeclStruct{}               -> Set.singleton CType
+      C.DeclUnion{}                -> Set.singleton CType
+      C.DeclEnum{}                 -> Set.singleton CType
+      C.DeclUntaggedEnumConstant{} -> Set.singleton CType
+      C.DeclTypedef{}              -> Set.singleton CType
+      C.DeclOpaque{}               -> Set.singleton CType
+      C.DeclFunction{}             -> Set.fromList $
+          map CTerm [CSafe, CUnsafe, CFunPtr]
+      C.DeclMacro{}                -> Set.singleton CType
+      C.DeclGlobal{}               -> Set.singleton (CTerm CGlobal)
+
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum
 -------------------------------------------------------------------------------}
@@ -189,11 +248,14 @@ opaqueDecs ::
   -> Maybe C.OpaqueSize
   -> HsM [Hs.Decl l]
 opaqueDecs decl spec mSize = do
-    State.modify' $ #instanceMap %~ Map.insert name insts
+    State.modify' $ #instanceMap %~ Map.insert ident insts
     return $ mkDecl : staticSizeDecls
   where
+    ident :: Hs.Identifier
+    ident = decl.id.hsIdent
+
     name :: Hs.Name Hs.NsTypeConstr
-    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
+    name = Hs.assertNs (Proxy @Hs.NsTypeConstr) ident.name
 
     mkDecl :: Hs.Decl l
     mkDecl = Hs.DeclEmpty Hs.EmptyData {
@@ -250,7 +312,7 @@ enumDecs decl enum spec = do
     valueMap :: Map Integer (NonEmpty (C.FieldInfo Final, Hs.Name Hs.NsConstr))
     valueMap = Map.fromListWith (flip (<>)) [ -- preserve source order
         let name :: Hs.Name Hs.NsConstr
-            name = Hs.assertNs (Proxy @Hs.NsConstr) constant.info.name.hsName
+            name = Hs.assertNs (Proxy @Hs.NsConstr) constant.info.name.hsIdent.name
         in  (constant.value, NonEmpty.singleton (constant.info, name))
       | constant <- enum.constants
       ]
@@ -267,11 +329,14 @@ enumDecs decl enum spec = do
 
     newtypeDec :: HsM.Env -> HsM Hs.Newtype
     newtypeDec env = do
-        Hs.newtypeDec newtypeName newtypeConstr newtypeField Hs.NoOverride
+        Hs.newtypeDec newtypeName newtypeIdent newtypeConstr newtypeField Hs.NoOverride
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
+        newtypeIdent :: Hs.Identifier
+        newtypeIdent = decl.id.hsIdent
+
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
+        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) newtypeIdent.name
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = enum.names.dataConstr
@@ -324,8 +389,8 @@ enumDecs decl enum spec = do
         ++ primDecl
         : optDecls
         ++ cEnumInstanceDecls
-        ++ Hs.hasFieldCompatDecs nt
-        ++ Hs.hasFieldPtrDecs nt
+        ++ Hs.hasFieldCompatDecs decl.id.hsIdent nt
+        ++ Hs.hasFieldPtrDecs decl.id.hsIdent nt
         ++ valueDecls
         ++ completeDecl
       where
@@ -369,7 +434,7 @@ enumDecs decl enum spec = do
                     }
               }
           , Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveVia (Hs.EquivStorable (Hs.TypRef nt.name Nothing))
+                strategy = Hs.DeriveVia (Hs.EquivStorable (Hs.TypRef decl.id.hsIdent Nothing))
               , clss     = Inst.Storable
               , name     = nt.name
               , comment  = Nothing
@@ -427,8 +492,8 @@ enumDecs decl enum spec = do
         valueDecls :: [Hs.Decl l]
         valueDecls = [
               Hs.DeclPatSyn Hs.PatSyn{
-                  name    = Hs.assertNs (Proxy @Hs.NsConstr) constant.info.name.hsName
-                , typ     = Hs.TypRef nt.name (Just nt.field.typ)
+                  name    = Hs.assertNs (Proxy @Hs.NsConstr) constant.info.name.hsIdent.name
+                , typ     = Hs.TypRef decl.id.hsIdent (Just nt.field.typ)
                 , constr  = Just nt.constr
                 , value   = constant.value
                 , origin  = Origin.EnumConstant constant
@@ -444,7 +509,7 @@ enumDecs decl enum spec = do
           guard $ cEnumSpec == BindingSpec.CEnumClosed
           let pragma = Hs.CompletePragma{
                   patterns = [
-                      Hs.assertNs (Proxy @Hs.NsConstr) constant.info.name.hsName
+                      Hs.assertNs (Proxy @Hs.NsConstr) constant.info.name.hsIdent.name
                     | constant <- enum.constants
                     ]
                 }
@@ -469,7 +534,7 @@ typedefDecs funPtrNewtypes decl mkNewtypeOrigin typedef spec = do
   where
     newtypeDec :: HsM.Env -> HsM Hs.Newtype
     newtypeDec env = do
-        Hs.newtypeDec newtypeName newtypeConstr newtypeField Hs.NoOverride
+        Hs.newtypeDec newtypeName newtypeIdent newtypeConstr newtypeField Hs.NoOverride
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeConstr :: Hs.Name Hs.NsConstr
@@ -509,19 +574,22 @@ typedefDecs funPtrNewtypes decl mkNewtypeOrigin typedef spec = do
           ]
 
     newtypeName :: Hs.Name Hs.NsTypeConstr
-    newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
+    newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) newtypeIdent.name
+
+    newtypeIdent :: Hs.Identifier
+    newtypeIdent = decl.id.hsIdent
 
     -- The instances themselves are generated at the end of the module
     hasFunPtrInstances :: Bool
-    hasFunPtrInstances = newtypeName `Set.member` funPtrNewtypes
+    hasFunPtrInstances = newtypeIdent `Set.member` funPtrNewtypes
 
     -- everything in aux is state-dependent
     aux :: HsM.Env -> Hs.Newtype -> [Hs.Decl l]
     aux env nt =
         Hs.DeclNewtype nt
         : optDecls
-        ++ Hs.hasFieldCompatDecs nt
-        ++ Hs.hasFieldPtrDecs nt
+        ++ Hs.hasFieldCompatDecs decl.id.hsIdent nt
+        ++ Hs.hasFieldPtrDecs decl.id.hsIdent nt
       where
         optDecls :: [Hs.Decl l]
         optDecls = catMaybes [
@@ -575,7 +643,9 @@ typedefFunTypeIndirectionDecs funPtrNewtypes origDecl origTypedef (sig, reconstr
     auxDeclIdPair = DeclIdPair{
           cName  = origDecl.id.cName
           -- Still refer to the /original/ C decl...?
-        , hsName = Hs.demoteNs auxName
+        , hsIdent = Hs.Identifier
+            origDecl.id.hsIdent.moduleName
+            (Hs.demoteNs auxName)
         }
 
     auxName :: Hs.Name Hs.NsTypeConstr
@@ -669,11 +739,14 @@ macroDecsTypedef decl macroType spec = do
   where
     newtypeDec :: HsM.Env -> HsM Hs.Newtype
     newtypeDec env = do
-        Hs.newtypeDec newtypeName newtypeConstr newtypeField (Hs.Override macroType.ffiType)
+        Hs.newtypeDec newtypeName newtypeIdent newtypeConstr newtypeField (Hs.Override macroType.ffiType)
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
+        newtypeIdent :: Hs.Identifier
+        newtypeIdent = decl.id.hsIdent
+
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
+        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) newtypeIdent.name
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = macroType.names.dataConstr
@@ -714,8 +787,8 @@ macroDecsTypedef decl macroType spec = do
     aux env nt =
         Hs.DeclNewtype nt
         : optDecls
-        ++ Hs.hasFieldCompatDecs nt
-        ++ Hs.hasFieldPtrDecs nt
+        ++ Hs.hasFieldCompatDecs decl.id.hsIdent nt
+        ++ Hs.hasFieldPtrDecs decl.id.hsIdent nt
       where
         optDecls :: [Hs.Decl l]
         optDecls = catMaybes [
@@ -855,8 +928,8 @@ constGetter ty decl pureStubName = singleton getterDecl
         , comment = Nothing
         }
 
-    getterName = Hs.assertNs (Proxy @Hs.NsVar) decl.id.hsName
-    getterType = SHs.translateType ty
+    getterName = Hs.assertNs (Proxy @Hs.NsVar) decl.id.hsIdent.name
+    getterType = SHs.translateType decl.id.hsIdent.moduleName ty
     getterExpr = SHs.eBindgenGlobal IO_unsafePerformIO
                 `SHs.EApp` (SHs.eBindgenGlobal PtrConst_peek
                 `SHs.EApp` SHs.EFree pureStubName)
@@ -985,7 +1058,7 @@ addressStubDecs decl ty runnerNameSpec _spec = do
           Hs.InternalName x -> Just $ HsDoc.uniqueSymbol x
 
         name :: Hs.SomeName
-        name = decl.id.hsName
+        name = decl.id.hsIdent.name
 
         uniquify :: Text -> UniqueSymbol
         uniquify = globallyUnique env.uniqueId env.baseModuleName . Text.unpack
@@ -995,7 +1068,7 @@ addressStubDecs decl ty runnerNameSpec _spec = do
             HaskellId      -> Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) name
             GlobalUniqueId -> Hs.InternalName $ uniquify name.text
 
-        runnerType = SHs.translateType (Translation.topLevel stubType)
+        runnerType = SHs.translateType decl.id.hsIdent.moduleName (Translation.topLevel stubType)
         runnerExpr = SHs.eBindgenGlobal IO_unsafePerformIO
                     `SHs.EApp` SHs.EFree stubName
 
@@ -1067,7 +1140,7 @@ referencesUntagged = go
 macroVarDecs :: C.Decl l Final -> Hs.MacroValue l -> [Hs.Decl l]
 macroVarDecs decl value = [
       Hs.DeclMacroValue Hs.MacroBinding{
-          name    = Hs.assertNs (Proxy @Hs.NsVar) decl.id.hsName
+          name    = Hs.assertNs (Proxy @Hs.NsVar) decl.id.hsIdent.name
         , value   = value
         , comment = mkHaddocks decl
         }
@@ -1092,7 +1165,7 @@ untaggedEnumConstantDecs decl enumConstant = do
           patSynName =
             Hs.assertNs
               (Proxy @Hs.NsConstr)
-              enumConstant.constant.info.name.hsName
+              enumConstant.constant.info.name.hsIdent.name
 
           patSynType :: Hs.Type
           patSynType = Hs.PrimType (translateCPrimType enumConstant.typ)

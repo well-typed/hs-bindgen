@@ -113,6 +113,7 @@ shiftNExpr add = \case
     EGlobal g -> EGlobal g
     EBound idx -> EBound (shiftIdxN add idx)
     EFree tn -> EFree tn
+    EExt x -> EExt x
     ECon c -> ECon c
     EUnboxedIntegral i -> EUnboxedIntegral i
     EIntegral i mct -> EIntegral i mct

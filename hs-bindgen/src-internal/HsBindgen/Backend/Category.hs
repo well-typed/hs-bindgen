@@ -27,8 +27,24 @@ import HsBindgen.Backend.Level
 import HsBindgen.Imports hiding (toList)
 
 data TermCategory =
+    -- | The code behind callbacks: the @"wrapper"@ and @"dynamic"@ imports, the
+    -- functions around them that convert arguments and results with @toFFIType@
+    -- and @fromFFIType@, and the @ToFunPtr@ and @FromFunPtr@ instances.
+    --
+    -- The FFI conversions need the @FFIType@ equations of the argument and
+    -- result types, which may come from other modules. A boot file cannot
+    -- carry type family equations, so a module that sees those types through a
+    -- boot file cannot reduce @FFIType@ at them. The solution is to leave
+    -- this code to a callback module when a boot file is generated.
+    --
+    -- Types modules get boot files with @--generate-hs-boot@, or in library
+    -- mode when they form an import cycle. The global callback module of
+    -- library mode uses this category too. Otherwise this category is empty
+    -- and everything stays in 'CType'. In Template Haskell mode it is always
+    -- empty.
+    CCallback
     -- | Foreign import bindings with a @safe@ foreign import modifier.
-    CSafe
+  | CSafe
     -- | Foreign import bindings with an @unsafe@ foreign import modifier.
   | CUnsafe
     -- | Pointers to functions; generally @unsafe@.
@@ -54,21 +70,23 @@ mapWithCategory ::
   -> ByCategory f
   -> ByCategory g
 mapWithCategory f g x = ByCategory {
-      cType   = f         x.cType
-    , cSafe   = g CSafe   x.cSafe
-    , cUnsafe = g CUnsafe x.cUnsafe
-    , cFunPtr = g CFunPtr x.cFunPtr
-    , cGlobal = g CGlobal x.cGlobal
+      cType     = f           x.cType
+    , cCallback = g CCallback x.cCallback
+    , cSafe     = g CSafe     x.cSafe
+    , cUnsafe   = g CUnsafe   x.cUnsafe
+    , cFunPtr   = g CFunPtr   x.cFunPtr
+    , cGlobal   = g CGlobal   x.cGlobal
     }
 
 -- | A strict, total map from 'Category' to @a@.
 type ByCategory :: (Level -> Star) -> Star
 data ByCategory f = ByCategory {
-      cType   :: !(f LvlType)
-    , cSafe   :: !(f LvlTerm)
-    , cUnsafe :: !(f LvlTerm)
-    , cFunPtr :: !(f LvlTerm)
-    , cGlobal :: !(f LvlTerm)
+      cType     :: !(f LvlType)
+    , cCallback :: !(f LvlTerm)
+    , cSafe     :: !(f LvlTerm)
+    , cUnsafe   :: !(f LvlTerm)
+    , cFunPtr   :: !(f LvlTerm)
+    , cGlobal   :: !(f LvlTerm)
   }
   deriving stock (Generic)
 
@@ -91,8 +109,9 @@ mapWithCategory_ f (ByCategory_ x) =
   ByCategory_ $ mapWithCategory (applyConst (f CType)) (applyConst . f . CTerm) x
 
 toList :: ByCategory_ a -> [a]
-toList (ByCategory_ (ByCategory t s u f g)) = [
+toList (ByCategory_ (ByCategory t c s u f g)) = [
       getConst t
+    , getConst c
     , getConst s
     , getConst u
     , getConst f
@@ -105,15 +124,16 @@ instance Foldable ByCategory_ where
 instance Semigroup a => Semigroup (ByCategory_ a) where
   (ByCategory_ l) <> (ByCategory_ r) =
     ByCategory_ $ ByCategory {
-        cType   = l.cType   <> r.cType
-      , cSafe   = l.cSafe   <> r.cSafe
-      , cUnsafe = l.cUnsafe <> r.cUnsafe
-      , cFunPtr = l.cFunPtr <> r.cFunPtr
-      , cGlobal = l.cGlobal <> r.cGlobal
+        cType     = l.cType     <> r.cType
+      , cCallback = l.cCallback <> r.cCallback
+      , cSafe     = l.cSafe     <> r.cSafe
+      , cUnsafe   = l.cUnsafe   <> r.cUnsafe
+      , cFunPtr   = l.cFunPtr   <> r.cFunPtr
+      , cGlobal   = l.cGlobal   <> r.cGlobal
       }
 
 instance Monoid a => Monoid (ByCategory_ a) where
-  mempty = ByCategory_ $ ByCategory mempty mempty mempty mempty mempty
+  mempty = ByCategory_ $ ByCategory mempty mempty mempty mempty mempty mempty
 
 isoByCategory :: Iso' (ByCategory_ a) (ByCategory (Const a))
 isoByCategory = iso getByCategory_ ByCategory_
@@ -128,10 +148,11 @@ lensForCategory = \case
 
 lensForTermCategory :: TermCategory -> Lens' (ByCategory f) (f LvlTerm)
 lensForTermCategory = \case
-  CSafe   -> #cSafe
-  CUnsafe -> #cUnsafe
-  CFunPtr -> #cFunPtr
-  CGlobal -> #cGlobal
+  CCallback -> #cCallback
+  CSafe     -> #cSafe
+  CUnsafe   -> #cUnsafe
+  CFunPtr   -> #cFunPtr
+  CGlobal   -> #cGlobal
 
 newtype RenameTerm = RenameTerm (Text -> Text)
 
@@ -175,34 +196,40 @@ instance Default (Choice LvlType) where
 instance Default (Choice LvlTerm) where
   def = IncludeTermCategory def
 
--- | Use 'CType', 'CSafe', and 'CGlobal'; do not rename declarations.
+-- | Use 'CType', 'CCallback', 'CSafe', and 'CGlobal'; do not rename
+-- declarations.
 useSafeCategory :: ByCategory Choice
 useSafeCategory = ByCategory {
-      cType   = IncludeTypeCategory
-    , cSafe   = IncludeTermCategory def
-    , cUnsafe = ExcludeCategory
-    , cFunPtr = ExcludeCategory
-    , cGlobal = IncludeTermCategory def
+      cType     = IncludeTypeCategory
+    , cCallback = IncludeTermCategory def
+    , cSafe     = IncludeTermCategory def
+    , cUnsafe   = ExcludeCategory
+    , cFunPtr   = ExcludeCategory
+    , cGlobal   = IncludeTermCategory def
     }
 
--- | Use 'CType', 'CUnsafe', and 'CGlobal'; do not rename declarations.
+-- | Use 'CType', 'CCallback', 'CUnsafe', and 'CGlobal'; do not rename
+-- declarations.
 useUnsafeCategory :: ByCategory Choice
 useUnsafeCategory = ByCategory {
-      cType   = IncludeTypeCategory
-    , cSafe   = ExcludeCategory
-    , cUnsafe = IncludeTermCategory def
-    , cFunPtr = ExcludeCategory
-    , cGlobal = IncludeTermCategory def
+      cType     = IncludeTypeCategory
+    , cCallback = IncludeTermCategory def
+    , cSafe     = ExcludeCategory
+    , cUnsafe   = IncludeTermCategory def
+    , cFunPtr   = ExcludeCategory
+    , cGlobal   = IncludeTermCategory def
     }
 
--- | Use 'CType', 'CFunPtr', and 'CGlobal'; do not rename declarations.
+-- | Use 'CType', 'CCallback', 'CFunPtr', and 'CGlobal'; do not rename
+-- declarations.
 useFunPtrCategory :: ByCategory Choice
 useFunPtrCategory = ByCategory {
-      cType   = IncludeTypeCategory
-    , cSafe   = ExcludeCategory
-    , cUnsafe = ExcludeCategory
-    , cFunPtr = IncludeTermCategory def
-    , cGlobal = IncludeTermCategory def
+      cType     = IncludeTypeCategory
+    , cCallback = IncludeTermCategory def
+    , cSafe     = ExcludeCategory
+    , cUnsafe   = ExcludeCategory
+    , cFunPtr   = IncludeTermCategory def
+    , cGlobal   = IncludeTermCategory def
     }
 
 applyConst :: (a -> b) -> Const a c -> Const b c

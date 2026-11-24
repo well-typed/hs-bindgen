@@ -11,6 +11,7 @@ import Prelude hiding (zip)
 import Control.Exception (catch)
 import Data.List.NonEmpty qualified as NE
 import Data.Map.Lazy qualified as Map
+import System.Directory (canonicalizePath)
 
 import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
@@ -263,13 +264,23 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --   instances only if one of their types is selected, and messages concern
 --   selected declarations only. Nothing depends on the instances, so no
 --   declaration needs to fail here.
+--
+-- = Doxygen
+--
+-- Doxygen reads the main headers. It also reads every header the run reaches
+-- under one of the library directories, so in library mode a header gets its
+-- comments even when an umbrella header includes it. Single-header mode passes
+-- no library directories, and Doxygen reads only the main headers.
 runFrontend ::
      forall l. (Macro.HasTypes l, HasCallStack)
   => Tracer FrontendMsg
   -> FrontendConfig
+  -> [FilePath]
+     -- ^ Library directories, as given with @--library@. Empty in
+     -- single-header mode.
   -> BootArtefact l
   -> IO (FrontendArtefact l)
-runFrontend tracer config boot = do
+runFrontend tracer config libraryDirs boot = do
     rootHeaderC <- cache "rootHeader" $ do
       (msgs, rootHeader) <- RootHeader.fromRootDirectives <$> boot.rootDirectives
       liftIO $ mapM_ (traceWith tracerRootHeader . withCallStack) msgs
@@ -281,11 +292,17 @@ runFrontend tracer config boot = do
       liftIO $ withClang (contramap FrontendClang tracer) setup $ \unit -> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude, mainHeaderPaths) <-
           processIncludes unit
-        -- Run doxygen on the resolved main header paths to extract
-        -- structured comments.  The paths come from clang's own include
-        -- resolution (via processIncludes), so no separate path search
-        -- is needed.
-        let resolvedPaths = map getRealPath mainHeaderPaths
+        -- Run doxygen on the resolved main header paths and library header
+        -- paths to extract structured comments.
+        canonicalLibraryDirs <- mapM canonicalizePath libraryDirs
+        let libraryHeaderPaths = [
+                path
+              | path <- IncludeGraph.toSortedList includeGraph
+              , isJust (findLibraryDir canonicalLibraryDirs path)
+              , not (isMainHeader path)
+              ]
+            resolvedPaths =
+              map getRealPath (mainHeaderPaths ++ libraryHeaderPaths)
             emptyResult   = Result {
                 doxygen = emptyDoxygen, warnings = [], doxygenVersion = "unknown"
               }
@@ -427,8 +444,9 @@ runFrontend tracer config boot = do
 
     mangleNamesPass <- cache "mangleNames" $ do
       afterResolveBindingSpecs <- resolveBindingSpecsPass
-      let (afterMangleNames, msgsMangleNames) =
-            mangleNames config.fieldNamingStrategy afterResolveBindingSpecs
+      let moduleName = Hs.ModuleName boot.baseModule.text
+          (afterMangleNames, msgsMangleNames) =
+            mangleNames (const (Just moduleName)) config.fieldNamingStrategy afterResolveBindingSpecs
       traceSorted (contramap FrontendMangleNames tracer) msgsMangleNames
       pure afterMangleNames
 

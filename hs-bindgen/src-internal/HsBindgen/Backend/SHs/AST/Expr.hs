@@ -52,6 +52,9 @@ data SExpr ctx =
     EGlobal (Global LvlTerm)
   | EBound (Idx ctx)
   | EFree Hs.TermName
+  | EExt Hs.Identifier
+    -- ^ External (cross-module) term-level reference, rendered qualified.
+    -- Parallel to 'TExt' in 'SType'.
   | ECon (Hs.Name Hs.NsConstr)
   | EUnboxedIntegral Integer
   | EIntegral Integer (Maybe ClosedType)

@@ -123,6 +123,22 @@ There are many cases where you want to generate bindings using multiple modules.
 Even within a single package, organizing bindings into separate modules can make
 the bindings easier to understand and use.
 
+> [!WARNING]
+> Generating the modules of a library by hand, one header at a time as in this
+> tutorial, is discouraged.  Each run sees only part of the library, so the
+> resulting bindings can be incorrect or even misleading. For example, a header
+> that only forward-declares a type (`struct shape;`) gets its own empty `Shape`
+> type, distinct from the real one. This happens even with the binding
+> specification of the header that defines the type, because the run never
+> includes that header. Likewise, how a `typedef` is translated can depend on
+> headers that the run does not see, and headers whose types refer to each
+> other (cycles) cannot each get a module of their own. Use [library
+> mode][manual:library-mode] instead.  It generates the modules of every
+> header of a library in a single run, together with their binding
+> specifications. The rest of this section still shows how external binding
+> specifications work, which library mode also relies on for types from other
+> libraries.
+
 Generating multiple modules without an external binding specification is
 problematic.  Headers `vector_rotate.h` and `vector_length.h` both include
 `vector.h` because they use the `vector` type.  Running a command like the above
@@ -1006,6 +1022,7 @@ types that use the external bindings.
 [issue:1766]: https://github.com/well-typed/hs-bindgen/issues/1766
 [issue:648]: https://github.com/well-typed/hs-bindgen/issues/648
 [manual:c-names]: ../c-names.md
+[manual:library-mode]: library-mode.md
 [manual:portability-platform-dependent-types]: portability.md#inherent-non-portability-platform-dependent-types
 [source:game_internal.h]: ../../c/game_internal.h
 [source:game_player.h]: ../../c/game_player.h
