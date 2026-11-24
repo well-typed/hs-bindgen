@@ -139,6 +139,27 @@
 
 * A function with an argument or result that has no FFI type is now dropped with
   a warning ("... has no FFI type ..."). Previously, `hs-bindgen` panicked.
+  * A nested function type (e.g., the argument of `void g(V (*x)(void));`, with
+    `typedef void V;`) or a function typedef (e.g., `typedef V F(void);`) with
+    such an argument or result now does not get `ToFunPtr` and `FromFunPtr`
+    instances, with a warning. Previously, `hs-bindgen` panicked.
+  * A function type that passes a struct, union or complex value (e.g., the
+    argument of `void h(struct S (*x)(void));`) still does not get these
+    instances, but now `hs-bindgen` informs the user with an info message.
+  * Each distinct function type is reported once, and only if it would
+    otherwise get these instances: it is the type of a function typedef, or
+    one of its types is defined in the module.
+
+* Function types that differ only in qualifiers (e.g., `void (*)(const T)` and
+  `void (*)(T)`) no longer generate duplicate `ToFunPtr` and `FromFunPtr`
+  instances. See [issue #2364][is-2364].
+
+[is-2364]: https://github.com/well-typed/hs-bindgen/issues/2364
+
+* A nested function type whose only type defined in the module is a squashed
+  typedef (e.g., the argument of `void h(void (*x)(T *));`, with
+  `typedef struct S T;`) now gets `ToFunPtr` and `FromFunPtr` instances.
+  Previously, they were missing.
 
 ## 1.0.0.0 -- 2026-10-08
 

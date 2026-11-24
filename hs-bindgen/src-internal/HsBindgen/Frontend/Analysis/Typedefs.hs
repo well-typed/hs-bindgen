@@ -282,8 +282,8 @@ taggedPayloads = go True
         C.TypeConstArray _n ty   -> go False ty
         C.TypeIncompleteArray ty -> go False ty
         C.TypeBlock ty           -> go False ty
-        C.TypeFun args res       ->
-          concatMap (go False . (.typ)) args ++ go False res
+        C.TypeFun sig            ->
+          bifoldMap (go False . (.typ)) (go False) sig
 
         -- No tagged type to find.
         C.TypePrim{}             -> []

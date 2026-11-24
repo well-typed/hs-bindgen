@@ -36,8 +36,6 @@ import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.Internal
 import HsBindgen.Errors
-import HsBindgen.Frontend.DeclDB (DeclDB)
-import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
@@ -50,6 +48,8 @@ import HsBindgen.Frontend.PrettyC qualified as PC
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunPtrInstance
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
@@ -69,13 +69,13 @@ generateDeclarations ::
   => Macro.Lang l
   -> UniqueId
   -> BaseModuleName
-  -> DeclDB l Final
+  -> [FunPtrInstance] -- ^ In output order
   -> [C.Decl l Final]
   -> ByCategory_ [Hs.Decl l]
-generateDeclarations macroLang uniqueId name declDB =
+generateDeclarations macroLang uniqueId name insts =
     fmap reverse .
       foldl' partitionBindingCategories mempty .
-      generateDeclarations' macroLang env declDB
+      generateDeclarations' macroLang env insts
   where
     partitionBindingCategories ::
       ByCategory_ [a] -> WithCategory a  -> ByCategory_ [a]
@@ -98,74 +98,29 @@ generateDeclarations' ::
      Macro.HasTypes l
   => Macro.Lang l
   -> HsM.Env
-  -> DeclDB l Final
+  -> [FunPtrInstance]
   -> [C.Decl l Final]
   -> [WithCategory (Hs.Decl l)]
-generateDeclarations' macroLang env declDB decs =
+generateDeclarations' macroLang env insts decs =
     HsM.runHsM env $ do
-      let scannedFunctionTypes = scanAllFunctionTypes decs
-          -- Generate ToFunPtr/FromFunPtr instances for nested function types
-          -- These go in the main module to avoid orphan instances
+      let -- In the main module, to avoid orphan instances
           fFIStubsAndFunPtrInstances =
                    [ WithCategory CType d
-                   | (args, res) <- Set.toList scannedFunctionTypes
-                   , not (any C.hasUnsupportedType (res: fmap (.typ) args))
-                   , any (isDefinedInCurrentModule declDB) (res: fmap (.typ) args)
-                   , d <- ToFromFunPtr.forFunction (args, res)
+                   | inst <- insts
+                   , d <- ToFromFunPtr.forInstance inst
                    ]
-      hsDeclsAction <- mapM (generateDecs macroLang) decs
+      hsDeclsAction <- mapM (generateDecs macroLang funPtrNewtypes) decs
       hsDecls <- HsM.runAction $ fmap concat $ sequence hsDeclsAction
       pure $ hsDecls ++ fFIStubsAndFunPtrInstances
-
--- | This function takes a list of all declarations and collects all function
--- types (with some exceptions).
---
--- For example: function types that exist as arguments to other functions
--- (nth-order functions), fields of structs, fields of unions, etc.
---
--- This explicitly excludes typedefs that are function types (.e.g, @typedef
--- void F()@) or function type indirections (e.g., @typedef void (*F)()@)
--- because these are handled separately by 'typedefDecs'
--- and'typedefFunTypeIndirectionDecs' respectively.
---
-scanAllFunctionTypes :: [C.Decl l Final] -> Set ([C.TypeFunArg Final], C.Type Final)
-scanAllFunctionTypes = foldMap $ \decl ->
-    case decl.kind of
-      C.DeclStruct struct -> foldMap scanField struct.fields
-      C.DeclUnion union   -> foldMap scanField union.fields
-      C.DeclTypedef typedef
-        -- Exclude function type indirections, because they are already handled
-        -- by 'typedefFuntypeIndirectionDecs'
-        | Just (args, res, _) <- C.getFirstFunTypeIndirection typedef.typ.c
-        -> foldMap C.getAllFunTypes (res : map (.typ) args)
-        -- Exclude /direct/ function types, because they are already handled by
-        -- 'typedefDecs'
-        | otherwise
-        -> C.getAllFunTypeIndirections typedef.typ.c
-      C.DeclEnum enum -> C.getAllFunTypes enum.typ.c
-      C.DeclUntaggedEnumConstant{} -> Set.empty
-      C.DeclOpaque{} -> Set.empty
-      C.DeclMacro{} -> Set.empty
-      C.DeclFunction fn ->
-        foldMap C.getAllFunTypes (fn.res.typ.c : map (.typ.c.typ) fn.args)
-      C.DeclGlobal g -> C.getAllFunTypes g.typ.c
   where
-    scanField :: C.Field Final -> Set ([C.TypeFunArg Final], C.Type Final)
-    scanField = C.elimField scanRegularField scanImplicitField
-    scanRegularField  field = C.getAllFunTypes field.typ.c
-    scanImplicitField field = C.getAllFunTypes field.typ.c <>
-        foldMap (C.getAllFunTypes . (.typ.c)) field.indirect
+    funPtrNewtypes :: FunPtrNewtypes
+    funPtrNewtypes = Set.fromList [
+          name
+        | FunPtrInstance{head = HeadNewtype name _} <- insts
+        ]
 
--- | Check if a type is defined in the current module
-isDefinedInCurrentModule ::
-     DeclDB l Final
-  -> C.Type Final
-  -> Bool
-isDefinedInCurrentModule declDB =
-    any (isActive . fst) . C.depsOfType
-  where
-    isActive :: DeclIdPair -> Bool
-    isActive declId = isJust $ DeclDB.lookup declId.cName declDB
+-- | The newtypes with @ToFunPtr@ and @FromFunPtr@ instances
+type FunPtrNewtypes = Set (Hs.Name Hs.NsTypeConstr)
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -176,9 +131,10 @@ isDefinedInCurrentModule declDB =
 generateDecs ::
      Macro.HasTypes l
   => Macro.Lang l
+  -> FunPtrNewtypes
   -> C.Decl l Final
   -> HsM (HsM.Action [WithCategory (Hs.Decl l)])
-generateDecs macroLang decl =
+generateDecs macroLang funPtrNewtypes decl =
     case decl.kind of
       C.DeclStruct struct -> withCategoryM CType $
         HsM.immediateM $ structDecs decl struct spec
@@ -190,10 +146,10 @@ generateDecs macroLang decl =
         HsM.immediateM $ untaggedEnumConstantDecs decl enumConst
       C.DeclTypedef typedef -> withCategoryM CType $
         case C.getFirstFunTypeIndirection typedef.typ.c of
-          Just (args, res, reconstruct) ->
-            typedefFunTypeIndirectionDecs decl (args, res, reconstruct) typedef.names spec
+          Just indirection ->
+            typedefFunTypeIndirectionDecs funPtrNewtypes decl typedef indirection spec
           Nothing ->
-            HsM.immediateM $ typedefDecs decl Origin.Typedef typedef spec
+            HsM.immediateM $ typedefDecs funPtrNewtypes decl Origin.Typedef typedef spec
       C.DeclOpaque mSize -> withCategoryM CType $
         HsM.immediateM $ opaqueDecs decl spec mSize
       C.DeclFunction function -> do
@@ -507,12 +463,13 @@ enumDecs decl enum spec = do
 
 typedefDecs ::
      HasCallStack
-  => C.Decl l Final
+  => FunPtrNewtypes
+  -> C.Decl l Final
   -> (C.Typedef Final -> Origin.Newtype)
   -> C.Typedef Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-typedefDecs decl mkNewtypeOrigin typedef spec = do
+typedefDecs funPtrNewtypes decl mkNewtypeOrigin typedef spec = do
     env <- Reader.ask
     nt <- newtypeDec env
     pure $ aux env nt
@@ -522,9 +479,6 @@ typedefDecs decl mkNewtypeOrigin typedef spec = do
         Hs.newtypeDec newtypeName newtypeConstr newtypeField
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
-        newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
-
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = typedef.names.orig.dataConstr
 
@@ -552,28 +506,27 @@ typedefDecs decl mkNewtypeOrigin typedef spec = do
 
         knownInsts :: Set Inst.TypeClass
         knownInsts = Set.fromList $ catMaybes [
-            Inst.FromFunPtr <$ isFunType
+            Inst.FromFunPtr <$ guard hasFunPtrInstances
           , Just Inst.Generic
           , Just Inst.HasCField
           , Just Inst.HasField
           , Just Inst.HasFieldCompat
           , Just Inst.HasFieldPtr
-          , Inst.ToFunPtr <$ isFunType
+          , Inst.ToFunPtr <$ guard hasFunPtrInstances
           ]
 
-    -- See comment in 'newtypeWrapper` below
-    isFunType :: Maybe ([C.TypeFunArg Final], C.Type Final)
-    isFunType = case typedef.typ.c of
-      C.TypeFun args res | not (any C.hasUnsupportedType (res: fmap (.typ) args)) ->
-        Just (args, res)
-      _otherwise -> Nothing
+    newtypeName :: Hs.Name Hs.NsTypeConstr
+    newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
+
+    -- The instances themselves are generated at the end of the module
+    hasFunPtrInstances :: Bool
+    hasFunPtrInstances = newtypeName `Set.member` funPtrNewtypes
 
     -- everything in aux is state-dependent
     aux :: HsM.Env -> Hs.Newtype -> [Hs.Decl l]
     aux env nt =
         Hs.DeclNewtype nt
-        : newtypeWrapper
-        ++ optDecls
+        : optDecls
         ++ Hs.hasFieldCompatDecs nt
         ++ Hs.hasFieldPtrDecs nt
       where
@@ -591,24 +544,6 @@ typedefDecs decl mkNewtypeOrigin typedef spec = do
           , clss `Set.member` nt.instances
           ]
 
-      -- We need to be careful and not generate any wrappers for function
-      -- types that receive data types not supported by Haskell's FFI
-      -- (i.e. structs, unions by value).
-      --
-      -- Note that we don't want to explicitly see all the way through
-      -- typedefs here. See the following example
-      --
-      -- @
-      -- typedef void (f)(int);
-      -- typedef f g;
-      -- @
-      --
-      -- If we see all the way through the typedef this case will not be
-      -- handled correctly.
-      --
-        newtypeWrapper :: [Hs.Decl l]
-        newtypeWrapper  = maybe [] (ToFromFunPtr.forNewtype nt) isFunType
-
 -- | Typedef around function type indirection
 --
 -- For example, given
@@ -623,15 +558,17 @@ typedefDecs decl mkNewtypeOrigin typedef spec = do
 -- so that @F_Aux@ can be given @ToFunPtr@/@FromFunPtr@ instances.
 typedefFunTypeIndirectionDecs ::
      forall l. HasCallStack
-  => C.Decl l Final
-  -> ([C.TypeFunArg Final], C.Type Final, C.Type Final -> C.Type Final) -- ^ Function arguments and result
-  -> MangleNames.TypedefNames
+  => FunPtrNewtypes
+  -> C.Decl l Final
+  -> C.Typedef Final
+  -> (FunSig (C.TypeFunArg Final) (C.Type Final), C.Type Final -> C.Type Final)
+     -- ^ The function type, and how to reconstruct the type of the typedef
   -> PrescriptiveDeclSpec
   -> HsM (HsM.Action [Hs.Decl l])
-typedefFunTypeIndirectionDecs origDecl (args, res, reconstruct) names origSpec =
+typedefFunTypeIndirectionDecs funPtrNewtypes origDecl origTypedef (sig, reconstruct) origSpec =
     fmap HsM.concatSequence $ sequence [
-        HsM.delayM     $ typedefDecs auxDecl  Origin.Aux     auxTypedef  auxSpec
-      , HsM.immediateM $ typedefDecs origDecl Origin.Typedef mainTypedef origSpec
+        HsM.delayM     $ typedefDecs funPtrNewtypes auxDecl  Origin.Aux     auxTypedef  auxSpec
+      , HsM.immediateM $ typedefDecs funPtrNewtypes origDecl Origin.Typedef mainTypedef origSpec
       ]
   where
     -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1759>
@@ -650,7 +587,7 @@ typedefFunTypeIndirectionDecs origDecl (args, res, reconstruct) names origSpec =
 
     auxName :: Hs.Name Hs.NsTypeConstr
     auxNames  :: NewtypeNames
-    (auxName, auxNames) = case names.aux of
+    (auxName, auxNames) = case origTypedef.names.aux of
       Nothing        -> panicPure "name of auxiliary declaration unavailable"
       Just (nm, nms) -> (nm, nms)
 
@@ -677,9 +614,9 @@ typedefFunTypeIndirectionDecs origDecl (args, res, reconstruct) names origSpec =
 
     auxTypedef :: C.Typedef Final
     auxTypedef =
-      let c = C.TypeFun args res
+      let c = C.TypeFun sig
       in  C.Typedef{
-              typ = TranslatedTypes{
+              typ = Translated{
                   c  = c
                 , hs = Translation.topLevel c
                 }
@@ -701,14 +638,14 @@ typedefFunTypeIndirectionDecs origDecl (args, res, reconstruct) names origSpec =
     mainTypedef =
       let c = reconstruct $ C.TypeTypedef $ C.Ref{
               name       = auxDecl.id
-            , underlying = C.TypeFun args res
+            , underlying = C.TypeFun sig
             }
       in  C.Typedef{
-              typ = TranslatedTypes{
+              typ = Translated{
                   c  = c
                 , hs = Translation.topLevel c
                 }
-            , ann = names
+            , ann = origTypedef.names
             }
 
 {-------------------------------------------------------------------------------
@@ -1127,8 +1064,8 @@ referencesUntagged = go
         C.TypePointers _n ty -> go ty
         C.TypeConstArray _n ty -> go ty
         C.TypeIncompleteArray ty -> go ty
-        C.TypeFun args res ->
-          any goTypeFunArg args || go res
+        C.TypeFun sig ->
+          any goTypeFunArg sig.args || go sig.res
         C.TypeVoid -> False
         C.TypeBlock ty -> go ty
         C.TypeQual _qual ty -> go ty

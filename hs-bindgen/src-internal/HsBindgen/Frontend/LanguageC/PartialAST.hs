@@ -28,6 +28,7 @@ module HsBindgen.Frontend.LanguageC.PartialAST (
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.LanC (LanC)
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -52,7 +53,7 @@ data KnownType =
     --
     -- It's not necessary to do this recursively: we only want argument names
     -- for top-level function declarations (not for function pointers).
-  | TopLevelFun [(Maybe CName, C.Type LanC)] (C.Type LanC)
+  | TopLevelFun (FunSig (Maybe CName, C.Type LanC) (C.Type LanC))
   deriving stock (Show)
 
 -- | Name

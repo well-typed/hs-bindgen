@@ -64,6 +64,7 @@ import HsBindgen.IR.C.DeclPath qualified as C
 import HsBindgen.IR.C.HashIncludeArg qualified as C
 import HsBindgen.IR.C.Naming qualified as C
 import HsBindgen.IR.C.Type qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C (PrimType)
 import HsBindgen.Macro.Type qualified as Macro
@@ -286,8 +287,7 @@ data UntaggedEnumConstant (p :: Pass) = UntaggedEnumConstant {
   deriving stock (Generic)
 
 data Function (p :: Pass) = Function {
-      args  :: [FunctionArg p]
-    , res   :: FunctionRes p
+      sig   :: FunSig (FunctionArg p) (FunctionRes p)
     , attrs :: FunctionAttributes
     , ann   :: Ann "Function" p
     }
@@ -314,7 +314,7 @@ data FunctionRes (p :: Pass) = FunctionRes {
 -- | Get the type of a function declaration
 typeOfFunction :: forall p. PassTypes p => Function p -> C.Type p
 typeOfFunction fun =
-    C.TypeFun (map typeOfFunctionArg fun.args) (typeOfFunctionRes fun.res)
+    C.TypeFun $ bimap typeOfFunctionArg typeOfFunctionRes fun.sig
 
 -- | Get the type of a function argument
 typeOfFunctionArg :: forall p. PassTypes p => FunctionArg p -> C.TypeFunArg p
@@ -783,8 +783,7 @@ instance (
     , Ann "Function" p ~ Ann "Function" p'
     ) => CoercePass Function p p' where
   coercePass function = Function{
-        args  = map coercePass function.args
-      , res   = coercePass function.res
+        sig   = bimap coercePass coercePass function.sig
       , attrs = function.attrs
       , ann   = function.ann
       }

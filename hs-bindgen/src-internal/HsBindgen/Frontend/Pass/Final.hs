@@ -9,8 +9,8 @@ module HsBindgen.Frontend.Pass.Final (
 
 import GHC.Records
 
+import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
-import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.IR.C qualified as C
 
@@ -22,7 +22,7 @@ import HsBindgen.IR.C qualified as C
 --
 -- Backend passes should refer to 'Final' instead of the actual name of the
 -- final pass, so that if we add more passes, the backend is unaffected.
-type Final = Select
+type Final = FunPtrInstances
 
 {-------------------------------------------------------------------------------
   Annotations

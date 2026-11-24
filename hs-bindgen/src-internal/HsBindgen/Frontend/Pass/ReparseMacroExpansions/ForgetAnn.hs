@@ -4,6 +4,8 @@ module HsBindgen.Frontend.Pass.ReparseMacroExpansions.ForgetAnn (
   , coerceNonMacroType
   ) where
 
+import Data.Bifunctor (bimap)
+
 import HsBindgen.Frontend.Pass.PrepareReparse.IsPass
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass (ReparseMacroExpansions)
 import HsBindgen.IR.C qualified as C
@@ -54,8 +56,7 @@ instance ForgetAnn C.Typedef where
 
 instance ForgetAnn C.Function where
   forgetAnn fun = C.Function{
-          args  = fmap coercePass fun.args
-        , res   = coercePass fun.res
+          sig   = bimap coercePass coercePass fun.sig
         , attrs = fun.attrs
         , ann   = NoAnn
         }

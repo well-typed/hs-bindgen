@@ -48,10 +48,8 @@ module HsBindgen.IR.C.Type (
     -- * Queries
   , depsOfType
   , depsOfTypeFunArg
-  , hasUnsupportedType
-  , getAllFunTypeIndirections
-  , getAllFunTypes
   , getFirstFunTypeIndirection
+  , getOutermostFunType
 
     -- * Classification
   , isVoid
@@ -66,13 +64,11 @@ module HsBindgen.IR.C.Type (
   , CoercePassExtBindingRef(..)
   ) where
 
-import Data.Foldable qualified as Foldable
-import Data.Set qualified as Set
 
-import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Analysis
 import HsBindgen.Imports
 import HsBindgen.IR.C.Naming qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass.Ann
 import HsBindgen.IR.Pass.Definition
 import HsBindgen.IR.Pass.ExtBinding
@@ -137,7 +133,7 @@ data TypeF (tag :: TypeTag) (p :: Pass) =
   | TypeIncompleteArray (TypeF tag p)
 
     -- | Functions
-  | TypeFun [TypeFunArgF tag p] (TypeF tag p)
+  | TypeFun (FunSig (TypeFunArgF tag p) (TypeF tag p))
 
     -- | Void
     --
@@ -209,7 +205,7 @@ mapTypeF fTypedefRef fQual fExtBindingRef fMacroRef fEnumRef = go
       TypePointers n t      -> TypePointers n $ go t
       TypeConstArray n t    -> TypeConstArray n $ go t
       TypeIncompleteArray t -> TypeIncompleteArray (go t)
-      TypeFun args res      -> TypeFun (fmap goTypeFunArg args) (go res)
+      TypeFun sig           -> TypeFun (bimap goTypeFunArg go sig)
       TypeVoid              -> TypeVoid
       TypeBlock t           -> TypeBlock (go t)
       TypeQual q t          -> fQual q t
@@ -623,7 +619,7 @@ depsOfType = \case
     TypeIncompleteArray t -> depsOfType t
     TypeBlock           t -> depsOfType t
     TypeQual _          t -> depsOfType t
-    TypeFun args res      -> concatMap depsOfTypeFunArg args <> depsOfType res
+    TypeFun sig           -> bifoldMap depsOfTypeFunArg depsOfType sig
 
 depsOfTypeFunArg ::
      PassMacro p
@@ -631,122 +627,52 @@ depsOfTypeFunArg ::
   -> [(Id p, Dependency)]
 depsOfTypeFunArg arg = depsOfType arg.typ
 
--- | Checks if a type is unsupported by Haskell's FFI
-hasUnsupportedType :: forall tag p.
-     (Normalize tag Canonical, PassId p, MacroUnderlying p ~ Type p)
-  => TypeF tag p
-  -> Bool
-hasUnsupportedType = aux . getCanonicalType
-  where
-    aux :: CanonicalType p -> Bool
-    aux (TypeRef declId)      = auxRef (idNameKind (Proxy @p) declId)
-    aux TypeComplex{}         = True
-    aux TypePrim{}            = False
-    aux TypePointers{}        = False
-    aux TypeVoid              = False
-    aux TypeBlock{}           = False
-    -- arrays are allowed: they are adjusted to pointers by the @TranslateTypes@ pass
-    aux TypeConstArray{}      = False
-    aux TypeIncompleteArray{} = False
-    -- functions are allowed: they are adjusted to pointers by the @TranslateTypes@ pass
-    aux TypeFun{}             = False
-
-    -- 'Normalize Full Erased' erases @typedef@s, @enum@s, and type macros.
-    auxRef :: C.NameKind -> Bool
-    auxRef = \case
-      C.NameKindOrdinary               -> panicPure "Unexpected NameKindOrdinary"
-      C.NameKindTagged C.TagKindStruct -> True
-      C.NameKindTagged C.TagKindUnion  -> True
-      C.NameKindTagged C.TagKindEnum   -> panicPure "Unexpected TagKindEnum"
-      C.NameKindMacro                  -> panicPure "Unexpected NameKindMacro"
-
--- | Recursively accumulate all function types
-getAllFunTypes ::
-     forall p. (PassMacro p, PassId p, PassExtBinding p, PassAnn p)
-  => Type p
-  -> Set ([TypeFunArg p], Type p)
-getAllFunTypes =
-      Set.map (\(_, args, res) -> (args, res))
-    . getFunTypes
-
--- | Recursively accumulate all function type indirections
-getAllFunTypeIndirections ::
-     forall p. (PassMacro p, PassId p, PassExtBinding p, PassAnn p)
-  => Type p
-  -> Set ([TypeFunArg p], Type p)
-getAllFunTypeIndirections =
-      Set.map (\(_, args, res) -> (args, res))
-    . Set.filter (\(numIndirections, _, _) -> numIndirections > 0)
-    . getFunTypes
-
--- | Internal function: accumulate function types recursively together with the
--- number of indirections to get to those function types.
-getFunTypes ::
-     forall p. (PassMacro p, PassId p, PassExtBinding p, PassAnn p)
-  => Type p
-  -> Set (Int, [TypeFunArg p], Type p)
-getFunTypes = go 0 Set.empty
-  where
-    go ::
-         Int
-      -> Set (Int, [TypeFunArg p], Type p)
-      -> Type p
-      -> Set (Int, [TypeFunArg p], Type p)
-    go numIndirections acc = \case
-      -- interesting case
-      TypeFun args res ->
-          let acc' = Set.insert (numIndirections, args, res) acc
-          in  Foldable.foldl' (go (numIndirections + 1)) acc' (fmap (.typ) args ++ [res])
-
-      -- recursive cases
-      TypePointers n t       -> go (numIndirections + n) acc t
-      TypeConstArray _n t    -> go (numIndirections + 1) acc t
-      TypeIncompleteArray  t -> go (numIndirections + 1) acc t
-      TypeBlock t            -> go (numIndirections + 1) acc t
-      TypeQual _q t          -> go (numIndirections + 1) acc t
-
-      -- primitive cases
-      TypePrim{} -> acc
-      TypeComplex{} -> acc
-      TypeVoid{} -> acc
-
-      -- sugar cases
-      TypeRef{} -> acc
-      TypeEnum{} -> acc
-      TypeMacro{} -> acc
-      TypeTypedef{} -> acc
-      TypeExtBinding{} -> acc
+-- | Get the outermost function type
+--
+-- Looks through pointers, arrays, blocks and qualifiers, but not through
+-- typedefs or other references. There is at most one: only function types
+-- have more than one child type.
+getOutermostFunType :: Type p -> Maybe (FunSig (TypeFunArg p) (Type p))
+getOutermostFunType ty = fst <$> findOutermostFunType ty
 
 -- | Get the first function type indirection
+--
+-- Like 'getOutermostFunType', but 'Nothing' if the type is itself a function
+-- type.
 getFirstFunTypeIndirection ::
-     forall p.
      Type p
-  -> Maybe ( [TypeFunArg p]
-           , Type p
+  -> Maybe ( FunSig (TypeFunArg p) (Type p)
            , Type p -> Type p -- ^ zipper: how to reconstruct the original type
            )
-getFirstFunTypeIndirection = go 0 id
+getFirstFunTypeIndirection = \case
+    TypeFun{}  -> Nothing
+    ty         -> findOutermostFunType ty
+
+-- | Find the outermost function type, and how to rebuild the type
+findOutermostFunType ::
+     forall p.
+     Type p
+  -> Maybe ( FunSig (TypeFunArg p) (Type p)
+           , Type p -> Type p
+           )
+findOutermostFunType = go id
   where
     go ::
-         Int
-      -> (Type p -> Type p)
+         (Type p -> Type p)
       -> Type p
-      -> Maybe ( [TypeFunArg p]
-               , Type p
+      -> Maybe ( FunSig (TypeFunArg p) (Type p)
                , Type p -> Type p
                )
-    go numIndirections reconstruct = \case
+    go reconstruct = \case
       -- interesting case
-      TypeFun args res
-        | numIndirections <= 0 -> Nothing
-        | otherwise ->  Just (args, res, reconstruct)
+      TypeFun sig -> Just (sig, reconstruct)
 
       -- recursive cases
-      TypePointers n t        -> go (numIndirections + n) (reconstruct . TypePointers n) t
-      TypeConstArray n t      -> go (numIndirections + 1) (reconstruct . TypeConstArray n) t
-      TypeIncompleteArray  t  -> go (numIndirections + 1) (reconstruct . TypeIncompleteArray) t
-      TypeBlock t             -> go (numIndirections + 1) (reconstruct . TypeBlock) t
-      TypeQual q t            -> go (numIndirections + 1) (reconstruct . TypeQual q) t
+      TypePointers n t        -> go (reconstruct . TypePointers n) t
+      TypeConstArray n t      -> go (reconstruct . TypeConstArray n) t
+      TypeIncompleteArray  t  -> go (reconstruct . TypeIncompleteArray) t
+      TypeBlock t             -> go (reconstruct . TypeBlock) t
+      TypeQual q t            -> go (reconstruct . TypeQual q) t
 
       -- primitive cases
       TypePrim{} -> Nothing
@@ -764,9 +690,14 @@ getFirstFunTypeIndirection = go 0 id
   Classification: simple classifiers
 -------------------------------------------------------------------------------}
 
+-- | Is the type @void@, possibly qualified?
+--
+-- Does not see through typedefs.
 isVoid :: Type p -> Bool
-isVoid TypeVoid = True
-isVoid _        = False
+isVoid = \case
+    TypeVoid     -> True
+    TypeQual _ t -> isVoid t
+    _otherwise   -> False
 
 -- | Is the canonical type a complex type?
 isCanonicalTypeComplex ::
@@ -860,7 +791,7 @@ instance (
       TypeMacro ref           -> TypeMacro (MacroRef (goMacroId ref.name) (goMacroUnderlying ref.underlying))
       TypeTypedef ref         -> TypeTypedef (Ref (goId ref.name) (coercePass ref.underlying))
       TypePointers n typ      -> TypePointers n (coercePass typ)
-      TypeFun args res        -> TypeFun (map coercePass args) (coercePass res)
+      TypeFun sig             -> TypeFun (bimap coercePass coercePass sig)
       TypeVoid                -> TypeVoid
       TypeConstArray n typ    -> TypeConstArray n (coercePass typ)
       TypeIncompleteArray typ -> TypeIncompleteArray (coercePass typ)

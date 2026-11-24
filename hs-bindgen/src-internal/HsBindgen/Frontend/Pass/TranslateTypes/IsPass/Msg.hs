@@ -4,12 +4,13 @@
 module HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (
     DelayedTranslateTypesMsg (..)
   , FFITypesMsg (..)
+  , logLevelFFITypesMsg
   ) where
 
 import GHC.Generics (Generic)
 import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.Frontend.Pass.TranslateTypes.Error (FunPosition)
+import HsBindgen.Frontend.Pass.TranslateTypes.Position (FunPosition)
 import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer

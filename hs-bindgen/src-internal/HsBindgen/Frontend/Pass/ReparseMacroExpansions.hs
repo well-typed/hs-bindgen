@@ -25,6 +25,7 @@ import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass
 
 {-------------------------------------------------------------------------------
@@ -326,11 +327,10 @@ processFunction decl function = do
     withoutReparse = function
 
     withReparse ::
-         (([(Maybe Text, C.Type LanC)] , C.Type LanC) , Text)
+         (FunSig (Maybe Text, C.Type LanC) (C.Type LanC), Text)
       -> M (C.Function LanC)
-    withReparse ((tys, ty), _name) = pure C.Function{
-          args  = map (uncurry mkFunctionArg) tys
-        , res   = mkFunctionRes ty
+    withReparse (sig, _name) = pure C.Function{
+          sig   = bimap (uncurry mkFunctionArg) mkFunctionRes sig
         , attrs = function.attrs
         , ann   = NoAnn
         }

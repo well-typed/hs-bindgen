@@ -312,11 +312,9 @@ instance Resolve C.Typedef where
 
 instance Resolve C.Function where
   resolve ownerId function = do
-    args <- mapM resolveArg function.args
-    res' <- resolveRes function.res
+    sig <- bitraverse resolveArg resolveRes function.sig
     pure C.Function{
-        args  = args
-      , res   = res'
+        sig   = sig
       , attrs = function.attrs
       , ann   = function.ann
       }
@@ -412,7 +410,7 @@ instance Resolve C.Type where
 
       -- Recursive cases
       C.TypePointers n typ             -> C.TypePointers n <$> resolve ownerId typ
-      C.TypeFun args res               -> C.TypeFun <$> mapM (resolve ownerId) args <*> resolve ownerId res
+      C.TypeFun sig                    -> C.TypeFun <$> bitraverse (resolve ownerId) (resolve ownerId) sig
       C.TypeConstArray n typ           -> C.TypeConstArray n <$> resolve ownerId typ
       C.TypeIncompleteArray typ        -> C.TypeIncompleteArray <$> resolve ownerId typ
       C.TypeBlock typ                  -> C.TypeBlock <$> resolve ownerId typ

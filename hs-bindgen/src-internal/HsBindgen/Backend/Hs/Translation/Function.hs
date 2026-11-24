@@ -3,6 +3,7 @@ module HsBindgen.Backend.Hs.Translation.Function (
   ) where
 
 import Control.Monad.Reader qualified as Reader
+import Data.Bifoldable (biany)
 import Data.Kind (Type)
 import Data.Text qualified as T
 import DeBruijn (Ctx, Env (..), Idx (..), sizeEnv, tabulateEnv, zipWithEnv)
@@ -25,11 +26,12 @@ import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Config.MangleCandidate (mangleCandidateDefaultFallback)
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.PassingMethod
 import HsBindgen.Frontend.PrettyC qualified as PC
 import HsBindgen.Imports hiding (def)
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Hs qualified as Hs
+import HsBindgen.IR.PassingMethod
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint (NameHint (..))
@@ -129,7 +131,7 @@ functionDecs safety decl originalC _spec = do
         origCName = decl.id.cName.name.text
 
         runInIO :: RunInIO
-        runInIO = functionShouldRunInIO originalC.attrs.purity originalC.res originalC.args
+        runInIO = functionShouldRunInIO originalC.attrs.purity originalC.sig
 
 {-------------------------------------------------------------------------------
   Common getters
@@ -137,23 +139,20 @@ functionDecs safety decl originalC _spec = do
 
 -- | Is the argument serialised?
 argSerialized :: C.FunctionArg Final -> Bool
-argSerialized arg = serialized arg.ann
+argSerialized arg = isSerialized arg.ann
 
 -- | Is the result serialised?
 resSerialized :: C.FunctionRes Final -> Bool
-resSerialized res = case res.ann of
-    PassResVoid      -> False
-    PassResNonVoid x -> serialized x
+resSerialized res = isResSerialized res.ann
 
-serialized :: PassingMethod p -> Bool
-serialized = \case
-    PassDirect{}     -> False
-    PassSerialized{} -> True
+-- | Is an argument or the result serialised?
+anySerialized :: FunSig (C.FunctionArg Final) (C.FunctionRes Final) -> Bool
+anySerialized = biany argSerialized resSerialized
 
 -- | Types of an argument as they appear in @wrapperC@ and @wrapperImport@
 wrapperArgTypes :: C.FunctionArg Final -> TranslatedTypes Final
 wrapperArgTypes arg = case arg.ann of
-    PassDirect{}       -> TranslatedTypes{c = arg.typ.c.typ, hs = arg.typ.hs}
+    PassDirect{}       -> Translated{c = arg.typ.c.typ, hs = arg.typ.hs}
     PassSerialized ptr -> ptr
 
 -- | Get the Haskell type of an argument/result as it is used in @restoreFun@
@@ -180,12 +179,11 @@ instance GetRestoreFunType (C.FunctionArg Final) where
 -- purity, because pointer manipulation requires 'IO'.
 --
 functionShouldRunInIO ::
-     C.FunctionPurity      -- ^ C function purity (function attribute)
-  -> C.FunctionRes Final   -- ^ C result type
-  -> [C.FunctionArg Final] -- ^ C parameter types
+     C.FunctionPurity -- ^ C function purity (function attribute)
+  -> FunSig (C.FunctionArg Final) (C.FunctionRes Final)
   -> RunInIO
-functionShouldRunInIO purity resType argTypes
-  | resSerialized resType || any argSerialized argTypes
+functionShouldRunInIO purity sig
+  | anySerialized sig
   = RunInIO
   | otherwise
   = case purity of
@@ -216,28 +214,27 @@ getWrapperCDecl ::
 getWrapperCDecl decl originalC wrapperCName = wrapperC
   where
     wrapperC = getWrapperCFunDefn wrapperCName.unique
-                  originalC.args originalC.res (T.unpack originalCName)
+                  originalC.sig (T.unpack originalCName)
 
     originalCName :: Text
     originalCName = decl.id.cName.name.text
 
 getWrapperCFunDefn ::
-     String                -- ^ C wrapper name
-  -> [C.FunctionArg Final] -- ^ C types of function parameters
-  -> C.FunctionRes Final   -- ^ C result type
-  -> String                -- ^ original C name
+     String -- ^ C wrapper name
+  -> FunSig (C.FunctionArg Final) (C.FunctionRes Final)
+  -> String -- ^ original C name
   -> PC.FunDefn
-getWrapperCFunDefn  wrapperName args res origName
-    | PassResVoid <- res.ann
-    = PC.withArgs args $ \args' ->
+getWrapperCFunDefn wrapperName sig origName
+    | PassResVoid <- sig.res.ann
+    = PC.withArgs sig.args $ \args' ->
         PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (wrapperArgCType <$> args') $
         PC.CSList $
           PC.CSStatement
             (PC.ExpressionStatement $ PC.Call origName (callArgs args' (PC.argsToIdx args')))
             PC.CSNil
 
-    | PassResNonVoid (PassSerialized ptr) <- res.ann
-    = PC.withArgs args $ \args' ->
+    | PassResNonVoid (PassSerialized ptr) <- sig.res.ann
+    = PC.withArgs sig.args $ \args' ->
         PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (fmap wrapperArgCType args' :> ptr.c) $
         PC.CSList $
           PC.CSStatement
@@ -246,8 +243,8 @@ getWrapperCFunDefn  wrapperName args res origName
             PC.CSNil
 
     | otherwise
-    = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName res.typ.c C.ImpureFunction (wrapperArgCType <$> args') $
+    = PC.withArgs sig.args $ \args' ->
+        PC.FunDefn wrapperName sig.res.typ.c C.ImpureFunction (wrapperArgCType <$> args') $
         PC.CSList $
           PC.CSStatement
             (PC.ExpressionStatement $ PC.Return $
@@ -306,7 +303,7 @@ getWrapperImportDecl decl originalC safety wrapperCName runInIO = wrapperImport
                 }
             , ffiType = passingMethodFFIType arg.ann
             }
-        | arg <- originalC.args
+        | arg <- originalC.sig.args
         ] ++ [
           -- Serialised results become parameters.
           Hs.ForeignImport.FunParam {
@@ -317,16 +314,16 @@ getWrapperImportDecl decl originalC safety wrapperCName runInIO = wrapperImport
                 }
             , ffiType = serializedFFIType
             }
-        | PassResNonVoid (PassSerialized ptr) <- [originalC.res.ann]
+        | PassResNonVoid (PassSerialized ptr) <- [originalC.sig.res.ann]
         ]
 
     -- Serialised results become parameters.
     result :: Hs.ForeignImport.FunRes
-    result = case originalC.res.ann of
+    result = case originalC.sig.res.ann of
         PassResVoid ->
           unit
         PassResNonVoid (PassDirect ffiType) -> Hs.ForeignImport.FunRes{
-            hsType  = hsIO runInIO $ originalC.res.typ.hs
+            hsType  = hsIO runInIO $ originalC.sig.res.typ.hs
           , ffiType = case runInIO of
               RunInIO -> Hs.FFIResIO ffiType
               RunPure -> Hs.FFIRes   ffiType
@@ -364,7 +361,7 @@ getRestoreFunDecl decl originalC wrapperCName runInIO = restoreFun
         Hs.DeclFunction $ Hs.FunctionDecl{
             name       = restoreFunName
           , parameters = restoreFunParams
-          , result     = hsIO runInIO $ restoreFunType originalC.res
+          , result     = hsIO runInIO $ restoreFunType originalC.sig.res
           , body       = getRestoreFunBody originalC (Hs.InternalName wrapperCName)
           , origin     = Origin.Function originalC
           , pragmas    = []
@@ -382,7 +379,7 @@ getRestoreFunDecl decl originalC wrapperCName runInIO = restoreFun
                         typ     = restoreFunType arg
                       , comment = Nothing
                       })
-                    | arg <- originalC.args
+                    | arg <- originalC.sig.args
                     ]
       in  mkHaddocksDecorateParams decl params
 
@@ -432,7 +429,7 @@ getRestoreFunBody ::
   -> Hs.TermName
   -> SHs.ClosedExpr
 getRestoreFunBody originalC wrapperImportName =
-    if resSerialized originalC.res || any argSerialized originalC.args
+    if anySerialized originalC.sig
     then bodyExpr
     else simpleBodyExpr
   where
@@ -459,7 +456,7 @@ getRestoreFunBody originalC wrapperImportName =
     bodyExpr :: SHs.ClosedExpr
     bodyExpr =
       -- construct lambdas for all function arguments
-      lambdas EmptyEnv originalC.args $ \env ->
+      lambdas EmptyEnv originalC.sig.args $ \env ->
         -- serialise function arguments if necessary
         passArgsSerializedIfNecessary env $ \args ->
           -- serialise the function result if necessary
@@ -554,7 +551,7 @@ getRestoreFunBody originalC wrapperImportName =
       -> (forall ctx'. [Var ctx'] -> SHs.SExpr ctx')
       -> SHs.SExpr ctx
     passResultSerializedIfNecessary zs kont
-      | resSerialized originalC.res
+      | resSerialized originalC.sig.res
       = let zs' = fmap succVar zs ++ [Var IZ False] in
         SHs.EApp
           (SHs.eBindgenGlobal Capi_allocaAndPeek)

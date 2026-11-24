@@ -701,16 +701,14 @@ createTypedef hsName typedef = do
     -- Tie generation of names to the generation of the associated code. This
     -- is especially ugly.
     isFunPtr :: Bool
-    isFunPtr = isJust $ typedef <$ C.getFirstFunTypeIndirection typedef.typ
+    isFunPtr = isJust $ C.getFirstFunTypeIndirection typedef.typ
 
 createFunction ::
      C.Function ResolveBindingSpecs -> CreateE (C.Function CreateNames)
 createFunction function = do
-    args <- mapM createFunctionArg function.args
-    res <- createFunctionRes function.res
+    sig <- bitraverse createFunctionArg createFunctionRes function.sig
     pure C.Function{
-        args  = args
-      , res   = res
+        sig   = sig
       , attrs = function.attrs
       , ann   = function.ann
       }

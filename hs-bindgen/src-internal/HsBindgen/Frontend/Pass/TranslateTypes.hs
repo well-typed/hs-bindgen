@@ -6,9 +6,7 @@ import Control.Monad (zipWithM)
 import Control.Monad.Reader (MonadReader, ReaderT (..), asks, withReaderT)
 import Control.Monad.State (MonadState, State, gets, modify, runState)
 import Control.Monad.Writer.Strict (runWriter)
-import Data.Either (partitionEithers)
 import Data.Functor ((<&>))
-import Data.List.NonEmpty qualified as NonEmpty
 
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
@@ -20,12 +18,14 @@ import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg
 import HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (Classified,
                                                              classifyArgPassingMethod,
                                                              classifyResPassingMethod)
+import HsBindgen.Frontend.Pass.TranslateTypes.Position
 import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo
 import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
 
@@ -130,7 +130,7 @@ processImplicitField field = do
     indirect' <- mapM processIndirectField field.indirect
     pure C.ImplicitField{
         info     = coercePass field.info
-      , typRef   = processAnonRef Translation.Top field.typRef
+      , typRef   = processType Translation.Top field.typRef
       , offset   = field.offset
       , indirect = indirect'
       , ann      = field.ann
@@ -142,7 +142,7 @@ processIndirectField field = pure C.IndirectField{
     , typ    = processType Translation.Top field.typ
     , offset = field.offset
     , width  = field.width
-    , path   = map (processAnonRef Translation.Top) field.path
+    , path   = map (processType Translation.Top) field.path
     , ann    = coercePassAnn (Proxy @'("IndirectField", MangleNames, TranslateTypes)) field.ann
     }
 
@@ -182,28 +182,22 @@ processFunction ::
      C.Function MangleNames
   -> DM l (Either TranslateTypesError (C.Function TranslateTypes))
 processFunction fun = do
-    (argErrs, args') <- partitionEithers <$>
-      zipWithM processFunctionArg [1..] fun.args
-    eRes' <- processFunctionRes fun.res
-    pure $ case (argErrs, eRes') of
-      ([], Right res') -> Right C.Function{
-          args  = args'
-        , res   = res'
+    eArgs <- zipWithM processFunctionArg [1..] fun.sig.args
+    eRes  <- processFunctionRes fun.sig.res
+    pure $ case collectLefts FunSig{args = eArgs, res = eRes} of
+      Left errs -> Left $ TranslateTypesFunctionError errs
+      Right sig -> Right C.Function{
+          sig   = sig
         , attrs = fun.attrs
         , ann   = fun.ann
         }
-      (err : errs, Right _) ->
-        Left $ TranslateTypesFunctionError (err :| errs)
-      (errs, Left resErr) ->
-        Left $ TranslateTypesFunctionError $
-          NonEmpty.prependList errs (resErr :| [])
 
 processFunctionArg ::
      Int
   -> C.FunctionArg MangleNames
   -> DM l (Either FunPositionError (C.FunctionArg TranslateTypes))
 processFunctionArg i arg = do
-    eAnn <- classified pos $ classifyArgPassingMethod pos arg typ'.hs
+    eAnn <- classified pos $ classifyArgPassingMethod pos typ'.c.typ typ'.hs
     pure $ eAnn <&> \ann -> C.FunctionArg{
         name = arg.name
       , typ  = typ'
@@ -214,13 +208,13 @@ processFunctionArg i arg = do
         index = i
       , name  = (.cName) <$> arg.name
       }
-    typ' = processTypeFunArg Translation.FunArg arg.typ
+    typ' = processType Translation.FunArg arg.typ
 
 processFunctionRes ::
      C.FunctionRes MangleNames
   -> DM l (Either FunPositionError (C.FunctionRes TranslateTypes))
 processFunctionRes res = do
-    eAnn <- classified FunPositionRes $ classifyResPassingMethod res typ'.hs
+    eAnn <- classified FunPositionRes $ classifyResPassingMethod typ'.c typ'.hs
     pure $ eAnn <&> \ann -> C.FunctionRes{
         typ = typ'
       , ann = ann
@@ -250,30 +244,15 @@ processGlobal global = pure C.Global{
 -------------------------------------------------------------------------------}
 
 processType ::
-     Translation.TypeContext
-  -> C.Type MangleNames
-  -> TranslatedTypes TranslateTypes
-processType ctx typ = TranslatedTypes{
+     ( CoercePass f MangleNames TranslateTypes
+     , Translation.InContext (f MangleNames)
+     )
+  => Translation.TypeContext
+  -> f MangleNames
+  -> Translated f TranslateTypes
+processType ctx typ = Translated{
       c  = coercePass typ
     , hs = Translation.inContext ctx typ
-    }
-
-processTypeFunArg ::
-     Translation.TypeContext
-  -> C.TypeFunArg MangleNames
-  -> TranslatedTypeFunArg TranslateTypes
-processTypeFunArg ctx typ = TranslatedTypeFunArg{
-      c  = coercePass typ
-    , hs = Translation.inContext ctx typ
-    }
-
-processAnonRef ::
-     Translation.TypeContext
-  -> C.AnonRef MangleNames
-  -> TranslatedAnonRef TranslateTypes
-processAnonRef ctx typ = TranslatedAnonRef{
-      c = coercePass typ
-    , hs = Translation.inContext ctx (C.anonRefType typ)
     }
 
 {-------------------------------------------------------------------------------

@@ -20,6 +20,7 @@ import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.LanC (LanC)
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -269,7 +270,7 @@ instance Apply (LanC.CDerivedDeclarator a) KnownType where
       -- Special case for functions, to get argument names
       LanC.CFunDeclr params _attrs _a -> \res -> do
         params' <- mapM mkDecl =<< viewFunParams params
-        return $ TopLevelFun params' (fromKnownType res)
+        return $ TopLevelFun FunSig{args = params', res = fromKnownType res}
 
 {-------------------------------------------------------------------------------
   'Type' 'p'

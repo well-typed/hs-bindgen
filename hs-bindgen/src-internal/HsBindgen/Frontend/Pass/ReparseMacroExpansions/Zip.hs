@@ -14,6 +14,7 @@ import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass.Msg
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.LanC (LanC)
 import HsBindgen.Frontend.Pass.ReparseMacroExpansions.Zip.Error
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
 
@@ -194,12 +195,10 @@ instance ZipReparsed C.Typedef where
 
 instance ZipReparsed C.Function where
   zipReparsed funPre fun = do
-      args'  <- zipList zipFunctionArg funPre.args  fun.args
-      res'   <- zipFunctionRes         funPre.res   fun.res
-      attrs' <- checkEq                funPre.attrs fun.attrs
+      sig'   <- zipFunSig zipFunctionArg zipFunctionRes funPre.sig fun.sig
+      attrs' <- checkEq funPre.attrs fun.attrs
       success C.Function{
-          args  = args'
-        , res   = res'
+          sig   = sig'
         , attrs = attrs'
         , ann   = NoAnn
         }
@@ -275,10 +274,8 @@ zipType t1 t2 = case (t1, t2) of
         C.TypeConstArray <$> checkEq n1 n2 <*> zipType et1 et2
       (C.TypeIncompleteArray et1, C.TypeIncompleteArray et2) ->
         C.TypeIncompleteArray <$> zipType et1 et2
-      (C.TypeFun args1 res1, C.TypeFun args2 res2) ->
-        C.TypeFun
-          <$> zipList zipTypeFunArg args1 args2
-          <*> zipType res1 res2
+      (C.TypeFun sig1, C.TypeFun sig2) ->
+        C.TypeFun <$> zipFunSig zipTypeFunArg zipType sig1 sig2
       (C.TypeVoid, C.TypeVoid) ->
         success C.TypeVoid
       (C.TypeBlock t1', C.TypeBlock t2') ->
@@ -384,3 +381,16 @@ zipList zipOne xs ys
   = failure $ zipErrorNotZipped xs ys
   | otherwise
   = M.zipWithM zipOne xs ys
+
+-- | Like 'zipList', for the arguments, and zips the results
+zipFunSig ::
+     (Show a, Show b)
+  => (a -> b -> ZipResult c)
+  -> (r -> s -> ZipResult t)
+  -> FunSig a r
+  -> FunSig b s
+  -> ZipResult (FunSig c t)
+zipFunSig zipArg zipRes sig1 sig2 =
+    FunSig
+      <$> zipList zipArg sig1.args sig2.args
+      <*> zipRes sig1.res sig2.res

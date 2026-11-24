@@ -32,6 +32,7 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Translation (DeclIdPair)
 
 {-------------------------------------------------------------------------------
@@ -66,8 +67,10 @@ data EmptyData =
 data ForeignImport =
     Function   (C.Function Final)
   | Global     (C.Type     Final)
-  | ToFunPtr   (C.Type     Final)
-  | FromFunPtr (C.Type     Final)
+    -- | The head of the instance
+  | ToFunPtr   Hs.Type
+    -- | The head of the instance
+  | FromFunPtr Hs.Type
   deriving stock (Generic, Show)
 
 newtype PatSyn =

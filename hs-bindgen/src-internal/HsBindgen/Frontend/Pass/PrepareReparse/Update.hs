@@ -16,6 +16,7 @@ import Prelude hiding (lex, print)
 import Control.Monad (forM_)
 import Control.Monad.Reader (MonadReader (ask), ReaderT (..))
 import Control.Monad.State (MonadState, State, modify, runState)
+import Data.Bifunctor (bimap)
 import Data.Kind
 import Data.List.NonEmpty (NonEmpty ((:|)))
 import Data.List.NonEmpty qualified as NE
@@ -222,8 +223,7 @@ instance Update C.Function where
   updateIt declId function = do
       ann' <- updateReparseInfo declId (functionTag declId) function.ann
       pure C.Function {
-          args = map coercePass function.args
-        , res = coercePass function.res
+          sig = bimap coercePass coercePass function.sig
         , attrs = function.attrs
         , ann = ann'
         }

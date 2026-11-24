@@ -10,17 +10,20 @@ module HsBindgen.Frontend.Pass.TranslateTypes.Translation (
   , InContext(..)
     -- ** Helper functions
   , topLevel
+  , funType
     -- * Pointers
   , Pointee(..)
   , pointee
   ) where
 
+import Data.Bifunctor (bimap)
 import Data.Proxy (Proxy (..))
 import GHC.Stack
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
@@ -58,6 +61,9 @@ instance IsPassCompat p => InContext (C.Type p) where
 instance IsPassCompat p => InContext (C.TypeFunArg p) where
   inContext ctx arg = funArg ctx arg.typ
 
+instance IsPassCompat p => InContext (C.AnonRef p) where
+  inContext ctx = typeInContext ctx . C.anonRefType
+
 instance IsPassCompat p => InContext (C.FunctionArg p) where
   inContext ctx arg = inContext ctx (cTypeFunArg (Proxy @p) arg.typ)
 
@@ -70,6 +76,12 @@ instance IsPassCompat p => InContext (C.FunctionRes p) where
 
 topLevel :: (HasCallStack, IsPassCompat p) => C.Type p -> Hs.Type
 topLevel = inContext Top
+
+-- | Haskell type of a function type
+funType ::
+     FunSig Hs.Type Hs.Type -- ^ Translated in contexts 'FunArg' and 'FunRes'
+  -> Hs.Type
+funType sig = foldr Hs.Fun (Hs.IO sig.res) sig.args
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
@@ -114,11 +126,8 @@ typeInContext ctx = \case
       Hs.ConstArray n (typeInContext Top ty)
     C.TypeIncompleteArray ty ->
       Hs.IncompleteArray (typeInContext Top ty)
-    C.TypeFun args res ->
-      foldr
-        (\arg acc -> Hs.Fun (inContext FunArg arg) acc)
-        (Hs.IO $ typeInContext FunRes res)
-        args
+    C.TypeFun sig ->
+      funType $ bimap (inContext FunArg) (typeInContext FunRes) sig
     C.TypeVoid ->
       Hs.PrimType (void ctx)
     C.TypeBlock ty ->

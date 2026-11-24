@@ -17,6 +17,7 @@ import HsBindgen.Frontend.Pass.Parse.Monad.Type qualified as ParseType
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass
 import HsBindgen.Language.C qualified as C
 
@@ -240,7 +241,7 @@ function hasProto = \ty -> do
       nargs <- clang_getNumArgTypes ty
       args  <- forM [0 .. nargs - 1] $ \i ->
                  clang_getArgType ty (fromIntegral i) >>= cxtype
-      pure $ C.TypeFun (map mkTypeFunArg args) res
+      pure $ C.TypeFun FunSig{args = map mkTypeFunArg args, res = res}
   where
     mkTypeFunArg :: C.TypeF tag Parse -> C.TypeFunArgF tag Parse
     mkTypeFunArg ty = C.TypeFunArgF {
