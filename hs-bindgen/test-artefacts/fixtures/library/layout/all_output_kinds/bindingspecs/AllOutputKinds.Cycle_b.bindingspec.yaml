@@ -1,0 +1,57 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: AllOutputKinds.Cycle_b
+ctypes:
+- headers: all_output_kinds/cycle_b.h
+  cname: cycle_b_callback
+  hsname: Cycle_b_callback
+- headers: all_output_kinds/cycle_b.h
+  cname: struct cycle_b
+  hsname: Cycle_b
+hstypes:
+- hsname: Cycle_b
+  representation:
+    record:
+      constructor: Cycle_b
+      fields:
+      - cycle_b_owner
+      - cycle_b_next
+      - cycle_b_position
+      - cycle_b_callback
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Cycle_b_callback
+  representation:
+    newtype:
+      constructor: Cycle_b_callback
+      fields:
+      - unwrapCycle_b_callback
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

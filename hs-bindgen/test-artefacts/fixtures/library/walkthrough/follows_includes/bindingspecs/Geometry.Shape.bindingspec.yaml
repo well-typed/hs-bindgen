@@ -1,0 +1,55 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Geometry.Shape
+ctypes:
+- headers: geometry/shape.h
+  cname: struct shape
+  hsname: Shape
+- headers: geometry/shape.h
+  cname: shape_filter
+  hsname: Shape_filter
+hstypes:
+- hsname: Shape
+  representation:
+    record:
+      constructor: Shape
+      fields:
+      - shape_points
+      - shape_count
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Shape_filter
+  representation:
+    newtype:
+      constructor: Shape_filter
+      fields:
+      - unwrapShape_filter
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

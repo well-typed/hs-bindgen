@@ -1,0 +1,5 @@
+#include "squashed_across_headers/fwd.h"
+#include "squashed_across_headers/a.h"
+#include "squashed_across_headers/b.h"
+#include "squashed_across_headers/handle.h"
+#include "squashed_across_headers/private/handle.h"

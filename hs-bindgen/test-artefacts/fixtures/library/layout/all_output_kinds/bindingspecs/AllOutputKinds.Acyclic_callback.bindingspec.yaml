@@ -1,0 +1,63 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: AllOutputKinds.Acyclic_callback
+ctypes:
+- headers: all_output_kinds/acyclic_callback.h
+  cname: enum callback_code
+  hsname: Callback_code
+  enum: open
+- headers: all_output_kinds/acyclic_callback.h
+  cname: acyclic_callback
+  hsname: Acyclic_callback
+hstypes:
+- hsname: Acyclic_callback
+  representation:
+    newtype:
+      constructor: Acyclic_callback
+      fields:
+      - unwrapAcyclic_callback
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: FunPtrVoid
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Callback_code
+  representation:
+    newtype:
+      constructor: Callback_code
+      fields:
+      - unwrapCallback_code
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
