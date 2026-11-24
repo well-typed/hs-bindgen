@@ -633,54 +633,46 @@ depsOfTypeFunArg arg = depsOfType arg.typ
 -- typedefs or other references. There is at most one: only function types
 -- have more than one child type.
 getOutermostFunType :: Type p -> Maybe (FunSig (TypeFunArg p) (Type p))
-getOutermostFunType ty = do
-    (_, sig, _) <- findOutermostFunType ty
-    pure sig
+getOutermostFunType ty = fst <$> findOutermostFunType ty
 
 -- | Get the first function type indirection
 --
 -- Like 'getOutermostFunType', but 'Nothing' if the type is itself a function
 -- type.
 getFirstFunTypeIndirection ::
-     forall p.
      Type p
   -> Maybe ( FunSig (TypeFunArg p) (Type p)
            , Type p -> Type p -- ^ zipper: how to reconstruct the original type
            )
-getFirstFunTypeIndirection ty = do
-    (numIndirections, sig, reconstruct) <- findOutermostFunType ty
-    guard $ numIndirections > 0
-    pure (sig, reconstruct)
+getFirstFunTypeIndirection = \case
+    TypeFun{}  -> Nothing
+    ty         -> findOutermostFunType ty
 
--- | Find the outermost function type, the number of indirections to reach it,
--- and how to rebuild the type
+-- | Find the outermost function type, and how to rebuild the type
 findOutermostFunType ::
      forall p.
      Type p
-  -> Maybe ( Int
-           , FunSig (TypeFunArg p) (Type p)
+  -> Maybe ( FunSig (TypeFunArg p) (Type p)
            , Type p -> Type p
            )
-findOutermostFunType = go 0 id
+findOutermostFunType = go id
   where
     go ::
-         Int
-      -> (Type p -> Type p)
+         (Type p -> Type p)
       -> Type p
-      -> Maybe ( Int
-               , FunSig (TypeFunArg p) (Type p)
+      -> Maybe ( FunSig (TypeFunArg p) (Type p)
                , Type p -> Type p
                )
-    go numIndirections reconstruct = \case
+    go reconstruct = \case
       -- interesting case
-      TypeFun sig -> Just (numIndirections, sig, reconstruct)
+      TypeFun sig -> Just (sig, reconstruct)
 
       -- recursive cases
-      TypePointers n t        -> go (numIndirections + n) (reconstruct . TypePointers n) t
-      TypeConstArray n t      -> go (numIndirections + 1) (reconstruct . TypeConstArray n) t
-      TypeIncompleteArray  t  -> go (numIndirections + 1) (reconstruct . TypeIncompleteArray) t
-      TypeBlock t             -> go (numIndirections + 1) (reconstruct . TypeBlock) t
-      TypeQual q t            -> go (numIndirections + 1) (reconstruct . TypeQual q) t
+      TypePointers n t        -> go (reconstruct . TypePointers n) t
+      TypeConstArray n t      -> go (reconstruct . TypeConstArray n) t
+      TypeIncompleteArray  t  -> go (reconstruct . TypeIncompleteArray) t
+      TypeBlock t             -> go (reconstruct . TypeBlock) t
+      TypeQual q t            -> go (reconstruct . TypeQual q) t
 
       -- primitive cases
       TypePrim{} -> Nothing
