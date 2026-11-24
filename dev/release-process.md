@@ -110,4 +110,6 @@ We release `hs-bindgen` and `hs-bindgen-runtime` to Hackage.
 ### Minor changes
 
 ### Bug fixes
+
+### Binding specification format
 ```

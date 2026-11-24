@@ -1,6 +1,6 @@
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: M
 ctypes:
 - headers: macros/macro_ext_binding_dep.h
@@ -8,13 +8,9 @@ ctypes:
   hsname: A
 hstypes:
 - hsname: A
-  representation:
-    newtype:
-      constructor: A
-      fields:
-      - unwrapA
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CInt
   instances:
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - hsmodule: HsBindgen.Runtime.Support
+      hsname: CInt
+      type: FFIType

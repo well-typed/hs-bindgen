@@ -19,8 +19,8 @@ import Clang.HighLevel.Types
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
 import HsBindgen.BindingSpec.Private.Common
-import HsBindgen.BindingSpec.Private.V1 (CTypeSpec (..), UnresolvedBindingSpec)
-import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
+import HsBindgen.BindingSpec.Private.V2 (CTypeSpec (..), UnresolvedBindingSpec)
+import HsBindgen.BindingSpec.Private.V2 qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
@@ -219,6 +219,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
                 hsRep     = Just $ BindingSpec.HsTypeRepRecord hsRecordRep
               , instances =
                   mkInstSpecs
+                    Nothing
                     (maybe Map.empty (.instances) $ originDecl.spec.hsSpec)
                     hsStruct.instances
               }
@@ -241,6 +242,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
               hsRep     = Just BindingSpec.HsTypeRepEmptyData
             , instances =
                 mkInstSpecs
+                  Nothing
                   (maybe Map.empty (.instances) $ originDecl.spec.hsSpec)
                   edata.instances
             }
@@ -268,12 +270,12 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
           hsNewtypeRep = BindingSpec.HsNewtypeRep {
               constructor = Just hsNewtype.constr
             , field       = Just hsNewtype.field.name
-            , ffiType     = hsNewtype.ffiType
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
               hsRep     = Just $ BindingSpec.HsTypeRepNewtype hsNewtypeRep
             , instances =
                 mkInstSpecs
+                  hsNewtype.ffiType
                   (maybe Map.empty (.instances) $ originDecl.spec.hsSpec)
                   hsNewtype.instances
             }
@@ -287,14 +289,21 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/648>
 -- It should be possible to generate instances with constraints.
 mkInstSpecs ::
-     Map Inst.TypeClass (Omittable BindingSpec.InstanceSpec)
+     Maybe Hs.ExtRef
+  -> Map Inst.TypeClass (Omittable BindingSpec.InstanceSpec)
   -> Set Inst.TypeClass
   -> Map Inst.TypeClass (Omittable BindingSpec.InstanceSpec)
-mkInstSpecs specMap insts = Map.fromList $
-    [ (cls, Require def)
+mkInstSpecs ffiTypeMay specMap insts = Map.fromList $
+    [ if cls == Inst.HasFFIType
+      then (cls, Require (addFFIType def))
+      else (cls, Require def)
     | cls <- Set.toList insts
     ]
     ++
     [ (cls, Omit)
     | (cls, Omit) <- Map.toList specMap
     ]
+  where
+    addFFIType inst = inst {
+        BindingSpec.associated = toList (Inst.FFIType <$> ffiTypeMay)
+      }

@@ -27,12 +27,21 @@ module HsBindgen.BindingSpec.Private.Common (
   , Format(..)
   , getFormat
   , readVersion
+  , ParseSpecFunction
+  , ParseSpecError(..)
+  , readFile
+    -- * Hs names
+  , MangleCandidateError(..)
+  , parseHsName
     -- * Aeson auxiliary functions
+  , lookupBy
   , omitWhenNull
   , listToJSON
   , listFromJSON
   , typeOf
   ) where
+
+import Prelude hiding (readFile)
 
 import Control.Applicative (asum)
 import Data.Aeson ((.:), (.=))
@@ -48,6 +57,8 @@ import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.BindingSpec.Private.Version
+import HsBindgen.Config.MangleCandidate (MangleCandidate (..))
+import HsBindgen.Config.MangleCandidate qualified as MangleCandidate
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -64,7 +75,9 @@ data BindingSpecReadMsg =
   | BindingSpecReadYamlError FilePath String
   | BindingSpecReadYamlWarning FilePath String
   | BindingSpecReadParseVersion FilePath AVersion
-  | BindingSpecReadIncompatibleVersion FilePath AVersion
+  | BindingSpecReadCompatibleVersion   FilePath BindingSpecVersion BindingSpecVersion
+  | BindingSpecReadIncompatibleVersion FilePath BindingSpecVersion BindingSpecVersion
+  | BindingSpecReadNoCompatibleVersion FilePath BindingSpecVersion
   | BindingSpecReadModuleMismatch FilePath Hs.ModuleName Hs.ModuleName
   | BindingSpecReadModuleNotSpecified FilePath
   | BindingSpecReadInvalidCName FilePath Text
@@ -81,12 +94,14 @@ instance IsTrace Level BindingSpecReadMsg where
     BindingSpecReadYamlError{}            -> Error
     BindingSpecReadYamlWarning{}          -> Error
     BindingSpecReadParseVersion{}         -> Debug
-    BindingSpecReadIncompatibleVersion{}  -> Error
+    BindingSpecReadCompatibleVersion{}    -> Debug
+    BindingSpecReadIncompatibleVersion{}  -> Debug
+    BindingSpecReadNoCompatibleVersion{}  -> Error
     BindingSpecReadModuleMismatch{}       -> Warning
     BindingSpecReadModuleNotSpecified{}   -> Error
     BindingSpecReadInvalidCName{}         -> Error
     BindingSpecReadCTypeConflict{}        -> Error
-    BindingSpecReadHsTypeNameNoRef{}    -> Error
+    BindingSpecReadHsTypeNameNoRef{}      -> Error
     BindingSpecReadHsTypeConflict{}       -> Error
     BindingSpecReadHashIncludeArg _ x     -> getDefaultLogLevel x
     BindingSpecReadConvertVersion _ f t
@@ -122,12 +137,19 @@ instance PrettyForTrace BindingSpecReadMsg where
         , "binding specification version: " ><
             prettyForTrace version.bindingSpec
         ]
-    BindingSpecReadIncompatibleVersion path version ->
-      PP.hangs' ("incompatible binding specification version: " >< PP.string path) 2 [
-          "hs-bindgen version: " ><
-            prettyForTraceHsBindgenVersion version.bindgen
-        , "binding specification version: " ><
-            prettyForTrace version.bindingSpec
+    BindingSpecReadCompatibleVersion path parserVersion version ->
+      PP.hangs' ("Found a compatible binding specification parser: " >< PP.string path) 2 [
+          "parser version: " >< prettyForTrace parserVersion
+        , "binding specification version: " >< prettyForTrace version
+        ]
+    BindingSpecReadIncompatibleVersion path parserVersion version ->
+      PP.hangs' ("Found an incompatible binding specification parser: " >< PP.string path) 2 [
+          "parser version: " >< prettyForTrace parserVersion
+        , "binding specification version: " >< prettyForTrace version
+        ]
+    BindingSpecReadNoCompatibleVersion path version ->
+      PP.hangs' ("Found no compatible binding specification parser: " >< PP.string path) 2 [
+          "binding specification version: " >< prettyForTrace version
         ]
     BindingSpecReadModuleMismatch path bsModule curModule ->
       PP.hangs'
@@ -323,7 +345,7 @@ class ARepKV (v :: ARepV) a where
 data Omittable a =
     Require a
   | Omit
-  deriving stock (Eq, Ord, Generic, Show)
+  deriving stock (Eq, Ord, Generic, Show, Functor)
 
 -- | Aeson representation of 'Omittable'
 --
@@ -418,14 +440,98 @@ getAVersionM ::
   -> Aeson.Value
   -> m (Maybe (AVersion, Aeson.Value))
 getAVersionM tracer path value = case getAVersion value of
-    Right aVersion -> return $ Just (aVersion, value)
+    Right aVersion -> do
+      traceWith tracer $ withCallStack $ BindingSpecReadParseVersion path aVersion
+      return $ Just (aVersion, value)
     Left err -> do
       traceWith tracer $ withCallStack $ BindingSpecReadAesonError path err
       return Nothing
 
+type ParseSpecFunction spec =
+     Tracer BindingSpecReadMsg
+  -> BindingSpecCompatibility
+  -> Maybe Hs.ModuleName
+  -> FilePath
+  -> AVersion
+  -> Aeson.Value
+  -> IO (Either ParseSpecError spec)
+
+data ParseSpecError =
+    NoCompatibleParser
+  | OtherError
+
+-- | Read a binding specification file
+--
+-- The format is determined by the filename extension.
+readFile ::
+     Tracer BindingSpecReadMsg
+  -> BindingSpecCompatibility
+  -> Maybe Hs.ModuleName
+  -> FilePath
+  -> ParseSpecFunction spec
+  -> IO (Maybe spec)
+readFile tracer cmpt mHsModuleName path parseSpec =
+    readVersion tracer path >>= \case
+      Nothing                -> return Nothing
+      Just (aVersion, value) ->
+        parseSpec tracer cmpt mHsModuleName path aVersion value >>= \case
+          Left e     -> case e of
+            NoCompatibleParser -> do
+              traceWith tracer $ withCallStack $
+                BindingSpecReadNoCompatibleVersion path aVersion.bindingSpec
+              pure Nothing
+            OtherError -> pure Nothing
+          Right spec -> pure (Just spec)
+
+{-------------------------------------------------------------------------------
+  Hs names
+-------------------------------------------------------------------------------}
+
+data MangleCandidateError =
+    MangleCandidateCouldNotMangleError Text
+  | MangleCandidateParseError          MangleCandidate.ParseCandidateError
+
+instance PrettyForTrace MangleCandidateError where
+  prettyForTrace = \case
+    MangleCandidateCouldNotMangleError x -> PP.hsep [
+        "Could not mangle:"
+      , PP.text x
+      ]
+    MangleCandidateParseError err -> PP.hsep [
+        "Name does not adhere to naming rules:"
+      , prettyForTrace err
+      ]
+
+parseHsName :: forall ns.
+     Hs.SingNamespace ns
+  => Proxy ns
+  -> Text
+  -> Either MangleCandidateError (Hs.Name ns)
+parseHsName _ hsNameCandidate =
+    case MangleCandidate.parseCandidate mangleCandidateConfig hsNameCandidate of
+      Nothing ->
+        Left $ MangleCandidateCouldNotMangleError hsNameCandidate
+      Just (Left  err) ->
+        Left $ MangleCandidateParseError err
+      Just (Right hsName) ->
+        Right $ hsName
+  where
+    mangleCandidateConfig :: MangleCandidate Maybe
+    mangleCandidateConfig =
+      MangleCandidate.mangleCandidateDefault
+        -- Names in binding specs are supplied by the user and are expected to
+        -- be valid Haskell identifiers. We therefore do not check reserved
+        -- names: the user is trusted to avoid them, and checking would reject
+        -- names like @type@ that are legitimately used in external packages.
+        & #reservedNames .~ mempty
+
 {-------------------------------------------------------------------------------
   Aeson auxiliary functions
 -------------------------------------------------------------------------------}
+
+-- 'List.lookup' using a predicate
+lookupBy :: (a -> Bool) -> [(a, b)] -> Maybe b
+lookupBy p = fmap snd . List.find (p . fst)
 
 -- | Omit empty lists in aeson output
 omitWhenNull :: [a] -> Maybe [a]

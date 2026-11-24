@@ -1,6 +1,6 @@
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: M
 ctypes:
 - headers: binding-specs/fun_arg/typedef/enum.h
@@ -11,24 +11,16 @@ ctypes:
   hsname: D
 hstypes:
 - hsname: C
-  representation:
-    newtype:
-      constructor: C
-      fields:
-      - unwrapC
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
+      type: FFIType
 - hsname: D
-  representation:
-    newtype:
-      constructor: D
-      fields:
-      - unwrapD
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CUInt
   instances:
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - hsmodule: HsBindgen.Runtime.Support
+      hsname: CUInt
+      type: FFIType

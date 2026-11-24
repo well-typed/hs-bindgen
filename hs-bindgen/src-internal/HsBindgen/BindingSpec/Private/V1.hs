@@ -38,7 +38,7 @@ module HsBindgen.BindingSpec.Private.V1 (
   , lookupCTypeSpec
   , lookupHsTypeSpec
     -- ** YAML/JSON
-  , readFile
+  , parseValue
   , encode
     -- ** Header resolution
   , resolve
@@ -66,15 +66,12 @@ import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Data.Yaml.Pretty qualified
 import Text.Read (readMaybe)
-import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Args
 import Clang.Paths
 
 import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.Version
-import HsBindgen.Config.MangleCandidate (MangleCandidate (..))
-import HsBindgen.Config.MangleCandidate qualified as MangleCandidate
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
@@ -316,38 +313,31 @@ lookupHsTypeSpec hsName spec = Map.lookup hsName spec.hsTypes
   API: YAML/JSON
 -------------------------------------------------------------------------------}
 
--- | Read a binding specification file
---
--- The format is determined by the filename extension.
-readFile ::
-     Tracer BindingSpecReadMsg
-  -> BindingSpecCompatibility
-  -> Maybe Hs.ModuleName
-  -> FilePath
-  -> IO (Maybe UnresolvedBindingSpec)
-readFile tracer cmpt mHsModuleName path = readVersion tracer path >>= \case
-    Nothing -> return Nothing
-    Just (aVersion, value)
-      | isCompatBindingSpecVersions
-          cmpt
-          aVersion.bindingSpec
-          currentBindingSpecVersion -> do
-            traceWith tracer $ withCallStack $ BindingSpecReadParseVersion path aVersion
-            case Aeson.fromJSON value of
-              Aeson.Success arep ->
-                case fromABindingSpec mHsModuleName path arep of
-                  Right (errs, spec) -> do
-                    mapM_ (traceWith tracer . withCallStack) errs
-                    return (Just spec)
-                  Left err -> do
-                    traceWith tracer (withCallStack err)
-                    return Nothing
-              Aeson.Error err -> do
-                traceWith tracer $ withCallStack $ BindingSpecReadAesonError path err
-                return Nothing
-      | otherwise -> do
-          traceWith tracer $ withCallStack $ BindingSpecReadIncompatibleVersion path aVersion
-          return Nothing
+parseValue :: ParseSpecFunction UnresolvedBindingSpec
+parseValue tracer cmpt mHsModuleName path aVersion value
+  | isCompatBindingSpecVersions
+      cmpt
+      aVersion.bindingSpec
+      currentBindingSpecVersion
+  = do
+      traceWith tracer $ withCallStack $
+        BindingSpecReadCompatibleVersion path currentBindingSpecVersion aVersion.bindingSpec
+      case Aeson.fromJSON value of
+        Aeson.Success arep ->
+          case fromABindingSpec mHsModuleName path arep of
+            Right (errs, spec) -> do
+              mapM_ (traceWith tracer . withCallStack) errs
+              return (Right spec)
+            Left err -> do
+              traceWith tracer (withCallStack err)
+              return (Left OtherError)
+        Aeson.Error err -> do
+          traceWith tracer $ withCallStack $ BindingSpecReadAesonError path err
+          return (Left OtherError)
+  | otherwise = do
+      traceWith tracer $ withCallStack $
+        BindingSpecReadIncompatibleVersion path currentBindingSpecVersion aVersion.bindingSpec
+      return (Left NoCompatibleParser)
 
 -- | Encode a binding specification
 encode ::
@@ -482,9 +472,10 @@ resolve tracer injResolveHeader args uSpec = do
 
 -- | Merged (external) binding specifications
 --
--- While a tt'HsBindgen.BindingSpec.Private.V1.BindingSpec' is specific to a Haskell module, this type supports
--- binding specifications across multiple Haskell modules.  It is a performance
--- optimization for resolving external binding specifications.
+-- While a t'HsBindgen.BindingSpec.Private.V1.BindingSpec' is specific to a
+-- Haskell module, this type supports binding specifications across multiple
+-- Haskell modules.  It is a performance optimization for resolving external
+-- binding specifications.
 newtype MergedBindingSpecs = MergedBindingSpecs {
       map :: Map C.DeclId [(Set RealPath, ResolvedBindingSpec)]
     }
@@ -1268,49 +1259,3 @@ instance Aeson.ToJSON (ARep V1 Inst.Constraint) where
         -- macros).
       , "hsname"   .= toARep' constraint.ref.name
       ]
-
-{-------------------------------------------------------------------------------
-  Auxiliary functions
--------------------------------------------------------------------------------}
-
--- 'List.lookup' using a predicate
-lookupBy :: (a -> Bool) -> [(a, b)] -> Maybe b
-lookupBy p = fmap snd . List.find (p . fst)
-
-data MangleCandidateError =
-    MangleCandidateCouldNotMangleError Text
-  | MangleCandidateParseError          MangleCandidate.ParseCandidateError
-
-instance PrettyForTrace MangleCandidateError where
-  prettyForTrace = \case
-    MangleCandidateCouldNotMangleError x -> PP.hsep [
-        "Could not mangle:"
-      , PP.text x
-      ]
-    MangleCandidateParseError err -> PP.hsep [
-        "Name does not adhere to naming rules:"
-      , prettyForTrace err
-      ]
-
-parseHsName :: forall ns.
-     Hs.SingNamespace ns
-  => Proxy ns
-  -> Text
-  -> Either MangleCandidateError (Hs.Name ns)
-parseHsName _ hsNameCandidate =
-    case MangleCandidate.parseCandidate mangleCandidateConfig hsNameCandidate of
-      Nothing ->
-        Left $ MangleCandidateCouldNotMangleError hsNameCandidate
-      Just (Left  err) ->
-        Left $ MangleCandidateParseError err
-      Just (Right hsName) ->
-        Right $ hsName
-  where
-    mangleCandidateConfig :: MangleCandidate Maybe
-    mangleCandidateConfig =
-      MangleCandidate.mangleCandidateDefault
-        -- Names in binding specs are supplied by the user and are expected to
-        -- be valid Haskell identifiers. We therefore do not check reserved
-        -- names: the user is trusted to avoid them, and checking would reject
-        -- names like @type@ that are legitimately used in external packages.
-        & #reservedNames .~ mempty

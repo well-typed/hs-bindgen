@@ -105,7 +105,6 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
-import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
@@ -154,7 +153,7 @@ data EmptyData = EmptyData{
 data Newtype = Newtype{
       name      :: Hs.Name Hs.NsTypeConstr
     , constr    :: Hs.Name Hs.NsConstr
-    , ffiType   :: Maybe BindingSpec.HsFFIType
+    , ffiType   :: Maybe Hs.ExtRef
     , field     :: Field
     , origin    :: Origin.Decl Origin.Newtype
     , instances :: Set Inst.TypeClass

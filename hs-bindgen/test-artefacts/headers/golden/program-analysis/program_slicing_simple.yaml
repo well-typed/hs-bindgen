@@ -1,6 +1,6 @@
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: Foreign.C.Types
 ctypes:
 - headers: program-analysis/program_slicing_simple.h
@@ -8,11 +8,6 @@ ctypes:
   hsname: CULong
 hstypes:
 - hsname: CULong
-  representation:
-    newtype:
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CULong
   instances:
   - Bits
   - Bounded
@@ -27,4 +22,8 @@ hstypes:
   - Real
   - Show
   - Storable
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - hsmodule: HsBindgen.Runtime.Support
+      hsname: CULong
+      type: FFIType

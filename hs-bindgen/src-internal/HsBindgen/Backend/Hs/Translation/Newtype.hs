@@ -15,7 +15,6 @@ import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Monad (HsM)
 import HsBindgen.Backend.Hs.Translation.Monad qualified as HsM
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
 import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo (emptySugarInfos)
 import HsBindgen.Imports
@@ -62,14 +61,14 @@ newtypeDec name constr field override orig comment candidateInsts knownInsts = d
         insts :: Set Inst.TypeClass
         insts = knownInsts <> resolvedInsts
 
-        ffiType :: Maybe BindingSpec.HsFFIType
+        ffiType :: Maybe Hs.ExtRef
         correctedInsts :: Set Inst.TypeClass
         (ffiType, correctedInsts)
           | Inst.HasFFIType `elem` insts
             -- TODO <https://github.com/well-typed/hs-bindgen/issues/2376>: use
             -- sugar infos as computed by the @TranslateTypes@ pass
           , Just ffi <- withOverride override (FFIType.toFFIType emptySugarInfos field.typ)
-          = ( Just (BindingSpec.HsFFIType (Hs.ffiExtRef ffi))
+          = ( Just (Hs.ffiExtRef ffi)
             , insts )
           | otherwise
           = ( Nothing

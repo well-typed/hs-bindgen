@@ -1,6 +1,6 @@
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: Example
 ctypes:
 - headers: binding-specs/stdlib/instances.h
@@ -103,9 +103,6 @@ hstypes:
       constructor: Stdlib_CBool
       fields:
       - unwrapStdlib_CBool
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CBool
   instances:
   - Bitfield
   - Bits
@@ -115,7 +112,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CBool
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -137,9 +138,6 @@ hstypes:
       constructor: Stdlib_CChar16T
       fields:
       - unwrapStdlib_CChar16T
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CChar16T
   instances:
   - Bitfield
   - Bits
@@ -149,7 +147,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CChar16T
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -171,9 +173,6 @@ hstypes:
       constructor: Stdlib_CChar32T
       fields:
       - unwrapStdlib_CChar32T
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CChar32T
   instances:
   - Bitfield
   - Bits
@@ -183,7 +182,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CChar32T
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -205,15 +208,16 @@ hstypes:
       constructor: Stdlib_CClock
       fields:
       - unwrapStdlib_CClock
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CClock
   instances:
   - Enum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CClock
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -280,9 +284,6 @@ hstypes:
       constructor: Stdlib_CIntMax
       fields:
       - unwrapStdlib_CIntMax
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CIntMax
   instances:
   - Bitfield
   - Bits
@@ -292,7 +293,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CIntMax
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -314,9 +319,6 @@ hstypes:
       constructor: Stdlib_CIntPtr
       fields:
       - unwrapStdlib_CIntPtr
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CIntPtr
   instances:
   - Bitfield
   - Bits
@@ -326,7 +328,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CIntPtr
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -372,9 +378,6 @@ hstypes:
       constructor: Stdlib_CPtrdiff
       fields:
       - unwrapStdlib_CPtrdiff
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CPtrdiff
   instances:
   - Bitfield
   - Bits
@@ -384,7 +387,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CPtrdiff
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -406,9 +413,6 @@ hstypes:
       constructor: Stdlib_CSigAtomic
       fields:
       - unwrapStdlib_CSigAtomic
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CSigAtomic
   instances:
   - Bitfield
   - Bits
@@ -418,7 +422,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CSigAtomic
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -440,9 +448,6 @@ hstypes:
       constructor: Stdlib_CSize
       fields:
       - unwrapStdlib_CSize
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CSize
   instances:
   - Bitfield
   - Bits
@@ -452,7 +457,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CSize
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -474,15 +483,16 @@ hstypes:
       constructor: Stdlib_CTime
       fields:
       - unwrapStdlib_CTime
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CTime
   instances:
   - Enum
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CTime
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -517,9 +527,6 @@ hstypes:
       constructor: Stdlib_CUIntMax
       fields:
       - unwrapStdlib_CUIntMax
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CUIntMax
   instances:
   - Bitfield
   - Bits
@@ -529,7 +536,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CUIntMax
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -551,9 +562,6 @@ hstypes:
       constructor: Stdlib_CUIntPtr
       fields:
       - unwrapStdlib_CUIntPtr
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CUIntPtr
   instances:
   - Bitfield
   - Bits
@@ -563,7 +571,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CUIntPtr
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -585,9 +597,6 @@ hstypes:
       constructor: Stdlib_CWchar
       fields:
       - unwrapStdlib_CWchar
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CWchar
   instances:
   - Bitfield
   - Bits
@@ -597,7 +606,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CWchar
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -619,14 +632,15 @@ hstypes:
       constructor: Stdlib_CWctransT
       fields:
       - unwrapStdlib_CWctransT
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CWctransT
   instances:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CWctransT
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -642,14 +656,15 @@ hstypes:
       constructor: Stdlib_CWctypeT
       fields:
       - unwrapStdlib_CWctypeT
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CWctypeT
   instances:
   - Eq
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CWctypeT
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -665,9 +680,6 @@ hstypes:
       constructor: Stdlib_CWintT
       fields:
       - unwrapStdlib_CWintT
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: CWintT
   instances:
   - Bitfield
   - Bits
@@ -677,7 +689,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: CWintT
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -699,9 +715,6 @@ hstypes:
       constructor: Stdlib_Int16
       fields:
       - unwrapStdlib_Int16
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Int16
   instances:
   - Bitfield
   - Bits
@@ -711,7 +724,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Int16
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -733,9 +750,6 @@ hstypes:
       constructor: Stdlib_Int32
       fields:
       - unwrapStdlib_Int32
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Int32
   instances:
   - Bitfield
   - Bits
@@ -745,7 +759,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Int32
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -767,9 +785,6 @@ hstypes:
       constructor: Stdlib_Int64
       fields:
       - unwrapStdlib_Int64
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Int64
   instances:
   - Bitfield
   - Bits
@@ -779,7 +794,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Int64
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -801,9 +820,6 @@ hstypes:
       constructor: Stdlib_Int8
       fields:
       - unwrapStdlib_Int8
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Int8
   instances:
   - Bitfield
   - Bits
@@ -813,7 +829,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Int8
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -835,9 +855,6 @@ hstypes:
       constructor: Stdlib_Word16
       fields:
       - unwrapStdlib_Word16
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Word16
   instances:
   - Bitfield
   - Bits
@@ -847,7 +864,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Word16
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -869,9 +890,6 @@ hstypes:
       constructor: Stdlib_Word32
       fields:
       - unwrapStdlib_Word32
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Word32
   instances:
   - Bitfield
   - Bits
@@ -881,7 +899,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Word32
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -903,9 +925,6 @@ hstypes:
       constructor: Stdlib_Word64
       fields:
       - unwrapStdlib_Word64
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Word64
   instances:
   - Bitfield
   - Bits
@@ -915,7 +934,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Word64
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -937,9 +960,6 @@ hstypes:
       constructor: Stdlib_Word8
       fields:
       - unwrapStdlib_Word8
-      ffitype:
-        hsmodule: HsBindgen.Runtime.LibC
-        hsname: Word8
   instances:
   - Bitfield
   - Bits
@@ -949,7 +969,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.LibC
+      hsname: Word8
   - HasField
   - HasFieldCompat
   - HasFieldPtr

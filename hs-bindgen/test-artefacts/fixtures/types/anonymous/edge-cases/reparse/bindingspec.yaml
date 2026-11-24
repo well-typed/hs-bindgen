@@ -1,6 +1,6 @@
 version:
   hs_bindgen: 1.0.0.0
-  binding_specification: '1.0'
+  binding_specification: '2.0'
 hsmodule: Example
 ctypes:
 - headers: types/anonymous/edge-cases/reparse.h
@@ -25,9 +25,6 @@ hstypes:
       constructor: A
       fields:
       - unwrapA
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CInt
   instances:
   - Bitfield
   - Bits
@@ -37,7 +34,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CInt
   - HasField
   - HasFieldCompat
   - HasFieldPtr
@@ -59,9 +60,6 @@ hstypes:
       constructor: B
       fields:
       - unwrapB
-      ffitype:
-        hsmodule: HsBindgen.Runtime.Support
-        hsname: CChar
   instances:
   - Bitfield
   - Bits
@@ -71,7 +69,11 @@ hstypes:
   - FiniteBits
   - Generic
   - HasCField
-  - HasFFIType
+  - class: HasFFIType
+    associated:
+    - type: FFIType
+      hsmodule: HsBindgen.Runtime.Support
+      hsname: CChar
   - HasField
   - HasFieldCompat
   - HasFieldPtr
