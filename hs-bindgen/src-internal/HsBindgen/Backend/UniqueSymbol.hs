@@ -58,11 +58,13 @@ uniqueCDeclName uniqueSymbol =
 -- @UniqueSymbol.source@ in included in a suitable comment.
 globallyUnique :: UniqueId -> BaseModuleName -> String -> UniqueSymbol
 globallyUnique (UniqueId uniqueId) baseModuleName str =
+    -- NUL separators guarantee distinct hash inputs for distinct triples:
+    -- the other segments (identifiers and module names) cannot contain NUL.
     locallyUnique $ concat [
         sanitizeUniqueId uniqueId
-      , "_"
+      , "\0"
       , baseModuleNameToString baseModuleName
-      , "_"
+      , "\0"
       , str
       ]
 
