@@ -37,8 +37,11 @@ data TermCategory =
     -- boot file cannot reduce @FFIType@ at them. The solution is to leave
     -- this code to a callback module when a boot file is generated.
     --
-    -- This happens only with @--generate-hs-boot@. Without it, there are no
-    -- boot files, everything stays in 'CType', and this category is empty.
+    -- Types modules get boot files with @--generate-hs-boot@, or in library
+    -- mode when they form an import cycle. The global callback module of
+    -- library mode uses this category too. Otherwise this category is empty
+    -- and everything stays in 'CType'. In Template Haskell mode it is always
+    -- empty.
     CCallback
     -- | Foreign import bindings with a @safe@ foreign import modifier.
   | CSafe

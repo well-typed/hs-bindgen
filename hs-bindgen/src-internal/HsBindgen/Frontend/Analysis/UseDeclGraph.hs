@@ -10,6 +10,7 @@ module HsBindgen.Frontend.Analysis.UseDeclGraph (
     -- * Construction
   , fromDeclUseGraph
     -- * Query
+  , getDirectDeps
   , getTransitiveDeps
   , getStrictTransitiveDeps
     -- * Visualization
@@ -18,6 +19,7 @@ module HsBindgen.Frontend.Analysis.UseDeclGraph (
 
 import Data.Digraph (Digraph)
 import Data.Digraph qualified as Digraph
+import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
 import HsBindgen.Frontend.Analysis
@@ -58,6 +60,14 @@ fromDeclUseGraph declUseGraph = UseDeclGraph{
 {-------------------------------------------------------------------------------
   Query
 -------------------------------------------------------------------------------}
+
+getDirectDeps :: UseDeclGraph -> Set C.DeclId -> Set C.DeclId
+getDirectDeps useDeclGraph decls =
+    Set.fromList
+      [ dep
+      | d <- Set.toList decls
+      , dep <- Map.keys (Digraph.neighbors d useDeclGraph.graph)
+      ]
 
 getTransitiveDeps :: UseDeclGraph -> Set C.DeclId -> Set C.DeclId
 getTransitiveDeps useDeclGraph decls = Digraph.reaches decls useDeclGraph.graph

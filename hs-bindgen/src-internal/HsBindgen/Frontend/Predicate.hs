@@ -15,6 +15,7 @@ module HsBindgen.Frontend.Predicate (
   , mkIsMainHeader
   , IsInMainHeaderDir
   , mkIsInMainHeaderDir
+  , findLibraryDir
   , matchSelect
   ) where
 
@@ -137,6 +138,20 @@ mkIsInMainHeaderDir paths path =
     mainDirs :: [[FilePath]]
     mainDirs = map FilePath.splitDirectories . Set.toList $
       Set.map (FilePath.takeDirectory . getRealPath) paths
+
+-- | Find which library directory (if any) contains the given header
+--
+-- The directories must be canonicalized, as the header path is. Library mode
+-- uses this to place declarations and to choose the headers Doxygen reads.
+--
+findLibraryDir :: [FilePath] -> RealPath -> Maybe FilePath
+findLibraryDir dirs header =
+    case [ d
+         | d <- dirs
+         , FilePath.isRelative (FilePath.makeRelative d (getRealPath header))
+         ] of
+      []    -> Nothing
+      (d:_) -> Just d
 
 -- | Match 'SelectionPredicate' predicates
 --
