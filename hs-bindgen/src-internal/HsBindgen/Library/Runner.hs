@@ -209,6 +209,10 @@ data LibraryUnitOutput = LibraryUnitOutput {
 -- passing their results here. The runner forces the @resolveBindingSpecs@
 -- result from the frontend artefact, then takes over from @mangleNames@
 -- through the backend.
+--
+-- The caller passes the same library directories to @runFrontend@ and here.
+-- The frontend uses them to run Doxygen on the library headers. Without them,
+-- only the declarations of the main headers get their Doxygen comments.
 runLibrary ::
      forall l. Macro.HasTypes l
   => Tracer LibraryMsg

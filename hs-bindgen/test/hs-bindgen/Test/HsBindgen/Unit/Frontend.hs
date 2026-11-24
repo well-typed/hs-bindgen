@@ -177,7 +177,7 @@ execFrontend getTestResources cStdStr incDirs header k =
           frontendTracer = contramap TraceFrontend tracer
       bootArtefact     <- runBoot bootTracer (pure . Macro.cExpr) config
                             [C.DirectiveHashInclude header]
-      frontendArtefact <- runFrontend frontendTracer frontendConfig bootArtefact
+      frontendArtefact <- runFrontend frontendTracer frontendConfig [] bootArtefact
       k frontendArtefact
   where
     noReport :: a -> IO ()

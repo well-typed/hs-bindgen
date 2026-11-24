@@ -156,11 +156,11 @@ hsBindgenEMacroLang
           tracerBoot = contramap TraceBoot tracerUnsafe
       bootArtefact <-
         runBoot tracerBoot mkMacroLang config uncheckedRootDirectives
-      -- 2. Frontend.
+      -- 2. Frontend. Single-header mode has no library directories.
       let tracerFrontend :: Tracer FrontendMsg
           tracerFrontend = contramap TraceFrontend tracerUnsafe
       frontendArtefact <-
-        runFrontend tracerFrontend config.frontend bootArtefact
+        runFrontend tracerFrontend config.frontend [] bootArtefact
       -- 3. Backend.
       let tracerConfigBackend :: TracerConfig SafeLevel BackendMsg
           tracerConfigBackend = contramap SafeBackendMsg tracerConfigSafe
@@ -264,11 +264,11 @@ hsBindgenLibraryEMacroLang
           tracerBoot = contramap TraceBoot tracerUnsafe
       bootArtefact <-
         runBoot tracerBoot mkMacroLang config uncheckedRootDirectives
-      -- Frontend.
+      -- Frontend. Doxygen reads the library headers too.
       let tracerFrontend :: Tracer FrontendMsg
           tracerFrontend = contramap TraceFrontend tracerUnsafe
       frontendArtefact <-
-        runFrontend tracerFrontend config.frontend bootArtefact
+        runFrontend tracerFrontend config.frontend libraryDirs bootArtefact
       -- Library.
       let tracerLibrary :: Tracer LibraryMsg
           tracerLibrary = contramap TraceLibrary tracerUnsafe
