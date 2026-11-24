@@ -63,11 +63,22 @@ import HsBindgen.Util.Tracer (withCallStack)
 
 mangleNames ::
      forall l. (HasCallStack, Macro.HasTypes l)
-  => Hs.ModuleName
+  => (C.DeclId -> Maybe Hs.ModuleName)
+     -- ^ The module of a declaration, if it has one
+     --
+     -- Every declaration that the pass names has one. A declaration that the
+     -- pass only meets through a typedef may have none: library mode gives
+     -- no module to a declaration that is not active. It is not active when
+     --
+     -- * it is unusable, for example because it failed to parse or conflicts
+     --   with another declaration, or
+     -- * a prescriptive binding specification omits it.
+     --
+     -- Such a declaration generates nothing.
   -> FieldNamingStrategy
   -> C.TranslationUnit l ResolveBindingSpecs
   -> (C.TranslationUnit l MangleNames, [AnnMsg MangleNames])
-mangleNames currentModule fieldNaming unit = (
+mangleNames lookupModule fieldNaming unit = (
       unit{C.db =
           DeclDB.addDelayedMsgs (map (second DelayedMangleNames) msgs1) $
             runIdentity $
@@ -83,8 +94,41 @@ mangleNames currentModule fieldNaming unit = (
     decls :: [C.Decl l ResolveBindingSpecs]
     decls = DeclDB.active DeclDB.AnyOrder unit.db
 
+    -- The module of a declaration that the pass names. The pass names only
+    -- active declarations, and each of those has a module, so a missing
+    -- module is a bug. Used by 'createNames', for the names it creates.
+    moduleOf :: C.DeclId -> Hs.ModuleName
+    moduleOf declId = fromMaybe
+        (panicPure $ "mangleNames: no module for " ++ show declId)
+        (lookupModule declId)
+
+    -- Whether two declarations end up in the same module, where their Haskell
+    -- names could clash.
+    --
+    -- The analysis can also ask about tags that are not active. In
+    -- @struct foo { long double x; }; typedef struct foo *foo;@, the struct
+    -- failed to parse, so it has no module. A prescriptive binding
+    -- specification that omits @struct foo@ has the same effect. That's why
+    -- 'lookupModule' is used.
+    placedTogether :: C.DeclId -> C.DeclId -> Bool
+    placedTogether a b = case (lookupModule a, lookupModule b) of
+        (Just moduleA, Just moduleB) -> moduleA == moduleB
+        _otherwise                   -> False
+
+    -- The module of a typedef squashed into a type.
+    --
+    -- That type has no module when it is unusable, or when a prescriptive
+    -- binding specification omits it. The typedef then keeps its own module.
+    -- The typedef itself is active, so 'moduleOf' always finds that module.
+    -- The selection drops the typedef later anyway, because the type it names
+    -- is not active. Used by 'createNames', for the typedef's name, and by
+    -- 'nameModule'.
+    squashedModule :: C.DeclId -> C.DeclId -> Hs.ModuleName
+    squashedModule typedefId targetId =
+        fromMaybe (moduleOf typedefId) (lookupModule targetId)
+
     typedefAnalysis :: TypedefAnalysis.TypedefAnalysis
-    typedefAnalysis = TypedefAnalysis.fromDecls unit.db.declUseGraph decls
+    typedefAnalysis = TypedefAnalysis.fromDecls placedTogether unit.db.declUseGraph decls
 
     mangleCandidateConfig :: MangleCandidate Maybe
     mangleCandidateConfig = MangleCandidate.mangleCandidateDefault
@@ -97,12 +141,28 @@ mangleNames currentModule fieldNaming unit = (
     failures1   :: [MangleNamesFailure]
     msgs1       :: [(C.DeclId, DelayedMangleNamesMsg)]
     (declsC, squashes, nameMap, nameMapDups, failures1, msgs1) =
-      createNames currentModule typedefAnalysis mangleCandidateConfig fieldNaming decls
+      createNames moduleOf squashedModule typedefAnalysis mangleCandidateConfig fieldNaming decls
+
+    -- Each squashed typedef, with the type it was squashed into
+    squashTargets :: Map C.DeclId C.DeclId
+    squashTargets = Map.fromList
+      [ (typedefId, s.targetId)
+      | (typedefId, _hsName, s) <- squashes
+      ]
+
+    -- The module that defines the Haskell name of a declaration: its own
+    -- module, or 'squashedModule' for a squashed typedef. A name can only
+    -- clash with the names of that module, and a reference to it imports that
+    -- module. Used by 'detectClashes' and 'resolveNames'.
+    nameModule :: C.DeclId -> Hs.ModuleName
+    nameModule dId = case Map.lookup dId squashTargets of
+        Just targetId -> squashedModule dId targetId
+        Nothing       -> moduleOf dId
 
     -- Traversal 2: detect clashes among all names.
     registry  :: NameRegistry
     failures2 :: [MangleNamesFailure]
-    (registry, failures2) = detectClashes fieldNaming nameMap declsC
+    (registry, failures2) = detectClashes nameModule fieldNaming nameMap declsC
 
     dropped :: Set C.DeclId
     dropped = Set.fromList $ map (.id) failures2
@@ -110,7 +170,7 @@ mangleNames currentModule fieldNaming unit = (
     -- Traversal 3: resolve references.
     decls3    :: [C.Decl l MangleNames]
     failures3 :: [MangleNamesFailure]
-    (decls3, failures3) = resolveNames currentModule nameMap dropped declsC
+    (decls3, failures3) = resolveNames nameModule nameMap dropped declsC
 
     results :: Map C.DeclId (DeclDB.PassResult l MangleNames)
     results = mangleResults decls3 squashes (failures1 ++ failures2 ++ failures3)

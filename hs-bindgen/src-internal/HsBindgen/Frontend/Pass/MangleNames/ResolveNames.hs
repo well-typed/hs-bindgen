@@ -39,27 +39,28 @@ import Doxygen.Parser.Types qualified as Doxy
 -------------------------------------------------------------------------------}
 
 data ResolveEnv = ResolveEnv {
-      nameMap       :: NameMap
-    , currentModule :: Hs.ModuleName
+      nameMap    :: NameMap
+      -- | The module that defines the Haskell name of a declaration, which
+      -- every reference to the declaration names (see 'mangleNames')
+    , nameModule :: C.DeclId -> Hs.ModuleName
     }
-  deriving stock (Generic)
 
 type ResolveM   = Reader ResolveEnv
 type ResolveE a = ExceptT MangleNamesResolutionError ResolveM a
 
 resolveNames ::
      forall l. Macro.HasTypes l
-  => Hs.ModuleName
+  => (C.DeclId -> Hs.ModuleName)
   -> NameMap
   -> Set C.DeclId
   -> [C.Decl l CreateNames]
   -> ([C.Decl l MangleNames], [MangleNamesFailure])
-resolveNames currentModule nameMap dropped decls = (oks, failures)
+resolveNames nameModule nameMap dropped decls = (oks, failures)
   where
     env :: ResolveEnv
     env = ResolveEnv{
-        nameMap       = nameMap
-      , currentModule = currentModule
+        nameMap    = nameMap
+      , nameModule = nameModule
       }
 
     failures :: [MangleNamesFailure]
@@ -83,7 +84,7 @@ resolveDecl ::
 resolveDecl decl =
     withDeclNamespace decl.kind $ \nsProxy -> do
       hsName     <- resolveDeclName nsProxy decl.id
-      modName    <- asks (.currentModule)
+      nameModule <- asks (.nameModule)
       comment'   <- traverse (resolve decl.id) decl.comment
       enclosing' <- mapM resolveEnclosingRef decl.enclosing
       kind'      <- resolveDeclKind decl.id decl.kind
@@ -91,7 +92,7 @@ resolveDecl decl =
           info      = decl.info
         , id        = DeclIdPair{
               cName   = decl.id
-            , hsIdent = Hs.Identifier modName (Hs.demoteNs hsName)
+            , hsIdent = Hs.Identifier (nameModule decl.id) (Hs.demoteNs hsName)
             }
         , comment   = comment'
         , enclosing = enclosing'
@@ -191,20 +192,20 @@ lookupScopedNameR declId scopedName = do
 
 lookupTypePairR :: C.DeclId -> ResolveE DeclIdPair
 lookupTypePairR declId = do
-    modName <- asks (.currentModule)
-    (\hsName -> DeclIdPair declId (Hs.Identifier modName (Hs.demoteNs hsName)))
+    nameModule <- asks (.nameModule)
+    (\hsName -> DeclIdPair declId (Hs.Identifier (nameModule declId) (Hs.demoteNs hsName)))
       <$> lookupTypeR declId
 
 lookupVarPairR :: C.DeclId -> ResolveE DeclIdPair
 lookupVarPairR declId = do
-    modName <- asks (.currentModule)
-    (\hsName -> DeclIdPair declId (Hs.Identifier modName (Hs.demoteNs hsName)))
+    nameModule <- asks (.nameModule)
+    (\hsName -> DeclIdPair declId (Hs.Identifier (nameModule declId) (Hs.demoteNs hsName)))
       <$> lookupVarR declId
 
 lookupScopedNamePairR :: C.DeclId -> C.ScopedName -> ResolveE ScopedNamePair
 lookupScopedNamePairR declId scopedName = do
-    modName <- asks (.currentModule)
-    (\hsName -> ScopedNamePair scopedName (Hs.Identifier modName hsName))
+    nameModule <- asks (.nameModule)
+    (\hsName -> ScopedNamePair scopedName (Hs.Identifier (nameModule declId) hsName))
       <$> lookupScopedNameR declId scopedName
 
 {-------------------------------------------------------------------------------
@@ -451,12 +452,20 @@ resolveExtBindingRef ::
   -> ResolveE (C.ExtBindingRef MangleNames)
 resolveExtBindingRef ownerId (C.Ref ext uTy) =
     -- The underlying type may reference the external binding itself (e.g.
-    -- the typedef name that was replaced). We extend the 'NameMap' with the
-    -- external binding so that such references can be resolved.
-    C.Ref ext <$>
-      local
-        ( #nameMap % #typeConstrs %~ Map.insert ext.cName (Hs.assertNs (Proxy @Hs.NsTypeConstr) ext.hsIdent.name) )
-        ( resolve ownerId uTy )
+    -- the typedef name that was replaced). We extend the 'NameMap' and
+    -- 'nameModule' with the external binding so that such references can be
+    -- resolved: a reference needs both its Haskell name and its module.
+    C.Ref ext <$> local withExtBinding (resolve ownerId uTy)
+  where
+    withExtBinding :: ResolveEnv -> ResolveEnv
+    withExtBinding env = env{
+        nameMap    = env.nameMap & #typeConstrs %~
+          Map.insert ext.cName (Hs.assertNs (Proxy @Hs.NsTypeConstr) ext.hsIdent.name)
+      , nameModule = \declId ->
+          if declId == ext.cName
+            then ext.hsIdent.moduleName
+            else env.nameModule declId
+      }
 
 {-------------------------------------------------------------------------------
   Resolving comment references
@@ -492,17 +501,17 @@ lookupByKind env = \case
     C.NameKindTagged{} -> lookupTypeNs
     _                 -> lookupTypeOrVarNs
   where
-    mkIdent :: Hs.SomeName -> Hs.Identifier
-    mkIdent = Hs.Identifier env.currentModule
+    mkIdent :: C.DeclId -> Hs.SomeName -> Hs.Identifier
+    mkIdent dId = Hs.Identifier (env.nameModule dId)
 
     lookupTypeNs :: C.DeclId -> Maybe DeclIdPair
     lookupTypeNs declId =
-        DeclIdPair declId . mkIdent . Hs.demoteNs
+        DeclIdPair declId . mkIdent declId . Hs.demoteNs
           <$> lookupType declId env.nameMap
 
     lookupTypeOrVarNs :: C.DeclId -> Maybe DeclIdPair
     lookupTypeOrVarNs declId =
-        DeclIdPair declId . mkIdent <$> asum
+        DeclIdPair declId . mkIdent declId <$> asum
           [ Hs.demoteNs <$> lookupType declId env.nameMap
           , Hs.demoteNs <$> lookupVar  declId env.nameMap
           ]
