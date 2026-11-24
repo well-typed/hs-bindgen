@@ -560,8 +560,10 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Infra.Check.BindingSpec
     Test.HsBindgen.Golden.Infra.Check.FailureBindgen
     Test.HsBindgen.Golden.Infra.Check.FailureLibclang
+    Test.HsBindgen.Golden.Infra.Check.Library
     Test.HsBindgen.Golden.Infra.Check.PP
     Test.HsBindgen.Golden.Infra.Check.TH
+    Test.HsBindgen.Golden.Infra.LibraryTest
     Test.HsBindgen.Golden.Infra.TestCase
     Test.HsBindgen.Golden.Infra.TestCaseTree
     Test.HsBindgen.Golden.Macros
@@ -603,6 +605,7 @@ test-suite test-hs-bindgen
 
   -- Inherited dependencies
   build-depends:
+    , bytestring
     , c-expr-dsl
     , containers
     , data-default
