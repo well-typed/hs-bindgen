@@ -3,6 +3,7 @@
 -- | @hs-bindgen@ application common types and functions
 module HsBindgen.App (
     hsBindgen
+  , hsBindgenLibrary
 
     -- * Global options
   , GlobalOpts(..)
@@ -26,6 +27,7 @@ module HsBindgen.App (
   , parseExecutionMode
   , parseHsBootPolicy
   , parseGenBindingSpec
+  , parseGenBindingSpecDir
   , parseGenTestsOutput
     -- ** Input arguments
   , parseInputs
@@ -54,6 +56,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass (EmptyMacros (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
+import HsBindgen.Library (OutputFile)
 import HsBindgen.Macro (CExpr)
 import HsBindgen.Macro qualified as Macro
 import HsBindgen.TraceMsg
@@ -69,6 +72,26 @@ hsBindgen ::
   -> Artefact CExpr a
   -> IO a
 hsBindgen = hsBindgenMacroLang (pure . Macro.cExpr)
+
+-- | Convenience entry point for library mode using the default C macro
+-- language. Parallel to 'hsBindgen'.
+--
+-- Returns the files the plan predicts (see 'hsBindgenLibraryMacroLang').
+hsBindgenLibrary ::
+     TracerConfig Level     TraceMsg
+  -> TracerConfig SafeLevel SafeTraceMsg
+  -> BindgenConfig
+  -> ExecutionMode
+  -> [C.UncheckedRootDirective]
+  -> [FilePath]
+  -> ModuleRenderConfig
+  -> FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> Maybe FilePath
+  -> IO [OutputFile]
+hsBindgenLibrary =
+  hsBindgenLibraryMacroLang (pure . Macro.cExpr)
 
 {-------------------------------------------------------------------------------
   Global options
@@ -594,15 +617,25 @@ parseHsBootPolicy = flag DoNotGenerateHsBoot GenerateHsBoot $ mconcat [
       long "generate-hs-boot"
     , help (  "Generate a boot file next to every types module, and put the "
            ++ "code behind callbacks in a module of its own (suffix "
-           ++ "Callback). Not available with --single-file"
+           ++ "Callback). Not recommended with --library, unless every "
+           ++ "types module should get a boot file: --library already "
+           ++ "generates boot files for the types modules of an import "
+           ++ "cycle. Not available with --single-file"
            )
     ]
 
 parseGenBindingSpec :: Parser FilePath
 parseGenBindingSpec = strOption $ mconcat [
       long "gen-binding-spec"
-    , metavar "PATH"
-    , help "Binding specification to generate"
+    , metavar "FILE"
+    , help "Binding specification file to generate (single-header mode)"
+    ]
+
+parseGenBindingSpecDir :: Parser FilePath
+parseGenBindingSpecDir = strOption $ mconcat [
+      long "gen-binding-spec-dir"
+    , metavar "DIR"
+    , help "Directory for per-module binding specifications (library mode)"
     ]
 
 parseGenTestsOutput :: Parser FilePath
