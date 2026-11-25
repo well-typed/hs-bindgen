@@ -41,7 +41,6 @@ import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
 import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo (SugarInfos)
 import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro (TranslatedMacro (..),
                                                                TranslatedMacroType (..))
@@ -49,6 +48,7 @@ import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translati
 import HsBindgen.Frontend.PrettyC qualified as PC
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
+import HsBindgen.IR.AddressStub
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.FunPtrInstance
 import HsBindgen.IR.FunSig
@@ -150,11 +150,15 @@ generateDecs funPtrNewtypes decl =
       C.DeclFunction function -> do
         let funDeclsWith safety =
               functionDecs safety decl function spec
-            funType = C.typeOfFunction function
             -- Declare a function pointer. We can pass this 'FunPtr' to C
             -- functions that take a function pointer of the appropriate type.
             funPtrDecls = fst <$>
-                addressStubDecs decl funType HaskellId spec
+                addressStubDecs
+                  decl
+                  (C.typeOfFunction function)
+                  function.addressStub
+                  HaskellId
+                  spec
         safes   <- withCategoryM (CTerm CSafe)   (HsM.immediateM $ funDeclsWith SHs.Safe)
         unsafes <- withCategoryM (CTerm CUnsafe) (HsM.immediateM $ funDeclsWith SHs.Unsafe)
         funPtrs <- withCategoryM (CTerm CFunPtr) (HsM.immediateM $ funPtrDecls)
@@ -818,7 +822,7 @@ global decl g _spec = do
   where
     getStubDecsWith :: RunnerNameSpec -> HsM ([Hs.Decl l], Hs.TermName)
     getStubDecsWith x =
-      addressStubDecs decl g.typ.c x _spec
+      addressStubDecs decl g.typ.c g.addressStub x _spec
 
     getInsts :: HsM (Set Inst.TypeClass)
     getInsts = do
@@ -884,12 +888,13 @@ data RunnerNameSpec =
 addressStubDecs ::
      C.Decl l Final   -- ^ The given declaration
   -> C.Type Final     -- ^ The type of the given declaration
+  -> AddressStub      -- ^ Its address, as the stub returns it
   -> RunnerNameSpec
   -> PrescriptiveDeclSpec
   -> HsM ( [Hs.Decl l]
          , Hs.TermName
          )
-addressStubDecs decl ty runnerNameSpec _spec = do
+addressStubDecs decl ty stub runnerNameSpec _spec = do
     env <- Reader.ask
     pure $ aux env
   where
@@ -898,7 +903,7 @@ addressStubDecs decl ty runnerNameSpec _spec = do
       where
         -- *** Stub (impure) ***
         stubImportType :: Hs.Type
-        stubImportType = Hs.IO $ Translation.topLevel stubType
+        stubImportType = Hs.IO stub.typ
 
         stubSymbol :: UniqueSymbol
         stubSymbol = globallyUnique env.uniqueId env.baseModuleName $ "get_" ++ varName
@@ -908,9 +913,6 @@ addressStubDecs decl ty runnerNameSpec _spec = do
 
         varName :: String
         varName = Text.unpack $ decl.id.cName.name.text
-
-        stubType :: C.Type Final
-        stubType = C.TypePointers 1 ty
 
         -- | The C stub return type.
         --
@@ -954,7 +956,7 @@ addressStubDecs decl ty runnerNameSpec _spec = do
               []
               Hs.ForeignImport.FunRes{
                   hsType  = stubImportType
-                , ffiType = Hs.FFIResIO $ FFIType.pointerTo (Translation.pointee ty)
+                , ffiType = Hs.FFIResIO stub.ffiType
                 }
               (uniqueCDeclName stubSymbol)
               (CallConvUserlandCapi cWrapper)
@@ -997,7 +999,7 @@ addressStubDecs decl ty runnerNameSpec _spec = do
             HaskellId      -> Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) name
             GlobalUniqueId -> Hs.InternalName $ uniquify name.text
 
-        runnerType = SHs.translateType (Translation.topLevel stubType)
+        runnerType = SHs.translateType stub.typ
         runnerExpr = SHs.eBindgenGlobal IO_unsafePerformIO
                     `SHs.EApp` SHs.EFree stubName
 

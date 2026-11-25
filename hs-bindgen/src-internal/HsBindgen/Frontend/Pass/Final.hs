@@ -12,6 +12,7 @@ import GHC.Records
 import HsBindgen.Frontend.Pass.FunPtrInstances.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro (TranslatedMacroType (..))
+import HsBindgen.IR.AddressStub (AddressStub)
 import HsBindgen.IR.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -46,3 +47,9 @@ instance HasField "names" (C.Typedef Final) MangleNames.TypedefNames where
 
 instance HasField "names" (TranslatedMacroType Final) MangleNames.NewtypeNames where
   getField macro = macro.ann
+
+instance HasField "addressStub" (C.Function Final) AddressStub where
+  getField function = function.ann
+
+instance HasField "addressStub" (C.Global Final) AddressStub where
+  getField global = global.ann

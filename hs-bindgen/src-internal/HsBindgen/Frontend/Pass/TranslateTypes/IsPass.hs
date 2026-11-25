@@ -7,6 +7,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro
+import HsBindgen.IR.AddressStub (AddressStub)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.IR.PassingMethod (PassingMethod, ResPassingMethod)
@@ -24,8 +25,10 @@ type family AnnTranslateTypes ix where
   AnnTranslateTypes "Enum"                = NewtypeNames
   AnnTranslateTypes "IndirectField"       = IndirectFieldNames TranslateTypes
   AnnTranslateTypes "Flam"                = FlamNames
+  AnnTranslateTypes "Function"            = AddressStub
   AnnTranslateTypes "FunctionArg"         = PassingMethod TranslateTypes
   AnnTranslateTypes "FunctionRes"         = ResPassingMethod TranslateTypes
+  AnnTranslateTypes "Global"              = AddressStub
   AnnTranslateTypes "Struct"              = StructNames
   AnnTranslateTypes "Typedef"             = TypedefNames
   AnnTranslateTypes "TranslatedMacroType" = NewtypeNames
