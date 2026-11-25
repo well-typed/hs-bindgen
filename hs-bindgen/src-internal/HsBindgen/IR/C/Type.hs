@@ -51,6 +51,11 @@ module HsBindgen.IR.C.Type (
   , getFirstFunTypeIndirection
   , getOutermostFunType
 
+    -- * Reductions
+  , TypeLookup
+  , desugar
+  , dequalify
+
     -- * Classification
   , isVoid
   , isCanonicalTypeComplex
@@ -685,6 +690,107 @@ findOutermostFunType = go id
       TypeMacro{} -> Nothing
       TypeTypedef{} -> Nothing
       TypeExtBinding{} -> Nothing
+
+{-------------------------------------------------------------------------------
+  Reductions
+-------------------------------------------------------------------------------}
+
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/2376>: possibly use a
+-- better return type that dinstinguishes bewteen:
+-- * Failed to lookup an identifier
+-- * Looked up an identifier but it did not resolve to a type declaration
+-- * Success
+type TypeLookup p = Id p -> Maybe (Type p)
+
+-- | Desugar a type by erasing typedefs and macro types
+--
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/2376>: possibly use a
+-- better result type that dinstinguishes bewteen:
+-- * Failed to desugar (parts of) the input type
+-- * Succeeded to desugar the input type fully
+desugar ::
+     forall p. PassMacro p
+  => TypeLookup p
+  -> Type p
+  -> Type p
+desugar lu = go
+  where
+    p :: Proxy p
+    p = Proxy
+
+    go :: Type p -> Type p
+    go = \case
+      -- Interesting cases: references
+      ty@(TypeRef     ref) -> fromMaybe ty $ lu ref
+      ty@(TypeMacro   ref) -> fromMaybe ty $ lu (macroIdId p ref.name)
+      ty@TypeExtBinding{}  -> ty
+
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/2376>: remove
+      -- these types of references in favor of TypRef
+      ty@(TypeTypedef ref) -> fromMaybe ty $ lu ref.name
+      ty@TypeEnum{}        -> ty
+
+
+      -- Recursive cases
+      TypePointers   n    ty -> TypePointers   n    (go ty)
+      TypeConstArray n    ty -> TypeConstArray n    (go ty)
+      TypeIncompleteArray ty -> TypeIncompleteArray (go ty)
+      TypeBlock           ty -> TypeBlock           (go ty)
+      TypeQual       qual ty -> TypeQual       qual (go ty)
+
+      TypeFun sig -> TypeFun (bimap (desugarArg lu) go sig)
+
+      -- Base cases
+      TypePrim    pty -> TypePrim    pty
+      TypeComplex pty -> TypeComplex pty
+      TypeVoid        -> TypeVoid
+
+desugarArg ::
+     forall p. PassMacro p
+  => TypeLookup p
+  -> TypeFunArg p
+  -> TypeFunArg p
+desugarArg lu arg = TypeFunArgF {
+      typ = desugar lu arg.typ
+    , ann = arg.ann
+    }
+
+dequalify :: Type p -> Type p
+dequalify = go
+  where
+    go :: Type p -> Type p
+    go = \case
+      -- Interesting case: qualifiers
+      TypeQual _ ty -> go ty
+
+      -- Base cases: references
+      ty@TypeRef{}        -> ty
+      ty@TypeMacro{}      -> ty
+      ty@TypeExtBinding{} -> ty
+
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/2376>: remove
+      -- these types of references in favor of TypRef
+      ty@TypeTypedef{} -> ty
+      ty@TypeEnum{}    -> ty
+
+      -- Recursive cases
+      TypePointers   n    ty -> TypePointers   n    (go ty)
+      TypeConstArray n    ty -> TypeConstArray n    (go ty)
+      TypeIncompleteArray ty -> TypeIncompleteArray (go ty)
+      TypeBlock           ty -> TypeBlock           (go ty)
+
+      TypeFun sig -> TypeFun (bimap dequalifyArg go sig)
+
+      -- Base cases
+      TypePrim    pty -> TypePrim    pty
+      TypeComplex pty -> TypeComplex pty
+      TypeVoid        -> TypeVoid
+
+dequalifyArg :: TypeFunArg p -> TypeFunArg p
+dequalifyArg arg = TypeFunArgF {
+      typ = dequalify arg.typ
+    , ann = arg.ann
+    }
 
 {-------------------------------------------------------------------------------
   Classification: simple classifiers

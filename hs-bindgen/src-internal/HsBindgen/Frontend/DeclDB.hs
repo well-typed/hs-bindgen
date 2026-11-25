@@ -46,6 +46,8 @@ module HsBindgen.Frontend.DeclDB (
   , keysSet
   , getOmitted
   , getSquashed
+  , lookupCType
+  , desugarCType
   ) where
 
 import Prelude hiding (lookup)
@@ -76,7 +78,8 @@ import HsBindgen.Frontend.Pass.TranslateTypes.Error
 import HsBindgen.Frontend.Predicate (IsMainHeader)
 import HsBindgen.Imports hiding (toList)
 import HsBindgen.IR.C qualified as C
-import HsBindgen.IR.Pass (IsPass, coercePass)
+import HsBindgen.IR.Pass (IsPass, PassIdNamed (idDeclId), PassMacro,
+                          PassTypes (cType), coercePass)
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Error
 import HsBindgen.Macro.Interface qualified as Macro
@@ -923,3 +926,35 @@ getSquashed db targets = Map.mapMaybe onlySquashedTargetingSet db.entries
               C.declPathRealPath (singleLocPath info.loc)
       _otherwise ->
         Nothing
+
+-- | Look up what a C type reference desugars to
+lookupCType ::
+     forall l p. (PassIdNamed p, PassTypes p)
+  => DeclDB l p -> C.TypeLookup p
+lookupCType db = \declId -> case lookupEntry (idDeclId p declId) db of
+    Nothing -> Nothing
+    Just e  -> case e of
+      Active d      -> case d.kind of
+        C.DeclStruct{}               -> Nothing
+        C.DeclUnion{}                -> Nothing
+        C.DeclTypedef typedef        -> Just (cType p typedef.typ)
+        C.DeclEnum{}                 -> Nothing
+        C.DeclUntaggedEnumConstant{} -> Nothing
+        C.DeclOpaque{}               -> Nothing
+        -- TODO <https://github.com/well-typed/hs-bindgen/issues/2376>: also
+        -- desugar macro types, if possible
+        C.DeclMacro{}                -> Nothing
+        C.DeclFunction{}             -> Nothing
+        C.DeclGlobal{}               -> Nothing
+      Squashed{}    -> Nothing
+      External{}    -> Nothing
+      NotSelected{} -> Nothing
+      Unusable{}    -> Nothing
+  where
+    p = Proxy @p
+
+-- | Desugar a type by erasing typedefs and macro types
+desugarCType ::
+     (PassIdNamed p, PassMacro p, PassTypes p)
+  => DeclDB l p -> C.Type p -> C.Type p
+desugarCType db = C.desugar (lookupCType db)

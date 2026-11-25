@@ -15,6 +15,7 @@ module HsBindgen.IR.Pass (
     -- * Associated type families
   , IsPass
   , PassId(..)
+  , PassIdNamed(..)
   , PassScopedName(..)
   , PassTypes(..)
   , PassMacro(..)

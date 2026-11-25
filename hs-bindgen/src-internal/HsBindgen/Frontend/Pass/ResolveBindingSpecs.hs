@@ -396,17 +396,18 @@ applyPrescriptive decl cTypeSpec mHsTypeSpec = runMaybeT $ do
 -- | Size and alignment of an @emptydata@ type's underlying C type, when it can
 -- be determined at this pass.
 --
--- 'C.getCanonicalType' resolves typedef and macro-type references and strips
--- qualifiers, so a typedef to a struct or union surfaces as a 'C.TypeRef' to its
--- declaration, whose layout we recover via the declaration database.  Primitives,
--- pointers, and enums canonicalise to a type with no such reference and yield
--- 'Nothing', since their sizes are not available in this frontend pass.
+-- 'DeclDB.desugarCType' desugars typedef references and 'C.dequalify' strips
+-- qualifiers, so a typedef to a struct or union surfaces as a 'C.TypeRef' to
+-- its declaration, whose layout we recover via the declaration database.
+-- Primitives, pointers, and enums do not desugar to a type with such a
+-- reference and yield 'Nothing', since their sizes are not available in this
+-- frontend pass.
 underlyingOpaqueSize ::
      DeclDB l PreviousPass
   -> C.Type PreviousPass
   -> Maybe C.OpaqueSize
 underlyingOpaqueSize declDB ty =
-    case C.getCanonicalType ty of
+    case C.dequalify $ DeclDB.desugarCType declDB ty of
       C.TypeRef declId -> do
         decl <- DeclDB.lookup declId declDB
         case decl.kind of

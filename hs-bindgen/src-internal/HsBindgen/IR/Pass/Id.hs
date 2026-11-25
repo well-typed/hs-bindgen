@@ -9,6 +9,7 @@
 module HsBindgen.IR.Pass.Id (
     -- * Associated type families
     PassId(..)
+  , PassIdNamed(..)
     -- * Coercion
   , CoercePassId(..)
   ) where
@@ -60,6 +61,17 @@ class (
        Id p ~ C.DeclId
     => Proxy p -> Id p -> [SingleLoc C.DeclPath] -> C.LocationInfo
   idLocationInfo _ = C.declIdLocationInfo
+
+-- | Like 'PassId', but only for /named/ declarations
+--
+-- After 'HsBindgen.Frontend.Pass.FillUnnamedIds.IsPass.FillUnnamedIds', no
+-- /unnamed/ declarations will exist anymore. All pases after this can provide
+-- 'PassIdNamed' instances.
+class PassId p => PassIdNamed (p :: Pass) where
+  -- | The C declaration identifier
+  idDeclId :: Proxy p -> Id p -> C.DeclId
+  default idDeclId :: Id p ~ C.DeclId => Proxy p -> Id p -> C.DeclId
+  idDeclId _ = id
 
 {-------------------------------------------------------------------------------
   Coercion
