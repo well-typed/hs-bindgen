@@ -22,7 +22,8 @@ type family AnnReparseMacroExpansions (ix :: Symbol) :: Star where
 
 instance IsPass ReparseMacroExpansions
 
-instance PassId ReparseMacroExpansions
+instance PassId      ReparseMacroExpansions
+instance PassIdNamed ReparseMacroExpansions
 
 instance PassTypes ReparseMacroExpansions
 
