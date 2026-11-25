@@ -8,6 +8,7 @@ import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro (TranslatedMacro)
+import HsBindgen.IR.AddressStub (AddressStub)
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
 import HsBindgen.IR.PassingMethod (PassingMethod, ResPassingMethod)
@@ -24,8 +25,10 @@ type family AnnFunPtrInstances ix where
   AnnFunPtrInstances "Decl"                = PrescriptiveDeclSpec
   AnnFunPtrInstances "Enum"                = NewtypeNames
   AnnFunPtrInstances "Flam"                = FlamNames
+  AnnFunPtrInstances "Function"            = AddressStub
   AnnFunPtrInstances "FunctionArg"         = PassingMethod FunPtrInstances
   AnnFunPtrInstances "FunctionRes"         = ResPassingMethod FunPtrInstances
+  AnnFunPtrInstances "Global"              = AddressStub
   AnnFunPtrInstances "IndirectField"       = IndirectFieldNames FunPtrInstances
   AnnFunPtrInstances "Struct"              = StructNames
   AnnFunPtrInstances "Typedef"             = TypedefNames

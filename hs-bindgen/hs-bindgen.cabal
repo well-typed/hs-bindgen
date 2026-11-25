@@ -276,6 +276,7 @@ library internal
     HsBindgen.Guasi
     HsBindgen.Imports
     HsBindgen.Instances
+    HsBindgen.IR.AddressStub
     HsBindgen.IR.C
     HsBindgen.IR.C.Conflict
     HsBindgen.IR.C.Decl

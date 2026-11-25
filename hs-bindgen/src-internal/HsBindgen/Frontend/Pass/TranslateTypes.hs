@@ -27,6 +27,7 @@ import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translati
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.TranslationUnit qualified as C
 import HsBindgen.Imports
+import HsBindgen.IR.AddressStub
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.FunSig
 import HsBindgen.IR.Hs qualified as Hs
@@ -224,7 +225,11 @@ processFunction fun = do
       Right sig -> Right C.Function{
           sig   = sig
         , attrs = fun.attrs
-        , ann   = fun.ann
+        , ann   = AddressStub{
+              typ     = Hs.FunPtr $ Translation.funType $
+                          bimap (.typ.hs) (.typ.hs) sig
+            , ffiType = FFIType.pointerTo Translation.PointeeFunction
+            }
         }
 
 processFunctionArg ::
@@ -266,7 +271,10 @@ classified pos = runFFITypeM (TranslateTypesFunctionFFITypes pos)
 processGlobal :: C.Global MangleNames -> DM l (C.Global TranslateTypes)
 processGlobal global = pure C.Global{
       typ = processType Translation.Top global.typ
-    , ann = global.ann
+    , ann = AddressStub{
+          typ     = Translation.topLevel (C.TypePointers 1 global.typ)
+        , ffiType = FFIType.pointerTo (Translation.pointee global.typ)
+        }
     }
 
 {-------------------------------------------------------------------------------
