@@ -6,7 +6,59 @@ ctypes:
 - headers: types/typedefs/auxiliary/function-pointer/block.h
   cname: T
   hsname: T
+- headers: types/typedefs/auxiliary/function-pointer/block.h
+  cname: P
+  hsname: P
+- headers: types/typedefs/auxiliary/function-pointer/block.h
+  cname: Q
+  hsname: Q
 hstypes:
+- hsname: P
+  representation:
+    newtype:
+      constructor: P
+      fields:
+      - unwrapP
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Q
+  representation:
+    newtype:
+      constructor: Q
+      fields:
+      - unwrapQ
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: T
   representation:
     newtype:
