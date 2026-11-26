@@ -138,22 +138,22 @@ functionDecs safety decl originalC _spec = do
 -------------------------------------------------------------------------------}
 
 -- | Is the argument serialised?
-argSerialized :: C.FunctionArg Final -> Bool
+argSerialized :: C.FunctionArg Final -> Maybe Bool
 argSerialized arg = isSerialized arg.ann
 
 -- | Is the result serialised?
-resSerialized :: C.FunctionRes Final -> Bool
+resSerialized :: C.FunctionRes Final -> Maybe Bool
 resSerialized res = isResSerialized res.ann
 
 -- | Is an argument or the result serialised?
 anySerialized :: FunSig (C.FunctionArg Final) (C.FunctionRes Final) -> Bool
-anySerialized = biany argSerialized resSerialized
+anySerialized = biany (isJust . argSerialized) (isJust . resSerialized)
 
 -- | Types of an argument as they appear in @wrapperC@ and @wrapperImport@
 wrapperArgTypes :: C.FunctionArg Final -> TranslatedTypes Final
 wrapperArgTypes arg = case arg.ann of
-    PassDirect{}       -> Translated{c = arg.typ.c.typ, hs = arg.typ.hs}
-    PassSerialized ptr -> ptr
+    PassDirect{}         -> Translated{c = arg.typ.c.typ, hs = arg.typ.hs}
+    PassSerialized ptr _ -> ptr
 
 -- | Get the Haskell type of an argument/result as it is used in @restoreFun@
 class GetRestoreFunType a where
@@ -233,7 +233,7 @@ getWrapperCFunDefn wrapperName sig origName
             (PC.ExpressionStatement $ PC.Call origName (callArgs args' (PC.argsToIdx args')))
             PC.CSNil
 
-    | PassResNonVoid (PassSerialized ptr) <- sig.res.ann
+    | PassResNonVoid (PassSerialized ptr _) <- sig.res.ann
     = PC.withArgs sig.args $ \args' ->
         PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (fmap wrapperArgCType args' :> ptr.c) $
         PC.CSList $
@@ -253,7 +253,7 @@ getWrapperCFunDefn wrapperName sig origName
   where
     callArgs :: Env ctx' (C.FunctionArg Final) -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
     callArgs tys ids = toList (zipWithEnv f tys ids)
-      where f ty idx = if argSerialized ty then PC.DeRef (PC.Var idx) else PC.Var idx
+      where f ty idx = if isJust (argSerialized ty) then PC.DeRef (PC.Var idx) else PC.Var idx
 
     wrapperArgCType :: C.FunctionArg Final -> C.Type Final
     wrapperArgCType arg = (wrapperArgTypes arg).c
@@ -314,7 +314,7 @@ getWrapperImportDecl decl originalC safety wrapperCName runInIO = wrapperImport
                 }
             , ffiType = serializedFFIType
             }
-        | PassResNonVoid (PassSerialized ptr) <- [originalC.sig.res.ann]
+        | PassResNonVoid (PassSerialized ptr _) <- [originalC.sig.res.ann]
         ]
 
     -- Serialised results become parameters.
@@ -525,9 +525,9 @@ getRestoreFunBody originalC wrapperImportName =
           -> SHs.SExpr ctx
         go EmptyEnv EmptyEnv zs = kont (reverse zs) -- reverse again!
         go (xs :> x) (ys :> y) zs
-          | argSerialized x
+          | Just isPtrConst <- argSerialized x
           = SHs.eAppMany (SHs.eBindgenGlobal Capi_with) $
-              let wrapPtrConst = C.isErasedTypeConstQualified x.typ.c.typ in
+              let wrapPtrConst = isPtrConst in
               [ SHs.EBound y
               , SHs.ELam (mkNameHint x) $
                   go xs (IS <$> ys) (Var IZ wrapPtrConst : fmap succVar zs)
@@ -551,7 +551,11 @@ getRestoreFunBody originalC wrapperImportName =
       -> (forall ctx'. [Var ctx'] -> SHs.SExpr ctx')
       -> SHs.SExpr ctx
     passResultSerializedIfNecessary zs kont
-      | resSerialized originalC.sig.res
+      -- NOTE: we ignore whether the result is @const@-qualified. The C function
+      -- writes into the pointer, so we can't use @PtrConst@ here because the
+      -- contents of the pointer change. Pointer-to-const should never get their
+      -- contents changed.
+      | isJust $ resSerialized originalC.sig.res
       = let zs' = fmap succVar zs ++ [Var IZ False] in
         SHs.EApp
           (SHs.eBindgenGlobal Capi_allocaAndPeek)
@@ -618,7 +622,7 @@ mkNameHint arg =
       Just x  -> mangleCandidateDefaultFallback fallback x
   where
     fallback :: Hs.Name Hs.NsVar
-    fallback = Hs.UnsafeName $ if argSerialized arg then "ptr" else "x"
+    fallback = Hs.UnsafeName $ if isJust (argSerialized arg) then "ptr" else "x"
 
     toHint :: Hs.Name Hs.NsVar -> NameHint
     toHint n = NameHint $ T.unpack n.text
