@@ -375,7 +375,7 @@ enumDecs decl enum spec = do
                     }
               }
           , Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveVia (Hs.EquivStorable (Hs.TypRef nt.name Nothing))
+                strategy = Hs.DeriveVia (Hs.EquivStorable (Hs.TypRef nt.name))
               , clss     = Inst.Storable
               , name     = nt.name
               , comment  = Nothing
@@ -434,7 +434,7 @@ enumDecs decl enum spec = do
         valueDecls = [
               Hs.DeclPatSyn Hs.PatSyn{
                   name    = Hs.assertNs (Proxy @Hs.NsConstr) constant.info.name.hsName
-                , typ     = Hs.TypRef nt.name (Just nt.field.typ)
+                , typ     = Hs.TypRef nt.name
                 , constr  = Just nt.constr
                 , value   = constant.value
                 , origin  = Origin.EnumConstant constant

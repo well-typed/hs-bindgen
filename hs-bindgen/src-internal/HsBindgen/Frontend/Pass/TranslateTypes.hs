@@ -212,7 +212,7 @@ processMacroType macroType = do
       MacroTypeExtBinding ext ->
         Hs.ExtBinding ext.hsName ext.cSpec ext.hsSpec
       MacroTypeBodyVar pair ->
-        Hs.TypRef (Hs.assertNs (Proxy @Hs.NsTypeConstr) pair.hsName) Nothing
+        Hs.TypRef (Hs.assertNs (Proxy @Hs.NsTypeConstr) pair.hsName)
 
 processFunction ::
      C.Function MangleNames

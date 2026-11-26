@@ -100,19 +100,15 @@ typeInContext ctx = \case
     C.TypeRef ref ->
       Hs.TypRef
         (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.hsName)
-        Nothing
     C.TypeEnum ref ->
       Hs.TypRef
         (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
-        (Just $ typeInContext ctx ref.underlying)
     C.TypeMacro ref ->
       Hs.TypRef
         (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
-        (Just $ typeInContext ctx ref.underlying)
     C.TypeTypedef ref ->
       Hs.TypRef
         (Hs.assertNs (Proxy @Hs.NsTypeConstr) ref.name.hsName)
-        (Just $ typeInContext ctx ref.underlying)
     C.TypePointers n ty ->
       let innermost = case pointee ty of
             PointeeFunction    -> Hs.FunPtr

@@ -78,7 +78,7 @@ forInstance inst = concat [
     instHead :: Hs.Type
     instHead = case inst.head of
       HeadFunType        -> funType
-      HeadNewtype name _ -> Hs.TypRef name (Just funType)
+      HeadNewtype name _ -> Hs.TypRef name
 
     importFor :: ImportFor
     importFor = case inst.head of

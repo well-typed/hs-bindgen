@@ -68,7 +68,7 @@ getInstances instanceMap name = aux
       | otherwise = case hsType of
           Hs.PrimType primType ->
             aux (acc /\ getHsPrimTypeInsts primType) hsTypes
-          Hs.TypRef name' _
+          Hs.TypRef name'
             | Just name' == name -> aux acc hsTypes
             | otherwise -> case Map.lookup name' instanceMap of
                 Just instances -> aux (acc /\ instances) hsTypes

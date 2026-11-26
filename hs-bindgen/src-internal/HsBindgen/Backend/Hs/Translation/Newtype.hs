@@ -112,7 +112,7 @@ hasFieldCompatDecs nt =
     ]
   where
     parentType :: Hs.Type
-    parentType = Hs.TypRef nt.name (Just nt.field.typ)
+    parentType = Hs.TypRef nt.name
 
     hasFieldCompatDecl :: Hs.HasFieldCompatInstance
     hasFieldCompatDecl = Hs.HasFieldCompatInstance {
@@ -156,7 +156,7 @@ hasFieldPtrDecs nt = concat [
     ]
   where
     parentType :: Hs.Type
-    parentType = Hs.TypRef nt.name (Just nt.field.typ)
+    parentType = Hs.TypRef nt.name
 
     hasFieldPtrDecl :: Hs.HasFieldPtrInstance
     hasFieldPtrDecl = Hs.HasFieldPtrInstance{

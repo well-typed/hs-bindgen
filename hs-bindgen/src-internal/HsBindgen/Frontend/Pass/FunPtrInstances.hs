@@ -204,7 +204,7 @@ processFunType hd loc sig = do
     funType = translateFunType sig
 
     key :: Hs.Type
-    key = eraseUnderlying $ funTypeHs funType
+    key = funTypeHs funType
 
 -- | May this module define the instances with this head for the function type?
 --
@@ -313,39 +313,6 @@ classified ::
   -> Classified a
   -> M l (Either FunPositionError a)
 classified loc pos = runFFITypeM (FunPtrInstancesFFITypes loc pos)
-
--- | Erase the underlying types of references
---
--- The generated code renders a reference by its name only, so two types that
--- differ only in the underlying types of their references give the same
--- instance. For example, with @typedef struct S S;@ squashed, a use of the
--- typedef translates to @TypRef "S" (Just (TypRef "S" Nothing))@, and a use
--- of @struct S@ to @TypRef "S" Nothing@.
---
--- TODO <https://github.com/well-typed/hs-bindgen/issues/2376>: remove with the
--- underlying types, and key 'seen' by 'FunPtrInstance'
-eraseUnderlying :: Hs.Type -> Hs.Type
-eraseUnderlying = \case
-    Hs.PrimType t             -> Hs.PrimType t
-    Hs.TypRef name _          -> Hs.TypRef name Nothing
-    Hs.ConstArray n t         -> Hs.ConstArray n (eraseUnderlying t)
-    Hs.IncompleteArray t      -> Hs.IncompleteArray (eraseUnderlying t)
-    Hs.PtrArrayElem t         -> Hs.PtrArrayElem (eraseUnderlying t)
-    Hs.PtrConstArrayElem t    -> Hs.PtrConstArrayElem (eraseUnderlying t)
-    Hs.Ptr t                  -> Hs.Ptr (eraseUnderlying t)
-    Hs.FunPtr t               -> Hs.FunPtr (eraseUnderlying t)
-    Hs.PtrConst t             -> Hs.PtrConst (eraseUnderlying t)
-    Hs.IO t                   -> Hs.IO (eraseUnderlying t)
-    Hs.Fun a b                -> Hs.Fun (eraseUnderlying a) (eraseUnderlying b)
-    Hs.ExtBinding ref c hs    -> Hs.ExtBinding ref c hs
-    Hs.ByteArray              -> Hs.ByteArray
-    Hs.SizedByteArray n m     -> Hs.SizedByteArray n m
-    Hs.Block t                -> Hs.Block (eraseUnderlying t)
-    Hs.ComplexType t          -> Hs.ComplexType t
-    Hs.StrLit str             -> Hs.StrLit str
-    Hs.WithFlam a b           -> Hs.WithFlam (eraseUnderlying a) (eraseUnderlying b)
-    Hs.EquivStorable t        -> Hs.EquivStorable (eraseUnderlying t)
-    Hs.IsStructViaReadRaw t   -> Hs.IsStructViaReadRaw (eraseUnderlying t)
 
 -- | An argument of a function type, which has no name
 argPosition :: Int -> FunPosition
