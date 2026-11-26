@@ -2,6 +2,9 @@
 module HsBindgen.Backend.Hs.Translation (
     generateDeclarations
   , Hs.InstanceMap
+    -- * Predicting the output
+  , callbackCategory
+  , declCategories
   ) where
 
 import Control.Monad.Reader qualified as Reader
@@ -208,6 +211,29 @@ generateDecs funPtrNewtypes decl =
       -> m (HsM.Action [a])
       -> m (HsM.Action [WithCategory a])
     withCategoryM c = fmap (withCategory c)
+
+-- | The categories in which 'generateDecs' puts the declarations of a C
+-- declaration
+--
+-- 'generateDecs' generates at least one declaration in each of these
+-- categories, and none in any other. Library mode uses this to predict which
+-- modules it writes, so the two functions must agree.
+--
+-- The @ToFunPtr@ and @FromFunPtr@ instances are not among them:
+-- 'generateDeclarations' puts the instances it is given in 'callbackCategory'.
+declCategories :: C.Decl l Final -> Set Category
+declCategories decl =
+    case decl.kind of
+      C.DeclStruct{}               -> Set.singleton CType
+      C.DeclUnion{}                -> Set.singleton CType
+      C.DeclEnum{}                 -> Set.singleton CType
+      C.DeclUntaggedEnumConstant{} -> Set.singleton CType
+      C.DeclTypedef{}              -> Set.singleton CType
+      C.DeclOpaque{}               -> Set.singleton CType
+      C.DeclFunction{}             -> Set.fromList $
+          map CTerm [CSafe, CUnsafe, CFunPtr]
+      C.DeclMacro{}                -> Set.singleton CType
+      C.DeclGlobal{}               -> Set.singleton (CTerm CGlobal)
 
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum
