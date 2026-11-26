@@ -1,5 +1,6 @@
 module HsBindgen (
     hsBindgenMacroLang
+  , ExecutionMode(..)
 
     -- * Artefacts
   , Artefact(..)
@@ -15,6 +16,9 @@ module HsBindgen (
   , writeBindingsMultiple
   , writeBindingSpec
   , writeTests
+  , ModuleHeaders(..)
+  , moduleHeaders
+  , getModuleHeaders
 
     -- ** Low-level artefacts
   , getConfig
@@ -41,12 +45,14 @@ module HsBindgen (
 import Control.Exception (Exception (..), catch)
 import Control.Monad.Except (MonadError (..), withExceptT)
 import Control.Monad.Trans.Except (runExceptT)
+import Data.Containers.ListUtils (nubOrdOn)
 import Data.Map qualified as Map
 import Data.Set qualified as Set
 import System.Exit (ExitCode (..), exitWith)
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.CStandard
+import Clang.HighLevel.Types (singleLocPath)
 import Clang.Paths
 
 import HsBindgen.Artefact
@@ -96,11 +102,12 @@ hsBindgenMacroLang ::
   -> TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
+  -> ExecutionMode
   -> [C.UncheckedRootDirective]
   -> Artefact l a
   -> IO a
-hsBindgenMacroLang mkMacroLang tu ts b i a = do
-    eRes <- hsBindgenEMacroLang mkMacroLang tu ts b i a `catch` \e ->
+hsBindgenMacroLang mkMacroLang tu ts b m i a = do
+    eRes <- hsBindgenEMacroLang mkMacroLang tu ts b m i a `catch` \e ->
       case fromException e of
         Just (LibclangException msg) -> do
           print $ PP.string msg
@@ -123,6 +130,7 @@ hsBindgenEMacroLang ::
   -> TracerConfig Level     TraceMsg
   -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
+  -> ExecutionMode
   -> [C.UncheckedRootDirective]
   -> Artefact l a
   -> IO (Either BindgenError a)
@@ -131,6 +139,7 @@ hsBindgenEMacroLang
   tracerConfigUnsafe
   tracerConfigSafe
   config
+  executionMode
   uncheckedRootDirectives
   artefacts = do
     eRes <- withTracer tracerConfigUnsafe $ \tracerUnsafe -> do
@@ -171,7 +180,7 @@ hsBindgenEMacroLang
           -- Before creating directories or writing output files, we verify
           -- adherence to the provided policies.
           withExceptT BindgenDelayedIOError $ mapM_ checkPolicy as
-          liftIO $ executeDelayedIOActions tracerSafe as
+          liftIO $ executeDelayedIOActions tracerSafe executionMode as
           pure r
 
 {-------------------------------------------------------------------------------
@@ -359,6 +368,53 @@ writeTests _testDir = do
     --     moduleBaseName
     --     testDir
     throwPure_TODO 22 "Test generation integrated into the artefact API"
+
+-- | A module and the headers its bindings come from
+--
+data ModuleHeaders = ModuleHeaders {
+      moduleName :: BaseModuleName
+      -- | Each header as it was @#include@d, ordered by its first binding in
+      -- the module
+    , headers    :: [C.HashIncludeArg]
+    }
+  deriving stock (Show, Eq)
+
+-- | The headers of a module, from the declarations it has bindings for
+--
+-- The caller decides which declarations make up the module, and passes them in
+-- the order of the module's bindings. Each header that contains one of them is
+-- listed once, spelled as it was @#include@d, where its first binding is.
+-- Macros defined by root directives or @-D@ options are in no header, so the
+-- list can be empty.
+moduleHeaders :: BaseModuleName -> [C.Decl l Final] -> ModuleHeaders
+moduleHeaders name decls = ModuleHeaders{
+      moduleName = name
+    , headers    = map snd $ nubOrdOn fst headerArgs
+    }
+  where
+    -- All declarations in a header have the same include argument, so it does
+    -- not matter which one 'nubOrdOn' keeps.
+    headerArgs :: [(RealPath, C.HashIncludeArg)]
+    headerArgs = [
+        (path, info.includeArg)
+      | decl <- decls
+      , C.InHeader path   <- [singleLocPath decl.info.loc]
+      , C.FromHeader info <- [decl.info.origin]
+      ]
+
+-- | The module of this run and its headers
+--
+-- Passes every reified declaration to 'moduleHeaders', since each one has a
+-- binding in the module: the CLI always generates at least one category of
+-- binding for every kind of declaration. 'Nothing' if there is nothing to bind.
+getModuleHeaders :: Artefact l (Maybe ModuleHeaders)
+getModuleHeaders = do
+    name  <- ModuleBaseName
+    decls <- getReifiedC
+    pure $
+      if null decls
+        then Nothing
+        else Just $ moduleHeaders name decls
 
 {-------------------------------------------------------------------------------
   Low-level artefacts

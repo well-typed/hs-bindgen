@@ -358,6 +358,7 @@ runTestHsBindgen report getTestResources test artefacts = do
             traceConfigUnsafe
             quietTracerConfig
             bindgenConfig
+            RealRun
             (testInputDirectives test)
             ((,) <$> artefacts <*> DeclDB.checkFrontend)
     case eRes of
