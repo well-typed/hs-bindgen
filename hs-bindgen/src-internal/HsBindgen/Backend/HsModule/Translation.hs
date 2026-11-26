@@ -9,6 +9,7 @@ module HsBindgen.Backend.HsModule.Translation (
   , resolveDeclExports
     -- * HsModule
   , HsModule(..)
+  , withModuleDoc
     -- * Translation
   , translateModuleMultiple
   , translateModuleSingle
@@ -99,6 +100,8 @@ data ExportItem =
 -- | Haskell module
 data HsModule = HsModule {
       pragmas        :: [GhcPragma]
+      -- | The Haddock of the module itself, above the module header
+    , moduleDoc      :: Maybe HsDoc.Comment
     , name           ::  Hs.ModuleName
     , exports        :: [ExportEntry]
     , imports        :: [ImportListItem]
@@ -108,6 +111,12 @@ data HsModule = HsModule {
     , cWrappers      :: [CWrapper]
     , decls          :: [SDecl]
     }
+
+-- | Give a module its own Haddock
+--
+-- Library mode documents its vendor module this way.
+withModuleDoc :: HsDoc.Comment -> HsModule -> HsModule
+withModuleDoc doc m = m{moduleDoc = Just doc}
 
 {-------------------------------------------------------------------------------
   Translation
@@ -153,6 +162,7 @@ translateModule' ::
 translateModule' fns mrc dirs mcat moduleBaseName resolveExports (cWrappers, decs) =
     HsModule{
         pragmas        = resolvePragmas fns mrc.qualifiedStyle cWrappers decs
+      , moduleDoc      = Nothing
       , exports        = resolveExports decs
       , imports        = resolveImports moduleBaseName mcat cWrappers decs
       , name           = fromBaseModuleName moduleBaseName mcat
