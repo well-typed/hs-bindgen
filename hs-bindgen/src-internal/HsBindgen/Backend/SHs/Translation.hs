@@ -367,7 +367,7 @@ translateHsPrimType = \case
 translateType :: Hs.Type -> ClosedType
 translateType = \case
     Hs.PrimType t           -> translateHsPrimType t
-    Hs.TypRef r _           -> TCon r
+    Hs.TypRef r             -> TCon r
     Hs.ConstArray n t       -> tBindgenGlobal ConstantArray_type `TApp` TLit n `TApp` (translateType t)
     Hs.IncompleteArray t    -> tBindgenGlobal IncompleteArray_type `TApp` (translateType t)
     Hs.PtrArrayElem t       -> tBindgenGlobal Foreign_Ptr_type `TApp` (tBindgenGlobal IsArray_Elem `TApp` translateType t)

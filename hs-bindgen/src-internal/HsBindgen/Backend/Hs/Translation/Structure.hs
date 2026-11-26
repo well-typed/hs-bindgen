@@ -104,7 +104,7 @@ getDeclsFlam flam auxName spec decl struct = do
         Hs.TypSyn{
             name
           , typ     =
-              Hs.WithFlam flam.typ.hs (Hs.TypRef auxName Nothing)
+              Hs.WithFlam flam.typ.hs (Hs.TypRef auxName)
           , origin  = Origin.Decl{
               info = decl.info
             , id   = decl.id
@@ -221,7 +221,7 @@ getDecls supInsts spec structName decl struct insts =
                   }
             , if hasStaticSize && hasReadRaw && hasWriteRaw
                 then Just $ Hs.DeclDeriveInstance Hs.DeriveInstance{
-                    strategy = Hs.DeriveVia (Hs.EquivStorable (Hs.TypRef structName Nothing))
+                    strategy = Hs.DeriveVia (Hs.EquivStorable (Hs.TypRef structName))
                   , clss     = Inst.Storable
                   , name     = structName
                   , comment  = Nothing
@@ -266,7 +266,7 @@ getDecls supInsts spec structName decl struct insts =
     isStructDecl :: [Hs.Decl l]
     isStructDecl = [
           Hs.DeclDeriveInstance Hs.DeriveInstance{
-              strategy = Hs.DeriveVia (Hs.IsStructViaReadRaw (Hs.TypRef hsStruct.name Nothing))
+              strategy = Hs.DeriveVia (Hs.IsStructViaReadRaw (Hs.TypRef hsStruct.name))
             , clss     = Inst.IsStruct
             , name     = hsStruct.name
             , comment  = Nothing
@@ -322,7 +322,7 @@ hasFieldDecs info struct field = case field of
     fieldComment = mkHaddocksFieldInfo info (getFieldInfo field)
 
     parentType :: Hs.Type
-    parentType = Hs.TypRef struct.name Nothing
+    parentType = Hs.TypRef struct.name
 
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
@@ -373,7 +373,7 @@ hasFieldCompatDecs info struct field = [
     fieldComment = mkHaddocksFieldInfo info (getFieldInfo field)
 
     parentType :: Hs.Type
-    parentType = Hs.TypRef struct.name Nothing
+    parentType = Hs.TypRef struct.name
 
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
@@ -424,7 +424,7 @@ hasFieldPtrDecs struct field =
     ]
   where
     parentType :: Hs.Type
-    parentType = Hs.TypRef struct.name Nothing
+    parentType = Hs.TypRef struct.name
 
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
@@ -457,7 +457,7 @@ hasCFieldDecs struct field = case getFieldWidth field of
       ]
   where
     parentType :: Hs.Type
-    parentType = Hs.TypRef struct.name Nothing
+    parentType = Hs.TypRef struct.name
 
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
@@ -487,7 +487,7 @@ hasCBitfieldDecs struct field = case getFieldWidth field of
       ]
   where
     parentType :: Hs.Type
-    parentType = Hs.TypRef struct.name Nothing
+    parentType = Hs.TypRef struct.name
 
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName

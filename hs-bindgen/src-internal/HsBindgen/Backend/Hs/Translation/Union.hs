@@ -126,7 +126,7 @@ unionDecs decl union spec = do
               , comment  = Nothing
               }
           , Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveVia (Hs.EquivStorable (Hs.TypRef nt.name Nothing))
+                strategy = Hs.DeriveVia (Hs.EquivStorable (Hs.TypRef nt.name))
               , clss     = Inst.Storable
               , name     = nt.name
               , comment  = Nothing
@@ -191,7 +191,7 @@ hasFieldDecs st info union field =
     fieldComment = mkHaddocksFieldInfo info (getFieldInfo field)
 
     parentType :: Hs.Type
-    parentType = Hs.TypRef union.name Nothing
+    parentType = Hs.TypRef union.name
 
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
@@ -263,7 +263,7 @@ hasFieldCompatDecs st info union field =
     fieldComment = mkHaddocksFieldInfo info (getFieldInfo field)
 
     parentType :: Hs.Type
-    parentType = Hs.TypRef union.name Nothing
+    parentType = Hs.TypRef union.name
 
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
@@ -319,7 +319,7 @@ hasFieldPtrDecs union field =
     ]
   where
     parentType :: Hs.Type
-    parentType = Hs.TypRef union.name Nothing
+    parentType = Hs.TypRef union.name
 
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
@@ -352,7 +352,7 @@ hasCFieldDecs union field = case getFieldWidth field of
       ]
   where
     parentType :: Hs.Type
-    parentType = Hs.TypRef union.name Nothing
+    parentType = Hs.TypRef union.name
 
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
@@ -382,7 +382,7 @@ hasCBitfieldDecs union field = case getFieldWidth field of
       ]
   where
     parentType :: Hs.Type
-    parentType = Hs.TypRef union.name Nothing
+    parentType = Hs.TypRef union.name
 
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.assertNs (Proxy @Hs.NsVar) (getFieldInfo field).name.hsName
