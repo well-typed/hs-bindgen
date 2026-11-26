@@ -60,6 +60,7 @@ runBackend tracer config boot frontend = do
       let (decls, _instanceMap) = Hs.generateDeclarations
             config.backend.uniqueId
             boot.baseModule
+            DoNotGenerateHsBoot
             mempty
             insts
             cDecls

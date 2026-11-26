@@ -17,6 +17,8 @@ module HsBindgen.Backend.Category (
   , useSafeCategory
   , useUnsafeCategory
   , useFunPtrCategory
+    -- * Boot files
+  , HsBootPolicy(..)
   ) where
 
 import Data.Functor.Const (Const (..))
@@ -25,6 +27,24 @@ import Optics.Iso (Iso')
 
 import HsBindgen.Backend.Level
 import HsBindgen.Imports hiding (toList)
+
+{-------------------------------------------------------------------------------
+  Boot files
+-------------------------------------------------------------------------------}
+
+-- | Whether to generate a boot file for a types module
+--
+-- With 'GenerateHsBoot', a types module gets a boot file, and the code behind
+-- its callbacks goes to a callback module. With 'DoNotGenerateHsBoot', that
+-- code stays in the types module and there is no boot file.
+--
+-- In library mode, the plan sets this per unit: 'GenerateHsBoot' for a unit
+-- whose header is in an import cycle, 'DoNotGenerateHsBoot' for every other.
+-- Single-header mode always uses 'DoNotGenerateHsBoot'.
+data HsBootPolicy =
+    GenerateHsBoot
+  | DoNotGenerateHsBoot
+  deriving stock (Show, Eq, Generic)
 
 data TermCategory =
     -- | The code behind callbacks: the @"wrapper"@ and @"dynamic"@ imports, the

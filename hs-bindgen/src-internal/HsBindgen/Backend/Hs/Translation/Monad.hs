@@ -25,6 +25,7 @@ module HsBindgen.Backend.Hs.Translation.Monad (
 import Control.Monad.Reader
 import Control.Monad.State.Lazy
 
+import HsBindgen.Backend.Category (HsBootPolicy (..))
 import HsBindgen.Backend.Hs.Translation.Instances
 import HsBindgen.Config.Prelims
 import HsBindgen.Imports
@@ -55,18 +56,21 @@ data Env = Env {
     uniqueId           :: UniqueId
   , baseModuleName     :: BaseModuleName
   , supportedInstances :: Inst.SupportedInstances
+  , hsBootPolicy       :: HsBootPolicy
   }
 
 initEnv ::
      UniqueId
   -> BaseModuleName
   -> Inst.SupportedInstances
+  -> HsBootPolicy
   -> Env
-initEnv uniqueId baseModuleName supportedInstances =
+initEnv uniqueId baseModuleName supportedInstances hsBootPolicy =
     Env {
         uniqueId = uniqueId
       , baseModuleName = baseModuleName
       , supportedInstances = supportedInstances
+      , hsBootPolicy = hsBootPolicy
       }
 
 {-------------------------------------------------------------------------------

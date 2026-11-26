@@ -76,11 +76,12 @@ import Doxygen.Parser.Types qualified as Doxy
 generateDeclarations ::
      UniqueId
   -> BaseModuleName
+  -> HsBootPolicy
   -> Hs.InstanceMap
   -> [FunPtrInstance] -- ^ In output order
   -> [C.Decl l Final]
   -> (ByCategory_ [Hs.Decl l], Hs.InstanceMap)
-generateDeclarations uniqueId name instanceMap0 insts =
+generateDeclarations uniqueId name hsBootPolicy instanceMap0 insts =
       first (fmap reverse . foldl' partitionBindingCategories mempty)
     . generateDeclarations' env instanceMap0 insts
   where
@@ -93,13 +94,31 @@ generateDeclarations uniqueId name instanceMap0 insts =
     supInsts = def
 
     env :: HsM.Env
-    env = HsM.initEnv uniqueId name supInsts
+    env = HsM.initEnv uniqueId name supInsts hsBootPolicy
 
 -- | Internal. Top-level declaration with foreign import category.
 data WithCategory a = WithCategory {
     _withCategoryCategory :: Category
   , _withCategoryDecl     :: a
   } deriving (Show)
+
+-- | The declarations behind a callback, each with its category
+--
+-- With 'GenerateHsBoot', both the conversion code and the @ToFunPtr@ and
+-- @FromFunPtr@ instances go to 'CCallback'. With 'DoNotGenerateHsBoot',
+-- everything stays in 'CType'.
+callbackDecls ::
+     HsM.Env
+  -> [Hs.Decl l]
+  -> [WithCategory (Hs.Decl l)]
+callbackDecls env =
+    map (WithCategory (callbackCategory env.hsBootPolicy))
+
+-- | The category of the declarations behind a callback (see 'callbackDecls')
+callbackCategory :: HsBootPolicy -> Category
+callbackCategory = \case
+    GenerateHsBoot      -> CTerm CCallback
+    DoNotGenerateHsBoot -> CType
 
 generateDeclarations' ::
      HsM.Env
@@ -109,11 +128,12 @@ generateDeclarations' ::
   -> ([WithCategory (Hs.Decl l)], Hs.InstanceMap)
 generateDeclarations' env instanceMap0 insts decs =
     HsM.runHsM env instanceMap0 $ do
-      let -- In the main module, to avoid orphan instances
+      let -- In the types module, to avoid orphan instances, or with boot
+          -- files in the callback module (see 'callbackDecls')
           fFIStubsAndFunPtrInstances =
-                   [ WithCategory CType d
+                   [ d
                    | inst <- insts
-                   , d <- ToFromFunPtr.forInstance inst
+                   , d <- callbackDecls env $ ToFromFunPtr.forInstance inst
                    ]
       hsDeclsAction <- mapM (generateDecs funPtrNewtypes) decs
       hsDecls <- HsM.runAction $ fmap concat $ sequence hsDeclsAction

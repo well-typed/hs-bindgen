@@ -285,7 +285,7 @@ writeBindingsSingle mrc filePolicy dirPolicy hsOutputDir = do
 
     write filePolicy dirPolicy "bindings" location bindings
 
--- | Get bindings (one module per binding category).
+-- | Get bindings (one module per binding category)
 getBindingsMultiple :: ModuleRenderConfig -> Artefact l (ByCategory_ (Maybe String))
 getBindingsMultiple mrc = do
     name   <- ModuleBaseName
@@ -296,8 +296,16 @@ getBindingsMultiple mrc = do
       EmitTrace $ NoBindingsMultipleModules name
     config <- getConfig
     let fns = config.frontend.fieldNamingStrategy
-    pure $ fmap render <$>
-      translateModuleMultiple fns mrc dirs name (resolveExports tags) decls
+    pure $ fmap (render . fst) <$>
+      translateModuleMultiple
+        fns
+        mrc
+        DoNotGenerateHsBoot
+        dirs
+        name
+        []
+        (resolveExports tags)
+        decls
 
 -- | Write bindings to files in provided output directory.
 --
