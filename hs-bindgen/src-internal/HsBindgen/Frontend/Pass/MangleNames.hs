@@ -102,6 +102,19 @@ mangleNames lookupModule fieldNaming unit = (
         (panicPure $ "mangleNames: no module for " ++ show declId)
         (lookupModule declId)
 
+    -- Whether two declarations end up in the same module, where their Haskell
+    -- names could clash.
+    --
+    -- The analysis can also ask about tags that are not active. In
+    -- @struct foo { long double x; }; typedef struct foo *foo;@, the struct
+    -- failed to parse, so it has no module. A prescriptive binding
+    -- specification that omits @struct foo@ has the same effect. That's why
+    -- 'lookupModule' is used.
+    placedTogether :: C.DeclId -> C.DeclId -> Bool
+    placedTogether a b = case (lookupModule a, lookupModule b) of
+        (Just moduleA, Just moduleB) -> moduleA == moduleB
+        _otherwise                   -> False
+
     -- The module of a typedef squashed into a type.
     --
     -- That type has no module when it is unusable, or when a prescriptive
@@ -115,7 +128,7 @@ mangleNames lookupModule fieldNaming unit = (
         fromMaybe (moduleOf typedefId) (lookupModule targetId)
 
     typedefAnalysis :: TypedefAnalysis.TypedefAnalysis
-    typedefAnalysis = TypedefAnalysis.fromDecls unit.db.declUseGraph decls
+    typedefAnalysis = TypedefAnalysis.fromDecls placedTogether unit.db.declUseGraph decls
 
     mangleCandidateConfig :: MangleCandidate Maybe
     mangleCandidateConfig = MangleCandidate.mangleCandidateDefault
@@ -138,8 +151,9 @@ mangleNames lookupModule fieldNaming unit = (
       ]
 
     -- The module that defines the Haskell name of a declaration: its own
-    -- module, or 'squashedModule' for a squashed typedef. A reference to it
-    -- imports that module. Used by 'resolveNames'.
+    -- module, or 'squashedModule' for a squashed typedef. A name can only
+    -- clash with the names of that module, and a reference to it imports that
+    -- module. Used by 'detectClashes' and 'resolveNames'.
     nameModule :: C.DeclId -> Hs.ModuleName
     nameModule dId = case Map.lookup dId squashTargets of
         Just targetId -> squashedModule dId targetId
@@ -148,7 +162,7 @@ mangleNames lookupModule fieldNaming unit = (
     -- Traversal 2: detect clashes among all names.
     registry  :: NameRegistry
     failures2 :: [MangleNamesFailure]
-    (registry, failures2) = detectClashes fieldNaming nameMap declsC
+    (registry, failures2) = detectClashes nameModule fieldNaming nameMap declsC
 
     dropped :: Set C.DeclId
     dropped = Set.fromList $ map (.id) failures2
