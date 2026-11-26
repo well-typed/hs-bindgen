@@ -264,6 +264,13 @@ import Doxygen.Parser (Doxygen, DoxygenException (..), Result (..),
 --   instances only if one of their types is selected, and messages concern
 --   selected declarations only. Nothing depends on the instances, so no
 --   declaration needs to fail here.
+--
+-- = Doxygen
+--
+-- Doxygen reads the main headers. It also reads every header the run reaches
+-- under one of the library directories, so in library mode a header gets its
+-- comments even when an umbrella header includes it. Single-header mode passes
+-- no library directories, and Doxygen reads only the main headers.
 runFrontend ::
      forall l. (Macro.HasTypes l, HasCallStack)
   => Tracer FrontendMsg
@@ -288,11 +295,18 @@ runFrontend tracer config libraryDirs boot = do
         canonicalLibraryDirs <- mapM canonicalizePath libraryDirs
         let isLibraryHeader path =
               isJust (findLibraryDir canonicalLibraryDirs path)
-        -- Run doxygen on the resolved main header paths to extract
-        -- structured comments.  The paths come from clang's own include
-        -- resolution (via processIncludes), so no separate path search
-        -- is needed.
-        let resolvedPaths = map getRealPath mainHeaderPaths
+        -- Run doxygen on the resolved main header paths, and on the library
+        -- headers that the run reaches, to extract structured comments.  The
+        -- paths come from clang's own include resolution (via
+        -- processIncludes), so no separate path search is needed.
+        let libraryHeaderPaths = [
+                path
+              | path <- IncludeGraph.toSortedList includeGraph
+              , isLibraryHeader path
+              , not (isMainHeader path)
+              ]
+            resolvedPaths =
+              map getRealPath (mainHeaderPaths ++ libraryHeaderPaths)
             emptyResult   = Result {
                 doxygen = emptyDoxygen, warnings = [], doxygenVersion = "unknown"
               }

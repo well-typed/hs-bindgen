@@ -153,7 +153,7 @@ type IsLibraryHeader = RealPath -> Bool
 -- | Find which library directory (if any) contains the given header
 --
 -- The directories must be canonicalized, as the header path is. Library mode
--- uses this to place declarations.
+-- uses this to place declarations and to choose the headers Doxygen reads.
 --
 findLibraryDir :: [FilePath] -> RealPath -> Maybe FilePath
 findLibraryDir dirs header =
