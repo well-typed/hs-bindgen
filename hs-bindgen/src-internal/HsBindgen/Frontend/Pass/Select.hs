@@ -138,10 +138,30 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
               entry ->
                 MissingUnusable <$> DeclDB.getUnusable entry
 
+            -- A typedef squashed into a selected type is not missing.
+            -- Selecting only b.h in
+            --
+            -- > // a.h
+            -- > typedef struct S S;
+            -- >
+            -- > // b.h
+            -- > #include "a.h"
+            -- > struct S { int x; };
+            -- > struct T { S *s; };
+            --
+            -- keeps struct T, whose field has type @Ptr S@, although the
+            -- typedef in a.h is not selected.
             outsideSelection :: Map C.DeclId MissingReason
             outsideSelection =
               Map.fromSet (const $ MissingNotSelected Deselected) $
-                transDeps \\ selectedIds
+                Set.filter (not . isSquashedIntoSelected) $
+                  transDeps \\ selectedIds
+
+            isSquashedIntoSelected :: C.DeclId -> Bool
+            isSquashedIntoSelected y =
+              case Map.lookup y declDB.entries of
+                Just (Squashed _ target) -> target.c `Set.member` selectedIds
+                _otherwise               -> False
 
             missingReasons :: Map C.DeclId MissingReason
             missingReasons =
