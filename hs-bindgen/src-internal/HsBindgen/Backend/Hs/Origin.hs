@@ -55,7 +55,11 @@ data Newtype =
     Enum    (C.Enum              Final)
   | Typedef (C.Typedef           Final)
   | Union   (C.Union             Final)
-  | Aux     (C.Typedef           Final)
+    -- | Auxiliary newtype of a typedef with a function type behind
+    -- indirections
+    --
+    -- Carries no declaration: the newtype has no C counterpart.
+  | Aux
   | Macro   (TranslatedMacroType Final)
 
 deriving stock instance Show Newtype
@@ -85,4 +89,3 @@ data Field =
     GeneratedField  -- ^ Field without a direct counterpart in C
   | StructField (C.Field Final)
   deriving stock (Generic, Show)
-

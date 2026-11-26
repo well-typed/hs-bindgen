@@ -232,7 +232,7 @@ analyseIndirectField _declId _field =
     []
 
 analyseTypedef :: C.PrelimDeclId -> C.Typedef Parse -> [(C.UnnamedId, Context)]
-analyseTypedef declId typedef = analyseType (TypedefDirect declId) typedef.typ
+analyseTypedef declId typedef = analyseType (TypedefDirect declId) (C.typedefType typedef.typ)
 
 analyseGlobal :: C.PrelimDeclId -> C.Type Parse -> [(C.UnnamedId, Context)]
 analyseGlobal declId = analyseType (GlobalVar declId)

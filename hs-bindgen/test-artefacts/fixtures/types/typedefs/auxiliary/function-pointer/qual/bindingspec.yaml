@@ -6,7 +6,59 @@ ctypes:
 - headers: types/typedefs/auxiliary/function-pointer/qual.h
   cname: T
   hsname: T
+- headers: types/typedefs/auxiliary/function-pointer/qual.h
+  cname: P
+  hsname: P
+- headers: types/typedefs/auxiliary/function-pointer/qual.h
+  cname: A
+  hsname: A
 hstypes:
+- hsname: A
+  representation:
+    newtype:
+      constructor: A
+      fields:
+      - unwrapA
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: P
+  representation:
+    newtype:
+      constructor: P
+      fields:
+      - unwrapP
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: T
   representation:
     newtype:

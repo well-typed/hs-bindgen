@@ -359,7 +359,7 @@ applyPrescriptive decl cTypeSpec mHsTypeSpec = runMaybeT $ do
             C.DeclStruct s    -> (True, Just (C.OpaqueSize s.sizeof s.alignment))
             C.DeclUnion  u    -> (True, Just (C.OpaqueSize u.sizeof u.alignment))
             C.DeclEnum   e    -> (True, Just (C.OpaqueSize e.sizeof e.alignment))
-            C.DeclTypedef td  -> (True, underlyingOpaqueSize declDB td.typ)
+            C.DeclTypedef td  -> (True, underlyingOpaqueSize declDB (C.typedefType td.typ))
             C.DeclOpaque m    -> (True, m)
             C.DeclMacro macro -> case macro of
               MacroType{}  -> (True,  Nothing)
@@ -612,9 +612,12 @@ instance Resolve C.UntaggedEnumConstant l where
 
 instance Resolve C.Typedef l where
   resolve ctx typedef =
-      reconstruct <$> resolve ctx typedef.typ
+      reconstruct
+        <$> C.traverseTypedefType (resolve ctx) (resolve ctx) typedef.typ
     where
-      reconstruct :: C.Type ResolveBindingSpecs -> C.Typedef ResolveBindingSpecs
+      reconstruct ::
+           C.TypedefType ResolveBindingSpecs
+        -> C.Typedef ResolveBindingSpecs
       reconstruct typedefType' = C.Typedef {
             typ = typedefType'
           , ann = typedef.ann

@@ -28,6 +28,7 @@ module HsBindgen.IR.C.Type (
      )
   , TypeFunArg
   , TypeFunArgF(..)
+  , TypeFunSig
 
     -- ** Qualifiers
   , TypeQual(..)
@@ -48,8 +49,12 @@ module HsBindgen.IR.C.Type (
     -- * Queries
   , depsOfType
   , depsOfTypeFunArg
-  , getFirstFunTypeIndirection
   , getOutermostFunType
+
+    -- * Indirections
+  , Indirection(..)
+  , splitOutermostFunType
+  , applyIndirections
 
     -- * Reductions
   , TypeLookup
@@ -67,6 +72,7 @@ module HsBindgen.IR.C.Type (
 
     -- * CoercePass
   , CoercePassExtBindingRef(..)
+  , coerceTypeFunSig
   ) where
 
 
@@ -182,6 +188,9 @@ data TypeFunArgF (tag :: TypeTag) (p :: Pass) = TypeFunArgF {
 deriving stock instance ValidTypeTag tag p => Eq   (TypeFunArgF tag p)
 deriving stock instance ValidTypeTag tag p => Show (TypeFunArgF tag p)
 deriving stock instance ValidTypeTag tag p => Ord  (TypeFunArgF tag p)
+
+-- | Signature of a function type
+type TypeFunSig p = FunSig (TypeFunArg p) (Type p)
 
 -- | Map 'TypeF's from one tag to another
 mapTypeF :: forall tag tag' p.
@@ -637,59 +646,72 @@ depsOfTypeFunArg arg = depsOfType arg.typ
 -- Looks through pointers, arrays, blocks and qualifiers, but not through
 -- typedefs or other references. There is at most one: only function types
 -- have more than one child type.
-getOutermostFunType :: Type p -> Maybe (FunSig (TypeFunArg p) (Type p))
-getOutermostFunType ty = fst <$> findOutermostFunType ty
+getOutermostFunType :: Type p -> Maybe (TypeFunSig p)
+getOutermostFunType = fmap snd . splitOutermostFunType
 
--- | Get the first function type indirection
+{-------------------------------------------------------------------------------
+  Indirections
+-------------------------------------------------------------------------------}
+
+-- | A layer of a type between the type and the function type inside it
+data Indirection =
+    -- | One or more pointers
+    Pointers Int
+  | ConstArray Natural
+  | IncompleteArray
+  | Block
+  | Qual TypeQual
+  deriving stock (Eq, Generic, Show)
+
+-- | Split off the outermost function type (see 'getOutermostFunType')
 --
--- Like 'getOutermostFunType', but 'Nothing' if the type is itself a function
--- type.
-getFirstFunTypeIndirection ::
-     Type p
-  -> Maybe ( FunSig (TypeFunArg p) (Type p)
-           , Type p -> Type p -- ^ zipper: how to reconstruct the original type
-           )
-getFirstFunTypeIndirection = \case
-    TypeFun{}  -> Nothing
-    ty         -> findOutermostFunType ty
-
--- | Find the outermost function type, and how to rebuild the type
-findOutermostFunType ::
+-- Returns the indirections that lead to it, outermost first.
+splitOutermostFunType ::
      forall p.
      Type p
-  -> Maybe ( FunSig (TypeFunArg p) (Type p)
-           , Type p -> Type p
-           )
-findOutermostFunType = go id
+  -> Maybe ([Indirection], TypeFunSig p)
+splitOutermostFunType = \case
+    -- interesting case
+    TypeFun sig -> Just ([], sig)
+
+    -- recursive cases
+    TypePointers n t      -> through (Pointers n)    t
+    TypeConstArray n t    -> through (ConstArray n)  t
+    TypeIncompleteArray t -> through IncompleteArray t
+    TypeBlock t           -> through Block           t
+    TypeQual q t          -> through (Qual q)        t
+
+    -- primitive cases
+    TypePrim{}    -> Nothing
+    TypeComplex{} -> Nothing
+    TypeVoid{}    -> Nothing
+
+    -- sugar cases
+    TypeRef{}        -> Nothing
+    TypeEnum{}       -> Nothing
+    TypeMacro{}      -> Nothing
+    TypeTypedef{}    -> Nothing
+    TypeExtBinding{} -> Nothing
   where
-    go ::
-         (Type p -> Type p)
+    through ::
+         Indirection
       -> Type p
-      -> Maybe ( FunSig (TypeFunArg p) (Type p)
-               , Type p -> Type p
-               )
-    go reconstruct = \case
-      -- interesting case
-      TypeFun sig -> Just (sig, reconstruct)
+      -> Maybe ([Indirection], TypeFunSig p)
+    through indirection t = first (indirection :) <$> splitOutermostFunType t
 
-      -- recursive cases
-      TypePointers n t        -> go (reconstruct . TypePointers n) t
-      TypeConstArray n t      -> go (reconstruct . TypeConstArray n) t
-      TypeIncompleteArray  t  -> go (reconstruct . TypeIncompleteArray) t
-      TypeBlock t             -> go (reconstruct . TypeBlock) t
-      TypeQual q t            -> go (reconstruct . TypeQual q) t
-
-      -- primitive cases
-      TypePrim{} -> Nothing
-      TypeComplex{} -> Nothing
-      TypeVoid{} -> Nothing
-
-      -- sugar cases
-      TypeRef{} -> Nothing
-      TypeEnum{} -> Nothing
-      TypeMacro{} -> Nothing
-      TypeTypedef{} -> Nothing
-      TypeExtBinding{} -> Nothing
+-- | Wrap a type in indirections, outermost first
+--
+-- Inverse of 'splitOutermostFunType'.
+applyIndirections :: [Indirection] -> Type p -> Type p
+applyIndirections indirections ty = foldr apply ty indirections
+  where
+    apply :: Indirection -> Type p -> Type p
+    apply = \case
+      Pointers n      -> TypePointers n
+      ConstArray n    -> TypeConstArray n
+      IncompleteArray -> TypeIncompleteArray
+      Block           -> TypeBlock
+      Qual q          -> TypeQual q
 
 {-------------------------------------------------------------------------------
   Reductions
@@ -897,7 +919,7 @@ instance (
       TypeMacro ref           -> TypeMacro (MacroRef (goMacroId ref.name) (goMacroUnderlying ref.underlying))
       TypeTypedef ref         -> TypeTypedef (Ref (goId ref.name) (coercePass ref.underlying))
       TypePointers n typ      -> TypePointers n (coercePass typ)
-      TypeFun sig             -> TypeFun (bimap coercePass coercePass sig)
+      TypeFun sig             -> TypeFun (coerceTypeFunSig sig)
       TypeVoid                -> TypeVoid
       TypeConstArray n typ    -> TypeConstArray n (coercePass typ)
       TypeIncompleteArray typ -> TypeIncompleteArray (coercePass typ)
@@ -945,3 +967,10 @@ instance (
         typ = coercePass arg.typ
       , ann = coercePassAnn (Proxy @'("TypeFunArg", p, p')) arg.ann
       }
+
+-- | Coerce the signature of a function type
+coerceTypeFunSig ::
+     (CoercePass TypeFunArg p p', CoercePass Type p p')
+  => TypeFunSig p
+  -> TypeFunSig p'
+coerceTypeFunSig = bimap coercePass coercePass

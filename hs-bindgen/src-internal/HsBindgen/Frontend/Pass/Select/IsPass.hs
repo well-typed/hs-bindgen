@@ -28,6 +28,7 @@ import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro (TranslatedMacro)
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.AddressStub (AddressStub)
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.PassingMethod (PassingMethod, ResPassingMethod)
 import HsBindgen.IR.Translation
@@ -51,7 +52,9 @@ type family AnnSelect ix where
   AnnSelect "Global"              = AddressStub
   AnnSelect "IndirectField"       = IndirectFieldNames Select
   AnnSelect "Struct"              = StructNames
-  AnnSelect "Typedef"             = TypedefNames
+  AnnSelect "Typedef"             = NewtypeNames
+  AnnSelect "TypedefFun"          = Hs.Type
+  AnnSelect "TypedefFunIndirect"  = (AuxNames, AuxTypes)
   AnnSelect "TranslatedMacroType" = NewtypeNames
   AnnSelect "Union"               = NewtypeNames
   AnnSelect _                     = NoAnn

@@ -38,6 +38,92 @@ instance (~) ty (Block T_Aux) =>
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = Block T_Aux
           offset# = \_ -> \_ -> 0
+{-| Auxiliary type used by 'P'
+
+    __C declaration:__ @P@
+
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/block.h 4:17@
+
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/block.h@
+-}
+newtype P_Aux
+    = P_Aux {unwrapP_Aux :: (CInt -> IO ())}
+    deriving stock Generic
+instance (~) ty (CInt -> IO ()) => HasField "unwrapP_Aux" P_Aux ty
+    where hasField = \x_0 -> (\y_1 -> P_Aux{unwrapP_Aux = y_1},
+                              getField @"unwrapP_Aux" x_0)
+instance (~) ty (CInt -> IO ()) =>
+         HasField "unwrapP_Aux" (Ptr P_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapP_Aux")
+instance HasCField P_Aux "unwrapP_Aux"
+    where type CFieldType P_Aux "unwrapP_Aux" = CInt -> IO ()
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @P@
+
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/block.h 4:17@
+
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/block.h@
+-}
+newtype P
+    = P {unwrapP :: (Ptr (Block P_Aux))}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (Ptr (Block P_Aux)) => HasField "unwrapP" P ty
+    where hasField = \x_0 -> (\y_1 -> P{unwrapP = y_1},
+                              getField @"unwrapP" x_0)
+instance (~) ty (Ptr (Block P_Aux)) =>
+         HasField "unwrapP" (Ptr P) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapP")
+instance HasCField P "unwrapP"
+    where type CFieldType P "unwrapP" = Ptr (Block P_Aux)
+          offset# = \_ -> \_ -> 0
+{-| Auxiliary type used by 'Q'
+
+    __C declaration:__ @Q@
+
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/block.h 7:24@
+
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/block.h@
+-}
+newtype Q_Aux
+    = Q_Aux {unwrapQ_Aux :: (CInt -> IO ())}
+    deriving stock Generic
+instance (~) ty (CInt -> IO ()) => HasField "unwrapQ_Aux" Q_Aux ty
+    where hasField = \x_0 -> (\y_1 -> Q_Aux{unwrapQ_Aux = y_1},
+                              getField @"unwrapQ_Aux" x_0)
+instance (~) ty (CInt -> IO ()) =>
+         HasField "unwrapQ_Aux" (Ptr Q_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapQ_Aux")
+instance HasCField Q_Aux "unwrapQ_Aux"
+    where type CFieldType Q_Aux "unwrapQ_Aux" = CInt -> IO ()
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @Q@
+
+    __defined at:__ @types\/typedefs\/auxiliary\/function-pointer\/block.h 7:24@
+
+    __exported by:__ @types\/typedefs\/auxiliary\/function-pointer\/block.h@
+-}
+newtype Q
+    = Q {unwrapQ :: (PtrConst (Block Q_Aux))}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (PtrConst (Block Q_Aux)) => HasField "unwrapQ" Q ty
+    where hasField = \x_0 -> (\y_1 -> Q{unwrapQ = y_1},
+                              getField @"unwrapQ" x_0)
+instance (~) ty (PtrConst (Block Q_Aux)) =>
+         HasField "unwrapQ" (Ptr Q) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapQ")
+instance HasCField Q "unwrapQ"
+    where type CFieldType Q "unwrapQ" = PtrConst (Block Q_Aux)
+          offset# = \_ -> \_ -> 0
 -- __unique:__ @toT_Aux@
 foreign import ccall safe "wrapper" hs_bindgen_5927fedc3abfa99c_base ::
     CInt -> IO ()
@@ -59,3 +145,45 @@ instance ToFunPtr T_Aux
     where toFunPtr = hs_bindgen_5927fedc3abfa99c
 instance FromFunPtr T_Aux
     where fromFunPtr = hs_bindgen_281617c90fa9307a
+-- __unique:__ @toP_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_2aa75dd47929393d_base ::
+    CInt -> IO ()
+ -> IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @toP_Aux@
+hs_bindgen_2aa75dd47929393d :: P_Aux -> IO (FunPtr P_Aux)
+-- __unique:__ @toP_Aux@
+hs_bindgen_2aa75dd47929393d = \fun_0 -> fmap castFunPtr (hs_bindgen_2aa75dd47929393d_base (\x_1 -> getField @"unwrapP_Aux" fun_0 (fromFFIType x_1)))
+-- __unique:__ @fromP_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_1eff17fed0c3e155_base ::
+    FunPtr (CInt -> IO ())
+ -> CInt
+ -> IO ()
+-- __unique:__ @fromP_Aux@
+hs_bindgen_1eff17fed0c3e155 :: FunPtr P_Aux -> P_Aux
+-- __unique:__ @fromP_Aux@
+hs_bindgen_1eff17fed0c3e155 = \funPtr_0 -> P_Aux (\x_1 -> hs_bindgen_1eff17fed0c3e155_base (castFunPtr funPtr_0) (toFFIType x_1))
+instance ToFunPtr P_Aux
+    where toFunPtr = hs_bindgen_2aa75dd47929393d
+instance FromFunPtr P_Aux
+    where fromFunPtr = hs_bindgen_1eff17fed0c3e155
+-- __unique:__ @toQ_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_e2d4702e9aada396_base ::
+    CInt -> IO ()
+ -> IO (FunPtr (CInt -> IO ()))
+-- __unique:__ @toQ_Aux@
+hs_bindgen_e2d4702e9aada396 :: Q_Aux -> IO (FunPtr Q_Aux)
+-- __unique:__ @toQ_Aux@
+hs_bindgen_e2d4702e9aada396 = \fun_0 -> fmap castFunPtr (hs_bindgen_e2d4702e9aada396_base (\x_1 -> getField @"unwrapQ_Aux" fun_0 (fromFFIType x_1)))
+-- __unique:__ @fromQ_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_88fd204ea7c09037_base ::
+    FunPtr (CInt -> IO ())
+ -> CInt
+ -> IO ()
+-- __unique:__ @fromQ_Aux@
+hs_bindgen_88fd204ea7c09037 :: FunPtr Q_Aux -> Q_Aux
+-- __unique:__ @fromQ_Aux@
+hs_bindgen_88fd204ea7c09037 = \funPtr_0 -> Q_Aux (\x_1 -> hs_bindgen_88fd204ea7c09037_base (castFunPtr funPtr_0) (toFFIType x_1))
+instance ToFunPtr Q_Aux
+    where toFunPtr = hs_bindgen_e2d4702e9aada396
+instance FromFunPtr Q_Aux
+    where fromFunPtr = hs_bindgen_88fd204ea7c09037

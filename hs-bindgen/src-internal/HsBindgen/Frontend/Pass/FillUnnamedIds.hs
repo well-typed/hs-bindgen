@@ -281,9 +281,10 @@ instance UpdateUseSites C.IndirectField where
 
 instance UpdateUseSites C.Typedef where
   updateUseSites typedef =
-      reconstruct <$> updateUseSites typedef.typ
+      reconstruct
+        <$> C.traverseTypedefType updateUseSites updateUseSites typedef.typ
     where
-      reconstruct :: C.Type FillUnnamedIds -> C.Typedef FillUnnamedIds
+      reconstruct :: C.TypedefType FillUnnamedIds -> C.Typedef FillUnnamedIds
       reconstruct typedefType' = C.Typedef {
           typ = typedefType'
         , ann = typedef.ann

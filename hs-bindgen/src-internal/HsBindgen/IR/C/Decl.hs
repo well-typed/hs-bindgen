@@ -27,6 +27,10 @@ module HsBindgen.IR.C.Decl (
   , Union(..)
 
   , Typedef(..)
+  , TypedefType(..)
+  , classifyTypedef
+  , typedefType
+  , traverseTypedefType
   , Enum(..)
   , EnumConstant(..)
   , UntaggedEnumConstant(..)
@@ -255,10 +259,82 @@ data Union (p :: Pass) = Union {
   deriving stock (Generic)
 
 data Typedef (p :: Pass) = Typedef {
-      typ :: Types p
+      typ :: TypedefType p
     , ann :: Ann "Typedef" p
     }
   deriving stock (Generic)
+
+-- | The type of a typedef, classified by whether it has a function type
+--
+-- The classification decides whether the typedef gets an auxiliary newtype;
+-- 'classifyTypedef' is its only source. The function types use 'C.Type' even
+-- when 'Types' carries more, as in t'HsBindgen.IR.Translation.TranslatedTypes'.
+data TypedefType (p :: Pass) =
+    -- | Function type
+    --
+    -- > typedef int F(char);
+    TypedefFun
+      (C.TypeFunSig p)
+      (Ann "TypedefFun" p)
+
+    -- | Function type behind indirections
+    --
+    -- > typedef int (*P)(char);
+    -- > typedef int (*A[3])(char);
+    -- > typedef int (^B)(char);
+    --
+    -- The function type gets an auxiliary newtype.
+  | TypedefFunIndirect
+      (NonEmpty C.Indirection) -- ^ Outermost first
+      (C.TypeFunSig p)
+      (Ann "TypedefFunIndirect" p)
+
+    -- | Any other type
+  | TypedefOther (Types p)
+  deriving stock (Generic)
+
+-- | Classify the type of a typedef
+classifyTypedef ::
+     ( Types p ~ C.Type p
+     , Ann "TypedefFun" p ~ NoAnn
+     , Ann "TypedefFunIndirect" p ~ NoAnn
+     )
+  => C.Type p -> TypedefType p
+classifyTypedef ty = case C.splitOutermostFunType ty of
+    Just ([]    , sig) -> TypedefFun sig NoAnn
+    Just (i : is, sig) -> TypedefFunIndirect (i :| is) sig NoAnn
+    Nothing            -> TypedefOther ty
+
+-- | The type of a typedef
+typedefType :: forall p. PassTypes p => TypedefType p -> C.Type p
+typedefType = \case
+    TypedefFun sig _ ->
+      C.TypeFun sig
+    TypedefFunIndirect indirections sig _ ->
+      C.applyIndirections (toList indirections) (C.TypeFun sig)
+    TypedefOther typ ->
+      cType (Proxy @p) typ
+
+-- | Traverse the types of a typedef, preserving its classification
+traverseTypedefType ::
+     ( Applicative f
+     , Types p  ~ C.Type p
+     , Types p' ~ C.Type p'
+     , Ann "TypedefFun" p ~ Ann "TypedefFun" p'
+     , Ann "TypedefFunIndirect" p ~ Ann "TypedefFunIndirect" p'
+     )
+  => (C.TypeFunArg p -> f (C.TypeFunArg p'))
+  -> (C.Type p -> f (C.Type p'))
+  -> TypedefType p
+  -> f (TypedefType p')
+traverseTypedefType fArg fType = \case
+    TypedefFun sig ann ->
+      (\sig' -> TypedefFun sig' ann) <$> bitraverse fArg fType sig
+    TypedefFunIndirect indirections sig ann ->
+      (\sig' -> TypedefFunIndirect indirections sig' ann)
+        <$> bitraverse fArg fType sig
+    TypedefOther typ ->
+      TypedefOther <$> fType typ
 
 data Enum (p :: Pass) = Enum {
       -- | The underlying type: a primitive integer type, or a typedef of one if
@@ -568,6 +644,7 @@ deriving stock instance IsPass p => Eq (IndirectField        p)
 deriving stock instance IsPass p => Eq (RegularField         p)
 deriving stock instance IsPass p => Eq (Struct               p)
 deriving stock instance IsPass p => Eq (Typedef              p)
+deriving stock instance IsPass p => Eq (TypedefType          p)
 deriving stock instance IsPass p => Eq (Union                p)
 deriving stock instance IsPass p => Eq (UntaggedEnumConstant p)
 
@@ -587,6 +664,7 @@ deriving stock instance IsPass p => Show (IndirectField        p)
 deriving stock instance IsPass p => Show (RegularField         p)
 deriving stock instance IsPass p => Show (Struct               p)
 deriving stock instance IsPass p => Show (Typedef              p)
+deriving stock instance IsPass p => Show (TypedefType          p)
 deriving stock instance IsPass p => Show (Union                p)
 deriving stock instance IsPass p => Show (UntaggedEnumConstant p)
 
@@ -741,13 +819,28 @@ instance (
       }
 
 instance (
-      CoercePassTypes p p'
+      CoercePass TypedefType p p'
     , Ann "Typedef" p ~ Ann "Typedef" p'
     ) => CoercePass Typedef p p' where
   coercePass typedef = Typedef{
-        typ = coercePassTypes (Proxy @'(p, p')) typedef.typ
+        typ = coercePass typedef.typ
       , ann = typedef.ann
       }
+
+instance (
+      CoercePassTypes p p'
+    , CoercePass C.Type p p'
+    , CoercePass C.TypeFunArg p p'
+    , Ann "TypedefFun" p ~ Ann "TypedefFun" p'
+    , Ann "TypedefFunIndirect" p ~ Ann "TypedefFunIndirect" p'
+    ) => CoercePass TypedefType p p' where
+  coercePass = \case
+      TypedefFun sig ann ->
+        TypedefFun (C.coerceTypeFunSig sig) ann
+      TypedefFunIndirect indirections sig ann ->
+        TypedefFunIndirect indirections (C.coerceTypeFunSig sig) ann
+      TypedefOther typ ->
+        TypedefOther (coercePassTypes (Proxy @'(p, p')) typ)
 
 instance (
        CoercePassTypes p p'

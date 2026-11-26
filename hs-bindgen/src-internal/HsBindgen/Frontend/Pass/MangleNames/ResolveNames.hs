@@ -305,7 +305,7 @@ instance Resolve C.UntaggedEnumConstant where
 
 instance Resolve C.Typedef where
   resolve ownerId typedef = do
-    typ' <- (resolve ownerId) typedef.typ
+    typ' <- C.traverseTypedefType (resolve ownerId) (resolve ownerId) typedef.typ
     pure C.Typedef{
         typ = typ'
       , ann = typedef.ann

@@ -39,12 +39,11 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.MacroFallback
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
-import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.Pass.TranslateTypes.IsPass (AuxTypes (..))
 import HsBindgen.Frontend.Pass.TranslateTypes.SugarInfo (SugarInfos)
 import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro (TranslatedMacro (..),
                                                                TranslatedMacroType (..))
-import HsBindgen.Frontend.Pass.TranslateTypes.Translation qualified as Translation
 import HsBindgen.Frontend.PrettyC qualified as PC
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
@@ -57,8 +56,6 @@ import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
-
-import Doxygen.Parser.Types qualified as Doxy
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -106,8 +103,7 @@ generateDeclarations' env insts decs =
                    | inst <- insts
                    , d <- ToFromFunPtr.forInstance inst
                    ]
-      hsDeclsAction <- mapM (generateDecs funPtrNewtypes) decs
-      hsDecls <- HsM.runAction $ fmap concat $ sequence hsDeclsAction
+      hsDecls <- concat <$> mapM (generateDecs funPtrNewtypes) decs
       pure $ hsDecls ++ fFIStubsAndFunPtrInstances
   where
     funPtrNewtypes :: FunPtrNewtypes
@@ -128,25 +124,32 @@ type FunPtrNewtypes = Set (Hs.Name Hs.NsTypeConstr)
 generateDecs ::
      FunPtrNewtypes
   -> C.Decl l Final
-  -> HsM (HsM.Action [WithCategory (Hs.Decl l)])
+  -> HsM [WithCategory (Hs.Decl l)]
 generateDecs funPtrNewtypes decl =
     case decl.kind of
       C.DeclStruct struct -> withCategoryM CType $
-        HsM.immediateM $ structDecs decl struct spec
+        structDecs decl struct spec
       C.DeclUnion union -> withCategoryM CType $
-        HsM.immediateM $ unionDecs decl union spec
+        unionDecs decl union spec
       C.DeclEnum enum -> withCategoryM CType $
-        HsM.immediateM $ enumDecs decl enum spec
+        enumDecs decl enum spec
       C.DeclUntaggedEnumConstant enumConst -> withCategoryM CType $ do
-        HsM.immediateM $ untaggedEnumConstantDecs decl enumConst
+        untaggedEnumConstantDecs decl enumConst
       C.DeclTypedef typedef -> withCategoryM CType $
-        case C.getFirstFunTypeIndirection typedef.typ.c of
-          Just indirection ->
-            typedefFunTypeIndirectionDecs funPtrNewtypes decl typedef indirection spec
-          Nothing ->
-            HsM.immediateM $ typedefDecs funPtrNewtypes decl Origin.Typedef typedef spec
+        case typedef.typ of
+          C.TypedefFun _sig hs ->
+            typedefDecs funPtrNewtypes
+              (typedefOrigin decl typedef spec) (mkHaddocks decl)
+              typedef.names hs
+          C.TypedefFunIndirect _indirections _sig (auxNames, auxTypes) ->
+            typedefFunTypeIndirectionDecs funPtrNewtypes decl typedef
+              auxNames auxTypes spec
+          C.TypedefOther typ ->
+            typedefDecs funPtrNewtypes
+              (typedefOrigin decl typedef spec) (mkHaddocks decl)
+              typedef.names typ.hs
       C.DeclOpaque mSize -> withCategoryM CType $
-        HsM.immediateM $ opaqueDecs decl spec mSize
+        opaqueDecs decl spec mSize
       C.DeclFunction function -> do
         let funDeclsWith safety =
               functionDecs safety decl function spec
@@ -159,30 +162,20 @@ generateDecs funPtrNewtypes decl =
                   function.addressStub
                   HaskellId
                   spec
-        safes   <- withCategoryM (CTerm CSafe)   (HsM.immediateM $ funDeclsWith SHs.Safe)
-        unsafes <- withCategoryM (CTerm CUnsafe) (HsM.immediateM $ funDeclsWith SHs.Unsafe)
-        funPtrs <- withCategoryM (CTerm CFunPtr) (HsM.immediateM $ funPtrDecls)
-        pure $ HsM.concatSequence [safes, unsafes, funPtrs]
+        safes   <- withCategoryM (CTerm CSafe)   (funDeclsWith SHs.Safe)
+        unsafes <- withCategoryM (CTerm CUnsafe) (funDeclsWith SHs.Unsafe)
+        funPtrs <- withCategoryM (CTerm CFunPtr) funPtrDecls
+        pure $ safes ++ unsafes ++ funPtrs
       C.DeclMacro macro -> withCategoryM CType $
-        HsM.immediateM $ macroDecs decl macro spec
+        macroDecs decl macro spec
       C.DeclGlobal g -> withCategoryM (CTerm CGlobal) $
-        HsM.immediateM $ global decl g spec
+        global decl g spec
   where
     spec :: PrescriptiveDeclSpec
     spec = decl.ann
 
-    withCategory ::
-         Category
-      -> HsM.Action [a]
-      -> HsM.Action [WithCategory a]
-    withCategory c = fmap (map (WithCategory c))
-
-    withCategoryM ::
-         Functor m
-      => Category
-      -> m (HsM.Action [a])
-      -> m (HsM.Action [WithCategory a])
-    withCategoryM c = fmap (withCategory c)
+    withCategoryM :: Category -> HsM [a] -> HsM [WithCategory a]
+    withCategoryM c = fmap (map (WithCategory c))
 
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum
@@ -460,15 +453,28 @@ enumDecs decl enum spec = do
   Typedef
 -------------------------------------------------------------------------------}
 
+typedefOrigin ::
+     C.Decl l Final
+  -> C.Typedef Final
+  -> PrescriptiveDeclSpec
+  -> Origin.Decl Origin.Newtype
+typedefOrigin decl typedef spec = Origin.Decl{
+      info = decl.info
+    , id   = decl.id
+    , kind = Origin.Typedef typedef
+    , spec = spec
+    }
+
+-- | Newtype for a typedef, or for the auxiliary type of a typedef
 typedefDecs ::
      HasCallStack
   => FunPtrNewtypes
-  -> C.Decl l Final
-  -> (C.Typedef Final -> Origin.Newtype)
-  -> C.Typedef Final
-  -> PrescriptiveDeclSpec
+  -> Origin.Decl Origin.Newtype
+  -> Maybe HsDoc.Comment
+  -> NewtypeNames
+  -> Hs.Type -- ^ The type the newtype wraps
   -> HsM [Hs.Decl l]
-typedefDecs funPtrNewtypes decl mkNewtypeOrigin typedef spec = do
+typedefDecs funPtrNewtypes origin comment names hsType = do
     env <- Reader.ask
     nt <- newtypeDec env
     pure $ aux env nt
@@ -476,29 +482,18 @@ typedefDecs funPtrNewtypes decl mkNewtypeOrigin typedef spec = do
     newtypeDec :: HsM.Env -> HsM Hs.Newtype
     newtypeDec env = do
         Hs.newtypeDec newtypeName newtypeConstr newtypeField Hs.NoOverride
-          newtypeOrigin newtypeComment candidateInsts knownInsts
+          origin comment candidateInsts knownInsts
       where
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = typedef.names.orig.dataConstr
+        newtypeConstr = names.dataConstr
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-              name    = typedef.names.orig.field
-            , typ     = typedef.typ.hs
+              name    = names.field
+            , typ     = hsType
             , origin  = Origin.GeneratedField
             , comment = Nothing
             }
-
-        newtypeOrigin :: Origin.Decl Origin.Newtype
-        newtypeOrigin =  Origin.Decl{
-              info = decl.info
-            , id   = decl.id
-            , kind = mkNewtypeOrigin typedef
-            , spec = spec
-            }
-
-        newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = mkHaddocks decl
 
         candidateInsts :: Set Inst.TypeClass
         candidateInsts = Hs.getCandidateInsts env.supportedInstances.typedef
@@ -515,7 +510,7 @@ typedefDecs funPtrNewtypes decl mkNewtypeOrigin typedef spec = do
           ]
 
     newtypeName :: Hs.Name Hs.NsTypeConstr
-    newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName
+    newtypeName = Hs.assertNs (Proxy @Hs.NsTypeConstr) origin.id.hsName
 
     -- The instances themselves are generated at the end of the module
     hasFunPtrInstances :: Bool
@@ -556,24 +551,30 @@ typedefDecs funPtrNewtypes decl mkNewtypeOrigin typedef spec = do
 --
 -- so that @F_Aux@ can be given @ToFunPtr@/@FromFunPtr@ instances.
 typedefFunTypeIndirectionDecs ::
-     forall l. HasCallStack
+     HasCallStack
   => FunPtrNewtypes
   -> C.Decl l Final
   -> C.Typedef Final
-  -> (FunSig (C.TypeFunArg Final) (C.Type Final), C.Type Final -> C.Type Final)
-     -- ^ The function type, and how to reconstruct the type of the typedef
+  -> AuxNames
+  -> AuxTypes
   -> PrescriptiveDeclSpec
-  -> HsM (HsM.Action [Hs.Decl l])
-typedefFunTypeIndirectionDecs funPtrNewtypes origDecl origTypedef (sig, reconstruct) origSpec =
-    fmap HsM.concatSequence $ sequence [
-        HsM.delayM     $ typedefDecs funPtrNewtypes auxDecl  Origin.Aux     auxTypedef  auxSpec
-      , HsM.immediateM $ typedefDecs funPtrNewtypes origDecl Origin.Typedef mainTypedef origSpec
-      ]
+  -> HsM [Hs.Decl l]
+typedefFunTypeIndirectionDecs
+  funPtrNewtypes origDecl origTypedef auxNames auxTypes origSpec =
+    (++)
+      <$> typedefDecs funPtrNewtypes auxOrigin
+            (mkHaddocksAux origDecl) auxNames.newtypeNames auxTypes.funType
+      <*> typedefDecs funPtrNewtypes
+            (typedefOrigin origDecl origTypedef origSpec)
+            (mkHaddocks origDecl) origTypedef.names auxTypes.mainType
   where
-    -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1759>
-    -- For historical reasons we currently implement this by making a "fake" C
-    -- declaration, and then translating that immediately to Haskell. We should
-    -- fuse this, and just generate the Haskell declarations directly.
+    auxOrigin :: Origin.Decl Origin.Newtype
+    auxOrigin = Origin.Decl{
+          info = origDecl.info
+        , id   = auxDeclIdPair
+        , kind = Origin.Aux
+        , spec = auxSpec
+        }
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1379>
     -- The name of this auxiliary type should be configurable.
@@ -581,49 +582,8 @@ typedefFunTypeIndirectionDecs funPtrNewtypes origDecl origTypedef (sig, reconstr
     auxDeclIdPair = DeclIdPair{
           cName  = origDecl.id.cName
           -- Still refer to the /original/ C decl...?
-        , hsName = Hs.demoteNs auxName
+        , hsName = Hs.demoteNs auxNames.typeConstr
         }
-
-    auxName :: Hs.Name Hs.NsTypeConstr
-    auxNames  :: NewtypeNames
-    (auxName, auxNames) = case origTypedef.names.aux of
-      Nothing        -> panicPure "name of auxiliary declaration unavailable"
-      Just (nm, nms) -> (nm, nms)
-
-    auxDecl :: C.Decl l Final
-    auxDecl = C.Decl {
-          info      = origDecl.info & #deprecation .~ C.NotDeprecated
-        , id        = auxDeclIdPair
-        , comment   = Just auxComment
-        , enclosing = []
-        , kind      = C.DeclTypedef auxTypedef
-        , ann       = auxSpec
-        }
-
-    auxComment :: C.Comment Final
-    auxComment = C.Comment $ Doxy.Comment {
-          brief = [
-              Doxy.Text "Auxiliary type used by"
-            , Doxy.Ref
-                (C.CommentRef origDecl.id.cName.name.text (Just origDecl.id) Nothing)
-                origDecl.id.cName.name.text
-            ]
-        , detailed = []
-        }
-
-    auxTypedef :: C.Typedef Final
-    auxTypedef =
-      let c = C.TypeFun sig
-      in  C.Typedef{
-              typ = Translated{
-                  c  = c
-                , hs = Translation.topLevel c
-                }
-            , ann = MangleNames.TypedefNames{
-                  orig = auxNames
-                , aux  = Nothing
-                }
-            }
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1379>
     -- We should think about prescriptive binding specs for _Aux types.
@@ -632,20 +592,6 @@ typedefFunTypeIndirectionDecs funPtrNewtypes origDecl origTypedef (sig, reconstr
           cSpec  = Nothing
         , hsSpec = Nothing
         }
-
-    mainTypedef :: C.Typedef Final
-    mainTypedef =
-      let c = reconstruct $ C.TypeTypedef $ C.Ref{
-              name       = auxDecl.id
-            , underlying = C.TypeFun sig
-            }
-      in  C.Typedef{
-              typ = Translated{
-                  c  = c
-                , hs = Translation.topLevel c
-                }
-            , ann = origTypedef.names
-            }
 
 {-------------------------------------------------------------------------------
   Macros

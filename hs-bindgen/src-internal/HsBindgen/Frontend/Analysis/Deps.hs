@@ -137,4 +137,4 @@ depsOfIndirectField field = C.depsOfType (cType (Proxy @p) field.typ)
 -------------------------------------------------------------------------------}
 
 depsOfTypedef :: forall p. IsPass p => C.Typedef p -> [(Id p, Dependency)]
-depsOfTypedef typedef = C.depsOfType (cType (Proxy @p) typedef.typ)
+depsOfTypedef typedef = C.depsOfType (C.typedefType typedef.typ)

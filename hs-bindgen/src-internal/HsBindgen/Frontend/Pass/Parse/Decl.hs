@@ -485,7 +485,7 @@ typedefDecl enclosing ctx declId info = \curr -> do
         _otherwise -> do
           typedefAnn <- getReparseInfo curr
           return $ C.DeclTypedef C.Typedef{
-              typ = typedefType
+              typ = C.classifyTypedef typedefType
             , ann = typedefAnn
             }
 

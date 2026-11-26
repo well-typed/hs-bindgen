@@ -78,8 +78,8 @@ import HsBindgen.Frontend.Pass.TranslateTypes.Error
 import HsBindgen.Frontend.Predicate (IsMainHeader)
 import HsBindgen.Imports hiding (toList)
 import HsBindgen.IR.C qualified as C
-import HsBindgen.IR.Pass (IsPass, PassIdNamed (idDeclId), PassMacro,
-                          PassTypes (cType), coercePass)
+import HsBindgen.IR.Pass (IsPass, PassIdNamed (idDeclId), PassMacro, PassTypes,
+                          coercePass)
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Error
 import HsBindgen.Macro.Interface qualified as Macro
@@ -937,7 +937,7 @@ lookupCType db = \declId -> case lookupEntry (idDeclId p declId) db of
       Active d      -> case d.kind of
         C.DeclStruct{}               -> Nothing
         C.DeclUnion{}                -> Nothing
-        C.DeclTypedef typedef        -> Just (cType p typedef.typ)
+        C.DeclTypedef typedef        -> Just (C.typedefType typedef.typ)
         C.DeclEnum{}                 -> Nothing
         C.DeclUntaggedEnumConstant{} -> Nothing
         C.DeclOpaque{}               -> Nothing

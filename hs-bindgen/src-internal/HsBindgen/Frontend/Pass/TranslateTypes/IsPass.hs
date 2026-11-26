@@ -1,7 +1,11 @@
 module HsBindgen.Frontend.Pass.TranslateTypes.IsPass (
     -- * Definition
     TranslateTypes
+    -- * Additional types
+  , AuxTypes(..)
   ) where
+
+import GHC.Generics (Generic)
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
@@ -9,6 +13,7 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.TranslatedMacro
 import HsBindgen.IR.AddressStub (AddressStub)
 import HsBindgen.IR.C qualified as C
+import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.PassingMethod (PassingMethod, ResPassingMethod)
 import HsBindgen.IR.Translation
@@ -30,12 +35,35 @@ type family AnnTranslateTypes ix where
   AnnTranslateTypes "FunctionRes"         = ResPassingMethod TranslateTypes
   AnnTranslateTypes "Global"              = AddressStub
   AnnTranslateTypes "Struct"              = StructNames
-  AnnTranslateTypes "Typedef"             = TypedefNames
+  AnnTranslateTypes "Typedef"             = NewtypeNames
+  AnnTranslateTypes "TypedefFun"          = Hs.Type
+  AnnTranslateTypes "TypedefFunIndirect"  = (AuxNames, AuxTypes)
   AnnTranslateTypes "TranslatedMacroType" = NewtypeNames
   AnnTranslateTypes "Union"               = NewtypeNames
   AnnTranslateTypes _                     = NoAnn
 
 instance IsPass TranslateTypes
+
+{-------------------------------------------------------------------------------
+  Additional types
+-------------------------------------------------------------------------------}
+
+-- | Types that the auxiliary newtype of a typedef with a function type behind
+-- indirections and the typedef's newtype wrap
+--
+-- > typedef int (*P)(char);
+--
+-- > newtype P_Aux = P_Aux (FC.CChar -> IO FC.CInt)
+-- > newtype P     = P (Ptr.FunPtr P_Aux)
+data AuxTypes = AuxTypes {
+      -- | The function type, translated at the top level (@FC.CChar -> IO
+      -- FC.CInt@)
+      funType  :: Hs.Type
+      -- | The indirections around a reference to the auxiliary newtype
+      -- (@Ptr.FunPtr P_Aux@)
+    , mainType :: Hs.Type
+    }
+  deriving stock (Show, Eq, Generic)
 
 instance PassId TranslateTypes where
   type Id TranslateTypes = DeclIdPair

@@ -38,6 +38,8 @@ class (
     , Eq   (Ann "TypeFunArg"           p)
     , Eq   (Ann "TypecheckedMacroType" p)
     , Eq   (Ann "Typedef"              p)
+    , Eq   (Ann "TypedefFun"           p)
+    , Eq   (Ann "TypedefFunIndirect"   p)
     , Eq   (Ann "Union"                p)
 
       -- For de-duplicating types
@@ -60,6 +62,8 @@ class (
     , Show (Ann "TypeFunArg"           p)
     , Show (Ann "TypecheckedMacroType" p)
     , Show (Ann "Typedef"              p)
+    , Show (Ann "TypedefFun"           p)
+    , Show (Ann "TypedefFunIndirect"   p)
     , Show (Ann "Union"                p)
     ) => PassAnn (p :: Pass) where
 

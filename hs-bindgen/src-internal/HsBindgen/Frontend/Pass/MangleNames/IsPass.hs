@@ -4,7 +4,7 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
   , StructNames(..)
   , FlamNames(..)
   , NewtypeNames(..)
-  , TypedefNames(..)
+  , AuxNames(..)
   , IndirectFieldNames(..)
     -- * Trace messages
   , MangleNamesMsg(..)
@@ -37,7 +37,8 @@ type family AnnMangleNames ix where
   AnnMangleNames "Flam"                 = FlamNames
   AnnMangleNames "IndirectField"        = IndirectFieldNames MangleNames
   AnnMangleNames "Struct"               = StructNames
-  AnnMangleNames "Typedef"              = TypedefNames
+  AnnMangleNames "Typedef"              = NewtypeNames
+  AnnMangleNames "TypedefFunIndirect"   = AuxNames
   AnnMangleNames "TypecheckedMacroType" = NewtypeNames
   AnnMangleNames "Union"                = NewtypeNames
   AnnMangleNames _                      = NoAnn
@@ -107,15 +108,14 @@ data NewtypeNames = NewtypeNames {
     }
   deriving stock (Show, Eq, Ord, Generic)
 
-data TypedefNames = TypedefNames {
-      orig :: NewtypeNames
-      -- TODO https://github.com/well-typed/hs-bindgen/issues/1925
-      --
-      -- Tie generation of names to the generation of the associated code.
-      --
-      -- | Names of the auxiliary type definition that we generate for function
-      --   pointers.
-    , aux  :: Maybe (Hs.Name Hs.NsTypeConstr, NewtypeNames)
+-- | Names of the auxiliary newtype of a typedef with a function type behind
+-- indirections
+--
+-- Bundled with the function type in the 'C.TypedefFunIndirect' constructor, so
+-- that these names exist exactly when there is an auxiliary newtype.
+data AuxNames = AuxNames {
+      typeConstr   :: Hs.Name Hs.NsTypeConstr
+    , newtypeNames :: NewtypeNames
     }
   deriving stock (Show, Eq, Ord, Generic)
 

@@ -2,6 +2,7 @@
 
 module HsBindgen.Backend.Hs.Haddock.Translation (
     mkHaddocks
+  , mkHaddocksAux
   , mkHaddocksFieldInfo
   , mkHaddocksDecorateParams
   ) where
@@ -42,6 +43,22 @@ mkHaddocks decl =
       , comment = decl.comment
       , params  = []
       }
+
+-- | Haddock for the auxiliary type of a declaration
+--
+-- > Auxiliary type used by 'F'
+mkHaddocksAux ::
+     C.Decl l Final
+  -> Maybe HsDoc.Comment
+mkHaddocksAux decl = Just $
+    mempty
+      & #title      .~ Just [
+                           HsDoc.TextContent "Auxiliary type used by"
+                         , HsDoc.Identifier decl.id.hsName.text
+                         ]
+      & #origin     .~ Just (C.renderDeclId decl.id.cName)
+      & #location   .~ Just decl.info.loc
+      & #declOrigin .~ Just decl.info.origin
 
 mkHaddocksFieldInfo ::
      C.DeclInfo

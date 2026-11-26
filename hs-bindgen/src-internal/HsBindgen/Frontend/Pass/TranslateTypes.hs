@@ -12,7 +12,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.DeclDB (DeclDB)
 import HsBindgen.Frontend.DeclDB qualified as DeclDB
 import HsBindgen.Frontend.DelayedMsg
-import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
+import HsBindgen.Frontend.Pass.MangleNames.IsPass (AuxNames (..), MangleNames)
 import HsBindgen.Frontend.Pass.TranslateTypes.Error
 import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass
@@ -159,12 +159,31 @@ processIndirectField field = pure C.IndirectField{
 
 processTypedef :: C.Typedef MangleNames -> DM l (C.Typedef TranslateTypes)
 processTypedef typedef = do
-    let typ' = processType Translation.Top typedef.typ
-    registerSugarInfoM $ Sugar typ'.hs
+    registerSugarInfoM $ Sugar hs
     pure C.Typedef{
         typ = typ'
       , ann = typedef.ann
       }
+  where
+    typ' :: C.TypedefType TranslateTypes
+    -- | The type the newtype wraps
+    hs   :: Hs.Type
+    (typ', hs) = case typedef.typ of
+      C.TypedefFun sig NoAnn ->
+        let hsFun = Translation.topLevel (C.TypeFun sig)
+        in  (C.TypedefFun (C.coerceTypeFunSig sig) hsFun, hsFun)
+      C.TypedefFunIndirect indirections sig auxNames ->
+        let auxHs  = Translation.topLevel (C.TypeFun sig)
+            mainHs = Translation.indirectionsType indirections $
+              Hs.TypRef auxNames.typeConstr
+            types  = AuxTypes{
+                funType  = auxHs
+              , mainType = mainHs
+              }
+        in  (C.TypedefFunIndirect indirections (C.coerceTypeFunSig sig) (auxNames, types), mainHs)
+      C.TypedefOther typ ->
+        let translated = processType Translation.Top typ
+        in  (C.TypedefOther translated, translated.hs)
 
 processEnum :: C.Enum MangleNames -> DM l (C.Enum TranslateTypes)
 processEnum enum = do

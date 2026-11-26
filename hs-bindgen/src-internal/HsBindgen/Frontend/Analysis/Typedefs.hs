@@ -177,7 +177,7 @@ analyseTypedef declUseGraph typedefDecl typedef =
 
     -- All tagged types referenced anywhere within the typedef's type.
     payloads :: [TaggedPayload]
-    payloads = taggedPayloads typedef.typ
+    payloads = taggedPayloads (C.typedefType typedef.typ)
 
     -- The tagged type the typedef is a direct alias of (the head of the type,
     -- reached without any indirection), if any.
