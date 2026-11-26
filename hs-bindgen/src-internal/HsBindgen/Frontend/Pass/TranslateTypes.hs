@@ -181,7 +181,10 @@ processEnum enum = do
 processUntaggedEnumConstant ::
      C.UntaggedEnumConstant MangleNames
   -> DM l (C.UntaggedEnumConstant TranslateTypes)
-processUntaggedEnumConstant = pure . coercePass
+processUntaggedEnumConstant enumConst = pure C.UntaggedEnumConstant{
+      typ      = processType Translation.Top enumConst.typ
+    , constant = coercePass enumConst.constant
+    }
 
 processMacro ::
      Macro.HasTypes l

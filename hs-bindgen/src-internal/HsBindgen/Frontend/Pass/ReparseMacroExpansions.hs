@@ -279,7 +279,7 @@ processUntaggedEnumConstant decl enumConst =
          C.EnumConstant ReparseMacroExpansions
       -> C.Decl l ReparseMacroExpansions
     mkDecl constant = reparsedDecl decl $ C.DeclUntaggedEnumConstant C.UntaggedEnumConstant{
-          typ      = enumConst.typ
+          typ      = coercePass enumConst.typ
         , constant = constant
         }
 

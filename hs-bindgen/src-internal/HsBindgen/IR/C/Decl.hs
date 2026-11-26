@@ -66,7 +66,6 @@ import HsBindgen.IR.C.Naming qualified as C
 import HsBindgen.IR.C.Type qualified as C
 import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass
-import HsBindgen.Language.C (PrimType)
 import HsBindgen.Macro.Type qualified as Macro
 
 import Doxygen.Parser.Types qualified as Doxy
@@ -262,6 +261,10 @@ data Typedef (p :: Pass) = Typedef {
   deriving stock (Generic)
 
 data Enum (p :: Pass) = Enum {
+      -- | The underlying type: a primitive integer type, or a typedef of one if
+      -- the enum fixes its underlying type (C23, e.g., @enum : uint8_t { A }@);
+      -- from @ResolveBindingSpecs@ on, such a typedef may be an external
+      -- binding
       typ       :: Types p
     , sizeof    :: Int
     , alignment :: Int
@@ -279,9 +282,10 @@ data EnumConstant (p :: Pass) = EnumConstant {
 -- | Untagged Enum Constant
 --
 -- This represents an untagged enum constant (e.g., from @enum { FOO, BAR }@)
--- that will be rendered as a pattern synonym in Haskell (e.g., @pattern fOO :: CUInt@)
+-- that will be rendered as a pattern synonym in Haskell (e.g., @pattern FOO :: CUInt@)
 data UntaggedEnumConstant (p :: Pass) = UntaggedEnumConstant {
-      typ       :: PrimType
+      -- | The underlying type of the enum (see @typ@ of 'Enum')
+      typ       :: Types p
     , constant  :: EnumConstant p
     }
   deriving stock (Generic)
@@ -768,12 +772,12 @@ instance (
       }
 
 instance (
-       CoercePass EnumConstant p p'
-     , Ann "PatternSynonym" p ~ Ann "PatternSynonym" p'
+       CoercePassTypes p p'
+     , CoercePass EnumConstant p p'
      ) => CoercePass UntaggedEnumConstant p p' where
-  coercePass (UntaggedEnumConstant typ' constant') = UntaggedEnumConstant{
-        typ      = typ'
-      , constant = coercePass constant'
+  coercePass enumConst = UntaggedEnumConstant{
+        typ      = coercePassTypes (Proxy @'(p, p')) enumConst.typ
+      , constant = coercePass enumConst.constant
       }
 
 instance (

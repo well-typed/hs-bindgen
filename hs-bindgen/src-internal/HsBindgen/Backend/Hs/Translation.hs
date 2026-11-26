@@ -1099,7 +1099,7 @@ untaggedEnumConstantDecs decl enumConstant = do
               enumConstant.constant.info.name.hsName
 
           patSynType :: Hs.Type
-          patSynType = Hs.PrimType (translateCPrimType enumConstant.typ)
+          patSynType = enumConstant.typ.hs
 
           typeSigDecl :: Hs.Decl l
           typeSigDecl = Hs.DeclPatSyn Hs.PatSyn{

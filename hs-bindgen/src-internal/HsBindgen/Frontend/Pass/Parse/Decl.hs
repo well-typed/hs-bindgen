@@ -564,10 +564,8 @@ enumDecl enclosing ctx declId info = \curr -> do
         alignment <- clang_Type_getAlignOf ty
         ety       <- fromCXType ctx =<< clang_getEnumDeclIntegerType curr
 
-        -- The underlying type of a C enum is always an integer type, so
-        -- clang_getEnumDeclIntegerType only returns TypePrim (e.g. unsigned
-        -- int) or TypeTypedef wrapping one (e.g. uint8_t). The fallback to
-        -- Signed is conservative and should be unreachable in practice.
+        -- The fallback to Signed should be unreachable: the underlying type
+        -- is a primitive type or a typedef of one (see @typ@ of 'C.Enum').
         --
         let enumSign :: C.PrimSign
             enumSign = go ety

@@ -1,0 +1,106 @@
+-- addDependentFile test-artefacts/headers/golden/program-analysis/program-slicing/enum_selected_t.h
+-- addDependentFile test-artefacts/headers/golden/program-analysis/program-slicing/enum_selected.h
+{-| __C declaration:__ @T@
+
+    __defined at:__ @enum_selected_t.h 3:23@
+
+    __exported by:__ @program-analysis\/program-slicing\/enum_selected.h@
+-}
+newtype T
+    = T {unwrapT :: CUChar}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CUChar => HasField "unwrapT" T ty
+    where hasField = \x_0 -> (\y_1 -> T{unwrapT = y_1},
+                              getField @"unwrapT" x_0)
+instance (~) ty CUChar => HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = CUChar
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @enum E@
+
+    __defined at:__ @program-analysis\/program-slicing\/enum_selected.h 7:6@
+
+    __exported by:__ @program-analysis\/program-slicing\/enum_selected.h@
+-}
+newtype E
+    = E {unwrapE :: T}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize E
+    where staticSizeOf = \_ -> 1 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw E
+    where readRaw = \ptr_0 -> pure E <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw E
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       E unwrapE_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapE_2
+deriving via (EquivStorable E) instance Storable E
+deriving via T instance Prim E
+instance CEnum E
+    where type CEnumZ E = T
+          toCEnum = E
+          fromCEnum = getField @"unwrapE"
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "E_A"),
+                                                         (1, singleton "E_B")]
+          showsUndeclared = showsWrappedUndeclared "E"
+          readPrecUndeclared = readPrecWrappedUndeclared "E"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum E
+    where minDeclaredValue = E_A
+          maxDeclaredValue = E_B
+instance Show E
+    where showsPrec = shows
+instance Read E
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty T => HasField "unwrapE" E ty
+    where hasField = \x_0 -> (\y_1 -> E{unwrapE = y_1},
+                              getField @"unwrapE" x_0)
+instance (~) ty T => HasField "unwrapE" (Ptr E) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapE")
+instance HasCField E "unwrapE"
+    where type CFieldType E "unwrapE" = T
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @E_A@
+
+    __defined at:__ @program-analysis\/program-slicing\/enum_selected.h 7:14@
+
+    __exported by:__ @program-analysis\/program-slicing\/enum_selected.h@
+-}
+pattern E_A :: E
+pattern E_A = E 0
+{-| __C declaration:__ @E_B@
+
+    __defined at:__ @program-analysis\/program-slicing\/enum_selected.h 7:19@
+
+    __exported by:__ @program-analysis\/program-slicing\/enum_selected.h@
+-}
+pattern E_B :: E
+pattern E_B = E 1
+{-| __C declaration:__ @U_A@
+
+    __defined at:__ @program-analysis\/program-slicing\/enum_selected.h 8:1@
+
+    __exported by:__ @program-analysis\/program-slicing\/enum_selected.h@
+-}
+pattern U_A :: T
+pattern U_A = 0

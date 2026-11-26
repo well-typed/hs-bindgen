@@ -32,8 +32,8 @@ depsOfDeclWith ::
 depsOfDeclWith depsOfMacro = \case
     (C.DeclStruct struct)          -> depsOfStruct struct
     (C.DeclUnion union)            -> depsOfUnion union
-    (C.DeclEnum _)                 -> []
-    (C.DeclUntaggedEnumConstant _) -> []
+    (C.DeclEnum enum)              -> C.depsOfType (cType (Proxy @p) enum.typ)
+    (C.DeclUntaggedEnumConstant c) -> C.depsOfType (cType (Proxy @p) c.typ)
     (C.DeclTypedef ty)             -> depsOfTypedef ty
     C.DeclOpaque{}                 -> []
     (C.DeclMacro m)                -> depsOfMacro m

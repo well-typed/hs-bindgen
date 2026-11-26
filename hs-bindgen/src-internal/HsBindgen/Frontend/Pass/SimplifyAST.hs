@@ -8,7 +8,6 @@ import Data.Map.Strict qualified as Map
 import Data.Proxy (Proxy (..))
 import GHC.Stack (HasCallStack)
 
-import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.UnnamedIdUsage (UnnamedIdUsageAnalysis (..))
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Result
@@ -16,7 +15,6 @@ import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST,
                                                    SimplifyASTMsg (..))
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Pass
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer (withCallStack)
 
 {-------------------------------------------------------------------------------
@@ -58,7 +56,7 @@ simplifyAST usage parseResults = (results, msgs)
                             , comment   = coercePassCommentDecl (Proxy @'(Parse, SimplifyAST)) comment
                             , enclosing = map coercePass enclosing
                             , kind      = C.DeclUntaggedEnumConstant C.UntaggedEnumConstant{
-                                     typ      = extractPrimType enum.typ
+                                     typ      = coercePassTypes (Proxy @'(Parse, SimplifyAST)) enum.typ
                                    , constant = coercePass constant
                                    }
                             , ann       = NoAnn
@@ -79,16 +77,3 @@ simplifyAST usage parseResults = (results, msgs)
           ([ParseResultNotAttempted (coercePass notAttempted)], [])
         ParseResultFailure failure ->
           ([ParseResultFailure (coercePass failure)], [])
-
-{-------------------------------------------------------------------------------
-  Extract PrimType from Type
--------------------------------------------------------------------------------}
-
--- | Extract PrimType from a C.Type
--- Untagged enum types are always primitive types (e.g., unsigned int, int, etc.)
-extractPrimType :: C.Type Parse -> C.PrimType
-extractPrimType (C.TypePrim pt) = pt
-extractPrimType ty = panicPure $ concat [
-    "Expected TypePrim but got "
-  , show ty
-  ]
