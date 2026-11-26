@@ -51,6 +51,7 @@ testCases = [
     , test_selection_omit_external_b
     , test_selection_omit_prescriptive
     , test_selection_squash
+    , test_selection_squash_into_selected
       -- * Typedef analysis
     , test_typedef_analysis
     , test_typedef_block
@@ -483,6 +484,14 @@ test_selection_squash =
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["typedef_to_struct_a"]
+
+-- | A typedef squashed into a selected struct is not a missing dependency
+--
+-- The typedef is in a header that is not selected. The struct that uses it is
+-- still selected, with a field of type @Ptr S@.
+test_selection_squash_into_selected :: TestCase
+test_selection_squash_into_selected =
+    defaultTest "program-analysis/selection_squash_into_selected"
 
 {-------------------------------------------------------------------------------
   Typedef analysis
