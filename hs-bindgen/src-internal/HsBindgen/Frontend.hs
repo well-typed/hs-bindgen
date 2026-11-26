@@ -450,8 +450,9 @@ runFrontend tracer config libraryDirs boot = do
 
     mangleNamesPass <- cache "mangleNames" $ do
       afterResolveBindingSpecs <- resolveBindingSpecsPass
-      let (afterMangleNames, msgsMangleNames) =
-            mangleNames config.fieldNamingStrategy afterResolveBindingSpecs
+      let moduleName = Hs.ModuleName boot.baseModule.text
+          (afterMangleNames, msgsMangleNames) =
+            mangleNames (const (Just moduleName)) config.fieldNamingStrategy afterResolveBindingSpecs
       traceSorted (contramap FrontendMangleNames tracer) msgsMangleNames
       pure afterMangleNames
 

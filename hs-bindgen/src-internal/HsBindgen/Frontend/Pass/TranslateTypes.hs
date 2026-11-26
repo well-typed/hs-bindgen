@@ -32,7 +32,6 @@ import HsBindgen.IR.FunSig
 import HsBindgen.IR.Hs qualified as Hs
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
-import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Macro.Type qualified as Macro
 
@@ -209,9 +208,9 @@ processMacroType macroType = do
     macroVarToHsType :: MacroTypeBodyVar MangleNames -> Hs.Type
     macroVarToHsType = \case
       MacroTypeExtBinding ext ->
-        Hs.ExtBinding ext.hsName ext.cSpec ext.hsSpec
+        Hs.ExtBinding ext.hsIdent ext.cSpec ext.hsSpec
       MacroTypeBodyVar pair ->
-        Hs.TypRef (Hs.assertNs (Proxy @Hs.NsTypeConstr) pair.hsName) Nothing
+        Hs.TypRef pair.hsIdent Nothing
 
 processFunction ::
      C.Function MangleNames

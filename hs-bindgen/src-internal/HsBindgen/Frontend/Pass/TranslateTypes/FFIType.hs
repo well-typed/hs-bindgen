@@ -96,8 +96,8 @@ pointerTo = \case
     PointeeConstObject -> Hs.FFIPtrVoid
     PointeeObject      -> Hs.FFIPtrVoid
 
-lookupSugarInfoM :: Hs.Name Hs.NsTypeConstr -> M SugarInfo
-lookupSugarInfoM name = do
+lookupSugarInfoM :: Hs.Identifier -> M SugarInfo
+lookupSugarInfoM ident = do
     sugars <- ask
-    let sugar = lookupSugarInfo name sugars
-    censor (FFITypesLookupSugarInfo name sugar :) $ pure sugar
+    let sugar = lookupSugarInfo ident sugars
+    censor (FFITypesLookupSugarInfo ident sugar :) $ pure sugar

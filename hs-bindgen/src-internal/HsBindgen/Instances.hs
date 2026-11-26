@@ -122,7 +122,7 @@ instance PrettyForTrace Strategy where
 -- | Constraint of an instance
 data Constraint = Constraint {
       clss :: TypeClass
-    , ref  :: Hs.ExtRef
+    , ref  :: Hs.Identifier
     }
   deriving stock (Eq, Generic, Ord, Show)
 

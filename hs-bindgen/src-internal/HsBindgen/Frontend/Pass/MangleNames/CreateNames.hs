@@ -200,7 +200,12 @@ mangleCandidate mc _ cName =
 
 createNames ::
      forall l. Macro.HasTypes l
-  => TypedefAnalysis
+  => (C.DeclId -> Hs.ModuleName)
+     -- ^ The module of a declaration that the pass names
+  -> (C.DeclId -> C.DeclId -> Hs.ModuleName)
+     -- ^ The module of a squashed typedef, given the typedef and the type it
+     -- is squashed into
+  -> TypedefAnalysis
   -> MangleCandidate Maybe
   -> FieldNamingStrategy
   -> [C.Decl l ResolveBindingSpecs]
@@ -211,7 +216,7 @@ createNames ::
      , [MangleNamesFailure]
      , [(C.DeclId, DelayedMangleNamesMsg)]
      )
-createNames td mc strategy decls = (
+createNames moduleOf squashedModule td mc strategy decls = (
       map (snd . snd) successes
     , squashes
     , nameMap
@@ -227,12 +232,6 @@ createNames td mc strategy decls = (
       C.Decl l ResolveBindingSpecs -> Maybe (C.DeclId, Hs.Name Hs.NsTypeConstr)
     getSpecifiedName decl = (decl.id,) <$> ((.hsName) =<< decl.ann.cSpec)
 
-    env :: CreateEnv
-    env = CreateEnv{
-        mangleCandidate     = mc
-      , fieldNamingStrategy = strategy
-      }
-
     results :: [CreateNamesResult ([ScopedNamePair], C.Decl l CreateNames)]
     messages :: [(C.DeclId, DelayedMangleNamesMsg)]
     (results, messages) = second concat $ unzip $ map perDecl decls
@@ -243,11 +242,12 @@ createNames td mc strategy decls = (
     perDecl decl = (,map (decl.id,) msgs) $ case nameResult of
         CnFailure err      -> CnFailure err
         CnSquashed nC nH s -> CnSquashed nC nH s
-        CnMangled name ()  -> createNamesWithin env name decl
+        CnMangled name ()  ->
+          createNamesWithin mc strategy (moduleOf name.cName) name decl
       where
         nameResult :: CreateNamesResult ()
         msgs       :: [DelayedMangleNamesMsg]
-        (nameResult, msgs) = nameForDecl td mc specifiedNames decl
+        (nameResult, msgs) = nameForDecl moduleOf td mc specifiedNames decl
 
     failures  :: [MangleNamesFailure]
     squashes  :: [(C.DeclId, Hs.Name Hs.NsTypeConstr, TypedefAnalysis.Squash)]
@@ -261,18 +261,22 @@ createNames td mc strategy decls = (
       ++ map fromSquash squashes
       where
         fromSuccess (declIdPair, (scopedNamePairs, _)) = (declIdPair, scopedNamePairs)
-        fromSquash (cN, hN, _)                         = (declIdPair, scopedNamePairs)
+        fromSquash (cN, hN, s)                         = (declIdPair, scopedNamePairs)
           where
-            declIdPair = DeclIdPair cN (Hs.demoteNs hN)
+            -- Use the module of the type the typedef is squashed into, not
+            -- the typedef's own (see 'squashedModule').
+            declIdPair = DeclIdPair cN
+                (Hs.Identifier (squashedModule cN s.targetId) (Hs.demoteNs hN))
             scopedNamePairs = []
 
 nameForDecl ::
-     TypedefAnalysis
+     (C.DeclId -> Hs.ModuleName)
+  -> TypedefAnalysis
   -> MangleCandidate Maybe
   -> Map C.DeclId (Hs.Name Hs.NsTypeConstr)
   -> C.Decl l ResolveBindingSpecs
   -> (CreateNamesResult (), [DelayedMangleNamesMsg])
-nameForDecl td mc specifiedNames decl =
+nameForDecl moduleOf td mc specifiedNames decl =
     withDeclNamespace decl.kind $ \(nsProxy :: Proxy ns) ->
       let mangleNs :: Text -> Either MangleNamesCreationError (Hs.Name ns)
           mangleNs d = runExcept $ mangleCandidate mc nsProxy d
@@ -347,7 +351,8 @@ nameForDecl td mc specifiedNames decl =
     failWith err = (CnFailure $ toFailure decl (MangleNamesCreationError err), [])
 
     getPair :: Hs.SingNamespace ns => Hs.Name ns -> DeclIdPair
-    getPair = DeclIdPair declId . Hs.demoteNs
+    getPair hsName = DeclIdPair declId
+        (Hs.Identifier (moduleOf declId) (Hs.demoteNs hsName))
 
     succeedWith :: Hs.SingNamespace ns => Hs.Name ns -> CreateNamesResult ()
     succeedWith n = CnMangled (getPair n) ()
@@ -364,6 +369,7 @@ nameForDecl td mc specifiedNames decl =
 data CreateEnv = CreateEnv{
       mangleCandidate     :: MangleCandidate Maybe
     , fieldNamingStrategy :: FieldNamingStrategy
+    , currentModule       :: Hs.ModuleName
     }
   deriving stock (Generic)
 
@@ -412,15 +418,22 @@ partitionCreateNamesResults = rev . Foldable.foldl' aux ([], [], [])
     rev (fs, ss, ds) = (reverse fs, reverse ss, reverse ds)
 
 -- | Create the within-declaration names of a declaration whose top-level name
--- ('hsName') has already been chosen in step 1a.
+-- (the @hsIdent@ of its t'DeclIdPair') has already been chosen in step 1a.
 createNamesWithin ::
      Macro.HasTypes l
-  => CreateEnv
+  => MangleCandidate Maybe
+  -> FieldNamingStrategy
+  -> Hs.ModuleName
   -> DeclIdPair
   -> C.Decl l ResolveBindingSpecs
   -> CreateNamesResult ([ScopedNamePair], C.Decl l CreateNames)
-createNamesWithin env declIdPair decl =
-    case runCreate env emptyCreateSt (createDeclKind declIdPair.hsName.text decl.kind) of
+createNamesWithin mc fns modName declIdPair decl =
+    let env = CreateEnv{
+            mangleCandidate     = mc
+          , fieldNamingStrategy = fns
+          , currentModule       = modName
+          }
+    in case runCreate env emptyCreateSt (createDeclKind declIdPair.hsIdent.name.text decl.kind) of
       (Left err, _)   -> CnFailure $ toFailure decl (MangleNamesCreationError err)
       (Right kind, st) -> CnMangled declIdPair (
           st.scopedNames
@@ -506,6 +519,7 @@ createTypedefNames isFunPtr strategy name = do
 createFieldName :: Text -> C.ScopedName -> CreateE ScopedNamePair
 createFieldName hsName fieldCName = do
     strategy <- asks (.fieldNamingStrategy)
+    modName  <- asks (.currentModule)
     let candidate :: Text
         candidate = case strategy of
           AddFieldPrefixes  -> hsName <> "_" <> fieldCName.text
@@ -513,7 +527,7 @@ createFieldName hsName fieldCName = do
     name <- mkName (Proxy @Hs.NsVar) candidate
     let scopedNamePair = ScopedNamePair{
         cName  = fieldCName
-      , hsName = Hs.demoteNs name
+      , hsIdent = Hs.Identifier modName (Hs.demoteNs name)
       }
     modify $ #scopedNames %~ (scopedNamePair:)
     pure scopedNamePair
@@ -524,10 +538,11 @@ createFieldName hsName fieldCName = do
 -- enclosing enum.
 createEnumConstantName :: C.ScopedName -> CreateE ScopedNamePair
 createEnumConstantName cName = do
+    modName <- asks (.currentModule)
     name <- mkName (Proxy @Hs.NsConstr) cName.text
     let scopedNamePair = ScopedNamePair{
         cName  = cName
-      , hsName = Hs.demoteNs name
+      , hsIdent = Hs.Identifier modName (Hs.demoteNs name)
       }
     modify $ #scopedNames %~ (scopedNamePair:)
     pure scopedNamePair
@@ -539,10 +554,11 @@ createEnumConstantName cName = do
 -- mangling.
 createArgumentName :: C.ScopedName -> CreateE ScopedNamePair
 createArgumentName argName = do
+    modName <- asks (.currentModule)
     name <- mkName (Proxy @Hs.NsVar) argName.text
     let scopedNamePair = ScopedNamePair{
         cName  = argName
-      , hsName = Hs.demoteNs name
+      , hsIdent = Hs.Identifier modName (Hs.demoteNs name)
       }
     modify $ #scopedNames %~ (scopedNamePair:)
     pure scopedNamePair
