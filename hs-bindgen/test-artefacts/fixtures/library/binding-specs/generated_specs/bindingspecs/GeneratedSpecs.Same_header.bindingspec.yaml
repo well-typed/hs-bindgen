@@ -1,0 +1,34 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: GeneratedSpecs.Same_header
+ctypes:
+- headers: generated_specs/same_header.h
+  cname: struct same_header
+  hsname: Same_header
+- headers: generated_specs/same_header.h
+  cname: same_header
+  hsname: Same_header
+- omit:
+    headers: generated_specs/same_header.h
+    cname: struct omitted
+hstypes:
+- hsname: Same_header
+  representation:
+    record:
+      constructor: Same_header
+      fields:
+      - same_header_value
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

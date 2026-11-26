@@ -2,6 +2,7 @@
 module Test.HsBindgen.Golden (
     tests
   , allTestCases
+  , allLibraryTests
   , module Test.HsBindgen.Golden.Infra.TestCase
   ) where
 
@@ -16,8 +17,10 @@ import Test.HsBindgen.Golden.Documentation qualified as Documentation
 import Test.HsBindgen.Golden.EdgeCases qualified as EdgeCases
 import Test.HsBindgen.Golden.Functions qualified as Functions
 import Test.HsBindgen.Golden.Globals qualified as Globals
+import Test.HsBindgen.Golden.Infra.LibraryTest (LibraryTest)
 import Test.HsBindgen.Golden.Infra.TestCase
 import Test.HsBindgen.Golden.Infra.TestCaseTree
+import Test.HsBindgen.Golden.Library qualified as Library
 import Test.HsBindgen.Golden.Macros qualified as Macros
 import Test.HsBindgen.Golden.Macros.Lang qualified as Macros.Lang
 import Test.HsBindgen.Golden.Macros.Redeclaration qualified as Macros.Redeclaration
@@ -45,6 +48,7 @@ testCaseTree =
       , TestCases "edgeCases"       EdgeCases.testCases
       , TestCases "functions"       Functions.testCases
       , TestCases "globals"         Globals.testCases
+      , TestCaseSection "library" Library.testCases
       , TestCaseSection "macros" $ concat [
             TestCaseLeafs Macros.testCases
           , TestCaseLeafs Macros.fallbackTestCases
@@ -59,3 +63,7 @@ testCaseTree =
 -- | All test cases, for use by TH fixture compilation
 allTestCases :: [TestCase]
 allTestCases = flatten testCaseTree
+
+-- | All library tests, for use by PP fixture compilation
+allLibraryTests :: [LibraryTest]
+allLibraryTests = Library.libraryTests

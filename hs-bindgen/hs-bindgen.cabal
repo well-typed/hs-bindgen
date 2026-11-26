@@ -23,6 +23,7 @@ extra-source-files:
   musl-include/COPYRIGHT
   musl-include/VERSION
   test-artefacts/fixtures/**/*.hs
+  test-artefacts/fixtures/**/*.hs-boot
   test-artefacts/fixtures/**/*.txt
   test-artefacts/fixtures/**/*.yaml
   test-artefacts/headers/**/*.h
@@ -559,10 +560,13 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Infra.Check.BindingSpec
     Test.HsBindgen.Golden.Infra.Check.FailureBindgen
     Test.HsBindgen.Golden.Infra.Check.FailureLibclang
+    Test.HsBindgen.Golden.Infra.Check.Library
     Test.HsBindgen.Golden.Infra.Check.PP
     Test.HsBindgen.Golden.Infra.Check.TH
+    Test.HsBindgen.Golden.Infra.LibraryTest
     Test.HsBindgen.Golden.Infra.TestCase
     Test.HsBindgen.Golden.Infra.TestCaseTree
+    Test.HsBindgen.Golden.Library
     Test.HsBindgen.Golden.Macros
     Test.HsBindgen.Golden.Macros.Lang
     Test.HsBindgen.Golden.Macros.Redeclaration
@@ -602,6 +606,7 @@ test-suite test-hs-bindgen
 
   -- Inherited dependencies
   build-depends:
+    , bytestring
     , c-expr-dsl
     , containers
     , data-default

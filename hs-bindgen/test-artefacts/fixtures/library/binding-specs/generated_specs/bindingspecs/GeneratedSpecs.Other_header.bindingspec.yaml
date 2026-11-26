@@ -1,0 +1,31 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: GeneratedSpecs.Other_header
+ctypes:
+- headers: generated_specs/fwd.h
+  cname: other_header
+  hsname: Other_header
+- headers: generated_specs/other_header.h
+  cname: struct other_header
+  hsname: Other_header
+hstypes:
+- hsname: Other_header
+  representation:
+    record:
+      constructor: Other_header
+      fields:
+      - other_header_value
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
