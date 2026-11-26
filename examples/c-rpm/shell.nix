@@ -10,6 +10,7 @@ pkgs.mkShell {
     cmake
     pkg-config
     scdoc
+    gettext
 
     # RPM dependencies
     popt
