@@ -65,6 +65,7 @@ mkRolledExpr :: Guasi q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
 mkRolledExpr env expr = case expr of
     EGlobal n     -> mkGlobalExpr n
     EFree n       -> TH.varE $ mkHsTermName n
+    EExt iden     -> lookupExtTerm iden
     EBound x      -> TH.varE (lookupEnv x env)
     ECon n        -> TH.conE $ mkHsName n
     EUnboxedIntegral i -> TH.sigE (TH.litE (TH.IntPrimL i)) (TH.conT ''GHC.Base.Int#)
@@ -511,20 +512,30 @@ panicWith msg x = panicPure $ msg ++ ": " ++ show x
 -- See https://github.com/well-typed/hs-bindgen/issues/1622.
 lookupExtType :: Guasi q => Hs.Identifier -> q TH.Type
 lookupExtType identifier = do
-    mName <- lookupTypeName qualName
+    mName <- lookupTypeName (qualName identifier)
     case mName of
       Just n  -> TH.conT n
       Nothing -> do
           modifyGuasi (putMissingModule identifier.moduleName)
-          TH.conT (TH.mkName qualName)
-  where
-    qualName :: String
-    qualName = concat [
-          Hs.moduleNameToString identifier.moduleName
-        , "."
-        , Text.unpack identifier.name.text
-        ]
+          TH.conT (TH.mkName (qualName identifier))
 
-    putMissingModule :: Hs.ModuleName -> GuasiState -> GuasiState
-    putMissingModule m s = s & #missingModules %~ Set.insert m
+-- | Look up an external (cross-module) term-level reference.
+--
+-- Parallel to 'lookupExtType' for type-level references, except that it does
+-- not check whether the name is in scope: 'Guasi' has no counterpart of
+-- 'lookupTypeName' for values.
+lookupExtTerm :: Guasi q => Hs.Identifier -> q TH.Exp
+lookupExtTerm identifier = do
+    modifyGuasi (putMissingModule identifier.moduleName)
+    TH.varE (TH.mkName (qualName identifier))
 
+-- | The name of an identifier, qualified with its module
+qualName :: Hs.Identifier -> String
+qualName identifier = concat [
+      Hs.moduleNameToString identifier.moduleName
+    , "."
+    , Text.unpack identifier.name.text
+    ]
+
+putMissingModule :: Hs.ModuleName -> GuasiState -> GuasiState
+putMissingModule m s = s & #missingModules %~ Set.insert m

@@ -78,7 +78,7 @@ translateDecl currentMod macroLang = \case
   Hs.DeclNewtype              x -> translateNewtype               currentMod x
   Hs.DeclDefineInstance       x -> translateDefineInstanceDecl    currentMod x
   Hs.DeclDeriveInstance       x -> translateDeriveInstance        currentMod x
-  Hs.DeclMacroValue           x -> translateMacroValue'            macroLang x
+  Hs.DeclMacroValue           x -> translateMacroValue' currentMod macroLang x
   Hs.DeclForeignImport        x -> translateForeignImportDecl                x
   Hs.DeclForeignImportWrapper x -> translateForeignImportWrapper             x
   Hs.DeclForeignImportDynamic x -> translateForeignImportDynamic             x
@@ -219,22 +219,33 @@ translateDeriveInstance currentMod deriv = DDerivingInstance DerivingInstance {
 
 translateMacroValue' ::
      Macro.HasTypes l
-  => Macro.Lang l
+  => Hs.ModuleName
+  -> Macro.Lang l
   -> Hs.MacroBinding l
   -> SDecl
-translateMacroValue' macroLang macro = DBinding $ case macro.value of
+translateMacroValue' currentMod macroLang macro =
+  DBinding $ case macro.value of
     Hs.MacroValueTranslated value ->
       withCLiteralComment $
       macroLang.translateValue
         macro.name
-        (fmap macroIdToHsName value.body)
+        (fmap macroIdToRef value.body)
         macro.comment
     Hs.MacroValueRaw raw ->
       rawMacroBinding macro.name raw macro.comment
   where
-    macroIdToHsName :: Id Final -> Hs.TermName
-    macroIdToHsName namePair =
-        Hs.ExportedName $ Hs.assertNs (Proxy @Hs.NsVar) namePair.hsIdent.name
+    -- | Map a declaration identifier to a term-level reference.
+    --
+    -- A declaration of the current module becomes an unqualified term name
+    -- ('Right'). A declaration of another module becomes a qualified
+    -- identifier ('Left'), as 'translateType'' does with 'TExt' for types.
+    macroIdToRef :: Id Final -> Either Hs.Identifier Hs.TermName
+    macroIdToRef namePair
+        | namePair.hsIdent.moduleName /= currentMod
+        = Left namePair.hsIdent
+        | otherwise
+        = Right $ Hs.ExportedName $
+            Hs.assertNs (Proxy @Hs.NsVar) namePair.hsIdent.name
 
 -- | Augment a macro binding's Haddock comment with the C literal representation
 -- when the binding body is a character or string literal.

@@ -75,10 +75,14 @@ data Lang (l :: Star) = Lang {
       -> Hs.Type
 
     -- | Translate a checked value-macro to a 'Binding'.
+    --
+    -- Variables in the body are mapped to @'Left' identifier@ for cross-module
+    -- references (rendered qualified) or @'Right' termName@ for same-module
+    -- references (rendered unqualified).
   , translateValue ::
          Hs.Name Hs.NsVar
          -- ^ Exported binding name
-      -> TypecheckedValue l Hs.TermName
+      -> TypecheckedValue l (Either Hs.Identifier Hs.TermName)
       -> Maybe HsDoc.Comment
       -> Binding
   }
