@@ -53,6 +53,8 @@ to specify selection predicates are (excerpt of `hs-bindgen-cli preprocess
                          Select declarations in main headers (default)
 --select-from-main-header-dirs
                          Select declarations in main header directories
+--select-from-library-headers
+                         Select declarations in --library headers
 --select-from-all-headers
                          Select declarations in any header (unlike
                          --select-all, not root directives or -D options)
@@ -68,6 +70,11 @@ to specify selection predicates are (excerpt of `hs-bindgen-cli preprocess
                          Select except declarations with C names that match
                          PCRE
 ```
+
+`--select-from-library-headers` matches headers under a `--library` directory.
+Without `--library`, the library directories are empty and the predicate matches
+nothing. The same set of flags with `macro-fallback-` in place of `select-`
+controls which unhandled macros fall back to raw tokens.
 
 > [!NOTE]
 > For unnamed declarations, the selection predicate matches against the

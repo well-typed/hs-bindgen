@@ -18,6 +18,7 @@
 * [Includes](low-level/usage/includes.md)
 * [Selecting and program slicing](low-level/usage/selecting-and-program-slicing.md)
 * [Binding specifications](low-level/usage/binding-specifications.md)
+* [Library mode](low-level/usage/library-mode.md)
 * [Portability](low-level/usage/portability.md)
 * [Test generation](low-level/usage/test-generation.md)
 * [Cross-compilation](low-level/usage/cross-compilation.md)

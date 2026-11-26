@@ -40,6 +40,32 @@ Options controlling module generation:
 - `--module NAME` - Base module name (e.g., `Generated.MyLib`)
 - `--unique-id ID` - Unique identifier for C wrapper functions (e.g., `org.example.mylib`)
 - `--create-output-dirs` - Create output directories if they do not exist
+- `--dry-run` - Check the output files and report them, but write nothing
+- `--library DIR` - Generate modules for each header under `DIR` (see [Library
+  mode][manual:library-mode])
+
+`--dry-run` shows what a run would generate, without writing any files or
+creating any directories. It checks the output files the same way a real run
+does, so it fails in the same cases, with the same message and exit code 4
+(see [Exit codes](#exit-codes)): when an output file exists and
+`--overwrite-files` is not given, or when an output directory is missing and
+`--create-output-dirs` is not given. It then reports each file it would write
+as a notice (`Would write ... to file ...`), and prints one line on standard
+output: the base module name, a colon, and the headers that contain a
+declaration with a binding, spelled as they were included, in the order in
+which their bindings first appear in the module. For example, if `a.h`
+includes `b.h` and both declare a function,
+
+```bash
+hs-bindgen-cli preprocess --dry-run --create-output-dirs --hs-output-dir out -I . --module M a.h b.h
+```
+
+prints `M: b.h, a.h`. Macros defined by `--hash-define` or by a `-D` Clang
+option are in no header, so if they are the only bindings, the line is `M:`.
+If there is nothing to bind, there is no line, and a notice says why: `No
+module for "M": there are no declarations to bind`. In library mode, the dry
+run prints the path of each file instead (see [Library
+mode][manual:library-mode]).
 
 #### Input
 
@@ -218,7 +244,7 @@ arguments:
 This list contains the same arguments you would pass to `hs-bindgen-cli
 preprocess`, in standard Haskell list syntax.
 
-The `.lhs` file can contain arbitrary content—it is simply passed to the
+The `.lhs` file can contain arbitrary content: it is simply passed to the
 preprocessor.  The preprocessor is responsible for parsing the file and
 generating Haskell code.
 
@@ -526,5 +552,6 @@ In file included from /tmp/ghc2319546_0/ghc_1.c:1:0: error:
 [manual:clang-options]: clang-options.md
 [manual:installation]: ../../installation.md
 [manual:installation-clang-vs-gcc]: ../../installation.md#clang-vs-gcc
+[manual:library-mode]: library-mode.md
 [manual:macros]: ../translation/macros.md
 [manual:selecting-and-program-slicing]: selecting-and-program-slicing.md

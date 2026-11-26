@@ -4,6 +4,9 @@
 
 ### Breaking changes
 
+* `HeaderPathPredicate` has a new constructor, `FromLibraryHeaders`. Pattern
+  matches on `HeaderPathPredicate` must handle it.
+
 * Require `c-expr-runtime` 0.2. Generated macros applied to a pointer now
   advance it by elements of the pointee type, as in C, not by bytes; for
   example, `PTR_TO_FIELD(ptr) ptr + 4` applied to a `Ptr CInt` advances by 16
@@ -11,6 +14,13 @@
   longer typecheck. See [issue #2306][is-2306].
 
 [is-2306]: https://github.com/well-typed/hs-bindgen/issues/2306
+
+* `ByCategory` has a new field, `cCallback`. It holds the code behind
+  callbacks that moves to a callback module in library mode. In Template
+  Haskell mode it is always empty. Code that builds
+  a `ByCategory` by hand must now set `cCallback`, for example to
+  `IncludeTermCategory def`. `useSafeCategory`, `useUnsafeCategory`,
+  `useFunPtrCategory` and `def` already set it.
 
 * Headers that the root header does not reach by an `#include` are now
   rejected with an error: headers loaded with the `-include` or `-include-pch`
@@ -44,6 +54,41 @@
 [is-368]: https://github.com/well-typed/hs-bindgen/issues/368
 [manual-macros]: https://github.com/well-typed/hs-bindgen/blob/main/manual/low-level/translation/macros.md#macro-fallback
 
+* `hs-bindgen-cli preprocess --dry-run` checks the output files as a real run
+  does, then writes no files and creates no directories. It reports each file
+  it would write as a notice. On standard output, it prints the base module
+  name followed by the headers that contain a declaration with a binding, for
+  example `M: b.h, a.h`. See the [invocation][manual-invocation] manual page.
+
+[manual-invocation]: https://github.com/well-typed/hs-bindgen/blob/main/manual/low-level/usage/invocation.md#module-generation
+
+* `hs-bindgen-cli preprocess --library DIR` binds a C library in one run. Each
+  header under `DIR` that the input headers include, directly or indirectly,
+  gets its own set of modules. `--library` is repeatable. See [issue
+  #742][is-742] and the [library mode][manual-library-mode] manual page.
+  * The module names follow the header path below `DIR`: `DIR/geo/point.h`
+    gets `<Module>.Geo.Point`, and sub-modules such as
+    `<Module>.Geo.Point.Safe`. Each type lives in the module of the header that
+    defines it.
+  * Types modules whose types refer to each other import each other with
+    `{-# SOURCE #-}`, and get boot files.
+  * Callback modules hold `ToFunPtr`/`FromFunPtr` instances:
+    `<Module>.Callback`, and one per header with a boot file. No generated
+    module imports them, so import them where you need the instances.
+  * The declarations that the selection keeps from outside the `--library`
+    directories, usually types that `--enable-program-slicing` pulls in, go to
+    one module, `<Module>.Vendor`.
+  * `--gen-binding-spec-dir` writes a binding specification for each header
+    with types. Each entry names its header relative to the `-I` directories.
+  * The run stops before writing anything when two headers, or a header and
+    `<Module>.Vendor`, get the same module name or write the same file.
+  * Selection predicates use the CLI headers as main headers, the same as
+    single-header mode. Use `--select-from-library-headers` to select every
+    header under `--library`.
+
+[is-742]: https://github.com/well-typed/hs-bindgen/issues/742
+[manual-library-mode]: https://github.com/well-typed/hs-bindgen/blob/main/manual/low-level/usage/library-mode.md
+
 ### Minor changes
 
 * A macro definition that cannot be read into name, parameters and
@@ -76,7 +121,18 @@
   reports "Selected a deprecated declaration". Previously, there was no
   deprecation warning.
 
+* When there are no declarations to bind, the notice now reads `No module for
+  "M": there are no declarations to bind`, or with `--single-file`, `Module "M"
+  is empty: there are no declarations to bind`. Previously it said "No output
+  generated", even when a binding specification was written.
+
 ### Bug fixes
+
+* A declaration that uses a typedef squashed into a selected type is now
+  selected, even when the typedef itself is not. Take `typedef struct S S;`
+  in `a.h`, and `struct S { int x; };` and `struct T { S *s; };` in `b.h`,
+  which includes `a.h`. A run on `b.h` now keeps `struct T`. Previously, it
+  dropped `struct T` with "Transitive dependency not selected".
 
 * A `struct` or `union` defined inline in a variable or function declaration
   that fails to parse (e.g., `struct s { long double x; } v;`) is now

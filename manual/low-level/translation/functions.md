@@ -293,6 +293,13 @@ instance FromFunPtr ProgressUpdate_Aux where
   fromFunPtr = <somehash2>
 ```
 
+In library mode, when a types module is in an import cycle, the stubs and
+the instances move to a module of their own, `ModuleName.Callback`, which is
+generated only when there are stubs to put in it. The instances are orphan
+there (the type lives in the types module), and no generated module imports
+`ModuleName.Callback`, so import it where you use them:
+`import ModuleName.Callback ()`.
+
 The function type of a typedef has these instances for its newtype
 (`ProgressUpdate_Aux` above). Any other function type, such as the type of a
 function pointer argument, has them only if at least one of the types of its

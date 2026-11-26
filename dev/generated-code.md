@@ -14,6 +14,13 @@ the ones they import. They import every module qualified, with two exceptions:
    set in its namespace, so no generated name clashes with it.
 2. **Sibling modules**: when output is split across several modules, one
    generated module may import another unqualified (e.g. `import Example`).
+   In library mode, a types module in an import cycle whose header has
+   callbacks gets a callback module. The callback module imports the types
+   module normally; the types module does not import it. A module
+   also imports the types modules of other headers whose declarations it uses.
+   Those imports are qualified, and inside an import cycle a types module
+   imports its peers with `{-# SOURCE #-}` (see [Library
+   mode](library-mode.md)).
 
 All other imports are qualified:
 
