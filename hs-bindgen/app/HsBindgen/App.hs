@@ -3,6 +3,7 @@
 -- | @hs-bindgen@ application common types and functions
 module HsBindgen.App (
     hsBindgen
+  , hsBindgenLibrary
 
     -- * Global options
   , GlobalOpts(..)
@@ -25,6 +26,7 @@ module HsBindgen.App (
   , parseFilePolicy
   , parseExecutionMode
   , parseGenBindingSpec
+  , parseGenBindingSpecDir
   , parseGenTestsOutput
     -- ** Input arguments
   , parseInputs
@@ -53,6 +55,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass (EmptyMacros (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.IR.C qualified as C
+import HsBindgen.Library (OutputFile)
 import HsBindgen.Macro (CExpr)
 import HsBindgen.Macro qualified as Macro
 import HsBindgen.TraceMsg
@@ -68,6 +71,26 @@ hsBindgen ::
   -> Artefact CExpr a
   -> IO a
 hsBindgen = hsBindgenMacroLang (pure . Macro.cExpr)
+
+-- | Convenience entry point for library mode using the default C macro
+-- language. Parallel to 'hsBindgen'.
+--
+-- Returns the files the plan predicts (see 'hsBindgenLibraryMacroLang').
+hsBindgenLibrary ::
+     TracerConfig Level     TraceMsg
+  -> TracerConfig SafeLevel SafeTraceMsg
+  -> BindgenConfig
+  -> ExecutionMode
+  -> [C.UncheckedRootDirective]
+  -> [FilePath]
+  -> ModuleRenderConfig
+  -> FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> Maybe FilePath
+  -> IO [OutputFile]
+hsBindgenLibrary =
+  hsBindgenLibraryMacroLang (pure . Macro.cExpr)
 
 {-------------------------------------------------------------------------------
   Global options
@@ -415,6 +438,8 @@ parsePredicate flags = fmap aux . many . asum $ [
         flags.positive (flags.subject ++ " in main headers")
     , positiveFlag (BIf (SelectHeader FromMainHeaderDirs)) "from-main-header-dirs" $
         flags.positive (flags.subject ++ " in main header directories")
+    , positiveFlag (BIf (SelectHeader FromLibraryHeaders)) "from-library-headers" $
+        flags.positive (flags.subject ++ " in --library headers")
     , positiveFlag (BIf (SelectHeader FromAllHeaders)) "from-all-headers" $ concat [
           flags.positive (flags.subject ++ " in any header")
         , " (unlike --" ++ flags.prefix ++ "-all,"
@@ -591,8 +616,15 @@ parseExecutionMode = flag RealRun DryRun $ mconcat [
 parseGenBindingSpec :: Parser FilePath
 parseGenBindingSpec = strOption $ mconcat [
       long "gen-binding-spec"
-    , metavar "PATH"
-    , help "Binding specification to generate"
+    , metavar "FILE"
+    , help "Binding specification file to generate (single-header mode)"
+    ]
+
+parseGenBindingSpecDir :: Parser FilePath
+parseGenBindingSpecDir = strOption $ mconcat [
+      long "gen-binding-spec-dir"
+    , metavar "DIR"
+    , help "Directory for per-module binding specifications (library mode)"
     ]
 
 parseGenTestsOutput :: Parser FilePath

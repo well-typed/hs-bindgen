@@ -15,7 +15,9 @@ module HsBindgen.Cli.Preprocess (
   ) where
 
 import Data.List qualified as List
+import GHC.Exception (Exception (..))
 import Options.Applicative hiding (info)
+import System.Directory (doesDirectoryExist, doesFileExist)
 
 import HsBindgen
 import HsBindgen.App
@@ -24,8 +26,10 @@ import HsBindgen.App.Output (OutputMode (..), OutputOptions (..),
 import HsBindgen.ArtefactM
 import HsBindgen.Config
 import HsBindgen.Config.Internal
+import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
+import HsBindgen.Library (OutputFile, outputFilePath)
 import HsBindgen.Macro
 
 {-------------------------------------------------------------------------------
@@ -59,9 +63,11 @@ data ConfigCLI = ConfigCLI {
     , outputOptions     :: OutputOptions
     , hsOutputDir       :: FilePath
     , outputBindingSpec :: Maybe FilePath
+    , bindingSpecDir    :: Maybe FilePath
     , dirPolicy         :: DirPolicy
     , filePolicy        :: FilePolicy
     , executionMode     :: ExecutionMode
+    , libraryDirs       :: [FilePath]
     -- NOTE: Inputs (arguments) must be last, options must go before it.
     , inputs            :: [C.UncheckedRootDirective]
     }
@@ -76,17 +82,33 @@ parseConfigCLI =
       <*> parseOutputOptions FilePerModule
       <*> parseHsOutputDir
       <*> optional parseGenBindingSpec
+      <*> optional parseGenBindingSpecDir
       <*> parseDirPolicy
       <*> parseFilePolicy
       <*> parseExecutionMode
+      <*> parseLibraryDirs
       <*> parseInputs
+
+parseLibraryDirs :: Parser [FilePath]
+parseLibraryDirs = many $ strOption $ mconcat [
+      long "library"
+    , metavar "DIR"
+    , help (  "Generate modules for the headers under DIR that the input "
+           ++ "headers include, directly or indirectly (repeatable). "
+           ++ "By default, only the input headers on the command line "
+           ++ "control the selection. Use --select-from-library-headers "
+           ++ "to select the library headers directly"
+           )
+    ]
 
 {-------------------------------------------------------------------------------
   Execution
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec global opts = execSingle
+exec global opts
+  | not (null opts.configCLI.libraryDirs) = execLibrary
+  | otherwise                             = execSingle
   where
     bindgenConfig :: BindgenConfig
     bindgenConfig =
@@ -101,8 +123,12 @@ exec global opts = execSingle
         qualifiedStyle = opts.configCLI.qualifiedStyle
       }
 
+    -- | Single-header mode, without @--library@: one set of modules for all
+    -- the declarations of the run
     execSingle :: IO ()
     execSingle = do
+        forM_ opts.configCLI.bindingSpecDir $ \_ ->
+          throwIO GenBindingSpecDirWithoutLibrary
         case opts.configCLI.executionMode of
           RealRun ->
             run RealRun artefact
@@ -140,6 +166,83 @@ exec global opts = execSingle
               opts.configCLI.filePolicy
               opts.configCLI.dirPolicy
               path
+
+    -- | Library mode: a set of modules for each header under the @--library@
+    -- directories that the run parses (see "HsBindgen.Library")
+    execLibrary :: IO ()
+    execLibrary = do
+        case opts.configCLI.outputOptions of
+          OutputOptions (SingleFile _) ->
+            throwIO LibraryWithSingleFile
+          _otherwise ->
+            pure ()
+        forM_ opts.configCLI.outputBindingSpec $ \_ ->
+          throwIO GenBindingSpecWithLibrary
+        forM_ opts.configCLI.libraryDirs $ \dir -> do
+          isDir <- doesDirectoryExist dir
+          unless isDir $ do
+            isFile <- doesFileExist dir
+            throwIO $
+              if isFile then LibraryDirIsFile dir
+                        else LibraryDirNotFound dir
+
+        files <- run opts.configCLI.executionMode
+
+        case opts.configCLI.executionMode of
+          -- One line per file the real run would write, whatever the
+          -- verbosity.
+          DryRun ->
+            mapM_ putStrLn $ List.sort [
+                outputFilePath
+                  opts.configCLI.hsOutputDir
+                  opts.configCLI.bindingSpecDir
+                  file
+              | file <- files
+              ]
+          RealRun -> pure ()
+      where
+        run :: ExecutionMode -> IO [OutputFile]
+        run mode =
+          hsBindgenLibrary
+            global.unsafe
+            global.safe
+            bindgenConfig
+            mode
+            opts.configCLI.inputs
+            opts.configCLI.libraryDirs
+            mrc
+            opts.configCLI.filePolicy
+            opts.configCLI.dirPolicy
+            opts.configCLI.hsOutputDir
+            opts.configCLI.bindingSpecDir
+
+{-------------------------------------------------------------------------------
+  Exception
+-------------------------------------------------------------------------------}
+
+-- | Options that @preprocess@ cannot combine, and early validation failures
+-- for @--library@ directory arguments.
+data PreprocessException =
+    LibraryWithSingleFile
+  | LibraryDirNotFound FilePath
+  | LibraryDirIsFile   FilePath
+  | GenBindingSpecWithLibrary
+  | GenBindingSpecDirWithoutLibrary
+  deriving Show
+
+instance Exception PreprocessException where
+    toException = hsBindgenExceptionToException
+    fromException = hsBindgenExceptionFromException
+    displayException LibraryWithSingleFile =
+      "--library is not available with --single-file"
+    displayException (LibraryDirNotFound path) =
+      "--library: directory does not exist: " ++ path
+    displayException (LibraryDirIsFile path) =
+      "--library: not a directory (regular file): " ++ path
+    displayException GenBindingSpecWithLibrary =
+      "--gen-binding-spec is not available with --library; use --gen-binding-spec-dir"
+    displayException GenBindingSpecDirWithoutLibrary =
+      "--gen-binding-spec-dir is only available with --library; use --gen-binding-spec"
 
 {-------------------------------------------------------------------------------
   Dry run
