@@ -6,6 +6,10 @@
 -- that the run no longer writes.
 module Test.HsBindgen.Golden.Infra.Check.Library (
     check
+    -- * Reused by equivalence check
+  , Files
+  , readFiles
+  , compareFiles
   ) where
 
 import Control.Exception (catch)

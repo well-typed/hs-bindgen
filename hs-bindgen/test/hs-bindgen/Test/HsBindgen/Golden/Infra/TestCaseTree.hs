@@ -26,6 +26,7 @@ import Clang.Version (ClangVersion (ClangVersion, ClangVersionUnknown),
                       runtimeClangVersion)
 
 import Test.HsBindgen.Golden.Infra.Check.BindingSpec qualified as BindingSpec
+import Test.HsBindgen.Golden.Infra.Check.Equivalence qualified as Equivalence
 import Test.HsBindgen.Golden.Infra.Check.FailureBindgen qualified as FailureBindgen
 import Test.HsBindgen.Golden.Infra.Check.FailureLibclang qualified as FailureLibclang
 import Test.HsBindgen.Golden.Infra.Check.PP qualified as PP
@@ -76,6 +77,7 @@ testTreeFor getTestResources = goTree
               TH.check          getTestResources test
             , PP.check          getTestResources test
             , BindingSpec.check getTestResources test
+            , Equivalence.check getTestResources test
             ]
         FailureBindgen ->
           FailureBindgen.check getTestResources test

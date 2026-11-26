@@ -558,6 +558,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Functions
     Test.HsBindgen.Golden.Globals
     Test.HsBindgen.Golden.Infra.Check.BindingSpec
+    Test.HsBindgen.Golden.Infra.Check.Equivalence
     Test.HsBindgen.Golden.Infra.Check.FailureBindgen
     Test.HsBindgen.Golden.Infra.Check.FailureLibclang
     Test.HsBindgen.Golden.Infra.Check.Library
