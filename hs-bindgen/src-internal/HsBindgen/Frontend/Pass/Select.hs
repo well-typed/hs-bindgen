@@ -74,12 +74,11 @@ data TransitiveSelectability =
 
 selectDecls ::
      forall l. HasCallStack
-  => IsMainHeader
-  -> IsInMainHeaderDir
+  => HeaderPredicates
   -> SelectConfig
   -> C.TranslationUnit l TranslateTypes
   -> (C.TranslationUnit l Select, [AnnMsg Select])
-selectDecls isMainHeader isInMainHeaderDir config unit =
+selectDecls headerPreds config unit =
     let -- Directly match the selection predicate on the 'DeclDB', obtaining
         -- information about succeeded _and failed_ selection roots.
         selectionRoots :: Map C.DeclId (Entry l In)
@@ -295,8 +294,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
     match :: Match
     match name loc deprecation =
       matchSelect
-        isMainHeader
-        isInMainHeaderDir
+        headerPreds
         (singleLocPath loc)
         name
         deprecation

@@ -11,10 +11,13 @@ module HsBindgen.Frontend.Predicate (
   , Regex -- opaque
   , matchTest
     -- * Execution (internal API)
+  , HeaderPredicates(..)
   , IsMainHeader
   , mkIsMainHeader
   , IsInMainHeaderDir
   , mkIsInMainHeaderDir
+  , IsLibraryHeader
+  , findLibraryDir
   , matchSelect
   ) where
 
@@ -67,6 +70,12 @@ data HeaderPathPredicate =
     -- | Only include declarations in headers in main header directories,
     -- including subdirectories
   | FromMainHeaderDirs
+
+    -- | Only include declarations in headers under a @--library@ directory
+    --
+    -- Without @--library@, the library directories are empty, so this predicate
+    -- matches nothing.
+  | FromLibraryHeaders
 
     -- | Include declarations in any header
     --
@@ -138,21 +147,47 @@ mkIsInMainHeaderDir paths path =
     mainDirs = map FilePath.splitDirectories . Set.toList $
       Set.map (FilePath.takeDirectory . getRealPath) paths
 
+-- | Check if a header is under a @--library@ directory
+type IsLibraryHeader = RealPath -> Bool
+
+-- | Find which library directory (if any) contains the given header
+--
+-- The directories must be canonicalized, as the header path is. Library mode
+-- uses this to place declarations.
+--
+findLibraryDir :: [FilePath] -> RealPath -> Maybe FilePath
+findLibraryDir dirs header =
+    case [ d
+         | d <- dirs
+         , FilePath.isRelative (FilePath.makeRelative d (getRealPath header))
+         ] of
+      []    -> Nothing
+      (d:_) -> Just d
+
+-- | The header predicates that 'matchSelect' and 'matchHeaderPath' evaluate
+--
+-- A record avoids positional @RealPath -> Bool@ arguments when adding a new
+-- predicate.
+data HeaderPredicates = HeaderPredicates {
+      isMainHeader      :: IsMainHeader
+    , isInMainHeaderDir :: IsInMainHeaderDir
+    , isLibraryHeader   :: IsLibraryHeader
+    }
+
 -- | Match 'SelectionPredicate' predicates
 --
 -- A declaration without a header (a root directive or a @-D@ option) matches
 -- no 'HeaderPathPredicate'.
 matchSelect ::
-     IsMainHeader
-  -> IsInMainHeaderDir
+     HeaderPredicates
   -> C.DeclPath
   -> C.DeclName
   -> C.Deprecation
   -> Boolean SelectionPredicate
   -> Bool
-matchSelect isMainHeader isInMainHeaderDir path cDeclName deprecation = eval $ \case
+matchSelect preds path cDeclName deprecation = eval $ \case
     SelectHeader p -> case path of
-      C.InHeader realPath -> matchHeaderPath isMainHeader isInMainHeaderDir realPath p
+      C.InHeader realPath -> matchHeaderPath preds realPath p
       C.InRootHeader      -> False
       C.OnCommandLine     -> False
     SelectDecl   p -> matchDecl cDeclName deprecation p
@@ -222,14 +257,14 @@ eval f = go
 
 -- | Match 'HeaderPathPredicate' predicates
 matchHeaderPath ::
-     IsMainHeader
-  -> IsInMainHeaderDir
+     HeaderPredicates
   -> RealPath
   -> HeaderPathPredicate
   -> Bool
-matchHeaderPath isMainHeader isInMainHeaderDir realPath = \case
-    FromMainHeaders      -> isMainHeader realPath
-    FromMainHeaderDirs   -> isInMainHeaderDir realPath
+matchHeaderPath preds realPath = \case
+    FromMainHeaders      -> preds.isMainHeader realPath
+    FromMainHeaderDirs   -> preds.isInMainHeaderDir realPath
+    FromLibraryHeaders   -> preds.isLibraryHeader realPath
     FromAllHeaders       -> True
     HeaderPathMatches re -> matchTest re (getRealPathText realPath)
 

@@ -11,6 +11,7 @@ import Prelude hiding (zip)
 import Control.Exception (catch)
 import Data.List.NonEmpty qualified as NE
 import Data.Map.Lazy qualified as Map
+import System.Directory (canonicalizePath)
 
 import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
@@ -267,9 +268,12 @@ runFrontend ::
      forall l. (Macro.HasTypes l, HasCallStack)
   => Tracer FrontendMsg
   -> FrontendConfig
+  -> [FilePath]
+     -- ^ Library directories, as given with @--library@. Empty in
+     -- single-header mode.
   -> BootArtefact l
   -> IO (FrontendArtefact l)
-runFrontend tracer config boot = do
+runFrontend tracer config libraryDirs boot = do
     rootHeaderC <- cache "rootHeader" $ do
       (msgs, rootHeader) <- RootHeader.fromRootDirectives <$> boot.rootDirectives
       liftIO $ mapM_ (traceWith tracerRootHeader . withCallStack) msgs
@@ -281,6 +285,9 @@ runFrontend tracer config boot = do
       liftIO $ withClang (contramap FrontendClang tracer) setup $ \unit -> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude, mainHeaderPaths) <-
           processIncludes unit
+        canonicalLibraryDirs <- mapM canonicalizePath libraryDirs
+        let isLibraryHeader path =
+              isJust (findLibraryDir canonicalLibraryDirs path)
         -- Run doxygen on the resolved main header paths to extract
         -- structured comments.  The paths come from clang's own include
         -- resolution (via processIncludes), so no separate path search
@@ -317,8 +324,11 @@ runFrontend tracer config boot = do
             results           = parseResults
           , doxygen           = doxyResult.doxygen
           , includeGraph      = includeGraph
-          , isMainHeader      = isMainHeader
-          , isInMainHeaderDir = isInMainHeaderDir
+          , headerPredicates  = HeaderPredicates {
+                isMainHeader      = isMainHeader
+              , isInMainHeaderDir = isInMainHeaderDir
+              , isLibraryHeader   = isLibraryHeader
+              }
           , getMainHeaders    = toGetMainHeaders getMainHeadersAndInclude
           , usageAnalysis     = usageAnalysis
           , macroAnalysis     = macroAnalysis
@@ -373,7 +383,7 @@ runFrontend tracer config boot = do
             constructTranslationUnit
               macroLang
               afterParse.macroAnalysis
-              afterParse.isMainHeader
+              afterParse.headerPredicates.isMainHeader
               afterEnrichComments
               afterParse.includeGraph
       pure afterConstructTranslationUnit
@@ -388,8 +398,7 @@ runFrontend tracer config boot = do
       (afterTypecheckMacros, _, _) <- typecheckMacrosPass
       pure $
         applyMacroFallback
-          afterParse.isMainHeader
-          afterParse.isInMainHeaderDir
+          afterParse.headerPredicates
           config.macroFallback
           afterTypecheckMacros
 
@@ -442,8 +451,7 @@ runFrontend tracer config boot = do
       afterTranslateTypesPass <- translateTypesPass
       let (afterSelect, msgsSelect) =
             selectDecls
-              afterParse.isMainHeader
-              afterParse.isInMainHeaderDir
+              afterParse.headerPredicates
               selectConfig
               afterTranslateTypesPass
       traceSorted (contramap FrontendSelect tracer) msgsSelect
@@ -575,8 +583,7 @@ data ParsePassResult l = ParsePassResult {
       results           :: [ParseResult l Parse]
     , doxygen           :: Doxygen
     , includeGraph      :: IncludeGraph
-    , isMainHeader      :: IsMainHeader
-    , isInMainHeaderDir :: IsInMainHeaderDir
+    , headerPredicates  :: HeaderPredicates
     , getMainHeaders    :: GetMainHeaders
     , usageAnalysis     :: UnnamedIdUsageAnalysis
     , macroAnalysis     :: UniqueExpansion.Analysis

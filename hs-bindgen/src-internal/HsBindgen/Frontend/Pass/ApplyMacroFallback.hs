@@ -28,12 +28,11 @@ type Out = ApplyMacroFallback
 -- dependencies.
 applyMacroFallback ::
      forall l.
-     IsMainHeader
-  -> IsInMainHeaderDir
+     HeaderPredicates
   -> MacroFallback
   -> C.TranslationUnit l In
   -> C.TranslationUnit l Out
-applyMacroFallback isMainHeader isInMainHeaderDir config unit =
+applyMacroFallback headerPreds config unit =
     unit{C.db = db'}
   where
     -- The edges into a rejected macro stay: its dependents use an unusable
@@ -80,8 +79,7 @@ applyMacroFallback isMainHeader isInMainHeaderDir config unit =
     fallsBack :: C.Decl l In -> Bool
     fallsBack decl =
       matchSelect
-        isMainHeader
-        isInMainHeaderDir
+        headerPreds
         (singleLocPath decl.info.loc)
         decl.id.name
         decl.info.deprecation

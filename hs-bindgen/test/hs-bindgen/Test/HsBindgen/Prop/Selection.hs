@@ -14,7 +14,11 @@ import Test.Tasty.QuickCheck (Arbitrary (arbitrary), CoArbitrary (coarbitrary),
 import Clang.Paths
 
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.Predicate
+import HsBindgen.Frontend.Predicate (Boolean (..), DeclPredicate (..),
+                                     HeaderPathPredicate (..),
+                                     HeaderPredicates (..), Regex,
+                                     SelectionPredicate (..), matchSelect,
+                                     mergeBooleans)
 import HsBindgen.IR.C qualified as C
 
 tests :: TestTree
@@ -28,6 +32,7 @@ tests = testGroup "Test.HsBindgen.Prop.Selection" [
         , testProperty "no-header"             prop_selectNoHeader
         , testProperty "from-main-headers"     prop_selectFromMainHeaders
         , testProperty "from-main-header-dirs" prop_selectFromMainHeaderDirs
+        , testProperty "from-library-headers"  prop_selectFromLibraryHeaders
         , testProperty "from-all-headers"      prop_selectFromAllHeaders
         , testProperty "header-path/all"       prop_selectHeaderPathMatchesAll
         , testProperty "header-path/needle"    prop_selectHeaderPathMatchesNeedle
@@ -52,103 +57,122 @@ tests = testGroup "Test.HsBindgen.Prop.Selection" [
 
 prop_selectTrue :: C.DeclPath -> C.DeclName -> C.Deprecation -> Bool
 prop_selectTrue path name deprecation =
-  matchSelect (const True) (const True) path name deprecation BTrue
+  matchSelect (HeaderPredicates (const True) (const True) (const True))
+    path name deprecation BTrue
 
 prop_selectFalse :: C.DeclPath -> C.DeclName -> C.Deprecation -> Bool
 prop_selectFalse path name deprecation =
-    not $ matchSelect (const True) (const True) path name deprecation BFalse
+    not $ matchSelect (HeaderPredicates (const True) (const True) (const True))
+            path name deprecation BFalse
 
 prop_selectAnd
-  :: Fun RealPath Bool -> Fun RealPath Bool
+  :: Fun RealPath Bool -> Fun RealPath Bool -> Fun RealPath Bool
   -> C.DeclPath -> C.DeclName -> C.Deprecation
   -> Boolean SelectionPredicate -> Boolean SelectionPredicate -> Bool
-prop_selectAnd (Fn isMainHeader) (Fn isInMainHeaderDir) path name deprecation p1 p2 =
-    let p1Res = matchSelect isMainHeader isInMainHeaderDir path name deprecation p1
-        p2Res = matchSelect isMainHeader isInMainHeaderDir path name deprecation p2
-        p1AndP2Res =
-          matchSelect isMainHeader isInMainHeaderDir path name deprecation (BAnd p1 p2)
+prop_selectAnd (Fn isMain) (Fn isMainDir) (Fn isLib) path name deprecation p1 p2 =
+    let preds = HeaderPredicates isMain isMainDir isLib
+        p1Res = matchSelect preds path name deprecation p1
+        p2Res = matchSelect preds path name deprecation p2
+        p1AndP2Res = matchSelect preds path name deprecation (BAnd p1 p2)
      in (p1Res && p2Res) == p1AndP2Res
 
 prop_selectOr
-  :: Fun RealPath Bool -> Fun RealPath Bool
+  :: Fun RealPath Bool -> Fun RealPath Bool -> Fun RealPath Bool
   -> C.DeclPath -> C.DeclName -> C.Deprecation
   -> Boolean SelectionPredicate -> Boolean SelectionPredicate -> Bool
-prop_selectOr (Fn isMainHeader) (Fn isInMainHeaderDir) path name deprecation p1 p2 =
-    let p1Res = matchSelect isMainHeader isInMainHeaderDir path name deprecation p1
-        p2Res = matchSelect isMainHeader isInMainHeaderDir path name deprecation p2
-        p1OrP2Res =
-          matchSelect isMainHeader isInMainHeaderDir path name deprecation (BOr p1 p2)
+prop_selectOr (Fn isMain) (Fn isMainDir) (Fn isLib) path name deprecation p1 p2 =
+    let preds = HeaderPredicates isMain isMainDir isLib
+        p1Res = matchSelect preds path name deprecation p1
+        p2Res = matchSelect preds path name deprecation p2
+        p1OrP2Res = matchSelect preds path name deprecation (BOr p1 p2)
      in (p1Res || p2Res) == p1OrP2Res
 
 prop_selectNot
-  :: Fun RealPath Bool -> Fun RealPath Bool
+  :: Fun RealPath Bool -> Fun RealPath Bool -> Fun RealPath Bool
   -> C.DeclPath -> C.DeclName -> C.Deprecation
   -> Boolean SelectionPredicate -> Property
-prop_selectNot (Fn isMainHeader) (Fn isInMainHeaderDir) path name deprecation p =
-      matchSelect isMainHeader isInMainHeaderDir path name deprecation p
-  =/= matchSelect isMainHeader isInMainHeaderDir path name deprecation (BNot p)
+prop_selectNot (Fn isMain) (Fn isMainDir) (Fn isLib) path name deprecation p =
+    let preds = HeaderPredicates isMain isMainDir isLib
+     in matchSelect preds path name deprecation p
+    =/= matchSelect preds path name deprecation (BNot p)
 
 -- | Outside a header, no header predicate matches
 prop_selectNoHeader ::
-     Fun RealPath Bool -> Fun RealPath Bool
+     Fun RealPath Bool -> Fun RealPath Bool -> Fun RealPath Bool
   -> C.DeclName -> C.Deprecation -> HeaderPathPredicate -> Bool
-prop_selectNoHeader (Fn isMainHeader) (Fn isInMainHeaderDir) name deprecation p =
-    not $ any
-      (\path -> matchSelect isMainHeader isInMainHeaderDir path name deprecation $
-        BIf (SelectHeader p))
-      [C.InRootHeader, C.OnCommandLine]
+prop_selectNoHeader (Fn isMain) (Fn isMainDir) (Fn isLib) name deprecation p =
+    let preds = HeaderPredicates isMain isMainDir isLib
+     in not $ any
+          (\path -> matchSelect preds path name deprecation $
+            BIf (SelectHeader p))
+          [C.InRootHeader, C.OnCommandLine]
 
 prop_selectFromMainHeaders
   :: Fun RealPath Bool -> RealPath -> C.DeclName -> C.Deprecation -> Bool
 prop_selectFromMainHeaders (Fn isMainHeader) rp name deprecation =
-  let p = BIf $ SelectHeader FromMainHeaders
-   in matchSelect isMainHeader unused (C.InHeader rp) name deprecation p == isMainHeader rp
+  let preds = HeaderPredicates isMainHeader unused unused
+      p = BIf $ SelectHeader FromMainHeaders
+   in matchSelect preds (C.InHeader rp) name deprecation p == isMainHeader rp
 
 prop_selectFromMainHeaderDirs
   :: Fun RealPath Bool -> RealPath -> C.DeclName -> C.Deprecation -> Bool
 prop_selectFromMainHeaderDirs (Fn isInMainHeaderDir) rp name deprecation =
-  let p = BIf $ SelectHeader FromMainHeaderDirs
-   in matchSelect unused isInMainHeaderDir (C.InHeader rp) name deprecation p
+  let preds = HeaderPredicates unused isInMainHeaderDir unused
+      p = BIf $ SelectHeader FromMainHeaderDirs
+   in matchSelect preds (C.InHeader rp) name deprecation p
         == isInMainHeaderDir rp
+
+prop_selectFromLibraryHeaders
+  :: Fun RealPath Bool -> RealPath -> C.DeclName -> C.Deprecation -> Bool
+prop_selectFromLibraryHeaders (Fn isLib) rp name deprecation =
+  let preds = HeaderPredicates unused unused isLib
+      p = BIf $ SelectHeader FromLibraryHeaders
+   in matchSelect preds (C.InHeader rp) name deprecation p == isLib rp
 
 prop_selectFromAllHeaders :: RealPath -> C.DeclName -> C.Deprecation -> Bool
 prop_selectFromAllHeaders rp name deprecation =
-  let p = BIf $ SelectHeader FromAllHeaders
-   in matchSelect unused unused (C.InHeader rp) name deprecation p
+  let preds = HeaderPredicates unused unused unused
+      p = BIf $ SelectHeader FromAllHeaders
+   in matchSelect preds (C.InHeader rp) name deprecation p
 
 prop_selectHeaderPathMatchesAll ::
   RealPath -> C.DeclName -> C.Deprecation -> Bool
 prop_selectHeaderPathMatchesAll rp name deprecation =
-  let p = BIf $ SelectHeader (HeaderPathMatches ".*")
-   in matchSelect unused unused (C.InHeader rp) name deprecation p
+  let preds = HeaderPredicates unused unused unused
+      p = BIf $ SelectHeader (HeaderPathMatches ".*")
+   in matchSelect preds (C.InHeader rp) name deprecation p
 
 prop_selectHeaderPathMatchesNeedle ::
   RealPath -> C.DeclName -> C.Deprecation -> Bool
 prop_selectHeaderPathMatchesNeedle rp name deprecation =
   let pathT = getRealPathText rp
       rp' = RealPath $ pathT <> "NEEDLE" <> pathT
+      preds = HeaderPredicates unused unused unused
       p = BIf $ SelectHeader (HeaderPathMatches "NEEDLE")
-   in matchSelect unused unused (C.InHeader rp') name deprecation p
+   in matchSelect preds (C.InHeader rp') name deprecation p
 
 prop_selectDeclNameMatchesAll ::
   C.DeclPath -> C.DeclName -> C.Deprecation -> Bool
 prop_selectDeclNameMatchesAll path name deprecation =
-  let p = BIf $ SelectDecl (DeclNameMatches ".*")
-   in matchSelect unused unused path name deprecation p
+  let preds = HeaderPredicates unused unused unused
+      p = BIf $ SelectDecl (DeclNameMatches ".*")
+   in matchSelect preds path name deprecation p
 
 prop_selectDeclNameMatchesNeedle ::
   C.DeclPath -> C.DeclName -> C.Deprecation -> Bool
 prop_selectDeclNameMatchesNeedle path declName deprecation =
   let name  = declName.text
       name' = C.DeclName (name <> "NEEDLE" <> name) declName.kind
+      preds = HeaderPredicates unused unused unused
       p     = BIf $ SelectDecl (DeclNameMatches "NEEDLE")
-   in matchSelect unused unused path name' deprecation p
+   in matchSelect preds path name' deprecation p
 
 prop_selectDeclMatchDeprecated ::
   C.DeclPath -> C.DeclName -> C.Deprecation -> Bool
 prop_selectDeclMatchDeprecated path name deprecation =
-  let p = BIf $ SelectDecl DeclDeprecated
-   in matchSelect unused unused path name deprecation p
+  let preds = HeaderPredicates unused unused unused
+      p = BIf $ SelectDecl DeclDeprecated
+   in matchSelect preds path name deprecation p
         == (deprecation == C.Deprecated)
 
 {-------------------------------------------------------------------------------
@@ -240,6 +264,7 @@ instance Arbitrary HeaderPathPredicate where
   arbitrary = oneof [
       pure FromMainHeaders
     , pure FromMainHeaderDirs
+    , pure FromLibraryHeaders
     , pure FromAllHeaders
     , HeaderPathMatches <$> elements regexPatterns
     ]
