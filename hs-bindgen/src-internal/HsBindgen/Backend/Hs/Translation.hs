@@ -141,8 +141,9 @@ generateDecs funPtrNewtypes decl =
             typedefDecs funPtrNewtypes
               (typedefOrigin decl typedef spec) (mkHaddocks decl)
               typedef.names hs
-          C.TypedefFunIndirect _indirections _sig aux ->
-            typedefFunTypeIndirectionDecs funPtrNewtypes decl typedef aux spec
+          C.TypedefFunIndirect _indirections _sig (auxNames, auxTypes) ->
+            typedefFunTypeIndirectionDecs funPtrNewtypes decl typedef
+              auxNames auxTypes spec
           C.TypedefOther typ ->
             typedefDecs funPtrNewtypes
               (typedefOrigin decl typedef spec) (mkHaddocks decl)
@@ -554,16 +555,18 @@ typedefFunTypeIndirectionDecs ::
   => FunPtrNewtypes
   -> C.Decl l Final
   -> C.Typedef Final
+  -> AuxNames
   -> AuxTypes
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl l]
-typedefFunTypeIndirectionDecs funPtrNewtypes origDecl origTypedef aux origSpec =
+typedefFunTypeIndirectionDecs
+  funPtrNewtypes origDecl origTypedef auxNames auxTypes origSpec =
     (++)
       <$> typedefDecs funPtrNewtypes auxOrigin
-            (mkHaddocksAux origDecl) aux.names.newtypeNames aux.funType
+            (mkHaddocksAux origDecl) auxNames.newtypeNames auxTypes.funType
       <*> typedefDecs funPtrNewtypes
             (typedefOrigin origDecl origTypedef origSpec)
-            (mkHaddocks origDecl) origTypedef.names aux.mainType
+            (mkHaddocks origDecl) origTypedef.names auxTypes.mainType
   where
     auxOrigin :: Origin.Decl Origin.Newtype
     auxOrigin = Origin.Decl{
@@ -579,7 +582,7 @@ typedefFunTypeIndirectionDecs funPtrNewtypes origDecl origTypedef aux origSpec =
     auxDeclIdPair = DeclIdPair{
           cName  = origDecl.id.cName
           -- Still refer to the /original/ C decl...?
-        , hsName = Hs.demoteNs aux.names.typeConstr
+        , hsName = Hs.demoteNs auxNames.typeConstr
         }
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1379>

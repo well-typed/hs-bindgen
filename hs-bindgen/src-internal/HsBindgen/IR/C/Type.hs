@@ -675,22 +675,22 @@ splitOutermostFunType = \case
     TypeFun sig -> Just ([], sig)
 
     -- recursive cases
-    TypePointers n t      -> through (Pointers n)   t
-    TypeConstArray n t    -> through (ConstArray n) t
+    TypePointers n t      -> through (Pointers n)    t
+    TypeConstArray n t    -> through (ConstArray n)  t
     TypeIncompleteArray t -> through IncompleteArray t
-    TypeBlock t           -> through Block          t
-    TypeQual q t          -> through (Qual q)       t
+    TypeBlock t           -> through Block           t
+    TypeQual q t          -> through (Qual q)        t
 
     -- primitive cases
-    TypePrim{} -> Nothing
+    TypePrim{}    -> Nothing
     TypeComplex{} -> Nothing
-    TypeVoid{} -> Nothing
+    TypeVoid{}    -> Nothing
 
     -- sugar cases
-    TypeRef{} -> Nothing
-    TypeEnum{} -> Nothing
-    TypeMacro{} -> Nothing
-    TypeTypedef{} -> Nothing
+    TypeRef{}        -> Nothing
+    TypeEnum{}       -> Nothing
+    TypeMacro{}      -> Nothing
+    TypeTypedef{}    -> Nothing
     TypeExtBinding{} -> Nothing
   where
     through ::

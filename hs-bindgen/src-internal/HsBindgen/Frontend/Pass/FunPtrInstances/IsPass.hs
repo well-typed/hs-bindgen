@@ -35,7 +35,7 @@ type family AnnFunPtrInstances ix where
   AnnFunPtrInstances "Struct"              = StructNames
   AnnFunPtrInstances "Typedef"             = NewtypeNames
   AnnFunPtrInstances "TypedefFun"          = Hs.Type
-  AnnFunPtrInstances "TypedefFunIndirect"  = AuxTypes
+  AnnFunPtrInstances "TypedefFunIndirect"  = (AuxNames, AuxTypes)
   AnnFunPtrInstances "TranslatedMacroType" = NewtypeNames
   AnnFunPtrInstances "Union"               = NewtypeNames
   AnnFunPtrInstances _                     = NoAnn

@@ -177,11 +177,10 @@ processTypedef typedef = do
             mainHs = Translation.indirectionsType indirections $
               Hs.TypRef auxNames.typeConstr
             types  = AuxTypes{
-                names    = auxNames
-              , funType  = auxHs
+                funType  = auxHs
               , mainType = mainHs
               }
-        in  (C.TypedefFunIndirect indirections (C.coerceTypeFunSig sig) types, mainHs)
+        in  (C.TypedefFunIndirect indirections (C.coerceTypeFunSig sig) (auxNames, types), mainHs)
       C.TypedefOther typ ->
         let translated = processType Translation.Top typ
         in  (C.TypedefOther translated, translated.hs)

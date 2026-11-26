@@ -36,7 +36,6 @@ import HsBindgen.Frontend.Pass.MangleNames.IsPass (AuxNames (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.TranslateTypes.Error (FunPositionError)
 import HsBindgen.Frontend.Pass.TranslateTypes.FFIType qualified as FFIType
-import HsBindgen.Frontend.Pass.TranslateTypes.IsPass (AuxTypes (..))
 import HsBindgen.Frontend.Pass.TranslateTypes.IsPass.Msg (FFITypesMsg)
 import HsBindgen.Frontend.Pass.TranslateTypes.PassingMethod (Classified,
                                                              classifyArgPassingMethod,
@@ -163,9 +162,9 @@ processTypedef decl typedef = case typedef.typ of
           (Hs.assertNs (Proxy @Hs.NsTypeConstr) decl.id.hsName)
           typedef.ann)
         sig
-    C.TypedefFunIndirect _indirections sig aux ->
+    C.TypedefFunIndirect _indirections sig (auxNames, _auxTypes) ->
       processOwn
-        (HeadNewtype aux.names.typeConstr aux.names.newtypeNames)
+        (HeadNewtype auxNames.typeConstr auxNames.newtypeNames)
         sig
     -- Function types occur only behind references
     C.TypedefOther{} ->

@@ -37,7 +37,7 @@ type family AnnTranslateTypes ix where
   AnnTranslateTypes "Struct"              = StructNames
   AnnTranslateTypes "Typedef"             = NewtypeNames
   AnnTranslateTypes "TypedefFun"          = Hs.Type
-  AnnTranslateTypes "TypedefFunIndirect"  = AuxTypes
+  AnnTranslateTypes "TypedefFunIndirect"  = (AuxNames, AuxTypes)
   AnnTranslateTypes "TranslatedMacroType" = NewtypeNames
   AnnTranslateTypes "Union"               = NewtypeNames
   AnnTranslateTypes _                     = NoAnn
@@ -48,18 +48,17 @@ instance IsPass TranslateTypes
   Additional types
 -------------------------------------------------------------------------------}
 
--- | Auxiliary newtype of a typedef with a function type behind indirections,
--- with the types that it and the typedef's newtype wrap
+-- | Types that the auxiliary newtype of a typedef with a function type behind
+-- indirections and the typedef's newtype wrap
 --
 -- > typedef int (*P)(char);
 --
 -- > newtype P_Aux = P_Aux (FC.CChar -> IO FC.CInt)
 -- > newtype P     = P (Ptr.FunPtr P_Aux)
 data AuxTypes = AuxTypes {
-      names    :: AuxNames
       -- | The function type, translated at the top level (@FC.CChar -> IO
       -- FC.CInt@)
-    , funType  :: Hs.Type
+      funType  :: Hs.Type
       -- | The indirections around a reference to the auxiliary newtype
       -- (@Ptr.FunPtr P_Aux@)
     , mainType :: Hs.Type
