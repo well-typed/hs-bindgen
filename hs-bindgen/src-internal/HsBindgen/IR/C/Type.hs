@@ -28,6 +28,7 @@ module HsBindgen.IR.C.Type (
      )
   , TypeFunArg
   , TypeFunArgF(..)
+  , TypeFunSig
 
     -- ** Qualifiers
   , TypeQual(..)
@@ -71,6 +72,7 @@ module HsBindgen.IR.C.Type (
 
     -- * CoercePass
   , CoercePassExtBindingRef(..)
+  , coerceTypeFunSig
   ) where
 
 
@@ -186,6 +188,9 @@ data TypeFunArgF (tag :: TypeTag) (p :: Pass) = TypeFunArgF {
 deriving stock instance ValidTypeTag tag p => Eq   (TypeFunArgF tag p)
 deriving stock instance ValidTypeTag tag p => Show (TypeFunArgF tag p)
 deriving stock instance ValidTypeTag tag p => Ord  (TypeFunArgF tag p)
+
+-- | Signature of a function type
+type TypeFunSig p = FunSig (TypeFunArg p) (Type p)
 
 -- | Map 'TypeF's from one tag to another
 mapTypeF :: forall tag tag' p.
@@ -641,7 +646,7 @@ depsOfTypeFunArg arg = depsOfType arg.typ
 -- Looks through pointers, arrays, blocks and qualifiers, but not through
 -- typedefs or other references. There is at most one: only function types
 -- have more than one child type.
-getOutermostFunType :: Type p -> Maybe (FunSig (TypeFunArg p) (Type p))
+getOutermostFunType :: Type p -> Maybe (TypeFunSig p)
 getOutermostFunType = fmap snd . splitOutermostFunType
 
 {-------------------------------------------------------------------------------
@@ -664,7 +669,7 @@ data Indirection =
 splitOutermostFunType ::
      forall p.
      Type p
-  -> Maybe ([Indirection], FunSig (TypeFunArg p) (Type p))
+  -> Maybe ([Indirection], TypeFunSig p)
 splitOutermostFunType = \case
     -- interesting case
     TypeFun sig -> Just ([], sig)
@@ -691,7 +696,7 @@ splitOutermostFunType = \case
     through ::
          Indirection
       -> Type p
-      -> Maybe ([Indirection], FunSig (TypeFunArg p) (Type p))
+      -> Maybe ([Indirection], TypeFunSig p)
     through indirection t = first (indirection :) <$> splitOutermostFunType t
 
 -- | Wrap a type in indirections, outermost first
@@ -914,7 +919,7 @@ instance (
       TypeMacro ref           -> TypeMacro (MacroRef (goMacroId ref.name) (goMacroUnderlying ref.underlying))
       TypeTypedef ref         -> TypeTypedef (Ref (goId ref.name) (coercePass ref.underlying))
       TypePointers n typ      -> TypePointers n (coercePass typ)
-      TypeFun sig             -> TypeFun (bimap coercePass coercePass sig)
+      TypeFun sig             -> TypeFun (coerceTypeFunSig sig)
       TypeVoid                -> TypeVoid
       TypeConstArray n typ    -> TypeConstArray n (coercePass typ)
       TypeIncompleteArray typ -> TypeIncompleteArray (coercePass typ)
@@ -962,3 +967,10 @@ instance (
         typ = coercePass arg.typ
       , ann = coercePassAnn (Proxy @'("TypeFunArg", p, p')) arg.ann
       }
+
+-- | Coerce the signature of a function type
+coerceTypeFunSig ::
+     (CoercePass TypeFunArg p p', CoercePass Type p p')
+  => TypeFunSig p
+  -> TypeFunSig p'
+coerceTypeFunSig = bimap coercePass coercePass

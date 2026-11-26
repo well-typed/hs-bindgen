@@ -33,7 +33,6 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
-import HsBindgen.IR.FunSig
 import HsBindgen.IR.Pass
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
@@ -685,9 +684,9 @@ createTypedef hsName typedef = do
     names    <- createNewtypeNames strategy hsName
     typ'     <- case typedef.typ of
       C.TypedefFun sig NoAnn ->
-        pure $ C.TypedefFun (coerceSig sig) NoAnn
+        pure $ C.TypedefFun (C.coerceTypeFunSig sig) NoAnn
       C.TypedefFunIndirect indirections sig NoAnn ->
-        C.TypedefFunIndirect indirections (coerceSig sig)
+        C.TypedefFunIndirect indirections (C.coerceTypeFunSig sig)
           <$> createAuxNames strategy hsName
       C.TypedefOther typ ->
         pure $ C.TypedefOther (coercePass typ)
@@ -695,11 +694,6 @@ createTypedef hsName typedef = do
         typ = typ'
       , ann = names
       }
-  where
-    coerceSig ::
-         FunSig (C.TypeFunArg ResolveBindingSpecs) (C.Type ResolveBindingSpecs)
-      -> FunSig (C.TypeFunArg CreateNames) (C.Type CreateNames)
-    coerceSig = bimap coercePass coercePass
 
 createFunction ::
      C.Function ResolveBindingSpecs -> CreateE (C.Function CreateNames)

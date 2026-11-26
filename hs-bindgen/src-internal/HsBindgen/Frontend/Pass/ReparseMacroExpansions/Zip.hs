@@ -374,12 +374,9 @@ zipPrimSignChar csign1 csign2 = case (csign1, csign2) of
 
 -- | Zip the signature of a function type
 zipTypeFunSig ::
-     FunSig (C.TypeFunArg In) (C.Type In)
-  -> FunSig (C.TypeFunArg Out) (C.Type Out)
-  -> ZipResult
-       (FunSig
-         (C.TypeFunArg ReparseMacroExpansions)
-         (C.Type ReparseMacroExpansions))
+     C.TypeFunSig In
+  -> C.TypeFunSig Out
+  -> ZipResult (C.TypeFunSig ReparseMacroExpansions)
 zipTypeFunSig = zipFunSig zipTypeFunArg zipType
 
 zipTypeFunArg ::

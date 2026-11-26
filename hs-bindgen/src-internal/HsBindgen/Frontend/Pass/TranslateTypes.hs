@@ -171,7 +171,7 @@ processTypedef typedef = do
     (typ', hs) = case typedef.typ of
       C.TypedefFun sig NoAnn ->
         let hsFun = Translation.topLevel (C.TypeFun sig)
-        in  (C.TypedefFun (coerceSig sig) hsFun, hsFun)
+        in  (C.TypedefFun (C.coerceTypeFunSig sig) hsFun, hsFun)
       C.TypedefFunIndirect indirections sig auxNames ->
         let auxHs  = Translation.topLevel (C.TypeFun sig)
             mainHs = Translation.indirectionsType indirections $
@@ -181,15 +181,10 @@ processTypedef typedef = do
               , funType  = auxHs
               , mainType = mainHs
               }
-        in  (C.TypedefFunIndirect indirections (coerceSig sig) types, mainHs)
+        in  (C.TypedefFunIndirect indirections (C.coerceTypeFunSig sig) types, mainHs)
       C.TypedefOther typ ->
         let translated = processType Translation.Top typ
         in  (C.TypedefOther translated, translated.hs)
-
-    coerceSig ::
-         FunSig (C.TypeFunArg MangleNames) (C.Type MangleNames)
-      -> FunSig (C.TypeFunArg TranslateTypes) (C.Type TranslateTypes)
-    coerceSig = bimap coercePass coercePass
 
 processEnum :: C.Enum MangleNames -> DM l (C.Enum TranslateTypes)
 processEnum enum = do

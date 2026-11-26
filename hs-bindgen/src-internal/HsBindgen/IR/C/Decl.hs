@@ -274,7 +274,7 @@ data TypedefType (p :: Pass) =
     --
     -- > typedef int F(char);
     TypedefFun
-      (FunSig (C.TypeFunArg p) (C.Type p))
+      (C.TypeFunSig p)
       (Ann "TypedefFun" p)
 
     -- | Function type behind indirections
@@ -286,7 +286,7 @@ data TypedefType (p :: Pass) =
     -- The function type gets an auxiliary newtype.
   | TypedefFunIndirect
       (NonEmpty C.Indirection) -- ^ Outermost first
-      (FunSig (C.TypeFunArg p) (C.Type p))
+      (C.TypeFunSig p)
       (Ann "TypedefFunIndirect" p)
 
     -- | Any other type
@@ -836,9 +836,9 @@ instance (
     ) => CoercePass TypedefType p p' where
   coercePass = \case
       TypedefFun sig ann ->
-        TypedefFun (bimap coercePass coercePass sig) ann
+        TypedefFun (C.coerceTypeFunSig sig) ann
       TypedefFunIndirect indirections sig ann ->
-        TypedefFunIndirect indirections (bimap coercePass coercePass sig) ann
+        TypedefFunIndirect indirections (C.coerceTypeFunSig sig) ann
       TypedefOther typ ->
         TypedefOther (coercePassTypes (Proxy @'(p, p')) typ)
 

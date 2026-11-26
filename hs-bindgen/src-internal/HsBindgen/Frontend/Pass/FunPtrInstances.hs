@@ -173,7 +173,7 @@ processTypedef decl typedef = case typedef.typ of
   where
     processOwn ::
          FunPtrHead
-      -> FunSig (C.TypeFunArg Select) (C.Type Select)
+      -> C.TypeFunSig Select
       -> M l ()
     processOwn hd = processSig hd (atUseSite UseSiteTypedef)
 
@@ -196,7 +196,7 @@ processType hd loc ty =
 processSig ::
      FunPtrHead -- ^ The head of the instances for the function type
   -> FunTypeLocation
-  -> FunSig (C.TypeFunArg Select) (C.Type Select)
+  -> C.TypeFunSig Select
   -> M l ()
 processSig hd loc sig = do
     processFunType hd loc sig
@@ -207,7 +207,7 @@ processSig hd loc sig = do
 processFunType ::
      FunPtrHead
   -> FunTypeLocation
-  -> FunSig (C.TypeFunArg Select) (C.Type Select)
+  -> C.TypeFunSig Select
   -> M l ()
 processFunType hd loc sig = do
     db <- asks (.db)
@@ -256,7 +256,7 @@ isDefinedInCurrentModule db =
 -- @FunRes@.
 type FunType = FunSig (TranslatedTypeFunArg Select) (TranslatedTypes Select)
 
-translateFunType :: FunSig (C.TypeFunArg Select) (C.Type Select) -> FunType
+translateFunType :: C.TypeFunSig Select -> FunType
 translateFunType = bimap
     (\arg -> Translated{c = arg, hs = Translation.inContext Translation.FunArg arg})
     (\res -> Translated{c = res, hs = Translation.inContext Translation.FunRes res})
