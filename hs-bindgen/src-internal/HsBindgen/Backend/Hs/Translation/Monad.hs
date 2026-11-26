@@ -24,7 +24,6 @@ module HsBindgen.Backend.Hs.Translation.Monad (
 
 import Control.Monad.Reader
 import Control.Monad.State.Lazy
-import Data.Map.Strict qualified as Map
 
 import HsBindgen.Backend.Hs.Translation.Instances
 import HsBindgen.Config.Prelims
@@ -38,18 +37,19 @@ newtype HsM a = HsM (ReaderT Env (State St) a)
 
 runHsM ::
      Env
+  -> InstanceMap
   -> HsM a
-  -> a
-runHsM env (HsM m) =
-    evalState (runReaderT m env) initSt
+  -> (a, InstanceMap)
+runHsM env im0 (HsM m) =
+    fmap (.instanceMap) $ runState (runReaderT m env) (initSt im0)
 
 data St = St {
       instanceMap :: InstanceMap
     }
   deriving stock (Generic)
 
-initSt :: St
-initSt = St Map.empty
+initSt :: InstanceMap -> St
+initSt = St
 
 data Env = Env {
     uniqueId           :: UniqueId

@@ -1,6 +1,7 @@
 -- | Low-level translation of the C header to a Haskell module
 module HsBindgen.Backend.Hs.Translation (
     generateDeclarations
+  , Hs.InstanceMap
   ) where
 
 import Control.Monad.Reader qualified as Reader
@@ -63,16 +64,25 @@ import Doxygen.Parser.Types qualified as Doxy
   Top-level
 -------------------------------------------------------------------------------}
 
+-- | Translate C declarations to Haskell declarations
+--
+-- Returns a pair:
+--
+-- 1. Per-declaration Haskell declarations, partitioned by binding category.
+-- 2. The instance map, recording which types have which instances.
+--
+-- The instance map starts from the given one, so that the caller can translate
+-- the declarations in several groups, as library mode does for its headers.
 generateDeclarations ::
      UniqueId
   -> BaseModuleName
+  -> Hs.InstanceMap
   -> [FunPtrInstance] -- ^ In output order
   -> [C.Decl l Final]
-  -> ByCategory_ [Hs.Decl l]
-generateDeclarations uniqueId name insts =
-    fmap reverse .
-      foldl' partitionBindingCategories mempty .
-      generateDeclarations' env insts
+  -> (ByCategory_ [Hs.Decl l], Hs.InstanceMap)
+generateDeclarations uniqueId name instanceMap0 insts =
+      first (fmap reverse . foldl' partitionBindingCategories mempty)
+    . generateDeclarations' env instanceMap0 insts
   where
     partitionBindingCategories ::
       ByCategory_ [a] -> WithCategory a  -> ByCategory_ [a]
@@ -93,11 +103,12 @@ data WithCategory a = WithCategory {
 
 generateDeclarations' ::
      HsM.Env
+  -> Hs.InstanceMap
   -> [FunPtrInstance]
   -> [C.Decl l Final]
-  -> [WithCategory (Hs.Decl l)]
-generateDeclarations' env insts decs =
-    HsM.runHsM env $ do
+  -> ([WithCategory (Hs.Decl l)], Hs.InstanceMap)
+generateDeclarations' env instanceMap0 insts decs =
+    HsM.runHsM env instanceMap0 $ do
       let -- In the main module, to avoid orphan instances
           fFIStubsAndFunPtrInstances =
                    [ WithCategory CType d

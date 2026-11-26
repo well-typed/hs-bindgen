@@ -57,11 +57,13 @@ runBackend tracer config boot frontend = do
           cDecls :: [C.Decl l Final]
           cDecls =
             DeclDB.active (DeclUseGraph.outputOrder final.includeGraph) declDB
-      pure $ Hs.generateDeclarations
-        config.backend.uniqueId
-        boot.baseModule
-        insts
-        cDecls
+      let (decls, _instanceMap) = Hs.generateDeclarations
+            config.backend.uniqueId
+            boot.baseModule
+            mempty
+            insts
+            cDecls
+      pure decls
 
     -- 2. Apply binding category choice.
     backendHsDecls <- cache "hsDecls" $ do
