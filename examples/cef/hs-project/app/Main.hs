@@ -14,11 +14,14 @@ import System.Exit (ExitCode (..), exitSuccess, exitWith)
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 import HsBindgen.Runtime.Support.FunPtr qualified as FunPtr
 
-import CEF.ApiHash.Safe (cef_api_hash, cef_api_version)
-import CEF.App (C_Cef_settings_t, Cef_main_args_t (..))
-import CEF.App.Safe (cef_execute_process, cef_initialize, cef_shutdown)
-import CEF.CommandLine (Cef_command_line_t (..))
-import CEF.CommandLine.Safe (cef_command_line_create)
+import CEF.Callback ()
+import CEF.Capi.Cef_app_capi.Safe (cef_execute_process, cef_initialize,
+                                   cef_shutdown)
+import CEF.Capi.Cef_command_line_capi (C_Cef_command_line_t (..))
+import CEF.Capi.Cef_command_line_capi.Safe (cef_command_line_create)
+import CEF.Cef_api_hash.Safe (cef_api_hash, cef_api_version)
+import CEF.Internal.Cef_types (C_Cef_settings_t)
+import CEF.Internal.Cef_types_linux (Cef_main_args_t (..))
 
 -- | Initialize CEF in headless mode, create a command line object, and exercise
 -- its vtable methods. This validates that the generated bindings work
@@ -79,17 +82,26 @@ main = do
                             cmdLine <- cef_command_line_create
                             assertNonNull "cef_command_line_create" cmdLine
 
-                            -- Peek the struct to access the vtable
-                            obj <- peek cmdLine
+                            -- Other headers use struct _cef_command_line_t as
+                            -- well, so the typedef cef_command_line_t becomes
+                            -- a newtype around the struct. The vtable methods
+                            -- take a pointer to the struct itself.
+                            let self = cmdLine.unwrap
 
-                            -- Call is_valid via vtable function pointer dispatch
+                            -- Peek the struct to access the vtable
+                            obj <- peek self
+
+                            -- Call is_valid via vtable function pointer dispatch.
+                            -- The FromFunPtr instances of the vtable methods
+                            -- are in CEF.Callback, which no generated module
+                            -- imports, so this module imports it.
                             let isValid = FunPtr.fromFunPtr obj.is_valid
-                            valid <- isValid cmdLine
+                            valid <- isValid self
                             putStrLn $ "  is_valid: " ++ show valid
 
                             -- Call has_switches via vtable dispatch
                             let hasSwitches = FunPtr.fromFunPtr obj.has_switches
-                            switches <- hasSwitches cmdLine
+                            switches <- hasSwitches self
                             putStrLn $ "  has_switches (empty): " ++ show switches
 
                             putStrLn "All CEF binding calls succeeded."
