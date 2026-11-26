@@ -269,7 +269,7 @@ funTypeHs = Translation.funType . bimap (.hs) (.hs)
 -- Classifies and reports each distinct Haskell function type once.
 classifyCached ::
      FunTypeLocation
-  -> Hs.Type -- ^ The Haskell function type, with 'eraseUnderlying'
+  -> Hs.Type -- ^ The Haskell function type
   -> FunType
   -> M l (Maybe (FunSig FunPtrArg FunPtrRes))
 classifyCached loc key funType = do
@@ -368,11 +368,10 @@ data Env l = Env {
 data St = St {
       -- | In reverse order
       instances :: [FunPtrInstance]
-      -- | The instances so far, by head and Haskell function type (with
-      -- 'eraseUnderlying')
+      -- | The instances so far, by head and Haskell function type
     , seen      :: Set (FunPtrHead, Hs.Type)
-      -- | Signatures of the Haskell function types classified so far (with
-      -- 'eraseUnderlying'), or 'Nothing' if they get no instances
+      -- | Signatures of the Haskell function types classified so far, or
+      -- 'Nothing' if they get no instances
     , cache     :: Map Hs.Type (Maybe (FunSig FunPtrArg FunPtrRes))
       -- | In reverse order
     , messages  :: [AnnMsg FunPtrInstances]
