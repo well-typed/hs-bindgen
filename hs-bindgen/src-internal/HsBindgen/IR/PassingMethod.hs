@@ -25,9 +25,12 @@ import HsBindgen.IR.Pass.Types (CoercePassTypes (coercePassTypes),
 -- See also 'HsBindgen.Backend.Hs.Translation.Function.functionDecs'.
 data PassingMethod p =
     PassDirect Hs.FFIType
-    -- | Type of the pointer to the value, as it appears in the C wrapper and in
-    -- the foreign import of the C wrapper
-  | PassSerialized (Types p)
+  | PassSerialized
+      -- | Type of the pointer to the value, as it appears in the C wrapper and in
+      -- the foreign import of the C wrapper
+      (Types p)
+      -- | Whether the pointed-to value is @const@-qualified
+      Bool
 
 deriving stock instance IsPass p => Show (PassingMethod p)
 deriving stock instance IsPass p => Eq (PassingMethod p)
@@ -36,9 +39,9 @@ instance (
       CoercePassTypes p p'
     ) => CoercePass PassingMethod p p' where
   coercePass = \case
-      PassDirect     t  -> PassDirect t
-      PassSerialized ty ->
-        PassSerialized $ coercePassTypes (Proxy @'(p, p')) ty
+      PassDirect     t    -> PassDirect t
+      PassSerialized ty x ->
+        PassSerialized (coercePassTypes (Proxy @'(p, p')) ty) x
 
 -- | How a function result is passed from C to Haskell
 data ResPassingMethod p =
@@ -56,15 +59,15 @@ instance (
       PassResNonVoid x -> PassResNonVoid (coercePass x)
 
 -- | Is the value serialised?
-isSerialized :: PassingMethod p -> Bool
+isSerialized :: PassingMethod p -> Maybe Bool
 isSerialized = \case
-    PassDirect{}     -> False
-    PassSerialized{} -> True
+    PassDirect{}       -> Nothing
+    PassSerialized _ b -> Just b
 
 -- | Is the result serialised?
-isResSerialized :: ResPassingMethod p -> Bool
+isResSerialized :: ResPassingMethod p -> Maybe Bool
 isResSerialized = \case
-    PassResVoid      -> False
+    PassResVoid      -> Nothing
     PassResNonVoid x -> isSerialized x
 
 -- | FFI type of a serialised value
@@ -75,4 +78,4 @@ serializedFFIType = Hs.FFIPtrVoid
 passingMethodFFIType :: PassingMethod p -> Hs.FFIType
 passingMethodFFIType = \case
     PassDirect     t -> t
-    PassSerialized _ -> serializedFFIType
+    PassSerialized{} -> serializedFFIType

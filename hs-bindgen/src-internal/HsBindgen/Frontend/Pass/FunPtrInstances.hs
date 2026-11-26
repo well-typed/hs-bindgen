@@ -291,7 +291,7 @@ classify loc funType = do
         direct :: PassingMethod Select -> Either FunPosition FunPtrArg
         direct = \case
           PassDirect ffi   -> Right FunPtrArg{hs = arg.hs, ffi = ffi}
-          PassSerialized _ -> Left pos
+          PassSerialized{} -> Left pos
 
     classifyRes ::
          TranslatedTypes Select

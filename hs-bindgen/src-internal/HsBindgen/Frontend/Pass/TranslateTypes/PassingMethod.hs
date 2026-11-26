@@ -37,8 +37,9 @@ classifyResPassingMethod ty hsType
   -- Heap types: the Haskell FFI cannot pass them by value, so they cross it
   -- through a buffer on the Haskell heap
   | isHeapType ty
-  = pure $ Right $ PassResNonVoid $ PassSerialized $
-      serializedPointer Translation.FunRes ty
+  = pure $ Right $ PassResNonVoid $ PassSerialized
+      (serializedPointer Translation.FunRes ty)
+      (C.isErasedTypeConstQualified ty)
   -- Other types
   | otherwise
   = second (PassResNonVoid . PassDirect) <$>
@@ -55,7 +56,9 @@ classifyArgPassingMethod pos ty hsType
   -- Heap types: the Haskell FFI cannot pass them by value, so they cross it
   -- through a buffer on the Haskell heap
   | isHeapType ty
-  = pure $ Right $ PassSerialized $ serializedPointer Translation.FunArg ty
+  = pure $ Right $ PassSerialized
+      (serializedPointer Translation.FunArg ty)
+      (C.isErasedTypeConstQualified ty)
   -- Other types
   | otherwise
   = second PassDirect <$> passDirect pos ty hsType
