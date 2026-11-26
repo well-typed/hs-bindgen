@@ -485,6 +485,7 @@ runFrontend tracer config libraryDirs boot = do
 
     pure FrontendArtefact{
         parseMeta                = parseMeta
+      , headerPredicates         = (.headerPredicates) <$> parsePass
       , parse                    = (.results) <$> parsePass
       , doxygen                  = (.doxygen) <$> parsePass
       , simplifyAST              = simplifyASTPass
@@ -536,6 +537,7 @@ runFrontend tracer config libraryDirs boot = do
 
 data FrontendArtefact l = FrontendArtefact {
       parseMeta                :: Cached ParseInfo
+    , headerPredicates         :: Cached HeaderPredicates
     , parse                    :: Cached [ParseResult       l Parse]
     , doxygen                  :: Cached Doxygen
     , simplifyAST              :: Cached [ParseResult       l SimplifyAST]

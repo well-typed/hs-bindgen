@@ -1,5 +1,6 @@
 module HsBindgen (
     hsBindgenMacroLang
+  , hsBindgenLibraryMacroLang
   , ExecutionMode(..)
 
     -- * Artefacts
@@ -40,6 +41,7 @@ module HsBindgen (
 
     -- * Test infrastructure
   , hsBindgenEMacroLang
+  , hsBindgenLibraryEMacroLang
   ) where
 
 import Control.Exception (Exception (..), catch)
@@ -69,7 +71,7 @@ import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
 import HsBindgen.Clang
 import HsBindgen.Config.Internal
-import HsBindgen.Errors (throwPure_TODO)
+import HsBindgen.Errors (panicPure, throwPure_TODO)
 import HsBindgen.Frontend
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
@@ -87,6 +89,9 @@ import HsBindgen.Imports
 import HsBindgen.IR.C qualified as C
 import HsBindgen.IR.Translation
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Library (OutputFile (..), OutputOrigin (..), OutputRoot (..),
+                          PlanError)
+import HsBindgen.Library.Runner (GeneratedFile (..), resultFiles, runLibrary)
 import HsBindgen.Macro.Interface qualified as Macro
 import HsBindgen.Macro.Type qualified as Macro
 import HsBindgen.TraceMsg
@@ -182,6 +187,142 @@ hsBindgenEMacroLang
           withExceptT BindgenDelayedIOError $ mapM_ checkPolicy as
           liftIO $ executeDelayedIOActions tracerSafe executionMode as
           pure r
+
+{-------------------------------------------------------------------------------
+  Library mode
+-------------------------------------------------------------------------------}
+
+-- | Entry point for library mode, parallel to 'hsBindgenMacroLang'.
+--
+-- Runs boot and the frontend once, plans the header units, and runs the
+-- backend once per unit (see "HsBindgen.Library").
+--
+hsBindgenLibraryMacroLang ::
+     Macro.HasTypes l
+  => (ClangCStandard -> IO (Macro.Lang l))
+  -> TracerConfig Level     TraceMsg
+  -> TracerConfig SafeLevel SafeTraceMsg
+  -> BindgenConfig
+  -> ExecutionMode
+  -> [C.UncheckedRootDirective]
+  -> [FilePath]
+  -> ModuleRenderConfig
+  -> FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> Maybe FilePath
+  -> IO [OutputFile]
+hsBindgenLibraryMacroLang
+  mkMacroLang tu ts b m i dirs mrc fp dp out mBsDir = do
+    eRes <- hsBindgenLibraryEMacroLang mkMacroLang tu ts b m i dirs mrc fp dp out mBsDir
+      `catch` \e ->
+        case fromException e of
+          Just (LibclangException msg) -> do
+            print $ PP.string msg
+            exitWith (ExitFailure 3)
+          _ -> throwIO e
+    case eRes of
+      Left err -> do
+        print $ prettyForTrace err
+        exitWith (ExitFailure 4)
+      Right r -> pure r
+
+hsBindgenLibraryEMacroLang ::
+     forall l. Macro.HasTypes l
+  => (ClangCStandard -> IO (Macro.Lang l))
+  -> TracerConfig Level     TraceMsg
+  -> TracerConfig SafeLevel SafeTraceMsg
+  -> BindgenConfig
+  -> ExecutionMode
+  -> [C.UncheckedRootDirective]
+  -> [FilePath]
+  -> ModuleRenderConfig
+  -> FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> Maybe FilePath
+  -> IO (Either BindgenError [OutputFile])
+hsBindgenLibraryEMacroLang
+  mkMacroLang
+  tracerConfigUnsafe
+  tracerConfigSafe
+  config
+  executionMode
+  uncheckedRootDirectives
+  libraryDirs
+  mrc
+  filePolicy
+  dirPolicy
+  outputDir
+  mBindingSpecDir = do
+    eRes <- withTracer tracerConfigUnsafe $ \tracerUnsafe -> do
+      -- Boot.
+      let tracerBoot :: Tracer BootMsg
+          tracerBoot = contramap TraceBoot tracerUnsafe
+      bootArtefact <-
+        runBoot tracerBoot mkMacroLang config uncheckedRootDirectives
+      -- Frontend. Doxygen reads the library headers too.
+      let tracerFrontend :: Tracer FrontendMsg
+          tracerFrontend = contramap TraceFrontend tracerUnsafe
+      frontendArtefact <-
+        runFrontend tracerFrontend config.frontend libraryDirs bootArtefact
+      -- Library.
+      let tracerLibrary :: Tracer LibraryMsg
+          tracerLibrary = contramap TraceLibrary tracerUnsafe
+          baseModule = Hs.ModuleName config.boot.baseModule.text
+      eOutputs <-
+        runLibrary tracerLibrary tracerFrontend config bootArtefact
+                   frontendArtefact mrc libraryDirs baseModule
+                   (BindingSpec.getFormat <$> mBindingSpecDir)
+      case eOutputs of
+        Left planErr ->
+          pure (Left (BindgenPlanError planErr), [])
+        Right result -> do
+          let allFiles = resultFiles result
+
+              outputRootDir :: OutputRoot -> FilePath
+              outputRootDir HsOutputDir    = outputDir
+              outputRootDir BindingSpecDir = case mBindingSpecDir of
+                Just dir -> dir
+                Nothing  -> panicPure
+                  "binding specification file without a directory"
+
+              actions =
+                [ WriteToFile FileDescription {
+                      description = descriptionOf gf.file.origin
+                    , location    = RelativeFileLocation RelativeToOutputDir {
+                          outputDir = outputRootDir gf.file.root
+                        , localPath = gf.file.path
+                        }
+                    , filePolicy  = filePolicy
+                    , dirPolicy   = dirPolicy
+                    , content     = gf.content
+                    }
+                | gf <- allFiles
+                ]
+
+          pure (Right (map (.file) allFiles), actions)
+
+    let tracerConfigDelayedIO :: TracerConfig SafeLevel DelayedIOMsg
+        tracerConfigDelayedIO = contramap SafeDelayedIOMsg tracerConfigSafe
+    runExceptT $ withTracerSafe tracerConfigDelayedIO $ \tracerSafe ->
+      case eRes of
+        Left er                    -> throwError $ BindgenErrorReported er
+        Right (Left bindgenErr, _) -> throwError bindgenErr
+        Right ( Right outputFiles
+              , delayedActions )   -> do
+          withExceptT BindgenDelayedIOError $ mapM_ checkPolicy delayedActions
+          liftIO $ executeDelayedIOActions tracerSafe executionMode delayedActions
+          pure outputFiles
+
+-- | The description string for a 'DelayedIO' action, based on the origin of
+-- the generated file
+descriptionOf :: OutputOrigin -> String
+descriptionOf = \case
+    HeaderModule _ _     -> "Bindings"
+    HeaderBootFile _     -> "Boot file"
+    GlobalCallbackModule -> "Global callback module"
+    BindingSpecFile _    -> "Binding specification"
 
 {-------------------------------------------------------------------------------
   High-level artefacts
@@ -531,12 +672,14 @@ getExportTags = do
 data BindgenError =
       BindgenErrorReported  AnErrorHappened
     | BindgenDelayedIOError DelayedIOError
+    | BindgenPlanError      PlanError
     deriving stock (Show)
 
 instance PrettyForTrace BindgenError where
   prettyForTrace = \case
     BindgenErrorReported  e -> prettyForTrace e
     BindgenDelayedIOError e -> prettyForTrace e
+    BindgenPlanError      e -> prettyForTrace e
 
 {-------------------------------------------------------------------------------
   Traces
