@@ -38,6 +38,7 @@ testCases = [
     , defaultTest "edge-cases/uses_utf8"
       -- Bespoke tests
     , test_adios
+    , test_block_typedef
     , test_clang_generated_collision
     , test_duplicate
     , test_duplicate_record_field
@@ -58,6 +59,12 @@ test_adios :: TestCase
 test_adios =
     defaultTest "edge-cases/adios"
       & #cStandard .~ c11
+
+test_block_typedef :: TestCase
+test_block_typedef =
+    defaultTest "edge-cases/block_typedef_parent"
+      & #onBoot     .~ ( #clangArgs % #enableBlocks .~ True )
+      & #onFrontend .~ ( #selectionPredicate .~ BIf (SelectHeader FromAllHeaders) )
 
 test_clang_generated_collision :: TestCase
 test_clang_generated_collision =

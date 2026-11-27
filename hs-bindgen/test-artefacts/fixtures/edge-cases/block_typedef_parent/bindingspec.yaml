@@ -1,0 +1,40 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: edge-cases/block_typedef_parent.h
+  cname: struct S
+  hsname: S
+- headers: edge-cases/block_typedef_parent.h
+  cname: B
+  hsname: B
+hstypes:
+- hsname: B
+  representation:
+    newtype:
+      constructor: B
+      fields:
+      - unwrapB
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: PtrVoid
+  instances:
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+- hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - s_b
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
