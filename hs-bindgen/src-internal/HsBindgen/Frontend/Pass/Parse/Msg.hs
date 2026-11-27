@@ -313,6 +313,9 @@ data DelayedParseMsg =
     -- | We do not support SIMD vector types (yet)
   | ParseUnsupportedVector
 
+    -- | A forward-declared @enum@ without a definition was used as a type
+  | ParseIncompleteEnumType
+
     -- | The declaration uses an unnamed declaration that we cannot name
     --
     -- When such a declaration appears in some outer declaration (say a
@@ -492,6 +495,8 @@ instance PrettyForTrace DelayedParseMsg where
         "Unsupported variadic (varargs) function"
       ParseUnsupportedVector ->
         "Unsupported SIMD vector type"
+      ParseIncompleteEnumType ->
+        "Incomplete enum type (forward-declared without a definition)"
       ParseUnnameableDecl unnamedId -> PP.hsep [
           "Uses an unnamed declaration we cannot name:"
         , prettyForTrace unnamedId
@@ -555,6 +560,7 @@ instance IsTrace Level DelayedParseMsg where
       ParseUnsupportedTLS{}                -> Warning
       ParseUnsupportedVariadicFunction     -> Warning
       ParseUnsupportedVector               -> Warning
+      ParseIncompleteEnumType              -> Warning
       ParseUnnameableDecl{}                -> Warning
       ParseExpectedFunctionType{}          -> Bug
       ParseMacroDefinitionNoMacroName{}    -> Bug
