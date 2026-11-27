@@ -617,7 +617,7 @@ depsOfType = \case
     TypeEnum ref        -> [(ref.name                      , NeedsShape)]
     TypeMacro ref       -> [(macroIdId (Proxy @p) ref.name , NeedsShape)]
     TypeTypedef ref     -> [(ref.name                      , NeedsShape)]
-    TypeUnsafePointer t -> second (const NeedsNameOnly) <$> depsOfType t
+    TypeUnsafePointer t -> nameOnly (depsOfType t)
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1467>
     -- We could in /principle/ use extBindingId here to implement this case
@@ -628,12 +628,18 @@ depsOfType = \case
     -- TypeExtBinding extBinding -> [(NeedsShape, extBindingId (Proxy @p) extBinding)]
     TypeExtBinding _extBinding -> []
 
+    -- A block is a pointer, and a function type has no layout (see
+    -- 'Dependency')
+    TypeBlock t -> nameOnly (depsOfType t)
+    TypeFun sig -> nameOnly (bifoldMap depsOfTypeFunArg depsOfType sig)
+
     -- Recurse
     TypeConstArray _    t -> depsOfType t
     TypeIncompleteArray t -> depsOfType t
-    TypeBlock           t -> depsOfType t
     TypeQual _          t -> depsOfType t
-    TypeFun sig           -> bifoldMap depsOfTypeFunArg depsOfType sig
+  where
+    nameOnly :: [(Id p, Dependency)] -> [(Id p, Dependency)]
+    nameOnly = map (second (const NeedsNameOnly))
 
 depsOfTypeFunArg ::
      PassMacro p
