@@ -173,7 +173,7 @@ instance HasCField CChar' "cChar'_x"
 newtype C_types
     = C_types {unwrapC_types :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize C_types
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -241,7 +241,7 @@ pattern CInt' = C_types 0
 newtype Constants
     = Constants {unwrapConstants :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Constants
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -326,7 +326,7 @@ pattern True = Constants 2
 newtype Ordering
     = Ordering {unwrapOrdering :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Ordering
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

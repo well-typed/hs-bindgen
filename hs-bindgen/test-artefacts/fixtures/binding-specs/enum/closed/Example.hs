@@ -58,7 +58,7 @@ newtype Foo = Foo
   { unwrapFoo :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Foo where
 
@@ -173,7 +173,7 @@ newtype ElementaryParticleType = ElementaryParticleType
   { unwrapElementaryParticleType :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize ElementaryParticleType where
 

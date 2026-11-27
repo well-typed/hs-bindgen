@@ -8,7 +8,7 @@
 newtype Foo
     = Foo {unwrapFoo :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Foo
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -73,7 +73,7 @@ pattern Baz = Foo 1
 newtype ElementaryParticleType
     = ElementaryParticleType {unwrapElementaryParticleType :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize ElementaryParticleType
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

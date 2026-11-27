@@ -46,7 +46,7 @@ newtype EnumA = EnumA
   { unwrapEnumA :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize EnumA where
 
@@ -230,7 +230,7 @@ newtype ExB_fieldB1 = ExB_fieldB1
   { unwrapExB_fieldB1 :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize ExB_fieldB1 where
 

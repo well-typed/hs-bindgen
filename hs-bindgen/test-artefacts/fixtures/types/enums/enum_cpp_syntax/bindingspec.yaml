@@ -21,6 +21,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.LibC
         hsname: Word32
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic

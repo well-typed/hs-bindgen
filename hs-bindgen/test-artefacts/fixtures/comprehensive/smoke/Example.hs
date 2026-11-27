@@ -831,7 +831,7 @@ newtype Baz2_t = Baz2_t
   { unwrap :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Baz2_t where
 
@@ -936,7 +936,7 @@ newtype Baz3_t = Baz3_t
   { unwrap :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Baz3_t where
 
@@ -1041,7 +1041,7 @@ newtype Baz4_t = Baz4_t
   { unwrap :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Baz4_t where
 

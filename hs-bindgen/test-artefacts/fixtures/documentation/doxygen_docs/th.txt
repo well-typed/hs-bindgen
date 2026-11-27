@@ -624,7 +624,7 @@ data Opaque_union
 newtype Color_enum
     = Color_enum {unwrapColor_enum :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Color_enum
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -914,7 +914,7 @@ instance HasCField Config_t "config_t_user_data"
 newtype Status_code_t
     = Status_code_t {unwrapStatus_code_t :: CInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Status_code_t
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

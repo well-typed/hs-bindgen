@@ -44,7 +44,7 @@
 newtype FileOperationStatus
     = FileOperationStatus {unwrapFileOperationStatus :: CInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize FileOperationStatus
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

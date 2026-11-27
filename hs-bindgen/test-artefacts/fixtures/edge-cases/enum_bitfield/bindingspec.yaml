@@ -1,0 +1,60 @@
+version:
+  hs_bindgen: 1.0.0.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: edge-cases/enum_bitfield.h
+  cname: enum E
+  hsname: E
+  enum: open
+- headers: edge-cases/enum_bitfield.h
+  cname: struct S
+  hsname: S
+hstypes:
+- hsname: E
+  representation:
+    newtype:
+      constructor: E
+      fields:
+      - unwrapE
+      ffitype:
+        hsmodule: HsBindgen.Runtime.Support
+        hsname: CUInt
+  instances:
+  - Bitfield
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - s_e
+  instances:
+  - Eq
+  - Generic
+  - HasCBitfield
+  - HasField
+  - HasFieldCompat
+  - HasFieldPtr
+  - IsStruct
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

@@ -11,7 +11,7 @@
 newtype Uint8_enum
     = Uint8_enum {unwrapUint8_enum :: HsBindgen.Runtime.LibC.Word8}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Uint8_enum
     where staticSizeOf = \_ -> 1 :: Int
           staticAlignment = \_ -> 1 :: Int

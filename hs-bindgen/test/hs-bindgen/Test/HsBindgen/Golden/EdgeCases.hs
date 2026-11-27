@@ -25,6 +25,7 @@ testCases = [
       defaultTest "edge-cases/aux_funptr_newtypes"
     , defaultTest "edge-cases/distilled_lib_1"
     , defaultTest "edge-cases/enum_as_array_size"
+    , defaultTest "edge-cases/enum_bitfield"
     , defaultTest "edge-cases/flam_functions"
     , defaultTest "edge-cases/flam"
     , defaultTest "edge-cases/mangle_fun_param_names"

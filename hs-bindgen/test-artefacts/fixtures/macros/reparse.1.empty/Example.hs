@@ -142,7 +142,7 @@ newtype Some_enum = Some_enum
   { unwrapSome_enum :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Some_enum where
 

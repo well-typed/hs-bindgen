@@ -11,7 +11,7 @@
 newtype Foo_enum
     = Foo_enum {unwrapFoo_enum :: HsBindgen.Runtime.LibC.Word32}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Foo_enum
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

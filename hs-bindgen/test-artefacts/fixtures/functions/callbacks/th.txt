@@ -1061,7 +1061,7 @@ instance HasCField ProcessorCallback
 newtype Processor_mode
     = Processor_mode {unwrapProcessor_mode :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Processor_mode
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

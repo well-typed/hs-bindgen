@@ -41,6 +41,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CInt
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic

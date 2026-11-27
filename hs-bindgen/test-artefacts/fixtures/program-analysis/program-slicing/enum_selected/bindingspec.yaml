@@ -21,6 +21,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CUChar
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic

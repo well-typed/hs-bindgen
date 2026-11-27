@@ -9,7 +9,7 @@
 newtype S_anon'x_x
     = S_anon'x_x {unwrapS_anon'x_x :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize S_anon'x_x
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

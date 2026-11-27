@@ -213,6 +213,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CUInt
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic
@@ -240,6 +241,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CUInt
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic
@@ -267,6 +269,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CUInt
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic
@@ -294,6 +297,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CUInt
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic
@@ -321,6 +325,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CUInt
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic
@@ -348,6 +353,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CUInt
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic
@@ -375,6 +381,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CUInt
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic
@@ -402,6 +409,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CUInt
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic
@@ -429,6 +437,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CUInt
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic
@@ -456,6 +465,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CUInt
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic
@@ -489,6 +499,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CUInt
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic
@@ -516,6 +527,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CUInt
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic
@@ -543,6 +555,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CUInt
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic
@@ -570,6 +583,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CUInt
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic
@@ -597,6 +611,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.Support
         hsname: CUInt
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic

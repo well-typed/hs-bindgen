@@ -149,7 +149,7 @@ newtype E = E
   { unwrapE :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E where
 
@@ -365,7 +365,8 @@ newtype TE = TE
   }
   deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( BG.HasFFIType
+    ( BG.Bitfield
+    , BG.HasFFIType
     , BG.Prim
     , Marshal.ReadRaw
     , Marshal.StaticSize
@@ -514,7 +515,8 @@ newtype TTE = TTE
   }
   deriving stock (Eq, BG.Generic, Ord, Read, Show)
   deriving newtype
-    ( BG.HasFFIType
+    ( BG.Bitfield
+    , BG.HasFFIType
     , BG.Prim
     , Marshal.ReadRaw
     , Marshal.StaticSize

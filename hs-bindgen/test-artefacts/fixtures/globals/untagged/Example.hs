@@ -272,7 +272,7 @@ newtype UntaggedEnum = UntaggedEnum
   { unwrapUntaggedEnum :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize UntaggedEnum where
 
@@ -390,7 +390,7 @@ newtype UntaggedEnumCoords = UntaggedEnumCoords
   { unwrapUntaggedEnumCoords :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize UntaggedEnumCoords where
 
@@ -508,7 +508,7 @@ newtype A = A
   { unwrapA :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize A where
 
