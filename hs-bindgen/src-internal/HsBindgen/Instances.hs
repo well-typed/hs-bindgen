@@ -221,7 +221,8 @@ instance Default SupportedInstances where
           , mkDef WriteRaw       Independent HsBindgen []
           ]
       , enum = Map.fromList [
-            mkOpt Bounded         Independent           [HsBindgen, Newtype]
+            mkDef Bitfield        Dependent   Newtype   []
+          , mkOpt Bounded         Independent           [HsBindgen, Newtype]
           , mkDef CEnum           Independent HsBindgen []
           , mkOpt Enum            Independent           [HsBindgen, Newtype]
           , mkDef Eq              Dependent   Stock     []

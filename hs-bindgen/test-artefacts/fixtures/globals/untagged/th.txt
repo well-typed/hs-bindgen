@@ -157,7 +157,7 @@ instance HasCField UntaggedPair "untaggedPair_b"
 newtype UntaggedEnum
     = UntaggedEnum {unwrapUntaggedEnum :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize UntaggedEnum
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -223,7 +223,7 @@ pattern VAL_B = UntaggedEnum 1
 newtype UntaggedEnumCoords
     = UntaggedEnumCoords {unwrapUntaggedEnumCoords :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize UntaggedEnumCoords
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -295,7 +295,7 @@ pattern Z = UntaggedEnumCoords 30
 newtype A
     = A {unwrapA :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize A
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

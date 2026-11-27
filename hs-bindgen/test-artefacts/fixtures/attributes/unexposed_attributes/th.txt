@@ -51,7 +51,7 @@
 newtype E0
     = E0 {unwrapE0 :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize E0
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -115,7 +115,7 @@ pattern E0_B = E0 1
 newtype E1
     = E1 {unwrapE1 :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize E1
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

@@ -1,0 +1,98 @@
+-- addDependentFile test-artefacts/headers/golden/edge-cases/enum_bitfield.h
+{-| __C declaration:__ @enum E@
+
+    __defined at:__ @edge-cases\/enum_bitfield.h 2:6@
+
+    __exported by:__ @edge-cases\/enum_bitfield.h@
+-}
+newtype E
+    = E {unwrapE :: CUInt}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype (Bitfield, HasFFIType)
+instance StaticSize E
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw E
+    where readRaw = \ptr_0 -> pure E <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw E
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       E unwrapE_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapE_2
+deriving via (EquivStorable E) instance Storable E
+deriving via CUInt instance Prim E
+instance CEnum E
+    where type CEnumZ E = CUInt
+          toCEnum = E
+          fromCEnum = getField @"unwrapE"
+          declaredValues = \_ -> declaredValuesFromList [(0, singleton "A"),
+                                                         (1, singleton "B")]
+          showsUndeclared = showsWrappedUndeclared "E"
+          readPrecUndeclared = readPrecWrappedUndeclared "E"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum E
+    where minDeclaredValue = A
+          maxDeclaredValue = B
+instance Show E
+    where showsPrec = shows
+instance Read E
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt => HasField "unwrapE" E ty
+    where hasField = \x_0 -> (\y_1 -> E{unwrapE = y_1},
+                              getField @"unwrapE" x_0)
+instance (~) ty CUInt => HasField "unwrapE" (Ptr E) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapE")
+instance HasCField E "unwrapE"
+    where type CFieldType E "unwrapE" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @A@
+
+    __defined at:__ @edge-cases\/enum_bitfield.h 2:10@
+
+    __exported by:__ @edge-cases\/enum_bitfield.h@
+-}
+pattern A :: E
+pattern A = E 0
+{-| __C declaration:__ @B@
+
+    __defined at:__ @edge-cases\/enum_bitfield.h 2:13@
+
+    __exported by:__ @edge-cases\/enum_bitfield.h@
+-}
+pattern B :: E
+pattern B = E 1
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @edge-cases\/enum_bitfield.h 4:8@
+
+    __exported by:__ @edge-cases\/enum_bitfield.h@
+-}
+data S
+    = S {s_e :: E
+         {- ^ __C declaration:__ @e@
+
+              __defined at:__ @edge-cases\/enum_bitfield.h 5:10@
+
+              __exported by:__ @edge-cases\/enum_bitfield.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> peek (Proxy @"s_e") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_e_2 -> poke (Proxy @"s_e") ptr_0 s_e_2
+deriving via (EquivStorable S) instance Storable S
+deriving via (IsStructViaReadRaw S) instance IsStruct S
+instance (~) ty E => HasField "s_e" S ty
+    where hasField = \x_0 -> (\y_1 -> S{s_e = y_1},
+                              getField @"s_e" x_0)
+instance (~) ty E => HasField "s_e" (Ptr S) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"s_e")
+instance HasCBitfield S "s_e"
+    where type CBitfieldType S "s_e" = E
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 2

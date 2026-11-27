@@ -243,7 +243,7 @@ newtype C_types = C_types
   { unwrapC_types :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize C_types where
 
@@ -350,7 +350,7 @@ newtype Constants = Constants
   { unwrapConstants :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Constants where
 
@@ -476,7 +476,7 @@ newtype Ordering = Ordering
   { unwrapOrdering :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Ordering where
 

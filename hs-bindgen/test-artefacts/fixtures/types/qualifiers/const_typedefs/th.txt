@@ -142,7 +142,7 @@ deriving via (SizedByteArray 0 1) instance IsUnion U
 newtype E
     = E {unwrapE :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize E
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -265,7 +265,8 @@ instance HasCField TU "unwrapTU"
 newtype TE
     = TE {unwrapTE :: E}
     deriving stock (Eq, Generic, Ord, Read, Show)
-    deriving newtype (HasFFIType,
+    deriving newtype (Bitfield,
+                      HasFFIType,
                       Prim,
                       ReadRaw,
                       StaticSize,
@@ -356,7 +357,8 @@ instance HasCField TTU "unwrapTTU"
 newtype TTE
     = TTE {unwrapTTE :: TE}
     deriving stock (Eq, Generic, Ord, Read, Show)
-    deriving newtype (HasFFIType,
+    deriving newtype (Bitfield,
+                      HasFFIType,
                       Prim,
                       ReadRaw,
                       StaticSize,

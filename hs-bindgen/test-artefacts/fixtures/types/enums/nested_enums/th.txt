@@ -8,7 +8,7 @@
 newtype EnumA
     = EnumA {unwrapEnumA :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize EnumA
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -106,7 +106,7 @@ instance HasCField ExA "exA_fieldA1"
 newtype ExB_fieldB1
     = ExB_fieldB1 {unwrapExB_fieldB1 :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize ExB_fieldB1
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

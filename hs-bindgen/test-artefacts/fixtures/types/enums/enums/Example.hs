@@ -67,7 +67,7 @@ newtype First = First
   { unwrapFirst :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize First where
 
@@ -183,7 +183,7 @@ newtype Second = Second
   { unwrapSecond :: BG.CInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Second where
 
@@ -311,7 +311,7 @@ newtype Same = Same
   { unwrapSame :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Same where
 
@@ -425,7 +425,7 @@ newtype Nonseq = Nonseq
   { unwrapNonseq :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Nonseq where
 
@@ -543,7 +543,7 @@ newtype Packed = Packed
   { unwrapPacked :: BG.CUChar
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Packed where
 
@@ -671,7 +671,7 @@ newtype EnumA = EnumA
   { unwrapEnumA :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize EnumA where
 
@@ -787,7 +787,7 @@ newtype EnumB = EnumB
   { unwrapEnumB :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize EnumB where
 
@@ -903,7 +903,7 @@ newtype EnumC = EnumC
   { unwrapEnumC :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize EnumC where
 
@@ -1019,7 +1019,7 @@ newtype EnumD_t = EnumD_t
   { unwrapEnumD_t :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize EnumD_t where
 

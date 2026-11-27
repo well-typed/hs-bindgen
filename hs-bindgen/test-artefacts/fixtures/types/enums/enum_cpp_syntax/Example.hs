@@ -42,7 +42,7 @@ newtype Foo_enum = Foo_enum
   { unwrapFoo_enum :: HsBindgen.Runtime.LibC.Word32
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Foo_enum where
 

@@ -108,7 +108,7 @@ instance HasCField Another_typedef_struct_t
 newtype Another_typedef_enum_e
     = Another_typedef_enum_e {unwrapAnother_typedef_enum_e :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Another_typedef_enum_e
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -709,7 +709,7 @@ tWO_ARGS = (13398 :: CInt, 30874 :: CInt)
 newtype A_typedef_enum_e
     = A_typedef_enum_e {unwrapA_typedef_enum_e :: CUChar}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize A_typedef_enum_e
     where staticSizeOf = \_ -> 1 :: Int
           staticAlignment = \_ -> 1 :: Int

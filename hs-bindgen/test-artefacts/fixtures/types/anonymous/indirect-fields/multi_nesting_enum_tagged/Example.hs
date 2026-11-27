@@ -43,7 +43,7 @@ newtype T = T
   { unwrapT :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize T where
 

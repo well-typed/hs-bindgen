@@ -43,7 +43,7 @@ newtype Uint8_enum = Uint8_enum
   { unwrapUint8_enum :: HsBindgen.Runtime.LibC.Word8
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Uint8_enum where
 

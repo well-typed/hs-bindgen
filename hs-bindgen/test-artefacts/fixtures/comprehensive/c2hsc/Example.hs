@@ -397,7 +397,7 @@ newtype Bar_10 = Bar_10
   { unwrap :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Bar_10 where
 
@@ -565,7 +565,7 @@ newtype E = E
   { unwrap :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E where
 

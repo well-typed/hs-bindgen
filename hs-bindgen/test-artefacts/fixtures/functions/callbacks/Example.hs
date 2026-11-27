@@ -1103,7 +1103,7 @@ newtype Processor_mode = Processor_mode
   { unwrapProcessor_mode :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Processor_mode where
 

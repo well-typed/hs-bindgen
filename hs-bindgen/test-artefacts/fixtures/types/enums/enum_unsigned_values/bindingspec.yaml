@@ -21,6 +21,7 @@ hstypes:
         hsmodule: HsBindgen.Runtime.LibC
         hsname: Word8
   instances:
+  - Bitfield
   - CEnum
   - Eq
   - Generic

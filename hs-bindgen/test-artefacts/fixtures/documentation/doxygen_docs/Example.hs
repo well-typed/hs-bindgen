@@ -170,7 +170,7 @@ newtype Color_enum = Color_enum
   { unwrapColor_enum :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Color_enum where
 
@@ -677,7 +677,7 @@ newtype Status_code_t = Status_code_t
   { unwrapStatus_code_t :: BG.CInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Status_code_t where
 

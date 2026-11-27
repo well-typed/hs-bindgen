@@ -2020,7 +2020,7 @@ newtype E5 = E5
   { unwrapE5 :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E5 where
 
@@ -2123,7 +2123,7 @@ newtype E6 = E6
   { unwrapE6 :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E6 where
 
@@ -2226,7 +2226,7 @@ newtype E7 = E7
   { unwrapE7 :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E7 where
 
@@ -2329,7 +2329,7 @@ newtype E8 = E8
   { unwrapE8 :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E8 where
 
@@ -2432,7 +2432,7 @@ newtype E9 = E9
   { unwrapE9 :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E9 where
 
@@ -2535,7 +2535,7 @@ newtype E10 = E10
   { unwrapE10 :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E10 where
 
@@ -2639,7 +2639,7 @@ newtype E11 = E11
   { unwrapE11 :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E11 where
 
@@ -2743,7 +2743,7 @@ newtype E12 = E12
   { unwrapE12 :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E12 where
 
@@ -2847,7 +2847,7 @@ newtype E13 = E13
   { unwrapE13 :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E13 where
 
@@ -2951,7 +2951,7 @@ newtype E14 = E14
   { unwrapE14 :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E14 where
 
@@ -3055,7 +3055,7 @@ newtype E15 = E15
   { unwrapE15 :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E15 where
 
@@ -3159,7 +3159,7 @@ newtype E16 = E16
   { unwrapE16 :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E16 where
 
@@ -3263,7 +3263,7 @@ newtype E17 = E17
   { unwrapE17 :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E17 where
 
@@ -3367,7 +3367,7 @@ newtype E18 = E18
   { unwrapE18 :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E18 where
 
@@ -3471,7 +3471,7 @@ newtype E19 = E19
   { unwrapE19 :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize E19 where
 

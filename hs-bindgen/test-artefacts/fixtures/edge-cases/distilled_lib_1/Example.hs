@@ -179,7 +179,7 @@ newtype Another_typedef_enum_e = Another_typedef_enum_e
   { unwrapAnother_typedef_enum_e :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize Another_typedef_enum_e where
 
@@ -1042,7 +1042,7 @@ newtype A_typedef_enum_e = A_typedef_enum_e
   { unwrapA_typedef_enum_e :: BG.CUChar
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize A_typedef_enum_e where
 

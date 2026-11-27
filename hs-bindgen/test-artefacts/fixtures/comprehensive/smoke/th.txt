@@ -1097,7 +1097,7 @@ pattern BAZ1 = 1
 newtype Baz2_t
     = Baz2_t {unwrap :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Baz2_t
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -1152,7 +1152,7 @@ pattern BAZ2 = Baz2_t 1
 newtype Baz3_t
     = Baz3_t {unwrap :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Baz3_t
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -1207,7 +1207,7 @@ pattern BAZ3 = Baz3_t 1
 newtype Baz4_t
     = Baz4_t {unwrap :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Baz4_t
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

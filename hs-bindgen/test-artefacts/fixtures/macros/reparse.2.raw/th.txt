@@ -2565,7 +2565,7 @@ deriving via (SizedByteArray 0 1) instance IsUnion Some_union
 newtype Some_enum
     = Some_enum {unwrapSome_enum :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Some_enum
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

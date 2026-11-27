@@ -42,7 +42,7 @@ newtype S_anon'x_x = S_anon'x_x
   { unwrapS_anon'x_x :: BG.CUInt
   }
   deriving stock (Eq, BG.Generic, Ord)
-  deriving newtype (BG.HasFFIType)
+  deriving newtype (BG.Bitfield, BG.HasFFIType)
 
 instance Marshal.StaticSize S_anon'x_x where
 

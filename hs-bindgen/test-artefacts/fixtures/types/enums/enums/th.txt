@@ -8,7 +8,7 @@
 newtype First
     = First {unwrapFirst :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize First
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -73,7 +73,7 @@ pattern FIRST2 = First 1
 newtype Second
     = Second {unwrapSecond :: CInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Second
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -147,7 +147,7 @@ pattern SECOND_C = Second 1
 newtype Same
     = Same {unwrapSame :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Same
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -210,7 +210,7 @@ pattern SAME_B = Same 1
 newtype Nonseq
     = Nonseq {unwrapNonseq :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Nonseq
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -279,7 +279,7 @@ pattern NONSEQ_C = Nonseq 404
 newtype Packed
     = Packed {unwrapPacked :: CUChar}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize Packed
     where staticSizeOf = \_ -> 1 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -353,7 +353,7 @@ pattern PACKED_C = Packed 2
 newtype EnumA
     = EnumA {unwrapEnumA :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize EnumA
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -418,7 +418,7 @@ pattern A_BAR = EnumA 1
 newtype EnumB
     = EnumB {unwrapEnumB :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize EnumB
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -483,7 +483,7 @@ pattern B_BAR = EnumB 1
 newtype EnumC
     = EnumC {unwrapEnumC :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize EnumC
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -548,7 +548,7 @@ pattern C_BAR = EnumC 1
 newtype EnumD_t
     = EnumD_t {unwrapEnumD_t :: CUInt}
     deriving stock (Eq, Generic, Ord)
-    deriving newtype HasFFIType
+    deriving newtype (Bitfield, HasFFIType)
 instance StaticSize EnumD_t
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

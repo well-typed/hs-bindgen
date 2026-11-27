@@ -185,6 +185,12 @@
 
 [is-2354]: https://github.com/well-typed/hs-bindgen/issues/2354
 
+- Every `enum` now derives `Bitfield` by `newtype` deriving, and generated
+  binding specifications list it. The code generated for a bit-field of `enum`
+  type now compiles. See [issue #2403][is-2403].
+
+[is-2403]: https://github.com/well-typed/hs-bindgen/issues/2403
+
 ## 1.0.0.0 -- 2026-10-08
 
 ### Breaking changes
